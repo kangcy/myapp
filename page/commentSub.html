@@ -28,8 +28,9 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var id = 0;
-	var count = 0;
+	var currpage = 1;
+	var pagesize = 10;
+	var totalpage = 2;
 	mui.init({
 		pullRefresh: {
 			container: '#pullrefresh',
@@ -48,49 +49,48 @@
 	 * 下拉刷新具体业务实现
 	 */
 	function pulldownRefresh() {
+		currpage = 1;
 		setTimeout(function() {
 			var table = document.getElementById('scroll-view');
 			table.innerHTML = "";
-			count = 1;
-			id = 0;
+			base.HttpGet(base.RootUrl + "Fan/All", {
+				page: currpage,
+				rows: pagesize,
+				ToUserID: 1
+			}, function(data) {
+				if(data != null) {
+					totalpage = data.total; //总页数
+					var length = data.rows.length;
+					if(length > 0) {
+						for(var i = 0, len = data.rows.length; i < len; i++) {
+							var item = data.rows[i];
+							var div = document.createElement('div');
+							div.className = 'mui-table-view-cell';
+							var model = [];
+							model.push('<div class="mui-slider-cell">');
+							//头像
+							model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
+							//昵称、签名
+							model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Signature + '</p></div>');
+							//关注
+							model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+							model.push('</div>');
 
-			$.ajax({
-				url: "http://110.52.11.105/rmSource/upload/uploadbase",
-				data: {
-					FromUserID: 1
-				},
-				type: "GET",
-				dataType: "JSON",
-				success: function(data) {
-					console.login(data);
+							//评论信息
+							model.push('<div class="oa-contact-cell mui-table comment mui-h5">');
+							model.push('<div class="oa-contact-avatar mui-table-cell"><span>' + item.NickName + '</span></div>');
+							model.push('<div class="oa-contact-date mui-table-cell"><span>' + item.CreateDate + '</span></div>');
+							model.push('<div class="oa-contact-icon mui-table-cell"><span>评论</span></div>');
+							model.push('<div class="oa-contact-content mui-table-cell"><span>“标题名称标题名称标题名称”</span></div>');
+							model.push('</div>');
+
+							div.innerHTML = model.join('');
+							table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
+						}
+					}
 				}
-			});
+			})
 
-			for(var i = 0, len = i + 10; i < len; i++) {
-				++id;
-				var div = document.createElement('div');
-				div.className = 'mui-table-view-cell';
-				var model = [];
-				model.push('<div class="mui-slider-cell">');
-				//头像
-				model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" /></div>');
-				//昵称、签名
-				model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面</p></div>');
-				//关注
-				model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
-				model.push('</div>');
-
-				//评论信息
-				model.push('<div class="oa-contact-cell mui-table comment mui-h5">');
-				model.push('<div class="oa-contact-avatar mui-table-cell"><span>用户名称用户名称用户名称</span></div>');
-				model.push('<div class="oa-contact-date mui-table-cell"><span>2016-8-29</span></div>');
-				model.push('<div class="oa-contact-icon mui-table-cell"><span>评论</span></div>');
-				model.push('<div class="oa-contact-content mui-table-cell"><span>“标题名称标题名称标题名称”</span></div>');
-				model.push('</div>');
-
-				div.innerHTML = model.join('');
-				table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
-			}
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 			mui('#pullrefresh').pullRefresh().refresh(true); //重置上拉加载控件
 			document.body.removeAttribute('data-imageLazyload');
@@ -106,34 +106,64 @@
 	 */
 	function pullupRefresh() {
 		setTimeout(function() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage >= totalpage); //参数为true代表没有更多数据了。
 			var table = document.getElementById('scroll-view');
-			var cells = document.body.querySelectorAll('.mui-table-view-cell');
-			for(var i = cells.length, len = i + 10; i < len; i++) {
-				++id;
-				var div = document.createElement('div');
-				div.className = 'mui-table-view-cell';
-				var model = [];
-				model.push('<div class="mui-slider-cell">');
-				//头像
-				model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" /></div>');
-				//昵称、签名
-				model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面话费充值页面</p></div>');
-				//关注
-				model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
-				model.push('</div>');
 
-				//评论信息
-				model.push('<div class="oa-contact-cell mui-table comment mui-h5">');
-				model.push('<div class="oa-contact-avatar mui-table-cell"><span>用户名称用户名称用户名称</span></div>');
-				model.push('<div class="oa-contact-date mui-table-cell"><span>2016-8-29</span></div>');
-				model.push('<div class="oa-contact-icon mui-table-cell"><span>评论</span></div>');
-				model.push('<div class="oa-contact-content mui-table-cell"><span>“标题名称标题名称标题名称”</span></div>');
-				model.push('</div>');
+			$.ajax({
+				url: base.RootUrl + "Fan/All",
+				type: "GET",
+				dataType: "jsonp",
+				data: {
+					page: currpage,
+					rows: pagesize,
+					ToUserID: 1
+				},
+				jsonp: 'jsoncallback',
+				contentType: "application/json;utf-8", //返回Json类型 
+				success: function(data) {
+					if(data != null) {
+						totalpage = data.total; //总页数
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage >= totalpage); //参数为true代表没有更多数据了。
+						var length = data.rows.length;
+						if(length > 0) {
+							++currpage;
+							for(var i = 0, len = data.rows.length; i < len; i++) {
+								var item = data.rows[i];
+								var div = document.createElement('div');
+								div.className = 'mui-table-view-cell';
+								var model = [];
+								model.push('<div class="mui-slider-cell">');
+								//头像
+								model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
+								//昵称、签名
+								model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Signature + '</p></div>');
+								//关注
+								model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+								model.push('</div>');
 
-				div.innerHTML = model.join('');
-				table.appendChild(div);
-			}
+								//评论信息
+								model.push('<div class="oa-contact-cell mui-table comment mui-h5">');
+								model.push('<div class="oa-contact-avatar mui-table-cell"><span>' + item.NickName + '</span></div>');
+								model.push('<div class="oa-contact-date mui-table-cell"><span>' + item.CreateDate + '</span></div>');
+								model.push('<div class="oa-contact-icon mui-table-cell"><span>评论</span></div>');
+								model.push('<div class="oa-contact-content mui-table-cell"><span>“标题名称标题名称标题名称”</span></div>');
+								model.push('</div>');
+
+								div.innerHTML = model.join('');
+								table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
+							}
+						}
+					}
+				}
+			});
+
+			/*base.HttpGet(base.RootUrl + "Fan/All", {
+				page: currpage,
+				rows: pagesize,
+				ToUserID: 1
+			}, function(data) {
+				
+			})*/
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
