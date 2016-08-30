@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+			<h1 class="mui-title">我</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						绑定手机号
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						绑定微信号
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						绑定邮箱
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						清除缓存
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a>
+						分享带昵称
+						<div class="mui-switch mui-switch-blue mui-switch-mini mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a>
+						音乐自动播放
+						<div class="mui-switch mui-switch-blue mui-switch-mini mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="account" class="mui-navigate-right">
+						账号与安全
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						检查更新
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 25px;">
+				<li class="mui-table-view-cell">
+					<a id="exit" style="text-align: center;color: #FF3B30;">
+						退出登录
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script>
+	mui.init({
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	/*
+	 * 双击顶部导航，内容区回到顶部
+	 */
+	document.querySelector('header').addEventListener('doubletap', function() {
+		main.children()[0].evalJS('mui.scrollTo(0, 100)');
+	});
+
+	/*
+	 * 点击左上角侧滑图标，打开侧滑菜单
+	 */
+	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+		var template = plus.webview.getWebviewById("index");
+		mui.fire(template, 'toggleMenu', {});
+	});
+
+	/*
+	 * 账号与安全
+	 */
+	var subWebview = null,
+		template = null;
+	document.getElementById('account').addEventListener('tap', function() {
+		if(!mui.os.plus) {
+			mui.openWindow({
+				url: "account_setting.html",
+				id: "account_setting",
+				show: {
+					aniShow: 'zoom-fade-out',
+					duration: 300
+				}
+			});
+			return;
+		}
+		//获取共用父窗体
+		if(subWebview == null) {
+			template = plus.webview.getWebviewById("default-main");
+		}
+		if(template) {
+			subWebview = template.children()[0];
+			subWebview.loadURL('account_setting.html');
+			mui.fire(template, 'updateHeader', {
+				title: '账号与安全',
+				showMenu: false
+			});
+			template.show('slide-in-right', 150);
+		}
+	});
+
+	//退出操作******************
+	document.getElementById('exit').addEventListener('tap', function() {
+		if(mui.os.ios) {
+			app.setState({});
+			mui.openWindow({
+				url: 'login.html',
+				id: 'login',
+				show: {
+					aniShow: 'pop-in'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+			return;
+		}
+		var btnArray = [{
+			title: "注销当前账号"
+		}, {
+			title: "直接关闭应用"
+		}];
+		plus.nativeUI.actionSheet({
+			cancel: "取消",
+			buttons: btnArray
+		}, function(event) {
+			var index = event.index;
+			switch(index) {
+				case 1:
+					app.setState({});
+					mui.openWindow({
+						url: 'login.html',
+						id: 'login',
+						show: {
+							aniShow: 'pop-in'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+					break;
+				case 2:
+					plus.runtime.quit();
+					break;
+			}
+		});
+	}, false);
+</script>

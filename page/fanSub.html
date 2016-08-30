@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/fan.css">
+	</head>
+
+	<body>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="scroll-view">
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
+<script type="text/javascript">
+	var id = 0;
+	var count = 0;
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				contentrefresh: '正在加载...',
+				contentnomore: '没有更多数据了',
+				callback: pullupRefresh
+			}
+		}
+	});
+
+	/**
+	 * 下拉刷新具体业务实现
+	 */
+	function pulldownRefresh() {
+		setTimeout(function() {
+			var table = document.getElementById('scroll-view');
+			table.innerHTML = "";
+			count = 1;
+			id = 0;
+			for(var i = 0, len = i + 10; i < len; i++) {
+				++id;
+				var div = document.createElement('div');
+				div.className = 'mui-table-view-cell';
+				var model = [];
+				model.push('<div class="mui-slider-cell">');
+				//头像
+				model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" /></div>');
+				//昵称、签名
+				model.push('<div class="oa-contact-content mui-table-cell"><div class="mui-clearfix"><h4 class="oa-contact-name">叶文洁</h4></div><p class="oa-contact-email mui-h6">yewenjie@sina.com</p></div>');
+				//关注
+				model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+				model.push('</div>');
+				div.innerHTML = model.join('');
+				table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
+			}
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+			mui('#pullrefresh').pullRefresh().refresh(true); //重置上拉加载控件
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
+		}, 1500);
+	}
+
+	/**
+	 * 上拉加载具体业务实现
+	 */
+	function pullupRefresh() {
+		setTimeout(function() {
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+			var table = document.getElementById('scroll-view');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			for(var i = cells.length, len = i + 10; i < len; i++) {
+				++id;
+				var div = document.createElement('div');
+				div.className = 'mui-table-view-cell';
+				var model = [];
+				model.push('<div class="mui-slider-cell">');
+				//头像
+				model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" /></div>');
+				//昵称、签名
+				model.push('<div class="oa-contact-content mui-table-cell"><div class="mui-clearfix"><h4 class="oa-contact-name">叶文洁</h4></div><p class="oa-contact-email mui-h6">yewenjie@sina.com</p></div>');
+				//关注
+				model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+				model.push('</div>');
+				div.innerHTML = model.join('');
+				table.appendChild(div);
+			}
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
+		}, 1500);
+	}
+	if(mui.os.plus) {
+		mui.plusReady(function() {
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			}, 1000);
+
+		});
+	} else {
+		mui.ready(function() {
+			mui('#pullrefresh').pullRefresh().pullupLoading();
+		});
+	}
+</script>

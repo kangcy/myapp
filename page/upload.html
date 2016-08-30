@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/upload.css">
+	</head>
+
+	<body>
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="mui-content-padded">
+					<ul id="files" class="dlist" style="text-align:left;">
+						<p id="empty" class="ditem-empty" style="font-size:12px;color:#C6C6C6;">无上传文件</p>
+					</ul>
+					<a class="mui-btn mui-btn-block fl">
+						<img src="../images/iconfont-tianjia.png" onclick="showActionSheet()" /></a>
+					<a class=" mui-btn mui-btn-block fl " style="padding: 5px 20px;margin-top: 10px; " onclick="upload() ">上传</a>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js "></script>
+<script>
+	mui.init({
+		swipeBack: true //启用右滑关闭功能
+	});
+
+	//启用页面滑动
+	mui('.mui-scroll-wrapper').scroll({});
+
+	var cmr = null;
+
+	/*
+	 * 上传文件
+	 */
+	var server = "http://localhost/app/Upload/UploadFile";
+	var files = [];
+	var task = null;
+	// 上传文件
+	function upload() {
+		if(files.length <= 0) {
+			plus.nativeUI.alert("没有添加上传文件！ ");
+			return;
+		}
+		mui.toast("开始上传： ")
+		var wt = plus.nativeUI.showWaiting();
+		task = plus.uploader.createUpload(server, {
+				method: "POST "
+			},
+			function(t, status) {
+				alert(JSON.stringify(t)+",status:"+status);
+				//上传完成
+				if(status == 200) {
+					mui.toast("上传成功： " + t.responseText, {
+						duration: "long"
+					});
+					plus.storage.setItem("uploader ", t.responseText);
+					wt.close();
+						scrollIndicator: 'none',
+						scalable: false
+					});
+					w.addEventListener("loaded ", function() {
+						wt.close();
+						w.show("slide-in-right ", 300);
+					}, false);*/
+				} else {
+					mui.toast("上传失败： " + status);
+					wt.close();
+				}
+			}
+		);
+		//创建上传任务
+		task.addData("client ", "HelloH5+ ");
+		task.addData("uid ", getUid());
+		for(var i = 0; i < files.length; i++) {
+			var f = files[i];
+			task.addFile(f.path, {
+				key: f.name
+			});
+		}
+		task.start();
+	}
+
+	// 暂停上传任务
+	function pauseUpload() {
+		task.pause();
+	}
+
+	// 取消上传任务
+	function abortUpload() {
+		task.abort();
+	}
+
+	// 恢复上传任务
+	function resumeUpload() {
+		task.resume();
+	}
+
+	// 添加文件
+	var index = 1;
+	var newUrlAfterCompress; //压缩后图片路径
+	function appendFile(p) {
+		/*var fe = document.getElementById("files");
+		var li = document.createElement("li");
+		var n = p.substr(p.lastIndexOf('/') + 1);
+		li.innerText = n;
+		fe.appendChild(li);*/
+
+		createItem(p);
+
+		files.push({
+			name: "uploadkey " + index, //服务器使用，作为file的key
+			path: p
+		});
+		index++;
+		document.getElementById("empty").style.display = "none";
+	}
+
+	// 产生一个随机数
+	function getUid() {
+		return Math.floor(Math.random() * 100000000 + 10000000).toString();
+	}
+
+	// 拍照添加文件
+	function appendByCamera() {
+		plus.camera.getCamera().captureImage(function(e) {
+			plus.io.resolveLocalFileSystemURL(e, function(entry) {
+				var localurl = entry.toLocalURL();
+				var dstname = "_downloads/" + getUid() + ".jpg"; //设置压缩后图片路径
+				newUrlAfterCompress = compressImage(localurl, dstname); //压缩图片,并重命名
+				appendFile(dstname);
+			})
+		});
+	}
+
+	// 从相册添加文件
+	function appendByGallery() {
+		plus.gallery.pick(function(e) {
+				for(var i = 0; i < e.files.length; i++) {
+					var dstname = "_downloads/" + getUid() + ".jpg"; //设置压缩后图片路径
+					newUrlAfterCompress = compressImage(e.files[i], dstname); //压缩图片,并重命名
+					appendFile(dstname);
+				}
+			},
+			function(e) {
+				console.log("取消选择图片")
+			}, {
+				filter: "image",
+				multiple: true,
+				maximum: 9,
+				onmaxed: function() {
+					plus.nativeUI.alert('最多只能选择9张图片');
+				}
+			});
+	}
+
+	// 开始录像
+	function appendByVideo() {
+		mui.toast("开始录像");
+		cmr = plus.camera.getCamera();
+		var res = cmr.supportedVideoResolutions[0];
+		var fmt = cmr.supportedVideoFormats[0];
+		cmr.startVideoCapture(function(path) {
+			mui.toast("成功：" + path);
+			plus.io.resolveLocalFileSystemURL(path, function(entry) {
+				createItem(entry);
+			}, function(e) {
+				mui.toast("读取录像文件错误：" + e.message);
+			});
+		}, function(e) {
+			mui.toast("失败：" + e.message);
+		}, {
+			resolution: res,
+			format: fmt,
+			filename: "_downloads/"
+		});
+		// 拍摄10秒自动完成
+		setTimeout(stopVideo, 10000);
+	}
+
+	// 结束录像
+	function stopVideo() {
+		cmr = plus.camera.getCamera();
+		cmr.stopVideoCapture();
+	}
+
+	// 添加播放项
+	function createItem(entry) {
+		var hl = document.getElementById("files");
+		var le = document.getElementById("empty");
+
+		var li = document.createElement("li");
+		li.className = "ditem";
+		li.innerHTML = '<span class="iplay"><font class="aname"></font><br/><font class="ainf"></font></span>';
+		li.setAttribute("onclick", "displayFile(this);");
+		hl.insertBefore(li, le.nextSibling);
+		li.querySelector(".aname").innerText = entry.name;
+		li.querySelector(".ainf").innerText = "...";
+		li.entry = entry;
+		//updateInformation(li);
+		// 设置空项不可见
+		le.style.display = "none";
+	}
+
+	// 显示视频文件
+	function displayFile(li) {
+		if(w) {
+			outLine("重复点击！");
+			return;
+		}
+		if(!li || !li.entry) {
+			ouSet("无效的媒体文件");
+			return;
+		}
+		var name = li.entry.name;
+		var suffix = name.substr(name.lastIndexOf('.'));
+		var url = "";
+		if(suffix == ".mov" || suffix == ".3gp" || suffix == ".mp4" || suffix == ".avi") {
+			url = "camera_video.html";
+		} else {
+			url = "camera_image.html";
+		}
+		w = plus.webview.create(url, url, {
+			hardwareAccelerated: true,
+			scrollIndicator: 'none',
+			scalable: true,
+			bounce: "all"
+		});
+		w.addEventListener("loaded", function() {
+			w.evalJS("loadMedia('" + li.entry.toLocalURL() + "')");
+		}, false);
+		w.addEventListener("close", function() {
+			w = null;
+		}, false);
+		w.show("pop-in");
+	}
+
+	//旋转图片
+	function rotateImage() {
+		plus.zip.compressImage({
+				src: "_www/a.jpg ",
+				dst: "_doc/a.jpg ",
+				route: 90 //旋转90度
+			},
+			function() {
+				alert("Compress success ")
+			},
+			function(error) {
+				alert("Compress error ")
+			});
+	}
+
+	//压缩图片
+	function compressImage(src, dstname) {
+		plus.zip.compressImage({
+				src: src,
+				dst: dstname,
+				overwrite: true,
+				quality: 20
+			},
+			function(event) {
+				return event.target;
+			},
+			function(error) {
+				console.log(error)
+				return src;
+			});
+	}
+
+	function showActionSheet() {
+		var btns = [{
+			title: "拍照"
+		}, {
+			title: "相册选取"
+		}, {
+			title: "录像"
+		}];
+		plus.nativeUI.actionSheet({
+				cancel: "取消",
+				buttons: btns
+			},
+			function(e) {
+				if(e.index == 1) {
+					appendByCamera();
+				} else if(e.index == 2) {
+					appendByGallery();
+				} else if(e.index == 3) {
+					appendByVideo();
+				}
+			});
+	}
+</script>

@@ -1,0 +1,38 @@
+{
+  "page/about.html": {
+    "href": "page/about.html",
+    "resources": [
+      "js/mui.min.js",
+      "images/logo.png",
+      "css/mui.min.css"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "list.html": {
+    "href": "list.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/mui.lazyload.js",
+      "js/mui.lazyload.img.js",
+      "images/60x60.gif",
+      "css/mui.min.css",
+      "images/logo.png",
+      "images/yuantiao.jpg"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "page/about.html",
+      "list.html"
+    ],
+    "priority": 0
+  }
+}
