@@ -22,12 +22,15 @@
 	</body>
 
 </html>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
-	var id = 0;
-	var count = 0;
+	var currpage = 1;
+	var pagesize = base.PageSize;
+	var totalpage = 2;
 	mui.init({
 		pullRefresh: {
 			container: '#pullrefresh',
@@ -46,35 +49,36 @@
 	 * 下拉刷新具体业务实现
 	 */
 	function pulldownRefresh() {
+		currpage = 1;
+		totalpage = 2;
 		setTimeout(function() {
 			var table = document.getElementById('scroll-view');
 			table.innerHTML = "";
-			count = 1;
-			id = 0;
-			for(var i = 0, len = i + 10; i < len; i++) {
-				++id;
-				var div = document.createElement('div');
-				div.className = 'mui-table-view-cell';
-				var model = [];
-				model.push('<div class="mui-slider-cell">');
-				//头像
-				model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" /></div>');
-				//昵称、签名
-				model.push('<div class="oa-contact-content mui-table-cell"><div class="mui-clearfix"><h4 class="oa-contact-name">叶文洁</h4></div><p class="oa-contact-email mui-h6">yewenjie@sina.com</p></div>');
-				//关注
-				model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
-				model.push('</div>');
-				div.innerHTML = model.join('');
-				table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
-			}
-			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-			mui('#pullrefresh').pullRefresh().refresh(true); //重置上拉加载控件
+			HttpGet(base.RootUrl + "Fan/All", {
+				page: currpage,
+				rows: pagesize,
+				ToUserID: 1
+			}, function(data) {
+				if(data != null) {
+					totalpage = data.total; //总页数
+					var length = data.rows.length;
+					if(length > 0) {
+						for(var i = 0, len = data.rows.length; i < len; i++) {
+							var div = appendStr(data.rows[i]);
+							table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
+						}
+					}
+				}
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+			})
+
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
 			});
-		}, 1500);
+		}, 500);
 	}
 
 	/**
@@ -82,31 +86,53 @@
 	 */
 	function pullupRefresh() {
 		setTimeout(function() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
-			var table = document.getElementById('scroll-view');
-			var cells = document.body.querySelectorAll('.mui-table-view-cell');
-			for(var i = cells.length, len = i + 10; i < len; i++) {
-				++id;
-				var div = document.createElement('div');
-				div.className = 'mui-table-view-cell';
-				var model = [];
-				model.push('<div class="mui-slider-cell">');
-				//头像
-				model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" /></div>');
-				//昵称、签名
-				model.push('<div class="oa-contact-content mui-table-cell"><div class="mui-clearfix"><h4 class="oa-contact-name">叶文洁</h4></div><p class="oa-contact-email mui-h6">yewenjie@sina.com</p></div>');
-				//关注
-				model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
-				model.push('</div>');
-				div.innerHTML = model.join('');
-				table.appendChild(div);
-			}
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage >= totalpage); //参数为true代表没有更多数据了。
+			HttpGet(base.RootUrl + "Fan/All", {
+				page: currpage,
+				rows: pagesize,
+				ToUserID: 1
+			}, function(data) {
+				if(data != null) {
+					totalpage = data.total; //总页数
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage >= totalpage); //参数为true代表没有更多数据了。
+					var length = data.rows.length;
+					if(length > 0) {
+						++currpage;
+						var table = document.getElementById('scroll-view');
+						for(var i = 0, len = data.rows.length; i < len; i++) {
+							var div = appendStr(data.rows[i]);
+							table.appendChild(div); //下拉刷新，新纪录插到最后面；
+						}
+					}
+				}
+			});
+
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
 			});
-		}, 1500);
+		}, 500);
 	}
+
+	/**
+	 * 拼接Html
+	 */
+	function appendStr(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell">');
+		//头像
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
+		//昵称、签名
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Signature + '</p></div>');
+		//关注
+		model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
 	if(mui.os.plus) {
 		mui.plusReady(function() {
 			setTimeout(function() {

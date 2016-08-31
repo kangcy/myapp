@@ -29,7 +29,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
-	var pagesize = 10;
+	var pagesize = base.PageSize;
 	var totalpage = 2;
 	mui.init({
 		pullRefresh: {
@@ -50,10 +50,11 @@
 	 */
 	function pulldownRefresh() {
 		currpage = 1;
+		totalpage = 2;
 		setTimeout(function() {
 			var table = document.getElementById('scroll-view');
 			table.innerHTML = "";
-			base.HttpGet(base.RootUrl + "Fan/All", {
+			HttpGet(base.RootUrl + "Fan/All", {
 				page: currpage,
 				rows: pagesize,
 				ToUserID: 1
@@ -63,42 +64,21 @@
 					var length = data.rows.length;
 					if(length > 0) {
 						for(var i = 0, len = data.rows.length; i < len; i++) {
-							var item = data.rows[i];
-							var div = document.createElement('div');
-							div.className = 'mui-table-view-cell';
-							var model = [];
-							model.push('<div class="mui-slider-cell">');
-							//头像
-							model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
-							//昵称、签名
-							model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Signature + '</p></div>');
-							//关注
-							model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
-							model.push('</div>');
-
-							//评论信息
-							model.push('<div class="oa-contact-cell mui-table comment mui-h5">');
-							model.push('<div class="oa-contact-avatar mui-table-cell"><span>' + item.NickName + '</span></div>');
-							model.push('<div class="oa-contact-date mui-table-cell"><span>' + item.CreateDate + '</span></div>');
-							model.push('<div class="oa-contact-icon mui-table-cell"><span>评论</span></div>');
-							model.push('<div class="oa-contact-content mui-table-cell"><span>“标题名称标题名称标题名称”</span></div>');
-							model.push('</div>');
-
-							div.innerHTML = model.join('');
+							var div = appendStr(data.rows[i]);
 							table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
 						}
 					}
 				}
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 			})
 
-			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-			mui('#pullrefresh').pullRefresh().refresh(true); //重置上拉加载控件
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
 			});
-		}, 1500);
+		}, 500);
 	}
 
 	/**
@@ -107,69 +87,60 @@
 	function pullupRefresh() {
 		setTimeout(function() {
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage >= totalpage); //参数为true代表没有更多数据了。
-			var table = document.getElementById('scroll-view');
-
-			$.ajax({
-				url: base.RootUrl + "Fan/All",
-				type: "GET",
-				dataType: "jsonp",
-				data: {
-					page: currpage,
-					rows: pagesize,
-					ToUserID: 1
-				},
-				jsonp: 'jsoncallback',
-				contentType: "application/json;utf-8", //返回Json类型 
-				success: function(data) {
-					if(data != null) {
-						totalpage = data.total; //总页数
-						mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage >= totalpage); //参数为true代表没有更多数据了。
-						var length = data.rows.length;
-						if(length > 0) {
-							++currpage;
-							for(var i = 0, len = data.rows.length; i < len; i++) {
-								var item = data.rows[i];
-								var div = document.createElement('div');
-								div.className = 'mui-table-view-cell';
-								var model = [];
-								model.push('<div class="mui-slider-cell">');
-								//头像
-								model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
-								//昵称、签名
-								model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Signature + '</p></div>');
-								//关注
-								model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
-								model.push('</div>');
-
-								//评论信息
-								model.push('<div class="oa-contact-cell mui-table comment mui-h5">');
-								model.push('<div class="oa-contact-avatar mui-table-cell"><span>' + item.NickName + '</span></div>');
-								model.push('<div class="oa-contact-date mui-table-cell"><span>' + item.CreateDate + '</span></div>');
-								model.push('<div class="oa-contact-icon mui-table-cell"><span>评论</span></div>');
-								model.push('<div class="oa-contact-content mui-table-cell"><span>“标题名称标题名称标题名称”</span></div>');
-								model.push('</div>');
-
-								div.innerHTML = model.join('');
-								table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
-							}
+			HttpGet(base.RootUrl + "Fan/All", {
+				page: currpage,
+				rows: pagesize,
+				ToUserID: 1
+			}, function(data) {
+				if(data != null) {
+					totalpage = data.total; //总页数
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage >= totalpage); //参数为true代表没有更多数据了。
+					var length = data.rows.length;
+					if(length > 0) {
+						++currpage;
+						var table = document.getElementById('scroll-view');
+						for(var i = 0, len = data.rows.length; i < len; i++) {
+							var div = appendStr(data.rows[i]);
+							table.appendChild(div); //下拉刷新，新纪录插到最后面；
 						}
 					}
 				}
 			});
 
-			/*base.HttpGet(base.RootUrl + "Fan/All", {
-				page: currpage,
-				rows: pagesize,
-				ToUserID: 1
-			}, function(data) {
-				
-			})*/
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
 			});
-		}, 1500);
+		}, 500);
 	}
+
+	/**
+	 * 拼接Html
+	 */
+	function appendStr(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell">');
+		//头像
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
+		//昵称、签名
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Signature + '</p></div>');
+		//关注
+		model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+		model.push('</div>');
+
+		//评论信息
+		model.push('<div class="oa-contact-cell mui-table comment mui-h5">');
+		model.push('<div class="oa-contact-avatar mui-table-cell"><span>' + item.NickName + '</span></div>');
+		model.push('<div class="oa-contact-date mui-table-cell"><span>' + item.CreateDate + '</span></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell"><span>评论</span></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><span>“标题名称标题名称标题名称”</span></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
 	if(mui.os.plus) {
 		mui.plusReady(function() {
 			setTimeout(function() {

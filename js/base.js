@@ -1,6 +1,11 @@
 (function($, owner) {
 
 	/**
+	 * 列表每次请求数
+	 **/
+	owner.PageSize = 10;
+
+	/**
 	 * 获取接口请求根路径
 	 **/
 	owner.RootUrl = "http://localhost/app/";
@@ -45,3 +50,17 @@
 			})*/
 
 }(mui, window.base = {}));
+
+function HttpGet(url, data, callback) {
+	$.ajax({
+		url: url,
+		type: "GET",
+		dataType: "jsonp",
+		data: data,
+		jsonp: 'jsoncallback',
+		contentType: "application/json;utf-8", //返回Json类型 
+		success: function(res) {
+			callback(res)
+		}
+	});
+}
