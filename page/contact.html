@@ -9,42 +9,70 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<style type="text/css">
-			.onefloor {
-				width: 100%;
-				height: 150px;
-				overflow: hidden;
-			}
-			
-			.onefloor img {
-				width: 100%;
-				min-height: 100%;
-			}
-			
-			.secondfloor {
-				width: 50%;
-				height: 120px;
-				text-align: center;
-				overflow: hidden;
-				margin-bottom: 1.5%;
-				float: left;
-			}
-			
-			.secondfloor img {
-				width: 97%;
-				min-height: 100%;
+			.mui-card {
+				border-radius: 5px;
 			}
 			
 			.mui-card-content {
 				width: 100%;
 			}
 			
+			.title {
+				text-shadow: 1px 1px 1px #333;
+			}
+			
 			.avatar {
 				width: 60px;
-				height: 60px;
+				height: 50px;
+			}
+			
+			.avatar img {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				float: left;
+			}
+			
+			.name {
+				margin: 0px;
+				overflow: hidden;
+				height: 20px;
+				line-height: 20px;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 			
 			.num {
-				width: 50px;
+				width: 110px;
+				text-align: right;
+			}
+			
+			.split {
+				padding-left: 5px;
+				padding-right: 5px;
+				text-align: center;
+			}
+			
+			.tablecell {
+				padding: 0px;
+				vertical-align: middle;
+			}
+			
+			.type p {
+				width: 90%;
+				height: 15px;
+				line-height: 15px;
+				margin: 0px;
+				margin-left: 5px;
+				float: left;
+			}
+			
+			.type .line {
+				width: 5px;
+				height: 30px;
+				background: #3AB5D4;
+				border-radius: 10px;
+				float: left;
 			}
 		</style>
 	</head>
@@ -57,27 +85,48 @@
 		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<div class="mui-card">
-					<div class="mui-card-content show" style="background:url(http://www.dcloud.io/hellomui/images/0.jpg) no-repeat;background-size:100% 100%;">
+					<div class="mui-card-content show" style="background:url(http://www.dcloud.io/hellomui/images/4.jpg) no-repeat;background-size:100% 100%;">
 						<div class="mui-card-content-inner">
-							<p class="oa-contact-email mui-h5">标题</p>
-							<div class="mui-card-header mui-card-media">
-								<div class="mui-media-body" style="border-left:2px solid red;margin-left:0px; padding-left: 10px;">2016-9-8
-									<p>类型</p>
+							<p class="mui-h4 cfff title">昼夜不停，感受异样南京的生活</p>
+							<div class="full type">
+								<div class="line"></div>
+								<p class="f12 cfff">2016.9.8 点燃心中的梦想，和青春一起飞扬</p>
+								<p class="f12 cfff">动漫</p>
+							</div>
+							<div class="full f13 mt10">
+								<div class="tablecell avatar">
+									<img data-lazyload-id="0" src="http://www.dcloud.io/hellomui/images/1.jpg">
+								</div>
+								<div class="tablecell">
+									<p class="name fl cfff f13">淡淡的忧伤</p>
+									<p class="name fr cfff f13">135 阅读<span class="split">/</span>5 收藏<span class="split">/</span>5 评论</p>
 								</div>
 							</div>
 						</div>
-						<div class="mui-card-footer fl full">
-							<div style="width:100%;height:60px;line-height:60px;">
-								<img class="avatar fl" data-lazyload-id="0" src="../images/60x60.gif"></div>
-							<div class="fl">名称</div>
-							<div class="num fr">5数量</div>
-							<div class="num fr">5数量</div>
-							<div class="num fr">5数量</div>
+					</div>
+				</div>
+				<div class="mui-card">
+					<div class="mui-card-content show" style="background:url(http://www.dcloud.io/hellomui/images/3.jpg) no-repeat;background-size:100% 100%;">
+						<div class="mui-card-content-inner">
+							<p class="mui-h4 cfff title">昼夜不停，感受异样南京的生活</p>
+							<div class="full type">
+								<div class="line"></div>
+								<p class="f12 cfff">2016.9.8 点燃心中的梦想，和青春一起飞扬</p>
+								<p class="f12 cfff">动漫</p>
+							</div>
+							<div class="full f13 mt10">
+								<div class="tablecell avatar">
+									<img data-lazyload-id="0" src="http://www.dcloud.io/hellomui/images/2.jpg">
+								</div>
+								<div class="tablecell">
+									<p class="name fl cfff f13">淡淡的忧伤</p>
+									<p class="name fr cfff f13">135 阅读<span class="split">/</span>5 收藏<span class="split">/</span>5 评论</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	</body>
 
