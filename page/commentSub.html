@@ -120,7 +120,7 @@
 		//昵称、签名
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon mui-icon-arrowright"></span></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
 		model.push('</div>');
 
 		//评论信息
@@ -133,6 +133,14 @@
 		div.innerHTML = model.join('');
 		return div;
 	}
+
+	function message(id) {
+		alert(id)
+	}
+
+	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
+		this.click();
+	});
 
 	if(mui.os.plus) {
 		mui.plusReady(function() {
