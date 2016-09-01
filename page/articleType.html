@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+			<a id="info" class="mui-icon mui-icon-info-filled mui-pull-right c999"></a>
+			<h1 class="mui-title">分类设置</h1>
+		</header>
+		<div class="mui-content"></div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script type="text/javascript">
+	//启用双击监听
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false, //启用右滑关闭功能
+		subpages: [{
+			url: 'articleTypeSub.html',
+			id: 'articleTypeSub',
+			styles: {
+				top: '45px',
+				bottom: '0px',
+			}
+		}]
+	});
+
+	/*
+	 * 点击左上角侧滑图标，打开侧滑菜单
+	 */
+	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+		var template = plus.webview.getWebviewById("index");
+		mui.fire(template, 'toggleMenu', {});
+	});
+
+	/*
+	 * 新建
+	 */
+	var subWebview = null;
+	var template = null;
+	document.getElementById('info').addEventListener('tap', function() {
+		if(!mui.os.plus) {
+			mui.openWindow({
+				url: "upload.html",
+				id: "upload",
+				show: {
+					aniShow: 'zoom-fade-out',
+					duration: 300
+				}
+			});
+			return;
+		}
+		//获取共用父窗体
+		if(subWebview == null) {
+			template = plus.webview.getWebviewById("default-main");
+		}
+		if(template) {
+			subWebview = template.children()[0];
+			subWebview.loadURL('upload.html');
+			mui.fire(template, 'updateHeader', {
+				title: '上传',
+				showMenu: false
+			});
+			template.show('slide-in-right', 150);
+		}
+	});
+
+	var contentWebview = null;
+	document.querySelector('header').addEventListener('doubletap', function() {
+		if(contentWebview == null) {
+			contentWebview = plus.webview.currentWebview().children()[0];
+		}
+		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+	});
+</script>

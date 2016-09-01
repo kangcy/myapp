@@ -100,6 +100,7 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
+			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight

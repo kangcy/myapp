@@ -28,19 +28,11 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currpage = 1;
-	var pagesize = base.PageSize;
-	var totalpage = 2;
 	mui.init({
 		pullRefresh: {
 			container: '#pullrefresh',
 			down: {
 				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: '正在加载...',
-				contentnomore: '没有更多数据了',
-				callback: pullupRefresh
 			}
 		}
 	});
@@ -50,29 +42,9 @@
 	 */
 	function pulldownRefresh() {
 		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
 			document.getElementById('scroll-view').innerHTML = "";
 			load(function() {
-				++currpage;
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				mui('#pullrefresh').pullRefresh().refresh(true);
-			})
-		}, 500);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh() {
-		if(currpage > totalpage) {
-			return;
-		}
-		setTimeout(function() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-			load(function() {
-				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。
 			})
 		}, 500);
 	}
@@ -81,13 +53,8 @@
 	 * 加载数据
 	 */
 	function load(callback) {
-		HttpGet(base.RootUrl + "Fan/All", {
-			page: currpage,
-			rows: pagesize,
-			ToUserID: 1
-		}, function(data) {
+		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage; //总页数
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view');
@@ -116,26 +83,31 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
-		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
-		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Signature + '</p></div>');
+		//分类图片
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Cover + '" /></div>');
+		//分类信息
+		model.push('<div class="oa-contact-content mui-table-cell"><div class="mui-clearfix"><h4 class="oa-contact-name">' + item.Name + '</h4></div><p class="oa-contact-email mui-h5">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr select"></span></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
 
+	$("#pullrefresh").on('tap', 'div.mui-table-view-cell', function(event) {
+		$("#pullrefresh .mui-icon-checkmarkempty").removeClass("mui-icon-checkmarkempty");
+		$(this).find(".select").addClass("mui-icon-checkmarkempty");
+	});
+
 	if(mui.os.plus) {
 		mui.plusReady(function() {
 			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
+				mui('#pullrefresh').pullRefresh().pulldownLoading();
 			}, 1000);
 		});
 	} else {
 		mui.ready(function() {
-			mui('#pullrefresh').pullRefresh().pullupLoading();
+			mui('#pullrefresh').pullRefresh().pulldownLoading();
 		});
 	}
 </script>
