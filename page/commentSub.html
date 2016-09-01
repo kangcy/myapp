@@ -38,7 +38,6 @@
 				callback: pulldownRefresh
 			},
 			up: {
-				auto: false,
 				contentrefresh: '正在加载...',
 				contentnomore: '没有更多数据了',
 				callback: pullupRefresh
@@ -53,33 +52,13 @@
 		setTimeout(function() {
 			currpage = 1;
 			totalpage = 2;
-			var table = document.getElementById('scroll-view');
-			table.innerHTML = "";
-
-			HttpGet(base.RootUrl + "Comment/All", {
-				page: currpage,
-				rows: pagesize,
-				ArticleUserID: 1
-			}, function(data) {
-				if(data != null) {
-					totalpage = data.totalpage; //总页数
-					var length = data.list.length;
-					if(length > 0) {
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
-						}
-					}
-				}
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+			document.getElementById('scroll-view').innerHTML = "";
+			load(function() {
 				++currpage;
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				mui('#pullrefresh').pullRefresh().refresh(true);
 			})
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
-		}, 1000);
+		}, 500);
 	}
 
 	/**
@@ -91,32 +70,41 @@
 		}
 		setTimeout(function() {
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-			HttpGet(base.RootUrl + "Comment/All", {
-				page: currpage,
-				rows: pagesize,
-				ArticleUserID: 1
-			}, function(data) {
-				if(data != null) {
-					totalpage = data.totalpage; //总页数
-					++currpage;
-					console.log(currpage)
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。		
-					var length = data.list.length;
-					if(length > 0) {
-						var table = document.getElementById('scroll-view');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.appendChild(div); //下拉刷新，新纪录插到最后面；
-						}
+			load(function() {
+				++currpage;
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。
+			})
+		}, 500);
+	}
+
+	/**
+	 * 加载数据
+	 */
+	function load(callback) {
+		HttpGet(base.RootUrl + "Comment/All", {
+			page: currpage,
+			rows: pagesize,
+			ArticleUserID: 1
+		}, function(data) {
+			if(data != null) {
+				totalpage = data.totalpage; //总页数
+				var length = data.list.length;
+				if(length > 0) {
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i]);
+						table.appendChild(div);
 					}
 				}
-			});
-
+			}
+			if($.isFunction(callback)) {
+				callback();
+			}
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
 			});
-		}, 1000);
+		});
 	}
 
 	/**
@@ -132,7 +120,7 @@
 		//昵称、签名
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon mui-icon-forward"></span></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon mui-icon-arrowright"></span></div>');
 		model.push('</div>');
 
 		//评论信息
