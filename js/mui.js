@@ -3250,6 +3250,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				deceleration: 0.003,
 				down: {
 					height: 50,
+					auto: false,
 					contentinit: '下拉可以刷新',
 					contentdown: '下拉可以刷新',
 					contentover: '释放立即刷新',
@@ -4459,7 +4460,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			this.wrapper.removeEventListener('scrollbottom', this);
 		},
 		enablePullupToRefresh: function() {
-			this._initPullupRefresh();
+			//注释避免下拉加载结束再次执行上拉操作
+			//this._initPullupRefresh();
 			this.bottomPocket.classList.remove(CLASS_HIDDEN);
 			this._setCaption(this.options.up.contentdown);
 			this.wrapper.addEventListener('scrollbottom', this);

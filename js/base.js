@@ -3,7 +3,7 @@
 	/**
 	 * 列表每次请求数
 	 **/
-	owner.PageSize = 10;
+	owner.PageSize = 1;
 
 	/**
 	 * 获取接口请求根路径
