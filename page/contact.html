@@ -13,6 +13,12 @@
 				border-radius: 5px;
 			}
 			
+			.mui-card-content-inner {
+				padding: 0.9375rem;
+				min-height: 9.375rem;
+				display: inline-block;
+			}
+			
 			.mui-card-content {
 				width: 100%;
 			}
@@ -22,13 +28,13 @@
 			}
 			
 			.avatar {
-				width: 60px;
-				height: 50px;
+				width: 3.125rem;
+				height: 2.5rem;
 			}
 			
 			.avatar img {
-				width: 50px;
-				height: 50px;
+				width: 2.5rem;
+				height: 2.5rem;
 				border-radius: 50%;
 				float: left;
 			}
@@ -36,20 +42,16 @@
 			.name {
 				margin: 0px;
 				overflow: hidden;
-				height: 20px;
-				line-height: 20px;
+				height: 1.25rem;
+				line-height: 1.25rem;
 				text-overflow: ellipsis;
 				white-space: nowrap;
-			}
-			
-			.num {
-				width: 110px;
-				text-align: right;
+				width: 100%;
 			}
 			
 			.split {
-				padding-left: 5px;
-				padding-right: 5px;
+				padding-left: 0.3125rem;
+				padding-right: 0.3125rem;
 				text-align: center;
 			}
 			
@@ -60,19 +62,26 @@
 			
 			.type p {
 				width: 90%;
-				height: 15px;
-				line-height: 15px;
+				height: 0.9375rem;
+				line-height: 0.9375rem;
 				margin: 0px;
-				margin-left: 5px;
+				margin-left: 0.3125rem;
 				float: left;
 			}
 			
 			.type .line {
-				width: 5px;
-				height: 30px;
+				width: 0.3125rem;
+				height: 1.875rem;
 				background: #3AB5D4;
 				border-radius: 10px;
 				float: left;
+			}
+			
+			.bottom {
+				position: absolute;
+				bottom: 0.9375rem;
+				left: 0.9375rem;
+				width: 100%;
 			}
 		</style>
 	</head>
@@ -84,43 +93,43 @@
 		</header>
 		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
-				<div class="mui-card">
-					<div class="mui-card-content show" style="background:url(http://www.dcloud.io/hellomui/images/4.jpg) no-repeat;background-size:100% 100%;">
+				<div class="mui-card" style="background:url(http://www.dcloud.io/hellomui/images/4.jpg) no-repeat;background-size:100%;">
+					<div class="mui-card-content show">
 						<div class="mui-card-content-inner">
-							<p class="mui-h4 cfff title">昼夜不停，感受异样南京的生活</p>
-							<div class="full type">
+							<p class="f18 cfff title fl">昼夜不停，感受异样南京的生活</p>
+							<div class="full type fl">
 								<div class="line"></div>
 								<p class="f12 cfff">2016.9.8 点燃心中的梦想，和青春一起飞扬</p>
 								<p class="f12 cfff">动漫</p>
 							</div>
-							<div class="full f13 mt10">
+							<div class="full bottom">
 								<div class="tablecell avatar">
 									<img data-lazyload-id="0" src="http://www.dcloud.io/hellomui/images/1.jpg">
 								</div>
 								<div class="tablecell">
-									<p class="name fl cfff f13">淡淡的忧伤</p>
-									<p class="name fr cfff f13">135 阅读<span class="split">/</span>5 收藏<span class="split">/</span>5 评论</p>
+									<p class="name fl cfff f11">淡淡的忧伤</p>
+									<p class="name fr cfff f11">135 阅读<span class="split">/</span>5 收藏<span class="split">/</span>5 评论</p>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="mui-card">
-					<div class="mui-card-content show" style="background:url(http://www.dcloud.io/hellomui/images/3.jpg) no-repeat;background-size:100% 100%;">
+				<div class="mui-card" style="background:url(http://www.dcloud.io/hellomui/images/3.jpg) no-repeat;background-size:100%;">
+					<div class="mui-card-content show">
 						<div class="mui-card-content-inner">
-							<p class="mui-h4 cfff title">昼夜不停，感受异样南京的生活</p>
-							<div class="full type">
+							<p class="f18 cfff title fl">昼夜不停，感受异样南京的生活</p>
+							<div class="full type fl">
 								<div class="line"></div>
-								<p class="f12 cfff">2016.9.8 点燃心中的梦想，和青春一起飞扬</p>
-								<p class="f12 cfff">动漫</p>
+								<p class="f11 cfff">2016.9.8 点燃心中的梦想，和青春一起飞扬</p>
+								<p class="f11 cfff">动漫</p>
 							</div>
-							<div class="full f13 mt10">
+							<div class="full bottom">
 								<div class="tablecell avatar">
 									<img data-lazyload-id="0" src="http://www.dcloud.io/hellomui/images/2.jpg">
 								</div>
 								<div class="tablecell">
-									<p class="name fl cfff f13">淡淡的忧伤</p>
-									<p class="name fr cfff f13">135 阅读<span class="split">/</span>5 收藏<span class="split">/</span>5 评论</p>
+									<p class="name fl cfff f11">淡淡的忧伤</p>
+									<p class="name fr cfff f11">135 阅读<span class="split">/</span>5 收藏<span class="split">/</span>5 评论</p>
 								</div>
 							</div>
 						</div>
@@ -131,6 +140,7 @@
 	</body>
 
 </html>
+<script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script>
