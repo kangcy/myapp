@@ -29,6 +29,7 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var ismycomment = false; //我评论的，评论我的
 	var currpage = 1;
 	var pagesize = base.PageSize;
 	var totalpage = 2;
@@ -117,8 +118,10 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
-		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0"><img data-lazyload="' + item.Avatar + '" /></div>');
+		if(!ismycomment) {
+			//头像
+			model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0"><img data-lazyload="' + item.Avatar + '" /></div>');
+		}
 		//昵称、签名
 		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
 		//关注
@@ -127,8 +130,10 @@
 
 		//评论信息
 		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
-		model.push('<div class="oa-contact-date mui-table-cell c999 tc">' + item.CreateDate + '</div>');
+		if(!ismycomment) {
+			model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
+		}
+		model.push('<div class="oa-contact-date mui-table-cell c999' + (ismycomment ? "tl" : "tc") + '">' + item.CreateDate + '</div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
 		model.push('<div class="oa-contact-content mui-table-cell pl10" style="color:#4EC4DE;">“' + item.Title + '”</div>');
 		model.push('</div>');

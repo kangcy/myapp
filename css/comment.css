@@ -39,6 +39,7 @@ body {
 }
 
 .oa-contact-icon {
+	vertical-align: middle;
 	width: 1.875rem;
 	text-align: right;
 }
