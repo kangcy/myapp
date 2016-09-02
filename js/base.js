@@ -3,7 +3,7 @@
 	/**
 	 * 列表每次请求数
 	 **/
-	owner.PageSize = 1;
+	owner.PageSize = 10;
 
 	/**
 	 * 获取接口请求根路径
@@ -35,19 +35,15 @@
 		});
 	}
 
-	/*owner.httpGet = function(url, callback) {
-		var xhr = new plus.net.XMLHttpRequest();
-		xhr.onreadystatechange = callback(xhr);
-		xhr.open("GET", url);
-		xhr.send();
+	/**
+	 * 校验字符串是否为空
+	 **/
+	owner.IsNullOrEmpty = function(str) {
+		if(str == null || str == undefined || str == "") {
+			return true;
+		}
+		return false;
 	}
-
-	base.httpGet(base.RootUrl, function(xhr) {
-				if(xhr.readyState == 4 && xhr.status == 200) {
-					alert(xhr.responseText)
-					var data = JSON.parse(xhr.responseText);
-				}
-			})*/
 
 }(mui, window.base = {}));
 

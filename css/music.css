@@ -41,3 +41,23 @@
 	left: 0px;
 	background-color: transparent;
 }
+
+#search {
+	margin-top: 0.75rem
+}
+
+.search {
+	width: 11.875rem !important;
+}
+
+.search input[type=text] {
+	border-radius: 30px;
+	text-indent: 1.5625rem;
+	height: 2rem !important;
+}
+
+.search span {
+	position: absolute !important;
+	left: 0.625rem;
+	top: 0.625rem
+}
