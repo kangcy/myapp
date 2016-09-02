@@ -79,14 +79,11 @@
 	 * 上拉加载
 	 */
 	function pullupRefresh() {
-		if(currpage > totalpage) {
-			return;
-		}
+		mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage);
 		setTimeout(function() {
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 			load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。
 			})
 		}, 250);
 	}

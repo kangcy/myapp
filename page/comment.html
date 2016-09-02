@@ -15,7 +15,7 @@
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 			<a id="info" class="mui-icon mui-icon-search mui-pull-right c999"></a>
-			<h1 class="mui-title"><span class="tab curr" onclick="changeComment(0)">我评论的</span>&nbsp;|&nbsp;<span class="tab" onclick="changeComment(1)">评论我的</span></h1>
+			<h1 class="mui-title"><span class="tab curr" onclick="changeComment(0)">我评论的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">评论我的</span></h1>
 		</header>
 		<div class="mui-content"></div>
 		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
@@ -37,7 +37,7 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ismycomment = false; //我评论的，评论我的
+	var ismycomment = true; //我评论的，评论我的
 	var currpage = 1;
 	var pagesize = base.PageSize;
 	var totalpage = 2;
@@ -81,14 +81,11 @@
 	 * 上拉加载
 	 */
 	function pullupRefresh() {
-		if(currpage > totalpage) {
-			return;
-		}
+		mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage);
 		setTimeout(function() {
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 			load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。
 			})
 		}, 250);
 	}

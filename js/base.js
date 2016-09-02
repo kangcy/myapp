@@ -3,7 +3,7 @@
 	/**
 	 * 列表每次请求数
 	 **/
-	owner.PageSize = 10;
+	owner.PageSize = 1;
 
 	/**
 	 * 获取接口请求根路径
@@ -11,28 +11,18 @@
 	owner.RootUrl = "http://localhost/app/";
 
 	/**
-	 * 设置应用本地配置
+	 * 获取当前用户ID
 	 **/
-	owner.getSettings = function() {
-		var settingsText = localStorage.getItem('$settings') || "{}";
-		return JSON.parse(settingsText);
+	owner.GetUserID = function() {
+		return 1;
 	}
 
 	/**
-	 * 发送GET请求
+	 * 设置应用本地配置
 	 **/
-	owner.HttpGet = function(url, data, callback) {
-		$.ajax({
-			url: url,
-			type: "GET",
-			dataType: "jsonp",
-			data: data,
-			jsonp: 'jsoncallback',
-			contentType: "application/json;utf-8", //返回Json类型 
-			success: function(res) {
-				callback(res)
-			}
-		});
+	owner.GetSettings = function() {
+		var settingsText = localStorage.getItem('$settings') || "{}";
+		return JSON.parse(settingsText);
 	}
 
 	/**
@@ -47,6 +37,9 @@
 
 }(mui, window.base = {}));
 
+/**
+ * Get请求
+ **/
 function HttpGet(url, data, callback) {
 	$.ajax({
 		url: url,

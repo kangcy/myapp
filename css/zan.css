@@ -1,0 +1,88 @@
+/**用户信息样式**/
+
+.mui-table-view-cell {
+	background: #fff;
+	padding: 0px 0.9375rem;
+	border-bottom: 1px solid #c8c7cc;
+}
+
+.oa-contact-cell.mui-table .mui-table-cell {
+	padding: 0.625rem 0;
+	vertical-align: middle;
+}
+
+.oa-contact-cell {
+	position: relative;
+}
+
+.oa-contact-avatar {
+	width: 4.6875rem;
+}
+
+.oa-contact-avatar img {
+	width: 3.75rem;
+	height: 3.75rem;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+}
+
+.oa-contact-content {
+	width: 100%;
+}
+
+.oa-contact-icon {
+	width: 5.3rem;
+}
+
+.oa-contact-icon img {
+	width: 2.5rem;
+	float: right;
+}
+
+.mui-table-view-cell:after {
+	left: 0px;
+	background-color: transparent;
+}
+
+
+/**文章样式**/
+
+.mui-card {
+	border-radius: 5px;
+}
+
+.mui-card-content-inner {
+	padding: 0.9375rem;
+	min-height: 9.375rem;
+	display: inline-block;
+}
+
+.mui-card-content {
+	width: 100%;
+}
+
+.title {
+	text-shadow: 1px 1px 1px #333;
+}
+
+.avatar {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	float: left;
+}
+.split {
+	padding-left: 0.3125rem;
+	padding-right: 0.3125rem;
+	text-align: center;
+}
+
+.tablecell {
+	padding: 0px;
+	vertical-align: middle;
+}
+.bottom {
+	position: absolute;
+	bottom: 0.9375rem;
+	right: 0.9375rem;
+}

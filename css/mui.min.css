@@ -21,9 +21,12 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
  .p5{padding:0.3125rem !important;}
  .mr10{margin-right:0.625rem !important;}
  .mr20{margin-right:1.25rem !important;}
+ .mt0{margin-top:0px !important;}
  .mt10{margin-top:0.625rem !important;}
+ .mt20{margin-top:1.25rem !important;}
  .mb5{margin-bottom:0.3125rem !important;}
  .mb10{margin-bottom:0.625rem !important;}
+ .mb20{margin-bottom:1.25rem !important;}
  .pl10{padding-left:0.625rem !important;}
  .pr30{padding-right:1.875rem !important;}
  .pb0{padding-bottom:0px !important;}

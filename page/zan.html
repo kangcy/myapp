@@ -8,17 +8,16 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/music.css">
+		<link rel="stylesheet" href="../css/zan.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-			<a id="search" class="mui-pull-right c333">搜索</a>
-			<div class="mui-title mui-input-row search">
-				<input id="musicname" type="text" class="f13" maxlength="10" placeholder="请输入"><span class="mui-icon mui-icon-search"></span>
-			</div>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right c999"></a>
+			<h1 class="mui-title"><span class="tab curr" onclick="changeComment(0)">我赞过的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">赞过我的</span></h1>
 		</header>
+		<div class="mui-content"></div>
 		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
 			<!--下拉刷新容器-->
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
@@ -38,10 +37,11 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var ismyzan = true; //我赞过的，赞过我的
 	var currpage = 1;
 	var pagesize = base.PageSize;
 	var totalpage = 2;
-	var name = "";
+	var currUserID = base.GetUserID(); //当前登录用户ID
 
 	//启用双击监听
 	mui.init({
@@ -95,12 +95,19 @@
 	 * 加载数据
 	 */
 	function load(callback) {
-		HttpGet(base.RootUrl + "Music/All", {
+		var data = {
 			page: currpage,
 			rows: pagesize,
-			ToUserID: 1,
-			Name: name
-		}, function(data) {
+			ArticleUserID: currUserID
+		};
+		if(ismyzan) {
+			data = {
+				page: currpage,
+				rows: pagesize,
+				CreateUserID: currUserID
+			}
+		}
+		HttpGet(base.RootUrl + "Zan/All", data, function(data) {
 			if(data != null) {
 				totalpage = data.totalpage;
 				var length = data.list.length;
@@ -130,28 +137,29 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
+		//用户信息
 		model.push('<div class="mui-slider-cell">');
-		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Cover + '" /></div>');
-		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.Name + '</p><p class="f11 c333">' + item.Author + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr select"></span></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.NickName + '</p><p class="f11 c333">' + item.Signature + '</p></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell f11"><span class="mui-icon fr mui-icon-arrowright select"></span><span class="fr" style="line-height: 1.5rem;" uid="' + item.UserID + '">看他的作品</span></div>');
 		model.push('</div>');
+		//文章信息
+		model.push('<div class="mui-card mt0 mb20" style="background:url(' + item.Cover + ') no-repeat;background-size:100%;">');
+		model.push('<div class="mui-card-content show">');
+		model.push('<div class="mui-card-content-inner">');
+		model.push('<p class="f18 cfff title fl" aid="' + item.ArticleID + '">' + item.Title + '</p>');
+		model.push('<p class="bottom cfff f11 tr">' + item.Views + ' 阅读<span class="split">/</span>' + item.Keeps + ' 收藏<span class="split">/</span>' + item.Comments + ' 评论</p>');
+		model.push('</div></div></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
-
-	$("#pullrefresh").on('tap', 'div.mui-table-view-cell', function(event) {
-		$("#pullrefresh .mui-icon-checkmarkempty").removeClass("mui-icon-checkmarkempty");
-		$(this).find(".select").addClass("mui-icon-checkmarkempty");
-	});
 
 	if(mui.os.plus) {
 		mui.plusReady(function() {
 			setTimeout(function() {
 				mui('#pullrefresh').pullRefresh().pullupLoading();
 			}, 1000);
+
 		});
 	} else {
 		mui.ready(function() {
@@ -159,17 +167,67 @@
 		});
 	}
 
-	/*
-	 * 搜索
-	 */
-	document.getElementById('search').addEventListener('tap', function() {
-		var musicname = $.trim($("#musicname").val());
-		if(base.IsNullOrEmpty(musicname)) {
-			name = "";
+	function message(id) {
+		alert(id)
+	}
+
+	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
+		this.click();
+	});
+
+	$("#header").on('tap', 'span.tab', function(event) {
+		$("#header span.curr").removeClass("curr");
+		$(this).addClass("curr");
+		this.click();
+	});
+
+	function changeComment(index) {
+		if(index == 0) {
+			ismycomment = true;
 		} else {
-			name = musicname;
+			ismycomment = false;
 		}
 		pulldownRefresh();
+	}
+
+	/*
+	 * 点击左上角侧滑图标，打开侧滑菜单
+	 */
+	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+		var template = plus.webview.getWebviewById("index");
+		mui.fire(template, 'toggleMenu', {});
+	});
+
+	/*
+	 * 新建
+	 */
+	var subWebview = null;
+	var template = null;
+	document.getElementById('info').addEventListener('tap', function() {
+		if(!mui.os.plus) {
+			mui.openWindow({
+				url: "upload.html",
+				id: "upload",
+				show: {
+					aniShow: 'zoom-fade-out',
+					duration: 300
+				}
+			});
+			return;
+		}
+		//获取共用父窗体
+		if(subWebview == null) {
+			template = plus.webview.getWebviewById("default-main");
+		}
+		if(template) {
+			subWebview = template.children()[0];
+			subWebview.loadURL('upload.html');
+			mui.fire(template, 'updateHeader', {
+				title: '上传',
+				showMenu: false
+			});
+			template.show('slide-in-right', 150);
+		}
 	});
 
 	var contentWebview = null;
