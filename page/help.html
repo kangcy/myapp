@@ -8,15 +8,16 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/articleType.css">
+		<link rel="stylesheet" href="../css/comment.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 			<a id="info" class="mui-icon mui-icon-search mui-pull-right c999"></a>
-			<h1 class="mui-title">分类设置</h1>
+			<h1 class="mui-title">帮助中心</h1>
 		</header>
+		<div class="mui-content"></div>
 		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
 			<!--下拉刷新容器-->
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
@@ -32,10 +33,12 @@
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var currpage = 1;
+	var pagesize = base.PageSize;
+	var totalpage = 2;
+
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
@@ -46,6 +49,11 @@
 			container: '#pullrefresh',
 			down: {
 				callback: pulldownRefresh
+			},
+			up: {
+				contentrefresh: '正在加载...',
+				contentnomore: '没有更多数据了',
+				callback: pullupRefresh
 			}
 		}
 	});
@@ -55,9 +63,29 @@
 	 */
 	function pulldownRefresh() {
 		setTimeout(function() {
+			currpage = 1;
+			totalpage = 2;
 			document.getElementById('scroll-view').innerHTML = "";
 			load(function() {
+				++currpage;
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				mui('#pullrefresh').pullRefresh().refresh(true);
+			})
+		}, 250);
+	}
+
+	/**
+	 * 上拉加载
+	 */
+	function pullupRefresh() {
+		if(currpage > totalpage) {
+			return;
+		}
+		setTimeout(function() {
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+			load(function() {
+				++currpage;
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。
 			})
 		}, 250);
 	}
@@ -66,8 +94,13 @@
 	 * 加载数据
 	 */
 	function load(callback) {
-		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
+		var data = {
+			page: currpage,
+			rows: pagesize
+		};
+		HttpGet(base.RootUrl + "Help/All", data, function(data) {
 			if(data != null) {
+				totalpage = data.totalpage; //总页数
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view');
@@ -80,11 +113,6 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
 		});
 	}
 
@@ -95,33 +123,44 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell">');
-		//分类图片
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Cover + '" /></div>');
-		//分类信息
-		model.push('<div  class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix"><p class="f16 mb10 c000">' + item.Name + '</p></div><p class="f11 c333">' + item.Summary + '</p></div>');
+		model.push('<div class="mui-slider-cell mt10 mb10">');
+		//昵称、签名
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.Name + '</p><p class="f11 csubtitle">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr select"></span></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr mui-icon-checkmarkempty select"></span></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
 
-	$("#pullrefresh").on('tap', 'div.mui-table-view-cell', function(event) {
-		$("#pullrefresh .mui-icon-checkmarkempty").removeClass("mui-icon-checkmarkempty");
-		$(this).find(".select").addClass("mui-icon-checkmarkempty");
-	});
-
 	if(mui.os.plus) {
 		mui.plusReady(function() {
 			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().pulldownLoading();
+				mui('#pullrefresh').pullRefresh().pullupLoading();
 			}, 1000);
+
 		});
 	} else {
 		mui.ready(function() {
-			mui('#pullrefresh').pullRefresh().pulldownLoading();
+			mui('#pullrefresh').pullRefresh().pullupLoading();
 		});
+	}
+
+	function message(id) {
+		alert(id)
+	}
+
+	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
+		this.click();
+	});
+
+	function changeComment(index) {
+		if(index == 0) {
+			ismycomment = true;
+		} else {
+			ismycomment = false;
+		}
+		pulldownRefresh();
 	}
 
 	/*
