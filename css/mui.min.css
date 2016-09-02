@@ -23,7 +23,9 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
  .mt10{margin-top:0.625rem !important;}
  .mb5{margin-bottom:0.3125rem !important;}
  .mb10{margin-bottom:0.625rem !important;}
+ .pl10{padding-left:0.625rem !important;}
  .pr30{padding-right:1.875rem !important;}
+ .pb0{padding-bottom:0px !important;}
  .bold{font-weight:bold;}
  .full{width:100%;}
  .show{display:inline-block;}
@@ -31,6 +33,7 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
  .tablecell{display:table-cell !important;}
  .tl{text-align:left !important;}
  .tr{text-align:right !important;}
+ .tc{text-align:center !important;}
  
  
  /*

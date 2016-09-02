@@ -5,16 +5,17 @@ body {
 
 .mui-table-view-cell {
 	background: #fff;
-	padding: 0px 15px;
+	padding: 0px 0.9375rem;
+	border-bottom: 1px solid #c8c7cc;
 }
 
 .oa-contact-cell.mui-table .mui-table-cell {
-	padding: 11px 0;
+	padding: 0.625rem 0;
 	vertical-align: middle;
 }
 
 .oa-contact-cell.comment .mui-table-cell {
-	padding: 5px 0;
+	padding: 0.3125rem 0px 0px;
 	vertical-align: middle;
 }
 
@@ -23,13 +24,13 @@ body {
 }
 
 .oa-contact-avatar {
-	width: 75px;
+	width: 4.6875rem;
 }
 
 .oa-contact-avatar img {
-	width: 60px;
-	height: 60px;
-	border: 1px solid #999;
+	width: 3.75rem;
+	height: 3.75rem;
+	border: 1px solid #ccc;
 	border-radius: 50%;
 }
 
@@ -38,15 +39,20 @@ body {
 }
 
 .oa-contact-icon {
-	width: 50px;
+	width: 1.875rem;
 	text-align: right;
 }
 
 .oa-contact-icon img {
-	width: 40px;
+	width: 2.5rem;
 	float: right;
 }
 
 .oa-contact-date {
-	width: 75px;
+	width: 4.6875rem;
+}
+
+.mui-table-view-cell:after {
+	left: 0px;
+	background-color: transparent;
 }

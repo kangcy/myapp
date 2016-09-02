@@ -59,7 +59,7 @@
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				mui('#pullrefresh').pullRefresh().refresh(true);
 			})
-		}, 500);
+		}, 250);
 	}
 
 	/**
@@ -75,7 +75,7 @@
 				++currpage;
 				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。
 			})
-		}, 500);
+		}, 250);
 	}
 
 	/**
@@ -118,19 +118,19 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
 		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0"><img data-lazyload="' + item.Avatar + '" /></div>');
 		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Summary + '</p></div>');
+		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
 		model.push('</div>');
 
 		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f13">');
-		model.push('<div class="oa-contact-avatar mui-table-cell"><span>' + item.NickName + '</span></div>');
-		model.push('<div class="oa-contact-date mui-table-cell"><span>' + item.CreateDate + '</span></div>');
-		model.push('<div class="oa-contact-icon mui-table-cell"><span>评论</span></div>');
-		model.push('<div class="oa-contact-content mui-table-cell"><span>“' + item.Title + '”</span></div>');
+		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
+		model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
+		model.push('<div class="oa-contact-date mui-table-cell c999 tc">' + item.CreateDate + '</div>');
+		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
+		model.push('<div class="oa-contact-content mui-table-cell pl10" style="color:#4EC4DE;">“' + item.Title + '”</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
