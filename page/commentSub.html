@@ -33,6 +33,39 @@
 	var currpage = 1;
 	var pagesize = base.PageSize;
 	var totalpage = 2;
+	
+	//修改标题
+	window.addEventListener("changeComment", function(e) {
+		var title = e.detail.title;
+		var showMenu = e.detail.showMenu;
+		var href = e.detail.target;
+		var aniShow = e.detail.aniShow;
+		titleElem.innerHTML = title;
+		titleElem.className = "mui-title mui-fadein";
+		var display = showMenu ? "" : "none";
+		if(showMenu) {
+			mui.options.keyEventBind.menubutton = true;
+		} else {
+			mui.options.keyEventBind.menubutton = false;
+		}
+		menu.style.display = display;
+
+		if(mui.os.android && aniShow && parseFloat(mui.os.version) >= 4.4) {
+			if(contentWebview == null) {
+				contentWebview = self.children()[0];
+			}
+
+			if(contentWebview.getURL() != href) {
+				contentWebview.loadURL(href);
+			} else {
+				contentWebview.show();
+			}
+			setTimeout(function() {
+				self.show(aniShow);
+			}, 10);
+		}
+	});
+	
 	mui.init({
 		pullRefresh: {
 			container: '#pullrefresh',
@@ -120,7 +153,7 @@
 		model.push('<div class="mui-slider-cell">');
 		if(!ismycomment) {
 			//头像
-			model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0"><img data-lazyload="' + item.Avatar + '" /></div>');
+			model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" /></div>');
 		}
 		//昵称、签名
 		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');

@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/articleType.css">
 	</head>
 
 	<body>
@@ -16,11 +17,24 @@
 			<a id="info" class="mui-icon mui-icon-info-filled mui-pull-right c999"></a>
 			<h1 class="mui-title">分类设置</h1>
 		</header>
-		<div class="mui-content"></div>
+		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
+			<!--下拉刷新容器-->
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div id="scroll-view">
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
-<script src="../js/mui.min.js"></script>
+<script src="../js/default.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/mui.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
 	//启用双击监听
 	mui.init({
@@ -28,15 +42,87 @@
 			doubletap: true
 		},
 		swipeBack: false, //启用右滑关闭功能
-		subpages: [{
-			url: 'articleTypeSub.html',
-			id: 'articleTypeSub',
-			styles: {
-				top: '45px',
-				bottom: '0px',
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
 			}
-		}]
+		}
 	});
+
+	/**
+	 * 下拉刷新
+	 */
+	function pulldownRefresh() {
+		setTimeout(function() {
+			document.getElementById('scroll-view').innerHTML = "";
+			load(function() {
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+			})
+		}, 250);
+	}
+
+	/**
+	 * 加载数据
+	 */
+	function load(callback) {
+		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
+			if(data != null) {
+				var length = data.list.length;
+				if(length > 0) {
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i]);
+						table.appendChild(div);
+					}
+				}
+			}
+			if($.isFunction(callback)) {
+				callback();
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
+		});
+	}
+
+	/**
+	 * 拼接Html
+	 */
+	function appendStr(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell">');
+		//分类图片
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Cover + '" /></div>');
+		//分类信息
+		model.push('<div  class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix"><p class="f16 mb10 c000">' + item.Name + '</p></div><p class="f11 c333">' + item.Summary + '</p></div>');
+		//关注
+		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr select"></span></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
+	$("#pullrefresh").on('tap', 'div.mui-table-view-cell', function(event) {
+		$("#pullrefresh .mui-icon-checkmarkempty").removeClass("mui-icon-checkmarkempty");
+		$(this).find(".select").addClass("mui-icon-checkmarkempty");
+	});
+
+	if(mui.os.plus) {
+		mui.plusReady(function() {
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().pulldownLoading();
+			}, 1000);
+		});
+	} else {
+		mui.ready(function() {
+			mui('#pullrefresh').pullRefresh().pulldownLoading();
+		});
+	}
 
 	/*
 	 * 点击左上角侧滑图标，打开侧滑菜单
@@ -81,7 +167,7 @@
 	var contentWebview = null;
 	document.querySelector('header').addEventListener('doubletap', function() {
 		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview().children()[0];
+			contentWebview = plus.webview.currentWebview();
 		}
 		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 	});
