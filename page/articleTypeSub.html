@@ -22,6 +22,7 @@
 	</body>
 
 </html>
+<script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.js"></script>
 <script src="../js/mui.lazyload.js"></script>
@@ -46,7 +47,7 @@
 			load(function() {
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 			})
-		}, 500);
+		}, 250);
 	}
 
 	/**
@@ -86,7 +87,7 @@
 		//分类图片
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Cover + '" /></div>');
 		//分类信息
-		model.push('<div class="oa-contact-content mui-table-cell"><div class="mui-clearfix"><h4 class="oa-contact-name">' + item.Name + '</h4></div><p class="oa-contact-email mui-h5">' + item.Summary + '</p></div>');
+		model.push('<div  class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix"><p class="f16 mb10 c000">' + item.Name + '</p></div><p class="f11 c333">' + item.Summary + '</p></div>');
 		//关注
 		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr select"></span></div>');
 		model.push('</div>');

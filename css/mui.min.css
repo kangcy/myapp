@@ -19,7 +19,10 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
  .f20{font-size:1.25rem !important}
  .p5{padding:0.3125rem !important;}
  .mr10{margin-right:0.625rem !important;}
+ .mr20{margin-right:1.25rem !important;}
  .mt10{margin-top:0.625rem !important;}
+ .mb5{margin-bottom:0.3125rem !important;}
+ .mb10{margin-bottom:0.625rem !important;}
  .pr30{padding-right:1.875rem !important;}
  .bold{font-weight:bold;}
  .full{width:100%;}
@@ -60,7 +63,12 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
   40: 2.5rem
   44: 2.75rem
   50: 3.125rem
+  60: 3.75rem
   64: 4rem
+  75: 4.6875rem
+  80: 5rem
   94: 5.875rem
+  100: 6.25rem
+  110: 6.875rem
   150: 9.375rem
  */

@@ -22,6 +22,7 @@
 	</body>
 
 </html>
+<script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.js"></script>
 <script src="../js/mui.lazyload.js"></script>
@@ -58,7 +59,7 @@
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				mui('#pullrefresh').pullRefresh().refresh(true);
 			})
-		}, 500);
+		}, 250);
 	}
 
 	/**
@@ -74,7 +75,7 @@
 				++currpage;
 				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。
 			})
-		}, 500);
+		}, 250);
 	}
 
 	/**
@@ -119,7 +120,7 @@
 		//头像
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
 		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="oa-contact-email mui-h5">' + item.Signature + '</p></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.NickName + '</p><p class="f11 c333">' + item.Signature + '</p></div>');
 		//关注
 		model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
 		model.push('</div>');
