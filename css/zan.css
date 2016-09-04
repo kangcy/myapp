@@ -71,6 +71,7 @@
 	border-radius: 50%;
 	float: left;
 }
+
 .split {
 	padding-left: 0.3125rem;
 	padding-right: 0.3125rem;
@@ -81,8 +82,14 @@
 	padding: 0px;
 	vertical-align: middle;
 }
+
 .bottom {
 	position: absolute;
 	bottom: 0.9375rem;
 	right: 0.9375rem;
+}
+
+#header .curr {
+	border-bottom: 2px solid #999;
+	padding-bottom: 0.1875rem;
 }
