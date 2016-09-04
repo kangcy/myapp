@@ -12,13 +12,29 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right c999"></a>
-			<h1 class="mui-title">动漫</h1>
+		<header class="mui-bar mui-bar-nav" id="header" style="height:15rem;background:url(http://www.dcloud.io/hellomui/images/5.jpg) no-repeat;background-size:100% 100%;">
+			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left cfff"></a>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<div class="mui-title">
+				<div style="width:100%;display: inline-block;margin-top: 20px;">
+					<div style="float:left;width:30%;line-height: 10px;padding-top: 35px;">
+						<p class="cfff">225</p>
+						<p class="cfff">粉丝</p>
+					</div>
+					<div style="float:left;width:40%">
+						<img src="http://www.dcloud.io/hellomui/images/3.jpg" style="border-radius:50%;width:100px;height:100px;float:left;" />
+					</div>
+					<div style="float:left;width:30%;line-height: 10px;padding-top: 35px;">
+						<p class="cfff">225</p>
+						<p class="cfff">粉丝</p>
+					</div>
+				</div>
+				<p class="cfff" style="margin: 0px;margin-top: -20px;font-weight:bold;">一个傻瓜</p>
+				<p class="cfff" style="margin: 0px;margin-top: -15px;">淡淡的忧伤</p>
+			</div>
 		</header>
-		<div class="mui-content"></div>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
+		<h1 style="position: fixed;top: 16rem;font-size: 16px;text-align: center;width: 100%;"><span class="tab curr" style="border-bottom: 3px solid #000;padding-bottom: 8px;" onclick="changeComment(0)">他的收藏</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">他的作品</span></h1>
+		<div class="mui-iframe-wrapper" style="top:18rem; bottom: 2.75rem;">
 			<!--下拉刷新容器-->
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
