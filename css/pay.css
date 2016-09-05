@@ -5,12 +5,7 @@
 }
 
 .oa-contact-cell.mui-table .mui-table-cell {
-	padding: 0px;
-	vertical-align: middle;
-}
-
-.oa-contact-cell.comment .mui-table-cell {
-	padding: 0.3125rem 0px 0px;
+	padding: 0.625rem 0;
 	vertical-align: middle;
 }
 
@@ -31,13 +26,10 @@
 
 .oa-contact-content {
 	width: 100%;
-	vertical-align: middle;
 }
 
 .oa-contact-icon {
-	vertical-align: middle;
-	width: 1.875rem;
-	text-align: right;
+	width: 3.125rem;
 }
 
 .oa-contact-icon img {
@@ -45,16 +37,7 @@
 	float: right;
 }
 
-.oa-contact-date {
-	width: 4.6875rem;
-}
-
 .mui-table-view-cell:after {
 	left: 0px;
 	background-color: transparent;
-}
-
-#header .curr {
-	border-bottom: 2px solid #fff;
-	padding-bottom: 0.1875rem;
 }
