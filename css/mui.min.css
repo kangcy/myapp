@@ -41,6 +41,7 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
  .tc{text-align:center !important;}
  
  .header{background:url(../images/header.png) no-repeat;background-size:100% 100%;}
+ .header .leftmenu{width:1.2rem;}
  .header .curr {border-bottom: 2px solid #fff;padding-bottom: 0.1875rem;}
  /*
   1: 0.0625rem

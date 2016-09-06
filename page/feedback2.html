@@ -16,8 +16,16 @@
 			<div class="mui-scroll">
 				<div id="feedback" class="mui-page feedback">
 					<div class="mui-page-content">
+						<p>问题和意见</p>
 						<div class="row mui-input-row">
-							<textarea id='question' class="mui-input-clear question" placeholder="欢迎留下您的宝贵意见......"></textarea>
+							<textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+						</div>
+						<p>图片(选填,提供问题截图)</p>
+						<div id='image-list' class="row image-list">
+						</div>
+						<p>QQ/邮箱</p>
+						<div class="mui-input-row">
+							<input id='contact' type="text" class="mui-input-clear  contact" placeholder="(选填,方便我们联系你 )" />
 						</div>
 						<button id='submit' type="button" class="mui-btn mui-btn-green">提交</button>
 					</div>
@@ -27,10 +35,9 @@
 	</body>
 
 </html>
-<script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/base.js"></script>
-<script type="text/javascript">
+<script src="../js/feedback.page.js"></script>
+<script>
 	mui.init({
 		swipeBack: true //启用右滑关闭功能
 	});
@@ -41,22 +48,13 @@
 		}
 	});
 
-	var question = document.getElementById("question");
-	document.getElementById("submit").addEventListener('tap', function(event) {
-		if(question.value == '') {
-			return mui.toast('请填写反馈信息');
-		}
-		plus.nativeUI.showWaiting();
-		feedback.send({
-			question: question.value
-		}, function() {
-			plus.nativeUI.closeWaiting();
-			mui.toast('感谢您的建议~');
-			question.value = "";
-			mui.back();
-		});
-	}, false);
-
 	//启用页面滑动
 	mui('.mui-scroll-wrapper').scroll({});
+
+	/*
+	 * 双击顶部导航，内容区回到顶部
+	 */
+	document.querySelector('header').addEventListener('doubletap', function() {
+		main.children()[0].evalJS('mui.scrollTo(0, 100)');
+	});
 </script>

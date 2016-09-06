@@ -8,14 +8,14 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/fan.css">
+		<link rel="stylesheet" href="../css/pay.css">
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" style="width:1.2rem;" /></a>
+			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
 			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff"><span class="tab curr" onclick="changeComment(0)">我的打赏</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">打赏我的</span></h1>
+			<h1 class="mui-title cfff"><span class="tab curr" onclick="changeTag(0)">我的打赏</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeTag(1)">打赏我的</span></h1>
 		</header>
 		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
 			<!--下拉刷新容器-->
@@ -107,7 +107,7 @@
 		}
 		HttpGet(base.RootUrl + "Pay/All", data, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage; //总页数
+				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view');
@@ -138,12 +138,12 @@
 		model.push('<div class="mui-slider-cell">');
 		if(ismypay) {
 			model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.ToUserAvatar + '" /></div>');
-			model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.ToUserName + '</p><p class="f11 c333">打赏</p><p class="f11 c333">' + item.CreateDate + '</p></div>');
+			model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.ToUserName + '</p><p class="f11 csubtitle mb5">打赏</p><p class="f11 csubtitle">' + item.CreateDate + '</p></div>');
 		} else {
 			model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.FromUserAvatar + '" /></div>');
-			model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.FromUserName + '</p><p class="f11 c333">打赏</p><p class="f11 c333">' + item.CreateDate + '</p></div>');
+			model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.FromUserName + '</p><p class="f11 csubtitle mb5">打赏</p><p class="f11 csubtitle">' + item.CreateDate + '</p></div>');
 		}
-		model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">5元</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
@@ -159,6 +159,18 @@
 		mui.ready(function() {
 			mui('#pullrefresh').pullRefresh().pullupLoading();
 		});
+	}
+
+	/*
+	 * 切换栏目
+	 */
+	function changeTag(index) {
+		if(index == 0) {
+			ismypay = true;
+		} else {
+			ismypay = false;
+		}
+		pulldownRefresh();
 	}
 
 	/*
