@@ -76,11 +76,14 @@
 .content1 .items .item1 {
 	margin: 0px;
 	line-height: 1.25rem;
+	width: 100%;
 }
 
 .content1 .items .item2 {
 	margin: 0px;
 	line-height: 1.5625rem;
+	width: 100%;
+	float: left;
 }
 
 .setting {
