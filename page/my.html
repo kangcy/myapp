@@ -91,20 +91,19 @@
 		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 	});
 
-	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
-	});
-
-	mui.back = function() {
-		var self = plus.webview.currentWebview();
-		self.hide();
-	}
-
 	mui.plusReady(function() {
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			self.hide();
+		}
+
+		//点击左上角侧滑图标，打开侧滑菜单
+		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
+			var template = plus.webview.getWebviewById("index");
+			mui.fire(template, 'toggleMenu', {});
+		});
+
 		//设置
 		document.getElementById('my-setting').addEventListener('tap', function(event) {
 			var my = mui.preload({
@@ -121,7 +120,7 @@
 				}
 			});
 		});
-		
+
 		//我的打赏
 		document.getElementById('my-mypay').addEventListener('tap', function(event) {
 			var my = mui.preload({
@@ -138,7 +137,7 @@
 				}
 			});
 		});
-		
+
 		//邀请好友
 		document.getElementById('my-invit').addEventListener('tap', function(event) {
 			var my = mui.preload({
@@ -155,7 +154,7 @@
 				}
 			});
 		});
-		
+
 		//意见反馈
 		document.getElementById('my-feedback').addEventListener('tap', function(event) {
 			var my = mui.preload({
@@ -163,7 +162,7 @@
 				"url": 'feedback.html'
 			});
 			mui.openWindow({
-				id: 'my-setting',
+				id: 'my-feedback',
 				show: {
 					aniShow: 'pop-in'
 				},
@@ -172,7 +171,7 @@
 				}
 			});
 		});
-		
+
 		//给个好评
 		document.getElementById('my-good').addEventListener('tap', function(event) {
 			var my = mui.preload({
@@ -189,7 +188,7 @@
 				}
 			});
 		});
-		
+
 		//帮助中心
 		document.getElementById('my-help').addEventListener('tap', function(event) {
 			var my = mui.preload({

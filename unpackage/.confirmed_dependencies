@@ -177,6 +177,11 @@
 			"js/jquery-1.10.2.min.js",
 			"js/default.js",
 			"images/bottom.png"
+		],
+		"refer": [
+			"page/pay.html",
+			"page/feedback.html",
+			"page/help.html"
 		]
 	},
 	"page/article.html": {
@@ -211,6 +216,29 @@
 			"js/mui.lazyload.img.js",
 			"js/base.js",
 			"js/jquery-1.10.2.min.js"
+		]
+	},
+	"page/pay.html": {
+		"resources": [
+			"css/pay.css",
+			"js/mui.js"
+		]
+	},
+	"page/feedback.html": {
+		"resources": [
+			"css/feedback-page.css"
+		]
+	},
+	"page/help.html": {
+		"resources": [
+			"css/comment.css",
+			"js/mui.js",
+			"js/base.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/jquery-1.10.2.min.js",
+			"js/default.js",
+			"js/mui.min.js"
 		]
 	}
 }
