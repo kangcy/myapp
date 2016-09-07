@@ -55,12 +55,12 @@
 						</div>
 					</div>
 					<div class="setting"><img src="../images/mypay.png" class="mr30" /><img src="../images/invit.png" /></div>
-					<div class="csubtitle menu mt8 f13"><img class="setting-icon" src="../images/my/1.png" />设置</div>
-					<div class="csubtitle menu mt8 f13"><img class="setting-icon" src="../images/my/5.png" />我的打赏</div>
-					<div class="csubtitle menu mt8 f13"><img class="setting-icon" src="../images/my/5.png" />邀请好友</div>
-					<div class="csubtitle menu mt8 f13"><img class="setting-icon" src="../images/my/4.png" />意见反馈</div>
-					<div class="csubtitle menu mt8 f13"><img class="setting-icon" src="../images/my/5.png" />给个好评</div>
-					<div class="csubtitle menu mt8 f13"><img class="setting-icon" src="../images/my/6.png" />帮助中心</div>
+					<div class="csubtitle menu mt8 f13" id="my-setting"><img class="setting-icon" src="../images/my/1.png" />设置</div>
+					<div class="csubtitle menu mt8 f13" id="my-mypay"><img class="setting-icon" src="../images/my/5.png" />我的打赏</div>
+					<div class="csubtitle menu mt8 f13" id="my-invit"><img class="setting-icon" src="../images/my/5.png" />邀请好友</div>
+					<div class="csubtitle menu mt8 f13" id="my-feedback"><img class="setting-icon" src="../images/my/4.png" />意见反馈</div>
+					<div class="csubtitle menu mt8 f13" id="my-good"><img class="setting-icon" src="../images/my/5.png" />给个好评</div>
+					<div class="csubtitle menu mt8 f13" id="my-help"><img class="setting-icon" src="../images/my/6.png" />帮助中心</div>
 				</div>
 			</div>
 		</div>
@@ -103,4 +103,108 @@
 		var self = plus.webview.currentWebview();
 		self.hide();
 	}
+
+	mui.plusReady(function() {
+		//设置
+		document.getElementById('my-setting').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'my-setting',
+				"url": 'page/setting.html'
+			});
+			mui.openWindow({
+				id: 'my-setting',
+				show: {
+					aniShow: 'pop-in'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+		
+		//我的打赏
+		document.getElementById('my-mypay').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'my-mypay',
+				"url": 'pay.html'
+			});
+			mui.openWindow({
+				id: 'my-mypay',
+				show: {
+					aniShow: 'pop-in'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+		
+		//邀请好友
+		document.getElementById('my-invit').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'my-invit',
+				"url": 'setting.html'
+			});
+			mui.openWindow({
+				id: 'my-invit',
+				show: {
+					aniShow: 'pop-in'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+		
+		//意见反馈
+		document.getElementById('my-feedback').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'my-feedback',
+				"url": 'feedback.html'
+			});
+			mui.openWindow({
+				id: 'my-setting',
+				show: {
+					aniShow: 'pop-in'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+		
+		//给个好评
+		document.getElementById('my-good').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'my-good',
+				"url": 'setting.html'
+			});
+			mui.openWindow({
+				id: 'my-good',
+				show: {
+					aniShow: 'pop-in'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+		
+		//帮助中心
+		document.getElementById('my-help').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'my-help',
+				"url": 'help.html'
+			});
+			mui.openWindow({
+				id: 'my-help',
+				show: {
+					aniShow: 'pop-in'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+	});
 </script>

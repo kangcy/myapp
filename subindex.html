@@ -24,7 +24,7 @@
 			<a class="mui-tab-item model" href="page/list.html">
 				<img src="images/add.png" class="add" />
 			</a>
-			<a class="mui-tab-item model" href="page/my.html" id="my">
+			<a class="mui-tab-item" href="page/my.html" id="my">
 				<img src="images/user.png" class="mui-icon" />
 				<span class="mui-tab-label f11">我的</span>
 			</a>
@@ -159,12 +159,22 @@
 				self.append(sub);
 			}
 
-			/*var my = plus.webview.create(subpages[2], subpages[2], {
-				top: '0px',
-				bottom: '0px'
+			//我的
+			document.getElementById('my').addEventListener('tap', function(event) {
+				var my = mui.preload({
+					"id": 'my',
+					"url": 'page/my.html'
+				});
+				mui.openWindow({
+					id: 'my',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
 			});
-			my.hide();
-			self.append(my);*/
 		});
 
 		//当前激活选项
