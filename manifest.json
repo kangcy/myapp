@@ -256,10 +256,13 @@
 					"images/qq.png",
 					"js/mui.enterfocus.js",
 					"images/login.png",
-					"js/default.js"
+					"js/default.js",
+					"images/login/pwd.png",
+					"images/login/name.png"
 				],
 				"refer": [
-					"index.html"
+					"index.html",
+					"page/reg.html"
 				],
 				"priority": 0
 			},
@@ -286,13 +289,26 @@
 					"images/home.png",
 					"js/jquery-1.10.2.min.js",
 					"images/bottom.png",
-					"js/default.js"
+					"js/default.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/mui.lazyload.js",
+					"js/mui.js",
+					"js/mui.lazyload.img.js",
+					"page/my.html",
+					"/js/default.js",
+					"/js/jquery-1.10.2.min.js",
+					"/js/mui.lazyload.img.js",
+					"/js/base.js",
+					"/js/mui.lazyload.js",
+					"/js/mui.js"
 				],
 				"refer": [
 					"page/list.html",
 					"page/guide.html",
 					"page/setting.html",
-					"page/template.html"
+					"page/template.html",
+					"page/article.html"
 				],
 				"priority": 0
 			},
@@ -311,7 +327,8 @@
 			},
 			"page/list.html": {
 				"resources": [
-					"page/listSub.html"
+					"page/listSub.html",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -319,7 +336,8 @@
 			"page/template.html": {
 				"resources": [
 					"images/menu.png",
-					"images/header.png"
+					"images/header.png",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -330,12 +348,67 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"page/reg.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/login.js",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [
+					"page/notice.html",
+					"page/login.html"
+				],
+				"priority": 0
+			},
+			"page/my.html": {
+				"resources": [
+					"images/my/6.png",
+					"images/my/1.png",
+					"css/my.css",
+					"images/my/5.png",
+					"images/mypay.png",
+					"images/my/4.png",
+					"images/invit.png",
+					"images/my/keep.png",
+					"images/my/comment.png",
+					"images/my/zan.png",
+					"images/my/my.png",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"images/menu.png",
+					"js/mui.js",
+					"js/base.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/article.html": {
+				"resources": [
+					"js/mui.js",
+					"css/article.css",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/mui.lazyload.js",
+					"js/default.js",
+					"js/mui.lazyload.img.js"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
 				"demo.html",
-				"js/mui.js",
 				"css/mui.css"
 			]
 		}

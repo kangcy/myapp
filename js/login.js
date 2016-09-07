@@ -63,9 +63,6 @@
 		if(regInfo.password.length > 16) {
 			return callback('密码最长需要 16 个字符');
 		}
-		if(!checkEmail(regInfo.email)) {
-			return callback('邮箱地址不合法');
-		}
 		var users = JSON.parse(localStorage.getItem('$users') || '[]');
 		users.push(regInfo);
 		localStorage.setItem('$users', JSON.stringify(users));

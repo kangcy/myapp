@@ -98,12 +98,10 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<h1 class="mui-title">登录</h1>
-		</header>
-		<div class="mui-content">
-			<div id='login-form'>
-				<div style="width:80%;height:40px;line-height:40px;margin:10px auto;border-bottom:1px solid #666;">
+		<div class="mui-content tc" style="background:#F2F2F2;">
+			<img src="../images/my/1.png" style="margin: 10%;" />
+			<div id='login-form' style="background:#fff;display: inline-block;width: 100%;padding: 20px 0;">
+				<div style="width:80%;height:40px;line-height:40px;margin:0px auto;border-bottom:1px solid #666;">
 					<img src="../images/login/name.png" style="width: 1.2rem;float: left;margin-top: .2rem;margin-left: 1rem;" />
 					<input id='account' type="text" class="mui-input-clear mui-input f13" placeholder="请输入账号/手机号" style="height: 2rem;line-height:2rem;width:13rem;border:0px;float:right;" />
 				</div>
@@ -111,23 +109,12 @@
 					<img src="../images/login/pwd.png" style="width: 1.2rem;float: left;margin-top: .2rem;margin-left: 1rem;" />
 					<input id='password' type="password" class="mui-input-clear mui-input f13" placeholder="请输入密码" style="height: 2rem;line-height:2rem;width:13rem;border:0px;float:right;" />
 				</div>
-				<div style="width:80%;height:40px;line-height:40px;margin:10px auto;" class="tc">
-					<a id='reg' class="fl csubtitle f11">没有账号?</a>
-					<a id='forgetPassword' class="fr csubtitle f11">忘记密码?</a>
-					<img id='login' src="../images/login.png" style="width:80%;margin-top:20px;" />
-				</div>
 			</div>
-
-			<!--<form class="mui-input-group">
-				<ul class="mui-table-view mui-table-view-chevron">
-					<li class="mui-table-view-cell">
-						自动登录
-						<div id="autoLogin" class="mui-switch">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</li>
-				</ul>
-			</form>-->
+			<div style="width:80%;line-height:30px;margin:0px auto;" class="tc">
+				<img id='login' src="../images/login.png" style="width:100%;margin-top:20px;" />
+				<a id='reg' class="fl csubtitle f11">没有账号?</a>
+				<a id='forgetPassword' class="fr csubtitle f11">忘记密码?</a>
+			</div>
 			<!--第三方登录-->
 			<div class="mui-content-padded oauth-area">
 
@@ -141,7 +128,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.enterfocus.js"></script>
 <script src="../js/login.js"></script>
-<script>
+<script type="text/javascript">
 	mui.init({
 		statusBarBackground: '#f7f7f7'
 	});
@@ -261,6 +248,11 @@
 					plus.nativeUI.toast(err);
 					return;
 				}
+
+				//设置自动登录	
+				settings.autoLogin = true;
+				app.setSettings(settings);
+
 				toMain();
 			});
 		});
@@ -271,14 +263,14 @@
 		});
 
 		//自动登录切换
-		autoLoginButton.classList[settings.autoLogin ? 'add' : 'remove']('mui-active')
+		/*autoLoginButton.classList[settings.autoLogin ? 'add' : 'remove']('mui-active')
 		autoLoginButton.addEventListener('toggle', function(event) {
 			setTimeout(function() {
 				var isActive = event.detail.isActive;
 				settings.autoLogin = isActive;
 				app.setSettings(settings);
 			}, 50);
-		}, false);
+		}, false);*/
 
 		window.addEventListener('resize', function() {
 			oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';

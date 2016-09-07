@@ -75,10 +75,6 @@
 					<label>确认</label>
 					<input id='password_confirm' type="password" class="mui-input-password mui-input" placeholder="请在输一次" maxlength="16">
 				</div>
-				<div class="mui-input-row">
-					<label>邮箱</label>
-					<input id='email' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱" maxlength="50">
-				</div>
 			</form>
 			<div class="mui-content-padded">
 				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
@@ -91,6 +87,7 @@
 	</body>
 
 </html>
+<script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/login.js"></script>
 <script>
@@ -102,15 +99,13 @@
 			var nickname = doc.getElementById('nickname'); //昵称
 			var passwordBox = doc.getElementById('password'); //密码
 			var passwordConfirmBox = doc.getElementById('password_confirm'); //确认密码
-			var emailBox = doc.getElementById('email'); //邮箱
 
 			//注册
 			doc.getElementById('reg').addEventListener('tap', function(event) {
 				var regInfo = {
 					account: accountBox.value,
 					nickname: nickname.value,
-					password: passwordBox.value,
-					email: emailBox.value
+					password: passwordBox.value
 				};
 				var passwordConfirm = passwordConfirmBox.value;
 				if(passwordConfirm != regInfo.password) {
@@ -118,7 +113,6 @@
 					return;
 				}
 				app.reg(regInfo, function(err) {
-					alert(err);
 					if(err) {
 						plus.nativeUI.toast(err);
 						return;

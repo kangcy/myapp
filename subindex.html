@@ -17,14 +17,14 @@
 
 	<body>
 		<footer class="mui-bar mui-bar-tab footer">
-			<a class="mui-tab-item mui-active" href="page/about.html">
+			<a class="mui-tab-item" href="page/article.html">
 				<img src="images/home.png" class="mui-icon" />
 				<span class="mui-tab-label f11">首页</span>
 			</a>
 			<a class="mui-tab-item" href="page/list.html">
 				<img src="images/add.png" class="add" />
 			</a>
-			<a class="mui-tab-item" href="page/setting.html">
+			<a class="mui-tab-item" href="page/my.html">
 				<img src="images/user.png" class="mui-icon" />
 				<span class="mui-tab-label f11">我的</span>
 			</a>
@@ -33,10 +33,12 @@
 
 </html>
 <script src="js/default.js"></script>
-<script src="js/mui.min.js"></script>
 <script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.lazyload.js"></script>
+<script src="js/mui.lazyload.img.js"></script>
 <script src="js/base.js"></script>
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
 	mui.init({
 		swipeBack: false //启用右滑关闭功能
 	});
@@ -45,7 +47,7 @@
 	 * 预加载
 	 */
 	var aniShow = "pop-in";
-	//只有ios支持的功能需要在Android平台隐藏；
+	//只有ios支持的功能需要在Android平台隐藏
 	if(mui.os.android) {
 		var list = document.querySelectorAll('.ios-only');
 		if(list) {
@@ -90,7 +92,7 @@
 				url: !content ? "" : content,
 				id: name + "-sub",
 				styles: {
-					top: '45px',
+					top: '0px',
 					bottom: '0px',
 				},
 				extras: {
@@ -122,10 +124,10 @@
 		getTemplate('default', 'page/template.html');
 	};
 
-	var subpages = ['page/contact.html', 'page/list.html', 'page/setting.html'];
+	var subpages = ['page/article.html', 'page/list.html', 'page/my.html'];
 	var subpage_style = {
 		top: '0px',
-		bottom: '51px'
+		bottom: '0px'
 	};
 
 	mui.plusReady(function() {

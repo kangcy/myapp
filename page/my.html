@@ -12,7 +12,7 @@
 	</head>
 
 	<body>
-		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.75rem;">
+		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.5rem;">
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mui-bar mui-bar-nav f13" style="height:auto;background:url(../images/bottom.png) no-repeat;background-size:100% 100%;top: inherit;bottom: 0px;height: 2.75rem;">
+		<div class="mui-bar mui-bar-nav f13 bottom">
 			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff"></a>
 			<a class="mui-icon mui-icon-gear mui-pull-right cfff"></a>
 		</div>
@@ -73,7 +73,7 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.js"></script>
+<script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currUserID = base.GetUserID(); //当前登录用户ID
@@ -87,7 +87,7 @@
 	});
 
 	mui('.mui-scroll-wrapper').scroll({
-		indicators: false, //不显示滚动条
+		indicators: true, //不显示滚动条
 		deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 	});
 
