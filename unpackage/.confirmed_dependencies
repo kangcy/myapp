@@ -55,7 +55,8 @@
 			"images/login.png",
 			"js/default.js",
 			"images/login/pwd.png",
-			"images/login/name.png"
+			"images/login/name.png",
+			"images/my/1.png"
 		],
 		"refer": [
 			"index.html",
@@ -93,7 +94,8 @@
 			"/js/mui.lazyload.img.js",
 			"/js/base.js",
 			"/js/mui.lazyload.js",
-			"/js/mui.js"
+			"/js/mui.js",
+			"page/article.html"
 		],
 		"refer": [
 			"page/contact.html",
@@ -129,7 +131,9 @@
 		"resources": [
 			"images/menu.png",
 			"images/header.png",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/mui.min.css"
 		]
 	},
 	"page/setting.html": {
@@ -171,7 +175,8 @@
 			"js/mui.min.js",
 			"css/mui.min.css",
 			"js/jquery-1.10.2.min.js",
-			"js/default.js"
+			"js/default.js",
+			"images/bottom.png"
 		]
 	},
 	"page/article.html": {
@@ -185,7 +190,27 @@
 			"js/jquery-1.10.2.min.js",
 			"js/mui.lazyload.js",
 			"js/default.js",
-			"js/mui.lazyload.img.js"
+			"js/mui.lazyload.img.js",
+			"images/menu.png",
+			"images/header.png",
+			"images/bottom.png",
+			"images/user.png",
+			"images/add.png",
+			"images/home.png",
+			"page/listSub.html",
+			"page/articleSub.html"
+		],
+		"refer": [
+			"page/listSub.html",
+			"page/articleSub.html"
+		]
+	},
+	"page/articleSub.html": {
+		"resources": [
+			"js/mui.lazyload.js",
+			"js/mui.lazyload.img.js",
+			"js/base.js",
+			"js/jquery-1.10.2.min.js"
 		]
 	}
 }

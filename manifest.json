@@ -258,7 +258,8 @@
 					"images/login.png",
 					"js/default.js",
 					"images/login/pwd.png",
-					"images/login/name.png"
+					"images/login/name.png",
+					"images/my/1.png"
 				],
 				"refer": [
 					"index.html",
@@ -301,14 +302,14 @@
 					"/js/mui.lazyload.img.js",
 					"/js/base.js",
 					"/js/mui.lazyload.js",
-					"/js/mui.js"
+					"/js/mui.js",
+					"page/article.html"
 				],
 				"refer": [
 					"page/list.html",
 					"page/guide.html",
 					"page/setting.html",
-					"page/template.html",
-					"page/article.html"
+					"page/template.html"
 				],
 				"priority": 0
 			},
@@ -337,7 +338,9 @@
 				"resources": [
 					"images/menu.png",
 					"images/header.png",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -384,7 +387,8 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
-					"js/default.js"
+					"js/default.js",
+					"images/bottom.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -400,7 +404,25 @@
 					"js/jquery-1.10.2.min.js",
 					"js/mui.lazyload.js",
 					"js/default.js",
-					"js/mui.lazyload.img.js"
+					"js/mui.lazyload.img.js",
+					"images/menu.png",
+					"images/header.png",
+					"images/bottom.png",
+					"images/user.png",
+					"images/add.png",
+					"images/home.png",
+					"page/listSub.html",
+					"page/articleSub.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/articleSub.html": {
+				"resources": [
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"js/base.js",
+					"js/jquery-1.10.2.min.js"
 				],
 				"refer": [],
 				"priority": 0

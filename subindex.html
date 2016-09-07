@@ -17,14 +17,14 @@
 
 	<body>
 		<footer class="mui-bar mui-bar-tab footer">
-			<a class="mui-tab-item" href="page/article.html">
+			<a class="mui-tab-item mui-active model" href="page/article.html">
 				<img src="images/home.png" class="mui-icon" />
 				<span class="mui-tab-label f11">首页</span>
 			</a>
-			<a class="mui-tab-item" href="page/list.html">
+			<a class="mui-tab-item model" href="page/list.html">
 				<img src="images/add.png" class="add" />
 			</a>
-			<a class="mui-tab-item" href="page/my.html">
+			<a class="mui-tab-item model" href="page/my.html" id="my">
 				<img src="images/user.png" class="mui-icon" />
 				<span class="mui-tab-label f11">我的</span>
 			</a>
@@ -33,196 +33,186 @@
 
 </html>
 <script src="js/default.js"></script>
-<script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/mui.min.js"></script>
-<script src="js/mui.lazyload.js"></script>
-<script src="js/mui.lazyload.img.js"></script>
-<script src="js/base.js"></script>
 <script type="text/javascript">
-	mui.init({
-		swipeBack: false //启用右滑关闭功能
-	});
+	(function(mui, doc) {
+		mui.init({
+			swipeBack: false //启用右滑关闭功能
+		});
 
-	/*
-	 * 预加载
-	 */
-	var aniShow = "pop-in";
-	//只有ios支持的功能需要在Android平台隐藏
-	if(mui.os.android) {
-		var list = document.querySelectorAll('.ios-only');
-		if(list) {
-			for(var i = 0; i < list.length; i++) {
-				list[i].style.display = 'none';
+		/*
+		 * 预加载
+		 */
+		var aniShow = "pop-in";
+		//只有ios支持的功能需要在Android平台隐藏
+		if(mui.os.android) {
+			var list = document.querySelectorAll('.ios-only');
+			if(list) {
+				for(var i = 0; i < list.length; i++) {
+					list[i].style.display = 'none';
+				}
+			}
+			//Android平台暂时使用slide-in-right动画
+			if(parseFloat(mui.os.version) < 4.4) {
+				aniShow = "slide-in-right";
 			}
 		}
-		//Android平台暂时使用slide-in-right动画
-		if(parseFloat(mui.os.version) < 4.4) {
-			aniShow = "slide-in-right";
-		}
-	}
 
-	//初始化，并预加载webview模式的选项卡			
-	function preload() {
-		//下拉刷新
-		/*mui.preload({
-			url: "page/list.html",
-			styles: {
-				popGesture: 'hide' //屏蔽iOS上右滑关闭
-			}
-		});*/
-	}
-
-	var templates = {};
-	var getTemplate = function(name, header, content) {
-		var template = templates[name];
-		if(!template) {
-			//预加载共用父模板；
-			var headerWebview = mui.preload({
-				url: header,
-				id: name + "-main",
-				styles: {
-					popGesture: "hide",
-				},
-				extras: {
-					mType: 'main'
-				}
-			});
-			//预加载共用子webview
-			var subWebview = mui.preload({
-				url: !content ? "" : content,
-				id: name + "-sub",
-				styles: {
-					top: '0px',
-					bottom: '0px',
-				},
-				extras: {
-					mType: 'sub'
-				}
-			});
-			subWebview.addEventListener('titleUpdate', function() {
-				setTimeout(function() {
-					subWebview.show();
-				}, 50);
-			});
-			subWebview.hide();
-			headerWebview.append(subWebview);
-			//iOS平台支持侧滑关闭，父窗体侧滑隐藏后，同时需要隐藏子窗体；
-			if(mui.os.ios) { //5+父窗体隐藏，子窗体还可以看到？不符合逻辑吧？
-				headerWebview.addEventListener('hide', function() {
-					subWebview.hide("none");
+		/*var templates = {};
+		var getTemplate = function(name, header, content) {
+			var template = templates[name];
+			if(!template) {
+				//预加载共用父模板；
+				var headerWebview = mui.preload({
+					url: header,
+					id: name + "-main",
+					styles: {
+						popGesture: "hide",
+					},
+					extras: {
+						mType: 'main'
+					}
 				});
-			}
-			templates[name] = template = {
-				name: name,
-				header: headerWebview,
-				content: subWebview,
-			};
-		}
-		return template;
-	};
-	var initTemplates = function() {
-		getTemplate('default', 'page/template.html');
-	};
-
-	var subpages = ['page/article.html', 'page/list.html', 'page/my.html'];
-	var subpage_style = {
-		top: '0px',
-		bottom: '0px'
-	};
-
-	mui.plusReady(function() {
-		//读取本地存储，检查是否为首次启动
-		var showGuide = plus.storage.getItem("lauchFlag");
-		if(showGuide) {
-			//有值，说明已经显示过了，无需显示；
-			//关闭splash页面；
-			plus.navigator.closeSplashscreen();
-			plus.navigator.setFullscreen(false);
-
-			initTemplates(); //初始化模板
-
-			preload(); //预加载
-		} else {
-			//显示启动导航
-			mui.openWindow({
-				id: 'guide',
-				url: 'page/guide.html',
-				show: {
-					aniShow: 'none'
-				},
-				waiting: {
-					autoShow: false
+				//预加载共用子webview
+				var subWebview = mui.preload({
+					url: !content ? "" : content,
+					id: name + "-sub",
+					styles: {
+						top: '45rem',
+						bottom: '0px',
+					},
+					extras: {
+						mType: 'sub'
+					}
+				});
+				subWebview.addEventListener('titleUpdate', function() {
+					setTimeout(function() {
+						subWebview.show();
+					}, 50);
+				});
+				subWebview.hide();
+				headerWebview.append(subWebview);
+				//iOS平台支持侧滑关闭，父窗体侧滑隐藏后，同时需要隐藏子窗体；
+				if(mui.os.ios) { //5+父窗体隐藏，子窗体还可以看到？不符合逻辑吧？
+					headerWebview.addEventListener('hide', function() {
+						subWebview.hide("none");
+					});
 				}
-			});
-			//延迟的原因：优先打开启动导航页面，避免资源争夺
-			setTimeout(function() {
-				//初始化模板
-				initTemplates();
-				//预加载
-				preload();
-			}, 200);
-		}
-
-		//创建子页面，首个选项卡页面显示，其它均隐藏
-		var self = plus.webview.currentWebview();
-		for(var i = 0; i < 3; i++) {
-			var temp = {};
-			var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
-			if(i > 0) {
-				sub.hide();
-			} else {
-				temp[subpages[i]] = "true";
-				mui.extend(aniShow, temp);
+				templates[name] = template = {
+					name: name,
+					header: headerWebview,
+					content: subWebview,
+				};
 			}
-			self.append(sub);
-		}
-	});
+			return template;
+		};
+		var initTemplates = function() {
+			getTemplate('default', 'page/template.html');
+		};*/
 
-	//当前激活选项
-	var activeTab = subpages[0];
-	//选项卡点击事件
-	mui('.mui-bar-tab').on('tap', 'a', function(e) {
-		var targetTab = this.getAttribute('href');
-		if(targetTab == activeTab) {
-			return;
-		}
-		//显示目标选项卡
-		//若为iOS平台或非首次显示，则直接显示
-		if(mui.os.ios || aniShow[targetTab]) {
-			plus.webview.show(targetTab);
-		} else {
-			//否则，使用fade-in动画，且保存变量
-			var temp = {};
-			temp[targetTab] = "true";
-			mui.extend(aniShow, temp);
-			plus.webview.show(targetTab, "fade-in", 300);
-		}
-		//隐藏当前;
-		plus.webview.hide(activeTab);
-		//更改当前活跃的选项卡
-		activeTab = targetTab;
-	});
+		var subpages = ['page/article.html', 'page/list.html'];
+		var subpage_style = {
+			top: '0px',
+			bottom: '45px'
+		};
 
-	var index = null; //主页面
-	function openMenu() {
-		!index && (index = mui.currentWebview);
-		mui.fire(index, "menu:open");
-	}
-	//在android4.4.2中的swipe事件，需要preventDefault一下，否则触发不正常
-	window.addEventListener('dragstart', function(e) {
-		mui.gestures.touch.lockDirection = true; //锁定方向
-		mui.gestures.touch.startDirection = e.detail.direction;
-	});
-	window.addEventListener('dragright', function(e) {
-		if(!mui.isScrolling) {
-			e.detail.gesture.preventDefault();
+		mui.plusReady(function() {
+			//读取本地存储，检查是否为首次启动
+			var showGuide = plus.storage.getItem("lauchFlag");
+			if(showGuide) {
+				//有值，说明已经显示过了，无需显示；
+				//关闭splash页面；
+				plus.navigator.closeSplashscreen();
+				plus.navigator.setFullscreen(true);
+
+				//initTemplates(); //初始化模板
+			} else {
+				//显示启动导航
+				mui.openWindow({
+					id: 'guide',
+					url: 'page/guide.html',
+					show: {
+						aniShow: 'none'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+				//延迟的原因：优先打开启动导航页面，避免资源争夺
+				/*setTimeout(function() {
+					//初始化模板
+					initTemplates();
+				}, 200);*/
+			}
+
+			//创建子页面，首个选项卡页面显示，其它均隐藏
+			var self = plus.webview.currentWebview();
+			for(var i = 0; i < 2; i++) {
+				var temp = {};
+				var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+				if(i > 0) {
+					sub.hide();
+				} else {
+					temp[subpages[i]] = "true";
+					mui.extend(aniShow, temp);
+				}
+				self.append(sub);
+			}
+
+			/*var my = plus.webview.create(subpages[2], subpages[2], {
+				top: '0px',
+				bottom: '0px'
+			});
+			my.hide();
+			self.append(my);*/
+		});
+
+		//当前激活选项
+		var activeTab = subpages[0];
+		//选项卡点击事件
+		mui('.mui-bar-tab').on('tap', 'a.model', function(e) {
+			var targetTab = this.getAttribute('href');
+			if(targetTab == activeTab) {
+				return;
+			}
+			//显示目标选项卡
+			//若为iOS平台或非首次显示，则直接显示
+			if(mui.os.ios || aniShow[targetTab]) {
+				plus.webview.show(targetTab);
+			} else {
+				//否则，使用fade-in动画，且保存变量
+				var temp = {};
+				temp[targetTab] = "true";
+				mui.extend(aniShow, temp);
+				plus.webview.show(targetTab, "fade-in", 300);
+			}
+			//隐藏当前;
+			plus.webview.hide(activeTab);
+			//更改当前活跃的选项卡
+			activeTab = targetTab;
+		});
+
+		var index = null; //主页面
+		function openMenu() {
+			!index && (index = mui.currentWebview);
+			mui.fire(index, "menu:open");
 		}
-	});
-	//监听右滑事件，若侧滑菜单未显示，右滑要显示菜单；
-	window.addEventListener("swiperight", function(e) {
-		//默认滑动角度在-45度到45度之间，都会触发右滑菜单，为避免误操作，可自定义限制滑动角度；
-		if(Math.abs(e.detail.angle) < 4) {
-			openMenu();
-		}
-	});
+		//在android4.4.2中的swipe事件，需要preventDefault一下，否则触发不正常
+		window.addEventListener('dragstart', function(e) {
+			mui.gestures.touch.lockDirection = true; //锁定方向
+			mui.gestures.touch.startDirection = e.detail.direction;
+		});
+		window.addEventListener('dragright', function(e) {
+			if(!mui.isScrolling) {
+				e.detail.gesture.preventDefault();
+			}
+		});
+		//监听右滑事件，若侧滑菜单未显示，右滑要显示菜单；
+		window.addEventListener("swiperight", function(e) {
+			//默认滑动角度在-45度到45度之间，都会触发右滑菜单，为避免误操作，可自定义限制滑动角度；
+			if(Math.abs(e.detail.angle) < 4) {
+				openMenu();
+			}
+		});
+	}(mui, document));
 </script>

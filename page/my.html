@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mui-bar mui-bar-nav f13 bottom">
+		<div class="mui-bar mui-bar-nav f13 footer">
 			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff"></a>
 			<a class="mui-icon mui-icon-gear mui-pull-right cfff"></a>
 		</div>
@@ -94,8 +94,13 @@
 	/*
 	 * 点击左上角侧滑图标，打开侧滑菜单
 	 */
-	/*document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+	document.querySelector('.leftmenu').addEventListener('tap', function(e) {
 		var template = plus.webview.getWebviewById("index");
 		mui.fire(template, 'toggleMenu', {});
-	});*/
+	});
+
+	mui.back = function() {
+		var self = plus.webview.currentWebview();
+		self.hide();
+	}
 </script>
