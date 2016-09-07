@@ -229,12 +229,106 @@
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"subindex.html"
 				],
 				"refer": [
 					"page/about.html",
-					"list.html"
+					"list.html",
+					"menu.html"
 				],
+				"priority": 0
+			},
+			"page/contact.html": {
+				"resources": [
+					"css/article.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/login.html": {
+				"resources": [
+					"js/mui.min.js",
+					"images/sinaweibo.png",
+					"js/login.js",
+					"css/mui.min.css",
+					"images/weixin.png",
+					"images/qq.png",
+					"js/mui.enterfocus.js",
+					"images/login.png",
+					"js/default.js"
+				],
+				"refer": [
+					"index.html"
+				],
+				"priority": 0
+			},
+			"page/guide.html": {
+				"resources": [
+					"css/guide.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"menu.html": {
+				"resources": [
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"subindex.html": {
+				"resources": [
+					"js/base.js",
+					"images/user.png",
+					"page/contact.html",
+					"images/add.png",
+					"images/home.png",
+					"js/jquery-1.10.2.min.js",
+					"images/bottom.png",
+					"js/default.js"
+				],
+				"refer": [
+					"page/list.html",
+					"page/guide.html",
+					"page/setting.html",
+					"page/template.html"
+				],
+				"priority": 0
+			},
+			"page/listSub.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"images/logo.png",
+					"images/60x60.gif",
+					"js/mui.previewimage.js",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"css/img.preview.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/list.html": {
+				"resources": [
+					"page/listSub.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/template.html": {
+				"resources": [
+					"images/menu.png",
+					"images/header.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/setting.html": {
+				"resources": [
+					"fonts/mui.ttf"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

@@ -102,17 +102,23 @@
 			<h1 class="mui-title">登录</h1>
 		</header>
 		<div class="mui-content">
-			<form id='login-form' class="mui-input-group">
-				<div class="mui-input-row">
-					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号/手机号">
+			<div id='login-form'>
+				<div style="width:80%;height:40px;line-height:40px;margin:10px auto;border-bottom:1px solid #666;">
+					<img src="../images/login/name.png" style="width: 1.2rem;float: left;margin-top: .2rem;margin-left: 1rem;" />
+					<input id='account' type="text" class="mui-input-clear mui-input f13" placeholder="请输入账号/手机号" style="height: 2rem;line-height:2rem;width:13rem;border:0px;float:right;" />
 				</div>
-				<div class="mui-input-row">
-					<label>密码</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				<div style="width:80%;height:40px;line-height:40px;margin:10px auto;border-bottom:1px solid #666;">
+					<img src="../images/login/pwd.png" style="width: 1.2rem;float: left;margin-top: .2rem;margin-left: 1rem;" />
+					<input id='password' type="password" class="mui-input-clear mui-input f13" placeholder="请输入密码" style="height: 2rem;line-height:2rem;width:13rem;border:0px;float:right;" />
 				</div>
-			</form>
-			<form class="mui-input-group">
+				<div style="width:80%;height:40px;line-height:40px;margin:10px auto;" class="tc">
+					<a id='reg' class="fl csubtitle f11">没有账号?</a>
+					<a id='forgetPassword' class="fr csubtitle f11">忘记密码?</a>
+					<img id='login' src="../images/login.png" style="width:80%;margin-top:20px;" />
+				</div>
+			</div>
+
+			<!--<form class="mui-input-group">
 				<ul class="mui-table-view mui-table-view-chevron">
 					<li class="mui-table-view-cell">
 						自动登录
@@ -121,14 +127,7 @@
 						</div>
 					</li>
 				</ul>
-			</form>
-			<div class="mui-content-padded">
-				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
-				<div class="link-area">
-					<a id='reg'>注册账号</a> <span class="spliter">|</span>
-					<a id='forgetPassword'>忘记密码</a>
-				</div>
-			</div>
+			</form>-->
 			<!--第三方登录-->
 			<div class="mui-content-padded oauth-area">
 
@@ -138,6 +137,7 @@
 	</body>
 
 </html>
+<script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.enterfocus.js"></script>
 <script src="../js/login.js"></script>

@@ -1,38 +1,121 @@
 {
-  "page/about.html": {
-    "href": "page/about.html",
-    "resources": [
-      "js/mui.min.js",
-      "images/logo.png",
-      "css/mui.min.css"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "list.html": {
-    "href": "list.html",
-    "resources": [
-      "js/mui.min.js",
-      "js/mui.lazyload.js",
-      "js/mui.lazyload.img.js",
-      "images/60x60.gif",
-      "css/mui.min.css",
-      "images/logo.png",
-      "images/yuantiao.jpg"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "index.html": {
-    "href": "index.html",
-    "resources": [
-      "js/mui.min.js",
-      "css/mui.min.css"
-    ],
-    "refer": [
-      "page/about.html",
-      "list.html"
-    ],
-    "priority": 0
-  }
+	"page/about.html": {
+		"href": "page/about.html",
+		"resources": [
+			"js/mui.min.js",
+			"images/logo.png",
+			"css/mui.min.css"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"list.html": {
+		"href": "list.html",
+		"resources": [
+			"js/mui.min.js",
+			"js/mui.lazyload.js",
+			"js/mui.lazyload.img.js",
+			"images/60x60.gif",
+			"css/mui.min.css",
+			"images/logo.png",
+			"images/yuantiao.jpg"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"index.html": {
+		"href": "index.html",
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"subindex.html"
+		],
+		"refer": [
+			"page/about.html",
+			"list.html",
+			"menu.html",
+			"subindex.html"
+		],
+		"priority": 0
+	},
+	"page/contact.html": {
+		"resources": [
+			"css/article.css"
+		]
+	},
+	"page/login.html": {
+		"resources": [
+			"js/mui.min.js",
+			"images/sinaweibo.png",
+			"js/login.js",
+			"css/mui.min.css",
+			"images/weixin.png",
+			"images/qq.png",
+			"js/mui.enterfocus.js",
+			"images/login.png",
+			"js/default.js"
+		],
+		"refer": [
+			"index.html"
+		]
+	},
+	"page/guide.html": {
+		"resources": [
+			"css/guide.css"
+		]
+	},
+	"menu.html": {
+		"resources": [
+			"fonts/mui.ttf"
+		]
+	},
+	"subindex.html": {
+		"resources": [
+			"js/base.js",
+			"images/user.png",
+			"page/contact.html",
+			"images/add.png",
+			"images/home.png",
+			"js/jquery-1.10.2.min.js",
+			"images/bottom.png",
+			"js/default.js"
+		],
+		"refer": [
+			"page/contact.html",
+			"page/list.html",
+			"page/guide.html",
+			"page/setting.html",
+			"page/template.html"
+		]
+	},
+	"page/listSub.html": {
+		"resources": [
+			"js/mui.zoom.js",
+			"images/logo.png",
+			"images/60x60.gif",
+			"js/mui.previewimage.js",
+			"js/mui.lazyload.js",
+			"js/mui.lazyload.img.js",
+			"css/img.preview.css"
+		]
+	},
+	"page/list.html": {
+		"resources": [
+			"page/listSub.html"
+		],
+		"refer": [
+			"page/listSub.html"
+		]
+	},
+	"page/template.html": {
+		"resources": [
+			"images/menu.png",
+			"images/header.png"
+		]
+	},
+	"page/setting.html": {
+		"resources": [
+			"fonts/mui.ttf"
+		]
+	}
 }
