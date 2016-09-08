@@ -12,13 +12,13 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right c999"></a>
-			<h1 class="mui-title">帮助中心</h1>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13">帮助中心</h1>
 		</header>
 		<div class="mui-content"></div>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
+		<div class="mui-iframe-wrapper" style="top: 2.5rem; bottom: 2.5rem;">
 			<!--下拉刷新容器-->
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
@@ -65,7 +65,6 @@
 			var self = plus.webview.currentWebview();
 			self.hide();
 		}
-
 	});
 
 	/**
@@ -167,7 +166,7 @@
 	/*
 	 * 点击左上角侧滑图标，打开侧滑菜单
 	 */
-	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+	document.querySelector('.leftmenu').addEventListener('tap', function(e) {
 		var template = plus.webview.getWebviewById("index");
 		mui.fire(template, 'toggleMenu', {});
 	});

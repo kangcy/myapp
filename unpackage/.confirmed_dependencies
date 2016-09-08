@@ -181,7 +181,8 @@
 		"refer": [
 			"page/pay.html",
 			"page/feedback.html",
-			"page/help.html"
+			"page/help.html",
+			"page/setting.html"
 		]
 	},
 	"page/article.html": {
@@ -221,12 +222,27 @@
 	"page/pay.html": {
 		"resources": [
 			"css/pay.css",
-			"js/mui.js"
+			"js/mui.js",
+			"js/base.js",
+			"js/mui.min.js",
+			"images/menu.png",
+			"fonts/mui.ttf",
+			"images/header.png",
+			"css/mui.min.css",
+			"js/jquery-1.10.2.min.js",
+			"js/mui.lazyload.js",
+			"js/default.js",
+			"js/mui.lazyload.img.js"
 		]
 	},
 	"page/feedback.html": {
 		"resources": [
-			"css/feedback-page.css"
+			"css/feedback-page.css",
+			"js/base.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/jquery-1.10.2.min.js",
+			"js/default.js"
 		]
 	},
 	"page/help.html": {
@@ -238,7 +254,9 @@
 			"css/mui.min.css",
 			"js/jquery-1.10.2.min.js",
 			"js/default.js",
-			"js/mui.min.js"
+			"js/mui.min.js",
+			"images/menu.png",
+			"images/header.png"
 		]
 	}
 }
