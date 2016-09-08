@@ -242,7 +242,11 @@
 			"js/mui.min.js",
 			"css/mui.min.css",
 			"js/jquery-1.10.2.min.js",
-			"js/default.js"
+			"js/default.js",
+			"images/feedback/commit.png",
+			"images/menu.png",
+			"fonts/mui.ttf",
+			"images/header.png"
 		]
 	},
 	"page/help.html": {

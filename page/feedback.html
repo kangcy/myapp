@@ -8,21 +8,22 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/feedback-page.css">
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13">意见反馈</h1>
+		</header>
 		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
-				<div id="feedback" class="mui-page feedback">
-					<div class="mui-page-content">
-						<div class="row mui-input-row">
-							<textarea id='question' class="mui-input-clear question" placeholder="欢迎留下您的宝贵意见......"></textarea>
-						</div>
-						<button id='submit' type="button" class="mui-btn mui-btn-green">提交</button>
-					</div>
+				<div id="feedback" style="padding: 5%;">
+					<textarea id='question' class="mui-input-clear question f11" placeholder="欢迎留下您的宝贵意见......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
+					<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />
 				</div>
 			</div>
+		</div>
 		</div>
 	</body>
 
@@ -33,8 +34,14 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	mui.init({
-		swipeBack: true //启用右滑关闭功能
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
 	});
+
+	//启用页面滑动
+	mui('.mui-scroll-wrapper').scroll({});
 
 	mui.plusReady(function() {
 		//返回
@@ -62,7 +69,4 @@
 			mui.back();
 		});
 	}, false);
-
-	//启用页面滑动
-	mui('.mui-scroll-wrapper').scroll({});
 </script>
