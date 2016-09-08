@@ -52,21 +52,24 @@
 		if(!mui.os.plus) {
 			document.querySelector("header").classList.remove("hide");
 		}
-	});
 
-	var question = document.getElementById("question");
-	document.getElementById("submit").addEventListener('tap', function(event) {
-		if(question.value == '') {
-			return mui.toast('请填写反馈信息');
-		}
-		plus.nativeUI.showWaiting();
-		feedback.send({
-			question: question.value
-		}, function() {
-			plus.nativeUI.closeWaiting();
-			mui.toast('感谢您的建议~');
-			question.value = "";
-			mui.back();
-		});
-	}, false);
+		//提交
+		var question = document.getElementById("question");
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(question.value == '') {
+				return mui.toast('请填写反馈信息');
+			}
+			plus.nativeUI.showWaiting();
+			HttpGet(base.RootUrl + "FeedBack/Edit", {
+				UserName: 1,
+				Password: 1,
+				Summary: question.value
+			}, function(data) {
+				plus.nativeUI.closeWaiting();
+				mui.toast(data.result ? "感谢您的建议~" : data.message);
+				question.value = "";
+				mui.back();
+			});
+		}, false);
+	});
 </script>
