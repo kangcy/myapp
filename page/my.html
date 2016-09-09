@@ -25,7 +25,7 @@
 									<p class="cfff f11">粉丝</p>
 								</div>
 								<div class="center">
-									<img src="http://www.dcloud.io/hellomui/images/3.jpg" style="border-radius:50%;width:100px;height:100px;" />
+									<img id="my-setting" src="http://www.dcloud.io/hellomui/images/3.jpg" style="border-radius:50%;width:100px;height:100px;" />
 								</div>
 								<div class="side">
 									<p class="cfff f13">225</p>
@@ -55,11 +55,11 @@
 						</div>
 					</div>
 					<div class="setting"><img id="my-mypay" src="../images/mypay.png" class="mr30" /><img id="my-invit" src="../images/invit.png" /></div>
-					<div class="csubtitle menu mt8 f13" id="my-setting"><img class="setting-icon" src="../images/my/1.png" />设置</div>
+					<div class="csubtitle menu mt8 f13" id="setting"><img class="setting-icon" src="../images/my/1.png" />设置</div>
 					<div class="csubtitle menu mt8 f13" id="my-feedback"><img class="setting-icon" src="../images/my/4.png" />意见反馈</div>
 					<div class="csubtitle menu mt8 f13" id="my-good"><img class="setting-icon" src="../images/my/5.png" />给个好评</div>
 					<div class="csubtitle menu mt8 f13" id="my-help"><img class="setting-icon" src="../images/my/6.png" />帮助中心</div>
-					<div class="csubtitle menu mt8 f13" id="my-comment"><img class="setting-icon" src="../images/my/6.png" />评论</div>
+					<div class="csubtitle menu mt8 f13" id="my-help"><img class="setting-icon" src="../images/my/6.png" />评论</div>
 				</div>
 			</div>
 		</div>
@@ -128,11 +128,28 @@
 		//设置
 		document.getElementById('my-setting').addEventListener('tap', function(event) {
 			var my = mui.preload({
-				"id": 'my-setting',
+				"id": 'mysetting',
+				"url": 'mysetting.html'
+			});
+			mui.openWindow({
+				id: 'mysetting',
+				show: {
+					aniShow: 'zoom-fade-out'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+
+		//通用设置
+		document.getElementById('setting').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'setting',
 				"url": 'setting.html'
 			});
 			mui.openWindow({
-				id: 'my-setting',
+				id: 'setting',
 				show: {
 					aniShow: 'zoom-fade-out'
 				},
@@ -226,7 +243,7 @@
 				}
 			});
 		});
-		
+
 		//我的评论
 		document.getElementById('my-comment').addEventListener('tap', function(event) {
 			var my = mui.preload({
@@ -234,7 +251,7 @@
 				"url": 'comment.html'
 			});
 			mui.openWindow({
-				id: 'my-comment',
+				id: 'my-help',
 				show: {
 					aniShow: 'zoom-fade-out'
 				},

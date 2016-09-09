@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13" id="tabs”">设置</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view f11" style="margin-top:0px;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="fl mt10">头像</span>
+						<span class="mui-pull-right head mr30">
+							<img class="head-img mui-action-preview" id="head-img1" src="../images/logo.png" style="width:40px;">
+						</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="fl">昵称</span>
+						<span class="mui-pull-right csubtitle mr30">一个傻瓜</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="fl">性别</span>
+						<span class="mui-pull-right csubtitle mr30">女</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="fl">地区</span>
+						<span class="mui-pull-right csubtitle mr30">江苏南京</span></a>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="fl">生日</span>
+						<span class="mui-pull-right csubtitle mr30">2016/06/06</span></a>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<span class="fl">个性签名</span>
+						<span class="mui-pull-right csubtitle mr30" style="width: 60%;line-height: 20px;white-space: normal;">淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤</span></a>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.plusReady(function() {
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			self.hide();
+		}
+
+		/*
+		 * 点击左上角侧滑图标，打开侧滑菜单
+		 */
+		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
+			var template = plus.webview.getWebviewById("index");
+			mui.fire(template, 'toggleMenu', {});
+		});
+	});
+
+	/*
+	 * 双击顶部导航，内容区回到顶部
+	 */
+	document.querySelector('header').addEventListener('doubletap', function() {
+		main.children()[0].evalJS('mui.scrollTo(0, 100)');
+	});
+</script>
