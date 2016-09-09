@@ -58,3 +58,26 @@
 	border-bottom: 2px solid #fff;
 	padding-bottom: 0.1875rem;
 }
+
+/*.footer {
+	background: none;
+	border-top: 1px solid #ccc;
+}
+
+.footer .txt {
+	width: 80%;
+	padding: 2px 10px;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 7px;
+	float: left;
+	border: 0px;
+	border-radius: 5px;
+	border-bottom: 1px solid #2CADFA;
+}
+
+.footer .btn {
+	padding: 0.175rem 0.75rem;
+	background: #2CADFA;
+	border-color: #2CADFA;
+}*/

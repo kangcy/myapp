@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13">评论</h1>
+		</header>
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="feedback" style="padding: 5%;">
+					<textarea id='question' class="mui-input-clear question f11" placeholder="欢迎留下您的评论意见......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
+					<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	//启用页面滑动
+	mui('.mui-scroll-wrapper').scroll({});
+
+	mui.plusReady(function() {
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			self.hide();
+		}
+		if(!mui.os.plus) {
+			document.querySelector("header").classList.remove("hide");
+		}
+
+		//提交
+		var question = document.getElementById("question");
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(question.value == '') {
+				return mui.toast('请填写反馈信息');
+			}
+			plus.nativeUI.showWaiting();
+			HttpGet(base.RootUrl + "FeedBack/Edit", {
+				UserName: 1,
+				Password: 1,
+				Summary: question.value
+			}, function(data) {
+				plus.nativeUI.closeWaiting();
+				mui.toast(data.result ? "感谢您的建议~" : data.message);
+				question.value = "";
+				mui.back();
+			});
+		}, false);
+	});
+</script>

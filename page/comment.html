@@ -12,13 +12,13 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right c999"></a>
-			<h1 class="mui-title"><span class="tab curr" onclick="changeComment(0)">我评论的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">评论我的</span></h1>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13" id="tabs”"><span class="tab curr" onclick="changeComment(0)">我评论的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">评论我的</span></h1>
 		</header>
 		<div class="mui-content"></div>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
+		<div class="mui-iframe-wrapper" style="top: 2.5rem; bottom: 2.5rem;">
 			<!--下拉刷新容器-->
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
@@ -27,12 +27,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="mui-bar mui-bar-nav f13 footer">
+			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
+			<a class="mui-icon mui-icon-plusempty mui-pull-right cfff" id="add-comment"></a>
+		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.js"></script>
+<script src="../js/mui.min.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
@@ -59,6 +63,36 @@
 				callback: pullupRefresh
 			}
 		}
+	});
+
+	mui.plusReady(function() {
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			self.hide();
+		}
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(event) {
+			mui.back();
+		});
+
+		//创建评论
+		document.getElementById('add-comment').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'add-comment',
+				"url": 'addcomment.html'
+			});
+			mui.openWindow({
+				id: 'add-comment',
+				show: {
+					aniShow: 'zoom-fade-out'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
 	});
 
 	/**
@@ -188,18 +222,20 @@
 	});
 
 	function changeComment(index) {
+		$("#tabs .curr").removeClass("curr");
 		if(index == 0) {
 			ismycomment = true;
 		} else {
 			ismycomment = false;
 		}
+		$("#tabs span:eq(" + index + ")").addClass("curr");
 		pulldownRefresh();
 	}
 
 	/*
 	 * 点击左上角侧滑图标，打开侧滑菜单
 	 */
-	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+	document.querySelector('.leftmenu').addEventListener('tap', function(e) {
 		var template = plus.webview.getWebviewById("index");
 		mui.fire(template, 'toggleMenu', {});
 	});
