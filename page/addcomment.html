@@ -19,7 +19,7 @@
 		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<div id="feedback" style="padding: 5%;">
-					<textarea id='question' class="mui-input-clear question f11" placeholder="欢迎留下您的评论意见......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
+					<textarea id='question' class="mui-input-clear question f11" placeholder="欢迎留下您的意见......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
 					<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />
 				</div>
 			</div>
@@ -33,6 +33,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -57,16 +58,16 @@
 		var question = document.getElementById("question");
 		document.getElementById("submit").addEventListener('tap', function(event) {
 			if(question.value == '') {
-				return mui.toast('请填写反馈信息');
+				return mui.toast('请填写评论信息');
 			}
 			plus.nativeUI.showWaiting();
-			HttpGet(base.RootUrl + "FeedBack/Edit", {
-				UserName: 1,
-				Password: 1,
+			HttpGet(base.RootUrl + "Comment/Edit", {
+				UserName: userinfo.account,
+				Password: userinfo.password,
 				Summary: question.value
 			}, function(data) {
 				plus.nativeUI.closeWaiting();
-				mui.toast(data.result ? "感谢您的建议~" : data.message);
+				mui.toast(data.result ? "感谢您的评论~" : data.message);
 				question.value = "";
 				mui.back();
 			});

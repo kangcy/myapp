@@ -17,6 +17,14 @@ var base = new function() {
 	}
 
 	/**
+	 * 获取当前用户信息
+	 **/
+	this.GetUserInfo = function() {
+        var settingsText = localStorage.getItem('$users') || "{}";
+		return JSON.parse(settingsText);
+	}
+
+	/**
 	 * 设置应用本地配置
 	 **/
 	this.GetSettings = function() {
