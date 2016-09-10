@@ -8,40 +8,56 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/my.css">
 		<link rel="stylesheet" href="../css/article.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header" style="height:15rem;background:url(http://www.dcloud.io/hellomui/images/5.jpg) no-repeat;background-size:100% 100%;">
-			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left cfff"></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<div class="mui-title">
-				<div style="width:100%;display: inline-block;margin-top: 20px;">
-					<div style="float:left;width:30%;line-height: 10px;padding-top: 35px;">
-						<p class="cfff">225</p>
-						<p class="cfff">粉丝</p>
-					</div>
-					<div style="float:left;width:40%">
-						<img src="http://www.dcloud.io/hellomui/images/3.jpg" style="border-radius:50%;width:100px;height:100px;float:left;" />
-					</div>
-					<div style="float:left;width:30%;line-height: 10px;padding-top: 35px;">
-						<p class="cfff">225</p>
-						<p class="cfff">粉丝</p>
-					</div>
-				</div>
-				<p class="cfff" style="margin: 0px;margin-top: -20px;font-weight:bold;">一个傻瓜</p>
-				<p class="cfff" style="margin: 0px;margin-top: -15px;">淡淡的忧伤</p>
-			</div>
-		</header>
-		<h1 style="position: fixed;top: 16rem;font-size: 16px;text-align: center;width: 100%;"><span class="tab curr" style="border-bottom: 3px solid #000;padding-bottom: 8px;" onclick="changeComment(0)">他的收藏</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">他的作品</span></h1>
-		<div class="mui-iframe-wrapper" style="top:18rem; bottom: 2.75rem;">
-			<!--下拉刷新容器-->
-			<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="background: #eee;">
+		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.5rem;">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
+					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
+						<a id="menu" class="mui-icon mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+						<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+						<div class="info-body">
+							<div class="info-content">
+								<div class="side">
+									<p class="cfff f11 f13">225</p>
+									<p class="cfff f11">粉丝</p>
+								</div>
+								<div class="center">
+									<img id="my-setting" src="http://www.dcloud.io/hellomui/images/3.jpg" style="border-radius:50%;width:100px;height:100px;" />
+								</div>
+								<div class="side">
+									<p class="cfff f13">225</p>
+									<p class="cfff">粉丝</p>
+								</div>
+							</div>
+							<p class="cfff f13 tc name">一个傻瓜</p>
+							<p class="cfff signature">淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤</p>
+							<div class="cfff content1">
+								<img id="my-mypay" src="../images/user/zan.png" class="mr30" style="width:5rem;" /><img id="my-invit" src="../images/user/zan.png" style="width:5rem;" />
+							</div>
+						</div>
+					</div>
+					<div style="width:100%;height:40px;line-height:40px;background:#fff;text-align:center;" class="f14">
+						<div style="width:25%;float:left;">&nbsp;</div>
+						<div style="width:25%;float:left;">
+							<div style="border-bottom:3px solid #000;padding-bottom: 5px;height:40px;display: inline-block;">他的收藏</div>
+						</div>
+						<div style="width:25%;float:left;">
+							<div>他的作品</div>
+						</div>
+						<div style="width:25%;float:left;">&nbsp;</div>
+					</div>
 					<div id="scroll-view">
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="mui-bar mui-bar-nav f13 footer">
+			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
+			<a class="mui-icon mui-icon-gear mui-pull-right cfff" id="setting"></a>
 		</div>
 	</body>
 
@@ -75,6 +91,25 @@
 				callback: pullupRefresh
 			}
 		}
+	});
+
+	mui.plusReady(function() {
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			self.hide();
+		}
+
+		//点击左上角侧滑图标，打开侧滑菜单
+		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
+			var template = plus.webview.getWebviewById("index");
+			mui.fire(template, 'toggleMenu', {});
+		});
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(event) {
+			mui.back();
+		});
 	});
 
 	/**
@@ -148,7 +183,7 @@
 		model.push('<div class="mui-card" style="background:url(' + item.Cover + ') no-repeat;background-size:100% 100%;">');
 		model.push('<div class="mui-card-content show">');
 		model.push('<div class="mui-card-content-inner full">');
-		model.push('<p class="f18 cfff title fl" aid="' + item.ArticleID + '">' + item.Title + '</p>');
+		model.push('<p class="f16 cfff title fl" aid="' + item.ArticleID + '">' + item.Title + '</p>');
 
 		model.push('<div class="full type fl"><div class="line"></div><p class="cfff 10">' + item.CreateDate + '</p><p class="cfff f10">' + item.TypeName + '</p></div>');
 		model.push('<div class="full bottom"><div class="tablecell"><img class="avatar mr10" data-lazyload-id="0" src="' + item.Avatar + '"></div>');
@@ -195,14 +230,6 @@
 	}
 
 	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
-	});
-
-	/*
 	 * 新建
 	 */
 	var subWebview = null;
@@ -232,13 +259,5 @@
 			});
 			template.show('slide-in-right', 150);
 		}
-	});
-
-	var contentWebview = null;
-	document.querySelector('header').addEventListener('doubletap', function() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview();
-		}
-		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 	});
 </script>

@@ -15,7 +15,7 @@
 		<header class="mui-bar mui-bar-nav header">
 			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
 			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff f13" id="tabs"><span class="tab curr" onclick="changeComment(0)">我评论的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">评论我的</span></h1>
+			<h1 class="mui-title cfff f13" id="tabs”"><span class="tab curr" onclick="changeComment(0)">我评论的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">评论我的</span></h1>
 		</header>
 		<div class="mui-content"></div>
 		<div class="mui-iframe-wrapper" style="top: 2.5rem; bottom: 2.5rem;">
@@ -86,10 +86,10 @@
 			mui.openWindow({
 				id: 'add-comment',
 				show: {
-					aniShow: 'slide-out-right'
+					aniShow: 'zoom-fade-out'
 				},
 				waiting: {
-					autoShow: false 
+					autoShow: false
 				}
 			});
 		});
@@ -222,6 +222,7 @@
 	});
 
 	function changeComment(index) {
+	alert($("#tabs").find(".curr"))
 		$("#tabs").find(".curr").removeClass("curr");
 		if(index == 0) {
 			ismycomment = true;
@@ -251,7 +252,7 @@
 				url: "upload.html",
 				id: "upload",
 				show: {
-					aniShow: 'slide-out-right',
+					aniShow: 'zoom-fade-out',
 					duration: 300
 				}
 			});
