@@ -7,61 +7,53 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<style type="text/css">
-			html,
-			body {
-				background-color: #efeff4;
-			}
-			
-			.title {
-				margin: 20px 15px 10px;
-				color: #6d6d72;
-				font-size: 15px;
-			}
-		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-			<h1 class="mui-title">我</h1>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13" id="tabs”">设置</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view">
+			<ul class="mui-table-view f11" style="margin-top:0px;">
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						绑定手机号
+						<span class="fl">绑定手机号</span>
+						<span class="mui-pull-right csubtitle mr20">18652913873</span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						绑定微信号
+						<span class="fl">绑定微信号</span>
+						<span class="mui-pull-right csubtitle mr20">18652913873</span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						绑定邮箱
+						<span class="fl">绑定邮箱</span>
+						<span class="mui-pull-right csubtitle mr20">735149528@qq.com</span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						清除缓存
+						<span class="fl">清除缓存</span>
+						<span class="mui-pull-right csubtitle mr20">600M</span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a>
-						分享带昵称
-						<div class="mui-switch mui-switch-blue mui-switch-mini mui-active">
+						<span class="fl">分享带昵称</span>
+						<div class="mui-switch mui-switch-blue mui-active">
 							<div class="mui-switch-handle"></div>
 						</div>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a>
-						音乐自动播放
-						<div class="mui-switch mui-switch-blue mui-switch-mini mui-active">
+						<span class="fl">音乐自动播放</span>
+						<div class="mui-switch mui-switch-blue mui-active">
 							<div class="mui-switch-handle"></div>
 						</div>
 					</a>
@@ -88,9 +80,17 @@
 	</body>
 
 </html>
+<script src="../js/default.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
-<script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
 	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
 		swipeBack: false //启用右滑关闭功能
 	});
 
@@ -100,6 +100,14 @@
 			var self = plus.webview.currentWebview();
 			self.hide();
 		}
+
+		/*
+		 * 点击左上角侧滑图标，打开侧滑菜单
+		 */
+		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
+			var template = plus.webview.getWebviewById("index");
+			mui.fire(template, 'toggleMenu', {});
+		});
 	});
 
 	/*
@@ -107,14 +115,6 @@
 	 */
 	document.querySelector('header').addEventListener('doubletap', function() {
 		main.children()[0].evalJS('mui.scrollTo(0, 100)');
-	});
-
-	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
 	});
 
 	/*
