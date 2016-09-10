@@ -8,52 +8,58 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			.check {
+				background: url(../images/check.png) 97% center no-repeat;
+				background-size: 20px;
+			}
+		</style>
 	</head>
 
-	<body>
+	<body style="height: 100%;background:#E8E8E8;">
 		<header class="mui-bar mui-bar-nav header">
 			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
 			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff f13">设置</h1>
+			<h1 class="mui-title cfff f13">分享设置</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view f11" style="margin-top:0px;">
+			<ul class="mui-table-view f11 mt0">
+				<li class="mui-table-view-cell" style="background:#E8E8E8;">
+					<span class="fl">权限设置</span>
+				</li>
+				<li class="mui-table-view-cell check">
+					<span class="fl">公开</span>
+					<span class="mui-pull-right csubtitle mr20">所有人都可以看到</span>
+
+				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl mt10">头像</span>
-						<span class="mui-pull-right head mr20">
-							<img class="head-img mui-action-preview" id="head-img1" src="../images/logo.png" style="width:40px;border-radius:50%;">
-						</span>
-					</a>
+					<span class="fl">限制可见</span>
+					<span class="mui-pull-right csubtitle mr20">仅通过自己分享后才可见</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="fl">密码可见</span>
+					<span class="mui-pull-right csubtitle mr20">设置密码,输入密码才可见</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="fl">私密</span>
+					<span class="mui-pull-right csubtitle mr20">仅自己可见</span>
+				</li>
+			</ul>
+			<ul class="mui-table-view f11">
+				<li class="mui-table-view-cell" style="background:#E8E8E8;height:0.5rem;padding:0px;">
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
-						<span class="fl">昵称</span>
-						<span class="mui-pull-right csubtitle mr20">一个傻瓜</span>
+						<span class="fl">分类</span>
+						<span class="mui-pull-right csubtitle mr20">请选择</span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl">性别</span>
-						<span class="mui-pull-right csubtitle mr20">女</span>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl">地区</span>
-						<span class="mui-pull-right csubtitle mr20">江苏南京</span></a>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl">生日</span>
-						<span class="mui-pull-right csubtitle mr20">2016/06/06</span></a>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl">个性签名</span>
-						<span class="mui-pull-right csubtitle mr20" style="width: 60%;line-height: 20px;white-space: normal;">淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤</span></a>
+					<a>
+						<span class="fl">申请推荐</span>
+						<div class="mui-switch mui-switch-blue mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
 					</a>
 				</li>
 			</ul>
