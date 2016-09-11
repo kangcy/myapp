@@ -1,0 +1,29 @@
+#login-form {
+	background: #fff;
+	display: inline-block;
+	width: 100%;
+	padding: 15px 0;
+}
+
+#login-form div {
+	width: 80%;
+	height: 40px;
+	line-height: 40px;
+	margin: 0px auto;
+	border-bottom: 1px solid #666;
+}
+
+#login-form img {
+	width: 1.1rem;
+	float: left;
+	margin-top: .2rem;
+	margin-left: 1rem;
+}
+
+#login-form .txt {
+	height: 2rem;
+	line-height: 2rem;
+	width: 13rem;
+	border: 0px;
+	float: right;
+}
