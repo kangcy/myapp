@@ -12,14 +12,19 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<!--<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 			<a id="search" class="mui-pull-right c333">搜索</a>
 			<div class="mui-title mui-input-row search">
 				<input id="musicname" type="text" class="f13" maxlength="10" placeholder="请输入"><span class="mui-icon mui-icon-search"></span>
 			</div>
+		</header>-->
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
+			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13">选择背景音乐</h1>
 		</header>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
+		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 0rem;">
 			<!--下拉刷新容器-->
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
@@ -33,9 +38,7 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -115,11 +118,6 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
 		});
 	}
 
@@ -132,9 +130,9 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
 		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Cover + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Cover + '" /></div>');
 		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.Name + '</p><p class="f11 c333">' + item.Author + '</p></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.Name + '</p><p class="f11 csubtitle">' + item.Author + '</p></div>');
 		//关注
 		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr select"></span></div>');
 		model.push('</div>');
@@ -162,7 +160,7 @@
 	/*
 	 * 搜索
 	 */
-	document.getElementById('search').addEventListener('tap', function() {
+	/*document.getElementById('search').addEventListener('tap', function() {
 		var musicname = $.trim($("#musicname").val());
 		if(base.IsNullOrEmpty(musicname)) {
 			name = "";
@@ -170,7 +168,7 @@
 			name = musicname;
 		}
 		pulldownRefresh();
-	});
+	});*/
 
 	var contentWebview = null;
 	document.querySelector('header').addEventListener('doubletap', function() {

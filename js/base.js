@@ -2,7 +2,7 @@ var base = new function() {
 	/**
 	 * 列表每次请求数
 	 **/
-	this.PageSize = 1;
+	this.PageSize = 10;
 
 	/**
 	 * 获取接口请求根路径

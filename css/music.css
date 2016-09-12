@@ -49,8 +49,7 @@
 .search {
 	width: 11.875rem !important;
 }
-
-.search input[type=text] {
+input[type=text] {
 	border-radius: 30px;
 	text-indent: 1.5625rem;
 	height: 2rem !important;
