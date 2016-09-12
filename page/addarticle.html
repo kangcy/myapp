@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/addarticle.css">
+	</head>
+
+	<body>
+		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.5rem;">
+			<div class="mui-content mui-scroll-wrapper" style="background: #E8E8E8;">
+				<div class="mui-scroll">
+					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
+						<a id="menu" class="mui-icon mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+						<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+						<div class="info-body">
+							<textarea id="title" class="title mb20 cfff f18" maxlength="50">点击输入标题</textarea>
+							<div class="btn cfff fl"><img src="../images/article/music.png" class="icon" />添加音乐</div>
+							<div class="btn cfff fr"><img src="../images/article/pic.png" class="icon" />设置封面</div>
+						</div>
+					</div>
+					<div class="edit-body">
+						<div class="top mb5">
+							<img src="../images/article/del.png" class="fl" />
+							<img src="../images/article/add.png" />
+							<img src="../images/article/up.png" class="fr" />
+						</div>
+						<div class="edit-content">
+						</div>
+						<div class="top mt5">
+							<img src="../images/article/down.png" class="fr" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mui-bar mui-bar-nav f13 footer">
+			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
+			<a class="mui-icon mui-icon-gear mui-pull-right cfff" id="setting"></a>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var currUserID = base.GetUserID(); //当前登录用户ID
+
+	//启用双击监听
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false
+	});
+
+	mui('.mui-scroll-wrapper').scroll({
+		indicators: false //不显示滚动条
+	});
+
+	//标题输入
+	var title = document.getElementById("title");
+	title.addEventListener("focus", function() {
+		if(title.value.trim() == "点击输入标题") {
+			title.value = "";
+		}
+	});
+	title.addEventListener("blur", function() {
+		if(title.value.trim() == "") {
+			title.value = "点击输入标题";
+		}
+	});
+
+	mui.plusReady(function() {
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			self.hide();
+		}
+
+		//点击左上角侧滑图标，打开侧滑菜单
+		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
+			var template = plus.webview.getWebviewById("index");
+			mui.fire(template, 'toggleMenu', {});
+		});
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(event) {
+			mui.back();
+		});
+
+		//返回
+		document.getElementById('setting').addEventListener('tap', function(event) {
+			var my = mui.preload({
+				"id": 'setting',
+				"url": 'setting.html'
+			});
+			mui.openWindow({
+				id: 'setting',
+				show: {
+					aniShow: 'zoom-fade-out'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+	});
+</script>

@@ -1,0 +1,60 @@
+.info-body {
+	width: 90%;
+	display: inline-block;
+	margin: 0rem 5% 1.25rem 5%
+}
+
+.title {
+	line-height: 25px;
+	width: 100%;
+	background: transparent;
+	border: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	outline: 0;
+	padding: 0px;
+}
+
+.btn {
+	width: 80px;
+	height: 25px;
+	line-height: 27px;
+	background-color: rgba(255, 255, 255, 0.3);
+	text-align: center;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.btn .icon {
+	width: .9rem;
+	float: left;
+	margin: 6px;
+	margin-right: 0px;
+}
+
+.edit-body {
+	width: 90%;
+	margin: 5%;
+}
+
+.edit-body .top {
+	width: 100%;
+	height: 20px;
+	text-align: center;
+}
+
+.edit-body .top img {
+	width: 1.2rem;
+}
+
+.edit-body .edit-content {
+	line-height: 25px;
+	width: 100%;
+	min-height: 120px;
+	outline: 0;
+	word-wrap: break-word;
+	overflow-x: hidden;
+	overflow-y: visible;
+	background: #fff;
+	border-radius: 5px;
+}
