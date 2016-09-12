@@ -124,7 +124,7 @@
 
 		model.push('<div class="full type fl"><div class="line"></div><p class="cfff 10">' + item.CreateDate + '</p><p class="cfff f10">' + item.TypeName + '</p></div>');
 		model.push('<div class="full bottom"><div class="tablecell"><img class="avatar mr10" data-lazyload-id="0" src="' + item.Avatar + '"></div>');
-		model.push('<div class="tablecell full pr30"><p class="name fl cfff f10">' + item.NickName + '</p><p class="name fr cfff f10 tr">' + item.Views + ' 阅读<span class="split">/</span>' + item.Keeps + ' 收藏<span class="split">/</span>' + item.Comments + ' 评论</p></div></div>');
+		model.push('<div class="tablecell full pr30"><p class="name fl cfff f10">' + item.NickName + '</p><p class="name fr cfff f10 tr title">' + item.Views + ' 阅读<span class="split">/</span>' + item.Keeps + ' 收藏<span class="split">/</span>' + item.Comments + ' 评论</p></div></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

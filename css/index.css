@@ -1,11 +1,11 @@
 .topic {
-	width: 140px;
-	height: 140px;
+	width: 8.75rem;
+	height: 8.75rem;
 	display: inline-block;
 	border-radius: 10px;
-	margin: 4px;
+	margin: 0.25rem;
 	padding: 0px;
-	line-height: 138px;
+	line-height: 8.625rem;
 }
 
 .topic .bg {
@@ -59,10 +59,10 @@
 
 .type {
 	width: 100px;
-	height: 25px;
-	line-height: 27px;
+	height: 1.5625rem;
+	line-height: 1.6875rem;
 	margin-left: -0.9375rem;
-	text-indent: 15px;
+	text-indent: 0.9375rem;
 }
 
 .type1 {

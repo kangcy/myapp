@@ -16,12 +16,12 @@
 			<div class="mui-content mui-scroll-wrapper" style="background: #E8E8E8;">
 				<div class="mui-scroll">
 					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
-						<a id="menu" class="mui-icon mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
+						<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
 						<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 						<div class="info-body">
-							<textarea id="title" class="title mb20 cfff f18" maxlength="50">点击输入标题</textarea>
-							<div class="btn cfff fl"><img src="../images/article/music.png" class="icon" />添加音乐</div>
-							<div class="btn cfff fr"><img src="../images/article/pic.png" class="icon" />设置封面</div>
+							<div id="title" class="title mb20 cfff f18">点击输入标题</div>
+							<div id="music" class="btn cfff fl"><img src="../images/article/music.png" class="icon" />添加音乐</div>
+							<div id="cover" class="btn cfff fr"><img src="../images/article/pic.png" class="icon" />设置封面</div>
 						</div>
 					</div>
 					<div class="edit-body">
@@ -65,20 +65,29 @@
 		indicators: false //不显示滚动条
 	});
 
-	//标题输入
+	//标题
 	var title = document.getElementById("title");
-	title.addEventListener("focus", function() {
-		if(title.value.trim() == "点击输入标题") {
-			title.value = "";
-		}
-	});
-	title.addEventListener("blur", function() {
-		if(title.value.trim() == "") {
-			title.value = "点击输入标题";
+
+	//修改标题
+	window.addEventListener("updateTitle", function(e) {
+		var t = e.detail.title;
+		if(t == "") {
+			title.innerHTML = "点击输入标题";
+		} else {
+			title.innerHTML = t;
 		}
 	});
 
 	mui.plusReady(function() {
+		//预加载页面
+		var edittitle = mui.preload({
+			id: 'edittitle',
+			url: 'edittitle.html',
+			extras: {
+				title: title.innerHTML == "点击输入标题" ? "" : title.innerHTML
+			}
+		});
+
 		//返回
 		mui.back = function() {
 			var self = plus.webview.currentWebview();
@@ -96,20 +105,34 @@
 			mui.back();
 		});
 
-		//返回
-		document.getElementById('setting').addEventListener('tap', function(event) {
+		//音乐
+		document.getElementById('music').addEventListener('tap', function(event) {
 			var my = mui.preload({
-				"id": 'setting',
-				"url": 'setting.html'
+				"id": 'music',
+				"url": 'music.html'
 			});
 			mui.openWindow({
-				id: 'setting',
+				id: 'music',
 				show: {
 					aniShow: 'zoom-fade-out'
 				},
 				waiting: {
 					autoShow: false
 				}
+			});
+		});
+
+		//标题
+		title.addEventListener('tap', function(event) {
+			mui.openWindow({
+				id: 'edittitle',
+				show: {
+					aniShow: 'slide-in-right'
+				},
+				waiting: {
+					autoShow: false
+				}
+
 			});
 		});
 	});

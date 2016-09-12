@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>编辑文章标题</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
+			<a id="submit" class="mui-icon mui-icon-compose mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13">编辑标题</h1>
+		</header>
+		<div class="mui-content">
+			<div style="padding: 5%;">
+				<textarea id='question' class="mui-input-clear question f13" maxlength="20" placeholder="不超过20个字......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script type="text/javascript">
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	var addarticlePage = null;
+	mui.plusReady(function() {
+		var question = document.getElementById("question");
+		var self = plus.webview.currentWebview();
+		question.value = self.title;
+
+		//返回
+		mui.back = function() {
+			self.hide();
+		}
+
+		//提交
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(!addarticlePage) {
+				addarticlePage = plus.webview.getWebviewById('page/addarticle.html');
+			}
+			mui.fire(addarticlePage, "updateTitle", {
+				"title": question.value
+			});
+			mui.back();
+		}, false);
+	});
+</script>
