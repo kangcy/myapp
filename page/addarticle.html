@@ -30,7 +30,21 @@
 							<img src="../images/article/add.png" />
 							<img src="../images/article/up.png" class="fr" />
 						</div>
-						<div class="edit-content">
+						<div class="edit-content f11">
+							点击添加图片
+						</div>
+						<div class="top mt5">
+							<img src="../images/article/down.png" class="fr" />
+						</div>
+					</div>
+					<div class="edit-body">
+						<div class="top mb5">
+							<img src="../images/article/del.png" class="fl" />
+							<img src="../images/article/add.png" />
+							<img src="../images/article/up.png" class="fr" />
+						</div>
+						<div class="edit-content f11">
+							点击添加文字
 						</div>
 						<div class="top mt5">
 							<img src="../images/article/down.png" class="fr" />
@@ -79,19 +93,6 @@
 	});
 
 	mui.plusReady(function() {
-		//预加载页面
-		var edittitle = mui.preload({
-			id: 'edittitle',
-			url: 'edittitle.html',
-			extras: {
-				title: title.innerHTML == "点击输入标题" ? "" : title.innerHTML
-			}
-		});
-		var music = mui.preload({
-			"id": 'music',
-			"url": 'music.html'
-		});
-
 		//返回
 		mui.back = function() {
 			var self = plus.webview.currentWebview();
@@ -111,6 +112,10 @@
 
 		//音乐
 		document.getElementById('music').addEventListener('tap', function(event) {
+			var music = mui.preload({
+				"id": 'music',
+				"url": 'music.html'
+			});
 			mui.openWindow({
 				id: 'music',
 				show: {
@@ -124,6 +129,13 @@
 
 		//标题
 		title.addEventListener('tap', function(event) {
+			var edittitle = mui.preload({
+				id: 'edittitle',
+				url: 'edittitle.html',
+				extras: {
+					title: title.innerHTML == "点击输入标题" ? "" : title.innerHTML
+				}
+			});
 			mui.openWindow({
 				id: 'edittitle',
 				show: {
@@ -132,8 +144,24 @@
 				waiting: {
 					autoShow: false
 				}
-
 			});
 		});
+
+		//点击编辑
+		mui('.edit-body').on('tap', '.edit-content', function() {
+			var desc = mui.preload({
+				"id": 'editdesc',
+				"url": 'editdesc.html'
+			});
+			mui.openWindow({
+				id: 'editdesc',
+				show: {
+					aniShow: 'slide-in-right'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		})
 	});
 </script>

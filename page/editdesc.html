@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>编辑标题</title>
+		<title>编辑文字</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -12,13 +12,15 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
-			<a id="submit" class="mui-icon mui-icon-compose mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff f13">编辑标题</h1>
+			<!--<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
+			<a id="submit" class="mui-icon mui-icon-compose mui-pull-right cfff"></a>-->
+			<a id="back" class="mui-icon cfff f13 fl mt6">取消</a>
+			<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
+			<h1 class="mui-title cfff f15">编辑文字</h1>
 		</header>
 		<div class="mui-content">
 			<div style="padding: 5%;">
-				<textarea id='question' class="mui-input-clear question f13" maxlength="20" placeholder="不超过20个字......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
+				<textarea id='question' class="mui-input-clear question f13" maxlength="500" placeholder="不超过500个字......" style="border: 0px;height: 400px;"></textarea>
 			</div>
 		</div>
 	</body>
@@ -50,8 +52,8 @@
 			if(!addarticlePage) {
 				addarticlePage = plus.webview.getWebviewById('page/addarticle.html');
 			}
-			mui.fire(addarticlePage, "updateTitle", {
-				"title": question.value
+			mui.fire(addarticlePage, "updateDesc", {
+				"desc": question.value
 			});
 			mui.back();
 		}, false);
