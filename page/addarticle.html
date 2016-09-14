@@ -14,7 +14,7 @@
 	<body>
 		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.75rem;">
 			<div class="mui-content mui-scroll-wrapper" style="background: #E8E8E8;">
-				<div class="mui-scroll">
+				<div class="mui-scroll" id="mui-scroll">
 					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
 						<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
 						<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
@@ -24,30 +24,32 @@
 							<div id="cover" class="btn cfff fr"><img src="../images/article/pic.png" class="icon" />设置封面</div>
 						</div>
 					</div>
-					<div class="edit-body">
-						<div class="top mb5">
-							<img src="../images/article/del.png" class="fl" />
-							<img src="../images/article/add.png" />
-							<img src="../images/article/up.png" class="fr" />
+					<div id="edit">
+						<div class="edit-body">
+							<div class="top mb5">
+								<img src="../images/article/del.png" class="edit-del fl" />
+								<img src="../images/article/add.png" class="edit-add" />
+								<img src="../images/article/up.png" class="edit-up fr" />
+							</div>
+							<div class="edit-content f11" id="edit-content1">
+								点击添加图片
+							</div>
+							<div class="top mt5">
+								<img src="../images/article/down.png" class="edit-down fr" />
+							</div>
 						</div>
-						<div class="edit-content f11" id="edit-content1">
-							点击添加图片
-						</div>
-						<div class="top mt5">
-							<img src="../images/article/down.png" class="fr" />
-						</div>
-					</div>
-					<div class="edit-body">
-						<div class="top mb5">
-							<img src="../images/article/del.png" class="fl" />
-							<img src="../images/article/add.png" />
-							<img src="../images/article/up.png" class="fr" />
-						</div>
-						<div class="edit-content f11" id="edit-content2">
-							点击添加文字
-						</div>
-						<div class="top mt5">
-							<img src="../images/article/down.png" class="fr" />
+						<div class="edit-body">
+							<div class="top mb5">
+								<img src="../images/article/del.png" class="edit-del fl" />
+								<img src="../images/article/add.png" class="edit-add" />
+								<img src="../images/article/up.png" class="edit-up fr" />
+							</div>
+							<div class="edit-content f11" id="edit-content2">
+								点击添加文字
+							</div>
+							<div class="top mt5">
+								<img src="../images/article/down.png" class="edit-down fr" />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -170,7 +172,7 @@
 		});
 
 		//点击编辑
-		mui('.edit-body').on('tap', '.edit-content', function() {
+		mui('#edit').on('tap', '.edit-content', function() {
 			currEditID = this.id;
 			var html = document.getElementById(currEditID).innerHTML.trim();
 			var desc = mui.preload({
@@ -191,4 +193,27 @@
 			});
 		})
 	});
+
+	//新增
+	mui('#edit').on('tap', '.edit-add', function() {
+		var div = document.createElement('div');
+		div.className = 'edit-body';
+		var model = [];
+		model.push('<div class="top mb5"><img src="../images/article/del.png" class="edit-del fl" /><img src="../images/article/add.png" class="edit-add" /><img src="../images/article/up.png" class="edit-up fr" /></div>');
+		//头像
+		model.push('<div class="edit-content f11" id="edit-content2">点击添加文字</div>');
+		//昵称、签名
+		model.push('<div class="top mt5"><img src="../images/article/down.png" class="edit-down fr" /></div>');
+		div.innerHTML = model.join('');
+		document.getElementById("edit").appendChild(div);
+	});
+
+	//删除
+	mui('#edit').on('tap', '.edit-del', function() {
+
+	});
+
+	//上移
+
+	//下移
 </script>
