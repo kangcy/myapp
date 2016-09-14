@@ -196,13 +196,12 @@
 
 	//新增
 	mui('#edit').on('tap', '.edit-add', function() {
+		var length = $(".edit-content").length;
 		var div = document.createElement('div');
 		div.className = 'edit-body';
 		var model = [];
 		model.push('<div class="top mb5"><img src="../images/article/del.png" class="edit-del fl" /><img src="../images/article/add.png" class="edit-add" /><img src="../images/article/up.png" class="edit-up fr" /></div>');
-		//头像
-		model.push('<div class="edit-content f11" id="edit-content2">点击添加文字</div>');
-		//昵称、签名
+		model.push('<div class="edit-content f11" id="edit-content' + length + '">点击添加文字</div>');
 		model.push('<div class="top mt5"><img src="../images/article/down.png" class="edit-down fr" /></div>');
 		div.innerHTML = model.join('');
 		document.getElementById("edit").appendChild(div);
@@ -210,7 +209,7 @@
 
 	//删除
 	mui('#edit').on('tap', '.edit-del', function() {
-
+		this.parentNode.parentNode.remove();
 	});
 
 	//上移
