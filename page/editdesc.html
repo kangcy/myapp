@@ -12,15 +12,13 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<!--<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
-			<a id="submit" class="mui-icon mui-icon-compose mui-pull-right cfff"></a>-->
 			<a id="back" class="mui-icon cfff f13 fl mt6">取消</a>
 			<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 			<h1 class="mui-title cfff f15">编辑文字</h1>
 		</header>
 		<div class="mui-content">
 			<div style="padding: 5%;">
-				<textarea id='question' class="mui-input-clear question f13" maxlength="500" placeholder="不超过500个字......" style="border: 0px;height: 400px;"></textarea>
+				<textarea id='question' class="mui-input-clear question f13" maxlength="500" placeholder="不超过500个字......" style="border: 0px;height: 400px;line-height:1.25rem;"></textarea>
 			</div>
 		</div>
 	</body>
@@ -41,11 +39,15 @@
 		var question = document.getElementById("question");
 		var self = plus.webview.currentWebview();
 		question.value = self.title;
-
 		//返回
 		mui.back = function() {
 			self.hide();
 		}
+
+		//取消
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
 
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
