@@ -12,15 +12,15 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<a id="back" class="mui-icon cfff f13 fl mt6">取消</a>
+			<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 			<h1 class="mui-title cfff f13">意见反馈</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<div id="feedback" style="padding: 5%;">
 					<textarea id='question' class="mui-input-clear question f13" placeholder="欢迎留下您的宝贵意见......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
-					<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />
+					<!--<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />-->
 				</div>
 			</div>
 		</div>
@@ -54,7 +54,12 @@
 			document.querySelector("header").classList.remove("hide");
 		}
 
-		//提交
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		});
+
+		//保存
 		var question = document.getElementById("question");
 		document.getElementById("submit").addEventListener('tap', function(event) {
 			if(question.value == '') {

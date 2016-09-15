@@ -12,53 +12,71 @@
 	</head>
 
 	<body>
-		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.75rem;">
-			<div class="mui-content mui-scroll-wrapper" style="background: #E8E8E8;">
-				<div class="mui-scroll" id="mui-scroll">
-					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
-						<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
-						<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-						<div class="info-body">
-							<div id="title" class="title mb20 cfff f18">点击输入标题</div>
-							<div id="music" class="btn cfff fl"><img src="../images/article/music.png" class="icon" />添加音乐</div>
-							<div id="cover" class="btn cfff fr"><img src="../images/article/pic.png" class="icon" />设置封面</div>
+
+		<div class="mui-content mui-scroll-wrapper" style="background: #E8E8E8;">
+			<div class="mui-scroll" id="mui-scroll">
+				<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
+					<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
+					<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+					<div class="info-body">
+						<div id="title" class="title mb20 cfff f18">点击输入标题</div>
+						<div id="music" class="btn cfff fl"><img src="../images/article/music.png" class="icon" />添加音乐</div>
+						<div id="cover" class="btn cfff fr"><img src="../images/article/pic.png" class="icon" />设置封面</div>
+					</div>
+				</div>
+				<div id="edit">
+					<div class="edit-body">
+						<div class="top mb5">
+							<img src="../images/article/del.png" class="edit-del fl" />
+							<img src="../images/article/add.png" class="edit-add" />
+							<img src="../images/article/up.png" class="edit-up fr" />
+							<div class="banner hide">
+								<div class="edit-add-text">
+									<a class="mui-icon mui-icon-image"></a>
+								</div>
+								<div class="edit-add-pic border">
+									<a class="mui-icon mui-icon-email"></a>
+								</div>
+								<div class="edit-add-video">
+									<a class="mui-icon mui-icon-videocam"></a>
+								</div>
+							</div>
+						</div>
+						<div class="edit-content f11" id="edit-content1">
+							点击添加图片
+						</div>
+						<div class="top mt5">
+							<img src="../images/article/down.png" class="edit-down fr" />
 						</div>
 					</div>
-					<div id="edit">
-						<div class="edit-body">
-							<div class="top mb5">
-								<img src="../images/article/del.png" class="edit-del fl" />
-								<img src="../images/article/add.png" class="edit-add" />
-								<img src="../images/article/up.png" class="edit-up fr" />
-							</div>
-							<div class="edit-content f11" id="edit-content1">
-								点击添加图片
-							</div>
-							<div class="top mt5">
-								<img src="../images/article/down.png" class="edit-down fr" />
+					<div class="edit-body">
+						<div class="top mb5">
+							<img src="../images/article/del.png" class="edit-del fl" />
+							<img src="../images/article/add.png" class="edit-add" />
+							<img src="../images/article/up.png" class="edit-up fr" />
+							<div class="banner hide">
+								<div class="edit-add-text">
+									<a class="mui-icon mui-icon-image"></a>
+								</div>
+								<div class="edit-add-pic border">
+									<a class="mui-icon mui-icon-email"></a>
+								</div>
+								<div class="edit-add-video">
+									<a class="mui-icon mui-icon-videocam"></a>
+								</div>
 							</div>
 						</div>
-						<div class="edit-body">
-							<div class="top mb5">
-								<img src="../images/article/del.png" class="edit-del fl" />
-								<img src="../images/article/add.png" class="edit-add" />
-								<img src="../images/article/up.png" class="edit-up fr" />
-							</div>
-							<div class="edit-content f11" id="edit-content2">
-								点击添加文字
-							</div>
-							<div class="top mt5">
-								<img src="../images/article/down.png" class="edit-down fr" />
-							</div>
+						<div class="edit-content f11" id="edit-content2">
+							点击添加文字
+						</div>
+						<div class="top mt5">
+							<img src="../images/article/down.png" class="edit-down fr" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="mui-bar mui-bar-nav f13 footer">
-			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
-			<a class="mui-icon mui-icon-gear mui-pull-right cfff" id="setting"></a>
-		</div>
+
 	</body>
 
 </html>
@@ -118,8 +136,13 @@
 	mui.plusReady(function() {
 		//返回
 		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			self.hide();
+			var $this = this;
+			var btnArray = ['退出编辑', '取消'];
+			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
+				if(e.index == 0) {
+					$this.parentNode.parentNode.remove();
+				}
+			});
 		}
 
 		//点击左上角侧滑图标，打开侧滑菜单
@@ -130,7 +153,7 @@
 
 		//返回
 		document.getElementById('back').addEventListener('tap', function(event) {
-			mui.back();
+			plus.webview.currentWebview().hide();
 		});
 
 		//音乐
@@ -196,20 +219,71 @@
 
 	//新增
 	mui('#edit').on('tap', '.edit-add', function() {
+		var $this = $(this);
+		currEditID = $this.parents(".edit-body").find(".edit-content").attr("id");
+		$("#edit").find(".edit-add").removeClass("hide");
+		$this.addClass("hide");
+		$("#edit").find(".banner").addClass("hide");
+		$this.parent(".top").find(".banner").removeClass("hide");
+	});
+
+	//新增图片
+	mui('#edit').on('tap', '.edit-add-pic', function() {
 		var length = $(".edit-content").length;
-		var div = document.createElement('div');
-		div.className = 'edit-body';
 		var model = [];
-		model.push('<div class="top mb5"><img src="../images/article/del.png" class="edit-del fl" /><img src="../images/article/add.png" class="edit-add" /><img src="../images/article/up.png" class="edit-up fr" /></div>');
-		model.push('<div class="edit-content f11" id="edit-content' + length + '">点击添加文字</div>');
+		model.push('<div class="edit-body">');
+		model.push('<div class="top mb5"><img src="../images/article/del.png" class="edit-del fl" /><img src="../images/article/add.png" class="edit-add" /><img src="../images/article/up.png" class="edit-up fr" />');
+		model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div>');
+		model.push('<div class="edit-content f11" id="edit-content' + length + '" type="pic">点击添加图片</div>');
 		model.push('<div class="top mt5"><img src="../images/article/down.png" class="edit-down fr" /></div>');
-		div.innerHTML = model.join('');
-		document.getElementById("edit").appendChild(div);
+		model.push('</div>');
+		$("#" + currEditID).parents(".edit-body").after(model.join(''));
+
+		$("#edit").find(".banner").addClass("hide");
+		$("#edit").find(".edit-add").removeClass("hide");
+	});
+
+	//新增文本
+	mui('#edit').on('tap', '.edit-add-text', function() {
+		var length = $(".edit-content").length;
+		var model = [];
+		model.push('<div class="edit-body">');
+		model.push('<div class="top mb5"><img src="../images/article/del.png" class="edit-del fl" /><img src="../images/article/add.png" class="edit-add" /><img src="../images/article/up.png" class="edit-up fr" />');
+		model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div>');
+		model.push('<div class="edit-content f11" id="edit-content' + length + '" type="text">点击添加文字</div>');
+		model.push('<div class="top mt5"><img src="../images/article/down.png" class="edit-down fr" /></div>');
+		model.push('</div>');
+		$("#" + currEditID).parents(".edit-body").after(model.join(''));
+
+		$("#edit").find(".banner").addClass("hide");
+		$("#edit").find(".edit-add").removeClass("hide");
+	});
+
+	//新增视频
+	mui('#edit').on('tap', '.edit-add-video', function() {
+		var length = $(".edit-content").length;
+		var model = [];
+		model.push('<div class="edit-body">');
+		model.push('<div class="top mb5"><img src="../images/article/del.png" class="edit-del fl" /><img src="../images/article/add.png" class="edit-add" /><img src="../images/article/up.png" class="edit-up fr" />');
+		model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div>');
+		model.push('<div class="edit-content f11" id="edit-content' + length + '" type="video">点击添加视频</div>');
+		model.push('<div class="top mt5"><img src="../images/article/down.png" class="edit-down fr" /></div>');
+		model.push('</div>');
+		$("#" + currEditID).parents(".edit-body").after(model.join(''));
+
+		$("#edit").find(".banner").addClass("hide");
+		$("#edit").find(".edit-add").removeClass("hide");
 	});
 
 	//删除
 	mui('#edit').on('tap', '.edit-del', function() {
-		this.parentNode.parentNode.remove();
+		var $this = this;
+		var btnArray = ['确定', '取消'];
+		mui.confirm('确定删除此段？', '', btnArray, function(e) {
+			if(e.index == 0) {
+				$this.parentNode.parentNode.remove();
+			}
+		});
 	});
 
 	//上移

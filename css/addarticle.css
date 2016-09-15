@@ -6,7 +6,7 @@
 
 .title {
 	line-height: 1.5625rem;
-	height:5rem;
+	height: 5rem;
 	width: 100%;
 	background: transparent;
 	border: 0px;
@@ -40,23 +40,52 @@
 
 .edit-body .top {
 	width: 100%;
-	height: 1.25rem;
+	height: 1.5625rem;
+	line-height: 1.5625rem;
 	text-align: center;
 }
 
 .edit-body .top img {
 	width: 1.2rem;
+	height: 1.2rem;
+	margin-top: .2rem;
+}
+
+.edit-body .top .banner {
+	width: 5.625rem;
+	height: 1.5625rem;
+	line-height: 1.5625rem;
+	display: inline-block;
+	background: #fff;
+	border-radius: 10px;
+	text-align: center;
+	border: 1px solid #ccc;
+}
+
+.edit-body .top .banner div {
+	width: 33%;
+	height: 100%;
+	display: inline-block;
+	float: left;
+}
+.edit-body .top .banner a
+{
+	font-size:1.2rem !important;
+}
+.edit-body .top .banner div.border {
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 }
 
 .edit-body .edit-content {
 	line-height: 1.25rem;
 	width: 100%;
-	min-height: 7.5rem;
+	min-height: 5rem;
 	outline: 0;
 	word-wrap: break-word;
 	overflow-x: hidden;
 	overflow-y: visible;
 	background: #fff;
 	border-radius: 5px;
-	padding:0.625rem;
+	padding: 0.625rem;
 }
