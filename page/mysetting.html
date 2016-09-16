@@ -10,13 +10,23 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/mui.picker.css">
 		<link rel="stylesheet" href="../css/mui.poppicker.css">
+		<style type="text/css">
+			#signature {
+				width: 60%;
+				line-height: 20px;
+				white-space: normal;
+			}
+			
+			.mui-table-view-cell {
+				padding: .8rem 0.9375rem;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
 			<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff f13">设置</h1>
+			<h1 class="mui-title cfff f15">账号设置</h1>
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view f11" style="margin-top:0px;">
@@ -28,10 +38,10 @@
 						</span>
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" id="editnickname">
 					<a class="mui-navigate-right">
 						<span class="fl">昵称</span>
-						<span class="mui-pull-right csubtitle mr20">一个傻瓜</span>
+						<span class="mui-pull-right csubtitle mr20" id="nickname">一个傻瓜</span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell" id="sexPicker">
@@ -52,10 +62,10 @@
 						<span class="mui-pull-right csubtitle mr20" id="time">2016/06/06</span></a>
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" id="editsignature">
 					<a class="mui-navigate-right">
 						<span class="fl">个性签名</span>
-						<span class="mui-pull-right csubtitle mr20" style="width: 60%;line-height: 20px;white-space: normal;">淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤</span></a>
+						<span class="mui-pull-right csubtitle mr20" id="signature">淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤</span></a>
 					</a>
 				</li>
 			</ul>
@@ -71,6 +81,7 @@
 <script src="../js/city.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -92,6 +103,16 @@
 		document.getElementById('sexPicker').addEventListener('tap', function(event) {
 			sexPicker.show(function(items) {
 				document.getElementById("sex").innerHTML = items[0].text;
+
+				plus.nativeUI.showWaiting();
+				HttpGet(base.RootUrl + "User/EditSex", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					Sex: items[0].value
+				}, function(data) {
+					plus.nativeUI.closeWaiting();
+					mui.toast(data.result ? "编辑成功~" : data.message);
+				});
 			});
 		}, false);
 
@@ -103,6 +124,15 @@
 		document.getElementById('cityPicker').addEventListener('tap', function(event) {
 			cityPicker.show(function(items) {
 				document.getElementById("city").innerHTML = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+				plus.nativeUI.showWaiting();
+				HttpGet(base.RootUrl + "User/EditNickName", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					NickName: t
+				}, function(data) {
+					plus.nativeUI.closeWaiting();
+					mui.toast(data.result ? "编辑成功~" : data.message);
+				});
 			});
 		}, false);
 
@@ -128,6 +158,17 @@
 				 * rs.i 分（minutes 的第二个字母），用法同年
 				 */
 				document.getElementById("time").innerHTML = rs.text;
+
+				plus.nativeUI.showWaiting();
+				HttpGet(base.RootUrl + "User/EditBirthday", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					Birthday: rs.text
+				}, function(data) {
+					plus.nativeUI.closeWaiting();
+					mui.toast(data.result ? "编辑成功~" : data.message);
+				});
+
 				/* 
 				 * 返回 false 可以阻止选择框的关闭
 				 * return false;
@@ -139,6 +180,7 @@
 				 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
 				 */
 				picker.dispose();
+
 			});
 		}, false);
 	})
@@ -156,6 +198,81 @@
 		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
 			var template = plus.webview.getWebviewById("index");
 			mui.fire(template, 'toggleMenu', {});
+		});
+	});
+
+	var editnickname = document.getElementById("editnickname");
+	var editsignature = document.getElementById("editsignature");
+	var nickname = document.getElementById("nickname");
+	var signature = document.getElementById("signature");
+
+	//修改昵称
+	window.addEventListener("updateNickName", function(e) {
+		var t = e.detail.desc;
+		nickname.innerHTML = t;
+		plus.nativeUI.showWaiting();
+		HttpGet(base.RootUrl + "User/EditNickName", {
+			UserName: userinfo.account,
+			Password: userinfo.password,
+			NickName: t
+		}, function(data) {
+			plus.nativeUI.closeWaiting();
+			mui.toast(data.result ? "编辑成功~" : data.message);
+		});
+	});
+
+	//修改签名
+	window.addEventListener("updateSignature", function(e) {
+		var t = e.detail.desc;
+		signature.innerHTML = t;
+		plus.nativeUI.showWaiting();
+		HttpGet(base.RootUrl + "User/EditSignature", {
+			UserName: userinfo.account,
+			Password: userinfo.password,
+			Signature: t
+		}, function(data) {
+			plus.nativeUI.closeWaiting();
+			mui.toast(data.result ? "编辑成功~" : data.message);
+		});
+	});
+
+	//编辑昵称
+	editnickname.addEventListener('tap', function(event) {
+		var editnickname = mui.preload({
+			id: 'editnickname',
+			url: 'editnickname.html',
+			extras: {
+				title: nickname.innerHTML.trim()
+			}
+		});
+		mui.openWindow({
+			id: 'editnickname',
+			show: {
+				aniShow: 'slide-in-right'
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+	});
+
+	//编辑个性签名
+	editsignature.addEventListener('tap', function(event) {
+		var editsignature = mui.preload({
+			id: 'editsignature',
+			url: 'editsignature.html',
+			extras: {
+				title: signature.innerHTML.trim()
+			}
+		});
+		mui.openWindow({
+			id: 'editsignature',
+			show: {
+				aniShow: 'slide-in-right'
+			},
+			waiting: {
+				autoShow: false
+			}
 		});
 	});
 

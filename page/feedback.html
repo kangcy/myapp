@@ -8,18 +8,26 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			#question {
+				border: 0px;
+				height: 400px;
+				padding: 0px;
+				line-height: 1.25rem;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
 			<a id="back" class="mui-icon cfff f13 fl mt6">取消</a>
 			<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
-			<h1 class="mui-title cfff f13">意见反馈</h1>
+			<h1 class="mui-title cfff f15">意见反馈</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<div id="feedback" style="padding: 5%;">
-					<textarea id='question' class="mui-input-clear question f13" placeholder="欢迎留下您的宝贵意见......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
+					<textarea id='question' class="mui-input-clear f13" placeholder="欢迎留下您的宝贵意见......"></textarea>
 					<!--<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />-->
 				</div>
 			</div>

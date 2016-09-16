@@ -1,5 +1,10 @@
 var base = new function() {
 	/**
+	 * 是否测试
+	 **/
+	this.IsTest = true;
+	
+	/**
 	 * 列表每次请求数
 	 **/
 	this.PageSize = 10;
