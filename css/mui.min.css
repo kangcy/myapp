@@ -18,7 +18,10 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
  .f18{font-size:1.125rem !important;}
  .f19{font-size:1.1875rem !important;}
  .f20{font-size:1.25rem !important;}
+ .f25{font-size:1.5625rem !important;}
+ .f30{font-size:1.875rem !important;}
  .p5{padding:0.3125rem !important;}
+ .ml10{margin-left:0.625rem !important;}
  .mr10{margin-right:0.625rem !important;}
  .mr15{margin-right:0.9375rem !important;}
  .mr20{margin-right:1.25rem !important;}

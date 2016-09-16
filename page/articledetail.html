@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			#detail {
+				padding: 1.25rem;
+				line-height: 1.5625rem;
+				display: inline-block;
+			}
+			
+			.title {
+				line-height: 1.875rem;
+			}
+			
+			#divdeal {
+				background: #fff;
+				width: 80px;
+				height: 120px;
+				display: inline-block;
+				position: absolute;
+				right: .6rem;
+				top: 2.5rem;
+			}
+			
+			#divdeal div {
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.75rem;">
+			<div class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll" id="mui-scroll">
+					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:200px;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
+						<a id="deal" class="mui-icon cfff f15 fr mt6">操作</a>
+						<div id="divdeal" class="tc csubtitle hide">
+							<div id="delete">删除</div>
+							<div id="edit">编辑</div>
+							<div id="share">分享</div>
+							<div id="power">权限</div>
+						</div>
+					</div>
+					<div class="f11 tl" id="detail">
+						<p class="f25 c000 title" style="line-height:30px;">旅游 | 50岁时你可能还会记得你去过的让人难忘的地方</p>
+						<p><span class="fl">作者：一个傻瓜</span><span class="fl ml10">2345阅读</span><span class="fl ml10">/</span><span class="fl ml10">2345收藏</span><span class="fl ml10">/</span><span class="fl ml10">2345评论</span></p>
+						<p class="c000">
+							1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mui-bar mui-bar-nav f13 footer">
+			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
+			<div class="fr cfff" style="line-height:2.75rem;">18</div>
+			<img src="../images/article/zan.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
+			<div class="fr cfff mr15" style="line-height:2.75rem;">19</div>
+			<img src="../images/article/zan.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
+			<div class="fr cfff mr15" style="line-height:2.75rem;">20</div>
+			<img src="../images/article/zan.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var currEditID = 0; //当前操作对象ID
+	var currUserID = base.GetUserID(); //当前登录用户ID
+
+	//启用双击监听
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false
+	});
+
+	$(function() {
+		mui('.mui-scroll-wrapper').scroll({
+			indicators: false //不显示滚动条
+		});
+
+		//操作
+		document.getElementById('deal').addEventListener('tap', function(event) {
+			$("#divdeal").toggleClass("hide");
+		});
+
+		//删除
+		document.getElementById('delete').addEventListener('tap', function(event) {
+			var $this = this;
+			var btnArray = ['确定', '取消'];
+			mui.confirm('删除后将无法在微信浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
+				if(e.index == 0) {
+					//请求删除
+				}
+			});
+		});
+
+		//点击编辑
+		document.getElementById('edit').addEventListener('tap', function(event) {
+			var addarticle = mui.preload({
+				"id": 'addarticle',
+				"url": 'addarticle.html',
+				extras: {
+					id: "0"
+				}
+			});
+			mui.openWindow({
+				id: 'addarticle',
+				show: {
+					aniShow: 'slide-in-right'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		})
+
+		//点击分享
+		document.getElementById('share').addEventListener('tap', function(event) {
+			var desc = mui.preload({
+				"id": 'share',
+				"url": 'share.html'
+			});
+			mui.openWindow({
+				id: 'editdesc',
+				show: {
+					aniShow: 'slide-in-right'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		})
+
+		//权限
+		document.getElementById('power').addEventListener('tap', function(event) {
+			var desc = mui.preload({
+				"id": 'sharesetting',
+				"url": 'sharesetting.html',
+				extras: {
+					id: "0"
+				}
+			});
+			mui.openWindow({
+				id: 'sharesetting',
+				show: {
+					aniShow: 'slide-in-right'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		})
+	})
+
+	mui.plusReady(function() {
+		//返回
+		mui.back = function() {
+			var $this = this;
+			var btnArray = ['退出编辑', '取消'];
+			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
+				if(e.index == 0) {
+					$this.parentNode.parentNode.remove();
+				}
+			});
+		}
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(event) {
+			plus.webview.currentWebview().hide();
+		});
+	});
+</script>

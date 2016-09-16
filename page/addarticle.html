@@ -140,7 +140,7 @@
 			var btnArray = ['退出编辑', '取消'];
 			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
 				if(e.index == 0) {
-					$this.parentNode.parentNode.remove();
+					plus.webview.currentWebview().hide();
 				}
 			});
 		}
