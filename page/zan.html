@@ -12,10 +12,10 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right c999"></a>
-			<h1 class="mui-title"><span class="tab curr" onclick="changeComment(0)">我赞过的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">赞过我的</span></h1>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left cfff"></a>
+			<a class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f15" id="tabs"><span class="tab curr" onclick="changeComment(0)">我赞过的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">赞过我的</span></h1>
 		</header>
 		<div class="mui-content"></div>
 		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
@@ -32,7 +32,7 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.js"></script>
+<script src="../js/mui.min.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
@@ -95,39 +95,63 @@
 	 * 加载数据
 	 */
 	function load(callback) {
-		var data = {
-			page: currpage,
-			rows: pagesize,
-			ArticleUserID: currUserID
-		};
-		if(ismyzan) {
-			data = {
-				page: currpage,
-				rows: pagesize,
-				CreateUserID: currUserID
-			}
-		}
-		HttpGet(base.RootUrl + "Zan/All", data, function(data) {
-			if(data != null) {
-				totalpage = data.totalpage;
-				var length = data.list.length;
-				if(length > 0) {
-					var table = document.getElementById('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
-					}
+		if(base.IsTest) {
+			var table = document.getElementById('scroll-view');
+			for(var i = 1; i < 6; i++) {
+				var item = {
+					Avatar: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
+					NickName: "一个傻瓜",
+					Signature: "个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名",
+					ArticleID: i,
+					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
+					Title: "动漫" + i,
+					Views: i + 1,
+					Keeps: i + 2,
+					Comments: i + 3,
+					UserID: i
 				}
-			}
-			if($.isFunction(callback)) {
-				callback();
+				table.appendChild(appendStr(item));
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
 			});
-		});
+		} else {
+			var data = {
+				page: currpage,
+				rows: pagesize,
+				ArticleUserID: currUserID
+			};
+			if(ismyzan) {
+				data = {
+					page: currpage,
+					rows: pagesize,
+					CreateUserID: currUserID
+				}
+			}
+			HttpGet(base.RootUrl + "Zan/All", data, function(data) {
+				if(data != null) {
+					totalpage = data.totalpage;
+					var length = data.list.length;
+					if(length > 0) {
+						var table = document.getElementById('scroll-view');
+						for(var i = 0, len = data.list.length; i < len; i++) {
+							var div = appendStr(data.list[i]);
+							table.appendChild(div);
+						}
+					}
+				}
+				if($.isFunction(callback)) {
+					callback();
+				}
+				document.body.removeAttribute('data-imageLazyload');
+				$(document).imageLazyload({
+					placeholder: '../images/60x60.gif',
+					diff: window.innerHeight
+				});
+			});
+		}
 	}
 
 	/**
@@ -140,16 +164,15 @@
 		//用户信息
 		model.push('<div class="mui-slider-cell">');
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.NickName + '</p><p class="f11 c333">' + item.Signature + '</p></div>');
-		model.push('<div class="oa-contact-icon mui-table-cell f11"><span class="mui-icon fr mui-icon-arrowright select"></span><span class="fr" style="line-height: 1.5rem;" uid="' + item.UserID + '">看他的作品</span></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c333 mb5">' + item.NickName + '</p><p class="f11 csubtitle">' + item.Signature + '</p></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell f11"><span class="mui-icon fr mui-icon-arrowright select"></span><span class="fr csubtitle" style="line-height: 1.5rem;" uid="' + item.UserID + '">看他的作品</span></div>');
 		model.push('</div>');
 		//文章信息
-		model.push('<div class="mui-card mt0 mb20" style="background:url(' + item.Cover + ') no-repeat;background-size:100%;">');
-		model.push('<div class="mui-card-content show">');
-		model.push('<div class="mui-card-content-inner full">');
-		model.push('<p class="f18 cfff title fl" aid="' + item.ArticleID + '">' + item.Title + '</p>');
+		model.push('<div class="mui-card mt0 mb20">');
+		model.push('<img data-lazyload="' + item.Cover + '" class="full" style="border-radius: 5px;" />');
+		model.push('<p class="f18 cfff title fl top" aid="' + item.ArticleID + '">' + item.Title + '</p>');
 		model.push('<p class="bottom cfff f11 tr">' + item.Views + ' 阅读<span class="split">/</span>' + item.Keeps + ' 收藏<span class="split">/</span>' + item.Comments + ' 评论</p>');
-		model.push('</div></div></div>');
+		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
@@ -182,6 +205,9 @@
 	});
 
 	function changeComment(index) {
+		$("#tabs").find(".curr").removeClass("curr");
+		$("#tabs").find("span:eq(" + index + ")").addClass("curr");
+
 		if(index == 0) {
 			ismycomment = true;
 		} else {
@@ -189,46 +215,6 @@
 		}
 		pulldownRefresh();
 	}
-
-	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
-	});
-
-	/*
-	 * 新建
-	 */
-	var subWebview = null;
-	var template = null;
-	document.getElementById('info').addEventListener('tap', function() {
-		if(!mui.os.plus) {
-			mui.openWindow({
-				url: "upload.html",
-				id: "upload",
-				show: {
-					aniShow: 'zoom-fade-out',
-					duration: 300
-				}
-			});
-			return;
-		}
-		//获取共用父窗体
-		if(subWebview == null) {
-			template = plus.webview.getWebviewById("default-main");
-		}
-		if(template) {
-			subWebview = template.children()[0];
-			subWebview.loadURL('upload.html');
-			mui.fire(template, 'updateHeader', {
-				title: '上传',
-				showMenu: false
-			});
-			template.show('slide-in-right', 150);
-		}
-	});
 
 	var contentWebview = null;
 	document.querySelector('header').addEventListener('doubletap', function() {

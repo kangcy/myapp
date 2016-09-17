@@ -63,11 +63,11 @@
 		<div class="mui-bar mui-bar-nav f13 footer">
 			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
 			<div class="fr cfff" style="line-height:2.75rem;">18</div>
-			<img src="../images/article/zan.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
+			<img id="share" src="../images/article/share.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
 			<div class="fr cfff mr15" style="line-height:2.75rem;">19</div>
-			<img src="../images/article/zan.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
+			<img id="comment" src="../images/article/comment.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
 			<div class="fr cfff mr15" style="line-height:2.75rem;">20</div>
-			<img src="../images/article/zan.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
+			<img id="zan" src="../images/article/zan.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
 		</div>
 	</body>
 
@@ -164,6 +164,51 @@
 					autoShow: false
 				}
 			});
+		})
+
+		//点赞
+		document.getElementById('zan').addEventListener('tap', function(event) {
+			var zan = mui.preload({
+				"id": 'zan',
+				"url": 'zan.html',
+				extras: {
+					id: "0"
+				}
+			});
+			mui.openWindow({
+				id: 'zan',
+				show: {
+					aniShow: 'slide-in-right'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		})
+
+		//评论
+		document.getElementById('comment').addEventListener('tap', function(event) {
+			var comment = mui.preload({
+				"id": 'comment',
+				"url": 'comment.html',
+				extras: {
+					ArticleID: "0"
+				}
+			});
+			mui.openWindow({
+				id: 'comment',
+				show: {
+					aniShow: 'slide-in-right'
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		})
+
+		//分享
+		document.getElementById('share').addEventListener('tap', function(event) {
+
 		})
 	})
 

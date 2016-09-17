@@ -20,8 +20,8 @@
 }
 
 .oa-contact-avatar img {
-	width: 3.75rem;
-	height: 3.75rem;
+	width: 4rem;
+	height: 4rem;
 	border: 1px solid #ccc;
 	border-radius: 50%;
 }
@@ -49,6 +49,8 @@
 
 .mui-card {
 	border-radius: 5px;
+	margin: 0px;
+	box-shadow: none;
 }
 
 .mui-card-content-inner {
@@ -83,13 +85,15 @@
 	vertical-align: middle;
 }
 
-.bottom {
+.top {
 	position: absolute;
-	bottom: 0.9375rem;
-	right: 0.9375rem;
+	left: 10%;
+	top: 10%;
+	width: 80%;
 }
 
-#header .curr {
-	border-bottom: 2px solid #999;
-	padding-bottom: 0.1875rem;
+.bottom {
+	position: absolute;
+	bottom: 10%;
+	right: 10%;
 }
