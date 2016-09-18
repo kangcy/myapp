@@ -17,6 +17,10 @@
 			.mui-table-view-cell {
 				padding: .8rem 0.9375rem;
 			}
+			
+			.mui-popup-title+.mui-popup-text {
+				display: none;
+			}
 		</style>
 	</head>
 
@@ -30,19 +34,19 @@
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
 					<span class="fl">权限设置</span>
 				</li>
-				<li class="mui-table-view-cell list check">
+				<li class="mui-table-view-cell list" index="3">
 					<span class="fl">公开</span>
 					<span class="mui-pull-right csubtitle mr20">所有人都可以看到</span>
 				</li>
-				<li class="mui-table-view-cell list">
+				<li class="mui-table-view-cell list" index="2">
 					<span class="fl">限制可见</span>
 					<span class="mui-pull-right csubtitle mr20">仅通过自己分享后才可见</span>
 				</li>
-				<li class="mui-table-view-cell list">
+				<li class="mui-table-view-cell list" index="1">
 					<span class="fl">密码可见</span>
 					<span class="mui-pull-right csubtitle mr20">设置密码,输入密码才可见</span>
 				</li>
-				<li class="mui-table-view-cell list">
+				<li class="mui-table-view-cell list" index="0">
 					<span class="fl">私密</span>
 					<span class="mui-pull-right csubtitle mr20">仅自己可见</span>
 				</li>
@@ -59,7 +63,7 @@
 				<li class="mui-table-view-cell">
 					<a>
 						<span class="fl">申请推荐</span>
-						<div class="mui-switch mui-switch-blue mui-active">
+						<div class="mui-switch mui-switch-blue">
 							<div class="mui-switch-handle"></div>
 						</div>
 					</a>
@@ -74,6 +78,11 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var ArticleID = 0; //文章ID
+	var ArticlePower = 0; //分享权限
+	var ArticlePowerPwd = ""; //权限密码
+	var ArticleType = 0; //文章类型ID
+	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -84,18 +93,39 @@
 	$(function() {
 		//选中切换
 		$("#list").on('tap', '.list', function(event) {
-			$(".check").removeClass("check");
-			$(this).addClass("check");
+			var $this = $(this);
+			var index = $this.attr("index");
+
+			//密码验证
+			if(index == 2) {
+				var btnArray = ['确定', '取消'];
+				mui.prompt('设置密码', '输入4位数字密码', '分享设置', btnArray, function(e) {
+					if(e.index == 0) {
+						if(ChechPwd(e.value)) {
+							ArticlePowerPwd = e.value;
+							$(".check").removeClass("check");
+							$this.addClass("check");
+							ArticlePower = index;
+							SaveArticlePower();
+						}
+					}
+				})
+			} else {
+				$(".check").removeClass("check");
+				$this.addClass("check");
+				ArticlePower = index;
+				SaveArticlePower();
+			}
 		});
-		
+
 		//分类
 		document.getElementById('articletype').addEventListener('tap', function(event) {
 			var articleType = mui.preload({
 				"id": 'articleType',
 				"url": 'articleType.html',
 				extras: {
-					ArticleID: "0",
-					ArticleType:"0"
+					ArticleID: ArticleID,
+					ArticleType: ArticleType
 				}
 			});
 			mui.openWindow({
@@ -111,16 +141,52 @@
 	})
 
 	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID;
+		ArticleType = self.ArticleType;
+		ArticlePower = self.ArticlePower;
+		ArticlePowerPwd = self.ArticlePowerPwd;
+
+		//初始化
+		$("#list").find("[index=" + ArticlePower + "]").addclass("check");
+		
+
 		//返回
 		mui.back = function() {
-			plus.webview.currentWebview().hide();
+			self.hide();
 		}
 
-		/*
-		 * 返回
-		 */
+		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
 		});
 	});
+
+	//校验权限密码
+	function ChechPwd(str) {
+		if(base.IsNullOrEmpty(str))
+			return false;
+		str = str.trim();
+		if(str.length != 4 || isNaN(str)) {
+			mui.toast("输入4位数字密码");
+			return false;
+		}
+		return true;
+	}
+
+	//保存权限
+	function SaveArticlePower() {
+		plus.nativeUI.showWaiting();
+		HttpGet(base.RootUrl + "Article/EditArticlePower", {
+				UserName: userinfo.account,
+				Password: userinfo.password,
+				ArticleID: ArticleID,
+				ArticlePower: ArticlePower,
+				ArticlePowerPwd:ArticlePowerPwd
+			},
+			function(data) {
+				plus.nativeUI.closeWaiting();
+				mui.toast(data.result ? "编辑成功~" : data.message);
+			});
+	}
 </script>

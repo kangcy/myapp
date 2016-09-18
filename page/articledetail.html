@@ -51,11 +51,11 @@
 						</div>
 					</div>
 					<div class="f11 tl" id="detail">
-						<p class="f25 c000 title" style="line-height:30px;">旅游 | 50岁时你可能还会记得你去过的让人难忘的地方</p>
-						<p><span class="fl">作者：一个傻瓜</span><span class="fl ml10">2345阅读</span><span class="fl ml10">/</span><span class="fl ml10">2345收藏</span><span class="fl ml10">/</span><span class="fl ml10">2345评论</span></p>
-						<p class="c000">
+						<p class="f25 c000 title" style="line-height:30px;" id="article_title">旅游 | 50岁时你可能还会记得你去过的让人难忘的地方</p>
+						<p><span class="fl" id="article_author">作者：一个傻瓜</span><span class="fl ml10" id="article_views">2345阅读</span><span class="fl ml10">/</span><span class="fl ml10" id="article_keeps">2345收藏</span><span class="fl ml10">/</span><span class="fl ml10" id="article_comments">2345评论</span></p>
+						<div class="c000" id="article_desc">
 							1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -77,6 +77,11 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var ArticleID = 0; //文章ID
+	var ArticlePower = 0; //分享权限
+	var ArticlePowerPwd = ""; //权限密码
+	var ArticleType = 0; //文章类型ID
+
 	var currEditID = 0; //当前操作对象ID
 	var currUserID = base.GetUserID(); //当前登录用户ID
 
@@ -87,6 +92,20 @@
 		},
 		swipeBack: false
 	});
+
+	window.onload = function() {
+		//加载文章
+		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
+			if(data != null) {
+				$("#article_title").html(data.Title);
+				$("#article_author").html(data.UserName);
+				$("#article_views").html(data.Views);
+				$("#article_keeps").html(data.Keeps);
+				$("#article_comments").html(data.Comments);
+				$("#article_desc").html();
+			}
+		});
+	}
 
 	$(function() {
 		mui('.mui-scroll-wrapper').scroll({

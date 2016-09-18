@@ -13,8 +13,8 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<a id="back" class="mui-icon mui-action-menu mui-icon-arrowleft mui-pull-left cfff"></a>
+			<a class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 			<h1 class="mui-title cfff f13" id="tabs"><span class="tab curr" onclick="changeComment(0)">我评论的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">评论我的</span></h1>
 		</header>
 		<div class="mui-content"></div>
@@ -68,8 +68,7 @@
 	mui.plusReady(function() {
 		//返回
 		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			self.hide();
+			plus.webview.currentWebview().hide();
 		}
 
 		//返回
@@ -108,7 +107,7 @@
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				mui('#pullrefresh').pullRefresh().refresh(true);
 			})
-		}, 250);
+		}, 500);
 	}
 
 	/**
@@ -128,39 +127,60 @@
 	 * 加载数据
 	 */
 	function load(callback) {
-		var data = {
-			page: currpage,
-			rows: pagesize,
-			ArticleUserID: 1
-		};
-		if(ismycomment) {
-			data = {
-				page: currpage,
-				rows: pagesize,
-				CreateUserID: 1
-			}
-		}
-		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
-			if(data != null) {
-				totalpage = data.totalpage; //总页数
-				var length = data.list.length;
-				if(length > 0) {
-					var table = document.getElementById('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
-					}
+		if(base.IsTest) {
+			var table = document.getElementById('scroll-view');
+			for(var i = 1; i < 6; i++) {
+				var item = {
+					Avatar: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
+					NickName: "一个傻瓜",
+					Summary: "个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名",
+					ArticleID: i,
+					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
+					Title: "动漫" + i,
+					CreateDate: "2016-9-9"
 				}
-			}
-			if($.isFunction(callback)) {
-				callback();
+				table.appendChild(appendStr(item));
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
 			});
-		});
+		} else {
+			var data = {
+				page: currpage,
+				rows: pagesize,
+				ArticleUserID: 1
+			};
+			if(ismycomment) {
+				data = {
+					page: currpage,
+					rows: pagesize,
+					CreateUserID: 1
+				}
+			}
+			HttpGet(base.RootUrl + "Comment/All", data, function(data) {
+				if(data != null) {
+					totalpage = data.totalpage; //总页数
+					var length = data.list.length;
+					if(length > 0) {
+						var table = document.getElementById('scroll-view');
+						for(var i = 0, len = data.list.length; i < len; i++) {
+							var div = appendStr(data.list[i]);
+							table.appendChild(div);
+						}
+					}
+				}
+				if($.isFunction(callback)) {
+					callback();
+				}
+				document.body.removeAttribute('data-imageLazyload');
+				mui(document).imageLazyload({
+					placeholder: '../images/60x60.gif',
+					diff: window.innerHeight
+				});
+			});
+		}
 	}
 
 	/**
@@ -175,7 +195,6 @@
 			//头像
 			model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" /></div>');
 		}
-		//昵称、签名
 		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
 		//关注
 		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
@@ -207,8 +226,24 @@
 		});
 	}
 
-	function message(id) {
-		alert(id)
+	//显示文章
+	function ShowArticle(id) {
+		var articledetail = mui.preload({
+			"id": 'articledetail',
+			"url": 'articledetail.html',
+			extras: {
+				ArticleID: id
+			}
+		});
+		mui.openWindow({
+			id: 'articledetail',
+			show: {
+				aniShow: 'slide-in-right'
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
 	}
 
 	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
@@ -222,7 +257,6 @@
 	});
 
 	function changeComment(index) {
-	alert($("#tabs").find(".curr"))
 		$("#tabs").find(".curr").removeClass("curr");
 		if(index == 0) {
 			ismycomment = true;
@@ -232,46 +266,6 @@
 		$("#tabs").find("span:eq(" + index + ")").addClass("curr");
 		pulldownRefresh();
 	}
-
-	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
-	});
-
-	/*
-	 * 新建
-	 */
-	var subWebview = null;
-	var template = null;
-	document.getElementById('info').addEventListener('tap', function() {
-		if(!mui.os.plus) {
-			mui.openWindow({
-				url: "upload.html",
-				id: "upload",
-				show: {
-					aniShow: 'zoom-fade-out',
-					duration: 300
-				}
-			});
-			return;
-		}
-		//获取共用父窗体
-		if(subWebview == null) {
-			template = plus.webview.getWebviewById("default-main");
-		}
-		if(template) {
-			subWebview = template.children()[0];
-			subWebview.loadURL('upload.html');
-			mui.fire(template, 'updateHeader', {
-				title: '上传',
-				showMenu: false
-			});
-			template.show('slide-in-right', 150);
-		}
-	});
 
 	var contentWebview = null;
 	document.querySelector('header').addEventListener('doubletap', function() {

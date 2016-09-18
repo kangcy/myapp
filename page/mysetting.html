@@ -78,7 +78,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.picker.min.js"></script>
 <script src="../js/mui.poppicker.js"></script>
-<script src="../js/city.js"></script>
+<script src="../js/city2.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
@@ -118,17 +118,20 @@
 
 		//地市选择
 		var cityPicker = new mui.PopPicker({
-			layer: 3
+			layer: 2
 		});
 		cityPicker.setData(cityData);
 		document.getElementById('cityPicker').addEventListener('tap', function(event) {
 			cityPicker.show(function(items) {
-				document.getElementById("city").innerHTML = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+				document.getElementById("city").innerHTML = items[0].text + " " + items[1].text;
 				plus.nativeUI.showWaiting();
-				HttpGet(base.RootUrl + "User/EditNickName", {
+				HttpGet(base.RootUrl + "User/EditAddress", {
 					UserName: userinfo.account,
 					Password: userinfo.password,
-					NickName: t
+					ProvinceID: items[0].value,
+					CityID: items[1].value,
+					ProvinceName: items[0].text,
+					CityName: items[1].text
 				}, function(data) {
 					plus.nativeUI.closeWaiting();
 					mui.toast(data.result ? "编辑成功~" : data.message);
@@ -188,16 +191,12 @@
 	mui.plusReady(function() {
 		//返回
 		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			self.hide();
+			plus.webview.currentWebview().hide();
 		}
 
-		/*
-		 * 点击左上角侧滑图标，打开侧滑菜单
-		 */
+		//返回
 		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-			var template = plus.webview.getWebviewById("index");
-			mui.fire(template, 'toggleMenu', {});
+			mui.back();
 		});
 	});
 
@@ -274,12 +273,5 @@
 				autoShow: false
 			}
 		});
-	});
-
-	/*
-	 * 双击顶部导航，内容区回到顶部
-	 */
-	document.querySelector('header').addEventListener('doubletap', function() {
-		main.children()[0].evalJS('mui.scrollTo(0, 100)');
 	});
 </script>

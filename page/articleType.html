@@ -35,6 +35,7 @@
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticleType = 0; //文章类型ID
+	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -53,6 +54,7 @@
 		$("#scroll-view").on('tap', 'div.mui-table-view-cell', function(event) {
 			$(".check").removeClass("check");
 			$(this).find(".oa-contact-icon").addClass("check");
+			ArticleType = $(this).find(".oa-contact-icon").attr("type");
 		});
 	});
 
@@ -74,16 +76,17 @@
 		//完成
 		document.getElementById("submit").addEventListener('tap', function(event) {
 			plus.nativeUI.showWaiting();
-			HttpGet(base.RootUrl + "User/EditNickName", {
-				UserName: userinfo.account,
-				Password: userinfo.password,
-				ArticleID: ArticleID,
-				ArticleType: ArticleType
-			}, function(data) {
-				plus.nativeUI.closeWaiting();
-				mui.toast(data.result ? "编辑成功~" : data.message);
-				mui.back();
-			});
+			HttpGet(base.RootUrl + "Article/EditArticleType", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					ArticleID: ArticleID,
+					ArticleType: ArticleType
+				},
+				function(data) {
+					plus.nativeUI.closeWaiting();
+					mui.toast(data.result ? "编辑成功~" : data.message);
+					mui.back();
+				});
 		}, false);
 	});
 
@@ -99,7 +102,6 @@
 					Name: "动漫" + i,
 					Summary: "动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫"
 				}
-				table.appendChild(appendStr(item));
 				table.appendChild(appendStr(item));
 			}
 		} else {
@@ -134,7 +136,7 @@
 		//分类信息
 		model.push('<div  class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix"><p class="f16 mb10 c000">' + item.Name + '</p></div><p class="f11 csubtitle">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell" type="' + item.ID + '"></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
