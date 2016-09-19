@@ -24,12 +24,10 @@
 			<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 			<h1 class="mui-title cfff f15">意见反馈</h1>
 		</header>
-		<div class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<div id="feedback" style="padding: 5%;">
-					<textarea id='question' class="mui-input-clear f13" placeholder="欢迎留下您的宝贵意见......"></textarea>
-					<!--<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />-->
-				</div>
+		<div class="mui-content">
+			<div id="feedback" style="padding: 5%;">
+				<textarea id='question' class="mui-input-clear f13" placeholder="欢迎留下您的宝贵意见......"></textarea>
+				<!--<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />-->
 			</div>
 		</div>
 		</div>
@@ -49,16 +47,32 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	//启用页面滑动
-	mui('.mui-scroll-wrapper').scroll({});
+	$(function() {
+		//测试提交
+		if(!mui.os.plus && base.IsTest) {
+			var question = document.getElementById("question");
+			document.getElementById("submit").addEventListener('tap', function(event) {
+				if(question.value == '') {
+					return mui.toast('请填写评论信息');
+				}
+				HttpGet(base.RootUrl + "FeedBack/Edit", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					Summary: escape(question.value)
+				}, function(data) {
+					mui.toast(data.result ? "感谢您的建议~" : data.message);
+					question.value = "";
+				});
+			}, false);
+		}
+	})
 
 	mui.plusReady(function() {
 		//返回
 		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			self.hide();
+			plus.webview.currentWebview().hide();
 		}
-		
+
 		//返回
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
@@ -74,7 +88,7 @@
 			HttpGet(base.RootUrl + "FeedBack/Edit", {
 				UserName: userinfo.account,
 				Password: userinfo.password,
-				Summary: question.value
+				Summary: escape(question.value)
 			}, function(data) {
 				plus.nativeUI.closeWaiting();
 				mui.toast(data.result ? "感谢您的建议~" : data.message);

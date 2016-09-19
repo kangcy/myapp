@@ -3,7 +3,7 @@ var base = new function() {
 	 * 是否测试
 	 **/
 	this.IsTest = true;
-	
+
 	/**
 	 * 列表每次请求数
 	 **/
@@ -18,14 +18,22 @@ var base = new function() {
 	 * 获取当前用户ID
 	 **/
 	this.GetUserID = function() {
-		return 1;
+		return 2;
 	}
 
 	/**
 	 * 获取当前用户信息
 	 **/
 	this.GetUserInfo = function() {
-        var settingsText = localStorage.getItem('$users') || "{}";
+		var settingsText = localStorage.getItem('$users') || "{}";
+
+		if(settingsText == "{}") {
+			return {
+				account: 18652913873,
+				password: 123456
+			}
+		}
+
 		return JSON.parse(settingsText);
 	}
 

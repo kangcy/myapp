@@ -24,12 +24,10 @@
 			<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 			<h1 class="mui-title cfff f15">评论</h1>
 		</header>
-		<div class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<div id="feedback" style="padding: 5%;">
-					<textarea id='question' class="mui-input-clear f13" placeholder="欢迎留下您的意见......"></textarea>
-					<!--<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />-->
-				</div>
+		<div class="mui-content">
+			<div id="feedback" style="padding: 5%;">
+				<textarea id='question' class="mui-input-clear f13" placeholder="欢迎留下您的评论......" maxlength="100"></textarea>
+				<!--<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />-->
 			</div>
 		</div>
 		</div>
@@ -41,6 +39,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var ArticleID = 0;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -49,17 +48,34 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	//启用页面滑动
-	mui('.mui-scroll-wrapper').scroll({});
+	$(function() {
+		//测试提交
+		if(!mui.os.plus && base.IsTest) {
+			var question = document.getElementById("question");
+			document.getElementById("submit").addEventListener('tap', function(event) {
+				if(question.value == '') {
+					return mui.toast('请填写评论信息');
+				}
+				HttpGet(base.RootUrl + "Comment/Edit", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					ArticleID: 1,
+					Summary: escape(question.value)
+				}, function(data) {
+					mui.toast(data.result ? "感谢您的评论~" : data.message);
+					question.value = "";
+				});
+			}, false);
+		}
+	})
 
 	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID;
+
 		//返回
 		mui.back = function() {
-			var self = plus.webview.currentWebview();
 			self.hide();
-		}
-		if(!mui.os.plus) {
-			document.querySelector("header").classList.remove("hide");
 		}
 
 		//返回
@@ -77,7 +93,8 @@
 			HttpGet(base.RootUrl + "Comment/Edit", {
 				UserName: userinfo.account,
 				Password: userinfo.password,
-				Summary: question.value
+				ArticleID: ArticleID,
+				Summary: escape(question.value)
 			}, function(data) {
 				plus.nativeUI.closeWaiting();
 				mui.toast(data.result ? "感谢您的评论~" : data.message);

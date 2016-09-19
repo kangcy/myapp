@@ -34,6 +34,16 @@
 				height: 30px;
 				line-height: 30px;
 			}
+			
+			.footer div {
+				line-height: 2.75rem;
+			}
+			
+			.footer img {
+				width: 1.4rem;
+				height: 1.4rem;
+				margin-top: 0.6rem;
+			}
 		</style>
 	</head>
 
@@ -51,10 +61,12 @@
 						</div>
 					</div>
 					<div class="f11 tl" id="detail">
-						<p class="f25 c000 title" style="line-height:30px;" id="article_title">旅游 | 50岁时你可能还会记得你去过的让人难忘的地方</p>
-						<p><span class="fl" id="article_author">作者：一个傻瓜</span><span class="fl ml10" id="article_views">2345阅读</span><span class="fl ml10">/</span><span class="fl ml10" id="article_keeps">2345收藏</span><span class="fl ml10">/</span><span class="fl ml10" id="article_comments">2345评论</span></p>
-						<div class="c000" id="article_desc">
-							1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。
+						<p class="f25 c000 title" style="line-height:1.9rem;" id="article_title"></p>
+						<div class="full fl" id="article_info">
+
+						</div>
+						<div class="c000 fl full" id="article_desc">
+
 						</div>
 					</div>
 				</div>
@@ -62,12 +74,11 @@
 		</div>
 		<div class="mui-bar mui-bar-nav f13 footer">
 			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
-			<div class="fr cfff" style="line-height:2.75rem;">18</div>
-			<img id="share" src="../images/article/share.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
-			<div class="fr cfff mr15" style="line-height:2.75rem;">19</div>
-			<img id="comment" src="../images/article/comment.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
-			<div class="fr cfff mr15" style="line-height:2.75rem;">20</div>
-			<img id="zan" src="../images/article/zan.png" class="fr mr10" style="width: 1.4rem;height: 1.4rem;margin-top: 0.6rem;" />
+			<img id="share" src="../images/article/share.png" class="fr mr10" />
+			<div class="fr cfff mr15" id="footer_comment"></div>
+			<img id="comment" src="../images/article/comment.png" class="fr mr10" />
+			<div class="fr cfff mr15" id="footer_zan"></div>
+			<img id="zan" src="../images/article/zan.png" class="fr mr10" />
 		</div>
 	</body>
 
@@ -79,12 +90,12 @@
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
-	var ArticlePowerPwd = ""; //权限密码
 	var ArticleType = 0; //文章类型ID
+	var ArticleUserID = 0; //文章作者
 
 	var currEditID = 0; //当前操作对象ID
 	var currUserID = base.GetUserID(); //当前登录用户ID
-
+	var userinfo = base.GetUserInfo();
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
@@ -93,21 +104,11 @@
 		swipeBack: false
 	});
 
-	window.onload = function() {
-		//加载文章
-		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
-			if(data != null) {
-				$("#article_title").html(data.Title);
-				$("#article_author").html(data.UserName);
-				$("#article_views").html(data.Views);
-				$("#article_keeps").html(data.Keeps);
-				$("#article_comments").html(data.Comments);
-				$("#article_desc").html();
-			}
-		});
-	}
-
 	$(function() {
+		if(!mui.os.plus) {
+			Load();
+		}
+
 		mui('.mui-scroll-wrapper').scroll({
 			indicators: false //不显示滚动条
 		});
@@ -124,6 +125,15 @@
 			mui.confirm('删除后将无法在微信浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
 				if(e.index == 0) {
 					//请求删除
+					HttpGet(base.RootUrl + "Article/Delete", {
+						ID: ArticleID
+					}, function(data) {
+						if(data != null) {
+							if(data.result) {
+
+							}
+						}
+					});
 				}
 			});
 		});
@@ -134,7 +144,7 @@
 				"id": 'addarticle',
 				"url": 'addarticle.html',
 				extras: {
-					id: "0"
+					ArticleID: "0"
 				}
 			});
 			mui.openWindow({
@@ -187,42 +197,74 @@
 
 		//点赞
 		document.getElementById('zan').addEventListener('tap', function(event) {
-			var zan = mui.preload({
-				"id": 'zan',
-				"url": 'zan.html',
-				extras: {
-					id: "0"
-				}
-			});
-			mui.openWindow({
-				id: 'zan',
-				show: {
-					aniShow: 'slide-in-right'
-				},
-				waiting: {
-					autoShow: false
-				}
-			});
+			//是否我的文章
+			if(currUserID == ArticleUserID) {
+				var zan = mui.preload({
+					"id": 'zan',
+					"url": 'zan.html'
+				});
+				mui.openWindow({
+					id: 'zan',
+					show: {
+						aniShow: 'slide-in-right'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			} else {
+				HttpGet(base.RootUrl + "Zan/Edit", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					ArticleID: ArticleID
+				}, function(data) {
+					if(data != null) {
+						mui.toast(data.result ? "感谢您的点赞~" : data.message);
+						if(data.result) {
+							$("#footer_zan").html(data.message);
+						}
+					}
+				});
+			}
 		})
 
 		//评论
 		document.getElementById('comment').addEventListener('tap', function(event) {
-			var comment = mui.preload({
-				"id": 'comment',
-				"url": 'comment.html',
-				extras: {
-					ArticleID: "0"
-				}
-			});
-			mui.openWindow({
-				id: 'comment',
-				show: {
-					aniShow: 'slide-in-right'
-				},
-				waiting: {
-					autoShow: false
-				}
-			});
+			//是否我的文章
+			if(currUserID == ArticleUserID) {
+				//跳转评论列表页
+				var comment = mui.preload({
+					"id": 'comment',
+					"url": 'comment.html'
+				});
+				mui.openWindow({
+					id: 'comment',
+					show: {
+						aniShow: 'slide-in-right'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			} else {
+				//跳转文章评论页
+				var addcomment = mui.preload({
+					id: 'addcomment',
+					url: 'addcomment.html',
+					extras: {
+						ArticleID: ArticleID
+					}
+				});
+				mui.openWindow({
+					id: 'addcomment',
+					show: {
+						aniShow: 'slide-in-right'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}
 		})
 
 		//分享
@@ -232,20 +274,63 @@
 	})
 
 	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID;
+
+		console.log(ArticleID);
+
+		Load();
+
 		//返回
 		mui.back = function() {
-			var $this = this;
-			var btnArray = ['退出编辑', '取消'];
-			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
-				if(e.index == 0) {
-					$this.parentNode.parentNode.remove();
-				}
-			});
+			self.hide();
 		}
 
 		//返回
 		document.getElementById('back').addEventListener('tap', function(event) {
-			plus.webview.currentWebview().hide();
+			mui.back();
 		});
 	});
+
+	//加载文章
+	function Load() {
+		if(base.IsTest) {
+			ArticleID = 1;
+			ArticlePower = 1;
+			ArticleType = 1;
+			ArticleUserID = 1;
+			$("#header").css({
+				"background": "url(http://www.dcloud.io/hellomui/images/" + parseInt(Math.random() * 5 + 1) + ".jpg?version=" + Math.random() * 1000 + ") no-repeat",
+				"background-size": "100% 100%"
+			});
+			$("#article_title").html("旅游 | 50岁时你可能还会记得你去过的让人难忘的地方");
+			$("#article_info").html('<span class="fl">作者：一个傻瓜</span><span class="fl ml10">1阅读</span><span class="fl ml10">/</span><span class="fl ml10">2收藏</span><span class="fl ml10">/</span><span class="fl ml10">3评论</span>');
+
+			$("#article_desc").html("1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。");
+			$("#footer_zan").html(10);
+			$("#footer_comment").html(11);
+		} else {
+			HttpGet(base.RootUrl + "Article/Detail", {
+				UserName: userinfo.account,
+				Password: userinfo.password,
+				ID: ArticleID
+			}, function(data) {
+				if(data != null) {
+					if(data.result) {
+						data = data.message
+						ArticlePower = data.ArticlePower;
+						ArticleType = data.TypeID;
+						ArticleUserID = data.CreateUserID;
+						$("#header").css("background", data.Cover);
+						$("#article_title").html(data.Title);
+						$("#article_info").html('<span class="fl">作者：' + data.NickName + '</span><span class="fl ml10">' + data.Views + '阅读</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Keeps + '收藏</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Comments + '评论</span>');
+
+						$("#article_desc").html(data.Introduction);
+						$("#footer_zan").html(data.Goods);
+						$("#footer_comment").html(data.Comments);
+					}
+				}
+			});
+		}
+	}
 </script>
