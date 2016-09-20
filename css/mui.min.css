@@ -53,11 +53,18 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
  
 .initial{position: initial !important;}
  
+ /*头尾*/
  .header{background:url(../images/header.png) no-repeat;background-size:100% 100%;}
  .header .leftmenu{width:1.2rem;}
  .header .curr {border-bottom: 2px solid #fff;padding-bottom: 0.1875rem;}
  .footer{height:auto;background:url(../images/bottom.png) no-repeat;background-size:100% 100%;top: inherit;bottom: 0px;height: 2.75rem;}
  .footer .add{width:2rem;padding-top: .3rem;}
+ 
+ /*图片裁剪*/
+#cropperEdit{top: 0px; bottom: 0px;display:none;background:#fff;}
+#cropperEdit #ready #readyimg{max-width:100%;max-height:100%;} 
+#cropperEdit .mui-content-padded{width:100%;height: 100px;z-index: 110;position: absolute;top:60px;left:0px;}
+#cropperEdit .mui-icon{font-size:3rem;}
  /*
   1: 0.0625rem
   2: 0.125rem

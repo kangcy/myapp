@@ -134,6 +134,11 @@
 	});
 
 	mui.plusReady(function() {
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
+		}
+
 		//返回
 		mui.back = function() {
 			var $this = this;

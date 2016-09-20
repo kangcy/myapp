@@ -18,14 +18,31 @@
 		if(loginInfo.password.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
-		var users = JSON.parse(localStorage.getItem('$users') || '[]');
-		var authed = users.some(function(user) {
-			return loginInfo.account == user.account && loginInfo.password == user.password;
-		});
-		if(authed) {
-			return owner.createState(loginInfo.account, callback);
+
+		//登录验证
+		if(base.IsTest) {
+			var users = JSON.parse(localStorage.getItem('$users') || '[]');
+			var authed = users.some(function(user) {
+				return loginInfo.account == user.account && loginInfo.password == user.password;
+			});
+			if(authed) {
+				return owner.createState(loginInfo.account, callback);
+			} else {
+				return callback('用户名或密码错误');
+			}
 		} else {
-			return callback('用户名或密码错误');
+			HttpGet(base.RootUrl + "User/Login", {
+				UserName: loginInfo.account,
+				Password: loginInfo.password
+			}, function(data) {
+				if(data != null) {
+					if(data.result) {
+						return callback();
+					} else {
+						return callback(data.message);
+					}
+				}
+			});
 		}
 	};
 
