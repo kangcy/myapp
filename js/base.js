@@ -7,7 +7,7 @@ var base = new function() {
 	/**
 	 * 列表每次请求数
 	 **/
-	this.PageSize = 10;
+	this.PageSize = 1;
 
 	/**
 	 * 窗口动画持续时间
