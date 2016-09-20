@@ -13,7 +13,6 @@ function getImage() {
 				$("#readyimg").attr("src", src);
 				cutImg();
 			});
-
 		});
 	});
 }
@@ -38,8 +37,8 @@ function galleryImgs() {
 
 //照片裁剪类  
 function cutImg() {
-	$(".mui-content").hide();
-	$("#cropperEdit").fadeIn();
+	$(".mui-content,.header,.footer").hide();
+	$("#cropperEdit").show();
 	$("#readyimg").cropper({
 		checkImageOrigin: true,
 		aspectRatio: 1 / 1,
@@ -60,18 +59,18 @@ function rotateimgleft() {
 
 //关闭裁剪窗口
 function closepop() {
-	$("#cropperEdit").fadeOut();
+	$("#cropperEdit").hide();
 	$("#readyimg").cropper('destroy');
-	$(".mui-content").show();
+	$(".mui-content,.header,.footer").show();
 }
 
 //确认照片，展示效果  
-function confirm() {
-	$("#cropperEdit").fadeOut();
+function confirm(targetid) {
+	$("#cropperEdit").hide();
 	var dataURL = $("#readyimg").cropper("getCroppedCanvas");
 	var imgurl = dataURL.toDataURL("image/jpeg", 0.5);
-	$("#changeAvatar > img").attr("src", imgurl);
-	$(".mui-content").show();
+	$("#" + targetid).attr("src", imgurl);
+	$(".mui-content,.header,.footer").show();
 	$("#readyimg").cropper('destroy');
 }
 
@@ -85,13 +84,12 @@ function compressImage(src, newsrc, callback) {
 			quality: 100
 		},
 		function(event) {
-			console.log(JSON.stringify(event));
+			//console.log(JSON.stringify(event));
 			if($.isFunction(callback)) {
 				callback(event.target);
 			}
 		},
 		function(error) {
-			console.log(error);
 			if($.isFunction(callback)) {
 				callback(src);
 			}

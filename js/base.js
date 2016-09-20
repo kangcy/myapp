@@ -10,6 +10,11 @@ var base = new function() {
 	this.PageSize = 10;
 
 	/**
+	 * 窗口动画持续时间
+	 **/
+	this.AnimateDuration = 150;
+
+	/**
 	 * 获取接口请求根路径
 	 **/
 	this.RootUrl = "http://localhost/app/";

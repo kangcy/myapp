@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/comment.css">
 	</head>
 
 	<body>
@@ -18,15 +17,6 @@
 			<h1 class="mui-title cfff f13">帮助中心</h1>
 		</header>
 		<div class="mui-content"></div>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
-			<!--下拉刷新容器-->
-			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<div id="scroll-view">
-					</div>
-				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
@@ -35,178 +25,26 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currpage = 1;
-	var pagesize = base.PageSize;
-	var totalpage = 2;
-
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
 		swipeBack: false, //启用右滑关闭功能
-		pullRefresh: {
-			container: '#pullrefresh',
-			down: {
-				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: '正在加载...',
-				contentnomore: '没有更多数据了',
-				callback: pullupRefresh
+		subpages: [{
+			url: 'helpSub.html',
+			id: 'helpSub',
+			styles: {
+				top: parseInt((window.innerWidth / 320) * 45) + 'px',
+				bottom: '0px',
 			}
-		}
-	});
-
-
-	mui.plusReady(function() {
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			self.hide();
-		}
-	});
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh() {
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			load(function() {
-				++currpage;
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				mui('#pullrefresh').pullRefresh().refresh(true);
-			})
-		}, 250);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh() {
-		if(currpage > totalpage) {
-			return;
-		}
-		setTimeout(function() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-			load(function() {
-				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage); //参数为true代表没有更多数据了。
-			})
-		}, 250);
-	}
-
-	/**
-	 * 加载数据
-	 */
-	function load(callback) {
-		var data = {
-			page: currpage,
-			rows: pagesize
-		};
-		HttpGet(base.RootUrl + "Help/All", data, function(data) {
-			if(data != null) {
-				totalpage = data.totalpage; //总页数
-				var length = data.list.length;
-				if(length > 0) {
-					var table = document.getElementById('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
-					}
-				}
-			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-		});
-	}
-
-	/**
-	 * 拼接Html
-	 */
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		var model = [];
-		model.push('<div class="mui-slider-cell mt10 mb10">');
-		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.Name + '</p><p class="f11 csubtitle">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr mui-icon-checkmarkempty select"></span></div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
-	if(mui.os.plus) {
-		mui.plusReady(function() {
-			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			}, 1000);
-
-		});
-	} else {
-		mui.ready(function() {
-			mui('#pullrefresh').pullRefresh().pullupLoading();
-		});
-	}
-
-	function message(id) {
-		alert(id)
-	}
-
-	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
-		this.click();
-	});
-
-	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
-	});
-
-	/*
-	 * 新建
-	 */
-	var subWebview = null;
-	var template = null;
-	document.getElementById('info').addEventListener('tap', function() {
-		if(!mui.os.plus) {
-			mui.openWindow({
-				url: "upload.html",
-				id: "upload",
-				show: {
-					aniShow: 'zoom-fade-out',
-					duration: 300
-				}
-			});
-			return;
-		}
-		//获取共用父窗体
-		if(subWebview == null) {
-			template = plus.webview.getWebviewById("default-main");
-		}
-		if(template) {
-			subWebview = template.children()[0];
-			subWebview.loadURL('upload.html');
-			mui.fire(template, 'updateHeader', {
-				title: '上传',
-				showMenu: false
-			});
-			template.show('slide-in-right', 150);
-		}
+		}]
 	});
 
 	var contentWebview = null;
 	document.querySelector('header').addEventListener('doubletap', function() {
 		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview();
+			contentWebview = plus.webview.currentWebview().children()[0];
 		}
 		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 	});
