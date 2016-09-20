@@ -90,8 +90,9 @@
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
-	var ArticleType = 0; //文章类型ID
 	var ArticleUserID = 0; //文章作者
+	var ArticleType = 0; //文章类型ID
+	var ArticleTypeName = ""; //文章类型名称
 
 	var currEditID = 0; //当前操作对象ID
 	var currUserID = base.GetUserID(); //当前登录用户ID
@@ -178,10 +179,13 @@
 		//权限
 		document.getElementById('power').addEventListener('tap', function(event) {
 			var desc = mui.preload({
-				"id": 'sharesetting',
-				"url": 'sharesetting.html',
+				id: 'sharesetting',
+				url: 'sharesetting.html',
 				extras: {
-					id: "0"
+					ArticleID = ArticleID,
+					ArticlePower = ArticlePower,
+					ArticleType = ArticleType,
+					ArticleTypeName = ArticleTypeName
 				}
 			});
 			mui.openWindow({
@@ -297,8 +301,9 @@
 		if(base.IsTest) {
 			ArticleID = 1;
 			ArticlePower = 1;
-			ArticleType = 1;
 			ArticleUserID = 1;
+			ArticleType = 1;
+			ArticleTypeName = "其它";
 			$("#header").css({
 				"background": "url(http://www.dcloud.io/hellomui/images/" + parseInt(Math.random() * 5 + 1) + ".jpg?version=" + Math.random() * 1000 + ") no-repeat",
 				"background-size": "100% 100%"
@@ -320,6 +325,7 @@
 						data = data.message
 						ArticlePower = data.ArticlePower;
 						ArticleType = data.TypeID;
+						ArticleTypeName = data.TypeName;
 						ArticleUserID = data.CreateUserID;
 						$("#header").css("background", data.Cover);
 						$("#article_title").html(data.Title);

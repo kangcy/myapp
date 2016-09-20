@@ -49,24 +49,33 @@
 	});
 
 	$(function() {
-		//测试提交
-		if(!mui.os.plus && base.IsTest) {
-			var question = document.getElementById("question");
-			document.getElementById("submit").addEventListener('tap', function(event) {
-				if(question.value == '') {
-					return mui.toast('请填写评论信息');
+		//保存
+		var question = document.getElementById("question");
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(question.value == '') {
+				return mui.toast('请填写评论信息');
+			}
+			if(mui.os.plus) {
+				plus.nativeUI.showWaiting();
+			}
+			HttpGet(base.RootUrl + "Comment/Edit", {
+				UserName: userinfo.account,
+				Password: userinfo.password,
+				ArticleID: ArticleID,
+				Summary: escape(question.value)
+			}, function(data) {
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
 				}
-				HttpGet(base.RootUrl + "Comment/Edit", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
-					ArticleID: 1,
-					Summary: escape(question.value)
-				}, function(data) {
-					mui.toast(data.result ? "感谢您的评论~" : data.message);
+				mui.toast(data.result ? "感谢您的评论~" : data.message);
+				if(data.result) {
 					question.value = "";
-				});
-			}, false);
-		}
+					if(mui.os.plus) {
+						mui.back();
+					}
+				}
+			});
+		}, false);
 	})
 
 	mui.plusReady(function() {
@@ -82,25 +91,5 @@
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		});
-
-		//保存
-		var question = document.getElementById("question");
-		document.getElementById("submit").addEventListener('tap', function(event) {
-			if(question.value == '') {
-				return mui.toast('请填写评论信息');
-			}
-			plus.nativeUI.showWaiting();
-			HttpGet(base.RootUrl + "Comment/Edit", {
-				UserName: userinfo.account,
-				Password: userinfo.password,
-				ArticleID: ArticleID,
-				Summary: escape(question.value)
-			}, function(data) {
-				plus.nativeUI.closeWaiting();
-				mui.toast(data.result ? "感谢您的评论~" : data.message);
-				question.value = "";
-				mui.back();
-			});
-		}, false);
 	});
 </script>

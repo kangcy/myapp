@@ -33,9 +33,10 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ArticleID = 0; //文章ID
+	var ArticleID = 1; //文章ID
 	var ArticleType = 0; //文章类型ID
 	var userinfo = base.GetUserInfo();
+	var shareSettingPage = null;
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -44,7 +45,7 @@
 	});
 
 	$(function() {
-		load();
+		Load();
 
 		mui('.mui-scroll-wrapper').scroll({
 			indicators: false //不显示滚动条
@@ -56,6 +57,34 @@
 			$(this).find(".oa-contact-icon").addClass("check");
 			ArticleType = $(this).find(".oa-contact-icon").attr("type");
 		});
+
+		//完成
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(mui.os.plus) {
+				plus.nativeUI.showWaiting();
+			}
+			HttpGet(base.RootUrl + "Article/EditArticleType", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					ArticleID: ArticleID,
+					ArticleType: ArticleType
+				},
+				function(data) {
+					if(mui.os.plus) {
+						plus.nativeUI.closeWaiting();
+					}
+					mui.toast(data.result ? "编辑成功~" : data.message);
+					if(mui.os.plus) {
+						if(!shareSettingPage) {
+							shareSettingPage = plus.webview.getWebviewById('sharesetting');
+						}
+						mui.fire(shareSettingPage, "updateArticleType", {
+							"desc": question.value
+						});
+						mui.back();
+					}
+				});
+		}, false);
 	});
 
 	mui.plusReady(function() {
@@ -72,28 +101,10 @@
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		});
-
-		//完成
-		document.getElementById("submit").addEventListener('tap', function(event) {
-			plus.nativeUI.showWaiting();
-			HttpGet(base.RootUrl + "Article/EditArticleType", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
-					ArticleID: ArticleID,
-					ArticleType: ArticleType
-				},
-				function(data) {
-					plus.nativeUI.closeWaiting();
-					mui.toast(data.result ? "编辑成功~" : data.message);
-					mui.back();
-				});
-		}, false);
 	});
 
-	/**
-	 * 加载数据
-	 */
-	function load(callback) {
+	//加载数据
+	function Load(callback) {
 		if(base.IsTest) {
 			var table = document.getElementById('scroll-view');
 			for(var i = 1; i < 6; i++) {
@@ -124,9 +135,7 @@
 		}
 	}
 
-	/**
-	 * 拼接Html
-	 */
+	//拼接Html
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
@@ -135,7 +144,7 @@
 		//分类图片
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Cover + '" /></div>');
 		//分类信息
-		model.push('<div  class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix"><p class="f16 mb10 c000">' + item.Name + '</p></div><p class="f11 csubtitle">' + item.Summary + '</p></div>');
+		model.push('<div  class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix"><p class="f16 mb5 c000">' + item.Name + '</p></div><p class="f11 csubtitle">' + item.Summary + '</p></div>');
 		//关注
 		model.push('<div class="oa-contact-icon mui-table-cell" type="' + item.ID + '"></div>');
 		model.push('</div>');

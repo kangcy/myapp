@@ -59,7 +59,7 @@
 				<li class="mui-table-view-cell" data-options='{"type":"date"}' id="timePicker">
 					<a class="mui-navigate-right">
 						<span class="fl">生日</span>
-						<span class="mui-pull-right csubtitle mr20" id="time">2016/06/06</span></a>
+						<span class="mui-pull-right csubtitle mr20" id="time">2016-06-06</span></a>
 					</a>
 				</li>
 				<li class="mui-table-view-cell" id="editsignature">
@@ -103,14 +103,17 @@
 		document.getElementById('sexPicker').addEventListener('tap', function(event) {
 			sexPicker.show(function(items) {
 				document.getElementById("sex").innerHTML = items[0].text;
-
-				plus.nativeUI.showWaiting();
+				if(mui.os.plus) {
+					plus.nativeUI.showWaiting();
+				}
 				HttpGet(base.RootUrl + "User/EditSex", {
 					UserName: userinfo.account,
 					Password: userinfo.password,
 					Sex: items[0].value
 				}, function(data) {
-					plus.nativeUI.closeWaiting();
+					if(mui.os.plus) {
+						plus.nativeUI.closeWaiting();
+					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
 			});
@@ -124,7 +127,9 @@
 		document.getElementById('cityPicker').addEventListener('tap', function(event) {
 			cityPicker.show(function(items) {
 				document.getElementById("city").innerHTML = items[0].text + " " + items[1].text;
-				plus.nativeUI.showWaiting();
+				if(mui.os.plus) {
+					plus.nativeUI.showWaiting();
+				}
 				HttpGet(base.RootUrl + "User/EditAddress", {
 					UserName: userinfo.account,
 					Password: userinfo.password,
@@ -133,7 +138,9 @@
 					ProvinceName: items[0].text,
 					CityName: items[1].text
 				}, function(data) {
-					plus.nativeUI.closeWaiting();
+					if(mui.os.plus) {
+						plus.nativeUI.closeWaiting();
+					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
 			});
@@ -161,14 +168,17 @@
 				 * rs.i 分（minutes 的第二个字母），用法同年
 				 */
 				document.getElementById("time").innerHTML = rs.text;
-
-				plus.nativeUI.showWaiting();
+				if(mui.os.plus) {
+					plus.nativeUI.showWaiting();
+				}
 				HttpGet(base.RootUrl + "User/EditBirthday", {
 					UserName: userinfo.account,
 					Password: userinfo.password,
 					Birthday: rs.text
 				}, function(data) {
-					plus.nativeUI.closeWaiting();
+					if(mui.os.plus) {
+						plus.nativeUI.closeWaiting();
+					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
 
@@ -209,13 +219,17 @@
 	window.addEventListener("updateNickName", function(e) {
 		var t = e.detail.desc;
 		nickname.innerHTML = t;
-		plus.nativeUI.showWaiting();
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting();
+		}
 		HttpGet(base.RootUrl + "User/EditNickName", {
 			UserName: userinfo.account,
 			Password: userinfo.password,
 			NickName: t
 		}, function(data) {
-			plus.nativeUI.closeWaiting();
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
 			mui.toast(data.result ? "编辑成功~" : data.message);
 		});
 	});
@@ -224,13 +238,17 @@
 	window.addEventListener("updateSignature", function(e) {
 		var t = e.detail.desc;
 		signature.innerHTML = t;
-		plus.nativeUI.showWaiting();
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting();
+		}
 		HttpGet(base.RootUrl + "User/EditSignature", {
 			UserName: userinfo.account,
 			Password: userinfo.password,
 			Signature: t
 		}, function(data) {
-			plus.nativeUI.closeWaiting();
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
 			mui.toast(data.result ? "编辑成功~" : data.message);
 		});
 	});

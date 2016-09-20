@@ -56,6 +56,9 @@
 
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(question.value == "") {
+				return mui.toast('请填写昵称');
+			}
 			if(!mysettingPage) {
 				mysettingPage = plus.webview.getWebviewById('mysetting');
 			}

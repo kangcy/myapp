@@ -57,7 +57,7 @@
 				<li class="mui-table-view-cell" id="articletype">
 					<a class="mui-navigate-right">
 						<span class="fl">分类</span>
-						<span class="mui-pull-right csubtitle mr20">请选择</span>
+						<span class="mui-pull-right csubtitle mr20" id="article_type"></span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
@@ -82,6 +82,7 @@
 	var ArticlePower = 0; //分享权限
 	var ArticlePowerPwd = ""; //权限密码
 	var ArticleType = 0; //文章类型ID
+	var ArticleTypeName = ""; //文章类型名称
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -121,8 +122,8 @@
 		//分类
 		document.getElementById('articletype').addEventListener('tap', function(event) {
 			var articleType = mui.preload({
-				"id": 'articleType',
-				"url": 'articleType.html',
+				id: 'articleType',
+				url: 'articleType.html',
 				extras: {
 					ArticleID: ArticleID,
 					ArticleType: ArticleType
@@ -137,19 +138,30 @@
 					autoShow: false
 				}
 			});
-		})
+		});
+
+		//修改文章类型
+		window.addEventListener("updateArticleType", function(e) {
+			document.getElementById("article_type").innerHTML = e.detail.desc;
+		});
 	})
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
-		ArticleType = self.ArticleType;
 		ArticlePower = self.ArticlePower;
-		ArticlePowerPwd = self.ArticlePowerPwd;
+		ArticleType = self.ArticleType;
+		ArticleTypeName = self.ArticleTypeName;
+		
+		if(ArticleType == -1) {
+			ArticleTypeName = "其它"
+		} else if(ArticleType == 0) {
+			ArticleTypeName = "请选择"
+		}
+		document.getElementById("article_type").innerHTML = ArticleTypeName;
 
 		//初始化
 		$("#list").find("[index=" + ArticlePower + "]").addclass("check");
-		
 
 		//返回
 		mui.back = function() {
@@ -164,8 +176,9 @@
 
 	//校验权限密码
 	function ChechPwd(str) {
-		if(base.IsNullOrEmpty(str))
+		if(base.IsNullOrEmpty(str)) {
 			return false;
+		}
 		str = str.trim();
 		if(str.length != 4 || isNaN(str)) {
 			mui.toast("输入4位数字密码");
@@ -176,16 +189,20 @@
 
 	//保存权限
 	function SaveArticlePower() {
-		plus.nativeUI.showWaiting();
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting();
+		}
 		HttpGet(base.RootUrl + "Article/EditArticlePower", {
 				UserName: userinfo.account,
 				Password: userinfo.password,
 				ArticleID: ArticleID,
 				ArticlePower: ArticlePower,
-				ArticlePowerPwd:ArticlePowerPwd
+				ArticlePowerPwd: ArticlePowerPwd
 			},
 			function(data) {
-				plus.nativeUI.closeWaiting();
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
+				}
 				mui.toast(data.result ? "编辑成功~" : data.message);
 			});
 	}
