@@ -54,6 +54,13 @@ var base = new function() {
 		}
 		return false;
 	}
+
+	/**
+	 * 产生一个随机数
+	 **/
+	this.GetUid = function() {
+		return new Date().getTime().toString();
+	}
 }
 
 /**
