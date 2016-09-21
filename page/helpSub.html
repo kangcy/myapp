@@ -23,13 +23,13 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.js"></script>
+<script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
-
+	var isLoading = false; //是否数据加载中
 	mui.init({
 		pullRefresh: {
 			container: '#pullrefresh',
@@ -49,6 +49,10 @@
 	 * 下拉刷新
 	 */
 	function pulldownRefresh() {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
 		setTimeout(function() {
 			currpage = 1;
 			totalpage = 2;
@@ -57,29 +61,30 @@
 				++currpage;
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				mui('#pullrefresh').pullRefresh().refresh(true);
+				isLoading = false;
 			})
-
-			//mui('#pullrefresh').pullRefresh().pullupLoading();
-		}, 500);
+		}, 250);
 	}
 
 	/**
 	 * 上拉加载
 	 */
 	function pullupRefresh() {
-		console.log("sdfsdfsdf");
-		console.log(currpage + "," + totalpage)
-		
-		mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage);
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
 		if(currpage > totalpage) {
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+			mui.toast("没有更多数据了");
+			isLoading = false;
 			return;
 		}
 		setTimeout(function() {
-			
-			console.log("2222")
 			Load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage);
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				isLoading = false;
 			})
 		}, 250);
 	}

@@ -4461,7 +4461,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		},
 		enablePullupToRefresh: function() {
 			//注释避免下拉加载结束再次执行上拉操作
-			this._initPullupRefresh();
+			//this._initPullupRefresh();
 			this.bottomPocket.classList.remove(CLASS_HIDDEN);
 			this._setCaption(this.options.up.contentdown);
 			this.wrapper.addEventListener('scrollbottom', this);
