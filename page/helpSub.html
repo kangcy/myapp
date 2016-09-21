@@ -157,20 +157,6 @@
 
 	if(mui.os.plus) {
 		mui.plusReady(function() {
-			//显示当前页面
-			mui.currentWebview.show("slide-in-right");
-
-			//判断网络类型
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置！");
-			}
-
-			//返回
-			mui.back = function() {
-				var self = plus.webview.currentWebview();
-				plus.webview.close(self);
-			}
-
 			setTimeout(function() {
 				mui('#pullrefresh').pullRefresh().pullupLoading();
 			}, 1000);

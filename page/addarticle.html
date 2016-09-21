@@ -85,6 +85,9 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var ArticleID = 0;
+	var MusicID = 0;
+	var Title = "";
 	var currEditID = 0; //当前操作对象ID
 	var currUserID = base.GetUserID(); //当前登录用户ID
 
@@ -134,10 +137,19 @@
 	});
 
 	mui.plusReady(function() {
+		//显示当前页面
+		mui.currentWebview.show("slide-in-right");
+
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
 		}
+
+		//获取参数
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID;
+
+		Load();
 
 		//返回
 		mui.back = function() {
@@ -145,7 +157,7 @@
 			var btnArray = ['退出编辑', '取消'];
 			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
 				if(e.index == 0) {
-					plus.webview.currentWebview().hide();
+					plus.webview.close(self);
 				}
 			});
 		}
@@ -170,6 +182,10 @@
 				},
 				waiting: {
 					autoShow: false
+				},
+				extras: {
+					ArticleID: ArticleID,
+					MusicID: MusicID
 				}
 			});
 		});
@@ -284,4 +300,45 @@
 	//上移
 
 	//下移
+
+	//加载文章
+	function Load() {
+		if(mui.os.plus && base.IsTest) {
+			ArticleID = 1;
+			ArticlePower = 1;
+			ArticleUserID = 1;
+			ArticleType = 1;
+			ArticleTypeName = "其它";
+			$("#header").css({
+				"background": "url(http://www.dcloud.io/hellomui/images/" + parseInt(Math.random() * 5 + 1) + ".jpg?version=" + Math.random() * 1000 + ") no-repeat",
+				"background-size": "100% 100%"
+			});
+			$("#article_title").html("旅游 | 50岁时你可能还会记得你去过的让人难忘的地方");
+			$("#article_info").html('<span class="fl">作者：一个傻瓜</span><span class="fl ml10">1阅读</span><span class="fl ml10">/</span><span class="fl ml10">2收藏</span><span class="fl ml10">/</span><span class="fl ml10">3评论</span>');
+
+			$("#article_desc").html("1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。");
+		} else {
+			HttpGet(base.RootUrl + "Article/Detail", {
+				UserName: userinfo.account,
+				Password: userinfo.password,
+				ID: ArticleID
+			}, function(data) {
+				if(data != null) {
+					if(data.result) {
+						data = data.message
+						ArticlePower = data.ArticlePower;
+						ArticleType = data.TypeID;
+						ArticleTypeName = data.TypeName;
+						ArticleUserID = data.CreateUserID;
+						$("#header").css("background", data.Cover);
+						$("#article_title").html(data.Title);
+						$("#article_info").html('<span class="fl">作者：' + data.NickName + '</span><span class="fl ml10">' + data.Views + '阅读</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Keeps + '收藏</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Comments + '评论</span>');
+						$("#article_desc").html(data.Introduction);
+						$("#footer_zan").html(data.Goods);
+						$("#footer_comment").html(data.Comments);
+					}
+				}
+			});
+		}
+	}
 </script>

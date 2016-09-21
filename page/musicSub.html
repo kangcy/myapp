@@ -28,10 +28,12 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var ArticleID = 0;
 	var MusicID = 0;
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
+	var userinfo = base.GetUserInfo();
 	var isLoading = false; //是否数据加载中
 	mui.init({
 		pullRefresh: {
@@ -47,6 +49,12 @@
 			}
 		}
 	});
+
+	//初始化获取参数
+	function Init(articleId, musicId) {
+		ArticleID = articleId;
+		MusicID = musicId;
+	}
 
 	/**
 	 * 下拉刷新
@@ -157,6 +165,7 @@
 		return div;
 	}
 
+	//切换选择
 	$("#pullrefresh").on('tap', 'div.mui-table-view-cell', function(event) {
 		$("#pullrefresh .check").removeClass("check");
 		var curr = $(this).find(".oa-contact-icon");
@@ -164,22 +173,39 @@
 		MusicID = curr.attr("type");
 	});
 
+	//完成
+	function Submit() {
+		if(MusicID == 0) {
+			return mui.toast("请选择背景音乐~");
+		}
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting();
+		}
+		HttpGet(base.RootUrl + "Article/EditArticleMusic", {
+				UserName: userinfo.account,
+				Password: userinfo.password,
+				ArticleID: ArticleID,
+				MusicID: MusicID
+			},
+			function(data) {
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
+				}
+				mui.toast(data.result ? "编辑成功~" : data.message);
+				if(mui.os.plus) {
+					/*if(!shareSettingPage) {
+						shareSettingPage = plus.webview.getWebviewById('sharesetting');
+					}
+					mui.fire(shareSettingPage, "updateArticleType", {
+						"desc": question.value
+					});*/
+					mui.back();
+				}
+			});
+	}
+
 	if(mui.os.plus) {
 		mui.plusReady(function() {
-			//显示当前页面
-			mui.currentWebview.show("slide-in-right");
-
-			//判断网络类型
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置！");
-			}
-
-			//返回
-			mui.back = function() {
-				var self = plus.webview.currentWebview();
-				plus.webview.close(self);
-			}
-
 			setTimeout(function() {
 				mui('#pullrefresh').pullRefresh().pullupLoading();
 			}, 1000);

@@ -40,11 +40,28 @@
 		}]
 	});
 
-	var contentWebview = null;
-	document.querySelector('header').addEventListener('doubletap', function() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview().children()[0];
+	mui.plusReady(function() {
+		//显示当前页面
+		mui.currentWebview.show("slide-in-right");
+
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
 		}
-		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			plus.webview.close(self);
+		}
+
+		//双击滚动到头部
+		var contentWebview = null;
+		document.querySelector('header').addEventListener('doubletap', function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		});
 	});
 </script>
