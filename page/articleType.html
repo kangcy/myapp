@@ -33,8 +33,9 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ArticleID = 1; //文章ID
+	var ArticleID = 0; //文章ID
 	var ArticleType = 0; //文章类型ID
+	var ArticleTypeName = 0; //文章类型名称
 	var userinfo = base.GetUserInfo();
 	var shareSettingPage = null;
 	mui.init({
@@ -45,8 +46,6 @@
 	});
 
 	$(function() {
-		Load();
-
 		mui('.mui-scroll-wrapper').scroll({
 			indicators: false //不显示滚动条
 		});
@@ -56,6 +55,7 @@
 			$(".check").removeClass("check");
 			$(this).find(".oa-contact-icon").addClass("check");
 			ArticleType = $(this).find(".oa-contact-icon").attr("type");
+			ArticleTypeName = $(this).find(".oa-contact-icon").attr("name");
 		});
 
 		//完成
@@ -79,7 +79,8 @@
 							shareSettingPage = plus.webview.getWebviewById('sharesetting');
 						}
 						mui.fire(shareSettingPage, "updateArticleType", {
-							"desc": question.value
+							"ArticleType": ArticleType,
+							"ArticleTypeName": ArticleTypeName
 						});
 						mui.back();
 					}
@@ -99,10 +100,13 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
 		ArticleType = self.ArticleType;
+		ArticleTypeName = self.ArticleTypeName;
+
+		Load();
 
 		//返回
 		mui.back = function() {
-			self.hide();
+			plus.webview.close(self);
 		}
 
 		//返回
@@ -120,7 +124,7 @@
 					ID: i,
 					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg",
 					Name: "动漫" + i,
-					Summary: "动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫"
+					Summary: "动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫  "
 				}
 				table.appendChild(appendStr(item));
 			}
@@ -154,7 +158,7 @@
 		//分类信息
 		model.push('<div  class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix"><p class="f16 mb5 c000">' + item.Name + '</p></div><p class="f11 csubtitle">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell" type="' + item.ID + '"></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell ' + (item.ID == ArticleType ? "check" : "") + '" type="' + item.ID + '" name="' + item.Name + '"></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

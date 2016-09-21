@@ -12,7 +12,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
+			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
 			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 			<h1 class="mui-title cfff f13">帮助中心</h1>
 		</header>
@@ -54,6 +54,11 @@
 			var self = plus.webview.currentWebview();
 			plus.webview.close(self);
 		}
+
+		//取消
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		});
 
 		//双击滚动到头部
 		var contentWebview = null;

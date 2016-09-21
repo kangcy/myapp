@@ -17,8 +17,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a id="menu" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
 			<h1 class="mui-title cfff f15">通用设置</h1>
 		</header>
 		<div class="mui-content">
@@ -99,18 +98,23 @@
 	});
 
 	mui.plusReady(function() {
+				//显示当前页面
+		mui.currentWebview.show("slide-in-right");
+
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
+		}
+		
 		//返回
 		mui.back = function() {
 			var self = plus.webview.currentWebview();
-			self.hide();
+			plus.webview.close(self);
 		}
 
-		/*
-		 * 点击左上角侧滑图标，打开侧滑菜单
-		 */
-		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-			var template = plus.webview.getWebviewById("index");
-			mui.fire(template, 'toggleMenu', {});
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
 		});
 	});
 

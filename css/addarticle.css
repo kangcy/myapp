@@ -85,12 +85,17 @@
 .edit-body .edit-content {
 	line-height: 1.25rem;
 	width: 100%;
-	min-height: 5rem;
+	height: 6rem;
 	outline: 0;
 	word-wrap: break-word;
-	overflow-x: hidden;
-	overflow-y: visible;
+	overflow: hidden;
 	background: #fff;
 	border-radius: 5px;
 	padding: 0.625rem;
+	text-align: center;
+}
+
+.edit-body .edit-content img {
+	max-width: 100%;
+	max-height: 100%;
 }

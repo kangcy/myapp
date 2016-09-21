@@ -62,6 +62,11 @@
 			plus.webview.close(self);
 		}
 
+		//取消
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
 			if(question.value == "") {

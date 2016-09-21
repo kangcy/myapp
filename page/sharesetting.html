@@ -26,7 +26,7 @@
 
 	<body style="height: 100%;background:#E8E8E8;">
 		<header class="mui-bar mui-bar-nav header">
-			<a id="back" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
+			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
 			<h1 class="mui-title cfff f15">分享设置</h1>
 		</header>
 		<div class="mui-content">
@@ -96,9 +96,8 @@
 		$("#list").on('tap', '.list', function(event) {
 			var $this = $(this);
 			var index = $this.attr("index");
-
 			//密码验证
-			if(index == 2) {
+			if(index == 1) {
 				var btnArray = ['确定', '取消'];
 				mui.prompt('设置密码', '输入4位数字密码', '分享设置', btnArray, function(e) {
 					if(e.index == 0) {
@@ -132,14 +131,17 @@
 				},
 				extras: {
 					ArticleID: ArticleID,
-					ArticleType: ArticleType
+					ArticleType: ArticleType,
+					ArticleTypeName: ArticleTypeName
 				}
 			});
 		});
 
 		//修改文章类型
 		window.addEventListener("updateArticleType", function(e) {
-			document.getElementById("article_type").innerHTML = e.detail.desc;
+			ArticleType = e.detail.ArticleType;
+			ArticleTypeName = e.detail.ArticleTypeName;
+			document.getElementById("article_type").innerHTML = ArticleTypeName;
 		});
 	})
 
@@ -166,7 +168,7 @@
 		document.getElementById("article_type").innerHTML = ArticleTypeName;
 
 		//初始化
-		$("#list").find("[index=" + ArticlePower + "]").addclass("check");
+		$("#list").find("[index=" + ArticlePower + "]").addClass("check");
 
 		//返回
 		mui.back = function() {
