@@ -60,6 +60,10 @@
 
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(question.value == "") {
+				return mui.toast("请编辑文字~");
+			}
+			plus.nativeUI.showWaiting("编辑中...");
 			if(!addarticlePage) {
 				addarticlePage = plus.webview.getWebviewById('page/addarticle.html');
 			}

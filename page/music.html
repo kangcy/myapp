@@ -89,7 +89,6 @@
 			if(contentWebview == null) {
 				contentWebview = plus.webview.currentWebview().children()[0];
 			}
-			console.log(contentWebview)
 			contentWebview.evalJS("Init(" + ArticleID + "," + MusicID + ")");
 		}, 0)
 	});

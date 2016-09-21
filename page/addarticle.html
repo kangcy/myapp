@@ -25,7 +25,7 @@
 					</div>
 				</div>
 				<div id="edit">
-					<div class="edit-body">
+					<!--<div class="edit-body">
 						<div class="top mb5">
 							<div class="icons fr tr">
 								<img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" />
@@ -88,7 +88,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -124,6 +124,7 @@
 	var Cover = ""; //封面
 	var currEditID = 0; //当前操作对象ID
 	var currUserID = base.GetUserID(); //当前登录用户ID
+	var userinfo = base.GetUserInfo();
 
 	//启用双击监听
 	mui.init({
@@ -153,11 +154,27 @@
 	//修改文字
 	window.addEventListener("updateDesc", function(e) {
 		var t = e.detail.desc;
-		if(t == "") {
-			document.getElementById(currEditID).innerHTML = "点击添加文字";
-		} else {
-			document.getElementById(currEditID).innerHTML = t;
-		}
+		HttpGet(base.RootUrl + "ArticlePart/Edit", {
+			UserName: userinfo.account,
+			Password: userinfo.password,
+			ID: $("#" + currEditID).attr("partid"),
+			Introduction: escape(t)
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			if(data != null) {
+				if(data.result) {
+					if(t == "") {
+						document.getElementById(currEditID).innerHTML = "点击添加文字";
+					} else {
+						document.getElementById(currEditID).innerHTML = t;
+					}
+				} else {
+					mui.toast(data.message);
+				}
+			}
+		});
 	});
 
 	//修改图片
@@ -169,6 +186,10 @@
 			document.getElementById(currEditID).innerHTML = t;
 		}
 	});
+
+	//加载数据
+	ArticleID = 0;
+	Load();
 
 	mui.plusReady(function() {
 		//显示当前页面
@@ -182,8 +203,6 @@
 		//获取参数
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
-
-		Load();
 
 		//返回
 		mui.back = function() {
@@ -280,51 +299,126 @@
 
 	//新增图片
 	mui('#edit').on('tap', '.edit-add-pic', function() {
-		var html = appendStr("点击添加图片", "pic");
-		$("#" + currEditID).parents(".edit-body").after(html);
-		$("#edit").find(".banner").addClass("hide");
-		$("#edit").find(".edit-add").removeClass("hide");
-		Group(document.getElementById('edit'), window.innerWidth * 0.05);
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting("创建中...");
+		}
+		HttpGet(base.RootUrl + "ArticlePart/Edit", {
+			UserName: userinfo.account,
+			Password: userinfo.password,
+			ArticleID: ArticleID,
+			Types: 1,
+			Introduction: escape("../images/60x60.gif")
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			if(data != null) {
+				if(data.result) {
+					var html = appendStr("点击添加图片", "pic", data.message);
+					$("#" + currEditID).parents(".edit-body").after(html);
+					$("#edit").find(".banner").addClass("hide");
+					$("#edit").find(".edit-add").removeClass("hide");
+					Group(document.getElementById('edit'), window.innerWidth * 0.05);
+				} else {
+					mui.toast(data.message);
+				}
+			}
+		});
 	});
 
 	//新增文本
 	mui('#edit').on('tap', '.edit-add-text', function() {
-		var html = appendStr("点击添加文字", "text");
-		$("#" + currEditID).parents(".edit-body").after(html);
-		$("#edit").find(".banner").addClass("hide");
-		$("#edit").find(".edit-add").removeClass("hide");
-		Group(document.getElementById('edit'), window.innerWidth * 0.05);
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting("创建中...");
+		}
+		HttpGet(base.RootUrl + "ArticlePart/Edit", {
+			UserName: userinfo.account,
+			Password: userinfo.password,
+			ArticleID: ArticleID,
+			Types: 2,
+			Introduction: escape("点击添加文字")
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			if(data != null) {
+				if(data.result) {
+					var html = appendStr("点击添加文字", "text", data.message);
+					$("#" + currEditID).parents(".edit-body").after(html);
+					$("#edit").find(".banner").addClass("hide");
+					$("#edit").find(".edit-add").removeClass("hide");
+					Group(document.getElementById('edit'), window.innerWidth * 0.05);
+				} else {
+					mui.toast(data.message);
+				}
+			}
+		});
 	});
 
 	//新增视频
 	mui('#edit').on('tap', '.edit-add-video', function() {
-		var html = appendStr("点击添加视频", "video");
-		$("#" + currEditID).parents(".edit-body").after(html);
-		$("#edit").find(".banner").addClass("hide");
-		$("#edit").find(".edit-add").removeClass("hide");
-		Group(document.getElementById('edit'), window.innerWidth * 0.05);
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting("创建中...");
+		}
+		HttpGet(base.RootUrl + "ArticlePart/Edit", {
+			UserName: userinfo.account,
+			Password: userinfo.password,
+			ArticleID: ArticleID,
+			Types: 3,
+			Introduction: escape("点击添加视频")
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			if(data != null) {
+				if(data.result) {
+					var html = appendStr("点击添加视频", "video", data.message);
+					$("#" + currEditID).parents(".edit-body").after(html);
+					$("#edit").find(".banner").addClass("hide");
+					$("#edit").find(".edit-add").removeClass("hide");
+					Group(document.getElementById('edit'), window.innerWidth * 0.05);
+				} else {
+					mui.toast(data.message);
+				}
+			}
+		});
 	});
 
 	//删除
 	mui('#edit').on('tap', '.edit-del', function() {
 		var $this = this;
 		var btnArray = ['确定', '取消'];
-		mui.confirm('确定删除此段？', '', btnArray, function(e) {
+		mui.confirm('删除后不可恢复,确定删除此段？', '', btnArray, function(e) {
 			if(e.index == 0) {
-				$this.parentNode.parentNode.remove();
+				plus.nativeUI.showWaiting("删除中...");
+				HttpGet(base.RootUrl + "ArticlePart/Delete", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					ID: $this.attr("partid")
+				}, function(data) {
+					plus.nativeUI.closeWaiting();
+					if(data != null) {
+						if(data.result) {
+							$this.parentNode.parentNode.remove();
+
+						} else {
+							mui.toast(data.message);
+						}
+					}
+				});
 			}
 		});
 	});
 
 	//拼接字符串
-	function appendStr(text, type) {
+	function appendStr(text, type, partid) {
 		var model = [];
 		model.push('<div class="edit-body">');
-		model.push('<div class="top mb5"><div class="icons fr tr"><img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" /></div><div class="icons fl tl"><img src="../images/article/del.png" class="edit-del" /></div></div>');
+		model.push('<div class="top mb5"><div class="icons fr tr"><img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" /></div><div class="icons fl tl"><img src="../images/article/del.png" class="edit-del" pardid="' + partid + '" /></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '"><img src="../images/60x60.gif" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '"><img src="../images/60x60.gif" /></div>');
 		} else {
-			model.push('<div class="edit-content f11" type="' + type + '">' + text + '</div>');
+			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '">' + text + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" /></div>');
 		model.push('<div class="icons fr tc"><img src="../images/article/add.png" class="edit-add" />');
@@ -430,33 +524,56 @@
 			});
 			$("#article_title").html("旅游 | 50岁时你可能还会记得你去过的让人难忘的地方");
 			$("#article_info").html('<span class="fl">作者：一个傻瓜</span><span class="fl ml10">1阅读</span><span class="fl ml10">/</span><span class="fl ml10">2收藏</span><span class="fl ml10">/</span><span class="fl ml10">3评论</span>');
-
 			$("#article_desc").html("1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。");
 
 			plus.nativeUI.closeWaiting();
 		} else {
-			HttpGet(base.RootUrl + "Article/Detail", {
-				UserName: userinfo.account,
-				Password: userinfo.password,
-				ID: ArticleID
-			}, function(data) {
-				if(data != null) {
-					if(data.result) {
-						data = data.message
-						ArticlePower = data.ArticlePower;
-						ArticleType = data.TypeID;
-						ArticleTypeName = data.TypeName;
-						ArticleUserID = data.CreateUserID;
-						$("#header").css("background", data.Cover);
-						$("#article_title").html(data.Title);
-						$("#article_info").html('<span class="fl">作者：' + data.NickName + '</span><span class="fl ml10">' + data.Views + '阅读</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Keeps + '收藏</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Comments + '评论</span>');
-						$("#article_desc").html(data.Introduction);
-						$("#footer_zan").html(data.Goods);
-						$("#footer_comment").html(data.Comments);
+			//创建文章
+			if(ArticleID == 0) {
+				HttpGet(base.RootUrl + "Article/Edit", {
+					UserName: userinfo.account,
+					Password: userinfo.password
+				}, function(data) {
+					if(data != null) {
+						if(data.result) {
+							if(data.result) {
+								var html = appendStr("点击添加图片", "pic", data.message);
+								$("#" + currEditID).parents(".edit-body").after(html);
+								$("#edit").find(".banner").addClass("hide");
+								$("#edit").find(".edit-add").removeClass("hide");
+								Group(document.getElementById('edit'), window.innerWidth * 0.05);
+							} else {
+								mui.toast(data.message);
+							}
+						}
 					}
-				}
-				plus.nativeUI.closeWaiting();
-			});
+					if(mui.os.plus) {
+						plus.nativeUI.closeWaiting();
+					}
+				});
+			} else {
+				//编辑文章
+				HttpGet(base.RootUrl + "Article/Detail", {
+					UserName: userinfo.account,
+					Password: userinfo.password,
+					ID: ArticleID
+				}, function(data) {
+					if(data != null) {
+						if(data.result) {
+							data = data.message
+							ArticlePower = data.ArticlePower;
+							ArticleType = data.TypeID;
+							ArticleTypeName = data.TypeName;
+							ArticleUserID = data.CreateUserID;
+							$("#header").css("background", data.Cover);
+							$("#article_title").html(data.Title);
+						}
+					}
+					if(mui.os.plus) {
+						plus.nativeUI.closeWaiting();
+					}
+				});
+			}
 		}
 	}
 
