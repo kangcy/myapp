@@ -55,6 +55,18 @@
 	function Init(articleId, musicId) {
 		ArticleID = articleId;
 		MusicID = musicId;
+
+		if(mui.os.plus) {
+			mui.plusReady(function() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().pullupLoading();
+				}, 250);
+			});
+		} else {
+			mui.ready(function() {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			});
+		}
 	}
 
 	/**
@@ -102,7 +114,7 @@
 	}
 
 	/**
-	 * 加载数据
+	 * 加载数据 
 	 */
 	function Load(callback) {
 		if(mui.os.plus && base.IsTest) {
@@ -110,7 +122,7 @@
 			for(var i = 1; i < 6; i++) {
 				var item = {
 					ID: i,
-					Avatar: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
+					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
 					Name: "名称" + i,
 					Author: "作者" + i
 				}
@@ -119,6 +131,11 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
 		} else {
 			HttpGet(base.RootUrl + "Music/All", {
 				page: currpage,
@@ -154,9 +171,9 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell" onclick="Check(' + item.ID + ')">');
+		model.push('<div class="mui-slider-cell">');
 		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Cover + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Cover + '" /></div>');
 		//昵称、签名
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.Name + '</p><p class="f11 csubtitle">' + item.Author + '</p></div>');
 		//关注
@@ -203,17 +220,5 @@
 					mui.back();
 				}
 			});
-	}
-
-	if(mui.os.plus) {
-		mui.plusReady(function() {
-			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			}, 1000);
-		});
-	} else {
-		mui.ready(function() {
-			mui('#pullrefresh').pullRefresh().pullupLoading();
-		});
 	}
 </script>

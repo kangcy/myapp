@@ -35,8 +35,8 @@
 		},
 		swipeBack: false, //启用右滑关闭功能
 		subpages: [{
-			url: 'musicSub.html',
 			id: 'musicSub',
+			url: 'musicSub.html',
 			styles: {
 				top: parseInt((window.innerWidth / 320) * 45) + 'px',
 				bottom: '0px',
@@ -58,11 +58,6 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
 		MusicID = self.MusicID;
-
-		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview().children()[0];
-		}
-		contentWebview.evalJS("Init(" + ArticleID + "," + MusicID + ")");
 
 		//返回
 		mui.back = function() {
@@ -89,5 +84,13 @@
 			}
 			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
+
+		setTimeout(function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			console.log(contentWebview)
+			contentWebview.evalJS("Init(" + ArticleID + "," + MusicID + ")");
+		}, 0)
 	});
 </script>

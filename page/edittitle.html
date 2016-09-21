@@ -8,6 +8,14 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			#question {
+				border: 0px;
+				height: 400px;
+				padding: 0px;
+				line-height: 1.25rem;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -18,7 +26,7 @@
 		</header>
 		<div class="mui-content">
 			<div style="padding: 5%;">
-				<textarea id='question' class="mui-input-clear question f13" maxlength="20" placeholder="不超过20个字......" style="background: #eee;border: 0px;height: 300px;border-radius: 10px;"></textarea>
+				<textarea id='question' class="mui-input-clear question f13" maxlength="20" placeholder="不超过20个字......"></textarea>
 			</div>
 		</div>
 	</body>
@@ -52,6 +60,11 @@
 		mui.back = function() {
 			plus.webview.close(self);
 		}
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(event) {
+			mui.back();
+		});
 
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {

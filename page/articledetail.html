@@ -51,7 +51,7 @@
 		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.75rem;">
 			<div class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll" id="mui-scroll">
-					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:200px;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
+					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:12rem;">
 						<a id="deal" class="mui-icon cfff f15 fr mt6">操作</a>
 						<div id="divdeal" class="tc csubtitle hide">
 							<div id="delete">删除</div>
@@ -139,8 +139,9 @@
 			});
 		});
 
-		//点击编辑
+		//点击编辑 
 		document.getElementById('edit').addEventListener('tap', function(event) {
+			plus.nativeUI.showWaiting("跳转中...");
 			mui.openWindow({
 				id: 'addarticle',
 				url: 'addarticle.html',

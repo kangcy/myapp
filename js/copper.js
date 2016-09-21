@@ -1,5 +1,5 @@
 //拍照  
-function getImage() {
+function getImage(long, width) {
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
@@ -11,14 +11,14 @@ function getImage() {
 			//压缩图片,并重命名
 			compressImage(localurl, dstname, function(src) {
 				$("#readyimg").attr("src", src);
-				cutImg();
+				cutImg(long, width);
 			});
 		});
 	});
 }
 
 //相册选取  
-function galleryImgs() {
+function galleryImgs(long, width) {
 	plus.gallery.pick(function(e) {
 		//压缩图片
 		var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
@@ -26,7 +26,7 @@ function galleryImgs() {
 		//压缩图片,并重命名
 		compressImage(e, dstname, function(src) {
 			$("#readyimg").attr("src", src);
-			cutImg();
+			cutImg(long, width);
 		});
 	}, function(e) {
 		//outSet( "取消选择图片" ) 
@@ -36,12 +36,12 @@ function galleryImgs() {
 }
 
 //照片裁剪类  
-function cutImg() {
+function cutImg(long, width) {
 	$(".mui-content,.header,.footer").hide();
 	$("#cropperEdit").show();
 	$("#readyimg").cropper({
 		checkImageOrigin: true,
-		aspectRatio: 1 / 1,
+		aspectRatio: long / width,
 		autoCropArea: 0.3,
 		zoom: -0.2
 	});
@@ -65,11 +65,16 @@ function closepop() {
 }
 
 //确认照片，展示效果  
-function confirm(targetid) {
+function confirm(targetid, callback) {
 	$("#cropperEdit").hide();
 	var dataURL = $("#readyimg").cropper("getCroppedCanvas");
 	var imgurl = dataURL.toDataURL("image/jpeg", 0.5);
-	$("#" + targetid).attr("src", imgurl);
+	if(targetid != null) {
+		$("#" + targetid).attr("src", imgurl);
+	}
+	if($.isFunction(callback)) {
+		callback(imgurl);
+	}
 	$(".mui-content,.header,.footer").show();
 	$("#readyimg").cropper('destroy');
 }
@@ -97,7 +102,13 @@ function compressImage(src, newsrc, callback) {
 }
 
 //选择图片
-function showActionSheet() {
+function showActionSheet(long, width) {
+	if(!long) {
+		long = 1;
+	}
+	if(!width) {
+		width = 1;
+	}
 	var bts = [{
 		title: "拍照"
 	}, {
@@ -109,9 +120,9 @@ function showActionSheet() {
 		},
 		function(e) {
 			if(e.index == 1) {
-				getImage();
+				getImage(long, width);
 			} else if(e.index == 2) {
-				galleryImgs();
+				galleryImgs(long, width);
 			}
 		}
 	);

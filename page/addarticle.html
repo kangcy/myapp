@@ -9,13 +9,13 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/addarticle.css">
+		<link rel="stylesheet" href="../cropper/cropper.css">
 	</head>
 
 	<body>
-
 		<div class="mui-content mui-scroll-wrapper" style="background: #E8E8E8;">
 			<div class="mui-scroll" id="mui-scroll">
-				<!--<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
+				<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;">
 					<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
 					<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 					<div class="info-body">
@@ -23,7 +23,7 @@
 						<div id="music" class="btn cfff fl"><img src="../images/article/music.png" class="icon" />添加音乐</div>
 						<div id="cover" class="btn cfff fr"><img src="../images/article/pic.png" class="icon" />设置封面</div>
 					</div>
-				</div>-->
+				</div>
 				<div id="edit">
 					<div class="edit-body">
 						<div class="top mb5">
@@ -44,10 +44,10 @@
 							<div class="icons fr tc">
 								<img src="../images/article/add.png" class="edit-add" />
 								<div class="banner hide">
-									<div class="edit-add-text">
+									<div class="edit-add-pic">
 										<a class="mui-icon mui-icon-image"></a>
 									</div>
-									<div class="edit-add-pic border">
+									<div class="edit-add-text border">
 										<a class="mui-icon mui-icon-email"></a>
 									</div>
 									<div class="edit-add-video">
@@ -76,10 +76,10 @@
 							<div class="icons fr tc">
 								<img src="../images/article/add.png" class="edit-add" />
 								<div class="banner hide">
-									<div class="edit-add-text">
+									<div class="edit-add-pic">
 										<a class="mui-icon mui-icon-image"></a>
 									</div>
-									<div class="edit-add-pic border">
+									<div class="edit-add-text border">
 										<a class="mui-icon mui-icon-email"></a>
 									</div>
 									<div class="edit-add-video">
@@ -92,6 +92,22 @@
 				</div>
 			</div>
 		</div>
+		<!--图片编辑容器-->
+		<div id="cropperEdit" class="mui-iframe-wrapper full">
+			<img id="readyimg" />
+			<div class="mui-content-padded">
+				<div class="flex-container tc">
+					<a><span class="mui-icon mui-icon-closeempty" onclick="closepop()"></span></a>
+					<!--关闭裁剪窗口-->
+					<a><span class="mui-icon mui-icon-undo" onclick="rotateimgleft()"></span></a>
+					<!--左旋转90度-->
+					<a><span class="mui-icon mui-icon-redo" onclick="rotateimgright()"></span></a>
+					<!--右旋转90度-->
+					<a><span class="mui-icon mui-icon-checkmarkempty" id="confirm"></span></a>
+					<!--确定选择-->
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -99,10 +115,13 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../cropper/cropper.min.js"></script>
+<script src="../js/copper.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
-	var MusicID = 0;
-	var Title = "";
+	var MusicID = 0; //音乐
+	var Title = ""; //标题
+	var Cover = ""; //封面
 	var currEditID = 0; //当前操作对象ID
 	var currUserID = base.GetUserID(); //当前登录用户ID
 
@@ -177,11 +196,6 @@
 			});
 		}
 
-		//点击左上角侧滑图标，打开侧滑菜单
-		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-			mui.back();
-		});
-
 		//返回
 		document.getElementById('back').addEventListener('tap', function(event) {
 			mui.back();
@@ -203,6 +217,17 @@
 					MusicID: MusicID
 				}
 			});
+		});
+
+		//封面
+		document.getElementById('cover').addEventListener('tap', function(event) {
+			showActionSheet(5, 3);
+			document.getElementById("confirm").onclick = function() {
+				confirm(null, function(src) {
+					document.getElementById("header").style.backgroundImage = "url(" + src + ")";
+					Cover = src;
+				});
+			}
 		});
 
 		//标题
@@ -296,7 +321,11 @@
 		var model = [];
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" /></div><div class="icons fl tl"><img src="../images/article/del.png" class="edit-del" /></div></div>');
-		model.push('<div class="edit-content f11" type="' + type + '">' + text + '<img src="../images/60x60.gif" /></div>');
+		if(type == "pic") {
+			model.push('<div class="edit-content f11" type="' + type + '"><img src="../images/60x60.gif" /></div>');
+		} else {
+			model.push('<div class="edit-content f11" type="' + type + '">' + text + '</div>');
+		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" /></div>');
 		model.push('<div class="icons fr tc"><img src="../images/article/add.png" class="edit-add" />');
 		model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div></div></div>');
@@ -349,7 +378,7 @@
 		//交换位置
 		function swap(p1, p2) {
 			var N = 10;
-			var INTV = 250;
+			var INTV = 300;
 			var arr1, arr2;
 			var t1 = parseInt(p1.style.top),
 				t2 = parseInt(p2.style.top);
@@ -403,6 +432,8 @@
 			$("#article_info").html('<span class="fl">作者：一个傻瓜</span><span class="fl ml10">1阅读</span><span class="fl ml10">/</span><span class="fl ml10">2收藏</span><span class="fl ml10">/</span><span class="fl ml10">3评论</span>');
 
 			$("#article_desc").html("1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。");
+
+			plus.nativeUI.closeWaiting();
 		} else {
 			HttpGet(base.RootUrl + "Article/Detail", {
 				UserName: userinfo.account,
@@ -424,6 +455,7 @@
 						$("#footer_comment").html(data.Comments);
 					}
 				}
+				plus.nativeUI.closeWaiting();
 			});
 		}
 	}
