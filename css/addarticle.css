@@ -45,6 +45,10 @@
 	text-align: center;
 }
 
+.edit-body .top .icons {
+	width: 33.3%;
+}
+
 .edit-body .top img {
 	width: 1.2rem;
 	height: 1.2rem;
@@ -68,10 +72,11 @@
 	display: inline-block;
 	float: left;
 }
-.edit-body .top .banner a
-{
-	font-size:1.2rem !important;
+
+.edit-body .top .banner a {
+	font-size: 1.2rem !important;
 }
+
 .edit-body .top .banner div.border {
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;

@@ -8,21 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<style type="text/css">
-			ul {
-				width: 230px
-			}
-			
-			li {
-				border: 1px solid gray;
-				list-style: none
-			}
-			
-			.txt {
-				padding: 4px;
-				background-color: #ffffff
-			}
-		</style>
+		<link rel="stylesheet" href="../css/addarticle.css">
 	</head>
 
 	<body>
@@ -31,33 +17,112 @@
 			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 			<h1 class="mui-title cfff f13">帮助中心</h1>
 		</header>
-		<div class="mui-content">
-			<ul id="test">
-				<li>
-					<div class="txt">
-						<h2>第一层</h2></div>
-				</li>
-				<li>
-					<div class="txt">
-						<h2>第二层</h2>
+		<div class="mui-content mui-scroll-wrapper" style="background: #E8E8E8;">
+			<div class="mui-scroll" id="mui-scroll">
+				<div id="edit">
+					<div class="edit-body">
+						<div class="top mb5">
+							<div class="icons fr tr">
+								<img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" />
+							</div>
+							<div class="icons fl tl">
+								<img src="../images/article/del.png" class="edit-del" />
+							</div>
+						</div>
+						<div class="edit-content f11">
+							点击添加文字
+						</div>
+						<div class="top mt5">
+							<div class="icons fr tr">
+								<img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" />
+							</div>
+							<div class="icons fr tc">
+								<img src="../images/article/add.png" class="edit-add" />
+								<div class="banner hide">
+									<div class="edit-add-text">
+										<a class="mui-icon mui-icon-image"></a>
+									</div>
+									<div class="edit-add-pic border">
+										<a class="mui-icon mui-icon-email"></a>
+									</div>
+									<div class="edit-add-video">
+										<a class="mui-icon mui-icon-videocam"></a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</li>
-				<li>
-					<div class="txt">
-						<h2>第三层</h2>
+					<div class="edit-body">
+						<div class="top mb5">
+							<div class="icons fr tr">
+								<img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" />
+							</div>
+							<div class="icons fl tl">
+								<img src="../images/article/del.png" class="edit-del" />
+							</div>
+						</div>
+						<div class="edit-content f11">
+							点击添加文字
+						</div>
+						<div class="top mt5">
+							<div class="icons fr tr">
+								<img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" />
+							</div>
+							<div class="icons fr tc">
+								<img src="../images/article/add.png" class="edit-add" />
+								<div class="banner hide">
+									<div class="edit-add-text">
+										<a class="mui-icon mui-icon-image"></a>
+									</div>
+									<div class="edit-add-pic border">
+										<a class="mui-icon mui-icon-email"></a>
+									</div>
+									<div class="edit-add-video">
+										<a class="mui-icon mui-icon-videocam"></a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</li>
-				<li>
-					<div class="txt">
-						<h2>第四层</h2>
+					<div class="edit-body">
+						<div class="top mb5">
+							<div class="icons fr tr">
+								<img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" />
+							</div>
+							<div class="icons fl tl">
+								<img src="../images/article/del.png" class="edit-del" />
+							</div>
+						</div>
+						<div class="edit-content f11">
+							点击添加文字
+						</div>
+						<div class="top mt5">
+							<div class="icons fr tr">
+								<img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" />
+							</div>
+							<div class="icons fr tc">
+								<img src="../images/article/add.png" class="edit-add" />
+								<div class="banner hide">
+									<div class="edit-add-text">
+										<a class="mui-icon mui-icon-image"></a>
+									</div>
+									<div class="edit-add-pic border">
+										<a class="mui-icon mui-icon-email"></a>
+									</div>
+									<div class="edit-add-video">
+										<a class="mui-icon mui-icon-videocam"></a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</li>
-			</ul>
-		</div>
+				</div>
+			</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
@@ -70,32 +135,22 @@
 	});
 
 	window.onload = function() {
-		ggGroup(document.getElementById('test'), 5);
+		Group(document.getElementById('edit'), window.innerWidth * 0.05);
 	};
 
-	function ggGroup(ele, margin) {
+	function Group(ele, margin) {
 		margin = margin || 0;
-		var bgcolors = '#b3d580,#99c9b1,#b4a1d8,#f7c480,#d5d588,#eea2bb'.split(',');
-		var txtUp = '上移↑&nbsp;',
-			txtDown = '下移↓';
 		var panels = children(ele);
 		for(var i = 0, h = 0; i < panels.length; i++) {
 			var p = panels[i];
 			p.style.position = 'absolute';
-			p.style.width = '100%';
-			var b = document.createElement('div');
-			with(b.style) {
-				fontSize = '12px';
-				padding = '4px';
-				backgroundColor = bgcolors[i % bgcolors.length];
-				textAlign = 'right';
-			}
-			b.innerHTML = '<span>' + txtUp + '</span><span>' + txtDown + '</span>';
-			b.firstChild.onclick = moveup;
-			b.firstChild.style.cursor = 'pointer';
-			b.lastChild.onclick = movedown;
-			b.lastChild.style.cursor = 'pointer';
-			p.insertBefore(b, p.firstChild);
+
+			//开始创建头部操作按钮
+			$(p).find(".edit-up")[0].onclick = moveup;
+			$(p).find(".edit-down")[0].onclick = movedown;
+			$(p).find(".edit-content").attr("id", "edit-content" + i);
+			//结束创建头部操作按钮
+
 			p.style.top = h + 'px';
 			p.index = i;
 			h += p.offsetHeight + margin;
@@ -105,27 +160,28 @@
 		check(0, i - 1);
 
 		function check() {
-			for(var i = 0; i < arguments.length; i++) {
-				var x = arguments[i];
-				var c = panels[x].firstChild.childNodes;
-				c[0].style.visibility = x == 0 ? 'hidden' : 'visible';
-				c[1].style.visibility = x == panels.length - 1 ? 'hidden' : 'visible';
-				panels[x].index = x;
+			for(var i = 0; i < panels.length; i++) {
+				$(panels[i]).find(".edit-up").css("visibility", i == 0 ? 'hidden' : 'visible');
+				$(panels[i]).find(".edit-down").css("visibility", i == panels.length - 1 ? 'hidden' : 'visible')
+				panels[i].index = i;
 			}
 		}
 
+		//向上移动
 		function moveup(evt) {
 			var p = evt ? evt.target : event.srcElement;
-			p = p.parentNode.parentNode;
+			p = p.parentNode.parentNode.parentNode;
 			swap(p, panels[p.index - 1]);
 		}
 
+		//向下移动
 		function movedown(evt) {
 			var p = evt ? evt.target : event.srcElement;
-			p = p.parentNode.parentNode;
+			p = p.parentNode.parentNode.parentNode;
 			swap(p, panels[p.index + 1]);
 		}
 
+		//交换位置
 		function swap(p1, p2) {
 			var N = 10;
 			var INTV = 200;
@@ -165,4 +221,14 @@
 			return ret;
 		}
 	}
+
+	//新增切换
+	mui('#edit').on('tap', '.edit-add', function() {
+		var $this = $(this);
+		currEditID = $this.parents(".edit-body").find(".edit-content").attr("id");
+		$("#edit").find(".edit-add").removeClass("hide");
+		$this.addClass("hide");
+		$("#edit").find(".banner").addClass("hide");
+		$this.parent(".icons").find(".banner").removeClass("hide");
+	});
 </script>
