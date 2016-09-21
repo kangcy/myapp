@@ -88,6 +88,9 @@
 	});
 
 	mui.plusReady(function() {
+		//显示当前页面
+		mui.currentWebview.show("slide-in-right");
+
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
@@ -110,7 +113,7 @@
 
 	//加载数据
 	function Load(callback) {
-		if(base.IsTest) {
+		if(mui.os.plus && base.IsTest) {
 			var table = document.getElementById('scroll-view');
 			for(var i = 1; i < 6; i++) {
 				var item = {

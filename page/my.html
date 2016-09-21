@@ -99,32 +99,9 @@
 			plus.webview.currentWebview().hide();
 		}
 
-		//点击左上角侧滑图标，打开侧滑菜单
-		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-			var template = plus.webview.getWebviewById("index");
-			mui.fire(template, 'toggleMenu', {});
-		});
-
 		//返回
 		document.getElementById('back').addEventListener('tap', function(event) {
 			mui.back();
-		});
-
-		//返回
-		document.getElementById('setting').addEventListener('tap', function(event) {
-			var my = mui.preload({
-				"id": 'setting',
-				"url": 'setting.html'
-			});
-			mui.openWindow({
-				id: 'setting',
-				show: {
-					aniShow: 'slide-in-right'
-				},
-				waiting: {
-					autoShow: false
-				}
-			});
 		});
 
 		//用户设置
@@ -143,14 +120,11 @@
 
 		//系统设置
 		document.getElementById('setting').addEventListener('tap', function(event) {
-			var my = mui.preload({
-				"id": 'setting',
-				"url": 'setting.html'
-			});
 			mui.openWindow({
 				id: 'setting',
+				url: 'setting.html',
 				show: {
-					aniShow: 'slide-in-right'
+					autoShow: false
 				},
 				waiting: {
 					autoShow: false
@@ -160,14 +134,11 @@
 
 		//我的打赏
 		document.getElementById('my-mypay').addEventListener('tap', function(event) {
-			var my = mui.preload({
-				"id": 'my-mypay',
-				"url": 'pay.html'
-			});
 			mui.openWindow({
-				id: 'my-mypay',
+				id: 'pay',
+				url: 'pay.html',
 				show: {
-					aniShow: 'slide-in-right'
+					autoShow: false
 				},
 				waiting: {
 					autoShow: false
@@ -177,7 +148,7 @@
 
 		//邀请好友
 		document.getElementById('my-invit').addEventListener('tap', function(event) {
-			
+
 		});
 
 		//意见反馈
@@ -196,7 +167,7 @@
 
 		//给个好评
 		document.getElementById('my-good').addEventListener('tap', function(event) {
-			
+
 		});
 
 		//帮助中心
@@ -215,14 +186,11 @@
 
 		//我的评论
 		document.getElementById('my-comment').addEventListener('tap', function(event) {
-			var my = mui.preload({
-				"id": 'my-comment',
-				"url": 'comment.html'
-			});
 			mui.openWindow({
-				id: 'my-comment',
+				id: 'comment',
+				url: 'comment.html',
 				show: {
-					aniShow: 'slide-in-right'
+					autoShow: false
 				},
 				waiting: {
 					autoShow: false

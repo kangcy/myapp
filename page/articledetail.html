@@ -141,60 +141,42 @@
 
 		//点击编辑
 		document.getElementById('edit').addEventListener('tap', function(event) {
-			var addarticle = mui.preload({
-				"id": 'addarticle',
-				"url": 'addarticle.html',
-				extras: {
-					ArticleID: "0"
-				}
-			});
 			mui.openWindow({
 				id: 'addarticle',
+				url: 'addarticle.html',
 				show: {
-					aniShow: 'slide-in-right'
+					autoShow: false
 				},
 				waiting: {
 					autoShow: false
+				},
+				extras: {
+					ArticleID: ArticleID
 				}
 			});
 		})
 
 		//点击分享
 		document.getElementById('share').addEventListener('tap', function(event) {
-			var desc = mui.preload({
-				"id": 'share',
-				"url": 'share.html'
-			});
-			mui.openWindow({
-				id: 'editdesc',
-				show: {
-					aniShow: 'slide-in-right'
-				},
-				waiting: {
-					autoShow: false
-				}
-			});
+
 		})
 
 		//权限
 		document.getElementById('power').addEventListener('tap', function(event) {
-			var desc = mui.preload({
+			mui.openWindow({
 				id: 'sharesetting',
 				url: 'sharesetting.html',
+				show: {
+					autoShow: false
+				},
+				waiting: {
+					autoShow: false
+				},
 				extras: {
 					ArticleID = ArticleID,
 					ArticlePower = ArticlePower,
 					ArticleType = ArticleType,
 					ArticleTypeName = ArticleTypeName
-				}
-			});
-			mui.openWindow({
-				id: 'sharesetting',
-				show: {
-					aniShow: 'slide-in-right'
-				},
-				waiting: {
-					autoShow: false
 				}
 			});
 		})
@@ -203,14 +185,11 @@
 		document.getElementById('zan').addEventListener('tap', function(event) {
 			//是否我的文章
 			if(currUserID == ArticleUserID) {
-				var zan = mui.preload({
-					"id": 'zan',
-					"url": 'zan.html'
-				});
 				mui.openWindow({
 					id: 'zan',
+					url: 'zan.html',
 					show: {
-						aniShow: 'slide-in-right'
+						autoShow: false
 					},
 					waiting: {
 						autoShow: false
@@ -237,14 +216,11 @@
 			//是否我的文章
 			if(currUserID == ArticleUserID) {
 				//跳转评论列表页
-				var comment = mui.preload({
-					"id": 'comment',
-					"url": 'comment.html'
-				});
 				mui.openWindow({
 					id: 'comment',
+					url: 'comment.html',
 					show: {
-						aniShow: 'slide-in-right'
+						autoShow: false
 					},
 					waiting: {
 						autoShow: false
@@ -252,20 +228,17 @@
 				});
 			} else {
 				//跳转文章评论页
-				var addcomment = mui.preload({
-					id: 'addcomment',
-					url: 'addcomment.html',
-					extras: {
-						ArticleID: ArticleID
-					}
-				});
 				mui.openWindow({
 					id: 'addcomment',
+					url: 'addcomment.html',
 					show: {
-						aniShow: 'slide-in-right'
+						autoShow: false
 					},
 					waiting: {
 						autoShow: false
+					},
+					extras: {
+						ArticleID: ArticleID
 					}
 				});
 			}
@@ -286,8 +259,6 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
 
-		console.log(ArticleID);
-
 		Load();
 
 		//返回
@@ -303,7 +274,7 @@
 
 	//加载文章
 	function Load() {
-		if(base.IsTest) {
+		if(mui.os.plus && base.IsTest) {
 			ArticleID = 1;
 			ArticlePower = 1;
 			ArticleUserID = 1;
@@ -335,7 +306,6 @@
 						$("#header").css("background", data.Cover);
 						$("#article_title").html(data.Title);
 						$("#article_info").html('<span class="fl">作者：' + data.NickName + '</span><span class="fl ml10">' + data.Views + '阅读</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Keeps + '收藏</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Comments + '评论</span>');
-
 						$("#article_desc").html(data.Introduction);
 						$("#footer_zan").html(data.Goods);
 						$("#footer_comment").html(data.Comments);

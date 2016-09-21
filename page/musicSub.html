@@ -8,11 +8,10 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/comment.css">
+		<link rel="stylesheet" href="../css/music.css">
 	</head>
 
 	<body>
-		<!--下拉刷新容器-->
 		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<div id="scroll-view">
@@ -24,17 +23,16 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.js"></script>
+<script src="../js/mui.min.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ismycomment = false; //我评论的，评论我的
+	var MusicID = 0;
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
 	var isLoading = false; //是否数据加载中
-
 	mui.init({
 		pullRefresh: {
 			container: '#pullrefresh',
@@ -103,20 +101,19 @@
 			for(var i = 1; i < 6; i++) {
 				var item = {
 					ID: i,
-					Avatar: "http://www.dcloud.io/hellomui/images/" + parseInt(Math.random() * 5 + 1) + ".jpg?version=" + Math.random() * 1000,
-					Summary: "评论内容" + i,
-					ArticleID: i,
-					NickName: "一个傻瓜",
-					CreateDate: "2016-10-2",
-					Title: "50岁时你可能还会记得你去过的让人难忘的地方"
+					Avatar: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
+					Name: "名称" + i,
+					Author: "作者" + i
 				}
 				table.appendChild(appendStr(item));
 			}
+			if($.isFunction(callback)) {
+				callback();
+			}
 		} else {
-			HttpGet(base.RootUrl + "Comment/All", {
+			HttpGet(base.RootUrl + "Music/All", {
 				page: currpage,
-				rows: pagesize,
-				ArticleUserID: 1
+				rows: pagesize
 			}, function(data) {
 				if(data != null) {
 					totalpage = data.totalpage;
@@ -148,36 +145,23 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell">');
-		if(!ismycomment) {
-			//头像
-			model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" /></div>');
-		}
+		model.push('<div class="mui-slider-cell" onclick="Check(' + item.ID + ')">');
+		//头像
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Cover + '" /></div>');
 		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.Name + '</p><p class="f11 csubtitle">' + item.Author + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
-		model.push('</div>');
-
-		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		if(!ismycomment) {
-			model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
-		}
-		model.push('<div class="oa-contact-date mui-table-cell c999' + (ismycomment ? "tl" : "tc") + '">' + item.CreateDate + '</div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10" style="color:#4EC4DE;">“' + item.Title + '”</div>');
+		model.push('<div class="oa-contact-icon mui-table-cell" type="' + item.ID + '"></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
 
-	function message(id) {
-		alert(id)
-	}
-
-	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
-		this.click();
+	$("#pullrefresh").on('tap', 'div.mui-table-view-cell', function(event) {
+		$("#pullrefresh .check").removeClass("check");
+		var curr = $(this).find(".oa-contact-icon");
+		curr.addClass("check");
+		MusicID = curr.attr("type");
 	});
 
 	if(mui.os.plus) {

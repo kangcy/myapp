@@ -283,40 +283,34 @@
 
 	//编辑昵称
 	editnickname.addEventListener('tap', function(event) {
-		var editnickname = mui.preload({
-			id: 'editnickname',
-			url: 'editnickname.html',
-			extras: {
-				title: nickname.innerHTML.trim()
-			}
-		});
 		mui.openWindow({
 			id: 'editnickname',
+			url: 'editnickname.html',
 			show: {
-				aniShow: 'slide-in-right'
+				autoShow: false
 			},
 			waiting: {
 				autoShow: false
+			},
+			extras: {
+				title: nickname.innerHTML.trim()
 			}
 		});
 	});
 
 	//编辑个性签名
 	editsignature.addEventListener('tap', function(event) {
-		var editsignature = mui.preload({
-			id: 'editsignature',
-			url: 'editsignature.html',
-			extras: {
-				title: signature.innerHTML.trim()
-			}
-		});
 		mui.openWindow({
 			id: 'editsignature',
+			url: 'editsignature.html',
 			show: {
-				aniShow: 'slide-in-right'
+				autoShow: false
 			},
 			waiting: {
 				autoShow: false
+			},
+			extras: {
+				title: signature.innerHTML.trim()
 			}
 		});
 	});

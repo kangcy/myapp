@@ -152,25 +152,21 @@
 
 		//点击左上角侧滑图标，打开侧滑菜单
 		document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-			var template = plus.webview.getWebviewById("index");
-			mui.fire(template, 'toggleMenu', {});
+			mui.back();
 		});
 
 		//返回
 		document.getElementById('back').addEventListener('tap', function(event) {
-			plus.webview.currentWebview().hide();
+			mui.back();
 		});
 
 		//音乐
 		document.getElementById('music').addEventListener('tap', function(event) {
-			var music = mui.preload({
-				"id": 'music',
-				"url": 'music.html'
-			});
 			mui.openWindow({
 				id: 'music',
+				url: 'music.html',
 				show: {
-					aniShow: 'slide-in-right'
+					autoShow: false
 				},
 				waiting: {
 					autoShow: false
@@ -181,20 +177,17 @@
 		//标题
 		title.addEventListener('tap', function(event) {
 			var html = title.innerHTML.trim();
-			var edittitle = mui.preload({
-				id: 'edittitle',
-				url: 'edittitle.html',
-				extras: {
-					title: html == "点击输入标题" ? "" : html
-				}
-			});
 			mui.openWindow({
 				id: 'edittitle',
+				url: 'edittitle.html',
 				show: {
-					aniShow: 'slide-in-right'
+					autoShow: false
 				},
 				waiting: {
 					autoShow: false
+				},
+				extras: {
+					title: html == "点击输入标题" ? "" : html
 				}
 			});
 		});
@@ -203,20 +196,17 @@
 		mui('#edit').on('tap', '.edit-content', function() {
 			currEditID = this.id;
 			var html = document.getElementById(currEditID).innerHTML.trim();
-			var desc = mui.preload({
-				"id": 'editdesc',
-				"url": 'editdesc.html',
-				extras: {
-					title: html == "点击添加文字" ? "" : html
-				}
-			});
 			mui.openWindow({
 				id: 'editdesc',
+				url: 'editdesc.html',
 				show: {
-					aniShow: 'slide-in-right'
+					autoShow: false
 				},
 				waiting: {
 					autoShow: false
+				},
+				extras: {
+					title: html == "点击添加文字" ? "" : html
 				}
 			});
 		})

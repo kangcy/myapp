@@ -43,8 +43,9 @@
 <script type="text/javascript">
 	var ismycomment = true; //我评论的，评论我的
 	var currpage = 1;
-	var pagesize = base.PageSize;
 	var totalpage = 2;
+	var pagesize = base.PageSize;
+	var isLoading = false; //是否数据加载中
 
 	//启用双击监听
 	mui.init({
@@ -60,7 +61,8 @@
 			up: {
 				contentrefresh: '正在加载...',
 				contentnomore: '没有更多数据了',
-				callback: pullupRefresh
+				callback: pullupRefresh,
+				auto: false
 			}
 		}
 	});
@@ -107,27 +109,42 @@
 	 * 下拉刷新
 	 */
 	function pulldownRefresh() {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
 		setTimeout(function() {
 			currpage = 1;
 			totalpage = 2;
 			document.getElementById('scroll-view').innerHTML = "";
-			load(function() {
+			Load(function() {
 				++currpage;
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				mui('#pullrefresh').pullRefresh().refresh(true);
+				isLoading = false;
 			})
-		}, 500);
+		}, 250);
 	}
 
 	/**
 	 * 上拉加载
 	 */
 	function pullupRefresh() {
-		mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage);
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+			mui.toast("没有更多数据了");
+			isLoading = false;
+			return;
+		}
 		setTimeout(function() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-			load(function() {
+			Load(function() {
 				++currpage;
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				isLoading = false;
 			})
 		}, 250);
 	}
@@ -135,8 +152,8 @@
 	/**
 	 * 加载数据
 	 */
-	function load(callback) {
-		if(base.IsTest) {
+	function Load(callback) {
+		if(mui.os.plus && base.IsTest) {
 			var table = document.getElementById('scroll-view');
 			for(var i = 1; i < 6; i++) {
 				var item = {
@@ -149,6 +166,9 @@
 					CreateDate: "2016-9-9"
 				}
 				table.appendChild(appendStr(item));
+			}
+			if($.isFunction(callback)) {
+				callback();
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({

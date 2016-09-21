@@ -60,3 +60,8 @@ input[type=text] {
 	left: 0.625rem;
 	top: 0.625rem
 }
+
+.check {
+	background: url(../images/check.png) 97% center no-repeat;
+	background-size: 1.25rem;
+}

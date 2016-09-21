@@ -103,6 +103,9 @@
 				}
 				table.appendChild(appendStr(item));
 			}
+			if($.isFunction(callback)) {
+				callback();
+			}
 		} else {
 			var data = {
 				page: currpage,
