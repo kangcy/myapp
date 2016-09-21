@@ -125,10 +125,6 @@
 		}
 	});
 
-	//加载数据
-	ArticleID = 0;
-	Load();
-
 	mui.plusReady(function() {
 		//显示当前页面
 		mui.currentWebview.show("slide-in-right");
@@ -365,6 +361,9 @@
 		return model.join('')
 	}
 
+	ArticleID = 7;
+	Load();
+
 	//加载文章
 	function Load() {
 		if(mui.os.plus && base.IsTest) {
@@ -434,15 +433,21 @@
 
 							//加载段落
 							if(data.ArticlePart != null) {
+								var $edit = $("#edit");
 								for(var i = 0; i < data.ArticlePart.length; i++) {
 									var part = data.ArticlePart[i];
+									var html = "";
 									if(part.Types == 1) {
 										//图片段落
+										html = appendStr("点击添加视频", "pic", part.ID);
 									} else if(part.Types == 2) {
 										//文本段落
+										html = appendStr("点击添加文本", "text", part.ID);
 									} else if(part.Types == 3) {
 										//视频段落
+										html = appendStr("点击添加视频", "video", part.ID);
 									}
+									$edit.append(html);
 								}
 							}
 						}
