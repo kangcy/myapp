@@ -17,7 +17,7 @@
 			<div class="mui-scroll" id="mui-scroll">
 				<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;">
 					<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
-					<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+					<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 					<div class="info-body">
 						<div id="title" class="title mb20 cfff f18">点击输入标题</div>
 						<div id="music" class="btn cfff fl"><img src="../images/article/music.png" class="icon" />添加音乐</div>
@@ -159,6 +159,44 @@
 		//返回
 		document.getElementById('back').addEventListener('tap', function(event) {
 			mui.back();
+		});
+
+		//保存
+		document.getElementById('submit').addEventListener('tap', function(event) {
+			if(mui.os.plus) {
+				plus.nativeUI.showWaiting("保存中...");
+			}
+			HttpGet(base.RootUrl + "Article/Edit", {
+				UserName: userinfo.account,
+				Password: userinfo.password,
+				ArticleID: ArticleID,
+				Title: escape(Title),
+				MusicID: MusicID
+			}, function(data) {
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
+				}
+				if(data != null) {
+					if(data.result) {
+						//打开文章详细页
+						mui.openWindow({
+							id: 'articledetail',
+							url: 'articledetail.html',
+							show: {
+								autoShow: false
+							},
+							waiting: {
+								autoShow: false
+							},
+							extras: {
+								ArticleID: ArticleID
+							}
+						});
+					} else {
+						mui.toast(data.message);
+					}
+				}
+			});
 		});
 
 		//音乐
