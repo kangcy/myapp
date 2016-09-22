@@ -83,7 +83,7 @@
 	//初始化获取参数
 	function Init(articleType) {
 		ArticleType = articleType;
-		console.log("ArticleType:" + ArticleType)
+
 		if(mui.os.plus) {
 			mui.plusReady(function() {
 				setTimeout(function() {
@@ -145,20 +145,25 @@
 	 * 加载数据
 	 */
 	function Load(callback) {
-		
-		console.log("111111111111111111111111111");
-		
 		var table = document.getElementById('scroll-view');
 		if(mui.os.plus && base.IsTest) {
 			for(var i = 1; i < 6; i++) {
 				var item = {
 					ID: i,
-					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg",
+					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
 					Name: "动漫" + i,
 					Summary: "动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫  "
 				}
 				table.appendChild(appendStr(item));
 			}
+			if($.isFunction(callback)) {
+				callback();
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
 		} else {
 			var data = {
 				page: currpage,
@@ -200,11 +205,11 @@
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 		var num = parseInt(Math.random() * 4);
 		if(num == 1) {
-			model.push('<div class="onefloor"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + id + '" /></div>');
+			model.push('<div class="onefloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
 		}
 		if(num > 1) {
 			for(var j = 1; j <= num; j++) {
-				model.push('<div class="secondfloor"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + id + '" /></div>');
+				model.push('<div class="secondfloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
 			}
 		}
 		model.push('<p class="c333 fl mt10">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>');

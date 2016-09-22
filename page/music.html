@@ -49,8 +49,8 @@
 
 		//获取参数
 		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID;
-		MusicID = self.MusicID;
+		ArticleID = self.ArticleID || 0;
+		MusicID = self.MusicID || 0;
 
 		//返回
 		mui.back = function() {
