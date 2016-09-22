@@ -13,16 +13,21 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff">列表</h1>
+			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff">列表2</h1>
 		</header>
 		<div class="mui-content"></div>
 	</body>
 
 </html>
+<script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script type="text/javascript">
+	var ArticleType = 0; //文章类型
+
+	console.log("sdfasdfasdf");
+
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
@@ -30,60 +35,39 @@
 		},
 		swipeBack: false, //启用右滑关闭功能
 		subpages: [{
-			url: 'articleSub.html',
 			id: 'articleSub',
+			url: 'articleSub.html',
 			styles: {
-				top: '45px',
+				top: parseInt((window.innerWidth / 320) * 45) + 'px',
 				bottom: '0px',
 			}
 		}]
 	});
 
-	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
-	});
-
-	/*
-	 * 新建
-	 */
-	var subWebview = null;
-	var template = null;
-	document.getElementById('info').addEventListener('tap', function() {
-		if(!mui.os.plus) {
-			mui.openWindow({
-				url: "upload.html",
-				id: "upload",
-				show: {
-					aniShow: 'zoom-fade-out',
-					duration: 300
-				}
-			});
-			return;
-		}
-		//获取共用父窗体
-		if(subWebview == null) {
-			template = plus.webview.getWebviewById("default-main");
-		}
-		if(template) {
-			subWebview = template.children()[0];
-			subWebview.loadURL('upload.html');
-			mui.fire(template, 'updateHeader', {
-				title: '上传',
-				showMenu: false
-			});
-			template.show('slide-in-right', 150);
-		}
-	});
-
 	var contentWebview = null;
-	document.querySelector('header').addEventListener('doubletap', function() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview().children()[0];
-		}
-		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+	mui.plusReady(function() {
+		//获取参数
+		var self = plus.webview.currentWebview();
+		ArticleType = self.ArticleType;
+		console.log(ArticleType)
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(e) {
+			mui.back();
+		});
+
+		document.querySelector('header').addEventListener('doubletap', function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		});
+
+		setTimeout(function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("Init(" + ArticleType + ")");
+		}, 0)
 	});
 </script>

@@ -146,14 +146,6 @@
 	})
 
 	mui.plusReady(function() {
-		//显示当前页面
-		mui.currentWebview.show("slide-in-right");
-
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
-
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
 		ArticlePower = self.ArticlePower;

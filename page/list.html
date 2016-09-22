@@ -11,10 +11,10 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-			<a id="info" class="mui-icon mui-icon-info-filled mui-pull-right c999"></a>
-			<h1 class="mui-title">列表</h1>
+		<header class="mui-bar mui-bar-nav header">
+			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff">列表3</h1>
 		</header>
 		<div class="mui-content"></div>
 	</body>
@@ -39,10 +39,18 @@
 	});
 
 	var contentWebview = null;
-	document.querySelector('header').addEventListener('doubletap', function() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview().children()[0];
-		}
-		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+	mui.plusReady(function() {
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(e) {
+			mui.back();
+		});
+
+		document.querySelector('header').addEventListener('doubletap', function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		});
 	});
 </script>

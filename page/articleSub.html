@@ -8,7 +8,33 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/article.css">
+		<link rel="stylesheet" href="../css/img.preview.css">
+		<style type="text/css">
+			.onefloor {
+				width: 100%;
+				height: 150px;
+				overflow: hidden;
+			}
+			
+			.onefloor img {
+				width: 100%;
+				min-height: 100%;
+			}
+			
+			.secondfloor {
+				width: 50%;
+				height: 120px;
+				text-align: center;
+				overflow: hidden;
+				margin-bottom: 1.5%;
+				float: left;
+			}
+			
+			.secondfloor img {
+				width: 97%;
+				min-height: 100%;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -24,16 +50,18 @@
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.previewimage.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var ArticleType = 0;
 	var currpage = 1;
-	var pagesize = base.PageSize;
 	var totalpage = 2;
-	var currUserID = base.GetUserID(); //当前登录用户ID
-
-	//启用双击监听
+	var pagesize = base.PageSize;
+	var userinfo = base.GetUserInfo();
+	var isLoading = false; //是否数据加载中
 	mui.init({
 		pullRefresh: {
 			container: '#pullrefresh',
@@ -43,39 +71,49 @@
 			up: {
 				contentrefresh: '正在加载...',
 				contentnomore: '没有更多数据了',
-				callback: pullupRefresh
+				callback: pullupRefresh,
+				contentinit: "",
+				contentdown: ""
 			}
 		}
 	});
 
-	mui.plusReady(function() {
-		//显示当前页面
-		mui.currentWebview.show("slide-in-right");
+	mui.previewImage();
 
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
+	//初始化获取参数
+	function Init(articleType) {
+		ArticleType = articleType;
+		console.log("ArticleType:" + ArticleType)
+		if(mui.os.plus) {
+			mui.plusReady(function() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().pullupLoading();
+				}, 250);
+			});
+		} else {
+			mui.ready(function() {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			});
 		}
-
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			plus.webview.close(self);
-		}
-	});
+	}
 
 	/**
 	 * 下拉刷新
 	 */
 	function pulldownRefresh() {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
 		setTimeout(function() {
 			currpage = 1;
 			totalpage = 2;
 			document.getElementById('scroll-view').innerHTML = "";
-			load(function() {
+			Load(function() {
 				++currpage;
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				mui('#pullrefresh').pullRefresh().refresh(true);
+				isLoading = false;
 			})
 		}, 250);
 	}
@@ -84,11 +122,21 @@
 	 * 上拉加载
 	 */
 	function pullupRefresh() {
-		mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage);
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+			mui.toast("没有更多数据了");
+			isLoading = false;
+			return;
+		}
 		setTimeout(function() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-			load(function() {
+			Load(function() {
 				++currpage;
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				isLoading = false;
 			})
 		}, 250);
 	}
@@ -96,38 +144,80 @@
 	/**
 	 * 加载数据
 	 */
-	function load(callback) {
-		var data = {
-			page: currpage,
-			rows: pagesize
-		};
-		HttpGet(base.RootUrl + "Article/All", data, function(data) {
-			if(data != null) {
-				totalpage = data.totalpage;
-				var length = data.list.length;
-				if(length > 0) {
-					var table = document.getElementById('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
+	function Load(callback) {
+		
+		console.log("111111111111111111111111111");
+		
+		var table = document.getElementById('scroll-view');
+		if(mui.os.plus && base.IsTest) {
+			for(var i = 1; i < 6; i++) {
+				var item = {
+					ID: i,
+					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg",
+					Name: "动漫" + i,
+					Summary: "动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫  "
+				}
+				table.appendChild(appendStr(item));
+			}
+		} else {
+			var data = {
+				page: currpage,
+				rows: pagesize,
+				TypeID: ArticleType
+			};
+			HttpGet(base.RootUrl + "Article/All", data, function(data) {
+				if(data != null) {
+					totalpage = data.totalpage;
+					var length = data.list.length;
+					if(length > 0) {
+						for(var i = 0, len = data.list.length; i < len; i++) {
+							var div = appendStr(data.list[i]);
+							table.appendChild(div);
+						}
 					}
 				}
-			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
+				if($.isFunction(callback)) {
+					callback();
+				}
+				document.body.removeAttribute('data-imageLazyload');
+				mui(document).imageLazyload({
+					placeholder: '../images/60x60.gif',
+					diff: window.innerHeight
+				});
 			});
-		});
+		}
 	}
 
 	/**
 	 * 拼接Html
 	 */
 	function appendStr(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-card';
+		var model = [];
+		model.push('<div class="mui-card-header mui-card-media">');
+		model.push('<img src="../images/logo.png" /><div class="mui-media-body">小M<p>Posted on January 18, 2016</p></div></div>');
+		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+		var num = parseInt(Math.random() * 4);
+		if(num == 1) {
+			model.push('<div class="onefloor"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + id + '" /></div>');
+		}
+		if(num > 1) {
+			for(var j = 1; j <= num; j++) {
+				model.push('<div class="secondfloor"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + id + '" /></div>');
+			}
+		}
+		model.push('<p class="c333 fl mt10">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>');
+		model.push('</div></div>');
+		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">Like</a><a class="mui-card-link">Read more</a></div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
+	/**
+	 * 拼接Html
+	 */
+	function appendStr2(item) {
 		var div = document.createElement('div');
 		var model = [];
 
@@ -143,19 +233,6 @@
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
-	}
-
-	if(mui.os.plus) {
-		mui.plusReady(function() {
-			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			}, 1000);
-
-		});
-	} else {
-		mui.ready(function() {
-			mui('#pullrefresh').pullRefresh().pullupLoading();
-		});
 	}
 
 	function message(id) {
