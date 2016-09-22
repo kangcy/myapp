@@ -112,7 +112,6 @@
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
-	var userinfo = base.GetUserInfo();
 	var isLoading = false; //是否数据加载中
 	mui.init({
 		pullRefresh: {
@@ -140,20 +139,18 @@
 		//加载文章类型
 		$("#scroll1").on('tap', '.article', function(event) {
 			var $this = $(this);
-			var articledetail = mui.preload({
-				"id": 'articledetail',
-				"url": 'articledetail.html',
-				extras: {
-					ArticleID: $this.attr("aid")
-				}
-			});
 			mui.openWindow({
 				id: 'articledetail',
+				url: 'articledetail.html',
 				show: {
-					aniShow: 'slide-in-right'
+					autoShow: true,
+					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false
+				},
+				extras: {
+					ArticleID: $this.attr("aid")
 				}
 			});
 		});
