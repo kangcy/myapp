@@ -177,7 +177,7 @@
 		//昵称、签名
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.Name + '</p><p class="f11 csubtitle">' + item.Author + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell" type="' + item.ID + '"></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell ' + (item.ID == MusicID ? "check" : "") + '" type="' + item.ID + '"></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
@@ -192,33 +192,18 @@
 	});
 
 	//完成
+	var addarticlePage = null;
+
 	function Submit() {
 		if(MusicID == 0) {
 			return mui.toast("请选择背景音乐~");
 		}
-		if(mui.os.plus) {
-			plus.nativeUI.showWaiting();
+		if(!addarticlePage) {
+			addarticlePage = plus.webview.getWebviewById('addarticle');
 		}
-		HttpGet(base.RootUrl + "Article/EditArticleMusic", {
-				UserName: userinfo.account,
-				Password: userinfo.password,
-				ArticleID: ArticleID,
-				MusicID: MusicID
-			},
-			function(data) {
-				if(mui.os.plus) {
-					plus.nativeUI.closeWaiting();
-				}
-				mui.toast(data.result ? "编辑成功~" : data.message);
-				if(mui.os.plus) {
-					/*if(!shareSettingPage) {
-						shareSettingPage = plus.webview.getWebviewById('sharesetting');
-					}
-					mui.fire(shareSettingPage, "updateArticleType", {
-						"desc": question.value
-					});*/
-					mui.back();
-				}
-			});
+		mui.fire(addarticlePage, "updateMusic", {
+			"MusicID": MusicID
+		});
+		plus.webview.close(plus.webview.currentWebview().parent());
 	}
 </script>

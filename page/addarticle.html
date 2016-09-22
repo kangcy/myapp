@@ -115,6 +115,11 @@
 		});
 	});
 
+	//修改音乐
+	window.addEventListener("updateMusic", function(e) {
+		MusicID = e.detail.MusicID;
+	});
+
 	//修改图片
 	window.addEventListener("updatePic", function(e) {
 		var t = e.detail.title;
@@ -137,6 +142,8 @@
 		//获取参数
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
+
+		Load();
 
 		//返回
 		mui.back = function() {
@@ -205,20 +212,34 @@
 		//点击编辑
 		mui('#edit').on('tap', '.edit-content', function() {
 			currEditID = this.id;
-			var html = document.getElementById(currEditID).innerHTML.trim();
-			mui.openWindow({
-				id: 'editdesc',
-				url: 'editdesc.html',
-				show: {
-					autoShow: false
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					title: html == "点击添加文字" ? "" : html
+			var type = this.getAttribute("type");
+			if(type == "pic") {
+				//编辑图片
+				showActionSheet(5, 3);
+				document.getElementById("confirm").onclick = function() {
+					confirm(null, function(src) {
+						$("#" + currEditID).find("img").attr("src", src);
+					});
 				}
-			});
+			} else if(type == "text") {
+				//编辑文字
+				var html = document.getElementById(currEditID).innerHTML.trim();
+				mui.openWindow({
+					id: 'editdesc',
+					url: 'editdesc.html',
+					show: {
+						autoShow: false
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						title: html == "点击添加文字" ? "" : html
+					}
+				});
+			} else if(type == "video") {
+				//编辑视频
+			}
 		})
 	});
 
@@ -361,9 +382,6 @@
 		return model.join('')
 	}
 
-	ArticleID = 7;
-	Load();
-
 	//加载文章
 	function Load() {
 		if(mui.os.plus && base.IsTest) {
@@ -372,22 +390,30 @@
 			ArticleUserID = 1;
 			ArticleType = 1;
 			ArticleTypeName = "其它";
-			$("#header").css({
-				"background": "url(http://www.dcloud.io/hellomui/images/" + parseInt(Math.random() * 5 + 1) + ".jpg?version=" + Math.random() * 1000 + ") no-repeat",
-				"background-size": "100% 100%"
-			});
+			Cover = "../images/header.png";
+			document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
+			document.getElementById("header").style.backgroundSize = "cover";
 			$("#article_title").html("旅游 | 50岁时你可能还会记得你去过的让人难忘的地方");
 			$("#article_info").html('<span class="fl">作者：一个傻瓜</span><span class="fl ml10">1阅读</span><span class="fl ml10">/</span><span class="fl ml10">2收藏</span><span class="fl ml10">/</span><span class="fl ml10">3评论</span>');
 			$("#article_desc").html("1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。");
+
+			//段落信息
+			var html = appendStr("点击添加图片", "pic", 1);
+			$("#edit").append(html);
+			$("#edit").find(".banner").addClass("hide");
+			$("#edit").find(".edit-add").removeClass("hide");
+			Group(document.getElementById('edit'), window.innerWidth * 0.05);
 
 			plus.nativeUI.closeWaiting();
 		} else {
 			//创建文章
 			if(ArticleID == 0) {
-				Cover = "http://www.dcloud.io/hellomui/images/" + parseInt(Math.random() * 5 + 1) + ".jpg?version=" + Math.random() * 1000;
+				Cover = "../images/header.png";
 				HttpGet(base.RootUrl + "Article/Edit", {
 					UserName: userinfo.account,
-					Password: userinfo.password
+					Password: userinfo.password,
+					Cover: Cover,
+					Title: escape("点击输入标题")
 				}, function(data) {
 					if(data != null) {
 						if(data.result) {
@@ -427,9 +453,11 @@
 							ArticleType = data.TypeID;
 							ArticleTypeName = data.TypeName;
 							ArticleUserID = data.CreateUserID;
-							document.getElementById("header").style.backgroundImage = "url(" + data.Cover + ")";
+							Title = data.Title;
+							Cover = data.Cover;
+							document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
 							document.getElementById("header").style.backgroundSize = "cover";
-							$("#article_title").html(data.Title);
+							$("#article_title").html(Title);
 
 							//加载段落
 							if(data.ArticlePart != null) {
@@ -449,6 +477,7 @@
 									}
 									$edit.append(html);
 								}
+								Group(document.getElementById('edit'), window.innerWidth * 0.05);
 							}
 						}
 					}
@@ -459,8 +488,4 @@
 			}
 		}
 	}
-
-	window.onload = function() {
-		Group(document.getElementById('edit'), window.innerWidth * 0.05);
-	};
 </script>
