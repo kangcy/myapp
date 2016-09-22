@@ -200,37 +200,12 @@
 					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
-
-				/* 
-				 * 返回 false 可以阻止选择框的关闭
-				 * return false;
-				 */
-				/*
-				 * 释放组件资源，释放后将将不能再操作组件
-				 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
-				 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
-				 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
-				 */
-				picker.dispose();
-
+				picker.dispose(); //资源释放
 			});
 		}, false);
 	})
 
 	mui.plusReady(function() {
-		//显示当前页面
-		mui.currentWebview.show("slide-in-right");
-
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
-
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			plus.webview.close(self);
-		}
 
 		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
@@ -287,7 +262,8 @@
 			id: 'editnickname',
 			url: 'editnickname.html',
 			show: {
-				autoShow: false
+				autoShow: true,
+				duration: base.AnimateDuration
 			},
 			waiting: {
 				autoShow: false
@@ -304,7 +280,8 @@
 			id: 'editsignature',
 			url: 'editsignature.html',
 			show: {
-				autoShow: false
+				autoShow: true,
+				duration: base.AnimateDuration
 			},
 			waiting: {
 				autoShow: false

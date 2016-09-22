@@ -12,7 +12,7 @@
 	</head>
 
 	<body>
-		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.75rem;">
+		<div class="mui-iframe-wrapper" style="top: 0px;bottom:0px;">
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
@@ -90,6 +90,7 @@
 	});
 
 	mui.plusReady(function() {
+
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
@@ -101,7 +102,8 @@
 				id: 'mysetting',
 				url: 'mysetting.html',
 				show: {
-					autoShow: false
+					autoShow: true,
+					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false
@@ -115,7 +117,8 @@
 				id: 'setting',
 				url: 'setting.html',
 				show: {
-					autoShow: false
+					autoShow: true,
+					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false
@@ -129,7 +132,8 @@
 				id: 'pay',
 				url: 'pay.html',
 				show: {
-					autoShow: false
+					autoShow: true,
+					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false
@@ -148,7 +152,8 @@
 				id: 'feedback',
 				url: 'feedback.html',
 				show: {
-					autoShow: false
+					autoShow: true,
+					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false
@@ -167,7 +172,8 @@
 				id: 'help',
 				url: 'help.html',
 				show: {
-					autoShow: false
+					autoShow: true,
+					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false
@@ -181,7 +187,8 @@
 				id: 'comment',
 				url: 'comment.html',
 				show: {
-					autoShow: false
+					autoShow: true,
+					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false

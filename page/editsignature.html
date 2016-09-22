@@ -8,14 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<style type="text/css">
-			#question {
-				border: 0px;
-				height: 400px;
-				padding: 0px;
-				line-height: 1.25rem;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -44,23 +36,10 @@
 
 	var mysettingPage = null;
 	mui.plusReady(function() {
-		//显示当前页面
-		mui.currentWebview.show("slide-in-right");
-
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
 
 		var question = document.getElementById("question");
-		question.focus();
 		var self = plus.webview.currentWebview();
 		question.value = self.title;
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(self);
-		}
 
 		//取消
 		document.getElementById("back").addEventListener('tap', function(event) {
