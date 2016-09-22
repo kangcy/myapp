@@ -1,8 +1,3 @@
-/**
- * 演示程序当前的 “注册/登录” 等操作，是基于 “本地存储” 完成的
- * 当您要参考这个演示程序进行相关 app 的开发时，
- * 请注意将相关方法调整成 “基于服务端Service” 的实现。
- **/
 (function($, owner) {
 	/**
 	 * 用户登录
@@ -10,33 +5,45 @@
 	owner.login = function(loginInfo, callback) {
 		callback = callback || $.noop;
 		loginInfo = loginInfo || {};
-		loginInfo.account = loginInfo.account || '';
-		loginInfo.password = loginInfo.password || '';
-		if(loginInfo.account.length < 5) {
+		loginInfo.UserName = loginInfo.UserName || '';
+		loginInfo.Password = loginInfo.Password || '';
+		if(loginInfo.UserName.length < 5) {
 			return callback('账号最短为 5 个字符');
 		}
-		if(loginInfo.password.length < 6) {
+		if(loginInfo.Password.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
 
 		//登录验证
-		if(base.IsTest) {
+		if(mui.os.plus && base.IsTest) {
 			var users = JSON.parse(localStorage.getItem('$users') || '[]');
 			var authed = users.some(function(user) {
-				return loginInfo.account == user.account && loginInfo.password == user.password;
+				return loginInfo.UserName == user.UserName && loginInfo.Password == user.Password;
 			});
 			if(authed) {
-				return owner.createState(loginInfo.account, callback);
+				return callback();
 			} else {
 				return callback('用户名或密码错误');
 			}
 		} else {
 			HttpGet(base.RootUrl + "User/Login", {
-				UserName: loginInfo.account,
-				Password: loginInfo.password
+				UserName: loginInfo.UserName,
+				Password: loginInfo.Password
 			}, function(data) {
 				if(data != null) {
 					if(data.result) {
+						//更新用户缓存信息
+						data = data.message;
+						var info = {
+							ID: data.ID,
+							UserName: loginInfo.UserName,
+							Password: loginInfo.Password,
+							Avatar: data.Avatar,
+							NickName: data.NickName,
+							Address: data.Address,
+							Birthday: data.BirthdayText
+						}
+						localStorage.setItem('$users', JSON.stringify(info));
 						return callback();
 					} else {
 						return callback(data.message);
@@ -46,44 +53,63 @@
 		}
 	};
 
-	//创建本地凭据
-	owner.createState = function(name, callback) {
-		var state = owner.getState();
-		state.account = name;
-		state.token = "token123456789";
-		owner.setState(state);
-		return callback();
-	};
-
 	/**
 	 * 新用户注册
 	 **/
 	owner.reg = function(regInfo, callback) {
 		callback = callback || $.noop;
 		regInfo = regInfo || {};
-		regInfo.account = regInfo.account || '';
-		regInfo.nickname = regInfo.nickname || '';
-		regInfo.password = regInfo.password || '';
+		regInfo.UserName = regInfo.UserName || '';
+		regInfo.NickName = regInfo.NickName || '';
+		regInfo.Password = regInfo.Password || '';
 
-		if(!checkPhone(regInfo.account)) {
+		if(!checkPhone(regInfo.UserName)) {
 			return callback('手机号码不合法');
 		}
-		if(regInfo.nickname.length < 1) {
+		if(regInfo.NickName.length < 1) {
 			return callback('昵称最短需要 1 个字符');
 		}
-		if(regInfo.nickname.length > 12) {
-			return callback('昵称最短需要 12 个字符');
+		if(regInfo.NickName.length > 12) {
+			return callback('昵称最长限制 12 个字符');
 		}
-		if(regInfo.password.length < 6) {
+		if(regInfo.Password.length < 6) {
 			return callback('密码最短需要 6 个字符');
 		}
-		if(regInfo.password.length > 16) {
-			return callback('密码最长需要 16 个字符');
+		if(regInfo.Password.length > 16) {
+			return callback('密码最长限制 16 个字符');
 		}
 		var users = JSON.parse(localStorage.getItem('$users') || '[]');
-		users.push(regInfo);
-		localStorage.setItem('$users', JSON.stringify(users));
-		return callback();
+		if(mui.os.plus && base.IsTest) {
+			users.push(regInfo);
+			localStorage.setItem('$users', JSON.stringify(users));
+			return callback();
+		} else {
+			HttpGet(base.RootUrl + "User/Register", {
+				UserName: loginInfo.UserName,
+				Password: loginInfo.Password
+			}, function(data) {
+				if(data != null) {
+					if(data.result) {
+						//更新用户缓存信息
+						data = data.message;
+						var info = {
+							ID: data.ID,
+							UserName: regInfo.UserName,
+							Password: regInfo.Password,
+							Avatar: data.Avatar,
+							NickName: data.NickName,
+							Address: "",
+							Birthday: ""
+						}
+						users.push(regInfo);
+						localStorage.setItem('$users', JSON.stringify(users));
+						return callback();
+					} else {
+						return callback(data.message);
+					}
+				}
+			});
+		}
 	};
 
 	/**

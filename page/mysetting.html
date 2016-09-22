@@ -35,7 +35,7 @@
 					<a class="mui-navigate-right">
 						<span class="fl mt10">头像</span>
 						<span class="mui-pull-right head mr20">
-							<img class="head-img mui-action-preview" id="avatar" src="../images/logo.png" style="width:40px;border-radius:50%;">
+							<img class="head-img mui-action-preview" id="avatar" src="../images/logo.png" style="width:2.5rem;border-radius:50%;">
 						</span>
 					</a>
 				</li>
@@ -109,6 +109,14 @@
 	});
 
 	$(function() {
+		//初始化赋值
+		$("#avatar").attr("src", userinfo.Avatar);
+		$("#nickname").html(userinfo.NickName == "" ? "请填写" : userinfo.NickName);
+		$("#sex").html(userinfo.Sex);
+		$("#city").html(userinfo.Address == "" ? "请选择" : userinfo.Address);
+		$("#time").html(userinfo.Birthday == "" ? "请选择" : userinfo.Birthday);
+		$("#signature").html(userinfo.Signature == "" ? "请填写" : userinfo.Signature);
+
 		//性别选择
 		var sexPicker = new mui.PopPicker();
 		sexPicker.setData([{
@@ -258,6 +266,7 @@
 
 	//编辑昵称
 	editnickname.addEventListener('tap', function(event) {
+		var nickname = nickname.innerHTML.trim();
 		mui.openWindow({
 			id: 'editnickname',
 			url: 'editnickname.html',
@@ -269,13 +278,14 @@
 				autoShow: false
 			},
 			extras: {
-				title: nickname.innerHTML.trim()
+				title: nickname == "请填写" ? "" : nickname
 			}
 		});
 	});
 
 	//编辑个性签名
 	editsignature.addEventListener('tap', function(event) {
+		var signature = signature.innerHTML.trim();
 		mui.openWindow({
 			id: 'editsignature',
 			url: 'editsignature.html',
@@ -287,7 +297,7 @@
 				autoShow: false
 			},
 			extras: {
-				title: signature.innerHTML.trim()
+				title: signature == "请填写" ? "" : signature
 			}
 		});
 	});

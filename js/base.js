@@ -32,13 +32,13 @@ var base = new function() {
 	this.GetUserInfo = function() {
 		var settingsText = localStorage.getItem('$users') || "{}";
 
-		if(settingsText == "{}") {
+		if(base.IsTest && settingsText == "{}") {
 			return {
 				account: 18652913873,
-				password: 123456
+				password: 123456,
+
 			}
 		}
-
 		return JSON.parse(settingsText);
 	}
 

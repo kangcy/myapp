@@ -53,7 +53,6 @@
 
 		plus.screen.lockOrientation("portrait-primary");
 		var settings = app.getSettings();
-		var state = app.getState();
 		var mainPage = mui.preload({
 			"id": 'index',
 			"url": '../index.html'
@@ -76,7 +75,7 @@
 		};
 
 		//检查 "登录状态/锁屏状态" 开始
-		if(settings.autoLogin && state.token) {
+		if(settings.autoLogin) {
 			//解锁
 			if(settings.gestures) {
 				mui.openWindow({
@@ -93,7 +92,6 @@
 				toMain();
 			}
 		} else {
-			app.setState(null);
 			//第三方登录
 			var authBtns = ['qihoo', 'weixin', 'sinaweibo', 'qq']; //配置业务支持的第三方登录
 			var auths = {};
@@ -125,9 +123,7 @@
 						auth.getUserInfo(function() {
 							plus.nativeUI.toast("获取用户信息成功");
 							var name = auth.userInfo.nickname || auth.userInfo.name;
-							app.createState(name, function() {
-								toMain();
-							});
+							toMain();
 						}, function(e) {
 							plus.nativeUI.toast("获取用户信息失败：" + e.message);
 						});
@@ -156,8 +152,8 @@
 		//点击登录
 		loginButton.addEventListener('tap', function(event) {
 			var loginInfo = {
-				account: accountBox.value,
-				password: passwordBox.value
+				UserName: accountBox.value,
+				Password: passwordBox.value
 			};
 			//登录
 			app.login(loginInfo, function(err) {
