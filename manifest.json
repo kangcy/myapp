@@ -10,7 +10,7 @@
     "icons": {
         "72": "icon.png"
     },
-    "launch_path": "page/login.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+    "launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
     "developer": {
         "name": "",/*开发者名称*/
         "email": "",/*开发者邮箱地址*/
@@ -230,12 +230,14 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"fonts/mui.ttf",
-					"subindex.html"
+					"subindex.html",
+					"subindex2.html"
 				],
 				"refer": [
 					"page/about.html",
 					"list.html",
-					"menu.html"
+					"menu.html",
+					"page/subindex.html"
 				],
 				"priority": 0
 			},
@@ -259,7 +261,8 @@
 					"js/default.js",
 					"images/login/pwd.png",
 					"images/login/name.png",
-					"images/my/1.png"
+					"images/my/1.png",
+					"css/login.css"
 				],
 				"refer": [
 					"index.html",
@@ -276,7 +279,9 @@
 			},
 			"menu.html": {
 				"resources": [
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -303,13 +308,18 @@
 					"/js/base.js",
 					"/js/mui.lazyload.js",
 					"/js/mui.js",
-					"page/article.html"
+					"page/article.html",
+					"page/topic.html"
 				],
 				"refer": [
 					"page/list.html",
 					"page/guide.html",
 					"page/setting.html",
-					"page/template.html"
+					"page/template.html",
+					"page/comment.html",
+					"page/addarticle.html",
+					"page/articledetail.html",
+					"page/cropper.html"
 				],
 				"priority": 0
 			},
@@ -329,7 +339,9 @@
 			"page/list.html": {
 				"resources": [
 					"page/listSub.html",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -347,7 +359,13 @@
 			},
 			"page/setting.html": {
 				"resources": [
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/base.js",
+					"js/mui.min.js",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -393,7 +411,10 @@
 				"refer": [
 					"page/pay.html",
 					"page/feedback.html",
-					"page/help.html"
+					"page/help.html",
+					"page/setting.html",
+					"page/comment.html",
+					"page/mysetting.html"
 				],
 				"priority": 0
 			},
@@ -434,14 +455,33 @@
 			"page/pay.html": {
 				"resources": [
 					"css/pay.css",
-					"js/mui.js"
+					"js/mui.js",
+					"js/base.js",
+					"js/mui.min.js",
+					"images/menu.png",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/mui.lazyload.js",
+					"js/default.js",
+					"js/mui.lazyload.img.js"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"page/feedback.html": {
 				"resources": [
-					"css/feedback-page.css"
+					"css/feedback-page.css",
+					"js/base.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"images/feedback/commit.png",
+					"images/menu.png",
+					"fonts/mui.ttf",
+					"images/header.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -455,16 +495,337 @@
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
 					"js/default.js",
-					"js/mui.min.js"
+					"js/mui.min.js",
+					"images/menu.png",
+					"images/header.png",
+					"page/helpSub.html"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"page/comment.html": {
+				"resources": [
+					"css/comment.css",
+					"js/mui.js",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"images/bottom.png",
+					"js/mui.lazyload.js",
+					"js/default.js",
+					"js/mui.lazyload.img.js",
+					"images/menu.png",
+					"images/header.png"
+				],
+				"refer": [
+					"page/addcomment.html"
+				],
+				"priority": 0
+			},
+			"page/addcomment.html": {
+				"resources": [
+					"images/feedback/commit.png",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/mysetting.html": {
+				"resources": [
+					"images/logo.png",
+					"js/mui.picker.min.js",
+					"js/mui.poppicker.js",
+					"js/city2.js",
+					"css/mui.poppicker.css",
+					"css/mui.picker.css",
+					"cropper/cropper.css",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"js/base.js",
+					"js/copper.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"cropper/cropper.min.js",
+					"js/default.js"
+				],
+				"refer": [
+					"page/editnickname.html",
+					"page/editsignature.html"
+				],
+				"priority": 0
+			},
+			"page/topic.html": {
+				"resources": [
+					"css/index.css",
+					"images/index/type2.png",
+					"images/menu.png",
+					"images/article/bg.png",
+					"images/index/type1.png",
+					"js/base.js",
+					"images/header.png",
+					"js/jquery-1.10.2.min.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"images/bottom.png",
+					"images/user.png",
+					"images/add.png",
+					"images/home.png",
+					"images/index/logo.png",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js"
+				],
+				"refer": [
+					"page/articledetail.html"
+				],
+				"priority": 0
+			},
+			"page/addarticle.html": {
+				"resources": [
+					"js/base.js",
+					"images/article/up.png",
+					"images/article/add.png",
+					"images/header.png",
+					"js/jquery-1.10.2.min.js",
+					"images/article/music.png",
+					"images/article/down.png",
+					"images/article/del.png",
+					"images/article/pic.png",
+					"css/addarticle.css",
+					"fonts/mui.ttf",
+					"images/bottom.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"images/60x60.gif",
+					"cropper/cropper.css",
+					"js/copper.js",
+					"cropper/cropper.min.js",
+					"js/group.js"
+				],
+				"refer": [
+					"page/edittitle.html",
+					"page/music.html",
+					"page/editdesc.html"
+				],
+				"priority": 0
+			},
+			"page/edittitle.html": {
+				"resources": [
+					"images/feedback/commit.png",
+					"js/base.js",
+					"js/mui.min.js",
+					"images/menu.png",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/music.html": {
+				"resources": [
+					"css/music.css",
+					"js/mui.lazyload.js",
+					"js/mui.js",
+					"js/mui.lazyload.img.js",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"page/musicSub.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/editdesc.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/articledetail.html": {
+				"resources": [
+					"images/article/comment.png",
+					"js/base.js",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"images/article/zan.png",
+					"js/jquery-1.10.2.min.js",
+					"images/article/share.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/bottom.png",
+					"js/default.js"
+				],
+				"refer": [
+					"page/sharesetting.html",
+					"page/addcomment.html",
+					"page/addarticle.html"
+				],
+				"priority": 0
+			},
+			"page/sharesetting.html": {
+				"resources": [
+					"images/check.png",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
+				],
+				"refer": [
+					"page/articleType.html"
+				],
+				"priority": 0
+			},
+			"page/cropper.html": {
+				"resources": [
+					"cropper/cropper.css",
+					"images/60x60.gif",
+					"cropper/cropper.min.js",
+					"js/base.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"fonts/mui.ttf",
+					"js/copper.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/editnickname.html": {
+				"resources": [
+					"images/header.png",
+					"js/default.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/helpSub.html": {
+				"resources": [
+					"css/comment.css",
+					"js/jquery-1.10.2.min.js",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/editsignature.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/articleType.html": {
+				"resources": [
+					"css/articleType.css",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"images/check.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/musicSub.html": {
+				"resources": [
+					"js/jquery-1.10.2.min.js",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"css/music.css",
+					"js/base.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"images/60x60.gif",
+					"images/check.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"subindex2.html": {
+				"resources": [
+					"images/user.png",
+					"images/add.png",
+					"page/list.html",
+					"images/home.png",
+					"images/bottom.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [
+					"page/my.html",
+					"page/addarticle.html",
+					"page/help.html"
+				],
+				"priority": 0
+			},
+			"page/subindex.html": {
+				"resources": [
+					"css/mui.min.css",
+					"js/default.js",
+					"fonts/mui.ttf",
+					"images/bottom.png",
+					"images/user.png",
+					"images/add.png",
+					"js/mui.min.js",
+					"images/home.png",
+					"page/help.html",
+					"css/mui.css"
+				],
+				"refer": [
+					"page/my.html",
+					"page/addarticle.html",
+					"page/list.html",
+					"page/guide.html"
+				],
 				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
-				"demo.html",
-				"css/mui.css"
+				"demo.html"
 			]
 		}
 	},"fullscreen":true,

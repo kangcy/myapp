@@ -23,7 +23,7 @@
 		//子页面
 		subpages: [{
 			id: 'subindex',
-			url: 'subindex2.html',
+			url: 'page/subindex.html',
 			styles: {
 				top: '0px',
 				bottom: '0px',
@@ -36,9 +36,9 @@
 		//仅支持竖屏显示
 		plus.screen.lockOrientation("portrait-primary");
 		main = plus.webview.currentWebview();
-		main.addEventListener('maskClick', closeMenu);
+		//main.addEventListener('maskClick', closeMenu);
 		//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
-		setTimeout(function() {
+		/*setTimeout(function() {
 			menu = mui.preload({
 				id: 'menu',
 				url: 'menu.html',
@@ -51,7 +51,7 @@
 					aniShow: 'none'
 				}
 			});
-		}, 200);
+		}, 200);*/
 	});
 
 	var isInTransition = false;

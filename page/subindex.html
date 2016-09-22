@@ -5,36 +5,29 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<link href="css/mui.min.css" rel="stylesheet" />
-		<style>
-			.mui-btn-outlined {
-				display: block;
-				width: 120px;
-				margin: 10px auto;
-			}
-		</style>
+		<link href="../css/mui.min.css" rel="stylesheet" />
 	</head>
 
 	<body>
 		<footer class="mui-bar mui-bar-tab footer">
-			<a class="mui-tab-item" href="page/list.html">
-				<img src="images/home.png" class="mui-icon" />
+			<a class="mui-tab-item" href="list.html">
+				<img src="../images/home.png" class="mui-icon" />
 				<span class="mui-tab-label f11">首页</span>
 			</a>
-			<a class="mui-tab-item" href="page/addarticle.html">
-				<img src="images/add.png" class="add" />
+			<a class="mui-tab-item" href="addarticle.html">
+				<img src="../images/add.png" class="add" />
 			</a>
-			<a class="mui-tab-item" href="page/my.html">
-				<img src="images/user.png" class="mui-icon" />
+			<a class="mui-tab-item" href="my.html">
+				<img src="../images/user.png" class="mui-icon" />
 				<span class="mui-tab-label f11">我的</span>
 			</a>
 		</footer>
 	</body>
 
 </html>
-<script src="js/default.js"></script>
-<script src="js/mui.min.js"></script>
-<script type="text/javascript" charset="utf-8">
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script type="text/javascript">
 	mui.init({
 		swipeBack: false //启用右滑关闭功能
 	});
@@ -52,16 +45,17 @@
 	mui.plusReady(function() {
 		var showGuide = plus.storage.getItem("lauchFlag"); //读取本地存储，检查是否为首次启动
 		if(showGuide) {
+			//加载页面
 			LoadPage(function() {
-				//有值，说明已经显示过了，无需显示；关闭splash页面；
+				//有值，说明已经显示过了，无需显示；关闭splash页面
 				plus.navigator.closeSplashscreen();
 				plus.navigator.setFullscreen(true);
-			}); //加载页面
+			});
 		} else {
 			//显示启动导航
 			mui.openWindow({
 				id: 'guide',
-				url: 'page/guide.html',
+				url: 'guide.html',
 				show: {
 					aniShow: 'none'
 				},
@@ -72,11 +66,11 @@
 			//延迟的原因：优先打开启动导航页面，避免资源争夺
 			setTimeout(function() {
 				LoadPage(); //加载页面
-			}, 1000);
+			}, 250);
 		}
 	});
 
-	var subpages = ['page/list.html', 'page/addarticle.html', 'page/my.html'];
+	var subpages = ['list.html', 'addarticle.html', 'my.html'];
 	var subpage_style = {
 		top: '0px',
 		bottom: parseInt((window.innerWidth / 320) * 45) + 'px'
@@ -88,7 +82,6 @@
 		for(var i = 0; i < 3; i++) {
 			var temp = {};
 			var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
-			console.log(i+","+subpages[i])
 			if(i == 0) {
 				temp[subpages[i]] = "true";
 				mui.extend(aniShow, temp);

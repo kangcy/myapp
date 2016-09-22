@@ -31,8 +31,8 @@
 		},
 		swipeBack: false, //启用右滑关闭功能
 		subpages: [{
-			url: 'helpSub.html',
 			id: 'helpSub',
+			url: 'helpSub.html',
 			styles: {
 				top: parseInt((window.innerWidth / 320) * 45) + 'px',
 				bottom: '0px',
@@ -41,6 +41,7 @@
 	});
 
 	mui.plusReady(function() {
+		
 		//显示当前页面
 		mui.currentWebview.show("slide-in-right");
 
