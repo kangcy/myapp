@@ -71,10 +71,15 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav header">
+		<!--<header class="mui-bar mui-bar-nav header">
 			<a id="back" class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
 			<a id="menu" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 			<h1 id="title" class="mui-title cfff"></h1>
+		</header>-->
+		<header class="mui-bar mui-bar-nav header">
+			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 id="title" class="mui-title cfff f15"></h1>
 		</header>
 		<div class="mui-loader">加载中...</div>
 	</body>
@@ -158,7 +163,6 @@
 	});
 
 	mui.menu = function() {
-		console.log(menuElem.style.display);
 		if(menuElem.style.display !== "none") {
 			if(contentWebview == null) {
 				contentWebview = plus.webview.currentWebview().children()[0];

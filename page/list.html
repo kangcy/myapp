@@ -38,46 +38,6 @@
 		}]
 	});
 
-	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
-	});
-
-	/*
-	 * 新建
-	 */
-	var subWebview = null;
-	var template = null;
-	document.getElementById('info').addEventListener('tap', function() {
-		if(!mui.os.plus) {
-			mui.openWindow({
-				url: "upload.html",
-				id: "upload",
-				show: {
-					aniShow: 'zoom-fade-out',
-					duration: 300
-				}
-			});
-			return;
-		}
-		//获取共用父窗体
-		if(subWebview == null) {
-			template = plus.webview.getWebviewById("default-main");
-		}
-		if(template) {
-			subWebview = template.children()[0];
-			subWebview.loadURL('upload.html');
-			mui.fire(template, 'updateHeader', {
-				title: '上传',
-				showMenu: false
-			});
-			template.show('slide-in-right', 150);
-		}
-	});
-
 	var contentWebview = null;
 	document.querySelector('header').addEventListener('doubletap', function() {
 		if(contentWebview == null) {

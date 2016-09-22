@@ -94,16 +94,6 @@
 			mui.toast("网络异常，请检查网络设置！");
 		}
 
-		//返回
-		mui.back = function() {
-			plus.webview.currentWebview().hide();
-		}
-
-		//返回
-		document.getElementById('back').addEventListener('tap', function(event) {
-			mui.back();
-		});
-
 		//用户设置
 		document.getElementById('my-setting').addEventListener('tap', function(event) {
 			mui.openWindow({
