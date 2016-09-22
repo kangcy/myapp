@@ -10,6 +10,36 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<style type="text/css">
+			/*类型*/
+			
+			.topic {
+				width: 8.75rem;
+				height: 8.75rem;
+				display: inline-block;
+				border-radius: 10px;
+				margin: 0.25rem;
+				padding: 0px;
+				line-height: 8.625rem;
+			}
+			
+			.topic .bg {
+				width: 100%;
+				height: 100%;
+				background: url(../images/article/bg.png) center center no-repeat;
+				background-size: 80% 40%;
+			}
+			
+			.mui-card-content-inner {
+				padding: 0.9375rem;
+				min-height: 9.375rem;
+				display: inline-block;
+			}
+			
+			.mui-card-content {
+				width: 100%;
+			}
+			/*文章*/
+			
 			.onefloor {
 				width: 100%;
 				height: 9.375rem;
@@ -34,16 +64,38 @@
 				width: 97% !important;
 				min-height: 100%;
 			}
+			
+			.mui-card-header>img:first-child {
+				width: 2.875rem !important;
+				height: 2.875rem !important;
+			}
 		</style>
 	</head>
 
 	<body>
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<div id="scroll-view">
+		<div id="slider" class="mui-slider fullheight">
+			<div class="mui-slider-group fullheight">
+				<div id="item1" class="mui-slider-item mui-control-content mui-active">
+					<div id="scroll1" class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<div id="scroll-view">
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="item2" class="mui-slider-item mui-control-content">
+					<div id="scroll2" class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<div class="mui-table-view" style="padding:0.625rem;" id="article_type">
+
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+
 	</body>
 
 </html>
@@ -64,7 +116,7 @@
 	var isLoading = false; //是否数据加载中
 	mui.init({
 		pullRefresh: {
-			container: '#pullrefresh',
+			container: '#scroll1',
 			down: {
 				callback: pulldownRefresh
 			},
@@ -80,21 +132,59 @@
 
 	mui.previewImage();
 
-	//初始化获取参数
-	function Init(articleType) {
-		ArticleType = articleType;
+	mui('.mui-scroll-wrapper').scroll({
+		indicators: false //不显示滚动条
+	});
 
-		if(mui.os.plus) {
-			mui.plusReady(function() {
-				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-				}, 250);
+	$(function() {
+		//加载文章类型
+		$("#scroll1").on('tap', '.article', function(event) {
+			var $this = $(this);
+			var articledetail = mui.preload({
+				"id": 'articledetail',
+				"url": 'articledetail.html',
+				extras: {
+					ArticleID: $this.attr("aid")
+				}
 			});
-		} else {
-			mui.ready(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
+			mui.openWindow({
+				id: 'articledetail',
+				show: {
+					aniShow: 'slide-in-right'
+				},
+				waiting: {
+					autoShow: false
+				}
 			});
+		});
+	})
+
+	//滑动切换
+	var item1 = document.getElementById('item1');
+	var item2 = document.getElementById('item2');
+	document.getElementById('slider').addEventListener('slide', function(e) {
+		$("#tabs").find(".curr").removeClass("curr");
+		var index = e.detail.slideNumber;
+		if(index === 0) {
+			$("#tabs").find("span:eq(" + index + ")").addClass("curr");
 		}
+		if(index === 1) {
+			$("#tabs").find("span:eq(" + index + ")").addClass("curr");
+		}
+	});
+
+	if(mui.os.plus) {
+		mui.plusReady(function() {
+			setTimeout(function() {
+				mui('#scroll1').pullRefresh().pullupLoading();
+				LoadArticleType();
+			}, 250);
+		});
+	} else {
+		mui.ready(function() {
+			mui('#scroll1').pullRefresh().pullupLoading();
+			LoadArticleType();
+		});
 	}
 
 	/**
@@ -111,8 +201,8 @@
 			document.getElementById('scroll-view').innerHTML = "";
 			Load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				mui('#pullrefresh').pullRefresh().refresh(true);
+				mui('#scroll1').pullRefresh().endPulldownToRefresh();
+				mui('#scroll1').pullRefresh().refresh(true);
 				isLoading = false;
 			})
 		}, 250);
@@ -127,7 +217,7 @@
 		}
 		isLoading = true;
 		if(currpage > totalpage) {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+			mui('#scroll1').pullRefresh().endPullupToRefresh();
 			mui.toast("没有更多数据了");
 			isLoading = false;
 			return;
@@ -135,7 +225,7 @@
 		setTimeout(function() {
 			Load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				mui('#scroll1').pullRefresh().endPullupToRefresh();
 				isLoading = false;
 			})
 		}, 250);
@@ -146,7 +236,7 @@
 	 */
 	function Load(callback) {
 		var table = document.getElementById('scroll-view');
-		if(mui.os.plus && base.IsTest) {
+		if(!mui.os.plus && base.IsTest) {
 			for(var i = 1; i < 6; i++) {
 				var item = {
 					ID: i,
@@ -219,32 +309,48 @@
 		return div;
 	}
 
+	//加载文章类型
+	function LoadArticleType() {
+		if(base.IsTest) {
+			var table = $('#article_type');
+			for(var i = 1; i < 6; i++) {
+				var item = {
+					ID: i,
+					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
+					Name: "动漫" + i
+				}
+				table.append(appendTypeStr(item));
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
+		} else {
+			HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
+				if(data != null) {
+					var length = data.list.length;
+					if(length > 0) {
+						var table = $('#article_type');
+						for(var i = 0, len = data.list.length; i < len; i++) {
+							var div = appendTypeStr(data.list[i]);
+							table.append(div);
+						}
+						document.body.removeAttribute('data-imageLazyload');
+						mui(document).imageLazyload({
+							placeholder: '../images/60x60.gif',
+							diff: window.innerHeight
+						});
+					}
+				}
+			});
+		}
+	}
+
 	/**
-	 * 拼接Html
+	 * 拼接文章类型
 	 */
-	function appendStr2(item) {
-		var div = document.createElement('div');
-		var model = [];
-
-		//文章信息
-		model.push('<div class="mui-card" style="background:url(' + item.Cover + ') no-repeat;background-size:100%;">');
-		model.push('<div class="mui-card-content show">');
-		model.push('<div class="mui-card-content-inner full">');
-		model.push('<p class="f16 cfff title fl" aid="' + item.ArticleID + '">' + item.Title + '</p>');
-
-		model.push('<div class="full type fl"><div class="line"></div><p class="cfff 10">' + item.CreateDate + '</p><p class="cfff f10">' + item.TypeName + '</p></div>');
-		model.push('<div class="full bottom"><div class="tablecell"><img class="avatar mr10" data-lazyload-id="0" src="' + item.Avatar + '"></div>');
-		model.push('<div class="tablecell full pr30"><p class="name fl cfff f10">' + item.NickName + '</p><p class="name fr cfff f10 tr title">' + item.Views + ' 阅读<span class="split">/</span>' + item.Keeps + ' 收藏<span class="split">/</span>' + item.Comments + ' 评论</p></div></div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
+	function appendTypeStr(item) {
+		return '<div class="mui-table-view-cell topic cfff tc" style="background: url(' + item.Cover + ');" onclick="ArticleList(' + item.ID + ')"><div class="bg">' + item.Name + '</div></div>';
 	}
-
-	function message(id) {
-		alert(id)
-	}
-
-	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
-		this.click();
-	});
 </script>

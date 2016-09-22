@@ -43,6 +43,11 @@
 	}
 
 	mui.plusReady(function() {
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
+		}
+
 		var showGuide = plus.storage.getItem("lauchFlag"); //读取本地存储，检查是否为首次启动
 		if(showGuide) {
 			//加载页面

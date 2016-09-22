@@ -13,8 +13,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 			<h1 class="mui-title cfff f13" id="tabs">
 				<a class="mui-control-item mui-active" href="#item1">
 				<span class="tab curr">推荐</span></a>
@@ -23,7 +22,8 @@
 				<span class="tab">话题</span></a>
 			</h1>
 		</header>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 0rem;">
+		<div class="mui-content"></div>
+		<!--<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 0rem;">
 			<div id="slider" class="mui-slider fullheight">
 				<div class="mui-slider-group fullheight">
 					<div id="item1" class="mui-slider-item mui-control-content mui-active">
@@ -31,44 +31,7 @@
 							<div class="mui-scroll">
 								<div class="mui-loading">
 									<img src="../images/index/logo.png" class="full" />
-									<div class="m10">
-										<div class="full">
-											<div class="tablecell">
-												<img class="avatar mr10" data-lazyload-id="0" src="http://www.dcloud.io/hellomui/images/1.jpg">
-											</div>
-											<div class="tablecell">
-												<p class="name fl f11">淡淡的忧伤</p>
-											</div>
-										</div>
-										<div class="article mui-card-content show mt10" aid="1" style="background:url(http://www.dcloud.io/hellomui/images/4.jpg) no-repeat;background-size:100%;border-radius:5px;;">
-											<div class="mui-card-content-inner full">
-												<div class="type type1 cfff f11">类型/类型</div>
-												<p class="f18 cfff title mt10 fl">昼夜不停</p>
-												<div class="full bottom">
-													<p class="name fr cfff f11 tr title">135 阅读<span class="split">/</span>5 收藏<span class="split">/</span>5 评论</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="m10">
-										<div class="full">
-											<div class="tablecell">
-												<img class="avatar mr10" data-lazyload-id="0" src="http://www.dcloud.io/hellomui/images/1.jpg">
-											</div>
-											<div class="tablecell">
-												<p class="name fl f11">淡淡的忧伤</p>
-											</div>
-										</div>
-										<div class="article mui-card-content show mt10" aid="2" style="background:url(http://www.dcloud.io/hellomui/images/3.jpg) no-repeat;background-size:100%;border-radius:5px;;">
-											<div class="mui-card-content-inner full">
-												<div class="type type2 cfff f11">类型/类型</div>
-												<p class="f18 cfff title mt10 fl">昼夜不停</p>
-												<div class="full bottom">
-													<p class="name fr cfff f11 tr title">135 阅读<span class="split">/</span>5 收藏<span class="split">/</span>5 评论</p>
-												</div>
-											</div>
-										</div>
-									</div>
+
 								</div>
 							</div>
 						</div>
@@ -84,21 +47,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<!--<footer class="mui-bar mui-bar-tab footer">
-			<a class="mui-tab-item mui-active model" href="page/article.html">
-				<img src="../images/home.png" class="mui-icon" />
-				<span class="mui-tab-label f11">首页</span>
-			</a>
-			<a class="mui-tab-item model" href="page/addarticle.html">
-				<img src="../images/add.png" class="add" />
-			</a>
-			<a class="mui-tab-item" href="page/my.html" id="my">
-				<img src="../images/user.png" class="mui-icon" />
-				<span class="mui-tab-label f11">我的</span>
-			</a>
-		</footer>-->
-
+		</div>-->
 	</body>
 
 </html>
@@ -116,114 +65,14 @@
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false
-	});
-
-	mui('.mui-scroll-wrapper').scroll({
-		indicators: false //不显示滚动条
-	});
-
-	$(function() {
-		//加载文章类型
-		$("#scroll1").on('tap', '.article', function(event) {
-			var $this = $(this);
-			var articledetail = mui.preload({
-				"id": 'articledetail',
-				"url": 'articledetail.html',
-				extras: {
-					ArticleID: $this.attr("aid")
-				}
-			});
-			mui.openWindow({
-				id: 'articledetail',
-				show: {
-					aniShow: 'slide-in-right'
-				},
-				waiting: {
-					autoShow: false
-				}
-			});
-		});
-
-		LoadArticleType();
-	})
-
-	mui.plusReady(function() {
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
-
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			self.hide();
-		}
-	});
-
-	var item1 = document.getElementById('item1');
-	var item2 = document.getElementById('item2');
-	document.getElementById('slider').addEventListener('slide', function(e) {
-		$("#tabs").find(".curr").removeClass("curr");
-		var index = e.detail.slideNumber;
-		if(index === 0) {
-			$("#tabs").find("span:eq(" + index + ")").addClass("curr");
-			/*if(item1.querySelector('.mui-loading')) {
-				setTimeout(function() {
-					item1.querySelector('.mui-scroll').innerHTML = html1;
-				}, 500);
-			}*/
-		}
-		if(index === 1) {
-			$("#tabs").find("span:eq(" + index + ")").addClass("curr");
-			/*if(item2.querySelector('.mui-loading')) {
-				setTimeout(function() {
-					item2.querySelector('.mui-scroll').innerHTML = html2;
-				}, 500);
-			}*/
-		}
-	});
-
-	//加载文章类型
-	function LoadArticleType() {
-		if(base.IsTest) {
-			var table = $('#article_type');
-			for(var i = 1; i < 6; i++) {
-				var item = {
-					ID: i,
-					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
-					Name: "动漫" + i
-				}
-				table.append(appendTypeStr(item));
+		swipeBack: false,
+		subpages: [{
+			id: 'topicSub',
+			url: 'topicSub.html',
+			styles: {
+				top: parseInt((window.innerWidth / 320) * 45) + 'px',
+				bottom: '0px',
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
-		} else {
-			HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
-				if(data != null) {
-					var length = data.list.length;
-					if(length > 0) {
-						var table = $('#article_type');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendTypeStr(data.list[i]);
-							table.append(div);
-						}
-						document.body.removeAttribute('data-imageLazyload');
-						mui(document).imageLazyload({
-							placeholder: '../images/60x60.gif',
-							diff: window.innerHeight
-						});
-					}
-				}
-			});
-		}
-	}
-
-	//拼接文章类型
-	function appendTypeStr(item) {
-		return '<div class="mui-table-view-cell topic cfff tc" style="background: url(' + item.Cover + ');" onclick="ArticleList(' + item.ID + ')"><div class="bg">' + item.Name + '</div></div>';
-	}
+		}]
+	});
 </script>
