@@ -10,6 +10,82 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<style type="text/css">
+			/*上拉加载动画*/
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 2.75rem;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -1.25rem;
+				left: 50%;
+				margin-left: -1.5625rem;
+				width: 2.5rem;
+				height: 2.5rem;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 1.562rem;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 2.6rem;
+				height: 2.6rem;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 0.25rem 0.625rem #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 0.4375rem;
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 0.9375rem;
+				line-height: 2.5rem;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 0.25rem 0.625rem #bbb;
+				width: 2.5rem;
+				height: 2.5rem;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 2.5rem;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+			/*文章*/
+			
 			.onefloor {
 				width: 100%;
 				height: 9.375rem;
@@ -38,8 +114,8 @@
 	</head>
 
 	<body>
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
+		<div class="mui-content mui-scroll-wrapper">
+			<div id="pullrefresh" class="mui-scroll">
 				<div id="scroll-view">
 				</div>
 			</div>
@@ -48,12 +124,14 @@
 
 </html>
 <script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
@@ -62,45 +140,65 @@
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
 	var isLoading = false; //是否数据加载中
-	mui.init({
-		pullRefresh: {
-			container: '#pullrefresh',
-			down: {
-				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: '正在加载...',
-				contentnomore: '没有更多数据了',
-				callback: pullupRefresh,
-				contentinit: "",
-				contentdown: ""
-			}
-		}
-	});
 
-	mui.previewImage();
+	mui.init();
+
+	mui.ready(function() {
+
+		mui.previewImage();
+
+		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
+		mui('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: false, // 是否显示滚动条
+			deceleration: deceleration
+		});
+
+		//详细
+		mui("#pullrefresh").on('tap', '.article', function(event) {
+			var articleId = this.getAttribute("articleid");
+			mui.openWindow({
+				id: 'articledetail',
+				url: 'articledetail.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					ArticleID: articleId
+				}
+			});
+		});
+	});
 
 	//初始化获取参数
 	function Init(articleType) {
 		ArticleType = articleType;
-
-		if(mui.os.plus) {
-			mui.plusReady(function() {
-				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-				}, 250);
-			});
-		} else {
-			mui.ready(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			});
-		}
+		console.log("ArticleType:" + ArticleType)
+		mui(document.getElementById("pullrefresh")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
 	}
 
 	/**
 	 * 下拉刷新
 	 */
-	function pulldownRefresh() {
+	function pulldownRefresh(self) {
 		if(isLoading == true) {
 			return;
 		}
@@ -111,34 +209,33 @@
 			document.getElementById('scroll-view').innerHTML = "";
 			Load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				mui('#pullrefresh').pullRefresh().refresh(true);
+				self.endPullDownToRefresh();
+				self.refresh(true);
 				isLoading = false;
 			})
-		}, 250);
+		}, 500);
 	}
 
 	/**
 	 * 上拉加载
 	 */
-	function pullupRefresh() {
+	function pullupRefresh(self) {
 		if(isLoading == true) {
 			return;
 		}
 		isLoading = true;
 		if(currpage > totalpage) {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-			mui.toast("没有更多数据了~");
 			isLoading = false;
-			return;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
 		}
 		setTimeout(function() {
 			Load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				self.endPullUpToRefresh(currpage > totalpage);
 				isLoading = false;
 			})
-		}, 250);
+		}, 500);
 	}
 
 	/**
@@ -205,6 +302,7 @@
 		model.push('<div class="mui-card-header mui-card-media">');
 		model.push('<img src="../images/logo.png" /><div class="mui-media-body">小M<p>Posted on January 18, 2016</p></div></div>');
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+		model.push('<p class="c333 fl article" articleid="' + item.ID + '">这里显示文章标题， 让读者对文章内容有个粗略的概念...</p>');
 		var num = parseInt(Math.random() * 4);
 		if(num == 1) {
 			model.push('<div class="onefloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
@@ -214,18 +312,9 @@
 				model.push('<div class="secondfloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
 			}
 		}
-		model.push('<p class="c333 fl mt10">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>');
 		model.push('</div></div>');
 		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">Like</a><a class="mui-card-link">Read more</a></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
-
-	function message(id) {
-		alert(id)
-	}
-
-	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
-		this.click();
-	});
 </script>

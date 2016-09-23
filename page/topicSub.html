@@ -11,37 +11,36 @@
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<style type="text/css">
 			/*上拉加载动画*/
-			
 			.mui-bar~.mui-content .mui-fullscreen {
-				top: 44px;
+				top: 2.75rem;
 				height: auto;
 			}
 			
 			.mui-pull-top-tips {
 				position: absolute;
-				top: -20px;
+				top: -1.25rem;
 				left: 50%;
-				margin-left: -25px;
-				width: 40px;
-				height: 40px;
+				margin-left: -1.5625rem;
+				width: 2.5rem;
+				height: 2.5rem;
 				border-radius: 100%;
 				z-index: 1;
 			}
 			
 			.mui-bar~.mui-pull-top-tips {
-				top: 24px;
+				top: 1.562rem;
 			}
 			
 			.mui-pull-top-wrapper {
-				width: 42px;
-				height: 42px;
+				width: 2.6rem;
+				height: 2.6rem;
 				display: block;
 				text-align: center;
 				background-color: #efeff4;
 				border: 1px solid #ddd;
 				border-radius: 25px;
 				background-clip: padding-box;
-				box-shadow: 0 4px 10px #bbb;
+				box-shadow: 0 0.25rem 0.625rem #bbb;
 				overflow: hidden;
 			}
 			
@@ -56,14 +55,14 @@
 			
 			.mui-pull-top-wrapper .mui-icon,
 			.mui-pull-top-wrapper .mui-spinner {
-				margin-top: 7px;
+				margin-top: 0.4375rem;
 			}
 			
 			.mui-pull-bottom-tips {
 				text-align: center;
 				background-color: #efeff4;
-				font-size: 15px;
-				line-height: 40px;
+				font-size: 0.9375rem;
+				line-height: 2.5rem;
 				color: #777;
 			}
 			
@@ -71,14 +70,14 @@
 				overflow: hidden;
 				background-color: #fafafa;
 				border-radius: 40px;
-				box-shadow: 0 4px 10px #bbb;
-				width: 40px;
-				height: 40px;
+				box-shadow: 0 0.25rem 0.625rem #bbb;
+				width: 2.5rem;
+				height: 2.5rem;
 				margin: 0 auto;
 			}
 			
 			.mui-pull-top-canvas canvas {
-				width: 40px;
+				width: 2.5rem;
 			}
 			
 			.mui-slider-indicator.mui-segmented-control {
@@ -102,18 +101,7 @@
 				background: url(../images/article/bg.png) center center no-repeat;
 				background-size: 80% 40%;
 			}
-			
-			.mui-card-content-inner {
-				padding: 0.9375rem;
-				min-height: 9.375rem;
-				display: inline-block;
-			}
-			
-			.mui-card-content {
-				width: 100%;
-			}
 			/*文章*/
-			
 			.onefloor {
 				width: 100%;
 				height: 9.375rem;
@@ -147,16 +135,6 @@
 	</head>
 
 	<body>
-		<!--<header class="mui-bar mui-bar-nav header">
-			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff f13" id="tabs">
-				<a class="mui-control-item mui-active" href="#item1">
-				<span class="tab curr">推荐</span></a>
-				&nbsp;&nbsp;&nbsp; 
-				<a class="mui-control-item mui-active" href="#item2">
-				<span class="tab">话题</span></a>
-			</h1>
-		</header>-->
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-group">
@@ -207,7 +185,7 @@
 
 		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
 		mui('.mui-scroll-wrapper').scroll({
-			bounce: false,
+			bounce: true,
 			indicators: false, // 是否显示滚动条
 			deceleration: deceleration
 		});
@@ -254,6 +232,7 @@
 		//分类列表
 		mui("#article_type").on('tap', '.topic', function(event) {
 			var typeId = this.getAttribute("typeid");
+			var typeName = this.getAttribute("typename");
 			mui.openWindow({
 				id: 'article',
 				url: 'article.html',
@@ -265,7 +244,8 @@
 					autoShow: false
 				},
 				extras: {
-					ArticleType: typeId
+					ArticleType: typeId,
+					ArticleType: typeName
 				}
 			});
 		});
@@ -334,7 +314,7 @@
 	 */
 	function Load(callback) {
 		var table = document.getElementById('scroll-view');
-		if(mui.os.plus && base.IsTest) {
+		if(!mui.os.plus && base.IsTest) {
 			for(var i = 1; i < 6; i++) {
 				var item = {
 					ID: i,
@@ -448,6 +428,6 @@
 	 * 拼接文章类型
 	 */
 	function appendTypeStr(item) {
-		return '<div class="mui-table-view-cell topic cfff tc" style="background: url(' + item.Cover + ');" typeid="' + item.ID + '"><div class="bg">' + item.Name + '</div></div>';
+		return '<div class="mui-table-view-cell topic cfff tc" style="background: url(' + item.Cover + ');" typeid="' + item.ID + '" typename="' + item.Name + '"><div class="bg">' + item.Name + '</div></div>';
 	}
 </script>

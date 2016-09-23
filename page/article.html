@@ -8,14 +8,14 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		
+
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
 			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
 			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff">列表</h1>
+			<h1 class="mui-title cfff" id="header"></h1>
 		</header>
 		<div class="mui-content"></div>
 	</body>
@@ -24,7 +24,8 @@
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script type="text/javascript">
-	var ArticleType = 0; //文章类型
+	var ArticleType = 0; //类型
+	var ArticleTypeName = ""; //类型名称
 
 	//启用双击监听
 	mui.init({
@@ -47,6 +48,10 @@
 		//获取参数
 		var self = plus.webview.currentWebview();
 		ArticleType = self.ArticleType || 0;
+		ArticleTypeName = self.ArticleTypeName || "列表";
+		document.getElementById("header").innerHTML = ArticleTypeName;
+
+		console.log(ArticleID + "," + ArticleTypeName);
 
 		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
