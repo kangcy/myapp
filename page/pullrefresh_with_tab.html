@@ -10,6 +10,80 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<style type="text/css">
+			/*上拉加载动画*/
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
 			/*类型*/
 			
 			.topic {
@@ -73,22 +147,34 @@
 	</head>
 
 	<body>
-		<div id="slider" class="mui-slider">
-			<div class="mui-slider-group">
-				<div id="item1" class="mui-slider-item mui-control-content mui-active">
-					<div id="scroll1" class="mui-scroll-wrapper">
-						<div class="mui-scroll">
-							<div class="mui-table-view">
-								<div id="scroll-view"></div>
+		<header class="mui-bar mui-bar-nav header">
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13" id="tabs">
+				<a class="mui-control-item mui-active" href="#item1">
+				<span class="tab curr">推荐</span></a>
+				&nbsp;&nbsp;&nbsp; 
+				<a class="mui-control-item mui-active" href="#item2">
+				<span class="tab">话题</span></a>
+			</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div id="scroll1" class="mui-scroll">
+								<div class="mui-table-view">
+									<div id="scroll-view"></div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div id="item2" class="mui-slider-item mui-control-content">
-					<div id="scroll2" class="mui-scroll-wrapper">
-						<div class="mui-scroll">
-							<div class="mui-table-view" style="padding:0.625rem;" id="article_type">
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mui-table-view" style="padding:0.625rem;" id="article_type">
 
+								</div>
 							</div>
 						</div>
 					</div>
@@ -96,23 +182,18 @@
 			</div>
 		</div>
 
-		<!--<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<div id="scroll-view">
-				</div>
-			</div>
-		</div>-->
-
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
@@ -120,98 +201,52 @@
 	var totalpage = 2;
 	var pagesize = base.PageSize;
 	var isLoading = false; //是否数据加载中
-	mui.init({
-		pullRefresh: {
-			container: '#scroll1',
-			down: {
-				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: '正在加载...',
-				contentnomore: '没有更多数据了',
-				callback: pullupRefresh,
-				contentinit: "",
-				contentdown: ""
-			}
-		}
-	});
+	mui.init();
+	(function($) {
+		mui.previewImage();
 
-	mui.previewImage();
+		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
+		$('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: false, // 是否显示滚动条
+			deceleration: deceleration
+		});
 
-	mui('.mui-scroll-wrapper').scroll({
-		indicators: false //不显示滚动条
-	});
-
-	$(function() {
-		//详细
-		$("#scroll1").on('tap', '.article', function(event) {
-			var $this = $(this);
-			mui.openWindow({
-				id: 'articledetail',
-				url: 'articledetail.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
+		$.ready(function() {
+			$(document.getElementById("scroll1")).pullToRefresh({
+				down: {
+					callback: function() {
+						var self = this;
+						pulldownRefresh(self);
+					}
 				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: $this.attr("aid")
+				up: {
+					auto: true,
+					callback: function() {
+						var self = this;
+						pullupRefresh(self);
+					}
 				}
 			});
 		});
 
-		//分类列表
-		$("#scroll2").on('tap', '.topic', function(event) {
-			var $this = $(this);
-			mui.openWindow({
-				id: 'article',
-				url: 'article.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleType: $this.attr("type")
-				}
+		if(mui.os.plus) {
+			mui.plusReady(function() {
+				setTimeout(function() {
+					LoadArticleType();
+				}, 250);
 			});
-		});
-	})
-
-	//滑动切换
-	var item1 = document.getElementById('item1');
-	var item2 = document.getElementById('item2');
-	var topicPage = null;
-	document.getElementById('slider').addEventListener('slide', function(e) {
-		var index = e.detail.slideNumber;
-		if(!topicPage) {
-			topicPage = plus.webview.currentWebview().parent();
-		}
-		mui.fire(topicPage, "updateCurr", {});
-	});
-
-	if(mui.os.plus) {
-		mui.plusReady(function() {
-			setTimeout(function() {
-				mui('#scroll1').pullRefresh().pullupLoading();
+		} else {
+			mui.ready(function() {
 				LoadArticleType();
-			}, 250);
-		});
-	} else {
-		mui.ready(function() {
-			mui('#scroll1').pullRefresh().pullupLoading();
-			LoadArticleType();
-		});
-	}
+			});
+		}
+	})(mui);
 
 	/**
 	 * 下拉刷新
 	 */
-	function pulldownRefresh() {
+	function pulldownRefresh(self) {
 		if(isLoading == true) {
 			return;
 		}
@@ -222,34 +257,32 @@
 			document.getElementById('scroll-view').innerHTML = "";
 			Load(function() {
 				++currpage;
-				mui('#scroll1').pullRefresh().endPulldownToRefresh();
-				mui('#scroll1').pullRefresh().refresh(true);
+				self.endPullDownToRefresh();
+				self.refresh(true);
 				isLoading = false;
 			})
-		}, 250);
+		}, 500);
 	}
 
 	/**
 	 * 上拉加载
 	 */
-	function pullupRefresh() {
+	function pullupRefresh(self) {
 		if(isLoading == true) {
 			return;
 		}
 		isLoading = true;
 		if(currpage > totalpage) {
-			mui('#scroll1').pullRefresh().endPullupToRefresh();
-			mui.toast("没有更多数据了~");
 			isLoading = false;
-			return;
+			return mui.toast("没有更多数据了~");
 		}
 		setTimeout(function() {
 			Load(function() {
 				++currpage;
-				mui('#scroll1').pullRefresh().endPullupToRefresh();
+				self.endPullUpToRefresh(currpage > totalpage);
 				isLoading = false;
 			})
-		}, 250);
+		}, 500);
 	}
 
 	/**

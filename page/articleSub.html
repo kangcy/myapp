@@ -128,7 +128,7 @@
 		isLoading = true;
 		if(currpage > totalpage) {
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-			mui.toast("没有更多数据了");
+			mui.toast("没有更多数据了~");
 			isLoading = false;
 			return;
 		}
@@ -179,6 +179,8 @@
 							var div = appendStr(data.list[i]);
 							table.appendChild(div);
 						}
+					} else {
+						mui.toast("没有更多数据了~");
 					}
 				}
 				if($.isFunction(callback)) {
@@ -215,27 +217,6 @@
 		model.push('<p class="c333 fl mt10">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>');
 		model.push('</div></div>');
 		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">Like</a><a class="mui-card-link">Read more</a></div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
-	/**
-	 * 拼接Html
-	 */
-	function appendStr2(item) {
-		var div = document.createElement('div');
-		var model = [];
-
-		//文章信息
-		model.push('<div class="mui-card" style="background:url(' + item.Cover + ') no-repeat;background-size:100%;">');
-		model.push('<div class="mui-card-content show">');
-		model.push('<div class="mui-card-content-inner full">');
-		model.push('<p class="f16 cfff title fl" aid="' + item.ArticleID + '">' + item.Title + '</p>');
-
-		model.push('<div class="full type fl"><div class="line"></div><p class="cfff 10">' + item.CreateDate + '</p><p class="cfff f10">' + item.TypeName + '</p></div>');
-		model.push('<div class="full bottom"><div class="tablecell"><img class="avatar mr10" data-lazyload-id="0" src="' + item.Avatar + '"></div>');
-		model.push('<div class="tablecell full pr30"><p class="name fl cfff f10">' + item.NickName + '</p><p class="name fr cfff f10 tr title">' + item.Views + ' 阅读<span class="split">/</span>' + item.Keeps + ' 收藏<span class="split">/</span>' + item.Comments + ' 评论</p></div></div>');
-		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
 	}

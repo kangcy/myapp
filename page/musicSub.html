@@ -100,7 +100,7 @@
 		isLoading = true;
 		if(currpage > totalpage) {
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-			mui.toast("没有更多数据了");
+			mui.toast("没有更多数据了~");
 			isLoading = false;
 			return;
 		}
@@ -150,6 +150,8 @@
 							var div = appendStr(data.list[i]);
 							table.appendChild(div);
 						}
+					} else {
+						mui.toast("没有更多数据了~");
 					}
 				}
 				if($.isFunction(callback)) {
