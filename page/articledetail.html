@@ -96,7 +96,8 @@
 					id: 'zan',
 					url: 'zan.html',
 					show: {
-						autoShow: false
+						autoShow: true,
+						duration: base.AnimateDuration
 					},
 					waiting: {
 						autoShow: false
@@ -104,8 +105,8 @@
 				});
 			} else {
 				HttpGet(base.RootUrl + "Zan/Edit", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
 					ArticleID: ArticleID
 				}, function(data) {
 					if(data != null) {
@@ -127,7 +128,8 @@
 					id: 'comment',
 					url: 'comment.html',
 					show: {
-						autoShow: false
+						autoShow: true,
+						duration: base.AnimateDuration
 					},
 					waiting: {
 						autoShow: false
@@ -139,7 +141,8 @@
 					id: 'addcomment',
 					url: 'addcomment.html',
 					show: {
-						autoShow: false
+						autoShow: true,
+						duration: base.AnimateDuration
 					},
 					waiting: {
 						autoShow: false
@@ -190,8 +193,8 @@
 			$("#footer_comment").html(11);
 		} else {
 			HttpGet(base.RootUrl + "Article/Detail", {
-				UserName: userinfo.account,
-				Password: userinfo.password,
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
 				ID: ArticleID
 			}, function(data) {
 				if(data != null) {

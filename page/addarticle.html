@@ -93,8 +93,8 @@
 	window.addEventListener("updateDesc", function(e) {
 		var t = e.detail.desc;
 		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			UserName: userinfo.account,
-			Password: userinfo.password,
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
 			ID: $("#" + currEditID).attr("partid"),
 			Introduction: escape(t)
 		}, function(data) {
@@ -167,8 +167,8 @@
 				plus.nativeUI.showWaiting("保存中...");
 			}
 			HttpGet(base.RootUrl + "Article/Edit", {
-				UserName: userinfo.account,
-				Password: userinfo.password,
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
 				ArticleID: ArticleID,
 				Title: escape(Title),
 				MusicID: MusicID
@@ -297,8 +297,8 @@
 			plus.nativeUI.showWaiting("创建中...");
 		}
 		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			UserName: userinfo.account,
-			Password: userinfo.password,
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
 			ArticleID: ArticleID,
 			Types: 1,
 			Introduction: escape("../images/60x60.gif")
@@ -326,8 +326,8 @@
 			plus.nativeUI.showWaiting("创建中...");
 		}
 		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			UserName: userinfo.account,
-			Password: userinfo.password,
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
 			ArticleID: ArticleID,
 			Types: 2,
 			Introduction: escape("点击添加文字")
@@ -355,8 +355,8 @@
 			plus.nativeUI.showWaiting("创建中...");
 		}
 		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			UserName: userinfo.account,
-			Password: userinfo.password,
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
 			ArticleID: ArticleID,
 			Types: 3,
 			Introduction: escape("点击添加视频")
@@ -386,8 +386,8 @@
 			if(e.index == 0) {
 				plus.nativeUI.showWaiting("删除中...");
 				HttpGet(base.RootUrl + "ArticlePart/Delete", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
 					ID: $this.attr("partid")
 				}, function(data) {
 					plus.nativeUI.closeWaiting();
@@ -448,8 +448,8 @@
 			if(ArticleID == 0) {
 				Cover = "../images/header.png";
 				HttpGet(base.RootUrl + "Article/Edit", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
 					Cover: Cover,
 					Title: escape("点击输入标题")
 				}, function(data) {
@@ -480,8 +480,8 @@
 			} else {
 				//编辑文章
 				HttpGet(base.RootUrl + "Article/Detail", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
 					ID: ArticleID
 				}, function(data) {
 					if(data != null) {

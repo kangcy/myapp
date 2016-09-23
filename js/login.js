@@ -17,10 +17,13 @@
 		//登录验证
 		if(mui.os.plus && base.IsTest) {
 			var users = JSON.parse(localStorage.getItem('$users') || '[]');
+			var userinfo = null;
 			var authed = users.some(function(user) {
+				userinfo = user;
 				return loginInfo.UserName == user.UserName && loginInfo.Password == user.Password;
 			});
 			if(authed) {
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 				return callback();
 			} else {
 				return callback('用户名或密码错误');
@@ -43,7 +46,7 @@
 							Address: data.Address,
 							Birthday: data.BirthdayText
 						}
-						localStorage.setItem('$users', JSON.stringify(info));
+						localStorage.setItem('$userinfo', JSON.stringify(info));
 						return callback();
 					} else {
 						return callback(data.message);
@@ -78,10 +81,21 @@
 		if(regInfo.Password.length > 16) {
 			return callback('密码最长限制 16 个字符');
 		}
-		var users = JSON.parse(localStorage.getItem('$users') || '[]');
 		if(mui.os.plus && base.IsTest) {
-			users.push(regInfo);
+			var users = JSON.parse(localStorage.getItem('$users') || '[]');
+
+			var info = {
+				ID: data.ID,
+				UserName: regInfo.UserName,
+				Password: regInfo.Password,
+				Avatar: "",
+				NickName: "",
+				Address: "",
+				Birthday: ""
+			}
+			users.push(info);
 			localStorage.setItem('$users', JSON.stringify(users));
+			localStorage.setItem('$userinfo', JSON.stringify(info));
 			return callback();
 		} else {
 			HttpGet(base.RootUrl + "User/Register", {
@@ -101,8 +115,7 @@
 							Address: "",
 							Birthday: ""
 						}
-						users.push(regInfo);
-						localStorage.setItem('$users', JSON.stringify(users));
+						localStorage.setItem('$userinfo', JSON.stringify(info));
 						return callback();
 					} else {
 						return callback(data.message);

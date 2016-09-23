@@ -59,7 +59,7 @@
 	padding-bottom: 0.1875rem;
 }
 
-/*.footer {
+.footer {
 	background: none;
 	border-top: 1px solid #ccc;
 }
@@ -76,8 +76,8 @@
 	border-bottom: 1px solid #2CADFA;
 }
 
-.footer .btn {
+.footer . {
 	padding: 0.175rem 0.75rem;
 	background: #2CADFA;
 	border-color: #2CADFA;
-}*/
+}

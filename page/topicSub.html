@@ -9,81 +9,8 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
+		<link rel="stylesheet" href="../css/loading.css">
 		<style type="text/css">
-			/*上拉加载动画*/
-			
-			.mui-bar~.mui-content .mui-fullscreen {
-				top: 2.75rem;
-				height: auto;
-			}
-			
-			.mui-pull-top-tips {
-				position: absolute;
-				top: -1.25rem;
-				left: 50%;
-				margin-left: -1.5625rem;
-				width: 2.5rem;
-				height: 2.5rem;
-				border-radius: 100%;
-				z-index: 1;
-			}
-			
-			.mui-bar~.mui-pull-top-tips {
-				top: 1.562rem;
-			}
-			
-			.mui-pull-top-wrapper {
-				width: 2.6rem;
-				height: 2.6rem;
-				display: block;
-				text-align: center;
-				background-color: #efeff4;
-				border: 1px solid #ddd;
-				border-radius: 25px;
-				background-clip: padding-box;
-				box-shadow: 0 0.25rem 0.625rem #bbb;
-				overflow: hidden;
-			}
-			
-			.mui-pull-top-tips.mui-transitioning {
-				-webkit-transition-duration: 200ms;
-				transition-duration: 200ms;
-			}
-			
-			.mui-pull-top-tips .mui-pull-loading {
-				margin: 0;
-			}
-			
-			.mui-pull-top-wrapper .mui-icon,
-			.mui-pull-top-wrapper .mui-spinner {
-				margin-top: 0.4375rem;
-			}
-			
-			.mui-pull-bottom-tips {
-				text-align: center;
-				background-color: #efeff4;
-				font-size: 0.9375rem;
-				line-height: 2.5rem;
-				color: #777;
-			}
-			
-			.mui-pull-top-canvas {
-				overflow: hidden;
-				background-color: #fafafa;
-				border-radius: 40px;
-				box-shadow: 0 0.25rem 0.625rem #bbb;
-				width: 2.5rem;
-				height: 2.5rem;
-				margin: 0 auto;
-			}
-			
-			.mui-pull-top-canvas canvas {
-				width: 2.5rem;
-			}
-			
-			.mui-slider-indicator.mui-segmented-control {
-				background-color: #efeff4;
-			}
 			/*类型*/
 			
 			.topic {
@@ -211,7 +138,26 @@
 			LoadArticleType(); //加载类型
 		}, 250)
 
-		//详细
+		//用户详细
+		mui("#scroll1").on('tap', '.mui-card-header', function(event) {
+			var userId = this.getAttribute("userid");
+			mui.openWindow({
+				id: 'user',
+				url: 'user.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					UserID: userId
+				}
+			});
+		});
+
+		//文章详细
 		mui("#scroll1").on('tap', '.article', function(event) {
 			var articleId = this.getAttribute("articleid");
 			mui.openWindow({
@@ -319,6 +265,7 @@
 			for(var i = 1; i < 6; i++) {
 				var item = {
 					ID: i,
+					UserID: i,
 					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
 					Name: "动漫" + i,
 					Summary: "动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫  "
@@ -368,7 +315,7 @@
 		var div = document.createElement('div');
 		div.className = 'mui-card';
 		var model = [];
-		model.push('<div class="mui-card-header mui-card-media">');
+		model.push('<div class="mui-card-header mui-card-media" userid="' + item.UserID + '">');
 		model.push('<img src="../images/logo.png" /><div class="mui-media-body">小M<p>Posted on January 18, 2016</p></div></div>');
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 		model.push('<p class="c333 fl article" articleid="' + item.ID + '">这里显示文章标题， 让读者对文章内容有个粗略的概念...</p>');

@@ -8,13 +8,18 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../css/music.css">
 	</head>
 
 	<body>
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<div id="scroll-view">
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<div class="mui-scroll-wrapper">
+					<div id="pullrefresh" class="mui-scroll">
+						<div id="scroll-view">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -22,10 +27,12 @@
 
 </html>
 <script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
@@ -35,20 +42,15 @@
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
 	var isLoading = false; //是否数据加载中
-	mui.init({
-		pullRefresh: {
-			container: '#pullrefresh',
-			down: {
-				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: '正在加载...',
-				contentnomore: '没有更多数据了',
-				callback: pullupRefresh,
-				contentinit: "",
-				contentdown: ""
-			}
-		}
+
+	mui.init();
+	mui.ready(function() {
+		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
+		mui('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: false, // 是否显示滚动条
+			deceleration: deceleration
+		});
 	});
 
 	//初始化获取参数
@@ -56,23 +58,27 @@
 		ArticleID = articleId;
 		MusicID = musicId;
 
-		if(mui.os.plus) {
-			mui.plusReady(function() {
-				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().pullupLoading();
-				}, 250);
-			});
-		} else {
-			mui.ready(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			});
-		}
+		mui(document.getElementById("pullrefresh")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
 	}
 
 	/**
 	 * 下拉刷新
 	 */
-	function pulldownRefresh() {
+	function pulldownRefresh(self) {
 		if(isLoading == true) {
 			return;
 		}
@@ -83,34 +89,33 @@
 			document.getElementById('scroll-view').innerHTML = "";
 			Load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				mui('#pullrefresh').pullRefresh().refresh(true);
+				self.endPullDownToRefresh();
+				self.refresh(true);
 				isLoading = false;
 			})
-		}, 250);
+		}, 500);
 	}
 
 	/**
 	 * 上拉加载
 	 */
-	function pullupRefresh() {
+	function pullupRefresh(self) {
 		if(isLoading == true) {
 			return;
 		}
 		isLoading = true;
 		if(currpage > totalpage) {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-			mui.toast("没有更多数据了~");
 			isLoading = false;
-			return;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
 		}
 		setTimeout(function() {
 			Load(function() {
 				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				self.endPullUpToRefresh(currpage > totalpage);
 				isLoading = false;
 			})
-		}, 250);
+		}, 500);
 	}
 
 	/**

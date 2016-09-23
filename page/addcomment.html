@@ -27,7 +27,6 @@
 		<div class="mui-content">
 			<div id="feedback" style="padding: 5%;">
 				<textarea id='question' class="mui-input-clear f13" placeholder="欢迎留下您的评论......" maxlength="100"></textarea>
-				<!--<img id='submit' src="../images/feedback/commit.png" style="width:35%;float:right;" class="mt10" />-->
 			</div>
 		</div>
 		</div>
@@ -59,8 +58,8 @@
 				plus.nativeUI.showWaiting();
 			}
 			HttpGet(base.RootUrl + "Comment/Edit", {
-				UserName: userinfo.account,
-				Password: userinfo.password,
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
 				ArticleID: ArticleID,
 				Summary: escape(question.value)
 			}, function(data) {
@@ -79,13 +78,6 @@
 	})
 
 	mui.plusReady(function() {
-		//显示当前页面
-		mui.currentWebview.show("slide-in-right");
-
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
 
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;

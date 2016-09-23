@@ -134,8 +134,8 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditSex", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
 					Sex: items[0].value
 				}, function(data) {
 					if(mui.os.plus) {
@@ -158,8 +158,8 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditAddress", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
 					ProvinceID: items[0].value,
 					CityID: items[1].value,
 					ProvinceName: items[0].text,
@@ -199,8 +199,8 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditBirthday", {
-					UserName: userinfo.account,
-					Password: userinfo.password,
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
 					Birthday: rs.text
 				}, function(data) {
 					if(mui.os.plus) {
@@ -234,8 +234,8 @@
 			plus.nativeUI.showWaiting();
 		}
 		HttpGet(base.RootUrl + "User/EditNickName", {
-			UserName: userinfo.account,
-			Password: userinfo.password,
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
 			NickName: t
 		}, function(data) {
 			if(mui.os.plus) {
@@ -253,8 +253,8 @@
 			plus.nativeUI.showWaiting();
 		}
 		HttpGet(base.RootUrl + "User/EditSignature", {
-			UserName: userinfo.account,
-			Password: userinfo.password,
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
 			Signature: t
 		}, function(data) {
 			if(mui.os.plus) {

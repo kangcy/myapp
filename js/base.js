@@ -30,13 +30,18 @@ var base = new function() {
 	 * 获取当前用户信息
 	 **/
 	this.GetUserInfo = function() {
-		var settingsText = localStorage.getItem('$users') || "{}";
+		var settingsText = localStorage.getItem('$userinfo') || "{}";
 
 		if(base.IsTest && settingsText == "{}") {
 			return {
-				account: 18652913873,
-				password: 123456,
-
+				ID: 1,
+				UserName: 18652913873,
+				Password: 123456,
+				NickName: "一个傻瓜",
+				Avatar: "",
+				NickName: "",
+				Address: "",
+				Birthday: ""
 			}
 		}
 		return JSON.parse(settingsText);
