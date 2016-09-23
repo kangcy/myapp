@@ -17,7 +17,7 @@ var base = new function() {
 	/**
 	 * 获取接口请求根路径
 	 **/
-	this.RootUrl = "http://localhost/app/";
+	this.RootUrl = "http://139.224.51.196/app/";
 
 	/**
 	 * 获取当前用户ID
