@@ -100,325 +100,73 @@
 		<header class="mui-bar mui-bar-nav header">
 			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 			<h1 class="mui-title cfff f13" id="tabs">
-				<a class="mui-control-item mui-active" href="#item1">
-				<span class="tab curr">推荐</span></a>
+				
+				<span class="tab curr" id="tab1">推荐</span>
 				&nbsp;&nbsp;&nbsp;
-				<a class="mui-control-item mui-active" href="#item2">
-				<span class="tab">话题</span></a>
+
+				<span class="tab" id="tab2">话题</span>
 			</h1>
 		</header>
 		<div class="mui-content">
-			<div id="slider" class="mui-slider mui-fullscreen">
-				<div class="mui-slider-group">
-					<div id="item1" class="mui-slider-item mui-control-content mui-active">
-						<div class="mui-scroll-wrapper">
-							<div id="scroll1" class="mui-scroll">
-								<div class="mui-table-view">
-									<div id="scroll-view"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="item2" class="mui-slider-item mui-control-content">
-						<div id="scroll2" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<div class="mui-table-view" style="padding:0.625rem;" id="article_type">
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.pullToRefresh.js"></script>
-<script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.zoom.js"></script>
-<script src="../js/mui.previewimage.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/base.js"></script>
 
 <script type="text/javascript">
-	var ArticleType = 0;
-	var currpage = 1;
-	var totalpage = 2;
-	var pagesize = base.PageSize;
-	var isLoading = false; //是否数据加载中
+	//启用双击监听
 	mui.init({
-
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false,
+		subpages: [{
+			id: 'topicSub',
+			url: 'topicSub.html',
+			styles: {
+				top: parseInt((window.innerWidth / 320) * 45) + 'px',
+				bottom: '0px',
+			}
+		}]
 	});
 
-	mui.previewImage();
-
-	var deceleration = mui.os.ios ? 0.003 : 0.0009;
-	$('.mui-scroll-wrapper').scroll({
-		bounce: false,
-		indicators: true, //是否显示滚动条
-		deceleration: deceleration
-	});
-
-	mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-		mui(pullRefreshEl).pullToRefresh({
-			down: {
-				callback: function() {
-					console.log("down");
-					var self = this;
-					pulldownRefresh(function() {
-						//self.endPullDownToRefresh();
-					})
-				}
-			},
-			up: {
-				callback: function() {
-					console.log("up");
-					var self = this;
-					pullupRefresh(function() {
-						//self.endPullUpToRefresh();
-					})
-				}
+	var contentWebview = null;
+	mui.ready(function() {
+		document.getElementById('tab1').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
 			}
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(0)");
+		});
+
+		document.getElementById('tab2').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(1)");
 		});
 	});
 
-	$(function() {
-
-		//详细
-		$("#scroll1").on('tap', '.article', function(event) {
-			var $this = $(this);
-			mui.openWindow({
-				id: 'articledetail',
-				url: 'articledetail.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: $this.attr("aid")
-				}
-			});
-		});
-
-		//分类列表
-		$("#scroll2").on('tap', '.topic', function(event) {
-			var $this = $(this);
-			mui.openWindow({
-				id: 'article',
-				url: 'article.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleType: $this.attr("type")
-				}
-			});
-		});
-	})
-
-	//滑动切换
-	/*var item1 = document.getElementById('item1');
-	var item2 = document.getElementById('item2');
-	var topicPage = null;
-	document.getElementById('slider').addEventListener('slide', function(e) {
-		var index = e.detail.slideNumber;
-		if(!topicPage) {
-			topicPage = plus.webview.currentWebview().parent();
-		}
-		mui.fire(topicPage, "updateCurr", {});
-	});*/
-
-	if(mui.os.plus) {
-		mui.plusReady(function() {
-			setTimeout(function() {
-				LoadArticleType();
-			}, 250);
-		});
-	} else {
-		mui.ready(function() {
-			LoadArticleType();
-		});
-	}
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh(callback) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				if($.isFunction(callback)) {
-					callback();
-				}
-				isLoading = false;
-			})
-		}, 250);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh(callback) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			//mui('#scroll1').pullRefresh().endPullupToRefresh();
-			mui.toast("没有更多数据了~");
-			isLoading = false;
-			return;
-		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				if($.isFunction(callback)) {
-					callback();
-				}
-				isLoading = false;
-			})
-		}, 250);
-	}
-
-	/**
-	 * 加载数据
-	 */
-	function Load(callback) {
-		var table = document.getElementById('scroll-view');
-		if(!mui.os.plus && base.IsTest) {
-			for(var i = 1; i < 6; i++) {
-				var item = {
-					ID: i,
-					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
-					Name: "动漫" + i,
-					Summary: "动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫  "
-				}
-				table.appendChild(appendStr(item));
-			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
+	window.addEventListener("updateCurr", function(e) {
+		var index = e.detail.index;
+		if(index == 0) {
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
 		} else {
-			var data = {
-				page: currpage,
-				rows: pagesize,
-				TypeID: ArticleType
-			};
-			HttpGet(base.RootUrl + "Article/All", data, function(data) {
-				if(data != null) {
-					totalpage = data.totalpage;
-					var length = data.list.length;
-					if(length > 0) {
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.appendChild(div);
-						}
-					}
-				}
-				if($.isFunction(callback)) {
-					callback();
-				}
-				document.body.removeAttribute('data-imageLazyload');
-				mui(document).imageLazyload({
-					placeholder: '../images/60x60.gif',
-					diff: window.innerHeight
-				});
-			});
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
 		}
-	}
-
-	/**
-	 * 拼接Html
-	 */
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-card';
-		var model = [];
-		model.push('<div class="mui-card-header mui-card-media">');
-		model.push('<img src="../images/logo.png" /><div class="mui-media-body">小M<p>Posted on January 18, 2016</p></div></div>');
-		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
-		var num = parseInt(Math.random() * 4);
-		if(num == 1) {
-			model.push('<div class="onefloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
-		}
-		if(num > 1) {
-			for(var j = 1; j <= num; j++) {
-				model.push('<div class="secondfloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
-			}
-		}
-		model.push('<p class="c333 fl mt10">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>');
-		model.push('</div></div>');
-		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">Like</a><a class="mui-card-link">Read more</a></div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
-	//加载文章类型
-	function LoadArticleType() {
-		if(base.IsTest) {
-			var table = $('#article_type');
-			for(var i = 1; i < 6; i++) {
-				var item = {
-					ID: i,
-					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
-					Name: "动漫" + i
-				}
-				table.append(appendTypeStr(item));
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
-		} else {
-			HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
-				if(data != null) {
-					var length = data.list.length;
-					if(length > 0) {
-						var table = $('#article_type');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendTypeStr(data.list[i]);
-							table.append(div);
-						}
-						document.body.removeAttribute('data-imageLazyload');
-						mui(document).imageLazyload({
-							placeholder: '../images/60x60.gif',
-							diff: window.innerHeight
-						});
-					}
-				}
-			});
-		}
-	}
-
-	/**
-	 * 拼接文章类型
-	 */
-	function appendTypeStr(item) {
-		return '<div class="mui-table-view-cell topic cfff tc" style="background: url(' + item.Cover + ');" type="' + item.ID + '"><div class="bg">' + item.Name + '</div></div>';
-	}
+		//
+	});
 </script>
