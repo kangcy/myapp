@@ -84,8 +84,11 @@
 	});
 
 	$(function() {
+		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
 		mui('.mui-scroll-wrapper').scroll({
-			indicators: false //不显示滚动条
+			bounce: false,
+			indicators: false, // 是否显示滚动条
+			deceleration: deceleration
 		});
 
 		//点赞
@@ -158,7 +161,7 @@
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID;
+		ArticleID = self.ArticleID || 0;
 
 		Load();
 
@@ -175,45 +178,27 @@
 
 	//加载文章
 	function Load() {
-		if(mui.os.plus && base.IsTest) {
-			ArticleID = 1;
-			ArticlePower = 1;
-			ArticleUserID = 1;
-			ArticleType = 1;
-			ArticleTypeName = "其它";
-			$("#header").css({
-				"background": "url(http://www.dcloud.io/hellomui/images/" + parseInt(Math.random() * 5 + 1) + ".jpg?version=" + Math.random() * 1000 + ") no-repeat",
-				"background-size": "100% 100%"
-			});
-			$("#article_title").html("旅游 | 50岁时你可能还会记得你去过的让人难忘的地方");
-			$("#article_info").html('<span class="fl">作者：一个傻瓜</span><span class="fl ml10">1阅读</span><span class="fl ml10">/</span><span class="fl ml10">2收藏</span><span class="fl ml10">/</span><span class="fl ml10">3评论</span>');
-
-			$("#article_desc").html("1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。");
-			$("#footer_zan").html(10);
-			$("#footer_comment").html(11);
-		} else {
-			HttpGet(base.RootUrl + "Article/Detail", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
-				ID: ArticleID
-			}, function(data) {
-				if(data != null) {
-					if(data.result) {
-						data = data.message
-						ArticlePower = data.ArticlePower;
-						ArticleType = data.TypeID;
-						ArticleTypeName = data.TypeName;
-						ArticleUserID = data.CreateUserID;
-						$("#header").css("background", data.Cover);
-						$("#article_title").html(data.Title);
-						$("#article_info").html('<span class="fl">作者：' + data.NickName + '</span><span class="fl ml10">' + data.Views + '阅读</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Keeps + '收藏</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Comments + '评论</span>');
-						$("#article_desc").html(data.Introduction);
-						$("#footer_zan").html(data.Goods);
-						$("#footer_comment").html(data.Comments);
-					}
+		HttpGet(base.RootUrl + "Article/Detail", {
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
+			ID: ArticleID
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					data = data.message
+					ArticlePower = data.ArticlePower;
+					ArticleType = data.TypeID;
+					ArticleTypeName = data.TypeName;
+					ArticleUserID = data.CreateUserID;
+					$("#header").css("background", data.Cover);
+					$("#article_title").html(data.Title);
+					$("#article_info").html('<span class="fl">作者：' + data.NickName + '</span><span class="fl ml10">' + data.Views + '阅读</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Keeps + '收藏</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Comments + '评论</span>');
+					$("#article_desc").html(data.Introduction);
+					$("#footer_zan").html(data.Goods);
+					$("#footer_comment").html(data.Comments);
 				}
-			});
-		}
+			}
+		});
 	}
 
 	//操作

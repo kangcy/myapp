@@ -37,6 +37,11 @@
 				width: 97% !important;
 				min-height: 100%;
 			}
+			
+			.mui-card-header>img:first-child {
+				width: 2.875rem !important;
+				height: 2.875rem !important;
+			}
 		</style>
 	</head>
 
@@ -44,8 +49,8 @@
 		<div class="mui-content">
 			<div class="mui-slider mui-fullscreen">
 				<div class="mui-scroll-wrapper">
-					<div id="pullrefresh" class="mui-scroll">
-						<div id="scroll-view">
+					<div id="pullrefresh" class="mui-scroll mui-fullscreen">
+						<div id="scroll-view" class="mui-fullscreen">
 						</div>
 					</div>
 				</div>
@@ -70,7 +75,7 @@
 	var totalpage = 2;
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
-	var isLoading = false; //是否数据加载中
+	var isLoading = false;
 
 	mui.init();
 
@@ -78,50 +83,11 @@
 
 		mui.previewImage();
 
-		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
-		mui('.mui-scroll-wrapper').scroll({
-			bounce: false,
-			indicators: false, // 是否显示滚动条
-			deceleration: deceleration
-		});
+		base.InitScroll();
 
-		//用户详细
-		mui("#scroll1").on('tap', '.mui-card-header', function(event) {
-			var userId = this.getAttribute("userid");
-			mui.openWindow({
-				id: 'user',
-				url: 'user.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					UserID: userId
-				}
-			});
-		});
+		base.ShowUser("#scroll1"); //用户详细
 
-		//文章详细
-		mui("#pullrefresh").on('tap', '.article', function(event) {
-			var articleId = this.getAttribute("articleid");
-			mui.openWindow({
-				id: 'articledetail',
-				url: 'articledetail.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: articleId
-				}
-			});
-		});
+		base.ShowArticle("#pullrefresh"); //用户详细
 	});
 
 	//初始化获取参数
@@ -203,7 +169,7 @@
 				var length = data.list.length;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
+						var div = base.AppendArticle(data.list[i]);
 						table.appendChild(div);
 					}
 				} else {
@@ -219,31 +185,5 @@
 				diff: window.innerHeight
 			});
 		});
-	}
-
-	/**
-	 * 拼接Html
-	 */
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-card';
-		var model = [];
-		model.push('<div class="mui-card-header mui-card-media" userid="' + item.UserID + '">');
-		model.push('<img src="' + item.Avatar + '" /><div class="mui-media-body">' + item.NickName + '<p>' + item.CreateDate + '</p></div></div>');
-		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
-		model.push('<p class="c333 fl article" articleid="' + item.ID + '">' + item.Title + '</p>');
-		var num = parseInt(Math.random() * 4);
-		if(num == 1) {
-			model.push('<div class="onefloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
-		}
-		if(num > 1) {
-			for(var j = 1; j <= num; j++) {
-				model.push('<div class="secondfloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
-			}
-		}
-		model.push('</div></div>');
-		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">Like</a><a class="mui-card-link">Read more</a></div>');
-		div.innerHTML = model.join('');
-		return div;
 	}
 </script>

@@ -8,243 +8,81 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/zan.css">
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-action-menu mui-icon-arrowleft mui-pull-left cfff"></a>
-			<a class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff f15" id="tabs"><span class="tab curr" onclick="changeComment(0)">我赞过的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">赞过我的</span></h1>
+			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff"></a>
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13" id="tabs">
+				<span class="tab curr" id="tab1">我赞过的</span>
+				&nbsp;&nbsp;&nbsp;
+				<span class="tab" id="tab2">赞过我的</span>
+			</h1>
 		</header>
-		<div class="mui-content"></div>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
-			<!--下拉刷新容器-->
-			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<div id="scroll-view">
-					</div>
-				</div>
-			</div>
+		<div class="mui-content">
+
 		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ismyzan = true; //我赞过的，赞过我的
-	var currpage = 1;
-	var pagesize = base.PageSize;
-	var totalpage = 2;
-	var currUserID = base.GetUserID(); //当前登录用户ID
-
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false, //启用右滑关闭功能
-		pullRefresh: {
-			container: '#pullrefresh',
-			down: {
-				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: '正在加载...',
-				contentnomore: '没有更多数据了',
-				callback: pullupRefresh
+		swipeBack: false,
+		subpages: [{
+			id: 'zanSub',
+			url: 'zanSub.html',
+			styles: {
+				top: parseInt((window.innerWidth / 320) * 45) + 'px',
+				bottom: '0px',
 			}
-		}
+		}]
 	});
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh() {
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			load(function() {
-				++currpage;
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				mui('#pullrefresh').pullRefresh().refresh(true);
-			})
-		}, 500);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh() {
-		mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage);
-		setTimeout(function() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-			load(function() {
-				++currpage;
-			})
-		}, 250);
-	}
-
-	/**
-	 * 加载数据
-	 */
-	function load(callback) {
-		if(base.IsTest) {
-			var table = document.getElementById('scroll-view');
-			for(var i = 1; i < 6; i++) {
-				var item = {
-					Avatar: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
-					NickName: "一个傻瓜",
-					Signature: "个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名",
-					ArticleID: i,
-					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
-					Title: "动漫" + i,
-					Views: i + 1,
-					Keeps: i + 2,
-					Comments: i + 3,
-					UserID: i
-				}
-				table.appendChild(appendStr(item));
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
-		} else {
-			var data = {
-				page: currpage,
-				rows: pagesize,
-				ArticleUserID: currUserID
-			};
-			if(ismyzan) {
-				data = {
-					page: currpage,
-					rows: pagesize,
-					CreateUserID: currUserID
-				}
-			}
-			HttpGet(base.RootUrl + "Zan/All", data, function(data) {
-				if(data != null) {
-					totalpage = data.totalpage;
-					var length = data.list.length;
-					if(length > 0) {
-						var table = document.getElementById('scroll-view');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.appendChild(div);
-						}
-					}
-				}
-				if($.isFunction(callback)) {
-					callback();
-				}
-				document.body.removeAttribute('data-imageLazyload');
-				$(document).imageLazyload({
-					placeholder: '../images/60x60.gif',
-					diff: window.innerHeight
-				});
-			});
-		}
-	}
-
-	/**
-	 * 拼接Html
-	 */
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		var model = [];
-		//用户信息
-		model.push('<div class="mui-slider-cell">');
-		model.push('<div class="oa-contact-cell mui-table" onclick="message(' + item.UserID + ')"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c333 mb5">' + item.NickName + '</p><p class="f11 csubtitle">' + item.Signature + '</p></div>');
-		model.push('<div class="oa-contact-icon mui-table-cell f11"><span class="mui-icon fr mui-icon-arrowright select"></span><span class="fr csubtitle" style="line-height: 1.5rem;" uid="' + item.UserID + '">看他的作品</span></div>');
-		model.push('</div>');
-		//文章信息
-		model.push('<div class="mui-card mt0 mb20" style="max-height:9.375rem;">');
-		model.push('<img data-lazyload="' + item.Cover + '" class="full" style="border-radius: 5px;" />');
-		model.push('<p class="f18 cfff title fl top" aid="' + item.ArticleID + '">' + item.Title + '</p>');
-		model.push('<p class="bottom cfff f11 tr">' + item.Views + ' 阅读<span class="split">/</span>' + item.Keeps + ' 收藏<span class="split">/</span>' + item.Comments + ' 评论</p>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
-	if(mui.os.plus) {
-		mui.plusReady(function() {
-			//显示当前页面
-			mui.currentWebview.show("slide-in-right");
-
-			//判断网络类型
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置！");
-			}
-
-			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			}, 1000);
-
-		});
-	} else {
-		mui.ready(function() {
-			mui('#pullrefresh').pullRefresh().pullupLoading();
-		});
-	}
-
-	//显示用户
-	function ShowUser(id) {
-		var user = mui.preload({
-			"id": 'user',
-			"url": 'user.html',
-			extras: {
-				UserID: id
-			}
-		});
-		mui.openWindow({
-			id: 'user',
-			show: {
-				aniShow: 'slide-in-right'
-			},
-			waiting: {
-				autoShow: false
-			}
-		});
-	}
-
-	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
-		this.click();
-	});
-
-	$("#header").on('tap', 'span.tab', function(event) {
-		$("#header span.curr").removeClass("curr");
-		$(this).addClass("curr");
-		this.click();
-	});
-
-	function changeComment(index) {
-		$("#tabs").find(".curr").removeClass("curr");
-		$("#tabs").find("span:eq(" + index + ")").addClass("curr");
-
-		if(index == 0) {
-			ismycomment = true;
-		} else {
-			ismycomment = false;
-		}
-		pulldownRefresh();
-	}
 
 	var contentWebview = null;
-	document.querySelector('header').addEventListener('doubletap', function() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview();
+	mui.ready(function() {
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		document.getElementById('tab1').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(0)");
+		});
+
+		document.getElementById('tab2').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(1)");
+		});
+	});
+
+	window.addEventListener("updateCurr", function(e) {
+		var index = e.detail.index;
+		if(index == 0) {
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
+		} else {
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
 		}
-		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 	});
 </script>

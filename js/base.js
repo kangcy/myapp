@@ -71,6 +71,102 @@ var base = new function() {
 	this.GetUid = function() {
 		return new Date().getTime().toString();
 	}
+
+	/**
+	 * 监听标题滑动切换
+	 **/
+	this.InitSlider = function() {
+		document.getElementById('slider').addEventListener('slide', function(e) {
+			var topicPage = plus.webview.currentWebview().parent();
+			mui.fire(topicPage, "updateCurr", {
+				index: e.detail.slideNumber
+			});
+		});
+	}
+
+	/**
+	 * 初始化滚动条
+	 **/
+	this.InitScroll = function() {
+		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
+		mui('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: false, // 是否显示滚动条
+			deceleration: deceleration
+		});
+	}
+
+	/**
+	 * 展示用户信息
+	 **/
+	this.ShowUser = function(id) {
+		mui(id).on('tap', '.user', function(event) {
+			var userId = this.getAttribute("userid");
+			mui.openWindow({
+				id: 'user',
+				url: 'user.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					UserID: userId
+				}
+			});
+		});
+	}
+
+	/**
+	 * 展示文章信息
+	 **/
+	this.ShowArticle = function(id) {
+		mui(id).on('tap', '.article', function(event) {
+			var articleId = this.getAttribute("articleid");
+			mui.openWindow({
+				id: 'articledetail',
+				url: 'articledetail.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					ArticleID: articleId
+				}
+			});
+		});
+	}
+
+	/**
+	 * 拼接文章Html
+	 */
+	this.AppendArticle = function(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-card';
+		var model = [];
+		model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '">');
+		model.push('<img src="' + item.Avatar + '" /><div class="mui-media-body">' + item.NickName + '<p>' + item.CreateDate + '</p></div></div>');
+		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+		model.push('<p class="c333 fl article" articleid="' + item.ID + '">' + item.Title + '</p>');
+		var num = parseInt(Math.random() * 4);
+		if(num == 1) {
+			model.push('<div class="onefloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
+		}
+		if(num > 1) {
+			for(var j = 1; j <= num; j++) {
+				model.push('<div class="secondfloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');
+			}
+		}
+		model.push('</div></div>');
+		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">Like</a><a class="mui-card-link">Read more</a></div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
 }
 
 /**
@@ -88,4 +184,11 @@ function HttpGet(url, data, callback) {
 			callback(res)
 		}
 	});
+}
+
+/**
+ * Slider切换动态触发
+ **/
+function ChangeSlider(index) {
+	mui('#slider').slider().gotoItem(index);
 }

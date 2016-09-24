@@ -53,6 +53,10 @@
 	font-size: 0.9375rem;
 	line-height: 2.5rem;
 	color: #777;
+	/*下面样式：新增（提示文字居底部）*/
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
 }
 
 .mui-pull-top-canvas {

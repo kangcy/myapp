@@ -11,24 +11,6 @@
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.css">
 		<style type="text/css">
-			/*类型*/
-			
-			.topic {
-				width: 8.75rem;
-				height: 8.75rem;
-				display: inline-block;
-				border-radius: 10px;
-				margin: 0.25rem;
-				padding: 0px;
-				line-height: 8.625rem;
-			}
-			
-			.topic .bg {
-				width: 100%;
-				height: 100%;
-				background: url(../images/article/bg.png) center center no-repeat;
-				background-size: 80% 40%;
-			}
 			/*文章*/
 			
 			.onefloor {
@@ -70,15 +52,14 @@
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll1" class="mui-scroll mui-fullscreen">
-								<div id="scroll-view" class="mui-fullscreen"></div>
+								<div id="scroll-view1" class="mui-fullscreen"></div>
 							</div>
 						</div>
 					</div>
 					<div class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<div style="padding:0.625rem;" id="article_type">
-								</div>
+							<div id="scroll2" class="mui-scroll mui-fullscreen">
+								<div id="scroll-view2" class="mui-fullscreen"></div>
 							</div>
 						</div>
 					</div>
@@ -99,11 +80,14 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currpage = 1;
-	var totalpage = 2;
+	var currpage1 = 1;
+	var totalpage1 = 2;
+	var currpage2 = 1;
+	var totalpage2 = 2;
+	var isLoading1 = false;
+	var isLoading2 = false;
 	var pagesize = base.PageSize;
-	var isLoading = false; //是否数据加载中
-	var topicPage = null;
+	var userId = base.GetUserID();
 
 	mui.init();
 
@@ -113,112 +97,138 @@
 
 		base.InitScroll();
 
+		//我赞过的
 		mui(document.getElementById("scroll1")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
-					pulldownRefresh(self);
+					pulldownRefresh1(self);
 				}
 			},
 			up: {
 				auto: true,
 				callback: function() {
 					var self = this;
-					pullupRefresh(self);
+					pullupRefresh1(self);
 				}
 			}
 		});
 
-		setTimeout(function() {
-			LoadArticleType(); //加载文章类型
-		}, 250)
-
-		base.ShowUser("#scroll1"); //用户信息
-
-		base.ShowArticle("#scroll1"); //文章信息
-
-		//分类列表
-		mui("#article_type").on('tap', '.topic', function(event) {
-			var typeId = this.getAttribute("typeid");
-			var typeName = this.getAttribute("typename");
-			mui.openWindow({
-				id: 'article',
-				url: 'article.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleType: typeId,
-					ArticleTypeName: typeName
+		//赞我的
+		mui(document.getElementById("scroll2")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh2(self);
 				}
-			});
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh2(self);
+				}
+			}
 		});
+
+		base.ShowUser("#slider"); //展示用户
+
+		base.ShowArticle("#slider"); //展示文章
 
 		base.InitSlider(); //滑动切换
 	});
 
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh(self) {
-		if(isLoading == true) {
+	//我赞过的-下拉刷新
+	function pulldownRefresh1(self) {
+		if(isLoading1 == true) {
 			return;
 		}
-		isLoading = true;
+		isLoading1 = true;
 		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
+			currpage1 = 1;
+			totalpage1 = 2;
+			document.getElementById('scroll-view1').innerHTML = "";
+			Load1(function() {
+				++currpage1;
 				self.endPullDownToRefresh();
 				self.refresh(true);
-				isLoading = false;
+				isLoading1 = false;
 			})
 		}, 500);
 	}
 
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh(self) {
-		if(isLoading == true) {
+	//我赞过的-上拉加载
+	function pullupRefresh1(self) {
+		if(isLoading1 == true) {
 			return;
 		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return false;
+		isLoading1 = true;
+		if(currpage1 > totalpage1) {
+			isLoading1 = false;
+			self.endPullUpToRefresh(currpage1 > totalpage1);
+			return mui.toast("没有更多数据了~");
 		}
 		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
+			Load1(function() {
+				++currpage1;
+				self.endPullUpToRefresh(currpage1 > totalpage1);
+				isLoading1 = false;
 			})
 		}, 500);
 	}
 
-	/**
-	 * 加载数据
-	 */
-	function Load(callback) {
-		var table = document.getElementById('scroll-view');
+	//赞我的-下拉刷新
+	function pulldownRefresh2(self) {
+		if(isLoading2 == true) {
+			return;
+		}
+		isLoading2 = true;
+		setTimeout(function() {
+			currpage2 = 1;
+			totalpage2 = 2;
+			document.getElementById('scroll-view2').innerHTML = "";
+			Load2(function() {
+				++currpage2;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading2 = false;
+			})
+		}, 500);
+	}
 
+	//赞我的-上拉加载
+	function pullupRefresh2(self) {
+		if(isLoading2 == true) {
+			return;
+		}
+		isLoading2 = true;
+		if(currpage2 > totalpage2) {
+			isLoading2 = false;
+			self.endPullUpToRefresh(currpage2 > totalpage2);
+			return mui.toast("没有更多数据了~");
+		}
+		setTimeout(function() {
+			Load2(function() {
+				++currpage2;
+				self.endPullUpToRefresh(currpage2 > totalpage2);
+				isLoading2 = false;
+			})
+		}, 500);
+	}
+
+	//我赞过的-加载数据
+	function Load1(callback) {
 		var data = {
-			page: currpage,
-			rows: pagesize
-		};
-		HttpGet(base.RootUrl + "Article/All", data, function(data) {
+			page: currpage1,
+			rows: pagesize,
+			ArticleUserID: userId
+		}
+		HttpGet(base.RootUrl + "Zan/All", data, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage;
+				totalpage = data.totalpage1;
 				var length = data.list.length;
 				if(length > 0) {
+					var table = document.getElementById('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i]);
 						table.appendChild(div);
@@ -236,31 +246,33 @@
 		});
 	}
 
-	//加载文章类型
-	function LoadArticleType() {
-		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
+	//赞过我的-加载数据
+	function Load2(callback) {
+		var data = {
+			page: currpage2,
+			rows: pagesize,
+			CreateUserID: userId
+		}
+		HttpGet(base.RootUrl + "Zan/All", data, function(data) {
 			if(data != null) {
+				totalpage = data.totalpage2;
 				var length = data.list.length;
 				if(length > 0) {
-					var table = $('#article_type');
+					var table = document.getElementById('scroll-view2');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendTypeStr(data.list[i]);
-						table.append(div);
+						var div = base.AppendArticle(data.list[i]);
+						table.appendChild(div);
 					}
-					document.body.removeAttribute('data-imageLazyload');
-					mui(document).imageLazyload({
-						placeholder: '../images/60x60.gif',
-						diff: window.innerHeight
-					});
 				}
 			}
+			if($.isFunction(callback)) {
+				callback();
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
 		});
-	}
-
-	/**
-	 * 拼接文章类型
-	 */
-	function appendTypeStr(item) {
-		return '<div class="mui-table-view-cell topic cfff tc" style="background: url(' + item.Cover + ');" typeid="' + item.ID + '" typename="' + item.Name + '"><div class="bg">' + item.Name + '</div></div>';
 	}
 </script>
