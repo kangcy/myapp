@@ -108,6 +108,44 @@
 				index: e.detail.slideNumber
 			});
 		});
+
+		//用户详细
+		mui("#slider").on('tap', '.user', function(event) {
+			var userId = this.getAttribute("userid");
+			mui.openWindow({
+				id: 'user',
+				url: 'user.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					UserID: userId
+				}
+			});
+		});
+
+		//文章详细
+		mui("#slider").on('tap', '.article', function(event) {
+			var articleId = this.getAttribute("articleid");
+			mui.openWindow({
+				id: 'articledetail',
+				url: 'articledetail.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					ArticleID: articleId
+				}
+			});
+		});
 	});
 
 	//Slider切换
@@ -253,7 +291,7 @@
 		});
 	}
 
-	//我的评论-拼接Html
+	//我的评论-拼接Html 
 	function appendStr1(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
@@ -261,14 +299,14 @@
 		model.push('<div class="mui-slider-cell mt10">');
 		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright"></span></div>');
 		model.push('</div>');
 		//评论信息
 		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
 		model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
 		model.push('<div class="oa-contact-date mui-table-cell c999 tl">' + item.CreateDate + '</div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10" style="color:#4EC4DE;">“' + item.Title + '”</div>');
+		model.push('<div class="oa-contact-content mui-table-cell pl10 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '">“' + item.Title + '”</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
@@ -281,16 +319,16 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10">');
 		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
 		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright"></span></div>');
 		model.push('</div>');
 		//评论信息
 		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
 		model.push('<div class="oa-contact-date mui-table-cell c999 tc">' + item.CreateDate + '</div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10" style="color:#4EC4DE;">“' + item.Title + '”</div>');
+		model.push('<div class="oa-contact-content mui-table-cell pl10 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '">“' + item.Title + '”</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
