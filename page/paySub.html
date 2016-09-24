@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/comment.css">
+		<link rel="stylesheet" href="../css/pay.css">
 		<link rel="stylesheet" href="../css/loading.css">
 	</head>
 
@@ -54,6 +54,7 @@
 	var pagesize = base.PageSize;
 	var payPage = null;
 	var userId = base.GetUserID();
+
 	mui.init();
 
 	mui.ready(function() {
@@ -65,7 +66,7 @@
 			deceleration: deceleration
 		});
 
-		//我的评论
+		//我的打赏
 		mui(document.getElementById("scroll1")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -82,7 +83,7 @@
 			}
 		});
 
-		//评论我的
+		//打赏我的
 		mui(document.getElementById("scroll2")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -115,7 +116,7 @@
 		mui('#slider').slider().gotoItem(index);
 	}
 
-	//我评论的-下拉刷新
+	//我打赏的-下拉刷新
 	function pulldownRefresh1(self) {
 		if(isLoading1 == true) {
 			return;
@@ -134,7 +135,7 @@
 		}, 500);
 	}
 
-	//我评论的-上拉加载
+	//我打赏的-上拉加载
 	function pullupRefresh1(self) {
 		if(isLoading1 == true) {
 			return;
@@ -154,7 +155,7 @@
 		}, 500);
 	}
 
-	//评论我的-下拉刷新
+	//打赏我的-下拉刷新
 	function pulldownRefresh2(self) {
 		if(isLoading2 == true) {
 			return;
@@ -173,7 +174,7 @@
 		}, 500);
 	}
 
-	//评论我的-上拉加载
+	//打赏我的-上拉加载
 	function pullupRefresh2(self) {
 		if(isLoading2 == true) {
 			return;
@@ -193,16 +194,16 @@
 		}, 500);
 	}
 
-	//我的评论-加载数据
+	//我的打赏-加载数据
 	function Load1(callback) {
-		data = {
+		var data = {
 			page: currpage1,
 			rows: pagesize,
-			CreateUserID: userId
+			FromUserID: userId
 		}
-		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
+		HttpGet(base.RootUrl + "Pay/All", data, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage1;
+				totalpage1 = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view1');
@@ -223,16 +224,16 @@
 		});
 	}
 
-	//评论我的-加载数据
+	//打赏我的-加载数据
 	function Load2(callback) {
 		var data = {
 			page: currpage2,
 			rows: pagesize,
-			ArticleUserID: userId
+			ToUserID: userId
 		}
-		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
+		HttpGet(base.RootUrl + "Pay/All", data, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage2;
+				totalpage2 = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view2');
@@ -253,44 +254,29 @@
 		});
 	}
 
-	//我的评论-拼接Html
+	//我的打赏-拼接Html
 	function appendStr1(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell mt10">');
-		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
-		model.push('</div>');
-		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
-		model.push('<div class="oa-contact-date mui-table-cell c999 tl">' + item.CreateDate + '</div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10" style="color:#4EC4DE;">“' + item.Title + '”</div>');
+		model.push('<div class="mui-slider-cell">');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.ToUserAvatar + '" /></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.ToUserName + '</p><p class="f11 csubtitle mb5">打赏</p><p class="f11 csubtitle">' + item.CreateDate + '</p></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
 
-	//评论我的-拼接Html
+	//打赏我的-拼接Html
 	function appendStr2(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell mt10">');
-		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" /></div>');
-		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
-		model.push('</div>');
-		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		model.push('<div class="oa-contact-date mui-table-cell c999 tc">' + item.CreateDate + '</div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10" style="color:#4EC4DE;">“' + item.Title + '”</div>');
+		model.push('<div class="mui-slider-cell">');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.FromUserAvatar + '" /></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.FromUserName + '</p><p class="f11 csubtitle mb5">打赏</p><p class="f11 csubtitle">' + item.CreateDate + '</p></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

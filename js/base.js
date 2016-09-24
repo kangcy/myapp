@@ -2,12 +2,12 @@ var base = new function() {
 	/**
 	 * 是否测试
 	 **/
-	this.IsTest = true;
+	this.IsTest = false;
 
 	/**
 	 * 列表每次请求数
 	 **/
-	this.PageSize = 1;
+	this.PageSize = 10;
 
 	/**
 	 * 窗口动画持续时间

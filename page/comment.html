@@ -8,299 +8,81 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/comment.css">
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a id="back" class="mui-icon mui-action-menu mui-icon-arrowleft mui-pull-left cfff"></a>
-			<a class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff f13" id="tabs"><span class="tab curr" onclick="changeComment(0)">我评论的</span>&nbsp;&nbsp;&nbsp;<span class="tab" onclick="changeComment(1)">评论我的</span></h1>
+			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff"></a>
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+			<h1 class="mui-title cfff f13" id="tabs">
+				<span class="tab curr" id="tab1">我评论的</span>
+				&nbsp;&nbsp;&nbsp;
+				<span class="tab" id="tab2">评论我的</span>
+			</h1>
 		</header>
-		<div class="mui-content"></div>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
-			<!--下拉刷新容器-->
-			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<div id="scroll-view">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mui-bar mui-bar-nav f13 footer">
-			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
-			<a class="mui-icon mui-icon-plusempty mui-pull-right cfff" id="add-comment"></a>
+		<div class="mui-content">
+
 		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ismycomment = true; //我评论的，评论我的
-	var currpage = 1;
-	var totalpage = 2;
-	var pagesize = base.PageSize;
-	var isLoading = false; //是否数据加载中
-
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false, //启用右滑关闭功能
-		pullRefresh: {
-			container: '#pullrefresh',
-			down: {
-				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: '正在加载...',
-				contentnomore: '没有更多数据了',
-				callback: pullupRefresh,
-				auto: false
+		swipeBack: false,
+		subpages: [{
+			id: 'commentSub',
+			url: 'commentSub.html',
+			styles: {
+				top: parseInt((window.innerWidth / 320) * 45) + 'px',
+				bottom: '0px',
 			}
-		}
+		}]
 	});
-
-	mui.plusReady(function() {
-		//显示当前页面
-		mui.currentWebview.show("slide-in-right");
-
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
-
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			plus.webview.close(self);
-		}
-
-		//返回
-		document.getElementById('back').addEventListener('tap', function(event) {
-			mui.back();
-		});
-
-		//创建评论
-		document.getElementById('add-comment').addEventListener('tap', function(event) {
-			var my = mui.preload({
-				"id": 'add-comment',
-				"url": 'addcomment.html'
-			});
-			mui.openWindow({
-				id: 'add-comment',
-				show: {
-					aniShow: 'zoom-fade-out'
-				},
-				waiting: {
-					autoShow: false
-				}
-			});
-		});
-	});
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh() {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				mui('#pullrefresh').pullRefresh().refresh(true);
-				isLoading = false;
-			})
-		}, 250);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh() {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-			mui.toast("没有更多数据了");
-			isLoading = false;
-			return;
-		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-				isLoading = false;
-			})
-		}, 250);
-	}
-
-	/**
-	 * 加载数据
-	 */
-	function Load(callback) {
-		if(mui.os.plus && base.IsTest) {
-			var table = document.getElementById('scroll-view');
-			for(var i = 1; i < 6; i++) {
-				var item = {
-					Avatar: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
-					NickName: "一个傻瓜",
-					Summary: "个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名",
-					ArticleID: i,
-					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg?version=" + Math.random() * 1000,
-					Title: "动漫" + i,
-					CreateDate: "2016-9-9"
-				}
-				table.appendChild(appendStr(item));
-			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
-		} else {
-			var data = {
-				page: currpage,
-				rows: pagesize,
-				ArticleUserID: 1
-			};
-			if(ismycomment) {
-				data = {
-					page: currpage,
-					rows: pagesize,
-					CreateUserID: 1
-				}
-			}
-			HttpGet(base.RootUrl + "Comment/All", data, function(data) {
-				if(data != null) {
-					totalpage = data.totalpage; //总页数
-					var length = data.list.length;
-					if(length > 0) {
-						var table = document.getElementById('scroll-view');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.appendChild(div);
-						}
-					}
-				}
-				if($.isFunction(callback)) {
-					callback();
-				}
-				document.body.removeAttribute('data-imageLazyload');
-				mui(document).imageLazyload({
-					placeholder: '../images/60x60.gif',
-					diff: window.innerHeight
-				});
-			});
-		}
-	}
-
-	/**
-	 * 拼接Html
-	 */
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		var model = [];
-		model.push('<div class="mui-slider-cell mt10">');
-		if(!ismycomment) {
-			//头像
-			model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" /></div>');
-		}
-		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright" onclick="message(' + item.ArticleID + ')"></span></div>');
-		model.push('</div>');
-
-		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		if(!ismycomment) {
-			model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
-		}
-		model.push('<div class="oa-contact-date mui-table-cell c999' + (ismycomment ? "tl" : "tc") + '">' + item.CreateDate + '</div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10" style="color:#4EC4DE;">“' + item.Title + '”</div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
-	if(mui.os.plus) {
-		mui.plusReady(function() {
-			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			}, 1000);
-
-		});
-	} else {
-		mui.ready(function() {
-			mui('#pullrefresh').pullRefresh().pullupLoading();
-		});
-	}
-
-	//显示文章
-	function ShowArticle(id) {
-		var articledetail = mui.preload({
-			"id": 'articledetail',
-			"url": 'articledetail.html',
-			extras: {
-				ArticleID: id
-			}
-		});
-		mui.openWindow({
-			id: 'articledetail',
-			show: {
-				aniShow: 'slide-in-right'
-			},
-			waiting: {
-				autoShow: false
-			}
-		});
-	}
-
-	$("#pullrefresh").on('tap', 'span.mui-icon-arrowright', function(event) {
-		this.click();
-	});
-
-	$("#header").on('tap', 'span.tab', function(event) {
-		$("#header span.curr").removeClass("curr");
-		$(this).addClass("curr");
-		this.click();
-	});
-
-	function changeComment(index) {
-		$("#tabs").find(".curr").removeClass("curr");
-		if(index == 0) {
-			ismycomment = true;
-		} else {
-			ismycomment = false;
-		}
-		$("#tabs").find("span:eq(" + index + ")").addClass("curr");
-		pulldownRefresh();
-	}
 
 	var contentWebview = null;
-	document.querySelector('header').addEventListener('doubletap', function() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview();
+	mui.ready(function() {
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		document.getElementById('tab1').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(0)");
+		});
+
+		document.getElementById('tab2').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(1)");
+		});
+	});
+
+	window.addEventListener("updateCurr", function(e) {
+		var index = e.detail.index;
+		if(index == 0) {
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
+		} else {
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
 		}
-		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 	});
 </script>

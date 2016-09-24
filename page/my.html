@@ -63,10 +63,6 @@
 				</div>
 			</div>
 		</div>
-		<!--<div class="mui-bar mui-bar-nav f13 footer">
-			<a class="mui-icon mui-icon-arrowthinleft mui-pull-left cfff" id="back"></a>
-			<a class="mui-icon mui-icon-gear mui-pull-right cfff" id="setting"></a>
-		</div>-->
 	</body>
 
 </html>
@@ -85,8 +81,11 @@
 		swipeBack: false
 	});
 
+	var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
 	mui('.mui-scroll-wrapper').scroll({
-		indicators: false //不显示滚动条
+		bounce: false,
+		indicators: false, // 是否显示滚动条
+		deceleration: deceleration
 	});
 
 	mui.plusReady(function() {
