@@ -85,5 +85,7 @@
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
 		}
+		
+		plus.nativeUI.closeWaiting();
 	});
 </script>

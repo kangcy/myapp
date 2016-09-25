@@ -38,116 +38,87 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.enterfocus.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/login.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
 	mui.init({
 		statusBarBackground: '#f7f7f7'
 	});
 
-	mui.plusReady(function() {
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
+	//检查 "登录状态/锁屏状态" 结束
+	var loginButton = document.getElementById('login');
+	var accountBox = document.getElementById('account');
+	var passwordBox = document.getElementById('password');
 
+	//跳转首页
+	var toMain = function() {
+		mui.openWindow({
+			id: 'index',
+			url: '../index.html',
+			show: {
+				aniShow: 'pop-in',
+				autoShow: true
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+	};
+
+	mui.plusReady(function() {
 		plus.screen.lockOrientation("portrait-primary");
 		var settings = app.getSettings();
-		var mainPage = mui.preload({
-			"id": 'index',
-			"url": '../index.html'
-		});
 
-		//跳转首页
-		var toMain = function() {
-			mui.fire(mainPage, 'show', null);
-			setTimeout(function() {
-				mui.openWindow({
-					id: 'index',
-					show: {
-						aniShow: 'pop-in'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
-			}, 0);
-		};
-
-		//检查 "登录状态/锁屏状态" 开始
-		if(settings.autoLogin) {
-			//解锁
-			if(settings.gestures) {
-				mui.openWindow({
-					url: 'unlock.html',
-					id: 'unlock',
-					show: {
-						aniShow: 'pop-in'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
-			} else {
-				toMain();
-			}
-		} else {
-			//第三方登录
-			var authBtns = ['qihoo', 'weixin', 'sinaweibo', 'qq']; //配置业务支持的第三方登录
-			var auths = {};
-			var oauthArea = document.querySelector('.oauth-area');
-			plus.oauth.getServices(function(services) {
-				for(var i in services) {
-					var service = services[i];
-					auths[service.id] = service;
-					if(~authBtns.indexOf(service.id)) {
-						var isInstalled = app.isInstalled(service.id);
-						var btn = document.createElement('div');
-						//如果微信未安装，则为不启用状态
-						btn.setAttribute('class', 'oauth-btn' + (!isInstalled && service.id === 'weixin' ? (' disabled') : ''));
-						btn.authId = service.id;
-						btn.style.backgroundImage = 'url("../images/' + service.id + '.png")'
-						oauthArea.appendChild(btn);
-					}
+		//第三方登录
+		var authBtns = ['qihoo', 'weixin', 'sinaweibo', 'qq']; //配置业务支持的第三方登录
+		var auths = {};
+		var oauthArea = document.querySelector('.oauth-area');
+		plus.oauth.getServices(function(services) {
+			for(var i in services) {
+				var service = services[i];
+				auths[service.id] = service;
+				if(~authBtns.indexOf(service.id)) {
+					var isInstalled = app.isInstalled(service.id);
+					var btn = document.createElement('div');
+					//如果微信未安装，则为不启用状态
+					btn.setAttribute('class', 'oauth-btn' + (!isInstalled && service.id === 'weixin' ? (' disabled') : ''));
+					btn.authId = service.id;
+					btn.style.backgroundImage = 'url("../images/' + service.id + '.png")'
+					oauthArea.appendChild(btn);
 				}
-				mui(oauthArea).on('tap', '.oauth-btn', function() {
-					if(this.classList.contains('disabled')) {
-						plus.nativeUI.toast('您尚未安装微信客户端');
-						return;
-					}
-					var auth = auths[this.authId];
-					var waiting = plus.nativeUI.showWaiting();
-					auth.login(function() {
-						waiting.close();
-						plus.nativeUI.toast("登录认证成功");
-						auth.getUserInfo(function() {
-							plus.nativeUI.toast("获取用户信息成功");
-							var name = auth.userInfo.nickname || auth.userInfo.name;
-							toMain();
-						}, function(e) {
-							plus.nativeUI.toast("获取用户信息失败：" + e.message);
-						});
+			}
+			mui(oauthArea).on('tap', '.oauth-btn', function() {
+				if(this.classList.contains('disabled')) {
+					plus.nativeUI.toast('您尚未安装微信客户端');
+					return;
+				}
+				var auth = auths[this.authId];
+				var waiting = plus.nativeUI.showWaiting();
+				auth.login(function() {
+					waiting.close();
+					plus.nativeUI.toast("登录认证成功");
+					auth.getUserInfo(function() {
+						plus.nativeUI.toast("获取用户信息成功");
+						var name = auth.userInfo.nickname || auth.userInfo.name;
+						toMain();
 					}, function(e) {
-						waiting.close();
-						plus.nativeUI.toast("登录认证失败：" + e.message);
+						plus.nativeUI.toast("获取用户信息失败：" + e.message);
 					});
+				}, function(e) {
+					waiting.close();
+					plus.nativeUI.toast("登录认证失败：" + e.message);
 				});
-			}, function(e) {
-				oauthArea.style.display = 'none';
-				plus.nativeUI.toast("获取登录认证失败：" + e.message);
 			});
-		}
+		}, function(e) {
+			oauthArea.style.display = 'none';
+			plus.nativeUI.toast("获取登录认证失败：" + e.message);
+		});
 
 		//关闭 splash
 		setTimeout(function() {
 			plus.navigator.closeSplashscreen();
 		}, 600);
-
-		//检查 "登录状态/锁屏状态" 结束
-		var loginButton = document.getElementById('login');
-		var accountBox = document.getElementById('account');
-		var passwordBox = document.getElementById('password');
-		var autoLoginButton = document.getElementById("autoLogin");
 
 		//点击登录
 		loginButton.addEventListener('tap', function(event) {
@@ -161,33 +132,14 @@
 					plus.nativeUI.toast(err);
 					return;
 				}
-
-				//设置自动登录	
-				settings.autoLogin = true;
-				app.setSettings(settings);
-
+				plus.nativeUI.showWaiting("跳转中...");
 				toMain();
 			});
 		});
 
-		//回车登录
-		mui.enterfocus('#login-form input', function() {
-			mui.trigger(loginButton, 'tap');
-		});
-
-		//自动登录切换
-		/*autoLoginButton.classList[settings.autoLogin ? 'add' : 'remove']('mui-active')
-		autoLoginButton.addEventListener('toggle', function(event) {
-			setTimeout(function() {
-				var isActive = event.detail.isActive;
-				settings.autoLogin = isActive;
-				app.setSettings(settings);
-			}, 50);
-		}, false);*/
-
-		/*window.addEventListener('resize', function() {
+		window.addEventListener('resize', function() {
 			oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';
-		}, false);*/
+		}, false);
 
 		//退出登录
 		var backButtonPress = 0;
@@ -205,19 +157,33 @@
 		};
 	});
 
+	//点击登录
+	/*document.getElementById('login').addEventListener('tap', function(event) {
+		var loginInfo = {
+			UserName: accountBox.value,
+			Password: passwordBox.value
+		};
+		//登录
+		app.login(loginInfo, function(err) {
+			if(err) {
+				plus.nativeUI.toast(err);
+				return;
+			}
+			plus.nativeUI.showWaiting("跳转中...");
+			toMain();
+		});
+	});*/
+
 	/*
 	 * 注册账号
 	 */
 	document.getElementById('reg').addEventListener('tap', function(event) {
 		mui.openWindow({
-			url: 'reg.html',
-			id: 'reg',
+			id: 'register',
+			url: 'register.html',
 			preload: true,
 			show: {
 				aniShow: 'pop-in'
-			},
-			styles: {
-				popGesture: 'hide'
 			},
 			waiting: {
 				autoShow: false

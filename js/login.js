@@ -15,45 +15,32 @@
 		}
 
 		//登录验证
-		if(mui.os.plus && base.IsTest) {
-			var users = JSON.parse(localStorage.getItem('$users') || '[]');
-			var userinfo = null;
-			var authed = users.some(function(user) {
-				userinfo = user;
-				return loginInfo.UserName == user.UserName && loginInfo.Password == user.Password;
-			});
-			if(authed) {
-				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-				return callback();
-			} else {
-				return callback('用户名或密码错误');
-			}
-		} else {
-			HttpGet(base.RootUrl + "User/Login", {
-				UserName: loginInfo.UserName,
-				Password: loginInfo.Password
-			}, function(data) {
-				if(data != null) {
-					if(data.result) {
-						//更新用户缓存信息
-						data = data.message;
-						var info = {
-							ID: data.ID,
-							UserName: loginInfo.UserName,
-							Password: loginInfo.Password,
-							Avatar: data.Avatar,
-							NickName: data.NickName,
-							Address: data.Address,
-							Birthday: data.BirthdayText
-						}
-						localStorage.setItem('$userinfo', JSON.stringify(info));
-						return callback();
-					} else {
-						return callback(data.message);
+		HttpGet(base.RootUrl + "User/Login", {
+			UserName: loginInfo.UserName,
+			Password: loginInfo.Password
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					//更新用户缓存信息
+					data = data.message;
+					var info = {
+						ID: data.ID,
+						Sex: data.Sex == "0" ? "男" : "女",
+						Signature: data.Signature,
+						UserName: loginInfo.UserName,
+						Password: loginInfo.Password,
+						Avatar: data.Avatar,
+						NickName: data.NickName,
+						Address: data.Address,
+						Birthday: data.BirthdayText
 					}
+					localStorage.setItem('$userinfo', JSON.stringify(info));
+					return callback();
+				} else {
+					return callback(data.message);
 				}
-			});
-		}
+			}
+		});
 	};
 
 	/**
@@ -81,64 +68,39 @@
 		if(regInfo.Password.length > 16) {
 			return callback('密码最长限制 16 个字符');
 		}
-		if(mui.os.plus && base.IsTest) {
-			var users = JSON.parse(localStorage.getItem('$users') || '[]');
 
-			var info = {
-				ID: data.ID,
-				UserName: regInfo.UserName,
-				Password: regInfo.Password,
-				Avatar: "",
-				NickName: "",
-				Address: "",
-				Birthday: ""
-			}
-			users.push(info);
-			localStorage.setItem('$users', JSON.stringify(users));
-			localStorage.setItem('$userinfo', JSON.stringify(info));
-			return callback();
-		} else {
-			HttpGet(base.RootUrl + "User/Register", {
-				UserName: loginInfo.UserName,
-				Password: loginInfo.Password
-			}, function(data) {
-				if(data != null) {
-					if(data.result) {
-						//更新用户缓存信息
-						data = data.message;
-						var info = {
-							ID: data.ID,
-							UserName: regInfo.UserName,
-							Password: regInfo.Password,
-							Avatar: data.Avatar,
-							NickName: data.NickName,
-							Address: "",
-							Birthday: ""
-						}
-						localStorage.setItem('$userinfo', JSON.stringify(info));
-						return callback();
-					} else {
-						return callback(data.message);
+		HttpGet(base.RootUrl + "User/Register", {
+			UserName: loginInfo.UserName,
+			Password: loginInfo.Password
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					//更新用户缓存信息
+					data = data.message;
+					var info = {
+						ID: data.ID,
+						UserName: regInfo.UserName,
+						Password: regInfo.Password,
+						Avatar: data.Avatar,
+						NickName: data.NickName,
+						Address: "",
+						Birthday: ""
 					}
+					localStorage.setItem('$userinfo', JSON.stringify(info));
+					return callback();
+				} else {
+					return callback(data.message);
 				}
-			});
-		}
+			}
+		});
 	};
 
 	/**
-	 * 获取当前状态
+	 * 退出登录
 	 **/
-	owner.getState = function() {
-		var stateText = localStorage.getItem('$state') || "{}";
-		return JSON.parse(stateText);
-	};
-
-	/**
-	 * 设置当前状态
-	 **/
-	owner.setState = function(state) {
-		state = state || {};
-		localStorage.setItem('$state', JSON.stringify(state));
+	owner.loginOut = function() {
+		var userinfo = {};
+		localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 	};
 
 	/**

@@ -49,12 +49,13 @@
 		}
 
 		var showGuide = plus.storage.getItem("lauchFlag"); //读取本地存储，检查是否为首次启动
+		
 		if(showGuide) {
 			//加载页面
 			LoadPage(function() {
 				//有值，说明已经显示过了，无需显示；关闭splash页面
 				plus.navigator.closeSplashscreen();
-				plus.navigator.setFullscreen(true);
+				plus.navigator.setFullscreen(false);
 			});
 		} else {
 			//显示启动导航

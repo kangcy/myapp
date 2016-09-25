@@ -231,13 +231,14 @@
 					"css/mui.min.css",
 					"fonts/mui.ttf",
 					"subindex.html",
-					"subindex2.html"
+					"subindex2.html",
+					"page/subindex.html",
+					"page/login.html"
 				],
 				"refer": [
 					"page/about.html",
 					"list.html",
-					"menu.html",
-					"page/subindex.html"
+					"menu.html"
 				],
 				"priority": 0
 			},
@@ -262,11 +263,16 @@
 					"images/login/pwd.png",
 					"images/login/name.png",
 					"images/my/1.png",
-					"css/login.css"
+					"css/login.css",
+					"js/base.js",
+					"js/jquery-1.10.2.min.js"
 				],
 				"refer": [
 					"index.html",
-					"page/reg.html"
+					"page/reg.html",
+					"page/register.html",
+					"page/forget_password.html",
+					"page/subindex.html"
 				],
 				"priority": 0
 			},
@@ -365,9 +371,12 @@
 					"images/header.png",
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
-					"js/default.js"
+					"js/default.js",
+					"js/login.js"
 				],
-				"refer": [],
+				"refer": [
+					"page/login.html"
+				],
 				"priority": 0
 			},
 			"page/reg.html": {
@@ -447,7 +456,13 @@
 					"js/mui.lazyload.js",
 					"js/mui.lazyload.img.js",
 					"js/base.js",
-					"js/jquery-1.10.2.min.js"
+					"js/jquery-1.10.2.min.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.previewimage.js",
+					"css/img.preview.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -465,7 +480,10 @@
 					"js/jquery-1.10.2.min.js",
 					"js/mui.lazyload.js",
 					"js/default.js",
-					"js/mui.lazyload.img.js"
+					"js/mui.lazyload.img.js",
+					"images/price.png",
+					"images/60x60.gif",
+					"page/paySub.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -517,7 +535,8 @@
 					"js/default.js",
 					"js/mui.lazyload.img.js",
 					"images/menu.png",
-					"images/header.png"
+					"images/header.png",
+					"page/commentSub.html"
 				],
 				"refer": [
 					"page/addcomment.html"
@@ -555,7 +574,8 @@
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
 					"cropper/cropper.min.js",
-					"js/default.js"
+					"js/default.js",
+					"images/60x60.gif"
 				],
 				"refer": [
 					"page/editnickname.html",
@@ -583,7 +603,8 @@
 					"images/home.png",
 					"images/index/logo.png",
 					"js/mui.lazyload.js",
-					"js/mui.lazyload.img.js"
+					"js/mui.lazyload.img.js",
+					"page/topicSub.html"
 				],
 				"refer": [
 					"page/articledetail.html"
@@ -736,7 +757,10 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"js/default.js"
+					"js/default.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -812,7 +836,8 @@
 					"js/mui.min.js",
 					"images/home.png",
 					"page/help.html",
-					"css/mui.css"
+					"css/mui.css",
+					"page/topic.html"
 				],
 				"refer": [
 					"page/my.html",
@@ -820,6 +845,131 @@
 					"page/list.html",
 					"page/guide.html"
 				],
+				"priority": 0
+			},
+			"page/topicSub.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"images/logo.png",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.previewimage.js",
+					"images/article/bg.png",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"css/img.preview.css",
+					"js/base.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
+				],
+				"refer": [
+					"page/article.html",
+					"page/user.html"
+				],
+				"priority": 0
+			},
+			"page/paySub.html": {
+				"resources": [
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/jquery-1.10.2.min.js",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"images/price.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"images/60x60.gif",
+					"css/pay.css"
+				],
+				"refer": [
+					"page/user.html"
+				],
+				"priority": 0
+			},
+			"page/commentSub.html": {
+				"resources": [
+					"css/comment.css",
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/mui.lazyload.js",
+					"js/default.js",
+					"js/mui.lazyload.img.js",
+					"fonts/mui.ttf",
+					"images/60x60.gif"
+				],
+				"refer": [
+					"page/articledetail.html",
+					"page/user.html"
+				],
+				"priority": 0
+			},
+			"page/user.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/article.css",
+					"images/bottom.png",
+					"images/user/zan.png",
+					"js/mui.lazyload.js",
+					"images/article/line.png",
+					"js/mui.lazyload.img.js",
+					"js/base.js",
+					"css/my.css",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"page/userSub.html",
+					"images/user/add.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/userSub.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js",
+					"css/img.preview.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"js/base.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/register.html": {
+				"resources": [
+					"images/login/reg.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/forget_password.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/login.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

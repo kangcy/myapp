@@ -31,19 +31,6 @@ var base = new function() {
 	 **/
 	this.GetUserInfo = function() {
 		var settingsText = localStorage.getItem('$userinfo') || "{}";
-
-		if(base.IsTest && settingsText == "{}") {
-			return {
-				ID: 1,
-				UserName: 18652913873,
-				Password: 123456,
-				NickName: "一个傻瓜",
-				Avatar: "",
-				NickName: "",
-				Address: "",
-				Birthday: ""
-			}
-		}
 		return JSON.parse(settingsText);
 	}
 
@@ -101,6 +88,7 @@ var base = new function() {
 	 **/
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
+			plus.nativeUI.showWaiting("跳转中...");
 			var userId = this.getAttribute("userid");
 			mui.openWindow({
 				id: 'user',
@@ -124,6 +112,7 @@ var base = new function() {
 	 **/
 	this.ShowArticle = function(id) {
 		mui(id).on('tap', '.article', function(event) {
+			plus.nativeUI.showWaiting("跳转中...");
 			var articleId = this.getAttribute("articleid");
 			mui.openWindow({
 				id: 'articledetail',

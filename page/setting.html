@@ -89,6 +89,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/login.js"></script>
 <script type="text/javascript">
 	mui.init({
 		gestureConfig: {
@@ -140,7 +141,7 @@
 	//退出操作******************
 	document.getElementById('exit').addEventListener('tap', function() {
 		if(mui.os.ios) {
-			app.setState({});
+			app.loginOut();
 			mui.openWindow({
 				url: 'login.html',
 				id: 'login',
@@ -148,7 +149,7 @@
 					aniShow: 'pop-in'
 				},
 				waiting: {
-					autoShow: false
+					autoShow: true
 				}
 			});
 			return;
@@ -165,7 +166,7 @@
 			var index = event.index;
 			switch(index) {
 				case 1:
-					app.setState({});
+					app.loginOut();
 					mui.openWindow({
 						url: 'login.html',
 						id: 'login',
