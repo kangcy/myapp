@@ -69,6 +69,13 @@ html{font-family:sans-serif;-webkit-text-size-adjust:100%}body{margin:0;font-siz
 /*输入框*/
 #question {border: 0px;height: 400px;padding: 0px;line-height: 1.25rem;}
 
+.mui-card-content{width:100%;}
+.mui-card-content-inner {
+    padding: 0.625rem;
+    width: 100%;
+    display: inline-block;
+}
+
  /*
   1: 0.0625rem
   2: 0.125rem

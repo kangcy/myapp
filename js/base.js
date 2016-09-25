@@ -152,7 +152,7 @@ var base = new function() {
 		model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '">');
 		model.push('<img src="' + item.Avatar + '" /><div class="mui-media-body">' + item.NickName + '<p>' + item.CreateDate + '</p></div></div>');
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
-		model.push('<p class="c333 fl article" articleid="' + item.ID + '">' + item.Title + '</p>');
+		model.push('<p class="c333 fl article" articleid="' + item.ArticleID + '">' + item.Title + '</p>');
 		var num = parseInt(Math.random() * 4);
 		if(num == 1) {
 			model.push('<div class="onefloor"><img src="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + item.ID + '" /></div>');

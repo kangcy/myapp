@@ -52,8 +52,10 @@
 .signature {
 	margin: 0px;
 	margin-top: 0.625rem;
+	height: 2.5rem;
 	line-height: 1.25rem;
 	text-shadow: 1px 1px 1px #999;
+	overflow: hidden;
 }
 
 .content1 {

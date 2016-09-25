@@ -13,7 +13,7 @@
 
 	<body>
 		<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
-			<a id="back" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
+			<a id="toggle" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
 			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
 			<div class="info-body">
 				<div class="info-content">
@@ -36,16 +36,6 @@
 				</div>
 			</div>
 		</div>
-		<div style="width:100%;height:40px;line-height:40px;background:#fff;text-align:center;font-weight: bold;" class="f14">
-			<div style="width:20%;float:left;">&nbsp;</div>
-			<div style="width:30%;float:left;">
-				<div style="border-bottom:3px solid #000;padding-bottom: 5px;height:40px;display: inline-block;">他的收藏</div>
-			</div>
-			<div style="width:30%;float:left;">
-				<div class="csubtitle">他的作品</div>
-			</div>
-			<div style="width:20%;float:left;">&nbsp;</div>
-		</div>
 	</body>
 
 </html>
@@ -56,9 +46,10 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var currToggle = false;
 	var currUserID = base.GetUserID(); //当前登录用户ID
 
-	//启用双击监听
+	//启用双击监听 
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -68,40 +59,31 @@
 			id: 'userSub',
 			url: 'userSub.html',
 			styles: {
-				top: parseInt((window.innerWidth / 320) * 330) + 'px',
+				top: parseInt((window.innerWidth / 320) * 270) + 'px',
 				bottom: '0px',
 			}
 		}]
 	});
 
-	/*mui.ready(function() {
-		base.InitScroll();
-	});*/
+	//切换
+	document.getElementById('toggle').addEventListener('tap', function(event) {
+		if(currToggle) {
+			$(".mui-iframe-wrapper").animate({
+				"top": parseInt((window.innerWidth / 320) * 304) + 'px'
+			}, 500);
+			currToggle = false;
+		} else {
+			$(".mui-iframe-wrapper").animate({
+				"top": "2.5rem"
+			}, 500);
+			currToggle = true;
+		}
+	});
 
 	mui.plusReady(function() {
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
 		}
-
-		//返回
-		document.getElementById('back').addEventListener('tap', function(event) {
-			mui.back();
-		});
 	});
-
-	$("#header").on('tap', 'span.tab', function(event) {
-		$("#header span.curr").removeClass("curr");
-		$(this).addClass("curr");
-		this.click();
-	});
-
-	function changeComment(index) {
-		if(index == 0) {
-			ismycomment = true;
-		} else {
-			ismycomment = false;
-		}
-		pulldownRefresh();
-	}
 </script>

@@ -41,6 +41,7 @@
 			.mui-card-header>img:first-child {
 				width: 2.875rem !important;
 				height: 2.875rem !important;
+				border-radius: 5px;
 			}
 		</style>
 	</head>
@@ -137,6 +138,11 @@
 
 		base.InitSlider(); //滑动切换
 	});
+
+	//Slider切换
+	function ChangeSlider(index) {
+		mui('#slider').slider().gotoItem(index);
+	}
 
 	//我赞过的-下拉刷新
 	function pulldownRefresh1(self) {
