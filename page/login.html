@@ -57,7 +57,7 @@
 			id: 'index',
 			url: '../index.html',
 			show: {
-				aniShow: 'pop-in',
+				aniShow: 'slide-in-right',
 				autoShow: true
 			},
 			waiting: {
@@ -65,7 +65,6 @@
 			}
 		});
 	};
-
 	mui.plusReady(function() {
 		plus.screen.lockOrientation("portrait-primary");
 		var settings = app.getSettings();
@@ -158,13 +157,16 @@
 	});
 
 	//点击登录
-	/*document.getElementById('login').addEventListener('tap', function(event) {
+	document.getElementById('login').addEventListener('tap', function(event) {
 		var loginInfo = {
 			UserName: accountBox.value,
 			Password: passwordBox.value
 		};
 		//登录
 		app.login(loginInfo, function(err) {
+
+			alert("sdfsdfsd");
+
 			if(err) {
 				plus.nativeUI.toast(err);
 				return;
@@ -172,7 +174,7 @@
 			plus.nativeUI.showWaiting("跳转中...");
 			toMain();
 		});
-	});*/
+	});
 
 	/*
 	 * 注册账号

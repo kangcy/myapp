@@ -19,7 +19,9 @@
 			UserName: loginInfo.UserName,
 			Password: loginInfo.Password
 		}, function(data) {
-			if(data != null) {
+			if(data == null) {
+				return callback("系统异常,请稍后再试~");
+			} else {
 				if(data.result) {
 					//更新用户缓存信息
 					data = data.message;
@@ -73,7 +75,9 @@
 			UserName: loginInfo.UserName,
 			Password: loginInfo.Password
 		}, function(data) {
-			if(data != null) {
+			if(data == null) {
+				return callback("系统异常,请稍后再试~");
+			} else {
 				if(data.result) {
 					//更新用户缓存信息
 					data = data.message;

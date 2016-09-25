@@ -9,7 +9,7 @@
 	</head>
 
 	<body>
-		<footer class="mui-bar mui-bar-tab footer">
+		<footer class="mui-bar mui-bar-tab footer" style="z-index:99999;">
 			<a class="mui-tab-item" href="topic.html">
 				<img src="../images/home.png" class="mui-icon" />
 				<span class="mui-tab-label f11">首页</span>
@@ -49,7 +49,7 @@
 		}
 
 		var showGuide = plus.storage.getItem("lauchFlag"); //读取本地存储，检查是否为首次启动
-		
+
 		if(showGuide) {
 			//加载页面
 			LoadPage(function() {
@@ -69,6 +69,7 @@
 					autoShow: false
 				}
 			});
+
 			//延迟的原因：优先打开启动导航页面，避免资源争夺
 			setTimeout(function() {
 				LoadPage(); //加载页面
@@ -83,6 +84,7 @@
 	};
 
 	function LoadPage(callback) {
+
 		//创建子页面，首个选项卡页面显示，其它均隐藏
 		var self = plus.webview.currentWebview();
 		for(var i = 0; i < 3; i++) {
