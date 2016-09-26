@@ -83,13 +83,9 @@
 		swipeBack: false
 	});
 
-	$(function() {
-		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
-		mui('.mui-scroll-wrapper').scroll({
-			bounce: false,
-			indicators: false, // 是否显示滚动条
-			deceleration: deceleration
-		});
+	mui.ready(function() {
+
+		base.InitScroll();
 
 		//点赞
 		document.getElementById('zan').addEventListener('tap', function(event) {
@@ -156,7 +152,10 @@
 				});
 			}
 		})
-	})
+	});
+
+	ArticleID = 1;
+	Load();
 
 	mui.plusReady(function() {
 
@@ -181,8 +180,10 @@
 	//加载文章
 	function Load() {
 		HttpGet(base.RootUrl + "Article/Detail", {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
+			/*UserName: userinfo.UserName,
+			Password: userinfo.Password,*/
+			UserName: "18652913873",
+			Password: "123456",
 			ID: ArticleID
 		}, function(data) {
 			if(data != null) {
@@ -192,10 +193,27 @@
 					ArticleType = data.TypeID;
 					ArticleTypeName = data.TypeName;
 					ArticleUserID = data.CreateUserID;
-					$("#header").css("background", data.Cover);
+					document.getElementById("header").style.backgroundImage = "url(" + data.Cover + ")";
+					document.getElementById("header").style.backgroundSize = "cover";
 					$("#article_title").html(data.Title);
 					$("#article_info").html('<span class="fl">作者：' + data.NickName + '</span><span class="fl ml10">' + data.Views + '阅读</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Keeps + '收藏</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Comments + '评论</span>');
-					$("#article_desc").html(data.Introduction);
+
+					var html = [];
+					var parts = data.ArticlePart;
+					for(var i = 0; i < parts.length; i++) {
+						var part = parts[i];
+						if(part.Types == 1) {
+							//图片段落
+							html.push('<div class="full f11"><img src="' + part.Introduction + '" class="full" /></div>');
+						} else if(part.Types == 2) {
+							//文本段落
+							html.push('<div class="full f11">' + part.Introduction + '</div>');
+						} else if(part.Types == 3) {
+							//视频段落
+							html = appendStr("点击添加视频", "video", part.ID);
+						}
+					}
+					$("#article_desc").html(html.join(""));
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
 				}

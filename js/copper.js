@@ -72,11 +72,24 @@ function confirm(targetid, callback) {
 	if(targetid != null) {
 		$("#" + targetid).attr("src", imgurl);
 	}
-	if($.isFunction(callback)) {
-		callback(imgurl);
-	}
-	$(".mui-content,.header,.footer").show();
-	$("#readyimg").cropper('destroy');
+
+	//上传图片到服务器
+	console.log(imgurl);
+	HttpGet(base.RootUrl + "Upload/Upload", {
+		str: imgurl
+	}, function(data) {
+		if(data != null) {
+			if(data.result) {
+				if($.isFunction(callback)) {
+					callback(imgurl);
+				}
+				$(".mui-content,.header,.footer").show();
+				$("#readyimg").cropper('destroy');
+			} else {
+				mui.toast(data.message);
+			}
+		}
+	});
 }
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 

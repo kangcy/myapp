@@ -46,6 +46,7 @@
 <script type="text/javascript">
 	var currToggle = false;
 	var UserID = 0; //用户ID
+	var contentWebview = null;
 
 	//启用双击监听 
 	mui.init({
@@ -90,6 +91,13 @@
 			plus.nativeUI.closeWaiting();
 		} else {
 			LoadUserInfo();
+
+			setTimeout(function() {
+				if(contentWebview == null) {
+					contentWebview = plus.webview.currentWebview().children()[0];
+				}
+				contentWebview.evalJS("Init(" + UserID + ")");
+			}, 0)
 		}
 	});
 
