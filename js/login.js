@@ -34,7 +34,13 @@
 						Avatar: data.Avatar,
 						NickName: data.NickName,
 						Address: data.Address,
-						Birthday: data.BirthdayText
+						Birthday: data.BirthdayText,
+						Follows: data.Follows,
+						Fans: data.Fans,
+						Articles: data.Articles,
+						Keeps: data.Keeps,
+						Comments: data.Comments,
+						Zans: data.Zans
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();

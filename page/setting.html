@@ -153,21 +153,23 @@
 					case 1:
 						app.loginOut();
 						var loginPage = plus.webview.getWebviewById("login");
-						if(loginPage) {
-							console.log(JSON.stringify(loginPage));
-							plus.webview.show(loginPage);
-						} else {
-							mui.openWindow({
-								url: 'login.html',
-								id: 'login',
-								show: {
-									aniShow: 'pop-in'
-								},
-								waiting: {
-									autoShow: false
-								}
-							});
+						if(loginPage != null) {
+							plus.webview.close(loginPage)
 						}
+						var indexPage = plus.webview.getWebviewById("index");
+						if(indexPage != null) {
+							plus.webview.close(indexPage)
+						}
+						mui.openWindow({
+							url: 'login.html',
+							id: 'login',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
 						break;
 					case 2:
 						plus.runtime.quit();

@@ -40,7 +40,7 @@
 
 			//子页面
 			subpages: [{
-				id: 'subindex',
+				id: 'index',
 				url: 'page/subindex.html',
 				styles: {
 					top: '0px',
@@ -53,8 +53,8 @@
 
 	mui.plusReady(function() {
 
-		var loginPage = plus.webview.getWebviewById("login");
-		plus.webview.close(loginPage);
+		//显示当前页面
+		//mui.currentWebview.show("slide-in-right");
 
 		plus.nativeUI.closeWaiting();
 

@@ -57,8 +57,7 @@
 			id: 'index',
 			url: '../index.html',
 			show: {
-				aniShow: 'slide-in-right',
-				autoShow: true
+				autoShow: false
 			},
 			waiting: {
 				autoShow: false
@@ -154,26 +153,6 @@
 			}, 1000);
 			return false;
 		};
-	});
-
-	//点击登录
-	document.getElementById('login').addEventListener('tap', function(event) {
-		var loginInfo = {
-			UserName: accountBox.value,
-			Password: passwordBox.value
-		};
-		//登录
-		app.login(loginInfo, function(err) {
-
-			alert("sdfsdfsd");
-
-			if(err) {
-				plus.nativeUI.toast(err);
-				return;
-			}
-			plus.nativeUI.showWaiting("跳转中...");
-			toMain();
-		});
 	});
 
 	/*

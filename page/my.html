@@ -12,55 +12,54 @@
 	</head>
 
 	<body>
-		<div class="mui-iframe-wrapper" style="top: 0px;bottom:0px;">
-			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
-						<a id="back" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
-						<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-						<div class="info-body">
-							<div class="info-content">
-								<div class="side">
-									<p class="cfff f11 f14">225</p>
-									<p class="cfff f11">粉丝</p>
-								</div>
-								<div class="center">
-									<img id="my-setting" src="http://www.dcloud.io/hellomui/images/3.jpg" style="border-radius:50%;width:100px;height:100px;" />
-								</div>
-								<div class="side">
-									<p class="cfff f14">225</p>
-									<p class="cfff">粉丝</p>
-								</div>
+
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
+					<a id="back" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
+					<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+					<div class="info-body">
+						<div class="info-content">
+							<div class="side">
+								<p class="cfff f11 f14">0</p>
+								<p class="cfff f11" id="fans">粉丝</p>
 							</div>
-							<p class="cfff f14 tc name">一个傻瓜</p>
-							<p class="cfff signature">淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤</p>
-							<div class="cfff content1">
-								<div class="items">
-									<p class="cfff item1"><img src="../images/my/my.png" class="fl" />80</p>
-									<p class="cfff tl item2">我的</p>
-								</div>
-								<div class="items">
-									<p class="cfff item1"><img src="../images/my/keep.png" class="fl" />80</p>
-									<p class="cfff tl item2">收藏</p>
-								</div>
-								<div class="items">
-									<p class="cfff item1"><img src="../images/my/comment.png" class="fl" />80</p>
-									<p class="cfff tl item2">评论</p>
-								</div>
-								<div class="items">
-									<p class="cfff item1"><img src="../images/my/zan.png" class="fl" />80</p>
-									<p class="cfff tl item2">赞</p>
-								</div>
+							<div class="center">
+								<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:6.25rem;height:6.25rem;" />
+							</div>
+							<div class="side">
+								<p class="cfff f14" id="fans">0</p>
+								<p class="cfff" id="follows">关注</p>
+							</div>
+						</div>
+						<p class="cfff f14 tc name" id="nickname"></p>
+						<p class="cfff signature" id="signature"></p>
+						<div class="cfff content1">
+							<div class="items">
+								<p class="cfff item1"><img src="../images/my/my.png" class="fl" /><span id="articles">0</span></p>
+								<p class="cfff tl item2">我的</p>
+							</div>
+							<div class="items">
+								<p class="cfff item1"><img src="../images/my/keep.png" class="fl" /><span id="keeps">0</span></p>
+								<p class="cfff tl item2">收藏</p>
+							</div>
+							<div class="items">
+								<p class="cfff item1"><img src="../images/my/comment.png" class="fl" /><span id="coments">0</span></p>
+								<p class="cfff tl item2">评论</p>
+							</div>
+							<div class="items">
+								<p class="cfff item1"><img src="../images/my/zan.png" class="fl" /><span id="zans">0</span></p>
+								<p class="cfff tl item2">赞</p>
 							</div>
 						</div>
 					</div>
-					<div class="setting mb8"><img id="my-mypay" src="../images/mypay.png" class="mr30" /><img id="my-invit" src="../images/invit.png" /></div>
-					<div class="csubtitle menu mb8 f13" id="my-feedback"><img class="setting-icon" src="../images/my/4.png" />意见反馈</div>
-					<div class="csubtitle menu mb8 f13" id="my-good"><img class="setting-icon" src="../images/my/5.png" />给个好评</div>
-					<div class="csubtitle menu mb8 f13" id="my-help"><img class="setting-icon" src="../images/my/6.png" />帮助中心</div>
-					<div class="csubtitle menu mb8 f13" id="my-comment"><img class="setting-icon" src="../images/my/6.png" />评论</div>
-					<div class="csubtitle menu mb8 f13" id="setting"><img class="setting-icon" src="../images/my/1.png" />设置</div>
 				</div>
+				<div class="setting mb8"><img id="my-mypay" src="../images/mypay.png" class="mr30" /><img id="my-invit" src="../images/invit.png" /></div>
+				<div class="csubtitle menu mb8 f13" id="my-feedback"><img class="setting-icon" src="../images/my/4.png" />意见反馈</div>
+				<div class="csubtitle menu mb8 f13" id="my-good"><img class="setting-icon" src="../images/my/5.png" />给个好评</div>
+				<div class="csubtitle menu mb8 f13" id="my-help"><img class="setting-icon" src="../images/my/6.png" />帮助中心</div>
+				<div class="csubtitle menu mb8 f13" id="my-comment"><img class="setting-icon" src="../images/my/6.png" />评论</div>
+				<div class="csubtitle menu mb8 f13" id="setting"><img class="setting-icon" src="../images/my/1.png" />设置</div>
 			</div>
 		</div>
 	</body>
@@ -71,7 +70,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currUserID = base.GetUserID(); //当前登录用户ID
+	var userinfo = base.GetUserInfo();
 
 	//启用双击监听
 	mui.init({
@@ -82,6 +81,17 @@
 	});
 
 	mui.ready(function() {
+		//初始化赋值
+		$("#avatar").attr("src", userinfo.Avatar);
+		$("#nickname").html(userinfo.NickName);
+		$("#signature").html(userinfo.Signature);
+		$("#follows").html(userinfo.Follows);
+		$("#fans").html(userinfo.Fans);
+		$("#articles").html(userinfo.Articles);
+		$("#keeps").html(userinfo.Keeps);
+		$("#coments").html(userinfo.Comments);
+		$("#zans").html(userinfo.Zans);
+
 		base.InitScroll();
 	});
 
@@ -93,7 +103,7 @@
 		}
 
 		//用户设置
-		document.getElementById('my-setting').addEventListener('tap', function(event) {
+		document.getElementById('avatar').addEventListener('tap', function(event) {
 			mui.openWindow({
 				id: 'mysetting',
 				url: 'mysetting.html',
@@ -159,7 +169,9 @@
 
 		//给个好评
 		document.getElementById('my-good').addEventListener('tap', function(event) {
-
+			//应用的appstore地址
+			var url = "";
+			plus.runtime.openURL(url);
 		});
 
 		//帮助中心

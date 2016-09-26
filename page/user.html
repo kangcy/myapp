@@ -18,19 +18,19 @@
 			<div class="info-body">
 				<div class="info-content">
 					<div class="side">
-						<p class="cfff f11 f14">225</p>
-						<p class="cfff f11">粉丝</p>
+						<p class="cfff f11 f14">0</p>
+						<p class="cfff f11" id="fans">粉丝</p>
 					</div>
 					<div class="center">
-						<img id="my-setting" src="http://www.dcloud.io/hellomui/images/3.jpg" style="border-radius:50%;width:100px;height:100px;" />
+						<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:6.25rem;height:6.25rem;" />
 					</div>
 					<div class="side">
-						<p class="cfff f14">225</p>
-						<p class="cfff">粉丝</p>
+						<p class="cfff f14">0</p>
+						<p class="cfff" id="follows">关注</p>
 					</div>
 				</div>
-				<p class="cfff f14 tc name">一个傻瓜</p>
-				<p class="cfff signature">淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤淡淡的忧伤</p>
+				<p class="cfff f14 tc name" id="nickname"></p>
+				<p class="cfff signature" id="signature"></p>
 				<div class="cfff content1 tc mt20">
 					<img id="my-mypay" src="../images/user/zan.png" class="mr30" style="width:5rem;" /><img id="my-invit" src="../images/user/add.png" style="width:5rem;" />
 				</div>
@@ -42,12 +42,10 @@
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currToggle = false;
-	var currUserID = base.GetUserID(); //当前登录用户ID
+	var UserID = 0; //用户ID
 
 	//启用双击监听 
 	mui.init({
@@ -85,7 +83,36 @@
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
 		}
-		
-		plus.nativeUI.closeWaiting();
+
+		var self = plus.webview.currentWebview();
+		UserID = self.UserID || 0;
+		if(UserID == 0) {
+			plus.nativeUI.closeWaiting();
+		} else {
+			LoadUserInfo();
+		}
 	});
+
+	//获取用户信息
+	function LoadUserInfo() {
+		HttpGet(base.RootUrl + "User/Detail", {
+			ID: UserID
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			if(data.result) {
+				data = data.message;
+				//初始化赋值
+				$("#avatar").attr("src", data.Avatar);
+				$("#nickname").html(data.NickName);
+				$("#signature").html(data.Signature);
+				$("#follows").html(data.Follows);
+				$("#fans").html(data.Fans);
+			} else {
+				mui.toast(data.message);
+			}
+		});
+
+	}
 </script>
