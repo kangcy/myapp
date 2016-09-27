@@ -56,12 +56,11 @@
 <script src="../js/copper.js"></script>
 <script src="../js/group.js"></script>
 <script type="text/javascript">
-	var ArticleID = 0;
+	var ArticleID = 0; //文章
 	var MusicID = 0; //音乐
 	var Title = ""; //标题
 	var Cover = ""; //封面
 	var currEditID = 0; //当前操作对象ID
-	var currUserID = base.GetUserID(); //当前登录用户ID
 	var userinfo = base.GetUserInfo();
 
 	//启用双击监听
@@ -72,12 +71,266 @@
 		swipeBack: false
 	});
 
-	mui('.mui-scroll-wrapper').scroll({
-		indicators: false //不显示滚动条
-	});
-
 	//标题
 	var title = document.getElementById("title");
+
+	mui.ready(function() {
+
+		if(!mui.os.plus) {
+			ArticleID = 1;
+			Load();
+		}
+
+		base.InitScroll();
+
+		//音乐
+		document.getElementById('music').addEventListener('tap', function(event) {
+			mui.openWindow({
+				id: 'music',
+				url: 'music.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					ArticleID: ArticleID,
+					MusicID: MusicID
+				}
+			});
+		});
+
+		//封面
+		document.getElementById('cover').addEventListener('tap', function(event) {
+			showActionSheet(5, 3);
+			document.getElementById("confirm").onclick = function() {
+				confirm(null, function(src) {
+					document.getElementById("header").style.backgroundImage = "url(" + src + ")";
+					document.getElementById("header").style.backgroundSize = "cover";
+					Cover = src;
+				});
+			}
+		});
+
+		//标题
+		title.addEventListener('tap', function(event) {
+			var html = title.innerHTML.trim();
+			mui.openWindow({
+				id: 'edittitle',
+				url: 'edittitle.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					title: html == "点击输入标题" ? "" : html
+				}
+			});
+		});
+
+		//点击编辑
+		mui('#edit').on('tap', '.edit-content', function() {
+			currEditID = this.id;
+			var type = this.getAttribute("type");
+			if(type == "pic") {
+				//编辑图片
+				showActionSheet(5, 3);
+				document.getElementById("confirm").onclick = function() {
+					confirm(null, function(src) {
+						$("#" + currEditID).find("img").attr("src", src);
+					});
+				}
+			} else if(type == "text") {
+				//编辑文字
+				var html = document.getElementById(currEditID).innerHTML.trim();
+				mui.openWindow({
+					id: 'editdesc',
+					url: 'editdesc.html',
+					show: {
+						autoShow: true,
+						duration: base.AnimateDuration
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						title: html == "点击添加文字" ? "" : html
+					}
+				});
+			} else if(type == "video") {
+				//编辑视频
+			}
+		})
+
+		//新增切换
+		mui('#edit').on('tap', '.edit-add', function() {
+			var $this = $(this);
+			currEditID = $this.parents(".edit-body").find(".edit-content").attr("id");
+			$("#edit").find(".edit-add").removeClass("hide");
+			$this.addClass("hide");
+			$("#edit").find(".banner").addClass("hide");
+			$this.parent(".icons").find(".banner").removeClass("hide");
+		});
+
+		//新增图片
+		mui('#edit').on('tap', '.edit-add-pic', function() {
+			if(mui.os.plus) {
+				plus.nativeUI.showWaiting("创建中...");
+			}
+			HttpGet(base.RootUrl + "ArticlePart/Edit", {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				ArticleID: ArticleID,
+				Types: 1,
+				Introduction: escape("../images/60x60.gif")
+			}, function(data) {
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
+				}
+				if(data != null) {
+					if(data.result) {
+						var html = appendStr("点击添加图片", "pic", data.message);
+						$("#" + currEditID).parents(".edit-body").after(html);
+						$("#edit").find(".banner").addClass("hide");
+						$("#edit").find(".edit-add").removeClass("hide");
+						Group(document.getElementById('edit'), window.innerWidth * 0.05);
+					} else {
+						mui.toast(data.message);
+					}
+				}
+			});
+		});
+
+		//新增文本
+		mui('#edit').on('tap', '.edit-add-text', function() {
+			if(mui.os.plus) {
+				plus.nativeUI.showWaiting("创建中...");
+			}
+			HttpGet(base.RootUrl + "ArticlePart/Edit", {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				ArticleID: ArticleID,
+				Types: 2,
+				Introduction: escape("点击添加文字")
+			}, function(data) {
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
+				}
+				if(data != null) {
+					if(data.result) {
+						var html = appendStr("点击添加文字", "text", data.message);
+						$("#" + currEditID).parents(".edit-body").after(html);
+						$("#edit").find(".banner").addClass("hide");
+						$("#edit").find(".edit-add").removeClass("hide");
+						Group(document.getElementById('edit'), window.innerWidth * 0.05);
+					} else {
+						mui.toast(data.message);
+					}
+				}
+			});
+		});
+
+		//新增视频
+		mui('#edit').on('tap', '.edit-add-video', function() {
+			if(mui.os.plus) {
+				plus.nativeUI.showWaiting("创建中...");
+			}
+			HttpGet(base.RootUrl + "ArticlePart/Edit", {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				ArticleID: ArticleID,
+				Types: 3,
+				Introduction: escape("点击添加视频")
+			}, function(data) {
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
+				}
+				if(data != null) {
+					if(data.result) {
+						var html = appendStr("点击添加视频", "video", data.message);
+						$("#" + currEditID).parents(".edit-body").after(html);
+						$("#edit").find(".banner").addClass("hide");
+						$("#edit").find(".edit-add").removeClass("hide");
+						Group(document.getElementById('edit'), window.innerWidth * 0.05);
+					} else {
+						mui.toast(data.message);
+					}
+				}
+			});
+		});
+
+		//删除
+		mui('#edit').on('tap', '.edit-del', function() {
+			var $this = this;
+			var btnArray = ['确定', '取消'];
+			mui.confirm('删除后不可恢复,确定删除此段？', '', btnArray, function(e) {
+				if(e.index == 0) {
+					plus.nativeUI.showWaiting("删除中...");
+					HttpGet(base.RootUrl + "ArticlePart/Delete", {
+						UserName: userinfo.UserName,
+						Password: userinfo.Password,
+						ID: $this.attr("partid")
+					}, function(data) {
+						plus.nativeUI.closeWaiting();
+						if(data != null) {
+							if(data.result) {
+								$this.parentNode.parentNode.remove();
+
+							} else {
+								mui.toast(data.message);
+							}
+						}
+					});
+				}
+			});
+		});
+	});
+
+	mui.plusReady(function() {
+		//显示当前页面
+		//mui.currentWebview.show("slide-in-right");
+
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
+		}
+
+		//获取参数
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID || 0;
+
+		Load();
+
+		//返回
+		mui.back = function() {
+			var $this = this;
+			var btnArray = ['退出编辑', '取消'];
+			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
+				if(e.index == 0) {
+					Save(function() {
+						plus.webview.close(self);
+					})
+				}
+			});
+		}
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(event) {
+			mui.back();
+		});
+
+		//保存
+		document.getElementById('submit').addEventListener('tap', function(event) {
+			Save(function() {
+				plus.webview.close(self);
+			})
+		});
+	});
 
 	//修改标题
 	window.addEventListener("updateTitle", function(e) {
@@ -130,279 +383,46 @@
 		}
 	});
 
-	mui.plusReady(function() {
-		//显示当前页面
-		//mui.currentWebview.show("slide-in-right");
-
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
-
-		//获取参数
-		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID;
-
-		Load();
-
-		//返回
-		mui.back = function() {
-			var $this = this;
-			var btnArray = ['退出编辑', '取消'];
-			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
-				if(e.index == 0) {
-					plus.webview.close(self);
-				}
-			});
-		}
-
-		//返回
-		document.getElementById('back').addEventListener('tap', function(event) {
-			mui.back();
-		});
-
-		//保存
-		document.getElementById('submit').addEventListener('tap', function(event) {
-			if(mui.os.plus) {
-				plus.nativeUI.showWaiting("保存中...");
-			}
-			HttpGet(base.RootUrl + "Article/Edit", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
-				ArticleID: ArticleID,
-				Title: escape(Title),
-				MusicID: MusicID
-			}, function(data) {
-				if(mui.os.plus) {
-					plus.nativeUI.closeWaiting();
-				}
-				if(data != null) {
-					if(data.result) {
-						//打开文章详细页
-						mui.openWindow({
-							id: 'articledetail',
-							url: 'articledetail.html',
-							show: {
-								autoShow: false
-							},
-							waiting: {
-								autoShow: false
-							},
-							extras: {
-								ArticleID: ArticleID
-							}
-						});
-					} else {
-						mui.toast(data.message);
-					}
-				}
-			});
-		});
-
-		//音乐
-		document.getElementById('music').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'music',
-				url: 'music.html',
-				show: {
-					autoShow: false
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: ArticleID,
-					MusicID: MusicID
-				}
-			});
-		});
-
-		//封面
-		document.getElementById('cover').addEventListener('tap', function(event) {
-			showActionSheet(5, 3);
-			document.getElementById("confirm").onclick = function() {
-				confirm(null, function(src) {
-					document.getElementById("header").style.backgroundImage = "url(" + src + ")";
-					document.getElementById("header").style.backgroundSize = "cover";
-					Cover = src;
-				});
-			}
-		});
-
-		//标题
-		title.addEventListener('tap', function(event) {
-			var html = title.innerHTML.trim();
-			mui.openWindow({
-				id: 'edittitle',
-				url: 'edittitle.html',
-				show: {
-					autoShow: false
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					title: html == "点击输入标题" ? "" : html
-				}
-			});
-		});
-
-		//点击编辑
-		mui('#edit').on('tap', '.edit-content', function() {
-			currEditID = this.id;
-			var type = this.getAttribute("type");
-			if(type == "pic") {
-				//编辑图片
-				showActionSheet(5, 3);
-				document.getElementById("confirm").onclick = function() {
-					confirm(null, function(src) {
-						$("#" + currEditID).find("img").attr("src", src);
-					});
-				}
-			} else if(type == "text") {
-				//编辑文字
-				var html = document.getElementById(currEditID).innerHTML.trim();
-				mui.openWindow({
-					id: 'editdesc',
-					url: 'editdesc.html',
-					show: {
-						autoShow: false
-					},
-					waiting: {
-						autoShow: false
-					},
-					extras: {
-						title: html == "点击添加文字" ? "" : html
-					}
-				});
-			} else if(type == "video") {
-				//编辑视频
-			}
-		})
-	});
-
-	//新增切换
-	mui('#edit').on('tap', '.edit-add', function() {
-		var $this = $(this);
-		currEditID = $this.parents(".edit-body").find(".edit-content").attr("id");
-		$("#edit").find(".edit-add").removeClass("hide");
-		$this.addClass("hide");
-		$("#edit").find(".banner").addClass("hide");
-		$this.parent(".icons").find(".banner").removeClass("hide");
-	});
-
-	//新增图片
-	mui('#edit').on('tap', '.edit-add-pic', function() {
+	//保存
+	function Save(callback) {
 		if(mui.os.plus) {
-			plus.nativeUI.showWaiting("创建中...");
+			plus.nativeUI.showWaiting("保存中...");
 		}
-		HttpGet(base.RootUrl + "ArticlePart/Edit", {
+		HttpGet(base.RootUrl + "Article/Edit", {
 			UserName: userinfo.UserName,
 			Password: userinfo.Password,
 			ArticleID: ArticleID,
-			Types: 1,
-			Introduction: escape("../images/60x60.gif")
+			Title: escape(Title),
+			MusicID: MusicID
 		}, function(data) {
 			if(mui.os.plus) {
 				plus.nativeUI.closeWaiting();
 			}
 			if(data != null) {
 				if(data.result) {
-					var html = appendStr("点击添加图片", "pic", data.message);
-					$("#" + currEditID).parents(".edit-body").after(html);
-					$("#edit").find(".banner").addClass("hide");
-					$("#edit").find(".edit-add").removeClass("hide");
-					Group(document.getElementById('edit'), window.innerWidth * 0.05);
-				} else {
-					mui.toast(data.message);
-				}
-			}
-		});
-	});
-
-	//新增文本
-	mui('#edit').on('tap', '.edit-add-text', function() {
-		if(mui.os.plus) {
-			plus.nativeUI.showWaiting("创建中...");
-		}
-		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
-			ArticleID: ArticleID,
-			Types: 2,
-			Introduction: escape("点击添加文字")
-		}, function(data) {
-			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
-			}
-			if(data != null) {
-				if(data.result) {
-					var html = appendStr("点击添加文字", "text", data.message);
-					$("#" + currEditID).parents(".edit-body").after(html);
-					$("#edit").find(".banner").addClass("hide");
-					$("#edit").find(".edit-add").removeClass("hide");
-					Group(document.getElementById('edit'), window.innerWidth * 0.05);
-				} else {
-					mui.toast(data.message);
-				}
-			}
-		});
-	});
-
-	//新增视频
-	mui('#edit').on('tap', '.edit-add-video', function() {
-		if(mui.os.plus) {
-			plus.nativeUI.showWaiting("创建中...");
-		}
-		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
-			ArticleID: ArticleID,
-			Types: 3,
-			Introduction: escape("点击添加视频")
-		}, function(data) {
-			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
-			}
-			if(data != null) {
-				if(data.result) {
-					var html = appendStr("点击添加视频", "video", data.message);
-					$("#" + currEditID).parents(".edit-body").after(html);
-					$("#edit").find(".banner").addClass("hide");
-					$("#edit").find(".edit-add").removeClass("hide");
-					Group(document.getElementById('edit'), window.innerWidth * 0.05);
-				} else {
-					mui.toast(data.message);
-				}
-			}
-		});
-	});
-
-	//删除
-	mui('#edit').on('tap', '.edit-del', function() {
-		var $this = this;
-		var btnArray = ['确定', '取消'];
-		mui.confirm('删除后不可恢复,确定删除此段？', '', btnArray, function(e) {
-			if(e.index == 0) {
-				plus.nativeUI.showWaiting("删除中...");
-				HttpGet(base.RootUrl + "ArticlePart/Delete", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
-					ID: $this.attr("partid")
-				}, function(data) {
-					plus.nativeUI.closeWaiting();
-					if(data != null) {
-						if(data.result) {
-							$this.parentNode.parentNode.remove();
-
-						} else {
-							mui.toast(data.message);
+					mui.openWindow({
+						id: 'articledetail',
+						url: 'articledetail.html',
+						show: {
+							autoShow: true,
+							duration: base.AnimateDuration
+						},
+						waiting: {
+							autoShow: false
+						},
+						extras: {
+							ArticleID: ArticleID
 						}
-					}
-				});
+					});
+				} else {
+					mui.toast(data.message);
+				}
+			}
+			if($.isFunction(callback)) {
+				callback();
 			}
 		});
-	});
+	}
 
 	//拼接字符串
 	function appendStr(text, type, partid) {
@@ -412,7 +432,23 @@
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '"><img src="../images/60x60.gif" /></div>');
 		} else {
-			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '">' + text + '</div>');
+			model.push('<div class="edit-content f11 tl" type="' + type + '" pardid="' + partid + '">' + text + '</div>');
+		}
+		model.push('<div class="top mt5"><div class="icons fr tr"><img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" /></div>');
+		model.push('<div class="icons fr tc"><img src="../images/article/add.png" class="edit-add" />');
+		model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div></div></div>');
+		return model.join('')
+	}
+
+	//拼接字符串
+	function initStr(text, type, partid) {
+		var model = [];
+		model.push('<div class="edit-body">');
+		model.push('<div class="top mb5"><div class="icons fr tr"><img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" /></div><div class="icons fl tl"><img src="../images/article/del.png" class="edit-del" pardid="' + partid + '" /></div></div>');
+		if(type == "pic") {
+			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '"><img src="' + text + '" /></div>');
+		} else {
+			model.push('<div class="edit-content f11 tl" type="' + type + '" pardid="' + partid + '">' + text + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" /></div>');
 		model.push('<div class="icons fr tc"><img src="../images/article/add.png" class="edit-add" />');
@@ -422,108 +458,87 @@
 
 	//加载文章
 	function Load() {
-		if(mui.os.plus && base.IsTest) {
-			ArticleID = 1;
-			ArticlePower = 1;
-			ArticleUserID = 1;
-			ArticleType = 1;
-			ArticleTypeName = "其它";
+		//创建文章
+		if(ArticleID == 0) {
 			Cover = "../images/header.png";
-			document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
-			document.getElementById("header").style.backgroundSize = "cover";
-			$("#article_title").html("旅游 | 50岁时你可能还会记得你去过的让人难忘的地方");
-			$("#article_info").html('<span class="fl">作者：一个傻瓜</span><span class="fl ml10">1阅读</span><span class="fl ml10">/</span><span class="fl ml10">2收藏</span><span class="fl ml10">/</span><span class="fl ml10">3评论</span>');
-			$("#article_desc").html("1、手心捧着的文字，清清浅浅，刻着你的眉，你的眼，素笔深深，想你的日子，光阴开成了一朵思念的花，那妖，那艳。 　<br />2、终难忘，年少时光，偶尔脸红心跳的告白，没有离别，没有伤痛，温暖如花，开满整个夏天。 　<br />3、多年以后，终于明白，世界上总有两个人是天生一对，有情的会相爱，久别的会重逢，这是你告诉我的答案。 　<br />4、月色满空，微凉如斯。你说我不来，你不走，可花期已过，情心已散，我找遍了城市的每个角落，依然不见你的身影，哭泣的蹲在路边，像个孩子。 <br />5、说好的幸福，还未到的明天，就挥手再见，是不是每个人的青春，都有无法掩饰的伤，与爱有关，与你有关。");
-
-			//段落信息
-			var html = appendStr("点击添加图片", "pic", 1);
-			$("#edit").append(html);
-			$("#edit").find(".banner").addClass("hide");
-			$("#edit").find(".edit-add").removeClass("hide");
-			Group(document.getElementById('edit'), window.innerWidth * 0.05);
-
-			plus.nativeUI.closeWaiting();
-		} else {
-			//创建文章
-			if(ArticleID == 0) {
-				Cover = "../images/header.png";
-				HttpGet(base.RootUrl + "Article/Edit", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
-					Cover: Cover,
-					Title: escape("点击输入标题")
-				}, function(data) {
-					if(data != null) {
-						if(data.result) {
-							if(data.result) {
-								var part = data.message;
-								ArticleID = part.ArticleID;
-								//基本信息
-								document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
-								document.getElementById("header").style.backgroundSize = "cover";
-
-								//段落信息
-								var html = appendStr("点击添加图片", "pic", part.ID);
-								$("#edit").append(html);
-								$("#edit").find(".banner").addClass("hide");
-								$("#edit").find(".edit-add").removeClass("hide");
-								Group(document.getElementById('edit'), window.innerWidth * 0.05);
-							} else {
-								mui.toast(data.message);
-							}
-						}
-					}
-					if(mui.os.plus) {
-						plus.nativeUI.closeWaiting();
-					}
-				});
-			} else {
-				//编辑文章
-				HttpGet(base.RootUrl + "Article/Detail", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
-					ID: ArticleID
-				}, function(data) {
-					if(data != null) {
-						if(data.result) {
-							data = data.message
-							ArticlePower = data.ArticlePower;
-							ArticleType = data.TypeID;
-							ArticleTypeName = data.TypeName;
-							ArticleUserID = data.CreateUserID;
-							Title = data.Title;
-							Cover = data.Cover;
-							document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
-							document.getElementById("header").style.backgroundSize = "cover";
-							$("#article_title").html(Title);
-
-							//加载段落
-							if(data.ArticlePart != null) {
-								var $edit = $("#edit");
-								for(var i = 0; i < data.ArticlePart.length; i++) {
-									var part = data.ArticlePart[i];
-									var html = "";
-									if(part.Types == 1) {
-										//图片段落
-										html = appendStr("点击添加图片", "pic", part.ID);
-									} else if(part.Types == 2) {
-										//文本段落
-										html = appendStr("点击添加文本", "text", part.ID);
-									} else if(part.Types == 3) {
-										//视频段落
-										html = appendStr("点击添加视频", "video", part.ID);
-									}
-									$edit.append(html);
-								}
-								Group(document.getElementById('edit'), window.innerWidth * 0.05);
-							}
-						}
-					}
-					if(mui.os.plus) {
-						plus.nativeUI.closeWaiting();
-					}
-				});
+			//编辑文章
+			var data = {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				Cover: Cover,
+				Title: escape("点击输入标题")
 			}
+			HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
+				if(data != null) {
+					if(data.result) {
+						var part = data.message;
+						ArticleID = part.ArticleID;
+						//基本信息
+						document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
+						document.getElementById("header").style.backgroundSize = "cover";
+
+						//段落信息
+						var html = appendStr("点击添加图片", "pic", part.ID);
+						$("#edit").append(html);
+						$("#edit").find(".banner").addClass("hide");
+						$("#edit").find(".edit-add").removeClass("hide");
+						Group(document.getElementById('edit'), window.innerWidth * 0.05);
+					} else {
+						mui.toast(data.message);
+					}
+				}
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
+				}
+			});
+		} else {
+			//编辑文章
+			var data = {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				ID: ArticleID
+			}
+			HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
+				if(data != null) {
+					if(data.result) {
+						data = data.message
+						ArticlePower = data.ArticlePower;
+						ArticleType = data.TypeID;
+						ArticleTypeName = data.TypeName;
+						ArticleUserID = data.CreateUserID;
+						Title = data.Title;
+						Cover = data.Cover;
+						document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
+						document.getElementById("header").style.backgroundSize = "cover";
+						$("#article_title").html(Title);
+
+						//加载段落
+						var parts = data.ArticlePart;
+						if(parts.length > 0) {
+							var $edit = $("#edit");
+							for(var i = 0; i < parts.length; i++) {
+								var part = parts[i];
+								var html = "";
+								if(part.Types == 1) {
+									//图片段落
+									html = initStr(part.Introduction, "pic", part.ID);
+								} else if(part.Types == 2) {
+									//文本段落
+									html = initStr(part.Introduction, "text", part.ID);
+								} else if(part.Types == 3) {
+									//视频段落
+									html = initStr(part.Introduction, "video", part.ID);
+								}
+								$edit.append(html);
+							}
+							Group(document.getElementById('edit'), window.innerWidth * 0.05);
+						}
+					}
+				}
+				if(mui.os.plus) {
+					plus.nativeUI.closeWaiting();
+				}
+			});
 		}
 	}
 </script>

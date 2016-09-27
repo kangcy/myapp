@@ -158,8 +158,10 @@
 		})
 	});
 
-	ArticleID = 1;
-	Load();
+	if(!mui.os.plus) {
+		ArticleID = 1;
+		Load();
+	}
 
 	mui.plusReady(function() {
 
@@ -181,13 +183,12 @@
 
 	//加载文章
 	function Load() {
-		HttpGet(base.RootUrl + "Article/Detail", {
-			/*UserName: userinfo.UserName,
-			Password: userinfo.Password,*/
-			UserName: "18652913873",
-			Password: "123456",
+		var data = {
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
 			ID: ArticleID
-		}, function(data) {
+		}
+		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
 			if(data != null) {
 				if(data.result) {
 					data = data.message

@@ -2,7 +2,7 @@ var base = new function() {
 	/**
 	 * 是否测试
 	 **/
-	this.IsTest = false;
+	this.IsTest = mui.os.plus ? false : true;
 
 	/**
 	 * 列表每次请求数
@@ -31,6 +31,27 @@ var base = new function() {
 	 **/
 	this.GetUserInfo = function() {
 		var settingsText = localStorage.getItem('$userinfo') || "{}";
+
+		if(base.IsTest) {
+			return {
+				ID: 1,
+				Sex: "男",
+				Signature: "",
+				UserName: "18652913873",
+				Password: "123456",
+				Avatar: "../images/logo.png",
+				NickName: "一个傻瓜",
+				Address: "",
+				Birthday: "",
+				Follows: 0,
+				Fans: 0,
+				Articles: 0,
+				Keeps: 0,
+				Comments: 0,
+				Zans: 0
+			}
+		}
+
 		return JSON.parse(settingsText);
 	}
 
