@@ -10,7 +10,8 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<style type="text/css">
 			#detail {
-				padding: 1.25rem;
+				width: 100%;
+				padding: 5%;
 				line-height: 1.5625rem;
 				display: inline-block;
 			}
@@ -39,10 +40,11 @@
 						<a class="mui-icon cfff f15 fr mt6" onclick="showActionSheet()">操作</a>
 					</div>
 					<div class="f11 tl" id="detail">
-						<p class="f25 c000 title" style="line-height:1.9rem;" id="article_title"></p>
+						<p class="f20 c000 title" style="line-height:1.9rem;" id="article_title"></p>
 						<div class="full fl" id="article_info">
 
 						</div>
+						<audio id="audio" src="" loop="loop" autoplay="autoplay" class="mt5 full hide"></audio>
 						<div class="c000 fl full" id="article_desc">
 
 						</div>
@@ -62,8 +64,10 @@
 
 </html>
 <script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
@@ -173,8 +177,6 @@
 		document.getElementById('back').addEventListener('tap', function(event) {
 			mui.back();
 		});
-
-		plus.nativeUI.closeWaiting();
 	});
 
 	//加载文章
@@ -196,27 +198,49 @@
 					document.getElementById("header").style.backgroundImage = "url(" + data.Cover + ")";
 					document.getElementById("header").style.backgroundSize = "cover";
 					$("#article_title").html(data.Title);
-					$("#article_info").html('<span class="fl">作者：' + data.NickName + '</span><span class="fl ml10">' + data.Views + '阅读</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Keeps + '收藏</span><span class="fl ml10">/</span><span class="fl ml10">' + data.Comments + '评论</span>');
+					$("#article_info").html('<span class="fl">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
 
+					//音乐
+					if(!base.IsNullOrEmpty(data.MusicUrl)) {
+						var audio = document.getElementById("audio");
+						audio.src = data.MusicUrl;
+						audio.controls = true;
+						audio.loop = true;
+						audio.autoplay = data.AutoMusic ? true : false;
+						$("#audio").removeClass("hide");
+					}
+
+					//段落
 					var html = [];
 					var parts = data.ArticlePart;
 					for(var i = 0; i < parts.length; i++) {
 						var part = parts[i];
 						if(part.Types == 1) {
-							//图片段落
-							html.push('<div class="full f11"><img src="' + part.Introduction + '" class="full" /></div>');
+							//图片
+							html.push('<div class="full f11 mt10"><img data-lazyload="' + part.Introduction + '" class="full" /></div>');
 						} else if(part.Types == 2) {
-							//文本段落
-							html.push('<div class="full f11">' + part.Introduction + '</div>');
+							//文本
+							html.push('<div class="full f11 mt10">' + part.Introduction + '</div>');
 						} else if(part.Types == 3) {
-							//视频段落
+							//视频
 							html = appendStr("点击添加视频", "video", part.ID);
 						}
 					}
 					$("#article_desc").html(html.join(""));
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
+
+					document.body.removeAttribute('data-imageLazyload');
+					mui(document).imageLazyload({
+						placeholder: '../images/60x60.gif',
+						diff: window.innerHeight
+					});
+				} else {
+					mui.toast(data.message);
 				}
+			}
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
 			}
 		});
 	}
