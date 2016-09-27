@@ -15,9 +15,14 @@ var base = new function() {
 	this.AnimateDuration = 300;
 
 	/**
-	 * 获取接口请求根路径
+	 * 接口请求根路径
 	 **/
 	this.RootUrl = "http://139.224.51.196/app/";
+
+	/**
+	 * 默认图片
+	 **/
+	this.DefaultImg = "../images/60x60.gif";
 
 	/**
 	 * 获取当前用户ID

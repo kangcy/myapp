@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/addarticle.css">
 		<link rel="stylesheet" href="../cropper/cropper.css">
+		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 	</head>
 
 	<body>
@@ -20,8 +21,8 @@
 					<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 					<div class="info-body">
 						<div id="title" class="title mb20 cfff f18">点击输入标题</div>
-						<div id="music" class="btn cfff fl"><img src="../images/article/music.png" class="icon" />添加音乐</div>
-						<div id="cover" class="btn cfff fr"><img src="../images/article/pic.png" class="icon" />设置封面</div>
+						<div id="music" class="btn cfff fl"><i class="fa fa-music"></i>添加音乐</div>
+						<div id="cover" class="btn cfff fr"><i class="fa fa-picture-o"></i>设置封面</div>
 					</div>
 				</div>
 				<div id="edit">
@@ -187,7 +188,7 @@
 				Password: userinfo.Password,
 				ArticleID: ArticleID,
 				Types: 1,
-				Introduction: escape("../images/60x60.gif")
+				Introduction: base.DefaultImg
 			}, function(data) {
 				if(mui.os.plus) {
 					plus.nativeUI.closeWaiting();
@@ -428,14 +429,14 @@
 	function appendStr(text, type, partid) {
 		var model = [];
 		model.push('<div class="edit-body">');
-		model.push('<div class="top mb5"><div class="icons fr tr"><img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" /></div><div class="icons fl tl"><img src="../images/article/del.png" class="edit-del" pardid="' + partid + '" /></div></div>');
+		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><img src="../images/article/del.png" class="edit-del" pardid="' + partid + '" /></div></div>');
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '"><img src="../images/60x60.gif" /></div>');
 		} else {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" pardid="' + partid + '">' + text + '</div>');
 		}
-		model.push('<div class="top mt5"><div class="icons fr tr"><img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" /></div>');
-		model.push('<div class="icons fr tc"><img src="../images/article/add.png" class="edit-add" />');
+		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down edit-down" style="visibility:hidden;"></i></div>');
+		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle edit-add"></i>');
 		model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div></div></div>');
 		return model.join('')
 	}
@@ -444,14 +445,14 @@
 	function initStr(text, type, partid) {
 		var model = [];
 		model.push('<div class="edit-body">');
-		model.push('<div class="top mb5"><div class="icons fr tr"><img src="../images/article/up.png" class="edit-up" style="visibility:hidden;" /></div><div class="icons fl tl"><img src="../images/article/del.png" class="edit-del" pardid="' + partid + '" /></div></div>');
+		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><img src="../images/article/del.png" class="edit-del" pardid="' + partid + '" /></div></div>');
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '"><img src="' + text + '" /></div>');
 		} else {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" pardid="' + partid + '">' + text + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><img src="../images/article/down.png" class="edit-down" style="visibility:hidden;" /></div>');
-		model.push('<div class="icons fr tc"><img src="../images/article/add.png" class="edit-add" />');
+		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle edit-add"></i>');
 		model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div></div></div>');
 		return model.join('')
 	}
