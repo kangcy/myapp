@@ -6,26 +6,45 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-loader {
+				position: absolute;
+				top: 25%;
+				width: 100%;
+				height: 60%;
+				color: #888;
+				font-size: 14px;
+				text-align: center;
+			}
+		</style>
 	</head>
 
 	<body>
-		<footer class="mui-bar mui-bar-tab footer" style="z-index:99999;">
-			<a class="mui-tab-item" href="topic.html">
-				<img src="../images/home.png" class="mui-icon" />
-				<span class="mui-tab-label f11">首页</span>
+		<!--<header class="mui-bar mui-bar-nav header">
+			<h1 class="mui-title cfff f15"></h1>
+		</header>-->
+		<div class="mui-loader">加载中...</div>
+		<nav class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item" href="topic.html">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
 			</a>
 			<a class="mui-tab-item" href="addarticle.html">
-				<img src="../images/add.png" class="add" />
+				<img src="../images/add.png" style="width: 40px;height: 40px;margin-top: 3px;" />
 			</a>
 			<a class="mui-tab-item" href="my.html">
-				<img src="../images/user.png" class="mui-icon" />
-				<span class="mui-tab-label f11">我的</span>
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
 			</a>
-		</footer>
+		</nav>
 	</body>
 
 </html>
-<script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script type="text/javascript">
 	mui.init({
@@ -51,12 +70,15 @@
 		var showGuide = plus.storage.getItem("lauchFlag"); //读取本地存储，检查是否为首次启动
 
 		if(showGuide) {
+
 			//加载页面
-			LoadPage(function() {
-				//有值，说明已经显示过了，无需显示；关闭splash页面
-				plus.navigator.closeSplashscreen();
-				plus.navigator.setFullscreen(false);
-			});
+			setTimeout(function() {
+				LoadPage(function() {
+					//有值，说明已经显示过了，无需显示；关闭splash页面
+					plus.navigator.closeSplashscreen();
+					plus.navigator.setFullscreen(false);
+				});
+			}, 250);
 		} else {
 			//显示启动导航
 			mui.openWindow({
@@ -78,14 +100,9 @@
 	});
 
 	var subpages = ['topic.html', 'addarticle.html', 'my.html'];
-	/*var subpage_style = {
-		top: '0px',
-		bottom: parseInt((window.innerWidth / 320) * 45) + 'px'
-	};*/
-
 	var subpage_style = {
 		top: '0px',
-		bottom: '45px'
+		bottom: '50px'
 	};
 
 	function LoadPage(callback) {
@@ -106,9 +123,7 @@
 		if(callback) {
 			callback();
 		}
-	}
-
-	//当前激活选项
+	} //当前激活选项
 	var activeTab = subpages[0];
 
 	//选项卡点击事件
@@ -132,6 +147,19 @@
 		plus.webview.hide(activeTab);
 		//更改当前活跃的选项卡
 		activeTab = targetTab;
+	});
+
+	//自定义事件，模拟点击“首页选项卡”
+	document.addEventListener('gohome', function() {
+		var defaultTab = document.getElementById("defaultTab");
+		//模拟首页点击
+		mui.trigger(defaultTab, 'tap');
+		//切换选项卡高亮
+		var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+		if(defaultTab !== current) {
+			current.classList.remove('mui-active');
+			defaultTab.classList.add('mui-active');
+		}
 	});
 
 	var index = null; //主页面

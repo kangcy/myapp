@@ -12,54 +12,55 @@
 	</head>
 
 	<body>
-
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
-					<a id="back" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
-					<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-					<div class="info-body">
-						<div class="info-content">
-							<div class="side">
-								<p class="cfff f11 f14">0</p>
-								<p class="cfff f11" id="fans">粉丝</p>
+		<div class="mui-content fl">
+			<div id="pullrefresh" class="mui-scroll-wrapper" style="bottom:0px;">
+				<div class="mui-scroll">
+					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
+						<a id="back" class="mui-icon mui-icon-bars mui-pull-left cfff leftmenu"></a>
+						<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
+						<div class="info-body">
+							<div class="info-content">
+								<div class="side">
+									<p class="cfff f11 f14" id="fans">0</p>
+									<p class="cfff f11">粉丝</p>
+								</div>
+								<div class="center">
+									<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:6.25rem;height:6.25rem;" />
+								</div>
+								<div class="side">
+									<p class="cfff f14" id="follows">0</p>
+									<p class="cfff">关注</p>
+								</div>
 							</div>
-							<div class="center">
-								<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:6.25rem;height:6.25rem;" />
-							</div>
-							<div class="side">
-								<p class="cfff f14" id="fans">0</p>
-								<p class="cfff" id="follows">关注</p>
-							</div>
-						</div>
-						<p class="cfff f14 tc name" id="nickname"></p>
-						<p class="cfff signature" id="signature"></p>
-						<div class="cfff content1">
-							<div class="items">
-								<p class="cfff item1"><img src="../images/my/my.png" class="fl" /><span id="articles">0</span></p>
-								<p class="cfff tl item2">我的</p>
-							</div>
-							<div class="items">
-								<p class="cfff item1"><img src="../images/my/keep.png" class="fl" /><span id="keeps">0</span></p>
-								<p class="cfff tl item2">收藏</p>
-							</div>
-							<div class="items">
-								<p class="cfff item1"><img src="../images/my/comment.png" class="fl" /><span id="coments">0</span></p>
-								<p class="cfff tl item2">评论</p>
-							</div>
-							<div class="items">
-								<p class="cfff item1"><img src="../images/my/zan.png" class="fl" /><span id="zans">0</span></p>
-								<p class="cfff tl item2">赞</p>
+							<p class="cfff f14 tc name" id="nickname"></p>
+							<p class="cfff signature" id="signature"></p>
+							<div class="cfff content1">
+								<div class="items">
+									<p class="cfff item1"><img src="../images/my/my.png" class="fl" /><span id="articles">0</span></p>
+									<p class="cfff tl item2">我的</p>
+								</div>
+								<div class="items">
+									<p class="cfff item1"><img src="../images/my/keep.png" class="fl" /><span id="keeps">0</span></p>
+									<p class="cfff tl item2">收藏</p>
+								</div>
+								<div class="items">
+									<p class="cfff item1"><img src="../images/my/comment.png" class="fl" /><span id="coments">0</span></p>
+									<p class="cfff tl item2">评论</p>
+								</div>
+								<div class="items">
+									<p class="cfff item1"><img src="../images/my/zan.png" class="fl" /><span id="zans">0</span></p>
+									<p class="cfff tl item2">赞</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<div class="setting mb8"><img id="my-mypay" src="../images/mypay.png" class="mr30" /><img id="my-invit" src="../images/invit.png" /></div>
+					<div class="csubtitle menu mb8 f13" id="my-feedback"><img class="setting-icon" src="../images/my/4.png" />意见反馈</div>
+					<div class="csubtitle menu mb8 f13" id="my-good"><img class="setting-icon" src="../images/my/5.png" />给个好评</div>
+					<div class="csubtitle menu mb8 f13" id="my-help"><img class="setting-icon" src="../images/my/6.png" />帮助中心</div>
+					<div class="csubtitle menu mb8 f13" id="my-comment"><img class="setting-icon" src="../images/my/6.png" />评论</div>
+					<div class="csubtitle menu mb8 f13" id="setting"><img class="setting-icon" src="../images/my/1.png" />设置</div>
 				</div>
-				<div class="setting mb8"><img id="my-mypay" src="../images/mypay.png" class="mr30" /><img id="my-invit" src="../images/invit.png" /></div>
-				<div class="csubtitle menu mb8 f13" id="my-feedback"><img class="setting-icon" src="../images/my/4.png" />意见反馈</div>
-				<div class="csubtitle menu mb8 f13" id="my-good"><img class="setting-icon" src="../images/my/5.png" />给个好评</div>
-				<div class="csubtitle menu mb8 f13" id="my-help"><img class="setting-icon" src="../images/my/6.png" />帮助中心</div>
-				<div class="csubtitle menu mb8 f13" id="my-comment"><img class="setting-icon" src="../images/my/6.png" />评论</div>
-				<div class="csubtitle menu mb8 f13" id="setting"><img class="setting-icon" src="../images/my/1.png" />设置</div>
 			</div>
 		</div>
 	</body>

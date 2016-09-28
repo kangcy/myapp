@@ -18,21 +18,21 @@
 			<div class="info-body">
 				<div class="info-content">
 					<div class="side">
-						<p class="cfff f11 f14">0</p>
-						<p class="cfff f11" id="fans">粉丝</p>
+						<p class="cfff f11 f14" id="fans">0</p>
+						<p class="cfff f11">粉丝</p>
 					</div>
 					<div class="center">
 						<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:6.25rem;height:6.25rem;" />
 					</div>
 					<div class="side">
-						<p class="cfff f14">0</p>
-						<p class="cfff" id="follows">关注</p>
+						<p class="cfff f14" id="follows">0</p>
+						<p class="cfff">关注</p>
 					</div>
 				</div>
 				<p class="cfff f14 tc name" id="nickname"></p>
 				<p class="cfff signature" id="signature"></p>
 				<div class="cfff content1 tc mt20">
-					<img id="my-mypay" src="../images/user/zan.png" class="mr30" style="width:5rem;" /><img id="my-invit" src="../images/user/add.png" style="width:5rem;" />
+					<img id="zan" src="../images/user/zan.png" class="mr30" style="width:5rem;" /><img id="follow" src="../images/user/add.png" style="width:5rem;" />
 				</div>
 			</div>
 		</div>
@@ -58,25 +58,42 @@
 			id: 'userSub',
 			url: 'userSub.html',
 			styles: {
-				top: parseInt((window.innerWidth / 320) * 270) + 'px',
+				top: parseInt((window.innerWidth / 320) * 250) + 'px',
 				bottom: '0px',
 			}
 		}]
 	});
 
-	//切换
-	document.getElementById('toggle').addEventListener('tap', function(event) {
-		if(currToggle) {
-			$(".mui-iframe-wrapper").animate({
-				"top": parseInt((window.innerWidth / 320) * 304) + 'px'
-			}, 500);
-			currToggle = false;
-		} else {
-			$(".mui-iframe-wrapper").animate({
-				"top": "2.5rem"
-			}, 500);
-			currToggle = true;
-		}
+	var userSubPage = null;
+	mui.ready(function() {
+
+		//切换
+		setTimeout(function() {
+			userSubPage = plus.webview.getWebviewById("userSub");
+			document.getElementById('toggle').addEventListener('tap', function(event) {
+				if(currToggle) {
+					userSubPage.setStyle({
+						top: parseInt((window.innerWidth / 320) * 250) + 'px'
+					});
+					currToggle = false;
+				} else {
+					userSubPage.setStyle({
+						top: "45px"
+					});
+					currToggle = true;
+				}
+			});
+		}, 2000);
+
+		//点赞
+		document.getElementById('zan').addEventListener('tap', function(event) {
+
+		});
+
+		//关注
+		document.getElementById('follow').addEventListener('tap', function(event) {
+
+		});
 	});
 
 	mui.plusReady(function() {

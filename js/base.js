@@ -165,7 +165,7 @@ var base = new function() {
 		div.className = 'mui-card';
 		var model = [];
 		model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '">');
-		model.push('<img data-lazyload="' + item.Avatar + '" /><div class="mui-media-body">' + item.NickName + '<p>' + item.CreateDate + '</p></div></div>');
+		model.push('<img data-lazyload="' + item.Avatar + '" style="border-radius:50%;" /><div class="mui-media-body">' + item.NickName + '<p>' + item.CreateDate + '</p></div></div>');
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 		model.push('<p class="c333 fl article" articleid="' + item.ArticleID + '">' + item.Title + '</p>');
 
@@ -180,7 +180,7 @@ var base = new function() {
 			}
 		}
 		model.push('</div></div>');
-		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">Like</a><a class="mui-card-link">Read more</a></div>');
+		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">浏览36次</a><a class="mui-card-link"><i class="fa fa-commentimg-o"></i></a></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
