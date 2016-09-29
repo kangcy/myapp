@@ -79,7 +79,6 @@ function confirm(targetid, callback) {
 		str: imgurl
 	}, function(data) {
 		if(data != null) {
-
 			if(data.result) {
 				if($.isFunction(callback)) {
 					callback(base.RootUrl + data.message);

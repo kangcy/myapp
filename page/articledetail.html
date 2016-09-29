@@ -33,18 +33,19 @@
 	</head>
 
 	<body>
-		<div class="mui-iframe-wrapper" style="top: 0px; bottom: 2.75rem;">
+		<header class="mui-bar mui-bar-nav" style="box-shadow:0px 0px 0.5px #999;" id="header">
+			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
+			<a id="user" class="mui-icon blue f13 fr mt6 user">作者主页</a>
+		</header>
+		<div class="mui-iframe-wrapper" style="top: 46px; bottom:50px;">
 			<div class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll" id="mui-scroll">
-					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:12rem;">
-
-					</div>
-					<div class="f11 tl" id="detail">
+					<div class="f13 tl" id="detail">
 						<p class="f20 c000 title" style="line-height:1.9rem;" id="article_title"></p>
 						<div class="full fl" id="article_info">
 
 						</div>
-						<audio id="audio" src="" loop="loop" autoplay="autoplay" class="mt5 full hide"></audio>
+						<audio id="audio" src="" loop="loop" autoplay="autoplay" class="mt10 full hide"></audio>
 						<div class="c000 fl full" id="article_desc">
 
 						</div>
@@ -53,12 +54,12 @@
 			</div>
 		</div>
 		<div class="mui-bar mui-bar-nav f13 footer">
-			<a class="mui-icon mui-icon-gear mui-pull-left cfff" onclick="showActionSheet()"></a>
-			<img id="share" src="../images/article/share.png" class="fr mr10" />
-			<div class="fr cfff mr15" id="footer_comment"></div>
-			<img id="comment" src="../images/article/comment.png" class="fr mr10" />
-			<div class="fr cfff mr15" id="footer_zan"></div>
-			<img id="zan" src="../images/article/zan.png" class="fr mr10" />
+			<img id="zan" src="../images/article/zan.png" class="fl mr10" style="width: 25px;height: 25px;margin-top: 15px;" />
+			<div class="fl cfff mr15" id="footer_zan">0</div>
+			<img id="comment" src="../images/article/comment.png" class="fl mr10" style="width: 25px;height: 25px;margin-top: 15px;" />
+			<div class="fl cfff mr15" id="footer_comment">0</div>
+			<img id="share" src="../images/article/share.png" class="fl mr10" style="width: 25px;height: 25px;margin-top: 15px;" />
+			<a class="mui-icon mui-icon-gear fr cfff" style="font-size:35px;padding-top:10px;" onclick="showActionSheet()"></a>
 		</div>
 	</body>
 
@@ -88,7 +89,6 @@
 	});
 
 	mui.ready(function() {
-
 		base.InitScroll();
 
 		//点赞
@@ -176,9 +176,11 @@
 		}
 
 		//返回
-		document.getElementById('back').addEventListener('tap', function(event) {
+		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		});
+
+		base.ShowUser("header");
 	});
 
 	//加载文章
@@ -196,10 +198,9 @@
 					ArticleType = data.TypeID;
 					ArticleTypeName = data.TypeName;
 					ArticleUserID = data.CreateUserID;
-					document.getElementById("header").style.backgroundImage = "url(" + data.Cover + ")";
-					document.getElementById("header").style.backgroundSize = "cover";
+					$("#user").attr("userid", ArticleUserID);
 					$("#article_title").html(data.Title);
-					$("#article_info").html('<span class="fl">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
+					$("#article_info").html('<span class="fl blue">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
 
 					//音乐
 					if(!base.IsNullOrEmpty(data.MusicUrl)) {
@@ -218,10 +219,10 @@
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f11 mt10"><img data-lazyload="' + part.Introduction + '" class="full" /></div>');
+							html.push('<div class="full f13 mt10"><img data-lazyload="' + part.Introduction + '" class="full" /></div>');
 						} else if(part.Types == 2) {
 							//文本
-							html.push('<div class="full f11 mt10">' + part.Introduction + '</div>');
+							html.push('<div class="full f13 mt10">' + part.Introduction + '</div>');
 						} else if(part.Types == 3) {
 							//视频
 							html = appendStr("点击添加视频", "video", part.ID);
