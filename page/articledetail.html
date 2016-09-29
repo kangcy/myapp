@@ -305,11 +305,12 @@
 			},
 			waiting: {
 				autoShow: false
-			},
-			extras: {
-				ArticleID: ArticleID
 			}
+			/*extras: {
+				ArticleID: ArticleID
+			}*/
 		});
+		plus.webview.getWebviewById("addarticle").evalJS("Init(" + ArticleID + ")");
 	}
 
 	//分享

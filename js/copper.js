@@ -73,11 +73,19 @@ function confirm(targetid, callback) {
 		$("#" + targetid).attr("src", imgurl);
 	}
 
-	//上传图片到服务器
+	//上传图片到服务器 
 	console.log(imgurl);
-	HttpGet(base.RootUrl + "Upload/Upload", {
+
+	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl
 	}, function(data) {
+		console.log(JSON.stringify(data));
+	}, "text");
+
+	/*HttpPost(base.RootUrl + "Upload/Upload", {
+		str: imgurl
+	}, function(data) {
+		console.log(JSON.stringify(data));
 		if(data != null) {
 			if(data.result) {
 				if($.isFunction(callback)) {
@@ -89,7 +97,7 @@ function confirm(targetid, callback) {
 				mui.toast(data.message);
 			}
 		}
-	});
+	});*/
 }
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 

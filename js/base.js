@@ -204,6 +204,23 @@ function HttpGet(url, data, callback) {
 }
 
 /**
+ * Post请求 
+ **/
+function HttpPost(url, data, callback) {
+	$.ajax({
+		url: url,
+		type: "POST",
+		dataType: "jsonp",
+		data: data,
+		jsonp: 'jsoncallback',
+		contentType: "application/json;utf-8", //返回Json类型 
+		success: function(res) {
+			callback(res)
+		}
+	});
+}
+
+/**
  * Slider切换动态触发
  **/
 function ChangeSlider(index) {

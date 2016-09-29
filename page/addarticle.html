@@ -305,9 +305,11 @@
 
 		//获取参数
 		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID || 0;
+		/*ArticleID = self.ArticleID || 0;
 
-		Load();
+		console.log("plusReady" + ArticleID);
+
+		Load();*/
 
 		//返回
 		mui.back = function() {
@@ -334,6 +336,13 @@
 			})
 		});
 	});
+
+	//初始化加载
+	function Init(id) {
+		console.log("Init" + id);
+		ArticleID = id || 0;
+		Load();
+	}
 
 	//修改标题
 	window.addEventListener("updateTitle", function(e) {
