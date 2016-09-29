@@ -190,7 +190,7 @@ var base = new function() {
  * Get请求
  **/
 function HttpGet(url, data, callback) {
-	$.ajax({
+	/*$.ajax({
 		url: url,
 		type: "GET",
 		dataType: "jsonp",
@@ -200,24 +200,9 @@ function HttpGet(url, data, callback) {
 		success: function(res) {
 			callback(res)
 		}
-	});
-}
+	});*/
 
-/**
- * Post请求 
- **/
-function HttpPost(url, data, callback) {
-	$.ajax({
-		url: url,
-		type: "POST",
-		dataType: "jsonp",
-		data: data,
-		jsonp: 'jsoncallback',
-		contentType: "application/json;utf-8", //返回Json类型 
-		success: function(res) {
-			callback(res)
-		}
-	});
+	mui.getJSON(url, data, callback);
 }
 
 /**

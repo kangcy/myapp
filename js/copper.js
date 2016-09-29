@@ -68,36 +68,31 @@ function closepop() {
 function confirm(targetid, callback) {
 	$("#cropperEdit").hide();
 	var dataURL = $("#readyimg").cropper("getCroppedCanvas");
-	var imgurl = dataURL.toDataURL("image/jpeg", 0.5);
+	var imgurl = dataURL.toDataURL("image/jpeg", 1);
 	if(targetid != null) {
 		$("#" + targetid).attr("src", imgurl);
 	}
 
 	//上传图片到服务器 
-	console.log(imgurl);
-
+	plus.nativeUI.showWaiting("上传中...");
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl
 	}, function(data) {
-		console.log(JSON.stringify(data));
-	}, "text");
-
-	/*HttpPost(base.RootUrl + "Upload/Upload", {
-		str: imgurl
-	}, function(data) {
-		console.log(JSON.stringify(data));
 		if(data != null) {
+
 			if(data.result) {
 				if($.isFunction(callback)) {
-					callback(imgurl);
+					callback(base.RootUrl + data.message);
 				}
 				$(".mui-content,.header,.footer").show();
 				$("#readyimg").cropper('destroy');
+				plus.nativeUI.closeWaiting();
 			} else {
+				plus.nativeUI.closeWaiting();
 				mui.toast(data.message);
 			}
 		}
-	});*/
+	}, "json");
 }
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
