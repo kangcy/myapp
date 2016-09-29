@@ -29,8 +29,8 @@
 				url: 'page/login.html',
 				styles: {
 					top: '0px',
-					bottom: '0px',
-					bounce: 'vertical'
+					bottom: '0px'
+					//bounce: 'vertical'
 				}
 			}]
 		});
@@ -44,8 +44,7 @@
 				url: 'page/subindex.html',
 				styles: {
 					top: '0px',
-					bottom: '0px',
-					bounce: 'vertical'
+					bottom: '0px'
 				}
 			}]
 		});
@@ -53,14 +52,15 @@
 
 	mui.plusReady(function() {
 
+		//仅支持竖屏显示
+		plus.screen.lockOrientation("portrait-primary");
+		main = plus.webview.currentWebview();
+
 		//显示当前页面
 		mui.currentWebview.show("slide-in-right");
 
 		plus.nativeUI.closeWaiting();
 
-		//仅支持竖屏显示
-		plus.screen.lockOrientation("portrait-primary");
-		main = plus.webview.currentWebview();
 		//main.addEventListener('maskClick', closeMenu);
 		//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
 		/*setTimeout(function() {

@@ -70,14 +70,12 @@
 		var showGuide = plus.storage.getItem("lauchFlag"); //读取本地存储，检查是否为首次启动
 
 		if(showGuide) {
-
+			//有值，说明已经显示过了，无需显示；关闭splash页面
+			plus.navigator.closeSplashscreen();
+			plus.navigator.setFullscreen(false);
 			//加载页面
 			setTimeout(function() {
-				LoadPage(function() {
-					//有值，说明已经显示过了，无需显示；关闭splash页面
-					plus.navigator.closeSplashscreen();
-					plus.navigator.setFullscreen(false);
-				});
+				LoadPage(function() {});
 			}, 250);
 		} else {
 			//显示启动导航
