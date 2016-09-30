@@ -18,7 +18,7 @@
 			<div class="mui-scroll-wrapper" style="background: #E8E8E8;bottom:0px;">
 				<div class="mui-scroll" id="mui-scroll">
 					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;">
-						<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
+						<a id="back" class="mui-icon mui-icon-arrowleft fl cfff"></a>
 						<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 						<div class="info-body">
 							<div id="title" class="title mb20 cfff f18">点击输入标题</div>
@@ -78,12 +78,6 @@
 	var title = document.getElementById("title");
 
 	mui.ready(function() {
-
-		if(!mui.os.plus) {
-			ArticleID = 1;
-			Load();
-		}
-
 		base.InitScroll();
 
 		//音乐
@@ -305,11 +299,8 @@
 
 		//获取参数
 		var self = plus.webview.currentWebview();
-		/*ArticleID = self.ArticleID || 0;
-
-		console.log("plusReady" + ArticleID);
-
-		Load();*/
+		ArticleID = self.ArticleID || 0;
+		Load();
 
 		//返回
 		mui.back = function() {
@@ -337,12 +328,12 @@
 		});
 	});
 
-	//初始化加载
+	/*//初始化加载
 	function Init(id) {
 		console.log("Init" + id);
 		ArticleID = id || 0;
 		Load();
-	}
+	}*/
 
 	//修改标题
 	window.addEventListener("updateTitle", function(e) {

@@ -33,7 +33,7 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="box-shadow:0px 0px 0.5px #999;" id="header">
+		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
 			<a id="user" class="mui-icon blue f13 fr mt6 user">作者主页</a>
 		</header>
@@ -200,7 +200,7 @@
 					ArticleUserID = data.CreateUserID;
 					$("#user").attr("userid", ArticleUserID);
 					$("#article_title").html(data.Title);
-					$("#article_info").html('<span class="fl blue">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
+					$("#article_info").html('<span class="fl blue user">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
 
 					//音乐
 					if(!base.IsNullOrEmpty(data.MusicUrl)) {
@@ -302,7 +302,8 @@
 			id: 'addarticle',
 			url: 'addarticle.html',
 			show: {
-				autoShow: false
+				autoShow: true,
+				duration: base.AnimateDuration
 			},
 			waiting: {
 				autoShow: false
@@ -321,11 +322,13 @@
 
 	//权限
 	function Power() {
+
 		mui.openWindow({
 			id: 'sharesetting',
 			url: 'sharesetting.html',
 			show: {
-				autoShow: false
+				autoShow: true,
+				duration: base.AnimateDuration
 			},
 			waiting: {
 				autoShow: false

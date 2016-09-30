@@ -25,9 +25,9 @@
 	</head>
 
 	<body style="height: 100%;background:#E8E8E8;">
-		<header class="mui-bar mui-bar-nav header">
-			<a id="back" class="mui-icon mui-icon-arrowleft mui-pull-left cfff leftmenu"></a>
-			<h1 class="mui-title cfff f15">分享设置</h1>
+		<header class="mui-bar mui-bar-nav" style="box-shadow:0px 0px 0.5px #999;">
+			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
+			<h1 class="mui-title c333 f15">分享设置</h1>
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view f11 mt0" id="list">
@@ -124,7 +124,8 @@
 				id: 'articleType',
 				url: 'articleType.html',
 				show: {
-					autoShow: false
+					autoShow: true,
+					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false

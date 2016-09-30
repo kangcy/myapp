@@ -8,17 +8,17 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav header">
-			<a id="search" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff f13" id="tabs">
-				<span class="tab curr" id="tab1">推荐</span>
-				&nbsp;&nbsp;&nbsp;
-				<span class="tab" id="tab2">话题</span>
-			</h1>
+		<header class="mui-bar mui-bar-nav">
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right blue"></a>
+			<div class="mui-title blue f13">
+				<div id="tabs">
+					<span class="tab curr" id="tab1">推荐</span>
+					<span class="tab" id="tab2">话题</span>
+				</div>
+			</div>
 		</header>
 		<div class="mui-content">
 
@@ -39,7 +39,6 @@
 			id: 'topicSub',
 			url: 'topicSub.html',
 			styles: {
-				//top: parseInt((window.innerWidth / 320) * 45) + 'px',
 				top: "45px",
 				bottom: '0px',
 			}
