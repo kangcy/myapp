@@ -315,7 +315,10 @@
 					"page/subindex.html",
 					"page/login.html",
 					"page/share.html",
-					"page/payment.html"
+					"page/payment.html",
+					"js/default.js",
+					"css/mui.css",
+					"images/add.png"
 				],
 				"refer": [
 					"page/about.html",
@@ -497,7 +500,9 @@
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
 					"js/default.js",
-					"images/bottom.png"
+					"images/bottom.png",
+					"images/60x60.gif",
+					"css/mui.css"
 				],
 				"refer": [
 					"page/pay.html",
@@ -686,7 +691,9 @@
 					"images/index/logo.png",
 					"js/mui.lazyload.js",
 					"js/mui.lazyload.img.js",
-					"page/topicSub.html"
+					"page/topicSub.html",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"css/mui.css"
 				],
 				"refer": [
 					"page/articledetail.html"
@@ -714,7 +721,9 @@
 					"cropper/cropper.css",
 					"js/copper.js",
 					"cropper/cropper.min.js",
-					"js/group.js"
+					"js/group.js",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+					"font-awesome-4.6.3/css/font-awesome.min.css"
 				],
 				"refer": [
 					"page/edittitle.html",
@@ -779,12 +788,19 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"images/bottom.png",
-					"js/default.js"
+					"js/default.js",
+					"css/23.mp3",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"images/60x60.gif",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2"
 				],
 				"refer": [
 					"page/sharesetting.html",
 					"page/addcomment.html",
-					"page/addarticle.html"
+					"page/addarticle.html",
+					"page/user.html"
 				],
 				"priority": 0
 			},
@@ -919,7 +935,8 @@
 					"images/home.png",
 					"page/help.html",
 					"css/mui.css",
-					"page/topic.html"
+					"page/topic.html",
+					"images/header.png"
 				],
 				"refer": [
 					"page/my.html",
@@ -949,7 +966,8 @@
 				],
 				"refer": [
 					"page/article.html",
-					"page/user.html"
+					"page/user.html",
+					"page/articledetail.html"
 				],
 				"priority": 0
 			},
@@ -1013,7 +1031,8 @@
 					"js/jquery-1.10.2.min.js",
 					"js/default.js",
 					"page/userSub.html",
-					"images/user/add.png"
+					"images/user/add.png",
+					"images/60x60.gif"
 				],
 				"refer": [],
 				"priority": 0
