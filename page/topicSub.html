@@ -162,6 +162,11 @@
 		base.InitSlider(); //滑动切换
 	});
 
+	//Slider切换
+	function ChangeSlider(index) {
+		mui('#slider').slider().gotoItem(index);
+	}
+
 	/**
 	 * 下拉刷新
 	 */

@@ -1188,7 +1188,7 @@ input[type=submit]:enabled:active {
 	padding-right: 10px;
 	padding-left: 10px;
 	border-bottom: 0;
-	background-color: #f7f7f7;
+	/*background-color: #f7f7f7;*/
 	-webkit-box-shadow: 0px 0px 1px #ccc;
 	box-shadow: 0px 0px 1px #ccc;
 	-webkit-backface-visibility: hidden;
@@ -1724,7 +1724,7 @@ input[type=submit]:enabled:active {
 }
 
 .mui-table-view:before {
-	position: absolute;
+	/*position: absolute;
 	right: 0;
 	left: 0;
 	height: 0.0625rem;
@@ -1732,7 +1732,7 @@ input[type=submit]:enabled:active {
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
 	background-color: #c8c7cc;
-	top: -0.0625rem
+	top: -0.0625rem*/
 }
 
 .mui-table-view-icon .mui-table-view-cell .mui-navigate-right .mui-icon {
@@ -3954,7 +3954,7 @@ body>.mui-progressbar {
 }
 
 .mui-bar-nav~.mui-content .mui-pull-top-pocket {
-	top: 2.75rem
+	top: 45px
 }
 
 .mui-bar-nav~.mui-bar-header-secondary~.mui-content .mui-pull-top-pocket {
@@ -4862,6 +4862,7 @@ body>.mui-progressbar {
 	display: inline-block;
 	margin-top: 10px;
 	overflow: hidden;
+	font-size:15px;
 }
 
 .mui-title #tabs .tab {
