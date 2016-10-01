@@ -35,7 +35,7 @@
 					contentinit: '上拉显示更多',
 					contentdown: '上拉显示更多',
 					contentrefresh: '正在加载...',
-					contentnomore: '没有更多数据了',
+					contentnomore: '--end--',
 					callback: false
 				},
 				preventDefaultException: {
