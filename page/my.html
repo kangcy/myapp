@@ -26,10 +26,6 @@
 							<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:5rem;height:5rem;" />
 							<p class="c333 f14 tc name bold" id="nickname"></p>
 							<p class="c333 signature tc mt10 f11" id="signature"></p>
-							<!--<div class="full tc mt20">
-								<div class="guanzhu f11 mr10"><i class="fa fa-plus" style="margin-right: 5px;"></i>关注</div>
-								<div class="dashang f11"><i class="fa fa-yen" style="margin-right: 5px;"></i>打赏</div>
-							</div>-->
 							<div class="csubtitle content1 tc mt20">
 								<div class="items">
 									<p class="csubtitle item1"><i class="fa fa-file-text"></i></p>
@@ -50,10 +46,12 @@
 							</div>
 						</div>
 					</div>
-					<div class="csubtitle menu mb8 f13" id="my-feedback"><i class="fa fa-envelope mr10 f16"></i>意见反馈</div>
-					<div class="csubtitle menu mb8 f13" id="my-good"><i class="fa fa-heart mr10 f16"></i>给个好评</div>
-					<div class="csubtitle menu mb8 f13" id="my-help"><i class="fa fa-question-circle mr10 f16"></i>帮助中心</div>
+					<div class="csubtitle menu mb8 f13" id="my-mypay"><i class="fa fa-heart mr10 f16"></i>打赏</div>
 					<div class="csubtitle menu mb8 f13" id="my-comment"><i class="fa fa-comments mr10 f16"></i>评论</div>
+					<div class="csubtitle menu mb8 f13" id="my-feedback"><i class="fa fa-envelope mr10 f16"></i>意见反馈</div>
+					<div class="csubtitle menu mb8 f13" id="my-good"><i class="fa fa-check mr10 f16"></i>给个好评</div>
+					<div class="csubtitle menu mb8 f13" id="my-help"><i class="fa fa-question-circle mr10 f16"></i>帮助中心</div>
+
 					<div class="csubtitle menu mb8 f13" id="setting"><i class="fa fa-cog mr10 f16"></i>设置</div>
 				</div>
 			</div>
@@ -89,6 +87,8 @@
 		$("#zans").html(userinfo.Zans);
 
 		base.InitScroll();
+		
+		base.ShowSearch();//跳转搜索页
 	});
 
 	mui.plusReady(function() {
@@ -141,11 +141,6 @@
 					autoShow: false
 				}
 			});
-		});
-
-		//邀请好友
-		document.getElementById('my-invit').addEventListener('tap', function(event) {
-
 		});
 
 		//意见反馈

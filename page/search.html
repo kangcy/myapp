@@ -8,14 +8,20 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-
+		<style type="text/css">
+			.mui-search {
+				width: 90%;
+				display: inline-block;
+			}
+		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="padding-right:0px;">
 			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
-			<a id="search" class="mui-icon mui-icon-search fr blue"></a>
-			<h1 class="mui-title c333" id="header"></h1>
+			<div class="mui-input-row mui-search mui-active">
+				<input id="search" type="search" class="mui-input-speech mui-input-clear" placeholder="语音搜索" style="height:34px;">
+			</div>
 		</header>
 		<div class="mui-content"></div>
 	</body>
@@ -23,7 +29,6 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0; //类型
 	var ArticleTypeName = ""; //类型名称
@@ -35,27 +40,24 @@
 		},
 		swipeBack: false, //启用右滑关闭功能
 		subpages: [{
-			id: 'articleSub',
-			url: 'articleSub.html',
+			id: 'searchSub',
+			url: 'searchSub.html',
 			styles: {
-				//top: parseInt((window.innerWidth / 320) * 45) + 'px',
 				top: '45px',
 				bottom: '0px',
 			}
 		}]
 	});
 
-	mui.ready(function() {
-		base.ShowSearch(); //跳转搜索页
+	//语音识别完成事件
+	document.getElementById("search").addEventListener('recognized', function(e) {
+		console.log(e.detail.value);
 	});
 
 	var contentWebview = null;
 	mui.plusReady(function() {
 		//获取参数
 		var self = plus.webview.currentWebview();
-		ArticleType = self.ArticleType || 0;
-		ArticleTypeName = self.ArticleTypeName || "列表";
-		document.getElementById("header").innerHTML = ArticleTypeName;
 
 		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {

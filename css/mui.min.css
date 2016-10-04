@@ -1161,7 +1161,7 @@ input[type=submit]:enabled:active {
 .mui-btn.mui-fab {
 	width: 50.375rem;
 	height: 50.375rem;
-	padding: 10.375rem;
+	padding: 1rem;
 	border-radius: 50%;
 	outline: 0
 }
@@ -1287,7 +1287,7 @@ input[type=submit]:enabled:active {
 	border-top: 0;
 	border-bottom: 0;
 	-webkit-touch-callout: none;
-	border-top:1px solid #eeeeee; 
+	border-top: 1px solid #eeeeee;
 }
 
 .mui-bar-tab .mui-tab-item {
@@ -2180,7 +2180,7 @@ input[type=submit]:enabled:active {
 }
 
 .mui-table-view-cell.mui-collapse .mui-collapse-content>.mui-slider {
-	margin: -0.5rem -10.375rem
+	margin: -0.5rem -1rem
 }
 
 .mui-table-view-cell.mui-collapse .mui-table-view {
@@ -2368,16 +2368,17 @@ input[type=url],
 input[type=week],
 select,
 textarea {
-	line-height: 2.5rem;
-	width: 100%;
-	height: 2.5rem;
-	padding: 0.625rem 0.9375rem;
-	-webkit-user-select: text;
-	border: 0.0625rem solid rgba(0, 0, 0, .2);
-	border-radius: 0.1875rem;
-	outline: 0;
-	background-color: #fff;
-	-webkit-appearance: none
+    line-height: 21px;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    -webkit-user-select: text;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 3px;
+    outline: 0;
+    background-color: #fff;
+    -webkit-appearance: none;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -2387,14 +2388,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 input[type=search] {
-	font-size: 10.375rem;
+	font-size: 16px;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	height: 34px;
 	text-align: center;
 	border: 0;
-	border-radius: 0.375rem;
-	background-color: rgba(0, 0, 0, .1)
+	border-radius: 6px;
+	background-color: rgba(0, 0, 0, .1);
 }
 
 input[type=search]:focus {
@@ -2469,54 +2470,53 @@ select:focus {
 
 .mui-input-row {
 	clear: left;
-	overflow: hidden
+	overflow: hidden;
 }
 
 .mui-input-row select {
-	font-size: 1.0625rem;
+	font-size: 17px;
 	height: 37px;
-	padding: 0
+	padding: 0;
 }
 
-.mui-input-row .mui-btn+input,
-.mui-input-row label+input,
-.mui-input-row:last-child {
-	background: 0 0
+.mui-input-row:last-child,
+.mui-input-row label+ input,
+.mui-input-row .mui-btn+ input {
+	background: none;
 }
 
 .mui-input-group .mui-input-row {
-	height: 2.5rem
+	height: 40px;
 }
 
 .mui-input-group .mui-input-row:after {
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	left: 0rem;
-	height: 0.0625rem;
+	left: 15px;
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #c8c7cc
+	background-color: #c8c7cc;
 }
 
 .mui-input-row label {
 	font-family: 'Helvetica Neue', Helvetica, sans-serif;
-	height: 2.5rem;
-	line-height: 2.5rem;
+	line-height: 1.1;
 	float: left;
-	width: 30%;
-	text-indent: 10px;
+	width: 35%;
+	padding: 11px 15px;
 }
 
-.mui-input-row label~input,
-.mui-input-row label~select,
-.mui-input-row label~textarea {
-	float: left;
-	width: 70%;
+.mui-input-row label~ input,
+.mui-input-row label~ select,
+.mui-input-row label~ textarea {
+	float: right;
+	width: 65%;
 	margin-bottom: 0;
 	padding-left: 0;
-	border: 0
+	border: 0;
 }
 
 .mui-input-row .mui-btn {
@@ -2524,83 +2524,85 @@ select:focus {
 	line-height: 1.1;
 	float: right;
 	width: 15%;
-	padding: 0.625rem 0.9375rem
+	padding: 10px 15px;
 }
 
-.mui-input-row .mui-btn~input,
-.mui-input-row .mui-btn~select,
-.mui-input-row .mui-btn~textarea {
+.mui-input-row .mui-btn~ input,
+.mui-input-row .mui-btn~ select,
+.mui-input-row .mui-btn~ textarea {
 	float: left;
 	width: 85%;
 	margin-bottom: 0;
 	padding-left: 0;
-	border: 0
+	border: 0;
 }
 
 .mui-button-row {
 	position: relative;
-	padding-top: 0.3125rem;
-	text-align: center
+	padding-top: 5px;
+	text-align: center;
 }
 
 .mui-input-group .mui-button-row {
-	height: 2.76rem
+	height: 45px;
 }
 
 .mui-input-row {
-	position: relative
+	position: relative;
 }
 
 .mui-input-row.mui-input-range {
 	overflow: visible;
-	padding-right: 1.25rem
+	padding-right: 20px;
 }
 
 .mui-input-row .mui-inline {
-	padding: 0.5rem 0
+	padding: 8px 0;
 }
 
-.mui-input-row .mui-input-clear~.mui-icon-clear,
-.mui-input-row .mui-input-password~.mui-icon-eye,
-.mui-input-row .mui-input-speech~.mui-icon-speech {
-	font-size: 1.25rem;
+.mui-input-row .mui-input-clear~ .mui-icon-clear,
+.mui-input-row .mui-input-speech~ .mui-icon-speech,
+.mui-input-row .mui-input-password~ .mui-icon-eye {
+	font-size: 20px;
 	position: absolute;
 	z-index: 1;
-	top: 0.625rem;
-	right: 1rem;
+	top: 3px !important;
+	right: 0;
+	width: 38px;
+	height: 38px;
 	text-align: center;
-	color: #999
+	color: #999;
 }
 
-.mui-input-row .mui-input-clear~.mui-icon-clear.mui-active,
-.mui-input-row .mui-input-password~.mui-icon-eye.mui-active,
-.mui-input-row .mui-input-speech~.mui-icon-speech.mui-active {
-	color: #007aff
+.mui-input-row .mui-input-clear~ .mui-icon-clear.mui-active,
+.mui-input-row .mui-input-speech~ .mui-icon-speech.mui-active,
+.mui-input-row .mui-input-password~ .mui-icon-eye.mui-active {
+	color: #007aff;
 }
 
-.mui-input-row .mui-input-speech~.mui-icon-speech {
-	font-size: 1.5rem;
-	top: 0.5rem
+.mui-input-row .mui-input-speech~ .mui-icon-speech {
+	font-size: 24px;
+	top: 8px;
 }
 
-.mui-input-row .mui-input-clear~.mui-icon-clear~.mui-icon-speech {
-	display: none
+.mui-input-row .mui-input-clear~ .mui-icon-clear~ .mui-icon-speech {
+	display: none;
 }
 
-.mui-input-row .mui-input-clear~.mui-icon-clear.mui-hidden~.mui-icon-speech {
-	display: inline-block
+.mui-input-row .mui-input-clear~ .mui-icon-clear.mui-hidden~ .mui-icon-speech {
+	display: inline-block;
 }
 
-.mui-input-row .mui-icon-speech~.mui-placeholder {
-	right: 30.5rem
+.mui-input-row .mui-icon-speech~ .mui-placeholder {
+	right: 38px;
 }
 
 .mui-input-row.mui-search .mui-icon-clear {
-	top: 7px
+	top: 7px;
 }
 
 .mui-input-row.mui-search .mui-icon-speech {
-	top: 0.3125rem
+	top: 5px;
 }
 
 .mui-checkbox,
@@ -2760,21 +2762,21 @@ select:focus {
 }
 
 .mui-search .mui-placeholder {
-	font-size: 10.375rem;
-	line-height: 34px;
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	display: inline-block;
-	height: 34px;
-	text-align: center;
-	color: #999;
-	border: 0;
-	border-radius: 0.375rem;
-	background: 0 0
+	font-size: 16px;
+    line-height: 34px;
+    position: absolute;
+    z-index: 1;
+    top: 3px; 
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    height: 34px;
+    text-align: center;
+    color: #999999; 
+    border: 0;
+    border-radius: 6px;
+    background: 0 0;
 }
 
 .mui-search .mui-placeholder .mui-icon {
@@ -2784,31 +2786,31 @@ select:focus {
 
 .mui-search:before {
 	font-family: Muiicons;
-	font-size: 1.25rem;
-	font-weight: 400;
+	font-size: 20px;
+	font-weight: normal;
 	position: absolute;
 	top: 50%;
 	right: 50%;
 	display: none;
-	margin-top: -10.5rem;
-	margin-right: 30.0625rem;
-	content: '\e466'
+	margin-top: -18px;
+	margin-right: 31px;
+	content: '\e466';
 }
 
 .mui-search.mui-active:before {
-	font-size: 1.25rem;
+	font-size: 20px;
 	right: auto;
-	left: 0.3125rem;
+	left: 5px;
 	display: block;
-	margin-right: 0
+	margin-right: 0;
 }
 
-.mui-search.mui-active input[type=search] {
-	text-align: left
+.mui-search.mui-active input[type='search'] {
+	text-align: left;
 }
 
 .mui-search.mui-active .mui-placeholder {
-	display: none
+	display: none;
 }
 
 .mui-segmented-control {
@@ -3546,7 +3548,7 @@ body>.mui-progressbar {
 .mui-pagination-lg>li>a,
 .mui-pagination-lg>li>span {
 	font-size: 10.5rem;
-	padding: 0.625rem 10.375rem
+	padding: 0.625rem 16px
 }
 
 .mui-pagination-sm>li>a,
@@ -3868,8 +3870,8 @@ body>.mui-progressbar {
 }
 
 .mui-switch-mini.mui-active .mui-switch-handle {
-	-webkit-transform: translate(10.375rem, 0);
-	transform: translate(10.375rem, 0)
+	-webkit-transform: translate(1rem, 0);
+	transform: translate(1rem, 0)
 }
 
 .mui-switch-blue.mui-active {
@@ -4863,7 +4865,7 @@ body>.mui-progressbar {
 	display: inline-block;
 	margin-top: 10px;
 	overflow: hidden;
-	font-size:15px;
+	font-size: 15px;
 }
 
 .mui-title #tabs .tab {

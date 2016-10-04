@@ -110,6 +110,25 @@ var base = new function() {
 	}
 
 	/**
+	 * 跳转搜索页
+	 **/
+	this.ShowSearch = function(id) {
+		document.getElementById('search').addEventListener('tap', function(event) {
+			mui.openWindow({
+				id: 'search',
+				url: 'search.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		})
+	}
+
+	/**
 	 * 展示用户信息
 	 **/
 	this.ShowUser = function(id) {
@@ -180,9 +199,9 @@ var base = new function() {
 			}
 		}
 		model.push('</div></div>');
-		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + item.TypeName + '</span><span class="f11">' + item.Views + '次阅·' + item.Comments + '评论·' + item.Goods + '喜欢·41打赏</span></div>');
+		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + item.TypeName + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · 41打赏</span></div>');
 		div.innerHTML = model.join('');
-		return div; 
+		return div;
 	}
 }
 

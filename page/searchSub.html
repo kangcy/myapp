@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/img.preview.css">
+		<link rel="stylesheet" href="../css/loading.css">
+		<style type="text/css">
+			/*文章*/
+			
+			.onefloor {
+				width: 100%;
+				height: 9.375rem;
+				overflow: hidden;
+			}
+			
+			.onefloor img {
+				width: 100% !important;
+				min-height: 100%;
+			}
+			
+			.secondfloor {
+				width: 50%;
+				height: 7rem;
+				text-align: center;
+				overflow: hidden;
+				margin-bottom: 1.5%;
+				float: left;
+			}
+			
+			.secondfloor img {
+				width: 97% !important;
+				min-height: 100%;
+			}
+			
+			.mui-card-header>img:first-child {
+				width: 2.875rem !important;
+				height: 2.875rem !important;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<div class="mui-scroll-wrapper">
+					<div id="pullrefresh" class="mui-scroll">
+						<div id="scroll-view">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.previewimage.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var ArticleType = 0;
+	var currpage = 1;
+	var totalpage = 2;
+	var pagesize = base.PageSize;
+	var userinfo = base.GetUserInfo();
+	var isLoading = false;
+
+	mui.init();
+
+	mui.ready(function() {
+
+		mui.previewImage();
+
+		base.InitScroll();
+
+		base.ShowUser("#scroll1"); //用户详细
+
+		base.ShowArticle("#pullrefresh"); //用户详细
+	});
+
+	//初始化获取参数
+	function Init(articleType) {
+		ArticleType = articleType;
+		mui(document.getElementById("pullrefresh")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
+	}
+
+	/**
+	 * 下拉刷新
+	 */
+	function pulldownRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		setTimeout(function() {
+			currpage = 1;
+			totalpage = 2;
+			document.getElementById('scroll-view').innerHTML = "";
+			Load(function() {
+				++currpage;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	/**
+	 * 上拉加载
+	 */
+	function pullupRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
+		}
+		setTimeout(function() {
+			Load(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	/**
+	 * 加载数据
+	 */
+	function Load(callback) {
+		var table = document.getElementById('scroll-view');
+		var data = {
+			page: currpage,
+			rows: pagesize,
+			TypeID: ArticleType
+		};
+		HttpGet(base.RootUrl + "Article/All", data, function(data) {
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.list.length;
+				if(length > 0) {
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = base.AppendArticle(data.list[i]);
+						table.appendChild(div);
+					}
+				} else {
+					mui.toast("没有更多数据了~");
+				}
+			}
+			if($.isFunction(callback)) {
+				callback();
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
+		});
+	}
+</script>

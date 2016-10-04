@@ -28,6 +28,7 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
 	//启用双击监听
 	mui.init({
@@ -68,6 +69,8 @@
 			document.getElementById("tab2").setAttribute("class", "tab curr");
 			contentWebview.evalJS("ChangeSlider(1)");
 		});
+		
+		base.ShowSearch();//跳转搜索页
 	});
 
 	window.addEventListener("updateCurr", function(e) {
