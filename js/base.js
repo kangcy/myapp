@@ -41,7 +41,7 @@ var base = new function() {
 			return {
 				ID: 1,
 				Sex: "男",
-				Signature: "",
+				Signature: "一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜",
 				UserName: "18652913873",
 				Password: "123456",
 				Avatar: "../images/logo.png",
@@ -180,9 +180,9 @@ var base = new function() {
 			}
 		}
 		model.push('</div></div>');
-		model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">浏览36次</a><a class="mui-card-link"><i class="fa fa-commentimg-o"></i></a></div>');
+		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + item.TypeName + '</span><span class="f11">' + item.Views + '次阅·' + item.Comments + '评论·' + item.Goods + '喜欢·41打赏</span></div>');
 		div.innerHTML = model.join('');
-		return div;
+		return div; 
 	}
 }
 
@@ -201,7 +201,6 @@ function HttpGet(url, data, callback) {
 			callback(res)
 		}
 	});*/
-
 	mui.getJSON(url, data, callback);
 }
 

@@ -8,31 +8,28 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../css/my.css">
 	</head>
 
 	<body>
-		<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;background:url(../images/header.png) no-repeat;background-size:100% 100%;">
-			<a id="toggle" class="mui-icon mui-icon-bars fl cfff"></a>
-			<a id="info" class="mui-icon mui-icon-search fr cfff"></a>
-			<div class="info-body">
-				<div class="info-content">
-					<div class="side">
-						<p class="cfff f11 f14" id="fans">0</p>
-						<p class="cfff f11">粉丝</p>
+		<header class="mui-bar mui-bar-nav">
+			<a id="toggle" class="mui-icon mui-icon-bars fl blue"></a>
+			<a id="search" class="mui-icon mui-icon-search fr blue"></a>
+			<h1 class="mui-title c333"></h1>
+		</header>
+		<div class="f11">
+			<div class="mui-scroll-wrapper" style="top:45px;bottom:0px;">
+				<div id="info-body" class="info-body mb8">
+					<div class="info-content">
+						<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:5rem;height:5rem;" />
+						<p class="c333 f14 tc name bold" id="nickname"></p>
+						<p class="c333 signature tc mt10 f11" id="signature"></p>
+						<div class="full tc mt20">
+							<div class="guanzhu f11 mr10"><i class="fa fa-plus" style="margin-right: 5px;"></i>关注</div>
+							<div class="dashang f11"><i class="fa fa-yen" style="margin-right: 5px;"></i>打赏</div>
+						</div>
 					</div>
-					<div class="center">
-						<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:6.25rem;height:6.25rem;" />
-					</div>
-					<div class="side">
-						<p class="cfff f14" id="follows">0</p>
-						<p class="cfff">关注</p>
-					</div>
-				</div>
-				<p class="cfff f14 tc name" id="nickname"></p>
-				<p class="cfff signature" id="signature"></p>
-				<div class="cfff content1 tc mt20">
-					<img id="zan" src="../images/user/zan.png" class="mr30" style="width:5rem;" /><img id="follow" src="../images/user/add.png" style="width:5rem;" />
 				</div>
 			</div>
 		</div>
@@ -58,7 +55,7 @@
 			id: 'userSub',
 			url: 'userSub.html',
 			styles: {
-				top: parseInt((window.innerWidth / 320) * 250) + 'px',
+				top: parseInt((window.innerWidth / 320) * $("#info-body").height()) + 50 + 'px',
 				bottom: '0px',
 			}
 		}]
