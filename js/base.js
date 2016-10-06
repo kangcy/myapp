@@ -209,18 +209,17 @@ var base = new function() {
  * Get请求
  **/
 function HttpGet(url, data, callback) {
-	/*$.ajax({
+	$.ajax({
 		url: url,
 		type: "GET",
-		dataType: "jsonp",
+		dataType: "json",
 		data: data,
-		jsonp: 'jsoncallback',
-		contentType: "application/json;utf-8", //返回Json类型 
+		//contentType: "application/json;utf-8", //返回Json类型 
 		success: function(res) {
 			callback(res)
 		}
-	});*/
-	mui.getJSON(url, data, callback);
+	});
+	//mui.getJSON(url, data, callback);
 }
 
 /**

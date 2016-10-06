@@ -472,6 +472,7 @@
 				Title: escape("点击输入标题")
 			}
 			HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
+				console.log(JSON.stringify(data));
 				if(data != null) {
 					if(data.result) {
 						var part = data.message;
