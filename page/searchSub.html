@@ -71,7 +71,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ArticleType = 0;
+	var NickName = 0;
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
@@ -92,8 +92,8 @@
 	});
 
 	//初始化获取参数
-	function Init(articleType) {
-		ArticleType = articleType;
+	function Init(name) {
+		NickName = name;
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -162,7 +162,7 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			TypeID: ArticleType
+			NickName: NickName
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
@@ -185,6 +185,9 @@
 				placeholder: '../images/60x60.gif',
 				diff: window.innerHeight
 			});
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
 		});
 	}
 </script>

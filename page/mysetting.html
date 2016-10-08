@@ -143,6 +143,7 @@
 					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
+				sexPicker.dispose(); //资源释放
 			});
 		}, false);
 
@@ -170,6 +171,7 @@
 					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
+				cityPicker.dispose(); //资源释放
 			});
 		}, false);
 

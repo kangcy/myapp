@@ -317,7 +317,8 @@
 				}, function(data) {
 					if(data != null) {
 						if(data.result) {
-
+							var subindexPage = plus.webview.getWebviewById("subindex");
+							mui.fire(subindexPage, 'gohome', {});
 						}
 					}
 				});

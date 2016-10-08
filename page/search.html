@@ -19,8 +19,9 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" style="padding-right:0px;">
 			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
-			<div class="mui-input-row mui-search mui-active">
-				<input id="search" type="search" class="mui-input-speech mui-input-clear" placeholder="语音搜索" style="height:34px;">
+			<a id="btnSearch" class="mui-icon mui-icon-search fr blue"></a>
+			<div class="mui-input-row mui-search" style="width: 78%;margin-left: 2%;">
+				<input id="search" type="search" class="mui-input-speech mui-input-clear" placeholder="输入昵称/轻墨号/支持语音搜索" maxlength="10" style="height:34px;font-size:11px;">
 			</div>
 		</header>
 		<div class="mui-content"></div>
@@ -30,8 +31,7 @@
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script type="text/javascript">
-	var ArticleType = 0; //类型
-	var ArticleTypeName = ""; //类型名称
+	var SearchName = "";
 
 	//启用双击监听
 	mui.init({
@@ -49,9 +49,11 @@
 		}]
 	});
 
+	var search = document.getElementById("search");
+
 	//语音识别完成事件
-	document.getElementById("search").addEventListener('recognized', function(e) {
-		console.log(e.detail.value);
+	search.addEventListener('recognized', function(e) {
+		search.value = search.value + e.detail.value;
 	});
 
 	var contentWebview = null;
@@ -71,11 +73,15 @@
 			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
 
-		setTimeout(function() {
+		document.getElementById("btnSearch").addEventListener('tap', function(e) {
+			if(search.value == "") {
+				return mui.toast("请输入搜索内容~");
+			}
+			plus.nativeUI.showWaiting("搜索中...");
 			if(contentWebview == null) {
 				contentWebview = plus.webview.currentWebview().children()[0];
 			}
-			contentWebview.evalJS("Init(" + ArticleType + ")");
-		}, 0)
+			contentWebview.evalJS("Init(" + search.value + ")");
+		});
 	});
 </script>

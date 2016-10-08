@@ -18,7 +18,7 @@
 		</header>
 		<div class="mui-content">
 			<div style="padding: 5%;">
-				<textarea id='question' class="mui-input-clear f13" maxlength="30" placeholder="不超过30个字......"></textarea>
+				<textarea id='question' class="mui-input-speech mui-input-clear f13" maxlength="30" placeholder="不超过30个字......"></textarea>
 			</div>
 		</div>
 	</body>
@@ -34,12 +34,17 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
+	var question = document.getElementById("question");
 	var mysettingPage = null;
 	mui.plusReady(function() {
 
-		var question = document.getElementById("question");
 		var self = plus.webview.currentWebview();
 		question.value = self.title;
+
+		//语音识别完成事件
+		question.addEventListener('recognized', function(e) {
+			question.value = question.value + e.detail.value;
+		});
 
 		//取消
 		document.getElementById("back").addEventListener('tap', function(event) {
