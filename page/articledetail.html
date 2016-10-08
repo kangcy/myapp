@@ -30,13 +30,39 @@
 				height: 1.4rem;
 				margin-top: 0.6rem;
 			}
+			
+			#addcomment {
+				width: 40%;
+				float: left;
+				height: 50px;
+				line-height: 50px;
+				border-right: 1px solid #ccc;
+				text-align: center;
+			}
+			
+			#footer {
+				width: 60%;
+				float: left;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+			}
+			
+			#footer div {
+				width: 33.3%;
+				float: left;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
-			<a id="user" class="mui-icon blue f13 fr mt6 user">作者主页</a>
+			<a id="user" class="mui-icon blue f13 fr mt6" onclick="showActionSheet()">操作</a>
+			<h1 class="mui-title c333 user">作者主页</h1>
 		</header>
 		<div class="mui-iframe-wrapper" style="top: 46px; bottom:50px;">
 			<div class="mui-content mui-scroll-wrapper">
@@ -55,20 +81,18 @@
 			</div>
 		</div>
 		<div class="mui-bar mui-bar-tab">
-			<div id="addcomment" style="width:40%;float:left;height: 50px;line-height: 50px;border-right:1px solid #ccc;text-align: center;">
-				<!--<a class="mui-icon mui-icon-gear fr cfff" style="font-size:35px;padding-top:10px;" onclick="showActionSheet()"></a>
-				<span>添加评论</span>-->
+			<div id="addcomment">
 				<span class="mui-icon mui-icon-chat c999" style="font-size:20px;margin-right:3px;"></span>
 				<span class="c999" style="font-size:15px;">添加评论</span>
 			</div>
-			<div style="width:60%;float:left;height: 50px;line-height: 50px;text-align: center;">
-				<div style="width:33.3%;float:left;height: 50px;line-height: 50px;text-align: center;">
-					<span id="comment" class="mui-icon mui-icon-chatbubble c999" style="font-size:28px;"><span class="mui-badge mui-badge-danger" id="footer_comment">45</span></span>
+			<div id="footer">
+				<div>
+					<span id="comment" class="mui-icon mui-icon-chatbubble c999" style="font-size:28px;"><span class="mui-badge mui-badge-danger" id="footer_comment">0</span></span>
 				</div>
-				<div style="width:33.3%;float:left;height: 50px;line-height: 50px;text-align: center;">
-					<span id="zan" class="mui-icon mui-icon-extra mui-icon-extra-heart c999" style="font-size:22px;padding-top: 15px;"><span class="mui-badge mui-badge-danger" id="footer_zan">145</span></span>
+				<div>
+					<span id="zan" class="mui-icon mui-icon-extra mui-icon-extra-heart c999" style="font-size:22px;padding-top: 15px;"><span class="mui-badge mui-badge-danger" id="footer_zan">0</span></span>
 				</div>
-				<div style="width:33.3%;float:left;height: 50px;line-height: 50px;text-align: center;">
+				<div>
 					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;"></span>
 				</div>
 			</div>
@@ -90,7 +114,6 @@
 	var ArticleTypeName = ""; //文章类型名称
 
 	var currEditID = 0; //当前操作对象ID
-	var currUserID = base.GetUserID(); //当前登录用户ID
 	var userinfo = base.GetUserInfo();
 	//启用双击监听
 	mui.init({
@@ -106,7 +129,7 @@
 		//点赞
 		document.getElementById('zan').addEventListener('tap', function(event) {
 			//是否我的文章
-			if(currUserID == ArticleUserID) {
+			if(userinfo.ID == ArticleUserID) {
 				mui.openWindow({
 					id: 'zan',
 					url: 'zan.html',
@@ -169,11 +192,6 @@
 			});
 		})
 	});
-
-	if(!mui.os.plus) {
-		ArticleID = 1;
-		Load();
-	}
 
 	mui.plusReady(function() {
 
@@ -320,11 +338,10 @@
 			waiting: {
 				autoShow: false
 			}
-			/*extras: {
+			extras: {
 				ArticleID: ArticleID
-			}*/
+			}
 		});
-		plus.webview.getWebviewById("addarticle").evalJS("Init(" + ArticleID + ")");
 	}
 
 	//分享

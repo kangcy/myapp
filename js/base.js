@@ -199,7 +199,7 @@ var base = new function() {
 			}
 		}
 		model.push('</div></div>');
-		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + item.TypeName + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · 41打赏</span></div>');
+		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + item.TypeName + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
@@ -209,7 +209,7 @@ var base = new function() {
  * Get请求
  **/
 function HttpGet(url, data, callback) {
-	$.ajax({
+	/*$.ajax({
 		url: url,
 		type: "GET",
 		dataType: "json",
@@ -218,8 +218,8 @@ function HttpGet(url, data, callback) {
 		success: function(res) {
 			callback(res)
 		}
-	});
-	//mui.getJSON(url, data, callback);
+	});*/
+	mui.getJSON(url, data, callback);
 }
 
 /**
