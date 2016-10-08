@@ -21,50 +21,25 @@
 	</head>
 
 	<body>
-		<!--<header class="mui-bar mui-bar-nav header">
-			<h1 class="mui-title cfff f15"></h1>
-		</header>-->
 		<div class="mui-loader">加载中...</div>
 		<nav class="mui-bar mui-bar-tab">
-			<a id="defaultTab" class="mui-tab-item link" href="topic.html">
+			<a class="mui-tab-item link" href="topic.html">
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" href="addarticle.html" onclick="showActionSheet()">
+			<a class="mui-tab-item" href="chooseimage.html">
 				<img src="../images/add.png" style="width: 40px;height: 40px;margin-top: 3px;" />
 			</a>
-			<a class="mui-tab-item link" href="my.html">
+			<a id="defaultTab" class="mui-tab-item link" href="my.html">
 				<span class="mui-icon mui-icon-contact"></span>
 				<span class="mui-tab-label">我的</span>
 			</a>
 		</nav>
-		<!--图片编辑容器-->
-		<div id="cropperEdit" class="mui-iframe-wrapper full">
-			<img id="readyimg" />
-			<div class="mui-content-padded">
-				<div class="flex-container tc">
-					<a><span class="mui-icon mui-icon-closeempty" onclick="closepop()"></span></a>
-					<!--关闭裁剪窗口-->
-					<a><span class="mui-icon mui-icon-undo" onclick="rotateimgleft()"></span></a>
-					<!--左旋转90度-->
-					<a><span class="mui-icon mui-icon-redo" onclick="rotateimgright()"></span></a>
-					<!--右旋转90度-->
-					<a><span class="mui-icon mui-icon-checkmarkempty" id="confirm"></span></a>
-					<!--确定选择-->
-				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/base.js"></script>
-<script src="../cropper/cropper.min.js"></script>
-<script src="../js/copper.js"></script>
 <script type="text/javascript">
-	var userinfo = base.GetUserInfo();
-
 	mui.init({
 		swipeBack: false //启用右滑关闭功能
 	});
@@ -79,6 +54,14 @@
 		}
 	}
 
+	var subpages = ['topic.html', 'chooseimage.html', 'my.html'];
+	var subpage_style = {
+		top: '0px',
+		bottom: '50px'
+	};
+
+	//当前激活选项
+	var activeTab = subpages[0];
 	mui.plusReady(function() {
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
@@ -113,19 +96,41 @@
 				LoadPage(); //加载页面
 			}, 250);
 		}
-	});
 
-	var subpages = ['topic.html', 'my.html'];
-	var subpage_style = {
-		top: '0px',
-		bottom: '50px'
-	};
+		//选项卡点击事件
+		mui('.mui-bar-tab').on('tap', 'a', function(e) {
+			var targetTab = this.getAttribute('href');
+			if(targetTab == activeTab) {
+				return;
+			}
+
+			//显示目标选项卡
+			//若为iOS平台或非首次显示，则直接显示
+			if(mui.os.ios || aniShow[targetTab]) {
+				plus.webview.show(targetTab);
+			} else {
+				//否则，使用fade-in动画，且保存变量
+				var temp = {};
+				temp[targetTab] = "true";
+				mui.extend(aniShow, temp);
+				plus.webview.show(targetTab, "fade-in", 250);
+
+				if(targetTab == "chooseimage.html") {
+					plus.webview.getWebviewById(targetTab).evalJS("Init()");
+				}
+			}
+			//隐藏当前;
+			plus.webview.hide(activeTab);
+			//更改当前活跃的选项卡
+			activeTab = targetTab;
+		});
+	});
 
 	function LoadPage(callback) {
 
 		//创建子页面，首个选项卡页面显示，其它均隐藏
 		var self = plus.webview.currentWebview();
-		for(var i = 0; i < 2; i++) {
+		for(var i = 0; i < 3; i++) {
 			var temp = {};
 			var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
 			if(i == 0) {
@@ -139,87 +144,19 @@
 		if(callback) {
 			callback();
 		}
-	} //当前激活选项
-	var activeTab = subpages[0];
-
-	//选项卡点击事件
-	mui('.mui-bar-tab').on('tap', 'a.link', function(e) {
-		var targetTab = this.getAttribute('href');
-		if(targetTab == activeTab) {
-			return;
-		}
-
-		//显示目标选项卡
-		//若为iOS平台或非首次显示，则直接显示
-		if(mui.os.ios || aniShow[targetTab]) {
-			plus.webview.show(targetTab);
-		} else {
-			//否则，使用fade-in动画，且保存变量
-			var temp = {};
-			temp[targetTab] = "true";
-			mui.extend(aniShow, temp);
-			plus.webview.show(targetTab, "fade-in", 250);
-
-			//plus.webview.getWebviewById(targetTab).evalJS("Init(0)");
-		}
-		//隐藏当前;
-		plus.webview.hide(activeTab);
-		//更改当前活跃的选项卡
-		activeTab = targetTab;
-	});
-
-	//确认图片
-	document.getElementById("confirm").onclick = function() {
-		confirm("avatar", function(src) {
-			plus.nativeUI.showWaiting("创建中...");
-			//创建文章
-			var data = {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
-				Cover: src,
-				Title: escape("点击输入标题")
-			}
-			HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
-				console.log(JSON.stringify(data));
-				if(data != null) {
-					if(data.result) {
-						var part = data.message;
-						ArticleID = part.ArticleID;
-						mui.openWindow({
-							id: 'addarticle',
-							url: 'addarticle.html',
-							show: {
-								autoShow: true,
-								duration: base.AnimateDuration
-							},
-							waiting: {
-								autoShow: false
-							},
-							extras: {
-								ArticleID: data.message.ArticleID
-							}
-						});
-					} else {
-						mui.toast(data.message);
-					}
-				} else {
-					plus.nativeUI.closeWaiting();
-				}
-			});
-		});
 	}
 
 	//自定义事件，模拟点击“首页选项卡”
+	var defaultTab = document.getElementById("defaultTab");
 	document.addEventListener('gohome', function(event) {
-		var defaultTab = document.getElementById("defaultTab");
 		//模拟首页点击
 		mui.trigger(defaultTab, 'tap');
-		//切换选项卡高亮
+		/*//切换选项卡高亮
 		var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
 		if(defaultTab !== current) {
 			current.classList.remove('mui-active');
 			defaultTab.classList.add('mui-active');
-		}
+		}*/
 	});
 
 	var index = null; //主页面

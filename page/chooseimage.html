@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../cropper/cropper.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
+			<h1 class="mui-title c333">选择图片</h1>
+		</header>
+		<!--图片编辑容器-->
+		<div id="cropperEdit" class="mui-iframe-wrapper full">
+			<img id="readyimg" />
+			<div class="mui-content-padded">
+				<div class="flex-container tc">
+					<a><span class="mui-icon mui-icon-closeempty" onclick="closepop()"></span></a>
+					<!--关闭裁剪窗口-->
+					<a><span class="mui-icon mui-icon-undo" onclick="rotateimgleft()"></span></a>
+					<!--左旋转90度-->
+					<a><span class="mui-icon mui-icon-redo" onclick="rotateimgright()"></span></a>
+					<!--右旋转90度-->
+					<a><span class="mui-icon mui-icon-checkmarkempty" id="confirm"></span></a>
+					<!--确定选择-->
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script src="../cropper/cropper.min.js"></script>
+<script src="../js/copper.js"></script>
+<script type="text/javascript">
+	var userinfo = base.GetUserInfo();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	$(function() {
+		//确认图片
+		document.getElementById("confirm").onclick = function() {
+			confirm("avatar", function(src) {
+				plus.nativeUI.showWaiting("创建中...");
+				//创建文章
+				var data = {
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
+					Cover: src,
+					Title: escape("点击输入标题")
+				}
+				HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
+					console.log(JSON.stringify(data));
+					if(data != null) {
+						if(data.result) {
+							var part = data.message;
+							ArticleID = part.ArticleID;
+							mui.openWindow({
+								id: 'addarticle',
+								url: 'addarticle.html',
+								show: {
+									autoShow: true,
+									duration: base.AnimateDuration
+								},
+								waiting: {
+									autoShow: false
+								},
+								extras: {
+									ArticleID: data.message.ArticleID
+								}
+							});
+						} else {
+							mui.toast(data.message);
+						}
+					} else {
+						plus.nativeUI.closeWaiting();
+					}
+				});
+			});
+		}
+
+	})
+
+	var contentWebview = null;
+	mui.plusReady(function() {
+
+		mui.back = function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.getWebviewById("subindex");
+			}
+			mui.fire(contentWebview, "gohome", {});
+		}
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(e) {
+			mui.back();
+		});
+	});
+
+	function Init() {
+		galleryImgs(0, 0, function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.getWebviewById("subindex");
+			}
+			mui.fire(contentWebview, "gohome", {});
+		});
+	}
+</script>

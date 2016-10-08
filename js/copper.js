@@ -18,7 +18,8 @@ function getImage(long, width) {
 }
 
 //相册选取  
-function galleryImgs(long, width) {
+function galleryImgs(long, width, callback) {
+
 	plus.gallery.pick(function(e) {
 		//压缩图片
 		var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
@@ -30,6 +31,9 @@ function galleryImgs(long, width) {
 		});
 	}, function(e) {
 		//outSet( "取消选择图片" ) 
+		if($.isFunction(callback)) {
+			callback();
+		}
 	}, {
 		filter: "image"
 	});
@@ -39,12 +43,20 @@ function galleryImgs(long, width) {
 function cutImg(long, width) {
 	$(".mui-content,.header,.footer").hide();
 	$("#cropperEdit").show();
-	$("#readyimg").cropper({
-		checkImageOrigin: true,
-		aspectRatio: long / width,
-		autoCropArea: 0.3,
-		zoom: -0.2
-	});
+	if(long > 0 && width > 0) {
+		$("#readyimg").cropper({
+			checkImageOrigin: true,
+			aspectRatio: long / width,
+			autoCropArea: 0.3,
+			zoom: -0.2
+		});
+	} else {
+		$("#readyimg").cropper({
+			checkImageOrigin: true,
+			autoCropArea: 0.3,
+			zoom: -0.2
+		});
+	}
 }
 
 //右旋转90度  
@@ -117,7 +129,7 @@ function compressImage(src, newsrc, callback) {
 }
 
 //选择图片
-function showActionSheet(long, width) {
+function showActionSheet(long, width, callback) {
 	if(!long) {
 		long = 1;
 	}
@@ -137,7 +149,7 @@ function showActionSheet(long, width) {
 			if(e.index == 1) {
 				getImage(long, width);
 			} else if(e.index == 2) {
-				galleryImgs(long, width);
+				galleryImgs(long, width, callback);
 			}
 		}
 	);
