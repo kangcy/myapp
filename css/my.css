@@ -28,7 +28,7 @@
 .info-content {
 	width: 90%;
 	display: inline-block;
-	margin: 5%;
+	margin: -17% 5% 5% 5%;
 	text-align: center;
 }
 
@@ -104,21 +104,20 @@
 }
 
 .guanzhu {
+	border: 1px solid #49be38;
 	background: #49be38;
 	color: #fff;
-	width: 4rem;
 	text-align: center;
-	border-radius: 3px;
-	padding: 5px 10px;
+	border-radius: 20px;
+	padding: 0.3rem 1.5rem;
 	display: inline-block;
 }
 
 .dashang {
 	border: 1px solid #49be38;
 	color: #49be38;
-	width: 4rem;
 	text-align: center;
-	border-radius: 3px;
-	padding: 5px 10px;
+	border-radius: 20px;
+	padding: 0.3rem 1.5rem;
 	display: inline-block;
 }
