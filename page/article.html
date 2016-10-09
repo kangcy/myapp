@@ -8,16 +8,25 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-
+		<style type="text/css">
+			.mui-loader {
+				position: absolute;
+				top: 25%;
+				width: 100%;
+				height: 60%;
+				color: #888;
+				text-align: center;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
-			<a id="search" class="mui-icon mui-icon-search fr blue"></a>
 			<h1 class="mui-title c333" id="header"></h1>
 		</header>
 		<div class="mui-content"></div>
+		<div class="mui-loader f14">加载中...</div>
 	</body>
 
 </html>
@@ -60,6 +69,11 @@
 		document.getElementById("header").innerHTML = ArticleTypeName;
 
 		//返回
+		mui.back = function() {
+			plus.webview.currentWebview().close();
+		}
+
+		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
 		});
@@ -75,10 +89,6 @@
 			if(contentWebview == null) {
 				contentWebview = plus.webview.currentWebview().children()[0];
 			}
-			/*contentWebview.addEventListener("loaded", function() {
-				contentWebview.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
-			}, false);*/
-
 			contentWebview.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
 		}, 0)
 	});

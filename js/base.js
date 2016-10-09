@@ -110,6 +110,40 @@ var base = new function() {
 	}
 
 	/**
+	 * 更新用户信息
+	 **/
+	this.UpdateUser = function(id) {
+		HttpGet(base.RootUrl + "User/Detail", {
+			ID: id
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					//更新用户缓存信息
+					data = data.message;
+					var info = {
+						ID: data.ID,
+						Sex: data.Sex == "0" ? "男" : "女",
+						Signature: data.Signature,
+						UserName: loginInfo.UserName,
+						Password: loginInfo.Password,
+						Avatar: data.Avatar,
+						NickName: data.NickName,
+						Address: data.Address,
+						Birthday: data.BirthdayText,
+						Follows: data.Follows,
+						Fans: data.Fans,
+						Articles: data.Articles,
+						Keeps: data.Keeps,
+						Comments: data.Comments,
+						Zans: data.Zans
+					}
+					localStorage.setItem('$userinfo', JSON.stringify(info));
+				}
+			}
+		});
+	}
+
+	/**
 	 * 跳转搜索页
 	 **/
 	this.ShowSearch = function(id) {
@@ -186,20 +220,28 @@ var base = new function() {
 		model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '">');
 		model.push('<img data-lazyload="' + item.Avatar + '" style="border-radius:50%;" /><div class="mui-media-body">' + item.NickName + '<p>' + item.CreateDate + '</p></div></div>');
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
-		model.push('<p class="c333 fl article" articleid="' + item.ArticleID + '">' + item.Title + '</p>');
+		model.push('<p class="c333 fl article full" articleid="' + item.ArticleID + '">' + item.Title + '</p>');
 
 		//部分拼接
 		var parts = item.ArticlePart;
 		if(parts.length == 0) {
 			model.push('<div class="onefloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 		} else {
-			model.push('<div class="secondfloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+			var exist = false;
+			for(var i = 0; i < parts.length; i++) {
+				if(parts[i].Introduction == item.Cover) {
+					exist = true;
+				}
+			}
+			if(!exist) {
+				model.push('<div class="secondfloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+			}
 			for(var i = 0; i < parts.length; i++) {
 				model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			}
 		}
 		model.push('</div></div>');
-		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + item.TypeName + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
+		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}

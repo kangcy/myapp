@@ -25,6 +25,7 @@
 				if(data.result) {
 					//更新用户缓存信息
 					data = data.message;
+					
 					var info = {
 						ID: data.ID,
 						Sex: data.Sex == "0" ? "男" : "女",
