@@ -55,15 +55,14 @@
 			id: 'userSub',
 			url: 'userSub.html',
 			styles: {
-				top: parseInt((window.innerWidth / 320) * $("#info-body").height()) + 50 + 'px',
-				bottom: '0px',
+				top: parseInt((window.innerWidth / 320) * 250) + 'px',
+				bottom: '0px'
 			}
 		}]
 	});
 
 	var userSubPage = null;
 	mui.ready(function() {
-
 		//切换
 		setTimeout(function() {
 			userSubPage = plus.webview.getWebviewById("userSub");
@@ -82,12 +81,7 @@
 			});
 		}, 2000);
 
-		//关注
-		/*document.getElementById('follow').addEventListener('tap', function(event) {
-
-		});*/
-		
-		base.ShowSearch();//跳转搜索页
+		base.ShowSearch(); //跳转搜索页
 	});
 
 	mui.plusReady(function() {
@@ -108,8 +102,19 @@
 					contentWebview = plus.webview.currentWebview().children()[0];
 				}
 				contentWebview.evalJS("Init(" + UserID + ")");
-			}, 0)
+			}, 250)
 		}
+
+		//返回
+		mui.back = function() {
+			plus.webview.currentWebview().close();
+		}
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(e) {
+			mui.back();
+		});
+
 	});
 
 	//获取用户信息
