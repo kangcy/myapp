@@ -81,7 +81,7 @@ function closepop() {
 function confirm(targetid, callback) {
 	$("#cropperEdit").hide();
 	var dataURL = $("#readyimg").cropper("getCroppedCanvas");
-	var imgurl = dataURL.toDataURL("image/jpeg", 1);
+	var imgurl = dataURL.toDataURL("image/jpeg", 0.8);
 	if(targetid != null) {
 		$("#" + targetid).attr("src", imgurl);
 	}

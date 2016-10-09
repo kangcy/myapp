@@ -27,6 +27,7 @@
 <script type="text/javascript">
 	var ArticleType = 0; //类型
 	var ArticleTypeName = ""; //类型名称
+	var CreateUserID = 0; //创建人
 
 	//启用双击监听
 	mui.init({
@@ -38,8 +39,7 @@
 			id: 'articleSub',
 			url: 'articleSub.html',
 			styles: {
-				//top: parseInt((window.innerWidth / 320) * 45) + 'px',
-				top: '45px',
+				top: '50px',
 				bottom: '0px',
 			}
 		}]
@@ -55,6 +55,8 @@
 		var self = plus.webview.currentWebview();
 		ArticleType = self.ArticleType || 0;
 		ArticleTypeName = self.ArticleTypeName || "列表";
+		CreateUserID = self.CreateUserID || 0;
+
 		document.getElementById("header").innerHTML = ArticleTypeName;
 
 		//返回
@@ -73,7 +75,11 @@
 			if(contentWebview == null) {
 				contentWebview = plus.webview.currentWebview().children()[0];
 			}
-			contentWebview.evalJS("Init(" + ArticleType + ")");
+			/*contentWebview.addEventListener("loaded", function() {
+				contentWebview.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
+			}, false);*/
+
+			contentWebview.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
 		}, 0)
 	});
 </script>

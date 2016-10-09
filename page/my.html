@@ -14,7 +14,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
+			<a id="setting" class="mui-icon blue fl mt6" style="font-size:16px;">设置</a>
 			<a id="search" class="mui-icon mui-icon-search fr blue"></a>
 			<h1 class="mui-title c333"></h1>
 		</header>
@@ -27,7 +27,7 @@
 							<p class="c333 f14 tc name bold" id="nickname"></p>
 							<p class="c333 signature tc mt10 f11" id="signature"></p>
 							<div class="csubtitle content1 tc mt20">
-								<div class="items">
+								<div class="items" id="my-articles">
 									<p class="csubtitle item1"><i class="fa fa-file-text"></i></p>
 									<p class="c333 item2 f11">我的&nbsp;<span id="articles">0</span></p>
 								</div>
@@ -52,7 +52,7 @@
 					<div class="csubtitle menu mb8 f13" id="my-good"><i class="fa fa-check mr10 f16"></i>给个好评</div>
 					<div class="csubtitle menu mb8 f13" id="my-help"><i class="fa fa-question-circle mr10 f16"></i>帮助中心</div>
 
-					<div class="csubtitle menu mb8 f13" id="setting"><i class="fa fa-cog mr10 f16"></i>设置</div>
+					<!--<div class="csubtitle menu mb8 f13" id="setting"><i class="fa fa-cog mr10 f16"></i>设置</div>-->
 				</div>
 			</div>
 		</div>
@@ -190,6 +190,24 @@
 				},
 				waiting: {
 					autoShow: false
+				}
+			});
+		});
+
+		//我的文章
+		document.getElementById('my-articles').addEventListener('tap', function(event) {
+			mui.openWindow({
+				id: 'article',
+				url: 'article.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					CreateUserID: userinfo.ID
 				}
 			});
 		});

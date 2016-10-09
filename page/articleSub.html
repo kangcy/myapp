@@ -72,6 +72,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
+	var CreateUserID = 0;
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
@@ -92,8 +93,9 @@
 	});
 
 	//初始化获取参数
-	function Init(articleType) {
+	function Init(articleType, createUserID) {
 		ArticleType = articleType;
+		CreateUserID = createUserID;
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -162,7 +164,9 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			TypeID: ArticleType
+			TypeID: ArticleType,
+			CreateUserID: CreateUserID,
+			CurrUserID: userinfo.ID
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
