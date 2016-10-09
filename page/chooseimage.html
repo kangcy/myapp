@@ -70,7 +70,7 @@
 					UserName: userinfo.UserName,
 					Password: userinfo.Password,
 					Cover: src,
-					Title: escape("点击输入标题")
+					Title: ""
 				}
 				HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 					if(data != null) {

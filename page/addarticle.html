@@ -213,7 +213,7 @@
 				Password: userinfo.Password,
 				ArticleID: ArticleID,
 				Types: 2,
-				Introduction: escape("点击添加文字")
+				Introduction: ""
 			}, function(data) {
 				if(mui.os.plus) {
 					plus.nativeUI.closeWaiting();
@@ -242,7 +242,7 @@
 				Password: userinfo.Password,
 				ArticleID: ArticleID,
 				Types: 3,
-				Introduction: escape("点击添加视频")
+				Introduction: ""
 			}, function(data) {
 				if(mui.os.plus) {
 					plus.nativeUI.closeWaiting();
@@ -289,9 +289,6 @@
 	});
 
 	mui.plusReady(function() {
-		//显示当前页面
-		//mui.currentWebview.show("slide-in-right");
-
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
@@ -333,8 +330,10 @@
 		var t = e.detail.title;
 		if(t == "") {
 			title.innerHTML = "点击输入标题";
+			Title = "";
 		} else {
 			title.innerHTML = t;
+			Title = t;
 		}
 	});
 
@@ -387,7 +386,7 @@
 		HttpGet(base.RootUrl + "Article/Edit", {
 			UserName: userinfo.UserName,
 			Password: userinfo.Password,
-			ArticleID: ArticleID,
+			ID: ArticleID,
 			Title: escape(Title),
 			MusicID: MusicID
 		}, function(data) {
@@ -432,7 +431,8 @@
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle c999 edit-add"></i>');
-		model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div></div></div>');
+		model.push('<div class="banner hide"><div class="edit-add-pic"><i class="fa fa-picture-o blue"></i></div><div class="edit-add-text border"><i class="fa fa-file-text-o blue"></i></div><div class="edit-add-video"><i class="fa fa-file-video-o blue"></i></div></div></div></div></div>');
+		//model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div></div></div>');
 		return model.join('')
 	}
 
@@ -455,88 +455,53 @@
 
 	//加载文章
 	function Load() {
-		//创建文章
-		if(ArticleID == 0) {
-			Cover = "../images/header.png";
-			//编辑文章
-			var data = {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
-				Cover: Cover,
-				Title: escape("点击输入标题")
-			}
-			HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
-				console.log(JSON.stringify(data));
-				if(data != null) {
-					if(data.result) {
-						var part = data.message;
-						ArticleID = part.ArticleID;
-						//基本信息
-						document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
-						document.getElementById("header").style.backgroundSize = "cover";
-
-						//段落信息
-						var html = appendStr("点击添加图片", "pic", part.ID);
-						$("#edit").append(html);
-						$("#edit").find(".banner").addClass("hide");
-						$("#edit").find(".edit-add").removeClass("hide");
-						Group(document.getElementById('edit'), window.innerWidth * 0.05);
-					} else {
-						mui.toast(data.message);
-					}
-				}
-				if(mui.os.plus) {
-					plus.nativeUI.closeWaiting();
-				}
-			});
-		} else {
-			//编辑文章
-			var data = {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
-				ID: ArticleID
-			}
-			HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
-				if(data != null) {
-					if(data.result) {
-						data = data.message
-						ArticlePower = data.ArticlePower;
-						ArticleType = data.TypeID;
-						ArticleTypeName = data.TypeName;
-						ArticleUserID = data.CreateUserID;
-						Title = data.Title;
-						Cover = data.Cover;
-						document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
-						document.getElementById("header").style.backgroundSize = "cover";
-						$("#article_title").html(Title);
-
-						//加载段落
-						var parts = data.ArticlePart;
-						if(parts.length > 0) {
-							var $edit = $("#edit");
-							for(var i = 0; i < parts.length; i++) {
-								var part = parts[i];
-								var html = "";
-								if(part.Types == 1) {
-									//图片段落
-									html = initStr(part.Introduction, "pic", part.ID);
-								} else if(part.Types == 2) {
-									//文本段落
-									html = initStr(part.Introduction, "text", part.ID);
-								} else if(part.Types == 3) {
-									//视频段落
-									html = initStr(part.Introduction, "video", part.ID);
-								}
-								$edit.append(html);
-							}
-							Group(document.getElementById('edit'), window.innerWidth * 0.05);
-						}
-					}
-				}
-				if(mui.os.plus) {
-					plus.nativeUI.closeWaiting();
-				}
-			});
+		//编辑文章
+		var data = {
+			UserName: userinfo.UserName,
+			Password: userinfo.Password,
+			ID: ArticleID
 		}
+		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
+			if(data != null) {
+				if(data.result) {
+					data = data.message
+					ArticlePower = data.ArticlePower;
+					ArticleType = data.TypeID;
+					ArticleTypeName = data.TypeName;
+					ArticleUserID = data.CreateUserID;
+					Title = data.Title;
+					Cover = data.Cover;
+					document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
+					document.getElementById("header").style.backgroundSize = "cover";
+					if(Title != "") {
+						$("#article_title").html(Title);
+					}
+					//加载段落
+					var parts = data.ArticlePart;
+					if(parts.length > 0) {
+						var $edit = $("#edit");
+						for(var i = 0; i < parts.length; i++) {
+							var part = parts[i];
+							var html = "";
+							if(part.Types == 1) {
+								//图片段落
+								html = initStr(part.Introduction, "pic", part.ID);
+							} else if(part.Types == 2) {
+								//文本段落
+								html = initStr(part.Introduction, "text", part.ID);
+							} else if(part.Types == 3) {
+								//视频段落
+								html = initStr(part.Introduction, "video", part.ID);
+							}
+							$edit.append(html);
+						}
+						Group(document.getElementById('edit'), window.innerWidth * 0.05);
+					}
+				}
+			}
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+		});
 	}
 </script>
