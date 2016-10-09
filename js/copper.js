@@ -35,7 +35,8 @@ function galleryImgs(long, width, callback) {
 			callback();
 		}
 	}, {
-		filter: "image"
+		filter: "image",
+		maximum: 1
 	});
 }
 

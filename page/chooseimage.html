@@ -92,29 +92,23 @@
 		}
 
 	})
-
+ 
 	var contentWebview = null;
 	mui.plusReady(function() {
 
 		mui.back = function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.getWebviewById("subindex");
-			}
-			mui.fire(contentWebview, "gohome", {});
+			plus.webview.currentWebview().close();
 		}
+
+		setTimeout(function() {
+			galleryImgs(0, 0, function() {
+				mui.back();
+			});
+		}, 250);
 
 		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
 		});
 	});
-
-	function Init() {
-		galleryImgs(0, 0, function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.getWebviewById("subindex");
-			}
-			mui.fire(contentWebview, "gohome", {});
-		});
-	}
 </script>
