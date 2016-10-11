@@ -1657,8 +1657,8 @@ input[type=submit]:enabled:active {
 	font-size: 0;
 	line-height: 0;
 	float: left;
-	width: 2.875rem;
-	height: 2.875rem;
+	width: 2.5rem;
+	height: 2.5rem;
 }
 
 .mui-card-footer {
@@ -1692,10 +1692,10 @@ input[type=submit]:enabled:active {
 .mui-card-header.mui-card-media .mui-media-body {
 	font-size: 0.875rem;
 	font-weight: 500;
-	line-height: 1.5rem;
 	margin-bottom: 0;
-	margin-left: 3.5rem;
-	color: #333
+	margin-left: 3rem;
+	color: #333;
+	margin-top: .7rem;
 }
 
 .mui-card-header.mui-card-media .mui-media-body p {
@@ -4653,6 +4653,10 @@ body>.mui-progressbar {
 
 .ceee {
 	color: #eee !important;
+}
+
+.caaa {
+	color: #aaa !important;
 }
 
 .csubtitle {

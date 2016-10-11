@@ -129,9 +129,14 @@
 				var div = document.createElement('div');
 				div.className = 'mui-card';
 				var model = [];
-				model.push('<div class="mui-card-header mui-card-media">');
+				/*model.push('<div class="mui-card-header mui-card-media">');
 				model.push('<img src="../images/logo.png" /><div class="mui-media-body">小M<p>Posted on January 18, 2016</p></div></div>');
+				model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');*/
+
+				model.push('<div class="mui-card-header mui-card-media user">');
+				model.push('<img src="../images/logo.png" style="border-radius:50%;" /><div class="mui-media-body f11">小M<span class="fr caaa">13小时前</span></div></div>');
 				model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+
 				var num = parseInt(Math.random() * 4);
 				if(num == 1) {
 					model.push('<div class="onefloor"><img data-lazyload="http://www.dcloud.io/hellomui/images/' + parseInt(Math.random() * 5 + 1) + '.jpg?version=' + Math.random() * 1000 + '" data-preview-src="" data-preview-group="' + id + '" /></div>');
