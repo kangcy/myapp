@@ -86,7 +86,7 @@
 								</div>
 							</div>
 						</div>
-						<div style="width:100%;height:4rem;line-height:4rem;background:#fafafa;">0篇文章</div>
+						<div id="record" style="width: 100%;height: 2.5rem;line-height: 2.5rem;background: #fafafa;text-indent: .5rem;" class="f13 caaa">0篇文章</div>
 						<div id="scroll-view">
 						</div>
 					</div>
@@ -107,12 +107,9 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currpage1 = 1;
-	var totalpage1 = 2;
-	var currpage2 = 1;
-	var totalpage2 = 2;
-	var isLoading1 = false;
-	var isLoading2 = false;
+	var currpage = 1;
+	var totalpage = 2;
+	var isLoading = false;
 	var pagesize = base.PageSize;
 	var UserID = 0; //用户ID
 
@@ -140,68 +137,68 @@
 			down: {
 				callback: function() {
 					var self = this;
-					pulldownRefresh1(self);
+					pulldownRefresh(self);
 				}
 			},
 			up: {
 				auto: true,
 				callback: function() {
 					var self = this;
-					pullupRefresh1(self);
+					pullupRefresh(self);
 				}
 			}
 		});
 	}
 
 	//他的作品-下拉刷新
-	function pulldownRefresh1(self) {
-		if(isLoading1 == true) {
+	function pulldownRefresh(self) {
+		if(isLoading == true) {
 			return;
 		}
-		isLoading1 = true;
+		isLoading = true;
 		setTimeout(function() {
-			currpage1 = 1;
-			totalpage1 = 2;
+			currpage = 1;
+			totalpage = 2;
 			document.getElementById('scroll-view').innerHTML = "";
 			Load1(function() {
-				++currpage1;
+				++currpage;
 				self.endPullDownToRefresh();
 				self.refresh(true);
-				isLoading1 = false;
+				isLoading = false;
 			})
 		}, 500);
 	}
 
 	//他的作品-上拉加载
-	function pullupRefresh1(self) {
-		if(isLoading1 == true) {
+	function pullupRefresh(self) {
+		if(isLoading == true) {
 			return;
 		}
-		isLoading1 = true;
-		if(currpage1 > totalpage1) {
-			isLoading1 = false;
-			self.endPullUpToRefresh(currpage1 > totalpage1);
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
 			return mui.toast("没有更多数据了~");
 		}
 		setTimeout(function() {
-			Load1(function() {
-				++currpage1;
-				self.endPullUpToRefresh(currpage1 > totalpage1);
-				isLoading1 = false;
+			Load(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
 			})
 		}, 500);
 	}
 
 	//他的作品-加载数据
-	function Load1(callback) {
+	function Load(callback) {
 		var data = {
-			page: currpage1,
+			page: currpage,
 			rows: pagesize,
 			CreateUserID: UserID
 		}
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage1;
+				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view');
