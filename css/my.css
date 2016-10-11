@@ -116,8 +116,8 @@
 	background: #49be38;
 	color: #fff;
 	text-align: center;
-	border-radius: 20px;
-	padding: 0.3rem 1.5rem;
+	border-radius: 15px;
+	padding: 0.4rem 1.2rem;
 	display: inline-block;
 }
 
@@ -125,7 +125,7 @@
 	border: 1px solid #49be38;
 	color: #49be38;
 	text-align: center;
-	border-radius: 20px;
-	padding: 0.3rem 1.5rem;
+	border-radius: 15px;
+	padding: 0.4rem 1.2rem;
 	display: inline-block;
 }

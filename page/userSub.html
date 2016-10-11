@@ -81,12 +81,12 @@
 								<p class="c333 f16 tc name bold" id="nickname"></p>
 								<p class="csubtitle signature tc mt5 f12" id="signature"></p>
 								<div class="full tc mt10">
-									<div class="guanzhu f12 mr10">关注</div>
-									<div class="dashang f12">打赏</div>
+									<div class="guanzhu f14 mr10">关注</div>
+									<div class="dashang f14">打赏</div>
 								</div>
 							</div>
 						</div>
-						<div id="record" style="width: 100%;height: 2.5rem;line-height: 2.5rem;background: #fafafa;text-indent: .5rem;" class="f13 caaa">0篇文章</div>
+						<div id="record" style="width: 100%;height: 2.5rem;line-height: 2.5rem;background: #fafafa;text-indent: .5rem;" class="f13 caaa hide"></div>
 						<div id="scroll-view">
 						</div>
 					</div>
@@ -201,6 +201,9 @@
 				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
+
+					$("#record").html(data.records + "篇").removeClass("hide");
+
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i]);
