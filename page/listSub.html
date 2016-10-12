@@ -85,7 +85,20 @@
 			/*document.body.removeAttribute('data-lazyload');*/
 			for(var i = 0, len = i + 10; i < len; i++) {
 				++id;
+
 				var div = document.createElement('div');
+				div.className = 'mui-card';
+				var model = [];
+				model.push('<div class="mui-card-header mui-card-media user">');
+				model.push('<img data-lazyload="../images/logo.png" style="border-radius:50%;width:2.5rem;height:2.5rem;" /><div class="mui-media-body f11">小M<span class="fr caaa">前天</span></div></div>');
+				model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+				model.push('<p class="c333 fl article full">测试</p>');
+
+				model.push('</div></div>');
+				model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">其它</span><span class="f11">0次阅 · 0评论 · 0喜欢 · 0打赏</span></div>');
+				div.innerHTML = model.join('');
+
+				/*var div = document.createElement('div');
 				div.className = 'mui-card';
 				var model = [];
 				model.push('<div class="mui-card-header mui-card-media">');
@@ -103,7 +116,7 @@
 				model.push('<p class="c333 fl mt10">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>');
 				model.push('</div></div>');
 				model.push('<div class="mui-card-footer fl full"><a class="mui-card-link">Like</a><a class="mui-card-link">Read more</a></div>');
-				div.innerHTML = model.join('');
+				div.innerHTML = model.join('');*/
 				table.insertBefore(div, table.firstChild); //下拉刷新，新纪录插到最前面；
 			}
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();

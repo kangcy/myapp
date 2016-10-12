@@ -52,7 +52,8 @@
 			if(this.getAttribute("class") == "tab curr")
 				return;
 			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
+				contentWebview = plus.webview.getWebviewById("topicSub");
+				//contentWebview = plus.webview.currentWebview().children()[0];
 			}
 			document.getElementById("tab2").setAttribute("class", "tab");
 			document.getElementById("tab1").setAttribute("class", "tab curr");
@@ -63,14 +64,15 @@
 			if(this.getAttribute("class") == "tab curr")
 				return;
 			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
+				contentWebview = plus.webview.getWebviewById("topicSub");
+				//contentWebview = plus.webview.currentWebview().children()[0];
 			}
 			document.getElementById("tab1").setAttribute("class", "tab");
 			document.getElementById("tab2").setAttribute("class", "tab curr");
 			contentWebview.evalJS("ChangeSlider(1)");
 		});
-		
-		base.ShowSearch();//跳转搜索页
+
+		base.ShowSearch(); //跳转搜索页
 	});
 
 	window.addEventListener("updateCurr", function(e) {

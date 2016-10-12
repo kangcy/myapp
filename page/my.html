@@ -10,10 +10,11 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../css/my.css">
+		<link rel="stylesheet" href="../cropper/cropper.css">
 	</head>
 
 	<body>
-		<div class="mui-content fl">
+		<div class="mui-content fl"> 
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
 				<div class="mui-scroll">
 					<header class="mui-bar" style="box-shadow:none;">
@@ -21,7 +22,7 @@
 						<a id="search" class="mui-icon mui-icon-search fr cfff"></a>
 						<h1 class="mui-title c333"></h1>
 					</header>
-					<div style="width:100%;height:10rem;background:url(../images/header.png);background-size:100% 100%;"></div>
+					<div id="bg" style="width:100%;height:10rem;background:url(../images/header.png);background-size:100% 100%;" onclick="showActionSheet(2,1)"></div>
 					<div class="info-body mb8">
 						<div class="info-content">
 							<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
@@ -65,6 +66,22 @@
 				</div>
 			</div>
 		</div>
+		<!--图片编辑容器-->
+		<div id="cropperEdit" class="mui-iframe-wrapper full">
+			<img id="readyimg" />
+			<div class="mui-content-padded">
+				<div class="flex-container tc">
+					<a><span class="mui-icon mui-icon-closeempty" onclick="closepop()"></span></a>
+					<!--关闭裁剪窗口-->
+					<a><span class="mui-icon mui-icon-undo" onclick="rotateimgleft()"></span></a>
+					<!--左旋转90度-->
+					<a><span class="mui-icon mui-icon-redo" onclick="rotateimgright()"></span></a>
+					<!--右旋转90度-->
+					<a><span class="mui-icon mui-icon-checkmarkempty" id="confirm"></span></a>
+					<!--确定选择-->
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -72,6 +89,8 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../cropper/cropper.min.js"></script>
+<script src="../js/copper.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 
@@ -98,6 +117,27 @@
 		base.InitScroll();
 
 		base.ShowSearch(); //跳转搜索页
+
+		//确认图片
+		document.getElementById("confirm").onclick = function() {
+			confirm("avatar", function(src) {
+
+				$("#bg").css({
+					"background": "url(" + src + ")",
+					"background-size": "100% 100%;"
+				});
+
+				/*HttpGet(base.RootUrl + "User/EditAvatar", {
+					UserName: userinfo.UserName,
+					Password: userinfo.Password,
+					Avatar: src
+				}, function(data) {
+					mui.toast(data.result ? "编辑成功~" : data.message);
+				});*/
+
+				mui.toast("编辑成功~");
+			});
+		}
 	});
 
 	mui.plusReady(function() {

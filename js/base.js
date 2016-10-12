@@ -218,7 +218,7 @@ var base = new function() {
 		div.className = 'mui-card';
 		var model = [];
 		model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '">');
-		model.push('<img data-lazyload="' + item.Avatar + '" style="border-radius:50%;" /><div class="mui-media-body f11">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+		model.push('<img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2.5rem;height:2.5rem;" /><div class="mui-media-body f11">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 		model.push('<p class="c333 fl article full" articleid="' + item.ArticleID + '">' + item.Title + '</p>');
 

@@ -1707,9 +1707,9 @@ input[type=submit]:enabled:active {
 	font-size: 0.875rem;
 	font-weight: 500;
 	margin-bottom: 0;
-	margin-left: 3rem;
+	margin-left: 3.5rem;
 	color: #333;
-	margin-top: .7rem;
+	margin-top: 1.2rem;
 }
 
 .mui-card-header.mui-card-media .mui-media-body p {
