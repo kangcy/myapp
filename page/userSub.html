@@ -81,7 +81,7 @@
 								<p class="c333 f16 tc name bold" id="nickname"></p>
 								<p class="csubtitle signature tc mt5 f12" id="signature"></p>
 								<div class="full tc mt10">
-									<div class="guanzhu f14 mr10">关注</div>
+									<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
 									<div class="dashang f14">打赏</div>
 								</div>
 							</div>
@@ -112,6 +112,7 @@
 	var isLoading = false;
 	var pagesize = base.PageSize;
 	var UserID = 0; //用户ID
+	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
@@ -124,6 +125,22 @@
 		base.ShowUser("#pullrefresh"); //展示用户
 
 		base.ShowArticle("#pullrefresh"); //展示文章
+
+		//关注
+		document.getElementById("guanzhu").addEventListener('tap', function(e) {
+			if(isLoading)
+				return;
+			var data = {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				ToUserID: UserID
+			}
+			HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+				if(data != null) {
+					mui.toast(data.result ? "关注成功" : data.message);
+				}
+			});
+		});
 	});
 
 	//初始化获取参数
