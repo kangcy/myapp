@@ -1707,9 +1707,9 @@ input[type=submit]:enabled:active {
 	font-size: 0.875rem;
 	font-weight: 500;
 	margin-bottom: 0;
-	margin-left: 3.5rem;
+	margin-left: 2.5rem;
 	color: #333;
-	margin-top: 1.2rem;
+	margin-top: 0.7rem;
 }
 
 .mui-card-header.mui-card-media .mui-media-body p {
@@ -4879,7 +4879,7 @@ body>.mui-progressbar {
 }
 
 .mui-title #tabs {
-	width: 150px;
+	/*width: 150px;
 	height: 25px;
 	line-height: 25px;
 	border: 1px solid #459df5;
@@ -4887,7 +4887,13 @@ body>.mui-progressbar {
 	display: inline-block;
 	margin-top: 10px;
 	overflow: hidden;
-	font-size: 15px;
+	font-size: 15px;*/
+	width: 80%;
+	height: 45px;
+	line-height: 43px;
+	overflow: hidden;
+	display: inline-block;
+	font-size: 16px;
 }
 
 .mui-title #tabs .tab {
@@ -4896,8 +4902,9 @@ body>.mui-progressbar {
 }
 
 .mui-title #tabs .tab.curr {
-	background: #459df5;
-	color: #fff;
+	/*background: #459df5;
+	color: #fff;*/
+	border-bottom: 2px solid #459df5;
 }
 
 

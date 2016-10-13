@@ -14,7 +14,7 @@
 	</head>
 
 	<body>
-		<div class="mui-content fl"> 
+		<div class="mui-content fl">
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
 				<div class="mui-scroll">
 					<header class="mui-bar" style="box-shadow:none;">
@@ -121,21 +121,19 @@
 		//确认图片
 		document.getElementById("confirm").onclick = function() {
 			confirm("avatar", function(src) {
-
-				$("#bg").css({
-					"background": "url(" + src + ")",
-					"background-size": "100% 100%;"
-				});
-
-				/*HttpGet(base.RootUrl + "User/EditAvatar", {
+				HttpGet(base.RootUrl + "User/EditCover", {
 					UserName: userinfo.UserName,
 					Password: userinfo.Password,
-					Avatar: src
+					Cover: src
 				}, function(data) {
 					mui.toast(data.result ? "编辑成功~" : data.message);
-				});*/
-
-				mui.toast("编辑成功~");
+					if(data.result) {
+						$("#bg").css({
+							"background": "url(" + src + ")",
+							"background-size": "100% 100%;"
+						});
+					}
+				});
 			});
 		}
 	});
