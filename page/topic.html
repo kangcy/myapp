@@ -48,30 +48,6 @@
 
 	var contentWebview = null;
 	mui.ready(function() {
-		document.getElementById('tab1').addEventListener('tap', function(event) {
-			if(this.getAttribute("class") == "tab curr")
-				return;
-			if(contentWebview == null) {
-				contentWebview = plus.webview.getWebviewById("topicSub");
-				//contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			document.getElementById("tab2").setAttribute("class", "tab");
-			document.getElementById("tab1").setAttribute("class", "tab curr");
-			contentWebview.evalJS("ChangeSlider(0)");
-		});
-
-		document.getElementById('tab2').addEventListener('tap', function(event) {
-			if(this.getAttribute("class") == "tab curr")
-				return;
-			if(contentWebview == null) {
-				contentWebview = plus.webview.getWebviewById("topicSub");
-				//contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			document.getElementById("tab1").setAttribute("class", "tab");
-			document.getElementById("tab2").setAttribute("class", "tab curr");
-			contentWebview.evalJS("ChangeSlider(1)");
-		});
-
 		base.ShowSearch(); //跳转搜索页
 	});
 
@@ -84,5 +60,30 @@
 			document.getElementById("tab1").setAttribute("class", "tab");
 			document.getElementById("tab2").setAttribute("class", "tab curr");
 		}
+	});
+
+	//初始化子页面
+	window.addEventListener("InitSubPage", function(e) {
+		document.getElementById('tab1').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.getWebviewById("topicSub");
+			}
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(0)");
+		});
+
+		document.getElementById('tab2').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.getWebviewById("topicSub");
+			}
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(1)");
+		});
 	});
 </script>

@@ -37,6 +37,7 @@
 	var ArticleType = 0; //类型
 	var ArticleTypeName = ""; //类型名称
 	var CreateUserID = 0; //创建人
+	var subPageLoaded = false;
 
 	//启用双击监听
 	mui.init({
@@ -80,12 +81,13 @@
 			}
 			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
+	});
 
-		setTimeout(function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			contentWebview.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
-		}, 0)
+	//初始化子页面
+	window.addEventListener("InitSubPage", function(e) {
+		if(contentWebview == null) {
+			contentWebview = plus.webview.getWebviewById("articleSub");
+		}
+		contentWebview.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
 	});
 </script>

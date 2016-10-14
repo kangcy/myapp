@@ -162,6 +162,11 @@
 		base.InitSlider(); //滑动切换
 	});
 
+	mui.plusReady(function() {
+		var parentPage = plus.webview.getWebviewById("topic");
+		mui.fire(parentPage, "InitSubPage", {});
+	});
+
 	//Slider切换
 	function ChangeSlider(index) {
 		mui('#slider').slider().gotoItem(index);
