@@ -69,6 +69,7 @@
 				mui.toast(data.result ? "感谢您的评论~" : data.message);
 				if(data.result) {
 					question.value = "";
+					base.UpdateUser();//更新用户信息
 					if(mui.os.plus) {
 						mui.back();
 					}

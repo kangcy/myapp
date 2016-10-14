@@ -190,7 +190,12 @@
 					autoShow: false
 				}
 			});
-		})
+		});
+
+		//重新加载数据
+		window.addEventListener("UpdateDetail", function(e) {
+			Load();
+		});
 	});
 
 	mui.plusReady(function() {

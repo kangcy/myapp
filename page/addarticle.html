@@ -317,6 +317,8 @@
 				if(e.index == 0) {
 					Save(function() {
 						plus.webview.close(self);
+						var articleDetailPage = plus.webview.getWebviewById('articledetail');
+						mui.fire(articleDetailPage, "UpdateDetail", {});
 					})
 				}
 			});
@@ -398,7 +400,8 @@
 			Password: userinfo.Password,
 			ID: ArticleID,
 			Title: escape(Title),
-			MusicID: MusicID
+			MusicID: MusicID,
+			Cover: Cover
 		}, function(data) {
 			if(mui.os.plus) {
 				plus.nativeUI.closeWaiting();

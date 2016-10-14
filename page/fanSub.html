@@ -214,7 +214,7 @@
 				if(length > 0) {
 					var table = document.getElementById('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr1(data.list[i]);
+						var div = appendStr(data.list[i], 0);
 						table.appendChild(div);
 					}
 				}
@@ -244,7 +244,7 @@
 				if(length > 0) {
 					var table = document.getElementById('scroll-view2');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr2(data.list[i]);
+						var div = appendStr(data.list[i], 1);
 						table.appendChild(div);
 					}
 				}
@@ -263,7 +263,7 @@
 	/**
 	 * 拼接Html
 	 */
-	function appendStr(item) {
+	function appendStr2(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
@@ -274,6 +274,24 @@
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.NickName + '</p><p class="f11 c333">' + item.Signature + '</p></div>');
 		//关注
 		model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
+	//拼接Html
+	function appendStr(item, index) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell">');
+		//分类图片
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" /></div>');
+		//分类信息
+		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f16 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
+		if(index == 1) {
+			model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13">关注</div></div>');
+		}
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

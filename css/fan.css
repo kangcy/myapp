@@ -18,8 +18,8 @@
 }
 
 .oa-contact-avatar img {
-	width: 3.75rem;
-	height: 3.75rem;
+	width: 3.75rem !important;
+	height: 3.75rem !important;
 	border: 1px solid #ccc;
 	border-radius: 50%;
 }
@@ -40,4 +40,15 @@
 .mui-table-view-cell:after {
 	left: 0px;
 	background-color: transparent;
+}
+
+.guanzhu {
+	border: 1px solid #49be38;
+	color: #49be38;
+	text-align: center;
+	border-radius: 15px;
+	padding: 0.1rem 0.6rem;
+	display: inline-block;
+	float: right;
+	margin-top: 0rem;
 }
