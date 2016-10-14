@@ -28,7 +28,8 @@ var base = new function() {
 	 * 获取当前用户ID
 	 **/
 	this.GetUserID = function() {
-		return 2;
+		var userinfo = base.GetUserInfo();
+		return userinfo.ID || 0;
 	}
 
 	/**

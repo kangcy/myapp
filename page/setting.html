@@ -9,8 +9,17 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<style type="text/css">
+			body {
+				background: #eee;
+			}
+			
 			.mui-table-view-cell {
 				padding: .8rem 0.9375rem;
+			}
+			
+			.mui-table-view-cell:after {
+				left: 0.9375rem;
+				right: 0.9375rem;
 			}
 		</style>
 	</head>
@@ -18,62 +27,46 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
-			<h1 class="mui-title">通用设置</h1>
+			<h1 class="mui-title c333">通用设置</h1>
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view f11" style="margin-top:0px;">
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl">绑定手机号</span>
-						<span class="mui-pull-right csubtitle mr20">18652913873</span>
-					</a>
+					<span class="fl">绑定手机号</span>
+					<span class="mui-pull-right caaa">18652913873</span>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl">绑定微信号</span>
-						<span class="mui-pull-right csubtitle mr20">18652913873</span>
-					</a>
+					<span class="fl">绑定微信号</span>
+					<span class="mui-pull-right caaa">18652913873</span>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl">绑定邮箱</span>
-						<span class="mui-pull-right csubtitle mr20">735149528@qq.com</span>
-					</a>
+					<span class="fl">绑定邮箱</span>
+					<span class="mui-pull-right caaa">735149528@qq.com</span>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<span class="fl">清除缓存</span>
-						<span class="mui-pull-right csubtitle mr20">600M</span>
-					</a>
+					<span class="fl">清除缓存</span>
+					<span class="mui-pull-right caaa">600M</span>
 				</li>
 				<li class="mui-table-view-cell">
-					<a>
-						<span class="fl">分享带昵称</span>
-						<div class="mui-switch mui-switch-blue mui-active">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</a>
+					<span class="fl">分享带昵称</span>
+					<div class="mui-switch mui-switch-blue mui-active">
+						<div class="mui-switch-handle"></div>
+					</div>
 				</li>
 				<li class="mui-table-view-cell">
-					<a>
-						<span class="fl">音乐自动播放</span>
-						<div class="mui-switch mui-switch-blue mui-active">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</a>
+					<span class="fl">音乐自动播放</span>
+					<div class="mui-switch mui-switch-blue mui-active">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li id="account" class="mui-table-view-cell">
+					账号与安全
 				</li>
 				<li class="mui-table-view-cell">
-					<a id="account" class="mui-navigate-right">
-						账号与安全
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						检查更新
-					</a>
+					检查更新
 				</li>
 			</ul>
-			<div style="background: #E8E8E8;width:100%;height:10px;"></div>
+			<div style="background: #eee;width:100%;height:10px;"></div>
 			<ul class="mui-table-view f11">
 				<li class="mui-table-view-cell">
 					<a id="exit" style="text-align: center;color: #FF3B30;">

@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/comment.css">
+		<link rel="stylesheet" href="../css/fan.css">
 		<link rel="stylesheet" href="../css/loading.css">
 	</head>
 
@@ -82,7 +82,7 @@
 			}
 		});
 
-		//评论我的
+		//关注我的
 		mui(document.getElementById("scroll2")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -114,6 +114,7 @@
 
 		//文章详细
 		base.ShowArticle("#slider");
+
 	});
 
 	//Slider切换
@@ -121,7 +122,7 @@
 		mui('#slider').slider().gotoItem(index);
 	}
 
-	//我评论的-下拉刷新
+	//我关注的-下拉刷新
 	function pulldownRefresh1(self) {
 		if(isLoading1 == true) {
 			return;
@@ -140,7 +141,7 @@
 		}, 500);
 	}
 
-	//我评论的-上拉加载
+	//我关注的-上拉加载
 	function pullupRefresh1(self) {
 		if(isLoading1 == true) {
 			return;
@@ -160,7 +161,7 @@
 		}, 500);
 	}
 
-	//评论我的-下拉刷新
+	//关注我的-下拉刷新
 	function pulldownRefresh2(self) {
 		if(isLoading2 == true) {
 			return;
@@ -179,7 +180,7 @@
 		}, 500);
 	}
 
-	//评论我的-上拉加载
+	//关注我的-上拉加载
 	function pullupRefresh2(self) {
 		if(isLoading2 == true) {
 			return;
@@ -199,14 +200,14 @@
 		}, 500);
 	}
 
-	//我的评论-加载数据
+	//我的关注-加载数据
 	function Load1(callback) {
 		data = {
 			page: currpage1,
 			rows: pagesize,
-			CreateUserID: userId
+			FromUserID: userId
 		}
-		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
+		HttpGet(base.RootUrl + "Fan/All", data, function(data) {
 			if(data != null) {
 				totalpage = data.totalpage1;
 				var length = data.list.length;
@@ -229,14 +230,14 @@
 		});
 	}
 
-	//评论我的-加载数据
+	//关注我的-加载数据
 	function Load2(callback) {
 		var data = {
 			page: currpage2,
 			rows: pagesize,
-			ArticleUserID: userId
+			ToUserID: userId
 		}
-		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
+		HttpGet(base.RootUrl + "Fan/All", data, function(data) {
 			if(data != null) {
 				totalpage = data.totalpage2;
 				var length = data.list.length;
@@ -259,44 +260,20 @@
 		});
 	}
 
-	//我的评论-拼接Html 
-	function appendStr1(item) {
+	/**
+	 * 拼接Html
+	 */
+	function appendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell mt10">');
-		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright"></span></div>');
-		model.push('</div>');
-		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
-		model.push('<div class="oa-contact-date mui-table-cell c999 tl">' + item.CreateDate + '</div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '">“' + item.Title + '”</div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
-	//评论我的-拼接Html
-	function appendStr2(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		var model = [];
-		model.push('<div class="mui-slider-cell mt10">');
+		model.push('<div class="mui-slider-cell">');
 		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
-		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
+		//昵称、签名
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.NickName + '</p><p class="f11 c333">' + item.Signature + '</p></div>');
 		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright"></span></div>');
-		model.push('</div>');
-		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		model.push('<div class="oa-contact-date mui-table-cell c999 tc">' + item.CreateDate + '</div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '">“' + item.Title + '”</div>');
+		model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

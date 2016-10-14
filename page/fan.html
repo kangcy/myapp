@@ -8,218 +8,82 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/fan.css">
+
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-action-menu mui-pull-left cfff"><img src="../images/menu.png" class="leftmenu" /></a>
-			<a id="info" class="mui-icon mui-icon-search mui-pull-right cfff"></a>
-			<h1 class="mui-title cfff">列表</h1>
-		</header>
-		<div class="mui-iframe-wrapper" style="top: 2.75rem; bottom: 2.75rem;">
-			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<div id="scroll-view">
-					</div>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon mui-icon-back fl blue"></a>
+			<div class="mui-title">
+				<div id="tabs">
+					<span class="tab curr" id="tab1">我关注的</span>
+					<span class="tab" id="tab2">关注我的</span>
 				</div>
 			</div>
+		</header>
+		<div class="mui-content">
+
 		</div>
-		<footer class="mui-bar mui-bar-tab footer">
-			<a class="mui-tab-item mui-active" href="page/about.html">
-				<img src="../images/home.png" class="mui-icon" />
-				<span class="mui-tab-label f11">首页</span>
-			</a>
-			<a class="mui-tab-item" href="page/list.html">
-				<img src="../images/add.png" class="add" />
-			</a>
-			<a class="mui-tab-item" href="page/setting.html">
-				<img src="../images/user.png" class="mui-icon" />
-				<span class="mui-tab-label f11">我的</span>
-			</a>
-		</footer>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currpage = 1;
-	var pagesize = base.PageSize;
-	var totalpage = 2;
-
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false, //启用右滑关闭功能
-		pullRefresh: {
-			container: '#pullrefresh',
-			down: {
-				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: '正在加载...',
-				contentnomore: '没有更多数据了',
-				callback: pullupRefresh
+		swipeBack: false,
+		subpages: [{
+			id: 'fanSub',
+			url: 'fanSub.html',
+			styles: {
+				top: '50px',
+				bottom: '0px',
 			}
-		}
-	});
-
-	mui.plusReady(function() {
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
-		
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			self.hide();
-		}
-	});
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh() {
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			load(function() {
-				++currpage;
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				mui('#pullrefresh').pullRefresh().refresh(true);
-			})
-		}, 250);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh() {
-		mui('#pullrefresh').pullRefresh().endPullupToRefresh(currpage > totalpage);
-		setTimeout(function() {
-			mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-			load(function() {
-				++currpage;
-			})
-		}, 250);
-	}
-
-	/**
-	 * 加载数据
-	 */
-	function load(callback) {
-		HttpGet(base.RootUrl + "Fan/All", {
-			page: currpage,
-			rows: pagesize,
-			ToUserID: 1
-		}, function(data) {
-			if(data != null) {
-				totalpage = data.totalpage; //总页数
-				var length = data.list.length;
-				if(length > 0) {
-					var table = document.getElementById('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
-					}
-				}
-			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
-		});
-	}
-
-	/**
-	 * 拼接Html
-	 */
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		var model = [];
-		model.push('<div class="mui-slider-cell">');
-		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
-		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.NickName + '</p><p class="f11 c333">' + item.Signature + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><img src="../images/60x60.gif"/></div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
-	if(mui.os.plus) {
-		mui.plusReady(function() {
-			setTimeout(function() {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			}, 1000);
-		});
-	} else {
-		mui.ready(function() {
-			mui('#pullrefresh').pullRefresh().pullupLoading();
-		});
-	}
-
-	/*
-	 * 点击左上角侧滑图标，打开侧滑菜单
-	 */
-	document.querySelector('.leftmenu').addEventListener('tap', function(e) {
-		var template = plus.webview.getWebviewById("index");
-		mui.fire(template, 'toggleMenu', {});
-	});
-
-	/*
-	 * 新建
-	 */
-	var subWebview = null;
-	var template = null;
-	document.getElementById('info').addEventListener('tap', function() {
-		if(!mui.os.plus) {
-			mui.openWindow({
-				url: "upload.html",
-				id: "upload",
-				show: {
-					aniShow: 'zoom-fade-out',
-					duration: 300
-				}
-			});
-			return;
-		}
-		//获取共用父窗体
-		if(subWebview == null) {
-			template = plus.webview.getWebviewById("default-main");
-		}
-		if(template) {
-			subWebview = template.children()[0];
-			subWebview.loadURL('upload.html');
-			mui.fire(template, 'updateHeader', {
-				title: '上传',
-				showMenu: false
-			});
-			template.show('slide-in-right', 150);
-		}
+		}]
 	});
 
 	var contentWebview = null;
-	document.querySelector('header').addEventListener('doubletap', function() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.currentWebview();
+	mui.ready(function() {
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		document.getElementById('tab1').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(0)");
+		});
+
+		document.getElementById('tab2').addEventListener('tap', function(event) {
+			if(this.getAttribute("class") == "tab curr")
+				return;
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
+			contentWebview.evalJS("ChangeSlider(1)");
+		});
+	});
+
+	window.addEventListener("updateCurr", function(e) {
+		var index = e.detail.index;
+		if(index == 0) {
+			document.getElementById("tab2").setAttribute("class", "tab");
+			document.getElementById("tab1").setAttribute("class", "tab curr");
+		} else {
+			document.getElementById("tab1").setAttribute("class", "tab");
+			document.getElementById("tab2").setAttribute("class", "tab curr");
 		}
-		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 	});
 </script>

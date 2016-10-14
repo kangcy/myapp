@@ -104,9 +104,19 @@
 			showActionSheet(5, 3);
 			document.getElementById("confirm").onclick = function() {
 				confirm(null, function(src) {
-					document.getElementById("header").style.backgroundImage = "url(" + src + ")";
-					document.getElementById("header").style.backgroundSize = "cover";
-					Cover = src;
+					HttpGet(base.RootUrl + "Article/EditArticleCover", {
+						UserName: userinfo.UserName,
+						Password: userinfo.Password,
+						ArticleID: ArticleID,
+						Cover: src
+					}, function(data) {
+						mui.toast(data.result ? "编辑成功~" : data.message);
+						if(data.result) {
+							document.getElementById("header").style.backgroundImage = "url(" + src + ")";
+							document.getElementById("header").style.backgroundSize = "cover";
+							Cover = src;
+						}
+					});
 				});
 			}
 		});

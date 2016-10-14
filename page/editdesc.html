@@ -58,7 +58,7 @@
 			}
 			plus.nativeUI.showWaiting("编辑中...");
 			if(!addarticlePage) {
-				addarticlePage = plus.webview.getWebviewById('page/addarticle.html');
+				addarticlePage = plus.webview.getWebviewById('addarticle');
 			}
 			mui.fire(addarticlePage, "updateDesc", {
 				"desc": question.value

@@ -44,14 +44,7 @@
 
 	var addarticlePage = null;
 	mui.plusReady(function() {
-		//显示当前页面
-		mui.currentWebview.show("slide-in-right");
-
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
-
+		
 		var question = document.getElementById("question");
 		var self = plus.webview.currentWebview();
 		question.value = self.title;
@@ -69,7 +62,7 @@
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
 			if(!addarticlePage) {
-				addarticlePage = plus.webview.getWebviewById('page/addarticle.html');
+				addarticlePage = plus.webview.getWebviewById('addarticle');
 			}
 			mui.fire(addarticlePage, "updateTitle", {
 				"title": question.value

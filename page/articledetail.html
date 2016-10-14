@@ -209,8 +209,6 @@
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		});
-
-		base.ShowUser("header");
 	});
 
 	//加载文章
@@ -228,9 +226,12 @@
 					ArticleType = data.TypeID;
 					ArticleTypeName = data.TypeName;
 					ArticleUserID = data.CreateUserID;
-					$("#user").attr("userid", ArticleUserID);
+
+					$(".user").attr("userid", ArticleUserID);
 					$("#article_title").html(data.Title);
 					$("#article_info").html('<span class="fl blue user">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
+
+					base.ShowUser("header");
 
 					//音乐
 					if(!base.IsNullOrEmpty(data.MusicUrl)) {
