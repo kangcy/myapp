@@ -436,16 +436,15 @@
 	function appendStr(text, type, partid) {
 		var model = [];
 		model.push('<div class="edit-body">');
-		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" pardid="' + partid + '"></i></div></div>');
+		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '"><img src="../images/60x60.gif" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '"><img src="../images/60x60.gif" /></div>');
 		} else {
-			model.push('<div class="edit-content f11 tl" type="' + type + '" pardid="' + partid + '">' + text + '</div>');
+			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle c999 edit-add"></i>');
 		model.push('<div class="banner hide"><div class="edit-add-pic"><i class="fa fa-picture-o blue"></i></div><div class="edit-add-text border"><i class="fa fa-file-text-o blue"></i></div><div class="edit-add-video"><i class="fa fa-file-video-o blue"></i></div></div></div></div></div>');
-		//model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div></div></div>');
 		return model.join('')
 	}
 
@@ -453,16 +452,15 @@
 	function initStr(text, type, partid) {
 		var model = [];
 		model.push('<div class="edit-body">');
-		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" pardid="' + partid + '"></i></div></div>');
+		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" pardid="' + partid + '"><img src="' + text + '" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '"><img src="' + text + '" /></div>');
 		} else {
-			model.push('<div class="edit-content f11 tl" type="' + type + '" pardid="' + partid + '">' + text + '</div>');
+			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
 		model.push('<div class="banner hide"><div class="edit-add-pic"><i class="fa fa-picture-o blue"></i></div><div class="edit-add-text border"><i class="fa fa-file-text-o blue"></i></div><div class="edit-add-video"><i class="fa fa-file-video-o blue"></i></div></div></div></div></div>');
-		//model.push('<div class="banner hide"><div class="edit-add-pic"><a class="mui-icon mui-icon-image"></a></div><div class="edit-add-text border"><a class="mui-icon mui-icon-email"></a></div><div class="edit-add-video"><a class="mui-icon mui-icon-videocam"></a></div></div></div></div></div>');
 		return model.join('')
 	}
 
