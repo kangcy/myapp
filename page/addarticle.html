@@ -149,7 +149,18 @@
 				showActionSheet(5, 3);
 				document.getElementById("confirm").onclick = function() {
 					confirm(null, function(src) {
-						$("#" + currEditID).find("img").attr("src", src);
+						HttpGet(base.RootUrl + "ArticlePart/Edit", {
+							UserName: userinfo.UserName,
+							Password: userinfo.Password,
+							ID: $("#" + currEditID).attr("partid"),
+							Introduction: src
+						}, function(data) {
+							if(data != null) {
+								if(data.result) {
+									$("#" + currEditID).find("img").attr("src", src);
+								}
+							}
+						});
 					});
 				}
 			} else if(type == "text") {
@@ -273,6 +284,11 @@
 
 		//删除
 		mui('#edit').on('tap', '.edit-del', function() {
+			var length = $(".edit-content").length;
+			if(length <= 1) {
+				return mui.toast("请至少保留一段内容");
+			}
+
 			var $this = this;
 			var btnArray = ['确定', '取消'];
 			mui.confirm('删除后不可恢复,确定删除此段？', '', btnArray, function(e) {
@@ -281,13 +297,12 @@
 					HttpGet(base.RootUrl + "ArticlePart/Delete", {
 						UserName: userinfo.UserName,
 						Password: userinfo.Password,
-						ID: $this.attr("partid")
+						ID: $this.getAttribute("partid")
 					}, function(data) {
 						plus.nativeUI.closeWaiting();
 						if(data != null) {
 							if(data.result) {
-								$this.parentNode.parentNode.remove();
-
+								$this.parentNode.parentNode.parentNode.remove();
 							} else {
 								mui.toast(data.message);
 							}
@@ -316,9 +331,9 @@
 			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
 				if(e.index == 0) {
 					Save(function() {
-						plus.webview.close(self);
 						var articleDetailPage = plus.webview.getWebviewById('articledetail');
 						mui.fire(articleDetailPage, "UpdateDetail", {});
+						plus.webview.close(self);
 					})
 				}
 			});
@@ -332,6 +347,8 @@
 		//保存
 		document.getElementById('submit').addEventListener('tap', function(event) {
 			Save(function() {
+				var articleDetailPage = plus.webview.getWebviewById('articledetail');
+				mui.fire(articleDetailPage, "UpdateDetail", {});
 				plus.webview.close(self);
 			})
 		});
@@ -392,6 +409,16 @@
 
 	//保存
 	function Save(callback) {
+
+		/*console.log($(".edit-content").eq(0).attr("partid") + "," + $(".edit-body").eq(0).attr("index"))
+		return;*/
+
+		var ids = [];
+		var length = $(".edit-content").length;
+		for(var i = 0; i < length; i++) {
+			var partid = $(".edit-content").eq(i).attr("partid");
+			ids.push(partid + "-" + $(".edit-body").eq(i).attr("index"));
+		}
 		if(mui.os.plus) {
 			plus.nativeUI.showWaiting("保存中...");
 		}
@@ -401,7 +428,8 @@
 			ID: ArticleID,
 			Title: escape(Title),
 			MusicID: MusicID,
-			Cover: Cover
+			Cover: Cover,
+			PartIDs: ids.join(",")
 		}, function(data) {
 			if(mui.os.plus) {
 				plus.nativeUI.closeWaiting();
@@ -443,7 +471,7 @@
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
-		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle c999 edit-add"></i>');
+		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
 		model.push('<div class="banner hide"><div class="edit-add-pic"><i class="fa fa-picture-o blue"></i></div><div class="edit-add-text border"><i class="fa fa-file-text-o blue"></i></div><div class="edit-add-video"><i class="fa fa-file-video-o blue"></i></div></div></div></div></div>');
 		return model.join('')
 	}

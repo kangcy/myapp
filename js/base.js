@@ -54,7 +54,8 @@ var base = new function() {
 				Articles: 0,
 				Keeps: 0,
 				Comments: 0,
-				Zans: 0
+				Zans: 0,
+				Cover: "../images/header.png"
 			}
 		}
 
@@ -136,7 +137,8 @@ var base = new function() {
 						Articles: data.Articles,
 						Keeps: data.Keeps,
 						Comments: data.Comments,
-						Zans: data.Zans
+						Zans: data.Zans,
+						Cover: data.Cover
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 				}

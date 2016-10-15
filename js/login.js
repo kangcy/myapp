@@ -25,7 +25,7 @@
 				if(data.result) {
 					//更新用户缓存信息
 					data = data.message;
-					
+
 					var info = {
 						ID: data.ID,
 						Sex: data.Sex == "0" ? "男" : "女",
@@ -41,7 +41,8 @@
 						Articles: data.Articles,
 						Keeps: data.Keeps,
 						Comments: data.Comments,
-						Zans: data.Zans
+						Zans: data.Zans,
+						Cover: data.Cover
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();

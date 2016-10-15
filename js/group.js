@@ -14,6 +14,8 @@ function Group(ele, margin) {
 
 		p.style.top = h + 'px';
 		p.index = i;
+		//新增
+		p.setAttribute("index", i);
 		h += p.offsetHeight + margin;
 	}
 	ele.style.height = h + 'px';
@@ -25,6 +27,7 @@ function Group(ele, margin) {
 			$(panels[i]).find(".edit-up").css("visibility", i == 0 ? 'hidden' : 'visible');
 			$(panels[i]).find(".edit-down").css("visibility", i == panels.length - 1 ? 'hidden' : 'visible')
 			panels[i].index = i;
+			panels[i].setAttribute("index", i);
 		}
 	}
 

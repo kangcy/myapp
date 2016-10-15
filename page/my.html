@@ -104,6 +104,10 @@
 
 	mui.ready(function() {
 		//初始化赋值
+		$("#bg").css({
+			"background": "url(" + userinfo.Cover + ")",
+			"background-size": "100% 100%;"
+		});
 		$("#avatar").attr("src", userinfo.Avatar);
 		$("#nickname").html(userinfo.NickName);
 		$("#signature").html(userinfo.Signature);
@@ -120,7 +124,7 @@
 
 		//确认图片
 		document.getElementById("confirm").onclick = function() {
-			confirm("avatar", function(src) {
+			confirm(null, function(src) {
 				HttpGet(base.RootUrl + "User/EditCover", {
 					UserName: userinfo.UserName,
 					Password: userinfo.Password,
