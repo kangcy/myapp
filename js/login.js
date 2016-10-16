@@ -97,6 +97,19 @@
 						NickName: data.NickName,
 						Address: "",
 						Birthday: ""
+						
+						
+						Sex: "男",
+						Signature: "",
+						Avatar: data.Avatar,
+						NickName: data.NickName,
+						Follows: 0,
+						Fans: 0,
+						Articles: 0,
+						Keeps: 0,
+						Comments: 0,
+						Zans: 0,
+						Cover: data.Cover
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();

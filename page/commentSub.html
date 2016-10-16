@@ -19,20 +19,22 @@
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll1" class="mui-scroll">
-								<div id="scroll-view1"></div>
+								<div id="scroll-view1">
+
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll2" class="mui-scroll">
-								<div id="scroll-view2"></div>
+								<div id="scroll-view2">
+
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
@@ -264,39 +266,21 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell mt10">');
-		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright"></span></div>');
-		model.push('</div>');
-		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		model.push('<div class="oa-contact-avatar mui-table-cell tc">' + item.NickName + '</div>');
-		model.push('<div class="oa-contact-date mui-table-cell c999 tl">' + item.CreateDate + '</div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '">“' + item.Title + '”</div>');
-		model.push('</div>');
+		model.push('<div class="mui-slider-cell mt10"><div class="oa-contact-content mui-table-cell pb0"><p class="f12 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '">' + item.Title + '</p></div></div>');
+		model.push('<div class="mui-slider-cell mt5 mb5"><div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div></div>');
+		model.push('<div class="mui-slider-cell mb10"><div class="oa-contact-content mui-table-cell pb0"><p class="caaa f11">' + item.CreateDate + '</p></div></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
 
-	//评论我的-拼接Html
+	//评论我的-拼接Html 
 	function appendStr2(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell mt10">');
-		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell pb0 tc"><img data-lazyload="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
-		model.push('<div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell pb0"><span class="mui-icon mui-icon-arrowright"></span></div>');
-		model.push('</div>');
-		//评论信息
-		model.push('<div class="oa-contact-cell mui-table comment f11 mb10">');
-		model.push('<div class="oa-contact-date mui-table-cell c999 tc">' + item.CreateDate + '</div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc">评论</div>');
-		model.push('<div class="oa-contact-content mui-table-cell pl10 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '">“' + item.Title + '”</div>');
+		model.push('<div class="mui-slider-cell mt10 mb10">');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
+		model.push('<div class="mui-table-cell pb0"><p class="f12 user" style="color:#4EC4DE;" userid="' + item.UserID + '">' + item.NickName + '</p><p class="f12 c333 mt5 mb5">' + item.Summary + '</p><p class="f11 caaa">' + item.CreateDate + '</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
