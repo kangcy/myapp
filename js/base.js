@@ -170,7 +170,7 @@ var base = new function() {
 	 **/
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
-			plus.nativeUI.showWaiting("跳转中...");
+			plus.nativeUI.showWaiting("载入中...");
 			var userId = this.getAttribute("userid");
 			mui.openWindow({
 				id: 'user',
@@ -194,7 +194,7 @@ var base = new function() {
 	 **/
 	this.ShowArticle = function(id) {
 		mui(id).on('tap', '.article', function(event) {
-			plus.nativeUI.showWaiting("跳转中...");
+			plus.nativeUI.showWaiting("载入中...");
 			var articleId = this.getAttribute("articleid");
 			mui.openWindow({
 				id: 'articledetail',
