@@ -123,7 +123,8 @@
 							"background": "url(" + src + ")",
 							"background-size": "100% 100%;"
 						});
-						base.UpdateUser(userinfo.ID); //更新用户信息
+						userinfo.Cover = src;
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 					}
 				});
 			});
