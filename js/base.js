@@ -194,36 +194,86 @@ var base = new function() {
 	 **/
 	this.ShowArticle = function(id) {
 		mui(id).on('tap', '.article', function(event) {
-			plus.nativeUI.showWaiting("载入中...");
 			var articleId = this.getAttribute("articleid");
-			mui.openWindow({
-				id: 'articledetail',
-				url: 'articledetail.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: articleId
+			var power = this.getAttribute("power");
+			if(power.toString() == "1") {
+				var btnArray = ['确定', '取消'];
+				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
+					if(e.index == 0) {
+						base.CheckPowerPwd(articleId, e.value, function() {
+							plus.nativeUI.showWaiting("载入中...");
+							mui.openWindow({
+								id: 'articledetail',
+								url: 'articledetail.html',
+								show: {
+									autoShow: true,
+									duration: base.AnimateDuration
+								},
+								waiting: {
+									autoShow: false
+								},
+								extras: {
+									ArticleID: articleId
+								}
+							});
+						});
+					}
+				})
+			} else {
+				plus.nativeUI.showWaiting("载入中...");
+				mui.openWindow({
+					id: 'articledetail',
+					url: 'articledetail.html',
+					show: {
+						autoShow: true,
+						duration: base.AnimateDuration
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						ArticleID: articleId
+					}
+				});
+			}
+		});
+	}
+
+	/**
+	 * 验证权限密码
+	 */
+	this.CheckPowerPwd = function(articleid, pwd, callback) {
+		plus.nativeUI.showWaiting("校验中...");
+		HttpGet(base.RootUrl + "Article/CheckPowerPwd", {
+			ArticleID: articleid,
+			ArticlePowerPwd: pwd
+		}, function(data) {
+			plus.nativeUI.closeWaiting();
+			if(data != null) {
+				if(data.result) {
+					if(callback) {
+						callback();
+					}
+				} else {
+					mui.toast("密码不正确");
 				}
-			});
+			} else {
+				mui.toast("密码不正确");
+			}
 		});
 	}
 
 	/**
 	 * 拼接文章Html
 	 */
-	this.AppendArticle = function(item) {
+	this.AppendArticle = function(item, ismy) {
 		var div = document.createElement('div');
 		div.className = 'mui-card';
 		var model = [];
 		model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '">');
 		model.push('<img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" /><div class="mui-media-body f11">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
-		model.push('<p class="c333 fl article full" articleid="' + item.ArticleID + '">' + item.Title + '</p>');
+		model.push('<p class="c333 fl article full" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
 
 		//部分拼接
 		var parts = item.ArticlePart;
@@ -244,7 +294,29 @@ var base = new function() {
 			}
 		}
 		model.push('</div></div>');
-		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
+		model.push('<div class="mui-card-footer fl full">');
+		if(ismy == true) {
+			var power = "";
+			switch(item.ArticlePower) {
+				case "0":
+					name = "私密";
+					break;
+				case 1:
+					name = "密码";
+					break;
+				case 2:
+					name = "分享";
+					break;
+				case 3:
+					name = "公开";
+					break;
+				default:
+					name = "私密";
+					break;
+			}
+			model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + name + '</span>');
+		}
+		model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;" class="f11">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}

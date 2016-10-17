@@ -179,7 +179,7 @@
 				var length = data.list.length;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i]);
+						var div = base.AppendArticle(data.list[i], CreateUserID == userinfo.ID);
 						table.appendChild(div);
 					}
 				} else {
