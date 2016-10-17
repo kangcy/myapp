@@ -236,6 +236,14 @@
 	mui.plusReady(function() {
 
 		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			var myPage = plus.webview.getWebviewById('my');
+			mui.fire(myPage, "UpdateUser", {});
+			plus.webview.close(self);
+		}
+
+		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
 		});

@@ -30,38 +30,38 @@
 							<p class="c333 signature tc mt10 f11" id="signature"></p>
 							<div class="csubtitle content1 tc mt20">
 								<div class="items" id="my-articles">
-									<p class="csubtitle item1"><i class="fa fa-file-text"></i></p>
+									<p class="csubtitle item1"><i class="fa fa-file-text caaa"></i></p>
 									<p class="c333 item2 f11">我的&nbsp;<span id="articles">0</span></p>
 								</div>
 								<div class="items" id="my-keeps">
-									<p class="csubtitle item1"><i class="fa fa-th-large"></i></p>
+									<p class="csubtitle item1"><i class="fa fa-th-large caaa"></i></p>
 									<p class="c333 item2 f11">收藏&nbsp;<span id="keeps">0</span></p>
 								</div>
 								<div class="items" id="my-fans">
-									<p class="csubtitle item1"><i class="fa fa-user"></i></p>
+									<p class="csubtitle item1"><i class="fa fa-user caaa"></i></p>
 									<p class="c333 item2 f11">关注&nbsp;<span id="follows">0</span></p>
 								</div>
 								<div class="items" id="my-zans">
-									<p class="csubtitle item1"><i class="fa fa-heart"></i></p>
+									<p class="csubtitle item1"><i class="fa fa-heart caaa"></i></p>
 									<p class="c333 item2 f11">点赞&nbsp;<span id="zans">0</span></p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="csubtitle menu f13" id="my-mypay"><i class="fa fa-heart mr10 f16"></i>
-						<div>打赏<span class="mui-icon mui-icon-arrowright fr mt10 c999"></span></div>
+					<div class="c000 menu f13" id="my-mypay"><i class="fa fa-heart mr10 f16 caaa"></i>
+						<div>打赏<span class="mui-icon mui-icon-arrowright fr mt10 caaa"></span></div>
 					</div>
-					<div class="csubtitle menu f13" id="my-comment"><i class="fa fa-comments mr10 f16"></i>
-						<div>评论<span class="mui-icon mui-icon-arrowright fr mt10 c999"></span></div>
+					<div class="c000 menu f13" id="my-comment"><i class="fa fa-comments mr10 f16 caaa"></i>
+						<div>评论<span class="mui-icon mui-icon-arrowright fr mt10 caaa"></span></div>
 					</div>
-					<div class="csubtitle menu f13" id="my-feedback"><i class="fa fa-envelope mr10 f16"></i>
-						<div>意见反馈<span class="mui-icon mui-icon-arrowright fr mt10 c999"></span></div>
+					<div class="c000 menu f13" id="my-feedback"><i class="fa fa-envelope mr10 f16 caaa"></i>
+						<div>意见反馈<span class="mui-icon mui-icon-arrowright fr mt10 caaa"></span></div>
 					</div>
-					<div class="csubtitle menu f13" id="my-good"><i class="fa fa-check mr10 f16"></i>
-						<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt10 c999"></span></div>
+					<div class="c000 menu f13" id="my-good"><i class="fa fa-check mr10 f16 caaa"></i>
+						<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt10 caaa"></span></div>
 					</div>
-					<div class="csubtitle menu f13" id="my-help"><i class="fa fa-question-circle mr10 f16"></i>
-						<div>帮助中心<span class="mui-icon mui-icon-arrowright fr mt10 c999"></span></div>
+					<div class="c000 menu f13" id="my-help"><i class="fa fa-question-circle mr10 f16 caaa"></i>
+						<div>帮助中心<span class="mui-icon mui-icon-arrowright fr mt10 caaa"></span></div>
 					</div>
 				</div>
 			</div>
@@ -103,20 +103,7 @@
 	});
 
 	mui.ready(function() {
-		//初始化赋值
-		$("#bg").css({
-			"background": "url(" + userinfo.Cover + ")",
-			"background-size": "100% 100%;"
-		});
-		$("#avatar").attr("src", userinfo.Avatar);
-		$("#nickname").html(userinfo.NickName);
-		$("#signature").html(userinfo.Signature);
-		$("#follows").html(userinfo.Follows);
-		$("#fans").html(userinfo.Fans);
-		$("#articles").html(userinfo.Articles);
-		$("#keeps").html(userinfo.Keeps);
-		$("#coments").html(userinfo.Comments);
-		$("#zans").html(userinfo.Zans);
+		Init();
 
 		base.InitScroll();
 
@@ -136,11 +123,37 @@
 							"background": "url(" + src + ")",
 							"background-size": "100% 100%;"
 						});
+						base.UpdateUser(userinfo.ID); //更新用户信息
 					}
 				});
 			});
 		}
+
+		//重新加载数据
+		window.addEventListener("UpdateUser", function(e) {
+			base.UpdateUser(userinfo.ID, function() {
+				userinfo = base.GetUserInfo();
+				Init();
+			})
+		});
 	});
+
+	function Init() {
+		//初始化赋值
+		$("#bg").css({
+			"background": "url(" + userinfo.Cover + ")",
+			"background-size": "100% 100%;"
+		});
+		$("#avatar").attr("src", userinfo.Avatar);
+		$("#nickname").html(userinfo.NickName);
+		$("#signature").html(userinfo.Signature);
+		$("#follows").html(userinfo.Follows);
+		$("#fans").html(userinfo.Fans);
+		$("#articles").html(userinfo.Articles);
+		$("#keeps").html(userinfo.Keeps);
+		$("#coments").html(userinfo.Comments);
+		$("#zans").html(userinfo.Zans);
+	}
 
 	mui.plusReady(function() {
 		//判断网络类型

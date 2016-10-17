@@ -96,13 +96,9 @@
 						Avatar: data.Avatar,
 						NickName: data.NickName,
 						Address: "",
-						Birthday: ""
-						
-						
+						Birthday: "",
 						Sex: "男",
 						Signature: "",
-						Avatar: data.Avatar,
-						NickName: data.NickName,
 						Follows: 0,
 						Fans: 0,
 						Articles: 0,

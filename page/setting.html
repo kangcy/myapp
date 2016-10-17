@@ -161,11 +161,16 @@
 						if(indexPage != null) {
 							plus.webview.close(indexPage)
 						}
+						var subindexPage = plus.webview.getWebviewById("subindex");
+						if(subindexPage != null) {
+							plus.webview.close(subindexPage)
+						}
 						mui.openWindow({
 							url: 'login.html',
 							id: 'login',
 							show: {
-								aniShow: 'pop-in'
+								autoShow: true,
+								duration: base.AnimateDuration
 							},
 							waiting: {
 								autoShow: false

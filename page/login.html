@@ -53,11 +53,13 @@
 
 	//跳转首页
 	var toMain = function() {
+
 		mui.openWindow({
 			id: 'index',
 			url: '../index.html',
 			show: {
-				autoShow: false
+				autoShow: true,
+				duration: base.AnimateDuration
 			},
 			waiting: {
 				autoShow: false

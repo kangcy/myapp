@@ -19,6 +19,9 @@
 	var showMenu = false;
 
 	var userinfo = localStorage.getItem('$userinfo') || "{}";
+	
+	console.log(userinfo);
+	
 	if(userinfo == "{}") {
 		mui.init({
 			swipeBack: false, //启用右滑关闭功能
@@ -30,7 +33,7 @@
 				styles: {
 					top: '0px',
 					bottom: '0px'
-					//bounce: 'vertical'
+						//bounce: 'vertical'
 				}
 			}]
 		});
@@ -57,7 +60,7 @@
 		main = plus.webview.currentWebview();
 
 		//显示当前页面
-		mui.currentWebview.show("slide-in-right");
+		//mui.currentWebview.show("slide-in-right");
 
 		plus.nativeUI.closeWaiting();
 

@@ -62,6 +62,7 @@
 	//当前激活选项
 	var activeTab = subpages[0];
 	mui.plusReady(function() {
+
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
