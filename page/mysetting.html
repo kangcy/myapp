@@ -147,6 +147,10 @@
 						plus.nativeUI.closeWaiting();
 					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
+					if(data.result) {
+						userinfo.Sex = items[0].value == "0" ? "男" : "女";
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					}
 				});
 				sexPicker.dispose(); //资源释放
 			});
@@ -175,6 +179,10 @@
 						plus.nativeUI.closeWaiting();
 					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
+					if(data.result) {
+						userinfo.Address = items[0].text + " " + items[1].text
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					}
 				});
 				cityPicker.dispose(); //资源释放
 			});
@@ -214,6 +222,10 @@
 						plus.nativeUI.closeWaiting();
 					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
+					if(data.result) {
+						userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					}
 				});
 				picker.dispose(); //资源释放
 			});
@@ -228,6 +240,10 @@
 					Avatar: src
 				}, function(data) {
 					mui.toast(data.result ? "编辑成功~" : data.message);
+					if(data.result) {
+						userinfo.Avatar = src;
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					}
 				});
 			});
 		}
@@ -238,7 +254,7 @@
 		//返回
 		mui.back = function() {
 			var self = plus.webview.currentWebview();
-			var myPage = plus.webview.getWebviewById('my');
+			var myPage = plus.webview.getWebviewById('my.html');
 			mui.fire(myPage, "UpdateUser", {});
 			plus.webview.close(self);
 		}
@@ -270,6 +286,10 @@
 				plus.nativeUI.closeWaiting();
 			}
 			mui.toast(data.result ? "编辑成功~" : data.message);
+			if(data.result) {
+				userinfo.NickName = t;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			}
 		});
 	});
 
@@ -289,6 +309,10 @@
 				plus.nativeUI.closeWaiting();
 			}
 			mui.toast(data.result ? "编辑成功~" : data.message);
+			if(data.result) {
+				userinfo.Signature = t;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			}
 		});
 	});
 

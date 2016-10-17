@@ -126,8 +126,8 @@ var base = new function() {
 						ID: data.ID,
 						Sex: data.Sex == "0" ? "男" : "女",
 						Signature: data.Signature,
-						UserName: loginInfo.UserName,
-						Password: loginInfo.Password,
+						UserName: data.UserName,
+						Password: data.Password,
 						Avatar: data.Avatar,
 						NickName: data.NickName,
 						Address: data.Address,
@@ -329,16 +329,6 @@ var base = new function() {
  * Get请求
  **/
 function HttpGet(url, data, callback) {
-	/*$.ajax({
-		url: url,
-		type: "GET",
-		dataType: "json",
-		data: data,
-		//contentType: "application/json;utf-8", //返回Json类型 
-		success: function(res) {
-			callback(res)
-		}
-	});*/
 	mui.getJSON(url, data, callback);
 }
 
