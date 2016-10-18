@@ -43,7 +43,7 @@
 			id: 'searchSub',
 			url: 'searchSub.html',
 			styles: {
-				top: '45px',
+				top: '50px',
 				bottom: '0px',
 			}
 		}]
@@ -73,13 +73,26 @@
 			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
 
-		document.getElementById("btnSearch").addEventListener('tap', function(e) {
+		/*document.getElementById("btnSearch").addEventListener('tap', function(e) {
 			if(search.value == "") {
 				return mui.toast("请输入搜索内容~");
 			}
 			plus.nativeUI.showWaiting("搜索中...");
 			if(contentWebview == null) {
 				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("Init(" + search.value + ")");
+		});*/
+	});
+
+	window.addEventListener("InitSubPage", function(e) {
+		document.getElementById("btnSearch").addEventListener('tap', function(e) {
+			if(search.value == "") {
+				return mui.toast("请输入搜索内容~");
+			}
+			plus.nativeUI.showWaiting("搜索中...");
+			if(contentWebview == null) {
+				contentWebview = plus.webview.getWebviewById("searchSub");
 			}
 			contentWebview.evalJS("Init(" + search.value + ")");
 		});

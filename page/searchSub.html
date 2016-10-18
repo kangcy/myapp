@@ -91,6 +91,11 @@
 		base.ShowArticle("#pullrefresh"); //用户详细
 	});
 
+	mui.plusReady(function() {
+		var parentPage = plus.webview.getWebviewById("search");
+		mui.fire(parentPage, "InitSubPage", {});
+	});
+
 	//初始化获取参数
 	function Init(name) {
 		NickName = name;
