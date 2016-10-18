@@ -18,8 +18,8 @@
 }
 
 .oa-contact-avatar img {
-	width: 3.75rem !important;
-	height: 3.75rem !important;
+	width: 2.5rem !important;
+	height: 2.5rem !important;
 	border-radius: 50%;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .oa-contact-icon {
-	width: 4rem;
+	width: 5rem;
 }
 
 .oa-contact-icon img {
@@ -50,8 +50,17 @@
 	display: inline-block;
 	float: right;
 	margin-top: 0rem;
+	width: 4rem;
 }
-.guanzhu.hover{
+
+.guanzhu2 {
 	border: 1px solid #aaa;
 	color: #aaa;
+	text-align: center;
+	border-radius: 15px;
+	padding: 0.3rem 0.5rem;
+	display: inline-block;
+	float: right;
+	margin-top: 0rem;
+	width: 4rem;
 }

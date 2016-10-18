@@ -90,8 +90,7 @@ var base = new function() {
 	/**
 	 * 添加关注
 	 **/
-	this.AddFan = function(userid) {
-		var fans = localStorage.getItem('$fans') || ",";
+	this.AddFan = function(fans, userid) {
 		userid = "," + userid + ",";
 		if(fans.indexOf(userid) >= 0) {
 			return true;
@@ -104,10 +103,17 @@ var base = new function() {
 	}
 
 	/**
+	 * 获取我关注的用户
+	 **/
+	this.GetFans = function() {
+		var fans = localStorage.getItem('$fans') || ",";
+		return fans;
+	}
+
+	/**
 	 * 判断是否关注
 	 **/
-	this.CheckFan = function(userid) {
-		var fans = localStorage.getItem('$fans') || ",";
+	this.CheckFan = function(fans, userid) {
 		userid = "," + userid + ",";
 		if(fans.indexOf(userid) >= 0) {
 			return true;
@@ -197,6 +203,33 @@ var base = new function() {
 				}
 			});
 		})
+	}
+
+	/**
+	 * 关注
+	 **/
+	this.GuanZhu = function(id, userinfo, callback) {
+		mui(id).on('tap', '.guanzhu', function(event) {
+			var userId = this.getAttribute("userid");
+			var $this = $(this);
+			HttpGet(base.RootUrl + "Fan/Edit", {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				ToUserID: userId
+			}, function(data) {
+				if(data != null) {
+					if(data.result) {
+						var fans = localStorage.getItem('$fans') || ",";
+						base.AddFan(fans, userId);
+						if(callback) {
+							callback($this);
+						}
+					} else {
+						mui.toast(data.message);
+					}
+				}
+			});
+		});
 	}
 
 	/**

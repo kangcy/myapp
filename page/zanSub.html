@@ -89,7 +89,7 @@
 	var isLoading1 = false;
 	var isLoading2 = false;
 	var pagesize = base.PageSize;
-	var userId = base.GetUserID();
+	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
@@ -136,6 +136,8 @@
 		base.ShowUser("#slider"); //展示用户
 
 		base.ShowArticle("#slider"); //展示文章
+
+		base.GuanZhu("#slider", userinfo);//添加关注
 
 		base.InitSlider(); //滑动切换
 	});
@@ -228,7 +230,7 @@
 		var data = {
 			page: currpage1,
 			rows: pagesize,
-			ArticleUserID: userId
+			ArticleUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Zan/All", data, function(data) {
 			if(data != null) {
@@ -258,7 +260,7 @@
 		var data = {
 			page: currpage2,
 			rows: pagesize,
-			CreateUserID: userId
+			CreateUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Zan/All2", data, function(data) {
 			if(data != null) {
@@ -266,8 +268,9 @@
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view2');
+					var fans = base.GetFans();
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
+						var div = appendStr(fans, data.list[i]);
 						table.appendChild(div);
 					}
 				}
@@ -284,17 +287,22 @@
 	}
 
 	//拼接Html
-	function appendStr(item) {
+	function appendStr(fans, item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
-		//分类图片
+		//分类图片 
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
-		//model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu hover f13" userid="' + item.UserID + '">关注</div></div>');
-		model.push('</div>');
+		model.push('<div class="oa-contact-icon mui-table-cell">');
+		if(base.CheckFan(fans, item.UserID)) {
+			model.push('<div class="guanzhu2 f13" userid="' + item.UserID + '">已关注</div>');
+		} else {
+			model.push('<div class="guanzhu f13" userid="' + item.UserID + '">关注</div>');
+		}
+		model.push('</div></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}

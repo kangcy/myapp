@@ -53,7 +53,8 @@
 	var isLoading2 = false;
 	var pagesize = base.PageSize;
 	var payPage = null;
-	var userId = base.GetUserID();
+	var userinfo = base.GetUserInfo();
+	var fans = base.GetFans();
 	mui.init();
 
 	mui.ready(function() {
@@ -115,6 +116,10 @@
 		//文章详细
 		base.ShowArticle("#slider");
 
+		//添加关注
+		base.GuanZhu("#slider", userinfo, function($this) {
+			$this.addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+		});
 	});
 
 	//Slider切换
@@ -205,7 +210,7 @@
 		data = {
 			page: currpage1,
 			rows: pagesize,
-			FromUserID: userId
+			FromUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Fan/All", data, function(data) {
 			if(data != null) {
@@ -235,7 +240,7 @@
 		var data = {
 			page: currpage2,
 			rows: pagesize,
-			ToUserID: userId
+			ToUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Fan/All", data, function(data) {
 			if(data != null) {
@@ -270,9 +275,13 @@
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
-		/*if(index == 1) {
-			model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13">关注</div></div>');
-		}*/
+		if(index == 1) {
+			if(base.CheckFan(fans, item.UserID)) {
+				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu2 f13" userid="' + item.UserID + '">已关注</div></div>');
+			} else {
+				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.UserID + '">关注</div></div>');
+			}
+		}
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
