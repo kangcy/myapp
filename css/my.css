@@ -120,6 +120,10 @@
 	padding: 0.4rem 1.2rem;
 	display: inline-block;
 }
+.guanzhu.hover{
+	border: 1px solid #aaa;
+	background: #aaa;
+}
 
 .dashang {
 	border: 1px solid #49be38;

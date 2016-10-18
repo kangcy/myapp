@@ -61,6 +61,21 @@
 				display: inline-block;
 				color: #e78170;
 			}
+			
+			#avatar {
+				border-radius: 50%;
+				width: 5rem;
+				height: 5rem;
+				border: 3px solid #fff;
+			}
+			
+			#record {
+				width: 100%;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				background: #fafafa;
+				text-indent: .5rem;
+			}
 		</style>
 	</head>
 
@@ -77,7 +92,7 @@
 						<div style="width:100%;height:10rem;background:url(../images/header.png);background-size:100% 100%;"></div>
 						<div id="info-body" class="info-body mb8">
 							<div class="info-content">
-								<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
+								<img id="avatar" src="../images/60x60.gif" />
 								<p class="c333 f16 tc name bold" id="nickname"></p>
 								<p class="csubtitle signature tc mt5 f12" id="signature"></p>
 								<div class="full tc mt10">
@@ -86,7 +101,7 @@
 								</div>
 							</div>
 						</div>
-						<div id="record" style="width: 100%;height: 2.5rem;line-height: 2.5rem;background: #fafafa;text-indent: .5rem;" class="f13 caaa hide"></div>
+						<div id="record" class="f13 caaa hide"></div>
 						<div id="scroll-view">
 						</div>
 					</div>
@@ -123,22 +138,6 @@
 		base.InitScroll();
 
 		base.ShowArticle("#pullrefresh"); //展示文章
-
-		//关注
-		document.getElementById("guanzhu").addEventListener('tap', function(e) {
-			if(isLoading)
-				return;
-			var data = {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
-				ToUserID: UserID
-			}
-			HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
-				if(data != null) {
-					mui.toast(data.result ? "关注成功" : data.message);
-				}
-			});
-		});
 	});
 
 	//初始化获取参数
@@ -255,6 +254,36 @@
 			}
 			if(mui.os.plus) {
 				plus.nativeUI.closeWaiting();
+			}
+		});
+	}
+
+	//判断是否关注
+	function CheckFan() {
+		HttpGet(base.RootUrl + "Fan/Check", {
+			FromUserID: userinfo.ID,
+			ToUserID: UserID
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					$("#guanzhu").addClass("hover");
+				} else {
+					//关注
+					document.getElementById("guanzhu").addEventListener('tap', function(e) {
+						if(isLoading)
+							return;
+						var data = {
+							UserName: userinfo.UserName,
+							Password: userinfo.Password,
+							ToUserID: UserID
+						}
+						HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+							if(data != null) {
+								mui.toast(data.result ? "关注成功" : data.message);
+							}
+						});
+					});
+				}
 			}
 		});
 	}
