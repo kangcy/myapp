@@ -85,8 +85,8 @@
 				<div class="mui-scroll-wrapper">
 					<div id="pullrefresh" class="mui-scroll">
 						<header class="mui-bar" style="box-shadow:none;">
-							<a id="toggle" class="mui-icon mui-icon-bars fl cfff"></a>
-							<a id="star" class="mui-icon mui-icon-star fr cfff"></a>
+							<a id="toggle" class="mui-icon mui-icon-back fl cfff" style="font-size:30px;"></a>
+							<a id="star" class="mui-icon mui-icon-star fr cfff" style="font-size:30px;"></a>
 							<h1 class="mui-title c333"></h1>
 						</header>
 						<div style="width:100%;height:10rem;background:url(../images/header.png);background-size:100% 100%;"></div>
@@ -145,6 +145,8 @@
 		UserID = userId;
 
 		LoadUserInfo();
+
+		CheckFan();
 
 		//他的作品
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
@@ -266,7 +268,7 @@
 		}, function(data) {
 			if(data != null) {
 				if(data.result) {
-					$("#guanzhu").addClass("hover");
+					$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
 				} else {
 					//关注
 					document.getElementById("guanzhu").addEventListener('tap', function(e) {
@@ -280,6 +282,9 @@
 						HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
 							if(data != null) {
 								mui.toast(data.result ? "关注成功" : data.message);
+								if(data.result){
+									$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+								}
 							}
 						});
 					});

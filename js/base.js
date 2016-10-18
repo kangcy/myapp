@@ -88,6 +88,35 @@ var base = new function() {
 	}
 
 	/**
+	 * 添加关注
+	 **/
+	this.AddFan = function(userid) {
+		var fans = localStorage.getItem('$fans') || ",";
+		userid = "," + userid + ",";
+		if(fans.indexOf(userid) >= 0) {
+			return true;
+		} else {
+			fans += userid + ",";
+			localStorage.setItem('$fans', fans);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 判断是否关注
+	 **/
+	this.CheckFan = function(userid) {
+		var fans = localStorage.getItem('$fans') || ",";
+		userid = "," + userid + ",";
+		if(fans.indexOf(userid) >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * 监听标题滑动切换
 	 **/
 	this.InitSlider = function() {
@@ -141,6 +170,8 @@ var base = new function() {
 						Cover: data.Cover
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
+					localStorage.setItem('$fans', data.FanText);
+
 					if(callback) {
 						callback();
 					}
