@@ -137,7 +137,10 @@
 
 		base.ShowArticle("#slider"); //展示文章
 
-		base.GuanZhu("#slider", userinfo);//添加关注
+		//添加关注
+		base.GuanZhu("#slider", userinfo, function($this) {
+			$this.addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+		});
 
 		base.InitSlider(); //滑动切换
 	});
@@ -268,9 +271,8 @@
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view2');
-					var fans = base.GetFans();
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(fans, data.list[i]);
+						var div = appendStr(data.list[i]);
 						table.appendChild(div);
 					}
 				}
@@ -297,7 +299,7 @@
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
 		model.push('<div class="oa-contact-icon mui-table-cell">');
-		if(base.CheckFan(fans, item.UserID)) {
+		if(base.CheckFan(userinfo.FanText, item.UserID)) {
 			model.push('<div class="guanzhu2 f13" userid="' + item.UserID + '">已关注</div>');
 		} else {
 			model.push('<div class="guanzhu f13" userid="' + item.UserID + '">关注</div>');

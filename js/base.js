@@ -55,7 +55,8 @@ var base = new function() {
 				Keeps: 0,
 				Comments: 0,
 				Zans: 0,
-				Cover: "../images/header.png"
+				Cover: "../images/header.png",
+				FanText: "",
 			}
 		}
 
@@ -90,36 +91,53 @@ var base = new function() {
 	/**
 	 * 添加关注
 	 **/
-	this.AddFan = function(fans, userid) {
-		userid = "," + userid + ",";
-		if(fans.indexOf(userid) >= 0) {
+	this.AddFan = function(userinfo, userid) {
+		if(userinfo.FanText.indexOf("," + userid + ",") >= 0) {
 			return true;
 		} else {
-			fans += userid + ",";
-			localStorage.setItem('$fans', fans);
+			userinfo.FanText += userid + ",";
+			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * 获取我关注的用户
-	 **/
-	this.GetFans = function() {
-		var fans = localStorage.getItem('$fans') || ",";
-		return fans;
-	}
-
-	/**
 	 * 判断是否关注
 	 **/
-	this.CheckFan = function(fans, userid) {
+	this.CheckFan = function(userinfo, userid) {
 		userid = "," + userid + ",";
-		if(fans.indexOf(userid) >= 0) {
+		if(userinfo.FanText.indexOf(userid) >= 0) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * 关注
+	 **/
+	this.GuanZhu = function(id, userinfo, callback) {
+		mui(id).on('tap', '.guanzhu', function(event) {
+			var userId = this.getAttribute("userid");
+			var $this = $(this);
+			HttpGet(base.RootUrl + "Fan/Edit", {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				ToUserID: userId
+			}, function(data) {
+				if(data != null) {
+					if(data.result) {
+						base.AddFan(userinfo, userId);
+						if(callback) {
+							callback($this);
+						}
+					} else {
+						mui.toast(data.message);
+					}
+				}
+			});
+		});
 	}
 
 	/**
@@ -173,10 +191,10 @@ var base = new function() {
 						Keeps: data.Keeps,
 						Comments: data.Comments,
 						Zans: data.Zans,
-						Cover: data.Cover
+						Cover: data.Cover,
+						FanText: data.FanText
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
-					localStorage.setItem('$fans', data.FanText);
 
 					if(callback) {
 						callback();
@@ -203,33 +221,6 @@ var base = new function() {
 				}
 			});
 		})
-	}
-
-	/**
-	 * 关注
-	 **/
-	this.GuanZhu = function(id, userinfo, callback) {
-		mui(id).on('tap', '.guanzhu', function(event) {
-			var userId = this.getAttribute("userid");
-			var $this = $(this);
-			HttpGet(base.RootUrl + "Fan/Edit", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
-				ToUserID: userId
-			}, function(data) {
-				if(data != null) {
-					if(data.result) {
-						var fans = localStorage.getItem('$fans') || ",";
-						base.AddFan(fans, userId);
-						if(callback) {
-							callback($this);
-						}
-					} else {
-						mui.toast(data.message);
-					}
-				}
-			});
-		});
 	}
 
 	/**
@@ -338,7 +329,7 @@ var base = new function() {
 		div.className = 'mui-card';
 		var model = [];
 		model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '">');
-		model.push('<img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" /><div class="mui-media-body f11">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+		model.push('<img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" /><div class="mui-media-body f12">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 		model.push('<p class="c333 fl article full" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
 

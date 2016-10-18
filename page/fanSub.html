@@ -54,7 +54,10 @@
 	var pagesize = base.PageSize;
 	var payPage = null;
 	var userinfo = base.GetUserInfo();
-	var fans = base.GetFans();
+
+	console.log(JSON.stringify(userinfo));
+	console.log(fans);
+
 	mui.init();
 
 	mui.ready(function() {
@@ -276,7 +279,7 @@
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
 		if(index == 1) {
-			if(base.CheckFan(fans, item.UserID)) {
+			if(base.CheckFan(userinfo.FanText, item.UserID)) {
 				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu2 f13" userid="' + item.UserID + '">已关注</div></div>');
 			} else {
 				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.UserID + '">关注</div></div>');

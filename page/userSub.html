@@ -262,8 +262,7 @@
 
 	//判断是否关注
 	function CheckFan() {
-		var fans = base.GetFans();
-		if(base.CheckFan(fans, UserID)) {
+		if(base.CheckFan(userinfo, UserID)) {
 			$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
 		} else {
 			document.getElementById("guanzhu").addEventListener('tap', function(e) {
@@ -278,6 +277,7 @@
 					if(data != null) {
 						mui.toast(data.result ? "关注成功" : data.message);
 						if(data.result) {
+							base.AddFan(userinfo, UserID);
 							$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
 						}
 					}

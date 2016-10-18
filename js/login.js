@@ -42,7 +42,8 @@
 						Keeps: data.Keeps,
 						Comments: data.Comments,
 						Zans: data.Zans,
-						Cover: data.Cover
+						Cover: data.Cover,
+						FanText: data.FanText
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -107,7 +108,8 @@
 						Keeps: 0,
 						Comments: 0,
 						Zans: 0,
-						Cover: data.Cover
+						Cover: data.Cover,
+						FanText: data.FanText
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
