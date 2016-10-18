@@ -223,10 +223,10 @@
 			Password: userinfo.Password,
 			ID: ArticleID
 		}
+console.log(JSON.stringify(userinfo));
 
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
 			if(data != null) {
-
 				if(data.result) {
 					data = data.message
 					ArticlePower = data.ArticlePower;

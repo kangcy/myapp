@@ -30,8 +30,8 @@
 						ID: data.ID,
 						Sex: data.Sex == "0" ? "男" : "女",
 						Signature: data.Signature,
-						UserName: loginInfo.UserName,
-						Password: loginInfo.Password,
+						UserName: data.UserName,
+						Password: data.Password,
 						Avatar: data.Avatar,
 						NickName: data.NickName,
 						Address: data.Address,
@@ -91,8 +91,8 @@
 					data = data.message;
 					var info = {
 						ID: data.ID,
-						UserName: regInfo.UserName,
-						Password: regInfo.Password,
+						UserName: data.UserName,
+						Password: data.Password,
 						Avatar: data.Avatar,
 						NickName: data.NickName,
 						Address: "",

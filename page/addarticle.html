@@ -331,9 +331,30 @@
 			mui.confirm('退出后文章将自动保存为草稿', '确定要退出编辑？', btnArray, function(e) {
 				if(e.index == 0) {
 					Save(function() {
-						var articleDetailPage = plus.webview.getWebviewById('articledetail');
-						mui.fire(articleDetailPage, "UpdateDetail", {});
-						plus.webview.close(self);
+
+						plus.nativeUI.showWaiting("载入中...");
+						mui.openWindow({
+							id: 'articledetail',
+							url: 'articledetail.html',
+							show: {
+								autoShow: true,
+								duration: base.AnimateDuration
+							},
+							waiting: {
+								autoShow: false
+							},
+							extras: {
+								ArticleID: ArticleID
+							}
+						});
+
+						/*var articleDetailPage = plus.webview.getWebviewById('articledetail');
+						if(articleDetailPage == null) {
+
+						} else {
+							mui.fire(articleDetailPage, "UpdateDetail", {});
+							plus.webview.close(self);
+						}*/
 					})
 				}
 			});
@@ -347,9 +368,26 @@
 		//保存
 		document.getElementById('submit').addEventListener('tap', function(event) {
 			Save(function() {
-				var articleDetailPage = plus.webview.getWebviewById('articledetail');
+				/*var articleDetailPage = plus.webview.getWebviewById('articledetail');
 				mui.fire(articleDetailPage, "UpdateDetail", {});
 				plus.webview.close(self);
+				*/
+
+				plus.nativeUI.showWaiting("载入中...");
+				mui.openWindow({
+					id: 'articledetail',
+					url: 'articledetail.html',
+					show: {
+						autoShow: true,
+						duration: base.AnimateDuration
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						ArticleID: ArticleID
+					}
+				});
 			})
 		});
 	});
@@ -409,10 +447,6 @@
 
 	//保存
 	function Save(callback) {
-
-		/*console.log($(".edit-content").eq(0).attr("partid") + "," + $(".edit-body").eq(0).attr("index"))
-		return;*/
-
 		var ids = [];
 		var length = $(".edit-content").length;
 		for(var i = 0; i < length; i++) {
@@ -450,6 +484,7 @@
 							ArticleID: ArticleID
 						}
 					});
+					base.UpdateUser(userinfo.ID);
 				} else {
 					mui.toast(data.message);
 				}
