@@ -260,25 +260,6 @@
 		});
 	}
 
-	/**
-	 * 拼接Html
-	 */
-	function appendStr2(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		var model = [];
-		model.push('<div class="mui-slider-cell">');
-		//头像
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" /></div>');
-		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.NickName + '</p><p class="f11 c333">' + item.Signature + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13">关注</div></div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
 	//拼接Html
 	function appendStr(item, index) {
 		var div = document.createElement('div');

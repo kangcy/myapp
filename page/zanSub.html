@@ -259,14 +259,14 @@
 			rows: pagesize,
 			CreateUserID: userId
 		}
-		HttpGet(base.RootUrl + "Zan/All", data, function(data) {
+		HttpGet(base.RootUrl + "Zan/All2", data, function(data) {
 			if(data != null) {
 				totalpage = data.totalpage2;
 				var length = data.list.length;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view2');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i]);
+						var div = appendStr(data.list[i]);
 						table.appendChild(div);
 					}
 				}
@@ -280,5 +280,21 @@
 				diff: window.innerHeight
 			});
 		});
+	}
+
+	//拼接Html
+	function appendStr(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell">');
+		//分类图片
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" /></div>');
+		//分类信息
+		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f16 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13">关注</div></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>

@@ -81,7 +81,9 @@
 
 		HttpGet(base.RootUrl + "User/Register", {
 			UserName: loginInfo.UserName,
-			Password: loginInfo.Password
+			Password: loginInfo.Password,
+			NickName: loginInfo.NickName,
+			Cover: "../images/header.png"
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试~");

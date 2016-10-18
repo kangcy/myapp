@@ -128,33 +128,18 @@
 
 		//点赞
 		document.getElementById('zan').addEventListener('tap', function(event) {
-			//是否我的文章
-			if(userinfo.ID == ArticleUserID) {
-				mui.openWindow({
-					id: 'zan',
-					url: 'zan.html',
-					show: {
-						autoShow: true,
-						duration: base.AnimateDuration
-					},
-					waiting: {
-						autoShow: false
+			HttpGet(base.RootUrl + "Zan/Edit", {
+				UserName: userinfo.UserName,
+				Password: userinfo.Password,
+				ArticleID: ArticleID
+			}, function(data) {
+				if(data != null) {
+					mui.toast(data.result ? "感谢您的点赞~" : data.message);
+					if(data.result) {
+						$("#footer_zan").html(data.message);
 					}
-				});
-			} else {
-				HttpGet(base.RootUrl + "Zan/Edit", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
-					ArticleID: ArticleID
-				}, function(data) {
-					if(data != null) {
-						mui.toast(data.result ? "感谢您的点赞~" : data.message);
-						if(data.result) {
-							$("#footer_zan").html(data.message);
-						}
-					}
-				});
-			}
+				}
+			});
 		})
 
 		//添加评论
@@ -223,8 +208,6 @@
 			Password: userinfo.Password,
 			ID: ArticleID
 		}
-console.log(JSON.stringify(userinfo));
-
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
 			if(data != null) {
 				if(data.result) {
