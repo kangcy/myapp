@@ -34,30 +34,23 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
 <script src="../js/login.js"></script>
 <script type="text/javascript">
 	mui.plusReady(function() {
-		var settings = app.getSettings();
-		var state = app.getState();
-		var mainPage = mui.preload({
-			"id": 'index',
-			"url": '../index.html'
-		});
-
 		//跳转首页
 		var toMain = function() {
-			mui.fire(mainPage, 'show', null);
-			setTimeout(function() {
-				mui.openWindow({
-					id: 'index',
-					show: {
-						aniShow: 'pop-in'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
-			}, 0);
+			mui.openWindow({
+				id: 'index',
+				url: '../index.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
 		};
 
 		//检查 "登录状态/锁屏状态" 结束
@@ -69,16 +62,15 @@
 		//点击登录
 		loginButton.addEventListener('tap', function(event) {
 			var loginInfo = {
-				account: accountBox.value,
-				password: passwordBox.value
+				UserName: accountBox.value,
+				Password: passwordBox.value
 			};
 			//登录
-			app.login(loginInfo, function(err) {
+			app.reg(loginInfo, function(err) {
 				if(err) {
 					plus.nativeUI.toast(err);
 					return;
 				}
-
 				toMain();
 			});
 		});

@@ -97,6 +97,7 @@ var base = new function() {
 		} else {
 			userinfo.FanText += userid + ",";
 			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			mui.toast("关注成功");
 			return true;
 		}
 		return false;
@@ -181,7 +182,7 @@ var base = new function() {
 						Signature: data.Signature,
 						UserName: data.UserName,
 						Password: data.Password,
-						Avatar: data.Avatar,
+						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
 						NickName: data.NickName,
 						Address: data.Address,
 						Birthday: data.BirthdayText,

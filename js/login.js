@@ -32,7 +32,7 @@
 						Signature: data.Signature,
 						UserName: data.UserName,
 						Password: data.Password,
-						Avatar: data.Avatar,
+						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
 						NickName: data.NickName,
 						Address: data.Address,
 						Birthday: data.BirthdayText,
@@ -67,12 +67,12 @@
 		if(!checkPhone(regInfo.UserName)) {
 			return callback('手机号码不合法');
 		}
-		if(regInfo.NickName.length < 1) {
+		/*if(regInfo.NickName.length < 1) {
 			return callback('昵称最短需要 1 个字符');
 		}
 		if(regInfo.NickName.length > 12) {
 			return callback('昵称最长限制 12 个字符');
-		}
+		}*/
 		if(regInfo.Password.length < 6) {
 			return callback('密码最短需要 6 个字符');
 		}
@@ -81,9 +81,9 @@
 		}
 
 		HttpGet(base.RootUrl + "User/Register", {
-			UserName: loginInfo.UserName,
-			Password: loginInfo.Password,
-			NickName: loginInfo.NickName,
+			UserName: regInfo.UserName,
+			Password: regInfo.Password,
+			NickName: regInfo.NickName,
 			Cover: "../images/header.png"
 		}, function(data) {
 			if(data == null) {
@@ -96,7 +96,7 @@
 						ID: data.ID,
 						UserName: data.UserName,
 						Password: data.Password,
-						Avatar: data.Avatar,
+						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
 						NickName: data.NickName,
 						Address: "",
 						Birthday: "",
