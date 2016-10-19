@@ -93,47 +93,15 @@
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 					<div class="mui-scroll" id="sliderTopBody">
-						<!--<div class="mui-control-item f12 mui-active">
-							推荐
-						</div>
-						<div class="mui-control-item f12">
-							热点
-						</div>
-						<div class="mui-control-item f12">
-							北京
-						</div>
-						<div class="mui-control-item f12">
-							社会
-						</div>
-						<div class="mui-control-item f12">
-							娱乐
-						</div>
-						<div class="mui-control-item f12">
-							科技
-						</div>-->
+
 					</div>
 				</div>
-				<div class="mui-slider-group">
-					<div class="mui-slider-item mui-control-content mui-active">
+				<div class="mui-slider-group" id="sliderGroup">
+					<!--<div class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll1" class="mui-scroll">
-								<div id="sliderSegmentedControl2" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mb10" style="background:#eee;height:5.3rem;">
+								<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">
 									<div class="mui-scroll mt10" style="height:4rem;">
-										<div class="mui-control-item subtype">
-											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
-										</div>
-										<div class="mui-control-item subtype">
-											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
-										</div>
-										<div class="mui-control-item subtype">
-											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
-										</div>
-										<div class="mui-control-item subtype">
-											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
-										</div>
-										<div class="mui-control-item subtype">
-											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
-										</div>
 										<div class="mui-control-item subtype">
 											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
 										</div>
@@ -150,7 +118,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -168,94 +136,110 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currpage = 1;
-	var totalpage = 2;
+	var currpage = [];
+	var totalpage = [];
 	var pagesize = base.PageSize;
 	var isLoading = false; //是否数据加载中
 	var topicPage = null;
 	var articleTypes = [];
+	var currSlider = 0;
 
 	mui.init();
 
 	mui.ready(function() {
-		setTimeout(function() {
-			LoadArticleType(); //加载文章类型
-		}, 250)
+
+		if(mui.os.plus) {
+
+			LoadArticleType(function() {
+				//遍历父级节点
+				var parent = [];
+				for(var i = 0; i < articleTypes.length; i++) {
+					if(articleTypes[i].ParentID == 0) {
+						parent.push(articleTypes[i]);
+					}
+				}
+				//遍历子级节点
+				var sliderGroup = $("#sliderGroup");
+				for(var i = 0; i < parent.length; i++) {
+					currpage.push(1);
+					totalpage.push(2);
+
+					var child = [];
+					for(var j = 0; j < articleTypes.length; j++) {
+						if(articleTypes[j].ParentID == parent[i].ID) {
+							child.push(articleTypes[j]);
+						}
+					}
+
+					var html = [];
+					html.push('<div class="mui-slider-item mui-control-content ' + (i == 0 ? "mui-active" : "") + '">');
+					html.push('<div class="mui-scroll-wrapper">');
+					html.push('<div id="scroll' + i + '" class="mui-scroll">');
+					if(child.length > 0) {
+						html.push('<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">');
+						html.push('<div class="mui-scroll mt10" style="height:4rem;">');
+						for(var l = 0; l < child.length; l++) {
+							html.push('<div class="mui-control-item subtype" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img src="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
+						}
+						html.push('</div>');
+					}
+					html.push('</div>');
+					html.push('<div id="scroll-view' + i + '"></div>');
+					html.push('</div>');
+					html.push('</div>');
+					html.push('</div>');
+					sliderGroup.append(html.join(""));
+
+					//console.log($("#scroll" + i).length)
+
+					mui(document.getElementById("scroll" + i)).pullToRefresh({
+						down: {
+							callback: function() {
+								var self = this;
+								pulldownRefresh(self, i);
+							}
+						},
+						up: {
+							auto: true,
+							callback: function() {
+								var self = this;
+								pullupRefresh(self, i);
+							}
+						}
+					});
+				}
+			});
+		}
 
 		mui.previewImage();
 
 		base.InitScroll();
 
-		if(mui.os.plus) {
-			mui(document.getElementById("scroll1")).pullToRefresh({
-				down: {
-					callback: function() {
-						var self = this;
-						pulldownRefresh(self);
-					}
-				},
-				up: {
-					auto: true,
-					callback: function() {
-						var self = this;
-						pullupRefresh(self);
-					}
-				}
-			});
-		}
-
 		base.ShowUser("#scroll1"); //用户信息
 
 		base.ShowArticle("#scroll1"); //文章信息
-
-		//分类列表
-		mui("#article_type").on('tap', '.topic', function(event) {
-			var typeId = this.getAttribute("typeid");
-			var typeName = this.getAttribute("typename");
-			mui.openWindow({
-				id: 'article',
-				url: 'article.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleType: typeId,
-					ArticleTypeName: typeName
-				}
-			});
-		});
 	});
 
 	mui.plusReady(function() {
-		var parentPage = plus.webview.getWebviewById("topic");
-		mui.fire(parentPage, "InitSubPage", {});
-
-		base.InitSlider(); //滑动切换
+		document.getElementById('slider').addEventListener('slide', function(e) {
+			currSlider = e.detail.slideNumber;
+		});
 	});
-
-	//Slider切换
-	function ChangeSlider(index) {
-		mui('#slider').slider().gotoItem(index);
-	}
 
 	/**
 	 * 下拉刷新
 	 */
-	function pulldownRefresh(self) {
+	function pulldownRefresh(self, index) {
 		if(isLoading == true) {
 			return;
 		}
 		isLoading = true;
 		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
+			currpage[index] = 1;
+			totalpage[index] = 2;
+			document.getElementById('scroll-view' + index).innerHTML = "";
+			Load(index, function() {
+				++currpage[index];
 				self.endPullDownToRefresh();
 				self.refresh(true);
 				isLoading = false;
@@ -266,20 +250,20 @@
 	/**
 	 * 上拉加载
 	 */
-	function pullupRefresh(self) {
+	function pullupRefresh(self, index) {
 		if(isLoading == true) {
 			return;
 		}
 		isLoading = true;
-		if(currpage > totalpage) {
+		if(currpage[index] > totalpage[index]) {
 			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
+			self.endPullUpToRefresh(currpage[index] > totalpage[index]);
 			return false;
 		}
 		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
+			Load(index, function() {
+				++currpage[index];
+				self.endPullUpToRefresh(currpage[index] > totalpage[index]);
 				isLoading = false;
 			})
 		}, 500);
@@ -288,15 +272,15 @@
 	/**
 	 * 加载数据
 	 */
-	function Load(callback) {
-		var table = document.getElementById('scroll-view');
+	function Load(index, callback) {
+		var table = document.getElementById('scroll-view' + index);
 		var data = {
-			page: currpage,
+			page: currpage[index],
 			rows: pagesize
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage;
+				totalpage[index] = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
@@ -310,7 +294,7 @@
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
+				placeholder: base.DefaultImg,
 				diff: window.innerHeight
 			});
 		});
@@ -322,10 +306,13 @@
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
+					articleTypes = data.list;
 					var table = $('#sliderTopBody');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendPTypeStr(data.list[i], i);
-						table.append(div);
+						if(data.list[i].ParentID == 0) {
+							var div = appendPTypeStr(data.list[i], i);
+							table.append(div);
+						}
 					}
 				}
 				if($.isFunction(callback)) {
@@ -344,12 +331,5 @@
 		} else {
 			return '<div class="mui-control-item f12" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		}
-	}
-
-	/**
-	 * 拼接文章类型
-	 */
-	function appendTypeStr(item) {
-		return '<div class="mui-table-view-cell topic cfff tc" style="background: url(' + item.Cover + ');" typeid="' + item.ID + '" typename="' + item.Name + '"><div class="bg">' + item.Name + '</div></div>';
 	}
 </script>

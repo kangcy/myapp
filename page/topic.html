@@ -13,12 +13,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="search" class="mui-icon mui-icon-search mui-pull-right blue"></a>
-			<div class="mui-title">
-				<div id="tabs">
-					<span class="tab curr" id="tab1">推荐</span>
-					<span class="tab" id="tab2">话题</span>
-				</div>
-			</div>
+			<h1 class="mui-title c333">精选推荐</h1>
 		</header>
 		<div class="mui-content">
 
@@ -49,41 +44,5 @@
 	var contentWebview = null;
 	mui.ready(function() {
 		base.ShowSearch(); //跳转搜索页
-	});
-
-	window.addEventListener("updateCurr", function(e) {
-		var index = e.detail.index;
-		if(index == 0) {
-			document.getElementById("tab2").setAttribute("class", "tab");
-			document.getElementById("tab1").setAttribute("class", "tab curr");
-		} else {
-			document.getElementById("tab1").setAttribute("class", "tab");
-			document.getElementById("tab2").setAttribute("class", "tab curr");
-		}
-	});
-
-	//初始化子页面
-	window.addEventListener("InitSubPage", function(e) {
-		document.getElementById('tab1').addEventListener('tap', function(event) {
-			if(this.getAttribute("class") == "tab curr")
-				return;
-			if(contentWebview == null) {
-				contentWebview = plus.webview.getWebviewById("topicSub");
-			}
-			document.getElementById("tab2").setAttribute("class", "tab");
-			document.getElementById("tab1").setAttribute("class", "tab curr");
-			contentWebview.evalJS("ChangeSlider(0)");
-		});
-
-		document.getElementById('tab2').addEventListener('tap', function(event) {
-			if(this.getAttribute("class") == "tab curr")
-				return;
-			if(contentWebview == null) {
-				contentWebview = plus.webview.getWebviewById("topicSub");
-			}
-			document.getElementById("tab1").setAttribute("class", "tab");
-			document.getElementById("tab2").setAttribute("class", "tab curr");
-			contentWebview.evalJS("ChangeSlider(1)");
-		});
 	});
 </script>
