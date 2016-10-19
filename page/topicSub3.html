@@ -97,7 +97,28 @@
 					</div>
 				</div>
 				<div class="mui-slider-group" id="sliderGroup">
-
+					<!--<div class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div id="scroll1" class="mui-scroll">
+								<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">
+									<div class="mui-scroll mt10" style="height:4rem;">
+										<div class="mui-control-item subtype">
+											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
+										</div>
+									</div>
+								</div>
+								<div id="scroll-view"></div>
+							</div>
+						</div>
+					</div>
+					<div class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div style="padding:0.625rem;" id="article_type">
+								</div>
+							</div>
+						</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -120,112 +141,131 @@
 	var pagesize = base.PageSize;
 	var isLoading = false; //是否数据加载中
 	var topicPage = null;
-	var articleTypes = [];
+	var articleTypes = [{
+		"ID": 1,
+		"Cover": "http://www.dcloud.io/hellomui/images/1.jpg",
+		"Name": "测试",
+		"ParentID": 0,
+		"ParentIDList": "-0-",
+		"Number": 0
+	}, {
+		"ID": 2,
+		"Cover": "http://www.dcloud.io/hellomui/images/2.jpg",
+		"Name": "测试2",
+		"ParentID": 0,
+		"ParentIDList": "-0-",
+		"Number": 0
+	}, {
+		"ID": 3,
+		"Cover": "http://www.dcloud.io/hellomui/images/3.jpg",
+		"Name": "测试3",
+		"ParentID": 0,
+		"ParentIDList": "-0-",
+		"Number": 0
+	}, {
+		"ID": 4,
+		"Cover": "http://www.dcloud.io/hellomui/images/4.jpg",
+		"Name": "测试4",
+		"ParentID": 2,
+		"ParentIDList": "-0-",
+		"Number": 0
+	}, {
+		"ID": 5,
+		"Cover": "http://www.dcloud.io/hellomui/images/4.jpg",
+		"Name": "测试5",
+		"ParentID": 2,
+		"ParentIDList": "-0-",
+		"Number": 0
+	}, {
+		"ID": 6,
+		"Cover": "http://www.dcloud.io/hellomui/images/3.jpg",
+		"Name": "测试6",
+		"ParentID": 2,
+		"ParentIDList": "-0-",
+		"Number": 0
+	}];
 	var currSlider = 0;
 
 	mui.init();
 
 	mui.ready(function() {
 
-		LoadArticleType(function() {
-			//遍历父级节点
-			var parent = [];
-			for(var i = 0; i < articleTypes.length; i++) {
-				if(articleTypes[i].ParentID == 0) {
-					parent.push(articleTypes[i]);
+		var table = $('#sliderTopBody');
+		for(var i = 0, len = articleTypes.length; i < len; i++) {
+			if(articleTypes[i].ParentID == 0) {
+				var div = appendPTypeStr(articleTypes[i], i);
+				table.append(div);
+			}
+		}
+
+		/*if(mui.os.plus) {
+
+			LoadArticleType(function() {*/
+		//遍历父级节点
+		var parent = [];
+		for(var i = 0; i < articleTypes.length; i++) {
+			if(articleTypes[i].ParentID == 0) {
+				parent.push(articleTypes[i]);
+			}
+		}
+		//遍历子级节点
+		var sliderGroup = $("#sliderGroup");
+		for(var i = 0; i < parent.length; i++) {
+			currpage.push(1);
+			totalpage.push(2);
+
+			var child = [];
+			for(var j = 0; j < articleTypes.length; j++) {
+				if(articleTypes[j].ParentID == parent[i].ID) {
+					child.push(articleTypes[j]);
 				}
 			}
-			//遍历子级节点
-			var sliderGroup = $("#sliderGroup");
-			for(var i = 0; i < parent.length; i++) {
-				currpage.push(1);
-				totalpage.push(2);
 
-				var child = [];
-				for(var j = 0; j < articleTypes.length; j++) {
-					if(articleTypes[j].ParentID == parent[i].ID) {
-						child.push(articleTypes[j]);
-					}
+			var html = [];
+			html.push('<div id="item' + i + 'mobile" class="mui-slider-item mui-control-content ' + (i == 0 ? "mui-active" : "") + '">');
+			html.push('<div class="mui-scroll-wrapper">');
+			html.push('<div id="scroll' + i + '" class="mui-scroll">');
+			if(child.length > 0) {
+				html.push('<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">');
+				html.push('<div class="mui-scroll mt10" style="height:4rem;">');
+				for(var l = 0; l < child.length; l++) {
+					html.push('<div class="mui-control-item subtype" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img src="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
 				}
-
-				var html = [];
-				if(i == 0) {
-					html.push('<div class="mui-slider-item mui-control-content mui-active">');
-				} else {
-					html.push('<div class="mui-slider-item mui-control-content">');
-				}
-				html.push('<div class="mui-scroll-wrapper">');
-				html.push('<div id="scroll' + i + '" class="mui-scroll scrolls">');
-				if(child.length > 0) {
-					html.push('<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">');
-					html.push('<div class="mui-scroll mt10" style="height:4rem;">');
-					for(var l = 0; l < child.length; l++) {
-						html.push('<div class="mui-control-item subtype" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img src="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
-					}
-					html.push('</div></div>');
-				}
-				html.push('<div id="scroll-view' + i + '"></div>');
 				html.push('</div>');
-				html.push('</div>');
-				html.push('</div>');
-				sliderGroup.append(html.join(""));
-
 			}
+			html.push('</div>');
+			html.push('<div id="scroll-view' + i + '"></div>');
+			html.push('</div>');
+			html.push('</div>');
+			html.push('</div>');
+			sliderGroup.append(html.join(""));
 
-			//动态声明滑动
-			mui("#slider").slider();
+		}
 
-			mui.each(document.querySelectorAll('#sliderGroup .scrolls'), function(index, pullRefreshEl) {
-				//console.log("index:" + index)
-				mui(pullRefreshEl).pullToRefresh({
-					down: {
-						callback: function() {
-							var self = this;
-							if(isLoading == true) {
-								return;
-							}
-							isLoading = true;
-							setTimeout(function() {
-
-								currpage[index] = 1;
-								totalpage[index] = 2;
-								document.getElementById('scroll-view' + index).innerHTML = "";
-								Load(index, function() {
-									++currpage[index];
-									//console.log(index)
-									self.endPullDownToRefresh();
-									self.refresh(true);
-									isLoading = false;
-								})
-							}, 500);
-						}
-					},
-					up: {
-						auto: true,
-						callback: function() {
-							var self = this;
-							isLoading = true;
-							if(currpage[index] > totalpage[index]) {
-								isLoading = false;
-								self.endPullUpToRefresh(currpage[index] > totalpage[index]);
-								return false;
-							}
-							setTimeout(function() {
-								Load(index, function() {
-									++currpage[index];
-									self.endPullUpToRefresh(currpage[index] > totalpage[index]);
-									isLoading = false;
-								})
-							}, 500);
-						}
+		for(var i = 0; i < parent.length; i++) {
+			mui(document.getElementById("scroll" + i)).pullToRefresh({
+				down: {
+					callback: function() {
+						var self = this;
+						pulldownRefresh(self, i);
 					}
-				});
+				},
+				up: {
+					auto: true,
+					callback: function() {
+						var self = this;
+						pullupRefresh(self, i);
+					}
+				}
 			});
-		});
+		}
 
-		base.InitScroll();
+		/*});
+		}*/
 
 		mui.previewImage();
+
+		base.InitScroll();
 
 		base.ShowUser("#scroll1"); //用户信息
 
@@ -233,10 +273,9 @@
 	});
 
 	mui.plusReady(function() {
-		document.getElementById('slider').addEventListener('slide', function(e) {
+		/*document.getElementById('slider').addEventListener('slide', function(e) {
 			currSlider = e.detail.slideNumber;
-			console.log(currSlider)
-		});
+		});*/
 	});
 
 	/**
@@ -248,14 +287,11 @@
 		}
 		isLoading = true;
 		setTimeout(function() {
-			//console.log(index);
-
 			currpage[index] = 1;
 			totalpage[index] = 2;
 			document.getElementById('scroll-view' + index).innerHTML = "";
 			Load(index, function() {
 				++currpage[index];
-				//console.log(index)
 				self.endPullDownToRefresh();
 				self.refresh(true);
 				isLoading = false;
@@ -293,24 +329,19 @@
 			page: currpage[index],
 			rows: pagesize
 		};
-
-		//console.log(index + "|" + currpage.join(",") + "|" + totalpage.join(","));
-
 		if($.isFunction(callback)) {
 			callback();
 		}
+		return;
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
 				totalpage[index] = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
-
 					var table = document.getElementById('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i]);
-						if(table) {
-							table.appendChild(div);
-						}
+						table.appendChild(div);
 					}
 				}
 			}
@@ -352,9 +383,9 @@
 	 */
 	function appendPTypeStr(item, index) {
 		if(index == 0) {
-			return '<div class="mui-control-item f12 mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</a>';
+			return '<a class="mui-control-item f12 mui-active" typeid="' + item.ID + '" typename="' + item.Name + '" href="#item' + index + 'mobile">' + item.Name + '</a>';
 		} else {
-			return '<div class="mui-control-item f12" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</a>';
+			return '<a class="mui-control-item f12" typeid="' + item.ID + '" typename="' + item.Name + '" href="#item' + index + 'mobile">' + item.Name + '</a>';
 		}
 	}
 </script>
