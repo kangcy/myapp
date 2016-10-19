@@ -11,24 +11,6 @@
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.css">
 		<style type="text/css">
-			/*类型*/
-			
-			.topic {
-				width: 8.75rem;
-				height: 8.75rem;
-				display: inline-block;
-				border-radius: 10px;
-				margin: 0.25rem;
-				padding: 0px;
-				line-height: 8.625rem;
-			}
-			
-			.topic .bg {
-				width: 100%;
-				height: 100%;
-				background: url(../images/article/bg.png) center center no-repeat;
-				background-size: 80% 40%;
-			}
 			/*文章*/
 			
 			.onefloor {
@@ -157,7 +139,7 @@
 				html.push('<div class="mui-scroll-wrapper">');
 				html.push('<div id="scroll' + i + '" class="mui-scroll scrolls">');
 				if(child.length > 0) {
-					html.push('<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">');
+					html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">');
 					html.push('<div class="mui-scroll mt10" style="height:4rem;">');
 					for(var l = 0; l < child.length; l++) {
 						html.push('<div class="mui-control-item subtype" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img src="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
@@ -169,14 +151,15 @@
 				html.push('</div>');
 				html.push('</div>');
 				sliderGroup.append(html.join(""));
-
+				if(child.length > 0) {
+					mui('#sliderChild' + i).scroll().reLayout();
+				}
 			}
 
-			//动态声明滑动
+			//重新注册滑动切换事件
 			mui("#slider").slider();
 
 			mui.each(document.querySelectorAll('#sliderGroup .scrolls'), function(index, pullRefreshEl) {
-				//console.log("index:" + index)
 				mui(pullRefreshEl).pullToRefresh({
 					down: {
 						callback: function() {
@@ -186,13 +169,11 @@
 							}
 							isLoading = true;
 							setTimeout(function() {
-
 								currpage[index] = 1;
 								totalpage[index] = 2;
 								document.getElementById('scroll-view' + index).innerHTML = "";
 								Load(index, function() {
 									++currpage[index];
-									//console.log(index)
 									self.endPullDownToRefresh();
 									self.refresh(true);
 									isLoading = false;
@@ -235,55 +216,8 @@
 	mui.plusReady(function() {
 		document.getElementById('slider').addEventListener('slide', function(e) {
 			currSlider = e.detail.slideNumber;
-			console.log(currSlider)
 		});
 	});
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh(self, index) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		setTimeout(function() {
-			//console.log(index);
-
-			currpage[index] = 1;
-			totalpage[index] = 2;
-			document.getElementById('scroll-view' + index).innerHTML = "";
-			Load(index, function() {
-				++currpage[index];
-				//console.log(index)
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh(self, index) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage[index] > totalpage[index]) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage[index] > totalpage[index]);
-			return false;
-		}
-		setTimeout(function() {
-			Load(index, function() {
-				++currpage[index];
-				self.endPullUpToRefresh(currpage[index] > totalpage[index]);
-				isLoading = false;
-			})
-		}, 500);
-	}
 
 	/**
 	 * 加载数据
@@ -293,9 +227,6 @@
 			page: currpage[index],
 			rows: pagesize
 		};
-
-		//console.log(index + "|" + currpage.join(",") + "|" + totalpage.join(","));
-
 		if($.isFunction(callback)) {
 			callback();
 		}
@@ -339,6 +270,7 @@
 							table.append(div);
 						}
 					}
+					mui('#sliderTop').scroll().reLayout();
 				}
 				if($.isFunction(callback)) {
 					callback();

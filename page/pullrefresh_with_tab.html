@@ -105,8 +105,8 @@
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<div class="mui-scroll">
-						<div class="mui-control-item mui-active" href="#item1mobile">
+					<div class="mui-scroll" id="top">
+						<!--<div class="mui-control-item mui-active" href="#item1mobile">
 							推荐
 						</div>
 						<div class="mui-control-item" href="#item2mobile">
@@ -123,7 +123,7 @@
 						</div>
 						<div class="mui-control-item" href="#item6mobile">
 							科技
-						</div>
+						</div>-->
 					</div>
 				</div>
 				<div class="mui-slider-group" id="sliderGroup">
@@ -553,6 +553,17 @@
 				deceleration: deceleration
 			});
 			mui.ready(function() {
+				var top = $("#top");
+				for(var i = 0; i < 6; i++) {
+					if(i == 0) {
+						top.append('<div class="mui-control-item f12 mui-active">测试</a>');
+					} else {
+						top.append('<div class="mui-control-item f12">测试</a>');
+					}
+				}
+
+				mui('.mui-scroll-wrapper').scroll().reLayout();
+
 				var sliderGroup = $("#sliderGroup");
 				for(var i = 0; i < 6; i++) {
 					var html = [];
