@@ -1,33 +1,43 @@
+html,
+body {
+	background-color: #fff;
+}
+
 .mui-table-view-cell {
 	background: #fff;
 	padding: 0px 0.9375rem;
-	border-bottom: 1px solid #eee;
 }
 
 .oa-contact-cell.mui-table .mui-table-cell {
 	padding: 0.625rem 0;
-	vertical-align: middle;
+	vertical-align: top;
 }
 
 .oa-contact-cell {
 	position: relative;
 }
 
+.name {
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
+
 .oa-contact-avatar {
-	width: 3rem;
+	width: 3.5rem;
 }
 
 .oa-contact-avatar img {
-	width: 2.5rem !important;
-	height: 2.5rem !important;
+	width: 2.5rem;
+	height: 2.5rem;
 }
 
 .oa-contact-content {
-	width: 100%;
+	width: 11rem;
+	float: left;
 }
 
 .oa-contact-icon {
-	width: 5rem;
+	width: 1.5rem;
 }
 
 .oa-contact-icon img {
@@ -35,31 +45,18 @@
 	float: right;
 }
 
-.mui-table-view-cell:after {
-	left: 0px;
-	background-color: transparent;
-}
-
 .guanzhu {
 	border: 1px solid #49be38;
 	color: #49be38;
 	text-align: center;
 	border-radius: 15px;
-	padding: 0.3rem 0.5rem;
+	padding: 0.2rem 0.5rem;
 	display: inline-block;
 	float: right;
-	margin-top: 0rem;
-	width: 4rem;
+	margin-top: .4rem;
+	width: 3rem;
 }
 
-.guanzhu2 {
-	border: 1px solid #aaa;
-	color: #aaa;
-	text-align: center;
-	border-radius: 15px;
-	padding: 0.3rem 0.5rem;
-	display: inline-block;
-	float: right;
-	margin-top: 0rem;
-	width: 4rem;
+.mui-table-view-cell:after {
+	left: 4rem;
 }

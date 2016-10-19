@@ -61,16 +61,84 @@
 				height: 2.875rem !important;
 				border-radius: 5px;
 			}
+			/*二级分类*/
+			
+			.subtype {
+				width: 4rem !important;
+				height: 4rem !important;
+				padding: 0px !important;
+				position: relative;
+				margin-left: 0.2rem !important;
+			}
+			
+			.subtype:first-child {
+				margin-left: 0px !important;
+			}
+			
+			.subtype img {
+				width: 100% !important;
+				height: 100% !important;
+			}
+			
+			.subtype span {
+				position: absolute;
+				left: .5rem;
+				bottom: -.5rem;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+					<div class="mui-scroll" id="sliderTopBody">
+						<!--<div class="mui-control-item f12 mui-active">
+							推荐
+						</div>
+						<div class="mui-control-item f12">
+							热点
+						</div>
+						<div class="mui-control-item f12">
+							北京
+						</div>
+						<div class="mui-control-item f12">
+							社会
+						</div>
+						<div class="mui-control-item f12">
+							娱乐
+						</div>
+						<div class="mui-control-item f12">
+							科技
+						</div>-->
+					</div>
+				</div>
 				<div class="mui-slider-group">
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll1" class="mui-scroll">
+								<div id="sliderSegmentedControl2" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mb10" style="background:#eee;height:5.3rem;">
+									<div class="mui-scroll mt10" style="height:4rem;">
+										<div class="mui-control-item subtype">
+											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
+										</div>
+										<div class="mui-control-item subtype">
+											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
+										</div>
+										<div class="mui-control-item subtype">
+											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
+										</div>
+										<div class="mui-control-item subtype">
+											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
+										</div>
+										<div class="mui-control-item subtype">
+											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
+										</div>
+										<div class="mui-control-item subtype">
+											<img src="../images/60x60.gif" /><span class="cfff f12">推荐</span>
+										</div>
+									</div>
+								</div>
 								<div id="scroll-view"></div>
 							</div>
 						</div>
@@ -105,34 +173,36 @@
 	var pagesize = base.PageSize;
 	var isLoading = false; //是否数据加载中
 	var topicPage = null;
+	var articleTypes = [];
 
 	mui.init();
 
 	mui.ready(function() {
+		setTimeout(function() {
+			LoadArticleType(); //加载文章类型
+		}, 250)
 
 		mui.previewImage();
 
 		base.InitScroll();
 
-		mui(document.getElementById("scroll1")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
+		if(mui.os.plus) {
+			mui(document.getElementById("scroll1")).pullToRefresh({
+				down: {
+					callback: function() {
+						var self = this;
+						pulldownRefresh(self);
+					}
+				},
+				up: {
+					auto: true,
+					callback: function() {
+						var self = this;
+						pullupRefresh(self);
+					}
 				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
-
-		setTimeout(function() {
-			LoadArticleType(); //加载文章类型
-		}, 250)
+			});
+		}
 
 		base.ShowUser("#scroll1"); //用户信息
 
@@ -247,24 +317,33 @@
 	}
 
 	//加载文章类型
-	function LoadArticleType() {
+	function LoadArticleType(callback) {
 		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
-					var table = $('#article_type');
+					var table = $('#sliderTopBody');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendTypeStr(data.list[i]);
+						var div = appendPTypeStr(data.list[i], i);
 						table.append(div);
 					}
-					document.body.removeAttribute('data-imageLazyload');
-					mui(document).imageLazyload({
-						placeholder: '../images/60x60.gif',
-						diff: window.innerHeight
-					});
+				}
+				if($.isFunction(callback)) {
+					callback();
 				}
 			}
 		});
+	}
+
+	/**
+	 * 拼接文章类型
+	 */
+	function appendPTypeStr(item, index) {
+		if(index == 0) {
+			return '<div class="mui-control-item f12 mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+		} else {
+			return '<div class="mui-control-item f12" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+		}
 	}
 
 	/**
