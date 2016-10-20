@@ -336,9 +336,33 @@ var base = new function() {
 		var model = [];
 		model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '">');
 		model.push('<img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" /><div class="mui-media-body f12">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
-		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
-		model.push('<p class="c333 fl article full" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
 
+		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+		model.push('<p class="c333 fl article full mt5" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">' + item.Title);
+
+		if(ismy == true) {
+			var power = "";
+			switch(item.ArticlePower) {
+				case "0":
+					name = "私密";
+					break;
+				case 1:
+					name = "密码";
+					break;
+				case 2:
+					name = "分享";
+					break;
+				case 3:
+					name = "公开";
+					break;
+				default:
+					name = "私密";
+					break;
+			}
+			model.push('<span style="border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;margin-top:-0.1rem;" class="f11 fr ml5">' + name + '</span>');
+		}
+		model.push("</p>");
+ 
 		//部分拼接
 		var parts = item.ArticlePart;
 		if(parts.length == 0) {
@@ -367,27 +391,6 @@ var base = new function() {
 		}
 		model.push('</div></div>');
 		model.push('<div class="mui-card-footer fl full">');
-		if(ismy == true) {
-			var power = "";
-			switch(item.ArticlePower) {
-				case "0":
-					name = "私密";
-					break;
-				case 1:
-					name = "密码";
-					break;
-				case 2:
-					name = "分享";
-					break;
-				case 3:
-					name = "公开";
-					break;
-				default:
-					name = "私密";
-					break;
-			}
-			model.push('<span style="border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:5px 10px;margin:0px;" class="f11 fl">' + name + '</span>');
-		}
 		model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;margin:0px;" class="f11 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
 		div.innerHTML = model.join('');
 		return div;

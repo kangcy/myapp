@@ -2909,7 +2909,7 @@ select:focus {
 	color: inherit;
 	border: 0;
 	/*height: 2.375rem;*/
-	height:2.5rem;
+	height: 2.5rem;
 	line-height: 2.5rem;
 	background: #fff;
 }
@@ -3679,9 +3679,11 @@ body>.mui-progressbar {
 	width: 100%
 }
 
+
 /*.mui-slider .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
 	border-bottom: 0
 }*/
+
 
 /*.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
 	border-top: 0.0625rem solid #c8c7cc;
@@ -4737,6 +4739,10 @@ body>.mui-progressbar {
 	padding: 0.3125rem !important;
 }
 
+.ml5 {
+	margin-left: 0.3125rem !important;
+}
+
 .ml10 {
 	margin-left: 0.625rem !important;
 }
@@ -4961,6 +4967,41 @@ body>.mui-progressbar {
 	padding: 0.625rem;
 	width: 100%;
 	display: inline-block;
+}
+
+
+/*文章*/
+
+.onefloor {
+	width: 100%;
+	/*height: 9.375rem;*/
+	overflow: hidden;
+}
+
+.onefloor img {
+	width: 100% !important;
+	min-height: 100%;
+}
+
+.secondfloor {
+	width: 50%;
+	height: 7rem;
+	text-align: center;
+	overflow: hidden;
+	margin-bottom: 1.5%;
+	float: left;
+}
+
+.secondfloor img {
+	width: 97% !important;
+	min-width: 97% !important;
+	min-height: 100%;
+}
+
+.mui-card-header>img:first-child {
+	width: 2.875rem !important;
+	height: 2.875rem !important;
+	border-radius: 5px;
 }
 
 
