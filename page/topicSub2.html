@@ -162,7 +162,9 @@
 			mui("#slider").slider();
 
 			for(var index = 0; index < parent.length; index++) {
-				mui(document.getElementById("scroll" + i)).pullToRefresh({
+				var currId = parent[index].CurrID;
+				console.log(currId);
+				mui(document.getElementById("scroll" + index)).pullToRefresh({
 					down: {
 						callback: function() {
 							var self = this;
@@ -174,7 +176,7 @@
 								currpage[index] = 1;
 								totalpage[index] = 2;
 								document.getElementById('scroll-view' + index).innerHTML = "";
-								Load(index, parent[index].CurrID, function() {
+								Load(index, currId, function() {
 									++currpage[index];
 									self.endPullDownToRefresh();
 									self.refresh(true);
@@ -194,7 +196,7 @@
 								return false;
 							}
 							setTimeout(function() {
-								Load(index, parent[index].CurrID, function() {
+								Load(index, currId, function() {
 									++currpage[index];
 									self.endPullUpToRefresh(currpage[index] > totalpage[index]);
 									isLoading = false;
@@ -245,9 +247,7 @@
 			rows: pagesize,
 			TypeID: typeId
 		};
-		if($.isFunction(callback)) {
-			callback();
-		}
+		console.log(typeId);
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
 				totalpage[index] = data.totalpage;
