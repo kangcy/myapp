@@ -161,10 +161,8 @@
 			//重新注册滑动切换事件
 			mui("#slider").slider();
 
-			for(var index = 0; index < parent.length; index++) {
-				var currId = parent[index].CurrID;
-				console.log(currId);
-				mui(document.getElementById("scroll" + index)).pullToRefresh({
+			mui.each(document.querySelectorAll('#sliderGroup .scrolls'), function(index, pullRefreshEl) {
+				mui(pullRefreshEl).pullToRefresh({
 					down: {
 						callback: function() {
 							var self = this;
@@ -176,7 +174,7 @@
 								currpage[index] = 1;
 								totalpage[index] = 2;
 								document.getElementById('scroll-view' + index).innerHTML = "";
-								Load(index, currId, function() {
+								Load(index, parent[index].CurrID, function() {
 									++currpage[index];
 									self.endPullDownToRefresh();
 									self.refresh(true);
@@ -196,7 +194,7 @@
 								return false;
 							}
 							setTimeout(function() {
-								Load(index, currId, function() {
+								Load(index, parent[index].CurrID, function() {
 									++currpage[index];
 									self.endPullUpToRefresh(currpage[index] > totalpage[index]);
 									isLoading = false;
@@ -205,7 +203,7 @@
 						}
 					}
 				});
-			}
+			});
 		});
 
 		base.InitScroll();
@@ -247,13 +245,14 @@
 			rows: pagesize,
 			TypeID: typeId
 		};
-		console.log(typeId);
+
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
+			//console.log(typeId + "," + JSON.stringify(data));
+
 			if(data != null) {
 				totalpage[index] = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
-
 					var table = document.getElementById('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i]);
