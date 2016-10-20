@@ -106,9 +106,12 @@ var base = new function() {
 	/**
 	 * 判断是否关注
 	 **/
-	this.CheckFan = function(userinfo, userid) {
+	this.CheckFan = function(fans, userid) {
 		userid = "," + userid + ",";
-		if(userinfo.FanText.indexOf(userid) >= 0) {
+		if(base.IsNullOrEmpty(fans)) {
+			return false;
+		}
+		if(fans.indexOf(userid) >= 0) {
 			return true;
 		} else {
 			return false;
@@ -272,7 +275,8 @@ var base = new function() {
 									autoShow: false
 								},
 								extras: {
-									ArticleID: articleId
+									ArticleID: articleId,
+									Source: "List"
 								}
 							});
 						});
@@ -291,7 +295,8 @@ var base = new function() {
 						autoShow: false
 					},
 					extras: {
-						ArticleID: articleId
+						ArticleID: articleId,
+						Source: "View"
 					}
 				});
 			}

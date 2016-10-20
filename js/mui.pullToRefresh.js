@@ -32,8 +32,8 @@
 					auto: false,
 					offset: 100, //距离底部高度(到达该高度即触发)
 					show: true,
-					contentinit: '上拉显示更多',
-					contentdown: '上拉显示更多',
+					contentinit: '',//上拉显示更多
+					contentdown: '',//上拉显示更多
 					contentrefresh: '正在加载...',
 					contentnomore: '--end--',
 					callback: false

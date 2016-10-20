@@ -262,7 +262,7 @@
 
 	//判断是否关注
 	function CheckFan() {
-		if(base.CheckFan(userinfo, UserID)) {
+		if(base.CheckFan(userinfo.FanText, UserID)) {
 			$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
 		} else {
 			document.getElementById("guanzhu").addEventListener('tap', function(e) {

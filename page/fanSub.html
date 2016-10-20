@@ -55,17 +55,11 @@
 	var payPage = null;
 	var userinfo = base.GetUserInfo();
 
-	console.log(JSON.stringify(userinfo));
 	mui.init();
 
 	mui.ready(function() {
 
-		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
-		mui('.mui-scroll-wrapper').scroll({
-			bounce: false,
-			indicators: false, // 是否显示滚动条
-			deceleration: deceleration
-		});
+		base.InitScroll();
 
 		//我的评论
 		mui(document.getElementById("scroll1")).pullToRefresh({
@@ -119,7 +113,8 @@
 
 		//添加关注
 		base.GuanZhu("#slider", userinfo, function($this) {
-			$this.addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+			//$this.addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+			$this.parent().remove();
 		});
 	});
 
@@ -260,7 +255,7 @@
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
+				placeholder: base.DefaultImg,
 				diff: window.innerHeight
 			});
 		});
@@ -277,9 +272,7 @@
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
 		if(index == 1) {
-			if(base.CheckFan(userinfo.FanText, item.UserID)) {
-				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu2 f13" userid="' + item.UserID + '">已关注</div></div>');
-			} else {
+			if(!base.CheckFan(userinfo.FanText, item.UserID)) {
 				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.UserID + '">关注</div></div>');
 			}
 		}
