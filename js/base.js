@@ -345,11 +345,19 @@ var base = new function() {
 					exist = true;
 				}
 			}
-			if(!exist) {
+			if(exist) {
+				if(parts.length == 1) {
+					model.push('<div class="onefloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				} else {
+					for(var i = 0; i < parts.length; i++) {
+						model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					}
+				}
+			} else {
 				model.push('<div class="secondfloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
-			}
-			for(var i = 0; i < parts.length; i++) {
-				model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				for(var i = 0; i < parts.length; i++) {
+					model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				}
 			}
 		}
 		model.push('</div></div>');

@@ -184,7 +184,7 @@
 	});
 
 	mui.plusReady(function() {
-
+		console.log("plusReady");
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 
@@ -262,9 +262,8 @@
 					mui.toast(data.message);
 				}
 			}
-			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
-			}
+			console.log("sdfsdf");
+			plus.nativeUI.closeWaiting();
 		});
 	}
 

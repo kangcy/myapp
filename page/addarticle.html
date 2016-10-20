@@ -332,7 +332,29 @@
 				if(e.index == 0) {
 					Save(function() {
 
-						plus.nativeUI.showWaiting("载入中...");
+						plus.nativeUI.showWaiting("载入中...")
+						var articleDetailPage = plus.webview.getWebviewById('articledetail');
+						if(articleDetailPage == null) {
+							mui.openWindow({
+								id: 'articledetail',
+								url: 'articledetail.html',
+								show: {
+									autoShow: true,
+									duration: base.AnimateDuration
+								},
+								waiting: {
+									autoShow: false
+								},
+								extras: {
+									ArticleID: ArticleID
+								}
+							});
+						} else {
+							mui.fire(articleDetailPage, "UpdateDetail", {});
+							plus.webview.close(self);
+						}
+
+						/*plus.nativeUI.showWaiting("载入中...");
 						mui.openWindow({
 							id: 'articledetail',
 							url: 'articledetail.html',
@@ -346,7 +368,7 @@
 							extras: {
 								ArticleID: ArticleID
 							}
-						});
+						});*/
 
 						/*var articleDetailPage = plus.webview.getWebviewById('articledetail');
 						if(articleDetailPage == null) {
@@ -368,12 +390,29 @@
 		//保存
 		document.getElementById('submit').addEventListener('tap', function(event) {
 			Save(function() {
-				/*var articleDetailPage = plus.webview.getWebviewById('articledetail');
-				mui.fire(articleDetailPage, "UpdateDetail", {});
-				plus.webview.close(self);
-				*/
+				plus.nativeUI.showWaiting("载入中...")
+				var articleDetailPage = plus.webview.getWebviewById('articledetail');
+				if(articleDetailPage == null) {
+					mui.openWindow({
+						id: 'articledetail',
+						url: 'articledetail.html',
+						show: {
+							autoShow: true,
+							duration: base.AnimateDuration
+						},
+						waiting: {
+							autoShow: false
+						},
+						extras: {
+							ArticleID: ArticleID
+						}
+					});
+				} else {
+					mui.fire(articleDetailPage, "UpdateDetail", {});
+					plus.webview.close(self);
+				}
 
-				plus.nativeUI.showWaiting("载入中...");
+				/*plus.nativeUI.showWaiting("载入中...");
 				mui.openWindow({
 					id: 'articledetail',
 					url: 'articledetail.html',
@@ -387,7 +426,7 @@
 					extras: {
 						ArticleID: ArticleID
 					}
-				});
+				});*/
 			})
 		});
 	});
@@ -573,9 +612,7 @@
 					}
 				}
 			}
-			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
-			}
+			plus.nativeUI.closeWaiting();
 		});
 	}
 </script>
