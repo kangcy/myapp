@@ -112,7 +112,7 @@
 	var ArticleUserID = 0; //文章作者
 	var ArticleType = 0; //文章类型ID
 	var ArticleTypeName = ""; //文章类型名称
-
+	var Source = ""; //来源
 	var currEditID = 0; //当前操作对象ID
 	var userinfo = base.GetUserInfo();
 	//启用双击监听
@@ -179,19 +179,35 @@
 
 		//重新加载数据
 		window.addEventListener("UpdateDetail", function(e) {
-			Load();
+			ArticleID = e.detail.ArticleID;
+			Source = e.detail.Source;
+			Load(function() {
+				var page = plus.webview.getWebviewById("addarticle");
+				if(page != null) {
+					plus.webview.close();
+				}
+			});
 		});
 	});
 
 	mui.plusReady(function() {
-		console.log("plusReady");
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
+		Source = self.Source || "Add";
 
-		Load();
+		Load(function() {
+			var page = plus.webview.getWebviewById("addarticle");
+			if(page != null) {
+				plus.webview.close();
+			}
+		});
 
 		//返回
 		mui.back = function() {
+			if(Source == "Add") {
+				var indexPage = plus.webview.getWebviewById("subindex");
+				mui.fire(indexPage, "gohome", {});
+			}
 			plus.webview.close(self);
 		}
 
@@ -202,7 +218,7 @@
 	});
 
 	//加载文章
-	function Load() {
+	function Load(callback) {
 		var data = {
 			UserName: userinfo.UserName,
 			Password: userinfo.Password,
@@ -262,8 +278,12 @@
 					mui.toast(data.message);
 				}
 			}
-			console.log("sdfsdf");
-			plus.nativeUI.closeWaiting();
+			if($.isFunction(callback)) {
+				callback();
+			}
+			setTimeout(function() {
+				plus.nativeUI.closeWaiting();
+			}, 300);
 		});
 	}
 
@@ -318,7 +338,7 @@
 
 	//编辑 
 	function Edit() {
-		plus.nativeUI.showWaiting("跳转中...");
+		plus.nativeUI.showWaiting("载入中...");
 		mui.openWindow({
 			id: 'addarticle',
 			url: 'addarticle.html',
@@ -330,7 +350,8 @@
 				autoShow: false
 			},
 			extras: {
-				ArticleID: ArticleID
+				ArticleID: ArticleID,
+				Source: Source
 			}
 		});
 	}
@@ -342,7 +363,6 @@
 
 	//权限
 	function Power() {
-
 		mui.openWindow({
 			id: 'sharesetting',
 			url: 'sharesetting.html',
