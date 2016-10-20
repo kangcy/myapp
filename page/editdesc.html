@@ -40,7 +40,7 @@
 		var question = document.getElementById("question");
 		var self = plus.webview.currentWebview();
 		question.value = self.title;
-
+		question.focus();
 		//返回
 		mui.back = function() {
 			plus.webview.close(self);

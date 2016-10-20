@@ -184,7 +184,7 @@
 			Load(function() {
 				var page = plus.webview.getWebviewById("addarticle");
 				if(page != null) {
-					plus.webview.close();
+					plus.webview.close(page);
 				}
 			});
 		});
@@ -198,15 +198,18 @@
 		Load(function() {
 			var page = plus.webview.getWebviewById("addarticle");
 			if(page != null) {
-				plus.webview.close();
+				plus.webview.close(page);
 			}
 		});
 
 		//返回
 		mui.back = function() {
 			if(Source == "Add") {
-				var indexPage = plus.webview.getWebviewById("subindex");
-				mui.fire(indexPage, "gohome", {});
+				/*var indexPage = plus.webview.getWebviewById("subindex");
+				mui.fire(indexPage, "gohome", {});*/
+
+				var chooseimage = plus.webview.getWebviewById("chooseimage");
+				plus.webview.close(chooseimage);
 			}
 			plus.webview.close(self);
 		}

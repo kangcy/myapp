@@ -40,7 +40,7 @@
 		var question = document.getElementById("question");
 		var self = plus.webview.currentWebview();
 		question.value = self.title;
-
+		question.focus();
 		//取消
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
