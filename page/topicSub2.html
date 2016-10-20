@@ -15,7 +15,7 @@
 			
 			.onefloor {
 				width: 100%;
-				height: 9.375rem;
+				/*height: 9.375rem;*/
 				overflow: hidden;
 			}
 			
@@ -35,6 +35,7 @@
 			
 			.secondfloor img {
 				width: 97% !important;
+				min-width: 97% !important;
 				min-height: 100%;
 			}
 			
@@ -109,6 +110,7 @@
 
 	mui.ready(function() {
 
+		//加载类型
 		LoadArticleType(function() {
 			//遍历父级节点
 			var parent = [];
@@ -125,7 +127,7 @@
 
 				var child = [];
 				for(var j = 0; j < articleTypes.length; j++) {
-					if(articleTypes[j].ParentID == parent[i].ID) {
+					if(articleTypes[j].ParentID == parent[i].CurrID) {
 						child.push(articleTypes[j]);
 					}
 				}
@@ -142,7 +144,7 @@
 					html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">');
 					html.push('<div class="mui-scroll mt10" style="height:4rem;">');
 					for(var l = 0; l < child.length; l++) {
-						html.push('<div class="mui-control-item subtype" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img src="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
+						html.push('<div class="mui-control-item subtype topic" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img src="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
 					}
 					html.push('</div></div>');
 				}
@@ -159,8 +161,8 @@
 			//重新注册滑动切换事件
 			mui("#slider").slider();
 
-			mui.each(document.querySelectorAll('#sliderGroup .scrolls'), function(index, pullRefreshEl) {
-				mui(pullRefreshEl).pullToRefresh({
+			for(var index = 0; index < parent.length; index++) {
+				mui(document.getElementById("scroll" + i)).pullToRefresh({
 					down: {
 						callback: function() {
 							var self = this;
@@ -172,7 +174,7 @@
 								currpage[index] = 1;
 								totalpage[index] = 2;
 								document.getElementById('scroll-view' + index).innerHTML = "";
-								Load(index, function() {
+								Load(index, parent[index].CurrID, function() {
 									++currpage[index];
 									self.endPullDownToRefresh();
 									self.refresh(true);
@@ -192,7 +194,7 @@
 								return false;
 							}
 							setTimeout(function() {
-								Load(index, function() {
+								Load(index, parent[index].CurrID, function() {
 									++currpage[index];
 									self.endPullUpToRefresh(currpage[index] > totalpage[index]);
 									isLoading = false;
@@ -201,31 +203,47 @@
 						}
 					}
 				});
-			});
+			}
 		});
 
 		base.InitScroll();
 
 		mui.previewImage();
 
-		base.ShowUser("#scroll1"); //用户信息
+		base.ShowUser("#slider"); //用户信息
 
-		base.ShowArticle("#scroll1"); //文章信息
-	});
+		base.ShowArticle("#slider"); //文章信息
 
-	mui.plusReady(function() {
-		document.getElementById('slider').addEventListener('slide', function(e) {
-			currSlider = e.detail.slideNumber;
+		//分类列表
+		mui("#slider").on('tap', '.topic', function(event) {
+			var typeId = this.getAttribute("typeid");
+			var typeName = this.getAttribute("typename");
+			mui.openWindow({
+				id: 'article',
+				url: 'article.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					ArticleType: typeId,
+					ArticleTypeName: typeName
+				}
+			});
 		});
 	});
 
 	/**
 	 * 加载数据
 	 */
-	function Load(index, callback) {
+	function Load(index, typeId, callback) {
 		var data = {
 			page: currpage[index],
-			rows: pagesize
+			rows: pagesize,
+			TypeID: typeId
 		};
 		if($.isFunction(callback)) {
 			callback();
@@ -284,9 +302,9 @@
 	 */
 	function appendPTypeStr(item, index) {
 		if(index == 0) {
-			return '<div class="mui-control-item f12 mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</a>';
+			return '<div class="mui-control-item f12 topic mui-active" typeid="' + item.CurrID + '" typename="' + item.Name + '">' + item.Name + '</a>';
 		} else {
-			return '<div class="mui-control-item f12" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</a>';
+			return '<div class="mui-control-item f12 topic " typeid="' + item.CurrID + '" typename="' + item.Name + '">' + item.Name + '</a>';
 		}
 	}
 </script>
