@@ -44,7 +44,6 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage1 = 1;
@@ -220,12 +219,12 @@
 					}
 				}
 			}
-			if($.isFunction(callback)) {
+			if(callback) {
 				callback();
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
+				placeholder: base.DefaultImg,
 				diff: window.innerHeight
 			});
 		});
@@ -250,12 +249,12 @@
 					}
 				}
 			}
-			if($.isFunction(callback)) {
+			if(callback) {
 				callback();
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
+				placeholder: base.DefaultImg,
 				diff: window.innerHeight
 			});
 		});
@@ -266,7 +265,7 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell mt10"><div class="oa-contact-content mui-table-cell pb0"><p class="f12 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">' + item.Title + '</p></div></div>');
+		model.push('<div class="mui-slider-cell mt10"><div class="oa-contact-content mui-table-cell pb0"><p class="f12 article" style="color:#4EC4DE;" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">“' + item.Title + '”</p></div></div>');
 		model.push('<div class="mui-slider-cell mt5 mb5"><div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div></div>');
 		model.push('<div class="mui-slider-cell mb10"><div class="oa-contact-content mui-table-cell pb0"><p class="caaa f11">' + item.CreateDate + '</p></div></div>');
 		div.innerHTML = model.join('');

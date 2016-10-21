@@ -28,7 +28,7 @@
 }
 
 .oa-contact-icon {
-	width: 5rem;
+	width: 3.5rem;
 }
 
 .oa-contact-icon img {
@@ -46,21 +46,9 @@
 	color: #49be38;
 	text-align: center;
 	border-radius: 15px;
-	padding: 0.3rem 0.5rem;
+	padding: 0.2rem 0.5rem;
 	display: inline-block;
 	float: right;
 	margin-top: 0rem;
-	width: 4rem;
-}
-
-.guanzhu2 {
-	border: 1px solid #aaa;
-	color: #aaa;
-	text-align: center;
-	border-radius: 15px;
-	padding: 0.3rem 0.5rem;
-	display: inline-block;
-	float: right;
-	margin-top: 0rem;
-	width: 4rem;
+	width: 3rem;
 }

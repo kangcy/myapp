@@ -34,7 +34,6 @@
 <script src="../js/mui.previewimage.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -69,7 +68,7 @@
 
 		base.ShowUser("#scroll-view"); //用户详细
 
-		base.ShowArticle("#scroll-view"); //用户详细
+		base.ShowArticle("#scroll-view"); //文章详细
 	});
 
 	/**
@@ -131,19 +130,19 @@
 				var length = data.list.length;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i]);
+						var div = base.AppendArticle(data.list[i], true);
 						table.appendChild(div);
 					}
 				} else {
 					mui.toast("没有更多数据了~");
 				}
 			}
-			if($.isFunction(callback)) {
+			if(callback) {
 				callback();
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
+				placeholder: base.DefaultImg,
 				diff: window.innerHeight
 			});
 		});
