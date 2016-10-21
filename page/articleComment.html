@@ -13,9 +13,9 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<div class="mui-title c33" id="header">10条评论</div>
+			<div class="mui-title c33" id="header"></div>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content"> 
 
 		</div>
 	</body>
@@ -48,6 +48,7 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		CommentTitle = self.CommentTitle || "0条评论";
+
 		document.getElementById("header").innerHTML = CommentTitle;
 
 		//返回
@@ -61,5 +62,13 @@
 			}
 			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
+	});
+
+	//初始化子页面
+	window.addEventListener("InitSubPage", function(e) {
+		if(contentWebview == null) {
+			contentWebview = plus.webview.getWebviewById("articleCommentSub");
+		}
+		contentWebview.evalJS("Init(" + ArticleID + ")");
 	});
 </script>

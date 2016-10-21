@@ -16,7 +16,7 @@
 		<div class="mui-content">
 			<div class="mui-slider mui-fullscreen">
 				<div class="mui-scroll-wrapper">
-					<div id="pullrefresh" class="mui-scroll">
+					<div id="scroll" class="mui-scroll">
 						<div id="scroll-view">
 							<!--<div class="mui-table-view-cell">
 								<div class="mui-slider-cell mt10 mb10">
@@ -55,6 +55,8 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -62,6 +64,7 @@
 	var isLoading = false;
 	var pagesize = base.PageSize;
 	var payPage = null;
+	var ArticleID = 0;
 	var userId = base.GetUserID();
 	mui.init();
 
@@ -69,7 +72,18 @@
 
 		base.InitScroll();
 
-		//文章评论
+		//用户详细
+		base.ShowUser("#scroll");
+	});
+
+	mui.plusReady(function() {
+		var parentPage = plus.webview.getWebviewById("articleComment");
+		mui.fire(parentPage, "InitSubPage", {});
+	});
+
+	//初始化获取参数
+	function Init(articleId) {
+		ArticleID = articleId;
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -85,15 +99,7 @@
 				}
 			}
 		});
-
-		//用户详细
-		base.ShowUser("#slider");
-	});
-
-	mui.plusReady(function() {
-		var parentPage = plus.webview.getWebviewById("articleComment");
-		mui.fire(parentPage, "InitSubPage", {});
-	});
+	}
 
 	//文章评论-下拉刷新
 	function pulldownRefresh(self) {
@@ -173,7 +179,7 @@
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
 		model.push('<div class="mui-table-cell pb0"><p class="f12 user" style="color:#4EC4DE;" userid="' + item.UserID + '">' + item.NickName + '</p><p class="f12 c333 mt5 mb5">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
-			model.push('<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;"><span class="user" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+			model.push('<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;"><span class="user" style="color:#4EC4DE;" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
 		model.push('<p class="f11 caaa">' + item.CreateDate + '</p></div>');
 		model.push('</div>');

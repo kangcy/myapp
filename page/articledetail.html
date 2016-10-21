@@ -112,7 +112,7 @@
 	var ArticleUserID = 0; //文章作者
 	var ArticleType = 0; //文章类型ID
 	var ArticleTypeName = ""; //文章类型名称
-	var CommentTitle="0条评论";
+	var CommentTitle = "0条评论";
 	var Source = ""; //来源
 	var currEditID = 0; //当前操作对象ID
 	var userinfo = base.GetUserInfo();
@@ -176,7 +176,7 @@
 				},
 				extras: {
 					ArticleID: ArticleID,
-					Title:""
+					CommentTitle: CommentTitle
 				}
 			});
 		});
@@ -275,6 +275,9 @@
 					$("#article_desc").html(html.join(""));
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
+
+					CommentTitle = data.Comments + "条评论";
+					console.log(CommentTitle)
 
 					document.body.removeAttribute('data-imageLazyload');
 					mui(document).imageLazyload({
