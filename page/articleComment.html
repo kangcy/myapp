@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon mui-icon-back fl"></a>
+			<div class="mui-title c33" id="header">10条评论</div>
+		</header>
+		<div class="mui-content">
+
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script type="text/javascript">
+	var ArticleID = 0;
+	var CommentTitle = "0条评论";
+
+	//启用双击监听
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false,
+		subpages: [{
+			id: 'articleCommentSub',
+			url: 'articleCommentSub.html',
+			styles: {
+				top: '50px',
+				bottom: '0px',
+			}
+		}]
+	});
+
+	var contentWebview = null;
+	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID || 0;
+		CommentTitle = self.CommentTitle || "0条评论";
+		document.getElementById("header").innerHTML = CommentTitle;
+
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		document.querySelector('header').addEventListener('doubletap', function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		});
+	});
+</script>

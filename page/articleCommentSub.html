@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/comment.css">
+		<link rel="stylesheet" href="../css/loading.css">
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<div class="mui-scroll-wrapper">
+					<div id="pullrefresh" class="mui-scroll">
+						<div id="scroll-view">
+							<!--<div class="mui-table-view-cell">
+								<div class="mui-slider-cell mt10 mb10">
+									<div class="oa-contact-cell mui-table">
+										<div class="oa-contact-avatar mui-table-cell" style="vertical-align:top;"><img src="../images/logo.png" class="user" userid="0" /></div>
+										<div class="mui-table-cell pb0">
+											<p class="f12 user c333" userid="0">标题</p>
+											<p class="f12 c333 mt5 mb5">内容</p>
+											<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;"><span>@biaoti：</span>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+											<p class="f11 caaa">10小时前</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mui-table-view-cell">
+								<div class="mui-slider-cell mt10 mb10">
+									<div class="oa-contact-cell mui-table">
+										<div class="oa-contact-avatar mui-table-cell" style="vertical-align:top;"><img src="../images/logo.png" class="user" userid="0" /></div>
+										<div class="mui-table-cell pb0">
+											<p class="f12 user c333" userid="0">标题</p>
+											<p class="f12 c333 mt5 mb5">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</p>
+											<p class="f11 caaa">10小时前</p>
+										</div>
+									</div>
+								</div>
+							</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var currpage = 1;
+	var totalpage = 2;
+	var isLoading = false;
+	var pagesize = base.PageSize;
+	var payPage = null;
+	var userId = base.GetUserID();
+	mui.init();
+
+	mui.ready(function() {
+
+		base.InitScroll();
+
+		//文章评论
+		mui(document.getElementById("scroll")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
+
+		//用户详细
+		base.ShowUser("#slider");
+	});
+
+	mui.plusReady(function() {
+		var parentPage = plus.webview.getWebviewById("articleComment");
+		mui.fire(parentPage, "InitSubPage", {});
+	});
+
+	//文章评论-下拉刷新
+	function pulldownRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		setTimeout(function() {
+			currpage = 1;
+			totalpage = 2;
+			document.getElementById('scroll-view').innerHTML = "";
+			Load(function() {
+				++currpage;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//文章评论-上拉加载
+	function pullupRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
+		}
+		setTimeout(function() {
+			Load(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//文章评论-加载数据
+	function Load(callback) {
+		data = {
+			page: currpage,
+			rows: pagesize,
+			ArticleID: userId
+		}
+		HttpGet(base.RootUrl + "Comment/ArticleComment", data, function(data) {
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.list.length;
+				if(length > 0) {
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i]);
+						table.appendChild(div);
+					}
+				}
+			}
+			if(callback) {
+				callback();
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: base.DefaultImg,
+				diff: window.innerHeight
+			});
+		});
+	}
+
+	//拼接Html 
+	function appendStr(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell mt10 mb10">');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
+		model.push('<div class="mui-table-cell pb0"><p class="f12 user" style="color:#4EC4DE;" userid="' + item.UserID + '">' + item.NickName + '</p><p class="f12 c333 mt5 mb5">' + item.Summary + '</p>');
+		if(item.ParentCommentID > 0) {
+			model.push('<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;"><span class="user" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+		}
+		model.push('<p class="f11 caaa">' + item.CreateDate + '</p></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+</script>

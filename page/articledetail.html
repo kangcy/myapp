@@ -112,6 +112,7 @@
 	var ArticleUserID = 0; //文章作者
 	var ArticleType = 0; //文章类型ID
 	var ArticleTypeName = ""; //文章类型名称
+	var CommentTitle="0条评论";
 	var Source = ""; //来源
 	var currEditID = 0; //当前操作对象ID
 	var userinfo = base.GetUserInfo();
@@ -163,16 +164,19 @@
 
 		//文章评论
 		document.getElementById('comment').addEventListener('tap', function(event) {
-			//跳转评论列表页
 			mui.openWindow({
-				id: 'comment',
-				url: 'comment.html',
+				id: 'articleComment',
+				url: 'articleComment.html',
 				show: {
 					autoShow: true,
 					duration: base.AnimateDuration
 				},
 				waiting: {
 					autoShow: false
+				},
+				extras: {
+					ArticleID: ArticleID,
+					Title:""
 				}
 			});
 		});
