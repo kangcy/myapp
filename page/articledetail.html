@@ -93,8 +93,43 @@
 					<span id="zan" class="mui-icon mui-icon-extra mui-icon-extra-heart c999" style="font-size:22px;padding-top: 15px;"><span class="mui-badge mui-badge-danger" id="footer_zan">0</span></span>
 				</div>
 				<div>
-					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;" onclick="Share()"></span>
+					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;" onclick="Share(1)"></span>
 				</div>
+			</div>
+		</div>
+		<!--分享-->
+		<div class="mysharebg hide" id="mysharebg" onclick="Share(0)"></div>
+		<div class="myshare" id="myshare">
+			<p class="f16 c000 tc mt10 mb0">分享到</p>
+			<div class="tc c000 myshare_body">
+				<div class="myshare_items" onclick="ShareAction(1)"><img src="../images/share/1.png" />
+					<p class="f11 mb0 c000">朋友圈</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(2)"><img src="../images/share/2.png" />
+					<p class="f11 mb0 c000">微信</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(3)"><img src="../images/share/3.png" />
+					<p class="f11 mb0 c000">新浪微博</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(4)"><img src="../images/share/4.png" />
+					<p class="f11 mb0 c000">QQ</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(5)"><img src="../images/share/5.png" />
+					<p class="f11 mb0 c000">QQ空间</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(6)"><img src="../images/share/6.png" />
+					<p class="f11 mb0 c000">其他</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(7)"><img src="../images/share/7.png" />
+					<p class="f11 mb0 c000">复制链接</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(8)"><img src="../images/share/8.png" />
+					<p class="f11 mb0 c000" style="">收藏</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(9)"><img src="../images/share/9.png" />
+					<p class="f11 mb0 c000">举报</p>
+				</div>
+				<div class="c000 mt10 f11 fl btnExit" onclick="Share(0)">取消</div>
 			</div>
 		</div>
 	</body>
@@ -106,6 +141,7 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/share.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
@@ -198,8 +234,6 @@
 		File = null,
 		Uri = null,
 		main = null;
-	var shares = null;
-	var shareImageUrl = '';
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
@@ -331,8 +365,6 @@
 				} else if(e.index == 2) {
 					Edit();
 				} else if(e.index == 3) {
-					Share();
-				} else if(e.index == 4) {
 					Power();
 				}
 			}
@@ -398,108 +430,5 @@
 				ArticleTypeName: ArticleTypeName
 			}
 		});
-	}
-
-	//分享
-	function Share() {
-		var ids = [{
-				id: "weixin",
-				ex: "WXSceneSession" /*微信好友*/
-			}, {
-				id: "weixin",
-				ex: "WXSceneTimeline" /*微信朋友圈*/
-			}, {
-				id: "qq" /*QQ好友*/
-			}, {
-				id: "tencentweibo" /*腾讯微博*/
-			}, {
-				id: "sinaweibo" /*新浪微博*/
-			}],
-			bts = [{
-				title: "发送给微信好友"
-			}, {
-				title: "分享到微信朋友圈"
-			}, {
-				title: "分享到QQ"
-			}, {
-				title: "分享到腾讯微博"
-			}, {
-				title: "分享到新浪微博"
-			}];
-		plus.nativeUI.actionSheet({
-				cancel: "取消",
-				buttons: bts
-			},
-			function(e) {
-				var i = e.index;
-				console.log('i = ' + i);
-				if(i > 0) {
-					shareAction(ids[i - 1].id, ids[i - 1].ex);
-				}
-			}
-		);
-	}
-	//更新分享服务
-	function updateSerivces() {
-		plus.share.getServices(function(s) {
-			shares = {};
-			for(var i in s) {
-				var t = s[i];
-				shares[t.id] = t;
-			}
-			outSet("获取分享服务列表成功");
-		}, function(e) {
-			outSet("获取分享服务列表失败：" + e.message);
-		});
-	}
-	//分享信息
-	function shareAction(id, ex) {
-		console.log('id = ' + id);
-		console.log('ex = ' + ex);
-		console.log('shares[id]' + shares[id]);
-		var s = null;
-		if(!id || !(s = shares[id])) {
-			outLine("无效的分享服务！");
-			return;
-		}
-		if(s.authenticated) {
-			outSet("---已授权---");
-			shareMessage(s, ex);
-		} else {
-			mui.toast("未授权");
-			outSet("---未授权---");
-			s.authorize(function() {
-				shareMessage(s, ex);
-			}, function(e) {
-				outLine("认证授权失败");
-			});
-		}
-	}
-	//发送分享信息
-	function shareMessage(s, ex) {
-		var msg = {
-			content: '分享-详情',
-			href: 'http://blog.csdn.net/zhuming3834',
-			title: '标题',
-			content: '内容',
-			thumbs: ['http://img3.3lian.com/2013/v10/4/87.jpg'],
-			pictures: ['http://img3.3lian.com/2013/v10/4/87.jpg'],
-			extra: {
-				scene: ex
-			}
-		};
-		s.send(msg, function() {
-			outLine("分享成功!");
-		}, function(e) {
-			outLine("分享失败!");
-		});
-	}
-	// 控制台输出日志
-	function outSet(msg) {
-
-	}
-	// 界面弹出吐司提示
-	function outLine(msg) {
-		mui.toast(msg);
 	}
 </script>
