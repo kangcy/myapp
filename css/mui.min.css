@@ -4790,7 +4790,9 @@ body>.mui-progressbar {
 .mt20 {
 	margin-top: 1.25rem !important;
 }
-
+.mb0 {
+	margin-bottom: 0px !important;
+}
 .mb5 {
 	margin-bottom: 0.3125rem !important;
 }
