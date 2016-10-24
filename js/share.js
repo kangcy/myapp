@@ -20,7 +20,7 @@ function Share(index) {
 	if(index == 0) {
 		$("#mysharebg").addClass("hide");
 		$("#myshare").slideUp();
-	}else{
+	} else {
 		$("#mysharebg").removeClass("hide");
 		$("#myshare").slideDown();
 	}
@@ -28,6 +28,19 @@ function Share(index) {
 
 //分享信息
 function ShareAction(index) {
+	//复制链接
+	if(index == 7) {
+		return;
+	}
+	//收藏
+	if(index == 8) {
+		return;
+	}
+	//举报
+	if(index == 9) {
+		return;
+	}
+
 	var id = "";
 	var ex = "";
 	switch(index) {
@@ -61,21 +74,6 @@ function ShareAction(index) {
 			id = "";
 			ex = "";
 			break;
-			//复制链接
-		case 7:
-			id = "";
-			ex = "";
-			break;
-			//收藏
-		case 8:
-			id = "";
-			ex = "";
-			break;
-			//举报
-		case 9:
-			id = "";
-			ex = "";
-			break;
 		default:
 			break;
 	}
@@ -95,6 +93,12 @@ function ShareAction(index) {
 		});
 	}
 }
+
+//收藏
+function Keep(){
+	
+}
+
 //发送分享信息
 function shareMessage(s, ex) {
 	var msg = {

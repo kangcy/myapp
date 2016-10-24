@@ -55,6 +55,54 @@
 	};
 
 	/**
+	 * 用户第三方登录
+	 **/
+	owner.loginThird = function(loginInfo, callback) {
+		callback = callback || $.noop;
+
+		HttpGet(base.RootUrl + "User/LoginThird", {
+			NickName: loginInfo.NickName,
+			Avatar: loginInfo.Avatar,
+			Sex: loginInfo.Sex,
+			OpenID: loginInfo.OpenID,
+			Cover: "../images/header.png"
+		}, function(data) {
+			if(data == null) {
+				return callback("系统异常,请稍后再试~");
+			} else {
+				if(data.result) {
+					//更新用户缓存信息
+					data = data.message;
+
+					var info = {
+						ID: data.ID,
+						Sex: data.Sex == "0" ? "男" : "女",
+						Signature: data.Signature,
+						UserName: data.UserName,
+						Password: data.Password,
+						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
+						NickName: data.NickName,
+						Address: data.Address,
+						Birthday: data.BirthdayText,
+						Follows: data.Follows,
+						Fans: data.Fans,
+						Articles: data.Articles,
+						Keeps: data.Keeps,
+						Comments: data.Comments,
+						Zans: data.Zans,
+						Cover: data.Cover,
+						FanText: data.FanText
+					}
+					localStorage.setItem('$userinfo', JSON.stringify(info));
+					return callback();
+				} else {
+					return callback(data.message);
+				}
+			}
+		});
+	};
+
+	/**
 	 * 新用户注册
 	 **/
 	owner.reg = function(regInfo, callback) {
