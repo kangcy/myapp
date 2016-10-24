@@ -165,8 +165,7 @@
 		//点赞
 		document.getElementById('zan').addEventListener('tap', function(event) {
 			HttpGet(base.RootUrl + "Zan/Edit", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
+				OpenID: userinfo.OpenID
 				ArticleID: ArticleID
 			}, function(data) {
 				if(data != null) {
@@ -272,8 +271,7 @@
 	//加载文章
 	function Load(callback) {
 		var data = {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
+			OpenID: userinfo.OpenID,
 			ID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
@@ -532,8 +530,6 @@
 	function Keep() {
 		HttpGet(base.RootUrl + "User/Edit", {
 			ArticleID: ArticleID,
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
 			OpenID: userinfo.OpenID
 		}, function(data) {
 			if(data == null) {

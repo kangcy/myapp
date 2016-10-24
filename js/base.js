@@ -57,6 +57,7 @@ var base = new function() {
 				Zans: 0,
 				Cover: "../images/header.png",
 				FanText: "",
+				KeepText: ""
 			}
 		}
 
@@ -126,8 +127,7 @@ var base = new function() {
 			var userId = this.getAttribute("userid");
 			var $this = $(this);
 			HttpGet(base.RootUrl + "Fan/Edit", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
+				OpenID: userinfo.OpenID
 				ToUserID: userId
 			}, function(data) {
 				if(data != null) {
@@ -196,7 +196,9 @@ var base = new function() {
 						Comments: data.Comments,
 						Zans: data.Zans,
 						Cover: data.Cover,
-						FanText: data.FanText
+						FanText: data.FanText,
+						KeepText: data.KeepText,
+						OpenID:data.OpenID
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 

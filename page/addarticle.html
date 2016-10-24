@@ -106,8 +106,7 @@
 			document.getElementById("confirm").onclick = function() {
 				confirm(null, function(src) {
 					HttpGet(base.RootUrl + "Article/EditArticleCover", {
-						UserName: userinfo.UserName,
-						Password: userinfo.Password,
+						OpenID: userinfo.OpenID,
 						ArticleID: ArticleID,
 						Cover: src
 					}, function(data) {
@@ -151,8 +150,7 @@
 				document.getElementById("confirm").onclick = function() {
 					confirm(null, function(src) {
 						HttpGet(base.RootUrl + "ArticlePart/Edit", {
-							UserName: userinfo.UserName,
-							Password: userinfo.Password,
+							OpenID: userinfo.OpenID,
 							ID: $("#" + currEditID).attr("partid"),
 							Introduction: src
 						}, function(data) {
@@ -202,8 +200,7 @@
 				plus.nativeUI.showWaiting("创建中...");
 			}
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
+				OpenID: userinfo.OpenID,
 				ArticleID: ArticleID,
 				Types: 1,
 				Introduction: base.DefaultImg
@@ -231,8 +228,7 @@
 				plus.nativeUI.showWaiting("创建中...");
 			}
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
+				OpenID: userinfo.OpenID,
 				ArticleID: ArticleID,
 				Types: 2,
 				Introduction: ""
@@ -260,8 +256,7 @@
 				plus.nativeUI.showWaiting("创建中...");
 			}
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
+				OpenID: userinfo.OpenID,
 				ArticleID: ArticleID,
 				Types: 3,
 				Introduction: ""
@@ -296,8 +291,7 @@
 				if(e.index == 0) {
 					plus.nativeUI.showWaiting("删除中...");
 					HttpGet(base.RootUrl + "ArticlePart/Delete", {
-						UserName: userinfo.UserName,
-						Password: userinfo.Password,
+						OpenID: userinfo.OpenID,
 						ID: $this.getAttribute("partid")
 					}, function(data) {
 						plus.nativeUI.closeWaiting();
@@ -366,8 +360,7 @@
 	window.addEventListener("updateDesc", function(e) {
 		var t = e.detail.desc;
 		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
+			OpenID: userinfo.OpenID,
 			ID: $("#" + currEditID).attr("partid"),
 			Introduction: escape(t)
 		}, function(data) {
@@ -419,8 +412,7 @@
 			plus.nativeUI.showWaiting("保存中...");
 		}
 		HttpGet(base.RootUrl + "Article/Edit", {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
+			OpenID: userinfo.OpenID,
 			ID: ArticleID,
 			Title: escape(Title),
 			MusicID: MusicID,
@@ -498,8 +490,7 @@
 	function Load(callback) {
 		//编辑文章
 		var data = {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
+			OpenID: userinfo.OpenID,
 			ID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {

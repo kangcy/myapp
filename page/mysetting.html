@@ -139,8 +139,7 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditSex", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
+					OpenID: userinfo.OpenID,
 					Sex: items[0].value
 				}, function(data) {
 					if(mui.os.plus) {
@@ -168,8 +167,7 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditAddress", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
+					OpenID: userinfo.OpenID,
 					ProvinceID: items[0].value,
 					CityID: items[1].value,
 					ProvinceName: items[0].text,
@@ -214,8 +212,7 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditBirthday", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
+					OpenID: userinfo.OpenID,
 					Birthday: rs.text
 				}, function(data) {
 					if(mui.os.plus) {
@@ -235,8 +232,7 @@
 		document.getElementById("confirm").onclick = function() {
 			confirm("avatar", function(src) {
 				HttpGet(base.RootUrl + "User/EditAvatar", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
+					OpenID: userinfo.OpenID,
 					Avatar: src
 				}, function(data) {
 					mui.toast(data.result ? "编辑成功~" : data.message);
@@ -278,8 +274,7 @@
 			plus.nativeUI.showWaiting();
 		}
 		HttpGet(base.RootUrl + "User/EditNickName", {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
+			OpenID: userinfo.OpenID,
 			NickName: t
 		}, function(data) {
 			if(mui.os.plus) {
@@ -301,8 +296,7 @@
 			plus.nativeUI.showWaiting();
 		}
 		HttpGet(base.RootUrl + "User/EditSignature", {
-			UserName: userinfo.UserName,
-			Password: userinfo.Password,
+			OpenID: userinfo.OpenID,
 			Signature: t
 		}, function(data) {
 			if(mui.os.plus) {

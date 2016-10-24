@@ -43,7 +43,9 @@
 						Comments: data.Comments,
 						Zans: data.Zans,
 						Cover: data.Cover,
-						FanText: data.FanText
+						FanText: data.FanText,
+						KeepText: data.KeepText,
+						OpenID: data.OpenID
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -91,7 +93,9 @@
 						Comments: data.Comments,
 						Zans: data.Zans,
 						Cover: data.Cover,
-						FanText: data.FanText
+						FanText: data.FanText,
+						KeepText: data.KeepText,
+						OpenID: data.OpenID
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -157,7 +161,9 @@
 						Comments: 0,
 						Zans: 0,
 						Cover: data.Cover,
-						FanText: data.FanText
+						FanText: data.FanText,
+						KeepText: data.KeepText,
+						OpenID: data.OpenID
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();

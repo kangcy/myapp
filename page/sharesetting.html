@@ -202,8 +202,7 @@
 			plus.nativeUI.showWaiting();
 		}
 		HttpGet(base.RootUrl + "Article/EditArticlePower", {
-				UserName: userinfo.UserName,
-				Password: userinfo.Password,
+				OpenID: userinfo.OpenID,
 				ArticleID: ArticleID,
 				ArticlePower: ArticlePower,
 				ArticlePowerPwd: ArticlePowerPwd

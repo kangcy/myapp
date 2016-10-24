@@ -113,8 +113,7 @@
 		document.getElementById("confirm").onclick = function() {
 			confirm(null, function(src) {
 				HttpGet(base.RootUrl + "User/EditCover", {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
+					OpenID: userinfo.OpenID,
 					Cover: src
 				}, function(data) {
 					mui.toast(data.result ? "编辑成功~" : data.message);

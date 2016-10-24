@@ -269,8 +269,7 @@
 				if(isLoading)
 					return;
 				var data = {
-					UserName: userinfo.UserName,
-					Password: userinfo.Password,
+					OpenID: userinfo.OpenID,
 					ToUserID: UserID
 				}
 				HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
