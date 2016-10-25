@@ -262,6 +262,8 @@
 
 	//判断是否关注
 	function CheckFan() {
+		console.log(userinfo.FanText);
+		
 		if(base.CheckFan(userinfo.FanText, UserID)) {
 			$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
 		} else {

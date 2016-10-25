@@ -68,7 +68,14 @@
 				mui.toast(data.result ? "感谢您的评论~" : data.message);
 				if(data.result) {
 					question.value = "";
-					base.UpdateUser();//更新用户信息
+					base.UpdateUser(); //更新用户信息
+
+					//更新文章评论数
+					var page = plus.webview.getWebviewById("articledetail");
+					if(page) {
+						mui.fire(page, 'UpdateComment', {});
+					}
+
 					if(mui.os.plus) {
 						mui.back();
 					}

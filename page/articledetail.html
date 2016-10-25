@@ -58,7 +58,7 @@
 		</style>
 	</head>
 
-	<body>
+	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
 			<a id="action" class="mui-icon f13 fr mt6 hide" onclick="showActionSheet()">操作</a>
@@ -147,7 +147,7 @@
 	var ArticleUserID = 0; //文章作者
 	var ArticleType = 0; //文章类型ID
 	var ArticleTypeName = ""; //文章类型名称
-	var CommentTitle = "0条评论";
+	var Comments = 0;
 	var Source = ""; //来源
 	var currEditID = 0; //当前操作对象ID
 	var userinfo = base.GetUserInfo();
@@ -165,7 +165,7 @@
 		//点赞
 		document.getElementById('zan').addEventListener('tap', function(event) {
 			HttpGet(base.RootUrl + "Zan/Edit", {
-				OpenID: userinfo.OpenID
+				OpenID: userinfo.OpenID,
 				ArticleID: ArticleID
 			}, function(data) {
 				if(data != null) {
@@ -210,9 +210,15 @@
 				},
 				extras: {
 					ArticleID: ArticleID,
-					CommentTitle: CommentTitle
+					CommentTitle: Comments + "条评论"
 				}
 			});
+		});
+
+		//更新文章评论数
+		window.addEventListener("UpdateComment", function(e) {
+			Comments += 1;
+			$("#footer_comment").html(Comments);
 		});
 
 		//重新加载数据
@@ -233,6 +239,11 @@
 		Uri = null,
 		main = null;
 	mui.plusReady(function() {
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
+		}
+
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		Source = self.Source || "Add";
@@ -285,9 +296,11 @@
 
 					$(".user").attr("userid", ArticleUserID);
 					$("#article_title").html(data.Title);
-					$("#article_info").html('<span class="fl blue user">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
+					$("#article_info").html('<span class="fl blue user" userid="' + userinfo.ID + '">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
 
-					base.ShowUser("header");
+					if(userinfo.ID != ArticleUserID) {
+						base.ShowUser("#body");
+					}
 
 					//音乐
 					if(!base.IsNullOrEmpty(data.MusicUrl)) {
@@ -319,7 +332,7 @@
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
 
-					CommentTitle = data.Comments + "条评论";
+					Comments = data.Comments;
 
 					if(userinfo.ID == data.CreateUserID) {
 						$("#action").removeClass("hide");
@@ -373,14 +386,16 @@
 		var btnArray = ['确定', '取消'];
 		mui.confirm('删除后将无法在微信浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
 			if(e.index == 0) {
-				//请求删除
 				HttpGet(base.RootUrl + "Article/Delete", {
+					OpenID: userinfo.OpenID,
 					ID: ArticleID
 				}, function(data) {
+					console.log(JSON.stringify(data))
 					if(data != null) {
 						if(data.result) {
-							var subindexPage = plus.webview.getWebviewById("subindex");
-							mui.fire(subindexPage, 'gohome', {});
+							plus.webview.close(plus.webview.currentWebview());
+							/*var subindexPage = plus.webview.getWebviewById("subindex");
+							mui.fire(subindexPage, 'gohome', {});*/
 						}
 					}
 				});

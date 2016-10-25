@@ -121,7 +121,7 @@
 		data = {
 			page: currpage,
 			rows: pagesize,
-			ArticleID: userId
+			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Comment/ArticleComment", data, function(data) {
 			if(data != null) {

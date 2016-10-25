@@ -127,7 +127,7 @@ var base = new function() {
 			var userId = this.getAttribute("userid");
 			var $this = $(this);
 			HttpGet(base.RootUrl + "Fan/Edit", {
-				OpenID: userinfo.OpenID
+				OpenID: userinfo.OpenID,
 				ToUserID: userId
 			}, function(data) {
 				if(data != null) {
@@ -198,7 +198,7 @@ var base = new function() {
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						OpenID:data.OpenID
+						OpenID: data.OpenID
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 
