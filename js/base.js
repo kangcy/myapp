@@ -90,6 +90,58 @@ var base = new function() {
 	}
 
 	/**
+	 * 添加收藏
+	 **/
+	this.AddKeep = function(userinfo, userid) {
+		if(userinfo.KeepText.indexOf("," + userid + ",") >= 0) {
+			return true;
+		} else {
+			userinfo.KeepText += userid + ",";
+			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			mui.toast("收藏成功");
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 判断是否收藏
+	 **/
+	this.CheckKeep = function(keeps, userid) {
+		userid = "," + userid + ",";
+		if(base.IsNullOrEmpty(keeps)) {
+			return false;
+		}
+		if(fans.indexOf(userid) >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 收藏
+	 **/
+	this.Keep = function(id, userinfo, articleid callback) {
+		var $this = $(this);
+		HttpGet(base.RootUrl + "Keep/Edit", {
+			OpenID: userinfo.OpenID,
+			ArticleID: articleid
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					base.AddKeep(userinfo, userId);
+					if(callback) {
+						callback($this);
+					}
+				} else {
+					mui.toast(data.message);
+				}
+			}
+		});
+	}
+
+	/**
 	 * 添加关注
 	 **/
 	this.AddFan = function(userinfo, userid) {
@@ -256,7 +308,7 @@ var base = new function() {
 	/**
 	 * 展示文章信息
 	 **/
-	this.ShowArticle = function(id) {
+	this.ShowArticle = function(id, Source) {
 		mui(id).on('tap', '.article', function(event) {
 			var articleId = this.getAttribute("articleid");
 			var power = this.getAttribute("power");
@@ -278,7 +330,7 @@ var base = new function() {
 								},
 								extras: {
 									ArticleID: articleId,
-									Source: "List"
+									Source: Source
 								}
 							});
 						});

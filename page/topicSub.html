@@ -179,7 +179,7 @@
 
 		base.ShowUser("#slider"); //用户信息
 
-		base.ShowArticle("#slider"); //文章信息
+		base.ShowArticle("#slider","List"); //文章信息
 
 		//分类列表
 		mui("#slider").on('tap', '.topic', function(event) {
@@ -214,8 +214,6 @@
 		};
 
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
-			//console.log(typeId + "," + JSON.stringify(data));
-
 			if(data != null) {
 				totalpage[index] = data.totalpage;
 				var length = data.list.length;

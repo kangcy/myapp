@@ -89,7 +89,6 @@
 
 		base.ShowUser("#scroll1"); //用户详细
 
-		base.ShowArticle("#pullrefresh"); //用户详细
 	});
 
 	mui.plusReady(function() {
@@ -98,9 +97,12 @@
 	});
 
 	//初始化获取参数
-	function Init(articleType, createUserID) {
+	function Init(articleType, createUserID, source) {
 		ArticleType = articleType;
 		CreateUserID = createUserID;
+
+		base.ShowArticle("#pullrefresh", source); //文章详细
+
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {
 				callback: function() {

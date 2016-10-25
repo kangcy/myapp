@@ -37,6 +37,7 @@
 	var ArticleType = 0; //类型
 	var ArticleTypeName = ""; //类型名称
 	var CreateUserID = 0; //创建人
+	var Source = "List"; //来源
 	var subPageLoaded = false;
 
 	//启用双击监听
@@ -62,6 +63,7 @@
 		ArticleType = self.ArticleType || 0;
 		ArticleTypeName = self.ArticleTypeName || "列表";
 		CreateUserID = self.CreateUserID || 0;
+		Source = self.Source || "List";
 
 		document.getElementById("header").innerHTML = ArticleTypeName;
 
