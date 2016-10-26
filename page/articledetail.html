@@ -529,9 +529,12 @@
 
 	//分享弹窗
 	function ShareTan(index) {
+		if(ArticlePower == 0) {
+			return mui.toast("私密文章不可以分享");
+		}
 		if(index == 0) {
 			$("#mysharebg").addClass("hide");
-			$("#myshare").slideUp();
+			$("#myshare").slideUp(); 
 		} else {
 			$("#mysharebg").removeClass("hide");
 			$("#myshare").slideDown();
@@ -572,12 +575,12 @@
 			//朋友圈
 			case 1:
 				id = "weixin";
-				ex = "WXSceneSession";
+				ex = "WXSceneTimeline";
 				break;
 				//微信
 			case 2:
 				id = "weixin";
-				ex = "WXSceneTimeline";
+				ex = "WXSceneSession";
 				break;
 				//新浪微博
 			case 3:
@@ -591,7 +594,7 @@
 				break;
 				//qq空间
 			case 5:
-				id = "";
+				id = "qq";
 				ex = "";
 				break;
 				//其他
@@ -610,7 +613,7 @@
 		if(s.authenticated) {
 			shareMessage(s, ex);
 		} else {
-			mui.toast("未授权");
+			mui.toast("授权中");
 			s.authorize(function() {
 				shareMessage(s, ex);
 			}, function(e) {
@@ -618,13 +621,66 @@
 			});
 		}
 	}
- 
+
+	//系统分享
+	function ShareSystem() {
+		if(plus.os.name !== "Android") {
+			plus.nativeUI.alert("此平台暂不支持系统分享功能!");
+			return;
+		}
+		var intent = new Intent(Intent.ACTION_SEND);
+		var p = "";
+		if(pic && pic.realUrl) {
+			p = pic.realUrl;
+			if(p.substr(0, 7) === "file://") {
+				p = p.substr(7);
+			} else if(p.sub(0) !== "/") {
+				p = plus.io.convertLocalFileSystemURL(p);
+			}
+		}
+		var f = new File(p);
+		var uri = Uri.fromFile(f);
+		if(f.exists() && f.isFile()) {
+			console.log("image/*");
+			intent.setType("image/*");
+			intent.putExtra(Intent.EXTRA_STREAM, uri);
+		} else {
+			console.log("text/plain");
+			intent.setType("text/plain");
+		}
+		intent.putExtra(Intent.EXTRA_SUBJECT, "HBuilder");
+		intent.putExtra(Intent.EXTRA_TEXT, sharecontent.value);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		main.startActivity(Intent.createChooser(intent, "系统分享"));
+	}
+
+	/*public static void shareMsg(var activityTitle,
+		var msgTitle,
+			var msgText,
+				var imgPath) {
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		if(imgPath == null || imgPath.equals("")) {
+			intent.setType("text/plain"); // 纯文本 
+		} else {
+			File f = new File(imgPath);
+			if(f != null && f.exists() && f.isFile()) {
+				intent.setType("image/png");
+				Uri u = Uri.fromFile(f);
+				intent.putExtra(Intent.EXTRA_STREAM, u);
+			}
+		}
+		intent.putExtra(Intent.EXTRA_SUBJECT, msgTitle);
+		intent.putExtra(Intent.EXTRA_TEXT, msgText);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		main.startActivity(Intent.createChooser(intent, activityTitle));
+	}
+*/
 	//发送分享信息
 	function shareMessage(s, ex) {
 		var msg = {
 			href: ShareInfo.Url,
 			title: ShareInfo.Title,
-			content: '描述',
+			content: ShareInfo.Title,
 			thumbs: [ShareInfo.Cover],
 			pictures: [ShareInfo.Cover],
 			extra: {
