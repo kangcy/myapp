@@ -55,13 +55,48 @@
 				line-height: 50px;
 				text-align: center;
 			}
+			/**操作**/
+			
+			.myaction {
+				position: fixed;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+				z-index: 1000;
+				background: #fff;
+				display: none;
+			}
+			
+			.myaction .myaction_body {
+				padding: 5%;
+				padding-top: 2%;
+				display: inline-block;
+			}
+			
+			.myaction .myaction_items {
+				width: 33.3%;
+				float: left;
+				position: relative;
+				padding-bottom: 1.2rem;
+			}
+			
+			.myaction .myaction_items img {
+				width: 40%;
+			}
+			
+			.myaction .myaction_items p {
+				position: absolute;
+				left: 0px;
+				bottom: 0.4rem;
+				width: 100%;
+			}
 		</style>
 	</head>
 
 	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<a id="action" class="mui-icon f13 fr mt6 hide" onclick="showActionSheet()">操作</a>
+			<a id="action" class="mui-icon f13 fr mt6 hide" onclick="ActionTan(1)">操作</a>
 			<h1 class="mui-title c333 user">作者主页</h1>
 		</header>
 		<div class="mui-iframe-wrapper" style="top: 46px; bottom:50px;">
@@ -93,12 +128,12 @@
 					<span id="zan" class="mui-icon mui-icon-extra mui-icon-extra-heart c999" style="font-size:22px;padding-top: 15px;"><span class="mui-badge mui-badge-danger" id="footer_zan">0</span></span>
 				</div>
 				<div>
-					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;" onclick="Share(1)"></span>
+					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;" onclick="ShareTan(1)"></span>
 				</div>
 			</div>
 		</div>
 		<!--分享-->
-		<div class="mysharebg hide" id="mysharebg" onclick="Share(0)"></div>
+		<div class="mytanbg hide" id="mysharebg" onclick="ShareTan(0)"></div>
 		<div class="myshare" id="myshare">
 			<p class="f16 c000 tc mt10 mb0">分享到</p>
 			<div class="tc c000 myshare_body">
@@ -132,7 +167,22 @@
 				<div class="myshare_items" onclick="ShareAction(9)"><img src="../images/share/9.png" />
 					<p class="f11 mb0 c000">举报</p>
 				</div>
-				<div class="c000 mt10 f11 fl btnExit" onclick="Share(0)">取消</div>
+				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
+			</div>
+		</div>
+		<!--操作-->
+		<div class="mytanbg hide" id="myactionbg" onclick="ActionTan(0)"></div>
+		<div class="myaction" id="myaction">
+			<div class="tc c000 myaction_body">
+				<div class="myaction_items" onclick="Delete()"><img src="../images/article/1.png" />
+					<p class="f11 mb0 c000">删除</p>
+				</div>
+				<div class="myaction_items" onclick="Edit()"><img src="../images/article/3.png" />
+					<p class="f12 mb0 c000">编辑</p>
+				</div>
+				<div class="myaction_items" onclick="Power()"><img src="../images/article/4.png" />
+					<p class="f13 mb0 c000">权限</p>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -152,6 +202,7 @@
 	var ArticleTypeName = ""; //文章类型名称
 	var Comments = 0;
 	var Source = ""; //来源
+	var ShareInfo = {}; //分享信息
 	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
 	var userinfo = base.GetUserInfo();
@@ -343,6 +394,10 @@
 						$("#action").removeClass("hide");
 					}
 
+					ShareInfo.Title = data.Title;
+					ShareInfo.Cover = data.Cover;
+					ShareInfo.Url = "http://www.baidu.com";
+
 					CheckKeep(); //收藏状态
 
 					document.body.removeAttribute('data-imageLazyload');
@@ -364,33 +419,9 @@
 		});
 	}
 
-	//操作
-	function showActionSheet() {
-		var bts = [{
-			title: "删除"
-		}, {
-			title: "编辑"
-		}, {
-			title: "权限"
-		}];
-		plus.nativeUI.actionSheet({
-				cancel: "取消",
-				buttons: bts
-			},
-			function(e) {
-				if(e.index == 1) {
-					Delete();
-				} else if(e.index == 2) {
-					Edit();
-				} else if(e.index == 3) {
-					Power();
-				}
-			}
-		);
-	}
-
 	//删除
 	function Delete() {
+		ActionTan(0);
 		var btnArray = ['确定', '取消'];
 		mui.confirm('删除后将无法在微信浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
 			if(e.index == 0) {
@@ -402,9 +433,6 @@
 					if(data != null) {
 						if(data.result) {
 							plus.webview.close(plus.webview.currentWebview());
-							/*var subindexPage = plus.webview.getWebviewById("subindex");
-							mui.fire(subindexPage, 'gohome', {});*/
-
 						}
 					}
 				});
@@ -414,6 +442,7 @@
 
 	//编辑 
 	function Edit() {
+		ActionTan(0);
 		plus.nativeUI.showWaiting("载入中...");
 		mui.openWindow({
 			id: 'addarticle',
@@ -434,6 +463,7 @@
 
 	//权限
 	function Power() {
+		ActionTan(0);
 		mui.openWindow({
 			id: 'sharesetting',
 			url: 'sharesetting.html',
@@ -498,7 +528,7 @@
 	}
 
 	//分享弹窗
-	function Share(index) {
+	function ShareTan(index) {
 		if(index == 0) {
 			$("#mysharebg").addClass("hide");
 			$("#myshare").slideUp();
@@ -508,9 +538,20 @@
 		}
 	}
 
+	//操作弹窗
+	function ActionTan(index) {
+		if(index == 0) {
+			$("#myactionbg").addClass("hide");
+			$("#myaction").slideUp();
+		} else {
+			$("#myactionbg").removeClass("hide");
+			$("#myaction").slideDown();
+		}
+	}
+
 	//分享信息
 	function ShareAction(index) {
-		Share(1); //关闭分享弹窗
+		ShareTan(1); //关闭分享弹窗
 
 		//复制链接
 		if(index == 7) {
@@ -577,16 +618,15 @@
 			});
 		}
 	}
-
+ 
 	//发送分享信息
 	function shareMessage(s, ex) {
 		var msg = {
-			content: '分享-详情',
-			href: 'http://blog.csdn.net/zhuming3834',
-			title: '标题',
-			content: '内容',
-			thumbs: ['http://img3.3lian.com/2013/v10/4/87.jpg'],
-			pictures: ['http://img3.3lian.com/2013/v10/4/87.jpg'],
+			href: ShareInfo.Url,
+			title: ShareInfo.Title,
+			content: '描述',
+			thumbs: [ShareInfo.Cover],
+			pictures: [ShareInfo.Cover],
 			extra: {
 				scene: ex
 			}

@@ -14,12 +14,12 @@
 }
 
 .oa-contact-avatar {
-	width: 4.6875rem;
+	width: 3rem;
 }
 
 .oa-contact-avatar img {
-	width: 3.75rem;
-	height: 3.75rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	border-radius: 50%;
 }
 
@@ -28,14 +28,13 @@
 }
 
 .oa-contact-icon {
-	width: 3.125rem;
+	width: 3rem;
 }
 
 .oa-contact-icon img {
 	width: 2.5rem;
 	float: right;
 }
-
 .mui-table-view-cell:after {
 	left: 0px;
 	background-color: transparent;
