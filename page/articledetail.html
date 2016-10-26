@@ -152,6 +152,7 @@
 	var ArticleTypeName = ""; //文章类型名称
 	var Comments = 0;
 	var Source = ""; //来源
+	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
 	var userinfo = base.GetUserInfo();
 	//启用双击监听
@@ -337,6 +338,7 @@
 
 					Comments = data.Comments;
 
+					//显示操作
 					if(userinfo.ID == data.CreateUserID) {
 						$("#action").removeClass("hide");
 					}
@@ -459,17 +461,19 @@
 			document.getElementById("isnotkeep").addEventListener('tap', function(e) {
 				if(isLoading)
 					return;
+				isLoading = true;
 				HttpGet(base.RootUrl + "Keep/Edit", {
 					OpenID: userinfo.OpenID,
 					ArticleID: ArticleID
 				}, function(data) {
 					if(data != null) {
 						if(data.result) {
-							base.AddKeep(userinfo, userId);
+							base.AddKeep(userinfo, ArticleID);
 							$("#iskeep,#isnotkeep").toggleClass("hide");
 						}
 						mui.toast(data.result ? "收藏成功" : data.message);
 					}
+					isLoading = false;
 				});
 			});
 		}
@@ -506,6 +510,8 @@
 
 	//分享信息
 	function ShareAction(index) {
+		Share(1); //关闭分享弹窗
+
 		//复制链接
 		if(index == 7) {
 			return;
@@ -570,31 +576,6 @@
 				mui.toast("认证授权失败");
 			});
 		}
-	}
-
-	//收藏
-	function Keep() {
-		HttpGet(base.RootUrl + "User/Edit", {
-			ArticleID: ArticleID,
-			OpenID: userinfo.OpenID
-		}, function(data) {
-			if(data == null) {
-				return callback("系统异常,请稍后再试~");
-			} else {
-				if(data.result) {
-					//更新用户缓存信息
-					data = data.message;
-
-					var info = {
-						ID: data.ID
-					}
-					localStorage.setItem('$userinfo', JSON.stringify(info));
-					return callback();
-				} else {
-					return callback(data.message);
-				}
-			}
-		});
 	}
 
 	//发送分享信息

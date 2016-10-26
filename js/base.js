@@ -92,11 +92,11 @@ var base = new function() {
 	/**
 	 * 添加收藏
 	 **/
-	this.AddKeep = function(userinfo, userid) {
-		if(userinfo.KeepText.indexOf("," + userid + ",") >= 0) {
+	this.AddKeep = function(userinfo, articleid) {
+		if(userinfo.KeepText.indexOf("," + articleid + ",") >= 0) {
 			return true;
 		} else {
-			userinfo.KeepText += userid + ",";
+			userinfo.KeepText += articleid + ",";
 			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			mui.toast("收藏成功");
 			return true;
@@ -107,38 +107,16 @@ var base = new function() {
 	/**
 	 * 判断是否收藏
 	 **/
-	this.CheckKeep = function(keeps, userid) {
-		userid = "," + userid + ",";
+	this.CheckKeep = function(keeps, articleid) {
+		userid = "," + articleid + ",";
 		if(base.IsNullOrEmpty(keeps)) {
 			return false;
 		}
-		if(fans.indexOf(userid) >= 0) {
+		if(keeps.indexOf(articleid) >= 0) {
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * 收藏
-	 **/
-	this.Keep = function(id, userinfo, articleid callback) {
-		var $this = $(this);
-		HttpGet(base.RootUrl + "Keep/Edit", {
-			OpenID: userinfo.OpenID,
-			ArticleID: articleid
-		}, function(data) {
-			if(data != null) {
-				if(data.result) {
-					base.AddKeep(userinfo, userId);
-					if(callback) {
-						callback($this);
-					}
-				} else {
-					mui.toast(data.message);
-				}
-			}
-		});
 	}
 
 	/**
