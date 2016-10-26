@@ -94,8 +94,6 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.pullToRefresh.js"></script>
-<script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
@@ -103,53 +101,37 @@
 <script type="text/javascript">
 	var ArticleID = 0;
 	var MusicID = 0;
-	var currpage = 1;
-	var totalpage = 2;
-	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
-	var isLoading = false; //是否数据加载中
 
 	mui.init();
 	mui.ready(function() {
 		base.InitScroll();
-
 	});
 
 	//初始化获取参数
 	function Init(articleId, musicId) {
 		ArticleID = articleId;
 		MusicID = musicId;
-
-		mui(document.getElementById("pullrefresh")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
 	}
 
 	function LoadMusic() {
-		HttpGet(base.RootUrl + "Music/All", {
-			page: currpage,
-			rows: pagesize
-		}, function(data) {
+		HttpGet(base.RootUrl + "Music/All", {}, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
-					var table = document.getElementById('scroll-view');
+					var table = $('#list');
+
+					var html = [];
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
+
+						html.push('<li class="mui-table-view-cell" style="background:#E8E8E8;"><span class="fl">' + data.list[i].Name + '</span></li>');
+
+						var musics = data.list[i].Music;
+
+						for(var j = 0, len = musics.length; j < len; j++) {
+							html.push('<li class="mui-table-view-cell list" index="' + musics[j].TypeID + '"><span class="fl">' + musics[j].Name + '</span><span class="mui-pull-right csubtitle mr20"></span></li>');
+						}
+						table.append(html.join(""));
 					}
 				} else {
 					mui.toast("没有更多数据了~");
@@ -164,49 +146,6 @@
 				diff: window.innerHeight
 			});
 		});
-	}
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了~");
-		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
 	}
 
 	/**

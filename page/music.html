@@ -8,21 +8,50 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/music.css">
+		<style type="text/css">
+			.check {
+				background: url(../images/check.png) 97% center no-repeat;
+				background-size: 1.25rem;
+			}
+			
+			.mui-table-view-cell {
+				padding: .8rem 0.9375rem;
+			}
+			
+			.mui-table-view:after {
+				height: 0px;
+			}
+			
+			.mui-table-view-cell:last-child:after,
+			.mui-table-view-cell:last-child:before {
+				height: 1px;
+			}
+			
+			.mui-popup-title+.mui-popup-text {
+				display: none;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon blue fl mt6" style="font-size:16px;">取消</a>
-			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;">完成</a>
+			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;" onclick="Submit()">完成</a>
 			<h1 class="mui-title c333">选择背景音乐</h1>
 		</header>
-		<div class="mui-content"></div>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" style="top:45px;bottom:0px;">
+				<div class="mui-scroll" id="list">
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
 	var MusicID = 0;
@@ -32,24 +61,26 @@
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false, //启用右滑关闭功能
-		subpages: [{
-			id: 'musicSub',
-			url: 'musicSub.html',
-			styles: {
-				top: parseInt((window.innerWidth / 320) * 45) + 'px',
-				bottom: '0px',
-			}
-		}]
+		swipeBack: false //启用右滑关闭功能
 	});
 
-	var contentWebview = null;
-	mui.plusReady(function() {
+	mui.ready(function() {
+		base.InitScroll();
 
-		//获取参数
+		//切换选择
+		$("#list").on('tap', 'li.music', function(event) {
+			$("#list .check").removeClass("check");
+			this.classList.add("check");
+			MusicID = this.getAttribute("index");
+		});
+	});
+
+	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		MusicID = self.MusicID || 0;
+
+		Load(MusicID);
 
 		//返回
 		mui.back = function() {
@@ -60,28 +91,45 @@
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		});
-
-		//完成
-		document.getElementById("submit").addEventListener('tap', function(event) {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			contentWebview.evalJS("Submit()");
-		});
-
-		//双击滚动到头部
-		document.querySelector('header').addEventListener('doubletap', function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
-		});
-
-		setTimeout(function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			contentWebview.evalJS("Init(" + ArticleID + "," + MusicID + ")");
-		}, 0)
 	});
+
+	//加载音乐
+	function Load(musicid) {
+		HttpGet(base.RootUrl + "Music/All", {}, function(data) {
+			var table = $('#list');
+			table.empty();
+			if(data != null) {
+				var length = data.list.length;
+				if(length > 0) {
+					var html = [];
+					for(var i = 0, len = length; i < len; i++) {
+						html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell" style="background:#E8E8E8;"><span class="fl">' + data.list[i].Name + '</span></li>');
+						var musics = data.list[i].Music;
+						for(var j = 0, len2 = musics.length; j < len2; j++) {
+							html.push('<li class="mui-table-view-cell music ' + (musics[j].ID == MusicID ? "check" : "") + '" index="' + musics[j].ID + '"><span class="fl">' + musics[j].Name + '</span><span class="mui-pull-right csubtitle mr20"></span></li>');
+						}
+						html.push('</ul>');
+					}
+					table.append(html.join(""));
+				} else {
+					mui.toast("没有更多数据了~");
+				}
+			}
+		});
+	}
+
+	var addarticlePage = null;
+
+	function Submit() {
+		if(MusicID == 0) {
+			return mui.toast("请选择背景音乐~");
+		}
+		if(!addarticlePage) {
+			addarticlePage = plus.webview.getWebviewById('addarticle');
+		}
+		mui.fire(addarticlePage, "updateMusic", {
+			"MusicID": MusicID
+		});
+		plus.webview.currentWebview().close();
+	}
 </script>
