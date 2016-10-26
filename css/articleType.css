@@ -27,8 +27,8 @@ body {
 }
 
 .oa-contact-avatar img {
-	width: 6.25rem;
-	height: 4.5rem;
+	width: 3rem !important;
+	height: 3rem !important;
 	border-radius: 5px;
 }
 
@@ -48,4 +48,9 @@ body {
 .check {
 	background: url(../images/check.png) 97% center no-repeat;
 	background-size: 1.25rem;
+}
+
+.mui-table-view-cell:after {
+	left: 0.9375rem;
+	right: 0.9375rem;
 }

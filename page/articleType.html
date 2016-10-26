@@ -19,8 +19,14 @@
 		</header>
 		<div class="mui-iframe-wrapper" style="top:45px;bottom:0px;">
 			<div class="mui-content mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<div id="scroll-view">
+				<div id="slider" class="mui-slider mui-fullscreen">
+					<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+						<div class="mui-scroll" id="sliderTopBody">
+
+						</div>
+					</div>
+					<div class="mui-slider-group" id="sliderGroup">
+
 					</div>
 				</div>
 			</div>
@@ -46,16 +52,21 @@
 	});
 
 	$(function() {
-		mui('.mui-scroll-wrapper').scroll({
-			indicators: false //不显示滚动条
-		});
 
-		//选中切换
-		$("#scroll-view").on('tap', 'div.mui-table-view-cell', function(event) {
+		base.InitScroll();
+
+		//选中
+		$("#slider").on('tap', 'div.mui-table-view-cell', function(event) {
 			$(".check").removeClass("check");
 			$(this).find(".oa-contact-icon").addClass("check");
 			ArticleType = $(this).find(".oa-contact-icon").attr("type");
 			ArticleTypeName = $(this).find(".oa-contact-icon").attr("name");
+		});
+
+		//切换
+		$("#slider").on('tap', '.mui-control-item', function(event) {
+			var index = this.getAttribute("currindex");
+			mui('#slider').slider().gotoItem(index);
 		});
 
 		//完成
@@ -94,7 +105,53 @@
 		ArticleType = self.ArticleType;
 		ArticleTypeName = self.ArticleTypeName;
 
-		Load();
+		//加载类型
+		LoadArticleType(function() {
+			//遍历父级节点
+			var parent = [];
+			for(var i = 0; i < articleTypes.length; i++) {
+				if(articleTypes[i].ParentID == 0) {
+					parent.push(articleTypes[i]);
+				}
+			}
+			//遍历子级节点
+			var sliderGroup = $("#sliderGroup");
+			for(var i = 0; i < parent.length; i++) {
+				var child = [];
+				for(var j = 0; j < articleTypes.length; j++) {
+					if(articleTypes[j].ParentID == parent[i].CurrID) {
+						child.push(articleTypes[j]);
+					}
+				}
+
+				var html = [];
+				if(i == 0) {
+					html.push('<div class="mui-slider-item mui-control-content mui-active">');
+				} else {
+					html.push('<div class="mui-slider-item mui-control-content">');
+				}
+				html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper">');
+				html.push('<div class="mui-scroll scrolls">');
+				for(var l = 0; l < child.length; l++) {
+					html.push('<div class="mui-table-view-cell">');
+					html.push('<div class="mui-slider-cell">');
+					html.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + child[l].Cover + '" /></div>');
+					html.push('<div class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mt15 c333 ml10">' + child[l].Name + '</p></div></div>');
+					html.push('<div class="oa-contact-icon mui-table-cell ' + (child[l].ID == ArticleType ? "check" : "") + '" type="' + child[l].ID + '" name="' + child[l].Name + '"></div>');
+					html.push('</div></div></div>');
+				}
+				html.push('</div>');
+				html.push('</div>');
+				html.push('</div>');
+				sliderGroup.append(html.join(""));
+				if(child.length > 0) {
+					mui('#sliderChild' + i).scroll().reLayout();
+				}
+			}
+
+			//重新注册滑动切换事件
+			mui("#slider").slider();
+		});
 
 		//返回
 		document.getElementById("back").addEventListener('tap', function(event) {
@@ -102,52 +159,39 @@
 		});
 	});
 
-	//加载数据
-	function Load(callback) {
-		if(base.IsTest) {
-			var table = document.getElementById('scroll-view');
-			for(var i = 1; i < 6; i++) {
-				var item = {
-					ID: i,
-					Cover: "http://www.dcloud.io/hellomui/images/" + i + ".jpg",
-					Name: "动漫" + i,
-					Summary: "动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫动漫  "
-				}
-				table.appendChild(appendStr(item));
-			}
-		} else {
-			HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
-				if(data != null) {
-					var length = data.list.length;
-					if(length > 0) {
-						var table = document.getElementById('scroll-view');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.appendChild(div);
+	//加载文章类型
+	function LoadArticleType(callback) {
+		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
+			if(data != null) {
+				var length = data.list.length;
+				if(length > 0) {
+					articleTypes = data.list;
+					var table = $('#sliderTopBody');
+					var index = 0;
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						if(data.list[i].ParentID == 0) {
+							var div = appendPTypeStr(data.list[i], index);
+							table.append(div);
+							index += 1;
 						}
 					}
+					mui('#sliderTop').scroll().reLayout();
 				}
 				if($.isFunction(callback)) {
 					callback();
 				}
-			});
-		}
+			}
+		});
 	}
 
-	//拼接Html
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		var model = [];
-		model.push('<div class="mui-slider-cell">');
-		//分类图片
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Cover + '" /></div>');
-		//分类信息
-		model.push('<div  class="oa-contact-avatar mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.Name + '</p></div><p class="f11 caaa">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell ' + (item.ID == ArticleType ? "check" : "") + '" type="' + item.ID + '" name="' + item.Name + '"></div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
+	/**
+	 * 拼接文章类型
+	 */
+	function appendPTypeStr(item, index) {
+		if(index == 0) {
+			return '<a class="mui-control-item f12 topic mui-active" typeid="' + item.CurrID + '" typename="' + item.Name + '" currindex="' + index + '">' + item.Name + '</a>';
+		} else {
+			return '<a class="mui-control-item f12 topic " typeid="' + item.CurrID + '" typename="' + item.Name + '" currindex="' + index + '">' + item.Name + '</a>';
+		}
 	}
 </script>

@@ -179,7 +179,7 @@
 
 		base.ShowUser("#slider"); //用户信息
 
-		base.ShowArticle("#slider","List"); //文章信息
+		base.ShowArticle("#slider", "List"); //文章信息
 
 		//分类列表
 		mui("#slider").on('tap', '.topic', function(event) {
@@ -246,10 +246,12 @@
 				if(length > 0) {
 					articleTypes = data.list;
 					var table = $('#sliderTopBody');
+					var index = 0;
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						if(data.list[i].ParentID == 0) {
-							var div = appendPTypeStr(data.list[i], i);
+							var div = appendPTypeStr(data.list[i], index);
 							table.append(div);
+							index += 1
 						}
 					}
 					mui('#sliderTop').scroll().reLayout();
@@ -266,9 +268,9 @@
 	 */
 	function appendPTypeStr(item, index) {
 		if(index == 0) {
-			return '<div class="mui-control-item f12 topic mui-active" typeid="' + item.CurrID + '" typename="' + item.Name + '">' + item.Name + '</a>';
+			return '<div class="mui-control-item f12 topic mui-active" typeid="' + item.CurrID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		} else {
-			return '<div class="mui-control-item f12 topic " typeid="' + item.CurrID + '" typename="' + item.Name + '">' + item.Name + '</a>';
+			return '<div class="mui-control-item f12 topic " typeid="' + item.CurrID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		}
 	}
 </script>
