@@ -197,6 +197,7 @@
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
+	var ArticlePowerPwd = ""; //分享权限密码
 	var ArticleUserID = 0; //文章作者
 	var ArticleType = 0; //文章类型ID
 	var ArticleTypeName = ""; //文章类型名称
@@ -287,6 +288,14 @@
 				}
 			});
 		});
+ 
+		//重新加载数据
+		window.addEventListener("UpdatePower", function(e) {
+			ArticlePower = e.detail.ArticlePower;
+			ArticlePowerPwd = e.detail.ArticlePowerPwd;
+			ArticleType = e.detail.ArticleType;
+			ArticleTypeName = e.detail.ArticleTypeName;
+		});
 	});
 
 	var Intent = null,
@@ -345,6 +354,7 @@
 				if(data.result) {
 					data = data.message
 					ArticlePower = data.ArticlePower;
+					ArticlePowerPwd = data.ArticlePowerPwd;
 					ArticleType = data.TypeID;
 					ArticleTypeName = data.TypeName;
 					ArticleUserID = data.CreateUserID;
@@ -477,6 +487,7 @@
 			extras: {
 				ArticleID: ArticleID,
 				ArticlePower: ArticlePower,
+				ArticlePowerPwd: ArticlePowerPwd,
 				ArticleType: ArticleType,
 				ArticleTypeName: ArticleTypeName
 			}
@@ -534,7 +545,7 @@
 		}
 		if(index == 0) {
 			$("#mysharebg").addClass("hide");
-			$("#myshare").slideUp(); 
+			$("#myshare").slideUp();
 		} else {
 			$("#mysharebg").removeClass("hide");
 			$("#myshare").slideDown();
