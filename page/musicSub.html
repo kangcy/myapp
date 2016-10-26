@@ -8,21 +8,86 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/music.css">
-		<link rel="stylesheet" href="../css/loading.css">
-
+		<!--<link rel="stylesheet" href="../css/music.css">
+		<link rel="stylesheet" href="../css/loading.css">-->
+		<style type="text/css">
+			.check {
+				background: url(../images/check.png) 97% center no-repeat;
+				background-size: 1.25rem;
+			}
+			
+			.mui-table-view-cell {
+				padding: .8rem 0.9375rem;
+			}
+			
+			.mui-table-view:after {
+				height: 0px;
+			}
+			
+			.mui-table-view-cell:last-child:after,
+			.mui-table-view-cell:last-child:before {
+				height: 1px;
+			}
+			
+			.mui-popup-title+.mui-popup-text {
+				display: none;
+			}
+		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<div class="mui-slider mui-fullscreen">
+			<div class="mui-scroll">
+				<ul class="mui-table-view f13 mt0" id="list">
+					<li class="mui-table-view-cell" style="background:#E8E8E8;">
+						<span class="fl">默认</span>
+					</li>
+					<li class="mui-table-view-cell list" index="3">
+						<span class="fl">公开</span>
+						<span class="mui-pull-right csubtitle mr20"></span>
+					</li>
+					<li class="mui-table-view-cell list" index="2">
+						<span class="fl">不公开</span>
+						<span class="mui-pull-right csubtitle mr20"></span>
+					</li>
+					<li class="mui-table-view-cell list" index="1">
+						<span class="fl">密码可见</span>
+						<span class="mui-pull-right csubtitle mr20"></span>
+					</li>
+					<li class="mui-table-view-cell list" index="0">
+						<span class="fl">私密</span>
+						<span class="mui-pull-right csubtitle mr20"></span>
+					</li>
+					<li class="mui-table-view-cell" style="background:#E8E8E8;">
+						<span class="fl">欢快</span>
+					</li>
+					<li class="mui-table-view-cell list" index="3">
+						<span class="fl">公开</span>
+						<span class="mui-pull-right csubtitle mr20"></span>
+					</li>
+					<li class="mui-table-view-cell list" index="2">
+						<span class="fl">不公开</span>
+						<span class="mui-pull-right csubtitle mr20"></span>
+					</li>
+					<li class="mui-table-view-cell list" index="1">
+						<span class="fl">密码可见</span>
+						<span class="mui-pull-right csubtitle mr20"></span>
+					</li>
+					<li class="mui-table-view-cell list" index="0">
+						<span class="fl">私密</span>
+						<span class="mui-pull-right csubtitle mr20"></span>
+					</li>
+				</ul>
+			</div>
+
+			<!--<div class="mui-slider mui-fullscreen">
 				<div class="mui-scroll-wrapper">
 					<div id="pullrefresh" class="mui-scroll">
 						<div id="scroll-view">
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</div>
 	</body>
 
@@ -47,6 +112,7 @@
 	mui.init();
 	mui.ready(function() {
 		base.InitScroll();
+
 	});
 
 	//初始化获取参数
@@ -68,6 +134,35 @@
 					pullupRefresh(self);
 				}
 			}
+		});
+	}
+
+	function LoadMusic() {
+		HttpGet(base.RootUrl + "Music/All", {
+			page: currpage,
+			rows: pagesize
+		}, function(data) {
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.list.length;
+				if(length > 0) {
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i]);
+						table.appendChild(div);
+					}
+				} else {
+					mui.toast("没有更多数据了~");
+				}
+			}
+			if($.isFunction(callback)) {
+				callback();
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: '../images/60x60.gif',
+				diff: window.innerHeight
+			});
 		});
 	}
 

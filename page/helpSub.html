@@ -40,12 +40,7 @@
 
 	mui.init();
 	mui.ready(function() {
-		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
-		mui('.mui-scroll-wrapper').scroll({
-			bounce: false,
-			indicators: false, // 是否显示滚动条
-			deceleration: deceleration
-		});
+		base.InitScroll();
 
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {
