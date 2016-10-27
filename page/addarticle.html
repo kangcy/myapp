@@ -21,9 +21,9 @@
 						<a id="back" class="mui-icon mui-icon-arrowleft fl cfff"></a>
 						<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 						<div class="info-body">
-							<div id="title" class="title mb20 cfff f18">点击输入标题</div>
-							<div id="music" class="btn cfff fl tl"><i class="fa fa-music"></i>添加音乐</div>
-							<div id="cover" class="btn cfff fr tr"><i class="fa fa-picture-o"></i></div>
+							<div id="title" class="title mb20 cfff f18 textshadow">点击输入标题</div>
+							<div id="music" class="btn cfff fl tl"><i class="fa fa-music f13"></i><span class="ml5 textshadow" id="musicname">添加音乐</span></div>
+							<div id="cover" class="btn cfff fr tr"><i class="fa fa-picture-o f13"></i></div>
 						</div>
 					</div>
 					<div id="edit">
@@ -61,6 +61,7 @@
 <script type="text/javascript">
 	var ArticleID = 0; //文章
 	var MusicID = 0; //音乐
+	var MusicName = "";
 	var Title = ""; //标题
 	var Cover = ""; //封面
 	var Source = ""; //来源
@@ -95,7 +96,8 @@
 				},
 				extras: {
 					ArticleID: ArticleID,
-					MusicID: MusicID
+					MusicID: MusicID,
+					MusicName: MusicName
 				}
 			});
 		});
@@ -382,8 +384,10 @@
 	});
 
 	//修改音乐
-	window.addEventListener("updateMusic", function(e) {
+	window.addEventListener("UpdateMusic", function(e) {
 		MusicID = e.detail.MusicID;
+		MusicName = e.detail.MusicName;
+		$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 	});
 
 	//修改图片
@@ -503,6 +507,10 @@
 					ArticleUserID = data.CreateUserID;
 					Title = data.Title;
 					Cover = data.Cover;
+					MusicID = data.MusicID;
+					MusicName = data.MusicName;
+					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
+
 					document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
 					document.getElementById("header").style.backgroundSize = "cover";
 					if(Title != "") {

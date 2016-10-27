@@ -24,17 +24,20 @@
 }
 
 .btn .fa {
-	padding: 5px;
-	background: #999;
+	padding: 7px;
+	background: #fff;
 	border-radius: 50px;
 	color: #333;
+	box-shadow:0px 0px 1px #333;
+	width: 1.5rem;
+    height: 1.5rem;
+    box-shadow: 0px 0.05px 0.05px #333;
 }
-
+.btn span{
+	text-shadow: 0px 0px 1px #000;
+}
 .btn .icon {
-	width: .9rem;
 	float: left;
-	margin: 0.375rem;
-	margin-right: 0px;
 }
 
 .edit-body {
