@@ -104,7 +104,22 @@
 
 		//封面
 		document.getElementById('cover').addEventListener('tap', function(event) {
-			showActionSheet(5, 3);
+			mui.openWindow({
+				id: 'editimage',
+				url: 'editimage.html',
+				show: { 
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					Url: "http://www.dcloud.io/hellomui/images/1.jpg"
+				}
+			});
+			
+			/*showActionSheet(5, 3);
 			document.getElementById("confirm").onclick = function() {
 				confirm(null, function(src) {
 					HttpGet(base.RootUrl + "Article/EditArticleCover", {
@@ -120,7 +135,7 @@
 						}
 					});
 				});
-			}
+			}*/
 		});
 
 		//标题
@@ -387,7 +402,6 @@
 	window.addEventListener("UpdateMusic", function(e) {
 		MusicID = e.detail.MusicID;
 		MusicName = e.detail.MusicName;
-
 		$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 	});
 
