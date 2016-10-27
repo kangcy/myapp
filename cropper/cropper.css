@@ -28,6 +28,7 @@
 	min-height: 0 !important;
 	max-height: none !important;
 	image-orientation: 0deg !important;
+	text-align:center;
 }
 
 .cropper-canvas,
