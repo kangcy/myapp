@@ -9,7 +9,6 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/addarticle.css">
-		<link rel="stylesheet" href="../cropper/cropper.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 	</head>
 
@@ -32,22 +31,6 @@
 				</div>
 			</div>
 		</div>
-		<!--图片编辑容器-->
-		<div id="cropperEdit" class="mui-iframe-wrapper full">
-			<img id="readyimg" />
-			<div class="mui-content-padded">
-				<div class="flex-container tc">
-					<a><span class="mui-icon mui-icon-closeempty" onclick="closepop()"></span></a>
-					<!--关闭裁剪窗口-->
-					<a><span class="mui-icon mui-icon-undo" onclick="rotateimgleft()"></span></a>
-					<!--左旋转90度-->
-					<a><span class="mui-icon mui-icon-redo" onclick="rotateimgright()"></span></a>
-					<!--右旋转90度-->
-					<a><span class="mui-icon mui-icon-checkmarkempty" id="confirm"></span></a>
-					<!--确定选择-->
-				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
@@ -55,8 +38,6 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
-<script src="../cropper/cropper.min.js"></script>
-<script src="../js/copper.js"></script>
 <script src="../js/group.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0; //文章
@@ -65,7 +46,8 @@
 	var Title = ""; //标题
 	var Cover = ""; //封面
 	var Source = ""; //来源
-	var currEditID = 0; //当前操作对象ID
+	var currEditID = 0; //当前编辑对象ID
+	var currEditImg = ""; //当前编辑图片
 	var userinfo = base.GetUserInfo();
 
 	//启用双击监听
@@ -166,23 +148,22 @@
 			currEditID = this.id;
 			var type = this.getAttribute("type");
 			if(type == "pic") {
-				//编辑图片
-				showActionSheet(5, 3);
-				document.getElementById("confirm").onclick = function() {
-					confirm(null, function(src) {
-						HttpGet(base.RootUrl + "ArticlePart/Edit", {
-							OpenID: userinfo.OpenID,
-							ID: $("#" + currEditID).attr("partid"),
-							Introduction: src
-						}, function(data) {
-							if(data != null) {
-								if(data.result) {
-									$("#" + currEditID).find("img").attr("src", src);
-								}
-							}
-						});
-					});
-				}
+				currEditImg = this.getAttribute("src");
+				mui.openWindow({
+					id: 'editimage',
+					url: 'editimage.html',
+					show: {
+						autoShow: true,
+						duration: base.AnimateDuration
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						Url: currEditImg,
+						Source: "ArticleAvatar"
+					}
+				});
 			} else if(type == "text") {
 				//编辑文字
 				var html = document.getElementById(currEditID).innerHTML.trim();
@@ -204,6 +185,26 @@
 				//编辑视频
 			}
 		})
+
+		//修改图片
+		window.addEventListener("UpdateAvatar", function(e) {
+			var url = e.detail.Url;
+			if(currEditImg == url) {
+				mui.toast("编辑成功~");
+				return;
+			}
+			HttpGet(base.RootUrl + "ArticlePart/Edit", {
+				OpenID: userinfo.OpenID,
+				ID: $("#" + currEditID).attr("partid"),
+				Introduction: url
+			}, function(data) {
+				if(data != null) {
+					if(data.result) {
+						$("#" + currEditID).find("img").attr("src", url);
+					}
+				}
+			});
+		});
 
 		//新增切换
 		mui('#edit').on('tap', '.edit-add', function() {
@@ -482,7 +483,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '"><img src="../images/60x60.gif" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="../images/60x60.gif"><img src="../images/60x60.gif" /></div>');
 		} else {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		}
@@ -498,7 +499,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '"><img src="' + text + '" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="' + text + '" /></div>');
 		} else {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		}
