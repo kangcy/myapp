@@ -65,8 +65,9 @@ function cutImg(long, width, callback) {
 			aspectRatio: long / width,
 			autoCropArea: 0.3,
 			zoom: -0.2,
-			built: function() {
-				callback()
+			build: function() {
+				callback();
+				iscutimging = true;
 			}
 		});
 	} else {
@@ -74,12 +75,12 @@ function cutImg(long, width, callback) {
 			checkImageOrigin: true,
 			autoCropArea: 0.3,
 			zoom: -0.2,
-			built: function() {
-				callback()
+			build: function() {
+				callback();
+				iscutimging = true;
 			}
 		});
 	}
-	iscutimging = true;
 }
 
 //右旋转90度  
@@ -107,7 +108,7 @@ function rotateimgleft() {
 //打开裁剪窗口
 function openpop() {
 	cutImg(0, 0, function() {
-
+	
 	})
 }
 
@@ -124,7 +125,7 @@ function confirm(callback) {
 	if(iscutimging) {
 		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
 		imgurl = dataURL.toDataURL("image/jpeg", 0.6);
-		Upload(imgurl,callback);
+		Upload(imgurl, callback);
 	} else {
 		if(imgurl.toLowerCase().indexOf("http") > -1) {
 			if($.isFunction(callback)) {
@@ -136,14 +137,14 @@ function confirm(callback) {
 			image.src = imgurl;
 			image.onload = function() {
 				var imgData = getBase64Image(image);
-				Upload(imgData,callback);
+				Upload(imgData, callback);
 			}
 		}
 	}
 }
 
 //请求上传图片
-function Upload(imgurl,callback){
+function Upload(imgurl, callback) {
 	//上传图片到服务器 
 	plus.nativeUI.showWaiting("上传中...");
 	mui.post(base.RootUrl + "Upload/Upload", {

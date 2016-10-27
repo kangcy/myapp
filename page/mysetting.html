@@ -10,7 +10,6 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/mui.picker.css">
 		<link rel="stylesheet" href="../css/mui.poppicker.css">
-		<link rel="stylesheet" href="../cropper/cropper.css">
 		<style type="text/css">
 			body {
 				background: #eee;
@@ -48,7 +47,7 @@
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view f13" style="margin-top:0px;">
-				<li class="mui-table-view-cell" onclick="showActionSheet()">
+				<li class="mui-table-view-cell" id="divavatar">
 					<span class="fl mt10">头像</span>
 					<span class="mui-pull-right head">
 						<img class="head-img mui-action-preview" id="avatar" src="../images/60x60.gif" style="width:2.5rem;height:2.5rem;border-radius:50%;" />
@@ -76,22 +75,6 @@
 				</li>
 			</ul>
 		</div>
-		<!--图片编辑容器-->
-		<div id="cropperEdit" class="mui-iframe-wrapper full">
-			<img id="readyimg" />
-			<div class="mui-content-padded">
-				<div class="flex-container tc">
-					<a><span class="mui-icon mui-icon-closeempty" onclick="closepop()"></span></a>
-					<!--关闭裁剪窗口-->
-					<a><span class="mui-icon mui-icon-undo" onclick="rotateimgleft()"></span></a>
-					<!--左旋转90度-->
-					<a><span class="mui-icon mui-icon-redo" onclick="rotateimgright()"></span></a>
-					<!--右旋转90度-->
-					<a><span class="mui-icon mui-icon-checkmarkempty" id="confirm"></span></a>
-					<!--确定选择-->
-				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
@@ -102,8 +85,6 @@
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/city2.js"></script>
 <script src="../js/base.js"></script>
-<script src="../cropper/cropper.min.js"></script>
-<script src="../js/copper.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 	mui.init({
@@ -228,21 +209,44 @@
 			});
 		}, false);
 
-		//确认图片
-		document.getElementById("confirm").onclick = function() {
-			confirm("avatar", function(src) {
-				HttpGet(base.RootUrl + "User/EditAvatar", {
-					OpenID: userinfo.OpenID,
-					Avatar: src
-				}, function(data) {
-					mui.toast(data.result ? "编辑成功~" : data.message);
-					if(data.result) {
-						userinfo.Avatar = src;
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					}
-				});
+		//头像
+		document.getElementById('divavatar').addEventListener('tap', function(event) {
+			mui.openWindow({
+				id: 'editimage',
+				url: 'editimage.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					Url: userinfo.Avatar,
+					Source: "UserAvatar"
+				}
 			});
-		}
+		});
+
+		//修改头像
+		window.addEventListener("UpdateAvatar", function(e) {
+			var url = e.detail.Url;
+			if(userinfo.Avatar == url) {
+				mui.toast("编辑成功~");
+				return;
+			}
+			HttpGet(base.RootUrl + "User/EditAvatar", {
+				OpenID: userinfo.OpenID,
+				Avatar: url
+			}, function(data) {
+				mui.toast(data.result ? "编辑成功~" : data.message);
+				if(data.result) {
+					$("#avatar").attr("src", url);
+					userinfo.Avatar = url;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				}
+			});
+		});
 	})
 
 	mui.plusReady(function() {
