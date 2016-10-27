@@ -55,6 +55,7 @@
 <script type="text/javascript">
 	var ArticleID = 0;
 	var MusicID = 0;
+	var MusicName = "";
 
 	//启用双击监听
 	mui.init({
@@ -72,6 +73,7 @@
 			$("#list .check").removeClass("check");
 			this.classList.add("check");
 			MusicID = this.getAttribute("index");
+			MusicName = this.getAttribute("name");
 		});
 	});
 
@@ -79,6 +81,7 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		MusicID = self.MusicID || 0;
+		MusicName = self.MusicName || 0;
 
 		Load(MusicID);
 
@@ -106,7 +109,7 @@
 						html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell" style="background:#E8E8E8;"><span class="fl">' + data.list[i].Name + '</span></li>');
 						var musics = data.list[i].Music;
 						for(var j = 0, len2 = musics.length; j < len2; j++) {
-							html.push('<li class="mui-table-view-cell music ' + (musics[j].ID == MusicID ? "check" : "") + '" index="' + musics[j].ID + '"><span class="fl">' + musics[j].Name + '</span><span class="mui-pull-right csubtitle mr20"></span></li>');
+							html.push('<li class="mui-table-view-cell music ' + (musics[j].ID == MusicID ? "check" : "") + '" index="' + musics[j].ID + '" name="' + musics[j].Name + '"><span class="fl">' + musics[j].Name + '</span><span class="mui-pull-right csubtitle mr20"></span></li>');
 						}
 						html.push('</ul>');
 					}
@@ -128,7 +131,8 @@
 			addarticlePage = plus.webview.getWebviewById('addarticle');
 		}
 		mui.fire(addarticlePage, "UpdateMusic", {
-			"MusicID": MusicID
+			"MusicID": MusicID,
+			"MusicName": MusicName
 		});
 		plus.webview.currentWebview().close();
 	}

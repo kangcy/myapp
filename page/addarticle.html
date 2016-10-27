@@ -22,7 +22,7 @@
 						<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 						<div class="info-body">
 							<div id="title" class="title mb20 cfff f18 textshadow">点击输入标题</div>
-							<div id="music" class="btn cfff fl tl"><i class="fa fa-music f13"></i><span class="ml5 textshadow" id="musicname">添加音乐</span></div>
+							<div id="music" class="btn cfff fl tl"><i class="fa fa-music f13"></i><span class="ml5 textshadow" id="musicname"></span></div>
 							<div id="cover" class="btn cfff fr tr"><i class="fa fa-picture-o f13"></i></div>
 						</div>
 					</div>
@@ -387,6 +387,7 @@
 	window.addEventListener("UpdateMusic", function(e) {
 		MusicID = e.detail.MusicID;
 		MusicName = e.detail.MusicName;
+
 		$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 	});
 
