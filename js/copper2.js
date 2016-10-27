@@ -5,6 +5,7 @@ function getImage(long, width) {
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
+			closepop(); //关闭裁剪
 			var localurl = entry.toLocalURL();
 
 			//压缩图片
@@ -13,7 +14,7 @@ function getImage(long, width) {
 			//压缩图片,并重命名
 			compressImage(localurl, dstname, function(src) {
 				$("#readyimg").attr("src", src);
-				cutImg(long, width, function() {});
+				//cutImg(long, width, function() {});
 			});
 		});
 	});
@@ -23,7 +24,9 @@ function getImage(long, width) {
 function galleryImgs(long, width, callback) {
 
 	plus.gallery.pick(function(e) {
-		//压缩图片
+		closepop(); //关闭裁剪
+
+		//压缩图片 
 		var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 		//压缩图片,并重命名
@@ -42,7 +45,6 @@ function galleryImgs(long, width, callback) {
 					});
 				}
 			}).show();
-			//cutImg(long, width);
 		});
 	}, function(e) {
 		//outSet( "取消选择图片" ) 
@@ -117,9 +119,31 @@ function closepop() {
 
 //确认照片，展示效果  
 function confirm(callback) {
-	var dataURL = $("#readyimg").cropper("getCroppedCanvas");
-	var imgurl = dataURL.toDataURL("image/jpeg", 1);
+	var imgurl = $("#readyimg").attr("src");
 
+	if(iscutimging) {
+		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
+		imgurl = dataURL.toDataURL("image/jpeg", 1);
+		Upload(imgurl,callback);
+	} else {
+		if(imgurl.toLowerCase().indexOf("http") > -1) {
+			if($.isFunction(callback)) {
+				callback(imgurl);
+			}
+			return;
+		} else {
+			var image = new Image();
+			image.src = imgurl;
+			image.onload = function() {
+				var imgData = getBase64Image(image);
+				Upload(imgData,callback);
+			}
+		}
+	}
+}
+
+//请求上传图片
+function Upload(imgurl,callback){
 	//上传图片到服务器 
 	plus.nativeUI.showWaiting("上传中...");
 	mui.post(base.RootUrl + "Upload/Upload", {
@@ -148,7 +172,7 @@ function compressImage(src, newsrc, callback) {
 			dst: newsrc,
 			overwrite: true,
 			width: window.innerWidth + "px",
-			quality: 100
+			quality: 80
 		},
 		function(event) {
 			if($.isFunction(callback)) {
@@ -187,4 +211,27 @@ function showActionSheet(long, width, callback) {
 			}
 		}
 	);
+}
+
+//将图片压缩转成base64 
+function getBase64Image(img) {
+	var canvas = document.createElement("canvas");
+	var width = img.width;
+	var height = img.height;
+	/*if(width > height) {
+		if(width > 100) {
+			height = Math.round(height *= 100 / width);
+			width = 100;
+		}
+	} else {
+		if(height > 100) {
+			width = Math.round(width *= 100 / height);
+			height = 100;
+		}
+	}*/
+	canvas.width = width; /*设置新的图片的宽度*/
+	canvas.height = height; /*设置新的图片的长度*/
+	var ctx = canvas.getContext("2d");
+	ctx.drawImage(img, 0, 0, width, height); /*绘图*/
+	return canvas.toDataURL("image/jpeg", 0.8);
 }
