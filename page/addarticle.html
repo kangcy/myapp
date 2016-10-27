@@ -107,7 +107,7 @@
 			mui.openWindow({
 				id: 'editimage',
 				url: 'editimage.html',
-				show: { 
+				show: {
 					autoShow: true,
 					duration: base.AnimateDuration
 				},
@@ -115,27 +115,31 @@
 					autoShow: false
 				},
 				extras: {
-					Url: "http://www.dcloud.io/hellomui/images/1.jpg"
+					Url: Cover,
+					Source: "ArticleCover"
 				}
 			});
-			
-			/*showActionSheet(5, 3);
-			document.getElementById("confirm").onclick = function() {
-				confirm(null, function(src) {
-					HttpGet(base.RootUrl + "Article/EditArticleCover", {
-						OpenID: userinfo.OpenID,
-						ArticleID: ArticleID,
-						Cover: src
-					}, function(data) {
-						mui.toast(data.result ? "编辑成功~" : data.message);
-						if(data.result) {
-							document.getElementById("header").style.backgroundImage = "url(" + src + ")";
-							document.getElementById("header").style.backgroundSize = "cover";
-							Cover = src;
-						}
-					});
-				});
-			}*/
+		});
+
+		//修改封面
+		window.addEventListener("UpdateCover", function(e) {
+			var url = e.detail.Url;
+			if(Cover == url) {
+				mui.toast("编辑成功~");
+				return;
+			}
+			HttpGet(base.RootUrl + "Article/EditArticleCover", {
+				OpenID: userinfo.OpenID,
+				ArticleID: ArticleID,
+				Cover: url
+			}, function(data) {
+				mui.toast(data.result ? "编辑成功~" : data.message);
+				if(data.result) {
+					document.getElementById("header").style.backgroundImage = "url(" + url + ")";
+					document.getElementById("header").style.backgroundSize = "cover";
+					Cover = url;
+				}
+			});
 		});
 
 		//标题
@@ -435,7 +439,6 @@
 			ID: ArticleID,
 			Title: escape(Title),
 			MusicID: MusicID,
-			Cover: Cover,
 			PartIDs: ids.join(",")
 		}, function(data) {
 			if(data != null) {

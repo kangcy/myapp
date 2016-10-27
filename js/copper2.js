@@ -123,7 +123,7 @@ function confirm(callback) {
 
 	if(iscutimging) {
 		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
-		imgurl = dataURL.toDataURL("image/jpeg", 1);
+		imgurl = dataURL.toDataURL("image/jpeg", 0.6);
 		Upload(imgurl,callback);
 	} else {
 		if(imgurl.toLowerCase().indexOf("http") > -1) {
@@ -172,7 +172,7 @@ function compressImage(src, newsrc, callback) {
 			dst: newsrc,
 			overwrite: true,
 			width: window.innerWidth + "px",
-			quality: 80
+			quality: 100
 		},
 		function(event) {
 			if($.isFunction(callback)) {
@@ -233,5 +233,5 @@ function getBase64Image(img) {
 	canvas.height = height; /*设置新的图片的长度*/
 	var ctx = canvas.getContext("2d");
 	ctx.drawImage(img, 0, 0, width, height); /*绘图*/
-	return canvas.toDataURL("image/jpeg", 0.8);
+	return canvas.toDataURL("image/jpeg", 0.6);
 }

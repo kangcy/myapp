@@ -24,14 +24,13 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;" onclick="showActionSheet()">更换</a>
 			<h1 class="mui-title c333">图片编辑</h1>
 		</header>
 		<div id="editimage" class="mui-iframe-wrapper full tc" style="top:45px;botom:50px;">
 			<img id="readyimg" style="width:100%;display:none;" />
 		</div>
 		<footer class="mui-bar mui-bar-tab" style="background:#F4F4F4;">
-			<a class="mui-icon blue fl mt6 ml10" style="font-size:16px;">取消</a>
+			<a id="back" class="mui-icon blue fl mt6 ml10" style="font-size:16px;" onclick="showActionSheet()">更换</a>
 			<a class="mui-icon blue fr mt6 mr10" style="font-size:16px;" id="confirm">完成</a>
 			<div class="mui-title tc">
 				<div style="width:150px;display: inline-block;">
@@ -63,12 +62,6 @@
 
 	$(function() {
 		$("#editimage").css("height", (totalheight) + "px");
-
-		document.getElementById("confirm").addEventListener('tap', function(event) {
-			confirm(function(src) {
-				console.log("confirm:"+src);
-			});
-		});
 	})
 
 	var contentWebview = null;
@@ -76,6 +69,8 @@
 
 		var self = plus.webview.currentWebview();
 		Url = self.Url;
+		Source = self.Source;
+
 		$("#readyimg").attr("src", Url).load(function() {
 			var imagewidth = $("#readyimg").width();
 			var imageheight = $("#readyimg").height();
@@ -97,6 +92,45 @@
 		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
+		});
+
+		document.getElementById("confirm").addEventListener('tap', function(event) {
+			confirm(function(src) {
+				console.log("confirm:" + src);
+				switch(Source) {
+					//文章封面
+					case "ArticleCover":
+						var page = plus.webview.getWebviewById("addarticle");
+						mui.fire(page, "UpdateCover", {
+							"Url": src
+						});
+						break;
+						//文章内容
+					case "ArticleAvatar":
+						var page = plus.webview.getWebviewById("addarticle");
+						mui.fire(page, "UpdateAvatar", {
+							"Url": src
+						});
+						break;
+						//用户封面
+					case "UserCover":
+						var page = plus.webview.getWebviewById("my");
+						mui.fire(page, "UpdateCover", {
+							"Url": src
+						});
+						break;
+						//用户头像
+					case "UserAvatar":
+						var page = plus.webview.getWebviewById("mysetting");
+						mui.fire(page, "UpdateAvatar", {
+							"Url": src
+						});
+						break;
+					default:
+						break;
+				}
+				mui.back();
+			});
 		});
 	});
 </script>
