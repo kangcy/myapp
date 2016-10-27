@@ -74,6 +74,12 @@
 			var imageheight = $("#readyimg").height();
 			if(totalheight > imageheight) {
 				$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
+			} else {
+				$("#readyimg").css({
+					"width": "auto",
+					"height": totalheight + "px",
+					"margin": "0px"
+				});
 			}
 		});
 

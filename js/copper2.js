@@ -1,4 +1,6 @@
-//拍照  
+var iscutimging = false;
+
+//拍照
 function getImage(long, width) {
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
@@ -11,7 +13,7 @@ function getImage(long, width) {
 			//压缩图片,并重命名
 			compressImage(localurl, dstname, function(src) {
 				$("#readyimg").attr("src", src);
-				cutImg(long, width);
+				cutImg(long, width, function() {});
 			});
 		});
 	});
@@ -26,8 +28,21 @@ function galleryImgs(long, width, callback) {
 
 		//压缩图片,并重命名
 		compressImage(e, dstname, function(src) {
-			$("#readyimg").attr("src", "http://www.dcloud.io/hellomui/images/1.jpg");
-			cutImg(long, width);
+			$("#readyimg").hide().attr("src", src).load(function() {
+				var totalheight = window.innerHeight - 90;
+				var imagewidth = $("#readyimg").width();
+				var imageheight = $("#readyimg").height();
+				if(totalheight > imageheight) {
+					$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
+				} else {
+					$("#readyimg").css({
+						"width": "auto",
+						"height": totalheight + "px",
+						"margin": "0px"
+					});
+				}
+			}).show();
+			//cutImg(long, width);
 		});
 	}, function(e) {
 		//outSet( "取消选择图片" ) 
@@ -41,56 +56,69 @@ function galleryImgs(long, width, callback) {
 }
 
 //照片裁剪类  
-function cutImg(long, width) {
-	$(".mui-content,.header,.footer").hide();
-	$("#cropperEdit").show();
+function cutImg(long, width, callback) {
 	if(long > 0 && width > 0) {
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
 			aspectRatio: long / width,
 			autoCropArea: 0.3,
-			zoom: -0.2
+			zoom: -0.2,
+			built: function() {
+				callback()
+			}
 		});
 	} else {
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
 			autoCropArea: 0.3,
-			zoom: -0.2
+			zoom: -0.2,
+			built: function() {
+				callback()
+			}
 		});
 	}
+	iscutimging = true;
 }
 
 //右旋转90度  
 function rotateimgright() {
-	$("#readyimg").cropper('rotate', 90);
+	if(iscutimging) {
+		$("#readyimg").cropper('rotate', 90);
+	} else {
+		cutImg(0, 0, function() {
+			$("#readyimg").cropper('rotate', 90);
+		});
+	}
 }
 
 //左旋转90度
 function rotateimgleft() {
-	$("#readyimg").cropper('rotate', -90);
+	if(iscutimging) {
+		$("#readyimg").cropper('rotate', -90);
+	} else {
+		cutImg(0, 0, function() {
+			$("#readyimg").cropper('rotate', -90);
+		});
+	}
 }
 
 //打开裁剪窗口
 function openpop() {
-	cutImg()
-}
+	cutImg(0, 0, function() {
 
+	})
+}
 
 //关闭裁剪窗口
 function closepop() {
-	$("#cropperEdit").hide();
 	$("#readyimg").cropper('destroy');
-	$(".mui-content,.header,.footer").show();
+	iscutimging = false;
 }
 
 //确认照片，展示效果  
-function confirm(targetid, callback) {
-	$("#cropperEdit").hide();
+function confirm(callback) {
 	var dataURL = $("#readyimg").cropper("getCroppedCanvas");
 	var imgurl = dataURL.toDataURL("image/jpeg", 1);
-	if(targetid != null) {
-		$("#" + targetid).attr("src", imgurl);
-	}
 
 	//上传图片到服务器 
 	plus.nativeUI.showWaiting("上传中...");
@@ -102,8 +130,8 @@ function confirm(targetid, callback) {
 				if($.isFunction(callback)) {
 					callback(base.RootUrl + data.message);
 				}
-				$(".mui-content,.header,.footer").show();
 				$("#readyimg").cropper('destroy');
+				iscutimging = false;
 				plus.nativeUI.closeWaiting();
 			} else {
 				plus.nativeUI.closeWaiting();
@@ -123,7 +151,6 @@ function compressImage(src, newsrc, callback) {
 			quality: 100
 		},
 		function(event) {
-			//console.log(JSON.stringify(event));
 			if($.isFunction(callback)) {
 				callback(event.target);
 			}
