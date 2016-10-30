@@ -55,48 +55,13 @@
 				line-height: 50px;
 				text-align: center;
 			}
-			/**操作**/
-			
-			.myaction {
-				position: fixed;
-				left: 0px;
-				top: 0px;
-				width: 100%;
-				z-index: 1000;
-				background: #fff;
-				display: none;
-			}
-			
-			.myaction .myaction_body {
-				padding: 5%;
-				padding-top: 2%;
-				display: inline-block;
-			}
-			
-			.myaction .myaction_items {
-				width: 33.3%;
-				float: left;
-				position: relative;
-				padding-bottom: 1.2rem;
-			}
-			
-			.myaction .myaction_items img {
-				width: 40%;
-			}
-			
-			.myaction .myaction_items p {
-				position: absolute;
-				left: 0px;
-				bottom: 0.4rem;
-				width: 100%;
-			}
 		</style>
 	</head>
 
-	<body id="body">
+	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<a id="action" class="mui-icon f13 fr mt6 hide" onclick="ActionTan(1)">操作</a>
+			<a id="action" class="mui-icon f13 fr mt6 hide" onclick="showActionSheet()">操作</a>
 			<h1 class="mui-title c333 user">作者主页</h1>
 		</header>
 		<div class="mui-iframe-wrapper" style="top: 46px; bottom:50px;">
@@ -128,12 +93,12 @@
 					<span id="zan" class="mui-icon mui-icon-extra mui-icon-extra-heart c999" style="font-size:22px;padding-top: 15px;"><span class="mui-badge mui-badge-danger" id="footer_zan">0</span></span>
 				</div>
 				<div>
-					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;" onclick="ShareTan(1)"></span>
+					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;" onclick="Share(1)"></span>
 				</div>
 			</div>
 		</div>
 		<!--分享-->
-		<div class="mytanbg hide" id="mysharebg" onclick="ShareTan(0)"></div>
+		<div class="mysharebg hide" id="mysharebg" onclick="Share(0)"></div>
 		<div class="myshare" id="myshare">
 			<p class="f16 c000 tc mt10 mb0">分享到</p>
 			<div class="tc c000 myshare_body">
@@ -158,31 +123,13 @@
 				<div class="myshare_items" onclick="ShareAction(7)"><img src="../images/share/7.png" />
 					<p class="f11 mb0 c000">复制链接</p>
 				</div>
-				<div id="isnotkeep" class="myshare_items" onclick="ShareAction(8)"><img src="../images/share/8.png" />
-					<p class="f11 mb0 c000" style="">收藏</p>
-				</div>
-				<div id="iskeep" class="myshare_items hide"><img src="../images/share/10.png" />
+				<div class="myshare_items" onclick="ShareAction(8)"><img src="../images/share/8.png" />
 					<p class="f11 mb0 c000" style="">收藏</p>
 				</div>
 				<div class="myshare_items" onclick="ShareAction(9)"><img src="../images/share/9.png" />
 					<p class="f11 mb0 c000">举报</p>
 				</div>
-				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
-			</div>
-		</div>
-		<!--操作-->
-		<div class="mytanbg hide" id="myactionbg" onclick="ActionTan(0)"></div>
-		<div class="myaction" id="myaction">
-			<div class="tc c000 myaction_body">
-				<div class="myaction_items" onclick="Delete()"><img src="../images/article/1.png" />
-					<p class="f11 mb0 c000">删除</p>
-				</div>
-				<div class="myaction_items" onclick="Edit()"><img src="../images/article/3.png" />
-					<p class="f12 mb0 c000">编辑</p>
-				</div>
-				<div class="myaction_items" onclick="Power()"><img src="../images/article/4.png" />
-					<p class="f13 mb0 c000">权限</p>
-				</div>
+				<div class="c000 mt10 f11 fl btnExit" onclick="Share(0)">取消</div>
 			</div>
 		</div>
 	</body>
@@ -194,17 +141,15 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/share.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
-	var ArticlePowerPwd = ""; //分享权限密码
 	var ArticleUserID = 0; //文章作者
 	var ArticleType = 0; //文章类型ID
 	var ArticleTypeName = ""; //文章类型名称
-	var Comments = 0;
+	var CommentTitle = "0条评论";
 	var Source = ""; //来源
-	var ShareInfo = {}; //分享信息
-	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
 	var userinfo = base.GetUserInfo();
 	//启用双击监听
@@ -243,7 +188,7 @@
 					autoShow: true,
 					duration: base.AnimateDuration
 				},
-				waiting: {
+				waiting: { 
 					autoShow: false
 				},
 				extras: {
@@ -266,15 +211,9 @@
 				},
 				extras: {
 					ArticleID: ArticleID,
-					CommentTitle: Comments + "条评论"
+					CommentTitle: CommentTitle
 				}
 			});
-		});
-
-		//更新文章评论数
-		window.addEventListener("UpdateComment", function(e) {
-			Comments += 1;
-			$("#footer_comment").html(Comments);
 		});
 
 		//重新加载数据
@@ -288,14 +227,6 @@
 				}
 			});
 		});
-
-		//重新加载数据
-		window.addEventListener("UpdatePower", function(e) {
-			ArticlePower = e.detail.ArticlePower;
-			ArticlePowerPwd = e.detail.ArticlePowerPwd;
-			ArticleType = e.detail.ArticleType;
-			ArticleTypeName = e.detail.ArticleTypeName;
-		});
 	});
 
 	var Intent = null,
@@ -303,11 +234,6 @@
 		Uri = null,
 		main = null;
 	mui.plusReady(function() {
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
-
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		Source = self.Source || "Add";
@@ -341,6 +267,11 @@
 			Uri = plus.android.importClass("android.net.Uri");
 			main = plus.android.runtimeMainActivity();
 		}
+
+		var editimagepage = plus.webview.getWebviewById("editimage");
+		if(editimagepage != null) {
+			plus.webview.close(editimagepage);
+		}
 	});
 
 	//加载文章
@@ -354,18 +285,15 @@
 				if(data.result) {
 					data = data.message
 					ArticlePower = data.ArticlePower;
-					ArticlePowerPwd = data.ArticlePowerPwd;
 					ArticleType = data.TypeID;
 					ArticleTypeName = data.TypeName;
 					ArticleUserID = data.CreateUserID;
 
 					$(".user").attr("userid", ArticleUserID);
 					$("#article_title").html(data.Title);
-					$("#article_info").html('<span class="fl blue user" userid="' + userinfo.ID + '">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
+					$("#article_info").html('<span class="fl blue user">' + data.NickName + '</span><span class="fl ml10 csubtitle">' + data.CreateDateText + '</span><span class="fl ml10 csubtitle">阅读  ' + data.Views + '</span>');
 
-					if(userinfo.ID != ArticleUserID) {
-						base.ShowUser("#body");
-					}
+					base.ShowUser("header");
 
 					//音乐
 					if(!base.IsNullOrEmpty(data.MusicUrl)) {
@@ -397,18 +325,11 @@
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
 
-					Comments = data.Comments;
+					CommentTitle = data.Comments + "条评论";
 
-					//显示操作
 					if(userinfo.ID == data.CreateUserID) {
 						$("#action").removeClass("hide");
 					}
-
-					ShareInfo.Title = data.Title;
-					ShareInfo.Cover = data.Cover;
-					ShareInfo.Url = "http://www.baidu.com";
-
-					CheckKeep(); //收藏状态
 
 					document.body.removeAttribute('data-imageLazyload');
 					mui(document).imageLazyload({
@@ -417,7 +338,6 @@
 					});
 				} else {
 					mui.toast(data.message);
-					plus.webview.currentWebview().close();
 				}
 			}
 			if($.isFunction(callback)) {
@@ -429,20 +349,44 @@
 		});
 	}
 
+	//操作
+	function showActionSheet() {
+		var bts = [{
+			title: "删除"
+		}, {
+			title: "编辑"
+		}, {
+			title: "权限"
+		}];
+		plus.nativeUI.actionSheet({
+				cancel: "取消",
+				buttons: bts
+			},
+			function(e) {
+				if(e.index == 1) {
+					Delete();
+				} else if(e.index == 2) {
+					Edit();
+				} else if(e.index == 3) {
+					Power();
+				}
+			}
+		);
+	}
+
 	//删除
 	function Delete() {
-		ActionTan(0);
 		var btnArray = ['确定', '取消'];
 		mui.confirm('删除后将无法在微信浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
 			if(e.index == 0) {
+				//请求删除
 				HttpGet(base.RootUrl + "Article/Delete", {
-					OpenID: userinfo.OpenID,
 					ID: ArticleID
 				}, function(data) {
-					console.log(JSON.stringify(data))
 					if(data != null) {
 						if(data.result) {
-							plus.webview.close(plus.webview.currentWebview());
+							var subindexPage = plus.webview.getWebviewById("subindex");
+							mui.fire(subindexPage, 'gohome', {});
 						}
 					}
 				});
@@ -452,7 +396,6 @@
 
 	//编辑 
 	function Edit() {
-		ActionTan(0);
 		plus.nativeUI.showWaiting("载入中...");
 		mui.openWindow({
 			id: 'addarticle',
@@ -473,7 +416,6 @@
 
 	//权限
 	function Power() {
-		ActionTan(0);
 		mui.openWindow({
 			id: 'sharesetting',
 			url: 'sharesetting.html',
@@ -487,174 +429,21 @@
 			extras: {
 				ArticleID: ArticleID,
 				ArticlePower: ArticlePower,
-				ArticlePowerPwd: ArticlePowerPwd,
 				ArticleType: ArticleType,
 				ArticleTypeName: ArticleTypeName
 			}
 		});
 	}
 
-	//判断是否关注
-	function CheckKeep() {
-		if(base.CheckKeep(userinfo.KeepText, ArticleID)) {
-			$("#iskeep,#isnotkeep").toggleClass("hide");
-		} else {
-			document.getElementById("isnotkeep").addEventListener('tap', function(e) {
-				if(isLoading)
-					return;
-				isLoading = true;
-				HttpGet(base.RootUrl + "Keep/Edit", {
-					OpenID: userinfo.OpenID,
-					ArticleID: ArticleID
-				}, function(data) {
-					if(data != null) {
-						if(data.result) {
-							base.AddKeep(userinfo, ArticleID);
-							$("#iskeep,#isnotkeep").toggleClass("hide");
-						}
-						mui.toast(data.result ? "收藏成功" : data.message);
-					}
-					isLoading = false;
-				});
-			});
-		}
-	}
-
-	//分享
-	var shares = null; //分享服务
-	var shareImageUrl = ''; //分享图片地址
-
-	//更新分享服务
-	function updateSerivces() {
-		plus.share.getServices(function(s) {
-			shares = {};
-			for(var i in s) {
-				var t = s[i];
-				shares[t.id] = t;
-			}
-			console.log("获取分享服务列表成功");
-		}, function(e) {
-			console.log("获取分享服务列表失败：" + e.message);
-		});
-	}
-
-	//分享弹窗
-	function ShareTan(index) {
-		if(ArticlePower == 0) {
-			return mui.toast("私密文章不可以分享");
-		}
-		if(index == 0) {
-			$("#mysharebg").addClass("hide");
-			$("#myshare").slideUp();
-		} else {
-			$("#mysharebg").removeClass("hide");
-			$("#myshare").slideDown();
-		}
-	}
-
-	//操作弹窗
-	function ActionTan(index) {
-		if(index == 0) {
-			$("#myactionbg").addClass("hide");
-			$("#myaction").slideUp();
-		} else {
-			$("#myactionbg").removeClass("hide");
-			$("#myaction").slideDown();
-		}
-	}
-
-	//分享信息
-	function ShareAction(index) {
-		ShareTan(1); //关闭分享弹窗
-
-		//复制链接
-		if(index == 7) {
-			return;
-		}
-		//收藏
-		if(index == 8) {
-			return;
-		}
-		//举报
-		if(index == 9) {
-			return;
-		}
-
-		var id = "";
-		var ex = "";
-		switch(index) {
-			//朋友圈
-			case 1:
-				id = "weixin";
-				ex = "WXSceneTimeline";
-				break;
-				//微信
-			case 2:
-				id = "weixin";
-				ex = "WXSceneSession";
-				break;
-				//新浪微博
-			case 3:
-				id = "sinaweibo";
-				ex = "";
-				break;
-				//qq
-			case 4:
-				id = "qq";
-				ex = "";
-				break;
-				//qq空间
-			case 5:
-				id = "qq";
-				ex = "";
-				break;
-				//其他
-			case 6:
-				id = "";
-				ex = "";
-				break;
-			default:
-				break;
-		}
-		var s = null;
-		if(!id || !(s = shares[id])) {
-			console.log("无效的分享服务！");
-			return;
-		}
-		if(s.authenticated) {
-			shareMessage(s, ex);
-		} else {
-			mui.toast("授权中");
-			s.authorize(function() {
-				shareMessage(s, ex);
-			}, function(e) {
-				mui.toast("认证授权失败");
-			});
-		}
-	}
-
-	//系统分享
-	function ShareSystem() {
-		if(plus.os.name !== "Android") {
-			plus.nativeUI.alert("此平台暂不支持系统分享功能!");
-			return;
-		}
-		var intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("text/plain");
-		intent.putExtra(Intent.EXTRA_SUBJECT, ShareInfo.Title + " " + "http://www.baidu.com");
-		intent.putExtra(Intent.EXTRA_TEXT, ShareInfo.Title + " " + "http://www.baidu.com");
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		main.startActivity(Intent.createChooser(intent, "系统分享"));
-	}
-
 	//发送分享信息
 	function shareMessage(s, ex) {
 		var msg = {
-			href: ShareInfo.Url,
-			title: ShareInfo.Title,
-			content: ShareInfo.Title,
-			thumbs: [ShareInfo.Cover],
-			pictures: [ShareInfo.Cover],
+			content: '分享-详情',
+			href: 'http://blog.csdn.net/zhuming3834',
+			title: '标题',
+			content: '内容',
+			thumbs: ['http://img3.3lian.com/2013/v10/4/87.jpg'],
+			pictures: ['http://img3.3lian.com/2013/v10/4/87.jpg'],
 			extra: {
 				scene: ex
 			}

@@ -69,7 +69,7 @@
 
 		var self = plus.webview.currentWebview();
 		Url = self.Url;
-		
+
 		Source = self.Source;
 
 		$("#readyimg").attr("src", Url).load(function() {
@@ -104,6 +104,7 @@
 						mui.fire(page, "UpdateCover", {
 							"Url": src
 						});
+						mui.back();
 						break;
 						//文章内容
 					case "ArticleAvatar":
@@ -111,6 +112,7 @@
 						mui.fire(page, "UpdateAvatar", {
 							"Url": src
 						});
+						mui.back();
 						break;
 						//用户封面
 					case "UserCover":
@@ -118,6 +120,7 @@
 						mui.fire(page, "UpdateCover", {
 							"Url": src
 						});
+						mui.back();
 						break;
 						//用户头像
 					case "UserAvatar":
@@ -125,11 +128,49 @@
 						mui.fire(page, "UpdateAvatar", {
 							"Url": src
 						});
+						mui.back();
+						break;
+					case "AddArticle":
+						plus.nativeUI.showWaiting("创建中...");
+						//创建文章
+						var data = {
+							OpenID: userinfo.OpenID,
+							Cover: src,
+							Title: ""
+						}
+						HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
+							if(data != null) {
+								if(data.result) {
+									var part = data.message;
+									ArticleID = part.ArticleID;
+									mui.openWindow({
+										id: 'addarticle',
+										url: 'addarticle.html',
+										show: {
+											autoShow: true,
+											duration: base.AnimateDuration
+										},
+										waiting: {
+											autoShow: false
+										},
+										extras: {
+											ArticleID: data.message.ArticleID,
+											Source: "Add"
+										}
+									});
+								} else {
+									mui.toast(data.message);
+								}
+							} else {
+								plus.nativeUI.closeWaiting();
+							}
+						});
+						//mui.back();
 						break;
 					default:
+						mui.back();
 						break;
 				}
-				mui.back();
 			});
 		});
 	});

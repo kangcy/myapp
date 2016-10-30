@@ -105,7 +105,7 @@
 			}
 
 			if(targetTab == "chooseimage.html") {
-				mui.openWindow({
+				/*mui.openWindow({
 					id: 'chooseimage',
 					url: 'chooseimage.html',
 					show: {
@@ -115,7 +115,8 @@
 					waiting: {
 						autoShow: false
 					}
-				});
+				});*/
+				galleryImgs()
 				return;
 			}
 
@@ -195,4 +196,55 @@
 			openMenu();
 		}
 	});
+
+	//相册选取  
+	function galleryImgs() {
+
+		plus.gallery.pick(function(e) {
+
+			//压缩图片 
+			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
+
+			//压缩图片,并重命名
+			compressImage(e, dstname, function(src) {
+				mui.openWindow({
+					id: 'editimage',
+					url: 'editimage.html',
+					show: {
+						autoShow: true,
+						duration: base.AnimateDuration
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						Url: src,
+						Source: "AddArticle"
+					}
+				});
+			}); 
+		}, function(e) {
+
+		}, {
+			filter: "image",
+			maximum: 1
+		});
+	}
+
+	//压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
+	function compressImage(src, newsrc, callback) {
+		plus.zip.compressImage({
+				src: src,
+				dst: newsrc,
+				overwrite: true,
+				width: window.innerWidth + "px",
+				quality: 100
+			},
+			function(event) {
+				callback(event.target);
+			},
+			function(error) {
+				callback(src);
+			});
+	}
 </script>
