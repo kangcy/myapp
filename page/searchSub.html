@@ -71,7 +71,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var NickName = 0;
+	var NickName = "";
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
@@ -99,6 +99,7 @@
 	//初始化获取参数
 	function Init(name) {
 		NickName = name;
+		console.log("aa:"+NickName)
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -111,7 +112,7 @@
 				callback: function() {
 					var self = this;
 					pullupRefresh(self);
-				}
+				} 
 			}
 		});
 	}
@@ -163,6 +164,7 @@
 	 * 加载数据
 	 */
 	function Load(callback) {
+		console.log(NickName);
 		var table = document.getElementById('scroll-view');
 		var data = {
 			page: currpage,
@@ -170,6 +172,7 @@
 			NickName: NickName
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
+			console.log(JSON.stringify(data));
 			if(data != null) {
 				totalpage = data.totalpage;
 				var length = data.list.length;
