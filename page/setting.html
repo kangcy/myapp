@@ -29,59 +29,6 @@
 			.mui-table-view:after {
 				height: 0px;
 			}
-			/**分享**/
-			
-			.mysharebg {
-				position: fixed;
-				top: 0px;
-				left: 0px;
-				width: 100%;
-				height: 100%;
-				background: rgba(0, 0, 0, 0.9);
-				z-index: 999;
-			}
-			
-			.myshare {
-				position: fixed;
-				left: 0px;
-				bottom: 0px;
-				width: 100%;
-				z-index: 1000;
-				background: #fff;
-				display:none;
-			}
-			
-			.myshare .myshare_body {
-				padding: 5%;
-				padding-top: 2%;
-				display: inline-block;
-			}
-			
-			.myshare .myshare_items {
-				width: 33.3%;
-				float: left;
-				position: relative;
-				padding-bottom: 1.2rem;
-			}
-			
-			.myshare .myshare_items img {
-				width: 60%;
-			}
-			
-			.myshare .myshare_items p {
-				position: absolute;
-				left: 0px;
-				bottom: 0.4rem;
-				width: 100%;
-			}
-			
-			.myshare .btnExit {
-				width: 100%;
-				background: #f5f5f5;
-				border-radius: 5px;
-				height: 2rem;
-				line-height: 2rem;
-			}
 		</style>
 	</head>
 
@@ -92,15 +39,15 @@
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view f13" style="margin-top:0px;">
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" onclick="BindPhone()">
 					<span class="fl">绑定手机号</span>
 					<span class="mui-pull-right caaa">18652913873</span>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" onclick="BindWeixin()">
 					<span class="fl">绑定微信号</span>
 					<span class="mui-pull-right caaa">18652913873</span>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" onclick="BindEmail()">
 					<span class="fl">绑定邮箱</span>
 					<span class="mui-pull-right caaa">735149528@qq.com</span>
 				</li>
@@ -120,9 +67,6 @@
 						<div class="mui-switch-handle"></div>
 					</div>
 				</li>
-				<li id="account" class="mui-table-view-cell">
-					账号与安全
-				</li>
 				<li class="mui-table-view-cell" onclick="Share(1)">
 					检查更新
 				</li>
@@ -136,40 +80,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mysharebg hide" id="mysharebg" onclick="Share(0)"></div>
-		<div class="myshare" id="myshare">
-			<p class="f16 c000 tc mt10 mb0">分享到</p>
-			<div class="tc c000 myshare_body">
-				<div class="myshare_items" onclick="ShareAction(1)"><img src="../images/share/1.png" />
-					<p class="f11 mb0 c000">朋友圈</p>
-				</div>
-				<div class="myshare_items" onclick="ShareAction(2)"><img src="../images/share/2.png" />
-					<p class="f11 mb0 c000">微信</p>
-				</div>
-				<div class="myshare_items" onclick="ShareAction(3)"><img src="../images/share/3.png" />
-					<p class="f11 mb0 c000">新浪微博</p>
-				</div>
-				<div class="myshare_items" onclick="ShareAction(4)"><img src="../images/share/4.png" />
-					<p class="f11 mb0 c000">QQ</p>
-				</div>
-				<div class="myshare_items" onclick="ShareAction(5)"><img src="../images/share/5.png" />
-					<p class="f11 mb0 c000">QQ空间</p>
-				</div>
-				<div class="myshare_items" onclick="ShareAction(6)"><img src="../images/share/6.png" />
-					<p class="f11 mb0 c000">其他</p>
-				</div>
-				<div class="myshare_items" onclick="ShareAction(7)"><img src="../images/share/7.png" />
-					<p class="f11 mb0 c000">复制链接</p>
-				</div>
-				<div class="myshare_items" onclick="ShareAction(8)"><img src="../images/share/8.png" />
-					<p class="f11 mb0 c000" style="">收藏</p>
-				</div>
-				<div class="myshare_items" onclick="ShareAction(9)"><img src="../images/share/9.png" />
-					<p class="f11 mb0 c000">举报</p>
-				</div>
-				<div class="c000 mt10 f11 fl btnExit" onclick="Share(0)">取消</div>
-			</div>
-		</div>
+
 	</body>
 
 </html>
@@ -178,7 +89,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/login.js"></script>
-<script src="../js/share.js"></script>
 <script type="text/javascript">
 	mui.init({
 		gestureConfig: {
@@ -187,46 +97,58 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	//返回
-	document.getElementById("back").addEventListener('tap', function(event) {
-		mui.back();
+	mui.ready(function() {
+
 	});
 
-	/*
-	 * 账号与安全
-	 */
-	var subWebview = null,
-		template = null;
-	document.getElementById('account').addEventListener('tap', function() {
-		if(!mui.os.plus) {
-			mui.openWindow({
-				url: "account_setting.html",
-				id: "account_setting",
-				show: {
-					aniShow: 'zoom-fade-out',
-					duration: 300
-				}
-			});
-			return;
-		}
-		//获取共用父窗体
-		if(subWebview == null) {
-			template = plus.webview.getWebviewById("default-main");
-		}
-		if(template) {
-			subWebview = template.children()[0];
-			subWebview.loadURL('account_setting.html');
-			mui.fire(template, 'updateHeader', {
-				title: '账号与安全',
-				showMenu: false
-			});
-			template.show('slide-in-right', 150);
-		}
-	});
+	//绑定手机号
+	function BindPhone() {
+		mui.openWindow({
+			id: 'bindphone',
+			url: 'bindphone.html',
+			show: {
+				autoShow: true,
+				duration: base.AnimateDuration
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+	}
+
+	//绑定邮箱
+	function BindEmail() {
+		mui.openWindow({
+			id: 'bindemail',
+			url: 'bindemail.html',
+			show: {
+				autoShow: true,
+				duration: base.AnimateDuration
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+	}
+
+	//绑定微信号
+	function BindWeixin() {
+		//微信登录
+	}
 
 	mui.plusReady(function() {
 
-		//退出操作******************
+		//返回
+		mui.back = function() {
+			plus.webview.close(plus.webview.currentWebview());
+		}
+
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		});
+
+		//退出操作
 		document.getElementById('exit').addEventListener('tap', function() {
 			var btnArray = [{
 				title: "注销当前账号"
