@@ -14,18 +14,19 @@
 	</head>
 
 	<body>
-		<div class="mui-content">
+		<div class="mui-content  mui-scroll-wrapper">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 					<div class="mui-scroll" id="sliderTopBody" style="width:100%;">
-						<a class="mui-control-item f12 topic mui-active" currindex="0">用户</a>
-						<a class="mui-control-item f12 topic" currindex="1">文章</a>
+						<a class="mui-control-item f13 topic mui-active" currindex="0">用户</a>
+						<a class="mui-control-item f13 topic " currindex="1">文章</a>
 					</div>
 				</div>
-				<div class="mui-slider-group" id="sliderGroup" style="border-top:1px solid #eee;top:2.35rem;">
+				<div class="mui-slider-group" id="sliderGroup" style="top:2.35rem;">
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div id="sliderChild1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
+								<div id="tip1" style="border-top:1px solid #eee;border-bottom:1px solid #eee;height:2.5rem;line-height:2.5rem;text-indent:0.5rem;" class="f11 caaa">你可能感兴趣的用户</div>
 								<div id="scroll-view1"></div>
 							</div>
 						</div>
@@ -33,7 +34,8 @@
 					<div class="mui-slider-item mui-control-content">
 						<div id="sliderChild2" class="mui-scroll-wrapper">
 							<div id="slider2" class="mui-scroll">
-								<div id="scroll-view"></div>
+								<div id="tip2" style="border-top:1px solid #eee;border-bottom:1px solid #eee;height:2.5rem;line-height:2.5rem;text-indent:0.5rem;" class="f11 caaa">你可能感兴趣的文章</div>
+								<div id="scroll-view2"></div>
 							</div>
 						</div>
 					</div>
@@ -54,7 +56,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var SearchName = 0; //搜索词
+	var SearchName = ""; //搜索词
 	var isLoading = false;
 	var currpage = 1;
 	var totalpage = 2;
@@ -68,9 +70,9 @@
 	});
 
 	$(function() {
-		mui.previewImage();
-
 		base.InitScroll();
+
+		mui.previewImage();
 
 		base.ShowUser("#slider"); //用户详细
 
@@ -81,6 +83,11 @@
 			var index = this.getAttribute("currindex");
 			mui('#slider').slider().gotoItem(index);
 		});
+
+		InitLoadUser("", function() {
+			InitLoadArticle("");
+		});
+
 	});
 
 	mui.plusReady(function() {
@@ -90,6 +97,9 @@
 
 	//加载搜索文章
 	function InitLoadArticle(title) {
+		if(title != "") {
+			$("#tip2").hide();
+		}
 		SearchName = title;
 		mui(document.getElementById("slider2")).pullToRefresh({
 			down: {
@@ -106,17 +116,19 @@
 				}
 			}
 		});
-
-		mui('#sliderChild2').scroll().reLayout();
 	}
 
 	//加载搜索用户
-	function InitLoadUser(nickname) {
+	function InitLoadUser(nickname, callback) {
+		if(nickname != "") {
+			$("#tip1").hide();
+		}
 		SearchName = nickname;
 		HttpGet(base.RootUrl + "User/All", {
-			NickName: nickname
+			NickName: nickname,
+			Source: "Search"
 		}, function(data) {
-			console.log(JSON.stringify(data));
+			document.getElementById('scroll-view1').innerHTML = "";
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
@@ -129,6 +141,8 @@
 			}
 
 			mui('#sliderChild1').scroll().reLayout();
+
+			callback(SearchName);
 
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
@@ -149,7 +163,7 @@
 		setTimeout(function() {
 			currpage = 1;
 			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
+			document.getElementById('scroll-view2').innerHTML = "";
 			LoadArticle(function() {
 				++currpage;
 				self.endPullDownToRefresh();
@@ -183,11 +197,12 @@
 
 	//搜索文章
 	function LoadArticle() {
-		var table = document.getElementById('scroll-view');
+		var table = document.getElementById('scroll-view2');
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			Title: SearchName
+			Title: SearchName,
+			Source: "Search"
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
@@ -195,13 +210,16 @@
 				var length = data.list.length;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i]);
+						var div = base.AppendArticle(data.list[i],false);
 						table.appendChild(div);
 					}
 				} else {
 					mui.toast("没有更多数据了~");
 				}
 			}
+
+			mui('#sliderChild2').scroll().reLayout();
+
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
 				placeholder: base.DefaultImg,
@@ -211,11 +229,6 @@
 				plus.nativeUI.closeWaiting();
 			}
 		});
-	}
-
-	//搜索用户
-	function LoadUser() {
-
 	}
 
 	//拼接Html
