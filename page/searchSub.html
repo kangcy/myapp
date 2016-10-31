@@ -14,7 +14,7 @@
 	</head>
 
 	<body>
-		<div class="mui-content  mui-scroll-wrapper">
+		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 					<div class="mui-scroll" id="sliderTopBody" style="width:100%;">
@@ -42,6 +42,17 @@
 				</div>
 			</div>
 		</div>
+
+		<!--<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<div id="sliderChild2" class="mui-scroll-wrapper">
+					<div id="slider2" class="mui-scroll">
+						<div id="scroll-view2">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>-->
 	</body>
 
 </html>
@@ -69,7 +80,8 @@
 		swipeBack: false //启用右滑关闭功能 
 	});
 
-	$(function() {
+	mui.ready(function() {
+
 		base.InitScroll();
 
 		mui.previewImage();
@@ -83,24 +95,13 @@
 			var index = this.getAttribute("currindex");
 			mui('#slider').slider().gotoItem(index);
 		});
-
-		InitLoadUser("", function() {
-			InitLoadArticle("");
-		});
-
 	});
 
 	mui.plusReady(function() {
-		var parentPage = plus.webview.getWebviewById("search");
-		mui.fire(parentPage, "InitSubPage", {});
-	});
+		InitLoadUser("");
 
-	//加载搜索文章
-	function InitLoadArticle(title) {
-		if(title != "") {
-			$("#tip2").hide();
-		}
-		SearchName = title;
+		//InitLoadArticle("");
+
 		mui(document.getElementById("slider2")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -116,10 +117,35 @@
 				}
 			}
 		});
+
+		var parentPage = plus.webview.getWebviewById("search");
+		mui.fire(parentPage, "InitSubPage", {});
+	});
+
+	//加载搜索文章 
+	function InitLoadArticle(title) {
+		console.log("InitLoadArticle")
+		if(title != "") {
+			$("#tip2").hide();
+		}
+		SearchName = title;
+		//mui(document.getElementById("slider2")).pullRefresh().pulldownLoading();
+		//mui('#pullrefresh').pullRefresh().pulldownLoading();
+
+		//mui(document.getElementById("slider2")).pullRefresh();
+		//mui('#slider2').pullRefresh().pulldownLoading();
+
+		currpage = 1;
+		totalpage = 2;
+		document.getElementById('scroll-view2').innerHTML = "";
+		LoadArticle(function() {
+			++currpage;
+			isLoading = false;
+		})
 	}
 
 	//加载搜索用户
-	function InitLoadUser(nickname, callback) {
+	function InitLoadUser(nickname) {
 		if(nickname != "") {
 			$("#tip1").hide();
 		}
@@ -142,13 +168,13 @@
 
 			mui('#sliderChild1').scroll().reLayout();
 
-			callback(SearchName);
-
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
 				placeholder: base.DefaultImg,
 				diff: window.innerHeight
 			});
+
+			plus.nativeUI.closeWaiting();
 		});
 	}
 
@@ -196,7 +222,7 @@
 	}
 
 	//搜索文章
-	function LoadArticle() {
+	function LoadArticle(callback) {
 		var table = document.getElementById('scroll-view2');
 		var data = {
 			page: currpage,
@@ -205,17 +231,22 @@
 			Source: "Search"
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
+			console.log(JSON.stringify(data));
 			if(data != null) {
 				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i],false);
+						var div = base.AppendArticle(data.list[i], false);
 						table.appendChild(div);
 					}
 				} else {
 					mui.toast("没有更多数据了~");
 				}
+			}
+
+			if($.isFunction(callback)) {
+				callback();
 			}
 
 			mui('#sliderChild2').scroll().reLayout();
@@ -225,9 +256,6 @@
 				placeholder: base.DefaultImg,
 				diff: window.innerHeight
 			});
-			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
-			}
 		});
 	}
 
