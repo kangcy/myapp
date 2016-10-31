@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/fan.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.css">
 		<style type="text/css">
@@ -48,10 +49,26 @@
 
 	<body>
 		<div class="mui-content">
-			<div class="mui-slider mui-fullscreen">
-				<div class="mui-scroll-wrapper">
-					<div id="pullrefresh" class="mui-scroll">
-						<div id="scroll-view">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+					<div class="mui-scroll" id="sliderTopBody" style="width:100%;">
+						<a class="mui-control-item f12 topic mui-active" currindex="0">用户</a>
+						<a class="mui-control-item f12 topic" currindex="1">文章</a>
+					</div>
+				</div>
+				<div class="mui-slider-group" id="sliderGroup" style="border-top:1px solid #eee;top:2.35rem;">
+					<div class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div id="scroll-view1"></div>
+							</div>
+						</div>
+					</div>
+					<div class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div id="sliderChild2" class="mui-scroll">
+								<div id="scroll-view"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -71,40 +88,39 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var NickName = "";
+	var ArticleID = 0; //文章ID
+	var isLoading = false;
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
-	var isLoading = false;
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
 
-	mui.init();
-
-	mui.ready(function() {
-
+	$(function() {
 		mui.previewImage();
 
 		base.InitScroll();
 
-		base.ShowUser("#scroll1"); //用户详细
+		base.ShowUser("#slider"); //用户详细
 
-		base.ShowArticle("#pullrefresh","List"); //文章详细
+		base.ShowArticle("#slider","List"); //文章详细	
 		
-		
-		
-		
-		
+		//切换
+		$("#slider").on('tap', '.mui-control-item', function(event) {
+			var index = this.getAttribute("currindex");
+			mui('#slider').slider().gotoItem(index);
+		});
 	});
 
 	mui.plusReady(function() {
-		var parentPage = plus.webview.getWebviewById("search");
-		mui.fire(parentPage, "InitSubPage", {});
-	});
+		LoadUser();
 
-	//初始化获取参数
-	function Init(name) {
-		NickName = name;
-		mui(document.getElementById("pullrefresh")).pullToRefresh({
+		mui(document.getElementById("sliderChild2")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -116,10 +132,10 @@
 				callback: function() {
 					var self = this;
 					pullupRefresh(self);
-				} 
+				}
 			}
 		});
-	}
+	});
 
 	/**
 	 * 下拉刷新
@@ -133,7 +149,7 @@
 			currpage = 1;
 			totalpage = 2;
 			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
+			LoadArticle(function() {
 				++currpage;
 				self.endPullDownToRefresh();
 				self.refresh(true);
@@ -156,7 +172,7 @@
 			return mui.toast("没有更多数据了~");
 		}
 		setTimeout(function() {
-			Load(function() {
+			LoadArticle(function() {
 				++currpage;
 				self.endPullUpToRefresh(currpage > totalpage);
 				isLoading = false;
@@ -164,18 +180,15 @@
 		}, 500);
 	}
 
-	/**
-	 * 加载数据
-	 */
-	function Load(callback) {
+	//搜索文章
+	function LoadArticle(callback) {
 		var table = document.getElementById('scroll-view');
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			NickName: NickName
+			Title: ""
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
-			console.log(JSON.stringify(data));
 			if(data != null) {
 				totalpage = data.totalpage;
 				var length = data.list.length;
@@ -200,5 +213,44 @@
 				plus.nativeUI.closeWaiting();
 			}
 		});
+	}
+
+	//搜索用户
+	function LoadUser() {
+		HttpGet(base.RootUrl + "User/All", {
+			NickName: ""
+		}, function(data) {
+			if(data != null) {
+				totalpage = data.totalpage2;
+				var length = data.list.length;
+				if(length > 0) {
+					var table = document.getElementById('scroll-view1');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i], 1);
+						table.appendChild(div);
+					}
+				}
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: base.DefaultImg,
+				diff: window.innerHeight
+			});
+		});
+	}
+
+	//拼接Html
+	function appendStr(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell">');
+		//分类图片
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
+		//分类信息
+		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>

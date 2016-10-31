@@ -46,7 +46,7 @@
 
 					</div>
 				</div>
-				<div class="mui-slider-group" id="sliderGroup">
+				<div class="mui-slider-group" id="sliderGroup" style="top:2.35rem;"> 
 
 				</div>
 			</div>
@@ -212,7 +212,6 @@
 			rows: pagesize,
 			TypeID: typeId
 		};
-
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
 				totalpage[index] = data.totalpage;

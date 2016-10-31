@@ -21,7 +21,7 @@
 			<a id="back" class="mui-icon mui-icon-back fl" style="width:15%;"></a>
 			<a id="btnSearch" class="mui-icon mui-icon-search fr blue" style="width:15%;"></a>
 			<div class="mui-input-row mui-search" style="width:77%;">
-				<input id="search" type="search" class="mui-input-speech mui-input-clear" placeholder="输入昵称/轻墨号/支持语音搜索" maxlength="10" style="height:34px;font-size:11px;">
+				<input id="search" type="search" class="mui-input-speech mui-input-clear" placeholder="输入昵称/标题/支持语音搜索" maxlength="10" style="height:34px;font-size:11px;">
 			</div>
 		</header>
 		<div class="mui-content"></div>
@@ -41,7 +41,7 @@
 		swipeBack: false, //启用右滑关闭功能
 		subpages: [{
 			id: 'searchSub',
-			url: 'searchSub.html',
+			url: 'searchSub2.html',
 			styles: {
 				top: '50px',
 				bottom: '0px',
@@ -72,17 +72,6 @@
 			}
 			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
-
-		/*document.getElementById("btnSearch").addEventListener('tap', function(e) {
-			if(search.value == "") {
-				return mui.toast("请输入搜索内容~");
-			}
-			plus.nativeUI.showWaiting("搜索中...");
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			contentWebview.evalJS("Init(" + search.value + ")");
-		});*/
 	});
 
 	window.addEventListener("InitSubPage", function(e) {
@@ -94,7 +83,7 @@
 			if(contentWebview == null) {
 				contentWebview = plus.webview.getWebviewById("searchSub");
 			}
-			contentWebview.evalJS("Init(" + search.value + ")");
+			contentWebview.evalJS("Init('" + search.value + "')");
 		});
 	});
 </script>
