@@ -425,7 +425,7 @@ var base = new function() {
 		}
 		model.push('</div></div>');
 		model.push('<div class="mui-card-footer fl full">');
-		model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:5px 10px;margin:0px;" class="f11 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
+		model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f11 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}

@@ -4904,11 +4904,11 @@ body>.mui-progressbar {
 	border-radius: 5px;
 	display: inline-block;
 	margin-top: 10px;
-	overflow: hidden;
+	overflow: hidden; 
 	font-size: 15px;*/
 	width: 80%;
 	height: 45px;
-	line-height: 43px;
+	line-height: 45px;
 	overflow: hidden;
 	display: inline-block;
 	font-size: 16px;
@@ -4920,9 +4920,8 @@ body>.mui-progressbar {
 }
 
 .mui-title #tabs .tab.curr {
-	/*background: #459df5;
-	color: #fff;*/
-	border-bottom: 2px solid #97CC00;
+	color: #007aff;
+	/*border-bottom: 1.5px solid #007aff;*/
 }
 
 

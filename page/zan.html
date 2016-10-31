@@ -48,6 +48,11 @@
 	var contentWebview = null;
 	mui.ready(function() {
 		//返回
+		mui.back = function() {
+			plus.webview.close(plus.webview.currentWebview());
+		}
+		
+		//返回
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		}, false);
