@@ -100,8 +100,6 @@
 	mui.plusReady(function() {
 		InitLoadUser("");
 
-		//InitLoadArticle("");
-
 		mui(document.getElementById("slider2")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -124,16 +122,10 @@
 
 	//加载搜索文章 
 	function InitLoadArticle(title) {
-		console.log("InitLoadArticle")
 		if(title != "") {
 			$("#tip2").hide();
 		}
 		SearchName = title;
-		//mui(document.getElementById("slider2")).pullRefresh().pulldownLoading();
-		//mui('#pullrefresh').pullRefresh().pulldownLoading();
-
-		//mui(document.getElementById("slider2")).pullRefresh();
-		//mui('#slider2').pullRefresh().pulldownLoading();
 
 		currpage = 1;
 		totalpage = 2;
@@ -152,7 +144,7 @@
 		SearchName = nickname;
 		HttpGet(base.RootUrl + "User/All", {
 			NickName: nickname,
-			Source: "Search"
+			Source: SearchName == "" ? "Search" : ""
 		}, function(data) {
 			document.getElementById('scroll-view1').innerHTML = "";
 			if(data != null) {
@@ -228,10 +220,9 @@
 			page: currpage,
 			rows: pagesize,
 			Title: SearchName,
-			Source: "Search"
+			Source: SearchName == "" ? "Search" : ""
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
-			console.log(JSON.stringify(data));
 			if(data != null) {
 				totalpage = data.totalpage;
 				var length = data.list.length;

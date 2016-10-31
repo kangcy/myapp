@@ -51,7 +51,7 @@
 
 	//语音识别完成事件
 	search.addEventListener('recognized', function(e) {
-		search.value = search.value + e.detail.value;
+		search.value = e.detail.value;
 	});
 
 	var contentWebview = null;
