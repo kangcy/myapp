@@ -45,7 +45,11 @@
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						OpenID: data.OpenID
+						OpenID: data.OpenID,
+						Phone: data.Phone,
+						UserLogin: data.UserLogin,
+						ShareNick: data.ShareNick,
+						AutoMusic: data.AutoMusic
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -95,7 +99,11 @@
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						OpenID: data.OpenID
+						OpenID: data.OpenID,
+						Phone: data.Phone,
+						UserLogin: data.UserLogin,
+						ShareNick: data.ShareNick,
+						AutoMusic: data.AutoMusic
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -163,7 +171,11 @@
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						OpenID: data.OpenID
+						OpenID: data.OpenID,
+						Phone: data.Phone,
+						UserLogin: data.UserLogin,
+						ShareNick: data.ShareNick,
+						AutoMusic: data.AutoMusic
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();

@@ -57,7 +57,11 @@ var base = new function() {
 				Zans: 0,
 				Cover: "../images/header.png",
 				FanText: "",
-				KeepText: ""
+				KeepText: "",
+				Phone: "18652913873",
+				UserLogin: [],
+				ShareNick: 0,
+				AutoMusic: 0
 			}
 		}
 
@@ -228,7 +232,11 @@ var base = new function() {
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						OpenID: data.OpenID
+						OpenID: data.OpenID,
+						Phone: data.Phone,
+						UserLogin: data.UserLogin,
+						ShareNick: data.ShareNick,
+						AutoMusic: data.AutoMusic
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 

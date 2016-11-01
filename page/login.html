@@ -191,7 +191,7 @@
 			mui.toast("已登录认证~~");
 		}
 	}
-	
+
 	//注销 
 	function authLogout() {
 		for(var i in auths) {
@@ -205,7 +205,7 @@
 			}
 		}
 	}
-	
+
 	// 微信登录认证信息 
 	function authUserInfo(type) {
 		var s;
@@ -233,13 +233,14 @@
 					toMain();
 				});
 
-				authLogout();
+				//注销认证
+				//authLogout();
 			}, function(e) {
 				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
 			});
 		}
 	}
-	
+
 	//显示用户信息 
 	function showData(type, data) {
 		var loginInfo = {};
