@@ -146,21 +146,28 @@
 
 		//绑定微信切换
 		document.getElementById("weixinSwitch").addEventListener('toggle', function(event) {
-			var status = event.detail.isActive;
-			if(status) {
+			if(event.detail.isActive) {
 				authLogin('weixin');
 			} else {
+				authLogout(weixin);
+			}
+		});
 
+		//绑定QQ切换
+		document.getElementById("qqSwitch").addEventListener('toggle', function(event) {
+			if(event.detail.isActive) {
+				authLogin('qq');
+			} else {
+				authLogout(weixin);
 			}
 		});
 
 		//绑定微博切换
 		document.getElementById("weiboSwitch").addEventListener('toggle', function(event) {
-			var status = event.detail.isActive;
-			if(status) {
+			if(event.detail.isActive) {
 				authLogin('sinaweibo');
 			} else {
-
+				authLogout(weixin);
 			}
 		});
 
@@ -329,7 +336,7 @@
 
 	//登录操作 
 	function authLogin(type) {
-		mui.toast("正在授权~~")
+		mui.toast("正在绑定~~")
 		var s;
 		for(var i = 0; i < auths.length; i++) {
 			if(auths[i].id == type) {
@@ -340,7 +347,7 @@
 		if(!s.authResult) {
 			s.login(function(e) {
 				mui.toast("绑定中~~");
-				authUserInfo(type);
+				authUserInfo(type, s);
 			}, function(e) {
 				mui.toast("登录认证失败~~");
 			});
@@ -350,28 +357,23 @@
 	}
 
 	//注销 
-	function authLogout() {
+	function authLogout(id) {
 		for(var i in auths) {
 			var s = auths[i];
-			if(s.authResult) {
-				s.logout(function(e) {
-					console.log("注销登录认证成功~~");
-				}, function(e) {
-					console.log("注销登录认证失败~~");
-				});
+			if(s.id == id) {
+				if(s.authResult) {
+					s.logout(function(e) {
+						console.log("注销登录认证成功~~");
+					}, function(e) {
+						console.log("注销登录认证失败~~");
+					});
+				}
 			}
 		}
 	}
 
 	//登录认证信息 
-	function authUserInfo(type) {
-		var s;
-		for(var i = 0; i < auths.length; i++) {
-			if(auths[i].id == type) {
-				s = auths[i];
-				break;
-			}
-		}
+	function authUserInfo(type, s) {
 		if(!s.authResult) {
 			mui.toast("未授权登录！");
 		} else {
@@ -381,14 +383,34 @@
 				console.log("获取用户信息成功：" + josnStr);
 
 				var loginInfo = showData(type, jsonObj);
-				app.loginThird(loginInfo, function(err) {
+
+				HttpGet(base.RootUrl + "User/BindPhone", {
+					OpenID: userinfo.OpenID,
+					Phone: phone
+				}, function(data) {
+					if(data == null) {
+						return callback("系统异常,请稍后再试~");
+					} else {
+						if(data.result) {
+							//更新用户缓存信息
+							data = data.message;
+
+							localStorage.setItem('$userinfo', JSON.stringify(info));
+							return callback();
+						} else {
+							return callback(data.message);
+						}
+					}
+				});
+
+				/*app.loginThird(loginInfo, function(err) {
 					if(err) {
 						mui.toast(err);
 						return;
 					}
 					plus.nativeUI.showWaiting("载入中...");
 					toMain();
-				});
+				});*/
 			}, function(e) {
 				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
 			});
