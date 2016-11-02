@@ -29,7 +29,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<h1 class="mui-title c333 f15">用户绑定</h1>
+			<h1 class="mui-title c333 f15" id="title"></h1>
 		</header>
 		<div class="mui-content">
 			<form class="mui-input-group" style="padding:5%;">
@@ -60,45 +60,44 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	var mysettingPage = null;
-	
+	var settingPage = null;
+
+	mui.ready(function() {
+		document.getElementById("title").innerText = userinfo.Phone == "" ? "绑定手机号" : "更换手机号";
+	})
+
 	mui.plusReady(function() {
 		//返回
 		mui.back = function() {
-			self.hide();
+			plus.webview.currentWebview().close();
 		}
 
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
 			var phone = document.getElementById('phone').value;
-			if(!checkPhone(phone)) {
-				return callback('手机号码不合法');
+			if(!CheckPhone(phone)) {
+				return mui.toast('手机号码不合法');
 			}
-
+			console.log(userinfo.ID + "," + phone);
 			HttpGet(base.RootUrl + "User/BindPhone", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				Phone: phone
 			}, function(data) {
 				if(data == null) {
-					return callback("系统异常,请稍后再试~");
+					return mui.toast("系统异常,请稍后再试~");
 				} else {
 					if(data.result) {
-						//更新用户缓存信息
-						data = data.message;
-
+						userinfo.Phone = phone;
 						localStorage.setItem('$userinfo', JSON.stringify(info));
-						return callback();
+
+						if(!settingPage) {
+							settingPage = plus.webview.getWebviewById('setting');
+						}
+						settingPage.evalJS("UpdatePhone('" + phone + "')");
 					} else {
-						return callback(data.message);
+						return mui.toast(data.message);
 					}
 				}
-			});
-
-			if(!mysettingPage) {
-				mysettingPage = plus.webview.getWebviewById('mysetting');
-			}
-			mui.fire(mysettingPage, "updateNickName", {
-				"desc": question.value
 			});
 			mui.back();
 		}, false);

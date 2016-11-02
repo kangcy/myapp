@@ -111,7 +111,7 @@
 				return;
 			}
 			HttpGet(base.RootUrl + "Article/EditArticleCover", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				ArticleID: ArticleID,
 				Cover: url
 			}, function(data) {
@@ -194,8 +194,8 @@
 				return;
 			}
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				OpenID: userinfo.OpenID,
-				ID: $("#" + currEditID).attr("partid"),
+				ID: userinfo.ID,
+				PartID: $("#" + currEditID).attr("partid"),
 				Introduction: url
 			}, function(data) {
 				if(data != null) {
@@ -222,7 +222,7 @@
 				plus.nativeUI.showWaiting("创建中...");
 			}
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				ArticleID: ArticleID,
 				Types: 1,
 				Introduction: base.DefaultImg
@@ -250,7 +250,7 @@
 				plus.nativeUI.showWaiting("创建中...");
 			}
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				ArticleID: ArticleID,
 				Types: 2,
 				Introduction: ""
@@ -278,7 +278,7 @@
 				plus.nativeUI.showWaiting("创建中...");
 			}
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				ArticleID: ArticleID,
 				Types: 3,
 				Introduction: ""
@@ -313,8 +313,8 @@
 				if(e.index == 0) {
 					plus.nativeUI.showWaiting("删除中...");
 					HttpGet(base.RootUrl + "ArticlePart/Delete", {
-						OpenID: userinfo.OpenID,
-						ID: $this.getAttribute("partid")
+						ID: userinfo.ID,
+						PartID: $this.getAttribute("partid")
 					}, function(data) {
 						plus.nativeUI.closeWaiting();
 						if(data != null) {
@@ -382,8 +382,8 @@
 	window.addEventListener("updateDesc", function(e) {
 		var t = e.detail.desc;
 		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			OpenID: userinfo.OpenID,
-			ID: $("#" + currEditID).attr("partid"),
+			ID: userinfo.ID,
+			PartID: $("#" + currEditID).attr("partid"),
 			Introduction: escape(t)
 		}, function(data) {
 			if(mui.os.plus) {
@@ -436,8 +436,8 @@
 			plus.nativeUI.showWaiting("保存中...");
 		}
 		HttpGet(base.RootUrl + "Article/Edit", {
-			OpenID: userinfo.OpenID,
-			ID: ArticleID,
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
 			Title: escape(Title),
 			MusicID: MusicID,
 			PartIDs: ids.join(",")
@@ -513,8 +513,8 @@
 	function Load(callback) {
 		//编辑文章
 		var data = {
-			OpenID: userinfo.OpenID,
-			ID: ArticleID
+			ID: userinfo.ID,
+			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
 			if(data != null) {

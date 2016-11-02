@@ -57,7 +57,7 @@
 				plus.nativeUI.showWaiting();
 			}
 			HttpGet(base.RootUrl + "FeedBack/Edit", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				Summary: escape(question.value)
 			}, function(data) {
 				if(mui.os.plus) {

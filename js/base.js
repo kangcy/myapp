@@ -7,7 +7,7 @@ var base = new function() {
 	/**
 	 * 列表每次请求数
 	 **/
-	this.PageSize = 10;
+	this.PageSize = 10; 
 
 	/**
 	 * 窗口动画持续时间
@@ -17,7 +17,7 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://139.224.51.196/app/";
+	this.RootUrl = "http://139.224.51.196/";
 
 	/**
 	 * 默认图片
@@ -161,7 +161,7 @@ var base = new function() {
 			var userId = this.getAttribute("userid");
 			var $this = $(this);
 			HttpGet(base.RootUrl + "Fan/Edit", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				ToUserID: userId
 			}, function(data) {
 				if(data != null) {
@@ -232,7 +232,6 @@ var base = new function() {
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						OpenID: data.OpenID,
 						Phone: data.Phone,
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,

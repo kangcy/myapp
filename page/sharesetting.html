@@ -212,7 +212,7 @@
 		plus.nativeUI.showWaiting("正在修改权限~~");
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "Article/EditArticlePower", {
-					OpenID: userinfo.OpenID,
+					ID: userinfo.ID,
 					ArticleID: ArticleID,
 					ArticlePower: ArticlePower,
 					ArticlePowerPwd: ArticlePowerPwd

@@ -58,7 +58,7 @@
 				plus.nativeUI.showWaiting();
 			}
 			HttpGet(base.RootUrl + "Comment/Edit", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				ArticleID: ArticleID,
 				Summary: escape(question.value)
 			}, function(data) {

@@ -221,7 +221,7 @@
 		//点赞
 		document.getElementById('zan').addEventListener('tap', function(event) {
 			HttpGet(base.RootUrl + "Zan/Edit", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				ArticleID: ArticleID
 			}, function(data) {
 				if(data != null) {
@@ -346,8 +346,8 @@
 	//加载文章
 	function Load(callback) {
 		var data = {
-			OpenID: userinfo.OpenID,
-			ID: ArticleID
+			ID: userinfo.ID,
+			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
 			if(data != null) {
@@ -436,8 +436,8 @@
 		mui.confirm('删除后将无法在微信浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
 			if(e.index == 0) {
 				HttpGet(base.RootUrl + "Article/Delete", {
-					OpenID: userinfo.OpenID,
-					ID: ArticleID
+					ID: userinfo.ID,
+					ArticleID: ArticleID
 				}, function(data) {
 					console.log(JSON.stringify(data))
 					if(data != null) {
@@ -504,7 +504,7 @@
 					return;
 				isLoading = true;
 				HttpGet(base.RootUrl + "Keep/Edit", {
-					OpenID: userinfo.OpenID,
+					ID: userinfo.ID,
 					ArticleID: ArticleID
 				}, function(data) {
 					if(data != null) {

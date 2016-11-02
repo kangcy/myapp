@@ -95,7 +95,6 @@
 	});
 
 	$(function() {
-		//初始化赋值
 		$("#avatar").attr("src", userinfo.Avatar);
 		$("#nickname").html(userinfo.NickName == "" ? "请填写" : userinfo.NickName);
 		$("#sex").html(userinfo.Sex);
@@ -120,7 +119,7 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditSex", {
-					OpenID: userinfo.OpenID,
+					ID: userinfo.ID,
 					Sex: items[0].value
 				}, function(data) {
 					if(mui.os.plus) {
@@ -148,7 +147,7 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditAddress", {
-					OpenID: userinfo.OpenID,
+					ID: userinfo.ID,
 					ProvinceID: items[0].value,
 					CityID: items[1].value,
 					ProvinceName: items[0].text,
@@ -193,7 +192,7 @@
 					plus.nativeUI.showWaiting();
 				}
 				HttpGet(base.RootUrl + "User/EditBirthday", {
-					OpenID: userinfo.OpenID,
+					ID: userinfo.ID,
 					Birthday: rs.text
 				}, function(data) {
 					if(mui.os.plus) {
@@ -236,7 +235,7 @@
 				return;
 			}
 			HttpGet(base.RootUrl + "User/EditAvatar", {
-				OpenID: userinfo.OpenID,
+				ID: userinfo.ID,
 				Avatar: url
 			}, function(data) {
 				mui.toast(data.result ? "编辑成功~" : data.message);
@@ -278,7 +277,7 @@
 			plus.nativeUI.showWaiting();
 		}
 		HttpGet(base.RootUrl + "User/EditNickName", {
-			OpenID: userinfo.OpenID,
+			ID: userinfo.ID,
 			NickName: t
 		}, function(data) {
 			if(mui.os.plus) {
@@ -300,7 +299,7 @@
 			plus.nativeUI.showWaiting();
 		}
 		HttpGet(base.RootUrl + "User/EditSignature", {
-			OpenID: userinfo.OpenID,
+			ID: userinfo.ID,
 			Signature: t
 		}, function(data) {
 			if(mui.os.plus) {
