@@ -262,7 +262,7 @@
 			}
 			HttpGet(base.RootUrl + "System/CheckUpdate", { 
 				version: version,
-				client: client
+				client: client 
 			}, function(data) {
 				console.log(JSON.stringify(data));
 				if(data == null) {
