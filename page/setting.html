@@ -111,7 +111,6 @@
 		},
 		swipeBack: false //启用右滑关闭功能
 	});
-	console.log(JSON.stringify(userinfo));
 	mui.ready(function() {
 
 		document.getElementById("phone").innerText = userinfo.Phone == "" ? "未绑定" : userinfo.Phone;
@@ -299,7 +298,7 @@
 	});
 
 	//更新绑定号码
-	function UpdatePhone(phone) {
+	function UpdatePhone(phone) { 
 		userinfo.Phone = phone;
 		document.getElementById("phone").innerText = phone == "" ? "未绑定" : phone;
 	}
@@ -373,7 +372,6 @@
 					default:
 						break;
 				}
-
 			});
 		} else {
 			authUserInfo(type, s);
@@ -396,7 +394,7 @@
 
 				var key = 0;
 				var source = 0;
-				switch(type) {
+				switch(id) {
 					case "weixin":
 						source = 1;
 						break;
@@ -410,9 +408,10 @@
 						break;
 				}
 				for(var j = 0; j < userinfo.UserLogin.length; j++) {
-					userinfo.UserLogin[j].Source == source
+					if(userinfo.UserLogin[j].Source == source) {
+						key = userinfo.UserLogin[j].ID;
+					}
 				}
-				
 				if(key > 0 && source > 0) {
 					HttpGet(base.RootUrl + "UserLogin/Delete", {
 						ID: key
@@ -427,6 +426,7 @@
 								return callback(data.message);
 							}
 						}
+						mui.toast("解绑成功");
 					});
 				}
 			}
@@ -472,6 +472,7 @@
 						if(data.result) {
 							base.UpdateUser(userinfo.ID);
 							userinfo = base.GetUserInfo();
+							mui.toast("绑定成功");
 						} else {
 							return callback(data.message);
 						}
