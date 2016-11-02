@@ -61,10 +61,10 @@
 						<div class="mui-switch-handle"></div>
 					</div>
 				</li>
-				<li class="mui-table-view-cell" onclick="BindEmail()">
+				<!--<li class="mui-table-view-cell" onclick="BindEmail()">
 					<span class="fl">绑定邮箱</span>
 					<span class="mui-pull-right caaa"></span>
-				</li>
+				</li>-->
 				<li class="mui-table-view-cell">
 					<span class="fl">清除缓存</span>
 					<span class="mui-pull-right caaa">60M</span>
@@ -183,7 +183,7 @@
 					document.getElementById("shareNickSwitch").classList.remove("mui-active");
 				} else {
 					if(data.result) {
-						userinfo.AutoMusic = autoMusic
+						userinfo.ShareNick = shareNick
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 					} else {
 						mui.toast("修改失败");
@@ -226,7 +226,6 @@
 	mui.plusReady(function() {
 		plus.oauth.getServices(function(services) {
 			auths = services;
-			console.log(JSON.stringify(auths));
 		}, function(e) {
 			alert("获取登录服务列表失败：" + e.message + " - " + e.code);
 		});
@@ -348,7 +347,7 @@
 
 	//登录操作 
 	function authLogin(type) {
-		mui.toast("正在绑定~~")
+		mui.toast("正在绑定~~");
 		var s;
 		for(var i = 0; i < auths.length; i++) {
 			if(auths[i].id == type) {
@@ -358,18 +357,32 @@
 		}
 		if(!s.authResult) {
 			s.login(function(e) {
-				mui.toast("绑定中~~");
 				authUserInfo(type, s);
 			}, function(e) {
-				mui.toast("登录认证失败~~");
+				mui.toast("用户取消");
+				switch(type) {
+					case "weixin":
+						mui("#weixinSwitch").switch().toggle();
+						break;
+					case "sinaweibo":
+						mui("#weiboSwitch").switch().toggle();
+						break;
+					case "qq":
+						mui("#qqSwitch").switch().toggle();
+						break;
+					default:
+						break;
+				}
+
 			});
 		} else {
-			mui.toast("已登录认证~~");
+			authUserInfo(type, s);
 		}
 	}
 
 	//注销 
 	function authLogout(id) {
+		mui.toast("正在解绑~~");
 		for(var i in auths) {
 			var s = auths[i];
 			if(s.id == id) {
@@ -378,6 +391,42 @@
 						console.log("注销登录认证成功~~");
 					}, function(e) {
 						console.log("注销登录认证失败~~");
+					});
+				}
+
+				var key = 0;
+				var source = 0;
+				switch(type) {
+					case "weixin":
+						source = 1;
+						break;
+					case "qq":
+						source = 2;
+						break;
+					case "sinaweibo":
+						source = 3;
+						break;
+					default:
+						break;
+				}
+				for(var j = 0; j < userinfo.UserLogin.length; j++) {
+					userinfo.UserLogin[j].Source == source
+				}
+				
+				if(key > 0 && source > 0) {
+					HttpGet(base.RootUrl + "UserLogin/Delete", {
+						ID: key
+					}, function(data) {
+						if(data == null) {
+							return callback("系统异常,请稍后再试~");
+						} else {
+							if(data.result) {
+								base.UpdateUser(userinfo.ID);
+								userinfo = base.GetUserInfo();
+							} else {
+								return callback(data.message);
+							}
+						}
 					});
 				}
 			}
@@ -394,35 +443,40 @@
 				var jsonObj = s.userInfo;
 				console.log("获取用户信息成功：" + josnStr);
 
-				var loginInfo = showData(type, jsonObj);
+				var openId = showData(type, jsonObj);
 
-				HttpGet(base.RootUrl + "User/BindPhone", {
+				var url = "";
+				switch(type) {
+					case "weixin":
+						url = "User/BindWeixin";
+						break;
+					case "sinaweibo":
+						url = "User/BindWeibo";
+						break;
+					case "qq":
+						url = "User/BindQQ";
+						break;
+					default:
+						break;
+				}
+				if(url == "" || openId == "") {
+					return mui.toast("授权失败");
+				}
+				HttpGet(base.RootUrl + url, {
 					ID: userinfo.ID,
-					Phone: phone
+					Key: openId
 				}, function(data) {
 					if(data == null) {
 						return callback("系统异常,请稍后再试~");
 					} else {
 						if(data.result) {
-							//更新用户缓存信息
-							data = data.message;
-
-							localStorage.setItem('$userinfo', JSON.stringify(info));
-							return callback();
+							base.UpdateUser(userinfo.ID);
+							userinfo = base.GetUserInfo();
 						} else {
 							return callback(data.message);
 						}
 					}
 				});
-
-				/*app.loginThird(loginInfo, function(err) {
-					if(err) {
-						mui.toast(err);
-						return;
-					}
-					plus.nativeUI.showWaiting("载入中...");
-					toMain();
-				});*/
 			}, function(e) {
 				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
 			});
@@ -431,32 +485,23 @@
 
 	//显示用户信息 
 	function showData(type, data) {
-		var loginInfo = {};
+		var openId
 		switch(type) {
 			case 'weixin':
 				//{"openid":"oRrdQt8RTwroyZTnROSsJKHRM1Yw","nickname":"一个傻瓜","sex":1,"language":"zh_CN","city":"Changzhou","province":"Jiangsu","country":"CN","headimgurl":"http://wx.qlogo.cn/mmopen/eytJa9K5jkpPNvxRBGM4nIVq8iaaAH7Al37gxgs7t3TomcxByyFmYcvxhmBPRRFwrtKHapYGs8OSTticyOWLhbanpmrgMQiabsR/0","privilege":[],"unionid":"oU5Yyt4lcveMTHQvHHnE_kymcuDQ"}
-				loginInfo.NickName = data.nickname;
-				loginInfo.Avatar = data.headimgurl;
-				loginInfo.Sex = data.sex == 1 ? 0 : 1;
-				loginInfo.OpenID = data.openid;
+				openId = data.openid;
 				break;
 			case 'qq':
 				//{"ret":0,"msg":"","is_lost":0,"nickname":"你好，陌生人","gender":"男","province":"江苏","city":"南京","figureurl":"http://qzapp.qlogo.cn/qzapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/30","figureurl_1":"http://qzapp.qlogo.cn/qzapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/50","figureurl_2":"http://qzapp.qlogo.cn/qzapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/100","figureurl_qq_1":"http://q.qlogo.cn/qqapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/40","figureurl_qq_2":"http://q.qlogo.cn/qqapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/100","is_yellow_vip":"0","vip":"0","yellow_vip_level":"0","level":"0","is_yellow_year_vip":"0"}
-				loginInfo.NickName = data.nickname;
-				loginInfo.Avatar = data.figureurl_qq_2;
-				loginInfo.Sex = data.gender == "男" ? 0 : 1;
-				loginInfo.OpenID = data.figureurl_qq_2.split("/")[4];
+				openId = data.figureurl_qq_2.split("/")[4];
 				break;
 			case 'sinaweibo':
 				//{"id":5332090239,"idstr":"5332090239","class":1,"screen_name":"康春阳93212","name":"康春阳93212","province":"100","city":"1000","location":"其他","description":"","url":"","profile_image_url":"http://tva4.sinaimg.cn/crop.0.0.100.100.50/005OQUftjw8elc7b5ibj4j302s02sa9v.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"u/5332090239","domain":"","weihao":"","gender":"m","followers_count":1,"friends_count":22,"pagefriends_count":0,"statuses_count":0,"favourites_count":0,"created_at":"Wed Oct 15 22:15:06 +0800 2014","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"","ptype":0,"allow_all_comment":true,"avatar_large":"http://tva4.sinaimg.cn/crop.0.0.100.100.180/005OQUftjw8elc7b5ibj4j302s02sa9v.jpg","avatar_hd":"http://tva4.sinaimg.cn/crop.0.0.100.100.1024/005OQUftjw8elc7b5ibj4j302s02sa9v.jpg","verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"online_status":0,"bi_followers_count":0,"lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"credit_score":80,"user_ability":0,"urank":3}
-				loginInfo.NickName = data.screen_name;
-				loginInfo.Avatar = data.avatar_large;
-				loginInfo.Sex = data.gender == "m" ? 0 : 1;
-				loginInfo.OpenID = data.id;
+				openId = data.id;
 				break;
 			default:
 				break;
 		}
-		return loginInfo;
+		return openId;
 	}
 </script>

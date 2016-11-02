@@ -78,7 +78,6 @@
 			if(!CheckPhone(phone)) {
 				return mui.toast('手机号码不合法');
 			}
-			console.log(userinfo.ID + "," + phone);
 			HttpGet(base.RootUrl + "User/BindPhone", {
 				ID: userinfo.ID,
 				Phone: phone
@@ -88,18 +87,18 @@
 				} else {
 					if(data.result) {
 						userinfo.Phone = phone;
-						localStorage.setItem('$userinfo', JSON.stringify(info));
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 
 						if(!settingPage) {
 							settingPage = plus.webview.getWebviewById('setting');
 						}
 						settingPage.evalJS("UpdatePhone('" + phone + "')");
+						mui.back();
 					} else {
 						return mui.toast(data.message);
 					}
 				}
 			});
-			mui.back();
 		}, false);
 	});
 
