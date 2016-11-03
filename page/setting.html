@@ -29,14 +29,12 @@
 			.mui-table-view:after {
 				height: 0px;
 			}
-		</style>
-		<style type="text/css">
+			/**进度条**/
+			
 			progress {
 				border-radius: 2px;
-				border-left: 1px #ccc solid;
-				border-right: 1px #ccc solid;
-				border-top: 1px #aaa solid;
 				background-color: #eee;
+				height: 1rem;
 			}
 			
 			progress::-webkit-progress-bar {
@@ -46,9 +44,21 @@
 			progress::-webkit-progress-value {
 				background-color: #aadd6a;
 			}
+			/**操作**/
 			
-			.updateProDiv {
-				display: none;
+			.myprogress {
+				position: fixed;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+				z-index: 1000;
+				display: block;
+			}
+			
+			.myprogress .myaction_body {
+				width: 100%;
+				padding: 5%;
+				display: inline-block;
 			}
 		</style>
 	</head>
@@ -102,14 +112,11 @@
 						<div class="mui-switch-handle"></div>
 					</div>
 				</li>
-				<li class="mui-table-view-cell" onclick="Share(1)">
-					<div class="updateProDiv">更新进度:
-						<progress value="" max="" id="proDownFile"></progress>
-						<span class="persent"></span>
-					</div>
+				<li class="mui-table-view-cell" id="checkupdate">
 					<span class="fl">检查更新</span>
 					<span class="fr caaa" id="version"></span>
 				</li>
+
 			</ul>
 			<div style="background: #eee;width:100%;height:10px;"></div>
 			<ul class="mui-table-view f13">
@@ -120,7 +127,19 @@
 				</li>
 			</ul>
 		</div>
-
+		<!--更新进度条-->
+		<div class="mytanbg hide" id="myprogressbg"></div>
+		<div class="myprogress hide" id="myprogress">
+			<div class="tc c000 myaction_body">
+				<ul class="mui-table-view f13" style="border-radius: 20px;">
+					<li class="mui-table-view-cell">
+						<span class="fl" id="checkupdate">更新进度</span>
+						<span class="persent fr ml10 caaa" id="persent" style="line-height:1rem;">0%</span>
+						<progress class="fr" value="" max="" id="proDownFile" style="width:10rem;"></progress>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -248,60 +267,73 @@
 	});
 
 	var auths = {};
+	var version = "";
 	mui.plusReady(function() {
 
-		//检查更新
 		plus.runtime.getProperty(plus.runtime.appid, function(inf) {
-			var version = inf.version;
-			document.getElementById("version").innerText = "v" + version;
+			version = inf.version;
+			document.getElementById("version").innerText = "v" + inf.version;
+		});
+
+		//检查更新
+		document.getElementById("checkupdate").addEventListener('tap', function(event) {
+			plus.nativeUI.showWaiting("检查中...");
 			var client;
 			if(mui.os.ios) {
 				client = 'ios';
 			} else {
-				client = 'android'; 
+				client = 'android';
 			}
-			HttpGet(base.RootUrl + "System/CheckUpdate", { 
+			HttpGet(base.RootUrl + "System/CheckUpdate", {
 				version: version,
-				client: client 
+				client: client
 			}, function(data) {
-				console.log(JSON.stringify(data));
+				plus.nativeUI.closeWaiting();
 				if(data == null) {
-					return mui.toast("当前已是最新版本");
+					return mui.toast("网络异常,请稍候再试");
 				}
-				if(data.status) {
-					mui.confirm('最新version是：' + data.version + ',是否更新', '发现最新版本', ['是', '否'], function(z) {
+				if(data.result) {
+					var remark = data.remark;
+					remark = remark.replace(" ", "\n");
+					mui.confirm(remark, '发现最新版本', ['立即更新', '取消更新'], function(z) {
 						if(z.index == 0) {
-							$('.updateProDiv').css('display', 'block');
-							$('#update').css('display', 'none');
-							return;
+							document.getElementById("checkupdate").style.display = "none";
+							document.getElementById("myprogressbg").classList.remove("hide");
+							document.getElementById("myprogress").classList.remove("hide");
 							var dtask = plus.downloader.createDownload(data.url, {}, function(d, status) {
 								if(status == 200) {
 									clearInterval(i);
-									$('.persent').html("100%");
-									plus.nativeUI.toast("正在准备环境，请稍后！");
-									sleep(1000);
-									var path = d.filename; //_downloads yijietong.apk
-									console.log(d.filename);
-									$('#update').css('display', 'block');
-									$('.updateProDiv').css('display', 'none');
-									plus.runtime.install(path); // 安装下载的apk文件
+									document.getElementById("persent").innerHTML = "100%";
+									plus.nativeUI.toast("正在准备安装环境，请稍后！");
+									setTimeout(function() {
+										var path = d.filename; //_downloads yijietong.apk
+										console.log(path);
+										plus.runtime.install(path); // 安装下载的apk文件
+									}, 1000);
 								} else {
-									alert('Download failed:' + status);
+									console.log("更新失败");
 								}
 							});
 							dtask.start();
 							var i = setInterval(function() {
 								var totalSize = dtask.totalSize;
 								var downloadedSize = dtask.downloadedSize;
-								$('#proDownFile').attr('value', downloadedSize);
-								$('#proDownFile').attr('max', totalSize);
-								console.log(dtask.downloadedSize);
-								console.log(dtask.totalSize);
-							}, 100); //1000为1秒钟
+								console.log(totalSize + "," + downloadedSize);
+								/*if(totalSize == 0) {
+									clearInterval(i);
+									return;
+								}*/
+								document.getElementById("proDownFile").setAttribute("value", downloadedSize);
+								document.getElementById("proDownFile").setAttribute("max", totalSize);
+								document.getElementById("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
+							}, 100);
+						} else {
+							document.getElementById("checkupdate").style.display = "block";
 						}
 					});
 				} else {
-					mui.toast("当前已是最新版本");
+					document.getElementById("checkupdate").style.display = "block";
+					mui.toast(data.message);
 				}
 			});
 		});
@@ -309,7 +341,7 @@
 		plus.oauth.getServices(function(services) {
 			auths = services;
 		}, function(e) {
-			alert("获取登录服务列表失败：" + e.message + " - " + e.code);
+			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
 		});
 
 		if(userinfo.Phone == "") {
