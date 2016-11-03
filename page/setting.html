@@ -45,8 +45,6 @@
 			progress::-webkit-progress-value {
 				background-color: #aadd6a;
 			}
-			/**操作**/
-			
 			.myprogress {
 				position: fixed;
 				left: 0px;
@@ -319,7 +317,6 @@
 							var i = setInterval(function() {
 								var totalSize = dtask.totalSize;
 								var downloadedSize = dtask.downloadedSize;
-								console.log(totalSize + "," + downloadedSize);
 								document.getElementById("proDownFile").setAttribute("value", downloadedSize);
 								document.getElementById("proDownFile").setAttribute("max", totalSize);
 								if(totalSize > 0) {

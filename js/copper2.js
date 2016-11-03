@@ -59,6 +59,8 @@ function galleryImgs(long, width, callback) {
 
 //照片裁剪类  
 function cutImg(long, width, callback) {
+	document.getElementById("openpop").style.display = "none";
+	document.getElementById("closepop").style.display = "inline-block";
 	if(long > 0 && width > 0) {
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
@@ -108,12 +110,14 @@ function rotateimgleft() {
 //打开裁剪窗口
 function openpop() {
 	cutImg(0, 0, function() {
-	
+
 	})
 }
 
 //关闭裁剪窗口
 function closepop() {
+	document.getElementById("closepop").style.display = "none";
+	document.getElementById("openpop").style.display = "inline-block";
 	$("#readyimg").cropper('destroy');
 	iscutimging = false;
 }
@@ -155,6 +159,8 @@ function Upload(imgurl, callback) {
 				if($.isFunction(callback)) {
 					callback(base.RootUrl + data.message);
 				}
+				document.getElementById("closepop").style.display = "none";
+				document.getElementById("openpop").style.display = "inline-block";
 				$("#readyimg").cropper('destroy');
 				iscutimging = false;
 				plus.nativeUI.closeWaiting();
