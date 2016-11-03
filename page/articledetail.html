@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css" />
 		<style type="text/css">
 			#detail {
@@ -64,7 +65,6 @@
 				width: 100%;
 				z-index: 1000;
 				background: #fff;
-				display: none;
 			}
 			
 			.myaction .myaction_body {
@@ -134,7 +134,7 @@
 		</div>
 		<!--分享-->
 		<div class="mytanbg hide" id="mysharebg" onclick="ShareTan(0)"></div>
-		<div class="myshare" id="myshare">
+		<div class="myshare hide" id="myshare">
 			<p class="f16 c000 tc mt10 mb0">分享到</p>
 			<div class="tc c000 myshare_body">
 				<div class="myshare_items" onclick="ShareAction(1)"><img src="../images/share/1.png" />
@@ -172,7 +172,7 @@
 		</div>
 		<!--操作-->
 		<div class="mytanbg hide" id="myactionbg" onclick="ActionTan(0)"></div>
-		<div class="myaction" id="myaction">
+		<div class="myaction hide" id="myaction">
 			<div class="tc c000 myaction_body">
 				<div class="myaction_items" onclick="Delete()"><img src="../images/article/1.png" />
 					<p class="f11 mb0 c000">删除</p>
@@ -439,7 +439,6 @@
 					ID: userinfo.ID,
 					ArticleID: ArticleID
 				}, function(data) {
-					console.log(JSON.stringify(data))
 					if(data != null) {
 						if(data.result) {
 							plus.webview.close(plus.webview.currentWebview());
@@ -545,10 +544,10 @@
 		}
 		if(index == 0) {
 			$("#mysharebg").addClass("hide");
-			$("#myshare").slideUp("fast");
+			$("#myshare").removeClass("bounceIn").addClass("bounceOut");
 		} else {
 			$("#mysharebg").removeClass("hide");
-			$("#myshare").slideDown("fast");
+			$("#myshare").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
 	}
 
@@ -556,10 +555,10 @@
 	function ActionTan(index) {
 		if(index == 0) {
 			$("#myactionbg").addClass("hide");
-			$("#myaction").slideUp("fast");
+			$("#myaction").removeClass("bounceIn").addClass("bounceOut");
 		} else {
 			$("#myactionbg").removeClass("hide");
-			$("#myaction").slideDown("fast");
+			$("#myaction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
 	}
 

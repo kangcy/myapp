@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/animate.css">
 		<style type="text/css">
 			body {
 				background: #eee;
@@ -300,18 +301,18 @@
 							document.getElementById("checkupdate").style.display = "none";
 							document.getElementById("myprogressbg").classList.remove("hide");
 							document.getElementById("myprogress").classList.remove("hide");
+							document.getElementById("myprogress").classList.add("bounceIn");
 							var dtask = plus.downloader.createDownload(data.url, {}, function(d, status) {
 								if(status == 200) {
 									clearInterval(i);
 									document.getElementById("persent").innerHTML = "100%";
 									plus.nativeUI.toast("正在准备安装环境，请稍后！");
 									setTimeout(function() {
-										var path = d.filename; //_downloads yijietong.apk
-										console.log(path);
+										var path = d.filename;
 										plus.runtime.install(path); // 安装下载的apk文件
 									}, 1000);
 								} else {
-									console.log("更新失败");
+									mui.toast("更新失败");
 								}
 							});
 							dtask.start();
@@ -319,13 +320,11 @@
 								var totalSize = dtask.totalSize;
 								var downloadedSize = dtask.downloadedSize;
 								console.log(totalSize + "," + downloadedSize);
-								/*if(totalSize == 0) {
-									clearInterval(i);
-									return;
-								}*/
 								document.getElementById("proDownFile").setAttribute("value", downloadedSize);
 								document.getElementById("proDownFile").setAttribute("max", totalSize);
-								document.getElementById("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
+								if(totalSize > 0) {
+									document.getElementById("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
+								}
 							}, 100);
 						} else {
 							document.getElementById("checkupdate").style.display = "block";

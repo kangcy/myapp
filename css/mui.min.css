@@ -2916,7 +2916,7 @@ select:focus {
 
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
 	color: #97CC00;
-	border-bottom: 0.125rem solid #97CC00; 
+	border-bottom: 0.125rem solid #97CC00;
 	background: 0 0
 }
 
@@ -5031,7 +5031,6 @@ body>.mui-progressbar {
 	width: 100%;
 	z-index: 1000;
 	background: #fff;
-	display: none;
 }
 
 .myshare .myshare_body {
@@ -5076,7 +5075,6 @@ body>.mui-progressbar {
 	-o-text-shadow: 0px 0px 1px #333 !important;
 	-moz-text-shadow: 0px 0px 1px #333 !important;
 }
-
 
 /*
   1: 0.0625rem
