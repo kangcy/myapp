@@ -25,24 +25,28 @@
 		</header>
 		<div class="mui-content">
 			<div style="padding: 5%;">
-				<textarea id='question' class="mui-input-clear question f13" maxlength="500" placeholder="不超过500个字......" style="border: 0px;height: 400px;line-height:1.25rem;"></textarea>
+				<!--<textarea id='question' class="mui-input-clear question f13" maxlength="500" placeholder="不超过500个字......" style="border: 0px;height: 400px;line-height:1.25rem;"></textarea>-->
+				<div id='question' class="mui-input-clear question f13" contenteditable="true" maxlength="500" placeholder="不超过500个字......" style="height:auto;min-height:400px;line-height:1.25rem;outline:0px;">
+					<div bold="false" align="false" font="false" class="f13"></div>
+				</div>
 			</div>
 		</div>
 		<nav class="mui-bar mui-bar-tab" style="background:#F4F4F4;display:inline-block;">
-			<img src="../images/edittxt/1.png" class="fl ml5" />
-			<img src="../images/edittxt/2.png" class="fl ml5" />
-			<img src="../images/edittxt/3.png" class="fl ml5" />
-			<img src="../images/edittxt/4.png" class="fl ml5" />
-			<img src="../images/edittxt/5.png" class="fl ml5" />
+			<img src="../images/edittxt/1.png" class="fl ml5" id="btn10" />
+			<img src="../images/edittxt/2.png" class="fl ml5" id="btn20" />
+			<img src="../images/edittxt/3.png" class="fl ml5" id="btn30" />
+			<img src="../images/edittxt/4.png" class="fl ml5" id="btn40" />
+			<img src="../images/edittxt/5.png" class="fl ml5" id="btn50" />
 
-			<img src="../images/edittxt/01.png" class="fl ml5 hide" />
-			<img src="../images/edittxt/02.png" class="fl ml5 hide" />
-			<img src="../images/edittxt/03.png" class="fl ml5 hide" />
-			<img src="../images/edittxt/05.png" class="fl ml5 hide" />
+			<img src="../images/edittxt/01.png" class="fl ml5 hide" id="btn11" />
+			<img src="../images/edittxt/02.png" class="fl ml5 hide" id="btn21" />
+			<img src="../images/edittxt/03.png" class="fl ml5 hide" id="btn31" />
+			<img src="../images/edittxt/05.png" class="fl ml5 hide" id="btn51" />
 		</nav>
 	</body>
 
 </html>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script type="text/javascript">
@@ -53,12 +57,64 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
+	mui.ready(function() {
+		document.getElementById("question").onkeyup = function() {
+			console.log("enter")
+			document.getElementById("question").innerHTML = document.getElementById("question").innerHTML.replace(/(^.{500}).*/g, '$1');
+		}
+
+		//加粗
+		document.getElementById("btn10").addEventListener('tap', function(event) {
+			$("#question>div").css("bold", "bold").attr("bold", "true");
+		}, false);
+
+		//字体放大
+		document.getElementById("btn20").addEventListener('tap', function(event) {
+			$("#question>div").removeClass("f14").addClass("f13").font("true");
+		}, false);
+
+		//文字居中
+		document.getElementById("btn30").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		//颜色
+		document.getElementById("btn40").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		//超链接
+		document.getElementById("btn50").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		//取消加粗
+		document.getElementById("btn11").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		//字体缩小
+		document.getElementById("btn21").addEventListener('tap', function(event) {
+			$("#question>div").removeClass("f14").addClass("f13").attr("font", "false");
+		}, false);
+
+		//取消文字居中
+		document.getElementById("btn31").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		//取消超链接
+		document.getElementById("btn51").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+	})
+
 	var addarticlePage = null;
 	mui.plusReady(function() {
 
 		var question = document.getElementById("question");
 		var self = plus.webview.currentWebview();
-		question.value = self.title;
+		question.innerHTML = self.title;
 		question.focus();
 		//返回
 		mui.back = function() {
