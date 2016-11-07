@@ -115,21 +115,7 @@
 		//超链接
 		document.getElementById("btn50").addEventListener('tap', function(event) {
 			$("#btn50,#btn51").toggleClass("hide");
-			mui.openWindow({
-				id: 'edithref',
-				url: 'edithref.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					Link: "",
-					Text: ""
-				}
-			});
+			ShowLink();
 		}, false);
 
 		//取消加粗
@@ -152,8 +138,23 @@
 
 		//取消超链接
 		document.getElementById("btn51").addEventListener('tap', function(event) {
+			mui.openWindow({
+				id: 'showhref',
+				url: 'showhref.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					Link: "http://www.baidu.com"
+				}
+			});
+			return;
 
-			$("#btn50,#btn51").toggleClass("hide");
+			ShowLink();
 		}, false);
 	})
 
@@ -161,7 +162,6 @@
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
-
 		var html = self.title;
 		if(base.IsNullOrEmpty(html)) {
 			html = '<div class="edit f12 tl"></div>';
@@ -202,6 +202,7 @@
 			$("#btn50").removeClass("hide");
 		}
 
+		//字数限制
 		document.getElementById("edit").ontouchend = function() {
 			document.getElementById("edit").innerHTML = document.getElementById("edit").innerHTML.replace(/(^.{500}).*/g, '$1');
 		}
@@ -232,4 +233,52 @@
 			mui.back();
 		}, false);
 	});
+
+	//打开编辑
+	function ShowLink() {
+		var link = "";
+		var text = link;
+		var length = $("#edit").find("a").length;
+		if(length > 0) {
+			link = $("#edit").find("a").attr("href");
+			text = $("#edit").find("a").html();
+		}
+		mui.openWindow({
+			id: 'edithref',
+			url: 'edithref.html',
+			show: {
+				autoShow: true,
+				duration: base.AnimateDuration
+			},
+			waiting: {
+				autoShow: false
+			},
+			extras: {
+				Link: link,
+				Text: text
+			}
+		});
+	}
+
+	//编辑超链接
+	function UpdateLink(link, text) {
+		if(!base.IsNullOrEmpty(link) && !base.IsNullOrEmpty(text)) {
+			var length = $("#edit").find("a").length;
+			if(length == 0) {
+				$("#edit").append('<a href="' + link + '">' + text + '</a>')
+			} else {
+				$("#edit").find("a").attr("href", link).html(text);
+			}
+		}
+	}
+
+	//删除超链接
+	function DeleteLink(link, text) {
+		var length = $("#edit").find("a").length;
+		if(length > 0) {
+			$("#edit").find("a").remove();
+		}
+		$("#btn51").addClass("hide");
+		$("#btn50").removeClass("hide");
+	}
 </script>

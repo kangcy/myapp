@@ -29,18 +29,18 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon blue fl mt6" style="font-size:16px;">取消</a>
-			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;" onclick="Submit()">删除</a>
+			<a id="delete" class="mui-icon blue fr mt6" style="font-size:16px;">删除</a>
 			<h1 class="mui-title c333 f15" id="title">添加链接</h1>
 		</header>
 		<div class="mui-content">
 			<form class="mui-input-group" style="padding:5%;">
 				<div class="mui-input-row">
 					<label class="f13">链接地址</label>
-					<input id="phone" type="tel" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接地址" maxlength="11"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
+					<input id="link" type="url" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接地址"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
 				</div>
 				<div class="mui-input-row">
 					<label class="f13">链接描述</label>
-					<input type="text" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接描述"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
+					<input id="text" type="text" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接描述"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
 				</div>
 				<p class="f13 tc mt20 full fl" style="color:#007aff;">链接到我的文章</p>
 				<div id="submit" class="tc f13 cfff mt10 full fl" style="width:100%;height:2rem;line-height:2rem;background:#007aff;border-radius:5px;">添加</div>
@@ -53,6 +53,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -61,46 +62,63 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	var settingPage = null;
+	var parentPage = null;
 
 	mui.ready(function() {
-		
+
 	})
 
 	mui.plusReady(function() {
+
+		var self = plus.webview.currentWebview();
+		document.getElementById('link').value = self.Link || "";
+		document.getElementById('text').value = self.Text || "";
+
 		//返回
 		mui.back = function() {
 			plus.webview.currentWebview().close();
 		}
 
+		//取消
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		});
+
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
-			var phone = document.getElementById('phone').value;
-			if(!CheckPhone(phone)) {
-				return mui.toast('手机号码不合法');
+			if(isLoading) {
+				return;
 			}
-			HttpGet(base.RootUrl + "User/BindPhone", {
-				ID: userinfo.ID,
-				Phone: phone
-			}, function(data) {
-				if(data == null) {
-					return mui.toast("系统异常,请稍后再试~");
-				} else {
-					if(data.result) {
-						userinfo.Phone = phone;
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			isLoading = true;
+			var link = document.getElementById('link').value;
+			var text = document.getElementById('text').value;
+			if(base.IsNullOrEmpty(link)) {
+				isLoading = false;
+				return mui.toast('请填写链接地址');
+			}
+			if(base.IsNullOrEmpty(text)) {
+				isLoading = false;
+				return mui.toast('请填写链接描述');
+			}
+			if(!parentPage) {
+				parentPage = plus.webview.getWebviewById('editdesc');
+			}
+			parentPage.evalJS("UpdateLink('" + link + "','" + text + "')");
+			mui.back();
+		});
 
-						if(!settingPage) {
-							settingPage = plus.webview.getWebviewById('setting');
-						}
-						settingPage.evalJS("UpdatePhone('" + phone + "')");
-						mui.back();
-					} else {
-						return mui.toast(data.message);
-					}
-				}
-			});
-		}, false);
+		//删除
+		document.getElementById("delete").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			if(!parentPage) {
+				parentPage = plus.webview.getWebviewById('editdesc');
+			}
+			parentPage.evalJS("DeleteLink('" + link + "," + text + "')");
+			mui.back();
+		});
 	});
 
 	//手机号码校验

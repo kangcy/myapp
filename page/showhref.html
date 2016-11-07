@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>外链跳转</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<style type="text/css">
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				margin: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script type="text/javascript">
+	var Link = "";
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false, //启用右滑关闭功能
+		subpages: [{
+			id: 'showhrefsub',
+			url: 'showhrefsub.html',
+			styles: {
+				top: '0px',
+				bottom: '0px',
+			}
+		}]
+	});
+
+	mui.plusReady(function() {
+
+		var self = plus.webview.currentWebview();
+		Link = self.Link || "";
+
+		//返回
+		mui.back = function() {
+			plus.webview.currentWebview().close();
+		}
+	});
+
+	var contentWebview = null;
+
+	function InitSubPage() {
+		if(contentWebview == null) {
+			contentWebview = plus.webview.getWebviewById("showhrefsub");
+		}
+		contentWebview.evalJS("Init('" + Link "')");
+	}
+</script>
