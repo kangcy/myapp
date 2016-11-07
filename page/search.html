@@ -65,7 +65,7 @@
 		});
 	});
 
-	window.addEventListener("InitSubPage", function(e) {
+	function InitSubPage() {
 		document.getElementById("btnSearch").addEventListener('tap', function(e) {
 			if(search.value == "") {
 				return mui.toast("请输入搜索内容~");

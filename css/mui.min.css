@@ -4856,8 +4856,8 @@ body>.mui-progressbar {
 
 .tr {
 	text-align: right !important;
-}
-
+} 
+ 
 .tc {
 	text-align: center !important;
 }
@@ -4869,6 +4869,7 @@ body>.mui-progressbar {
 .initial {
 	position: initial !important;
 }
+.td{text-decoration:underline;}
 
 
 /*头尾*/

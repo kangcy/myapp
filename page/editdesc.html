@@ -138,22 +138,6 @@
 
 		//取消超链接
 		document.getElementById("btn51").addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'showhref',
-				url: 'showhref.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					Link: "http://www.baidu.com"
-				}
-			});
-			return;
-
 			ShowLink();
 		}, false);
 	})
@@ -194,7 +178,7 @@
 			$("#btn30").removeClass("hide");
 		}
 
-		if($item.find("a").length > 0) {
+		if($item.find("span").length > 0) {
 			$("#btn50").addClass("hide");
 			$("#btn51").removeClass("hide");
 		} else {
@@ -238,10 +222,10 @@
 	function ShowLink() {
 		var link = "";
 		var text = link;
-		var length = $("#edit").find("a").length;
+		var length = $("#edit").find("span").length;
 		if(length > 0) {
-			link = $("#edit").find("a").attr("href");
-			text = $("#edit").find("a").html();
+			link = $("#edit").find("span").attr("link");
+			text = $("#edit").find("span").html();
 		}
 		mui.openWindow({
 			id: 'edithref',
@@ -263,20 +247,20 @@
 	//编辑超链接
 	function UpdateLink(link, text) {
 		if(!base.IsNullOrEmpty(link) && !base.IsNullOrEmpty(text)) {
-			var length = $("#edit").find("a").length;
+			var length = $("#edit").find("span").length;
 			if(length == 0) {
-				$("#edit").append('<a href="' + link + '">' + text + '</a>')
+				$("#edit").append('<span class="link td" link="' + link + '">' + text + '</span>')
 			} else {
-				$("#edit").find("a").attr("href", link).html(text);
+				$("#edit").find("span").attr("link", link).html(text);
 			}
 		}
 	}
 
 	//删除超链接
 	function DeleteLink(link, text) {
-		var length = $("#edit").find("a").length;
+		var length = $("#edit").find("span").length;
 		if(length > 0) {
-			$("#edit").find("a").remove();
+			$("#edit").find("span").remove();
 		}
 		$("#btn51").addClass("hide");
 		$("#btn50").removeClass("hide");

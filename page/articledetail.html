@@ -271,6 +271,24 @@
 			});
 		});
 
+		//打开外链
+		mui('#detail').on('tap', 'span.link', function() {
+			mui.openWindow({
+				id: 'showhref',
+				url: 'showhref.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					Link: this.getAttribute("link")
+				}
+			});
+		});
+
 		//更新文章评论数
 		window.addEventListener("UpdateComment", function(e) {
 			Comments += 1;

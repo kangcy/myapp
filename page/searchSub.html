@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.css">
 	</head>
- 
+
 	<body>
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
@@ -106,7 +106,7 @@
 		});
 
 		var parentPage = plus.webview.getWebviewById("search");
-		mui.fire(parentPage, "InitSubPage", {});
+		parentPage.evalJS("InitSubPage()");
 	});
 
 	//加载搜索文章 

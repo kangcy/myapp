@@ -131,7 +131,7 @@
 				id: 'edittitle',
 				url: 'edittitle.html',
 				show: {
-					autoShow: true,
+					autoShow: true, 
 					duration: base.AnimateDuration
 				},
 				waiting: {
@@ -274,6 +274,7 @@
 
 		//新增视频
 		mui('#edit').on('tap', '.edit-add-video', function() {
+			return mui.toast("暂未开放，敬请期待~~");
 			if(mui.os.plus) {
 				plus.nativeUI.showWaiting("创建中...");
 			}
