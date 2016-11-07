@@ -93,7 +93,7 @@
 
 	mui.plusReady(function() {
 		var parentPage = plus.webview.getWebviewById("article");
-		mui.fire(parentPage, "InitSubPage", {});
+		parentPage.evalJS("InitSubPage()");
 	});
 
 	//初始化获取参数

@@ -25,7 +25,7 @@
 </html>
 <script src="../js/mui.min.js"></script>
 <script type="text/javascript">
-	var Link = "";
+	var Link = null;
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -58,6 +58,8 @@
 		if(contentWebview == null) {
 			contentWebview = plus.webview.getWebviewById("showhrefsub");
 		}
-		contentWebview.evalJS("Init('" + Link "')");
+		mui.fire(contentWebview, 'Init', {
+			Link: Link
+		});
 	}
 </script>

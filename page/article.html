@@ -86,10 +86,10 @@
 	});
 
 	//初始化子页面
-	window.addEventListener("InitSubPage", function(e) {
+	function InitSubPage() {
 		if(contentWebview == null) {
 			contentWebview = plus.webview.getWebviewById("articleSub");
 		}
 		contentWebview.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
-	});
+	}
 </script>

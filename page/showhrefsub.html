@@ -22,10 +22,10 @@
 
 	mui.plusReady(function() {
 		var parentPage = plus.webview.getWebviewById("showhref");
-		mui.fire(parentPage, "InitSubPage", {});
+		parentPage.evalJS("InitSubPage()");
 	});
 
-	function Init(url) {
-		window.location.href = url;
-	}
+	window.addEventListener("Init", function(e) {
+		window.location.href = e.detail.Link;
+	});
 </script>
