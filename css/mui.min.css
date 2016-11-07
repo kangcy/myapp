@@ -2517,17 +2517,16 @@ select:focus {
 
 .mui-input-row label {
 	font-family: 'Helvetica Neue', Helvetica, sans-serif;
-	line-height: 1.1;
 	float: left;
-	width: 35%;
-	padding: 11px 15px;
+	width: 25%;
+	padding: 11px 10px;
 }
 
 .mui-input-row label~ input,
 .mui-input-row label~ select,
 .mui-input-row label~ textarea {
 	float: right;
-	width: 65%;
+	width: 75%;
 	margin-bottom: 0;
 	padding-left: 0;
 	border: 0;

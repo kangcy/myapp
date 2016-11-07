@@ -15,6 +15,13 @@
 				margin-top: 7px;
 			}
 			
+			.color {
+				width: 20px;
+				height: 20px;
+				margin: 15px;
+				display: inline-block;
+			}
+			
 			.edit {
 				height: auto;
 				min-height: 400px;
@@ -32,10 +39,18 @@
 		</header>
 		<div class="mui-content">
 			<div style="padding: 5%;" id="divedit">
-				<!--<textarea id='question' class="mui-input-clear question f13" maxlength="500" placeholder="不超过500个字......" style="border: 0px;height: 400px;line-height:1.25rem;"></textarea>-->
-				<!--<div id='edit' bold="false" align="false" font="false" class="edit f13" contenteditable="true" placeholder="不超过500个字......"></div>-->
+
 			</div>
 		</div>
+		<nav id="color" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
+			<div class="color fl" style="background:#000;" color="#000"></div>
+			<div class="color fl" style="background:#808080;" color="#808080"></div>
+			<div class="color fl" style="background:#ED2308;" color="#ED2308"></div>
+			<div class="color fl" style="background:#FF8A00;" color="#FF8A00"></div>
+			<div class="color fl" style="background:#39B54A;" color="#39B54A"></div>
+			<div class="color fl" style="background:#167EFB;" color="#167EFB"></div>
+			<div class="color fl" style="background:#B04FBB;" color="#B04FBB"></div>
+		</nav>
 		<nav class="mui-bar mui-bar-tab" style="background:#F4F4F4;display:inline-block;">
 			<img src="../images/edittxt/1.png" class="fl ml5 hide" id="btn10" />
 			<img src="../images/edittxt/01.png" class="fl ml5 hide" id="btn11" />
@@ -66,6 +81,7 @@
 	});
 
 	mui.ready(function() {
+
 		//加粗
 		document.getElementById("btn10").addEventListener('tap', function(event) {
 			$("#edit").addClass("bold");
@@ -86,8 +102,15 @@
 
 		//颜色
 		document.getElementById("btn40").addEventListener('tap', function(event) {
-
+			$("#color").toggleClass("hide");
 		}, false);
+
+		//切换颜色
+		mui('#color').on('tap', '.color', function() {
+			var $this = $(this);
+			$("#edit").css("color", $this.attr("color"));
+			$("#color").toggleClass("hide");
+		});
 
 		//超链接
 		document.getElementById("btn50").addEventListener('tap', function(event) {
@@ -141,7 +164,7 @@
 
 		var html = self.title;
 		if(base.IsNullOrEmpty(html)) {
-			html = '<div class="edit f12 tl" placeholder="不超过500个字......"></div>';
+			html = '<div class="edit f12 tl"></div>';
 		}
 		$("#divedit").html(html).find("div").attr({
 			"id": "edit",
@@ -180,7 +203,6 @@
 		}
 
 		document.getElementById("edit").ontouchend = function() {
-			console.log("enter")
 			document.getElementById("edit").innerHTML = document.getElementById("edit").innerHTML.replace(/(^.{500}).*/g, '$1');
 		}
 
