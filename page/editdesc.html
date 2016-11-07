@@ -14,6 +14,13 @@
 				height: 35px;
 				margin-top: 7px;
 			}
+			
+			.edit {
+				height: auto;
+				min-height: 400px;
+				line-height: 1.25rem;
+				outline: 0px;
+			}
 		</style>
 	</head>
 
@@ -24,23 +31,23 @@
 			<h1 class="mui-title c333">编辑文字</h1>
 		</header>
 		<div class="mui-content">
-			<div style="padding: 5%;">
+			<div style="padding: 5%;" id="divedit">
 				<!--<textarea id='question' class="mui-input-clear question f13" maxlength="500" placeholder="不超过500个字......" style="border: 0px;height: 400px;line-height:1.25rem;"></textarea>-->
-				<div id='question' class="mui-input-clear question f13" contenteditable="true" maxlength="500" placeholder="不超过500个字......" style="height:auto;min-height:400px;line-height:1.25rem;outline:0px;">
-					<div bold="false" align="false" font="false" class="f13"></div>
-				</div>
+				<!--<div id='edit' bold="false" align="false" font="false" class="edit f13" contenteditable="true" placeholder="不超过500个字......"></div>-->
 			</div>
 		</div>
 		<nav class="mui-bar mui-bar-tab" style="background:#F4F4F4;display:inline-block;">
-			<img src="../images/edittxt/1.png" class="fl ml5" id="btn10" />
-			<img src="../images/edittxt/2.png" class="fl ml5" id="btn20" />
-			<img src="../images/edittxt/3.png" class="fl ml5" id="btn30" />
-			<img src="../images/edittxt/4.png" class="fl ml5" id="btn40" />
-			<img src="../images/edittxt/5.png" class="fl ml5" id="btn50" />
-
+			<img src="../images/edittxt/1.png" class="fl ml5 hide" id="btn10" />
 			<img src="../images/edittxt/01.png" class="fl ml5 hide" id="btn11" />
+
+			<img src="../images/edittxt/2.png" class="fl ml5 hide" id="btn20" />
 			<img src="../images/edittxt/02.png" class="fl ml5 hide" id="btn21" />
+
+			<img src="../images/edittxt/3.png" class="fl ml5 hide" id="btn30" />
 			<img src="../images/edittxt/03.png" class="fl ml5 hide" id="btn31" />
+			<img src="../images/edittxt/4.png" class="fl ml5" id="btn40" />
+			<img src="../images/edittxt/5.png" class="fl ml5 hide" id="btn50" />
+
 			<img src="../images/edittxt/05.png" class="fl ml5 hide" id="btn51" />
 		</nav>
 	</body>
@@ -49,6 +56,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
 	mui.init({
 		gestureConfig: {
@@ -58,64 +66,124 @@
 	});
 
 	mui.ready(function() {
-		document.getElementById("question").onkeyup = function() {
-			console.log("enter")
-			document.getElementById("question").innerHTML = document.getElementById("question").innerHTML.replace(/(^.{500}).*/g, '$1');
-		}
-
 		//加粗
 		document.getElementById("btn10").addEventListener('tap', function(event) {
-			$("#question>div").css("bold", "bold").attr("bold", "true");
+			$("#edit").addClass("bold");
+			$("#btn10,#btn11").toggleClass("hide");
 		}, false);
 
 		//字体放大
 		document.getElementById("btn20").addEventListener('tap', function(event) {
-			$("#question>div").removeClass("f14").addClass("f13").font("true");
+			$("#edit").removeClass("f12").addClass("f14");
+			$("#btn20,#btn21").toggleClass("hide");
 		}, false);
 
 		//文字居中
 		document.getElementById("btn30").addEventListener('tap', function(event) {
-			mui.back();
+			$("#edit").removeClass("tl").addClass("tc");
+			$("#btn30,#btn31").toggleClass("hide");
 		}, false);
 
 		//颜色
 		document.getElementById("btn40").addEventListener('tap', function(event) {
-			mui.back();
+
 		}, false);
 
 		//超链接
 		document.getElementById("btn50").addEventListener('tap', function(event) {
-			mui.back();
+			$("#btn50,#btn51").toggleClass("hide");
+			mui.openWindow({
+				id: 'edithref',
+				url: 'edithref.html',
+				show: {
+					autoShow: true,
+					duration: base.AnimateDuration
+				},
+				waiting: {
+					autoShow: false
+				},
+				extras: {
+					Link: "",
+					Text: ""
+				}
+			});
 		}, false);
 
 		//取消加粗
 		document.getElementById("btn11").addEventListener('tap', function(event) {
-			mui.back();
+			$("#edit").removeClass("bold");
+			$("#btn10,#btn11").toggleClass("hide");
 		}, false);
 
 		//字体缩小
 		document.getElementById("btn21").addEventListener('tap', function(event) {
-			$("#question>div").removeClass("f14").addClass("f13").attr("font", "false");
+			$("#edit").removeClass("f14").addClass("f12");
+			$("#btn20,#btn21").toggleClass("hide");
 		}, false);
 
 		//取消文字居中
 		document.getElementById("btn31").addEventListener('tap', function(event) {
-			mui.back();
+			$("#edit").removeClass("tc").addClass("tl");
+			$("#btn30,#btn31").toggleClass("hide");
 		}, false);
 
 		//取消超链接
 		document.getElementById("btn51").addEventListener('tap', function(event) {
-			mui.back();
+
+			$("#btn50,#btn51").toggleClass("hide");
 		}, false);
 	})
 
 	var addarticlePage = null;
 	mui.plusReady(function() {
 
-		var question = document.getElementById("question");
 		var self = plus.webview.currentWebview();
-		question.innerHTML = self.title;
-		question.focus();
+
+		var html = self.title;
+		if(base.IsNullOrEmpty(html)) {
+			html = '<div class="edit f12 tl" placeholder="不超过500个字......"></div>';
+		}
+		$("#divedit").html(html).find("div").attr({
+			"id": "edit",
+			"contenteditable": "true"
+		});
+
+		var $item = $("#edit");
+		if($item.hasClass("bold")) {
+			$("#btn10").addClass("hide");
+			$("#btn11").removeClass("hide");
+		} else {
+			$("#btn11").addClass("hide");
+			$("#btn10").removeClass("hide");
+		}
+		if($item.hasClass("f14")) {
+			$("#btn20").addClass("hide");
+			$("#btn21").removeClass("hide");
+		} else {
+			$("#btn21").addClass("hide");
+			$("#btn20").removeClass("hide");
+		}
+		if($item.hasClass("tc")) {
+			$("#btn30").addClass("hide");
+			$("#btn31").removeClass("hide");
+		} else {
+			$("#btn31").addClass("hide");
+			$("#btn30").removeClass("hide");
+		}
+
+		if($item.find("a").length > 0) {
+			$("#btn50").addClass("hide");
+			$("#btn51").removeClass("hide");
+		} else {
+			$("#btn51").addClass("hide");
+			$("#btn50").removeClass("hide");
+		}
+
+		document.getElementById("edit").ontouchend = function() {
+			console.log("enter")
+			document.getElementById("edit").innerHTML = document.getElementById("edit").innerHTML.replace(/(^.{500}).*/g, '$1');
+		}
+
 		//返回
 		mui.back = function() {
 			plus.webview.close(self);
@@ -128,15 +196,16 @@
 
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
-			if(question.value == "") {
+			if(base.IsNullOrEmpty($("#divedit").html())) {
 				return mui.toast("请编辑文字~");
 			}
+			$("#edit").removeAttr("contenteditable").removeAttr("id");
 			plus.nativeUI.showWaiting("编辑中...");
 			if(!addarticlePage) {
 				addarticlePage = plus.webview.getWebviewById('addarticle');
 			}
 			mui.fire(addarticlePage, "updateDesc", {
-				"desc": question.value
+				"desc": $("#divedit").html()
 			});
 			mui.back();
 		}, false);

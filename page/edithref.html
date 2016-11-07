@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>用户绑定</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			#question {
+				border: 0px;
+				height: 400px;
+				padding: 0px;
+				line-height: 1.25rem;
+			}
+			
+			.mui-input-group:after {
+				height: 0px;
+			}
+			
+			.mui-input-group .mui-input-row:after {
+				left: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon mui-icon-back fl"></a>
+			<h1 class="mui-title c333 f15" id="title"></h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group" style="padding:5%;">
+				<div class="mui-input-row">
+					<label class="f13">手机号</label>
+					<input id="phone" type="tel" class="mui-input-clear csubtitle f13" placeholder="请输入您的手机号码" maxlength="11"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
+				</div>
+				<div class="mui-input-row">
+					<label class="f13">验证码</label>
+					<input type="text" class="mui-input-clear csubtitle f13" placeholder="输入验证码"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
+				</div>
+				<p class="f13 tc mt20 full fl" style="color:#007aff;">获取验证码</p>
+				<div id="submit" class="tc f13 cfff mt10 full fl" style="width:100%;height:2rem;line-height:2rem;background:#007aff;border-radius:5px;">确认绑定</div>
+			</form>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var userinfo = base.GetUserInfo();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	var settingPage = null;
+
+	mui.ready(function() {
+		document.getElementById("title").innerText = userinfo.Phone == "" ? "绑定手机号" : "更换手机号";
+	})
+
+	mui.plusReady(function() {
+		//返回
+		mui.back = function() {
+			plus.webview.currentWebview().close();
+		}
+
+		//提交
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			var phone = document.getElementById('phone').value;
+			if(!CheckPhone(phone)) {
+				return mui.toast('手机号码不合法');
+			}
+			HttpGet(base.RootUrl + "User/BindPhone", {
+				ID: userinfo.ID,
+				Phone: phone
+			}, function(data) {
+				if(data == null) {
+					return mui.toast("系统异常,请稍后再试~");
+				} else {
+					if(data.result) {
+						userinfo.Phone = phone;
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+
+						if(!settingPage) {
+							settingPage = plus.webview.getWebviewById('setting');
+						}
+						settingPage.evalJS("UpdatePhone('" + phone + "')");
+						mui.back();
+					} else {
+						return mui.toast(data.message);
+					}
+				}
+			});
+		}, false);
+	});
+
+	//手机号码校验
+	function CheckPhone(phone) {
+		phone = phone || '';
+		if(phone == '')
+			return false;
+		return phone.length == 11 && !isNaN(phone) && phone.toString().indexOf("1") == 0;
+	};
+</script>
