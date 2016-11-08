@@ -174,7 +174,6 @@ function Upload(imgurl, callback) {
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
 function compressImage(src, newsrc, callback) {
-	console.log(Source); 
 	//文章封面压缩
 	var width = Source == "ArticleCover" ? window.innerWidth + "px" : "auto";
 	plus.zip.compressImage({
