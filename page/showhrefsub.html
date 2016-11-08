@@ -26,6 +26,10 @@
 	});
 
 	window.addEventListener("Init", function(e) {
+		var link = e.detail.Link;
+		if(!link.toLowerCase().contains("http://")) {
+			link = "http://" + link;
+		}
 		window.location.href = e.detail.Link;
 	});
 </script>
