@@ -174,11 +174,13 @@ function Upload(imgurl, callback) {
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
 function compressImage(src, newsrc, callback) {
+
 	plus.zip.compressImage({
 			src: src,
 			dst: newsrc,
 			overwrite: true,
-			width: window.innerWidth + "px",
+			//width: window.innerWidth + "px",
+			width: "auto", 
 			quality: 100
 		},
 		function(event) {

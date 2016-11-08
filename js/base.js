@@ -7,7 +7,7 @@ var base = new function() {
 	/**
 	 * 列表每次请求数
 	 **/
-	this.PageSize = 10; 
+	this.PageSize = 10;
 
 	/**
 	 * 窗口动画持续时间
@@ -406,6 +406,15 @@ var base = new function() {
 
 		//部分拼接
 		var parts = item.ArticlePart;
+		if(parts.length == 1) {
+			model.push('<div class="onefloor"><img data-lazyload="' + parts[0].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+		} else {
+			for(var i = 0; i < parts.length; i++) {
+				model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+			}
+		}
+
+		/*
 		if(parts.length == 0) {
 			model.push('<div class="onefloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 		} else {
@@ -429,7 +438,7 @@ var base = new function() {
 					model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 				}
 			}
-		}
+		}*/
 		model.push('</div></div>');
 		model.push('<div class="mui-card-footer fl full">');
 		model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f11 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
