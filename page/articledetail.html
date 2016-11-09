@@ -114,7 +114,7 @@
 				min-height: 100%;
 			}
 			
-			#music .fa {
+			#music {
 				padding: 0.35rem;
 				background: #fff;
 				border-radius: 50px;
@@ -123,6 +123,69 @@
 				width: 1.5rem;
 				height: 1.5rem;
 				box-shadow: 0px 0.05px 0.05px #333;
+			}
+			
+			#music[play=stop] {
+				animation: rotate 4s linear infinite;
+				-webkit-animation: rotate 4s linear infinite;
+				-ms-animation: rotate 4s linear infinite;
+				-moz-animation: rotate 4s linear infinite;
+				-o-animation: rotate 4s linear infinite;
+			}
+			
+			@keyframes rotate {
+				from {
+					transform: rotate(0);
+					-webkit-transform: rotate(0);
+				}
+				to {
+					transform: rotate(-360deg);
+					-webkit-transform: rotate(-360deg);
+				}
+			}
+			
+			@-webkit-keyframes rotate {
+				from {
+					transform: rotate(0);
+					-webkit-transform: rotate(0);
+				}
+				to {
+					transform: rotate(-360deg);
+					-webkit-transform: rotate(-360deg);
+				}
+			}
+			
+			@-ms-keyframes rotate {
+				from {
+					transform: rotate(0);
+					-ms-transform: rotate(0);
+				}
+				to {
+					transform: rotate(-360deg);
+					-ms-transform: rotate(-360deg);
+				}
+			}
+			
+			@-moz-keyframes rotate {
+				from {
+					transform: rotate(0);
+					-moz-transform: rotate(0);
+				}
+				to {
+					transform: rotate(-360deg);
+					-moz-transform: rotate(-360deg);
+				}
+			}
+			
+			@-o-keyframes rotate {
+				from {
+					transform: rotate(0);
+					-o-transform: rotate(0);
+				}
+				to {
+					transform: rotate(-360deg);
+					-o-transform: rotate(-360deg);
+				}
 			}
 		</style>
 	</head>
@@ -144,7 +207,7 @@
 								<p class="full mb0 blue user mt10" userid="0" id="nickname"></p>
 							</div>
 							<div style="width:25%;" class="fl">
-								<div id="music" class="cfff tl"><i class="fa fa-music f13 fr"></i></div>
+								<i id="music" class="fa fa-music f13 fr" onclick="switchsound()"></i>
 							</div>
 						</div>
 						<div class="f13 tl cover" id="detail">
@@ -239,6 +302,7 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/music.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
@@ -251,6 +315,7 @@
 	var ShareInfo = {}; //分享信息
 	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
+	var MusicUrl = ""; //音乐播放地址
 	var userinfo = base.GetUserInfo();
 	//启用双击监听
 	mui.init({
@@ -438,14 +503,12 @@
 					}
 
 					//音乐
-					/*if(!base.IsNullOrEmpty(data.MusicUrl)) {
-						var audio = document.getElementById("audio");
-						audio.src = data.MusicUrl;
-						audio.controls = true;
-						audio.loop = true;
-						audio.autoplay = data.AutoMusic ? true : false;
-						$("#audio").removeClass("hide");
-					}*/
+					MusicUrl = data.MusicUrl;
+					if(!base.IsNullOrEmpty(data.MusicUrl)) {
+						if(data.AutoMusic == 1) {
+							document.addEventListener('touchstart', startsound);
+						}
+					}
 
 					//段落
 					var html = [];

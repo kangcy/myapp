@@ -1,13 +1,13 @@
-var icon = document.getElementById('music_icon');
+var icon = document.getElementById('music');
 var audio = null;
 var timestamp = 0;
-var music_url = "http://static2.ivwen.com/music/DouNiuShiJinXingQu.m4a";
+/*var music_url = "http://static2.ivwen.com/music/DouNiuShiJinXingQu.m4a";*/
 
 function switchsound() {
 	if(audio == null) {
 		audio = document.createElement('audio');
 		audio.id = 'bgsound';
-		audio.src = music_url;
+		audio.src = MusicUrl;
 		audio.loop = 'loop';
 		document.body.appendChild(audio);
 	}
@@ -28,21 +28,17 @@ function stopsound() {
 	icon.setAttribute("play", "on");
 }
 
-function startsound(event) {
+function startsound() {
 	document.removeEventListener('touchstart', startsound);
 
 	if(audio == null) {
 		audio = document.createElement('audio');
 		audio.id = 'bgsound';
-		audio.src = music_url;
+		audio.src = MusicUrl;
 		audio.loop = 'loop';
 		document.body.appendChild(audio);
 	}
-
 	audio.play();
 	icon.setAttribute('play', 'stop');
-
 	timestamp = new Date().getTime();
 }
-
-document.addEventListener('touchstart', startsound);
