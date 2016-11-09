@@ -30,13 +30,12 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
-	var isLoading = false; //是否数据加载中
+	var isLoading = false;
 
 	mui.init();
 	mui.ready(function() {
@@ -116,9 +115,7 @@
 				}
 				table.appendChild(appendStr(item));
 			}
-			if($.isFunction(callback)) {
-				callback();
-			}
+			callback();
 		} else {
 			var data = {
 				page: currpage,
@@ -136,9 +133,7 @@
 						}
 					}
 				}
-				if($.isFunction(callback)) {
-					callback();
-				}
+				callback();
 			});
 		}
 	}
