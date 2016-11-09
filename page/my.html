@@ -125,10 +125,7 @@
 
 		//重新加载数据
 		window.addEventListener("UpdateUser", function(e) {
-			base.UpdateUser(userinfo.ID, function() {
-				userinfo = base.GetUserInfo();
-				Init();
-			});
+			Load();
 		});
 	});
 
