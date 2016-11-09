@@ -12,38 +12,6 @@
 		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../css/my.css">
 		<style type="text/css">
-			/*文章*/
-			
-			.onefloor {
-				width: 100%;
-				height: 9.375rem;
-				overflow: hidden;
-			}
-			
-			.onefloor img {
-				width: 100% !important;
-				min-height: 100%;
-			}
-			
-			.secondfloor {
-				width: 50%;
-				height: 7rem;
-				text-align: center;
-				overflow: hidden;
-				margin-bottom: 1.5%;
-				float: left;
-			}
-			
-			.secondfloor img {
-				width: 97% !important;
-				min-height: 100%;
-			}
-			
-			.mui-card-header>img:first-child {
-				width: 2.875rem !important;
-				height: 2.875rem !important;
-				border-radius: 5px;
-			}
 			/*头部*/
 			
 			.tabs {
@@ -84,18 +52,18 @@
 			<div class="mui-slider mui-fullscreen">
 				<div class="mui-scroll-wrapper">
 					<div id="pullrefresh" class="mui-scroll">
-						<header class="mui-bar" style="box-shadow:none;">
+						<!--<header class="mui-bar" style="box-shadow:none;">
 							<a id="toggle" class="mui-icon mui-icon-back fl cfff" style="font-size:30px;"></a>
-							<a id="star" class="mui-icon mui-icon-star fr cfff" style="font-size:30px;"></a>
+							<a id="star" class="mui-icon mui-icon-more fr cfff" style="font-size:35px;"></a>
 							<h1 class="mui-title c333"></h1>
-						</header>
-						<div style="width:100%;height:10rem;background:url(../images/header.png);background-size:100% 100%;"></div>
+						</header>-->
+						<div id="bg" style="width:100%;height:10rem;"></div>
 						<div id="info-body" class="info-body mb8">
 							<div class="info-content">
-								<img id="avatar" src="../images/60x60.gif" />
+								<img id="avatar" class="hide" />
 								<p class="c333 f16 tc name bold" id="nickname"></p>
 								<p class="csubtitle signature tc mt5 f12" id="signature"></p>
-								<div class="full tc mt10">
+								<div class="full tc mt10 hide" id="action">
 									<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
 									<div class="dashang f14">打赏</div>
 								</div>
@@ -137,15 +105,13 @@
 
 		base.InitScroll();
 
-		base.ShowArticle("#pullrefresh","List"); //展示文章
+		base.ShowArticle("#pullrefresh", "List"); //展示文章
 	});
 
 	//初始化获取参数
 	function Init(userId) {
 		UserID = userId;
-
 		LoadUserInfo();
-
 		CheckFan();
 
 		//他的作品
@@ -245,8 +211,11 @@
 		}, function(data) {
 			if(data.result) {
 				data = data.message;
-				//初始化赋值
-				$("#avatar").attr("src", data.Avatar);
+				$("#bg").css({
+					"background": "url(" + data.Cover + ")",
+					"background-size": "100% 100%;"
+				});
+				$("#avatar").attr("src", data.Avatar).removeClass("hide");
 				$("#nickname").html(data.NickName);
 				$("#signature").html(data.Signature);
 				$("#follows").html(data.Follows);
@@ -283,5 +252,6 @@
 				});
 			});
 		}
+		$("#action").removeClass("hide");
 	}
 </script>
