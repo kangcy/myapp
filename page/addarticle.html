@@ -66,40 +66,18 @@
 
 		//音乐
 		document.getElementById('music').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'music',
-				url: 'music.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: ArticleID,
-					MusicID: MusicID,
-					MusicName: MusicName
-				}
+			base.OpenWindow("music", "music.html", {
+				ArticleID: ArticleID,
+				MusicID: MusicID,
+				MusicName: MusicName
 			});
 		});
 
 		//封面
 		document.getElementById('cover').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'editimage',
-				url: 'editimage.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					Url: Cover,
-					Source: "ArticleCover"
-				}
+			base.OpenWindow("editimage", "editimage.html", {
+				Url: Cover,
+				Source: "ArticleCover"
 			});
 		});
 
@@ -127,19 +105,8 @@
 		//标题
 		title.addEventListener('tap', function(event) {
 			var html = title.innerHTML.trim();
-			mui.openWindow({
-				id: 'edittitle',
-				url: 'edittitle.html',
-				show: {
-					autoShow: true, 
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					title: html == "点击输入标题" ? "" : html
-				}
+			base.OpenWindow("edittitle", "edittitle.html", {
+				title: html == "点击输入标题" ? "" : html
 			});
 		});
 
@@ -149,37 +116,15 @@
 			var type = this.getAttribute("type");
 			if(type == "pic") {
 				currEditImg = this.getAttribute("src");
-				mui.openWindow({
-					id: 'editimage',
-					url: 'editimage.html',
-					show: {
-						autoShow: true,
-						duration: base.AnimateDuration
-					},
-					waiting: {
-						autoShow: false
-					},
-					extras: {
-						Url: currEditImg,
-						Source: "ArticleAvatar"
-					}
+				base.OpenWindow("editimage", "editimage.html", {
+					Url: currEditImg,
+					Source: "ArticleAvatar"
 				});
 			} else if(type == "text") {
 				//编辑文字
 				var html = document.getElementById(currEditID).innerHTML.trim();
-				mui.openWindow({
-					id: 'editdesc',
-					url: 'editdesc.html',
-					show: {
-						autoShow: true,
-						duration: base.AnimateDuration
-					},
-					waiting: {
-						autoShow: false
-					},
-					extras: {
-						title: html == "点击添加文字" ? "" : html
-					}
+				base.OpenWindow("editdesc", "editdesc.html", {
+					title: html == "点击添加文字" ? "" : html
 				});
 			} else if(type == "video") {
 				//编辑视频
@@ -326,7 +271,7 @@
 							}
 						}
 					});
-				} 
+				}
 			});
 		});
 	});
@@ -448,20 +393,9 @@
 					base.UpdateUser(userinfo.ID);
 					var articleDetailPage = plus.webview.getWebviewById('articledetail');
 					if(articleDetailPage == null) {
-						mui.openWindow({
-							id: 'articledetail',
-							url: 'articledetail.html',
-							show: {
-								autoShow: true,
-								duration: base.AnimateDuration
-							},
-							waiting: {
-								autoShow: false
-							},
-							extras: {
-								ArticleID: ArticleID,
-								Source: Source
-							}
+						base.OpenWindow("articledetail", "articledetail.html", {
+							ArticleID: ArticleID,
+							Source: Source
 						});
 					} else {
 						mui.fire(articleDetailPage, "UpdateDetail", {

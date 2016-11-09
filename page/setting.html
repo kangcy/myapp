@@ -45,6 +45,7 @@
 			progress::-webkit-progress-value {
 				background-color: #aadd6a;
 			}
+			
 			.myprogress {
 				position: fixed;
 				left: 0px;
@@ -386,16 +387,8 @@
 								if(subindexPage != null) {
 									plus.webview.close(subindexPage)
 								}
-								mui.openWindow({
-									url: 'login.html',
-									id: 'login',
-									show: {
-										autoShow: true,
-										duration: base.AnimateDuration
-									},
-									waiting: {
-										autoShow: false
-									}
+								base.OpenWindow("login", "login.html", {
+
 								});
 							}
 						});
@@ -427,31 +420,15 @@
 
 	//绑定手机号
 	function BindPhone() {
-		mui.openWindow({
-			id: 'bindphone',
-			url: 'bindphone.html',
-			show: {
-				autoShow: true,
-				duration: base.AnimateDuration
-			},
-			waiting: {
-				autoShow: false
-			}
+		base.OpenWindow("bindphone", "bindphone.html", {
+
 		});
 	}
 
 	//绑定邮箱
 	function BindEmail() {
-		mui.openWindow({
-			id: 'bindemail',
-			url: 'bindemail.html',
-			show: {
-				autoShow: true,
-				duration: base.AnimateDuration
-			},
-			waiting: {
-				autoShow: false
-			}
+		base.OpenWindow("bindemail", "bindemail.html", {
+
 		});
 	}
 

@@ -227,20 +227,9 @@
 			link = $("#edit").find("span").attr("link");
 			text = $("#edit").find("span").html();
 		}
-		mui.openWindow({
-			id: 'edithref',
-			url: 'edithref.html',
-			show: {
-				autoShow: true,
-				duration: base.AnimateDuration
-			},
-			waiting: {
-				autoShow: false
-			},
-			extras: {
-				Link: link,
-				Text: text
-			}
+		base.OpenWindow("edithref", "edithref.html", {
+			Link: link,
+			Text: text
 		});
 	}
 

@@ -46,7 +46,7 @@
 
 					</div>
 				</div>
-				<div class="mui-slider-group" id="sliderGroup" style="top:2.35rem;"> 
+				<div class="mui-slider-group" id="sliderGroup" style="top:2.35rem;">
 
 				</div>
 			</div>
@@ -185,20 +185,9 @@
 		mui("#slider").on('tap', '.topic', function(event) {
 			var typeId = this.getAttribute("typeid");
 			var typeName = this.getAttribute("typename");
-			mui.openWindow({
-				id: 'article',
-				url: 'article.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleType: typeId,
-					ArticleTypeName: typeName
-				}
+			base.OpenWindow("article", "article.html", {
+				ArticleType: typeId,
+				ArticleTypeName: typeName
 			});
 		});
 	});

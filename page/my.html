@@ -93,21 +93,10 @@
 
 		//封面
 		document.getElementById('bg').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'editimage',
-				url: 'editimage.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					Url: userinfo.Cover,
-					Source: "UserCover"
-				}
-			}); 
+			base.OpenWindow("editimage", "editimage.html", {
+				Url: userinfo.Cover,
+				Source: "UserCover"
+			});
 		});
 
 		//修改封面
@@ -166,61 +155,29 @@
 
 		//用户设置
 		document.getElementById('avatar').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'mysetting',
-				url: 'mysetting.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("mysetting", "mysetting.html", {
+
 			});
 		});
 
 		//系统设置
 		document.getElementById('setting').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'setting',
-				url: 'setting.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("setting", "setting.html", {
+
 			});
 		});
 
 		//我的打赏
 		document.getElementById('my-mypay').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'pay',
-				url: 'pay.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("pay", "pay.html", {
+
 			});
 		});
 
 		//意见反馈
 		document.getElementById('my-feedback').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'feedback',
-				url: 'feedback.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("feedback", "feedback.html", {
+
 			});
 		});
 
@@ -233,100 +190,46 @@
 
 		//帮助中心
 		document.getElementById('my-help').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'help',
-				url: 'help.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("help", "help.html", {
+
 			});
 		});
 
 		//我的评论
 		document.getElementById('my-comment').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'comment',
-				url: 'comment.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("comment", "comment.html", {
+
 			});
 		});
 
 		//我的文章
 		document.getElementById('my-articles').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'article',
-				url: 'article.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					CreateUserID: userinfo.ID,
-					ArticleTypeName: "我的动态",
-					Source: "My"
-				}
+			base.OpenWindow("article", "article.html", {
+				CreateUserID: userinfo.ID,
+				ArticleTypeName: "我的动态",
+				Source: "My"
 			});
 		});
 
 		//我的收藏
 		document.getElementById('my-keeps').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'keep',
-				url: 'keep.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					CreateUserID: userinfo.ID,
-					ArticleTypeName: "我的收藏"
-				}
+			base.OpenWindow("keep", "keep.html", {
+				CreateUserID: userinfo.ID,
+				ArticleTypeName: "我的收藏"
 			});
 		});
 
 		//我的关注
 		document.getElementById('my-fans').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'fan',
-				url: 'fan.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("fan", "fan.html", {
+
 			});
 		});
 
 		//我的点赞
 		document.getElementById('my-zans').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'zan',
-				url: 'zan.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("zan", "zan.html", {
+
 			});
 		});
 	});

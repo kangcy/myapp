@@ -210,20 +210,9 @@
 
 		//头像
 		document.getElementById('divavatar').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'editimage',
-				url: 'editimage.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					Url: userinfo.Avatar,
-					Source: "UserAvatar"
-				}
+			base.OpenWindow("editimage", "editimage.html", {
+				Url: userinfo.Avatar,
+				Source: "UserAvatar"
 			});
 		});
 
@@ -316,38 +305,16 @@
 	//编辑昵称
 	editnickname.addEventListener('tap', function(event) {
 		var text = nickname.innerHTML.trim();
-		mui.openWindow({
-			id: 'editnickname',
-			url: 'editnickname.html',
-			show: {
-				autoShow: true,
-				duration: base.AnimateDuration
-			},
-			waiting: {
-				autoShow: false
-			},
-			extras: {
-				title: text == "请填写" ? "" : text
-			}
+		base.OpenWindow("editnickname", "editnickname.html", {
+			title: text == "请填写" ? "" : text
 		});
 	});
 
 	//编辑个性签名
 	editsignature.addEventListener('tap', function(event) {
 		var text = signature.innerHTML.trim();
-		mui.openWindow({
-			id: 'editsignature',
-			url: 'editsignature.html',
-			show: {
-				autoShow: true,
-				duration: base.AnimateDuration
-			},
-			waiting: {
-				autoShow: false
-			},
-			extras: {
-				title: text == "请填写" ? "" : text
-			}
+		base.OpenWindow("editsignature", "editsignature.html", {
+			title: text == "请填写" ? "" : text
 		});
 	});
 </script>

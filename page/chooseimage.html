@@ -76,20 +76,9 @@
 						if(data.result) {
 							var part = data.message;
 							ArticleID = part.ArticleID;
-							mui.openWindow({
-								id: 'addarticle',
-								url: 'addarticle.html',
-								show: {
-									autoShow: true,
-									duration: base.AnimateDuration
-								},
-								waiting: {
-									autoShow: false
-								},
-								extras: {
-									ArticleID: data.message.ArticleID,
-									Source: "Add"
-								}
+							base.OpenWindow("addarticle", "addarticle.html", {
+								ArticleID: data.message.ArticleID,
+								Source: "Add"
 							});
 						} else {
 							mui.toast(data.message);

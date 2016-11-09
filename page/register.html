@@ -40,16 +40,8 @@
 	mui.plusReady(function() {
 		//跳转首页
 		var toMain = function() {
-			mui.openWindow({
-				id: 'index',
-				url: '../index.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
+			base.OpenWindow("index", "../index.html", {
+
 			});
 		};
 

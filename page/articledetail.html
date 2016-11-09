@@ -345,39 +345,16 @@
 
 		//添加评论
 		document.getElementById('addcomment').addEventListener('tap', function(event) {
-			//跳转文章评论页
-			mui.openWindow({
-				id: 'addcomment',
-				url: 'addcomment.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: ArticleID
-				}
+			base.OpenWindow("addcomment", "addcomment.html", {
+				ArticleID: ArticleID
 			});
 		})
 
 		//文章评论
 		document.getElementById('comment').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'articleComment',
-				url: 'articleComment.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: ArticleID,
-					CommentTitle: Comments + "条评论"
-				}
+			base.OpenWindow("articleComment", "articleComment.html", {
+				ArticleID: ArticleID,
+				CommentTitle: Comments + "条评论"
 			});
 		});
 
@@ -387,19 +364,8 @@
 			if(base.IsNullOrEmpty(link)) {
 				return;
 			}
-			mui.openWindow({
-				id: 'showhref',
-				url: 'showhref.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					Link: link
-				}
+			base.OpenWindow("showhref", "showhref.html", {
+				Link: link
 			});
 		});
 
@@ -498,16 +464,14 @@
 					$("#createdate").html(data.CreateDateText);
 					$("#views").html("阅读  " + data.Views);
 
-					if(userinfo.ID != ArticleUserID) {
-						base.ShowUser("#body");
-					}
-
 					//音乐
 					MusicUrl = data.MusicUrl;
 					if(!base.IsNullOrEmpty(data.MusicUrl)) {
 						if(data.AutoMusic == 1) {
 							document.addEventListener('touchstart', startsound);
 						}
+					} else {
+						$("#music").addClass("hide");
 					}
 
 					//段落
@@ -529,27 +493,28 @@
 					$("#article_desc").html(html.join(""));
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
-
 					$("#main").removeClass("hide");
 
 					Comments = data.Comments;
 
 					//显示操作
-					if(userinfo.ID == data.CreateUserID) {
+					if(userinfo.ID == ArticleUserID) {
 						$("#action").removeClass("hide");
+					} else {
+						base.ShowUser("#body");
 					}
+
+					document.body.removeAttribute('data-imageLazyload');
+					mui(document).imageLazyload({
+						placeholder: base.DefaultImg,
+						diff: window.innerHeight
+					});
 
 					ShareInfo.Title = data.Title;
 					ShareInfo.Cover = data.Cover;
 					ShareInfo.Url = "http://www.baidu.com";
 
 					CheckKeep(); //收藏状态
-
-					document.body.removeAttribute('data-imageLazyload');
-					mui(document).imageLazyload({
-						placeholder: '../images/60x60.gif',
-						diff: window.innerHeight
-					});
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().close();
@@ -588,43 +553,21 @@
 	function Edit() {
 		ActionTan(0);
 		plus.nativeUI.showWaiting("载入中...");
-		mui.openWindow({
-			id: 'addarticle',
-			url: 'addarticle.html',
-			show: {
-				autoShow: true,
-				duration: base.AnimateDuration
-			},
-			waiting: {
-				autoShow: false
-			},
-			extras: {
-				ArticleID: ArticleID,
-				Source: Source
-			}
+		base.OpenWindow("addarticle", "addarticle.html", {
+			ArticleID: ArticleID,
+			Source: Source
 		});
 	}
 
 	//权限
 	function Power() {
 		ActionTan(0);
-		mui.openWindow({
-			id: 'sharesetting',
-			url: 'sharesetting.html',
-			show: {
-				autoShow: true,
-				duration: base.AnimateDuration
-			},
-			waiting: {
-				autoShow: false
-			},
-			extras: {
-				ArticleID: ArticleID,
-				ArticlePower: ArticlePower,
-				ArticlePowerPwd: ArticlePowerPwd,
-				ArticleType: ArticleType,
-				ArticleTypeName: ArticleTypeName
-			}
+		base.OpenWindow("sharesetting", "sharesetting.html", {
+			ArticleID: ArticleID,
+			ArticlePower: ArticlePower,
+			ArticlePowerPwd: ArticlePowerPwd,
+			ArticleType: ArticleType,
+			ArticleTypeName: ArticleTypeName
 		});
 	}
 

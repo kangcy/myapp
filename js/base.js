@@ -94,6 +94,24 @@ var base = new function() {
 	}
 
 	/**
+	 * 打开新页面
+	 **/
+	this.OpenWindow = function(id, url, data) {
+		mui.openWindow({
+			id: id,
+			url: url,
+			show: {
+				autoShow: true,
+				duration: base.AnimateDuration
+			},
+			waiting: {
+				autoShow: false
+			},
+			extras: data
+		});
+	}
+
+	/**
 	 * 添加收藏
 	 **/
 	this.AddKeep = function(userinfo, articleid) {
@@ -252,17 +270,7 @@ var base = new function() {
 	 **/
 	this.ShowSearch = function(id) {
 		document.getElementById('search').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'search',
-				url: 'search.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				}
-			});
+			base.OpenWindow("search", "search.html", {});
 		})
 	}
 
@@ -273,19 +281,8 @@ var base = new function() {
 		mui(id).on('tap', '.user', function(event) {
 			plus.nativeUI.showWaiting("载入中...");
 			var userId = this.getAttribute("userid");
-			mui.openWindow({
-				id: 'user',
-				url: 'user.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					UserID: userId
-				}
+			base.OpenWindow("user", "user.html", {
+				UserID: userId
 			});
 		});
 	}
@@ -303,40 +300,18 @@ var base = new function() {
 					if(e.index == 0) {
 						base.CheckPowerPwd(articleId, e.value, function() {
 							plus.nativeUI.showWaiting("载入中...");
-							mui.openWindow({
-								id: 'articledetail',
-								url: 'articledetail.html',
-								show: {
-									autoShow: true,
-									duration: base.AnimateDuration
-								},
-								waiting: {
-									autoShow: false
-								},
-								extras: {
-									ArticleID: articleId,
-									Source: Source
-								}
+							base.OpenWindow("articledetail", "articledetail.html", {
+								ArticleID: articleId,
+								Source: Source
 							});
 						});
 					}
 				})
 			} else {
 				plus.nativeUI.showWaiting("载入中...");
-				mui.openWindow({
-					id: 'articledetail',
-					url: 'articledetail.html',
-					show: {
-						autoShow: true,
-						duration: base.AnimateDuration
-					},
-					waiting: {
-						autoShow: false
-					},
-					extras: {
-						ArticleID: articleId,
-						Source: "View"
-					}
+				base.OpenWindow("articledetail", "articledetail.html", {
+					ArticleID: articleId,
+					Source: "View"
 				});
 			}
 		});

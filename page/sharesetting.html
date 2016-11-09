@@ -129,21 +129,10 @@
 
 		//分类
 		document.getElementById('articletype').addEventListener('tap', function(event) {
-			mui.openWindow({
-				id: 'articleType',
-				url: 'articleType.html',
-				show: {
-					autoShow: true,
-					duration: base.AnimateDuration
-				},
-				waiting: {
-					autoShow: false
-				},
-				extras: {
-					ArticleID: ArticleID,
-					ArticleType: ArticleType,
-					ArticleTypeName: ArticleTypeName
-				}
+			base.OpenWindow("articleType", "articleType.html", {
+				ArticleID: ArticleID,
+				ArticleType: ArticleType,
+				ArticleTypeName: ArticleTypeName
 			});
 		});
 
