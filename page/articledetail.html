@@ -132,61 +132,6 @@
 				-moz-animation: rotate 4s linear infinite;
 				-o-animation: rotate 4s linear infinite;
 			}
-			
-			@keyframes rotate {
-				from {
-					transform: rotate(0);
-					-webkit-transform: rotate(0);
-				}
-				to {
-					transform: rotate(-360deg);
-					-webkit-transform: rotate(-360deg);
-				}
-			}
-			
-			@-webkit-keyframes rotate {
-				from {
-					transform: rotate(0);
-					-webkit-transform: rotate(0);
-				}
-				to {
-					transform: rotate(-360deg);
-					-webkit-transform: rotate(-360deg);
-				}
-			}
-			
-			@-ms-keyframes rotate {
-				from {
-					transform: rotate(0);
-					-ms-transform: rotate(0);
-				}
-				to {
-					transform: rotate(-360deg);
-					-ms-transform: rotate(-360deg);
-				}
-			}
-			
-			@-moz-keyframes rotate {
-				from {
-					transform: rotate(0);
-					-moz-transform: rotate(0);
-				}
-				to {
-					transform: rotate(-360deg);
-					-moz-transform: rotate(-360deg);
-				}
-			}
-			
-			@-o-keyframes rotate {
-				from {
-					transform: rotate(0);
-					-o-transform: rotate(0);
-				}
-				to {
-					transform: rotate(-360deg);
-					-o-transform: rotate(-360deg);
-				}
-			}
 		</style>
 	</head>
 
@@ -420,8 +365,8 @@
 		//返回
 		mui.back = function() {
 			if(Source == "Add") {
-				var chooseimage = plus.webview.getWebviewById("chooseimage");
-				plus.webview.close(chooseimage);
+				var editimage = plus.webview.getWebviewById("editimage");
+				plus.webview.close(editimage);
 			}
 			plus.webview.close(self);
 		}
