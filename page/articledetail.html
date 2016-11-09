@@ -209,15 +209,17 @@
 						<div class="tc" style="width:95%;margin:0px 2.5%;padding-top:2.5%;">
 							<div class="full" style="position:relative;">
 								<img id="useravatar1" />
-								<p class="full mb0 user mt10" userid="0" id="nickname1"></p>
+								<p class="full mb0 user blue mt10" userid="0" id="nickname1"></p>
 								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:0px;top:0px;"></i>
 							</div>
 						</div>
 						<div class="f13 tl detail cover">
 							<div class="full tc">
-								<p class="mt10 f20 c000" id="title1"></p>
-								<p class="mt0 mb0 csubtitle f13" id="createdate1"></p>
-								<p class="mt0 mb0 csubtitle f13" id="views1"></p>
+								<p class="mt10 mb0 f20 c000" id="title1"></p>
+								<p class="mt0 mb10 full csubtitle f13 tc">
+									<span id="createdate1"></span>
+									<span class="ml10" id="views1"></span>
+								</p>
 							</div>
 							<div class="c000 full" id="desc1">
 
@@ -302,8 +304,6 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
@@ -471,7 +471,7 @@
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 mt10"><img data-lazyload="' + part.Introduction + '" class="full" /></div>');
+							html.push('<div class="full f13 mt10"><img src="' + part.Introduction + '" class="full" /></div>');
 						} else if(part.Types == 2) {
 							//文本
 							html.push('<div class="full f13 mt10">' + part.Introduction + '</div>');
@@ -485,7 +485,7 @@
 					$("#footer_comment").html(data.Comments);
 
 					//排版
-					var mainIndex = 0;
+					var mainIndex = 1;
 					$("#title" + mainIndex).html(data.Title);
 					$("#nickname" + mainIndex).html(data.NickName).attr("userid", userinfo.ID);
 					$("#createdate" + mainIndex).html(data.CreateDateText);
@@ -525,12 +525,6 @@
 					} else {
 						base.ShowUser("#body");
 					}
-
-					document.body.removeAttribute('data-imageLazyload');
-					mui(document).imageLazyload({
-						placeholder: base.DefaultImg,
-						diff: window.innerHeight
-					});
 
 					ShareInfo.Title = data.Title;
 					ShareInfo.Cover = data.Cover;
