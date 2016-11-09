@@ -119,6 +119,7 @@ var base = new function() {
 			return true;
 		} else {
 			userinfo.KeepText += articleid + ",";
+			userinfo.Keeps += 1;
 			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			mui.toast("收藏成功");
 			return true;
@@ -149,6 +150,7 @@ var base = new function() {
 			return true;
 		} else {
 			userinfo.FanText += userid + ",";
+			userinfo.Fans += 1;
 			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			mui.toast("关注成功");
 			return true;

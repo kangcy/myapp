@@ -10,7 +10,6 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../css/my.css">
-		<link rel="stylesheet" href="../cropper/cropper.css">
 	</head>
 
 	<body>
@@ -48,7 +47,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="c000 menu f13" id="my-mypay"><i class="fa fa-heart mr10 f16 caaa"></i>
+					<div class="c000 menu f13" id="my-mypay"><i class="fa fa-rmb mr10 f16 caaa"></i>
 						<div>打赏<span class="mui-icon mui-icon-arrowright fr mt10 caaa"></span></div>
 					</div>
 					<div class="c000 menu f13" id="my-comment"><i class="fa fa-comments mr10 f16 caaa"></i>
@@ -85,6 +84,7 @@
 	});
 
 	mui.ready(function() {
+
 		Init();
 
 		base.InitScroll();
@@ -125,10 +125,19 @@
 
 		//重新加载数据
 		window.addEventListener("UpdateUser", function(e) {
+			base.UpdateUser(userinfo.ID, function() {
+				userinfo = base.GetUserInfo();
+				Init();
+			});
+		});
+	});
+
+	function Load() {
+		base.UpdateUser(userinfo.ID, function() {
 			userinfo = base.GetUserInfo();
 			Init();
 		});
-	});
+	}
 
 	function Init() {
 		//初始化赋值
