@@ -137,9 +137,9 @@
 					html.push('<div class="mui-slider-cell">');
 					html.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + child[l].Cover + '" /></div>');
 					html.push('<div class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mt15 c333 ml10">' + child[l].Name + '</p></div></div>');
-					html.push('<div class="oa-contact-icon mui-table-cell ' + (child[l].ID == ArticleType ? "check" : "") + '" type="' + child[l].ID + '" name="' + child[l].Name + '"></div>');
+					html.push('<div class="oa-contact-icon mui-table-cell ' + (child[l].CurrID == ArticleType ? "check" : "") + '" type="' + child[l].CurrID + '" name="' + child[l].Name + '"></div>');
 					html.push('</div></div></div>');
-				}
+				} 
 				html.push('</div>');
 				html.push('</div>');
 				html.push('</div>');

@@ -1,4 +1,3 @@
-var icon = document.getElementById('music');
 var audio = null;
 var timestamp = 0;
 /*var music_url = "http://static2.ivwen.com/music/DouNiuShiJinXingQu.m4a";*/
@@ -14,10 +13,10 @@ function switchsound() {
 
 	if(audio.paused) {
 		audio.play();
-		icon.setAttribute("play", "stop");
+		document.getElementById(MusicID).setAttribute("play", "stop");
 	} else if(new Date().getTime() > timestamp + 1000) {
 		audio.pause();
-		icon.setAttribute("play", "on");
+		document.getElementById(MusicID).setAttribute("play", "on");
 	}
 }
 
@@ -25,7 +24,7 @@ function stopsound() {
 	if(audio != null) {
 		audio.pause();
 	}
-	icon.setAttribute("play", "on");
+	document.getElementById(MusicID).setAttribute("play", "on");
 }
 
 function startsound() {
@@ -39,6 +38,6 @@ function startsound() {
 		document.body.appendChild(audio);
 	}
 	audio.play();
-	icon.setAttribute('play', 'stop');
+	document.getElementById(MusicID).setAttribute('play', 'stop');
 	timestamp = new Date().getTime();
 }
