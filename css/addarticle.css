@@ -24,7 +24,7 @@
 }
 
 .btn .fa {
-	padding: 7px;
+	padding: 0.35rem;
 	background: #fff;
 	border-radius: 50px;
 	color: #333;
@@ -32,9 +32,6 @@
 	width: 1.5rem;
     height: 1.5rem;
     box-shadow: 0px 0.05px 0.05px #333;
-}
-.btn span{
-	text-shadow: 0px 0px 1px #000;
 }
 .btn .icon {
 	float: left;

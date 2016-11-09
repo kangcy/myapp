@@ -4825,7 +4825,9 @@ body>.mui-progressbar {
 .pr30 {
 	padding-right: 1.875rem !important;
 }
-
+.pt20 {
+	padding-top: 1.25rem !important;
+}
 .pb0 {
 	padding-bottom: 0px !important;
 }

@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css" />
+		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<style type="text/css">
 			#detail {
 				width: 95%;
@@ -112,6 +113,17 @@
 				background-color: #E7CEC9;
 				min-height: 100%;
 			}
+			
+			#music .fa {
+				padding: 0.35rem;
+				background: #fff;
+				border-radius: 50px;
+				color: #333;
+				box-shadow: 0px 0px 1px #333;
+				width: 1.5rem;
+				height: 1.5rem;
+				box-shadow: 0px 0.05px 0.05px #333;
+			}
 		</style>
 	</head>
 
@@ -124,20 +136,25 @@
 		<div class="mui-iframe-wrapper" style="top: 46px; bottom:50px;">
 			<div class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll bg">
-					<div class="full tc">
-						<div style="width:33.3%;float:left;" class="fl csubtitle mt20 f13" id="createdate"></div>
-						<div style="width:33.3%;float:left;"><img id="useravatar" class="mt20 hide" /></div>
-						<div style="width:33.3%;float:left;"></div>
-					</div>
-					<div class="f13 tl cover hide" id="detail">
-						<div class="full fl tc">
-							<p class="f20 c000" id="article_title"></p>
-							<p class="mb0 blue user" userid="0" id="nickname"></p>
-							<p class="mb0 csubtitle" id="views"></p>
+					<div id="main" class="hide">
+						<div class="tc" style="width:90%;margin:0px 5%;padding-top:5%">
+							<div style="width:25%;" class="fl csubtitle f13 tl" id="createdate"></div>
+							<div style="width:50%;" class="fl">
+								<img id="useravatar" />
+								<p class="full mb0 blue user mt10" userid="0" id="nickname"></p>
+							</div>
+							<div style="width:25%;" class="fl">
+								<div id="music" class="cfff tl"><i class="fa fa-music f13 fr"></i></div>
+							</div>
 						</div>
-						<audio id="audio" src="" loop="loop" autoplay="autoplay" class="mt10 full hide"></audio>
-						<div class="c000 fl full" id="article_desc">
+						<div class="f13 tl cover" id="detail">
+							<div class="full tc">
+								<p class="mt10 mb0 f20 c000" id="title"></p>
+								<p class="mb0 csubtitle f11" id="views"></p>
+							</div>
+							<div class="c000 full" id="article_desc">
 
+							</div>
 						</div>
 					</div>
 				</div>
@@ -410,9 +427,9 @@
 					ArticleUserID = data.CreateUserID;
 
 					$(".user").attr("userid", ArticleUserID);
-					$("#article_title").html(data.Title);
+					$("#title").html(data.Title);
 					$("#nickname").html(data.NickName).attr("userid", userinfo.ID);
-					$("#useravatar").attr("src", data.Avatar).removeClass("hide");
+					$("#useravatar").attr("src", data.Avatar);
 					$("#createdate").html(data.CreateDateText);
 					$("#views").html("阅读  " + data.Views);
 
@@ -421,14 +438,14 @@
 					}
 
 					//音乐
-					if(!base.IsNullOrEmpty(data.MusicUrl)) {
+					/*if(!base.IsNullOrEmpty(data.MusicUrl)) {
 						var audio = document.getElementById("audio");
 						audio.src = data.MusicUrl;
 						audio.controls = true;
 						audio.loop = true;
 						audio.autoplay = data.AutoMusic ? true : false;
 						$("#audio").removeClass("hide");
-					}
+					}*/
 
 					//段落
 					var html = [];
@@ -450,7 +467,7 @@
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
 
-					$("#detail").removeClass("hide");
+					$("#main").removeClass("hide");
 
 					Comments = data.Comments;
 
