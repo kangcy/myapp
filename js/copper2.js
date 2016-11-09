@@ -1,4 +1,5 @@
 var iscutimging = false;
+var dstname = "";
 
 //拍照
 function getImage(long, width) {
@@ -9,7 +10,7 @@ function getImage(long, width) {
 			var localurl = entry.toLocalURL();
 
 			//压缩图片
-			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
+			dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 			//压缩图片,并重命名
 			compressImage(localurl, dstname, function(src) {
@@ -27,7 +28,7 @@ function galleryImgs(long, width, callback) {
 		closepop(); //关闭裁剪
 
 		//压缩图片 
-		var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
+		dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 		//压缩图片,并重命名
 		compressImage(e, dstname, function(src) {
@@ -87,12 +88,33 @@ function cutImg(long, width, callback) {
 
 //右旋转90度  
 function rotateimgright() {
-	if(iscutimging) {
-		$("#readyimg").cropper('rotate', 90);
-	} else {
-		cutImg(0, 0, function() {
+	if(base.IsNullOrEmpty(dstname)) {
+		dstname = $("#readyimg").attr("src");
+	}
+	if(dstname.toLowerCase().startsWith("http://")) {
+		if(iscutimging) {
 			$("#readyimg").cropper('rotate', 90);
-		});
+		} else {
+			cutImg(0, 0, function() {
+				setTimeout(function() {
+					$("#readyimg").cropper('rotate', 90);
+				}, 500);
+			});
+		}
+	} else {
+		plus.zip.compressImage({
+				src: dstname,
+				dst: dstname,
+				overwrite: true,
+				rotate: 90 // 旋转90度
+			},
+			function(event) {
+				dstname = event.target;
+				$("#readyimg").attr("src", dstname + "?" + new Date().getTime());
+			},
+			function(error) {
+				console.log("Compress error!");
+			});
 	}
 }
 
