@@ -39,15 +39,21 @@
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="search" class="mui-icon mui-icon-search mui-pull-right blue"></a>
+			<h1 class="mui-title c333">精选推荐</h1>
+		</header>
 		<div class="mui-content">
-			<div id="slider" class="mui-slider mui-fullscreen">
-				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
-					<div class="mui-scroll" id="sliderTopBody">
+			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
+				<div id="slider" class="mui-slider mui-fullscreen">
+					<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+						<div class="mui-scroll" id="sliderTopBody">
+
+						</div>
+					</div>
+					<div class="mui-slider-group" id="sliderGroup" style="top:2.35rem;">
 
 					</div>
-				</div>
-				<div class="mui-slider-group" id="sliderGroup" style="top:2.35rem;">
-
 				</div>
 			</div>
 		</div>
@@ -76,7 +82,9 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.ShowSearch();
 
+		return;
 		//加载类型
 		LoadArticleType(function() {
 			//遍历父级节点

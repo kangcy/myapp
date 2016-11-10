@@ -354,7 +354,6 @@ var base = new function() {
 		var div = document.createElement('div');
 		div.className = 'mui-card';
 		var model = [];
-
 		if(ismy == true) {
 			var power = "";
 			switch(item.ArticlePower) {
