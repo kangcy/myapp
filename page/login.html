@@ -57,14 +57,11 @@
 
 	//跳转首页
 	var toMain = function() {
-		base.OpenWindow("index", "../index.html", {
-
-		});
+		base.OpenWindow("subindex", "subindex.html", {});
 	};
 
-	var auths = {};
+	var auths = {}; 
 	mui.plusReady(function() {
-		plus.screen.lockOrientation("portrait-primary");
 		var settings = app.getSettings();
 
 		plus.oauth.getServices(function(services) {
@@ -73,14 +70,8 @@
 			alert("获取登录服务列表失败：" + e.message + " - " + e.code);
 		});
 
-		//关闭 splash
-		setTimeout(function() {
-			plus.navigator.closeSplashscreen();
-		}, 600);
-
 		//点击登录
 		loginButton.addEventListener('tap', function(event) {
-			plus.nativeUI.showWaiting("登录中...");
 			var loginInfo = {
 				UserName: accountBox.value,
 				Password: passwordBox.value
@@ -91,7 +82,7 @@
 					plus.nativeUI.toast(err);
 					return;
 				}
-				plus.nativeUI.showWaiting("载入中...");
+				plus.nativeUI.showWaiting("登录成功，载入中...");
 				toMain();
 			});
 		});

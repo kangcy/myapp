@@ -117,8 +117,7 @@
 
 		//添加关注
 		base.GuanZhu("#slider", userinfo, function($this) {
-			//$this.addClass("guanzhu2").removeClass("guanzhu").html("已关注");
-			$this.parent().remove();
+			$this.parentNode.remove();
 		});
 
 		base.InitSlider(parentPage); //滑动切换

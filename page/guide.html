@@ -76,21 +76,24 @@
 
 </html>
 <script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
 <script>
 	mui.init();
 	mui.back = function() {};
 	mui.plusReady(function() {
-		if(mui.os.ios) {
-			plus.navigator.setFullscreen(true);
-		}
-		plus.navigator.closeSplashscreen();
+		plus.navigator.setFullscreen(true);//全屏展示
+		plus.navigator.closeSplashscreen();//关闭启动页
+
+		mui.back = function() {};
 	});
+
 	//立即体验按钮点击事件
 	document.getElementById("close").addEventListener('tap', function(event) {
 		plus.storage.setItem("lauchFlag", "true");
 		plus.navigator.setFullscreen(false);
-		plus.webview.currentWebview().close();
+		base.OpenWindow("login", "login.html", {});
 	}, false);
+
 	//图片切换时，触发动画
 	document.querySelector('.mui-slider').addEventListener('slide', function(event) {
 		//注意slideNumber是从0开始的；

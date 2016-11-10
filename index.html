@@ -14,158 +14,73 @@
 </html>
 <script src="js/mui.min.js"></script>
 <script type="text/javascript">
-	var menu = null,
-		main = null;
-	var showMenu = false;
-
-	var userinfo = localStorage.getItem('$userinfo') || "{}";
-	
-	if(userinfo == "{}") {
-		mui.init({
-			swipeBack: false, //启用右滑关闭功能
-
-			//子页面
-			subpages: [{
-				id: 'login',
-				url: 'page/login.html',
-				styles: {
-					top: '0px',
-					bottom: '0px'
-						//bounce: 'vertical'
-				}
-			}]
-		});
-	} else {
-		mui.init({
-			swipeBack: false, //启用右滑关闭功能
-
-			//子页面
-			subpages: [{
-				id: 'subindex',
-				url: 'page/subindex.html',
-				styles: {
-					top: '0px',
-					bottom: '0px'
-				}
-			}]
-		});
+	var aniShow = "pop-in";
+	if(mui.os.android) {
+		if(parseFloat(mui.os.version) < 4.4) {
+			aniShow = "slide-in-right";
+		}
 	}
 
 	mui.plusReady(function() {
-
 		//仅支持竖屏显示
 		plus.screen.lockOrientation("portrait-primary");
-		main = plus.webview.currentWebview();
 
-		//显示当前页面
-		//mui.currentWebview.show("slide-in-right");
-
-		plus.nativeUI.closeWaiting();
-
-		//main.addEventListener('maskClick', closeMenu);
-		//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
-		/*setTimeout(function() {
-			menu = mui.preload({
-				id: 'menu',
-				url: 'menu.html',
-				styles: {
-					left: 0,
-					width: '70%',
-					zindex: 1000
-				},
-				show: {
-					aniShow: 'none'
-				}
-			});
-		}, 200);*/
-	});
-
-	var isInTransition = false;
-	/**
-	 * 显示侧滑菜单
-	 */
-	function openMenu() {
-		if(isInTransition) {
-			return;
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
 		}
-		if(!showMenu) {
-			//侧滑菜单处于隐藏状态，则立即显示出来；
-			isInTransition = true;
-			menu.setStyle({
-				mask: 'rgba(0,0,0,0)'
-			}); //menu设置透明遮罩防止点击
-			menu.show('none', 0, function() {
-				//主窗体开始侧滑并显示遮罩
-				main.setStyle({
-					mask: 'rgba(0,0,0,0.4)',
-					left: '70%',
-					transition: {
-						duration: 150
+
+		//读取本地存储，检查是否为首次启动
+		var showGuide = plus.storage.getItem("lauchFlag");
+		if(showGuide) {
+			//判断是否登录
+			var userinfo = localStorage.getItem('$userinfo') || "{}";
+			if(userinfo == "{}") {
+				mui.openWindow({
+					id: 'login',
+					url: 'page/login.html',
+					styles: {
+						popGesture: 'close'
+					},
+					show: {
+						aniShow: aniShow
+					},
+					waiting: {
+						autoShow: false
 					}
 				});
-				mui.later(function() {
-					isInTransition = false;
-					menu.setStyle({
-						mask: "none"
-					}); //移除menu的mask
-				}, 160);
-				showMenu = true;
-			});
-		}
-	};
-	/**
-	 * 关闭菜单
-	 */
-	function closeMenu() {
-		if(isInTransition) {
-			return;
-		}
-		if(showMenu) {
-			//关闭遮罩；
-			//主窗体开始侧滑；
-			isInTransition = true;
-			main.setStyle({
-				mask: 'none',
-				left: '0',
-				transition: {
-					duration: 200
+			} else {
+				preload();
+			}
+		} else {
+			//显示启动导航
+			mui.openWindow({
+				id: 'guide',
+				url: 'page/guide.html',
+				styles: {
+					popGesture: 'close'
+				},
+				show: {
+					aniShow: aniShow
+				},
+				waiting: {
+					autoShow: false
 				}
 			});
-			showMenu = false;
-			//等动画结束后，隐藏菜单webview，节省资源；
-			mui.later(function() {
-				isInTransition = false;
-				menu.hide();
-			}, 300);
-		}
-	};
-
-	//切换左侧菜单显示
-	window.addEventListener("toggleMenu", function(e) {
-		if(showMenu) {
-			closeMenu();
-		} else {
-			openMenu();
 		}
 	});
 
-	//主界面向右滑动，若菜单未显示，则显示菜单；否则不做任何操作
-	window.addEventListener("swiperight", openMenu);
-
-	//主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
-	window.addEventListener("swipeleft", closeMenu);
-
-	//侧滑菜单触发关闭菜单命令
-	window.addEventListener("menu:close", closeMenu);
-	window.addEventListener("menu:open", openMenu);
-
-	//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
-	mui.menu = function() {
-		if(showMenu) {
-			closeMenu();
-		} else {
-			openMenu();
-		}
+	//初始化，并预加载webview模式的选项卡			
+	function preload() {
+		mui.preload({
+			id: 'subindex',
+			url: 'page/subindex.html',
+			styles: {
+				popGesture: 'hide'
+			},
+			show: {
+				autoShow: false
+			}
+		});
 	}
 
 	//首页返回键处理

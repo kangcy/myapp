@@ -179,7 +179,7 @@ var base = new function() {
 	this.GuanZhu = function(id, userinfo, callback) {
 		mui(id).on('tap', '.guanzhu', function(event) {
 			var userId = this.getAttribute("userid");
-			var $this = $(this);
+			var $this = this;
 			HttpGet(base.RootUrl + "Fan/Edit", {
 				ID: userinfo.ID,
 				ToUserID: userId
