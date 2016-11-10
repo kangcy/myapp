@@ -26,7 +26,7 @@
 			this.options = $.extend(true, {
 				down: {
 					height: 75,
-					callback: false,
+					callback: false
 				},
 				up: {
 					auto: false,
@@ -35,8 +35,9 @@
 					contentinit: '', //上拉显示更多
 					contentdown: '', //上拉显示更多
 					contentrefresh: '<div class="tc"><div class="line-scale-pulse-out"><div></div><div></div><div></div><div></div><div></div></div></div>',
-					contentnomore: '', //没有更多
-					callback: false
+					contentnomore: '-end-', //没有更多
+					callback: false,
+					showbottom: false //是否显示底部没有数据提示
 				},
 				preventDefaultException: {
 					tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/
@@ -132,6 +133,9 @@
 						self.element.appendChild(element);
 					}
 					self.pullUpTipsIcon = element.querySelector(SELECTOR_PULL_LOADING);
+					if(!self.options.up.showbottom) {
+						self.pullUpTipsIcon.classList.add("hide"); //屏蔽底部没有数据提示 
+					}
 					return element;
 				}());
 			}
