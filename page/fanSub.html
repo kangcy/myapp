@@ -25,12 +25,13 @@
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll1" class="mui-scroll">
-								<div id="none1" class="full tc hide">
-									<img src="../images/my/11111.png" class="none" />
-									<p class="f13 mt10">你关注的人，会在这里显示</p>
-								</div>
+
 								<div id="scroll-view1">
 
+								</div>
+								<div id="none1" class="full tc">
+									<img src="../images/my/111.png" class="none" />
+									<p class="f13 mt10">你关注的人，会在这里显示</p>
 								</div>
 							</div>
 						</div>
@@ -38,12 +39,12 @@
 					<div class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll2" class="mui-scroll">
-								<div id="none2" class="full tc hide">
-									<img src="../images/my/11111.png" class="none" />
-									<p class="f13 mt10">关注你的人，会在这里显示</p>
-								</div>
 								<div id="scroll-view2">
 
+								</div>
+								<div id="none2" class="full tc">
+									<img src="../images/my/111.png" class="none" />
+									<p class="f13 mt10">关注你的人，会在这里显示</p>
 								</div>
 							</div>
 						</div>
@@ -166,7 +167,7 @@
 		if(currpage1 > totalpage1) {
 			isLoading1 = false;
 			self.endPullUpToRefresh(currpage1 > totalpage1);
-			return false;
+			return mui.toast("没有更多数据了~");
 		}
 		setTimeout(function() {
 			Load1(function() {
@@ -205,7 +206,7 @@
 		if(currpage2 > totalpage2) {
 			isLoading2 = false;
 			self.endPullUpToRefresh(currpage2 > totalpage2);
-			return false;
+			return mui.toast("没有更多数据了~");
 		}
 		setTimeout(function() {
 			Load2(function() {

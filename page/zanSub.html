@@ -11,9 +11,15 @@
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/fan.css">
 		<link rel="stylesheet" href="../css/loading.css">
+		<style type="text/css">
+			.none {
+				width: 100px !important;
+				margin-top: 100px !important;
+			}
+		</style>
 	</head>
 
-	<body>
+	<body style="background:#F4F5F5;">
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-group">
@@ -21,6 +27,10 @@
 						<div class="mui-scroll-wrapper">
 							<div id="scroll1" class="mui-scroll">
 								<div id="scroll-view1"></div>
+								<div id="none1" class="full tc">
+									<img src="../images/my/222.png" class="none" />
+									<p class="f13 mt10">你赞过的人，会在这里显示</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -28,6 +38,10 @@
 						<div class="mui-scroll-wrapper">
 							<div id="scroll2" class="mui-scroll">
 								<div id="scroll-view2"></div>
+								<div id="none2" class="full tc">
+									<img src="../images/my/222.png" class="none" />
+									<p class="f13 mt10">赞过你的人，会在这里显示</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -101,7 +115,7 @@
 
 		base.ShowUser("#slider"); //展示用户
 
-		base.ShowArticle("#slider","List"); //展示文章
+		base.ShowArticle("#slider", "List"); //展示文章
 
 		//添加关注
 		base.GuanZhu("#slider", userinfo, function($this) {
@@ -207,11 +221,14 @@
 				totalpage = data.totalpage1;
 				var length = data.list.length;
 				if(length > 0) {
+					document.getElementById("none1").classList.add("hide");
 					var table = document.getElementById('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i]);
 						table.appendChild(div);
 					}
+				} else {
+					document.getElementById("none1").classList.remove("hide");
 				}
 			}
 			if($.isFunction(callback)) {
@@ -219,7 +236,7 @@
 			}
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
+				placeholder: base.DefaultImg,
 				diff: window.innerHeight
 			});
 		});
@@ -237,11 +254,14 @@
 				totalpage = data.totalpage2;
 				var length = data.list.length;
 				if(length > 0) {
+					document.getElementById("none2").classList.add("hide");
 					var table = document.getElementById('scroll-view2');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i]);
 						table.appendChild(div);
 					}
+				} else {
+					document.getElementById("none2").classList.remove("hide");
 				}
 			}
 			if($.isFunction(callback)) {

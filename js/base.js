@@ -295,8 +295,12 @@ var base = new function() {
 	this.ShowArticle = function(id, Source) {
 		mui(id).on('tap', '.article', function(event) {
 			var articleId = this.getAttribute("articleid");
-			var power = this.getAttribute("power");
-			if(power.toString() == "1") {
+			var power = this.getAttribute("power").toString();
+			if(power == "0") {
+				return mui.toast("私密文章，不可见");
+			} else if(power == "2") {
+				return mui.toast("仅作者分享可见");
+			} else if(power == "1") {
 				var btnArray = ['确定', '取消'];
 				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
 					if(e.index == 0) {
