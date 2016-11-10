@@ -103,6 +103,7 @@
 		bottom: '50px'
 	};
 
+	var myPage = null;
 	var aniShow = {};
 	var activeTab = subpages[0];
 	mui.plusReady(function() {
@@ -117,7 +118,7 @@
 		LoadPage();
 
 		//选项卡点击事件
-		var myPage = null;
+
 		mui('.mui-bar-tab').on('tap', 'a', function(e) {
 			var targetTab = this.getAttribute('href');
 			if(targetTab == activeTab) {
