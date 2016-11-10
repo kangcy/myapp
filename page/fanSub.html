@@ -58,9 +58,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage1 = 1;
@@ -79,7 +76,7 @@
 
 		base.InitScroll();
 
-		//我的评论
+		//我关注的
 		mui(document.getElementById("scroll1")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -169,7 +166,7 @@
 		if(currpage1 > totalpage1) {
 			isLoading1 = false;
 			self.endPullUpToRefresh(currpage1 > totalpage1);
-			return mui.toast("没有更多数据了~");
+			return false;
 		}
 		setTimeout(function() {
 			Load1(function() {
@@ -208,7 +205,7 @@
 		if(currpage2 > totalpage2) {
 			isLoading2 = false;
 			self.endPullUpToRefresh(currpage2 > totalpage2);
-			return mui.toast("没有更多数据了~");
+			return false;
 		}
 		setTimeout(function() {
 			Load2(function() {
@@ -231,24 +228,17 @@
 				totalpage = data.totalpage1;
 				var length = data.list.length;
 				if(length > 0) {
-					$("#none1").addClass("hide");
+					document.getElementById("none1").classList.add("hide");
 					var table = document.getElementById('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i], 0);
 						table.appendChild(div);
 					}
 				} else {
-					$("#none1").removeClass("hide");
+					document.getElementById("none1").classList.remove("hide");
 				}
 			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
+			callback();
 		});
 	}
 
@@ -264,24 +254,17 @@
 				totalpage = data.totalpage2;
 				var length = data.list.length;
 				if(length > 0) {
-					$("#none2").addClass("hide");
+					document.getElementById("none2").classList.add("hide");
 					var table = document.getElementById('scroll-view2');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i], 1);
 						table.appendChild(div);
 					}
 				} else {
-					$("#none2").removeClass("hide");
+					document.getElementById("none2").classList.remove("hide");
 				}
 			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
+			callback();
 		});
 	}
 
