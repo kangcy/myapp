@@ -52,11 +52,6 @@
 			<div class="mui-slider mui-fullscreen">
 				<div class="mui-scroll-wrapper">
 					<div id="pullrefresh" class="mui-scroll">
-						<!--<header class="mui-bar" style="box-shadow:none;">
-							<a id="toggle" class="mui-icon mui-icon-back fl cfff" style="font-size:30px;"></a>
-							<a id="star" class="mui-icon mui-icon-more fr cfff" style="font-size:35px;"></a>
-							<h1 class="mui-title c333"></h1>
-						</header>-->
 						<div id="bg" style="width:100%;height:10rem;"></div>
 						<div id="info-body" class="info-body mb8">
 							<div class="info-content">
@@ -105,7 +100,7 @@
 
 		base.InitScroll();
 
-		base.ShowArticle("#pullrefresh", "List"); //展示文章
+		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //展示文章
 	});
 
 	//初始化获取参数
@@ -188,7 +183,7 @@
 
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i]);
+						var div = base.AppendArticle(data.list[i], false, true);
 						table.appendChild(div);
 					}
 				}

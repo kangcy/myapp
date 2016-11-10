@@ -66,7 +66,7 @@
 	var isLoading2 = false;
 	var pagesize = base.PageSize;
 	var parentPage = null;
-	var userId = base.GetUserID();
+	var userinfo = base.GetUserInfo();
 	mui.init();
 
 	mui.ready(function() {
@@ -109,7 +109,7 @@
 
 		base.ShowUser("#slider"); //用户详细
 
-		base.ShowArticle("#slider", "List"); //文章详细
+		base.ShowArticle("#slider", "List", userinfo.ID); //文章详细
 
 		base.InitSlider(parentPage); //滑动切换
 	});
@@ -202,7 +202,7 @@
 		data = {
 			page: currpage1,
 			rows: pagesize,
-			CreateUserID: userId
+			CreateUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
 			if(data != null) {
@@ -230,7 +230,7 @@
 		var data = {
 			page: currpage2,
 			rows: pagesize,
-			ArticleUserID: userId
+			ArticleUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
 			if(data != null) {

@@ -78,6 +78,7 @@
 	var topicPage = null;
 	var articleTypes = [];
 	var currSlider = 0;
+	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
@@ -186,7 +187,7 @@
 
 		base.ShowUser("#slider"); //用户信息
 
-		base.ShowArticle("#slider", "List"); //文章信息
+		base.ShowArticle("#slider", "List", userinfo.ID); //文章信息
 
 		//分类列表
 		mui("#slider").on('tap', '.topic', function(event) {

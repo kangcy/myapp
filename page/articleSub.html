@@ -66,7 +66,7 @@
 		ArticleType = articleType;
 		CreateUserID = createUserID;
 
-		base.ShowArticle("#pullrefresh", source); //文章详细
+		base.ShowArticle("#pullrefresh", source, userinfo.ID); //文章详细
 
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {

@@ -292,15 +292,16 @@ var base = new function() {
 	/**
 	 * 展示文章信息
 	 **/
-	this.ShowArticle = function(id, Source) {
+	this.ShowArticle = function(id, Source, curruserid) {
 		mui(id).on('tap', '.article', function(event) {
 			var articleId = this.getAttribute("articleid");
+			var userid = this.getAttribute("userid");
 			var power = this.getAttribute("power").toString();
-			if(power == "0") {
+			if(power == "0" && curruserid != userid) {
 				return mui.toast("私密文章，不可见");
-			} else if(power == "2") {
+			} else if(power == "2" && curruserid != userid) {
 				return mui.toast("仅作者分享可见");
-			} else if(power == "1") {
+			} else if(power == "1" && curruserid != userid) {
 				var btnArray = ['确定', '取消'];
 				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
 					if(e.index == 0) {
@@ -348,9 +349,9 @@ var base = new function() {
 	}
 
 	/**
-	 * 拼接文章Html
+	 * 拼接文章Html(ismy:我的,isuser:用户)
 	 */
-	this.AppendArticle = function(item, ismy) {
+	this.AppendArticle = function(item, ismy, isuser) {
 		var div = document.createElement('div');
 		div.className = 'mui-card';
 		var model = [];
@@ -377,12 +378,16 @@ var base = new function() {
 			model.push('<div class="mui-media-body f12" style="margin:0px;margin-top:0.2rem;"><span class="fl caaa">' + item.CreateDate + '</span><span style="border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;margin-top:-0.1rem;" class="f11 fr">' + power + '</span>');
 			model.push('</div></div>');
 		} else {
-			model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
-			model.push('<div class="mui-media-body f12">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+			if(isuser) {
+				model.push('<div class="mui-card-header mui-card-media"><div class="mui-media-body f12"><span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+			} else {
+				model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+				model.push('<div class="mui-media-body f12">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+			}
 		}
 
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
-		model.push('<p class="c333 fl article full mt5" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
+		model.push('<p class="c333 fl article full mt5" articleid="' + item.ArticleID + '" userid="' + item.UserID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
 
 		//部分拼接
 		var parts = item.ArticlePart;
@@ -393,32 +398,6 @@ var base = new function() {
 				model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			}
 		}
-
-		/*
-		if(parts.length == 0) {
-			model.push('<div class="onefloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
-		} else {
-			var exist = false;
-			for(var i = 0; i < parts.length; i++) {
-				if(parts[i].Introduction == item.Cover) {
-					exist = true;
-				}
-			}
-			if(exist) {
-				if(parts.length == 1) {
-					model.push('<div class="onefloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
-				} else {
-					for(var i = 0; i < parts.length; i++) {
-						model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
-					}
-				}
-			} else {
-				model.push('<div class="secondfloor"><img data-lazyload="' + item.Cover + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
-				for(var i = 0; i < parts.length; i++) {
-					model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
-				}
-			}
-		}*/
 		model.push('</div></div>');
 		model.push('<div class="mui-card-footer fl full">');
 		model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f11 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
