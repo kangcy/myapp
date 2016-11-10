@@ -51,7 +51,7 @@
 		mui.back = function() {
 			plus.webview.close(plus.webview.currentWebview());
 		}
-		
+
 		//返回
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
@@ -80,8 +80,7 @@
 		});
 	});
 
-	window.addEventListener("updateCurr", function(e) {
-		var index = e.detail.index;
+	function UpdateCurr(index) {
 		if(index == 0) {
 			document.getElementById("tab2").setAttribute("class", "tab");
 			document.getElementById("tab1").setAttribute("class", "tab curr");
@@ -89,5 +88,5 @@
 			document.getElementById("tab1").setAttribute("class", "tab");
 			document.getElementById("tab2").setAttribute("class", "tab curr");
 		}
-	});
+	}
 </script>

@@ -201,12 +201,12 @@ var base = new function() {
 	/**
 	 * 监听标题滑动切换
 	 **/
-	this.InitSlider = function() {
+	this.InitSlider = function(parentPage) {
 		document.getElementById('slider').addEventListener('slide', function(e) {
-			var topicPage = plus.webview.currentWebview().parent();
-			mui.fire(topicPage, "updateCurr", {
-				index: e.detail.slideNumber
-			});
+			if(parentPage == null) {
+				parentPage = plus.webview.currentWebview().parent();
+			}
+			parentPage.evalJS("UpdateCurr(" + e.detail.slideNumber + ")");
 		});
 	}
 

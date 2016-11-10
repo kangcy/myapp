@@ -68,7 +68,7 @@
 	var isLoading1 = false;
 	var isLoading2 = false;
 	var pagesize = base.PageSize;
-	var payPage = null;
+	var parentPage = null;
 	var userinfo = base.GetUserInfo();
 
 	mui.init();
@@ -111,27 +111,17 @@
 			}
 		});
 
-		//滑动切换
-		document.getElementById('slider').addEventListener('slide', function(e) {
-			if(!payPage) {
-				payPage = plus.webview.currentWebview().parent();
-			}
-			mui.fire(payPage, "updateCurr", {
-				index: e.detail.slideNumber
-			});
-		});
+		base.ShowUser("#slider"); //用户详细
 
-		//用户详细
-		base.ShowUser("#slider");
-
-		//文章详细
-		base.ShowArticle("#slider", "List");
+		base.ShowArticle("#slider", "List"); //文章详细
 
 		//添加关注
 		base.GuanZhu("#slider", userinfo, function($this) {
 			//$this.addClass("guanzhu2").removeClass("guanzhu").html("已关注");
 			$this.parent().remove();
 		});
+
+		base.InitSlider(parentPage); //滑动切换
 	});
 
 	//Slider切换

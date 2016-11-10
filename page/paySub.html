@@ -40,9 +40,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage1 = 1;
@@ -52,7 +49,7 @@
 	var isLoading1 = false;
 	var isLoading2 = false;
 	var pagesize = base.PageSize;
-	var payPage = null;
+	var parentPage = null;
 	var userId = base.GetUserID();
 
 	mui.init();
@@ -97,7 +94,7 @@
 
 		base.ShowUser("#slider");
 
-		base.InitSlider();
+		base.InitSlider(parentPage);
 	});
 
 	//Slider切换
@@ -202,14 +199,7 @@
 					}
 				}
 			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
+			callback();
 		});
 	}
 
@@ -232,14 +222,7 @@
 					}
 				}
 			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: '../images/60x60.gif',
-				diff: window.innerHeight
-			});
+			callback();
 		});
 	}
 
@@ -249,7 +232,7 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.ToUserAvatar + '" class="user" userid="' + item.ToUserID + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.ToUserAvatar + '" class="user" userid="' + item.ToUserID + '" /></div>');
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.ToUserName + '</p><p class="f11 csubtitle mb5">打赏</p><p class="f11 csubtitle">' + item.CreateDate + '</p></div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
 		model.push('</div>');
@@ -263,7 +246,7 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.FromUserAvatar + '" class="user" userid="' + item.FromUserID + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.FromUserAvatar + '" class="user" userid="' + item.FromUserID + '" /></div>');
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.FromUserName + '</p><p class="f11 csubtitle mb5">打赏</p><p class="f11 csubtitle">' + item.CreateDate + '</p></div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
 		model.push('</div>');

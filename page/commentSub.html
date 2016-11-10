@@ -65,7 +65,7 @@
 	var isLoading1 = false;
 	var isLoading2 = false;
 	var pagesize = base.PageSize;
-	var payPage = null;
+	var parentPage = null;
 	var userId = base.GetUserID();
 	mui.init();
 
@@ -107,21 +107,11 @@
 			}
 		});
 
-		//滑动切换
-		document.getElementById('slider').addEventListener('slide', function(e) {
-			if(!payPage) {
-				payPage = plus.webview.currentWebview().parent();
-			}
-			mui.fire(payPage, "updateCurr", {
-				index: e.detail.slideNumber
-			});
-		});
+		base.ShowUser("#slider"); //用户详细
 
-		//用户详细
-		base.ShowUser("#slider");
+		base.ShowArticle("#slider", "List"); //文章详细
 
-		//文章详细
-		base.ShowArticle("#slider", "List");
+		base.InitSlider(parentPage); //滑动切换
 	});
 
 	//Slider切换
@@ -268,8 +258,8 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell mt10"><div class="oa-contact-content mui-table-cell pb0"><p class="f12 article" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">“' + item.Title + '”</p></div></div>');
-		model.push('<div class="mui-slider-cell mt5 mb5"><div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12">' + item.Summary + '</p></div></div>');
+		model.push('<div class="mui-slider-cell mt10"><div class="oa-contact-content mui-table-cell pb0"><p class="c333 f12 article" articleid="' + item.ArticleID + '" power="' + item.ArticlePower + '">~' + item.Title + '~</p></div></div>');
+		model.push('<div class="mui-slider-cell mt5 mb5"><div class="oa-contact-content mui-table-cell pb0"><p class="caaa f12">' + item.Summary + '</p></div></div>');
 		model.push('<div class="mui-slider-cell mb10"><div class="oa-contact-content mui-table-cell pb0"><p class="caaa f11">' + item.CreateDate + '</p></div></div>');
 		div.innerHTML = model.join('');
 		return div;
@@ -282,7 +272,7 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10">');
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f12 user" userid="' + item.UserID + '">' + item.NickName + '</p><p class="f12 c333 mt5 mb5">' + item.Summary + '</p><p class="f11 caaa">' + item.CreateDate + '</p></div>');
+		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserID + '">' + item.NickName + '</p><p class="f12 caaa mt5 mb5">' + item.Summary + '</p><p class="f11 caaa">' + item.CreateDate + '</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

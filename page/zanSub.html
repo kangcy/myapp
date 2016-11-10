@@ -69,6 +69,7 @@
 	var isLoading1 = false;
 	var isLoading2 = false;
 	var pagesize = base.PageSize;
+	var parentPage = null;
 	var userinfo = base.GetUserInfo();
 
 	mui.init();
@@ -123,7 +124,7 @@
 			$this.parent().remove();
 		});
 
-		base.InitSlider(); //滑动切换
+		base.InitSlider(parentPage); //滑动切换
 	});
 
 	//Slider切换
@@ -231,9 +232,7 @@
 					document.getElementById("none1").classList.remove("hide");
 				}
 			}
-			if($.isFunction(callback)) {
-				callback();
-			}
+			callback();
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({
 				placeholder: base.DefaultImg,
@@ -264,14 +263,7 @@
 					document.getElementById("none2").classList.remove("hide");
 				}
 			}
-			if($.isFunction(callback)) {
-				callback();
-			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
+			callback();
 		});
 	}
 
