@@ -40,11 +40,16 @@
 			<h1 class="mui-title c333">选择背景音乐</h1>
 		</header>
 		<div class="mui-content">
-			<div class="mui-scroll-wrapper" style="top:45px;bottom:0px;">
+			<div class="mui-scroll-wrapper" style="top:45px;bottom:50px;">
 				<div class="mui-scroll" id="list">
 				</div>
 			</div>
 		</div>
+		<nav class="mui-bar mui-bar-tab" id="search">
+			<div class="mui-tab-item blue" style="font-size:18px;">
+				<span class="mui-icon mui-icon-search" style="top:0px;font-size:25px;margin-right:5px;"></span>搜索在线音乐
+			</div>
+		</nav>
 	</body>
 
 </html>
@@ -71,9 +76,14 @@
 		//切换选择
 		$("#list").on('tap', 'li.music', function(event) {
 			$("#list .check").removeClass("check");
-			this.classList.add("check");
+			this.classList.add("check"); 
 			MusicID = this.getAttribute("index");
 			MusicName = this.getAttribute("name");
+		});
+
+		//搜索
+		document.getElementById("search").addEventListener('tap', function(event) {
+			base.OpenWindow("musicsearch", "musicsearch.html", {});
 		});
 	});
 

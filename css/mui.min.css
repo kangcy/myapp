@@ -2785,11 +2785,12 @@ select:focus {
 	left: 0;
 	display: inline-block;
 	height: 34px;
-	text-align: center;
+	text-align: left;
 	color: #999999;
 	border: 0;
 	border-radius: 6px;
 	background: 0 0;
+	text-indent:5px;
 }
 
 .mui-search .mui-placeholder .mui-icon {

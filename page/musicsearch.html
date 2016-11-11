@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			.mui-search {
+				width: 90%;
+				display: inline-block;
+			}
+			
+			.check {
+				background: url(../images/check.png) 97% center no-repeat;
+				background-size: 1.25rem;
+			}
+			
+			.mui-table-view-cell {
+				padding: .8rem 0.9375rem;
+			}
+			
+			.mui-table-view:after {
+				height: 0px;
+			}
+			
+			.mui-table-view-cell:last-child:after,
+			.mui-table-view-cell:last-child:before {
+				height: 1px;
+			}
+			
+			.mui-popup-title+.mui-popup-text {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right:0px;">
+			<a id="back" class="mui-icon mui-icon-back fl" style="width:15%;"></a>
+			<a id="btnSearch" class="mui-icon mui-icon-search fr blue" style="width:15%;"></a>
+			<div class="mui-input-row mui-search" style="width:77%;">
+				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:34px;font-size:16px;">
+			</div>
+		</header>
+		<div class="mui-content ">
+			<div id="pullwrapper" class="mui-scroll-wrapper" style="top:50px;bottom:0px;">
+				<div id="pullrefresh" class="mui-scroll">
+					<ul class="mui-table-view f13 mt0" id="scroll-view">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var SearchName = ""; //搜索词
+	var isLoading = false;
+	var currpage = 1;
+	var totalpage = 2;
+	var pagesize = 50;
+	var userinfo = base.GetUserInfo();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false
+	});
+
+	var search = document.getElementById("search");
+
+	mui.ready(function() {
+		base.InitScroll();
+
+		//语音识别完成事件
+		search.addEventListener('recognized', function(e) {
+			search.value = e.detail.value;
+		});
+	})
+
+	var contentWebview = null;
+	mui.plusReady(function() {
+		//获取参数
+		var self = plus.webview.currentWebview();
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(e) {
+			mui.back();
+		});
+
+		//搜索
+		document.getElementById("btnSearch").addEventListener('tap', function(e) {
+			if(search.value == "") {
+				return mui.toast("请输入搜索内容~");
+			}
+			InitMusic(search.value);
+		});
+		mui(document.getElementById("pullrefresh")).pullToRefresh({
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
+	});
+
+	//加载
+	function InitMusic(title) {
+		plus.nativeUI.showWaiting("搜索中...");
+		SearchName = title;
+		currpage = 1;
+		totalpage = 2;
+		document.getElementById('scroll-view').innerHTML = "";
+		LoadMusic(function() {
+			++currpage;
+			isLoading = false;
+		})
+	}
+
+	/**
+	 * 上拉加载
+	 */
+	function pullupRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
+		}
+		setTimeout(function() {
+			LoadMusic(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//搜索文章
+	function LoadMusic(callback) {
+		if(base.IsNullOrEmpty(search.value)) {
+			if($.isFunction(callback)) {
+				callback();
+			}
+			return;
+		}
+		var table = $("#scroll-view");
+		var data = {
+			page: currpage,
+			rows: pagesize,
+			name: SearchName,
+		};
+		/*totalpage = 16;
+		for(var i = 0, len = 30; i < len; i++) {
+			var item = data[i];
+			table.append('<li class="mui-table-view-cell music"><span class="fl">' + SearchName + i + '</span><span class="mui-pull-right csubtitle mr20"></span></li>');
+		}
+		plus.nativeUI.closeWaiting();
+		if($.isFunction(callback)) {
+			callback();
+		}*/
+
+		HttpGet(base.RootUrl + "Music/SearchMusic", data, function(data) {
+			plus.nativeUI.closeWaiting();
+			console.log(JSON.stringify(data));
+			if(data != null) {
+				if(data.code == 0) {
+					data = data.data;
+					totalpage = parseInt(data.total_page);
+					console.log("totalpage:" + totalpage);
+					data = data.data;
+					var length = data.length;
+					if(length > 0) {
+						for(var i = 0, len = data.length; i < len; i++) {
+							var item = data[i];
+							table.append('<li class="mui-table-view-cell music" hash="' + item.hash + '"><span class="fl">' + item.filename + '</span><span class="mui-pull-right csubtitle mr20"></span></li>');
+						}
+					} else {
+						mui.toast("没有更多数据了~");
+					}
+				} else {
+					mui.toast("没有更多数据了~");
+				}
+			} else {
+				mui.toast("没有更多数据了~");
+			}
+
+			mui('#pullwrapper').scroll().reLayout();
+
+			if($.isFunction(callback)) {
+				callback();
+			}
+
+		});
+	}
+</script>

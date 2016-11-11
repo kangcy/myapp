@@ -149,12 +149,6 @@
 
 			mui('#sliderChild1').scroll().reLayout();
 
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
-
 			plus.nativeUI.closeWaiting();
 		});
 	}
