@@ -80,7 +80,9 @@
 	var currSlider = 0;
 	var userinfo = base.GetUserInfo();
 
-	mui.init();
+	mui.init({
+
+	});
 
 	mui.ready(function() {
 		base.ShowSearch();
@@ -102,7 +104,7 @@
 
 				var child = [];
 				for(var j = 0; j < articleTypes.length; j++) {
-					if(articleTypes[j].ParentID == parent[i].CurrID) {
+					if(articleTypes[j].ParentID == parent[i].ID) {
 						child.push(articleTypes[j]);
 					}
 				}
@@ -149,7 +151,7 @@
 								currpage[index] = 1;
 								totalpage[index] = 2;
 								document.getElementById('scroll-view' + index).innerHTML = "";
-								Load(index, parent[index].CurrID, function() {
+								Load(index, parent[index].ID, function() {
 									++currpage[index];
 									self.endPullDownToRefresh();
 									self.refresh(true);
@@ -169,7 +171,7 @@
 								return false;
 							}
 							setTimeout(function() {
-								Load(index, parent[index].CurrID, function() {
+								Load(index, parent[index].ID, function() {
 									++currpage[index];
 									self.endPullUpToRefresh(currpage[index] > totalpage[index]);
 									isLoading = false;
@@ -276,9 +278,9 @@
 	 */
 	function appendPTypeStr(item, index) {
 		if(index == 0) {
-			return '<div class="mui-control-item f12 topic mui-active" typeid="' + item.CurrID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f12 topic mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		} else {
-			return '<div class="mui-control-item f12 topic " typeid="' + item.CurrID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f12 topic " typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		}
 	}
 </script>

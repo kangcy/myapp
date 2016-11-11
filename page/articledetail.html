@@ -173,6 +173,42 @@
 				float: left;
 				text-align: left;
 			}
+			/*模板选择*/
+			
+			#temps {
+				background: #eee;
+				height: 100px;
+				position: fixed;
+				bottom: 0px;
+				top: auto;
+				z-index: 99999;
+				border: 0px;
+			}
+			
+			.temp {
+				width: 80px !important;
+				height: 80px !important;
+				padding: 0px !important;
+				position: relative;
+				margin-left: 8px !important;
+			}
+			
+			.temp:first-child {
+				margin-left: 10px !important;
+			}
+			
+			.temp:last-child {
+				margin-right: 10px !important;
+			}
+			
+			.temp img {
+				width: 100% !important;
+				height: 100% !important;
+			}
+			
+			.temp.hover img {
+				border: 2px solid #ed5565;
+			}
 		</style>
 	</head>
 
@@ -244,6 +280,20 @@
 				<div>
 					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;" onclick="ShareTan(1)"></span>
 				</div>
+			</div>
+		</div>
+		<!--模板选择-->
+		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control" style="">
+			<div class="mui-scroll" style="height:100px;margin-top:10px;">
+				<div class="mui-control-item temp" index="0"><img src="../images/share/1.png" /></div>
+				<div class="mui-control-item temp" index="1"><img src="../images/share/2.png" /></div>
+				<div class="mui-control-item temp" index="2"><img src="../images/share/3.png" /></div>
+				<div class="mui-control-item temp" index="3"><img src="../images/share/4.png" /></div>
+				<div class="mui-control-item temp" index="4"><img src="../images/share/5.png" /></div>
+				<div class="mui-control-item temp" index="5"><img src="../images/share/6.png" /></div>
+				<div class="mui-control-item temp" index="6"><img src="../images/share/7.png" /></div>
+				<div class="mui-control-item temp" index="7"><img src="../images/share/8.png" /></div>
+				<div class="mui-control-item temp" index="8"><img src="../images/share/9.png" /></div>
 			</div>
 		</div>
 		<!--分享-->
@@ -332,6 +382,13 @@
 
 	mui.ready(function() {
 		base.InitScroll();
+
+		//模板选择
+		mui('#temps').on('tap', '.temp', function() {
+			$(".temp").removeClass("hover");
+			$(this).addClass("hover");
+
+		});
 
 		//点赞
 		document.getElementById('zan').addEventListener('tap', function(event) {
