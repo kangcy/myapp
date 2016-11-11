@@ -7,44 +7,102 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/img.preview.css">
+		<link rel="stylesheet" href="../css/loading.css">
+		<link rel="stylesheet" href="../css/my.css">
 		<style type="text/css">
-			.mui-loader {
-				position: absolute;
-				top: 25%;
+			/*头部*/
+			
+			.tabs {
 				width: 100%;
-				height: 60%;
-				color: #888;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				background: #fff;
 				text-align: center;
+				font-weight: bold;
+			}
+			
+			.tabs .curr {
+				border-bottom: 3px solid #e78170;
+				height: 2.5rem;
+				display: inline-block;
+				color: #e78170;
+			}
+			
+			#avatar {
+				border-radius: 50%;
+				width: 5rem;
+				height: 5rem;
+				border: 3px solid #fff;
+			}
+			
+			#record {
+				width: 100%;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				background: #fafafa;
+				text-indent: .5rem;
 			}
 		</style>
 	</head>
 
 	<body>
-		<div class="mui-loader f14">载入中...</div>
+		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<div class="mui-scroll-wrapper">
+					<div id="pullrefresh" class="mui-scroll">
+						<div id="bg" style="width:100%;height:10rem;"></div>
+						<div id="info-body" class="info-body mb8">
+							<div class="info-content">
+								<img id="avatar" class="hide" />
+								<p class="c333 f16 tc name bold" id="nickname"></p>
+								<p class="csubtitle signature tc mt5 f12" id="signature"></p>
+								<div class="full tc mt10 hide" id="action">
+									<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
+									<div class="dashang f14">打赏</div>
+								</div>
+							</div>
+						</div>
+						<div id="record" class="f13 caaa hide"></div>
+						<div id="scroll-view">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.previewimage.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
+	var currpage = 1;
+	var totalpage = 2;
+	var isLoading = false;
+	var pagesize = base.PageSize;
 	var UserID = 0; //用户ID
-	var contentWebview = null;
+	var userinfo = base.GetUserInfo();
 
-	//启用双击监听 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false,
-		subpages: [{
-			id: 'userSub',
-			url: 'userSub.html',
-			styles: {
-				top: '0px',
-				bottom: '0px'
-			}
-		}]
+	mui.init();
+
+	mui.ready(function() {
+
+		mui.previewImage();
+
+		base.InitScroll();
+
+		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //展示文章
 	});
+
 	mui.plusReady(function() {
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
@@ -53,20 +111,159 @@
 
 		var self = plus.webview.currentWebview();
 		UserID = self.UserID || 0;
-		if(UserID == 0) {
-			plus.nativeUI.closeWaiting();
-		} else {
-			setTimeout(function() {
-				if(contentWebview == null) {
-					contentWebview = plus.webview.currentWebview().children()[0];
-				}
-				contentWebview.evalJS("Init(" + UserID + ")");
-			}, 250)
-		}
+
+		Init(UserID);
 
 		//返回
 		mui.back = function() {
 			plus.webview.currentWebview().close();
 		}
 	});
+
+	//初始化获取参数
+	function Init(userId) {
+		UserID = userId;
+		LoadUserInfo();
+		CheckFan();
+
+		//他的作品
+		mui(document.getElementById("pullrefresh")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
+	}
+
+	//他的作品-下拉刷新
+	function pulldownRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		setTimeout(function() {
+			currpage = 1;
+			totalpage = 2;
+			document.getElementById('scroll-view').innerHTML = "";
+			Load1(function() {
+				++currpage;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//他的作品-上拉加载
+	function pullupRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
+		}
+		setTimeout(function() {
+			Load(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//他的作品-加载数据
+	function Load(callback) {
+		var data = {
+			page: currpage,
+			rows: pagesize,
+			CreateUserID: UserID
+		}
+		HttpGet(base.RootUrl + "Article/All", data, function(data) {
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.list.length;
+				if(length > 0) {
+
+					$("#record").html(data.records + "篇").removeClass("hide");
+
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = base.AppendArticle(data.list[i], false, true);
+						table.appendChild(div);
+					}
+				}
+			}
+			if($.isFunction(callback)) {
+				callback();
+			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: base.DefaultImg,
+				diff: window.innerHeight
+			});
+		});
+	}
+
+	//获取用户信息
+	function LoadUserInfo() {
+		HttpGet(base.RootUrl + "User/Detail", {
+			ID: UserID
+		}, function(data) {
+			if(data.result) {
+				data = data.message;
+				$("#bg").css({
+					"background": "url(" + data.Cover + ")",
+					"background-size": "100% 100%;"
+				});
+				$("#avatar").attr("src", data.Avatar).removeClass("hide");
+				$("#nickname").html(data.NickName);
+				$("#signature").html(data.Signature);
+				$("#follows").html(data.Follows);
+				$("#fans").html(data.Fans);
+			} else {
+				mui.toast(data.message);
+			}
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+		});
+	}
+
+	//判断是否关注
+	function CheckFan() {
+		if(base.CheckFan(userinfo.FanText, UserID)) {
+			$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+		} else {
+			document.getElementById("guanzhu").addEventListener('tap', function(e) {
+				if(isLoading)
+					return;
+				var data = {
+					ID: userinfo.ID,
+					ToUserID: UserID
+				}
+				HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+					if(data != null) {
+						mui.toast(data.result ? "关注成功" : data.message);
+						if(data.result) {
+							base.AddFan(userinfo, UserID);
+							$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+						}
+					}
+				});
+			});
+		}
+		$("#action").removeClass("hide");
+	}
 </script>
