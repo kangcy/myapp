@@ -69,7 +69,7 @@
 	var isLoading = false;
 	var currpage = 1;
 	var totalpage = 2;
-	var pagesize = 50;
+	var pagesize = 20;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -81,7 +81,14 @@
 	var search = document.getElementById("search");
 
 	mui.ready(function() {
-		base.InitScroll();
+		//base.InitScroll();
+
+		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
+		mui('.mui-scroll-wrapper').scroll({
+			bounce: true,
+			indicators: false, // 是否显示滚动条
+			deceleration: deceleration
+		});
 
 		//语音识别完成事件
 		search.addEventListener('recognized', function(e) {
@@ -166,15 +173,6 @@
 			rows: pagesize,
 			name: SearchName,
 		};
-		/*totalpage = 16;
-		for(var i = 0, len = 30; i < len; i++) {
-			var item = data[i];
-			table.append('<li class="mui-table-view-cell music"><span class="fl">' + SearchName + i + '</span><span class="mui-pull-right csubtitle mr20"></span></li>');
-		}
-		plus.nativeUI.closeWaiting();
-		if($.isFunction(callback)) {
-			callback();
-		}*/
 
 		HttpGet(base.RootUrl + "Music/SearchMusic", data, function(data) {
 			plus.nativeUI.closeWaiting();
@@ -183,7 +181,6 @@
 				if(data.code == 0) {
 					data = data.data;
 					totalpage = parseInt(data.total_page);
-					console.log("totalpage:" + totalpage);
 					data = data.data;
 					var length = data.length;
 					if(length > 0) {
@@ -201,12 +198,11 @@
 				mui.toast("没有更多数据了~");
 			}
 
-			mui('#pullwrapper').scroll().reLayout();
+			//mui('#pullwrapper').scroll().reLayout();
 
 			if($.isFunction(callback)) {
 				callback();
 			}
-
 		});
 	}
 </script>
