@@ -46,8 +46,8 @@
 			</div>
 		</div>
 		<nav class="mui-bar mui-bar-tab" id="search">
-			<div class="mui-tab-item blue" style="font-size:18px;">
-				<span class="mui-icon mui-icon-search" style="top:0px;font-size:25px;margin-right:5px;"></span>搜索在线音乐
+			<div class="mui-tab-item blue" style="font-size:16px;">
+				<span class="mui-icon mui-icon-search" style="top:0px;font-size:20px;margin-right:5px;"></span>搜索在线音乐
 			</div>
 		</nav>
 	</body>
@@ -91,7 +91,11 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		MusicID = self.MusicID || 0;
-		MusicName = self.MusicName || 0;
+		MusicName = self.MusicName || "";
+
+		if(MusicID == 0 && !base.IsNullOrEmpty(MusicName)) {
+			MusicID = -1;
+		}
 
 		Load(MusicID);
 
@@ -134,16 +138,13 @@
 	var addarticlePage = null;
 
 	function Submit() {
-		if(MusicID == 0) {
-			return mui.toast("请选择背景音乐~");
+		if(MusicID == -1) {
+			plus.webview.close("music");
+		} else {
+			if(!addarticlePage) {
+				addarticlePage = plus.webview.getWebviewById('addarticle');
+			}
+			addarticlePage.evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','')");
 		}
-		if(!addarticlePage) {
-			addarticlePage = plus.webview.getWebviewById('addarticle');
-		}
-		mui.fire(addarticlePage, "UpdateMusic", {
-			"MusicID": MusicID,
-			"MusicName": MusicName
-		});
-		plus.webview.currentWebview().close();
 	}
 </script>

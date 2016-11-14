@@ -21,7 +21,7 @@
 						<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
 						<div class="info-body">
 							<div id="title" class="title mb20 cfff f18 textshadow">点击输入标题</div>
-							<div id="music" class="btn cfff fl tl"><i class="fa fa-music f13"></i><span class="ml5 textshadow" id="musicname"></span></div>
+							<div id="music" class="btn cfff fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
 							<div id="cover" class="btn cfff fr tr"><i class="fa fa-picture-o f13"></i></div>
 						</div>
 					</div>
@@ -42,7 +42,8 @@
 <script type="text/javascript">
 	var ArticleID = 0; //文章
 	var MusicID = 0; //音乐
-	var MusicName = "";
+	var MusicName = ""; //音乐名称
+	var MusicUrl = ""; //音乐地址
 	var Title = ""; //标题
 	var Cover = ""; //封面
 	var Source = ""; //来源
@@ -349,13 +350,6 @@
 		});
 	});
 
-	//修改音乐
-	window.addEventListener("UpdateMusic", function(e) {
-		MusicID = e.detail.MusicID;
-		MusicName = e.detail.MusicName;
-		$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
-	});
-
 	//修改图片
 	window.addEventListener("updatePic", function(e) {
 		var t = e.detail.title;
@@ -365,6 +359,16 @@
 			document.getElementById(currEditID).innerHTML = t;
 		}
 	});
+
+	//修改音乐
+	function UpdateMusic(musicID, musicName, musicUrl) {
+		console.log(musicID + "," + musicName + "," + musicUrl);
+		MusicID = musicID;
+		MusicName = musicName;
+		MusicUrl = musicUrl;
+		$("#musicname").html(MusicID == 0 && base.IsNullOrEmpty(MusicName) ? "无背景音乐" : MusicName);
+		plus.webview.close("music");
+	}
 
 	//保存
 	function Save() {
@@ -386,6 +390,8 @@
 			ArticleID: ArticleID,
 			Title: escape(Title),
 			MusicID: MusicID,
+			MusicName: MusicName,
+			MusicUrl: MusicUrl,
 			PartIDs: ids.join(",")
 		}, function(data) {
 			if(data != null) {
@@ -462,6 +468,7 @@
 					Cover = data.Cover;
 					MusicID = data.MusicID;
 					MusicName = data.MusicName;
+					MusicUrl = data.MusicUrl;
 					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 
 					document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";

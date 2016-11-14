@@ -47,7 +47,7 @@
 			</div>
 		</header>
 		<div class="mui-content ">
-			<div id="pullwrapper" class="mui-scroll-wrapper" style="top:50px;bottom:0px;">
+			<div id="pullwrapper" class="mui-scroll-wrapper" style="top:50px;bottom:50px;">
 				<div id="pullrefresh" class="mui-scroll">
 					<ul class="mui-table-view f13 mt0" id="scroll-view">
 
@@ -55,6 +55,10 @@
 				</div>
 			</div>
 		</div>
+		<nav class="mui-bar mui-bar-tab" id="search">
+			<div style="margin-left:10px;font-size:16px;height:50px;line-height:50px;" class="fl blue" id="no">取消</div>
+			<div style="margin-right:10px;font-size:16px;height:50px;line-height:50px;" class="fr blue" id="yes">完成</div>
+		</nav>
 	</body>
 
 </html>
@@ -65,11 +69,14 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var fileName = "";
+	var fileUrl = "";
 	var SearchName = ""; //搜索词
 	var isLoading = false;
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = 20;
+	var addarticlePage = null;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -106,6 +113,24 @@
 			mui.back();
 		});
 
+		//取消
+		document.getElementById('no').addEventListener('tap', function(e) {
+			mui.back();
+		});
+
+		//确定
+		document.getElementById('yes').addEventListener('tap', function(e) {
+			if(base.IsNullOrEmpty(fileUrl)) {
+				return mui.toast("还未选择音乐")
+			}
+
+			if(!addarticlePage) {
+				addarticlePage = plus.webview.getWebviewById('addarticle');
+			}
+			addarticlePage.evalJS("UpdateMusic('" + 0 + "','" + fileName + "','" + fileUrl + "')")
+			plus.webview.currentWebview().close();
+		});
+
 		//搜索
 		document.getElementById("btnSearch").addEventListener('tap', function(e) {
 			if(search.value == "") {
@@ -124,17 +149,18 @@
 		});
 
 		$("#pullrefresh").on('tap', 'li.music', function(event) {
+			$("#pullrefresh .mui-icon").removeClass("mui-icon-checkmarkempty");
+			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
 			var hash = this.getAttribute("hash");
-			console.log(hash);
 			HttpGet(base.RootUrl + "Music/MusicDetail", {
 				hash: hash
 			}, function(data) {
-				plus.nativeUI.closeWaiting();
-				console.log(JSON.stringify(data));
-				if(code == 0) {
+				if(data.code == 0) {
 					var data = data.data;
-					var fileName = data.fileName;
-					var fileUrl = data.url;
+					fileName = data.fileName;
+					fileUrl = data.url;
+				} else {
+					mui.toast("音乐解析失败~~");
 				}
 			});
 		});
@@ -192,7 +218,7 @@
 
 		HttpGet(base.RootUrl + "Music/SearchMusic", data, function(data) {
 			plus.nativeUI.closeWaiting();
-			//console.log(JSON.stringify(data));
+			console.log(JSON.stringify(data));
 			if(data != null) {
 				if(data.code == 0) {
 					data = data.data;
@@ -202,7 +228,7 @@
 					if(length > 0) {
 						for(var i = 0, len = data.length; i < len; i++) {
 							var item = data[i];
-							table.append('<li class="mui-table-view-cell music" hash="' + item.hash + '"><span class="fl">' + item.filename + '</span><span class="mui-pull-right csubtitle mr20"></span></li>');
+							table.append('<li class="mui-table-view-cell music" hash="' + item.hash + '"><span class="fl">' + item.filename + '</span><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
 						}
 					} else {
 						mui.toast("没有更多数据了~");
