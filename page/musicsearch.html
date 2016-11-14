@@ -122,6 +122,22 @@
 				}
 			}
 		});
+
+		$("#pullrefresh").on('tap', 'li.music', function(event) {
+			var hash = this.getAttribute("hash");
+			console.log(hash);
+			HttpGet(base.RootUrl + "Music/MusicDetail", {
+				hash: hash
+			}, function(data) {
+				plus.nativeUI.closeWaiting();
+				console.log(JSON.stringify(data));
+				if(code == 0) {
+					var data = data.data;
+					var fileName = data.fileName;
+					var fileUrl = data.url;
+				}
+			});
+		});
 	});
 
 	//加载
@@ -176,7 +192,7 @@
 
 		HttpGet(base.RootUrl + "Music/SearchMusic", data, function(data) {
 			plus.nativeUI.closeWaiting();
-			console.log(JSON.stringify(data));
+			//console.log(JSON.stringify(data));
 			if(data != null) {
 				if(data.code == 0) {
 					data = data.data;
