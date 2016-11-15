@@ -7,7 +7,7 @@ var base = new function() {
 	/**
 	 * 列表每次请求数
 	 **/
-	this.PageSize = 10;
+	this.PageSize = 20;
 
 	/**
 	 * 窗口动画持续时间
@@ -22,7 +22,7 @@ var base = new function() {
 	/**
 	 * 默认图片
 	 **/
-	this.DefaultImg = "../images/60x60.gif";
+	this.DefaultImg = "../images/logo.png";
 
 	/**
 	 * 获取当前用户ID
@@ -37,34 +37,6 @@ var base = new function() {
 	 **/
 	this.GetUserInfo = function() {
 		var settingsText = localStorage.getItem('$userinfo') || "{}";
-
-		if(base.IsTest) {
-			return {
-				ID: 1,
-				Sex: "男",
-				Signature: "一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜一个傻瓜",
-				UserName: "18652913873",
-				Password: "123456",
-				Avatar: "../images/logo.png",
-				NickName: "一个傻瓜",
-				Address: "",
-				Birthday: "",
-				Follows: 0,
-				Fans: 0,
-				Articles: 0,
-				Keeps: 0,
-				Comments: 0,
-				Zans: 0,
-				Cover: "../images/header.png",
-				FanText: "",
-				KeepText: "",
-				Phone: "18652913873",
-				UserLogin: [],
-				ShareNick: 0,
-				AutoMusic: 0
-			}
-		}
-
 		return JSON.parse(settingsText);
 	}
 

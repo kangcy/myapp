@@ -234,7 +234,7 @@
 									<span id="musicname0"></span>
 								</p>
 							</div>
-							<div class="c000 full mt20" id="desc0">
+							<div class="c000 full mt20 mb20" id="desc0">
 
 							</div>
 						</div>
@@ -256,7 +256,7 @@
 									<span class="ml10" id="views1"></span>
 								</p>
 							</div>
-							<div class="c000 full" id="desc1">
+							<div class="c000 full mb20" id="desc1">
 
 							</div>
 						</div>
@@ -282,6 +282,7 @@
 			</div>
 		</div>
 		<!--模板选择-->
+		<i class="fa fa-music f13" onclick="switchsound()" style="position:fixed; right:10px;bottom:70px;"></i>
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control hide" style="">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;">
 				<div class="mui-control-item temp" index="0"><img src="../images/share/1.png" /></div>
@@ -413,6 +414,9 @@
 
 		//文章评论
 		document.getElementById('comment').addEventListener('tap', function(event) {
+			if(Comments == 0) {
+				return mui.toast("暂无评论");
+			}
 			base.OpenWindow("articleComment", "articleComment.html", {
 				ArticleID: ArticleID,
 				CommentTitle: Comments + "条评论"
@@ -454,17 +458,13 @@
 		Source = self.Source || "Add";
 
 		Load(function() {
-			var page = plus.webview.getWebviewById("addarticle");
-			if(page != null) {
-				plus.webview.close(page);
-			}
+			plus.webview.close("addarticle");
 		});
 
 		//返回
 		mui.back = function() {
 			if(Source == "Add") {
-				var editimage = plus.webview.getWebviewById("editimage");
-				plus.webview.close(editimage);
+				plus.webview.close("editimage");
 			}
 			plus.webview.close(self);
 		}
@@ -485,7 +485,7 @@
 	});
 
 	//复制到剪贴板
-	function copyToClip() {
+	function CopyToClip() {
 		var Context = plus.android.importClass("android.content.Context");
 		var main = plus.android.runtimeMainActivity();
 		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -615,7 +615,7 @@
 				HttpGet(base.RootUrl + "Article/Delete", {
 					ID: userinfo.ID,
 					ArticleID: ArticleID
-				}, function(data) { 
+				}, function(data) {
 					if(data != null) {
 						if(data.result) {
 							plus.webview.close("articledetail");
@@ -734,7 +734,7 @@
 		//复制链接
 		if(index == 7) {
 			ShareTan(0);
-			copyToClip();
+			CopyToClip();
 			return;
 		}
 		//收藏

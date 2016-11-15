@@ -38,7 +38,8 @@
 	var isLoading = false;
 
 	mui.init();
-	mui.ready(function() {
+
+	mui.plusReady(function() {
 		base.InitScroll();
 
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
@@ -105,37 +106,24 @@
 	 * 加载数据
 	 */
 	function Load(callback) {
-		if(mui.os.plus && base.IsTest) {
-			var table = document.getElementById('scroll-view');
-			for(var i = 1; i < 6; i++) {
-				var item = {
-					ID: i,
-					Name: "帮助标题" + i,
-					Summary: "帮助内容" + i
-				}
-				table.appendChild(appendStr(item));
-			}
-			callback();
-		} else {
-			var data = {
-				page: currpage,
-				rows: pagesize
-			};
-			HttpGet(base.RootUrl + "Help/All", data, function(data) {
-				if(data != null) {
-					totalpage = data.totalpage;
-					var length = data.list.length;
-					if(length > 0) {
-						var table = document.getElementById('scroll-view');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.appendChild(div);
-						}
+		var data = {
+			page: currpage,
+			rows: pagesize
+		};
+		HttpGet(base.RootUrl + "Help/All", data, function(data) {
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.list.length;
+				if(length > 0) {
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i]);
+						table.appendChild(div);
 					}
 				}
-				callback();
-			});
-		}
+			}
+			callback();
+		});
 	}
 
 	/**
