@@ -106,7 +106,9 @@
 		});
 
 		var parentPage = plus.webview.getWebviewById("search");
-		parentPage.evalJS("InitSubPage()");
+		if(parentPage) {
+			parentPage.evalJS("InitSubPage()");
+		}
 	});
 
 	//加载搜索文章 
