@@ -354,6 +354,7 @@ var base = new function() {
 	this.AppendArticle = function(item, ismy, isuser) {
 		var div = document.createElement('div');
 		div.className = 'mui-card';
+		div.setAttribute("id", "article" + item.ArticleID)
 		var model = [];
 		if(ismy == true) {
 			var power = "";
@@ -408,9 +409,13 @@ var base = new function() {
 	/**
 	 * 分享日志
 	 */
-	this.ShareLog = function(userid,articleid,source) {
-		HttpGet(base.RootUrl + "ShareLog/Edit", {ID:userid,ArticleID:articleid,Source:source}, function(data) {
-			
+	this.ShareLog = function(userid, articleid, source) {
+		HttpGet(base.RootUrl + "ShareLog/Edit", {
+			ID: userid,
+			ArticleID: articleid,
+			Source: source
+		}, function(data) {
+
 		});
 	}
 }
