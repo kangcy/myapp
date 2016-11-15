@@ -610,7 +610,7 @@
 	function Delete() {
 		ActionTan(0);
 		var btnArray = ['确定', '取消'];
-		mui.confirm('删除后将无法在微信浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
+		mui.confirm('删除后将无法在浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
 			if(e.index == 0) {
 				HttpGet(base.RootUrl + "Article/Delete", {
 					ID: userinfo.ID,
