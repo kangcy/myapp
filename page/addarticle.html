@@ -297,22 +297,15 @@
 			var btnArray = ['删除草稿', '存草稿'];
 			mui.confirm('确定要退出编辑？', '', btnArray, function(e) {
 				if(e.index == 0) {
-					plus.webview.close("articledetail");
-					plus.webview.close("addarticle");
-					var articlePage = plus.webview.getWebviewById("articleSub");
-					if(articlePage) {
-						articlePage.evalJS("Delete(" + ArticleID + ")");
-					}
-					return;
 					HttpGet(base.RootUrl + "Article/Delete", {
 						ID: userinfo.ID,
 						ArticleID: ArticleID
 					}, function(data) {
 						if(data != null) {
 							if(data.result) {
-								plus.webview.close("addarticle");
 								plus.webview.close("articledetail");
-								var articlePage = plus.webview.getWebviewById("article");
+								plus.webview.close("addarticle");
+								var articlePage = plus.webview.getWebviewById("articleSub");
 								if(articlePage) {
 									articlePage.evalJS("Delete(" + ArticleID + ")");
 								}
