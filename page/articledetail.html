@@ -482,15 +482,15 @@
 			Uri = plus.android.importClass("android.net.Uri");
 			main = plus.android.runtimeMainActivity();
 		}
-
-		copyToClip();
 	});
 
+	//复制到剪贴板
 	function copyToClip() {
 		var Context = plus.android.importClass("android.content.Context");
 		var main = plus.android.runtimeMainActivity();
 		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
-		plus.android.invoke(clip, "setText", "I'm copy from Native.js");
+		plus.android.invoke(clip, "setText", ShareInfo.Url);
+		mui.toast("复制成功");
 	}
 
 	//更新文章评论数
@@ -729,6 +729,8 @@
 		}
 		//复制链接
 		if(index == 7) {
+			ShareTan(0);
+			copyToClip();
 			return;
 		}
 		//收藏
