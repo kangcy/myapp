@@ -615,10 +615,14 @@
 				HttpGet(base.RootUrl + "Article/Delete", {
 					ID: userinfo.ID,
 					ArticleID: ArticleID
-				}, function(data) {
+				}, function(data) { 
 					if(data != null) {
 						if(data.result) {
 							plus.webview.close("articledetail");
+							var articlePage = plus.webview.getWebviewById("articleSub");
+							if(articlePage) {
+								articlePage.evalJS("Delete(" + ArticleID + ")");
+							}
 						}
 					}
 				});
