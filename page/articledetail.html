@@ -809,6 +809,7 @@
 			}
 		};
 		s.send(msg, function() {
+			ShareTan(0);
 			mui.toast("分享成功");
 			base.ShareLog(userinfo.ID, ArticleID, id);
 		}, function(e) {
