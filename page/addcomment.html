@@ -35,7 +35,6 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
@@ -47,7 +46,21 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	$(function() {
+	mui.plusReady(function() {
+
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID;
+
+		//返回
+		mui.back = function() {
+			plus.webview.close(self);
+		}
+
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		});
+
 		//保存
 		var question = document.getElementById("question");
 		document.getElementById("submit").addEventListener('tap', function(event) {
@@ -68,34 +81,15 @@
 				mui.toast(data.result ? "感谢您的评论~" : data.message);
 				if(data.result) {
 					question.value = "";
-					
+
 					//更新文章评论数
 					var page = plus.webview.getWebviewById("articledetail");
 					if(page) {
-						mui.fire(page, 'UpdateComment', {});
+						page.evalJS("UpdateComment()")
 					}
-
-					if(mui.os.plus) {
-						mui.back();
-					}
+					mui.back();
 				}
 			});
 		}, false);
-	})
-
-	mui.plusReady(function() {
-
-		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID;
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(self);
-		}
-
-		//返回
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		});
 	});
 </script>

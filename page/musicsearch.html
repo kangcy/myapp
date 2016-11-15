@@ -218,7 +218,6 @@
 
 		HttpGet(base.RootUrl + "Music/SearchMusic", data, function(data) {
 			plus.nativeUI.closeWaiting();
-			console.log(JSON.stringify(data));
 			if(data != null) {
 				if(data.code == 0) {
 					data = data.data;

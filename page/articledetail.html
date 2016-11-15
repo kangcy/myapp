@@ -215,7 +215,6 @@
 	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<!--<a id="action" class="mui-icon f13 fr mt6 hide" onclick="ActionTan(1)">操作</a>-->
 			<a id="action" class="mui-icon mui-icon-more fr hide" style="font-size:30px;" onclick="ActionTan(1)"></a>
 			<h1 class="mui-title c333 user">作者主页</h1>
 		</header>
@@ -431,24 +430,6 @@
 			});
 		});
 
-		//更新文章评论数
-		window.addEventListener("UpdateComment", function(e) {
-			Comments += 1;
-			$("#footer_comment").html(Comments);
-		});
-
-		//重新加载数据
-		window.addEventListener("UpdateDetail", function(e) {
-			ArticleID = e.detail.ArticleID;
-			Source = e.detail.Source;
-			Load(function() {
-				var page = plus.webview.getWebviewById("addarticle");
-				if(page != null) {
-					plus.webview.close(page);
-				}
-			});
-		});
-
 		//重新加载数据
 		window.addEventListener("UpdatePower", function(e) {
 			ArticlePower = e.detail.ArticlePower;
@@ -502,6 +483,19 @@
 			main = plus.android.runtimeMainActivity();
 		}
 	});
+
+	//更新文章评论数
+	function UpdateComment() {
+		Comments += 1;
+		$("#footer_comment").html(Comments);
+	}
+
+	//重新加载数据
+	function UpdateDetail() {
+		Load(function() {
+			plus.webview.close("addarticle");
+		});
+	}
 
 	//加载文章
 	function Load(callback) {
@@ -567,7 +561,6 @@
 							break;
 						case 1:
 							$("#useravatar1").attr("src", data.Avatar);
-							$("#useravatar1").attr("src", data.Avatar);
 							$("#main1").removeClass("hide");
 							break;
 						default:
@@ -583,11 +576,13 @@
 						base.ShowUser("#body");
 					}
 
+					//分享信息
 					ShareInfo.Title = data.Title;
 					ShareInfo.Cover = data.Cover;
-					ShareInfo.Url = "http://www.baidu.com";
+					ShareInfo.Url = data.ShareUrl;
 
-					CheckKeep(); //收藏状态
+					//收藏状态
+					CheckKeep();
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().close();
@@ -614,7 +609,7 @@
 				}, function(data) {
 					if(data != null) {
 						if(data.result) {
-							plus.webview.close(plus.webview.currentWebview());
+							plus.webview.close("articledetail");
 						}
 					}
 				});
@@ -717,6 +712,12 @@
 	function ShareAction(index) {
 		ShareTan(1); //关闭分享弹窗
 
+		//系统分享
+		if(index == 6) {
+			ShareTan(0);
+			ShareSystem();
+			return;
+		}
 		//复制链接
 		if(index == 7) {
 			return;
@@ -758,12 +759,6 @@
 				id = "qq";
 				ex = "";
 				break;
-				//其他
-			case 6:
-				ShareTan(0);
-				ShareSystem();
-				return;
-				break;
 			default:
 				break;
 		}
@@ -773,7 +768,7 @@
 			return;
 		}
 		if(s.authenticated) {
-			shareMessage(s, ex);
+			shareMessage(s, ex, id);
 		} else {
 			mui.toast("授权中");
 			s.authorize(function() {
@@ -792,19 +787,19 @@
 		}
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
-		intent.putExtra(Intent.EXTRA_SUBJECT, "【我的轻墨-" +
+		intent.putExtra(Intent.EXTRA_SUBJECT, "【我的GO-" +
 			ShareInfo.Title + "】" + " " + ShareInfo.Url);
-		intent.putExtra(Intent.EXTRA_TEXT, "【我的轻墨-" +
+		intent.putExtra(Intent.EXTRA_TEXT, "【我的GO-" +
 			ShareInfo.Title + "】" + " " + ShareInfo.Url);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
 	}
 
 	//发送分享信息
-	function shareMessage(s, ex) {
+	function shareMessage(s, ex, id) {
 		var msg = {
-			href: ShareInfo.Url,
-			title: ShareInfo.Title,
+			href: ShareInfo.Url + "?from=" + id,
+			title: "【我的GO-" + ShareInfo.Title + "】",
 			content: ShareInfo.Title,
 			thumbs: [ShareInfo.Cover],
 			pictures: [ShareInfo.Cover],

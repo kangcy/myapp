@@ -403,10 +403,7 @@
 							Source: Source
 						});
 					} else {
-						mui.fire(articleDetailPage, "UpdateDetail", {
-							ArticleID: ArticleID,
-							Source: Source
-						});
+						articleDetailPage.evalJS("UpdateDetail()");
 					}
 				} else {
 					mui.toast(data.message);
