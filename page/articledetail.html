@@ -772,7 +772,7 @@
 		} else {
 			mui.toast("授权中");
 			s.authorize(function() {
-				shareMessage(s, ex);
+				shareMessage(s, ex, id);
 			}, function(e) {
 				mui.toast("认证授权失败");
 			});
@@ -799,7 +799,7 @@
 	//发送分享信息
 	function shareMessage(s, ex, id) {
 		var msg = {
-			href: ShareInfo.Url + "?from=" + id,
+			href: ShareInfo.Url,
 			title: "【我的GO-" + ShareInfo.Title + "】",
 			content: ShareInfo.Title,
 			thumbs: [ShareInfo.Cover],
