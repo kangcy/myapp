@@ -404,6 +404,15 @@ var base = new function() {
 		div.innerHTML = model.join('');
 		return div;
 	}
+
+	/**
+	 * 分享日志
+	 */
+	this.ShareLog = function(userid,articleid,source) {
+		HttpGet(base.RootUrl + "ShareLog/Edit", {ID:userid,ArticleID:articleid,Source:source}, function(data) {
+			
+		});
+	}
 }
 
 /**

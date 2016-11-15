@@ -793,6 +793,7 @@
 			ShareInfo.Title + "】" + " " + ShareInfo.Url);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
+		base.ShareLog(userinfo.ID, ArticleID, "system");
 	}
 
 	//发送分享信息
@@ -808,9 +809,10 @@
 			}
 		};
 		s.send(msg, function() {
-			mui.toast("分享成功!");
+			mui.toast("分享成功");
+			base.ShareLog(userinfo.ID, ArticleID, id);
 		}, function(e) {
-			mui.toast("分享失败!");
+			mui.toast("分享失败");
 		});
 	}
 </script>
