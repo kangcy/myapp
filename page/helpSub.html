@@ -14,6 +14,15 @@
 
 	<body>
 		<div class="mui-content">
+			<div class="mui-loader tc" id="loader">
+				<div class="line-scale-pulse-out">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
 			<div class="mui-slider mui-fullscreen">
 				<div class="mui-scroll-wrapper">
 					<div id="pullrefresh" class="mui-scroll">
@@ -111,6 +120,7 @@
 			rows: pagesize
 		};
 		HttpGet(base.RootUrl + "Help/All", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage;
 				var length = data.list.length;

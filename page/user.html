@@ -80,8 +80,6 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
@@ -200,7 +198,7 @@
 
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], false, true);
+						var div = base.AppendArticle(data.list[i], false, true, false);
 						table.appendChild(div);
 					}
 				}
@@ -208,11 +206,6 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 

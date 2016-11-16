@@ -321,9 +321,9 @@ var base = new function() {
 	}
 
 	/**
-	 * 拼接文章Html(ismy:我的,isuser:用户)
+	 * 拼接文章Html(ismy:是否我的,isuser:是否用户,islazyload:是否延迟加载)
 	 */
-	this.AppendArticle = function(item, ismy, isuser) {
+	this.AppendArticle = function(item, ismy, isuser, islazyload) {
 		var div = document.createElement('div');
 		div.className = 'mui-card';
 		div.setAttribute("id", "article" + item.ArticleID)
@@ -354,7 +354,11 @@ var base = new function() {
 			if(isuser) {
 				model.push('<div class="mui-card-header mui-card-media"><div class="mui-media-body f12"><span class="fr caaa">' + item.CreateDate + '</span></div></div>');
 			} else {
-				model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+				if(islazyload) {
+					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+				} else {
+					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img src="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+				}
 				model.push('<div class="mui-media-body f12">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
 			}
 		}
@@ -365,10 +369,18 @@ var base = new function() {
 		//部分拼接
 		var parts = item.ArticlePart;
 		if(parts.length == 1) {
-			model.push('<div class="onefloor"><img data-lazyload="' + parts[0].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+			if(islazyload) {
+				model.push('<div class="onefloor"><img data-lazyload="' + parts[0].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+			} else {
+				model.push('<div class="onefloor"><img src="' + parts[0].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+			}
 		} else {
 			for(var i = 0; i < parts.length; i++) {
-				model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				if(islazyload) {
+					model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				} else {
+					model.push('<div class="secondfloor"><img src="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				}
 			}
 		}
 		model.push('</div></div>');
