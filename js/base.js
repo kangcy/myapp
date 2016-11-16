@@ -364,9 +364,14 @@ var base = new function() {
 		}
 
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
-		model.push('<p class="c333 fl article full mt5" articleid="' + item.ArticleID + '" userid="' + item.UserID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
 
-		//部分拼接
+		model.push('<p class="c333 fl article full mt5 mb5 f16" articleid="' + item.ArticleID + '" userid="' + item.UserID + '" power="' + item.ArticlePower + '">');
+		if(item.Tag == 99) {
+			model.push('<span class="fl f12" style="padding:2px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');
+		}
+		model.push(item.Title + '</p>');
+
+		//部分拼接 
 		var parts = item.ArticlePart;
 		if(parts.length == 1) {
 			if(islazyload) {

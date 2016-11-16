@@ -74,7 +74,6 @@
 			if(contentWebview == null) {
 				contentWebview = plus.webview.currentWebview().children()[0];
 			}
-			console.log("sdfsdf")
 			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
 	});
