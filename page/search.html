@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/img.preview.css">
 		<style type="text/css">
 			.mui-search {
 				width: 90%;
@@ -25,6 +26,8 @@
 			</div>
 		</header>
 		<div class="mui-content"></div>
+		<!--图片预览满屏弹窗-->
+		<div class="mui-preview-image mui-fullscreen mui-preview-in" id="previewTan"></div>
 	</body>
 
 </html>
@@ -70,13 +73,11 @@
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
 		});
-	});
 
-	function InitSubPage() {
 		document.getElementById("btnSearch").addEventListener('tap', function(e) {
-			if(search.value == "") {
+			/*if(search.value == "") {
 				return mui.toast("请输入搜索内容~");
-			}
+			}*/
 			plus.nativeUI.showWaiting("搜索中...");
 			if(contentWebview == null) {
 				contentWebview = plus.webview.getWebviewById("searchSub");
@@ -84,5 +85,17 @@
 			contentWebview.evalJS("InitLoadUser('" + search.value + "')");
 			contentWebview.evalJS("InitLoadArticle('" + search.value + "')");
 		});
+	});
+
+	function PreviewTan(index) {
+		if(index == 0) {
+			document.getElementById("previewTan").classList.remove("mui-preview-in");
+			document.getElementById("previewTan").style.display = "none";
+			document.getElementById("previewTan").classList.add("mui-preview-out");
+		} else {
+			document.getElementById("previewTan").classList.remove("mui-preview-out");
+			document.getElementById("previewTan").style.display = "block";
+			document.getElementById("previewTan").classList.add("mui-preview-in");
+		}
 	}
 </script>

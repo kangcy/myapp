@@ -53,7 +53,6 @@
 <script src="../js/mui.previewimage.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var SearchName = ""; //搜索词
@@ -61,6 +60,7 @@
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
+	var parentPage = null;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -73,14 +73,12 @@
 
 		base.InitScroll();
 
-		mui.previewImage();
-
 		base.ShowUser("#slider"); //用户详细
 
 		base.ShowArticle("#slider", "List", userinfo.ID); //文章详细	 
 
 		//切换
-		$("#slider").on('tap', '.mui-control-item', function(event) {
+		mui("#slider").on('tap', '.mui-control-item', function(event) {
 			var index = this.getAttribute("currindex");
 			mui('#slider').slider().gotoItem(index);
 		});
@@ -105,16 +103,20 @@
 			}
 		});
 
-		var parentPage = plus.webview.getWebviewById("search");
-		if(parentPage) {
-			parentPage.evalJS("InitSubPage()");
-		}
+		mui.previewImage({
+			callback: function(index) {
+				if(parentPage == null) {
+					parentPage = plus.webview.getWebviewById("search");
+				}
+				parentPage.evalJS("PreviewTan(" + index + ")");
+			}
+		});
 	});
 
 	//加载搜索文章 
 	function InitLoadArticle(title) {
 		if(title != "") {
-			$("#tip2").hide();
+			document.getElementById("tip2").style.display = "none";
 		}
 		SearchName = title;
 
@@ -129,8 +131,9 @@
 
 	//加载搜索用户
 	function InitLoadUser(nickname) {
+
 		if(nickname != "") {
-			$("#tip1").hide();
+			document.getElementById("tip1").style.display = "none";
 		}
 		SearchName = nickname;
 		HttpGet(base.RootUrl + "User/All", {
@@ -221,11 +224,9 @@
 				}
 			}
 
-			if($.isFunction(callback)) {
+			if(callback) {
 				callback();
 			}
-
-			mui('#sliderChild2').scroll().reLayout();
 
 			document.body.removeAttribute('data-imageLazyload');
 			mui(document).imageLazyload({

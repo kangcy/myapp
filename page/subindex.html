@@ -76,8 +76,8 @@
 			</a>
 		</nav>
 
-		<!--模拟弹窗-->
-		<div class="mui-preview-image mui-fullscreen mui-preview-in" id="tan"></div>
+		<!--图片预览满屏弹窗-->
+		<div class="mui-preview-image mui-fullscreen mui-preview-in" id="previewTan"></div>
 
 		<!--更新进度条-->
 		<!--<div class="mytanbg" id="myprogressbg"></div>
@@ -253,15 +253,15 @@
 			});
 	}
 
-	function ShowTan(index) {
+	function PreviewTan(index) {
 		if(index == 0) {
-			document.getElementById("tan").classList.remove("mui-preview-in");
-			document.getElementById("tan").style.display = "none";
-			document.getElementById("tan").classList.add("mui-preview-out");
+			document.getElementById("previewTan").classList.remove("mui-preview-in");
+			document.getElementById("previewTan").style.display = "none";
+			document.getElementById("previewTan").classList.add("mui-preview-out");
 		} else {
-			document.getElementById("tan").classList.remove("mui-preview-out");
-			document.getElementById("tan").style.display = "block";
-			document.getElementById("tan").classList.add("mui-preview-in");
+			document.getElementById("previewTan").classList.remove("mui-preview-out");
+			document.getElementById("previewTan").style.display = "block";
+			document.getElementById("previewTan").classList.add("mui-preview-in");
 		}
 	}
 </script>
