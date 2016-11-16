@@ -40,8 +40,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -148,11 +146,6 @@
 			if(callback) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 
@@ -162,7 +155,7 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img data-lazyload="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
 		model.push('<div class="mui-table-cell pb0"><p class="f12 user" style="color:#4EC4DE;" userid="' + item.UserID + '">' + item.NickName + '</p><p class="f12 c333 mt5 mb5">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
 			model.push('<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;"><span class="user" style="color:#4EC4DE;" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
