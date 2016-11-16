@@ -19,17 +19,24 @@
 	</head>
 
 	<body style="background:#F4F5F5;">
+		<div class="mui-loader tc" id="loader">
+			<div class="line-scale-pulse-out">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-group">
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll1" class="mui-scroll">
-
 								<div id="scroll-view1">
-
 								</div>
-								<div id="none1" class="full tc">
+								<div id="none1" class="full tc hide">
 									<img src="../images/my/111.png" class="none" />
 									<p class="f13 mt10">你关注的人，会在这里显示</p>
 								</div>
@@ -42,7 +49,7 @@
 								<div id="scroll-view2">
 
 								</div>
-								<div id="none2" class="full tc">
+								<div id="none2" class="full tc hide">
 									<img src="../images/my/111.png" class="none" />
 									<p class="f13 mt10">关注你的人，会在这里显示</p>
 								</div>
@@ -214,6 +221,7 @@
 			FromUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Fan/All", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage1;
 				var length = data.list.length;
@@ -228,6 +236,9 @@
 					document.getElementById("none1").classList.remove("hide");
 				}
 			}
+			if(data == null && currpage1 == 1) {
+				document.getElementById("none1").classList.remove("hide");
+			}
 			callback();
 		});
 	}
@@ -240,6 +251,7 @@
 			ToUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Fan/All", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage2;
 				var length = data.list.length;
@@ -254,6 +266,9 @@
 					document.getElementById("none2").classList.remove("hide");
 				}
 			}
+			if(data == null && currpage2 == 1) {
+				document.getElementById("none2").classList.remove("hide");
+			}
 			callback();
 		});
 	}
@@ -267,7 +282,7 @@
 		//分类图片
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
 		//分类信息
-		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
+		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
 		if(index == 1) {
 			if(!base.CheckFan(userinfo.FanText, item.UserID)) {
 				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.UserID + '">关注</div></div>');

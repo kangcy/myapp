@@ -19,6 +19,15 @@
 	</head>
 
 	<body style="background:#F4F5F5;">
+		<div class="mui-loader tc" id="loader">
+			<div class="line-scale-pulse-out">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-group">
@@ -28,7 +37,7 @@
 								<div id="scroll-view1">
 
 								</div>
-								<div id="none1" class="full tc">
+								<div id="none1" class="full tc hide">
 									<img src="../images/my/333.png" class="none" />
 									<p class="f13 mt10">你的评论，会在这里显示</p>
 								</div>
@@ -41,7 +50,7 @@
 								<div id="scroll-view2">
 
 								</div>
-								<div id="none2" class="full tc">
+								<div id="none2" class="full tc hide">
 									<img src="../images/my/333.png" class="none" />
 									<p class="f13 mt10">评论你的，会在这里显示</p>
 								</div>
@@ -205,6 +214,7 @@
 			CreateUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage1;
 				var length = data.list.length;
@@ -218,6 +228,9 @@
 				} else {
 					document.getElementById("none1").classList.remove("hide");
 				}
+			}
+			if(data == null && currpage1 == 1) {
+				document.getElementById("none1").classList.remove("hide");
 			}
 			if(callback) {
 				callback();
@@ -233,6 +246,7 @@
 			ArticleUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage2;
 				var length = data.list.length;
@@ -246,6 +260,9 @@
 				} else {
 					document.getElementById("none2").classList.remove("hide");
 				}
+			}
+			if(data == null && currpage2 == 1) {
+				document.getElementById("none2").classList.remove("hide");
 			}
 			if(callback) {
 				callback();

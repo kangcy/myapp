@@ -12,14 +12,27 @@
 		<link rel="stylesheet" href="../css/loading.css">
 	</head>
 
-	<body>
+	<body style="background:#F4F5F5;">
 		<div class="mui-content">
+			<div class="mui-loader tc" id="loader">
+				<div class="line-scale-pulse-out">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-group">
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div id="scroll1" class="mui-scroll">
 								<div id="scroll-view1"></div>
+								<div id="none1" class="full tc hide">
+									<img src="../images/my/222.png" class="none" />
+									<p class="f13 mt10">你打赏的人，会在这里显示</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -27,6 +40,10 @@
 						<div class="mui-scroll-wrapper">
 							<div id="scroll2" class="mui-scroll">
 								<div id="scroll-view2"></div>
+								<div id="none2" class="full tc hide">
+									<img src="../images/my/222.png" class="none" />
+									<p class="f13 mt10">打赏你的人，会在这里显示</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -188,16 +205,23 @@
 			FromUserID: userId
 		}
 		HttpGet(base.RootUrl + "Pay/All", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage1 = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
+					document.getElementById("none1").classList.add("hide");
 					var table = document.getElementById('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr1(data.list[i]);
 						table.appendChild(div);
 					}
+				} else {
+					document.getElementById("none1").classList.remove("hide");
 				}
+			}
+			if(data == null && currpage1 == 1) {
+				document.getElementById("none1").classList.remove("hide");
 			}
 			callback();
 		});
@@ -211,16 +235,23 @@
 			ToUserID: userId
 		}
 		HttpGet(base.RootUrl + "Pay/All", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage2 = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
+					document.getElementById("none2").classList.add("hide");
 					var table = document.getElementById('scroll-view2');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr2(data.list[i]);
 						table.appendChild(div);
 					}
+				} else {
+					document.getElementById("none2").classList.remove("hide");
 				}
+			}
+			if(data == null && currpage2 == 1) {
+				document.getElementById("none2").classList.remove("hide");
 			}
 			callback();
 		});
@@ -233,7 +264,7 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.ToUserAvatar + '" class="user" userid="' + item.ToUserID + '" /></div>');
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.ToUserName + '</p><p class="f11 csubtitle mb5">打赏</p><p class="f11 csubtitle">' + item.CreateDate + '</p></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f13 c000 mb5">' + item.ToUserName + '</p><p class="f12 csubtitle mb5">打赏</p><p class="f12 csubtitle">' + item.CreateDate + '</p></div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
@@ -247,7 +278,7 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.FromUserAvatar + '" class="user" userid="' + item.FromUserID + '" /></div>');
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f16 c000 mb5">' + item.FromUserName + '</p><p class="f11 csubtitle mb5">打赏</p><p class="f11 csubtitle">' + item.CreateDate + '</p></div>');
+		model.push('<div class="oa-contact-content mui-table-cell"><p class="f13 c000 mb5">' + item.FromUserName + '</p><p class="f12 csubtitle mb5">打赏</p><p class="f12 csubtitle">' + item.CreateDate + '</p></div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

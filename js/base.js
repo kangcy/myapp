@@ -397,11 +397,12 @@ var base = new function() {
 				model.push('<div class="onefloor"><img src="' + parts[0].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			}
 		} else {
+			var name = parts.length == 3 ? "thirdfloor" : "secondfloor";
 			for(var i = 0; i < parts.length; i++) {
 				if(islazyload) {
-					model.push('<div class="secondfloor"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					model.push('<div class="' + name + '"><img data-lazyload="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 				} else {
-					model.push('<div class="secondfloor"><img src="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					model.push('<div class="' + name + '"><img src="' + parts[i].Introduction + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 				}
 			}
 		}
