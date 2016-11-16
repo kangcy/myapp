@@ -382,7 +382,7 @@ var base = new function() {
 
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
-		model.push('<p class="c333 fl article full mt5 mb5 f15" articleid="' + item.ArticleID + '" userid="' + item.UserID + '" power="' + item.ArticlePower + '">');
+		model.push('<p class="c333 fl article full mt5 mb10 f15" articleid="' + item.ArticleID + '" userid="' + item.UserID + '" power="' + item.ArticlePower + '">');
 		if(item.Tag == 99) {
 			model.push('<span class="fl f12" style="padding:1px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');
 		}
