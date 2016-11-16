@@ -348,18 +348,35 @@ var base = new function() {
 					break;
 			}
 			model.push('<div class="mui-card-header mui-card-media">');
-			model.push('<div class="mui-media-body f12" style="margin:0px;margin-top:0.2rem;"><span class="fl caaa">' + item.CreateDate + '</span><span style="border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;margin-top:-0.1rem;" class="f11 fr">' + power + '</span>');
+			model.push('<div class="mui-media-body f12" style="margin:0px;margin-top:0.2rem;"><span class="fl caaa">');
+			if(base.IsNullOrEmpty(item.City)) {
+				model.push(item.CreateDate);
+			} else {
+				model.push(item.CreateDate + '<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City);
+			}
+			model.push('</span><span style="border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;margin-top:-0.1rem;" class="f11 fr">' + power + '</span>');
 			model.push('</div></div>');
 		} else {
 			if(isuser) {
-				model.push('<div class="mui-card-header mui-card-media"><div class="mui-media-body f12"><span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+				model.push('<div class="mui-card-header mui-card-media"><div class="mui-media-body f12"><span class="fr caaa">');
+				if(base.IsNullOrEmpty(item.City)) {
+					model.push(item.CreateDate);
+				} else {
+					model.push(item.CreateDate + '<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City);
+				}
+				model.push('</span></div></div>');
 			} else {
 				if(islazyload) {
 					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img data-lazyload="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				} else {
 					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img src="' + item.Avatar + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				}
-				model.push('<div class="mui-media-body f12">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+
+				if(base.IsNullOrEmpty(item.City)) {
+					model.push('<div class="mui-media-body f13">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+				} else {
+					model.push('<div class="mui-media-body f13 mt0">' + item.NickName + '<p class="f11 full caaa mt5">' + item.CreateDate + '<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City + '</p></div></div>');
+				}
 			}
 		}
 
