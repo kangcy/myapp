@@ -88,6 +88,11 @@
 	});
 
 	mui.plusReady(function() {
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			return mui.toast("网络异常，请检查网络设置！");
+		}
+
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		MusicID = self.MusicID || 0;

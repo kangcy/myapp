@@ -39,14 +39,19 @@
 			id: 'paySub',
 			url: 'paySub.html',
 			styles: {
-				top: parseInt((window.innerWidth / 320) * 45) + 'px',
+				top: '50px',
 				bottom: '0px',
 			}
 		}]
 	});
 
 	var contentWebview = null;
-	mui.ready(function() {
+	mui.plusReady(function() {
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			return mui.toast("网络异常，请检查网络设置！");
+		}
+
 		//返回
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
