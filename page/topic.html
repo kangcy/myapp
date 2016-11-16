@@ -75,7 +75,7 @@
 	var totalpage = [];
 	var pagesize = base.PageSize;
 	var isLoading = false; //是否数据加载中
-	var topicPage = null;
+	var subindexPage = null;
 	var articleTypes = [];
 	var currSlider = 0;
 	var userinfo = base.GetUserInfo();
@@ -185,8 +185,6 @@
 
 		base.InitScroll();
 
-		mui.previewImage();
-
 		base.ShowUser("#slider"); //用户信息
 
 		base.ShowArticle("#slider", "List", userinfo.ID); //文章信息
@@ -208,10 +206,14 @@
 			return mui.toast("网络异常，请检查网络设置！");
 		}
 
-		//返回
-		mui.back = function() {
-			plus.webview.currentWebview().close();
-		}
+		mui.previewImage({
+			callback: function(index) {
+				if(subindexPage == null) {
+					subindexPage = plus.webview.getWebviewById("subindex");
+				}
+				subindexPage.evalJS("ShowTan(" + index + ")");
+			}
+		});
 	});
 
 	/**

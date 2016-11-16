@@ -13,7 +13,7 @@
 }
 
 .mui-preview-header {
-	height: 44px;
+	height: 45px;
 	top: 0;
 }
 
@@ -43,12 +43,18 @@
 }
 
 .mui-preview-image.mui-preview-in {
+	-o-animation-name: fadeIn;
+	-moz-animation-name: fadeIn;
+	-ms-animation-name: fadeIn;
 	-webkit-animation-name: fadeIn;
 	animation-name: fadeIn;
 }
 
 .mui-preview-image.mui-preview-out {
 	background: none;
+	-o-animation-name: fadeOut;
+	-moz-animation-name: fadeOut;
+	-ms-animation-name: fadeOut;
 	-webkit-animation-name: fadeOut;
 	animation-name: fadeOut;
 }
@@ -132,6 +138,33 @@
 	transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
+@-o-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-ms-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 @-webkit-keyframes fadeIn {
 	0% {
 		opacity: 0;
@@ -147,6 +180,33 @@
 	}
 	100% {
 		opacity: 1;
+	}
+}
+
+@-o-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@-moz-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@-ms-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
 

@@ -80,7 +80,7 @@
 			//绑定图片 tap 事件
 			document.addEventListener(enterEventName, function(event) {
 				if (!self.viewer) return;
-				var target = event.target;
+				var target = event.target; 
 				if (!self.checkImage(target)) return;
 				self.viewer.style.display = 'block';
 				setTimeout(function() {

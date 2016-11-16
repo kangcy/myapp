@@ -82,25 +82,4 @@
 			}
 		});
 	}
-
-	//首页返回键处理
-	//1、若侧滑菜单显示，则关闭侧滑菜单
-	//2、否则，执行mui框架默认的关闭首页功能
-	var backButtonPress = 0;
-	mui.back = function() {
-		if(showMenu) {
-			closeMenu();
-		} else {
-			backButtonPress++;
-			if(backButtonPress > 1) {
-				plus.runtime.quit();
-			} else {
-				plus.nativeUI.toast('再按一次退出应用');
-			}
-			setTimeout(function() {
-				backButtonPress = 0;
-			}, 1000);
-			return false;
-		}
-	};
 </script>
