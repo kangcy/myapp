@@ -408,7 +408,9 @@
 		//添加评论
 		document.getElementById('addcomment').addEventListener('tap', function(event) {
 			base.OpenWindow("addcomment", "addcomment.html", {
-				ArticleID: ArticleID
+				ArticleID: ArticleID,
+				ParentCommentID: 0,
+				ParentUserID: 0
 			});
 		})
 

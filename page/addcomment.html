@@ -38,6 +38,8 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
+	var ParentCommentID = 0;
+	var ParentUserID = 0;
 	var City = "";
 	var userinfo = base.GetUserInfo();
 	mui.init({
@@ -55,6 +57,8 @@
 
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
+		ParentCommentID = self.ParentCommentID || 0;
+		ParentUserID = self.ParentUserID || 0
 
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
@@ -86,6 +90,8 @@
 			HttpGet(base.RootUrl + "Comment/Edit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID,
+				ParentCommentID: ParentCommentID,
+				ParentUserID: ParentUserID,
 				Summary: escape(question.value),
 				City: City
 			}, function(data) {

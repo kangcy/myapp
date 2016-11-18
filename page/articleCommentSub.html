@@ -49,7 +49,8 @@
 	var pagesize = base.PageSize;
 	var payPage = null;
 	var ArticleID = 0;
-	var userId = base.GetUserID();
+	var isLoading = false;
+	var userinfo = base.GetUserInfo();
 	mui.init();
 
 	mui.ready(function() {
@@ -58,6 +59,41 @@
 
 		//用户详细
 		base.ShowUser("#scroll");
+
+		//点赞
+		mui('#scroll').on('tap', '.fa-thumbs-o-up', function() {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			var num = this.childNodes[0];
+			var commentid = this.getAttribute("cid");
+			HttpGet(base.RootUrl + "Comment/Zan", {
+				ID: userinfo.ID,
+				CommentID: commentid
+			}, function(data) {
+				if(data != null) {
+					mui.toast(data.result ? "感谢您的点赞~" : data.message);
+					if(data.result) {
+						num.innerText = parseInt(num.innerText) + 1;
+					}
+				}
+				isLoading = false;
+			});
+		});
+
+		//评论
+		mui('#scroll').on('tap', '.fa-commenting-o', function() {
+			var commentid = this.getAttribute("cid");
+			var userid = this.getAttribute("userid");
+
+			console.log(commentid + "," + userid)
+			base.OpenWindow("addcomment", "addcomment.html", {
+				ArticleID: ArticleID,
+				ParentCommentID: commentid,
+				ParentUserID: userid
+			});
+		});
 	});
 
 	mui.plusReady(function() {
@@ -166,7 +202,7 @@
 		if(item.ParentCommentID > 0) {
 			model.push('<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<p class="tr blue"><i class="fa fa-thumbs-o-up f14"><span class="f11 ml5">1</span></i><i class="fa fa-commenting-o f14 ml15"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<p class="tr blue"><i class="fa fa-thumbs-o-up f14" cid="' + item.ID + '"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f14 ml15" cid="' + item.ID + '" userid="' + item.UserID + '"><span class="f11 ml5">回复</span></i></p>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
