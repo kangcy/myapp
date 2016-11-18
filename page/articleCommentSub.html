@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/comment.css">
 		<link rel="stylesheet" href="../css/loading.css">
+		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 	</head>
 
 	<body>
@@ -138,7 +139,7 @@
 				if(length > 0) {
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
+						var div = appendStr(data.list[i], i + 1);
 						table.appendChild(div);
 					}
 				}
@@ -150,17 +151,23 @@
 	}
 
 	//拼接Html 
-	function appendStr(item) {
+	function appendStr(item, index) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10">');
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f12 user" style="color:#4EC4DE;" userid="' + item.UserID + '">' + item.NickName + '</p><p class="f12 c333 mt5 mb5">' + item.Summary + '</p>');
-		if(item.ParentCommentID > 0) {
-			model.push('<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;"><span class="user" style="color:#4EC4DE;" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserID + '">' + item.NickName + '<span class="fr caaa">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
+		if(!base.IsNullOrEmpty(item.City)) {
+			model.push('<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City)
 		}
-		model.push('<p class="f11 caaa">' + item.CreateDate + '</p></div>');
+		model.push('</p>');
+		model.push('<p class="f12 c333 mt10 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
+		if(item.ParentCommentID > 0) {
+			model.push('<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+		}
+		model.push('<p class="tr blue"><i class="fa fa-thumbs-o-up f14"><span class="f11 ml5">1</span></i><i class="fa fa-commenting-o f14 ml15"><span class="f11 ml5">回复</span></i></p>');
+		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

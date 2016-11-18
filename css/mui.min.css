@@ -1287,7 +1287,7 @@ input[type=submit]:enabled:active {
 	border-top: 0;
 	border-bottom: 0;
 	-webkit-touch-callout: none;
-	border-top: 1px solid #eeeeee;
+	border-top: 1px solid #ccc;
 }
 
 .mui-bar-tab .mui-tab-item {
@@ -3139,7 +3139,7 @@ select:focus {
 }
 
 .mui-popover .mui-bar-nav {
-	border-bottom: 0.0625rem solid rgba(0, 0, 0, .15);
+	border-bottom: 1px solid rgba(0, 0, 0, .15);
 	border-top-left-radius: 10.125rem;
 	border-top-right-radius: 10.125rem;
 	-webkit-box-shadow: none;
@@ -4745,6 +4745,10 @@ body>.mui-progressbar {
 
 .ml10 {
 	margin-left: 0.625rem !important;
+}
+
+.ml15 {
+	margin-left: 0.9375rem !important;
 }
 
 .mr10 {

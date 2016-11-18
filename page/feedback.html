@@ -11,30 +11,36 @@
 		<style type="text/css">
 			#question {
 				border: 0px;
-				height: 400px;
-				padding: 0px;
+				height: 200px;
+				padding: 20px 10px;
+				line-height: 1.25rem;
+			}
+			
+			#qq {
+				border: 0px;
+				padding: 25px 10px;
 				line-height: 1.25rem;
 			}
 		</style>
 	</head>
 
-	<body>
+	<body style="background:#F4F5F5;">
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon blue f13 fl mt6">取消</a>
 			<a id="submit" class="mui-icon blue f13 fr mt6">保存</a>
 			<h1 class="mui-title c333 f15">意见反馈</h1>
 		</header>
 		<div class="mui-content">
-			<div id="feedback" style="padding: 5%;">
-				<textarea id='question' class="mui-input-clear f13" placeholder="欢迎留下您的宝贵意见......" maxlength="300"></textarea>
-			</div>
+			<div class="f13 mt10 mb10" style="text-indent:10px;">反馈内容：</div>
+			<textarea id='question' class="mui-input-clear f12 mb0" placeholder="欢迎留下您的宝贵意见" maxlength="150"></textarea>
+			<div class="f13 mt10 mb10" style="text-indent:10px;">联系方式：</div>
+			<input id='qq' type="text" class="mui-input-clear f12" placeholder="请输入您的QQ号" maxlength="15" />
 		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
@@ -45,19 +51,28 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	$(function() {
+	mui.plusReady(function() {
+
 		//保存
 		var question = document.getElementById("question");
+		var qq = document.getElementById("qq");
 		document.getElementById("submit").addEventListener('tap', function(event) {
-			if(question.value == '') {
+			if(base.IsNullOrEmpty(question.value)) {
 				return mui.toast('请填写反馈信息');
+			}
+			if(base.IsNullOrEmpty(qq.value)) {
+				return mui.toast('请填写联系方式');
+			}
+			if(isNaN(qq.value)) {
+				return mui.toast('请填写正确的联系方式');
 			}
 			if(mui.os.plus) {
 				plus.nativeUI.showWaiting();
 			}
 			HttpGet(base.RootUrl + "FeedBack/Edit", {
 				ID: userinfo.ID,
-				Summary: escape(question.value)
+				Summary: escape(question.value),
+				QQ: qq.value
 			}, function(data) {
 				if(mui.os.plus) {
 					plus.nativeUI.closeWaiting();

@@ -1,17 +1,17 @@
 .mui-table-view-cell {
 	background: #fff;
-	padding: 0px 0.9375rem;
+	padding: 0px 10px;
 	border-bottom: 1px solid #eee;
 }
 
 .oa-contact-cell.mui-table .mui-table-cell {
 	padding: 0px;
-	vertical-align: middle;
+	vertical-align:top;
 }
 
 .oa-contact-cell.comment .mui-table-cell {
-	padding: 0.3125rem 0px 0px;
-	vertical-align: middle;
+	padding: 10px 0px 0px;
+	vertical-align:top;
 }
 
 .oa-contact-cell {
@@ -19,12 +19,12 @@
 }
 
 .oa-contact-avatar {
-	width: 3.5rem;
+	width: 2.5rem;
 }
 
 .oa-contact-avatar img {
-	width: 2.5rem !important;
-	height: 2.5rem !important;
+	width: 2rem !important;
+	height: 2rem !important;
 	border-radius: 50%;
 }
 
