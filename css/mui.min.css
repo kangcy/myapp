@@ -1864,9 +1864,9 @@ input[type=submit]:enabled:active {
 	padding-left: 50.5rem
 }
 
-.mui-table-view-cell.mui-active {
+/*.mui-table-view-cell.mui-active {
 	background-color: #eee
-}
+}*/
 
 .mui-table-view-cell:last-child:after,
 .mui-table-view-cell:last-child:before {

@@ -11,6 +11,12 @@
 		<link rel="stylesheet" href="../css/fan.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.css">
+		<style type="text/css">
+			.none {
+				width: 100px !important;
+				margin-top: 100px !important;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -28,6 +34,9 @@
 							<div class="mui-scroll">
 								<div id="tip1" style="border-bottom:1px solid #eee;height:2.5rem;line-height:2.5rem;text-indent:0.5rem;" class="f11 caaa">你可能感兴趣的用户</div>
 								<div id="scroll-view1"></div>
+								<div id="none1" class="full tc hide">
+									<img src="../images/none.png" class="none" />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -36,6 +45,9 @@
 							<div id="slider2" class="mui-scroll">
 								<div id="tip2" style="border-bottom:1px solid #eee;height:2.5rem;line-height:2.5rem;text-indent:0.5rem;" class="f11 caaa">你可能感兴趣的文章</div>
 								<div id="scroll-view2"></div>
+								<div id="none2" class="full tc hide">
+									<img src="../images/none.png" class="none" />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -131,7 +143,6 @@
 
 	//加载搜索用户
 	function InitLoadUser(nickname) {
-
 		if(nickname != "") {
 			document.getElementById("tip1").style.display = "none";
 		}
@@ -144,12 +155,17 @@
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
+					document.getElementById("none1").classList.add("hide");
 					var table = document.getElementById('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i], 1);
 						table.appendChild(div);
 					}
+				} else {
+					document.getElementById("none1").classList.remove("hide");
 				}
+			} else {
+				document.getElementById("none1").classList.remove("hide");
 			}
 
 			mui('#sliderChild1').scroll().reLayout();
@@ -215,15 +231,18 @@
 				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
+					document.getElementById("none2").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i], false);
 						table.appendChild(div);
 					}
 				} else {
-					mui.toast("没有更多数据了~");
+					document.getElementById("none2").classList.remove("hide");
 				}
 			}
-
+			if(data == null && currpage == 1) {
+				document.getElementById("none2").classList.remove("hide");
+			}
 			if(callback) {
 				callback();
 			}
