@@ -1864,6 +1864,7 @@ input[type=submit]:enabled:active {
 	padding-left: 50.5rem
 }
 
+
 /*.mui-table-view-cell.mui-active {
 	background-color: #eee
 }*/
@@ -2791,7 +2792,7 @@ select:focus {
 	border-radius: 6px;
 	background: 0 0;
 	text-indent: 5px;
-} 
+}
 
 .mui-search .mui-placeholder .mui-icon {
 	/*font-size: 1.25rem;*/

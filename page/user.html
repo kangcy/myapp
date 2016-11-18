@@ -36,7 +36,13 @@
 				height: 5rem;
 				border: 3px solid #fff;
 			}
-			
+			#pic {
+				width: 100%;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				background: #fafafa;
+				text-indent: .5rem;
+			}
 			#record {
 				width: 100%;
 				height: 2.5rem;
@@ -64,6 +70,7 @@
 								</div>
 							</div>
 						</div>
+						<div id="pic" class="f13 caaa">相册</div>
 						<div id="record" class="f13 caaa hide"></div>
 						<div id="scroll-view">
 						</div>
@@ -99,6 +106,13 @@
 		base.InitScroll();
 
 		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //展示文章
+		
+		//帮助中心
+		document.getElementById('pic').addEventListener('tap', function(event) {
+			base.OpenWindow("pic", "pic.html", {
+
+			});
+		});
 	});
 
 	mui.plusReady(function() {
