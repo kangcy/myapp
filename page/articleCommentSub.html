@@ -152,6 +152,26 @@
 				-moz-animation-fill-mode: forwards;
 				-ms-animation-fill-mode: forwards;
 			}
+			
+			.tip {
+				text-align: left;
+				background: #eee;
+				padding: 10px;
+				width: 100%;
+				position: relative;
+				border-radius: 3px;
+			}
+			
+			.tip:before {
+				position: absolute;
+				content: '';
+				width: 0;
+				height: 0;
+				border: 6px solid transparent;
+				border-bottom-color: #eee;
+				left: 10px;
+				top: -12px;
+			}
 		</style>
 	</head>
 
@@ -235,8 +255,6 @@
 		mui('#scroll').on('tap', '.fa-commenting-o', function() {
 			var commentid = this.getAttribute("cid");
 			var userid = this.getAttribute("userid");
-
-			console.log(commentid + "," + userid)
 			base.OpenWindow("addcomment", "addcomment.html", {
 				ArticleID: ArticleID,
 				ParentCommentID: commentid,
@@ -349,9 +367,9 @@
 		model.push('</p>');
 		model.push('<p class="f12 c333 mt10 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
-			model.push('<p class="f12 caaa mt5 mb5" style="border-left: 2px solid #aaa;padding-left:5px;line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<p class="tr blue"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.ID + '" userid="' + item.UserID + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<p class="tr blue mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.ID + '" userid="' + item.UserID + '"><span class="f11 ml5">回复</span></i></p>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

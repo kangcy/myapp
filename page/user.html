@@ -78,8 +78,28 @@
 				display: inline-block;
 			}
 			
-			.article.bt {
+			.bt {
 				border-top: 1px solid #eee;
+			}
+			
+			.tip {
+				text-align: left;
+				background: #eee;
+				padding: 10px;
+				width: 100%;
+				position: relative;
+				border-radius: 3px;
+			}
+			
+			.tip:before {
+				position: absolute;
+				content: '';
+				width: 0;
+				height: 0;
+				border: 6px solid transparent;
+				border-bottom-color: #eee;
+				left: 10px;
+				top: -12px;
 			}
 		</style>
 	</head>
@@ -115,13 +135,25 @@
 							<div style="width:80%;float:left;" id="list2">
 							</div>
 						</div>
-						<!--<div id="comment" class="f13 caaa tc mt8" style="padding:2.5%;display: inline-block;">
+						<div id="comment" class="f13 caaa tc mt8" style="padding:2.5%;display: inline-block;">
 							<div id="comments" style="width:20%;float:left;margin-top:5%;text-align:center;">回复<br />
 								<p class="f20 mb0" id="commentnum">0</p>
 							</div>
-							<div style="width:80%;float:left;" id="list3">
-							</div>
-						</div>-->
+							<div style="width:80%;float:left;line-height:1.2rem;" id="list3">
+								<!--<div class="tl">
+									<p class="f12 c333">标题标题标题标题标题标题标题标题标题标题标题</p>
+									<p class="tip mb0 f11">This is the same tooltip, but with a picture inside it!</p>
+								</div>
+								<div class="tl bt mt10">
+									<p class="f12 c333 mt10">标题标题标题标题标题标题标题标题标题标题标题</p>
+									<p class="tip mb0 f11">This is the same tooltip, but with a picture inside it!</p>
+								</div>
+								<div class="tl bt mt10">
+									<p class="f12 c333 mt10">标题标题标题标题标题标题标题标题标题标题标题</p>
+									<p class="tip mb0 f11">This is the same tooltip, but with a picture inside it!</p>
+								</div>-->
+							</div> 
+						</div> 
 					</div>
 				</div>
 			</div>
@@ -191,6 +223,7 @@
 		CheckFan();
 		LoadPic()
 		LoadArticle();
+		LoadComment();
 	}
 
 	function LoadPic() {
@@ -260,6 +293,42 @@
 		model.push('<p class="f12 c333" style="min-height:2.2rem;">' + item.Title + '</p>');
 		model.push('<p class="f11 mb5">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</p>');
 		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
+	//回复
+	function LoadComment() {
+		var data = {
+			page: 1,
+			rows: 5,
+			ParentUserID: UserID
+		}
+		HttpGet(base.RootUrl + "Comment/Top", data, function(data) {
+			if(data != null) {
+				var length = data.list.length;
+				if(length > 0) {
+					$("#commentnum").html(data.records);
+					var table = document.getElementById('list3');
+					for(var i = 0, len = length; i < len; i++) {
+						var div = AppendComment(data.list[i], i);
+						table.appendChild(div);
+					}
+				}
+			}
+		});
+	}
+
+	function AppendComment(item, index) {
+		var div = document.createElement('div');
+		if(index == 0) {
+			div.className = 'tl';
+		} else {
+			div.className = 'tl bt mt10';
+		}
+		var model = [];
+		model.push('<p class="f12 c333 ' + (index == 0 ? "" : "mt10") + '">' + item.Summary + '</p>');
+		model.push('<p class="tip mb0 f11">' + item.ParentSummary + '</p>');
 		div.innerHTML = model.join('');
 		return div;
 	}
