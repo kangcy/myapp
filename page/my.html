@@ -110,11 +110,11 @@
 			HttpGet(base.RootUrl + "User/EditCover", {
 				ID: userinfo.ID,
 				Cover: url
-			}, function(data) {
+			}, function(data) { 
 				mui.toast(data.result ? "编辑成功~" : data.message);
 				if(data.result) {
 					$("#bg").css({
-						"background": "url(" + url + ")",
+						"background": "url(" + url + ") center center",
 						"background-size": "100% 100%;"
 					});
 					userinfo.Cover = url;
