@@ -36,19 +36,45 @@
 				height: 5rem;
 				border: 3px solid #fff;
 			}
+			
 			#pic {
 				width: 100%;
-				height: 2.5rem;
-				line-height: 2.5rem;
-				background: #fafafa;
+				height: 5.5rem;
+				background: #fff;
 				text-indent: .5rem;
 			}
+			
 			#record {
 				width: 100%;
-				height: 2.5rem;
-				line-height: 2.5rem;
-				background: #fafafa;
-				text-indent: .5rem;
+				background: #fff;
+			}
+			
+			.third {
+				width: 32%;
+				height: 4.5rem;
+				text-align: center;
+				overflow: hidden;
+				margin-bottom: 1%;
+				float: left;
+				display: inline-block;
+			}
+			
+			.third img {
+				width: 97% !important;
+				min-width: 97% !important;
+				min-height: 100%;
+			}
+			
+			.article {
+				width: 100%;
+				text-align: center;
+				overflow: hidden;
+				float: left;
+				display: inline-block;
+			}
+			
+			.article.bt { 
+				border-top: 1px solid #ccc;
 			}
 		</style>
 	</head>
@@ -70,9 +96,22 @@
 								</div>
 							</div>
 						</div>
-						<div id="pic" class="f13 caaa">相册</div>
-						<div id="record" class="f13 caaa hide"></div>
-						<div id="scroll-view">
+						<div id="pic" class="f13 caaa tc" style="padding-top:2.5%">
+							<div style="width:20%;float:left;margin-top:5%;text-align:center;">相册<br />
+								<p class="f20">2</p>
+							</div>
+							<div style="width:80%;float:left;">
+								<div class="third"><img src="http://139.224.51.196/Upload/images/2016-10-20/7f4639ecfcff46bfbb6da804804eec65.jpg" /></div>
+								<div class="third"><img src="http://139.224.51.196/Upload/images/2016-10-27/e770ff92e68c477faa8c2db4a5edbeaf.jpg" /></div>
+								<div class="third"><img src="http://139.224.51.196/Upload/images/2016-10-30/50915ef2d89346abb49dcd319a008c51.jpg" /></div>
+							</div>
+						</div>
+						<div id="record" class="f13 caaa tc mt8" style="padding:2.5%;display: inline-block;">
+							<div id="articles" style="width:20%;float:left;margin-top:5%;text-align:center;">动态<br />
+								<p class="f20 mb0" id="articlenum">0</p>
+							</div>
+							<div style="width:80%;float:left;" id="scroll-view">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -106,13 +145,14 @@
 		base.InitScroll();
 
 		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //展示文章
-		
-		//帮助中心
+
+		//相册
 		document.getElementById('pic').addEventListener('tap', function(event) {
 			base.OpenWindow("pic", "pic.html", {
 
 			});
 		});
+
 	});
 
 	mui.plusReady(function() {
@@ -130,6 +170,15 @@
 		mui.back = function() {
 			plus.webview.currentWebview().close();
 		}
+
+		//文章
+		document.getElementById('articles').addEventListener('tap', function(event) {
+			base.OpenWindow("article", "article.html", {
+				CreateUserID: UserID,
+				ArticleTypeName: "他的动态",
+				Source: "User"
+			});
+		});
 	});
 
 	//初始化获取参数
@@ -138,89 +187,47 @@
 		LoadUserInfo();
 		CheckFan();
 
-		//他的作品
-		mui(document.getElementById("pullrefresh")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
-	}
-
-	//他的作品-下拉刷新
-	function pulldownRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
-	}
-
-	//他的作品-上拉加载
-	function pullupRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了~");
-		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
+		Load();
 	}
 
 	//他的作品-加载数据
-	function Load(callback) {
+	function Load() {
 		var data = {
-			page: currpage,
-			rows: pagesize,
+			page: 1,
+			rows: 5,
 			CreateUserID: UserID
 		}
-		HttpGet(base.RootUrl + "Article/All", data, function(data) {
+		HttpGet(base.RootUrl + "Article/Top", data, function(data) {
 			if(data != null) {
-				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
-
-					$("#record").html(data.records + "篇").removeClass("hide");
-
+					$("#articlenum").html(data.records);
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], false, true, false);
+						var div = AppendArticle(data.list[i], i);
 						table.appendChild(div);
 					}
 				}
 			}
-			if($.isFunction(callback)) {
-				callback();
-			}
 		});
+	}
+
+	function AppendArticle(item, index) {
+		var div = document.createElement('div');
+		if(index == 0) {
+			div.className = 'article';
+		} else {
+			div.className = 'article mt8 bt';
+		}
+
+		var model = [];
+		model.push('<div class="' + (index == 0 ? "" : "mt10") + '" style="width:4rem;height:4rem;float:left;margin-left:1%;overflow:hidden;"><img src="' + item.Cover + '" style="width:4rem;height:auto;min-height:100%;float:left;" /></div>');
+		model.push('<div class="' + (index == 0 ? "" : "mt10") + '" style="width:70%;float:right;text-align:left;line-height:1.2rem;">');
+		model.push('<p class="f12 c333" style="min-height:2.2rem;">' + item.Title + '</p>');
+		model.push('<p class="f11 mb5">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</p>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 
 	//获取用户信息
