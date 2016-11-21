@@ -73,8 +73,8 @@
 				display: inline-block;
 			}
 			
-			.article.bt { 
-				border-top: 1px solid #ccc;
+			.article.bt {
+				border-top: 1px solid #eee;
 			}
 		</style>
 	</head>
@@ -98,19 +98,16 @@
 						</div>
 						<div id="pic" class="f13 caaa tc" style="padding-top:2.5%">
 							<div style="width:20%;float:left;margin-top:5%;text-align:center;">相册<br />
-								<p class="f20">2</p>
+								<p class="f20" id="picnum">0</p>
 							</div>
-							<div style="width:80%;float:left;">
-								<div class="third"><img src="http://139.224.51.196/Upload/images/2016-10-20/7f4639ecfcff46bfbb6da804804eec65.jpg" /></div>
-								<div class="third"><img src="http://139.224.51.196/Upload/images/2016-10-27/e770ff92e68c477faa8c2db4a5edbeaf.jpg" /></div>
-								<div class="third"><img src="http://139.224.51.196/Upload/images/2016-10-30/50915ef2d89346abb49dcd319a008c51.jpg" /></div>
+							<div style="width:80%;float:left;" id="list1">
 							</div>
 						</div>
 						<div id="record" class="f13 caaa tc mt8" style="padding:2.5%;display: inline-block;">
 							<div id="articles" style="width:20%;float:left;margin-top:5%;text-align:center;">动态<br />
 								<p class="f20 mb0" id="articlenum">0</p>
 							</div>
-							<div style="width:80%;float:left;" id="scroll-view">
+							<div style="width:80%;float:left;" id="list2">
 							</div>
 						</div>
 					</div>
@@ -186,12 +183,40 @@
 		UserID = userId;
 		LoadUserInfo();
 		CheckFan();
-
-		Load();
+		LoadPic()
+		LoadArticle();
 	}
 
-	//他的作品-加载数据
-	function Load() {
+	function LoadPic() {
+		var data = {
+			page: 1,
+			rows: 3,
+			UserID: UserID
+		};
+		HttpGet(base.RootUrl + "User/Pic", data, function(data) {
+			if(data != null) {
+				var length = data.list.length;
+				if(length > 0) {
+					$("#picnum").html(data.records);
+					var table = document.getElementById('list1');
+					for(var i = 0, len = length; i < len; i++) {
+						var div = AppendPic(data.list[i]);
+						table.appendChild(div);
+					}
+				}
+			}
+		});
+	}
+
+	function AppendPic(item) {
+		var div = document.createElement('div');
+		div.className = 'third';
+		div.innerHTML = '<img src="' + item.Introduction + '" />';
+		return div;
+	}
+
+	//文章
+	function LoadArticle() {
 		var data = {
 			page: 1,
 			rows: 5,
@@ -202,8 +227,8 @@
 				var length = data.list.length;
 				if(length > 0) {
 					$("#articlenum").html(data.records);
-					var table = document.getElementById('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
+					var table = document.getElementById('list2');
+					for(var i = 0, len = length; i < len; i++) {
 						var div = AppendArticle(data.list[i], i);
 						table.appendChild(div);
 					}
@@ -219,7 +244,9 @@
 		} else {
 			div.className = 'article mt8 bt';
 		}
-
+		div.setAttribute("articleid", item.ArticleID);
+		div.setAttribute("userid", item.UserID);
+		div.setAttribute("power", item.ArticlePower);
 		var model = [];
 		model.push('<div class="' + (index == 0 ? "" : "mt10") + '" style="width:4rem;height:4rem;float:left;margin-left:1%;overflow:hidden;"><img src="' + item.Cover + '" style="width:4rem;height:auto;min-height:100%;float:left;" /></div>');
 		model.push('<div class="' + (index == 0 ? "" : "mt10") + '" style="width:70%;float:right;text-align:left;line-height:1.2rem;">');
