@@ -17,570 +17,574 @@
 			<div class="mui-title c333 f15">选择城市</div>
 		</header>
 		<div class="mui-content">
-			<div class="mui-loader tc" id="loader">
-				<div class="line-scale-pulse-out">
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
-			</div>
-			<div id="list">
-				<div class="mui-indexed-list-inner">
-					<ul class="mui-table-view f12">
-						<!--安徽省-->
-						<li data-value="合肥市" class="mui-table-view-cell mui-indexed-list-item">合肥市</li>
-						<li data-value="芜湖市" class="mui-table-view-cell mui-indexed-list-item">芜湖市</li>
-						<li data-value="蚌埠市" class="mui-table-view-cell mui-indexed-list-item">蚌埠市</li>
-						<li data-value="淮南市" class="mui-table-view-cell mui-indexed-list-item">淮南市</li>
-						<li data-value="马鞍山市" class="mui-table-view-cell mui-indexed-list-item">马鞍山市</li>
-						<li data-value="淮北市" class="mui-table-view-cell mui-indexed-list-item">淮北市</li>
-						<li data-value="铜陵市" class="mui-table-view-cell mui-indexed-list-item">铜陵市</li>
-						<li data-value="安庆市" class="mui-table-view-cell mui-indexed-list-item">安庆市</li>
-						<li data-value="黄山市" class="mui-table-view-cell mui-indexed-list-item">黄山市</li>
-						<li data-value="滁州市" class="mui-table-view-cell mui-indexed-list-item">滁州市</li>
-						<li data-value="阜阳市" class="mui-table-view-cell mui-indexed-list-item">阜阳市</li>
-						<li data-value="宿州市" class="mui-table-view-cell mui-indexed-list-item">宿州市</li>
-						<li data-value="六安市" class="mui-table-view-cell mui-indexed-list-item">六安市</li>
-						<li data-value="亳州市" class="mui-table-view-cell mui-indexed-list-item">亳州市</li>
-						<li data-value="池州市" class="mui-table-view-cell mui-indexed-list-item">池州市</li>
-						<li data-value="宣城市" class="mui-table-view-cell mui-indexed-list-item">宣城市</li>
+			<div class="mui-scroll-wrapper" style="top:45px;bottom:0px;">
+				<div id="pullrefresh" class="mui-scroll">
+					<div class="mui-loader tc" id="loader">
+						<div class="line-scale-pulse-out">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+					</div>
+					<div id="list">
+						<div class="mui-indexed-list-inner">
+							<ul class="mui-table-view f12">
+								<!--安徽省-->
+								<li data-svalue="安徽省" data-value="合肥市" class="mui-table-view-cell mui-indexed-list-item hide">合肥市</li>
+								<li data-svalue="安徽省" data-value="芜湖市" class="mui-table-view-cell mui-indexed-list-item hide">芜湖市</li>
+								<li data-svalue="安徽省" data-value="蚌埠市" class="mui-table-view-cell mui-indexed-list-item hide">蚌埠市</li>
+								<li data-svalue="安徽省" data-value="淮南市" class="mui-table-view-cell mui-indexed-list-item hide">淮南市</li>
+								<li data-svalue="安徽省" data-value="马鞍山市" class="mui-table-view-cell mui-indexed-list-item hide">马鞍山市</li>
+								<li data-svalue="安徽省" data-value="淮北市" class="mui-table-view-cell mui-indexed-list-item hide">淮北市</li>
+								<li data-svalue="安徽省" data-value="铜陵市" class="mui-table-view-cell mui-indexed-list-item hide">铜陵市</li>
+								<li data-svalue="安徽省" data-value="安庆市" class="mui-table-view-cell mui-indexed-list-item hide">安庆市</li>
+								<li data-svalue="安徽省" data-value="黄山市" class="mui-table-view-cell mui-indexed-list-item hide">黄山市</li>
+								<li data-svalue="安徽省" data-value="滁州市" class="mui-table-view-cell mui-indexed-list-item hide">滁州市</li>
+								<li data-svalue="安徽省" data-value="阜阳市" class="mui-table-view-cell mui-indexed-list-item hide">阜阳市</li>
+								<li data-svalue="安徽省" data-value="宿州市" class="mui-table-view-cell mui-indexed-list-item hide">宿州市</li>
+								<li data-svalue="安徽省" data-value="六安市" class="mui-table-view-cell mui-indexed-list-item hide">六安市</li>
+								<li data-svalue="安徽省" data-value="亳州市" class="mui-table-view-cell mui-indexed-list-item hide">亳州市</li>
+								<li data-svalue="安徽省" data-value="池州市" class="mui-table-view-cell mui-indexed-list-item hide">池州市</li>
+								<li data-svalue="安徽省" data-value="宣城市" class="mui-table-view-cell mui-indexed-list-item hide">宣城市</li>
 
-						<!--澳门-->
-						<li data-value="澳门半岛" class="mui-table-view-cell mui-indexed-list-item">澳门半岛</li>
-						<li data-value="离岛" class="mui-table-view-cell mui-indexed-list-item">离岛</li>
+								<!--澳门-->
+								<li data-svalue="澳门" data-value="澳门半岛" class="mui-table-view-cell mui-indexed-list-item hide">澳门半岛</li>
+								<li data-svalue="澳门" data-value="离岛" class="mui-table-view-cell mui-indexed-list-item hide">离岛</li>
 
-						<!--北京市-->
-						<li data-value="东城区" class="mui-table-view-cell mui-indexed-list-item">东城区</li>
-						<li data-value="西城区" class="mui-table-view-cell mui-indexed-list-item">西城区</li>
-						<li data-value="崇文区" class="mui-table-view-cell mui-indexed-list-item">崇文区</li>
-						<li data-value="宣武区" class="mui-table-view-cell mui-indexed-list-item">宣武区</li>
-						<li data-value="朝阳区" class="mui-table-view-cell mui-indexed-list-item">朝阳区</li>
-						<li data-value="丰台区" class="mui-table-view-cell mui-indexed-list-item">丰台区</li>
-						<li data-value="石景山区" class="mui-table-view-cell mui-indexed-list-item">石景山区</li>
-						<li data-value="海淀区" class="mui-table-view-cell mui-indexed-list-item">海淀区</li>
-						<li data-value="门头沟区" class="mui-table-view-cell mui-indexed-list-item">门头沟区</li>
-						<li data-value="房山区" class="mui-table-view-cell mui-indexed-list-item">房山区</li>
-						<li data-value="通州区" class="mui-table-view-cell mui-indexed-list-item">通州区</li>
-						<li data-value="顺义区" class="mui-table-view-cell mui-indexed-list-item">顺义区</li>
-						<li data-value="昌平区" class="mui-table-view-cell mui-indexed-list-item">昌平区</li>
-						<li data-value="大兴区" class="mui-table-view-cell mui-indexed-list-item">大兴区</li>
-						<li data-value="怀柔区" class="mui-table-view-cell mui-indexed-list-item">怀柔区</li>
-						<li data-value="平谷区" class="mui-table-view-cell mui-indexed-list-item">平谷区</li>
-						<li data-value="密云县" class="mui-table-view-cell mui-indexed-list-item">密云县</li>
-						<li data-value="延庆县" class="mui-table-view-cell mui-indexed-list-item">延庆县</li>
+								<!--北京市-->
+								<li data-svalue="北京市" data-value="东城区" class="mui-table-view-cell mui-indexed-list-item hide">东城区</li>
+								<li data-svalue="北京市" data-value="西城区" class="mui-table-view-cell mui-indexed-list-item hide">西城区</li>
+								<li data-svalue="北京市" data-value="崇文区" class="mui-table-view-cell mui-indexed-list-item hide">崇文区</li>
+								<li data-svalue="北京市" data-value="宣武区" class="mui-table-view-cell mui-indexed-list-item hide">宣武区</li>
+								<li data-svalue="北京市" data-value="朝阳区" class="mui-table-view-cell mui-indexed-list-item hide">朝阳区</li>
+								<li data-svalue="北京市" data-value="丰台区" class="mui-table-view-cell mui-indexed-list-item hide">丰台区</li>
+								<li data-svalue="北京市" data-value="石景山区" class="mui-table-view-cell mui-indexed-list-item hide">石景山区</li>
+								<li data-svalue="北京市" data-value="海淀区" class="mui-table-view-cell mui-indexed-list-item hide">海淀区</li>
+								<li data-svalue="北京市" data-value="门头沟区" class="mui-table-view-cell mui-indexed-list-item hide">门头沟区</li>
+								<li data-svalue="北京市" data-value="房山区" class="mui-table-view-cell mui-indexed-list-item hide">房山区</li>
+								<li data-svalue="北京市" data-value="通州区" class="mui-table-view-cell mui-indexed-list-item hide">通州区</li>
+								<li data-svalue="北京市" data-value="顺义区" class="mui-table-view-cell mui-indexed-list-item hide">顺义区</li>
+								<li data-svalue="北京市" data-value="昌平区" class="mui-table-view-cell mui-indexed-list-item hide">昌平区</li>
+								<li data-svalue="北京市" data-value="大兴区" class="mui-table-view-cell mui-indexed-list-item hide">大兴区</li>
+								<li data-svalue="北京市" data-value="怀柔区" class="mui-table-view-cell mui-indexed-list-item hide">怀柔区</li>
+								<li data-svalue="北京市" data-value="平谷区" class="mui-table-view-cell mui-indexed-list-item hide">平谷区</li>
+								<li data-svalue="北京市" data-value="密云县" class="mui-table-view-cell mui-indexed-list-item hide">密云县</li>
+								<li data-svalue="北京市" data-value="延庆县" class="mui-table-view-cell mui-indexed-list-item hide">延庆县</li>
 
-						<!--重庆市-->
-						<li data-value="万州区" class="mui-table-view-cell mui-indexed-list-item">万州区</li>
-						<li data-value="涪陵区" class="mui-table-view-cell mui-indexed-list-item">涪陵区</li>
-						<li data-value="渝中区" class="mui-table-view-cell mui-indexed-list-item">渝中区</li>
-						<li data-value="大渡口区" class="mui-table-view-cell mui-indexed-list-item">大渡口区</li>
-						<li data-value="江北区" class="mui-table-view-cell mui-indexed-list-item">江北区</li>
-						<li data-value="沙坪坝区" class="mui-table-view-cell mui-indexed-list-item">沙坪坝区</li>
-						<li data-value="九龙坡区" class="mui-table-view-cell mui-indexed-list-item">九龙坡区</li>
-						<li data-value="南岸区" class="mui-table-view-cell mui-indexed-list-item">南岸区</li>
-						<li data-value="北碚区" class="mui-table-view-cell mui-indexed-list-item">北碚区</li>
-						<li data-value="万盛区" class="mui-table-view-cell mui-indexed-list-item">万盛区</li>
-						<li data-value="双桥区" class="mui-table-view-cell mui-indexed-list-item">双桥区</li>
-						<li data-value="渝北区" class="mui-table-view-cell mui-indexed-list-item">渝北区</li>
-						<li data-value="巴南区" class="mui-table-view-cell mui-indexed-list-item">巴南区</li>
-						<li data-value="黔江区" class="mui-table-view-cell mui-indexed-list-item">黔江区</li>
-						<li data-value="长寿区" class="mui-table-view-cell mui-indexed-list-item">长寿区</li>
-						<li data-value="綦江县" class="mui-table-view-cell mui-indexed-list-item">綦江县</li>
-						<li data-value="潼南县" class="mui-table-view-cell mui-indexed-list-item">潼南县</li>
-						<li data-value="铜梁县" class="mui-table-view-cell mui-indexed-list-item">铜梁县</li>
-						<li data-value="大足县" class="mui-table-view-cell mui-indexed-list-item">大足县</li>
-						<li data-value="荣昌县" class="mui-table-view-cell mui-indexed-list-item">荣昌县</li>
-						<li data-value="璧山县" class="mui-table-view-cell mui-indexed-list-item">璧山县</li>
-						<li data-value="梁平县" class="mui-table-view-cell mui-indexed-list-item">梁平县</li>
-						<li data-value="城口县" class="mui-table-view-cell mui-indexed-list-item">城口县</li>
-						<li data-value="丰都县" class="mui-table-view-cell mui-indexed-list-item">丰都县</li>
-						<li data-value="垫江县" class="mui-table-view-cell mui-indexed-list-item">垫江县</li>
-						<li data-value="武隆县" class="mui-table-view-cell mui-indexed-list-item">武隆县</li>
-						<li data-value="忠县" class="mui-table-view-cell mui-indexed-list-item">忠县</li>
-						<li data-value="开县" class="mui-table-view-cell mui-indexed-list-item">开县</li>
-						<li data-value="云阳县" class="mui-table-view-cell mui-indexed-list-item">云阳县</li>
-						<li data-value="奉节县" class="mui-table-view-cell mui-indexed-list-item">奉节县</li>
-						<li data-value="巫山县" class="mui-table-view-cell mui-indexed-list-item">巫山县</li>
-						<li data-value="巫溪县" class="mui-table-view-cell mui-indexed-list-item">巫溪县</li>
-						<li data-value="石柱土家族自治县" class="mui-table-view-cell mui-indexed-list-item">石柱土家族自治县</li>
-						<li data-value="秀山土家族苗族自治县" class="mui-table-view-cell mui-indexed-list-item">秀山土家族苗族自治县</li>
-						<li data-value="酉阳土家族苗族自治县" class="mui-table-view-cell mui-indexed-list-item">酉阳土家族苗族自治县</li>
-						<li data-value="彭水苗族土家族自治县" class="mui-table-view-cell mui-indexed-list-item">彭水苗族土家族自治县</li>
-						<li data-value="江津区" class="mui-table-view-cell mui-indexed-list-item">江津区</li>
-						<li data-value="合川区" class="mui-table-view-cell mui-indexed-list-item">合川区</li>
-						<li data-value="永川区" class="mui-table-view-cell mui-indexed-list-item">永川区</li>
-						<li data-value="南川区" class="mui-table-view-cell mui-indexed-list-item">南川区</li>
+								<!--重庆市-->
+								<li data-svalue="重庆市" data-value="万州区" class="mui-table-view-cell mui-indexed-list-item hide">万州区</li>
+								<li data-svalue="重庆市" data-value="涪陵区" class="mui-table-view-cell mui-indexed-list-item hide">涪陵区</li>
+								<li data-svalue="重庆市" data-value="渝中区" class="mui-table-view-cell mui-indexed-list-item hide">渝中区</li>
+								<li data-svalue="重庆市" data-value="大渡口区" class="mui-table-view-cell mui-indexed-list-item hide">大渡口区</li>
+								<li data-svalue="重庆市" data-value="江北区" class="mui-table-view-cell mui-indexed-list-item hide">江北区</li>
+								<li data-svalue="重庆市" data-value="沙坪坝区" class="mui-table-view-cell mui-indexed-list-item hide">沙坪坝区</li>
+								<li data-svalue="重庆市" data-value="九龙坡区" class="mui-table-view-cell mui-indexed-list-item hide">九龙坡区</li>
+								<li data-svalue="重庆市" data-value="南岸区" class="mui-table-view-cell mui-indexed-list-item hide">南岸区</li>
+								<li data-svalue="重庆市" data-value="北碚区" class="mui-table-view-cell mui-indexed-list-item hide">北碚区</li>
+								<li data-svalue="重庆市" data-value="万盛区" class="mui-table-view-cell mui-indexed-list-item hide">万盛区</li>
+								<li data-svalue="重庆市" data-value="双桥区" class="mui-table-view-cell mui-indexed-list-item hide">双桥区</li>
+								<li data-svalue="重庆市" data-value="渝北区" class="mui-table-view-cell mui-indexed-list-item hide">渝北区</li>
+								<li data-svalue="重庆市" data-value="巴南区" class="mui-table-view-cell mui-indexed-list-item hide">巴南区</li>
+								<li data-svalue="重庆市" data-value="黔江区" class="mui-table-view-cell mui-indexed-list-item hide">黔江区</li>
+								<li data-svalue="重庆市" data-value="长寿区" class="mui-table-view-cell mui-indexed-list-item hide">长寿区</li>
+								<li data-svalue="重庆市" data-value="綦江县" class="mui-table-view-cell mui-indexed-list-item hide">綦江县</li>
+								<li data-svalue="重庆市" data-value="潼南县" class="mui-table-view-cell mui-indexed-list-item hide">潼南县</li>
+								<li data-svalue="重庆市" data-value="铜梁县" class="mui-table-view-cell mui-indexed-list-item hide">铜梁县</li>
+								<li data-svalue="重庆市" data-value="大足县" class="mui-table-view-cell mui-indexed-list-item hide">大足县</li>
+								<li data-svalue="重庆市" data-value="荣昌县" class="mui-table-view-cell mui-indexed-list-item hide">荣昌县</li>
+								<li data-svalue="重庆市" data-value="璧山县" class="mui-table-view-cell mui-indexed-list-item hide">璧山县</li>
+								<li data-svalue="重庆市" data-value="梁平县" class="mui-table-view-cell mui-indexed-list-item hide">梁平县</li>
+								<li data-svalue="重庆市" data-value="城口县" class="mui-table-view-cell mui-indexed-list-item hide">城口县</li>
+								<li data-svalue="重庆市" data-value="丰都县" class="mui-table-view-cell mui-indexed-list-item hide">丰都县</li>
+								<li data-svalue="重庆市" data-value="垫江县" class="mui-table-view-cell mui-indexed-list-item hide">垫江县</li>
+								<li data-svalue="重庆市" data-value="武隆县" class="mui-table-view-cell mui-indexed-list-item hide">武隆县</li>
+								<li data-svalue="重庆市" data-value="忠县" class="mui-table-view-cell mui-indexed-list-item hide">忠县</li>
+								<li data-svalue="重庆市" data-value="开县" class="mui-table-view-cell mui-indexed-list-item hide">开县</li>
+								<li data-svalue="重庆市" data-value="云阳县" class="mui-table-view-cell mui-indexed-list-item hide">云阳县</li>
+								<li data-svalue="重庆市" data-value="奉节县" class="mui-table-view-cell mui-indexed-list-item hide">奉节县</li>
+								<li data-svalue="重庆市" data-value="巫山县" class="mui-table-view-cell mui-indexed-list-item hide">巫山县</li>
+								<li data-svalue="重庆市" data-value="巫溪县" class="mui-table-view-cell mui-indexed-list-item hide">巫溪县</li>
+								<li data-svalue="重庆市" data-value="石柱土家族自治县" class="mui-table-view-cell mui-indexed-list-item hide">石柱土家族自治县</li>
+								<li data-svalue="重庆市" data-value="秀山土家族苗族自治县" class="mui-table-view-cell mui-indexed-list-item hide">秀山土家族苗族自治县</li>
+								<li data-svalue="重庆市" data-value="酉阳土家族苗族自治县" class="mui-table-view-cell mui-indexed-list-item hide">酉阳土家族苗族自治县</li>
+								<li data-svalue="重庆市" data-value="彭水苗族土家族自治县" class="mui-table-view-cell mui-indexed-list-item hide">彭水苗族土家族自治县</li>
+								<li data-svalue="重庆市" data-value="江津区" class="mui-table-view-cell mui-indexed-list-item hide">江津区</li>
+								<li data-svalue="重庆市" data-value="合川区" class="mui-table-view-cell mui-indexed-list-item hide">合川区</li>
+								<li data-svalue="重庆市" data-value="永川区" class="mui-table-view-cell mui-indexed-list-item hide">永川区</li>
+								<li data-svalue="重庆市" data-value="南川区" class="mui-table-view-cell mui-indexed-list-item hide">南川区</li>
 
-						<!--福建省-->
-						<li data-value="福州市" class="mui-table-view-cell mui-indexed-list-item">福州市</li>
-						<li data-value="厦门市" class="mui-table-view-cell mui-indexed-list-item">厦门市</li>
-						<li data-value="莆田市" class="mui-table-view-cell mui-indexed-list-item">莆田市</li>
-						<li data-value="三明市" class="mui-table-view-cell mui-indexed-list-item">三明市</li>
-						<li data-value="泉州市" class="mui-table-view-cell mui-indexed-list-item">泉州市</li>
-						<li data-value="漳州市" class="mui-table-view-cell mui-indexed-list-item">漳州市</li>
-						<li data-value="南平市" class="mui-table-view-cell mui-indexed-list-item">南平市</li>
-						<li data-value="龙岩市" class="mui-table-view-cell mui-indexed-list-item">龙岩市</li>
-						<li data-value="宁德市" class="mui-table-view-cell mui-indexed-list-item">宁德市</li>
+								<!--福建省-->
+								<li data-svalue="福建省" data-value="福州市" class="mui-table-view-cell mui-indexed-list-item hide">福州市</li>
+								<li data-svalue="福建省" data-value="厦门市" class="mui-table-view-cell mui-indexed-list-item hide">厦门市</li>
+								<li data-svalue="福建省" data-value="莆田市" class="mui-table-view-cell mui-indexed-list-item hide">莆田市</li>
+								<li data-svalue="福建省" data-value="三明市" class="mui-table-view-cell mui-indexed-list-item hide">三明市</li>
+								<li data-svalue="福建省" data-value="泉州市" class="mui-table-view-cell mui-indexed-list-item hide">泉州市</li>
+								<li data-svalue="福建省" data-value="漳州市" class="mui-table-view-cell mui-indexed-list-item hide">漳州市</li>
+								<li data-svalue="福建省" data-value="南平市" class="mui-table-view-cell mui-indexed-list-item hide">南平市</li>
+								<li data-svalue="福建省" data-value="龙岩市" class="mui-table-view-cell mui-indexed-list-item hide">龙岩市</li>
+								<li data-svalue="福建省" data-value="宁德市" class="mui-table-view-cell mui-indexed-list-item hide">宁德市</li>
 
-						<!--广东省-->
-						<li data-value="广州市" class="mui-table-view-cell mui-indexed-list-item">广州市</li>
-						<li data-value="韶关市" class="mui-table-view-cell mui-indexed-list-item">韶关市</li>
-						<li data-value="深圳市" class="mui-table-view-cell mui-indexed-list-item">深圳市</li>
-						<li data-value="珠海市" class="mui-table-view-cell mui-indexed-list-item">珠海市</li>
-						<li data-value="汕头市" class="mui-table-view-cell mui-indexed-list-item">汕头市</li>
-						<li data-value="佛山市" class="mui-table-view-cell mui-indexed-list-item">佛山市</li>
-						<li data-value="江门市" class="mui-table-view-cell mui-indexed-list-item">江门市</li>
-						<li data-value="湛江市" class="mui-table-view-cell mui-indexed-list-item">湛江市</li>
-						<li data-value="茂名市" class="mui-table-view-cell mui-indexed-list-item">茂名市</li>
-						<li data-value="肇庆市" class="mui-table-view-cell mui-indexed-list-item">肇庆市</li>
-						<li data-value="惠州市" class="mui-table-view-cell mui-indexed-list-item">惠州市</li>
-						<li data-value="梅州市" class="mui-table-view-cell mui-indexed-list-item">梅州市</li>
-						<li data-value="汕尾市" class="mui-table-view-cell mui-indexed-list-item">汕尾市</li>
-						<li data-value="河源市" class="mui-table-view-cell mui-indexed-list-item">河源市</li>
-						<li data-value="阳江市" class="mui-table-view-cell mui-indexed-list-item">阳江市</li>
-						<li data-value="清远市" class="mui-table-view-cell mui-indexed-list-item">清远市</li>
-						<li data-value="东莞市" class="mui-table-view-cell mui-indexed-list-item">东莞市</li>
-						<li data-value="中山市" class="mui-table-view-cell mui-indexed-list-item">中山市</li>
-						<li data-value="潮州市" class="mui-table-view-cell mui-indexed-list-item">潮州市</li>
-						<li data-value="揭阳市" class="mui-table-view-cell mui-indexed-list-item">揭阳市</li>
-						<li data-value="云浮市" class="mui-table-view-cell mui-indexed-list-item">云浮市</li>
+								<!--广东省-->
+								<li data-svalue="广东省" data-value="广州市" class="mui-table-view-cell mui-indexed-list-item hide">广州市</li>
+								<li data-svalue="广东省" data-value="韶关市" class="mui-table-view-cell mui-indexed-list-item hide">韶关市</li>
+								<li data-svalue="广东省" data-value="深圳市" class="mui-table-view-cell mui-indexed-list-item hide">深圳市</li>
+								<li data-svalue="广东省" data-value="珠海市" class="mui-table-view-cell mui-indexed-list-item hide">珠海市</li>
+								<li data-svalue="广东省" data-value="汕头市" class="mui-table-view-cell mui-indexed-list-item hide">汕头市</li>
+								<li data-svalue="广东省" data-value="佛山市" class="mui-table-view-cell mui-indexed-list-item hide">佛山市</li>
+								<li data-svalue="广东省" data-value="江门市" class="mui-table-view-cell mui-indexed-list-item hide">江门市</li>
+								<li data-svalue="广东省" data-value="湛江市" class="mui-table-view-cell mui-indexed-list-item hide">湛江市</li>
+								<li data-svalue="广东省" data-value="茂名市" class="mui-table-view-cell mui-indexed-list-item hide">茂名市</li>
+								<li data-svalue="广东省" data-value="肇庆市" class="mui-table-view-cell mui-indexed-list-item hide">肇庆市</li>
+								<li data-svalue="广东省" data-value="惠州市" class="mui-table-view-cell mui-indexed-list-item hide">惠州市</li>
+								<li data-svalue="广东省" data-value="梅州市" class="mui-table-view-cell mui-indexed-list-item hide">梅州市</li>
+								<li data-svalue="广东省" data-value="汕尾市" class="mui-table-view-cell mui-indexed-list-item hide">汕尾市</li>
+								<li data-svalue="广东省" data-value="河源市" class="mui-table-view-cell mui-indexed-list-item hide">河源市</li>
+								<li data-svalue="广东省" data-value="阳江市" class="mui-table-view-cell mui-indexed-list-item hide">阳江市</li>
+								<li data-svalue="广东省" data-value="清远市" class="mui-table-view-cell mui-indexed-list-item hide">清远市</li>
+								<li data-svalue="广东省" data-value="东莞市" class="mui-table-view-cell mui-indexed-list-item hide">东莞市</li>
+								<li data-svalue="广东省" data-value="中山市" class="mui-table-view-cell mui-indexed-list-item hide">中山市</li>
+								<li data-svalue="广东省" data-value="潮州市" class="mui-table-view-cell mui-indexed-list-item hide">潮州市</li>
+								<li data-svalue="广东省" data-value="揭阳市" class="mui-table-view-cell mui-indexed-list-item hide">揭阳市</li>
+								<li data-svalue="广东省" data-value="云浮市" class="mui-table-view-cell mui-indexed-list-item hide">云浮市</li>
 
-						<!--广西省-->
-						<li data-value="南宁市" class="mui-table-view-cell mui-indexed-list-item">南宁市</li>
-						<li data-value="柳州市" class="mui-table-view-cell mui-indexed-list-item">柳州市</li>
-						<li data-value="桂林市" class="mui-table-view-cell mui-indexed-list-item">桂林市</li>
-						<li data-value="梧州市" class="mui-table-view-cell mui-indexed-list-item">梧州市</li>
-						<li data-value="北海市" class="mui-table-view-cell mui-indexed-list-item">北海市</li>
-						<li data-value="防城港市" class="mui-table-view-cell mui-indexed-list-item">防城港市</li>
-						<li data-value="钦州市" class="mui-table-view-cell mui-indexed-list-item">钦州市</li>
-						<li data-value="贵港市" class="mui-table-view-cell mui-indexed-list-item">贵港市</li>
-						<li data-value="玉林市" class="mui-table-view-cell mui-indexed-list-item">玉林市</li>
-						<li data-value="百色市" class="mui-table-view-cell mui-indexed-list-item">百色市</li>
-						<li data-value="贺州市" class="mui-table-view-cell mui-indexed-list-item">贺州市</li>
-						<li data-value="河池市" class="mui-table-view-cell mui-indexed-list-item">河池市</li>
-						<li data-value="来宾市" class="mui-table-view-cell mui-indexed-list-item">来宾市</li>
-						<li data-value="崇左市" class="mui-table-view-cell mui-indexed-list-item">崇左市</li>
+								<!--广西省-->
+								<li data-svalue="广西省" data-value="南宁市" class="mui-table-view-cell mui-indexed-list-item hide">南宁市</li>
+								<li data-svalue="广西省" data-value="柳州市" class="mui-table-view-cell mui-indexed-list-item hide">柳州市</li>
+								<li data-svalue="广西省" data-value="桂林市" class="mui-table-view-cell mui-indexed-list-item hide">桂林市</li>
+								<li data-svalue="广西省" data-value="梧州市" class="mui-table-view-cell mui-indexed-list-item hide">梧州市</li>
+								<li data-svalue="广西省" data-value="北海市" class="mui-table-view-cell mui-indexed-list-item hide">北海市</li>
+								<li data-svalue="广西省" data-value="防城港市" class="mui-table-view-cell mui-indexed-list-item hide">防城港市</li>
+								<li data-svalue="广西省" data-value="钦州市" class="mui-table-view-cell mui-indexed-list-item hide">钦州市</li>
+								<li data-svalue="广西省" data-value="贵港市" class="mui-table-view-cell mui-indexed-list-item hide">贵港市</li>
+								<li data-svalue="广西省" data-value="玉林市" class="mui-table-view-cell mui-indexed-list-item hide">玉林市</li>
+								<li data-svalue="广西省" data-value="百色市" class="mui-table-view-cell mui-indexed-list-item hide">百色市</li>
+								<li data-svalue="广西省" data-value="贺州市" class="mui-table-view-cell mui-indexed-list-item hide">贺州市</li>
+								<li data-svalue="广西省" data-value="河池市" class="mui-table-view-cell mui-indexed-list-item hide">河池市</li>
+								<li data-svalue="广西省" data-value="来宾市" class="mui-table-view-cell mui-indexed-list-item hide">来宾市</li>
+								<li data-svalue="广西省" data-value="崇左市" class="mui-table-view-cell mui-indexed-list-item hide">崇左市</li>
 
-						<!--贵州省-->
-						<li data-value="贵阳市" class="mui-table-view-cell mui-indexed-list-item">贵阳市</li>
-						<li data-value="六盘水市" class="mui-table-view-cell mui-indexed-list-item">六盘水市</li>
-						<li data-value="遵义市" class="mui-table-view-cell mui-indexed-list-item">遵义市</li>
-						<li data-value="安顺市" class="mui-table-view-cell mui-indexed-list-item">安顺市</li>
-						<li data-value="铜仁地区" class="mui-table-view-cell mui-indexed-list-item">铜仁地区</li>
-						<li data-value="黔西南布依族苗族自治州" class="mui-table-view-cell mui-indexed-list-item">黔西南布依族苗族自治州</li>
-						<li data-value="毕节地区" class="mui-table-view-cell mui-indexed-list-item">毕节地区</li>
-						<li data-value="黔东南苗族侗族自治州" class="mui-table-view-cell mui-indexed-list-item">黔东南苗族侗族自治州</li>
-						<li data-value="黔南布依族苗族自治州" class="mui-table-view-cell mui-indexed-list-item">黔南布依族苗族自治州</li>
+								<!--贵州省-->
+								<li data-svalue="贵州省" data-value="贵阳市" class="mui-table-view-cell mui-indexed-list-item hide">贵阳市</li>
+								<li data-svalue="贵州省" data-value="六盘水市" class="mui-table-view-cell mui-indexed-list-item hide">六盘水市</li>
+								<li data-svalue="贵州省" data-value="遵义市" class="mui-table-view-cell mui-indexed-list-item hide">遵义市</li>
+								<li data-svalue="贵州省" data-value="安顺市" class="mui-table-view-cell mui-indexed-list-item hide">安顺市</li>
+								<li data-svalue="贵州省" data-value="铜仁地区" class="mui-table-view-cell mui-indexed-list-item hide">铜仁地区</li>
+								<li data-svalue="贵州省" data-value="黔西南布依族苗族自治州" class="mui-table-view-cell mui-indexed-list-item hide">黔西南布依族苗族自治州</li>
+								<li data-svalue="贵州省" data-value="毕节地区" class="mui-table-view-cell mui-indexed-list-item hide">毕节地区</li>
+								<li data-svalue="贵州省" data-value="黔东南苗族侗族自治州" class="mui-table-view-cell mui-indexed-list-item hide">黔东南苗族侗族自治州</li>
+								<li data-svalue="贵州省" data-value="黔南布依族苗族自治州" class="mui-table-view-cell mui-indexed-list-item hide">黔南布依族苗族自治州</li>
 
-						<!--甘肃省-->
-						<li data-value="兰州市" class="mui-table-view-cell mui-indexed-list-item">兰州市</li>
-						<li data-value="嘉峪关市" class="mui-table-view-cell mui-indexed-list-item">嘉峪关市</li>
-						<li data-value="金昌市" class="mui-table-view-cell mui-indexed-list-item">金昌市</li>
-						<li data-value="白银市" class="mui-table-view-cell mui-indexed-list-item">白银市</li>
-						<li data-value="天水市" class="mui-table-view-cell mui-indexed-list-item">天水市</li>
-						<li data-value="武威市" class="mui-table-view-cell mui-indexed-list-item">武威市</li>
-						<li data-value="张掖市" class="mui-table-view-cell mui-indexed-list-item">张掖市</li>
-						<li data-value="平凉市" class="mui-table-view-cell mui-indexed-list-item">平凉市</li>
-						<li data-value="酒泉市" class="mui-table-view-cell mui-indexed-list-item">酒泉市</li>
-						<li data-value="庆阳市" class="mui-table-view-cell mui-indexed-list-item">庆阳市</li>
-						<li data-value="定西市" class="mui-table-view-cell mui-indexed-list-item">定西市</li>
-						<li data-value="陇南市" class="mui-table-view-cell mui-indexed-list-item">陇南市</li>
-						<li data-value="临夏回族自治州" class="mui-table-view-cell mui-indexed-list-item">临夏回族自治州</li>
-						<li data-value="甘南藏族自治州" class="mui-table-view-cell mui-indexed-list-item">甘南藏族自治州</li>
+								<!--甘肃省-->
+								<li data-svalue="甘肃省" data-value="兰州市" class="mui-table-view-cell mui-indexed-list-item hide">兰州市</li>
+								<li data-svalue="甘肃省" data-value="嘉峪关市" class="mui-table-view-cell mui-indexed-list-item hide">嘉峪关市</li>
+								<li data-svalue="甘肃省" data-value="金昌市" class="mui-table-view-cell mui-indexed-list-item hide">金昌市</li>
+								<li data-svalue="甘肃省" data-value="白银市" class="mui-table-view-cell mui-indexed-list-item hide">白银市</li>
+								<li data-svalue="甘肃省" data-value="天水市" class="mui-table-view-cell mui-indexed-list-item hide">天水市</li>
+								<li data-svalue="甘肃省" data-value="武威市" class="mui-table-view-cell mui-indexed-list-item hide">武威市</li>
+								<li data-svalue="甘肃省" data-value="张掖市" class="mui-table-view-cell mui-indexed-list-item hide">张掖市</li>
+								<li data-svalue="甘肃省" data-value="平凉市" class="mui-table-view-cell mui-indexed-list-item hide">平凉市</li>
+								<li data-svalue="甘肃省" data-value="酒泉市" class="mui-table-view-cell mui-indexed-list-item hide">酒泉市</li>
+								<li data-svalue="甘肃省" data-value="庆阳市" class="mui-table-view-cell mui-indexed-list-item hide">庆阳市</li>
+								<li data-svalue="甘肃省" data-value="定西市" class="mui-table-view-cell mui-indexed-list-item hide">定西市</li>
+								<li data-svalue="甘肃省" data-value="陇南市" class="mui-table-view-cell mui-indexed-list-item hide">陇南市</li>
+								<li data-svalue="甘肃省" data-value="临夏回族自治州" class="mui-table-view-cell mui-indexed-list-item hide">临夏回族自治州</li>
+								<li data-svalue="甘肃省" data-value="甘南藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">甘南藏族自治州</li>
 
-						<!--河北省-->
-						<li data-value="石家庄市" class="mui-table-view-cell mui-indexed-list-item">石家庄市</li>
-						<li data-value="唐山市" class="mui-table-view-cell mui-indexed-list-item">唐山市</li>
-						<li data-value="秦皇岛市" class="mui-table-view-cell mui-indexed-list-item">秦皇岛市</li>
-						<li data-value="邯郸市" class="mui-table-view-cell mui-indexed-list-item">邯郸市</li>
-						<li data-value="邢台市" class="mui-table-view-cell mui-indexed-list-item">邢台市</li>
-						<li data-value="保定市" class="mui-table-view-cell mui-indexed-list-item">保定市</li>
-						<li data-value="张家口市" class="mui-table-view-cell mui-indexed-list-item">张家口市</li>
-						<li data-value="承德市" class="mui-table-view-cell mui-indexed-list-item">承德市</li>
-						<li data-value="沧州市" class="mui-table-view-cell mui-indexed-list-item">沧州市</li>
-						<li data-value="衡水市" class="mui-table-view-cell mui-indexed-list-item">廊坊市</li>
+								<!--河北省-->
+								<li data-svalue="河北省" data-value="石家庄市" class="mui-table-view-cell mui-indexed-list-item hide">石家庄市</li>
+								<li data-svalue="河北省" data-value="唐山市" class="mui-table-view-cell mui-indexed-list-item hide">唐山市</li>
+								<li data-svalue="河北省" data-value="秦皇岛市" class="mui-table-view-cell mui-indexed-list-item hide">秦皇岛市</li>
+								<li data-svalue="河北省" data-value="邯郸市" class="mui-table-view-cell mui-indexed-list-item hide">邯郸市</li>
+								<li data-svalue="河北省" data-value="邢台市" class="mui-table-view-cell mui-indexed-list-item hide">邢台市</li>
+								<li data-svalue="河北省" data-value="保定市" class="mui-table-view-cell mui-indexed-list-item hide">保定市</li>
+								<li data-svalue="河北省" data-value="张家口市" class="mui-table-view-cell mui-indexed-list-item hide">张家口市</li>
+								<li data-svalue="河北省" data-value="承德市" class="mui-table-view-cell mui-indexed-list-item hide">承德市</li>
+								<li data-svalue="河北省" data-value="沧州市" class="mui-table-view-cell mui-indexed-list-item hide">沧州市</li>
+								<li data-svalue="河北省" data-value="衡水市" class="mui-table-view-cell mui-indexed-list-item hide">廊坊市</li>
 
-						<!--黑龙江省-->
-						<li data-value="哈尔滨市" class="mui-table-view-cell mui-indexed-list-item">哈尔滨市</li>
-						<li data-value="齐齐哈尔市" class="mui-table-view-cell mui-indexed-list-item">齐齐哈尔市</li>
-						<li data-value="鸡西市" class="mui-table-view-cell mui-indexed-list-item">鸡西市</li>
-						<li data-value="鹤岗市" class="mui-table-view-cell mui-indexed-list-item">鹤岗市</li>
-						<li data-value="双鸭山市" class="mui-table-view-cell mui-indexed-list-item">双鸭山市</li>
-						<li data-value="大庆市" class="mui-table-view-cell mui-indexed-list-item">大庆市</li>
-						<li data-value="伊春市" class="mui-table-view-cell mui-indexed-list-item">伊春市</li>
-						<li data-value="佳木斯市" class="mui-table-view-cell mui-indexed-list-item">佳木斯市</li>
-						<li data-value="七台河市" class="mui-table-view-cell mui-indexed-list-item">七台河市</li>
-						<li data-value="牡丹江市" class="mui-table-view-cell mui-indexed-list-item">牡丹江市</li>
-						<li data-value="黑河市" class="mui-table-view-cell mui-indexed-list-item">黑河市</li>
-						<li data-value="绥化市" class="mui-table-view-cell mui-indexed-list-item">绥化市</li>
-						<li data-value="大兴安岭地区" class="mui-table-view-cell mui-indexed-list-item">大兴安岭地区</li>
+								<!--黑龙江省-->
+								<li data-svalue="黑龙江省" data-value="哈尔滨市" class="mui-table-view-cell mui-indexed-list-item hide">哈尔滨市</li>
+								<li data-svalue="黑龙江省" data-value="齐齐哈尔市" class="mui-table-view-cell mui-indexed-list-item hide">齐齐哈尔市</li>
+								<li data-svalue="黑龙江省" data-value="鸡西市" class="mui-table-view-cell mui-indexed-list-item hide">鸡西市</li>
+								<li data-svalue="黑龙江省" data-value="鹤岗市" class="mui-table-view-cell mui-indexed-list-item hide">鹤岗市</li>
+								<li data-svalue="黑龙江省" data-value="双鸭山市" class="mui-table-view-cell mui-indexed-list-item hide">双鸭山市</li>
+								<li data-svalue="黑龙江省" data-value="大庆市" class="mui-table-view-cell mui-indexed-list-item hide">大庆市</li>
+								<li data-svalue="黑龙江省" data-value="伊春市" class="mui-table-view-cell mui-indexed-list-item hide">伊春市</li>
+								<li data-svalue="黑龙江省" data-value="佳木斯市" class="mui-table-view-cell mui-indexed-list-item hide">佳木斯市</li>
+								<li data-svalue="黑龙江省" data-value="七台河市" class="mui-table-view-cell mui-indexed-list-item hide">七台河市</li>
+								<li data-svalue="黑龙江省" data-value="牡丹江市" class="mui-table-view-cell mui-indexed-list-item hide">牡丹江市</li>
+								<li data-svalue="黑龙江省" data-value="黑河市" class="mui-table-view-cell mui-indexed-list-item hide">黑河市</li>
+								<li data-svalue="黑龙江省" data-value="绥化市" class="mui-table-view-cell mui-indexed-list-item hide">绥化市</li>
+								<li data-svalue="黑龙江省" data-value="大兴安岭地区" class="mui-table-view-cell mui-indexed-list-item hide">大兴安岭地区</li>
 
-						<!--河南省-->
-						<li data-value="郑州市" class="mui-table-view-cell mui-indexed-list-item">郑州市</li>
-						<li data-value="开封市" class="mui-table-view-cell mui-indexed-list-item">开封市</li>
-						<li data-value="洛阳市" class="mui-table-view-cell mui-indexed-list-item">洛阳市</li>
-						<li data-value="平顶山市" class="mui-table-view-cell mui-indexed-list-item">平顶山市</li>
-						<li data-value="安阳市" class="mui-table-view-cell mui-indexed-list-item">安阳市</li>
-						<li data-value="鹤壁市" class="mui-table-view-cell mui-indexed-list-item">鹤壁市</li>
-						<li data-value="新乡市" class="mui-table-view-cell mui-indexed-list-item">新乡市</li>
-						<li data-value="焦作市" class="mui-table-view-cell mui-indexed-list-item">焦作市</li>
-						<li data-value="济源市" class="mui-table-view-cell mui-indexed-list-item">济源市</li>
-						<li data-value="濮阳市" class="mui-table-view-cell mui-indexed-list-item">濮阳市</li>
-						<li data-value="许昌市" class="mui-table-view-cell mui-indexed-list-item">许昌市</li>
-						<li data-value="漯河市" class="mui-table-view-cell mui-indexed-list-item">漯河市</li>
-						<li data-value="三门峡市" class="mui-table-view-cell mui-indexed-list-item">三门峡市</li>
-						<li data-value="南阳市" class="mui-table-view-cell mui-indexed-list-item">南阳市</li>
-						<li data-value="商丘市" class="mui-table-view-cell mui-indexed-list-item">商丘市</li>
-						<li data-value="信阳市" class="mui-table-view-cell mui-indexed-list-item">信阳市</li>
-						<li data-value="周口市" class="mui-table-view-cell mui-indexed-list-item">周口市</li>
-						<li data-value="驻马店市" class="mui-table-view-cell mui-indexed-list-item">驻马店市</li>
+								<!--河南省-->
+								<li data-svalue="河南省" data-value="郑州市" class="mui-table-view-cell mui-indexed-list-item hide">郑州市</li>
+								<li data-svalue="河南省" data-value="开封市" class="mui-table-view-cell mui-indexed-list-item hide">开封市</li>
+								<li data-svalue="河南省" data-value="洛阳市" class="mui-table-view-cell mui-indexed-list-item hide">洛阳市</li>
+								<li data-svalue="河南省" data-value="平顶山市" class="mui-table-view-cell mui-indexed-list-item hide">平顶山市</li>
+								<li data-svalue="河南省" data-value="安阳市" class="mui-table-view-cell mui-indexed-list-item hide">安阳市</li>
+								<li data-svalue="河南省" data-value="鹤壁市" class="mui-table-view-cell mui-indexed-list-item hide">鹤壁市</li>
+								<li data-svalue="河南省" data-value="新乡市" class="mui-table-view-cell mui-indexed-list-item hide">新乡市</li>
+								<li data-svalue="河南省" data-value="焦作市" class="mui-table-view-cell mui-indexed-list-item hide">焦作市</li>
+								<li data-svalue="河南省" data-value="济源市" class="mui-table-view-cell mui-indexed-list-item hide">济源市</li>
+								<li data-svalue="河南省" data-value="濮阳市" class="mui-table-view-cell mui-indexed-list-item hide">濮阳市</li>
+								<li data-svalue="河南省" data-value="许昌市" class="mui-table-view-cell mui-indexed-list-item hide">许昌市</li>
+								<li data-svalue="河南省" data-value="漯河市" class="mui-table-view-cell mui-indexed-list-item hide">漯河市</li>
+								<li data-svalue="河南省" data-value="三门峡市" class="mui-table-view-cell mui-indexed-list-item hide">三门峡市</li>
+								<li data-svalue="河南省" data-value="南阳市" class="mui-table-view-cell mui-indexed-list-item hide">南阳市</li>
+								<li data-svalue="河南省" data-value="商丘市" class="mui-table-view-cell mui-indexed-list-item hide">商丘市</li>
+								<li data-svalue="河南省" data-value="信阳市" class="mui-table-view-cell mui-indexed-list-item hide">信阳市</li>
+								<li data-svalue="河南省" data-value="周口市" class="mui-table-view-cell mui-indexed-list-item hide">周口市</li>
+								<li data-svalue="河南省" data-value="驻马店市" class="mui-table-view-cell mui-indexed-list-item hide">驻马店市</li>
 
-						<!--湖北省-->
-						<li data-value="武汉市" class="mui-table-view-cell mui-indexed-list-item">武汉市</li>
-						<li data-value="黄石市" class="mui-table-view-cell mui-indexed-list-item">黄石市</li>
-						<li data-value="十堰市" class="mui-table-view-cell mui-indexed-list-item">十堰市</li>
-						<li data-value="宜昌市" class="mui-table-view-cell mui-indexed-list-item">宜昌市</li>
-						<li data-value="襄阳市" class="mui-table-view-cell mui-indexed-list-item">襄阳市</li>
-						<li data-value="鄂州市" class="mui-table-view-cell mui-indexed-list-item">鄂州市</li>
-						<li data-value="荆门市" class="mui-table-view-cell mui-indexed-list-item">荆门市</li>
-						<li data-value="孝感市" class="mui-table-view-cell mui-indexed-list-item">孝感市</li>
-						<li data-value="荆州市" class="mui-table-view-cell mui-indexed-list-item">荆州市</li>
-						<li data-value="黄冈市" class="mui-table-view-cell mui-indexed-list-item">黄冈市</li>
-						<li data-value="咸宁市" class="mui-table-view-cell mui-indexed-list-item">咸宁市</li>
-						<li data-value="随州市" class="mui-table-view-cell mui-indexed-list-item">随州市</li>
-						<li data-value="恩施土家族苗族自治州" class="mui-table-view-cell mui-indexed-list-item">恩施土家族苗族自治州</li>
-						<li data-value="仙桃市" class="mui-table-view-cell mui-indexed-list-item">仙桃市</li>
-						<li data-value="潜江市" class="mui-table-view-cell mui-indexed-list-item">潜江市</li>
-						<li data-value="天门市" class="mui-table-view-cell mui-indexed-list-item">天门市</li>
-						<li data-value="神农架林区" class="mui-table-view-cell mui-indexed-list-item">神农架林区</li>
+								<!--湖北省-->
+								<li data-svalue="湖北省" data-value="武汉市" class="mui-table-view-cell mui-indexed-list-item hide">武汉市</li>
+								<li data-svalue="湖北省" data-value="黄石市" class="mui-table-view-cell mui-indexed-list-item hide">黄石市</li>
+								<li data-svalue="湖北省" data-value="十堰市" class="mui-table-view-cell mui-indexed-list-item hide">十堰市</li>
+								<li data-svalue="湖北省" data-value="宜昌市" class="mui-table-view-cell mui-indexed-list-item hide">宜昌市</li>
+								<li data-svalue="湖北省" data-value="襄阳市" class="mui-table-view-cell mui-indexed-list-item hide">襄阳市</li>
+								<li data-svalue="湖北省" data-value="鄂州市" class="mui-table-view-cell mui-indexed-list-item hide">鄂州市</li>
+								<li data-svalue="湖北省" data-value="荆门市" class="mui-table-view-cell mui-indexed-list-item hide">荆门市</li>
+								<li data-svalue="湖北省" data-value="孝感市" class="mui-table-view-cell mui-indexed-list-item hide">孝感市</li>
+								<li data-svalue="湖北省" data-value="荆州市" class="mui-table-view-cell mui-indexed-list-item hide">荆州市</li>
+								<li data-svalue="湖北省" data-value="黄冈市" class="mui-table-view-cell mui-indexed-list-item hide">黄冈市</li>
+								<li data-svalue="湖北省" data-value="咸宁市" class="mui-table-view-cell mui-indexed-list-item hide">咸宁市</li>
+								<li data-svalue="湖北省" data-value="随州市" class="mui-table-view-cell mui-indexed-list-item hide">随州市</li>
+								<li data-svalue="湖北省" data-value="恩施土家族苗族自治州" class="mui-table-view-cell mui-indexed-list-item hide">恩施土家族苗族自治州</li>
+								<li data-svalue="湖北省" data-value="仙桃市" class="mui-table-view-cell mui-indexed-list-item hide">仙桃市</li>
+								<li data-svalue="湖北省" data-value="潜江市" class="mui-table-view-cell mui-indexed-list-item hide">潜江市</li>
+								<li data-svalue="湖北省" data-value="天门市" class="mui-table-view-cell mui-indexed-list-item hide">天门市</li>
+								<li data-svalue="湖北省" data-value="神农架林区" class="mui-table-view-cell mui-indexed-list-item hide">神农架林区</li>
 
-						<!--湖南省-->
-						<li data-value="长沙市" class="mui-table-view-cell mui-indexed-list-item">长沙市</li>
-						<li data-value="株洲市" class="mui-table-view-cell mui-indexed-list-item">株洲市</li>
-						<li data-value="湘潭市" class="mui-table-view-cell mui-indexed-list-item">湘潭市</li>
-						<li data-value="衡阳市" class="mui-table-view-cell mui-indexed-list-item">衡阳市</li>
-						<li data-value="邵阳市" class="mui-table-view-cell mui-indexed-list-item">邵阳市</li>
-						<li data-value="岳阳市" class="mui-table-view-cell mui-indexed-list-item">岳阳市</li>
-						<li data-value="常德市" class="mui-table-view-cell mui-indexed-list-item">常德市</li>
-						<li data-value="张家界市" class="mui-table-view-cell mui-indexed-list-item">张家界市</li>
-						<li data-value="益阳市" class="mui-table-view-cell mui-indexed-list-item">益阳市</li>
-						<li data-value="郴州市" class="mui-table-view-cell mui-indexed-list-item">郴州市</li>
-						<li data-value="永州市" class="mui-table-view-cell mui-indexed-list-item">永州市</li>
-						<li data-value="怀化市" class="mui-table-view-cell mui-indexed-list-item">怀化市</li>
-						<li data-value="娄底市" class="mui-table-view-cell mui-indexed-list-item">娄底市</li>
-						<li data-value="湘西土家族苗族自治州" class="mui-table-view-cell mui-indexed-list-item">湘西土家族苗族自治州</li>
+								<!--湖南省-->
+								<li data-svalue="湖南省" data-value="长沙市" class="mui-table-view-cell mui-indexed-list-item hide">长沙市</li>
+								<li data-svalue="湖南省" data-value="株洲市" class="mui-table-view-cell mui-indexed-list-item hide">株洲市</li>
+								<li data-svalue="湖南省" data-value="湘潭市" class="mui-table-view-cell mui-indexed-list-item hide">湘潭市</li>
+								<li data-svalue="湖南省" data-value="衡阳市" class="mui-table-view-cell mui-indexed-list-item hide">衡阳市</li>
+								<li data-svalue="湖南省" data-value="邵阳市" class="mui-table-view-cell mui-indexed-list-item hide">邵阳市</li>
+								<li data-svalue="湖南省" data-value="岳阳市" class="mui-table-view-cell mui-indexed-list-item hide">岳阳市</li>
+								<li data-svalue="湖南省" data-value="常德市" class="mui-table-view-cell mui-indexed-list-item hide">常德市</li>
+								<li data-svalue="湖南省" data-value="张家界市" class="mui-table-view-cell mui-indexed-list-item hide">张家界市</li>
+								<li data-svalue="湖南省" data-value="益阳市" class="mui-table-view-cell mui-indexed-list-item hide">益阳市</li>
+								<li data-svalue="湖南省" data-value="郴州市" class="mui-table-view-cell mui-indexed-list-item hide">郴州市</li>
+								<li data-svalue="湖南省" data-value="永州市" class="mui-table-view-cell mui-indexed-list-item hide">永州市</li>
+								<li data-svalue="湖南省" data-value="怀化市" class="mui-table-view-cell mui-indexed-list-item hide">怀化市</li>
+								<li data-svalue="湖南省" data-value="娄底市" class="mui-table-view-cell mui-indexed-list-item hide">娄底市</li>
+								<li data-svalue="湖南省" data-value="湘西土家族苗族自治州" class="mui-table-view-cell mui-indexed-list-item hide">湘西土家族苗族自治州</li>
 
-						<!--海南省-->
-						<li data-value="海口市" class="mui-table-view-cell mui-indexed-list-item">海口市</li>
-						<li data-value="三亚市" class="mui-table-view-cell mui-indexed-list-item">三亚市</li>
-						<li data-value="五指山市" class="mui-table-view-cell mui-indexed-list-item">五指山市</li>
-						<li data-value="琼海市" class="mui-table-view-cell mui-indexed-list-item">琼海市</li>
-						<li data-value="儋州市" class="mui-table-view-cell mui-indexed-list-item">儋州市</li>
-						<li data-value="文昌市" class="mui-table-view-cell mui-indexed-list-item">文昌市</li>
-						<li data-value="万宁市" class="mui-table-view-cell mui-indexed-list-item">万宁市</li>
-						<li data-value="东方市" class="mui-table-view-cell mui-indexed-list-item">东方市</li>
-						<li data-value="定安县" class="mui-table-view-cell mui-indexed-list-item">定安县</li>
-						<li data-value="屯昌县" class="mui-table-view-cell mui-indexed-list-item">屯昌县</li>
-						<li data-value="澄迈县" class="mui-table-view-cell mui-indexed-list-item">澄迈县</li>
-						<li data-value="临高县" class="mui-table-view-cell mui-indexed-list-item">临高县</li>
-						<li data-value="白沙黎族自治县" class="mui-table-view-cell mui-indexed-list-item">白沙黎族自治县</li>
-						<li data-value="昌江黎族自治县" class="mui-table-view-cell mui-indexed-list-item">昌江黎族自治县</li>
-						<li data-value="乐东黎族自治县" class="mui-table-view-cell mui-indexed-list-item">乐东黎族自治县</li>
-						<li data-value="陵水黎族自治县" class="mui-table-view-cell mui-indexed-list-item">陵水黎族自治县</li>
-						<li data-value="保亭黎族苗族自治县" class="mui-table-view-cell mui-indexed-list-item">保亭黎族苗族自治县</li>
-						<li data-value="琼中黎族苗族自治县" class="mui-table-view-cell mui-indexed-list-item">琼中黎族苗族自治县</li>
-						<li data-value="西沙群岛" class="mui-table-view-cell mui-indexed-list-item">西沙群岛</li>
-						<li data-value="南沙群岛" class="mui-table-view-cell mui-indexed-list-item">南沙群岛</li>
-						<li data-value="中沙群岛的岛礁及其海域" class="mui-table-view-cell mui-indexed-list-item">中沙群岛的岛礁及其海域</li>
+								<!--海南省-->
+								<li data-svalue="海南省" data-value="海口市" class="mui-table-view-cell mui-indexed-list-item hide">海口市</li>
+								<li data-svalue="海南省" data-value="三亚市" class="mui-table-view-cell mui-indexed-list-item hide">三亚市</li>
+								<li data-svalue="海南省" data-value="五指山市" class="mui-table-view-cell mui-indexed-list-item hide">五指山市</li>
+								<li data-svalue="海南省" data-value="琼海市" class="mui-table-view-cell mui-indexed-list-item hide">琼海市</li>
+								<li data-svalue="海南省" data-value="儋州市" class="mui-table-view-cell mui-indexed-list-item hide">儋州市</li>
+								<li data-svalue="海南省" data-value="文昌市" class="mui-table-view-cell mui-indexed-list-item hide">文昌市</li>
+								<li data-svalue="海南省" data-value="万宁市" class="mui-table-view-cell mui-indexed-list-item hide">万宁市</li>
+								<li data-svalue="海南省" data-value="东方市" class="mui-table-view-cell mui-indexed-list-item hide">东方市</li>
+								<li data-svalue="海南省" data-value="定安县" class="mui-table-view-cell mui-indexed-list-item hide">定安县</li>
+								<li data-svalue="海南省" data-value="屯昌县" class="mui-table-view-cell mui-indexed-list-item hide">屯昌县</li>
+								<li data-svalue="海南省" data-value="澄迈县" class="mui-table-view-cell mui-indexed-list-item hide">澄迈县</li>
+								<li data-svalue="海南省" data-value="临高县" class="mui-table-view-cell mui-indexed-list-item hide">临高县</li>
+								<li data-svalue="海南省" data-value="白沙黎族自治县" class="mui-table-view-cell mui-indexed-list-item hide">白沙黎族自治县</li>
+								<li data-svalue="海南省" data-value="昌江黎族自治县" class="mui-table-view-cell mui-indexed-list-item hide">昌江黎族自治县</li>
+								<li data-svalue="海南省" data-value="乐东黎族自治县" class="mui-table-view-cell mui-indexed-list-item hide">乐东黎族自治县</li>
+								<li data-svalue="海南省" data-value="陵水黎族自治县" class="mui-table-view-cell mui-indexed-list-item hide">陵水黎族自治县</li>
+								<li data-svalue="海南省" data-value="保亭黎族苗族自治县" class="mui-table-view-cell mui-indexed-list-item hide">保亭黎族苗族自治县</li>
+								<li data-svalue="海南省" data-value="琼中黎族苗族自治县" class="mui-table-view-cell mui-indexed-list-item hide">琼中黎族苗族自治县</li>
+								<li data-svalue="海南省" data-value="西沙群岛" class="mui-table-view-cell mui-indexed-list-item hide">西沙群岛</li>
+								<li data-svalue="海南省" data-value="南沙群岛" class="mui-table-view-cell mui-indexed-list-item hide">南沙群岛</li>
+								<li data-svalue="海南省" data-value="中沙群岛的岛礁及其海域" class="mui-table-view-cell mui-indexed-list-item hide">中沙群岛的岛礁及其海域</li>
 
-						<!--吉林省-->
-						<li data-value="长春市" class="mui-table-view-cell mui-indexed-list-item">长春市</li>
-						<li data-value="吉林市" class="mui-table-view-cell mui-indexed-list-item">吉林市</li>
-						<li data-value="四平市" class="mui-table-view-cell mui-indexed-list-item">四平市</li>
-						<li data-value="辽源市" class="mui-table-view-cell mui-indexed-list-item">辽源市</li>
-						<li data-value="通化市" class="mui-table-view-cell mui-indexed-list-item">通化市</li>
-						<li data-value="白山市" class="mui-table-view-cell mui-indexed-list-item">白山市</li>
-						<li data-value="松原市" class="mui-table-view-cell mui-indexed-list-item">松原市</li>
-						<li data-value="白城市" class="mui-table-view-cell mui-indexed-list-item">白城市</li>
-						<li data-value="延边朝鲜族自治州" class="mui-table-view-cell mui-indexed-list-item">延边朝鲜族自治州</li>
+								<!--吉林省-->
+								<li data-svalue="吉林省" data-value="长春市" class="mui-table-view-cell mui-indexed-list-item hide">长春市</li>
+								<li data-svalue="吉林省" data-value="吉林市" class="mui-table-view-cell mui-indexed-list-item hide">吉林市</li>
+								<li data-svalue="吉林省" data-value="四平市" class="mui-table-view-cell mui-indexed-list-item hide">四平市</li>
+								<li data-svalue="吉林省" data-value="辽源市" class="mui-table-view-cell mui-indexed-list-item hide">辽源市</li>
+								<li data-svalue="吉林省" data-value="通化市" class="mui-table-view-cell mui-indexed-list-item hide">通化市</li>
+								<li data-svalue="吉林省" data-value="白山市" class="mui-table-view-cell mui-indexed-list-item hide">白山市</li>
+								<li data-svalue="吉林省" data-value="松原市" class="mui-table-view-cell mui-indexed-list-item hide">松原市</li>
+								<li data-svalue="吉林省" data-value="白城市" class="mui-table-view-cell mui-indexed-list-item hide">白城市</li>
+								<li data-svalue="吉林省" data-value="延边朝鲜族自治州" class="mui-table-view-cell mui-indexed-list-item hide">延边朝鲜族自治州</li>
 
-						<!--江苏省-->
-						<li data-value="南京市" class="mui-table-view-cell mui-indexed-list-item">南京市</li>
-						<li data-value="无锡市" class="mui-table-view-cell mui-indexed-list-item">无锡市</li>
-						<li data-value="徐州市" class="mui-table-view-cell mui-indexed-list-item">徐州市</li>
-						<li data-value="常州市" class="mui-table-view-cell mui-indexed-list-item">常州市</li>
-						<li data-value="苏州市" class="mui-table-view-cell mui-indexed-list-item">苏州市</li>
-						<li data-value="南通市" class="mui-table-view-cell mui-indexed-list-item">南通市</li>
-						<li data-value="连云港市" class="mui-table-view-cell mui-indexed-list-item">连云港市</li>
-						<li data-value="淮安市" class="mui-table-view-cell mui-indexed-list-item">淮安市</li>
-						<li data-value="盐城市" class="mui-table-view-cell mui-indexed-list-item">盐城市</li>
-						<li data-value="扬州市" class="mui-table-view-cell mui-indexed-list-item">扬州市</li>
-						<li data-value="镇江市" class="mui-table-view-cell mui-indexed-list-item">镇江市</li>
-						<li data-value="泰州市" class="mui-table-view-cell mui-indexed-list-item">泰州市</li>
-						<li data-value="宿迁市" class="mui-table-view-cell mui-indexed-list-item">宿迁市</li>
+								<!--江苏省-->
+								<li data-svalue="江苏省" data-value="南京市" class="mui-table-view-cell mui-indexed-list-item hide">南京市</li>
+								<li data-svalue="江苏省" data-value="无锡市" class="mui-table-view-cell mui-indexed-list-item hide">无锡市</li>
+								<li data-svalue="江苏省" data-value="徐州市" class="mui-table-view-cell mui-indexed-list-item hide">徐州市</li>
+								<li data-svalue="江苏省" data-value="常州市" class="mui-table-view-cell mui-indexed-list-item hide">常州市</li>
+								<li data-svalue="江苏省" data-value="苏州市" class="mui-table-view-cell mui-indexed-list-item hide">苏州市</li>
+								<li data-svalue="江苏省" data-value="南通市" class="mui-table-view-cell mui-indexed-list-item hide">南通市</li>
+								<li data-svalue="江苏省" data-value="连云港市" class="mui-table-view-cell mui-indexed-list-item hide">连云港市</li>
+								<li data-svalue="江苏省" data-value="淮安市" class="mui-table-view-cell mui-indexed-list-item hide">淮安市</li>
+								<li data-svalue="江苏省" data-value="盐城市" class="mui-table-view-cell mui-indexed-list-item hide">盐城市</li>
+								<li data-svalue="江苏省" data-value="扬州市" class="mui-table-view-cell mui-indexed-list-item hide">扬州市</li>
+								<li data-svalue="江苏省" data-value="镇江市" class="mui-table-view-cell mui-indexed-list-item hide">镇江市</li>
+								<li data-svalue="江苏省" data-value="泰州市" class="mui-table-view-cell mui-indexed-list-item hide">泰州市</li>
+								<li data-svalue="江苏省" data-value="宿迁市" class="mui-table-view-cell mui-indexed-list-item hide">宿迁市</li>
 
-						<!--江西省-->
-						<li data-value="南昌市" class="mui-table-view-cell mui-indexed-list-item">南昌市</li>
-						<li data-value="景德镇市" class="mui-table-view-cell mui-indexed-list-item">景德镇市</li>
-						<li data-value="萍乡市" class="mui-table-view-cell mui-indexed-list-item">萍乡市</li>
-						<li data-value="九江市" class="mui-table-view-cell mui-indexed-list-item">九江市</li>
-						<li data-value="新余市" class="mui-table-view-cell mui-indexed-list-item">新余市</li>
-						<li data-value="鹰潭市" class="mui-table-view-cell mui-indexed-list-item">鹰潭市</li>
-						<li data-value="赣州市" class="mui-table-view-cell mui-indexed-list-item">赣州市</li>
-						<li data-value="吉安市" class="mui-table-view-cell mui-indexed-list-item">吉安市</li>
-						<li data-value="宜春市" class="mui-table-view-cell mui-indexed-list-item">宜春市</li>
-						<li data-value="抚州市" class="mui-table-view-cell mui-indexed-list-item">抚州市</li>
-						<li data-value="上饶市" class="mui-table-view-cell mui-indexed-list-item">上饶市</li>
+								<!--江西省-->
+								<li data-svalue="江西省" data-value="南昌市" class="mui-table-view-cell mui-indexed-list-item hide">南昌市</li>
+								<li data-svalue="江西省" data-value="景德镇市" class="mui-table-view-cell mui-indexed-list-item hide">景德镇市</li>
+								<li data-svalue="江西省" data-value="萍乡市" class="mui-table-view-cell mui-indexed-list-item hide">萍乡市</li>
+								<li data-svalue="江西省" data-value="九江市" class="mui-table-view-cell mui-indexed-list-item hide">九江市</li>
+								<li data-svalue="江西省" data-value="新余市" class="mui-table-view-cell mui-indexed-list-item hide">新余市</li>
+								<li data-svalue="江西省" data-value="鹰潭市" class="mui-table-view-cell mui-indexed-list-item hide">鹰潭市</li>
+								<li data-svalue="江西省" data-value="赣州市" class="mui-table-view-cell mui-indexed-list-item hide">赣州市</li>
+								<li data-svalue="江西省" data-value="吉安市" class="mui-table-view-cell mui-indexed-list-item hide">吉安市</li>
+								<li data-svalue="江西省" data-value="宜春市" class="mui-table-view-cell mui-indexed-list-item hide">宜春市</li>
+								<li data-svalue="江西省" data-value="抚州市" class="mui-table-view-cell mui-indexed-list-item hide">抚州市</li>
+								<li data-svalue="江西省" data-value="上饶市" class="mui-table-view-cell mui-indexed-list-item hide">上饶市</li>
 
-						<!--辽宁省-->
-						<li data-value="沈阳市" class="mui-table-view-cell mui-indexed-list-item">沈阳市</li>
-						<li data-value="大连市" class="mui-table-view-cell mui-indexed-list-item">大连市</li>
-						<li data-value="鞍山市" class="mui-table-view-cell mui-indexed-list-item">鞍山市</li>
-						<li data-value="抚顺市" class="mui-table-view-cell mui-indexed-list-item">抚顺市</li>
-						<li data-value="本溪市" class="mui-table-view-cell mui-indexed-list-item">本溪市</li>
-						<li data-value="丹东市" class="mui-table-view-cell mui-indexed-list-item">丹东市</li>
-						<li data-value="锦州市" class="mui-table-view-cell mui-indexed-list-item">锦州市</li>
-						<li data-value="营口市" class="mui-table-view-cell mui-indexed-list-item">营口市</li>
-						<li data-value="阜新市" class="mui-table-view-cell mui-indexed-list-item">阜新市</li>
-						<li data-value="辽阳市" class="mui-table-view-cell mui-indexed-list-item">辽阳市</li>
-						<li data-value="盘锦市" class="mui-table-view-cell mui-indexed-list-item">盘锦市</li>
-						<li data-value="铁岭市" class="mui-table-view-cell mui-indexed-list-item">铁岭市</li>
-						<li data-value="朝阳市" class="mui-table-view-cell mui-indexed-list-item">朝阳市</li>
-						<li data-value="葫芦岛市" class="mui-table-view-cell mui-indexed-list-item">葫芦岛市</li>
+								<!--辽宁省-->
+								<li data-svalue="辽宁省" data-value="沈阳市" class="mui-table-view-cell mui-indexed-list-item hide">沈阳市</li>
+								<li data-svalue="辽宁省" data-value="大连市" class="mui-table-view-cell mui-indexed-list-item hide">大连市</li>
+								<li data-svalue="辽宁省" data-value="鞍山市" class="mui-table-view-cell mui-indexed-list-item hide">鞍山市</li>
+								<li data-svalue="辽宁省" data-value="抚顺市" class="mui-table-view-cell mui-indexed-list-item hide">抚顺市</li>
+								<li data-svalue="辽宁省" data-value="本溪市" class="mui-table-view-cell mui-indexed-list-item hide">本溪市</li>
+								<li data-svalue="辽宁省" data-value="丹东市" class="mui-table-view-cell mui-indexed-list-item hide">丹东市</li>
+								<li data-svalue="辽宁省" data-value="锦州市" class="mui-table-view-cell mui-indexed-list-item hide">锦州市</li>
+								<li data-svalue="辽宁省" data-value="营口市" class="mui-table-view-cell mui-indexed-list-item hide">营口市</li>
+								<li data-svalue="辽宁省" data-value="阜新市" class="mui-table-view-cell mui-indexed-list-item hide">阜新市</li>
+								<li data-svalue="辽宁省" data-value="辽阳市" class="mui-table-view-cell mui-indexed-list-item hide">辽阳市</li>
+								<li data-svalue="辽宁省" data-value="盘锦市" class="mui-table-view-cell mui-indexed-list-item hide">盘锦市</li>
+								<li data-svalue="辽宁省" data-value="铁岭市" class="mui-table-view-cell mui-indexed-list-item hide">铁岭市</li>
+								<li data-svalue="辽宁省" data-value="朝阳市" class="mui-table-view-cell mui-indexed-list-item hide">朝阳市</li>
+								<li data-svalue="辽宁省" data-value="葫芦岛市" class="mui-table-view-cell mui-indexed-list-item hide">葫芦岛市</li>
 
-						<!--内蒙古自治区-->
-						<li data-value="呼和浩特市" class="mui-table-view-cell mui-indexed-list-item">呼和浩特市</li>
-						<li data-value="包头市" class="mui-table-view-cell mui-indexed-list-item">包头市</li>
-						<li data-value="乌海市" class="mui-table-view-cell mui-indexed-list-item">乌海市</li>
-						<li data-value="赤峰市" class="mui-table-view-cell mui-indexed-list-item">赤峰市</li>
-						<li data-value="通辽市" class="mui-table-view-cell mui-indexed-list-item">通辽市</li>
-						<li data-value="鄂尔多斯市" class="mui-table-view-cell mui-indexed-list-item">鄂尔多斯市</li>
-						<li data-value="呼伦贝尔市" class="mui-table-view-cell mui-indexed-list-item">呼伦贝尔市</li>
-						<li data-value="巴彦淖尔市" class="mui-table-view-cell mui-indexed-list-item">巴彦淖尔市</li>
-						<li data-value="乌兰察布市" class="mui-table-view-cell mui-indexed-list-item">乌兰察布市</li>
-						<li data-value="兴安盟" class="mui-table-view-cell mui-indexed-list-item">兴安盟</li>
-						<li data-value="锡林郭勒盟" class="mui-table-view-cell mui-indexed-list-item">锡林郭勒盟</li>
-						<li data-value="阿拉善盟" class="mui-table-view-cell mui-indexed-list-item">阿拉善盟</li>
+								<!--内蒙古自治区-->
+								<li data-svalue="内蒙古自治区" data-value="呼和浩特市" class="mui-table-view-cell mui-indexed-list-item hide">呼和浩特市</li>
+								<li data-svalue="内蒙古自治区" data-value="包头市" class="mui-table-view-cell mui-indexed-list-item hide">包头市</li>
+								<li data-svalue="内蒙古自治区" data-value="乌海市" class="mui-table-view-cell mui-indexed-list-item hide">乌海市</li>
+								<li data-svalue="内蒙古自治区" data-value="赤峰市" class="mui-table-view-cell mui-indexed-list-item hide">赤峰市</li>
+								<li data-svalue="内蒙古自治区" data-value="通辽市" class="mui-table-view-cell mui-indexed-list-item hide">通辽市</li>
+								<li data-svalue="内蒙古自治区" data-value="鄂尔多斯市" class="mui-table-view-cell mui-indexed-list-item hide">鄂尔多斯市</li>
+								<li data-svalue="内蒙古自治区" data-value="呼伦贝尔市" class="mui-table-view-cell mui-indexed-list-item hide">呼伦贝尔市</li>
+								<li data-svalue="内蒙古自治区" data-value="巴彦淖尔市" class="mui-table-view-cell mui-indexed-list-item hide">巴彦淖尔市</li>
+								<li data-svalue="内蒙古自治区" data-value="乌兰察布市" class="mui-table-view-cell mui-indexed-list-item hide">乌兰察布市</li>
+								<li data-svalue="内蒙古自治区" data-value="兴安盟" class="mui-table-view-cell mui-indexed-list-item hide">兴安盟</li>
+								<li data-svalue="内蒙古自治区" data-value="锡林郭勒盟" class="mui-table-view-cell mui-indexed-list-item hide">锡林郭勒盟</li>
+								<li data-svalue="内蒙古自治区" data-value="阿拉善盟" class="mui-table-view-cell mui-indexed-list-item hide">阿拉善盟</li>
 
-						<!--宁夏回族自治区-->
-						<li data-value="银川市" class="mui-table-view-cell mui-indexed-list-item">银川市</li>
-						<li data-value="石嘴山市" class="mui-table-view-cell mui-indexed-list-item">石嘴山市</li>
-						<li data-value="吴忠市" class="mui-table-view-cell mui-indexed-list-item">吴忠市</li>
-						<li data-value="固原市" class="mui-table-view-cell mui-indexed-list-item">固原市</li>
-						<li data-value="中卫市" class="mui-table-view-cell mui-indexed-list-item">中卫市</li>
+								<!--宁夏回族自治区-->
+								<li data-svalue="宁夏回族自治区" data-value="银川市" class="mui-table-view-cell mui-indexed-list-item hide">银川市</li>
+								<li data-svalue="宁夏回族自治区" data-value="石嘴山市" class="mui-table-view-cell mui-indexed-list-item hide">石嘴山市</li>
+								<li data-svalue="宁夏回族自治区" data-value="吴忠市" class="mui-table-view-cell mui-indexed-list-item hide">吴忠市</li>
+								<li data-svalue="宁夏回族自治区" data-value="固原市" class="mui-table-view-cell mui-indexed-list-item hide">固原市</li>
+								<li data-svalue="宁夏回族自治区" data-value="中卫市" class="mui-table-view-cell mui-indexed-list-item hide">中卫市</li>
 
-						<!--青海省-->
-						<li data-value="西宁市" class="mui-table-view-cell mui-indexed-list-item">西宁市</li>
-						<li data-value="海东地区" class="mui-table-view-cell mui-indexed-list-item">海东地区</li>
-						<li data-value="海北藏族自治州" class="mui-table-view-cell mui-indexed-list-item">海北藏族自治州</li>
-						<li data-value="黄南藏族自治州" class="mui-table-view-cell mui-indexed-list-item">黄南藏族自治州</li>
-						<li data-value="海南藏族自治州" class="mui-table-view-cell mui-indexed-list-item">海南藏族自治州</li>
-						<li data-value="果洛藏族自治州" class="mui-table-view-cell mui-indexed-list-item">果洛藏族自治州</li>
-						<li data-value="玉树藏族自治州" class="mui-table-view-cell mui-indexed-list-item">玉树藏族自治州</li>
-						<li data-value="海西蒙古族藏族自治州" class="mui-table-view-cell mui-indexed-list-item">海西蒙古族藏族自治州</li>
+								<!--青海省-->
+								<li data-svalue="青海省" data-value="西宁市" class="mui-table-view-cell mui-indexed-list-item hide">西宁市</li>
+								<li data-svalue="青海省" data-value="海东地区" class="mui-table-view-cell mui-indexed-list-item hide">海东地区</li>
+								<li data-svalue="青海省" data-value="海北藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">海北藏族自治州</li>
+								<li data-svalue="青海省" data-value="黄南藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">黄南藏族自治州</li>
+								<li data-svalue="青海省" data-value="海南藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">海南藏族自治州</li>
+								<li data-svalue="青海省" data-value="果洛藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">果洛藏族自治州</li>
+								<li data-svalue="青海省" data-value="玉树藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">玉树藏族自治州</li>
+								<li data-svalue="青海省" data-value="海西蒙古族藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">海西蒙古族藏族自治州</li>
 
-						<!--山西省-->
-						<li data-value="太原市" class="mui-table-view-cell mui-indexed-list-item">太原市</li>
-						<li data-value="大同市" class="mui-table-view-cell mui-indexed-list-item">大同市</li>
-						<li data-value="阳泉市" class="mui-table-view-cell mui-indexed-list-item">阳泉市</li>
-						<li data-value="长治市" class="mui-table-view-cell mui-indexed-list-item">长治市</li>
-						<li data-value="晋城市" class="mui-table-view-cell mui-indexed-list-item">晋城市</li>
-						<li data-value="朔州市" class="mui-table-view-cell mui-indexed-list-item">朔州市</li>
-						<li data-value="晋中市" class="mui-table-view-cell mui-indexed-list-item">晋中市</li>
-						<li data-value="运城市" class="mui-table-view-cell mui-indexed-list-item">运城市</li>
-						<li data-value="忻州市" class="mui-table-view-cell mui-indexed-list-item">忻州市</li>
-						<li data-value="临汾市" class="mui-table-view-cell mui-indexed-list-item">临汾市</li>
-						<li data-value="吕梁市" class="mui-table-view-cell mui-indexed-list-item">吕梁市</li>
+								<!--山西省-->
+								<li data-svalue="山西省" data-value="太原市" class="mui-table-view-cell mui-indexed-list-item hide">太原市</li>
+								<li data-svalue="山西省" data-value="大同市" class="mui-table-view-cell mui-indexed-list-item hide">大同市</li>
+								<li data-svalue="山西省" data-value="阳泉市" class="mui-table-view-cell mui-indexed-list-item hide">阳泉市</li>
+								<li data-svalue="山西省" data-value="长治市" class="mui-table-view-cell mui-indexed-list-item hide">长治市</li>
+								<li data-svalue="山西省" data-value="晋城市" class="mui-table-view-cell mui-indexed-list-item hide">晋城市</li>
+								<li data-svalue="山西省" data-value="朔州市" class="mui-table-view-cell mui-indexed-list-item hide">朔州市</li>
+								<li data-svalue="山西省" data-value="晋中市" class="mui-table-view-cell mui-indexed-list-item hide">晋中市</li>
+								<li data-svalue="山西省" data-value="运城市" class="mui-table-view-cell mui-indexed-list-item hide">运城市</li>
+								<li data-svalue="山西省" data-value="忻州市" class="mui-table-view-cell mui-indexed-list-item hide">忻州市</li>
+								<li data-svalue="山西省" data-value="临汾市" class="mui-table-view-cell mui-indexed-list-item hide">临汾市</li>
+								<li data-svalue="山西省" data-value="吕梁市" class="mui-table-view-cell mui-indexed-list-item hide">吕梁市</li>
 
-						<!--上海市-->
-						<li data-value="黄浦区" class="mui-table-view-cell mui-indexed-list-item">黄浦区</li>
-						<li data-value="卢湾区" class="mui-table-view-cell mui-indexed-list-item">卢湾区</li>
-						<li data-value="徐汇区" class="mui-table-view-cell mui-indexed-list-item">徐汇区</li>
-						<li data-value="长宁区" class="mui-table-view-cell mui-indexed-list-item">长宁区</li>
-						<li data-value="静安区" class="mui-table-view-cell mui-indexed-list-item">静安区</li>
-						<li data-value="普陀区" class="mui-table-view-cell mui-indexed-list-item">普陀区</li>
-						<li data-value="闸北区" class="mui-table-view-cell mui-indexed-list-item">闸北区</li>
-						<li data-value="虹口区" class="mui-table-view-cell mui-indexed-list-item">虹口区</li>
-						<li data-value="杨浦区" class="mui-table-view-cell mui-indexed-list-item">杨浦区</li>
-						<li data-value="闵行区" class="mui-table-view-cell mui-indexed-list-item">闵行区</li>
-						<li data-value="宝山区" class="mui-table-view-cell mui-indexed-list-item">宝山区</li>
-						<li data-value="嘉定区" class="mui-table-view-cell mui-indexed-list-item">嘉定区</li>
-						<li data-value="浦东新区" class="mui-table-view-cell mui-indexed-list-item">浦东新区</li>
-						<li data-value="金山区" class="mui-table-view-cell mui-indexed-list-item">金山区</li>
-						<li data-value="松江区" class="mui-table-view-cell mui-indexed-list-item">松江区</li>
-						<li data-value="青浦区" class="mui-table-view-cell mui-indexed-list-item">青浦区</li>
-						<li data-value="南汇区" class="mui-table-view-cell mui-indexed-list-item">南汇区</li>
-						<li data-value="奉贤区" class="mui-table-view-cell mui-indexed-list-item">奉贤区</li>
-						<li data-value="川沙区" class="mui-table-view-cell mui-indexed-list-item">川沙区</li>
-						<li data-value="崇明县" class="mui-table-view-cell mui-indexed-list-item">崇明县</li>
+								<!--上海市-->
+								<li data-svalue="上海市" data-value="黄浦区" class="mui-table-view-cell mui-indexed-list-item hide">黄浦区</li>
+								<li data-svalue="上海市" data-value="卢湾区" class="mui-table-view-cell mui-indexed-list-item hide">卢湾区</li>
+								<li data-svalue="上海市" data-value="徐汇区" class="mui-table-view-cell mui-indexed-list-item hide">徐汇区</li>
+								<li data-svalue="上海市" data-value="长宁区" class="mui-table-view-cell mui-indexed-list-item hide">长宁区</li>
+								<li data-svalue="上海市" data-value="静安区" class="mui-table-view-cell mui-indexed-list-item hide">静安区</li>
+								<li data-svalue="上海市" data-value="普陀区" class="mui-table-view-cell mui-indexed-list-item hide">普陀区</li>
+								<li data-svalue="上海市" data-value="闸北区" class="mui-table-view-cell mui-indexed-list-item hide">闸北区</li>
+								<li data-svalue="上海市" data-value="虹口区" class="mui-table-view-cell mui-indexed-list-item hide">虹口区</li>
+								<li data-svalue="上海市" data-value="杨浦区" class="mui-table-view-cell mui-indexed-list-item hide">杨浦区</li>
+								<li data-svalue="上海市" data-value="闵行区" class="mui-table-view-cell mui-indexed-list-item hide">闵行区</li>
+								<li data-svalue="上海市" data-value="宝山区" class="mui-table-view-cell mui-indexed-list-item hide">宝山区</li>
+								<li data-svalue="上海市" data-value="嘉定区" class="mui-table-view-cell mui-indexed-list-item hide">嘉定区</li>
+								<li data-svalue="上海市" data-value="浦东新区" class="mui-table-view-cell mui-indexed-list-item hide">浦东新区</li>
+								<li data-svalue="上海市" data-value="金山区" class="mui-table-view-cell mui-indexed-list-item hide">金山区</li>
+								<li data-svalue="上海市" data-value="松江区" class="mui-table-view-cell mui-indexed-list-item hide">松江区</li>
+								<li data-svalue="上海市" data-value="青浦区" class="mui-table-view-cell mui-indexed-list-item hide">青浦区</li>
+								<li data-svalue="上海市" data-value="南汇区" class="mui-table-view-cell mui-indexed-list-item hide">南汇区</li>
+								<li data-svalue="上海市" data-value="奉贤区" class="mui-table-view-cell mui-indexed-list-item hide">奉贤区</li>
+								<li data-svalue="上海市" data-value="川沙区" class="mui-table-view-cell mui-indexed-list-item hide">川沙区</li>
+								<li data-svalue="上海市" data-value="崇明县" class="mui-table-view-cell mui-indexed-list-item hide">崇明县</li>
 
-						<!--山东省-->
-						<li data-value="济南市" class="mui-table-view-cell mui-indexed-list-item">济南市</li>
-						<li data-value="青岛市" class="mui-table-view-cell mui-indexed-list-item">青岛市</li>
-						<li data-value="淄博市" class="mui-table-view-cell mui-indexed-list-item">淄博市</li>
-						<li data-value="枣庄市" class="mui-table-view-cell mui-indexed-list-item">枣庄市</li>
-						<li data-value="东营市" class="mui-table-view-cell mui-indexed-list-item">东营市</li>
-						<li data-value="烟台市" class="mui-table-view-cell mui-indexed-list-item">烟台市</li>
-						<li data-value="潍坊市" class="mui-table-view-cell mui-indexed-list-item">潍坊市</li>
-						<li data-value="济宁市" class="mui-table-view-cell mui-indexed-list-item">济宁市</li>
-						<li data-value="泰安市" class="mui-table-view-cell mui-indexed-list-item">泰安市</li>
-						<li data-value="威海市" class="mui-table-view-cell mui-indexed-list-item">威海市</li>
-						<li data-value="日照市" class="mui-table-view-cell mui-indexed-list-item">日照市</li>
-						<li data-value="莱芜市" class="mui-table-view-cell mui-indexed-list-item">莱芜市</li>
-						<li data-value="临沂市" class="mui-table-view-cell mui-indexed-list-item">临沂市</li>
-						<li data-value="德州市" class="mui-table-view-cell mui-indexed-list-item">德州市</li>
-						<li data-value="聊城市" class="mui-table-view-cell mui-indexed-list-item">聊城市</li>
-						<li data-value="滨州市" class="mui-table-view-cell mui-indexed-list-item">滨州市</li>
-						<li data-value="菏泽市" class="mui-table-view-cell mui-indexed-list-item">菏泽市</li>
+								<!--山东省-->
+								<li data-svalue="山东省" data-value="济南市" class="mui-table-view-cell mui-indexed-list-item hide">济南市</li>
+								<li data-svalue="山东省" data-value="青岛市" class="mui-table-view-cell mui-indexed-list-item hide">青岛市</li>
+								<li data-svalue="山东省" data-value="淄博市" class="mui-table-view-cell mui-indexed-list-item hide">淄博市</li>
+								<li data-svalue="山东省" data-value="枣庄市" class="mui-table-view-cell mui-indexed-list-item hide">枣庄市</li>
+								<li data-svalue="山东省" data-value="东营市" class="mui-table-view-cell mui-indexed-list-item hide">东营市</li>
+								<li data-svalue="山东省" data-value="烟台市" class="mui-table-view-cell mui-indexed-list-item hide">烟台市</li>
+								<li data-svalue="山东省" data-value="潍坊市" class="mui-table-view-cell mui-indexed-list-item hide">潍坊市</li>
+								<li data-svalue="山东省" data-value="济宁市" class="mui-table-view-cell mui-indexed-list-item hide">济宁市</li>
+								<li data-svalue="山东省" data-value="泰安市" class="mui-table-view-cell mui-indexed-list-item hide">泰安市</li>
+								<li data-svalue="山东省" data-value="威海市" class="mui-table-view-cell mui-indexed-list-item hide">威海市</li>
+								<li data-svalue="山东省" data-value="日照市" class="mui-table-view-cell mui-indexed-list-item hide">日照市</li>
+								<li data-svalue="山东省" data-value="莱芜市" class="mui-table-view-cell mui-indexed-list-item hide">莱芜市</li>
+								<li data-svalue="山东省" data-value="临沂市" class="mui-table-view-cell mui-indexed-list-item hide">临沂市</li>
+								<li data-svalue="山东省" data-value="德州市" class="mui-table-view-cell mui-indexed-list-item hide">德州市</li>
+								<li data-svalue="山东省" data-value="聊城市" class="mui-table-view-cell mui-indexed-list-item hide">聊城市</li>
+								<li data-svalue="山东省" data-value="滨州市" class="mui-table-view-cell mui-indexed-list-item hide">滨州市</li>
+								<li data-svalue="山东省" data-value="菏泽市" class="mui-table-view-cell mui-indexed-list-item hide">菏泽市</li>
 
-						<!--四川省-->
-						<li data-value="成都市" class="mui-table-view-cell mui-indexed-list-item">成都市</li>
-						<li data-value="自贡市" class="mui-table-view-cell mui-indexed-list-item">自贡市</li>
-						<li data-value="攀枝花市" class="mui-table-view-cell mui-indexed-list-item">攀枝花市</li>
-						<li data-value="泸州市" class="mui-table-view-cell mui-indexed-list-item">泸州市</li>
-						<li data-value="德阳市" class="mui-table-view-cell mui-indexed-list-item">德阳市</li>
-						<li data-value="绵阳市" class="mui-table-view-cell mui-indexed-list-item">绵阳市</li>
-						<li data-value="广元市" class="mui-table-view-cell mui-indexed-list-item">广元市</li>
-						<li data-value="遂宁市" class="mui-table-view-cell mui-indexed-list-item">遂宁市</li>
-						<li data-value="内江市" class="mui-table-view-cell mui-indexed-list-item">内江市</li>
-						<li data-value="乐山市" class="mui-table-view-cell mui-indexed-list-item">乐山市</li>
-						<li data-value="南充市" class="mui-table-view-cell mui-indexed-list-item">南充市</li>
-						<li data-value="眉山市" class="mui-table-view-cell mui-indexed-list-item">眉山市</li>
-						<li data-value="宜宾市" class="mui-table-view-cell mui-indexed-list-item">宜宾市</li>
-						<li data-value="广安市" class="mui-table-view-cell mui-indexed-list-item">广安市</li>
-						<li data-value="达州市" class="mui-table-view-cell mui-indexed-list-item">达州市</li>
-						<li data-value="雅安市" class="mui-table-view-cell mui-indexed-list-item">雅安市</li>
-						<li data-value="巴中市" class="mui-table-view-cell mui-indexed-list-item">巴中市</li>
-						<li data-value="资阳市" class="mui-table-view-cell mui-indexed-list-item">资阳市</li>
-						<li data-value="阿坝藏族羌族自治州" class="mui-table-view-cell mui-indexed-list-item">阿坝藏族羌族自治州</li>
-						<li data-value="甘孜藏族自治州" class="mui-table-view-cell mui-indexed-list-item">甘孜藏族自治州</li>
-						<li data-value="凉山彝族自治州" class="mui-table-view-cell mui-indexed-list-item">凉山彝族自治州</li>
+								<!--四川省-->
+								<li data-svalue="四川省" data-value="成都市" class="mui-table-view-cell mui-indexed-list-item hide">成都市</li>
+								<li data-svalue="四川省" data-value="自贡市" class="mui-table-view-cell mui-indexed-list-item hide">自贡市</li>
+								<li data-svalue="四川省" data-value="攀枝花市" class="mui-table-view-cell mui-indexed-list-item hide">攀枝花市</li>
+								<li data-svalue="四川省" data-value="泸州市" class="mui-table-view-cell mui-indexed-list-item hide">泸州市</li>
+								<li data-svalue="四川省" data-value="德阳市" class="mui-table-view-cell mui-indexed-list-item hide">德阳市</li>
+								<li data-svalue="四川省" data-value="绵阳市" class="mui-table-view-cell mui-indexed-list-item hide">绵阳市</li>
+								<li data-svalue="四川省" data-value="广元市" class="mui-table-view-cell mui-indexed-list-item hide">广元市</li>
+								<li data-svalue="四川省" data-value="遂宁市" class="mui-table-view-cell mui-indexed-list-item hide">遂宁市</li>
+								<li data-svalue="四川省" data-value="内江市" class="mui-table-view-cell mui-indexed-list-item hide">内江市</li>
+								<li data-svalue="四川省" data-value="乐山市" class="mui-table-view-cell mui-indexed-list-item hide">乐山市</li>
+								<li data-svalue="四川省" data-value="南充市" class="mui-table-view-cell mui-indexed-list-item hide">南充市</li>
+								<li data-svalue="四川省" data-value="眉山市" class="mui-table-view-cell mui-indexed-list-item hide">眉山市</li>
+								<li data-svalue="四川省" data-value="宜宾市" class="mui-table-view-cell mui-indexed-list-item hide">宜宾市</li>
+								<li data-svalue="四川省" data-value="广安市" class="mui-table-view-cell mui-indexed-list-item hide">广安市</li>
+								<li data-svalue="四川省" data-value="达州市" class="mui-table-view-cell mui-indexed-list-item hide">达州市</li>
+								<li data-svalue="四川省" data-value="雅安市" class="mui-table-view-cell mui-indexed-list-item hide">雅安市</li>
+								<li data-svalue="四川省" data-value="巴中市" class="mui-table-view-cell mui-indexed-list-item hide">巴中市</li>
+								<li data-svalue="四川省" data-value="资阳市" class="mui-table-view-cell mui-indexed-list-item hide">资阳市</li>
+								<li data-svalue="四川省" data-value="阿坝藏族羌族自治州" class="mui-table-view-cell mui-indexed-list-item hide">阿坝藏族羌族自治州</li>
+								<li data-svalue="四川省" data-value="甘孜藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">甘孜藏族自治州</li>
+								<li data-svalue="四川省" data-value="凉山彝族自治州" class="mui-table-view-cell mui-indexed-list-item hide">凉山彝族自治州</li>
 
-						<!--陕西省-->
-						<li data-value="西安市" class="mui-table-view-cell mui-indexed-list-item">西安市</li>
-						<li data-value="铜川市" class="mui-table-view-cell mui-indexed-list-item">铜川市</li>
-						<li data-value="宝鸡市" class="mui-table-view-cell mui-indexed-list-item">宝鸡市</li>
-						<li data-value="咸阳市" class="mui-table-view-cell mui-indexed-list-item">咸阳市</li>
-						<li data-value="渭南市" class="mui-table-view-cell mui-indexed-list-item">渭南市</li>
-						<li data-value="延安市" class="mui-table-view-cell mui-indexed-list-item">延安市</li>
-						<li data-value="汉中市" class="mui-table-view-cell mui-indexed-list-item">汉中市</li>
-						<li data-value="榆林市" class="mui-table-view-cell mui-indexed-list-item">榆林市</li>
-						<li data-value="安康市" class="mui-table-view-cell mui-indexed-list-item">安康市</li>
-						<li data-value="商洛市" class="mui-table-view-cell mui-indexed-list-item">商洛市</li>
+								<!--陕西省-->
+								<li data-svalue="陕西省" data-value="西安市" class="mui-table-view-cell mui-indexed-list-item hide">西安市</li>
+								<li data-svalue="陕西省" data-value="铜川市" class="mui-table-view-cell mui-indexed-list-item hide">铜川市</li>
+								<li data-svalue="陕西省" data-value="宝鸡市" class="mui-table-view-cell mui-indexed-list-item hide">宝鸡市</li>
+								<li data-svalue="陕西省" data-value="咸阳市" class="mui-table-view-cell mui-indexed-list-item hide">咸阳市</li>
+								<li data-svalue="陕西省" data-value="渭南市" class="mui-table-view-cell mui-indexed-list-item hide">渭南市</li>
+								<li data-svalue="陕西省" data-value="延安市" class="mui-table-view-cell mui-indexed-list-item hide">延安市</li>
+								<li data-svalue="陕西省" data-value="汉中市" class="mui-table-view-cell mui-indexed-list-item hide">汉中市</li>
+								<li data-svalue="陕西省" data-value="榆林市" class="mui-table-view-cell mui-indexed-list-item hide">榆林市</li>
+								<li data-svalue="陕西省" data-value="安康市" class="mui-table-view-cell mui-indexed-list-item hide">安康市</li>
+								<li data-svalue="陕西省" data-value="商洛市" class="mui-table-view-cell mui-indexed-list-item hide">商洛市</li>
 
-						<!--天津市-->
-						<li data-value="和平区" class="mui-table-view-cell mui-indexed-list-item">和平区</li>
-						<li data-value="河东区" class="mui-table-view-cell mui-indexed-list-item">河东区</li>
-						<li data-value="河西区" class="mui-table-view-cell mui-indexed-list-item">河西区</li>
-						<li data-value="南开区" class="mui-table-view-cell mui-indexed-list-item">南开区</li>
-						<li data-value="河北区" class="mui-table-view-cell mui-indexed-list-item">河北区</li>
-						<li data-value="红桥区" class="mui-table-view-cell mui-indexed-list-item">红桥区</li>
-						<li data-value="塘沽区" class="mui-table-view-cell mui-indexed-list-item">塘沽区</li>
-						<li data-value="汉沽区" class="mui-table-view-cell mui-indexed-list-item">汉沽区</li>
-						<li data-value="大港区" class="mui-table-view-cell mui-indexed-list-item">大港区</li>
-						<li data-value="东丽区" class="mui-table-view-cell mui-indexed-list-item">东丽区</li>
-						<li data-value="西青区" class="mui-table-view-cell mui-indexed-list-item">西青区</li>
-						<li data-value="津南区" class="mui-table-view-cell mui-indexed-list-item">津南区</li>
-						<li data-value="北辰区" class="mui-table-view-cell mui-indexed-list-item">北辰区</li>
-						<li data-value="武清区" class="mui-table-view-cell mui-indexed-list-item">武清区</li>
-						<li data-value="宝坻区" class="mui-table-view-cell mui-indexed-list-item">宝坻区</li>
-						<li data-value="滨海新区" class="mui-table-view-cell mui-indexed-list-item">滨海新区</li>
-						<li data-value="宁河县" class="mui-table-view-cell mui-indexed-list-item">宁河县</li>
-						<li data-value="静海县" class="mui-table-view-cell mui-indexed-list-item">静海县</li>
-						<li data-value="蓟县" class="mui-table-view-cell mui-indexed-list-item">蓟县</li>
+								<!--天津市-->
+								<li data-svalue="天津市" data-value="和平区" class="mui-table-view-cell mui-indexed-list-item hide">和平区</li>
+								<li data-svalue="天津市" data-value="河东区" class="mui-table-view-cell mui-indexed-list-item hide">河东区</li>
+								<li data-svalue="天津市" data-value="河西区" class="mui-table-view-cell mui-indexed-list-item hide">河西区</li>
+								<li data-svalue="天津市" data-value="南开区" class="mui-table-view-cell mui-indexed-list-item hide">南开区</li>
+								<li data-svalue="天津市" data-value="河北区" class="mui-table-view-cell mui-indexed-list-item hide">河北区</li>
+								<li data-svalue="天津市" data-value="红桥区" class="mui-table-view-cell mui-indexed-list-item hide">红桥区</li>
+								<li data-svalue="天津市" data-value="塘沽区" class="mui-table-view-cell mui-indexed-list-item hide">塘沽区</li>
+								<li data-svalue="天津市" data-value="汉沽区" class="mui-table-view-cell mui-indexed-list-item hide">汉沽区</li>
+								<li data-svalue="天津市" data-value="大港区" class="mui-table-view-cell mui-indexed-list-item hide">大港区</li>
+								<li data-svalue="天津市" data-value="东丽区" class="mui-table-view-cell mui-indexed-list-item hide">东丽区</li>
+								<li data-svalue="天津市" data-value="西青区" class="mui-table-view-cell mui-indexed-list-item hide">西青区</li>
+								<li data-svalue="天津市" data-value="津南区" class="mui-table-view-cell mui-indexed-list-item hide">津南区</li>
+								<li data-svalue="天津市" data-value="北辰区" class="mui-table-view-cell mui-indexed-list-item hide">北辰区</li>
+								<li data-svalue="天津市" data-value="武清区" class="mui-table-view-cell mui-indexed-list-item hide">武清区</li>
+								<li data-svalue="天津市" data-value="宝坻区" class="mui-table-view-cell mui-indexed-list-item hide">宝坻区</li>
+								<li data-svalue="天津市" data-value="滨海新区" class="mui-table-view-cell mui-indexed-list-item hide">滨海新区</li>
+								<li data-svalue="天津市" data-value="宁河县" class="mui-table-view-cell mui-indexed-list-item hide">宁河县</li>
+								<li data-svalue="天津市" data-value="静海县" class="mui-table-view-cell mui-indexed-list-item hide">静海县</li>
+								<li data-svalue="天津市" data-value="蓟县" class="mui-table-view-cell mui-indexed-list-item hide">蓟县</li>
 
-						<!--台湾省-->
-						<li data-value="台北市" class="mui-table-view-cell mui-indexed-list-item">台北市</li>
-						<li data-value="高雄市" class="mui-table-view-cell mui-indexed-list-item">高雄市</li>
-						<li data-value="台南市" class="mui-table-view-cell mui-indexed-list-item">台南市</li>
-						<li data-value="台中市" class="mui-table-view-cell mui-indexed-list-item">台中市</li>
-						<li data-value="金门县" class="mui-table-view-cell mui-indexed-list-item">金门县</li>
-						<li data-value="南投县" class="mui-table-view-cell mui-indexed-list-item">南投县</li>
-						<li data-value="基隆市" class="mui-table-view-cell mui-indexed-list-item">基隆市</li>
-						<li data-value="新竹市" class="mui-table-view-cell mui-indexed-list-item">新竹市</li>
-						<li data-value="嘉义市" class="mui-table-view-cell mui-indexed-list-item">嘉义市</li>
-						<li data-value="新北市" class="mui-table-view-cell mui-indexed-list-item">新北市</li>
-						<li data-value="宜兰县" class="mui-table-view-cell mui-indexed-list-item">宜兰县</li>
-						<li data-value="新竹县" class="mui-table-view-cell mui-indexed-list-item">新竹县</li>
-						<li data-value="桃园县" class="mui-table-view-cell mui-indexed-list-item">桃园县</li>
-						<li data-value="苗栗县" class="mui-table-view-cell mui-indexed-list-item">苗栗县</li>
-						<li data-value="彰化县" class="mui-table-view-cell mui-indexed-list-item">彰化县</li>
-						<li data-value="嘉义县" class="mui-table-view-cell mui-indexed-list-item">嘉义县</li>
-						<li data-value="云林县" class="mui-table-view-cell mui-indexed-list-item">云林县</li>
-						<li data-value="屏东县" class="mui-table-view-cell mui-indexed-list-item">屏东县</li>
-						<li data-value="台东县" class="mui-table-view-cell mui-indexed-list-item">台东县</li>
-						<li data-value="花莲县" class="mui-table-view-cell mui-indexed-list-item">花莲县</li>
-						<li data-value="澎湖县" class="mui-table-view-cell mui-indexed-list-item">澎湖县</li>
+								<!--台湾省-->
+								<li data-svalue="台湾省" data-value="台北市" class="mui-table-view-cell mui-indexed-list-item hide">台北市</li>
+								<li data-svalue="台湾省" data-value="高雄市" class="mui-table-view-cell mui-indexed-list-item hide">高雄市</li>
+								<li data-svalue="台湾省" data-value="台南市" class="mui-table-view-cell mui-indexed-list-item hide">台南市</li>
+								<li data-svalue="台湾省" data-value="台中市" class="mui-table-view-cell mui-indexed-list-item hide">台中市</li>
+								<li data-svalue="台湾省" data-value="金门县" class="mui-table-view-cell mui-indexed-list-item hide">金门县</li>
+								<li data-svalue="台湾省" data-value="南投县" class="mui-table-view-cell mui-indexed-list-item hide">南投县</li>
+								<li data-svalue="台湾省" data-value="基隆市" class="mui-table-view-cell mui-indexed-list-item hide">基隆市</li>
+								<li data-svalue="台湾省" data-value="新竹市" class="mui-table-view-cell mui-indexed-list-item hide">新竹市</li>
+								<li data-svalue="台湾省" data-value="嘉义市" class="mui-table-view-cell mui-indexed-list-item hide">嘉义市</li>
+								<li data-svalue="台湾省" data-value="新北市" class="mui-table-view-cell mui-indexed-list-item hide">新北市</li>
+								<li data-svalue="台湾省" data-value="宜兰县" class="mui-table-view-cell mui-indexed-list-item hide">宜兰县</li>
+								<li data-svalue="台湾省" data-value="新竹县" class="mui-table-view-cell mui-indexed-list-item hide">新竹县</li>
+								<li data-svalue="台湾省" data-value="桃园县" class="mui-table-view-cell mui-indexed-list-item hide">桃园县</li>
+								<li data-svalue="台湾省" data-value="苗栗县" class="mui-table-view-cell mui-indexed-list-item hide">苗栗县</li>
+								<li data-svalue="台湾省" data-value="彰化县" class="mui-table-view-cell mui-indexed-list-item hide">彰化县</li>
+								<li data-svalue="台湾省" data-value="嘉义县" class="mui-table-view-cell mui-indexed-list-item hide">嘉义县</li>
+								<li data-svalue="台湾省" data-value="云林县" class="mui-table-view-cell mui-indexed-list-item hide">云林县</li>
+								<li data-svalue="台湾省" data-value="屏东县" class="mui-table-view-cell mui-indexed-list-item hide">屏东县</li>
+								<li data-svalue="台湾省" data-value="台东县" class="mui-table-view-cell mui-indexed-list-item hide">台东县</li>
+								<li data-svalue="台湾省" data-value="花莲县" class="mui-table-view-cell mui-indexed-list-item hide">花莲县</li>
+								<li data-svalue="台湾省" data-value="澎湖县" class="mui-table-view-cell mui-indexed-list-item hide">澎湖县</li>
 
-						<!--西藏自治区-->
-						<li data-value="拉萨市" class="mui-table-view-cell mui-indexed-list-item">拉萨市</li>
-						<li data-value="昌都地区" class="mui-table-view-cell mui-indexed-list-item">昌都地区</li>
-						<li data-value="山南地区" class="mui-table-view-cell mui-indexed-list-item">山南地区</li>
-						<li data-value="日喀则地区" class="mui-table-view-cell mui-indexed-list-item">日喀则地区</li>
-						<li data-value="那曲地区" class="mui-table-view-cell mui-indexed-list-item">那曲地区</li>
-						<li data-value="阿里地区" class="mui-table-view-cell mui-indexed-list-item">阿里地区</li>
-						<li data-value="林芝地区" class="mui-table-view-cell mui-indexed-list-item">林芝地区</li>
+								<!--西藏自治区-->
+								<li data-svalue="西藏自治区" data-value="拉萨市" class="mui-table-view-cell mui-indexed-list-item hide">拉萨市</li>
+								<li data-svalue="西藏自治区" data-value="昌都地区" class="mui-table-view-cell mui-indexed-list-item hide">昌都地区</li>
+								<li data-svalue="西藏自治区" data-value="山南地区" class="mui-table-view-cell mui-indexed-list-item hide">山南地区</li>
+								<li data-svalue="西藏自治区" data-value="日喀则地区" class="mui-table-view-cell mui-indexed-list-item hide">日喀则地区</li>
+								<li data-svalue="西藏自治区" data-value="那曲地区" class="mui-table-view-cell mui-indexed-list-item hide">那曲地区</li>
+								<li data-svalue="西藏自治区" data-value="阿里地区" class="mui-table-view-cell mui-indexed-list-item hide">阿里地区</li>
+								<li data-svalue="西藏自治区" data-value="林芝地区" class="mui-table-view-cell mui-indexed-list-item hide">林芝地区</li>
 
-						<!--新疆维吾尔自治区-->
-						<li data-value="新疆维吾尔自治区" class="mui-table-view-cell mui-indexed-list-item">新疆维吾尔自治区</li>
-						<li data-value="乌鲁木齐市" class="mui-table-view-cell mui-indexed-list-item">乌鲁木齐市</li>
-						<li data-value="克拉玛依市" class="mui-table-view-cell mui-indexed-list-item">克拉玛依市</li>
-						<li data-value="吐鲁番地区" class="mui-table-view-cell mui-indexed-list-item">吐鲁番地区</li>
-						<li data-value="哈密地区" class="mui-table-view-cell mui-indexed-list-item">哈密地区</li>
-						<li data-value="昌吉回族自治州" class="mui-table-view-cell mui-indexed-list-item">昌吉回族自治州</li>
-						<li data-value="博尔塔拉蒙古自治州" class="mui-table-view-cell mui-indexed-list-item">博尔塔拉蒙古自治州</li>
-						<li data-value="巴音郭楞蒙古自治州" class="mui-table-view-cell mui-indexed-list-item">巴音郭楞蒙古自治州</li>
-						<li data-value="阿克苏地区" class="mui-table-view-cell mui-indexed-list-item">阿克苏地区</li>
-						<li data-value="克孜勒苏柯尔克孜自治州" class="mui-table-view-cell mui-indexed-list-item">克孜勒苏柯尔克孜自治州</li>
-						<li data-value="喀什地区" class="mui-table-view-cell mui-indexed-list-item">喀什地区</li>
-						<li data-value="和田地区" class="mui-table-view-cell mui-indexed-list-item">和田地区</li>
-						<li data-value="伊犁哈萨克自治州" class="mui-table-view-cell mui-indexed-list-item">伊犁哈萨克自治州</li>
-						<li data-value="塔城地区" class="mui-table-view-cell mui-indexed-list-item">塔城地区</li>
-						<li data-value="阿勒泰地区" class="mui-table-view-cell mui-indexed-list-item">阿勒泰地区</li>
-						<li data-value="石河子市" class="mui-table-view-cell mui-indexed-list-item">石河子市</li>
-						<li data-value="阿拉尔市" class="mui-table-view-cell mui-indexed-list-item">阿拉尔市</li>
-						<li data-value="图木舒克市" class="mui-table-view-cell mui-indexed-list-item">图木舒克市</li>
-						<li data-value="五家渠市" class="mui-table-view-cell mui-indexed-list-item">五家渠市</li>
+								<!--新疆维吾尔自治区-->
+								<li data-svalue="新疆维吾尔自治区" data-value="新疆维吾尔自治区" class="mui-table-view-cell mui-indexed-list-item hide">新疆维吾尔自治区</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="乌鲁木齐市" class="mui-table-view-cell mui-indexed-list-item hide">乌鲁木齐市</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="克拉玛依市" class="mui-table-view-cell mui-indexed-list-item hide">克拉玛依市</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="吐鲁番地区" class="mui-table-view-cell mui-indexed-list-item hide">吐鲁番地区</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="哈密地区" class="mui-table-view-cell mui-indexed-list-item hide">哈密地区</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="昌吉回族自治州" class="mui-table-view-cell mui-indexed-list-item hide">昌吉回族自治州</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="博尔塔拉蒙古自治州" class="mui-table-view-cell mui-indexed-list-item hide">博尔塔拉蒙古自治州</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="巴音郭楞蒙古自治州" class="mui-table-view-cell mui-indexed-list-item hide">巴音郭楞蒙古自治州</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="阿克苏地区" class="mui-table-view-cell mui-indexed-list-item hide">阿克苏地区</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="克孜勒苏柯尔克孜自治州" class="mui-table-view-cell mui-indexed-list-item hide">克孜勒苏柯尔克孜自治州</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="喀什地区" class="mui-table-view-cell mui-indexed-list-item hide">喀什地区</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="和田地区" class="mui-table-view-cell mui-indexed-list-item hide">和田地区</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="伊犁哈萨克自治州" class="mui-table-view-cell mui-indexed-list-item hide">伊犁哈萨克自治州</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="塔城地区" class="mui-table-view-cell mui-indexed-list-item hide">塔城地区</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="阿勒泰地区" class="mui-table-view-cell mui-indexed-list-item hide">阿勒泰地区</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="石河子市" class="mui-table-view-cell mui-indexed-list-item hide">石河子市</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="阿拉尔市" class="mui-table-view-cell mui-indexed-list-item hide">阿拉尔市</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="图木舒克市" class="mui-table-view-cell mui-indexed-list-item hide">图木舒克市</li>
+								<li data-svalue="新疆维吾尔自治区" data-value="五家渠市" class="mui-table-view-cell mui-indexed-list-item hide">五家渠市</li>
 
-						<!--香港-->
-						<li data-value="香港岛" class="mui-table-view-cell mui-indexed-list-item">香港岛</li>
-						<li data-value="九龙" class="mui-table-view-cell mui-indexed-list-item">九龙</li>
-						<li data-value="新界" class="mui-table-view-cell mui-indexed-list-item">新界</li>
+								<!--香港-->
+								<li data-svalue="香港" data-value="香港岛" class="mui-table-view-cell mui-indexed-list-item hide">香港岛</li>
+								<li data-svalue="香港" data-value="九龙" class="mui-table-view-cell mui-indexed-list-item hide">九龙</li>
+								<li data-svalue="香港" data-value="新界" class="mui-table-view-cell mui-indexed-list-item hide">新界</li>
 
-						<!--云南省-->
-						<li data-value="昆明市" class="mui-table-view-cell mui-indexed-list-item">昆明市</li>
-						<li data-value="曲靖市" class="mui-table-view-cell mui-indexed-list-item">曲靖市</li>
-						<li data-value="玉溪市" class="mui-table-view-cell mui-indexed-list-item">玉溪市</li>
-						<li data-value="保山市" class="mui-table-view-cell mui-indexed-list-item">保山市</li>
-						<li data-value="昭通市" class="mui-table-view-cell mui-indexed-list-item">昭通市</li>
-						<li data-value="丽江市" class="mui-table-view-cell mui-indexed-list-item">丽江市</li>
-						<li data-value="普洱市" class="mui-table-view-cell mui-indexed-list-item">普洱市</li>
-						<li data-value="临沧市" class="mui-table-view-cell mui-indexed-list-item">临沧市</li>
-						<li data-value="楚雄彝族自治州" class="mui-table-view-cell mui-indexed-list-item">楚雄彝族自治州</li>
-						<li data-value="红河哈尼族彝族自治州" class="mui-table-view-cell mui-indexed-list-item">红河哈尼族彝族自治州</li>
-						<li data-value="文山壮族苗族自治州" class="mui-table-view-cell mui-indexed-list-item">文山壮族苗族自治州</li>
-						<li data-value="西双版纳傣族自治州" class="mui-table-view-cell mui-indexed-list-item">西双版纳傣族自治州</li>
-						<li data-value="大理白族自治州" class="mui-table-view-cell mui-indexed-list-item">大理白族自治州</li>
-						<li data-value="德宏傣族景颇族自治州" class="mui-table-view-cell mui-indexed-list-item">德宏傣族景颇族自治州</li>
-						<li data-value="怒江傈僳族自治州" class="mui-table-view-cell mui-indexed-list-item">怒江傈僳族自治州</li>
-						<li data-value="迪庆藏族自治州" class="mui-table-view-cell mui-indexed-list-item">迪庆藏族自治州</li>
+								<!--云南省-->
+								<li data-svalue="云南省" data-value="昆明市" class="mui-table-view-cell mui-indexed-list-item hide">昆明市</li>
+								<li data-svalue="云南省" data-value="曲靖市" class="mui-table-view-cell mui-indexed-list-item hide">曲靖市</li>
+								<li data-svalue="云南省" data-value="玉溪市" class="mui-table-view-cell mui-indexed-list-item hide">玉溪市</li>
+								<li data-svalue="云南省" data-value="保山市" class="mui-table-view-cell mui-indexed-list-item hide">保山市</li>
+								<li data-svalue="云南省" data-value="昭通市" class="mui-table-view-cell mui-indexed-list-item hide">昭通市</li>
+								<li data-svalue="云南省" data-value="丽江市" class="mui-table-view-cell mui-indexed-list-item hide">丽江市</li>
+								<li data-svalue="云南省" data-value="普洱市" class="mui-table-view-cell mui-indexed-list-item hide">普洱市</li>
+								<li data-svalue="云南省" data-value="临沧市" class="mui-table-view-cell mui-indexed-list-item hide">临沧市</li>
+								<li data-svalue="云南省" data-value="楚雄彝族自治州" class="mui-table-view-cell mui-indexed-list-item hide">楚雄彝族自治州</li>
+								<li data-svalue="云南省" data-value="红河哈尼族彝族自治州" class="mui-table-view-cell mui-indexed-list-item hide">红河哈尼族彝族自治州</li>
+								<li data-svalue="云南省" data-value="文山壮族苗族自治州" class="mui-table-view-cell mui-indexed-list-item hide">文山壮族苗族自治州</li>
+								<li data-svalue="云南省" data-value="西双版纳傣族自治州" class="mui-table-view-cell mui-indexed-list-item hide">西双版纳傣族自治州</li>
+								<li data-svalue="云南省" data-value="大理白族自治州" class="mui-table-view-cell mui-indexed-list-item hide">大理白族自治州</li>
+								<li data-svalue="云南省" data-value="德宏傣族景颇族自治州" class="mui-table-view-cell mui-indexed-list-item hide">德宏傣族景颇族自治州</li>
+								<li data-svalue="云南省" data-value="怒江傈僳族自治州" class="mui-table-view-cell mui-indexed-list-item hide">怒江傈僳族自治州</li>
+								<li data-svalue="云南省" data-value="迪庆藏族自治州" class="mui-table-view-cell mui-indexed-list-item hide">迪庆藏族自治州</li>
 
-						<!--浙江省-->
-						<li data-value="杭州市" class="mui-table-view-cell mui-indexed-list-item">杭州市</li>
-						<li data-value="宁波市" class="mui-table-view-cell mui-indexed-list-item">宁波市</li>
-						<li data-value="温州市" class="mui-table-view-cell mui-indexed-list-item">温州市</li>
-						<li data-value="嘉兴市" class="mui-table-view-cell mui-indexed-list-item">嘉兴市</li>
-						<li data-value="湖州市" class="mui-table-view-cell mui-indexed-list-item">湖州市</li>
-						<li data-value="绍兴市" class="mui-table-view-cell mui-indexed-list-item">绍兴市</li>
-						<li data-value="金华市" class="mui-table-view-cell mui-indexed-list-item">金华市</li>
-						<li data-value="衢州市" class="mui-table-view-cell mui-indexed-list-item">衢州市</li>
-						<li data-value="舟山市" class="mui-table-view-cell mui-indexed-list-item">舟山市</li>
-						<li data-value="台州市" class="mui-table-view-cell mui-indexed-list-item">台州市</li>
-						<li data-value="丽水市" class="mui-table-view-cell mui-indexed-list-item">丽水市</li>
+								<!--浙江省-->
+								<li data-svalue="浙江省" data-value="杭州市" class="mui-table-view-cell mui-indexed-list-item hide">杭州市</li>
+								<li data-svalue="浙江省" data-value="宁波市" class="mui-table-view-cell mui-indexed-list-item hide">宁波市</li>
+								<li data-svalue="浙江省" data-value="温州市" class="mui-table-view-cell mui-indexed-list-item hide">温州市</li>
+								<li data-svalue="浙江省" data-value="嘉兴市" class="mui-table-view-cell mui-indexed-list-item hide">嘉兴市</li>
+								<li data-svalue="浙江省" data-value="湖州市" class="mui-table-view-cell mui-indexed-list-item hide">湖州市</li>
+								<li data-svalue="浙江省" data-value="绍兴市" class="mui-table-view-cell mui-indexed-list-item hide">绍兴市</li>
+								<li data-svalue="浙江省" data-value="金华市" class="mui-table-view-cell mui-indexed-list-item hide">金华市</li>
+								<li data-svalue="浙江省" data-value="衢州市" class="mui-table-view-cell mui-indexed-list-item hide">衢州市</li>
+								<li data-svalue="浙江省" data-value="舟山市" class="mui-table-view-cell mui-indexed-list-item hide">舟山市</li>
+								<li data-svalue="浙江省" data-value="台州市" class="mui-table-view-cell mui-indexed-list-item hide">台州市</li>
+								<li data-svalue="浙江省" data-value="丽水市" class="mui-table-view-cell mui-indexed-list-item hide">丽水市</li>
 
-					</ul>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -589,13 +593,36 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
+	var Province = "";
 	mui.init();
+	mui.plusReady(function() {
 
-	mui.ready(function() {
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			return mui.toast("网络异常，请检查网络设置！");
+		}
+
+		base.InitScroll();
+
+		var self = plus.webview.currentWebview();
+		Province = self.Province || "";
+
+		$(".mui-indexed-list-item[data-svalue='" + Province + "']").removeClass("hide");
+
+		//返回
+		mui.back = function() {
+			plus.webview.currentWebview().close();
+		}
+
 		mui("#list").on('tap', '.mui-indexed-list-item', function(event) {
-			console.log(this.getAttribute("data-value"));
+			var city = this.getAttribute("data-value");
+			var mysettingPage = plus.webview.getWebviewById("mysetting");
+			if(mysettingPage) {
+				mysettingPage.evalJS("UpdateAddress('" + Province + "','" + city + "')");
+			}
 		});
-
 	});
 </script>

@@ -134,6 +134,14 @@
 	height: 0 !important;
 }
 
+.mui-table-view-divider:after {
+	height: 0 !important;
+}
+
 .mui-table-view-cell:after {
 	left: 0.9375rem !important;
+}
+
+.mui-table-view:after {
+	height: 0 !important;
 }

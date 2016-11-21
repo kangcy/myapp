@@ -83,7 +83,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.picker.min.js"></script>
 <script src="../js/mui.poppicker.js"></script>
-<script src="../js/city2.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
@@ -140,37 +139,6 @@
 				sexPicker.dispose(); //资源释放
 			});
 		}, false);
-
-		//地市选择
-		/*var cityPicker = new mui.PopPicker({
-			layer: 2
-		});
-		cityPicker.setData(cityData);
-		document.getElementById('cityPicker').addEventListener('tap', function(event) {
-			cityPicker.show(function(items) {
-				document.getElementById("city").innerHTML = items[0].text + " " + items[1].text;
-				if(mui.os.plus) {
-					plus.nativeUI.showWaiting();
-				}
-				HttpGet(base.RootUrl + "User/EditAddress", {
-					ID: userinfo.ID,
-					ProvinceID: items[0].value,
-					CityID: items[1].value,
-					ProvinceName: items[0].text,
-					CityName: items[1].text
-				}, function(data) {
-					if(mui.os.plus) {
-						plus.nativeUI.closeWaiting();
-					}
-					mui.toast(data.result ? "编辑成功~" : data.message);
-					if(data.result) {
-						userinfo.Address = items[0].text + " " + items[1].text
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					}
-				});
-				cityPicker.dispose(); //资源释放
-			});
-		}, false);*/ 
 
 		//日期
 		document.getElementById('timePicker').addEventListener('tap', function() {
@@ -323,4 +291,22 @@
 			title: text == "请填写" ? "" : text
 		});
 	});
+
+	//修改地址
+	function UpdateAddress(province, city) {
+		document.getElementById("city").innerHTML = province + " " + city;
+		HttpGet(base.RootUrl + "User/EditAddress", {
+			ID: userinfo.ID,
+			ProvinceName: province,
+			CityName: city
+		}, function(data) {
+			mui.toast(data.result ? "编辑成功~" : data.message);
+			if(data.result) {
+				userinfo.Address = province + " " + city
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			}
+			plus.webview.close("province");
+			plus.webview.close("city");
+		});
+	}
 </script>

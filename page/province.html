@@ -28,8 +28,7 @@
 			</div>
 			<div id='list' class="mui-indexed-list">
 				<div class="mui-indexed-list-search mui-input-row">
-					<div class="f11" style="padding:0.625rem 0.9375rem;background:#f7f7f7;">自动定位</div>
-					<div class="mui-table-view-cell f12">南京市<span class="fr blue"><span class="mui-icon mui-icon-reload f15 bold"></span><span class="ml5">重新定位</span></span>
+					<div class="mui-table-view-cell f12"><span id="currPosition">正在定位...</span><span class="fr blue" id="reFixPosition"><span class="mui-icon mui-icon-reload f15 bold"></span><span class="ml5">重新定位</span></span>
 					</div>
 				</div>
 				<div class="mui-indexed-list-bar f12">
@@ -113,7 +112,10 @@
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.indexedlist.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
+	var province = "";
+	var city = "";
 	mui.init();
 
 	mui.ready(function() {
@@ -122,9 +124,41 @@
 		window.indexedList = new mui.IndexedList(list);
 
 		mui("#list").on('tap', '.mui-indexed-list-item', function(event) {
-			//console.log(this.getAttribute("data-value"));
-			base.OpenWindow("city", "city.html", {});
+			var province = this.getAttribute("data-value");
+			base.OpenWindow("city", "city.html", {
+				Province: province
+			});
+		});
+	});
+
+	mui.plusReady(function() {
+		FixPosition();
+
+		document.getElementById('reFixPosition').addEventListener('tap', function(e) {
+			FixPosition();
 		});
 
+		document.getElementById('currPosition').addEventListener('tap', function(e) {
+			var mysettingPage = plus.webview.getWebviewById("mysetting");
+			if(mysettingPage) {
+				mysettingPage.evalJS("UpdateAddress('" + province + "','" + city + "')");
+			}
+		});
 	});
+
+	function FixPosition() {
+		//系统定位
+		document.getElementById("currPosition").innerHTML = "正在定位...";
+		plus.geolocation.getCurrentPosition(function(p) {
+			//{"coordsType":"gcj02","address":{"country":"中国","province":"江苏省","city":"南京市","district":"雨花台区","street":"软件大道","poiName":"丰盛·商汇(软件大道)","cityCode":"025"},"addresses":"江苏省南京市雨花台区软件大道靠近丰盛·商汇(软件大道)","coords":{"latitude":31.97603,"longitude":118.761916,"accuracy":25,"altitude":0,"heading":null,"speed":0,"altitudeAccuracy":0},"timestamp":1479280218323}
+			province = p.address.province;
+			city = p.address.city;
+			setTimeout(function() {
+				document.getElementById("currPosition").innerHTML = city;
+			}, 200)
+
+		}, function(e) {
+			mui.toast("未授权")
+		});
+	}
 </script>
