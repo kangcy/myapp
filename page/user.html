@@ -49,6 +49,11 @@
 				background: #fff;
 			}
 			
+			#comment {
+				width: 100%;
+				background: #fff;
+			}
+			
 			.third {
 				width: 32%;
 				height: 4.5rem;
@@ -110,8 +115,15 @@
 							<div style="width:80%;float:left;" id="list2">
 							</div>
 						</div>
+						<!--<div id="comment" class="f13 caaa tc mt8" style="padding:2.5%;display: inline-block;">
+							<div id="comments" style="width:20%;float:left;margin-top:5%;text-align:center;">回复<br />
+								<p class="f20 mb0" id="commentnum">0</p>
+							</div>
+							<div style="width:80%;float:left;" id="list3">
+							</div>
+						</div>-->
 					</div>
-				</div> 
+				</div>
 			</div>
 		</div>
 	</body>
@@ -121,8 +133,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.zoom.js"></script>
-<script src="../js/mui.previewimage.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
@@ -136,9 +146,6 @@
 	mui.init();
 
 	mui.ready(function() {
-
-		mui.previewImage();
-
 		base.InitScroll();
 
 		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //展示文章
@@ -149,7 +156,6 @@
 
 			});
 		});
-
 	});
 
 	mui.plusReady(function() {
@@ -198,6 +204,7 @@
 				var length = data.list.length;
 				if(length > 0) {
 					$("#picnum").html(data.records);
+
 					var table = document.getElementById('list1');
 					for(var i = 0, len = length; i < len; i++) {
 						var div = AppendPic(data.list[i]);

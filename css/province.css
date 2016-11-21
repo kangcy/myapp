@@ -133,3 +133,7 @@
 .mui-table-view-divider:before {
 	height: 0 !important;
 }
+
+.mui-table-view-cell:after {
+	left: 0.9375rem !important;
+}

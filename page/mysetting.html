@@ -102,6 +102,12 @@
 		$("#time").html(userinfo.Birthday == "" ? "请选择" : userinfo.Birthday);
 		$("#signature").html(userinfo.Signature == "" ? "请填写" : userinfo.Signature);
 
+		document.getElementById('cityPicker').addEventListener('tap', function(event) {
+			base.OpenWindow("province", "province.html", {
+
+			});
+		});
+
 		//性别选择
 		var sexPicker = new mui.PopPicker();
 		sexPicker.setData([{
@@ -136,7 +142,7 @@
 		}, false);
 
 		//地市选择
-		var cityPicker = new mui.PopPicker({
+		/*var cityPicker = new mui.PopPicker({
 			layer: 2
 		});
 		cityPicker.setData(cityData);
@@ -164,7 +170,7 @@
 				});
 				cityPicker.dispose(); //资源释放
 			});
-		}, false);
+		}, false);*/ 
 
 		//日期
 		document.getElementById('timePicker').addEventListener('tap', function() {

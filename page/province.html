@@ -28,8 +28,9 @@
 			</div>
 			<div id='list' class="mui-indexed-list">
 				<div class="mui-indexed-list-search mui-input-row">
-					<div class="mui-indexed-list-group f11" style="padding-left: 0.9375rem;">自动定位</div>
-					<div class="mui-table-view-cell f12">南京市<span class="fr blue"><span class="mui-icon mui-icon-reload f15 bold"></span><span class="ml5">重新定位</span></span></div>
+					<div class="f11" style="padding:0.625rem 0.9375rem;background:#f7f7f7;">自动定位</div>
+					<div class="mui-table-view-cell f12">南京市<span class="fr blue"><span class="mui-icon mui-icon-reload f15 bold"></span><span class="ml5">重新定位</span></span>
+					</div>
 				</div>
 				<div class="mui-indexed-list-bar f12">
 					<a>A</a>
@@ -55,6 +56,7 @@
 					<ul class="mui-table-view f12">
 						<li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
 						<li data-value="安徽省" class="mui-table-view-cell mui-indexed-list-item">安徽省</li>
+						<li data-value="澳门" class="mui-table-view-cell mui-indexed-list-item">澳门</li>
 						<li data-group="B" class="mui-table-view-divider mui-indexed-list-group">B</li>
 						<li data-value="北京市" class="mui-table-view-cell mui-indexed-list-item">北京市</li>
 						<li data-group="C" class="mui-table-view-divider mui-indexed-list-group">C</li>
@@ -63,7 +65,7 @@
 						<li data-value="福建省" class="mui-table-view-cell mui-indexed-list-item">福建省</li>
 						<li data-group="G" class="mui-table-view-divider mui-indexed-list-group">G</li>
 						<li data-value="广东省" class="mui-table-view-cell mui-indexed-list-item">广东省</li>
-						<li data-value="广西壮族自治区" class="mui-table-view-cell mui-indexed-list-item">广西壮族自治区</li>
+						<li data-value="广西省" class="mui-table-view-cell mui-indexed-list-item">广西省</li>
 						<li data-value="贵州省" class="mui-table-view-cell mui-indexed-list-item">贵州省</li>
 						<li data-value="甘肃省" class="mui-table-view-cell mui-indexed-list-item">甘肃省</li>
 						<li data-group="H" class="mui-table-view-divider mui-indexed-list-group">H</li>
@@ -92,9 +94,11 @@
 						<li data-value="陕西省" class="mui-table-view-cell mui-indexed-list-item">陕西省</li>
 						<li data-group="T" class="mui-table-view-divider mui-indexed-list-group">T</li>
 						<li data-value="天津市" class="mui-table-view-cell mui-indexed-list-item">天津市</li>
+						<li data-value="台湾省" class="mui-table-view-cell mui-indexed-list-item">台湾省</li>
 						<li data-group="W" class="mui-table-view-divider mui-indexed-list-group">W</li>
 						<li data-value="西藏自治区" class="mui-table-view-cell mui-indexed-list-item">西藏自治区</li>
 						<li data-value="新疆维吾尔自治区" class="mui-table-view-cell mui-indexed-list-item">新疆维吾尔自治区</li>
+						<li data-value="香港" class="mui-table-view-cell mui-indexed-list-item">香港</li>
 						<li data-group="Y" class="mui-table-view-divider mui-indexed-list-group">Y</li>
 						<li data-value="云南省" class="mui-table-view-cell mui-indexed-list-item">云南省</li>
 						<li data-group="Z" class="mui-table-view-divider mui-indexed-list-group">Z</li>
@@ -118,7 +122,8 @@
 		window.indexedList = new mui.IndexedList(list);
 
 		mui("#list").on('tap', '.mui-indexed-list-item', function(event) {
-			console.log(this.getAttribute("data-value"));
+			//console.log(this.getAttribute("data-value"));
+			base.OpenWindow("city", "city.html", {});
 		});
 
 	});
