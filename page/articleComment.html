@@ -8,6 +8,171 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/comment.css">
+		<link rel="stylesheet" href="../css/loading.css">
+		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
+		<style type="text/css">
+			.red {
+				color: #ed5565;
+			}
+			/**心跳**/
+			
+			@-ms-keyframes heartbeat {
+				0% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1)
+				}
+				50% {
+					-ms-transform: scale(1.5);
+					-moz-transform: scale(1.5);
+					-o-transform: scale(1.5);
+					-webkit-transform: scale(1.5);
+					transform: scale(1.5);
+				}
+				100% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1);
+					color: #ed5565;
+				}
+			}
+			
+			@-moz-keyframes heartbeat {
+				0% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1)
+				}
+				50% {
+					-ms-transform: scale(1.5);
+					-moz-transform: scale(1.5);
+					-o-transform: scale(1.5);
+					-webkit-transform: scale(1.5);
+					transform: scale(1.5);
+				}
+				100% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1);
+					color: #ed5565;
+				}
+			}
+			
+			@-o-keyframes heartbeat {
+				0% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1)
+				}
+				50% {
+					-ms-transform: scale(1.5);
+					-moz-transform: scale(1.5);
+					-o-transform: scale(1.5);
+					-webkit-transform: scale(1.5);
+					transform: scale(1.5);
+				}
+				100% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1);
+					color: #ed5565;
+				}
+			}
+			
+			@-webkit-keyframes heartbeat {
+				0% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1)
+				}
+				50% {
+					-ms-transform: scale(1.5);
+					-moz-transform: scale(1.5);
+					-o-transform: scale(1.5);
+					-webkit-transform: scale(1.5);
+					transform: scale(1.5);
+				}
+				100% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1);
+					color: #ed5565;
+				}
+			}
+			
+			@keyframes heartbeat {
+				0% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1)
+				}
+				50% {
+					-ms-transform: scale(1.5);
+					-moz-transform: scale(1.5);
+					-o-transform: scale(1.5);
+					-webkit-transform: scale(1.5);
+					transform: scale(1.5);
+				}
+				100% {
+					-ms-transform: scale(1);
+					-moz-transform: scale(1);
+					-o-transform: scale(1);
+					-webkit-transform: scale(1);
+					transform: scale(1);
+					color: #ed5565;
+				}
+			}
+			
+			.heartbeat {
+				-webkit-animation: heartbeat 500ms linear;
+				-moz-animation: heartbeat 500ms linear;
+				-ms-animation: heartbeat 500ms linear;
+				animation: heartbeat 500ms linear;
+				animation-fill-mode: forwards;
+				-webkit-animation-fill-mode: forwards;
+				-moz-animation-fill-mode: forwards;
+				-ms-animation-fill-mode: forwards;
+			}
+			
+			.tip {
+				text-align: left;
+				background: #eee;
+				padding: 10px;
+				width: 100%;
+				position: relative;
+				border-radius: 3px;
+			}
+			
+			.tip:before {
+				position: absolute;
+				content: '';
+				width: 0;
+				height: 0;
+				border: 6px solid transparent;
+				border-bottom-color: #eee;
+				left: 10px;
+				top: -12px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -16,59 +181,220 @@
 			<div class="mui-title c33" id="header"></div>
 		</header>
 		<div class="mui-content">
+			<div class="mui-loader tc" id="loader">
+				<div class="line-scale-pulse-out">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="mui-slider mui-fullscreen">
+				<div class="mui-scroll-wrapper">
+					<div id="scroll" class="mui-scroll">
+						<div id="scroll-view">
 
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
+	var currpage = 1;
+	var totalpage = 2;
+	var index = 1;
+	var isLoading = false;
+	var pagesize = base.PageSize;
+	var payPage = null;
 	var ArticleID = 0;
 	var CommentTitle = "0条评论";
+	var isLoading = false;
+	var userinfo = base.GetUserInfo();
+	mui.init();
 
-	//启用双击监听
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false,
-		subpages: [{
-			id: 'articleCommentSub',
-			url: 'articleCommentSub.html',
-			styles: {
-				top: '50px',
-				bottom: '0px',
+	mui.ready(function() {
+
+		base.InitScroll();
+
+		//用户详细
+		base.ShowUser("#scroll");
+
+		//点赞
+		mui('#scroll').on('tap', '.fa-thumbs-o-up', function() {
+			if(isLoading) {
+				return;
 			}
-		}]
+			isLoading = true;
+			var $this = this;
+			if($this.getAttribute("already") == "1") {
+				isLoading = false;
+				return mui.toast("已赞");
+			}
+			var num = this.childNodes[0];
+			var commentid = $this.getAttribute("cid");
+			HttpGet(base.RootUrl + "Comment/Zan", {
+				ID: userinfo.ID,
+				CommentID: commentid
+			}, function(data) {
+				if(data != null) {
+					mui.toast(data.result ? "感谢您的点赞~" : data.message);
+					if(data.result) {
+						$this.classList.add("heartbeat");
+						$this.setAttribute("already", "1");
+						num.innerText = parseInt(num.innerText) + 1;
+					}
+				}
+				isLoading = false;
+			});
+		});
+
+		//评论
+		mui('#scroll').on('tap', '.fa-commenting-o', function() {
+			var commentid = this.getAttribute("cid");
+			var userid = this.getAttribute("userid");
+			base.OpenWindow("addcomment", "addcomment.html", {
+				ArticleID: ArticleID,
+				ParentCommentID: commentid,
+				ParentUserID: userid
+			});
+		});
 	});
 
-	var contentWebview = null;
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
-		CommentTitle = self.CommentTitle || "0条评论";
+		CommentTitle = self.CommentTitle || "评论列表";
 
 		document.getElementById("header").innerHTML = CommentTitle;
+
+		//返回
+		mui.back = function() {
+			plus.webview.currentWebview().close();
+		}
 
 		//返回
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		}, false);
 
-		document.querySelector('header').addEventListener('doubletap', function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			contentWebview.evalJS("mui('#scroll').pullRefresh().scrollTo(0,0,100)");
-		});
+		Init(ArticleID);
 	});
 
-	//初始化子页面
-	function InitSubPage() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.getWebviewById("articleCommentSub");
+	//初始化获取参数
+	function Init(articleId) {
+		ArticleID = articleId;
+		mui(document.getElementById("scroll")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
+	}
+
+	//文章评论-下拉刷新
+	function pulldownRefresh(self) {
+		if(isLoading == true) {
+			return;
 		}
-		contentWebview.evalJS("Init(" + ArticleID + ")");
+		isLoading = true;
+		setTimeout(function() {
+			currpage = 1;
+			totalpage = 2;
+			document.getElementById('scroll-view').innerHTML = "";
+			Load(function() {
+				++currpage;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//文章评论-上拉加载
+	function pullupRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
+		}
+		setTimeout(function() {
+			Load(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//文章评论-加载数据
+	function Load(callback) {
+		data = {
+			page: currpage,
+			rows: pagesize,
+			ArticleID: ArticleID
+		}
+		HttpGet(base.RootUrl + "Comment/ArticleComment", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.list.length;
+				if(length > 0) {
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i], index);
+						table.appendChild(div);
+						index++;
+					}
+				}
+			}
+			if(callback) {
+				callback();
+			}
+		});
+	}
+
+	//拼接Html 
+	function appendStr(item, index) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell mt10 mb10">');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.Avatar + '" class="user" userid="' + item.UserID + '" /></div>');
+		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserID + '">' + item.NickName + '<span class="fr caaa">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
+		if(!base.IsNullOrEmpty(item.City)) {
+			model.push('<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City)
+		}
+		model.push('</p>');
+		model.push('<p class="f12 c333 mt10 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
+		if(item.ParentCommentID > 0) {
+			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+		}
+		model.push('<p class="tr blue mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.ID + '" userid="' + item.UserID + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('</div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>

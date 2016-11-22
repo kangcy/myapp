@@ -16,8 +16,8 @@
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
 			<div class="mui-title">
 				<div id="tabs">
-					<span class="tab curr" id="tab1">我关注的人(0)</span>
-					<span class="tab" id="tab2">关注我的人(0)</span>
+					<span class="tab curr" id="tab1">我的关注(0)</span>
+					<span class="tab" id="tab2">我的粉丝(0)</span>
 				</div>
 			</div>
 		</header>
@@ -98,10 +98,10 @@
 
 	function InitNum(num1, num2) {
 		if(num1 > 0) {
-			document.getElementById("tab1").innerHTML = "我关注的人(" + num1 + ")";
+			document.getElementById("tab1").innerHTML = "我的关注(" + num1 + ")";
 		}
 		if(num2 > 0) {
-			document.getElementById("tab2").innerHTML = "关注我的人(" + num2 + ")";
+			document.getElementById("tab2").innerHTML = "我的粉丝(" + num2 + ")";
 		}
 	}
 </script>

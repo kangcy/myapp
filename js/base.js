@@ -276,7 +276,7 @@ var base = new function() {
 			} else if(power == "1" && curruserid != userid) {
 				var btnArray = ['确定', '取消'];
 				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
-					if(e.index == 0) {
+					if(e.index == 0) { 
 						base.CheckPowerPwd(articleId, e.value, function() {
 							plus.nativeUI.showWaiting("载入中...");
 							base.OpenWindow("articledetail", "articledetail.html", {

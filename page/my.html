@@ -102,7 +102,6 @@
 		//修改封面
 		window.addEventListener("UpdateCover", function(e) {
 			var url = e.detail.Url;
-			console.log(userinfo.Cover + "," + url);
 			if(userinfo.Cover == url) {
 				mui.toast("编辑成功~");
 				return;

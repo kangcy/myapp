@@ -243,7 +243,8 @@
 		data = {
 			page: currpage,
 			rows: pagesize,
-			UserID: UserID
+			CreateUserID: UserID,
+			IsReply: 1
 		}
 		HttpGet(base.RootUrl + "Comment/Top", data, function(data) {
 			document.getElementById("loader").classList.add("hide");

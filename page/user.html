@@ -200,25 +200,31 @@
 
 		//相册
 		document.getElementById('pic').addEventListener('tap', function(event) {
-			base.OpenWindow("pic", "pic.html", {
-				UserID: UserID
-			});
+			if($("#picnum").html() != "0") {
+				base.OpenWindow("pic", "pic.html", {
+					UserID: UserID
+				});
+			}
 		});
 
 		//文章
 		document.getElementById('articles').addEventListener('tap', function(event) {
-			base.OpenWindow("article", "article.html", {
-				CreateUserID: UserID,
-				ArticleTypeName: "他的动态",
-				Source: "User"
-			});
+			if($("#articlenum").html() != "0") {
+				base.OpenWindow("article", "article.html", {
+					CreateUserID: UserID,
+					ArticleTypeName: "他的动态",
+					Source: "User"
+				});
+			}
 		});
 
 		//回复
 		document.getElementById('comments').addEventListener('tap', function(event) {
-			base.OpenWindow("reply", "reply.html", {
-				UserID: UserID
-			});
+			if($("#commentnum").html() != "0") {
+				base.OpenWindow("reply", "reply.html", {
+					UserID: UserID
+				});
+			}
 		});
 	});
 
@@ -315,7 +321,8 @@
 		var data = {
 			page: 1,
 			rows: 5,
-			CreateUserID: UserID
+			CreateUserID: UserID,
+			IsReply: 1
 		}
 		HttpGet(base.RootUrl + "Comment/Top", data, function(data) {
 			var table = document.getElementById('list3');
