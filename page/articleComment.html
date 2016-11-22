@@ -295,6 +295,7 @@
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
+					index = 1;
 					var self = this;
 					pulldownRefresh(self);
 				}
