@@ -11,6 +11,10 @@
 		<link rel="stylesheet" href="../css/comment.css">
 		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
+
+		<link rel="stylesheet" type="text/css" href="../css/animate.css">
+		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
+		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
 		<style type="text/css">
 			.red {
 				color: #ed5565;
@@ -200,6 +204,7 @@
 				</div>
 			</div>
 		</div>
+		<textarea id="textarea" class="hide"></textarea>
 	</body>
 
 </html>
@@ -208,6 +213,9 @@
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
+<script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
@@ -217,8 +225,12 @@
 	var payPage = null;
 	var ArticleID = 0;
 	var CommentTitle = "0条评论";
-	var isLoading = false;
 	var userinfo = base.GetUserInfo();
+	var editor = null;
+	var Province = "";
+	var City = "";
+	var ParentCommentID = 0;
+	var ParentUserID = 0;
 	mui.init();
 
 	mui.ready(function() {
@@ -259,13 +271,15 @@
 
 		//评论
 		mui('#scroll').on('tap', '.fa-commenting-o', function() {
-			var commentid = this.getAttribute("cid");
-			var userid = this.getAttribute("userid");
-			base.OpenWindow("addcomment", "addcomment.html", {
-				ArticleID: ArticleID,
-				ParentCommentID: commentid,
-				ParentUserID: userid
-			});
+			ParentCommentID = this.getAttribute("cid");
+			ParentUserID = this.getAttribute("userid");
+
+			if(editor == null) {
+				editor = $("#textarea").emojioneArea({
+					template: "<editor/><filters/><tabs/>"
+				});
+			}
+			EditorTan(1);
 		});
 	});
 
@@ -287,7 +301,61 @@
 		}, false);
 
 		Init(ArticleID);
+
+		//系统定位
+		plus.geolocation.getCurrentPosition(function(p) {
+			Province = p.address.province;
+			City = p.address.city;
+		}, function(e) {
+			//mui.toast("未授权")
+		});
 	});
+
+	//提交编辑
+	function EditorSubmit() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		var val = editor[0].emojioneArea.getHtml();
+		if(base.IsNullOrEmpty(val)) {
+			isLoading = false;
+			return mui.toast("请填写内容");
+		}
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting();
+		}
+		HttpGet(base.RootUrl + "Comment/Edit", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
+			ParentCommentID: ParentCommentID,
+			ParentUserID: ParentUserID,
+			Summary: escape(val),
+			Province: Province,
+			City: City
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			mui.toast(data.result ? "感谢您的评论~" : data.message);
+			if(data.result) {
+				EditorClose();
+
+				//更新文章评论数
+				var page = plus.webview.getWebviewById("articledetail");
+				if(page) {
+					page.evalJS("UpdateComment()")
+				}
+			}
+			isLoading = false;
+		});
+	}
+
+	//关闭编辑器
+	function EditorClose() {
+		EditorTan(0);
+		editor[0].emojioneArea.setText("");
+	}
 
 	//初始化获取参数
 	function Init(articleId) {

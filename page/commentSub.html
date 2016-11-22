@@ -346,13 +346,17 @@
 					template: "<editor/><filters/><tabs/>"
 				});
 			}
-
 			EditorTan(1);
 		});
 
 	});
 
 	mui.plusReady(function() {
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			return mui.toast("网络异常，请检查网络设置！");
+		}
+
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
 			Province = p.address.province;
@@ -364,8 +368,13 @@
 
 	//提交编辑
 	function EditorSubmit() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
 		var val = editor[0].emojioneArea.getHtml();
 		if(base.IsNullOrEmpty(val)) {
+			isLoading = false;
 			return mui.toast("请填写内容");
 		}
 		if(mui.os.plus) {
@@ -393,12 +402,12 @@
 					page.evalJS("UpdateComment()")
 				}
 			}
+			isLoading = false;
 		});
 	}
 
 	//关闭编辑器
 	function EditorClose() {
-		console.log("sdfsdf");
 		EditorTan(0);
 		editor[0].emojioneArea.setText("");
 	}
