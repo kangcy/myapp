@@ -235,6 +235,10 @@
 				} else {
 					document.getElementById("none1").classList.remove("hide");
 				}
+				if(parentPage == null) {
+					parentPage = plus.webview.currentWebview().parent();
+				}
+				parentPage.evalJS("InitNum(" + data.records + "," + 0 + ")");
 			}
 			if(data == null && currpage1 == 1) {
 				document.getElementById("none1").classList.remove("hide");
@@ -265,6 +269,11 @@
 				} else {
 					document.getElementById("none2").classList.remove("hide");
 				}
+
+				if(parentPage == null) {
+					parentPage = plus.webview.currentWebview().parent();
+				}
+				parentPage.evalJS("InitNum(" + 0 + "," + data.records + ")");
 			}
 			if(data == null && currpage2 == 1) {
 				document.getElementById("none2").classList.remove("hide");

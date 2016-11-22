@@ -41,17 +41,14 @@
 				width: 100%;
 				height: 5.5rem;
 				background: #fff;
-				text-indent: .5rem;
 			}
 			
-			#record {
-				width: 100%;
-				background: #fff;
-			}
-			
+			#record,
 			#comment {
 				width: 100%;
 				background: #fff;
+				padding: 2.5%;
+				display: inline-block;
 			}
 			
 			.third {
@@ -80,6 +77,18 @@
 			
 			.bt {
 				border-top: 1px solid #eee;
+			}
+			
+			.left {
+				width: 20%;
+				float: left;
+				margin-top: 5%;
+				text-align: center;
+			}
+			
+			.right {
+				width: 80%;
+				float: left;
 			}
 			
 			.tip {
@@ -122,24 +131,26 @@
 							</div>
 						</div>
 						<div id="pic" class="f13 caaa tc" style="padding:2.5%">
-							<div style="width:20%;float:left;margin-top:5%;text-align:center;">相册<br />
+							<div class="left">相册<br />
 								<p class="f20" id="picnum">0</p>
 							</div>
-							<div style="width:80%;float:left;" id="list1">
+							<div class="right" id="list1">
+
 							</div>
 						</div>
-						<div id="record" class="f13 caaa tc mt8" style="padding:2.5%;display: inline-block;">
-							<div id="articles" style="width:20%;float:left;margin-top:5%;text-align:center;">动态<br />
+						<div id="record" class="f13 caaa tc mt8">
+							<div id="articles" class="left">动态<br />
 								<p class="f20 mb0" id="articlenum">0</p>
 							</div>
-							<div style="width:80%;float:left;" id="list2">
+							<div class="right" id="list2">
+
 							</div>
 						</div>
-						<div id="comment" class="f13 caaa tc mt8" style="padding:2.5%;display: inline-block;">
-							<div id="comments" style="width:20%;float:left;margin-top:5%;text-align:center;">回复<br />
+						<div id="comment" class="f13 caaa tc mt5">
+							<div id="comments" class="left">回复<br />
 								<p class="f20 mb0" id="commentnum">0</p>
 							</div>
-							<div style="width:80%;float:left;line-height:1.2rem;" id="list3">
+							<div class="right" style="line-height:1.2rem;" id="list3">
 
 							</div>
 						</div>
@@ -222,17 +233,20 @@
 			UserID: UserID
 		};
 		HttpGet(base.RootUrl + "User/Pic", data, function(data) {
+			var table = document.getElementById('list1');
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
 					$("#picnum").html(data.records);
-
-					var table = document.getElementById('list1');
 					for(var i = 0, len = length; i < len; i++) {
 						var div = AppendPic(data.list[i]);
 						table.appendChild(div);
 					}
+				} else {
+					table.innerHTML = '<div style="line-height:4rem;" class="f12 fl">相册暂无图片</div>';
 				}
+			} else {
+				table.innerHTML = '<div style="line-height:4rem;" class="f12 fl">相册暂无图片</div>';
 			}
 		});
 	}
@@ -252,16 +266,20 @@
 			CreateUserID: UserID
 		}
 		HttpGet(base.RootUrl + "Article/Top", data, function(data) {
+			var table = document.getElementById('list2');
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
 					$("#articlenum").html(data.records);
-					var table = document.getElementById('list2');
 					for(var i = 0, len = length; i < len; i++) {
 						var div = AppendArticle(data.list[i], i);
 						table.appendChild(div);
 					}
+				} else {
+					table.innerHTML = '<div style="line-height:4rem;" class="f12 fl">暂未发表过动态</div>';
 				}
+			} else {
+				table.innerHTML = '<div style="line-height:4rem;" class="f12 fl">暂未发表过动态</div>';
 			}
 		});
 	}
@@ -291,19 +309,23 @@
 		var data = {
 			page: 1,
 			rows: 5,
-			ParentUserID: UserID
+			CreateUserID: UserID
 		}
 		HttpGet(base.RootUrl + "Comment/Top", data, function(data) {
+			var table = document.getElementById('list3');
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
 					$("#commentnum").html(data.records);
-					var table = document.getElementById('list3');
 					for(var i = 0, len = length; i < len; i++) {
 						var div = AppendComment(data.list[i], i);
 						table.appendChild(div);
 					}
+				} else {
+					table.innerHTML = '<div style="line-height:4rem;" class="f12 fl">暂未发表过回复</div>';
 				}
+			} else {
+				table.innerHTML = '<div style="line-height:4rem;" class="f12 fl">暂未发表过回复</div>';
 			}
 		});
 	}

@@ -46,8 +46,6 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -151,18 +149,13 @@
 			if(callback) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
-		div.innerHTML = '<img data-lazyload="' + item.Introduction + '" data-preview-src="" data-preview-group="0" />';
+		div.innerHTML = '<img src="' + item.Introduction + '" data-preview-src="" data-preview-group="0" />';
 		return div;
 	}
 </script>
