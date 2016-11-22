@@ -50,29 +50,33 @@
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
+	var UserID = 0;
 	var pagesize = base.PageSize;
-	var userinfo = base.GetUserInfo();
 	var isLoading = false;
 
 	mui.init();
 
-	mui.ready(function() {
+	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		UserID = self.UserID || 0;
 
-		mui(document.getElementById("pullrefresh")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
+		if(UserID > 0) {
+			mui(document.getElementById("pullrefresh")).pullToRefresh({
+				down: {
+					callback: function() {
+						var self = this;
+						pulldownRefresh(self);
+					}
+				},
+				up: {
+					auto: true,
+					callback: function() {
+						var self = this;
+						pullupRefresh(self);
+					}
 				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
+			});
+		}
 
 		mui.previewImage();
 
@@ -130,7 +134,7 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			UserID: userinfo.ID
+			UserID: UserID
 		};
 		HttpGet(base.RootUrl + "User/Pic", data, function(data) {
 			document.getElementById("loader").classList.add("hide");

@@ -131,7 +131,7 @@
 							</div>
 						</div>
 						<div id="pic" class="f13 caaa tc" style="padding:2.5%">
-							<div class="left">相册<br />
+							<div class="left"><span class="c333">相册</span><br />
 								<p class="f20" id="picnum">0</p>
 							</div>
 							<div class="right" id="list1">
@@ -139,7 +139,7 @@
 							</div>
 						</div>
 						<div id="record" class="f13 caaa tc mt8">
-							<div id="articles" class="left">动态<br />
+							<div id="articles" class="left"><span class="c333">动态</span><br />
 								<p class="f20 mb0" id="articlenum">0</p>
 							</div>
 							<div class="right" id="list2">
@@ -147,7 +147,7 @@
 							</div>
 						</div>
 						<div id="comment" class="f13 caaa tc mt5">
-							<div id="comments" class="left">回复<br />
+							<div id="comments" class="left"><span class="c333">回复</span><br />
 								<p class="f20 mb0" id="commentnum">0</p>
 							</div>
 							<div class="right" style="line-height:1.2rem;" id="list3">
@@ -181,17 +181,9 @@
 		base.InitScroll();
 
 		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //展示文章
-
-		//相册
-		document.getElementById('pic').addEventListener('tap', function(event) {
-			base.OpenWindow("pic", "pic.html", {
-
-			});
-		});
 	});
 
-	mui.plusReady(function() {
-		//判断网络类型
+	mui.plusReady(function() { //判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			return mui.toast("网络异常，请检查网络设置！");
 		}
@@ -206,12 +198,26 @@
 			plus.webview.currentWebview().close();
 		}
 
+		//相册
+		document.getElementById('pic').addEventListener('tap', function(event) {
+			base.OpenWindow("pic", "pic.html", {
+				UserID: UserID
+			});
+		});
+
 		//文章
 		document.getElementById('articles').addEventListener('tap', function(event) {
 			base.OpenWindow("article", "article.html", {
 				CreateUserID: UserID,
 				ArticleTypeName: "他的动态",
 				Source: "User"
+			});
+		});
+
+		//回复
+		document.getElementById('comments').addEventListener('tap', function(event) {
+			base.OpenWindow("reply", "reply.html", {
+				UserID: UserID
 			});
 		});
 	});
