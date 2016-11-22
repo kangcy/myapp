@@ -11,6 +11,11 @@
 		<link rel="stylesheet" href="../css/comment.css">
 		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
+
+		<link rel="stylesheet" type="text/css" href="../css/animate.css">
+		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
+		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
+
 		<style type="text/css">
 			.none {
 				width: 100px !important;
@@ -222,6 +227,7 @@
 				</div>
 			</div>
 		</div>
+		<textarea id="textarea" class="hide"></textarea>
 	</body>
 
 </html>
@@ -230,6 +236,9 @@
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
+<script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
 	var currpage1 = 1;
 	var totalpage1 = 2;
@@ -240,9 +249,15 @@
 	var isLoading = false;
 	var isLoading1 = false;
 	var isLoading2 = false;
-	var pagesize = 2;
+	var pagesize = base.PageSize;
 	var parentPage = null;
 	var userinfo = base.GetUserInfo();
+	var editor = null;
+	var Province = "";
+	var City = "";
+	var ArticleID = 0;
+	var ParentCommentID = 0;
+	var ParentUserID = 0;
 	mui.init();
 
 	mui.ready(function() {
@@ -322,16 +337,71 @@
 
 		//评论
 		mui('#slider').on('tap', '.fa-commenting-o', function() {
-			var articleid = this.getAttribute("articleid");
-			var commentid = this.getAttribute("cid");
-			var userid = this.getAttribute("userid");
-			base.OpenWindow("addcomment", "addcomment.html", {
-				ArticleID: articleid,
-				ParentCommentID: commentid,
-				ParentUserID: userid
-			});
+			ArticleID = this.getAttribute("articleid");
+			ParentCommentID = this.getAttribute("cid");
+			ParentUserID = this.getAttribute("userid");
+
+			if(editor == null) {
+				editor = $("#textarea").emojioneArea({
+					template: "<editor/><filters/><tabs/>"
+				});
+			}
+
+			EditorTan(1);
 		});
+
 	});
+
+	mui.plusReady(function() {
+		//系统定位
+		plus.geolocation.getCurrentPosition(function(p) {
+			Province = p.address.province;
+			City = p.address.city;
+		}, function(e) {
+			//mui.toast("未授权")
+		});
+	})
+
+	//提交编辑
+	function EditorSubmit() {
+		var val = editor[0].emojioneArea.getHtml();
+		if(base.IsNullOrEmpty(val)) {
+			return mui.toast("请填写内容");
+		}
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting();
+		}
+		HttpGet(base.RootUrl + "Comment/Edit", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
+			ParentCommentID: ParentCommentID,
+			ParentUserID: ParentUserID,
+			Summary: escape(val),
+			Province: Province,
+			City: City
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			mui.toast(data.result ? "感谢您的评论~" : data.message);
+			if(data.result) {
+				EditorClose();
+
+				//更新文章评论数
+				var page = plus.webview.getWebviewById("articledetail");
+				if(page) {
+					page.evalJS("UpdateComment()")
+				}
+			}
+		});
+	}
+
+	//关闭编辑器
+	function EditorClose() {
+		console.log("sdfsdf");
+		EditorTan(0);
+		editor[0].emojioneArea.setText("");
+	}
 
 	//Slider切换
 	function ChangeSlider(index) {
@@ -498,7 +568,7 @@
 		model.push('</p>');
 		model.push('<p class="f12 c333 mt10 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
-			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">回复 @' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		} else {
 			model.push('<p class="tip mb0 f12 blue article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
 		}
