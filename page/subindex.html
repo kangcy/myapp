@@ -181,13 +181,13 @@
 
 			var index = 1;
 			for(var i in e.files) {
+				mui.toast("正在导入第" + index + "张图片");
+				index += 1;
 				//压缩图片 
 				var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 				//压缩图片,并重命名 
 				compressImage(e.files[i], dstname, function(src) {
-					mui.toast("正在导入第" + index + "张图片");
-					index += 1;
 					var image = new Image();
 					image.src = src;
 					image.onload = function() {
