@@ -508,8 +508,8 @@
 
 	//提交编辑
 	function EditorSubmit() {
-		if(isLoading) {
-			return;
+		if(isLoading) { 
+			return; 
 		}
 		isLoading = true;
 		var val = editor[0].emojioneArea.getHtml();
@@ -520,7 +520,7 @@
 		if(mui.os.plus) {
 			plus.nativeUI.showWaiting();
 		}
-		console.log(val + "," + Province + "," + City);
+		console.log(val + "," + escape(val));
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,

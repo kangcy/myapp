@@ -403,9 +403,13 @@
             str = emojione.shortnameToUnicode(str);
         }
         return unicodeTo(str,
-            '<img alt="{alt}" class="emojione' + (self.sprite ? '-{uni}" src="' + blankImg + '">' : '" src="{img}">'))
+            '<img class="emojione' + (self.sprite ? '-{uni}" src="' + blankImg + '">' : '" src="{img}">'))
             .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
             .replace(/  /g, '&nbsp;&nbsp;');
+        /*return unicodeTo(str,
+            '<img alt="{alt}" class="emojione' + (self.sprite ? '-{uni}" src="' + blankImg + '">' : '" src="{img}">'))
+            .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+            .replace(/  /g, '&nbsp;&nbsp;');*/
     }
     function textFromHtml(str, self) {
         str = str
@@ -620,7 +624,9 @@
             .on("@emojibtn.click", function(element) {
                 saveSelection(editor[0]);
                 pasteHtmlAtCaret(shortnameTo(element.children().data("name"),
-                    '<img alt="{alt}" class="emojione' + (self.sprite ? '-{uni}" src="'+blankImg+'">' : '" src="{img}">')));
+                    '<img class="emojione' + (self.sprite ? '-{uni}" src="'+blankImg+'">' : '" src="{img}">')));
+                /*pasteHtmlAtCaret(shortnameTo(element.children().data("name"),
+                    '<img alt="{alt}" class="emojione' + (self.sprite ? '-{uni}" src="'+blankImg+'">' : '" src="{img}">')));*/
             })
 
             .on("@area.mousedown", function(element, event) {
