@@ -111,9 +111,9 @@
 				width: 100%;
 				position: relative;
 				z-index: 1;
-				background: url("http://139.224.51.196/Source/bg/1.jpg") no-repeat;
+				/*background: url("http://139.224.51.196/Source/bg/1.jpg") no-repeat;
 				background-size: 100% auto;
-				background-color: #E7CEC9;
+				background-color: #E7CEC9;*/
 				min-height: 100%;
 			}
 			
@@ -223,7 +223,7 @@
 		</header>
 		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top: 46px; bottom:0px;">
 			<div class="mui-content mui-scroll-wrapper">
-				<div class="mui-scroll bg">
+				<div class="mui-scroll bg" id="bg">
 					<!--通用样式-->
 					<div id="main0" class="hide">
 						<div class="f13 tl detail">
@@ -285,7 +285,7 @@
 			</div>
 		</div>
 		<!--模板选择-->
-		<i class="fa fa-music f13" onclick="switchsound()" style="position:fixed; right:10px;bottom:70px;"></i>
+		<!--<i class="fa fa-music f13" onclick="switchsound()" style="position:fixed; right:10px;bottom:70px;"></i>-->
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control hide" style="">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;">
 				<div class="mui-control-item temp" index="0"><img src="../images/share/1.png" /></div>
@@ -578,7 +578,15 @@
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
 			if(data != null) {
 				if(data.result) {
-					data = data.message
+					data = data.message;
+
+					if(!base.IsNullOrEmpty(data.Cover)) {
+						$("#bg").css({
+							"background": "url(" + data.Cover + ") no-repeat",
+							"background-size": "100% auto"
+						});
+					}
+
 					ArticlePower = data.ArticlePower;
 					ArticlePowerPwd = data.ArticlePowerPwd;
 					ArticleType = data.TypeID;
@@ -618,6 +626,7 @@
 					//音乐
 					MusicID = "music" + mainIndex;
 					MusicUrl = data.MusicUrl;
+
 					if(!base.IsNullOrEmpty(MusicUrl)) {
 						if(data.AutoMusic == 1) {
 							document.addEventListener('touchstart', startsound);
@@ -630,7 +639,6 @@
 					switch(mainIndex) {
 						case 0:
 							$("#musicname0").html(data.MusicName);
-							$("#main" + mainIndex).removeClass("hide");
 							break;
 						case 1:
 							$("#useravatar1").attr("src", data.Avatar);
