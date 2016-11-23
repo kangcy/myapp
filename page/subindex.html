@@ -56,6 +56,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var userinfo = base.GetUserInfo();
 	mui.init({
 		swipeBack: false //启用右滑关闭功能
 	});
@@ -171,26 +172,36 @@
 		}*/
 	});
 
-	//相册选取  
+	//相册选取 
+	var currUploadImg = [];
+
 	function galleryImgs() {
 
 		plus.gallery.pick(function(e) {
 
-			//压缩图片 
-			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
+			var index = 1;
+			for(var i in e.files) {
+				//压缩图片 
+				var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
-			//压缩图片,并重命名
-			compressImage(e, dstname, function(src) {
-				base.OpenWindow("editimage", "editimage.html", {
-					Url: src,
-					Source: "AddArticle"
+				//压缩图片,并重命名 
+				compressImage(e.files[i], dstname, function(src) {
+					mui.toast("正在导入第" + index + "张图片");
+					index += 1;
+					var image = new Image();
+					image.src = src;
+					image.onload = function() {
+						var imgData = getBase64Image(image);
+						Upload(imgData, e.files.length);
+					}
 				});
-			});
+			}
 		}, function(e) {
 
 		}, {
 			filter: "image",
-			maximum: 1
+			multiple: true,
+			maximum: 100
 		});
 	}
 
@@ -211,7 +222,58 @@
 			});
 	}
 
-	function PreviewTan(index) { 
+	//将图片压缩转成base64 
+	function getBase64Image(img) {
+		var canvas = document.createElement("canvas");
+		var width = img.width;
+		var height = img.height;
+		canvas.width = width; /*设置新的图片的宽度*/
+		canvas.height = height; /*设置新的图片的长度*/
+		var ctx = canvas.getContext("2d");
+		ctx.drawImage(img, 0, 0, width, height); /*绘图*/
+		return canvas.toDataURL("image/jpeg", 0.8);
+	}
+
+	//上传图片到服务器 
+	function Upload(imgurl, length) {
+		mui.post(base.RootUrl + "Upload/Upload", {
+			str: imgurl
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					currUploadImg.push(base.RootUrl + data.message);
+
+					//图片上传完毕，创建文章
+					if(currUploadImg.length == length) {
+						//plus.nativeUI.showWaiting("创建中..."); 
+						//创建文章
+						var data = {
+							ID: userinfo.ID,
+							Cover: currUploadImg.join(","),
+							Title: ""
+						}
+						HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
+							currUploadImg = [];
+							if(data != null) {
+								if(data.result) {
+									base.OpenWindow("addarticle", "addarticle.html", {
+										ArticleID: data.message,
+										Source: "Add"
+									});
+								} else {
+									mui.toast(data.message);
+								}
+							}
+						});
+					}
+				} else {
+					mui.toast(data.message);
+				}
+			}
+		}, "json");
+	}
+
+	function PreviewTan(index) {
 		if(index == 0) {
 			document.getElementById("previewTan").classList.remove("mui-preview-in");
 			document.getElementById("previewTan").style.display = "none";
