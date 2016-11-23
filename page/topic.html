@@ -65,6 +65,7 @@
 				padding: 5%;
 				display: inline-block;
 			}
+			
 			.mui-table-view:after {
 				height: 0px;
 			}
@@ -339,5 +340,12 @@
 		} else {
 			return '<div class="mui-control-item f13 topic " typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		}
+	}
+
+	//关闭更新弹窗
+	function CloseUpdate() {
+		document.getElementById("myprogressbg").classList.add("hide");
+		document.getElementById("myprogress").classList.add("hide");
+		document.getElementById("myprogress").classList.remove("bounceIn");
 	}
 </script>

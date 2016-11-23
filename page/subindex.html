@@ -49,7 +49,7 @@
 		<!--图片预览满屏弹窗-->
 		<div class="mui-preview-image mui-fullscreen" id="previewTan"></div>
 		<!--检测更新满屏弹窗-->
-		<div class="mytanbg hide" id="myprogressbg"></div>
+		<div class="mytanbg hide" id="myprogressbg" onclick="PreviewTan2(0)"></div>
 	</body>
 
 </html>
@@ -288,6 +288,10 @@
 	function PreviewTan2(index) {
 		if(index == 0) {
 			document.getElementById("myprogressbg").classList.add("hide");
+			var topicPage = plus.webview.getWebviewById("topic");
+			if(topicPage) {
+				topicPage.evalJS("CloseUpdate()");
+			}
 		} else {
 			document.getElementById("myprogressbg").classList.remove("hide");
 		}

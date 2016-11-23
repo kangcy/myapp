@@ -18,7 +18,7 @@ function CheckUpdate(callback) {
 			}
 			if(data.result) {
 				var remark = data.remark;
-				remark = remark.replace(" ", "\n");
+				remark = remark.replace(/ /g, "\n");
 				mui.confirm(remark, '发现最新版本', ['立即更新', '暂不更新'], function(z) {
 					if(z.index == 0) {
 						document.getElementById("myprogressbg").classList.remove("hide");
