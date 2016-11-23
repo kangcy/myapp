@@ -395,6 +395,7 @@
 		MusicUrl = musicUrl;
 		$("#musicname").html(MusicID == 0 && base.IsNullOrEmpty(MusicName) ? "无背景音乐" : MusicName);
 		plus.webview.close("music");
+		plus.webview.close("musicsearch");
 	}
 
 	//保存

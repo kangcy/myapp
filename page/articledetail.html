@@ -508,8 +508,8 @@
 
 	//提交编辑
 	function EditorSubmit() {
-		if(isLoading) { 
-			return; 
+		if(isLoading) {
+			return;
 		}
 		isLoading = true;
 		var val = editor[0].emojioneArea.getHtml();
@@ -618,10 +618,11 @@
 					//音乐
 					MusicID = "music" + mainIndex;
 					MusicUrl = data.MusicUrl;
-					if(!base.IsNullOrEmpty(data.MusicUrl)) {
+					if(!base.IsNullOrEmpty(MusicUrl)) {
 						if(data.AutoMusic == 1) {
 							document.addEventListener('touchstart', startsound);
 						}
+						$("#music" + mainIndex).removeClass("hide");
 					} else {
 						$("#music" + mainIndex).addClass("hide");
 					}

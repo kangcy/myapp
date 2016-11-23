@@ -51,16 +51,16 @@
 					<p class="f12 c333 mt5">账户余额</p>
 					<p class="f25 bold c333 mt5">￥0.00</p>
 				</li>
-				<li class="mui-table-view-cell" id="editnickname">
+				<li class="mui-table-view-cell" id="mypay">
 					<p class="f13 c333">打赏记录</p>
 				</li>
-				<li class="mui-table-view-cell" id="sexPicker">
+				<li class="mui-table-view-cell">
 					<p class="f13 c333">打赏记录</p>
 					<p class="f11 caaa">提现最小金额100元，收取5%手续费</p>
 				</li>
-				<li class="mui-table-view-cell" id="cityPicker">
+				<li class="mui-table-view-cell">
 					<p class="f13 c333">启用打赏</p>
-					<p class="f11 caaa">把文章分享到微信，读者即可打赏支持</p>
+					<p class="f11 caaa">分享文章，读者即可打赏支持</p>
 					<div class="mui-switch" id="autoMusicSwitch">
 						<div class="mui-switch-handle"></div>
 					</div>
@@ -118,6 +118,13 @@
 			} else {
 				Agree();
 			}
+		});
+
+		//我的打赏
+		document.getElementById('mypay').addEventListener('tap', function(event) {
+			base.OpenWindow("pay", "pay.html", {
+
+			});
 		});
 	})
 
