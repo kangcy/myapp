@@ -48,7 +48,7 @@
 						</div>
 					</div>
 					<div class="c000 menu f12" id="my-mypay"><i class="fa fa-rmb mr10 f16 caaa"></i>
-						<div>打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20"></span></div>
+						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20"></span></div>
 					</div>
 					<div class="c000 menu f12" id="my-comment"><i class="fa fa-comments mr10 f16 caaa"></i>
 						<div>评论<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20"></span></div>
@@ -174,9 +174,12 @@
 
 		//我的打赏
 		document.getElementById('my-mypay').addEventListener('tap', function(event) {
-			base.OpenWindow("pay", "pay.html", {
+			base.OpenWindow("mypay", "mypay.html", {
 
 			});
+			/*base.OpenWindow("pay", "pay.html", {
+
+			});*/
 		});
 
 		//意见反馈
@@ -213,7 +216,7 @@
 				CreateUserID: userinfo.ID,
 				ArticleTypeName: "我的动态",
 				Source: "My"
-			}); 
+			});
 		});
 
 		//我的收藏

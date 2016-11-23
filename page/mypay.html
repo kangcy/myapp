@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<style type="text/css">
+			body {
+				background: #eee;
+			}
+			
+			.mui-bar {
+				background: #fff;
+			}
+			
+			#signature {
+				width: 75%;
+				line-height: 20px;
+				white-space: normal;
+			}
+			
+			.mui-table-view-cell {
+				padding: .8rem 0.9375rem;
+			}
+			
+			.mui-table-view-cell:after {
+				left: 0.9375rem;
+				right: 0.9375rem;
+			}
+			
+			.mui-table-view:after {
+				height: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon mui-icon-back fl"></a>
+			<h1 class="mui-title c333">我的打赏</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view f13 mt0">
+				<li class="mui-table-view-cell tc">
+					<img class="head-img mui-action-preview mt10" id="avatar" src="../images/my/pay.png" style="width:20%;" />
+					<p class="f12 c333 mt5">账户余额</p>
+					<p class="f25 bold c333 mt5">￥0.00</p>
+				</li>
+				<li class="mui-table-view-cell" id="editnickname">
+					<p class="f13 c333">打赏记录</p>
+				</li>
+				<li class="mui-table-view-cell" id="sexPicker">
+					<p class="f13 c333">打赏记录</p>
+					<p class="f11 caaa">提现最小金额100元，收取5%手续费</p>
+				</li>
+				<li class="mui-table-view-cell" id="cityPicker">
+					<p class="f13 c333">启用打赏</p>
+					<p class="f11 caaa">把文章分享到微信，读者即可打赏支持</p>
+					<div class="mui-switch" id="autoMusicSwitch">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="mytanbg hide" id="mytanbg"></div>
+		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
+			<div style="padding:30px;padding-bottom:15px;">
+				<p class="blue f15 bold">打赏功能使用协议</p>
+				<p class="c333 f12 mt5">打赏金额满100元方可提现，目前仅支持提现到支付宝账户，申请后5个工作日内发放完毕。</p>
+				<p class="c333 f12 mt5">提现收取5%手续费，主要用户支付微信、支付宝相关费用。</p>
+				<p class="c333 f12 mt5">打赏功能不可用于募捐，以及各类违法行为，一经发现取消提现资格。</p>
+				<p class="c333 f12 mt5">同意本协议方可启用打赏功能。</p>
+			</div>
+			<div class="full" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;">
+				<div style="width:50%;" class="tc fl f13" onclick="ActionTan(0)">取消</div>
+				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">同意</div>
+				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var isLoading = false;
+	var ispay = false;
+	var userinfo = base.GetUserInfo();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	$(function() {
+		if(userinfo.IsPay == 1) {
+			document.getElementById("autoMusicSwitch").classList.add("mui-active");
+		}
+
+		//是否自动播放音乐
+		document.getElementById("autoMusicSwitch").addEventListener('toggle', function(event) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			ispay = event.detail.isActive ? 1 : 0;
+			ActionTan(1)
+		});
+	})
+
+	mui.plusReady(function() {
+
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			plus.webview.close(self);
+		}
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(e) {
+			mui.back();
+		});
+	});
+
+	function Agree() {
+		ActionTan(0);
+		HttpGet(base.RootUrl + "User/EditPay", {
+			ID: userinfo.ID,
+			IsPay: ispay
+		}, function(data) {
+			if(data == null) {
+				mui.toast("修改失败");
+				document.getElementById("autoMusicSwitch").classList.remove("mui-active");
+			} else {
+				if(data.result) {
+					userinfo.IsPay = ispay;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				} else {
+					mui.toast("修改失败");
+					if(ispay == 0) {
+						document.getElementById("autoMusicSwitch").classList.add("mui-active");
+					} else {
+						document.getElementById("autoMusicSwitch").classList.remove("mui-active");
+					}
+				}
+			}
+			isLoading = false;
+		});
+	}
+
+	//操作弹窗
+	function ActionTan(index) {
+		if(index == 0) {
+			$("#mytanbg").addClass("hide");
+			$("#notice").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+
+		} else {
+			$("#mytanbg").removeClass("hide");
+			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+		}
+	}
+</script>

@@ -339,7 +339,7 @@
 		</div>
 		<!--操作-->
 		<div class="mytanbg hide" id="myactionbg" onclick="ActionTan(0)"></div>
-		<div class="myaction hide" id="myaction">
+		<div class="myaction boxshadow hide" id="myaction">
 			<div class="tc c000 myaction_body">
 				<div class="myaction_items" onclick="Delete()"><img src="../images/article/1.png" />
 					<p class="f11 mb0 c000">删除</p>
@@ -520,7 +520,6 @@
 		if(mui.os.plus) {
 			plus.nativeUI.showWaiting();
 		}
-		console.log(val + "," + escape(val));
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -770,7 +769,7 @@
 		}
 		if(index == 0) {
 			$("#mysharebg").addClass("hide");
-			$("#myshare").removeClass("bounceIn").addClass("bounceOut");
+			$("#myshare").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
 		} else {
 			$("#mysharebg").removeClass("hide");
 			$("#myshare").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
@@ -781,7 +780,7 @@
 	function ActionTan(index) {
 		if(index == 0) {
 			$("#myactionbg").addClass("hide");
-			$("#myaction").removeClass("bounceIn").addClass("bounceOut");
+			$("#myaction").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
 		} else {
 			$("#myactionbg").removeClass("hide");
 			$("#myaction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");

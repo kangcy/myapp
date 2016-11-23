@@ -227,7 +227,8 @@ var base = new function() {
 						Phone: data.Phone,
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,
-						AutoMusic: data.AutoMusic
+						AutoMusic: data.AutoMusic,
+						IsPay: data.IsPay
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 

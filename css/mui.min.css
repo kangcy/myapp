@@ -5105,6 +5105,14 @@ body>.mui-progressbar {
 	-o-text-shadow: 0px 0px 1px #333 !important;
 	-moz-text-shadow: 0px 0px 1px #333 !important;
 }
+ 
+.boxshadow {
+	box-shadow: 0px 0px 10px #333 !important;
+	-webkit-box-shadow: 0px 0px 10px #333 !important;
+	-ms-box-shadow: 0px 0px 10px #333 !important;
+	-o-box-shadow: 0px 0px 10px #333 !important;
+	-moz-box-shadow: 0px 0px 10px #333 !important;
+}
 
 
 /**加载中**/
