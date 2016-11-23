@@ -49,7 +49,8 @@
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,
 						AutoMusic: data.AutoMusic,
-						IsPay: data.IsPay
+						IsPay: data.IsPay,
+						Money: data.Money
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -103,7 +104,8 @@
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,
 						AutoMusic: data.AutoMusic,
-						IsPay: data.IsPay
+						IsPay: data.IsPay,
+						Money: data.Money
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -175,7 +177,8 @@
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,
 						AutoMusic: data.AutoMusic,
-						IsPay: data.IsPay
+						IsPay: data.IsPay,
+						Money: data.Money
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();

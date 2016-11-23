@@ -49,13 +49,13 @@
 				<li class="mui-table-view-cell tc">
 					<img class="head-img mui-action-preview mt10" id="avatar" src="../images/my/pay.png" style="width:20%;" />
 					<p class="f12 c333 mt5">账户余额</p>
-					<p class="f25 bold c333 mt5">￥0.00</p>
+					<p class="f25 bold c333 mt5" id="money"></p>
 				</li>
 				<li class="mui-table-view-cell" id="mypay">
 					<p class="f13 c333">打赏记录</p>
 				</li>
-				<li class="mui-table-view-cell">
-					<p class="f13 c333">打赏记录</p>
+				<li class="mui-table-view-cell" id="apply">
+					<p class="f13 c333">申请提现</p>
 					<p class="f11 caaa">提现最小金额100元，收取5%手续费</p>
 				</li>
 				<li class="mui-table-view-cell">
@@ -101,6 +101,8 @@
 	});
 
 	$(function() {
+		document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
+
 		if(userinfo.IsPay == 1) {
 			document.getElementById("autoMusicSwitch").classList.add("mui-active");
 		}
@@ -125,6 +127,15 @@
 			base.OpenWindow("pay", "pay.html", {
 
 			});
+		});
+
+		//申请提现
+		document.getElementById('apply').addEventListener('tap', function(event) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			mui.toast("账户余额不足100元,暂时无法提现");
 		});
 	})
 
