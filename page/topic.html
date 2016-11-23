@@ -92,7 +92,7 @@
 			</div>
 		</div>
 		<!--更新进度条-->
-		<div class="mytanbg hide" id="myprogressbg"></div>
+		<div class="mytanbg hide" id="myprogressbg" onclick="CloseUpdate()"></div>
 		<div class="myprogress hide" id="myprogress">
 			<div class="tc c000 myaction_body">
 				<ul class="mui-table-view f13" style="border-radius: 20px;">
@@ -347,5 +347,9 @@
 		document.getElementById("myprogressbg").classList.add("hide");
 		document.getElementById("myprogress").classList.add("hide");
 		document.getElementById("myprogress").classList.remove("bounceIn");
+		if(subindexPage == null) {
+			subindexPage = plus.webview.getWebviewById("subindex");
+		}
+		subindexPage.evalJS("PreviewTan2(0)");
 	}
 </script>
