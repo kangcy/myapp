@@ -11,6 +11,9 @@
 		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css" />
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
+
+		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
+		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
 		<style type="text/css">
 			.detail {
 				width: 95%;
@@ -218,7 +221,7 @@
 			<a id="action" class="mui-icon mui-icon-more fr hide" style="font-size:30px;" onclick="ActionTan(1)"></a>
 			<h1 class="mui-title c333 user">作者主页</h1>
 		</header>
-		<div class="mui-iframe-wrapper" style="top: 46px; bottom:50px;">
+		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top: 46px; bottom:0px;">
 			<div class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll bg">
 					<!--通用样式-->
@@ -264,7 +267,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mui-bar mui-bar-tab">
+		<div class="mui-bar mui-bar-tab hide" id="bottomAction">
 			<div id="addcomment">
 				<span class="mui-icon mui-icon-chat c999" style="font-size:20px;margin-right:3px;"></span>
 				<span class="c999" style="font-size:15px;">添加评论</span>
@@ -349,6 +352,7 @@
 				</div>
 			</div>
 		</div>
+		<textarea id="textarea" class="hide"></textarea>
 	</body>
 
 </html>
@@ -357,6 +361,8 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
+<script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
+<script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
@@ -372,6 +378,11 @@
 	var MusicID = ""; //音乐控件ID
 	var MusicUrl = ""; //音乐播放地址
 	var userinfo = base.GetUserInfo();
+
+	var editor = null;
+	var Province = "";
+	var City = "";
+
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
@@ -407,11 +418,12 @@
 
 		//添加评论
 		document.getElementById('addcomment').addEventListener('tap', function(event) {
-			base.OpenWindow("addcomment", "addcomment.html", {
-				ArticleID: ArticleID,
-				ParentCommentID: 0,
-				ParentUserID: 0
-			});
+			if(editor == null) {
+				editor = $("#textarea").emojioneArea({
+					template: "<editor/><filters/><tabs/>"
+				});
+			}
+			EditorTan(1);
 		})
 
 		//文章评论
@@ -476,6 +488,14 @@
 			mui.back();
 		});
 
+		//系统定位
+		plus.geolocation.getCurrentPosition(function(p) {
+			Province = p.address.province;
+			City = p.address.city;
+		}, function(e) {
+			//mui.toast("未授权")
+		});
+
 		//分享设置
 		updateSerivces();
 		if(plus.os.name == "Android") {
@@ -485,6 +505,48 @@
 			main = plus.android.runtimeMainActivity();
 		}
 	});
+
+	//提交编辑
+	function EditorSubmit() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		var val = editor[0].emojioneArea.getHtml();
+		if(base.IsNullOrEmpty(val)) {
+			isLoading = false;
+			return mui.toast("请填写内容");
+		}
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting();
+		}
+		console.log(val + "," + Province + "," + City);
+		HttpGet(base.RootUrl + "Comment/Edit", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
+			ParentCommentID: 0,
+			ParentUserID: 0,
+			Summary: escape(val),
+			Province: Province,
+			City: City
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			mui.toast(data.result ? "感谢您的评论~" : data.message);
+			if(data.result) {
+				EditorClose();
+				UpdateComment(); //更新文章评论数
+			}
+			isLoading = false;
+		});
+	}
+
+	//关闭编辑器
+	function EditorClose() {
+		EditorTan(0);
+		editor[0].emojioneArea.setText("");
+	}
 
 	//复制到剪贴板
 	function CopyToClip() {
@@ -594,6 +656,9 @@
 
 					//收藏状态
 					CheckKeep();
+
+					$("#bottomAction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+					$("#mui-iframe-wrapper").css("bottom", "50px");
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().close();
