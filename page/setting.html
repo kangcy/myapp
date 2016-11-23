@@ -162,26 +162,26 @@
 
 		//分享带昵称
 		if(userinfo.ShareNick == 1) {
-			document.getElementById("shareNickSwitch").classList.add("mui-active");
+			mui("#shareNickSwitch").switch().toggle();
 		}
 
 		//自动播放音乐
 		if(userinfo.AutoMusic == 1) {
-			document.getElementById("autoMusicSwitch").classList.add("mui-active");
+			mui("#autoMusicSwitch").switch().toggle();
 		}
 
 		//微信
 		if(CheckBind(1)) {
-			document.getElementById("weixinSwitch").classList.add("mui-active");
+			mui("#weixinSwitch").switch().toggle();
 		}
 
 		//QQ
 		if(CheckBind(2)) {
-			document.getElementById("qqSwitch").classList.add("mui-active");
+			mui("#qqSwitch").switch().toggle();
 		}
 		//微博
 		if(CheckBind(3)) {
-			document.getElementById("weiboSwitch").classList.add("mui-active");
+			mui("#weiboSwitch").switch().toggle();
 		}
 
 		//绑定微信切换
@@ -224,14 +224,14 @@
 			}, function(data) {
 				if(data == null) {
 					mui.toast("修改失败");
-					document.getElementById("shareNickSwitch").classList.remove("mui-active");
+					mui("#shareNickSwitch").switch().toggle();
 				} else {
 					if(data.result) {
 						userinfo.ShareNick = shareNick
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 					} else {
 						mui.toast("修改失败");
-						document.getElementById("shareNickSwitch").classList.remove("mui-active");
+						mui("#shareNickSwitch").switch().toggle();
 					}
 				}
 				isLoading = false;
@@ -251,14 +251,14 @@
 			}, function(data) {
 				if(data == null) {
 					mui.toast("修改失败");
-					document.getElementById("autoMusicSwitch").classList.remove("mui-active");
+					mui("#autoMusicSwitch").switch().toggle();
 				} else {
 					if(data.result) {
 						userinfo.AutoMusic = autoMusic
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 					} else {
 						mui.toast("修改失败");
-						document.getElementById("autoMusicSwitch").classList.remove("mui-active");
+						mui("#autoMusicSwitch").switch().toggle();
 					}
 				}
 				isLoading = false;

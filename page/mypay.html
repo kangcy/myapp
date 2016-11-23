@@ -77,7 +77,7 @@
 				<p class="c333 f12 mt5">同意本协议方可启用打赏功能。</p>
 			</div>
 			<div class="full" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;">
-				<div style="width:50%;" class="tc fl f13" onclick="ActionTan(0)">取消</div>
+				<div style="width:50%;" class="tc fl f13" onclick="NotAgree(0)">取消</div>
 				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">同意</div>
 				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
 			</div>
@@ -112,7 +112,12 @@
 			}
 			isLoading = true;
 			ispay = event.detail.isActive ? 1 : 0;
-			ActionTan(1)
+
+			if(ispay == 1) {
+				ActionTan(1);
+			} else {
+				Agree();
+			}
 		});
 	})
 
@@ -130,6 +135,12 @@
 		});
 	});
 
+	function NotAgree() {
+		mui("#autoMusicSwitch").switch().toggle();
+		ActionTan(0);
+		isLoading = false;
+	}
+
 	function Agree() {
 		ActionTan(0);
 		HttpGet(base.RootUrl + "User/EditPay", {
@@ -145,11 +156,7 @@
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 				} else {
 					mui.toast("修改失败");
-					if(ispay == 0) {
-						document.getElementById("autoMusicSwitch").classList.add("mui-active");
-					} else {
-						document.getElementById("autoMusicSwitch").classList.remove("mui-active");
-					}
+					mui("#autoMusicSwitch").switch().toggle();
 				}
 			}
 			isLoading = false;
@@ -161,7 +168,6 @@
 		if(index == 0) {
 			$("#mytanbg").addClass("hide");
 			$("#notice").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
-
 		} else {
 			$("#mytanbg").removeClass("hide");
 			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
