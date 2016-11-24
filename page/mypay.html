@@ -104,7 +104,7 @@
 		document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
 
 		if(userinfo.IsPay == 1) {
-			document.getElementById("autoMusicSwitch").classList.add("mui-active");
+			mui("#autoMusicSwitch").switch().toggle();
 		}
 
 		//是否自动播放音乐
@@ -124,9 +124,7 @@
 
 		//我的打赏
 		document.getElementById('mypay').addEventListener('tap', function(event) {
-			base.OpenWindow("pay", "pay.html", {
-
-			});
+			base.OpenWindow("pay", "pay.html", {});
 		});
 
 		//申请提现
@@ -135,7 +133,18 @@
 				return;
 			}
 			isLoading = true;
-			mui.toast("账户余额不足100元,暂时无法提现");
+			HttpGet(base.RootUrl + "System/CheckApplyMoney", {
+				ID: userinfo.ID
+			}, function(data) {
+				isLoading = false;
+				if(data != null) {
+					if(data.result) {
+						base.OpenWindow("payapply", "payapply.html", {});
+					} else {
+						mui.toast(data.message);
+					}
+				}
+			});
 		});
 	})
 
@@ -167,7 +176,7 @@
 		}, function(data) {
 			if(data == null) {
 				mui.toast("修改失败");
-				document.getElementById("autoMusicSwitch").classList.remove("mui-active");
+				mui("#autoMusicSwitch").switch().toggle();
 			} else {
 				if(data.result) {
 					userinfo.IsPay = ispay;

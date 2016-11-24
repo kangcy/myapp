@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			#name,
+			#account {
+				border: 0px;
+				padding: 25px 10px;
+				line-height: 1.25rem;
+			}
+		</style>
+	</head>
+
+	<body style="background:#F4F5F5;">
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon blue f13 fl mt6">取消</a>
+			<a id="submit" class="mui-icon blue f13 fr mt6">保存</a>
+			<h1 class="mui-title c333 f15">提现申请</h1>
+		</header>
+		<div class="mui-content">
+			<div class="f13 mt10 mb10" style="text-indent:10px;">账户昵称：</div>
+			<input id='name' type="text" class="mui-input-clear f12" placeholder="请输入您的支付宝账户昵称（真实姓名）" maxlength="50" />
+			<div class="f13 mt10 mb10" style="text-indent:10px;">支付宝账号：</div>
+			<input id='account' type="text" class="mui-input-clear f12" placeholder="请输入您的支付宝账号（提现账号）" maxlength="50" />
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var userinfo = base.GetUserInfo();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.plusReady(function() {
+
+		//保存
+		var name = document.getElementById("name");
+		var account = document.getElementById("account");
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(base.IsNullOrEmpty(name.value)) {
+				return mui.toast('请填写账户昵称');
+			}
+			if(base.IsNullOrEmpty(account.value)) {
+				return mui.toast('请填写支付宝账号');
+			}
+			HttpGet(base.RootUrl + "System/ApplyMoney", {
+				ID: userinfo.ID,
+				Account: account.value,
+				Name: name.value
+			}, function(data) {
+				mui.toast(data.result ? "申请成功~" : data.message);
+				plus.webview.close("payapply");
+			});
+		}, false);
+
+		//返回
+		mui.back = function() {
+			plus.webview.close("payapply");
+		}
+
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		});
+	})
+
+	mui.plusReady(function() {
+
+	});
+</script>
