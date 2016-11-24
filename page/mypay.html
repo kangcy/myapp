@@ -101,7 +101,9 @@
 	});
 
 	$(function() {
-		document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
+			userinfo = base.GetUserInfo();
+			document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
+		})
 
 		if(userinfo.IsPay == 1) {
 			mui("#autoMusicSwitch").switch().toggle();
