@@ -26,8 +26,8 @@
 						<div class="info-content">
 							<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
 							<p class="c333 f14 tc name bold" id="nickname"></p>
-							<p class="c333 signature tc mt10 f13" id="signature"></p>
-							<div class="csubtitle content1 tc mt20">
+							<p class="c333 signature tc mt10 mb5 f13" id="signature"></p>
+							<div class="csubtitle content1 tc">
 								<div class="items" id="my-articles">
 									<p class="csubtitle item1"><i class="fa fa-file-text f20" style="color:#97CC00;"></i></p>
 									<p class="c333 item2 f12">我的&nbsp;<span id="articles">0</span></p>
@@ -141,8 +141,8 @@
 	function Init() {
 		//初始化赋值
 		$("#bg").css({
-			"background": "url(" + userinfo.Cover + ")",
-			"background-size": "100% 100%;"
+			"background": "url(" + userinfo.Cover + ") center center",
+			"background-size": "100%"
 		});
 		$("#avatar").attr("src", userinfo.Avatar);
 		$("#nickname").html(userinfo.NickName);

@@ -35,8 +35,8 @@
 			
 			#url {
 				border: 0px;
-				height: 200px;
-				padding: 20px 10px;
+				height: 150px;
+				padding: 10px;
 				line-height: 1.25rem;
 			}
 		</style>
@@ -50,7 +50,8 @@
 		<div class="mui-content">
 			<ul class="mui-table-view f13 mt0">
 				<li class="mui-table-view-cell tc">
-					<p class="f20 c333 mt5">GO支持导入(优酷)视频</p>
+					<p class="f18 c333 mt20">GO支持导入(优酷)视频</p>
+					<p class="f13 blue mt10 mb10">如何获取视频网页地址?</p>
 				</li>
 				<li class="mui-table-view-cell" id="apply">
 					<p class="f13 c333">有优酷账号</p>
@@ -60,24 +61,16 @@
 					<p class="f13 c333">没有优酷账号</p>
 					<p class="f11 blue mt5">从视频网页地址导入</p>
 				</li>
-				<li class="mui-table-view-cell">
-					<p class="f13 blue">如何获取视频网页地址</p>
-				</li>
 			</ul>
-
-			<!--视频测试开始-->
-			<div id="video"></div>
-			<!--视频测试结束-->
-
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
 		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
 			<div style="padding:30px;padding-bottom:15px;">
-				<textarea id='url' class="mui-input-clear f12 mb0" placeholder="请粘贴视频网页地址" maxlength="150"></textarea>
+				<textarea id='url' class="mui-input-clear f12 mb0" placeholder="请粘贴视频网页地址" maxlength="250"></textarea>
 			</div>
 			<div class="full" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;">
 				<div style="width:50%;" class="tc fl f13" onclick="NotAgree(0)">取消</div>
-				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">确定</div>
+				<div style="width:50%;" class="tc fl f13" id="agree">确定</div>
 				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
 			</div>
 		</div>
@@ -90,7 +83,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var ispay = false;
+	var ArticleID = 0;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -99,34 +92,16 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	$(function() {
-		//我的打赏
-		/*document.getElementById('mypay').addEventListener('tap', function(event) {
-			base.OpenWindow("pay", "pay.html", {});
-		});
-*/
-		//申请提现
-		document.getElementById('apply').addEventListener('tap', function(event) {
-			if(isLoading) {
-				return;
-			}
-			isLoading = true;
-			HttpGet(base.RootUrl + "System/CheckApplyMoney", {
-				ID: userinfo.ID
-			}, function(data) {
-				isLoading = false;
-				if(data != null) {
-					if(data.result) {
-						base.OpenWindow("payapply", "payapply.html", {});
-					} else {
-						mui.toast(data.message);
-					}
-				}
-			});
-		});
-	})
-
 	mui.plusReady(function() {
+
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
+		}
+
+		//获取参数
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID || 0;
 
 		//返回
 		mui.back = function() {
@@ -138,29 +113,44 @@
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
 		});
+
+		document.getElementById('agree').addEventListener('tap', function(e) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			var url = document.getElementById("url");
+			if(base.IsNullOrEmpty(url.value)) {
+				return mui.toast('请粘贴视频网页地址');
+			}
+			HttpGet(base.RootUrl + "ArticlePart/Edit", {
+				ID: userinfo.ID,
+				Introduction: url.value,
+				Types: 3,
+				ArticleID: ArticleID
+			}, function(data) {
+				console.log(JSON.stringify(data));
+				if(data == null) {
+					mui.toast("失败");
+				} else {
+					if(data.result) {
+						var parentPage = plus.webview.getWebviewById("addarticle");
+						if(parentPage) {
+							parentPage.evalJS("AddVideo('" + data.message.ID + "','" + data.message.Url + "')");
+						}
+						mui.back();
+					} else {
+						mui.toast(data.message);
+					}
+				}
+				isLoading = false;
+			});
+		});
 	});
 
 	function NotAgree() {
 		ActionTan(0);
 		isLoading = false;
-	}
-
-	function Agree() {
-		HttpGet(base.RootUrl + "User/EditPay", {
-			ID: userinfo.ID,
-			IsPay: ispay
-		}, function(data) {
-			if(data == null) {
-				mui.toast("失败");
-			} else {
-				if(data.result) {
-					ActionTan(0);
-				} else {
-					mui.toast(data.message);
-				}
-			}
-			isLoading = false;
-		});
 	}
 
 	//操作弹窗
@@ -172,38 +162,5 @@
 			$("#mytanbg").removeClass("hide");
 			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
-	}
-</script>
-<script type="text/javascript" src="http://player.youku.com/jsapi"></script>
-<script type="text/javascript">
-	var html = AppendVideo("87907657"); //锦绣未央 07http://v.youku.com/v_show/id_XMTgxODkyMjMwNA==.html?x&sharefrom=android   87907657
-	/*$("#video").html(html);
-
-	$(".youku_player").each(function() {
-		var $this = $(this);
-		ShowVideo($this.attr("id"), $this.attr("sid"));
-	});*/
-
-	function ShowVideo(domid, vid) {
-		player = new YKU.Player(domid, {
-			client_id: base.youku_client_id,
-			styleid: '0',
-			vid: vid,
-			autoplay: false,
-			show_related: false
-		});
-	}
-
-	function AppendVideo(sourceurl) {
-		var html = [];
-		//优酷
-		if(sourceurl.indexOf(".") < 0) {
-			return '<div class="media-cont audio-cont" style="margin-top: 10px; width: 100%;"><div id="youku_player_' + sourceurl + '" sid="' + sourceurl + '" class="youku_player" style="width:100%;height:400px;"></div></div>';
-		}
-		//SWF
-		if(sourceurl.toLowerCase().indexOf(".swf") > 0) {
-			return '<div class="media-cont audio-cont" style="margin-top:10px;width: 100%;"><embed src="' + sourceurl + '" allowfullscreen="true" quality="high" width="100%"  height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash"></embed></div>';
-		}
-		return "";
 	}
 </script>

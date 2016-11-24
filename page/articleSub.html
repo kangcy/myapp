@@ -158,7 +158,7 @@
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage;
-				var length = data.list.length;
+				var length = data.records;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i], CreateUserID == userinfo.ID, CreateUserID != userinfo.ID, false);

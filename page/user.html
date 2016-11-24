@@ -365,8 +365,8 @@
 			if(data.result) {
 				data = data.message;
 				$("#bg").css({
-					"background": "url(" + data.Cover + ")",
-					"background-size": "100% 100%;"
+					"background": "url(" + data.Cover + ") center center",
+					"background-size": "100%"
 				});
 				$("#avatar").attr("src", data.Avatar).removeClass("hide");
 				$("#nickname").html(data.NickName);

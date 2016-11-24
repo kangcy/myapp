@@ -77,6 +77,15 @@
 			<a id="search" class="mui-icon mui-icon-search mui-pull-right blue"></a>
 			<h1 class="mui-title c333">精选推荐</h1>
 		</header>
+		<div class="mui-loader tc" id="loader">
+			<div class="line-scale-pulse-out">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
 		<div class="mui-content">
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
 				<div id="slider" class="mui-slider mui-fullscreen">
@@ -284,7 +293,7 @@
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			if(data != null) {
 				totalpage[index] = data.totalpage;
-				var length = data.list.length;
+				var length = data.records;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
@@ -309,6 +318,7 @@
 	//加载文章类型
 	function LoadArticleType(callback) {
 		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
+			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {

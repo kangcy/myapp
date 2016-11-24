@@ -363,6 +363,8 @@
 <script src="../js/music.js"></script>
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
+<script type="text/javascript" src="http://player.youku.com/jsapi"></script>
+<script type="text/javascript" src="../js/video.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
@@ -608,7 +610,7 @@
 							html.push('<div class="full f13 mt10">' + part.Introduction + '</div>');
 						} else if(part.Types == 3) {
 							//视频
-							html = appendStr("点击添加视频", "video", part.ID);
+							html.push('<div class="full f13 mt10">' + AppendVideo(part.Introduction) + '</div>');
 						}
 					}
 
@@ -622,6 +624,12 @@
 					$("#createdate" + mainIndex).html(data.CreateDateText);
 					$("#views" + mainIndex).html("阅读  " + data.Views);
 					$("#desc" + mainIndex).html(html.join(""));
+
+					//实例化播放器
+					$(".youku_player").each(function() {
+						var $this = $(this);
+						ShowVideo($this.attr("id"), $this.attr("sid"));
+					});
 
 					//音乐
 					MusicID = "music" + mainIndex;

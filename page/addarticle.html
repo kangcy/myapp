@@ -34,11 +34,13 @@
 	</body>
 
 </html>
-<script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.min.js"></script>
-<script src="../js/base.js"></script>
-<script src="../js/group.js"></script>
+<script type="text/javascript" src="../js/default.js"></script>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/mui.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/group.js"></script>
+<script type="text/javascript" src="http://player.youku.com/jsapi"></script>
+<script type="text/javascript" src="../js/video.js"></script>
 <script type="text/javascript">
 	var Province = ""; //当前定位省份
 	var City = ""; //当前定位城市
@@ -222,32 +224,10 @@
 
 		//新增视频
 		mui('#edit').on('tap', '.edit-add-video', function() {
-			return mui.toast("暂未开放，敬请期待~~");
-			if(mui.os.plus) {
-				plus.nativeUI.showWaiting("创建中...");
-			}
-			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				ID: userinfo.ID,
-				ArticleID: ArticleID,
-				Types: 3,
-				Introduction: ""
-			}, function(data) {
-				if(mui.os.plus) {
-					plus.nativeUI.closeWaiting();
-				}
-				if(data != null) {
-					if(data.result) {
-						var html = appendStr("点击添加视频", "video", data.message);
-						$("#" + currEditID).parents(".edit-body").after(html);
-						$("#edit").find(".banner").addClass("hide");
-						$("#edit").find(".edit-add").removeClass("hide");
-						Group(document.getElementById('edit'), window.innerWidth * 0.05);
-					} else {
-						mui.toast(data.message);
-					}
-				}
+			base.OpenWindow("editvideo", "editvideo.html", {
+				ArticleID: ArticleID
 			});
-		}); 
+		});
 
 		//删除
 		mui('#edit').on('tap', '.edit-del', function() {
@@ -388,6 +368,20 @@
 		}
 	});
 
+	//添加视频
+	function AddVideo(partid, url) {
+		var html = appendStr(url, "video", partid);
+		$("#" + currEditID).parents(".edit-body").after(html);
+		$("#edit").find(".banner").addClass("hide");
+		$("#edit").find(".edit-add").removeClass("hide");
+		Group(document.getElementById('edit'), window.innerWidth * 0.05);
+
+		$(".youku_player").each(function() {
+			var $this = $(this);
+			ShowVideo($this.attr("id"), $this.attr("sid"));
+		});
+	}
+
 	//修改音乐
 	function UpdateMusic(musicID, musicName, musicUrl) {
 		console.log(musicID + "," + musicName + "," + musicUrl);
@@ -453,8 +447,10 @@
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="../images/60x60.gif"><img src="../images/60x60.gif" /></div>');
-		} else {
+		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
+		} else if(type == "video") {
+			model.push('<div class="f11 tl" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
@@ -469,8 +465,10 @@
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="' + text + '" /></div>');
-		} else {
+		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
+		} else if(type == "video") {
+			model.push('<div class="f11 tl" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
@@ -525,6 +523,11 @@
 							$edit.append(html);
 						}
 						Group(document.getElementById('edit'), window.innerWidth * 0.05);
+
+						$(".youku_player").each(function() {
+							var $this = $(this);
+							ShowVideo($this.attr("id"), $this.attr("sid"));
+						});
 					}
 				}
 			}
