@@ -247,7 +247,7 @@
 					}
 				}
 			});
-		});
+		}); 
 
 		//删除
 		mui('#edit').on('tap', '.edit-del', function() {
@@ -269,6 +269,7 @@
 						if(data != null) {
 							if(data.result) {
 								$this.parentNode.parentNode.parentNode.remove();
+								Group(document.getElementById('edit'), window.innerWidth * 0.05);
 							} else {
 								mui.toast(data.message);
 							}
@@ -401,7 +402,8 @@
 	//保存
 	function Save() {
 		if(base.IsNullOrEmpty(Title)) {
-			return mui.toast("请输入标题");
+			Title = "我的GO"
+				//return mui.toast("请输入标题");
 		}
 
 		var ids = [];

@@ -66,6 +66,11 @@
 					</div>
 				</li>
 			</ul>
+			
+			<!--视频测试开始-->
+			
+			<!--视频测试结束-->
+			
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
 		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
@@ -101,6 +106,7 @@
 	});
 
 	$(function() {
+		base.UpdateUser(userinfo.ID, function() {
 			userinfo = base.GetUserInfo();
 			document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
 		})
