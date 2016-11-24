@@ -32,49 +32,52 @@
 			.mui-table-view:after {
 				height: 0px;
 			}
+			
+			#url {
+				border: 0px;
+				height: 200px;
+				padding: 20px 10px;
+				line-height: 1.25rem;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<h1 class="mui-title c333">我的打赏</h1>
+			<h1 class="mui-title c333">编辑视频</h1>
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view f13 mt0">
 				<li class="mui-table-view-cell tc">
-					<img class="head-img mui-action-preview mt10" id="avatar" src="../images/my/pay.png" style="width:20%;" />
-					<p class="f12 c333 mt5">账户余额</p>
-					<p class="f25 bold c333 mt5" id="money"></p>
-				</li>
-				<li class="mui-table-view-cell" id="mypay">
-					<p class="f13 c333">打赏记录</p>
+					<p class="f20 c333 mt5">GO支持导入(优酷)视频</p>
 				</li>
 				<li class="mui-table-view-cell" id="apply">
-					<p class="f13 c333">申请提现</p>
-					<p class="f11 caaa mt5">提现最小金额100元，收取5%手续费</p>
+					<p class="f13 c333">有优酷账号</p>
+					<p class="f11 blue mt5">可以导入账号下收藏和上传的视频</p>
+				</li>
+				<li class="mui-table-view-cell" id="addurl" onclick="ActionTan(1)">
+					<p class="f13 c333">没有优酷账号</p>
+					<p class="f11 blue mt5">从视频网页地址导入</p>
 				</li>
 				<li class="mui-table-view-cell">
-					<p class="f13 c333">启用打赏</p>
-					<p class="f11 caaa mt5">分享文章，读者即可打赏支持</p>
-					<div class="mui-switch" id="autoMusicSwitch">
-						<div class="mui-switch-handle"></div>
-					</div>
+					<p class="f13 blue">如何获取视频网页地址</p>
 				</li>
 			</ul>
+
+			<!--视频测试开始-->
+			<div id="video"></div>
+			<!--视频测试结束-->
+
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
 		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
 			<div style="padding:30px;padding-bottom:15px;">
-				<p class="blue f15 bold">打赏功能使用协议</p>
-				<p class="c333 f12 mt5">打赏金额满100元方可提现，目前仅支持提现到支付宝账户，申请后5个工作日内发放完毕。</p>
-				<p class="c333 f12 mt5">提现收取5%手续费，主要用户支付微信、支付宝相关费用。</p>
-				<p class="c333 f12 mt5">打赏功能不可用于募捐，以及各类违法行为，一经发现取消提现资格。</p>
-				<p class="c333 f12 mt5">同意本协议方可启用打赏功能。</p>
+				<textarea id='url' class="mui-input-clear f12 mb0" placeholder="请粘贴视频网页地址" maxlength="150"></textarea>
 			</div>
 			<div class="full" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;">
 				<div style="width:50%;" class="tc fl f13" onclick="NotAgree(0)">取消</div>
-				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">同意</div>
+				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">确定</div>
 				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
 			</div>
 		</div>
@@ -97,35 +100,11 @@
 	});
 
 	$(function() {
-		base.UpdateUser(userinfo.ID, function() {
-			userinfo = base.GetUserInfo();
-			document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
-		})
-
-		if(userinfo.IsPay == 1) {
-			mui("#autoMusicSwitch").switch().toggle();
-		}
-
-		//是否自动播放音乐
-		document.getElementById("autoMusicSwitch").addEventListener('toggle', function(event) {
-			if(isLoading) {
-				return;
-			}
-			isLoading = true;
-			ispay = event.detail.isActive ? 1 : 0;
-
-			if(ispay == 1) {
-				ActionTan(1);
-			} else {
-				Agree();
-			}
-		});
-
 		//我的打赏
-		document.getElementById('mypay').addEventListener('tap', function(event) {
+		/*document.getElementById('mypay').addEventListener('tap', function(event) {
 			base.OpenWindow("pay", "pay.html", {});
 		});
-
+*/
 		//申请提现
 		document.getElementById('apply').addEventListener('tap', function(event) {
 			if(isLoading) {
@@ -162,27 +141,22 @@
 	});
 
 	function NotAgree() {
-		mui("#autoMusicSwitch").switch().toggle();
 		ActionTan(0);
 		isLoading = false;
 	}
 
 	function Agree() {
-		ActionTan(0);
 		HttpGet(base.RootUrl + "User/EditPay", {
 			ID: userinfo.ID,
 			IsPay: ispay
 		}, function(data) {
 			if(data == null) {
-				mui.toast("修改失败");
-				mui("#autoMusicSwitch").switch().toggle();
+				mui.toast("失败");
 			} else {
 				if(data.result) {
-					userinfo.IsPay = ispay;
-					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					ActionTan(0);
 				} else {
-					mui.toast("修改失败");
-					mui("#autoMusicSwitch").switch().toggle();
+					mui.toast(data.message);
 				}
 			}
 			isLoading = false;
@@ -198,5 +172,38 @@
 			$("#mytanbg").removeClass("hide");
 			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
+	}
+</script>
+<script type="text/javascript" src="http://player.youku.com/jsapi"></script>
+<script type="text/javascript">
+	var html = AppendVideo("87907657"); //锦绣未央 07http://v.youku.com/v_show/id_XMTgxODkyMjMwNA==.html?x&sharefrom=android   87907657
+	/*$("#video").html(html);
+
+	$(".youku_player").each(function() {
+		var $this = $(this);
+		ShowVideo($this.attr("id"), $this.attr("sid"));
+	});*/
+
+	function ShowVideo(domid, vid) {
+		player = new YKU.Player(domid, {
+			client_id: base.youku_client_id,
+			styleid: '0',
+			vid: vid,
+			autoplay: false,
+			show_related: false
+		});
+	}
+
+	function AppendVideo(sourceurl) {
+		var html = [];
+		//优酷
+		if(sourceurl.indexOf(".") < 0) {
+			return '<div class="media-cont audio-cont" style="margin-top: 10px; width: 100%;"><div id="youku_player_' + sourceurl + '" sid="' + sourceurl + '" class="youku_player" style="width:100%;height:400px;"></div></div>';
+		}
+		//SWF
+		if(sourceurl.toLowerCase().indexOf(".swf") > 0) {
+			return '<div class="media-cont audio-cont" style="margin-top:10px;width: 100%;"><embed src="' + sourceurl + '" allowfullscreen="true" quality="high" width="100%"  height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash"></embed></div>';
+		}
+		return "";
 	}
 </script>

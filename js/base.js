@@ -1,5 +1,11 @@
 var base = new function() {
 	/**
+	 * 优酷
+	 **/
+	this.youku_client_id = "59bec9b0be1fc34b";
+	this.youku_client_secret = "244a6bbc4b212e01b8702745b879e52d";
+
+	/**
 	 * 是否测试
 	 **/
 	this.IsTest = mui.os.plus ? false : true;
