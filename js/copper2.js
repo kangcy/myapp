@@ -147,7 +147,12 @@ function closepop() {
 //确认照片，展示效果  
 function confirm(callback) {
 	var imgurl = $("#readyimg").attr("src");
-
+	if(base.IsNullOrEmpty(imgurl)) {
+		if($.isFunction(callback)) {
+			callback(imgurl);
+		}
+		return;
+	}
 	if(iscutimging) {
 		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
 		imgurl = dataURL.toDataURL("image/jpeg", 0.8);
@@ -203,7 +208,7 @@ function compressImage(src, newsrc, callback) {
 			dst: newsrc,
 			overwrite: true,
 			width: width,
-			quality: 100
+			quality: 80
 		},
 		function(event) {
 			if($.isFunction(callback)) {

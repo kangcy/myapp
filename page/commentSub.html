@@ -507,7 +507,7 @@
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage1;
-				var length = data.list.length;
+				var length = data.records;
 				if(length > 0) {
 					document.getElementById("none1").classList.add("hide");
 					var table = document.getElementById('scroll-view1');
@@ -541,7 +541,7 @@
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage2;
-				var length = data.list.length;
+				var length = data.records;
 				if(length > 0) {
 					document.getElementById("none2").classList.add("hide");
 					var table = document.getElementById('scroll-view2');

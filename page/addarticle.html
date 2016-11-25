@@ -123,38 +123,22 @@
 				currEditImg = this.getAttribute("src");
 				base.OpenWindow("editimage", "editimage.html", {
 					Url: currEditImg,
-					Source: "ArticleAvatar"
+					Source: "ArticleAvatar",
+					ArticleID: ArticleID,
+					PartID: $("#" + currEditID).attr("partid")
 				});
 			} else if(type == "text") {
 				//编辑文字
 				var html = document.getElementById(currEditID).innerHTML.trim();
 				base.OpenWindow("editdesc", "editdesc.html", {
+					ArticleID: ArticleID,
+					PartID: $("#" + currEditID).attr("partid"),
 					title: html == "点击添加文字" ? "" : html
 				});
 			} else if(type == "video") {
 				//编辑视频
 			}
 		})
-
-		//修改图片
-		window.addEventListener("UpdateAvatar", function(e) {
-			var url = e.detail.Url;
-			if(currEditImg == url) {
-				mui.toast("编辑成功~");
-				return;
-			}
-			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				ID: userinfo.ID,
-				PartID: $("#" + currEditID).attr("partid"),
-				Introduction: url
-			}, function(data) {
-				if(data != null) {
-					if(data.result) {
-						$("#" + currEditID).find("img").attr("src", url);
-					}
-				}
-			});
-		});
 
 		//新增切换
 		mui('#edit').on('tap', '.edit-add', function() {
@@ -168,57 +152,19 @@
 
 		//新增图片
 		mui('#edit').on('tap', '.edit-add-pic', function() {
-			if(mui.os.plus) {
-				plus.nativeUI.showWaiting("创建中...");
-			}
-			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				ID: userinfo.ID,
+			base.OpenWindow("editimage", "editimage.html", {
 				ArticleID: ArticleID,
-				Types: 1,
-				Introduction: base.DefaultImg
-			}, function(data) {
-				if(mui.os.plus) {
-					plus.nativeUI.closeWaiting();
-				}
-				if(data != null) {
-					if(data.result) {
-						var html = appendStr("点击添加图片", "pic", data.message);
-						$("#" + currEditID).parents(".edit-body").after(html);
-						$("#edit").find(".banner").addClass("hide");
-						$("#edit").find(".edit-add").removeClass("hide");
-						Group(document.getElementById('edit'), window.innerWidth * 0.05);
-					} else {
-						mui.toast(data.message);
-					}
-				}
+				PartID: 0,
+				Url: currEditImg,
+				Source: "ArticleAvatar"
 			});
 		});
 
 		//新增文本
 		mui('#edit').on('tap', '.edit-add-text', function() {
-			if(mui.os.plus) {
-				plus.nativeUI.showWaiting("创建中...");
-			}
-			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				ID: userinfo.ID,
+			base.OpenWindow("editdesc", "editdesc.html", {
 				ArticleID: ArticleID,
-				Types: 2,
-				Introduction: ""
-			}, function(data) {
-				if(mui.os.plus) {
-					plus.nativeUI.closeWaiting();
-				}
-				if(data != null) {
-					if(data.result) {
-						var html = appendStr("点击添加文字", "text", data.message);
-						$("#" + currEditID).parents(".edit-body").after(html);
-						$("#edit").find(".banner").addClass("hide");
-						$("#edit").find(".edit-add").removeClass("hide");
-						Group(document.getElementById('edit'), window.innerWidth * 0.05);
-					} else {
-						mui.toast(data.message);
-					}
-				}
+				PartID: 0
 			});
 		});
 
@@ -333,31 +279,6 @@
 		}
 	});
 
-	//修改文字
-	window.addEventListener("updateDesc", function(e) {
-		var t = e.detail.desc;
-		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			ID: userinfo.ID,
-			PartID: $("#" + currEditID).attr("partid"),
-			Introduction: escape(t)
-		}, function(data) {
-			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
-			}
-			if(data != null) {
-				if(data.result) {
-					if(t == "") {
-						document.getElementById(currEditID).innerHTML = "点击添加文字";
-					} else {
-						document.getElementById(currEditID).innerHTML = t;
-					}
-				} else {
-					mui.toast(data.message);
-				}
-			}
-		});
-	});
-
 	//修改图片
 	window.addEventListener("updatePic", function(e) {
 		var t = e.detail.title;
@@ -367,6 +288,32 @@
 			document.getElementById(currEditID).innerHTML = t;
 		}
 	});
+
+	//编辑图片
+	function AddPic(partid, url, index) {
+		if(index == 0) {
+			var html = appendStr(url, "pic", partid);
+			$("#" + currEditID).parents(".edit-body").after(html);
+			$("#edit").find(".banner").addClass("hide");
+			$("#edit").find(".edit-add").removeClass("hide");
+			Group(document.getElementById('edit'), window.innerWidth * 0.05);
+		} else {
+			$("#" + currEditID).find("img").attr("src", url);
+		}
+	}
+
+	//编辑文本
+	function AddText(partid, text, index) {
+		if(index == 0) {
+			var html = appendStr(unescape(text), "text", partid);
+			$("#" + currEditID).parents(".edit-body").after(html);
+			$("#edit").find(".banner").addClass("hide");
+			$("#edit").find(".edit-add").removeClass("hide");
+			Group(document.getElementById('edit'), window.innerWidth * 0.05);
+		} else {
+			document.getElementById(currEditID).innerHTML = unescape(text);
+		}
+	}
 
 	//添加视频
 	function AddVideo(partid, url) {
@@ -397,7 +344,6 @@
 	function Save() {
 		if(base.IsNullOrEmpty(Title)) {
 			Title = "我的GO"
-				//return mui.toast("请输入标题");
 		}
 
 		var ids = [];
@@ -446,7 +392,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="../images/60x60.gif"><img src="../images/60x60.gif" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="' + text + '" /></div>');
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {

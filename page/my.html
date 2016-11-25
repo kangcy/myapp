@@ -47,9 +47,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="c000 menu f12" id="myvideo"><i class="fa fa-rmb mr10 f16 caaa"></i>
-						<div>我的视频<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20"></span></div>
-					</div>
 					<div class="c000 menu f12" id="my-mypay"><i class="fa fa-rmb mr10 f16 caaa"></i>
 						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20"></span></div>
 					</div>
@@ -160,13 +157,6 @@
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
 		} 
-
-		//视频测试
-		document.getElementById('myvideo').addEventListener('tap', function(event) {
-			base.OpenWindow("editvideo", "editvideo.html", {
-
-			});
-		});
 
 		//用户设置
 		document.getElementById('avatar').addEventListener('tap', function(event) {

@@ -53,6 +53,9 @@
 	var totalheight = window.innerHeight - 90;
 	var Url = "";
 	var Source = "";
+	var ArticleID = 0;
+	var PartID = 0;
+	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -69,22 +72,28 @@
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID || 0;
+		PartID = self.PartID || 0;
 		Url = self.Url;
 		Source = self.Source;
 
-		$("#readyimg").attr("src", Url).load(function() {
-			var imagewidth = $("#readyimg").width();
-			var imageheight = $("#readyimg").height();
-			if(totalheight > imageheight) {
-				$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
-			} else {
-				$("#readyimg").css({
-					"width": "auto",
-					"height": totalheight + "px",
-					"margin": "0px"
-				}).show();
-			}
-		});
+		if(base.IsNullOrEmpty(Url)) {
+			showActionSheet();
+		} else {
+			$("#readyimg").attr("src", Url).load(function() {
+				var imagewidth = $("#readyimg").width();
+				var imageheight = $("#readyimg").height();
+				if(totalheight > imageheight) {
+					$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
+				} else {
+					$("#readyimg").css({
+						"width": "auto",
+						"height": totalheight + "px",
+						"margin": "0px"
+					}).show();
+				}
+			});
+		}
 
 		mui.back = function() {
 			plus.webview.currentWebview().close();
@@ -97,6 +106,10 @@
 
 		document.getElementById("confirm").addEventListener('tap', function(event) {
 			confirm(function(src) {
+				if(base.IsNullOrEmpty(src)) {
+					mui.back();
+					return;
+				}
 				switch(Source) {
 					//文章封面
 					case "ArticleCover":
@@ -108,10 +121,38 @@
 						break;
 						//文章内容
 					case "ArticleAvatar":
-						var page = plus.webview.getWebviewById("addarticle");
-						mui.fire(page, "UpdateAvatar", {
-							"Url": src
+						if(isLoading) {
+							return;
+						}
+						isLoading = true;
+						plus.nativeUI.showWaiting("编辑中...");
+						HttpGet(base.RootUrl + "ArticlePart/Edit", {
+							ID: userinfo.ID,
+							ArticleID: ArticleID,
+							PartID: PartID,
+							Types: 1,
+							Introduction: src
+						}, function(data) {
+							if(mui.os.plus) {
+								plus.nativeUI.closeWaiting();
+							}
+							if(data != null) {
+								if(data.result) {
+									var addarticlePage = plus.webview.getWebviewById('addarticle');
+									if(addarticlePage) {
+										addarticlePage.evalJS("AddPic('" + data.message + "','" + src + "','" + PartID + "')");
+									}
+									mui.back();
+								} else {
+									mui.toast(data.message);
+								}
+							}
+							isLoading = false;
 						});
+
+						/*mui.fire(page, "UpdateAvatar", {
+							"Url": src
+						});*/
 						mui.back();
 						break;
 						//用户封面
@@ -129,32 +170,6 @@
 							"Url": src
 						});
 						mui.back();
-						break;
-					case "AddArticle":
-						plus.nativeUI.showWaiting("创建中...");
-						//创建文章
-						var data = {
-							ID: userinfo.ID,
-							Cover: src,
-							Title: ""
-						}
-						HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
-							if(data != null) {
-								if(data.result) {
-									var part = data.message;
-									ArticleID = part.ArticleID;
-									base.OpenWindow("addarticle", "addarticle.html", {
-										ArticleID: data.message.ArticleID,
-										Source: "Add"
-									});
-								} else {
-									mui.toast(data.message);
-								}
-							} else {
-								plus.nativeUI.closeWaiting();
-							}
-						});
-						//mui.back();
 						break;
 					default:
 						mui.back();
