@@ -394,6 +394,9 @@ var base = new function() {
 		if(item.Tag == 99) {
 			model.push('<span class="fl f12" style="padding:1px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');
 		}
+		if(base.IsNullOrEmpty(item.Title)) {
+			item.Title = "我的GO";
+		}
 		model.push(item.Title + '</p>');
 
 		//部分拼接 
@@ -430,7 +433,7 @@ var base = new function() {
 			ArticleID: articleid,
 			Source: source
 		}, function(data) {
- 
+
 		});
 	}
 }

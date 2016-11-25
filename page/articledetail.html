@@ -104,16 +104,13 @@
 				height: 100%;
 				z-index: -1;
 				border-radius: 10px;
-				margin-top: 4rem !important;
+				margin-top: 1rem !important;
 			}
 			
 			.bg {
 				width: 100%;
 				position: relative;
 				z-index: 1;
-				/*background: url("http://139.224.51.196/Source/bg/1.jpg") no-repeat;
-				background-size: 100% auto;
-				background-color: #E7CEC9;*/
 				min-height: 100%;
 			}
 			
@@ -222,8 +219,8 @@
 			<h1 class="mui-title c333 user">作者主页</h1>
 		</header>
 		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top: 46px; bottom:0px;">
-			<div class="mui-content mui-scroll-wrapper">
-				<div class="mui-scroll bg" id="bg">
+			<div class="mui-content mui-scroll-wrapper bg" id="bg">
+				<div class="mui-scroll">
 					<!--通用样式-->
 					<div id="main0" class="hide">
 						<div class="f13 tl detail">
@@ -584,8 +581,8 @@
 
 					if(!base.IsNullOrEmpty(data.Cover)) {
 						$("#bg").css({
-							"background": "url(" + data.Cover + ") no-repeat",
-							"background-size": "100% auto"
+							"background": "url(" + data.Cover + ") no-repeat top",
+							"background-size": "100% 100%"
 						});
 					}
 
