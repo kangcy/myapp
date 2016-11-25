@@ -260,6 +260,9 @@
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
 			//{"coordsType":"gcj02","address":{"country":"中国","province":"江苏省","city":"南京市","district":"雨花台区","street":"软件大道","poiName":"丰盛·商汇(软件大道)","cityCode":"025"},"addresses":"江苏省南京市雨花台区软件大道靠近丰盛·商汇(软件大道)","coords":{"latitude":31.97603,"longitude":118.761916,"accuracy":25,"altitude":0,"heading":null,"speed":0,"altitudeAccuracy":0},"timestamp":1479280218323}
+
+			console.log(JSON.stringify(p));
+
 			Province = p.address.province;
 			City = p.address.city;
 		}, function(e) {

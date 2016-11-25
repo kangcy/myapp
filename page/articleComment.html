@@ -304,6 +304,8 @@
 
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
+			console.log(JSON.stringify(p));
+			
 			Province = p.address.province;
 			City = p.address.city;
 		}, function(e) {
