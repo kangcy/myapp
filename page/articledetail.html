@@ -109,7 +109,7 @@
 			
 			.bg {
 				width: 100%;
-				position: relative;
+				/*position: relative;*/
 				z-index: 1;
 				min-height: 100%;
 			}
@@ -208,6 +208,15 @@
 			
 			.temp.hover img {
 				border: 2px solid #ed5565;
+			}
+			/**背景设置**/
+			
+			.mui-input-group .mui-input-row:after {
+				left: 0px;
+			}
+			
+			.mui-card {
+				border: 0px;
 			}
 		</style>
 	</head>
@@ -342,12 +351,44 @@
 				<div class="myaction_items" onclick="Delete()"><img src="../images/article/1.png" />
 					<p class="f11 mb0 c000">删除</p>
 				</div>
+				<div class="myaction_items" onclick="Copy()"><img src="../images/article/2.png" />
+					<p class="f13 mb0 c000">复制</p>
+				</div>
 				<div class="myaction_items" onclick="Edit()"><img src="../images/article/3.png" />
 					<p class="f12 mb0 c000">编辑</p>
 				</div>
 				<div class="myaction_items" onclick="Power()"><img src="../images/article/4.png" />
 					<p class="f13 mb0 c000">权限</p>
 				</div>
+				<div class="myaction_items" onclick="SetBackground()"><img src="../images/article/5.png" />
+					<p class="f13 mb0 c000">背景</p>
+				</div>
+			</div>
+		</div>
+		<!--背景设置-->
+		<div class="boxshadow hide" id="background" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
+			<div style="padding:30px;padding-bottom:15px;">
+				<div class="mui-card">
+					<form class="mui-input-group">
+						<div class="mui-input-row mui-radio" onclick="ChangeBg(0)">
+							<label>全屏</label>
+							<input name="background" value="0" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio" onclick="ChangeBg(1)">
+							<label>居顶</label>
+							<input name="background" value="1" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio" onclick="ChangeBg(2)">
+							<label>平铺</label>
+							<input name="background" value="2" type="radio">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="full" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;">
+				<div style="width:50%;" class="tc fl f13" onclick="NotAgree(0)">取消</div>
+				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">确定</div>
+				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
 			</div>
 		</div>
 		<textarea id="textarea" class="hide"></textarea>
@@ -377,6 +418,9 @@
 	var currEditID = 0; //当前操作对象ID
 	var MusicID = ""; //音乐控件ID
 	var MusicUrl = ""; //音乐播放地址
+	var Background = 0; //当前背景设置
+	var CurrBackground = 0; //当前选中背景设置
+	var Cover = ""; //背景图片
 	var userinfo = base.GetUserInfo();
 
 	var editor = null;
@@ -581,11 +625,13 @@
 				if(data.result) {
 					data = data.message;
 
-					if(!base.IsNullOrEmpty(data.Cover)) {
-						$("#bg").css({
-							"background": "url(" + data.Cover + ") no-repeat top",
-							"background-size": "100% 100%"
-						});
+					Background = data.Background;
+					CurrBackground = Background;
+					Cover = data.Cover;
+
+					$(".mui-radio:eq(" + Background + ")").find(":radio").attr("checked", "checked");
+					if(!base.IsNullOrEmpty(Cover)) {
+						ChangeBg(Background);
 					}
 
 					ArticlePower = data.ArticlePower;
@@ -712,6 +758,30 @@
 		});
 	}
 
+	//复制
+	function Copy() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		ActionTan(0);
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting("正在复制~");
+		}
+		HttpGet(base.RootUrl + "Article/Copy", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
+			Province: Province,
+			City: City
+		}, function(data) {
+			if(mui.os.plus) {
+				plus.nativeUI.closeWaiting();
+			}
+			mui.toast(data.result ? "复制成功,请刷新我的文章查看~" : data.message);
+			isLoading = false;
+		});
+	}
+
 	//编辑 
 	function Edit() {
 		ActionTan(0);
@@ -731,6 +801,68 @@
 			ArticlePowerPwd: ArticlePowerPwd,
 			ArticleType: ArticleType,
 			ArticleTypeName: ArticleTypeName
+		});
+	}
+
+	//背景(全屏  居顶  平铺)
+	function SetBackground() {
+		ActionTan(0);
+		BackgroundTan(1);
+	}
+
+	//背景状态切换
+	function ChangeBg(index) {
+		CurrBackground = index;
+		switch(index) {
+			case 0:
+				//全屏
+				$("#bg").css({
+					"background": "url(" + Cover + ") no-repeat",
+					"background-size": "100% 100%"
+				});
+				break;
+			case 1:
+				//居顶
+				$("#bg").css({
+					"background": "url(" + Cover + ") no-repeat top",
+					"background-size": "100% auto"
+				});
+				break;
+			case 2:
+				//平铺
+				$("#bg").css({
+					"background": "url(" + Cover + ") repeat",
+					"background-size": "auto auto"
+				});
+				break;
+			default:
+				break;
+		}
+	}
+
+	//取消修改背景设置
+	function NotAgree() {
+		BackgroundTan(0);
+		ChangeBg(Background);
+	}
+
+	//修改背景设置
+	function Agree() {
+		if(Background == CurrBackground) {
+			return;
+		}
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		BackgroundTan(0);
+		Background = CurrBackground;
+		HttpGet(base.RootUrl + "Article/EditBackground", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
+			Background: Background
+		}, function(data) {
+			isLoading = false;
 		});
 	}
 
@@ -800,6 +932,17 @@
 		} else {
 			$("#myactionbg").removeClass("hide");
 			$("#myaction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+		}
+	}
+
+	//背景设置弹窗
+	function BackgroundTan(index) {
+		if(index == 0) {
+			$("#myactionbg").addClass("hide");
+			$("#background").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+		} else {
+			$("#myactionbg").removeClass("hide");
+			$("#background").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
 	}
 
