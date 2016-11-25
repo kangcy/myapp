@@ -175,6 +175,18 @@
 			}
 			/*模板选择*/
 			
+			.mui-segmented-control .mui-control-item.mui-active {
+				background-color: inherit;
+			}
+			
+			#btnTemp,
+			#agreeTemp {
+				position: fixed;
+				right: 10px;
+				bottom: 110px;
+				z-index: 9999;
+			}
+			
 			#temps {
 				background: #eee;
 				height: 100px;
@@ -186,7 +198,7 @@
 			}
 			
 			.temp {
-				width: 80px !important;
+				width: 60px !important;
 				height: 80px !important;
 				padding: 0px !important;
 				position: relative;
@@ -204,10 +216,12 @@
 			.temp img {
 				width: 100% !important;
 				height: 100% !important;
+				border: 2px solid #eee;
+				border-radius: 5px;
 			}
 			
 			.temp.hover img {
-				border: 2px solid #ed5565;
+				border: 2px solid #ff6900;
 			}
 			/**背景设置**/
 			
@@ -237,7 +251,7 @@
 							<div class="full tl">
 								<p class="f20 c000" id="title0"></p>
 								<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
-								<span class="mb0 blue ml10 user mt10" userid="0" id="nickname0"></span>
+								<span class="mb0 ml10 user mt10" userid="0" id="nickname0" style="color:#007aff"></span>
 								<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
 								<p id="music0" play="on" class="music" onclick="switchsound()">
 									<i></i>
@@ -254,7 +268,7 @@
 						<div class="tc" style="width:95%;margin:0px 2.5%;padding-top:2.5%;">
 							<div class="full" style="position:relative;">
 								<img id="useravatar1" />
-								<p class="full mb0 user blue mt10" userid="0" id="nickname1"></p>
+								<p class="full mb0 user mt10" userid="0" id="nickname1" style="color:#007aff"></p>
 								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:0px;top:0px;"></i>
 							</div>
 						</div>
@@ -292,18 +306,23 @@
 			</div>
 		</div>
 		<!--模板选择-->
-		<!--<i class="fa fa-music f13" onclick="switchsound()" style="position:fixed; right:10px;bottom:70px;"></i>-->
-		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control hide" style="">
+		<i class="mui-icon mui-icon-pengyouquan" onclick="TempTan(1)" style="font-size:50px;color:#ed5565;background:#fff;border-radius:50px;" id="btnTemp"></i>
+		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
+		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;">
-				<div class="mui-control-item temp" index="0"><img src="../images/share/1.png" /></div>
-				<div class="mui-control-item temp" index="1"><img src="../images/share/2.png" /></div>
-				<div class="mui-control-item temp" index="2"><img src="../images/share/3.png" /></div>
-				<div class="mui-control-item temp" index="3"><img src="../images/share/4.png" /></div>
-				<div class="mui-control-item temp" index="4"><img src="../images/share/5.png" /></div>
-				<div class="mui-control-item temp" index="5"><img src="../images/share/6.png" /></div>
-				<div class="mui-control-item temp" index="6"><img src="../images/share/7.png" /></div>
-				<div class="mui-control-item temp" index="7"><img src="../images/share/8.png" /></div>
-				<div class="mui-control-item temp" index="8"><img src="../images/share/9.png" /></div>
+				<div class="mui-control-item temp" index="0" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/0.jpg" /></div>
+				<div class="mui-control-item temp" index="1" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/1_0.png" /></div>
+				<div class="mui-control-item temp" index="2" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/2_0.png" /></div>
+				<div class="mui-control-item temp" index="3" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/3_0.png" /></div>
+				<div class="mui-control-item temp" index="4" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/4_0.png" /></div>
+				<div class="mui-control-item temp" index="5" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/5_0.png" /></div>
+				<div class="mui-control-item temp" index="6" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/6_0.png" /></div>
+				<div class="mui-control-item temp" index="7" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/7_0.png" /></div>
+				<div class="mui-control-item temp" index="8" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/8_0.png" /></div>
+				<div class="mui-control-item temp" index="9" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/9_0.png" /></div>
+				<div class="mui-control-item temp" index="10" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/10_0.png" /></div>
+				<div class="mui-control-item temp" index="11" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/11_0.png" /></div>
+				<div class="mui-control-item temp" index="12" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/12_0.png" /></div>
 			</div>
 		</div>
 		<!--分享-->
@@ -441,8 +460,12 @@
 		//模板选择
 		mui('#temps').on('tap', '.temp', function() {
 			$(".temp").removeClass("hover");
-			$(this).addClass("hover");
-
+			var $this = $(this);
+			$this.addClass("hover");
+			Cover = $this.find("img").attr("src").replace("_0.png", ".jpg");
+			$("#useravatar1").css("margin-top", $this.attr("mt"));
+			$("#nickname1").css("color", $this.attr("color"));
+			ChangeBg(Background);
 		});
 
 		//点赞
@@ -944,6 +967,21 @@
 			$("#myactionbg").removeClass("hide");
 			$("#background").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
+	}
+
+	//模板选择弹窗
+	function TempTan(index) {
+		if(index == 0) {
+			$("#agreeTemp,#temps").addClass("hide");
+			$("#btnTemp").removeClass("hide");
+		} else {
+			$("#btnTemp").addClass("hide");
+			$("#agreeTemp,#temps").removeClass("hide");
+		}
+	}
+
+	function ChooseTan() {
+		TempTan(0);
 	}
 
 	//分享信息
