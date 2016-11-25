@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon mui-icon-back fl"></a>
+			<h1 class="mui-title c333">如何获取视频网页地址</h1>
+		</header>
+		<div class="mui-content f13">
+			<div class="mui-scroll-wrapper" style="top:50px;bottom:0px;">
+				<div class="mui-scroll">
+					<div class="full" style="padding:20px;line-height:1.2rem;">
+						<p class="c333 mt10 mb10">在添加视频的时候，若没有“优酷”账号，可以直接使用视频地址添加视频</p>
+						<p class="c333 mt10 mb10">1、在“优酷”里打开需要的视频内容，在分享里选择分享到“QQ”。</p>
+						<div class="full tc"><img id="step1" /></div>
+						<p class="c333 mt10 mb10">2、再从“QQ”里打开视频，在右上角点分享后选择“复制链接”。</p>
+						<div class="full tc"><img id="step2" /></div>
+						<p class="c333 mt10 mb10">3、把复制的链接贴入“GO视频网址输入框”就可以载入优酷视频。</p>
+						<div class="full tc"><img id="step3" /></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.plusReady(function() {
+		base.InitScroll();
+		document.getElementById("step1").setAttribute("src", base.RootUrl + "System/Video/1.png");
+		document.getElementById("step2").setAttribute("src", base.RootUrl + "System/Video/2.png");
+		document.getElementById("step3").setAttribute("src", base.RootUrl + "System/Video/3.png");
+
+		//判断网络类型
+		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+			mui.toast("网络异常，请检查网络设置！");
+		}
+
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			plus.webview.close(self);
+		}
+
+		//返回
+		document.getElementById('back').addEventListener('tap', function(e) {
+			mui.back();
+		});
+	});
+</script>

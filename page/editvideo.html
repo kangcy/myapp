@@ -51,7 +51,7 @@
 			<ul class="mui-table-view f13 mt0">
 				<li class="mui-table-view-cell tc">
 					<p class="f18 c333 mt20">GO支持导入(优酷)视频</p>
-					<p class="f13 blue mt10 mb10">如何获取视频网页地址?</p>
+					<p class="f13 blue mt10 mb10" onclick="Notice()">如何获取视频网页地址?</p>
 				</li>
 				<li class="mui-table-view-cell" id="apply">
 					<p class="f13 c333">有优酷账号</p>
@@ -162,5 +162,9 @@
 			$("#mytanbg").removeClass("hide");
 			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
+	}
+
+	function Notice() {
+		base.OpenWindow("videonotice", "videonotice.html", {});
 	}
 </script>
