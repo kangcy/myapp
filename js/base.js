@@ -72,6 +72,22 @@ var base = new function() {
 	}
 
 	/**
+	 * 等待提示框
+	 **/
+	this.ShowWaiting = function(title) {
+		plus.nativeUI.showWaiting(title, {
+			width: "80%",
+			padding: "4%",
+			background: "rgba(0,0,0,0.6)",
+			textalign: "left",
+			back: "none",
+			loading: {
+				display: "inline"
+			}
+		});
+	}
+
+	/**
 	 * 打开新页面
 	 **/
 	this.OpenWindow = function(id, url, data) {

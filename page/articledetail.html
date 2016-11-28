@@ -100,7 +100,7 @@
 			}
 			
 			.cover {
-				background: RGBA(255, 255, 255, 0.5);
+				background: RGBA(255, 255, 255, 0.4);
 				height: 100%;
 				z-index: -1;
 				border-radius: 10px;
@@ -184,7 +184,7 @@
 				position: fixed;
 				right: 10px;
 				bottom: 110px;
-				z-index: 9999;
+				z-index: 999;
 			}
 			
 			#temps {
@@ -429,6 +429,7 @@
 	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
 	var MusicID = ""; //音乐控件ID
+	var MusicUrl = "";
 	var CurrBackground = 0; //当前选中背景设置
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
@@ -659,6 +660,7 @@
 				if(data.result) {
 					data = data.message;
 					Article = data;
+					MusicUrl = data.MusicUrl;
 
 					$(".user").attr("userid", data.CreateUserID);
 
@@ -701,18 +703,19 @@
 					}
 
 					$("#musicname0").html(data.MusicName);
-					$("#title0").html(data.Title);
-					$("#nickname0").html(data.NickName).attr("userid", userinfo.ID);
-					$("#createdate0").html(data.CreateDateText);
-					$("#views0").html("阅读  " + data.Views);
-					$("#desc0").html(html.join(""));
-
 					$("#useravatar1").attr("src", data.Avatar);
-					$("#title1").html(data.Title);
+					$("#title0,#title1").html(data.Title);
+					$("#nickname0,#nickname1").html(data.NickName).attr("userid", userinfo.ID);
+					$("#createdate0,#createdate1").html(data.CreateDateText);
+					$("#views0,#views1").html("阅读  " + data.Views);
+					$("#desc0,#desc1").html(html.join(""));
+
+					//$("#useravatar1").attr("src", data.Avatar);
+					/*$("#title1").html(data.Title);
 					$("#nickname1").html(data.NickName).attr("userid", userinfo.ID);
 					$("#createdate1").html(data.CreateDateText);
 					$("#views1").html("阅读  " + data.Views);
-					$("#desc1").html(html.join(""));
+					$("#desc1").html(html.join(""));*/
 
 					//实例化播放器
 					$(".youku_player").each(function() {
@@ -759,7 +762,7 @@
 	//切换音乐
 	function ChangeMusic(index) {
 		MusicID = "music" + index;
-		if(!base.IsNullOrEmpty(Article.MusicUrl)) {
+		if(!base.IsNullOrEmpty(MusicUrl)) {
 			if(Article.AutoMusic == 1) {
 				document.addEventListener('touchstart', startsound);
 			}
@@ -907,26 +910,27 @@
 	function CheckKeep() {
 		if(base.CheckKeep(userinfo.KeepText, ArticleID)) {
 			$("#iskeep,#isnotkeep").toggleClass("hide");
-		} else {
-			document.getElementById("isnotkeep").addEventListener('tap', function(e) {
-				if(isLoading)
-					return;
-				isLoading = true;
-				HttpGet(base.RootUrl + "Keep/Edit", {
-					ID: userinfo.ID,
-					ArticleID: ArticleID
-				}, function(data) {
-					if(data != null) {
-						if(data.result) {
-							base.AddKeep(userinfo, ArticleID);
-							$("#iskeep,#isnotkeep").toggleClass("hide");
-						}
-						mui.toast(data.result ? "收藏成功" : data.message);
-					}
-					isLoading = false;
-				});
-			});
 		}
+	}
+
+	//收藏
+	function Keep() {
+		if(isLoading)
+			return;
+		isLoading = true;
+		HttpGet(base.RootUrl + "Keep/Edit", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					base.AddKeep(userinfo, ArticleID);
+					$("#iskeep,#isnotkeep").toggleClass("hide");
+				}
+				mui.toast(data.result ? "收藏成功" : data.message);
+			}
+			isLoading = false;
+		});
 	}
 
 	//加载模板
@@ -995,11 +999,9 @@
 	//背景设置弹窗
 	function BackgroundTan(index) {
 		if(index == 0) {
-			$("#myactionbg").addClass("hide");
-			$("#background").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+			$("#myactionbg,#background").addClass("hide");
 		} else {
-			$("#myactionbg").removeClass("hide");
-			$("#background").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+			$("#myactionbg,#background").removeClass("hide");
 		}
 	}
 
@@ -1049,10 +1051,15 @@
 		}
 		//收藏
 		if(index == 8) {
+			Keep();
 			return;
 		}
 		//举报
 		if(index == 9) {
+			ShareTan(0);
+			base.OpenWindow("report", "report.html", {
+				ArticleID: ArticleID
+			});
 			return;
 		}
 
