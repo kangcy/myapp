@@ -100,7 +100,7 @@
 			}
 			
 			.cover {
-				background: RGBA(255, 255, 255, 0.6);
+				background: RGBA(255, 255, 255, 0.5);
 				height: 100%;
 				z-index: -1;
 				border-radius: 10px;
@@ -220,6 +220,14 @@
 				border-radius: 5px;
 			}
 			
+			.temp div {
+				width: 100% !important;
+				height: 100% !important;
+				border: 2px solid #fff;
+				border-radius: 5px;
+			}
+			
+			.temp.hover div,
 			.temp.hover img {
 				border: 2px solid #ff6900;
 			}
@@ -251,14 +259,14 @@
 							<div class="full tl">
 								<p class="f20 c000" id="title0"></p>
 								<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
-								<span class="mb0 ml10 user mt10" userid="0" id="nickname0" style="color:#007aff"></span>
+								<span class="mb0 ml10 user mt5" userid="0" id="nickname0" style="color:#007aff"></span>
 								<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
 								<p id="music0" play="on" class="music" onclick="switchsound()">
 									<i></i>
 									<span id="musicname0"></span>
 								</p>
 							</div>
-							<div class="c000 full mt20 mb20" id="desc0">
+							<div class="c000 full mt10 mb20" id="desc0">
 
 							</div>
 						</div>
@@ -306,23 +314,13 @@
 			</div>
 		</div>
 		<!--模板选择-->
-		<i class="mui-icon mui-icon-pengyouquan" onclick="TempTan(1)" style="font-size:50px;color:#ed5565;background:#fff;border-radius:50px;" id="btnTemp"></i>
+		<i class="mui-icon mui-icon-pengyouquan hide" onclick="TempTan(1)" style="font-size:50px;color:#ed5565;background:#fff;border-radius:50px;" id="btnTemp"></i>
 		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
-			<div class="mui-scroll" style="height:100px;margin-top:10px;">
-				<div class="mui-control-item temp" index="0" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/0.jpg" /></div>
-				<div class="mui-control-item temp" index="1" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/1_0.png" /></div>
-				<div class="mui-control-item temp" index="2" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/2_0.png" /></div>
-				<div class="mui-control-item temp" index="3" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/3_0.png" /></div>
-				<div class="mui-control-item temp" index="4" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/4_0.png" /></div>
-				<div class="mui-control-item temp" index="5" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/5_0.png" /></div>
-				<div class="mui-control-item temp" index="6" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/6_0.png" /></div>
-				<div class="mui-control-item temp" index="7" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/7_0.png" /></div>
-				<div class="mui-control-item temp" index="8" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/8_0.png" /></div>
-				<div class="mui-control-item temp" index="9" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/9_0.png" /></div>
-				<div class="mui-control-item temp" index="10" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/10_0.png" /></div>
-				<div class="mui-control-item temp" index="11" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/11_0.png" /></div>
-				<div class="mui-control-item temp" index="12" color="#007aff" mt="8rem"><img src="http://139.224.51.196/Source/temp/12_0.png" /></div>
+			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
+				<div class="mui-control-item temp f12" tid="0" color="" mt="">
+					<div style="line-height:80px;">默认</div>
+				</div>
 			</div>
 		</div>
 		<!--分享-->
@@ -424,6 +422,7 @@
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
 <script type="text/javascript">
+	var Article = {};
 	var ArticleID = 0; //文章ID
 	var ArticlePower = 0; //分享权限
 	var ArticlePowerPwd = ""; //分享权限密码
@@ -439,7 +438,10 @@
 	var MusicUrl = ""; //音乐播放地址
 	var Background = 0; //当前背景设置
 	var CurrBackground = 0; //当前选中背景设置
-	var Cover = ""; //背景图片
+	var Cover = ""; //原始背景图片
+	var CurrCover = ""; //当前背景图片
+	var Template = 0; //文章模板
+	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
 
 	var editor = null;
@@ -462,9 +464,33 @@
 			$(".temp").removeClass("hover");
 			var $this = $(this);
 			$this.addClass("hover");
-			Cover = $this.find("img").attr("src").replace("_0.png", ".jpg");
+			CurrTemplate = $this.attr("tid");
+			if(CurrTemplate == 0) {
+				CurrCover = Cover;
+			} else {
+				CurrCover = $this.attr("cover");
+			}
 			$("#useravatar1").css("margin-top", $this.attr("mt"));
 			$("#nickname1").css("color", $this.attr("color"));
+
+			var templatetype = $this.attr("type");
+			if(templatetype == 0) {
+				$("#main1").addClass("hide");
+				$("#main0").removeClass("hide");
+			} else {
+				$("#main0").addClass("hide");
+				$("#main1").removeClass("hide");
+			}
+			//音乐切换
+			MusicID = "music" + templatetype;
+			if(!base.IsNullOrEmpty(MusicUrl)) {
+				if(Article.AutoMusic == 1) {
+					document.addEventListener('touchstart', startsound);
+				}
+				$("#music" + templatetype).removeClass("hide");
+			} else {
+				$("#music" + templatetype).addClass("hide");
+			}
 			ChangeBg(Background);
 		});
 
@@ -541,6 +567,9 @@
 		Load(function() {
 			plus.webview.close("addarticle");
 		});
+
+		//加载模板
+		LoadTemplate();
 
 		//返回
 		mui.back = function() {
@@ -647,16 +676,7 @@
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
-
-					Background = data.Background;
-					CurrBackground = Background;
-					Cover = data.Cover;
-
-					$(".mui-radio:eq(" + Background + ")").find(":radio").attr("checked", "checked");
-					if(!base.IsNullOrEmpty(Cover)) {
-						ChangeBg(Background);
-					}
-
+					Article = data;
 					ArticlePower = data.ArticlePower;
 					ArticlePowerPwd = data.ArticlePowerPwd;
 					ArticleType = data.TypeID;
@@ -686,12 +706,40 @@
 					$("#footer_comment").html(data.Comments);
 
 					//排版
-					var mainIndex = 1;
-					$("#title" + mainIndex).html(data.Title);
-					$("#nickname" + mainIndex).html(data.NickName).attr("userid", userinfo.ID);
-					$("#createdate" + mainIndex).html(data.CreateDateText);
-					$("#views" + mainIndex).html("阅读  " + data.Views);
-					$("#desc" + mainIndex).html(html.join(""));
+					Cover = data.Cover;
+					var mainIndex = 0;
+					if(data.TemplateJson.ID > 0) {
+						mainIndex = data.TemplateJson.TemplateType;
+						Cover = data.TemplateJson.Cover;
+
+						$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
+						$("#nickname1").css("color", data.TemplateJson.TitleColor);
+					}
+					CurrCover = Cover;
+					Template = data.Template;
+					CurrTemplate = Template;
+
+					Background = data.Background;
+					CurrBackground = Background;
+
+					$(".mui-radio:eq(" + Background + ")").find(":radio").attr("checked", "checked");
+					if(!base.IsNullOrEmpty(Cover)) {
+						ChangeBg(Background);
+					}
+
+					$("#musicname0").html(data.MusicName);
+					$("#title0").html(data.Title);
+					$("#nickname0").html(data.NickName).attr("userid", userinfo.ID);
+					$("#createdate0").html(data.CreateDateText);
+					$("#views0").html("阅读  " + data.Views);
+					$("#desc0").html(html.join(""));
+
+					$("#useravatar1").attr("src", data.Avatar);
+					$("#title1").html(data.Title);
+					$("#nickname1").html(data.NickName).attr("userid", userinfo.ID);
+					$("#createdate1").html(data.CreateDateText);
+					$("#views1").html("阅读  " + data.Views);
+					$("#desc1").html(html.join(""));
 
 					//实例化播放器
 					$(".youku_player").each(function() {
@@ -707,22 +755,12 @@
 						if(data.AutoMusic == 1) {
 							document.addEventListener('touchstart', startsound);
 						}
-						$("#music" + mainIndex).removeClass("hide");
+						$("#music0,#music1").removeClass("hide");
 					} else {
-						$("#music" + mainIndex).addClass("hide");
+						$("#music0,#music1").addClass("hide");
 					}
 
-					switch(mainIndex) {
-						case 0:
-							$("#musicname0").html(data.MusicName);
-							break;
-						case 1:
-							$("#useravatar1").attr("src", data.Avatar);
-							$("#main1").removeClass("hide");
-							break;
-						default:
-							break;
-					}
+					$("#main" + mainIndex).removeClass("hide");
 
 					Comments = data.Comments;
 
@@ -840,21 +878,21 @@
 			case 0:
 				//全屏
 				$("#bg").css({
-					"background": "url(" + Cover + ") no-repeat",
+					"background": "url(" + CurrCover + ") no-repeat",
 					"background-size": "100% 100%"
 				});
 				break;
 			case 1:
 				//居顶
 				$("#bg").css({
-					"background": "url(" + Cover + ") no-repeat top",
+					"background": "url(" + CurrCover + ") no-repeat top",
 					"background-size": "100% auto"
 				});
 				break;
 			case 2:
 				//平铺
 				$("#bg").css({
-					"background": "url(" + Cover + ") repeat",
+					"background": "url(" + CurrCover + ") repeat",
 					"background-size": "auto auto"
 				});
 				break;
@@ -913,6 +951,26 @@
 				});
 			});
 		}
+	}
+
+	//加载模板
+	function LoadTemplate() {
+		HttpGet(base.RootUrl + "Article/Template", {}, function(data) {
+			if(data != null) {
+				var length = data.records;
+				if(length > 0) {
+					var table = $('#temp');
+					var index = 0;
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						index += 1;
+						var item = data.list[i];
+						table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.TitleColor + '" mt="' + item.MarginTop + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
+
+					}
+					$("#btnTemp").removeClass("hide");
+				}
+			}
+		});
 	}
 
 	//分享
@@ -980,8 +1038,21 @@
 		}
 	}
 
+	//确认模板
 	function ChooseTan() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
 		TempTan(0);
+		mui.toast("正在设置模板");
+		HttpGet(base.RootUrl + "Article/EditArticleTemp", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
+			Template: CurrTemplate
+		}, function(data) {
+			isLoading = false;
+		});
 	}
 
 	//分享信息
