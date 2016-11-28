@@ -9,7 +9,6 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/animate.css">
-		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css" />
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
@@ -298,28 +297,31 @@
 		</div>
 		<div class="mui-bar mui-bar-tab hide" id="bottomAction">
 			<div id="addcomment">
-				<span class="mui-icon mui-icon-chat c999" style="font-size:20px;margin-right:3px;"></span>
+				<span class="mui-icon fa fa-commenting c999" style="font-size:20px;margin-right:3px;"></span>
 				<span class="c999" style="font-size:15px;">添加评论</span>
 			</div>
 			<div id="footer">
 				<div>
-					<span id="comment" class="mui-icon mui-icon-chatbubble c999" style="font-size:28px;"><span class="mui-badge mui-badge-danger" id="footer_comment">0</span></span>
+					<span id="zan" class="mui-icon fa fa-thumbs-up c999" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_zan">0</span></span>
 				</div>
 				<div>
-					<span id="zan" class="mui-icon mui-icon-extra mui-icon-extra-heart c999" style="font-size:22px;padding-top: 15px;"><span class="mui-badge mui-badge-danger" id="footer_zan">0</span></span>
+					<span id="comment" class="mui-icon fa fa-comments c999" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_comment">0</span></span>
 				</div>
 				<div>
-					<span id="share" class="mui-icon mui-icon-extra mui-icon-extra-share c999" style="font-size:20px;" onclick="ShareTan(1)"></span>
+					<span id="share" class="mui-icon fa fa-share-alt c999" style="font-size:20px;" onclick="ShareTan(1)"></span>
 				</div>
 			</div>
 		</div>
 		<!--模板选择-->
-		<i class="mui-icon mui-icon-pengyouquan hide" onclick="TempTan(1)" style="font-size:50px;color:#ed5565;background:#fff;border-radius:50px;" id="btnTemp"></i>
+		<i class="mui-icon mui-icon-pengyouquan hide" onclick="TempTan(1)" style="font-size:50px;color:#ed5565;" id="btnTemp"></i>
 		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
-				<div class="mui-control-item temp f12" tid="1" color="#007aff" mt="8rem">
+				<div class="mui-control-item temp f12" tid="0" color="#007aff" mt="8rem" type="1">
 					<div style="line-height:80px;">默认</div>
+				</div>
+				<div class="mui-control-item temp f12" tid="1" color="#007aff" mt="2rem" type="0">
+					<div style="background:#fff;"></div>
 				</div>
 			</div>
 		</div>
@@ -383,6 +385,7 @@
 			</div>
 		</div>
 		<!--背景设置-->
+		<div class="mytanbg hide" id="mybackgroundbg" onclick="BackgroundTan(0)"></div>
 		<div class="boxshadow hide" id="background" style="position:fixed;bottom:30%;right:0px;width:50%;z-index:99999;background:#fff;">
 			<div style="padding:30px;padding-bottom:15px;">
 				<div class="mui-card">
@@ -710,13 +713,6 @@
 					$("#views0,#views1").html("阅读  " + data.Views);
 					$("#desc0,#desc1").html(html.join(""));
 
-					//$("#useravatar1").attr("src", data.Avatar);
-					/*$("#title1").html(data.Title);
-					$("#nickname1").html(data.NickName).attr("userid", userinfo.ID);
-					$("#createdate1").html(data.CreateDateText);
-					$("#views1").html("阅读  " + data.Views);
-					$("#desc1").html(html.join(""));*/
-
 					//实例化播放器
 					$(".youku_player").each(function() {
 						var $this = $(this);
@@ -823,7 +819,7 @@
 	//编辑 
 	function Edit() {
 		ActionTan(0);
-		base.ShowWaiting("载入中...");
+		base.ShowWaiting("正在同步文章内容~");
 		base.OpenWindow("addarticle", "addarticle.html", {
 			ArticleID: ArticleID,
 			Source: Source
@@ -851,30 +847,35 @@
 	//背景状态切换
 	function ChangeBg(index) {
 		CurrBackground = index;
-		switch(index) {
-			case 0:
-				//全屏
-				$("#bg").css({
-					"background": "url(" + CurrCover + ") no-repeat",
-					"background-size": "100% 100%"
-				});
-				break;
-			case 1:
-				//居顶
-				$("#bg").css({
-					"background": "url(" + CurrCover + ") no-repeat top",
-					"background-size": "100% auto"
-				});
-				break;
-			case 2:
-				//平铺
-				$("#bg").css({
-					"background": "url(" + CurrCover + ") repeat",
-					"background-size": "auto auto"
-				});
-				break;
-			default:
-				break;
+		//纯白背景
+		if(CurrTemplate == 1) {
+			$("#bg").css("background", "#fff");
+		} else {
+			switch(index) {
+				case 0:
+					//全屏
+					$("#bg").css({
+						"background": "url(" + CurrCover + ") no-repeat",
+						"background-size": "100% 100%"
+					});
+					break;
+				case 1:
+					//居顶
+					$("#bg").css({
+						"background": "url(" + CurrCover + ") no-repeat top",
+						"background-size": "100% auto"
+					});
+					break;
+				case 2:
+					//平铺
+					$("#bg").css({
+						"background": "url(" + CurrCover + ") top left repeat",
+						"background-size": "auto auto"
+					});
+					break;
+				default:
+					break;
+			}
 		}
 	}
 
@@ -999,9 +1000,9 @@
 	//背景设置弹窗
 	function BackgroundTan(index) {
 		if(index == 0) {
-			$("#myactionbg,#background").addClass("hide");
+			$("#mybackgroundbg,#background").addClass("hide");
 		} else {
-			$("#myactionbg,#background").removeClass("hide");
+			$("#mybackgroundbg,#background").removeClass("hide");
 		}
 	}
 
@@ -1018,6 +1019,10 @@
 
 	//确认模板
 	function ChooseTan() {
+		if(Article.Template == CurrTemplate) {
+			TempTan(0);
+			return;
+		}
 		if(isLoading) {
 			return;
 		}
