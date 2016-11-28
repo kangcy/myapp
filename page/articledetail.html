@@ -424,23 +424,13 @@
 <script type="text/javascript">
 	var Article = {};
 	var ArticleID = 0; //文章ID
-	var ArticlePower = 0; //分享权限
-	var ArticlePowerPwd = ""; //分享权限密码
-	var ArticleUserID = 0; //文章作者
-	var ArticleType = 0; //文章类型ID
-	var ArticleTypeName = ""; //文章类型名称
-	var Comments = 0;
 	var Source = ""; //来源
 	var ShareInfo = {}; //分享信息
 	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
 	var MusicID = ""; //音乐控件ID
-	var MusicUrl = ""; //音乐播放地址
-	var Background = 0; //当前背景设置
 	var CurrBackground = 0; //当前选中背景设置
-	var Cover = ""; //原始背景图片
 	var CurrCover = ""; //当前背景图片
-	var Template = 0; //文章模板
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
 
@@ -466,7 +456,7 @@
 			$this.addClass("hover");
 			CurrTemplate = $this.attr("tid");
 			if(CurrTemplate == 0) {
-				CurrCover = Cover;
+				CurrCover = Article.Cover;
 			} else {
 				CurrCover = $this.attr("cover");
 			}
@@ -481,17 +471,9 @@
 				$("#main0").addClass("hide");
 				$("#main1").removeClass("hide");
 			}
-			//音乐切换
-			MusicID = "music" + templatetype;
-			if(!base.IsNullOrEmpty(MusicUrl)) {
-				if(Article.AutoMusic == 1) {
-					document.addEventListener('touchstart', startsound);
-				}
-				$("#music" + templatetype).removeClass("hide");
-			} else {
-				$("#music" + templatetype).addClass("hide");
-			}
-			ChangeBg(Background);
+			ChangeBg(CurrBackground); //背景切换
+
+			ChangeMusic(templatetype); //音乐切换
 		});
 
 		//点赞
@@ -521,12 +503,12 @@
 
 		//文章评论
 		document.getElementById('comment').addEventListener('tap', function(event) {
-			if(Comments == 0) {
+			if(Article.Comments == 0) {
 				return mui.toast("暂无评论");
 			}
 			base.OpenWindow("articleComment", "articleComment.html", {
 				ArticleID: ArticleID,
-				CommentTitle: Comments + "条评论"
+				CommentTitle: Article.Comments + "条评论"
 			});
 		});
 
@@ -543,10 +525,10 @@
 
 		//重新加载数据
 		window.addEventListener("UpdatePower", function(e) {
-			ArticlePower = e.detail.ArticlePower;
-			ArticlePowerPwd = e.detail.ArticlePowerPwd;
-			ArticleType = e.detail.ArticleType;
-			ArticleTypeName = e.detail.ArticleTypeName;
+			Article.ArticlePower = e.detail.ArticlePower;
+			Article.ArticlePowerPwd = e.detail.ArticlePowerPwd;
+			Article.TypeID = e.detail.ArticleType;
+			Article.TypeName = e.detail.ArticleTypeName;
 		});
 	});
 
@@ -655,8 +637,8 @@
 
 	//更新文章评论数
 	function UpdateComment() {
-		Comments += 1;
-		$("#footer_comment").html(Comments);
+		Article.Comments += 1;
+		$("#footer_comment").html(Article.Comments);
 	}
 
 	//重新加载数据
@@ -677,13 +659,8 @@
 				if(data.result) {
 					data = data.message;
 					Article = data;
-					ArticlePower = data.ArticlePower;
-					ArticlePowerPwd = data.ArticlePowerPwd;
-					ArticleType = data.TypeID;
-					ArticleTypeName = data.TypeName;
-					ArticleUserID = data.CreateUserID;
 
-					$(".user").attr("userid", ArticleUserID);
+					$(".user").attr("userid", data.CreateUserID);
 
 					//段落
 					var html = [];
@@ -706,25 +683,21 @@
 					$("#footer_comment").html(data.Comments);
 
 					//排版
-					Cover = data.Cover;
+					CurrCover = data.Cover;
 					var mainIndex = 0;
 					if(data.TemplateJson.ID > 0) {
 						mainIndex = data.TemplateJson.TemplateType;
-						Cover = data.TemplateJson.Cover;
+						CurrCover = data.TemplateJson.Cover;
 
 						$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
 						$("#nickname1").css("color", data.TemplateJson.TitleColor);
 					}
-					CurrCover = Cover;
-					Template = data.Template;
-					CurrTemplate = Template;
+					CurrTemplate = data.Template;
+					CurrBackground = data.Background;
 
-					Background = data.Background;
-					CurrBackground = Background;
-
-					$(".mui-radio:eq(" + Background + ")").find(":radio").attr("checked", "checked");
-					if(!base.IsNullOrEmpty(Cover)) {
-						ChangeBg(Background);
+					$(".mui-radio:eq(" + CurrBackground + ")").find(":radio").attr("checked", "checked");
+					if(!base.IsNullOrEmpty(CurrCover)) {
+						ChangeBg(CurrBackground);
 					}
 
 					$("#musicname0").html(data.MusicName);
@@ -748,24 +721,12 @@
 					});
 
 					//音乐
-					MusicID = "music" + mainIndex;
-					MusicUrl = data.MusicUrl;
-
-					if(!base.IsNullOrEmpty(MusicUrl)) {
-						if(data.AutoMusic == 1) {
-							document.addEventListener('touchstart', startsound);
-						}
-						$("#music0,#music1").removeClass("hide");
-					} else {
-						$("#music0,#music1").addClass("hide");
-					}
+					ChangeMusic(mainIndex);
 
 					$("#main" + mainIndex).removeClass("hide");
 
-					Comments = data.Comments;
-
 					//显示操作
-					if(userinfo.ID == ArticleUserID) {
+					if(userinfo.ID == data.CreateUserID) {
 						$("#action").removeClass("hide");
 					} else {
 						base.ShowUser("#body");
@@ -793,6 +754,19 @@
 				plus.nativeUI.closeWaiting();
 			}, 300);
 		});
+	}
+
+	//切换音乐
+	function ChangeMusic(index) {
+		MusicID = "music" + index;
+		if(!base.IsNullOrEmpty(Article.MusicUrl)) {
+			if(Article.AutoMusic == 1) {
+				document.addEventListener('touchstart', startsound);
+			}
+			$("#music0,#music1").removeClass("hide");
+		} else {
+			$("#music0,#music1").addClass("hide");
+		}
 	}
 
 	//删除
@@ -858,10 +832,10 @@
 		ActionTan(0);
 		base.OpenWindow("sharesetting", "sharesetting.html", {
 			ArticleID: ArticleID,
-			ArticlePower: ArticlePower,
-			ArticlePowerPwd: ArticlePowerPwd,
-			ArticleType: ArticleType,
-			ArticleTypeName: ArticleTypeName
+			ArticlePower: Article.ArticlePower,
+			ArticlePowerPwd: Article.ArticlePowerPwd,
+			ArticleType: Article.TypeID,
+			ArticleTypeName: Article.TypeName
 		});
 	}
 
@@ -904,12 +878,12 @@
 	//取消修改背景设置
 	function NotAgree() {
 		BackgroundTan(0);
-		ChangeBg(Background);
+		ChangeBg(Article.Background);
 	}
 
 	//修改背景设置
 	function Agree() {
-		if(Background == CurrBackground) {
+		if(Article.Background == CurrBackground) {
 			return;
 		}
 		if(isLoading) {
@@ -917,12 +891,14 @@
 		}
 		isLoading = true;
 		BackgroundTan(0);
-		Background = CurrBackground;
 		HttpGet(base.RootUrl + "Article/EditBackground", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
-			Background: Background
+			Background: CurrBackground
 		}, function(data) {
+			if(data.result) {
+				Article.Background = CurrBackground;
+			}
 			isLoading = false;
 		});
 	}
@@ -993,7 +969,7 @@
 
 	//分享弹窗
 	function ShareTan(index) {
-		if(ArticlePower == 0) {
+		if(Article.ArticlePower == 0) {
 			return mui.toast("私密文章不可以分享");
 		}
 		if(index == 0) {
