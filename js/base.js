@@ -277,7 +277,7 @@ var base = new function() {
 	 **/
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
-			plus.nativeUI.showWaiting("载入中...");
+			base.ShowWaiting("载入中...");
 			var userId = this.getAttribute("userid");
 			base.OpenWindow("user", "user.html", {
 				UserID: userId
@@ -302,7 +302,7 @@ var base = new function() {
 				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
 					if(e.index == 0) {
 						base.CheckPowerPwd(articleId, e.value, function() {
-							plus.nativeUI.showWaiting("载入中...");
+							base.ShowWaiting("载入中...");
 							base.OpenWindow("articledetail", "articledetail.html", {
 								ArticleID: articleId,
 								Source: Source
@@ -311,7 +311,7 @@ var base = new function() {
 					}
 				})
 			} else {
-				plus.nativeUI.showWaiting("载入中...");
+				base.ShowWaiting("载入中...");
 				base.OpenWindow("articledetail", "articledetail.html", {
 					ArticleID: articleId,
 					Source: "View"

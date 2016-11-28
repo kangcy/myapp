@@ -5005,7 +5005,7 @@ body>.mui-progressbar {
 
 .secondfloor {
 	width: 50%;
-	height: 7rem;
+	height: 10rem;
 	text-align: center;
 	overflow: hidden;
 	margin-bottom: 1.5%;
@@ -5015,7 +5015,6 @@ body>.mui-progressbar {
 
 .secondfloor img {
 	width: 97% !important;
-	min-width: 97% !important;
 	min-height: 100%;
 }
 
@@ -5105,7 +5104,7 @@ body>.mui-progressbar {
 	-o-text-shadow: 0px 0px 1px #333 !important;
 	-moz-text-shadow: 0px 0px 1px #333 !important;
 }
- 
+
 .boxshadow {
 	box-shadow: 0px 0px 10px #333 !important;
 	-webkit-box-shadow: 0px 0px 10px #333 !important;

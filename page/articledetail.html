@@ -266,7 +266,7 @@
 									<span id="musicname0"></span>
 								</p>
 							</div>
-							<div class="c000 full mt10 mb20" id="desc0">
+							<div class="c000 full mt20 mb20" id="desc0">
 
 							</div>
 						</div>
@@ -318,7 +318,7 @@
 		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
-				<div class="mui-control-item temp f12" tid="0" color="" mt="">
+				<div class="mui-control-item temp f12" tid="1" color="#007aff" mt="8rem">
 					<div style="line-height:80px;">默认</div>
 				</div>
 			</div>
@@ -383,7 +383,7 @@
 			</div>
 		</div>
 		<!--背景设置-->
-		<div class="boxshadow hide" id="background" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
+		<div class="boxshadow hide" id="background" style="position:fixed;bottom:30%;right:0px;width:50%;z-index:99999;background:#fff;">
 			<div style="padding:30px;padding-bottom:15px;">
 				<div class="mui-card">
 					<form class="mui-input-group">
@@ -823,7 +823,7 @@
 	//编辑 
 	function Edit() {
 		ActionTan(0);
-		plus.nativeUI.showWaiting("载入中...");
+		base.ShowWaiting("载入中...");
 		base.OpenWindow("addarticle", "addarticle.html", {
 			ArticleID: ArticleID,
 			Source: Source

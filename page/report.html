@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>编辑文字</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon blue fl mt6" style="font-size:16px;">取消</a>
+			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;">确定</a>
+			<h1 class="mui-title c333">举报内容</h1>
+		</header>
+		<div class="mui-content">
+			<div style="padding: 5%;">
+				<textarea id='question' class="mui-input-clear f13" maxlength="500" placeholder="请填写举报原因......"></textarea>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var ArticleID = 0;
+	var isLoading = false;
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	var mysettingPage = null;
+	mui.plusReady(function() {
+
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID;
+
+		//取消
+		document.getElementById("back").addEventListener('tap', function(event) {
+			mui.back();
+		}, false);
+
+		//提交
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			var question = document.getElementById("question");
+			if(base.IsNullOrEmpty(question.value)) {
+				isLoading = false;
+				return mui.toast("请填写举报原因");
+			}
+			var userinfo = base.GetUserInfo();
+			HttpGet(base.RootUrl + "Report/Edit", {
+				ID: userinfo.ID,
+				ArticleID: ArticleID,
+				Summary: question.value
+			}, function(data) {
+				mui.toast(data.result ? "举报成功，将于1-2个工作日内处理~" : data.message);
+				if(data.result) {
+					mui.back();
+				}
+			});
+
+		}, false);
+	});
+</script>
