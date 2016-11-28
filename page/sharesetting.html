@@ -45,19 +45,19 @@
 				</li>
 				<li class="mui-table-view-cell list" index="3">
 					<span class="fl">公开</span>
-					<span class="fr csubtitle mr20">所有人都可以看到</span>
+					<span class="fr caaa mr20 f12">所有人都可以看到</span>
 				</li>
 				<li class="mui-table-view-cell list" index="2">
 					<span class="fl">不公开</span>
-					<span class="fr csubtitle mr20">仅通过自己分享后才可见</span>
+					<span class="fr caaa mr20 f12">仅通过自己分享后才可见</span>
 				</li>
 				<li class="mui-table-view-cell list" index="1">
 					<span class="fl">密码可见</span>
-					<span class="fr csubtitle mr20">设置密码,输入密码才可见</span>
+					<span class="fr caaa mr20 f12">设置密码,输入密码才可见</span>
 				</li>
 				<li class="mui-table-view-cell list" index="0">
 					<span class="fl">私密</span>
-					<span class="fr csubtitle mr20">仅自己可见</span>
+					<span class="fr caaa mr20 f12">仅自己可见</span>
 				</li>
 			</ul>
 			<ul class="mui-table-view f13">
@@ -65,19 +65,29 @@
 				</li>
 				<li class="mui-table-view-cell" id="articletype">
 					<a class="mui-navigate-right">
-						<span class="fl">分类</span>
-						<span class="mui-pull-right csubtitle mr20" id="article_type"></span>
+						<span class="f13 c333 fl">分类</span>
+						<!--<span class="f11 mt5 caaa">准确设置文章类别，方便以后归纳整理</span>-->
+						<span class="fr caaa mr20 f12" id="article_type"></span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a>
-						<span class="fl">申请推荐</span>
-						<div class="mui-switch mui-switch-blue">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</a>
+					<p class="f13 c333">投稿</p>
+					<p class="caaa mt5 f12" style="margin-right:20%;">每周只有一次投稿机会，被选中的文章会有“精”字标识</p>
+					<div class="mui-switch mui-switch-blue" id="switch">
+						<div class="mui-switch-handle"></div>
+					</div>
 				</li>
 			</ul>
+		</div>
+		<div class="mytanbg hide" id="mytanbg"></div>
+		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
+			<div style="padding:30px;padding-bottom:15px;">
+				<p class="blue f15 bold">投稿失败</p>
+				<p class="c333 f12 mt5" id="error"></p>
+			</div>
+			<div class="full tc fl f13" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;" onclick="ActionTan(0," ")">
+				我知道了
+			</div>
 		</div>
 	</body>
 
@@ -92,6 +102,7 @@
 	var ArticlePowerPwd = ""; //权限密码
 	var ArticleType = 0; //文章类型ID
 	var ArticleTypeName = ""; //文章类型名称
+	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -141,6 +152,32 @@
 			ArticleType = e.detail.ArticleType;
 			ArticleTypeName = e.detail.ArticleTypeName;
 			document.getElementById("article_type").innerHTML = ArticleTypeName;
+		});
+
+		//投稿
+		document.getElementById("switch").addEventListener('toggle', function(event) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			base.ShowWaiting("正在投稿~")
+			if(event.detail.isActive) {
+				HttpGet(base.RootUrl + "Article/Recommend", {
+						ID: userinfo.ID,
+						ArticleID: ArticleID
+					},
+					function(data) {
+						plus.nativeUI.closeWaiting();
+						if(data.result) {
+							mui.toast("投稿成功~");
+						} else {
+							ActionTan(1, date.message);
+						}
+						isLoading = false;
+					});
+			} else {
+				isLoading = false;
+			}
 		});
 	})
 
@@ -211,5 +248,17 @@
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
 		}, 500);
+	}
+
+	//操作弹窗
+	function ActionTan(index, text) {
+		if(index == 0) {
+			$("#mytanbg").addClass("hide");
+			$("#notice").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+		} else {
+			$("#error").html(text);
+			$("#mytanbg").removeClass("hide");
+			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+		}
 	}
 </script>
