@@ -13,233 +13,7 @@
 
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
-		<style type="text/css">
-			.detail {
-				width: 95%;
-				margin: 2.5%;
-				padding: 2.5%;
-				line-height: 1.5625rem;
-				display: inline-block;
-			}
-			
-			.footer div {
-				line-height: 2.75rem;
-			}
-			
-			.footer img {
-				width: 1.4rem;
-				height: 1.4rem;
-				margin-top: 0.6rem;
-			}
-			
-			#addcomment {
-				width: 40%;
-				float: left;
-				height: 50px;
-				line-height: 50px;
-				border-right: 1px solid #ccc;
-				text-align: center;
-			}
-			
-			#footer {
-				width: 60%;
-				float: left;
-				height: 50px;
-				line-height: 50px;
-				text-align: center;
-			}
-			
-			#footer div {
-				width: 33.3%;
-				float: left;
-				height: 50px;
-				line-height: 50px;
-				text-align: center;
-			}
-			/**操作**/
-			
-			.myaction {
-				position: fixed;
-				left: 0px;
-				top: 0px;
-				width: 100%;
-				z-index: 1000;
-				background: #fff;
-			}
-			
-			.myaction .myaction_body {
-				padding: 5%;
-				padding-top: 2%;
-				display: inline-block;
-			}
-			
-			.myaction .myaction_items {
-				width: 33.3%;
-				float: left;
-				position: relative;
-				padding-bottom: 1.2rem;
-			}
-			
-			.myaction .myaction_items img {
-				width: 40%;
-			}
-			
-			.myaction .myaction_items p {
-				position: absolute;
-				left: 0px;
-				bottom: 0.4rem;
-				width: 100%;
-			}
-			
-			#useravatar1 {
-				width: 3rem;
-				height: 3rem;
-				border-radius: 50%;
-				border: 2px solid #fff;
-			}
-			
-			.cover {
-				background: RGBA(255, 255, 255, 0.4);
-				height: 100%;
-				z-index: -1;
-				border-radius: 10px;
-				margin-top: 1rem !important;
-			}
-			
-			.bg {
-				width: 100%;
-				/*position: relative;*/
-				z-index: 1;
-				min-height: 100%;
-			}
-			
-			.fa-music {
-				padding: 0.35rem;
-				background: #fff;
-				border-radius: 50px;
-				color: #333;
-				box-shadow: 0px 0px 1px #333;
-				width: 1.5rem;
-				height: 1.5rem;
-				box-shadow: 0px 0.05px 0.05px #333;
-			}
-			
-			.fa-music[play=stop] {
-				animation: rotate 4s linear infinite;
-				-webkit-animation: rotate 4s linear infinite;
-				-ms-animation: rotate 4s linear infinite;
-				-moz-animation: rotate 4s linear infinite;
-				-o-animation: rotate 4s linear infinite;
-			}
-			/**通用样式**/
-			
-			.music {
-				width: 100%;
-				height: 42px;
-				border-radius: 5px;
-				margin: 10px 8px 0 0;
-				background: #f6f6f6;
-				padding: 0;
-				line-height: 42px;
-				cursor: pointer;
-			}
-			
-			.music[play=on] i {
-				background-image: url("../images/article/on.png");
-			}
-			
-			.music[play=stop] i {
-				background-image: url("../images/article/off.png");
-			}
-			
-			.music i {
-				float: left;
-				width: 25px;
-				height: 25px;
-				background-size: contain;
-				background-repeat: no-repeat;
-				background-position: center;
-				margin: 8px 10px 0 15px;
-			}
-			
-			.music span {
-				width: calc(100% - 70px);
-				width: -webkit-calc(100% - 70px);
-				margin: 0;
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				float: left;
-				text-align: left;
-			}
-			/*模板选择*/
-			
-			.mui-segmented-control .mui-control-item.mui-active {
-				background-color: inherit;
-			}
-			
-			#btnTemp,
-			#agreeTemp {
-				position: fixed;
-				right: 10px;
-				bottom: 110px;
-				z-index: 999;
-			}
-			
-			#temps {
-				background: #eee;
-				height: 100px;
-				position: fixed;
-				bottom: 0px;
-				top: auto;
-				z-index: 99999;
-				border: 0px;
-			}
-			
-			.temp {
-				width: 60px !important;
-				height: 80px !important;
-				padding: 0px !important;
-				position: relative;
-				margin-left: 8px !important;
-			}
-			
-			.temp:first-child {
-				margin-left: 10px !important;
-			}
-			
-			.temp:last-child {
-				margin-right: 10px !important;
-			}
-			
-			.temp img {
-				width: 100% !important;
-				height: 100% !important;
-				border: 2px solid #eee;
-				border-radius: 5px;
-			}
-			
-			.temp div {
-				width: 100% !important;
-				height: 100% !important;
-				border: 2px solid #fff;
-				border-radius: 5px;
-			}
-			
-			.temp.hover div,
-			.temp.hover img {
-				border: 2px solid #ff6900;
-			}
-			/**背景设置**/
-			
-			.mui-input-group .mui-input-row:after {
-				left: 0px;
-			}
-			
-			.mui-card {
-				border: 0px;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="../css/articledetail.css">
 	</head>
 
 	<body id="body">
@@ -321,7 +95,7 @@
 					<div style="line-height:80px;">默认</div>
 				</div>
 				<div class="mui-control-item temp f12" tid="1" color="#007aff" mt="2rem" type="0">
-					<div style="background:#fff;"></div>
+					<div style="background:#fff;line-height:80px;">纯白</div>
 				</div>
 			</div>
 		</div>
@@ -411,6 +185,31 @@
 				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
 			</div>
 		</div>
+		<!--打赏-->
+		<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;" id="btnPay"></i>
+		<div class="mytanbg hide" id="mypaybg"></div>
+		<div class="boxshadow hide" id="mypay" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
+			<div style="padding:5% 15%;text-align:center;position:relative;">
+				<i class="fa fa-remove caaa f20" style="position:absolute;left:20px;top:20px;" onclick="PayTan(0)"></i>
+				<img id="payuser" src="" style="width:3rem;height:3rem;border-radius:50px;" />
+				<p class="f13 bold c333 mt5 mb0" style="font-weight:normal;">赏金：<input type="number" id="txtmoney" class="f30" /></p>
+				<div style="height:45px;line-height:45px;border-radius:30px;background:#ed5565;color:#fff;" class="f18 full" onclick="Payment()">赏</div>
+				<div class="f11 caaa mt15" id="paybyalipay">使用支付宝付款，<span class="blue" onclick="ChangePayWay(1,0)">更换</span></div>
+				<div class="f11 caaa mt15 hide" id="paybyweixin">使用微信付款，<span class="blue" onclick="ChangePayWay(1,1)">更换</span></div>
+				<div class="mui-card f11 mt15 tl caaa hide" id="payway">
+					<form class="mui-input-group">
+						<div class="mui-input-row mui-radio" onclick="ChangePayWay(0,0)">
+							<label>支付宝</label>
+							<input name="background" value="0" type="radio" checked="checked">
+						</div>
+						<div class="mui-input-row mui-radio" onclick="ChangePayWay(0,1)">
+							<label>微信</label>
+							<input name="background" value="1" type="radio">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		<textarea id="textarea" class="hide"></textarea>
 	</body>
 
@@ -420,6 +219,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
+<script type="text/javascript" src="../js/payment.js"></script>
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
@@ -442,7 +242,7 @@
 	var Province = "";
 	var City = "";
 
-	//启用双击监听
+	//启用双击监听 
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -579,6 +379,14 @@
 			//mui.toast("未授权")
 		});
 
+		//获取支付通道
+		plus.payment.getChannels(function(channels) {
+			aliChannel = channels[0];
+			wxChannel = channels[1];
+		}, function(e) {
+			console.log("获取支付通道失败：" + e.message);
+		});
+
 		//分享设置
 		updateSerivces();
 		if(plus.os.name == "Android") {
@@ -665,6 +473,7 @@
 					Article = data;
 					MusicUrl = data.MusicUrl;
 
+					$("#payuser").attr("src", data.Avatar);
 					$(".user").attr("userid", data.CreateUserID);
 
 					//段落
@@ -741,6 +550,8 @@
 
 					$("#bottomAction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 					$("#mui-iframe-wrapper").css("bottom", "50px");
+
+					$("#btnPay").removeClass("hide");
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().close();

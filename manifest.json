@@ -37,9 +37,7 @@
 		"Console": {
 			"description": "跟踪调试输出日志"
 		},
-		"Contacts": {
-			"description": "访问系统联系人信息"
-		},
+
 		"Device": {
 			"description": "访问设备信息"
 		},
@@ -56,21 +54,14 @@
 			"description": "访问系统相册"
 		},
 		"Geolocation": {
-			"description": "访问位置信息"
+			"description": "位置信息"
 		},
 		"Invocation": {
 			"description": "使用Native.js能力"
 		},
-		"Orientation": {
-			"description": "访问方向感应器"
-		},
-		"Proximity": {
-			"description": "访问距离感应器"
-		},
 		"Storage": {
 			"description": "管理应用本地数据"
 		},
-
 		"Uploader": {
 			"description": "管理文件上传任务"
 		},
@@ -112,8 +103,8 @@
 	},
 	"plus": {
 		"splashscreen": {
-			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
-			"waiting": true
+			"autoclose": false,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"waiting": false
 		},
 		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
@@ -128,7 +119,7 @@
 					"sina": {
 						"appkey": "568898243",
 						"appsecret": "38a4f8204cc784f81f9f0daaf31e02e3",
-						"redirect_uri": "",
+						"redirect_uri": "aa",
 						"description": "可选，新浪微博分享"
 					},
 					"weixin": {
@@ -146,7 +137,7 @@
 				"payment": {
 					"weixin": {
 						"description": "微信支付",
-						"appid": "wx2d9f92094e649f74"
+						"appid": "wx4868b35061f87885"
 					},
 					"alipay": {
 						"description": "阿里支付",
@@ -182,28 +173,26 @@
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
 				"permissions": [
+					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
 					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
 					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
 					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.CAMERA\"/>",
-					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
 					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
 					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
 					"<uses-feature android:name=\"android.hardware.camera\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
 				]
 			},
 			"orientation": [
@@ -323,7 +312,8 @@
 				"refer": [
 					"page/about.html",
 					"list.html",
-					"menu.html"
+					"menu.html",
+					"page/guide.html"
 				],
 				"priority": 0
 			},
@@ -350,7 +340,11 @@
 					"images/my/1.png",
 					"css/login.css",
 					"js/base.js",
-					"js/jquery-1.10.2.min.js"
+					"js/jquery-1.10.2.min.js",
+					"images/logo.png",
+					"images/share/2.png",
+					"images/share/3.png",
+					"images/share/4.png"
 				],
 				"refer": [
 					"index.html",
@@ -363,9 +357,14 @@
 			},
 			"page/guide.html": {
 				"resources": [
-					"css/guide.css"
+					"css/guide.css",
+					"js/base.js",
+					"css/mui.min.css",
+					"js/mui.min.js"
 				],
-				"refer": [],
+				"refer": [
+					"page/login.html"
+				],
 				"priority": 0
 			},
 			"menu.html": {
@@ -457,10 +456,23 @@
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
 					"js/default.js",
-					"js/login.js"
+					"js/login.js",
+					"images/share/3.png",
+					"images/share/9.png",
+					"images/share/4.png",
+					"images/share/8.png",
+					"images/share/1.png",
+					"js/share.js",
+					"images/share/5.png",
+					"images/share/7.png",
+					"images/share/6.png",
+					"images/share/2.png",
+					"css/animate.css"
 				],
 				"refer": [
-					"page/login.html"
+					"page/login.html",
+					"page/bindphone.html",
+					"page/bindemail.html"
 				],
 				"priority": 0
 			},
@@ -502,7 +514,13 @@
 					"js/default.js",
 					"images/bottom.png",
 					"images/60x60.gif",
-					"css/mui.css"
+					"css/mui.css",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+					"cropper/cropper.css",
+					"js/copper.js",
+					"cropper/cropper.min.js",
+					"images/add2.png"
 				],
 				"refer": [
 					"page/pay.html",
@@ -510,7 +528,18 @@
 					"page/help.html",
 					"page/setting.html",
 					"page/comment.html",
-					"page/mysetting.html"
+					"page/mysetting.html",
+					"page/article.html",
+					"page/keep.html",
+					"page/fan.html",
+					"page/zan.html",
+					"page/search.html",
+					"page/editimage.html",
+					"page/articleComment.html",
+					"page/articleCommentSub.html",
+					"emotion/index.html",
+					"page/mypay.html",
+					"page/editvideo.html"
 				],
 				"priority": 0
 			},
@@ -533,7 +562,8 @@
 					"images/add.png",
 					"images/home.png",
 					"page/listSub.html",
-					"page/articleSub.html"
+					"page/articleSub.html",
+					"css/img.preview.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -549,9 +579,17 @@
 					"js/mui.pullToRefresh.material.js",
 					"css/loading.css",
 					"js/mui.previewimage.js",
-					"css/img.preview.css"
+					"css/img.preview.css",
+					"images/60x60.gif",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"images/logo.png"
 				],
-				"refer": [],
+				"refer": [
+					"page/articledetail.html",
+					"page/user.html"
+				],
 				"priority": 0
 			},
 			"page/pay.html": {
@@ -666,7 +704,9 @@
 				],
 				"refer": [
 					"page/editnickname.html",
-					"page/editsignature.html"
+					"page/editsignature.html",
+					"page/editimage.html",
+					"page/province.html"
 				],
 				"priority": 0
 			},
@@ -693,10 +733,26 @@
 					"js/mui.lazyload.img.js",
 					"page/topicSub.html",
 					"font-awesome-4.6.3/css/font-awesome.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"page/topicSub2.html",
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.previewimage.js",
+					"css/img.preview.css",
+					"images/add2.png",
+					"images/60x60.gif",
+					"images/logo.png",
+					"js/update.js",
+					"css/animate.css"
 				],
 				"refer": [
-					"page/articledetail.html"
+					"page/articledetail.html",
+					"page/search.html",
+					"page/user.html",
+					"page/userSub.html",
+					"page/article.html"
 				],
 				"priority": 0
 			},
@@ -723,12 +779,16 @@
 					"cropper/cropper.min.js",
 					"js/group.js",
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
-					"font-awesome-4.6.3/css/font-awesome.min.css"
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"js/video.js"
 				],
 				"refer": [
 					"page/edittitle.html",
 					"page/music.html",
-					"page/editdesc.html"
+					"page/editdesc.html",
+					"page/articledetail.html",
+					"page/editimage.html",
+					"page/editvideo.html"
 				],
 				"priority": 0
 			},
@@ -760,9 +820,12 @@
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
 					"js/default.js",
-					"page/musicSub.html"
+					"page/musicSub.html",
+					"images/check.png"
 				],
-				"refer": [],
+				"refer": [
+					"page/musicsearch.html"
+				],
 				"priority": 0
 			},
 			"page/editdesc.html": {
@@ -771,9 +834,23 @@
 					"fonts/mui.ttf",
 					"images/header.png",
 					"css/mui.min.css",
-					"js/default.js"
+					"js/default.js",
+					"images/edittxt/1.png",
+					"images/edittxt/4.png",
+					"images/edittxt/5.png",
+					"images/edittxt/3.png",
+					"images/edittxt/2.png",
+					"images/edittxt/02.png",
+					"images/edittxt/03.png",
+					"images/edittxt/01.png",
+					"images/edittxt/05.png",
+					"js/base.js",
+					"js/jquery-1.10.2.min.js"
 				],
-				"refer": [],
+				"refer": [
+					"page/edithref.html",
+					"page/showhref.html"
+				],
 				"priority": 0
 			},
 			"page/articledetail.html": {
@@ -794,13 +871,50 @@
 					"js/mui.lazyload.img.js",
 					"images/60x60.gif",
 					"font-awesome-4.6.3/css/font-awesome.min.css",
-					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2"
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+					"fonts/mui-icons-extra.ttf",
+					"css/icons-extra.css",
+					"images/share/3.png",
+					"images/share/9.png",
+					"images/share/4.png",
+					"images/share/8.png",
+					"images/share/1.png",
+					"images/share/5.png",
+					"images/share/7.png",
+					"images/share/6.png",
+					"images/share/2.png",
+					"images/share/10.png",
+					"images/article/1.png",
+					"images/article/3.png",
+					"images/article/4.png",
+					"css/animate.css",
+					"js/music.js",
+					"images/article/off.png",
+					"images/article/on.png",
+					"images/article/2.png",
+					"emotion/css/emojione.sprites.css",
+					"emotion/js/emojione.min.js",
+					"emotion/js/emojionearea.js",
+					"emotion/css/emojionearea.min.css",
+					"emotion/css/emojione.sprites.png",
+					"js/video.js",
+					"images/article/5.png",
+					"images/article/bg.png",
+					"css/articledetail.css",
+					"images/logo.png",
+					"js/payment.js",
+					"images/article/pay.jpg"
 				],
 				"refer": [
 					"page/sharesetting.html",
 					"page/addcomment.html",
 					"page/addarticle.html",
-					"page/user.html"
+					"page/user.html",
+					"page/comment.html",
+					"page/zan.html",
+					"page/articleComment.html",
+					"page/showhref.html",
+					"page/report.html"
 				],
 				"priority": 0
 			},
@@ -813,10 +927,14 @@
 					"images/header.png",
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
-					"js/default.js"
+					"js/default.js",
+					"images/logo.png",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2"
 				],
 				"refer": [
-					"page/articleType.html"
+					"page/articleType.html",
+					"page/payment.html"
 				],
 				"priority": 0
 			},
@@ -884,7 +1002,9 @@
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
 					"js/default.js",
-					"images/check.png"
+					"images/check.png",
+					"images/yuantiao.jpg",
+					"css/loading.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -900,7 +1020,10 @@
 					"css/mui.min.css",
 					"js/default.js",
 					"images/60x60.gif",
-					"images/check.png"
+					"images/check.png",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -936,13 +1059,23 @@
 					"page/help.html",
 					"css/mui.css",
 					"page/topic.html",
-					"images/header.png"
+					"images/header.png",
+					"js/base.js",
+					"js/copper.js",
+					"cropper/cropper.css",
+					"cropper/cropper.min.js",
+					"js/jquery-1.10.2.min.js",
+					"images/add2.png",
+					"js/update.js",
+					"css/img.preview.css"
 				],
 				"refer": [
 					"page/my.html",
 					"page/addarticle.html",
 					"page/list.html",
-					"page/guide.html"
+					"page/guide.html",
+					"page/chooseimage.html",
+					"page/editimage.html"
 				],
 				"priority": 0
 			},
@@ -962,7 +1095,9 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
-					"js/default.js"
+					"js/default.js",
+					"images/60x60.gif",
+					"fonts/mui.ttf"
 				],
 				"refer": [
 					"page/article.html",
@@ -985,7 +1120,8 @@
 					"css/mui.min.css",
 					"js/default.js",
 					"images/60x60.gif",
-					"css/pay.css"
+					"css/pay.css",
+					"images/my/222.png"
 				],
 				"refer": [
 					"page/user.html"
@@ -1006,11 +1142,21 @@
 					"js/default.js",
 					"js/mui.lazyload.img.js",
 					"fonts/mui.ttf",
-					"images/60x60.gif"
+					"images/60x60.gif",
+					"images/my/333.png",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+					"emotion/js/emojionearea.js",
+					"emotion/js/emojione.min.js",
+					"emotion/css/emojione.sprites.css",
+					"emotion/css/emojionearea.min.css",
+					"emotion/css/emojione.sprites.png",
+					"css/animate.css"
 				],
 				"refer": [
 					"page/articledetail.html",
-					"page/user.html"
+					"page/user.html",
+					"page/addcomment.html"
 				],
 				"priority": 0
 			},
@@ -1032,9 +1178,24 @@
 					"js/default.js",
 					"page/userSub.html",
 					"images/user/add.png",
-					"images/60x60.gif"
+					"images/60x60.gif",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/img.preview.css",
+					"js/mui.zoom.js",
+					"css/loading.css",
+					"js/mui.previewimage.js",
+					"images/logo.png"
 				],
-				"refer": [],
+				"refer": [
+					"page/articledetail.html",
+					"page/pic.html",
+					"page/article.html",
+					"page/province.html",
+					"page/reply.html"
+				],
 				"priority": 0
 			},
 			"page/userSub.html": {
@@ -1051,16 +1212,33 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
-					"js/default.js"
+					"js/default.js",
+					"images/header.png",
+					"fonts/mui.ttf",
+					"css/my.css",
+					"images/60x60.gif"
 				],
-				"refer": [],
+				"refer": [
+					"page/articledetail.html"
+				],
 				"priority": 0
 			},
 			"page/register.html": {
 				"resources": [
-					"images/login/reg.png"
+					"images/login/reg.png",
+					"images/login/pwd.png",
+					"images/my/1.png",
+					"images/login/name.png",
+					"js/mui.min.js",
+					"css/login.css",
+					"js/login.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"js/base.js"
 				],
-				"refer": [],
+				"refer": [
+					"index.html"
+				],
 				"priority": 0
 			},
 			"page/forget_password.html": {
@@ -1087,6 +1265,510 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"js/mui.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/search.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"page/searchSub.html",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"page/searchSub2.html",
+					"css/img.preview.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/searchSub.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/mui.lazyload.js",
+					"css/img.preview.css",
+					"js/mui.lazyload.img.js",
+					"js/base.js",
+					"js/mui.zoom.js",
+					"js/mui.min.js",
+					"css/loading.css",
+					"css/mui.min.css",
+					"js/mui.previewimage.js",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"css/fan.css",
+					"images/60x60.gif",
+					"images/logo.png",
+					"images/none.png"
+				],
+				"refer": [
+					"page/user.html",
+					"page/articledetail.html"
+				],
+				"priority": 0
+			},
+			"page/chooseimage.html": {
+				"resources": [
+					"js/base.js",
+					"js/copper.js",
+					"js/jquery-1.10.2.min.js",
+					"cropper/cropper.min.js",
+					"js/mui.min.js",
+					"cropper/cropper.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"page/addarticle.html"
+				],
+				"priority": 0
+			},
+			"page/keep.html": {
+				"resources": [
+					"page/keepSub.html",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"css/loading.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/keepSub.html": {
+				"resources": [
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.previewimage.js",
+					"js/jquery-1.10.2.min.js",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"css/img.preview.css",
+					"images/60x60.gif",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"images/logo.png"
+				],
+				"refer": [
+					"page/articledetail.html",
+					"page/user.html"
+				],
+				"priority": 0
+			},
+			"page/zan.html": {
+				"resources": [
+					"page/zanSub.html",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/fan.html": {
+				"resources": [
+					"images/user.png",
+					"images/add.png",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"images/bottom.png",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"js/base.js",
+					"css/fan.css",
+					"images/menu.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/home.png",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"page/fanSub.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/zanSub.html": {
+				"resources": [
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.previewimage.js",
+					"js/jquery-1.10.2.min.js",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"css/img.preview.css",
+					"images/60x60.gif",
+					"css/fan.css",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"images/my/222.png",
+					"images/logo.png"
+				],
+				"refer": [
+					"page/user.html",
+					"page/articledetail.html"
+				],
+				"priority": 0
+			},
+			"page/fanSub.html": {
+				"resources": [
+					"css/fan.css",
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/mui.lazyload.js",
+					"js/default.js",
+					"js/mui.lazyload.img.js",
+					"images/my/11111.png",
+					"fonts/mui.ttf",
+					"images/my/111.png"
+				],
+				"refer": [
+					"page/user.html"
+				],
+				"priority": 0
+			},
+			"page/topicSub2.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.previewimage.js",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"css/img.preview.css",
+					"images/article/bg.png",
+					"js/base.js",
+					"js/mui.min.js",
+					"images/60x60.gif",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"js/mui.js"
+				],
+				"refer": [
+					"page/article.html",
+					"page/articledetail.html"
+				],
+				"priority": 0
+			},
+			"page/articleCommentSub.html": {
+				"resources": [
+					"css/comment.css",
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"images/60x60.gif",
+					"fonts/mui.ttf",
+					"fonts/mui-icons-extra.ttf",
+					"css/icons-extra.css",
+					"images/article/z.png",
+					"images/article/c.png",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2"
+				],
+				"refer": [
+					"page/user.html",
+					"page/addcomment.html"
+				],
+				"priority": 0
+			},
+			"page/articleComment.html": {
+				"resources": [
+					"page/articleCommentSub.html",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"css/comment.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"emotion/css/emojione.sprites.css",
+					"emotion/css/emojionearea.min.css",
+					"js/base.js",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+					"css/animate.css",
+					"emotion/js/emojionearea.js",
+					"emotion/js/emojione.min.js",
+					"js/jquery-1.10.2.min.js",
+					"emotion/css/emojione.sprites.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/editimage.html": {
+				"resources": [
+					"images/editimage/e3.png",
+					"images/editimage/e1.png",
+					"images/editimage/e2.png",
+					"js/base.js",
+					"js/copper.js",
+					"js/mui.min.js",
+					"cropper/cropper.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"cropper/cropper.min.js",
+					"js/copper2.js",
+					"images/editimage/e4.png",
+					"images/60x60.gif"
+				],
+				"refer": [
+					"page/addarticle.html"
+				],
+				"priority": 0
+			},
+			"page/searchSub2.html": {
+				"resources": [
+					"css/articleType.css",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/mui.previewimage.js",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"images/60x60.gif",
+					"css/fan.css",
+					"css/loading.css",
+					"css/img.preview.css"
+				],
+				"refer": [
+					"page/articledetail.html",
+					"page/user.html"
+				],
+				"priority": 0
+			},
+			"page/bindphone.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"js/base.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/bindemail.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/edithref.html": {
+				"resources": [
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/showhref.html": {
+				"resources": [
+					"js/mui.min.js",
+					"page/showhrefsub.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/showhrefsub.html": {
+				"resources": [
+					"js/mui.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/musicsearch.html": {
+				"resources": [
+					"page/searchSub.html",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.10.2.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/pic.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"css/mui.min.css",
+					"js/mui.previewimage.js",
+					"js/default.js",
+					"css/img.preview.css",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"images/logo.png",
+					"images/60x60.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/province.html": {
+				"resources": [
+					"js/base.js",
+					"css/province.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"js/mui.indexedlist.js"
+				],
+				"refer": [
+					"page/city.html"
+				],
+				"priority": 0
+			},
+			"page/city.html": {
+				"resources": [
+					"css/province.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"js/base.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/reply.html": {
+				"resources": [
+					"js/base.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"js/jquery-1.10.2.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"emotion/index.html": {
+				"resources": [
+					"emotion/js/emojionearea.js",
+					"js/jquery-1.10.2.min.js",
+					"emotion/css/emojionearea.min.css",
+					"emotion/js/emojione.min.js",
+					"emotion/css/emojione.sprites.png",
+					"emotion/css/emojione.sprites.css",
+					"css/animate.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/mypay.html": {
+				"resources": [
+					"images/my/pay.png",
+					"css/mui.poppicker.css",
+					"css/mui.picker.css",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js",
+					"css/animate.css"
+				],
+				"refer": [
+					"page/pay.html",
+					"page/payapply.html"
+				],
+				"priority": 0
+			},
+			"page/payapply.html": {
+				"resources": [
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/editvideo.html": {
+				"resources": [
+					"images/my/pay.png",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/animate.css",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
+				],
+				"refer": [
+					"page/videonotice.html"
+				],
+				"priority": 0
+			},
+			"page/videonotice.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"js/base.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/report.html": {
+				"resources": [
+					"js/base.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/default.js",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0
