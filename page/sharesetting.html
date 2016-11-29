@@ -85,7 +85,7 @@
 				<p class="blue f15 bold">投稿失败</p>
 				<p class="c333 f12 mt5" id="error"></p>
 			</div>
-			<div class="full tc fl f13" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;" onclick="ActionTan(0," ")">
+			<div class="full tc fl f13" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;" onclick="ActionTan(0)">
 				我知道了
 			</div>
 		</div>
@@ -160,8 +160,8 @@
 				return;
 			}
 			isLoading = true;
-			base.ShowWaiting("正在投稿~")
 			if(event.detail.isActive) {
+				base.ShowWaiting("正在投稿~")
 				HttpGet(base.RootUrl + "Article/Recommend", {
 						ID: userinfo.ID,
 						ArticleID: ArticleID
@@ -171,7 +171,7 @@
 						if(data.result) {
 							mui.toast("投稿成功~");
 						} else {
-							ActionTan(1, date.message);
+							ActionTan(1, data.message);
 						}
 						isLoading = false;
 					});

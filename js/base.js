@@ -72,7 +72,7 @@ var base = new function() {
 	}
 
 	/**
-	 * 等待提示框
+	 * 打开等待提示框
 	 **/
 	this.ShowWaiting = function(title) {
 		plus.nativeUI.showWaiting(title, {
@@ -85,6 +85,13 @@ var base = new function() {
 				display: "inline"
 			}
 		});
+	}
+
+	/**
+	 * 关闭等待提示框
+	 **/
+	this.CloseWaiting = function() {
+		plus.nativeUI.closeWaiting();
 	}
 
 	/**
