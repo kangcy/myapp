@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../css/articleType.css">
 	</head>
 
@@ -17,6 +18,15 @@
 			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;">完成</a>
 			<h1 class="mui-title c333">文章类别</h1>
 		</header>
+		<div class="mui-loader tc" id="loader">
+			<div class="line-scale-pulse-out">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
 		<div class="mui-iframe-wrapper" style="top:45px;bottom:0px;">
 			<div class="mui-content mui-scroll-wrapper">
 				<div id="slider" class="mui-slider mui-fullscreen">
@@ -42,6 +52,7 @@
 	var ArticleID = 0; //文章ID
 	var ArticleType = 0; //文章类型ID
 	var ArticleTypeName = 0; //文章类型名称
+	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	var shareSettingPage = null;
 	mui.init({
@@ -68,34 +79,6 @@
 			var index = this.getAttribute("currindex");
 			mui('#slider').slider().gotoItem(index);
 		});
-
-		//完成
-		document.getElementById("submit").addEventListener('tap', function(event) {
-			if(mui.os.plus) {
-				plus.nativeUI.showWaiting();
-			}
-			HttpGet(base.RootUrl + "Article/EditArticleType", {
-					ID: userinfo.ID,
-					ArticleID: ArticleID,
-					ArticleType: ArticleType
-				},
-				function(data) {
-					if(mui.os.plus) {
-						plus.nativeUI.closeWaiting();
-					}
-					mui.toast(data.result ? "编辑成功~" : data.message);
-					if(mui.os.plus) {
-						if(!shareSettingPage) {
-							shareSettingPage = plus.webview.getWebviewById('sharesetting');
-						}
-						mui.fire(shareSettingPage, "UpdateArticleType", {
-							"ArticleType": ArticleType,
-							"ArticleTypeName": ArticleTypeName
-						});
-						mui.back();
-					}
-				});
-		}, false);
 	});
 
 	mui.plusReady(function() {
@@ -107,6 +90,8 @@
 
 		//加载类型
 		LoadArticleType(function() {
+			document.getElementById("loader").classList.add("hide");
+
 			//遍历父级节点
 			var parent = [];
 			for(var i = 0; i < articleTypes.length; i++) {
@@ -139,7 +124,7 @@
 					html.push('<div class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mt15 c333 ml10">' + child[l].Name + '</p></div></div>');
 					html.push('<div class="oa-contact-icon mui-table-cell ' + (child[l].ID == ArticleType ? "check" : "") + '" type="' + child[l].ID + '" name="' + child[l].Name + '"></div>');
 					html.push('</div></div></div>');
-				} 
+				}
 				html.push('</div>');
 				html.push('</div>');
 				html.push('</div>');
@@ -157,6 +142,31 @@
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		});
+
+		//完成
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			HttpGet(base.RootUrl + "Article/EditArticleType", {
+					ID: userinfo.ID,
+					ArticleID: ArticleID,
+					ArticleType: ArticleType
+				},
+				function(data) {
+					isLoading = false;
+					if(data.result) {
+						if(!shareSettingPage) {
+							shareSettingPage = plus.webview.getWebviewById('sharesetting');
+						}
+						shareSettingPage.evalJS("UpdateArticleType('" + ArticleType + "','" + ArticleTypeName + "')")
+						mui.back();
+					} else {
+						mui.toast(data.message);
+					}
+				});
+		}, false);
 	});
 
 	//加载文章类型

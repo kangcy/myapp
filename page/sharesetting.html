@@ -41,41 +41,41 @@
 		<div class="mui-content">
 			<ul class="mui-table-view f13 mt0" id="list">
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
-					<span class="fl">权限设置</span>
+					<span class="fl f11">谁可以看</span>
 				</li>
 				<li class="mui-table-view-cell list" index="3">
 					<span class="fl">公开</span>
-					<span class="fr caaa mr20 f12">所有人都可以看到</span>
+					<span class="fr caaa mr20 f11">所有人都可以看到</span>
 				</li>
 				<li class="mui-table-view-cell list" index="2">
 					<span class="fl">不公开</span>
-					<span class="fr caaa mr20 f12">仅通过自己分享后才可见</span>
+					<span class="fr caaa mr20 f11">仅通过自己分享后才可见</span>
 				</li>
 				<li class="mui-table-view-cell list" index="1">
 					<span class="fl">密码可见</span>
-					<span class="fr caaa mr20 f12">设置密码,输入密码才可见</span>
+					<span class="fr caaa mr20 f11">设置密码,输入密码才可见</span>
 				</li>
 				<li class="mui-table-view-cell list" index="0">
 					<span class="fl">私密</span>
-					<span class="fr caaa mr20 f12">仅自己可见</span>
+					<span class="fr caaa mr20 f11">仅自己可见</span>
 				</li>
-			</ul>
-			<ul class="mui-table-view f13">
-				<li class="mui-table-view-cell" style="background:#E8E8E8;height:0.5rem;padding:0px;">
+				<li class="mui-table-view-cell" style="background:#E8E8E8;">
+					<span class="fl f11">文章类别</span>
 				</li>
 				<li class="mui-table-view-cell" id="articletype">
-					<a class="mui-navigate-right">
-						<span class="f13 c333 fl">分类</span>
-						<!--<span class="f11 mt5 caaa">准确设置文章类别，方便以后归纳整理</span>-->
-						<span class="fr caaa mr20 f12" id="article_type"></span>
-					</a>
+					<a class="mui-navigate-right"><span class="f13 c333 fl">分类</span><span class="fr caaa mr20 f12" id="article_type"></span></a>
+				</li>
+				<li class="mui-table-view-cell" style="background:#E8E8E8;">
+					<span class="fl f11">准确设置文章类别，方便以后归纳整理</span>
 				</li>
 				<li class="mui-table-view-cell">
 					<p class="f13 c333">投稿</p>
-					<p class="caaa mt5 f12" style="margin-right:20%;">每周只有一次投稿机会，被选中的文章会有“精”字标识</p>
 					<div class="mui-switch mui-switch-blue" id="switch">
 						<div class="mui-switch-handle"></div>
 					</div>
+				</li>
+				<li class="mui-table-view-cell" style="background:#E8E8E8;">
+					<span class="fl f11">每周只有一次投稿机会，被选中的文章会有“精”字标识</span>
 				</li>
 			</ul>
 		</div>
@@ -145,13 +145,6 @@
 				ArticleType: ArticleType,
 				ArticleTypeName: ArticleTypeName
 			});
-		});
-
-		//修改文章类型
-		window.addEventListener("UpdateArticleType", function(e) {
-			ArticleType = e.detail.ArticleType;
-			ArticleTypeName = e.detail.ArticleTypeName;
-			document.getElementById("article_type").innerHTML = ArticleTypeName;
 		});
 
 		//投稿
@@ -248,6 +241,12 @@
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
 		}, 500);
+	}
+
+	function UpdateArticleType(id, name) {
+		ArticleType = id;
+		ArticleTypeName = name;
+		document.getElementById("article_type").innerHTML = name;
 	}
 
 	//操作弹窗
