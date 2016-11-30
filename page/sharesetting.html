@@ -229,7 +229,7 @@
 
 	//保存权限
 	function SaveArticlePower() {
-		plus.nativeUI.showWaiting("正在修改权限~~");
+		base.ShowWaiting("修改权限中~");
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "Article/EditArticlePower", {
 					ID: userinfo.ID,

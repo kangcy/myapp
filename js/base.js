@@ -331,7 +331,7 @@ var base = new function() {
 	 * 验证权限密码
 	 */
 	this.CheckPowerPwd = function(articleid, pwd, callback) {
-		plus.nativeUI.showWaiting("校验中...");
+		base.ShowWaiting("校验中...");
 		HttpGet(base.RootUrl + "Article/CheckPowerPwd", {
 			ArticleID: articleid,
 			ArticlePowerPwd: pwd

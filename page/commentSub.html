@@ -379,7 +379,7 @@
 			return mui.toast("请填写内容");
 		}
 		if(mui.os.plus) {
-			plus.nativeUI.showWaiting();
+			base.ShowWaiting("正在提交~");
 		}
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,

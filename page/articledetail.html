@@ -611,7 +611,7 @@
 		isLoading = true;
 		ActionTan(0);
 		if(mui.os.plus) {
-			plus.nativeUI.showWaiting("正在复制~");
+			base.ShowWaiting("正在复制~");
 		}
 		HttpGet(base.RootUrl + "Article/Copy", {
 			ID: userinfo.ID,

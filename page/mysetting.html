@@ -121,7 +121,7 @@
 			sexPicker.show(function(items) {
 				document.getElementById("sex").innerHTML = items[0].text;
 				if(mui.os.plus) {
-					plus.nativeUI.showWaiting();
+					base.ShowWaiting("正在编辑性别~");
 				}
 				HttpGet(base.RootUrl + "User/EditSex", {
 					ID: userinfo.ID,
@@ -163,7 +163,7 @@
 				 */
 				document.getElementById("time").innerHTML = rs.text;
 				if(mui.os.plus) {
-					plus.nativeUI.showWaiting();
+					base.ShowWaiting("正在编辑生日~");
 				}
 				HttpGet(base.RootUrl + "User/EditBirthday", {
 					ID: userinfo.ID,
@@ -237,7 +237,7 @@
 		var t = e.detail.desc;
 		nickname.innerHTML = t;
 		if(mui.os.plus) {
-			plus.nativeUI.showWaiting();
+			base.ShowWaiting("正在编辑昵称~");
 		}
 		HttpGet(base.RootUrl + "User/EditNickName", {
 			ID: userinfo.ID,
@@ -259,7 +259,7 @@
 		var t = e.detail.desc;
 		signature.innerHTML = t;
 		if(mui.os.plus) {
-			plus.nativeUI.showWaiting();
+			base.ShowWaiting("正在编辑签名~");
 		}
 		HttpGet(base.RootUrl + "User/EditSignature", {
 			ID: userinfo.ID,

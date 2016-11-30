@@ -93,7 +93,7 @@ function confirm(targetid, callback) {
 	}
 
 	//上传图片到服务器 
-	plus.nativeUI.showWaiting("上传中...");
+	base.ShowWaiting("正在同步图片~");
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl
 	}, function(data) {

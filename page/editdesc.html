@@ -194,7 +194,7 @@
 
 		//字数限制
 		document.getElementById("edit").ontouchend = function() {
-			document.getElementById("edit").innerHTML = document.getElementById("edit").innerHTML.replace(/(^.{1000}).*/g, '$1');
+			document.getElementById("edit").innerHTML = document.getElementById("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
 		}
 
 		//返回
@@ -218,7 +218,7 @@
 				return mui.toast("请编辑文字~");
 			}
 			$("#edit").removeAttr("contenteditable").removeAttr("id");
-			plus.nativeUI.showWaiting("编辑中...");
+			base.ShowWaiting("正在保存~");
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID,

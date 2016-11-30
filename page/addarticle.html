@@ -186,7 +186,7 @@
 			var btnArray = ['确定', '取消'];
 			mui.confirm('删除后不可恢复,确定删除此段？', '', btnArray, function(e) {
 				if(e.index == 0) {
-					plus.nativeUI.showWaiting("删除中...");
+					base.ShowWaiting("正在删除段落~");
 					HttpGet(base.RootUrl + "ArticlePart/Delete", {
 						ID: userinfo.ID,
 						PartID: $this.getAttribute("partid")
@@ -356,7 +356,7 @@
 			ids.push(partid + "-" + $(".edit-body").eq(i).attr("index"));
 		}
 		if(mui.os.plus) {
-			plus.nativeUI.showWaiting("保存中...");
+			base.ShowWaiting("正在同步文章内容~");
 		}
 		HttpGet(base.RootUrl + "Article/Edit", {
 			ID: userinfo.ID,

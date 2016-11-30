@@ -66,9 +66,7 @@
 			if(isNaN(qq.value)) {
 				return mui.toast('请填写正确的联系方式');
 			}
-			if(mui.os.plus) {
-				plus.nativeUI.showWaiting();
-			}
+			base.ShowWaiting("正在保存~");
 			HttpGet(base.RootUrl + "FeedBack/Edit", {
 				ID: userinfo.ID,
 				Summary: escape(question.value),

@@ -125,7 +125,7 @@
 							return;
 						}
 						isLoading = true;
-						plus.nativeUI.showWaiting("编辑中...");
+						base.ShowWaiting("正在创建~");
 						HttpGet(base.RootUrl + "ArticlePart/Edit", {
 							ID: userinfo.ID,
 							ArticleID: ArticleID,

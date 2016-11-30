@@ -39,6 +39,39 @@
 				padding: 10px;
 				line-height: 1.25rem;
 			}
+			/**进度条**/
+			
+			progress {
+				border-radius: 2px;
+				background-color: #eee;
+				height: 1rem;
+			}
+			
+			progress::-webkit-progress-bar {
+				background-color: #d7d7d7;
+			}
+			
+			progress::-webkit-progress-value {
+				background-color: #aadd6a;
+			}
+			
+			.myprogress {
+				position: fixed;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+				z-index: 1000;
+			}
+			
+			.myprogress .myaction_body {
+				width: 100%;
+				padding: 5%;
+				display: inline-block;
+			}
+			
+			.mui-table-view:after {
+				height: 0px;
+			}
 		</style>
 	</head>
 
@@ -61,6 +94,9 @@
 					<p class="f13 c333">没有优酷账号</p>
 					<p class="f11 blue mt5">从视频网页地址导入</p>
 				</li>
+				<li class="mui-table-view-cell" onclick="showActionSheet()">
+					<p class="f13 c333">本地视频导入</p>
+				</li>
 			</ul>
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
@@ -74,6 +110,19 @@
 				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
 			</div>
 		</div>
+		<!--视频同步进度条-->
+		<div class="mytanbg hide" id="myprogressbg"></div>
+		<div class="myprogress hide" id="myprogress">
+			<div class="tc c000 myaction_body">
+				<ul class="mui-table-view f13" style="border-radius: 20px;">
+					<li class="mui-table-view-cell">
+						<p class="full tl mb10 c333" id="checkupdate">正在压缩视频文件</p>
+						<progress class="fl" value="" max="" id="proDownFile" style="width:80%;"></progress>
+						<span class="persent fl ml10 caaa" id="persent" style="line-height:1rem;">0%</span>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -81,6 +130,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/video.copper.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var ArticleID = 0;
@@ -123,29 +173,17 @@
 			if(base.IsNullOrEmpty(url.value)) {
 				return mui.toast('请粘贴视频网页地址');
 			}
-			HttpGet(base.RootUrl + "ArticlePart/Edit", {
-				ID: userinfo.ID,
-				Introduction: url.value,
-				Types: 3,
-				ArticleID: ArticleID
-			}, function(data) {
-				console.log(JSON.stringify(data));
-				if(data == null) {
-					mui.toast("失败");
-				} else {
-					if(data.result) {
-						var parentPage = plus.webview.getWebviewById("addarticle");
-						if(parentPage) {
-							parentPage.evalJS("AddVideo('" + data.message.ID + "','" + data.message.Url + "')");
-						}
-						mui.back();
-					} else {
-						mui.toast(data.message);
-					}
-				}
-				isLoading = false;
-			});
+			AddVideo(url.value, 0);
 		});
+
+		/*var Intent = plus.android.importClass("android.content.Intent");
+		    var Uri = plus.android.importClass("android.net.Uri");
+		    var main = plus.android.runtimeMainActivity();
+		    var intent=new Intent(Intent.ACTION_VIEW);
+		    var uri=Uri.parse("网络视频地址");
+		    intent.setDataAndType(uri,"video/*");
+		    main.startActivity(intent);*/
+
 	});
 
 	function NotAgree() {
@@ -166,5 +204,32 @@
 
 	function Notice() {
 		base.OpenWindow("videonotice", "videonotice.html", {});
+	}
+
+	//编辑视频
+	function AddVideo(url, index) {
+		HttpGet(base.RootUrl + "ArticlePart/Edit", {
+			ID: userinfo.ID,
+			Introduction: url,
+			Types: 3,
+			ArticleID: ArticleID,
+			VideoType: index
+		}, function(data) {
+			base.CloseWaiting();
+			if(data == null) {
+				mui.toast("失败");
+			} else {
+				if(data.result) {
+					var parentPage = plus.webview.getWebviewById("addarticle");
+					if(parentPage) {
+						parentPage.evalJS("AddVideo('" + data.message.ID + "','" + data.message.Url + "')");
+					}
+					mui.back();
+				} else {
+					mui.toast(data.message);
+				}
+			}
+			isLoading = false;
+		});
 	}
 </script>
