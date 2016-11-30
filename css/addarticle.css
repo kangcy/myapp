@@ -104,10 +104,11 @@
 	border-right: 1px solid #ccc;
 }
 
-.edit-body .edit-content {
+.edit-body .edit-content,.edit-body .edit-content2 {
 	line-height: 1.25rem;
 	width: 100%;
-	height: 6rem;
+	min-height: 6rem;
+	display: inline-block;
 	outline: 0;
 	word-wrap: break-word;
 	overflow: hidden;
@@ -118,6 +119,18 @@
 }
 
 .edit-body .edit-content img {
-	max-width: 100%;
+	margin: 5%;
+	max-width: 90%;
+	max-height: 90%;
+}
+
+
+/*视频容器*/
+
+video {
+	/*修复尺寸*/
+	width: 250px;
+	height: 250px;
 	max-height: 100%;
+	margin:5%;
 }

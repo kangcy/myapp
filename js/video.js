@@ -18,5 +18,9 @@ function AppendVideo(sourceurl) {
 	if(sourceurl.toLowerCase().indexOf(".swf") > 0) {
 		return '<div class="media-cont audio-cont" style="margin-top:10px;width: 100%;"><embed src="' + sourceurl + '" allowfullscreen="true" quality="high" width="100%"  height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash"></embed></div>';
 	}
+	//本地视频
+	if(sourceurl.toLowerCase().indexOf(".") > 0) {
+		return '<video style="margin-top:10px;" src="' + sourceurl + '" controls></video>';
+	}
 	return "";
 }

@@ -17,7 +17,7 @@ function Payment() {
 	// 从服务器请求支付订单
 	var PAYSERVER = '';
 	if(id == 'alipay') {
-		PAYSERVER = ALIPAYSERVER; 
+		PAYSERVER = ALIPAYSERVER;
 		channel = aliChannel;
 	} else if(id == 'wxpay') {
 		PAYSERVER = WXPAYSERVER;
@@ -28,8 +28,7 @@ function Payment() {
 		return;
 	}
 	mui.get(PAYSERVER, {}, function(data) {
-		alert(data);
-		//console.log(data);
+		console.log(data);
 		plus.payment.request(channel, data, function(result) {
 			plus.nativeUI.alert("支付成功！", function() {
 				back();

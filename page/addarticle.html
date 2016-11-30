@@ -25,7 +25,7 @@
 							<div id="cover" class="btn cfff fr tr"><i class="fa fa-picture-o f13"></i></div>
 						</div>
 					</div>
-					<div id="edit">
+					<div id="edit" class="mb20">
 
 					</div>
 				</div>
@@ -399,7 +399,7 @@
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="f11 tl" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
+			model.push('<div class="edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
@@ -417,7 +417,7 @@
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="f11 tl" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
+			model.push('<div class="edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');

@@ -254,3 +254,16 @@
 	bottom: 110px;
 	z-index: 999;
 }
+
+
+/*视频容器*/
+
+video {
+	/*修复尺寸*/
+	width: 100%;
+	height: auto;
+	max-height: 100%;
+	/*修复白边*/
+	display: block;
+	font-size: 0;
+}
