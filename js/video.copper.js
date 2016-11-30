@@ -6,7 +6,7 @@ function getVideo() {
 	var Intent = plus.android.importClass("android.content.Intent");
 	var intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 	intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); //0 最低质量, 1高质量MediaStore.EXTRA_SIZE_LIMIT
-	intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60); //60秒视频
+	intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10); //10秒视频
 	var main = plus.android.runtimeMainActivity();
 	main.startActivityForResult(intent, 1);
 
