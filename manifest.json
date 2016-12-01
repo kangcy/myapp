@@ -7,7 +7,7 @@
 	"id": "H5CCC9B38",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "GO",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "2.0",/*应用版本名称*/
+		"name": "1.0",/*应用版本名称*/
 		"code": ""
 	},
 	"description": "",/*应用描述信息*/
@@ -98,9 +98,9 @@
 		},
 		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
-		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"signature": "14:19:A1:71:13:75:31:38:E0:FF:1C:58:CA:13:BC:54:A9:F4:1D:81",/*可选，保留给应用签名，暂不使用:Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==*/
 		"distribute": {
-			"plugins": {
+			"plugins": { 
 				"share": {
 					"qq": {
 						"appid": "100371282",
@@ -158,10 +158,10 @@
 				"frameworks": []
 			},
 			"google": {
-				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
-				"keystore": "",/*Android应用打包使用的密钥库文件*/
-				"password": "",/*Android应用打包使用密钥库中证书的密码*/
-				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"packagename": "io.go",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "go.keystore",/*Android应用打包使用的密钥库文件*/
+				"password": "123456",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "go",/*Android应用打包使用密钥库中证书的别名*/
 				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
 			},
 			"orientation": [

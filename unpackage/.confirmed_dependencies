@@ -1335,7 +1335,8 @@
       "css/animate.css",
       "css/mui.min.css",
       "js/jquery-1.10.2.min.js",
-      "js/default.js"
+      "js/default.js",
+      "js/video.copper.js"
     ],
     "refer": [
       "page/videonotice.html"

@@ -467,6 +467,7 @@
 			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
+			console.log(JSON.stringify(data));
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
@@ -506,6 +507,7 @@
 						$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
 						$("#nickname1").css("color", data.TemplateJson.TitleColor);
 					}
+					console.log(data.Cover + "," + data.TemplateJson.Cover);
 					CurrTemplate = data.Template;
 					CurrBackground = data.Background;
 
@@ -659,6 +661,7 @@
 	function ChangeBg(index) {
 		CurrBackground = index;
 		//纯白背景
+		console.log("CurrCover:" + CurrCover)
 		if(CurrTemplate == 1) {
 			$("#bg").css("background", "#fff");
 		} else {
