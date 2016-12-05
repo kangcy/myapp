@@ -21,8 +21,8 @@
 		"url": ""
 	},
 	"permissions": {
-		
-		
+
+
 
 		"Cache": {
 			"description": "管理应用缓存"
@@ -68,8 +68,8 @@
 		"Zip": {
 			"description": "文件压缩与解压缩"
 		},
-		
-		
+
+
 		"Speech": {
 			"description": "管理语音识别插件"
 		},
@@ -100,7 +100,7 @@
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "14:19:A1:71:13:75:31:38:E0:FF:1C:58:CA:13:BC:54:A9:F4:1D:81",/*可选，保留给应用签名，暂不使用:Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==*/
 		"distribute": {
-			"plugins": { 
+			"plugins": {
 				"share": {
 					"qq": {
 						"appid": "100371282",
@@ -113,8 +113,8 @@
 						"description": "可选，新浪微博分享"
 					},
 					"weixin": {
-						"appid": "wx4868b35061f87885",
-						"appsecret": "64020361b8ec4c99936c0e3999a9f249",
+						"appid": "wxbf415b2a2d7f5af2",  //wx4868b35061f87885
+						"appsecret": "e943afa28eb3dc85fd8e309376759338", //64020361b8ec4c99936c0e3999a9f249
 						"description": "可选，微信分享"
 					},
 					"tencent": {
@@ -144,8 +144,8 @@
 						"redirect_uri": "http://www.sharesdk.cn"
 					},
 					"weixin": {
-						"appid": "wx4868b35061f87885",
-						"appsecret": "64020361b8ec4c99936c0e3999a9f249"
+						"appid": "wxbf415b2a2d7f5af2",
+						"appsecret": "e943afa28eb3dc85fd8e309376759338"
 					}
 				}
 			},
@@ -162,7 +162,23 @@
 				"keystore": "go.keystore",/*Android应用打包使用的密钥库文件*/
 				"password": "123456",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "go",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
+				]
 			},
 			"orientation": [
 				"portrait-primary"
