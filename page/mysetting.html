@@ -94,7 +94,7 @@
 	});
 
 	$(function() {
-		$("#avatar").attr("src", userinfo.Avatar);
+		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
 		$("#nickname").html(userinfo.NickName == "" ? "请填写" : userinfo.NickName);
 		$("#sex").html(userinfo.Sex);
 		$("#city").html(userinfo.Address == "" ? "请选择" : userinfo.Address);
@@ -204,7 +204,7 @@
 			}, function(data) {
 				mui.toast(data.result ? "编辑成功~" : data.message);
 				if(data.result) {
-					$("#avatar").attr("src", url);
+					$("#avatar").attr("src", base.ShowThumb(url, 1));
 					userinfo.Avatar = url;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 				}

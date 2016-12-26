@@ -474,7 +474,7 @@
 					Article = data;
 					MusicUrl = data.MusicUrl;
 
-					$("#payuser").attr("src", data.Avatar);
+					$("#payuser").attr("src", base.ShowThumb(data.Avatar, 1));
 					$(".user").attr("userid", data.CreateUserID);
 
 					//段落
@@ -517,7 +517,7 @@
 					}
 
 					$("#musicname0").html(data.MusicName);
-					$("#useravatar1").attr("src", data.Avatar);
+					$("#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(data.Title);
 					$("#nickname0,#nickname1").html(data.NickName).attr("userid", userinfo.ID);
 					$("#createdate0,#createdate1").html(data.CreateDateText);

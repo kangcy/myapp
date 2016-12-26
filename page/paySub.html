@@ -263,7 +263,7 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.ToUserAvatar + '" class="user" userid="' + item.ToUserID + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.ToUserAvatar, 1) + '" class="user" userid="' + item.ToUserID + '" /></div>');
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f13 c000 mb5">' + item.ToUserName + '</p><p class="f12 csubtitle mb5">打赏</p><p class="f12 csubtitle">' + item.CreateDate + '</p></div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
 		model.push('</div>');
@@ -277,7 +277,7 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + item.FromUserAvatar + '" class="user" userid="' + item.FromUserID + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.FromUserAvatar, 1) + '" class="user" userid="' + item.FromUserID + '" /></div>');
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f13 c000 mb5">' + item.FromUserName + '</p><p class="f12 csubtitle mb5">打赏</p><p class="f12 csubtitle">' + item.CreateDate + '</p></div>');
 		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
 		model.push('</div>');

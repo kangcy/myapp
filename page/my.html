@@ -141,7 +141,7 @@
 			"background": "url(" + userinfo.Cover + ") center center",
 			"background-size": "100%"
 		});
-		$("#avatar").attr("src", userinfo.Avatar);
+		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 2));
 		$("#nickname").html(userinfo.NickName);
 		$("#signature").html(userinfo.Signature);
 		$("#follows").html(userinfo.Follows);
@@ -156,7 +156,7 @@
 		//判断网络类型
 		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("网络异常，请检查网络设置！");
-		} 
+		}
 
 		//用户设置
 		document.getElementById('avatar').addEventListener('tap', function(event) {
