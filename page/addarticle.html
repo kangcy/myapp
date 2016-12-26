@@ -395,7 +395,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + text + '" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {
@@ -413,7 +413,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + text + '" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {
