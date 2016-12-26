@@ -5012,17 +5012,17 @@ body>.mui-progressbar {
 }
 
 .secondfloor {
-	width: 50%;
+	width: 48%;
 	height: 10rem;
 	text-align: center;
 	overflow: hidden;
-	margin-bottom: 1.5%;
+	margin: 1%;
 	float: left;
 	display: inline-block;
 }
 
 .secondfloor img {
-	width: 97% !important;
+	min-width: 100%;
 	min-height: 100%;
 }
 

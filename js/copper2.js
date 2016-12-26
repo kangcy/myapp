@@ -179,7 +179,10 @@ function Upload(imgurl, callback) {
 	//上传图片到服务器 
 	base.ShowWaiting("正在同步图片~");
 	mui.post(base.RootUrl + "Upload/Upload", {
-		str: imgurl
+		str: imgurl,
+		standard: Standard,
+		isDraw: 0,
+		isThumb: 1
 	}, function(data) {
 		if(data != null) {
 			if(data.result) {
@@ -208,7 +211,7 @@ function compressImage(src, newsrc, callback) {
 			dst: newsrc,
 			overwrite: true,
 			width: width,
-			quality: 80
+			quality: 100
 		},
 		function(event) {
 			if($.isFunction(callback)) {
@@ -269,5 +272,5 @@ function getBase64Image(img) {
 	canvas.height = height; /*设置新的图片的长度*/
 	var ctx = canvas.getContext("2d");
 	ctx.drawImage(img, 0, 0, width, height); /*绘图*/
-	return canvas.toDataURL("image/jpeg", 0.8);
+	return canvas.toDataURL("image/jpeg", 1);
 }

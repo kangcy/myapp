@@ -57,6 +57,7 @@
 	var PartID = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
+	var Standard = "Article";
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -76,6 +77,7 @@
 		PartID = self.PartID || 0;
 		Url = self.Url;
 		Source = self.Source;
+		Standard = self.Standard || "Article";
 
 		if(base.IsNullOrEmpty(Url)) {
 			showActionSheet();
@@ -140,7 +142,7 @@
 								if(data.result) {
 									var addarticlePage = plus.webview.getWebviewById('addarticle');
 									if(addarticlePage) {
-										addarticlePage.evalJS("AddPic('" + data.message + "','" + src + "','" + PartID + "')");
+										addarticlePage.evalJS("AddPic('" + base.ShowThumb(data.message, 1) + "','" + src + "','" + PartID + "')");
 									}
 									mui.back();
 								} else {

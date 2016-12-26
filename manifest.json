@@ -127,7 +127,7 @@
 				"payment": {
 					"weixin": {
 						"description": "微信支付",
-						"appid": "wx4868b35061f87885"
+						"appid": "wxbf415b2a2d7f5af2"//
 					},
 					"alipay": {
 						"description": "阿里支付",

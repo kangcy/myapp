@@ -126,7 +126,8 @@
 		//确定
 		document.getElementById('yes').addEventListener('tap', function(e) {
 			if(base.IsNullOrEmpty(fileUrl)) {
-				return mui.toast("还未选择音乐")
+				//return mui.toast("还未选择音乐")
+				return;
 			}
 
 			if(!addarticlePage) {

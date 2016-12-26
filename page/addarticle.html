@@ -395,7 +395,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="' + text + '" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + text + '" /></div>');
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {
@@ -413,7 +413,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="' + text + '" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + text + '" /></div>');
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {
@@ -471,11 +471,30 @@
 							}
 							$edit.append(html);
 						}
-						Group(document.getElementById('edit'), window.innerWidth * 0.05);
 
 						$(".youku_player").each(function() {
 							var $this = $(this);
 							ShowVideo($this.attr("id"), $this.attr("sid"));
+						});
+
+						var imgdefereds = [];
+						$('img').each(function() {
+							var dfd = $.Deferred();
+							$(this).bind('load', function() {
+								dfd.resolve();
+							}).bind('error', function() {
+								//图片加载错误，加入错误处理
+								// dfd.resolve();
+							})
+							if(this.complete) {
+								setTimeout(function() {
+									dfd.resolve();
+								}, 1000);
+							}
+							imgdefereds.push(dfd);
+						})
+						$.when.apply(null, imgdefereds).done(function() {
+							Group(document.getElementById('edit'), window.innerWidth * 0.05);
 						});
 					}
 				}
