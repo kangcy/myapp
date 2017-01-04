@@ -129,12 +129,12 @@
 		if(!checkPhone(regInfo.UserName)) {
 			return callback('手机号码不合法');
 		}
-		/*if(regInfo.NickName.length < 1) {
+		if(regInfo.NickName.length < 1) {
 			return callback('昵称最短需要 1 个字符');
 		}
 		if(regInfo.NickName.length > 12) {
 			return callback('昵称最长限制 12 个字符');
-		}*/
+		}
 		if(regInfo.Password.length < 6) {
 			return callback('密码最短需要 6 个字符');
 		}
@@ -146,6 +146,8 @@
 			UserName: regInfo.UserName,
 			Password: regInfo.Password,
 			NickName: regInfo.NickName,
+			Province: regInfo.Province,
+			City: regInfo.City,
 			Cover: "../images/header.png"
 		}, function(data) {
 			if(data == null) {

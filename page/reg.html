@@ -87,13 +87,25 @@
 	</body>
 
 </html>
-<script src="../js/default.js"></script>
-<script src="../js/mui.min.js"></script>
-<script src="../js/login.js"></script>
-<script>
+<script type="text/javascript" src="../js/default.js"></script>
+<script type="text/javascript" src="../js/mui.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/login.js"></script>
+<script type="text/javascript">
+	var Province = "";
+	var City = "";
 	(function($, doc) {
 		$.init();
 		$.plusReady(function() {
+			//系统定位
+			plus.geolocation.getCurrentPosition(function(p) {
+				console.log("注册:" + JSON.stringify(p));
+				Province = p.address.province;
+				City = p.address.city;
+			}, function(e) {
+				//mui.toast("未授权")
+			});
+
 			var settings = app.getSettings();
 			var accountBox = doc.getElementById('account'); //账号
 			var nickname = doc.getElementById('nickname'); //昵称
@@ -103,20 +115,27 @@
 			//注册
 			doc.getElementById('reg').addEventListener('tap', function(event) {
 				var regInfo = {
-					account: accountBox.value,
-					nickname: nickname.value,
-					password: passwordBox.value
+					UserName: accountBox.value,
+					NickName: nickname.value,
+					Password: passwordBox.value,
+					Province: Province,
+					City: City
 				};
 				var passwordConfirm = passwordConfirmBox.value;
-				if(passwordConfirm != regInfo.password) {
+				if(passwordConfirm != regInfo.Password) {
 					plus.nativeUI.toast('密码两次输入不一致');
 					return;
 				}
 				app.reg(regInfo, function(err) {
+
 					if(err) {
 						plus.nativeUI.toast(err);
 						return;
 					}
+					accountBox.value = "";
+					nickname.value = "";
+					passwordBox.value = "";
+					passwordConfirmBox.value = "";
 					plus.nativeUI.toast('注册成功');
 					$.openWindow({
 						url: 'login.html',

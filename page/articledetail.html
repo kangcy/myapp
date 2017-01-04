@@ -621,11 +621,13 @@
 			Province: Province,
 			City: City
 		}, function(data) {
-			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
-			}
-			mui.toast(data.result ? "复制成功,请刷新我的文章查看~" : data.message);
-			isLoading = false;
+			setTimeout(function() {
+				if(mui.os.plus) {
+					base.CloseWaiting();
+				}
+				mui.toast(data.result ? "复制成功,请刷新我的文章查看~" : data.message);
+				isLoading = false;
+			}, 1000);
 		});
 	}
 

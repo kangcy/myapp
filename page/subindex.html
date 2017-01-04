@@ -182,6 +182,12 @@
 			var index = 1;
 			for(var i in e.files) {
 				mui.toast("正在导入第" + index + "张图片");
+				if(index == e.files.length) {
+					setTimeout(function() {
+						base.ShowWaiting("正在同步文章内容~");
+					}, 5000);
+				}
+
 				index += 1;
 				//压缩图片 
 				var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
@@ -196,7 +202,6 @@
 					}
 				});
 			}
-			base.ShowWaiting("正在同步文章内容~");
 		}, function(e) {
 
 		}, {

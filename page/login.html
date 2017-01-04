@@ -60,7 +60,7 @@
 		base.OpenWindow("subindex", "subindex.html", {});
 	};
 
-	var auths = {}; 
+	var auths = {};
 	mui.plusReady(function() {
 		var settings = app.getSettings();
 
@@ -82,6 +82,8 @@
 					plus.nativeUI.toast(err);
 					return;
 				}
+				accountBox.value = "";
+				passwordBox.value = "";
 				base.ShowWaiting("登录成功，载入中...");
 				toMain();
 			});
@@ -108,8 +110,8 @@
 	 */
 	document.getElementById('reg').addEventListener('tap', function(event) {
 		mui.openWindow({
-			id: 'register',
-			url: 'register.html',
+			id: 'reg',
+			url: 'reg.html',
 			preload: true,
 			show: {
 				aniShow: 'pop-in'

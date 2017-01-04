@@ -467,7 +467,8 @@
 					"js/mui.min.js",
 					"js/login.js",
 					"css/mui.min.css",
-					"js/default.js"
+					"js/default.js",
+					"js/base.js"
 				],
 				"refer": [
 					"page/notice.html",
@@ -505,7 +506,8 @@
 					"cropper/cropper.css",
 					"js/copper.js",
 					"cropper/cropper.min.js",
-					"images/add2.png"
+					"images/add2.png",
+					"images/logo.png"
 				],
 				"refer": [
 					"page/pay.html",
