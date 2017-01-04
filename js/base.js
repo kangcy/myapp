@@ -397,7 +397,6 @@ var base = new function() {
 				}
 				model.push('</span></div></div>');
 			} else {
-				console.log(item.Avatar)
 				if(islazyload) {
 					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				} else {

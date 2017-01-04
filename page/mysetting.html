@@ -65,7 +65,7 @@
 					<span class="fl">地区</span>
 					<span class="fr caaa" id="city"></span></a>
 				</li>
-				<li class="mui-table-view-cell" data-options='{"type":"date"}' id="timePicker">
+				<li class="mui-table-view-cell" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker">
 					<span class="fl">生日</span>
 					<span class="fr caaa" id="time"></span></a>
 				</li>
@@ -152,15 +152,6 @@
 			 */
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
-				/*
-				 * rs.value 拼合后的 value
-				 * rs.text 拼合后的 text
-				 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
-				 * rs.m 月，用法同年
-				 * rs.d 日，用法同年
-				 * rs.h 时，用法同年
-				 * rs.i 分（minutes 的第二个字母），用法同年
-				 */
 				document.getElementById("time").innerHTML = rs.text;
 				if(mui.os.plus) {
 					base.ShowWaiting("正在编辑生日~");
