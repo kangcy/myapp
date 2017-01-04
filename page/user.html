@@ -143,10 +143,10 @@
 								<p class="f20 mb0" id="articlenum">0</p>
 							</div>
 							<div class="right" id="list2">
-
+ 
 							</div>
 						</div>
-						<div id="comment" class="f13 caaa tc mt5">
+						<div id="comment" class="f13 caaa tc mt5 mb5">
 							<div id="comments" class="left"><span class="c333">回复</span><br />
 								<p class="f20 mb0" id="commentnum">0</p>
 							</div>
@@ -174,7 +174,6 @@
 	var pagesize = base.PageSize;
 	var UserID = 0; //用户ID
 	var userinfo = base.GetUserInfo();
-
 	mui.init();
 
 	mui.ready(function() {
@@ -266,7 +265,7 @@
 	function AppendPic(item) {
 		var div = document.createElement('div');
 		div.className = 'third';
-		div.innerHTML = '<img src="' + item.Introduction + '" />';
+		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" />';
 		return div;
 	}
 
@@ -307,7 +306,7 @@
 		div.setAttribute("userid", item.UserID);
 		div.setAttribute("power", item.ArticlePower);
 		var model = [];
-		model.push('<div class="' + (index == 0 ? "" : "mt10") + '" style="width:4rem;height:4rem;float:left;margin-left:1%;overflow:hidden;"><img src="' + item.Cover + '" style="width:4rem;height:auto;min-height:100%;float:left;" /></div>');
+		model.push('<div class="' + (index == 0 ? "" : "mt10") + '" style="width:4rem;height:4rem;float:left;margin-left:1%;overflow:hidden;"><img src="' + base.ShowThumb(item.Cover, 2) + '" style="width:4rem;height:auto;min-height:100%;float:left;" /></div>');
 		model.push('<div class="' + (index == 0 ? "" : "mt10") + '" style="width:70%;float:right;text-align:left;line-height:1.2rem;">');
 		model.push('<p class="f12 c333" style="min-height:2.2rem;">' + item.Title + '</p>');
 		model.push('<p class="f11 mb5">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</p>');
@@ -368,7 +367,7 @@
 					"background": "url(" + data.Cover + ") center center",
 					"background-size": "100%"
 				});
-				$("#avatar").attr("src", data.Avatar).removeClass("hide");
+				$("#avatar").attr("src", base.ShowThumb(data.Avatar, 2)).removeClass("hide");
 				$("#nickname").html(data.NickName);
 				$("#signature").html(data.Signature);
 				$("#follows").html(data.Follows);
@@ -377,7 +376,7 @@
 				mui.toast(data.message);
 			}
 			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
+				base.CloseWaiting();
 			}
 		});
 	}
