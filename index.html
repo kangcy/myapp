@@ -25,9 +25,8 @@
 		//仅支持竖屏显示
 		plus.screen.lockOrientation("portrait-primary");
 
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
+		//判断网络状态
+		base.NetChange();
 
 		//读取本地存储，检查是否为首次启动
 		var showGuide = plus.storage.getItem("lauchFlag");

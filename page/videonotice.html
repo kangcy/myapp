@@ -50,10 +50,8 @@
 		document.getElementById("step2").setAttribute("src", base.RootUrl + "Source/video/2.png");
 		document.getElementById("step3").setAttribute("src", base.RootUrl + "Source/video/3.png");
 
-		//判断网络类型
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
+		//判断网络状态
+		base.NetChange();
 
 		//返回
 		mui.back = function() {
