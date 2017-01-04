@@ -44,7 +44,8 @@
 <script type="text/javascript">
 	var Province = ""; //当前定位省份
 	var City = ""; //当前定位城市
-	var ArticleID = 0; //文章
+	var ArticleID = 0; //文章ID
+	var ArticleNumber = ""; //文章编号
 	var MusicID = 0; //音乐
 	var MusicName = ""; //音乐名称
 	var MusicUrl = ""; //音乐地址
@@ -124,14 +125,14 @@
 				base.OpenWindow("editimage", "editimage.html", {
 					Url: currEditImg,
 					Source: "ArticleAvatar",
-					ArticleID: ArticleID,
+					ArticleNumber: ArticleNumber,
 					PartID: $("#" + currEditID).attr("partid")
 				});
 			} else if(type == "text") {
 				//编辑文字
 				var html = document.getElementById(currEditID).innerHTML.trim();
 				base.OpenWindow("editdesc", "editdesc.html", {
-					ArticleID: ArticleID,
+					ArticleNumber: ArticleNumber,
 					PartID: $("#" + currEditID).attr("partid"),
 					title: html == "点击添加文字" ? "" : html
 				});
@@ -153,7 +154,7 @@
 		//新增图片
 		mui('#edit').on('tap', '.edit-add-pic', function() {
 			base.OpenWindow("editimage", "editimage.html", {
-				ArticleID: ArticleID,
+				ArticleNumber: ArticleNumber,
 				PartID: 0,
 				Url: currEditImg,
 				Source: "ArticleAvatar"
@@ -163,7 +164,7 @@
 		//新增文本
 		mui('#edit').on('tap', '.edit-add-text', function() {
 			base.OpenWindow("editdesc", "editdesc.html", {
-				ArticleID: ArticleID,
+				ArticleNumber: ArticleNumber,
 				PartID: 0
 			});
 		});
@@ -171,7 +172,7 @@
 		//新增视频
 		mui('#edit').on('tap', '.edit-add-video', function() {
 			base.OpenWindow("editvideo", "editvideo.html", {
-				ArticleID: ArticleID
+				ArticleNumber: ArticleNumber
 			});
 		});
 
@@ -216,6 +217,7 @@
 		//获取参数
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
+		ArticleNumber = self.ArticleNumber;
 		Source = self.Source || "Add";
 
 		Load();

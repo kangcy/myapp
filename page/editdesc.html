@@ -74,6 +74,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
+	var ArticleNumber = ""; //文章编号
 	var PartID = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
@@ -151,6 +152,7 @@
 
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
+		ArticleNumber = self.ArticleNumber;
 		PartID = self.PartID || 0;
 		var html = self.title;
 		if(base.IsNullOrEmpty(html)) {
@@ -221,7 +223,7 @@
 			base.ShowWaiting("正在保存~");
 			HttpGet(base.RootUrl + "ArticlePart/Edit", {
 				ID: userinfo.ID,
-				ArticleID: ArticleID,
+				ArticleNumber: ArticleNumber,
 				PartID: PartID,
 				Types: 2,
 				Introduction: escape($("#divedit").html())

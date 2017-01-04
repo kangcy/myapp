@@ -637,6 +637,7 @@
 		base.ShowWaiting("正在同步文章内容~");
 		base.OpenWindow("addarticle", "addarticle.html", {
 			ArticleID: ArticleID,
+			ArticleNumber: Article.Number,
 			Source: Source
 		});
 	}
@@ -646,6 +647,7 @@
 		ActionTan(0);
 		base.OpenWindow("sharesetting", "sharesetting.html", {
 			ArticleID: ArticleID,
+			ArticleNumber: Article.Number,
 			ArticlePower: Article.ArticlePower,
 			ArticlePowerPwd: Article.ArticlePowerPwd,
 			ArticleType: Article.TypeID,

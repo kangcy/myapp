@@ -266,7 +266,8 @@
 							if(data != null) {
 								if(data.result) {
 									base.OpenWindow("addarticle", "addarticle.html", {
-										ArticleID: data.message,
+										ArticleID: data.message.ID,
+										ArticleNumber: data.message.Number,
 										Source: "Add"
 									});
 								} else {

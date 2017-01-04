@@ -54,6 +54,7 @@
 	var Url = "";
 	var Source = "";
 	var ArticleID = 0;
+	var ArticleNumber = ""; //文章编号
 	var PartID = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
@@ -74,9 +75,10 @@
 
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
+		ArticleNumber = self.ArticleNumber;
 		PartID = self.PartID || 0;
 		Url = self.Url;
-		Source = self.Source; 
+		Source = self.Source;
 		Standard = self.Standard || "Article";
 
 		if(base.IsNullOrEmpty(Url)) {
@@ -130,7 +132,7 @@
 						base.ShowWaiting("正在创建~");
 						HttpGet(base.RootUrl + "ArticlePart/Edit", {
 							ID: userinfo.ID,
-							ArticleID: ArticleID,
+							ArticleNumber: ArticleNumber,
 							PartID: PartID,
 							Types: 1,
 							Introduction: src

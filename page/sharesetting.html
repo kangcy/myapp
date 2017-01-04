@@ -99,6 +99,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0; //文章ID
+	var ArticleNumber = ""; //文章编号
 	var ArticlePower = 0; //分享权限
 	var ArticlePowerPwd = ""; //权限密码
 	var ArticleType = 0; //文章类型ID
@@ -178,6 +179,7 @@
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
+		ArticleNumber = self.ArticleNumber;
 		ArticlePower = self.ArticlePower;
 		ArticlePowerPwd = self.ArticlePowerPwd;
 		ArticleType = self.ArticleType;
@@ -233,7 +235,7 @@
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "Article/EditArticlePower", {
 					ID: userinfo.ID,
-					ArticleID: ArticleID,
+					ArticleNumber: ArticleNumber,
 					ArticlePower: ArticlePower,
 					ArticlePowerPwd: ArticlePowerPwd
 				},
