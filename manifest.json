@@ -1520,7 +1520,8 @@
 					"cropper/cropper.min.js",
 					"js/copper2.js",
 					"images/editimage/e4.png",
-					"images/60x60.gif"
+					"images/60x60.gif",
+					"images/header.png"
 				],
 				"refer": [
 					"page/addarticle.html"

@@ -54,9 +54,7 @@
 			if(!mysettingPage) {
 				mysettingPage = plus.webview.getWebviewById('mysetting');
 			}
-			mui.fire(mysettingPage, "updateNickName", {
-				"desc": question.value
-			});
+			mysettingPage.evalJS("UpdateNickName('" + question.value + "')");
 			mui.back();
 		}, false);
 	});

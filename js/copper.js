@@ -104,9 +104,9 @@ function confirm(targetid, callback) {
 				}
 				$(".mui-content,.header,.footer").show();
 				$("#readyimg").cropper('destroy');
-				plus.nativeUI.closeWaiting();
+				base.CloseWaiting();
 			} else {
-				plus.nativeUI.closeWaiting();
+				base.CloseWaiting();
 				mui.toast(data.message);
 			}
 		}

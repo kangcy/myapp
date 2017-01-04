@@ -293,7 +293,7 @@
 					version: version,
 					client: client
 				}, function(data) {
-					plus.nativeUI.closeWaiting();
+					base.CloseWaiting();
 					isLoading = false;
 					if(data == null) {
 						return mui.toast("网络异常,请稍候再试");

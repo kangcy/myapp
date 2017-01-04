@@ -51,9 +51,7 @@
 			if(!mysettingPage) {
 				mysettingPage = plus.webview.getWebviewById('mysetting');
 			}
-			mui.fire(mysettingPage, "updateSignature", {
-				"desc": question.value
-			});
+			mysettingPage.evalJS("UpdateSignature('" + question.value + "')");
 			mui.back();
 		}, false);
 	});

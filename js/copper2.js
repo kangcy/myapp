@@ -193,9 +193,9 @@ function Upload(imgurl, callback) {
 				document.getElementById("openpop").style.display = "inline-block";
 				$("#readyimg").cropper('destroy');
 				iscutimging = false;
-				plus.nativeUI.closeWaiting();
+				base.CloseWaiting();
 			} else {
-				plus.nativeUI.closeWaiting();
+				base.CloseWaiting();
 				mui.toast(data.message);
 			}
 		}

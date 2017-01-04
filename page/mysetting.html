@@ -128,7 +128,7 @@
 					Sex: items[0].value
 				}, function(data) {
 					if(mui.os.plus) {
-						plus.nativeUI.closeWaiting();
+						base.CloseWaiting();
 					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
 					if(data.result) {
@@ -161,7 +161,7 @@
 					Birthday: rs.text
 				}, function(data) {
 					if(mui.os.plus) {
-						plus.nativeUI.closeWaiting();
+						base.CloseWaiting();
 					}
 					mui.toast(data.result ? "编辑成功~" : data.message);
 					if(data.result) {
@@ -179,26 +179,6 @@
 				Url: userinfo.Avatar,
 				Source: "UserAvatar",
 				Standard: "UserAvatar"
-			});
-		});
-
-		//修改头像
-		window.addEventListener("UpdateAvatar", function(e) {
-			var url = e.detail.Url;
-			if(userinfo.Avatar == url) {
-				mui.toast("编辑成功~");
-				return;
-			}
-			HttpGet(base.RootUrl + "User/EditAvatar", {
-				ID: userinfo.ID,
-				Avatar: url
-			}, function(data) {
-				mui.toast(data.result ? "编辑成功~" : data.message);
-				if(data.result) {
-					$("#avatar").attr("src", base.ShowThumb(url, 1));
-					userinfo.Avatar = url;
-					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-				}
 			});
 		});
 	})
@@ -224,9 +204,27 @@
 	var nickname = document.getElementById("nickname");
 	var signature = document.getElementById("signature");
 
+	//修改头像
+	function UpdateAvatar(url) {
+		if(userinfo.Avatar == url) {
+			mui.toast("编辑成功~");
+			return;
+		}
+		HttpGet(base.RootUrl + "User/EditAvatar", {
+			ID: userinfo.ID,
+			Avatar: url
+		}, function(data) {
+			mui.toast(data.result ? "编辑成功~" : data.message);
+			if(data.result) {
+				$("#avatar").attr("src", base.ShowThumb(url, 1));
+				userinfo.Avatar = url;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			}
+		});
+	}
+
 	//修改昵称
-	window.addEventListener("updateNickName", function(e) {
-		var t = e.detail.desc;
+	function UpdateNickName(t) {
 		nickname.innerHTML = t;
 		if(mui.os.plus) {
 			base.ShowWaiting("正在编辑昵称~");
@@ -236,7 +234,7 @@
 			NickName: t
 		}, function(data) {
 			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
+				base.CloseWaiting();
 			}
 			mui.toast(data.result ? "编辑成功~" : data.message);
 			if(data.result) {
@@ -244,11 +242,10 @@
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			}
 		});
-	});
+	}
 
 	//修改签名
-	window.addEventListener("updateSignature", function(e) {
-		var t = e.detail.desc;
+	function UpdateSignature(t) {
 		signature.innerHTML = t;
 		if(mui.os.plus) {
 			base.ShowWaiting("正在编辑签名~");
@@ -258,7 +255,7 @@
 			Signature: t
 		}, function(data) {
 			if(mui.os.plus) {
-				plus.nativeUI.closeWaiting();
+				base.CloseWaiting();
 			}
 			mui.toast(data.result ? "编辑成功~" : data.message);
 			if(data.result) {
@@ -266,7 +263,7 @@
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			}
 		});
-	});
+	}
 
 	//编辑昵称
 	editnickname.addEventListener('tap', function(event) {

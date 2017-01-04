@@ -336,7 +336,7 @@ var base = new function() {
 			ArticleID: articleid,
 			ArticlePowerPwd: pwd
 		}, function(data) {
-			plus.nativeUI.closeWaiting();
+			base.CloseWaiting();
 			if(data != null) {
 				if(data.result) {
 					if(callback) {

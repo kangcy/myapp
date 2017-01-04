@@ -73,7 +73,7 @@
 				QQ: qq.value
 			}, function(data) {
 				if(mui.os.plus) {
-					plus.nativeUI.closeWaiting();
+					base.CloseWaiting();
 				}
 				mui.toast(data.result ? "感谢您的建议~" : data.message);
 				if(data.result) {

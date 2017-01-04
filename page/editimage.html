@@ -138,7 +138,7 @@
 							Introduction: src
 						}, function(data) {
 							if(mui.os.plus) {
-								plus.nativeUI.closeWaiting();
+								base.CloseWaiting();
 							}
 							if(data != null) {
 								if(data.result) {
@@ -162,17 +162,19 @@
 						//用户封面
 					case "UserCover":
 						var page = plus.webview.getWebviewById("my.html");
-						mui.fire(page, "UpdateCover", {
+						/*mui.fire(page, "UpdateCover", {
 							"Url": src
-						});
+						});*/
+						page.evalJS("UpdateCover('" + src + "')");
 						mui.back();
 						break;
 						//用户头像
 					case "UserAvatar":
 						var page = plus.webview.getWebviewById("mysetting");
-						mui.fire(page, "UpdateAvatar", {
+						page.evalJS("UpdateAvatar('" + src + "')");
+						/*mui.fire(page, "UpdateAvatar", {
 							"Url": src
-						});
+						});*/
 						mui.back();
 						break;
 					default:

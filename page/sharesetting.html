@@ -148,32 +148,6 @@
 				ArticleTypeName: ArticleTypeName
 			});
 		});
-
-		//投稿
-		document.getElementById("switch").addEventListener('toggle', function(event) {
-			if(isLoading) {
-				return;
-			}
-			isLoading = true;
-			if(event.detail.isActive) {
-				base.ShowWaiting("正在投稿~")
-				HttpGet(base.RootUrl + "Article/Recommend", {
-						ID: userinfo.ID,
-						ArticleID: ArticleID
-					},
-					function(data) {
-						plus.nativeUI.closeWaiting();
-						if(data.result) {
-							mui.toast("投稿成功~");
-						} else {
-							ActionTan(1, data.message);
-						}
-						isLoading = false;
-					});
-			} else {
-				isLoading = false;
-			}
-		});
 	})
 
 	mui.plusReady(function() {
@@ -213,6 +187,32 @@
 		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
+		});
+
+		//投稿
+		document.getElementById("switch").addEventListener('toggle', function(event) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			if(event.detail.isActive) {
+				base.ShowWaiting("正在投稿~")
+				HttpGet(base.RootUrl + "Article/Recommend", {
+						ID: userinfo.ID,
+						ArticleID: ArticleID
+					},
+					function(data) {
+						base.CloseWaiting();
+						if(data.result) {
+							mui.toast("投稿成功~");
+						} else {
+							ActionTan(1, data.message);
+						}
+						isLoading = false;
+					});
+			} else {
+				isLoading = false;
+			}
 		});
 	});
 

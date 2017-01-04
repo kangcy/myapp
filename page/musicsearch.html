@@ -221,7 +221,7 @@
 		};
 
 		HttpGet(base.RootUrl + "Music/SearchMusic", data, function(data) {
-			plus.nativeUI.closeWaiting();
+			base.CloseWaiting();
 			if(data != null) {
 				if(data.code == 0) {
 					data = data.data;

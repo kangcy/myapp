@@ -192,7 +192,7 @@
 						ID: userinfo.ID,
 						PartID: $this.getAttribute("partid")
 					}, function(data) {
-						plus.nativeUI.closeWaiting();
+						base.CloseWaiting();
 						if(data != null) {
 							if(data.result) {
 								$this.parentNode.parentNode.parentNode.remove();
