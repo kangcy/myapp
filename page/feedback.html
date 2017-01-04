@@ -72,9 +72,7 @@
 				Summary: escape(question.value),
 				QQ: qq.value
 			}, function(data) {
-				if(mui.os.plus) {
-					base.CloseWaiting();
-				}
+				base.CloseWaiting();
 				mui.toast(data.result ? "感谢您的建议~" : data.message);
 				if(data.result) {
 					question.value = "";

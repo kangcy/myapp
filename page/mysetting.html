@@ -120,16 +120,12 @@
 		document.getElementById('sexPicker').addEventListener('tap', function(event) {
 			sexPicker.show(function(items) {
 				document.getElementById("sex").innerHTML = items[0].text;
-				if(mui.os.plus) {
-					base.ShowWaiting("正在编辑性别~");
-				}
+				base.ShowWaiting("正在编辑性别~");
 				HttpGet(base.RootUrl + "User/EditSex", {
 					ID: userinfo.ID,
 					Sex: items[0].value
 				}, function(data) {
-					if(mui.os.plus) {
-						base.CloseWaiting();
-					}
+					base.CloseWaiting();
 					mui.toast(data.result ? "编辑成功~" : data.message);
 					if(data.result) {
 						userinfo.Sex = items[0].value == "0" ? "男" : "女";
@@ -153,16 +149,12 @@
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
 				document.getElementById("time").innerHTML = rs.text;
-				if(mui.os.plus) {
-					base.ShowWaiting("正在编辑生日~");
-				}
+				base.ShowWaiting("正在编辑生日~");
 				HttpGet(base.RootUrl + "User/EditBirthday", {
 					ID: userinfo.ID,
 					Birthday: rs.text
 				}, function(data) {
-					if(mui.os.plus) {
-						base.CloseWaiting();
-					}
+					base.CloseWaiting();
 					mui.toast(data.result ? "编辑成功~" : data.message);
 					if(data.result) {
 						userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
@@ -226,16 +218,12 @@
 	//修改昵称
 	function UpdateNickName(t) {
 		nickname.innerHTML = t;
-		if(mui.os.plus) {
-			base.ShowWaiting("正在编辑昵称~");
-		}
+		base.ShowWaiting("正在编辑昵称~");
 		HttpGet(base.RootUrl + "User/EditNickName", {
 			ID: userinfo.ID,
 			NickName: t
 		}, function(data) {
-			if(mui.os.plus) {
-				base.CloseWaiting();
-			}
+			base.CloseWaiting();
 			mui.toast(data.result ? "编辑成功~" : data.message);
 			if(data.result) {
 				userinfo.NickName = t;
@@ -247,16 +235,12 @@
 	//修改签名
 	function UpdateSignature(t) {
 		signature.innerHTML = t;
-		if(mui.os.plus) {
-			base.ShowWaiting("正在编辑签名~");
-		}
+		base.ShowWaiting("正在编辑签名~");
 		HttpGet(base.RootUrl + "User/EditSignature", {
 			ID: userinfo.ID,
 			Signature: t
 		}, function(data) {
-			if(mui.os.plus) {
-				base.CloseWaiting();
-			}
+			base.CloseWaiting();
 			mui.toast(data.result ? "编辑成功~" : data.message);
 			if(data.result) {
 				userinfo.Signature = t;

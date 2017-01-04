@@ -137,9 +137,7 @@
 							Types: 1,
 							Introduction: src
 						}, function(data) {
-							if(mui.os.plus) {
-								base.CloseWaiting();
-							}
+							base.CloseWaiting();
 							if(data != null) {
 								if(data.result) {
 									var addarticlePage = plus.webview.getWebviewById('addarticle');
@@ -162,9 +160,6 @@
 						//用户封面
 					case "UserCover":
 						var page = plus.webview.getWebviewById("my.html");
-						/*mui.fire(page, "UpdateCover", {
-							"Url": src
-						});*/
 						page.evalJS("UpdateCover('" + src + "')");
 						mui.back();
 						break;
@@ -172,9 +167,6 @@
 					case "UserAvatar":
 						var page = plus.webview.getWebviewById("mysetting");
 						page.evalJS("UpdateAvatar('" + src + "')");
-						/*mui.fire(page, "UpdateAvatar", {
-							"Url": src
-						});*/
 						mui.back();
 						break;
 					default:

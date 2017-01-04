@@ -240,7 +240,7 @@
 					ArticlePowerPwd: ArticlePowerPwd
 				},
 				function(data) {
-					plus.nativeUI.closeWaiting();
+					base.CloseWaiting();
 					mui.toast(data.result ? "编辑成功~" : data.message);
 				});
 		}, 500);

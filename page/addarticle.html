@@ -354,9 +354,7 @@
 			var partid = $(".edit-content").eq(i).attr("partid");
 			ids.push(partid + "-" + $(".edit-body").eq(i).attr("index"));
 		}
-		if(mui.os.plus) {
-			base.ShowWaiting("正在同步文章内容~");
-		}
+		base.ShowWaiting("正在同步文章内容~");
 		HttpGet(base.RootUrl + "Article/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,

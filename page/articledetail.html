@@ -409,6 +409,7 @@
 		if(mui.os.plus) {
 			plus.nativeUI.showWaiting();
 		}
+		base.ShowWaiting("正在提交~");
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -418,9 +419,7 @@
 			Province: Province,
 			City: City
 		}, function(data) {
-			if(mui.os.plus) {
-				base.CloseWaiting();
-			}
+			base.CloseWaiting();
 			mui.toast(data.result ? "感谢您的评论~" : data.message);
 			if(data.result) {
 				EditorClose();
@@ -610,9 +609,7 @@
 		}
 		isLoading = true;
 		ActionTan(0);
-		if(mui.os.plus) {
-			base.ShowWaiting("正在复制~");
-		}
+		base.ShowWaiting("正在复制~");
 		HttpGet(base.RootUrl + "Article/Copy", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -620,9 +617,7 @@
 			City: City
 		}, function(data) {
 			setTimeout(function() {
-				if(mui.os.plus) {
-					base.CloseWaiting();
-				}
+				base.CloseWaiting();
 				mui.toast(data.result ? "复制成功,请刷新我的文章查看~" : data.message);
 				isLoading = false;
 			}, 1000);

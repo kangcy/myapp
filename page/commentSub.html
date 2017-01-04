@@ -376,9 +376,7 @@
 			isLoading = false;
 			return mui.toast("请填写内容");
 		}
-		if(mui.os.plus) {
-			base.ShowWaiting("正在提交~");
-		}
+		base.ShowWaiting("正在提交~");
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -388,9 +386,7 @@
 			Province: Province,
 			City: City
 		}, function(data) {
-			if(mui.os.plus) {
-				base.CloseWaiting();
-			}
+			base.CloseWaiting();
 			mui.toast(data.result ? "感谢您的评论~" : data.message);
 			if(data.result) {
 				EditorClose();

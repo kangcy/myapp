@@ -75,23 +75,27 @@ var base = new function() {
 	 * 打开等待提示框
 	 **/
 	this.ShowWaiting = function(title) {
-		plus.nativeUI.showWaiting(title, {
-			width: "80%",
-			padding: "4%",
-			background: "rgba(0,0,0,0.6)",
-			textalign: "left",
-			back: "none",
-			loading: {
-				display: "inline"
-			}
-		});
+		if(mui.os.plus) {
+			plus.nativeUI.showWaiting(title, {
+				width: "80%",
+				padding: "4%",
+				background: "rgba(0,0,0,0.6)",
+				textalign: "left",
+				back: "none",
+				loading: {
+					display: "inline"
+				}
+			});
+		}
 	}
 
 	/**
 	 * 关闭等待提示框
 	 **/
 	this.CloseWaiting = function() {
-		plus.nativeUI.closeWaiting();
+		if(mui.os.plus) {
+			plus.nativeUI.closeWaiting();
+		}
 	}
 
 	/**
@@ -284,7 +288,7 @@ var base = new function() {
 	 **/
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
-			base.ShowWaiting("载入中...");
+			base.ShowWaiting("载入中~");
 			var userId = this.getAttribute("userid");
 			base.OpenWindow("user", "user.html", {
 				UserID: userId
@@ -309,7 +313,7 @@ var base = new function() {
 				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
 					if(e.index == 0) {
 						base.CheckPowerPwd(articleId, e.value, function() {
-							base.ShowWaiting("载入中...");
+							base.ShowWaiting("载入中~");
 							base.OpenWindow("articledetail", "articledetail.html", {
 								ArticleID: articleId,
 								Source: Source
@@ -318,7 +322,7 @@ var base = new function() {
 					}
 				})
 			} else {
-				base.ShowWaiting("载入中...");
+				base.ShowWaiting("载入中~");
 				base.OpenWindow("articledetail", "articledetail.html", {
 					ArticleID: articleId,
 					Source: "View"
@@ -331,7 +335,7 @@ var base = new function() {
 	 * 验证权限密码
 	 */
 	this.CheckPowerPwd = function(articleid, pwd, callback) {
-		base.ShowWaiting("校验中...");
+		base.ShowWaiting("校验中~");
 		HttpGet(base.RootUrl + "Article/CheckPowerPwd", {
 			ArticleID: articleid,
 			ArticlePowerPwd: pwd

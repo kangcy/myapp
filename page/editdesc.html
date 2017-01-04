@@ -228,9 +228,7 @@
 				Types: 2,
 				Introduction: escape($("#divedit").html())
 			}, function(data) {
-				if(mui.os.plus) {
-					base.CloseWaiting();
-				}
+				base.CloseWaiting();
 				if(data != null) {
 					if(data.result) {
 						if(!addarticlePage) {
