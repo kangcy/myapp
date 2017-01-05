@@ -39,7 +39,11 @@
 
 	mui.plusReady(function() {
 		//判断网络状态
-		base.NetChange();
+		document.addEventListener("netchange", function() {
+			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+				mui.toast("网络异常，请检查网络设置！");
+			}
+		}, false);
 		
 		//返回
 		mui.back = function() {
