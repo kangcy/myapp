@@ -255,6 +255,41 @@
 	z-index: 999;
 }
 
+#mypay {
+	position: fixed;
+	bottom: 30%;
+	left: 5%;
+	width: 90%;
+	z-index: 99999;
+	background: #fff;
+}
+
+#mypay #mypaycontent {
+	padding: 5% 15%;
+	text-align: center;
+	position: relative;
+}
+
+#mypay #mypaycontent .fa-remove {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+}
+
+#payuser {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50px;
+}
+
+.payment {
+	height: 45px;
+	line-height: 45px;
+	border-radius: 30px;
+	background: #ed5565;
+	color: #fff;
+}
+
 
 /*视频容器*/
 

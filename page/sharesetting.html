@@ -173,12 +173,14 @@
 		mui.back = function() {
 			var page = plus.webview.getWebviewById("articledetail");
 			if(page) {
-				mui.fire(page, "UpdatePower", {
+				page.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
+
+				/*mui.fire(page, "UpdatePower", {
 					ArticlePower: ArticlePower,
 					ArticlePowerPwd: ArticlePowerPwd,
 					ArticleType: ArticleType,
 					ArticleTypeName: ArticleTypeName
-				});
+				});*/
 			}
 
 			plus.webview.close(self);

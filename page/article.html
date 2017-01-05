@@ -44,7 +44,7 @@
 		}]
 	});
 
-	var contentWebview = null;
+	var subPage = null;
 	mui.plusReady(function() {
 		//判断网络状态
 		base.NetChange();
@@ -56,7 +56,7 @@
 		CreateUserID = self.CreateUserID || 0;
 		Source = self.Source || "List";
 		document.getElementById("header").innerHTML = ArticleTypeName;
-
+		
 		//返回
 		mui.back = function() {
 			plus.webview.close(self)
@@ -68,18 +68,18 @@
 		});
 
 		document.querySelector('header').addEventListener('doubletap', function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
+			if(subPage == null) {
+				subPage = plus.webview.currentWebview().children()[0];
 			}
-			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+			subPage.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
 		});
 	});
 
 	//初始化子页面
 	function InitSubPage() {
-		if(contentWebview == null) {
-			contentWebview = plus.webview.getWebviewById("articleSub");
+		if(subPage == null) {
+			subPage = plus.webview.getWebviewById("articleSub");
 		}
-		contentWebview.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
+		subPage.evalJS("Init(" + ArticleType + "," + CreateUserID + ")");
 	}
 </script>

@@ -188,12 +188,12 @@
 		<!--打赏-->
 		<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;" id="btnPay"></i>
 		<div class="mytanbg hide" id="mypaybg"></div>
-		<div class="boxshadow hide" id="mypay" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
-			<div style="padding:5% 15%;text-align:center;position:relative;">
-				<i class="fa fa-remove caaa f20" style="position:absolute;left:20px;top:20px;" onclick="PayTan(0)"></i>
-				<img id="payuser" src="" style="width:3rem;height:3rem;border-radius:50px;" />
+		<div class="boxshadow hide" id="mypay">
+			<div id="mypaycontent">
+				<i class="fa fa-remove caaa f20" onclick="PayTan(0)"></i>
+				<img id="payuser" src="" />
 				<p class="f13 bold c333 mt5 mb0" style="font-weight:normal;">赏金：<input type="number" id="txtmoney" class="f30" /></p>
-				<div style="height:45px;line-height:45px;border-radius:30px;background:#ed5565;color:#fff;" class="f18 full" onclick="Payment()">赏</div>
+				<div class="f18 full payment" onclick="Payment()">赏</div>
 				<div class="f11 caaa mt15" id="paybyalipay">使用支付宝付款，<span class="blue" onclick="ChangePayWay(1,0)">更换</span></div>
 				<div class="f11 caaa mt15 hide" id="paybyweixin">使用微信付款，<span class="blue" onclick="ChangePayWay(1,1)">更换</span></div>
 				<div class="mui-card f11 mt15 tl caaa hide" id="payway">
@@ -325,14 +325,6 @@
 			base.OpenWindow("showhref", "showhref.html", {
 				Link: link
 			});
-		});
-
-		//重新加载数据
-		window.addEventListener("UpdatePower", function(e) {
-			Article.ArticlePower = e.detail.ArticlePower;
-			Article.ArticlePowerPwd = e.detail.ArticlePowerPwd;
-			Article.TypeID = e.detail.ArticleType;
-			Article.TypeName = e.detail.ArticleTypeName;
 		});
 	});
 
@@ -763,6 +755,14 @@
 				}
 			}
 		});
+	}
+
+	//重新加载数据
+	function UpdatePower(ArticlePower, ArticlePowerPwd, ArticleType, ArticleTypeName) {
+		Article.ArticlePower = ArticlePower;
+		Article.ArticlePowerPwd = ArticlePowerPwd;
+		Article.TypeID = ArticleType;
+		Article.TypeName = ArticleTypeName;
 	}
 
 	//分享

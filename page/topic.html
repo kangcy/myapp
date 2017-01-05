@@ -128,6 +128,7 @@
 <script src="../js/base.js"></script>
 <script src="../js/update.js"></script>
 <script type="text/javascript">
+	var sliders = [];
 	var currpage = [];
 	var totalpage = [];
 	var pagesize = base.PageSize;
@@ -156,6 +157,11 @@
 			//遍历子级节点
 			var sliderGroup = $("#sliderGroup");
 			for(var i = 0; i < parent.length; i++) {
+				if(i == 0) {
+					sliders.push(true);
+				} else {
+					sliders.push(false);
+				}
 				currpage.push(1);
 				totalpage.push(2);
 
@@ -195,6 +201,18 @@
 			//重新注册滑动切换事件
 			mui("#slider").slider();
 
+			//监听滑动切换事件
+			document.getElementById('slider').addEventListener('slide', function(e) {
+				var index = e.detail.slideNumber;
+				if(!sliders[index]) {
+					Load(index, parent[index].ID, function() {
+						sliders[index] = true;
+						++currpage[index];
+						isLoading = false;
+					})
+				}
+			});
+
 			mui.each(document.querySelectorAll('#sliderGroup .scrolls'), function(index, pullRefreshEl) {
 				mui(pullRefreshEl).pullToRefresh({
 					down: {
@@ -218,7 +236,7 @@
 						}
 					},
 					up: {
-						auto: true,
+						auto: index == 0 ? true : false,
 						callback: function() {
 							var self = this;
 							isLoading = true;
