@@ -205,6 +205,7 @@
 			document.getElementById('slider').addEventListener('slide', function(e) {
 				var index = e.detail.slideNumber;
 				if(!sliders[index]) {
+					document.getElementById("loader").classList.remove("hide");
 					Load(index, parent[index].ID, function() {
 						sliders[index] = true;
 						++currpage[index];
@@ -311,6 +312,7 @@
 				totalpage[index] = data.totalpage;
 				var length = data.records;
 				if(length > 0) {
+					document.getElementById("loader").classList.add("hide");
 					var table = document.getElementById('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i]);
@@ -318,7 +320,13 @@
 							table.appendChild(div);
 						}
 					}
+				} else {
+					setTimeout(function() {
+						document.getElementById("loader").classList.add("hide");
+					}, 1000);
 				}
+			} else {
+				document.getElementById("loader").classList.add("hide");
 			}
 			if($.isFunction(callback)) {
 				callback();
@@ -334,7 +342,6 @@
 	//加载文章类型
 	function LoadArticleType(callback) {
 		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
-			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
