@@ -495,7 +495,10 @@
 
 						$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
 						$("#nickname1").css("color", data.TemplateJson.TitleColor);
+					} else {
+						CurrCover = "";
 					}
+
 					console.log(data.Cover + "," + data.TemplateJson.Cover);
 					CurrTemplate = data.Template;
 					CurrBackground = data.Background;
@@ -539,7 +542,7 @@
 					//收藏状态
 					CheckKeep();
 
-					$("#bottomAction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+					$("#bottomAction").removeClass("hide").addClass("bounceInDown");
 					$("#mui-iframe-wrapper").css("bottom", "50px");
 
 					$("#btnPay").removeClass("hide");
@@ -801,10 +804,10 @@
 	function ActionTan(index) {
 		if(index == 0) {
 			$("#myactionbg").addClass("hide");
-			$("#myaction").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+			$("#myaction").removeClass("bounceInDown").addClass("hide");
 		} else {
 			$("#myactionbg").removeClass("hide");
-			$("#myaction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+			$("#myaction").removeClass("hide").addClass("bounceInDown");
 		}
 	}
 
