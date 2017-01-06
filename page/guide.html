@@ -12,57 +12,25 @@
 	</head>
 
 	<body>
-		<div id="slider" class="mui-slider mui-fullscreen" style="background-color: black;">
+		<div id="slider" class="mui-slider mui-fullscreen">
 			<div class="mui-slider-group">
 				<!-- 第一张 -->
-				<div class="mui-slider-item">
-					<div class="item-logo" style="background-color: #D74B28">
-						<a href="#">
-							路飞
-						</a>
-						<div class="animate guide-show">
-							<h2 class="animated bounceInDown">渡险无畏乱天常，漫执草帽任痴狂</h2>
-							<li class="animated bounceInLeft">阳光千里乘巨浪，笑傲沧波谁称王</li>
-							<li class="animated bounceInRight">上百种控件样式和模板</li>
-						</div>
-					</div>
+				<div class="mui-slider-item one coverMoved">
+					<img src="../images/adv/01_text.png" class="animated fadeInUp" />
 				</div>
 				<!-- 第二张 -->
-				<div class="mui-slider-item">
-					<div class="item-logo" style="background-color: #02C1ED;">
-						<a href="#">
-							索隆
-						</a>
-						<div id="tips-2" class="animate mui-hidden">
-							<h2 class="animated bounceInDown">饮血天涯杯酒凉</h2>
-							<li class="animated bounceInLeft">欲饮世情低浅尝</li>
-							<li class="animated bounceInRight">刀走偏锋心不系，剑指天穹问苍茫</li>
-						</div>
-					</div>
+				<div class="mui-slider-item two">
+					<img src="../images/adv/02_text.png" class="animated fadeInUp" />
 				</div>
 				<!-- 第三张 -->
-				<div class="mui-slider-item">
-					<div class="item-logo" style="background-color: #67C962;">
-						<a href="#">
-							娜美
-						</a>
-						<div id="tips-3" class="animate mui-hidden">
-							<h2 class="animated bounceInDown">静坐画堂任秋冬</h2>
-							<li class="animated bounceInLeft">执笔四海尽图中</li>
-							<li class="animated bounceInRight">狂风怒浪浑不惧，手持罗盘笑乘风</li>
-						</div>
-					</div>
+				<div class="mui-slider-item three">
+					<img src="../images/adv/03_text1.png" class="animated fadeInUp" />
+					<img src="../images/adv/03_text2.png" class="animated fadeInUp" />
 				</div>
 				<!-- 第四张 -->
-				<div class="mui-slider-item">
-					<div class="item-logo" style="background-color: #FCD208;">
-						<a href="#">
-							海贼王
-						</a>
-						<div class="animate">
-							<button id='close' class="mui-btn mui-btn-warning mui-btn-outlined">立即体验</button>
-						</div>
-					</div>
+				<div class="mui-slider-item four">
+					<img src="../images/adv/04_text.png" class="animated fadeInUp" />
+					<button id='close' class="mui-btn mui-btn-warning mui-btn-outlined">立即体验</button>
 				</div>
 			</div>
 			<div class="mui-slider-indicator">
@@ -77,12 +45,13 @@
 </html>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script>
 	mui.init();
 	mui.back = function() {};
 	mui.plusReady(function() {
-		plus.navigator.setFullscreen(true);//全屏展示
-		plus.navigator.closeSplashscreen();//关闭启动页
+		plus.navigator.setFullscreen(true); //全屏展示
+		plus.navigator.closeSplashscreen(); //关闭启动页
 
 		mui.back = function() {};
 	});
@@ -97,13 +66,9 @@
 	//图片切换时，触发动画
 	document.querySelector('.mui-slider').addEventListener('slide', function(event) {
 		//注意slideNumber是从0开始的；
-		var index = event.detail.slideNumber + 1;
-		if(index == 2 || index == 3) {
-			var item = document.getElementById("tips-" + index);
-			if(item.classList.contains("mui-hidden")) {
-				item.classList.remove("mui-hidden");
-				item.classList.add("guide-show");
-			}
-		}
+		var index = event.detail.slideNumber;
+
+		$(".mui-slider-item").removeClass("coverMoved");
+		$(".mui-slider-item:eq(" + index + ")").addClass("coverMoved");
 	});
 </script>

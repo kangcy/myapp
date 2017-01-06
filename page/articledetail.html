@@ -159,7 +159,7 @@
 			</div>
 		</div>
 		<!--打赏-->
-		<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;" id="btnPay"></i>
+		<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;z-index:99;" id="btnPay"></i>
 		<div class="mytanbg hide" id="mypaybg"></div>
 		<div class="boxshadow hide" id="mypay">
 			<div id="mypaycontent">
@@ -299,6 +299,8 @@
 				Link: link
 			});
 		});
+
+		base.ShowUser("#body");
 	});
 
 	var Intent = null,
@@ -618,17 +620,10 @@
 		});
 	}
 
-	//背景(全屏  居顶  平铺)
-	function SetBackground() {
-		ActionTan(0);
-		BackgroundTan(1);
-	}
-
 	//背景状态切换
 	function ChangeBg(index) {
 		CurrBackground = index;
-		console.log(CurrBackground)
-			//纯白背景
+		//纯白背景
 		console.log("CurrCover:" + CurrCover)
 		if(CurrTemplate == 1) {
 			$("#bg").css("background", "#fff");
@@ -663,13 +658,11 @@
 
 	//取消修改背景设置
 	function NotAgree() {
-		BackgroundTan(0);
 		ChangeBg(Article.Background);
 	}
 
 	//修改背景设置
 	function Agree() {
-		console.log("CurrBackground:" + CurrBackground)
 		if(Article.Background == CurrBackground) {
 			return;
 		}
@@ -677,7 +670,6 @@
 			return;
 		}
 		isLoading = true;
-		BackgroundTan(0);
 		HttpGet(base.RootUrl + "Article/EditBackground", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -821,15 +813,6 @@
 		} else {
 			$("#myactionbg").removeClass("hide");
 			$("#myaction").removeClass("hide").addClass("bounceInDown");
-		}
-	}
-
-	//背景设置弹窗
-	function BackgroundTan(index) {
-		if(index == 0) {
-			$("#mybackgroundbg,#background").addClass("hide");
-		} else {
-			$("#mybackgroundbg,#background").removeClass("hide");
 		}
 	}
 
