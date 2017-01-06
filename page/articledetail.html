@@ -153,13 +153,13 @@
 				<div class="myaction_items" onclick="Power()"><img src="../images/article/4.png" />
 					<p class="f13 mb0 c000">权限</p>
 				</div>
-				<div class="myaction_items" onclick="SetBackground()"><img src="../images/article/5.png" />
+				<div class="myaction_items" onclick="ShowSide()"><img src="../images/article/5.png" />
 					<p class="f13 mb0 c000">背景</p>
 				</div>
 			</div>
 		</div>
 		<!--背景设置-->
-		<div class="mytanbg hide" id="mybackgroundbg" onclick="BackgroundTan(0)"></div>
+		<!--<div class="mytanbg hide" id="mybackgroundbg" onclick="BackgroundTan(0)"></div>
 		<div class="boxshadow hide" id="background" style="position:fixed;bottom:30%;right:0px;width:50%;z-index:99999;background:#fff;">
 			<div style="padding:30px;padding-bottom:15px;">
 				<div class="mui-card">
@@ -184,7 +184,7 @@
 				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">确定</div>
 				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
 			</div>
-		</div>
+		</div>-->
 		<!--打赏-->
 		<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;" id="btnPay"></i>
 		<div class="mytanbg hide" id="mypaybg"></div>
@@ -332,11 +332,14 @@
 		File = null,
 		Uri = null,
 		main = null;
+	var self = null,
+		wc = null;
+
 	mui.plusReady(function() {
 		//判断网络状态
 		base.NetChange();
 
-		var self = plus.webview.currentWebview();
+		self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		Source = self.Source || "Add";
 
@@ -503,7 +506,6 @@
 					CurrTemplate = data.Template;
 					CurrBackground = data.Background;
 
-					$(".mui-radio:eq(" + CurrBackground + ")").find(":radio").attr("checked", "checked");
 					if(!base.IsNullOrEmpty(CurrCover)) {
 						ChangeBg(CurrBackground);
 					}
@@ -652,7 +654,8 @@
 	//背景状态切换
 	function ChangeBg(index) {
 		CurrBackground = index;
-		//纯白背景
+		console.log(CurrBackground)
+			//纯白背景
 		console.log("CurrCover:" + CurrCover)
 		if(CurrTemplate == 1) {
 			$("#bg").css("background", "#fff");
@@ -693,6 +696,7 @@
 
 	//修改背景设置
 	function Agree() {
+		console.log("CurrBackground:" + CurrBackground)
 		if(Article.Background == CurrBackground) {
 			return;
 		}
@@ -766,6 +770,43 @@
 		Article.ArticlePowerPwd = ArticlePowerPwd;
 		Article.TypeID = ArticleType;
 		Article.TypeName = ArticleTypeName;
+	}
+
+	//显示侧滑页面
+	function ShowSide() {
+		//防止快速点击可能导致多次创建
+		if(wc) {
+			return;
+		}
+		ActionTan(0);
+		//开启遮罩
+		self.setStyle({
+			mask: "rgba(0,0,0,0.5)"
+		});
+		//创建侧滑页面
+		wc = plus.webview.create("templateSide.html", "templateSide", {
+			left: "50%",
+			width: "50%",
+			popGesture: "none"
+		});
+
+		//$(".mui-radio:eq(" + CurrBackground + ")").find(":radio").attr("checked", "checked");
+
+		//侧滑页面关闭后关闭遮罩
+		wc.addEventListener('close', function() {
+			self.setStyle({
+				mask: "none"
+			});
+			wc = null;
+		}, false);
+		//侧滑页面加载后显示（避免白屏）
+		wc.addEventListener("loaded", function() {
+			wc.show("slide-in-right", 200);
+		}, false);
+		//关闭侧滑窗口
+		self.addEventListener("maskClick", function() {
+			wc.close("auto");
+		}, false);
 	}
 
 	//分享
