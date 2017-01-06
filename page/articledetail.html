@@ -158,33 +158,6 @@
 				</div>
 			</div>
 		</div>
-		<!--背景设置-->
-		<!--<div class="mytanbg hide" id="mybackgroundbg" onclick="BackgroundTan(0)"></div>
-		<div class="boxshadow hide" id="background" style="position:fixed;bottom:30%;right:0px;width:50%;z-index:99999;background:#fff;">
-			<div style="padding:30px;padding-bottom:15px;">
-				<div class="mui-card">
-					<form class="mui-input-group">
-						<div class="mui-input-row mui-radio" onclick="ChangeBg(0)">
-							<label>全屏</label>
-							<input name="background" value="0" type="radio">
-						</div>
-						<div class="mui-input-row mui-radio" onclick="ChangeBg(1)">
-							<label>居顶</label>
-							<input name="background" value="1" type="radio">
-						</div>
-						<div class="mui-input-row mui-radio" onclick="ChangeBg(2)">
-							<label>平铺</label>
-							<input name="background" value="2" type="radio">
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="full" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;">
-				<div style="width:50%;" class="tc fl f13" onclick="NotAgree(0)">取消</div>
-				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">确定</div>
-				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
-			</div>
-		</div>-->
 		<!--打赏-->
 		<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;" id="btnPay"></i>
 		<div class="mytanbg hide" id="mypaybg"></div>
@@ -547,7 +520,7 @@
 					$("#bottomAction").removeClass("hide").addClass("bounceInDown");
 					$("#mui-iframe-wrapper").css("bottom", "50px");
 
-					$("#btnPay").removeClass("hide");
+					$("#btnTemp,#btnPay").removeClass("hide");
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().close();
@@ -758,7 +731,6 @@
 						table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.TitleColor + '" mt="' + item.MarginTop + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
 
 					}
-					$("#btnTemp").removeClass("hide");
 				}
 			}
 		});
@@ -788,9 +760,9 @@
 			left: "50%",
 			width: "50%",
 			popGesture: "none"
+		}, {
+			index: CurrBackground
 		});
-
-		//$(".mui-radio:eq(" + CurrBackground + ")").find(":radio").attr("checked", "checked");
 
 		//侧滑页面关闭后关闭遮罩
 		wc.addEventListener('close', function() {

@@ -25,15 +25,15 @@
 				<form class="mui-input-group">
 					<div class="mui-input-row mui-radio mt10" onclick="ChangeBg(0)">
 						<label>全屏</label>
-						<input name="background" value="0" type="radio">
+						<input name="background" value="0" type="radio" id="radio0">
 					</div>
 					<div class="mui-input-row mui-radio mt10" onclick="ChangeBg(1)">
 						<label>居顶</label>
-						<input name="background" value="1" type="radio">
+						<input name="background" value="1" type="radio" id="radio1">
 					</div>
 					<div class="mui-input-row mui-radio mt10" onclick="ChangeBg(2)">
 						<label>平铺</label>
-						<input name="background" value="2" type="radio">
+						<input name="background" value="2" type="radio" id="radio2">
 					</div>
 				</form>
 			</div>
@@ -59,12 +59,15 @@
 	});
 
 	mui.plusReady(function() {
-		
+
 		var self = plus.webview.currentWebview();
-		//console.log(self.extras.id);
-		
+		var index = self.index || 0;
+		console.log(self.index);
+
+		document.getElementById("radio" + index).setAttribute("checked", "checked");
+
 		mui.back = function() {
-			
+
 			plus.webview.close(self);
 		}
 
