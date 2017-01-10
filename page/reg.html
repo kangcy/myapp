@@ -7,47 +7,67 @@
 		<title></title>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<style type="text/css">
-			.ui-page-login,
-			body {
+			#login-form {
+				display: inline-block;
 				width: 100%;
-				height: 100%;
-				margin: 0px;
-				padding: 0px;
 			}
 			
-			.mui-content {
-				height: 100%;
+			#login-form .div1,
+			#login-form .div2,
+			#login-form .div3,
+			#login-form .div4 {
+				width: 85%;
+				margin: 0px 7.5%;
+				border-radius: 30px;
+				height: 2.5rem;
+				line-height: 2.5rem;
 			}
 			
-			.area {
-				margin: 20px auto 0px auto;
+			#login-form .div1 {
+				background: #EFEFEF;
+				background-image: url(../images/login/phone.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem 0.5rem;
+				background-size: 1.5rem;
 			}
 			
-			.mui-input-group:first-child {
-				margin-top: 20px;
+			#login-form .div2 {
+				background: #EFEFEF;
+				background-image: url(../images/login/pwd.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem 0.5rem;
+				background-size: 1.5rem;
 			}
 			
-			.mui-input-group label {
-				width: 22%;
+			#login-form .div3 {
+				background: #EFEFEF;
+				background-image: url(../images/login/user.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem 0.5rem;
+				background-size: 1.5rem;
 			}
 			
-			.mui-input-row label~input,
-			.mui-input-row label~select,
-			.mui-input-row label~textarea {
-				width: 78%;
+			#login-form .div4 {
+				color: #fff;
+				background: #4087CB;
 			}
 			
-			.mui-checkbox input[type=checkbox],
-			.mui-radio input[type=radio] {
-				top: 6px;
+			#login-form .text {
+				height: 1.2rem;
+				line-height: 1.2rem;
+				margin-top: 0.6rem;
+				width: 80%;
+				border: 0px;
+				float: right;
+				background: transparent;
+				border-left: 1px solid #333;
+				text-indent: 0.4rem;
+				color: #999;
+				border-radius: 0px;
 			}
 			
-			.mui-content-padded {
-				margin-top: 25px;
-			}
-			
-			.mui-btn {
-				padding: 10px;
+			#reg {
+				display: inline-block;
 			}
 		</style>
 	</head>
@@ -57,33 +77,34 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">注册</h1>
 		</header>
-		<div class="mui-content">
-			<form class="mui-input-group">
-				<div class="mui-input-row">
-					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入手机号码" maxlength="11">
+		<div class="mui-content mui-scroll-wrapper tc">
+			<div class="mui-scroll">
+				<div id="login-form">
+					<div class="div1 mt20">
+						<input id='account' type="tel" class="text f13" placeholder="请输入您的手机号码" />
+					</div>
+					<div class="div2 mt20">
+						<input id='code' type="number" class="text f13" placeholder="请输入验证码" />
+					</div>
+
+					<div class="div2 mt20">
+						<input id='password' type="password" class="text f13" placeholder="请输入6-16位密码" />
+					</div>
+					<div class="div2 mt20">
+						<input id='password_confirm' type="password" class="text f13" placeholder="请在输一次" />
+					</div>
+					<div class="div3 mt20">
+						<input id='nickname' type="text" class="text f13" placeholder="请输入昵称，最多12字" />
+					</div>
+					<div class="div4 mt20" id='reg'>
+						完成注册
+					</div>
+					<div class="c999 f13 mt10">
+						<div id='notice'>*注册代表您同意<span class="fa-underline" style="color:#4087CB;">《Go服务协议》</span></div>
+					</div>
 				</div>
-				<div class="mui-input-row">
-					<label>昵称</label>
-					<input id='nickname' type="text" class="mui-input-clear mui-input" placeholder="请输入昵称，最多12字" maxlength="12">
-				</div>
-				<div class="mui-input-row">
-					<label>密码</label>
-					<input id='password' type="password" class="mui-input-password mui-input" placeholder="请输入6-16位密码" maxlength="16">
-				</div>
-				<div class="mui-input-row">
-					<label>确认</label>
-					<input id='password_confirm' type="password" class="mui-input-password mui-input" placeholder="请在输一次" maxlength="16">
-				</div>
-			</form>
-			<div class="mui-content-padded">
-				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
-			</div>
-			<div class="mui-content-padded">
-				<p id="notice" style="text-align: center;">注册即表示同意《用户协议》</p>
 			</div>
 		</div>
-
 	</body>
 
 </html>
@@ -96,6 +117,11 @@
 	var City = "";
 	(function($, doc) {
 		$.init();
+
+		$.ready(function() {
+			base.InitScroll();
+		})
+
 		$.plusReady(function() {
 			//系统定位
 			plus.geolocation.getCurrentPosition(function(p) {
