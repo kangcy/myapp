@@ -16,21 +16,23 @@
 			<div class="mui-slider-group">
 				<!-- 第一张 -->
 				<div class="mui-slider-item one coverMoved">
-					<img src="../images/adv/01_text.png" class="animated fadeInUp" />
+					<img src="../images/adv/01_text.png" class="fadeInUpd" style="opacity:0;" />
 				</div>
 				<!-- 第二张 -->
 				<div class="mui-slider-item two">
-					<img src="../images/adv/02_text.png" class="animated fadeInUp" />
+					<img src="../images/adv/02_text.png" class="fadeInUpd" style="opacity:0;" />
 				</div>
 				<!-- 第三张 -->
 				<div class="mui-slider-item three">
-					<img src="../images/adv/03_text1.png" class="animated fadeInUp" />
-					<img src="../images/adv/03_text2.png" class="animated fadeInUp" />
+					<img src="../images/adv/03_text1.png" class="fadeInUpd img1" style="opacity:0;" />
+					<img src="../images/adv/03_text2.png" class="fadeInUpd delay img2" style="opacity:0;" />
 				</div>
 				<!-- 第四张 -->
 				<div class="mui-slider-item four">
-					<img src="../images/adv/04_text.png" class="animated fadeInUp" />
-					<button id='close' class="mui-btn mui-btn-warning mui-btn-outlined">立即体验</button>
+					<img src="../images/logo.png" class="fadeInd img1" style="opacity:0;" />
+					<img src="../images/adv/chair.png" class="swingd img2" style="opacity:0;" />
+					<img src="../images/adv/04_text.png" class="fadeInd img3" id="close" style="opacity:0;" />
+					<!--<button id='close' class="mui-btn mui-btn-warning mui-btn-outlined">立即体验</button>-->
 				</div>
 			</div>
 			<div class="mui-slider-indicator">
@@ -46,7 +48,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script>
+<script type="text/javascript">
 	mui.init();
 	mui.back = function() {};
 	mui.plusReady(function() {
@@ -65,10 +67,9 @@
 
 	//图片切换时，触发动画
 	document.querySelector('.mui-slider').addEventListener('slide', function(event) {
-		//注意slideNumber是从0开始的；
 		var index = event.detail.slideNumber;
-
 		$(".mui-slider-item").removeClass("coverMoved");
+		$(".mui-slider-item .fadeInUpd,.mui-slider-item .fadeInd,.mui-slider-item .swingd").css("opacity", "0");
 		$(".mui-slider-item:eq(" + index + ")").addClass("coverMoved");
 	});
 </script>
