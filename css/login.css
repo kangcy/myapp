@@ -1,29 +1,87 @@
 #login-form {
-	background: #fff;
 	display: inline-block;
 	width: 100%;
-	padding: 1.5625rem 0;
 }
 
-#login-form div {
+#login-form .div1,
+#login-form .div2,
+#login-form .div3 {
+	width: 85%;
+	margin: 0px 7.5%;
+	border-radius: 30px;
+	height: 50px;
+	line-height: 50px;
+}
+
+#login-form .div1 {
+	background: #EFEFEF;
+	background-image: url(../images/login/user.png);
+	background-repeat: no-repeat;
+	background-position: 15px 12px;
+	background-size: 25px;
+}
+
+#login-form .div2 {
+	background: #EFEFEF;
+	background-image: url(../images/login/pwd.png);
+	background-repeat: no-repeat;
+	background-position: 15px 12px;
+	background-size: 25px;
+}
+
+#login-form .div3 {
+	color: #fff;
+	background: #4087CB;
+}
+
+#login-form .text {
+	height: 25px;
+	line-height: 25px;
+	margin-top: 12px;
 	width: 80%;
-	height: 2.5rem;
-	line-height: 2.5rem;
-	margin: 0px auto;
-	border-bottom: 1px solid #666;
-}
-
-#login-form img {
-	width: 1.1rem;
-	float: left;
-	margin-top: .2rem;
-	margin-left: 1rem;
-}
-
-#login-form .txt {
-	height: 2rem;
-	line-height: 2rem;
-	width: 13rem;
 	border: 0px;
 	float: right;
+	background: transparent;
+	border-left: 1px solid #333;
+	text-indent: 15px;
+	color: #999;
+}
+
+#login-form .border {
+	width: 1px;
+	height: 40px;
+	background: #999;
+}
+
+#reg,
+#forgetPassword {
+	display: inline-block;
+}
+
+#reg {
+	padding-right: 10px;
+}
+
+#forgetPassword {
+	padding-left: 13px;
+	border-left: 1px solid #999;
+}
+
+.oauth-area .border {
+	width: 100%;
+	height: 1px;
+	background: #333;
+	width: 100%;
+	height: 1px;
+	background: #333;
+	position: absolute;
+	top: 16px;
+	left: 0px;
+	z-index: -1;
+}
+
+.oauth-area .tip {
+	background: #fff;
+	padding: 5px;
+	display: inline-block;
 }

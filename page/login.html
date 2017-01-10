@@ -9,35 +9,36 @@
 		<link href="../css/login.css" rel="stylesheet" />
 	</head>
 
-	<body style="height:100%;">
-		<div class="mui-content tc" style="background:#F2F2F2;height:100%;">
-			<img src="../images/logo.png" style="margin: 10%;" />
-			<div id="login-form">
-				<div class="mb10">
-					<img src="../images/login/name.png" />
-					<input id='account' type="text" class="mui-input-clear mui-input f13 txt" placeholder="请输入账号/手机号" />
+	<body>
+		<div class="mui-content mui-scroll-wrapper tc">
+			<div class="mui-scroll">
+				<img src="../images/login/logo.png" style="margin:7.5%;width:30%;" />
+				<div id="login-form">
+					<div class="div1">
+						<input id='account' class="text" placeholder="账号" />
+					</div>
+					<div class="div2 mt20">
+						<input id='password' class="text" placeholder="密码" />
+					</div>
+					<div class="div3 mt20" id='login'>
+						登录
+					</div>
+					<div class="c999 f13 mt10">
+						<div id='reg'>免费注册</div>
+						<div id='forgetPassword'>忘记密码?</div>
+					</div>
 				</div>
-				<div>
-					<img src="../images/login/pwd.png" />
-					<input id='password' type="password" class="mui-input-clear mui-input f13 txt" placeholder="请输入密码" />
+				<!--第三方登录-->
+				<div class="oauth-area" style="float: left;width:85%;margin:7.5%;">
+					<div style="position:relative;" class="mb10">
+						<div class="border"></div>
+						<div class="tip f13">其他账号登录</div>
+					</div>
+					<img src="../images/login/qq.png" style="width:25%;margin-right:10%;" id="weixin" />
+					<img src="../images/login/wx.png" style="width:25%;" id="qq" />
 				</div>
-			</div>
-			<div style="width:80%;line-height:30px;margin:0px auto;" class="tc">
-				<img id='login' src="../images/login.png" class="mt20" style="width:100%;" />
-				<a id='reg' class="fl csubtitle f13">没有账号?</a>
-				<a id='forgetPassword' class="fr csubtitle f13">忘记密码?</a>
-			</div>
-			<!--第三方登录-->
-			<div class="oauth-area" style="float: left;width: 100%;">
-				<div style="width:20%;float:left;">&nbsp;</div>
-				<div style="width:60%;float:left;">
-					<img src="../images/share/2.png" class="ml10" style="width:2rem;border-radius:50px;" id="weixin" />
-					<img src="../images/share/3.png" class="ml10" style="width:2rem;border-radius:50px;" id="sinaweibo" />
-					<img src="../images/share/4.png" class="ml10" style="width:2rem;border-radius:50px;" id="qq" /></div>
-				<div style="width:20%;float:left;">&nbsp;</div>
 			</div>
 		</div>
-
 	</body>
 
 </html>
@@ -60,8 +61,13 @@
 		base.OpenWindow("subindex", "subindex.html", {});
 	};
 
+	mui.ready(function() {
+		base.InitScroll();
+	})
+
 	var auths = {};
 	mui.plusReady(function() {
+
 		var settings = app.getSettings();
 
 		plus.oauth.getServices(function(services) {
@@ -146,11 +152,11 @@
 		authLogin('weixin');
 	})
 	document.getElementById('qq').addEventListener('tap', function() {
-		authLogin('qq');
-	})
-	document.getElementById('sinaweibo').addEventListener('tap', function() {
-		authLogin('sinaweibo');
-	});
+			authLogin('qq');
+		})
+		/*document.getElementById('sinaweibo').addEventListener('tap', function() {
+			authLogin('sinaweibo');
+		});*/
 
 	// 登录操作 
 	function authLogin(type) {

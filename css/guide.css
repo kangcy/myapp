@@ -122,10 +122,10 @@
 }
 
 .coverMoved {
-	-webkit-animation: coverMove 3s linear;
-	-moz-animation: coverMove 3s linear;
-	-ms-animation: coverMove 3s linear;
-	animation: coverMove 3s linear;
+	-webkit-animation: coverMove 10s linear;
+	-moz-animation: coverMove 10s linear;
+	-ms-animation: coverMove 10s linear;
+	animation: coverMove 10s linear;
 	animation-fill-mode: forwards;
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;
