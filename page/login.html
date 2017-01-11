@@ -136,6 +136,8 @@
 <script type="text/javascript" src="../js/base.js"></script>
 <script type="text/javascript" src="../js/login.js"></script>
 <script type="text/javascript">
+	var isLoading = false;
+
 	mui.init({
 		statusBarBackground: '#f7f7f7'
 	});
@@ -171,6 +173,10 @@
 
 		//点击登录
 		loginButton.addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
 			var loginInfo = {
 				UserName: accountBox.value,
 				Password: passwordBox.value
@@ -179,11 +185,14 @@
 			app.login(loginInfo, function(err) {
 				if(err) {
 					plus.nativeUI.toast(err);
+					isLoading = false;
 					return;
 				}
+
 				accountBox.value = "";
 				passwordBox.value = "";
 				base.ShowWaiting("登录成功，载入中~");
+				isLoading = false;
 				toMain();
 			});
 		});

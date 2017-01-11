@@ -23,7 +23,7 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://139.224.51.196:8080/";
+	this.RootUrl = "http://139.224.51.196/";
 
 	/**
 	 * 默认图片

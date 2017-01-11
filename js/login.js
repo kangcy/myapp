@@ -216,7 +216,7 @@
 		phone = phone || '';
 		if(phone == '')
 			return false;
-		return phone.length == 11 && !isNaN(phone) && phone.toString().indexOf("1") == 0;
+		return phone.length == 11 && !isNaN(phone) && (/^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/.test(phone));
 	};
 
 	/**
