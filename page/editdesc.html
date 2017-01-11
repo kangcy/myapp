@@ -52,17 +52,19 @@
 			<div class="color fl" style="background:#B04FBB;" color="#B04FBB"></div>
 		</nav>
 		<nav class="mui-bar mui-bar-tab" style="background:#F4F4F4;display:inline-block;">
+			<!--加粗-->
 			<img src="../images/edittxt/1.png" class="fl ml5 hide" id="btn10" />
 			<img src="../images/edittxt/01.png" class="fl ml5 hide" id="btn11" />
-
+			<!--字体大小-->
 			<img src="../images/edittxt/2.png" class="fl ml5 hide" id="btn20" />
 			<img src="../images/edittxt/02.png" class="fl ml5 hide" id="btn21" />
-
+			<!--文字位置-->
 			<img src="../images/edittxt/3.png" class="fl ml5 hide" id="btn30" />
 			<img src="../images/edittxt/03.png" class="fl ml5 hide" id="btn31" />
+			<!--字体颜色-->
 			<img src="../images/edittxt/4.png" class="fl ml5" id="btn40" />
+			<!--超链接-->
 			<img src="../images/edittxt/5.png" class="fl ml5 hide" id="btn50" />
-
 			<img src="../images/edittxt/05.png" class="fl ml5 hide" id="btn51" />
 		</nav>
 	</body>
@@ -78,6 +80,12 @@
 	var PartID = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
+
+	var Color = "";
+	var Align = "tl";
+	var FontSize = "f12";
+	var FontWeight = "";
+	var Link = "";
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -91,18 +99,21 @@
 		document.getElementById("btn10").addEventListener('tap', function(event) {
 			$("#edit").addClass("bold");
 			$("#btn10,#btn11").toggleClass("hide");
+			FontWeight = "bold";
 		}, false);
 
 		//字体放大
 		document.getElementById("btn20").addEventListener('tap', function(event) {
 			$("#edit").removeClass("f12").addClass("f14");
 			$("#btn20,#btn21").toggleClass("hide");
+			FontSize = "f14";
 		}, false);
 
 		//文字居中
 		document.getElementById("btn30").addEventListener('tap', function(event) {
 			$("#edit").removeClass("tl").addClass("tc");
 			$("#btn30,#btn31").toggleClass("hide");
+			Align = "center";
 		}, false);
 
 		//颜色
@@ -113,8 +124,9 @@
 		//切换颜色
 		mui('#color').on('tap', '.color', function() {
 			var $this = $(this);
-			$("#edit").css("color", $this.attr("color"));
+			$("#edit").css("color", );
 			$("#color").toggleClass("hide");
+			Color = $this.attr("color");
 		});
 
 		//超链接
@@ -127,18 +139,21 @@
 		document.getElementById("btn11").addEventListener('tap', function(event) {
 			$("#edit").removeClass("bold");
 			$("#btn10,#btn11").toggleClass("hide");
+			FontWeight = "";
 		}, false);
 
 		//字体缩小
 		document.getElementById("btn21").addEventListener('tap', function(event) {
 			$("#edit").removeClass("f14").addClass("f12");
 			$("#btn20,#btn21").toggleClass("hide");
+			FontSize = "f12";
 		}, false);
 
 		//取消文字居中
 		document.getElementById("btn31").addEventListener('tap', function(event) {
 			$("#edit").removeClass("tc").addClass("tl");
 			$("#btn30,#btn31").toggleClass("hide");
+			Align = "tl";
 		}, false);
 
 		//取消超链接
@@ -154,6 +169,13 @@
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber;
 		PartID = self.PartID || 0;
+
+		Color = self.Color || "";
+		Align = self.Align || "";
+		FontSize = self.FontSize || "";
+		FontWeight = self.FontWeight || "";
+		Link = self.Link || "";
+
 		var html = self.title;
 		if(base.IsNullOrEmpty(html)) {
 			html = '<div class="edit f12 tl"></div>';
@@ -163,7 +185,40 @@
 			"contenteditable": "true"
 		});
 
-		var $item = $("#edit");
+		//颜色
+		if(base.IsNullOrEmpty(FontWeight)) {
+			$("#btn10").addClass("hide");
+			$("#btn11").removeClass("hide");
+		} else {
+			$("#btn10").addClass("hide");
+			$("#btn11").removeClass("hide");
+		}
+		//居中
+		if(base.IsNullOrEmpty(Align)) {
+			$("#btn31").addClass("hide");
+			$("#btn30").removeClass("hide");
+		} else {
+			$("#btn30").addClass("hide");
+			$("#btn31").removeClass("hide");
+		}
+		//字体大小
+		if(base.IsNullOrEmpty(FontSize)) {
+			$("#btn21").addClass("hide");
+			$("#btn20").removeClass("hide");
+		} else {
+			$("#btn20").addClass("hide");
+			$("#btn21").removeClass("hide");
+		}
+		//超链接
+		if(base.IsNullOrEmpty(Link)) {
+			$("#btn51").addClass("hide");
+			$("#btn50").removeClass("hide");
+		} else {
+			$("#btn50").addClass("hide");
+			$("#btn51").removeClass("hide");
+		}
+
+		/*var $item = $("#edit");
 		if($item.hasClass("bold")) {
 			$("#btn10").addClass("hide");
 			$("#btn11").removeClass("hide");
@@ -192,7 +247,7 @@
 		} else {
 			$("#btn51").addClass("hide");
 			$("#btn50").removeClass("hide");
-		}
+		}*/
 
 		//字数限制
 		document.getElementById("edit").ontouchend = function() {
@@ -226,7 +281,12 @@
 				ArticleNumber: ArticleNumber,
 				PartID: PartID,
 				Types: 2,
-				Introduction: escape($("#divedit").html())
+				Introduction: escape($("#divedit").html()),
+				Color: "",
+				Align: "",
+				FontSize: "",
+				FontWeight: "",
+				Link: ""
 			}, function(data) {
 				base.CloseWaiting();
 				if(data != null) {
@@ -270,6 +330,7 @@
 			} else {
 				$("#edit").find("span").attr("link", link).html(text);
 			}
+			Link = link;
 		}
 	}
 
@@ -281,5 +342,6 @@
 		}
 		$("#btn51").addClass("hide");
 		$("#btn50").removeClass("hide");
+		Link = "";
 	}
 </script>
