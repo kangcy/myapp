@@ -136,7 +136,7 @@
 	};
 
 	(function($, doc) {
-		$.init(); 
+		$.init();
 
 		$.ready(function() {
 			base.InitScroll();
@@ -196,65 +196,49 @@
 					return false;
 				}
 				isLoading = true;
-				var regInfo = {
-					UserName: accountBox.value,
-					NickName: nickname.value,
-					Password: passwordBox.value,
-					Province: Province,
-					City: City
-				};
-				var passwordConfirm = passwordConfirmBox.value;
-				if(passwordConfirm != regInfo.Password) {
-					plus.nativeUI.toast('密码两次输入不一致');
-					isLoading = false;
-					return;
-				}
-				app.reg(regInfo, function(err) {
-					if(err) {
-						plus.nativeUI.toast(err);
+				base.ShowWaiting("正在注册~");
+				setTimeout(function() {
+					var regInfo = {
+						UserName: accountBox.value,
+						NickName: nickname.value,
+						Password: passwordBox.value,
+						Province: Province,
+						City: City
+					};
+					var passwordConfirm = passwordConfirmBox.value;
+					if(passwordConfirm != regInfo.Password) {
+						base.CloseWaiting();
+						mui.toast('密码两次输入不一致');
 						isLoading = false;
 						return;
 					}
-					accountBox.value = "";
-					nickname.value = "";
-					passwordBox.value = "";
-					passwordConfirmBox.value = "";
-					plus.nativeUI.toast('注册成功');
-					isLoading = false;
-					$.openWindow({
-						url: 'login.html',
-						id: 'login',
-						show: {
-							aniShow: 'pop-in'
+					app.reg(regInfo, function(err) {
+						if(err) {
+							base.CloseWaiting();
+							mui.toast(err);
+							isLoading = false;
+							return;
 						}
+						accountBox.value = "";
+						nickname.value = "";
+						passwordBox.value = "";
+						passwordConfirmBox.value = "";
+						plus.nativeUI.toast('注册成功');
+						isLoading = false;
+						$.openWindow({
+							url: 'login.html',
+							id: 'login',
+							show: {
+								aniShow: 'pop-in'
+							}
+						});
 					});
-				});
-			});
-
-			//用户协议
-			var mainPage = mui.preload({
-				"id": 'notice',
-				"url": 'notice.html'
+				}, 1000);
 			});
 
 			//跳转用户协议页
-			var toNotice = function() {
-				mui.fire(mainPage, 'show', null);
-				setTimeout(function() {
-					mui.openWindow({
-						id: 'notice',
-						show: {
-							aniShow: 'pop-in'
-						},
-						waiting: {
-							autoShow: false
-						}
-					});
-				}, 0);
-			};
-
 			doc.getElementById('notice').addEventListener('tap', function(event) {
-				toNotice();
+				base.OpenWindow("notice", "notice.html", {});
 			});
 		});
 	}(mui, document));

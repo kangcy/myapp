@@ -95,11 +95,11 @@
 
 	$(function() {
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
-		$("#nickname").html(userinfo.NickName == "" ? "请填写" : userinfo.NickName);
+		$("#nickname").html(base.IsNullOrEmpty(userinfo.NickName) ? "请填写" : userinfo.NickName);
 		$("#sex").html(userinfo.Sex);
-		$("#city").html(userinfo.Address == "" ? "请选择" : userinfo.Address);
-		$("#time").html(userinfo.Birthday == "" ? "请选择" : userinfo.Birthday);
-		$("#signature").html(userinfo.Signature == "" ? "请填写" : userinfo.Signature);
+		$("#city").html(base.IsNullOrEmpty(userinfo.Address) ? "请选择" : userinfo.Address);
+		$("#time").html(base.IsNullOrEmpty(userinfo.Birthday) ? "请选择" : userinfo.Birthday);
+		$("#signature").html(base.IsNullOrEmpty(userinfo.Signature) ? "请填写" : userinfo.Signature);
 
 		document.getElementById('cityPicker').addEventListener('tap', function(event) {
 			base.OpenWindow("province", "province.html", {

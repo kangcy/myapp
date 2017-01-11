@@ -123,8 +123,8 @@
 						<div class="border"></div>
 						<div class="tip f12">其他账号登录</div>
 					</div>
-					<img src="../images/login/qq.png" style="width:20%;margin-right:10%;" id="weixin" />
-					<img src="../images/login/wx.png" style="width:20%;" id="qq" />
+					<img src="../images/login/qq.png" style="width:20%;margin-right:10%;" id="qq" />
+					<img src="../images/login/wx.png" style="width:20%;" id="weixin" />
 				</div>
 			</div>
 		</div>
@@ -177,24 +177,27 @@
 				return false;
 			}
 			isLoading = true;
-			var loginInfo = {
-				UserName: accountBox.value,
-				Password: passwordBox.value
-			};
-			//登录
-			app.login(loginInfo, function(err) {
-				if(err) {
-					plus.nativeUI.toast(err);
+			base.ShowWaiting("正在登录~");
+			setTimeout(function() {
+				var loginInfo = {
+					UserName: accountBox.value,
+					Password: passwordBox.value
+				};
+				//登录
+				app.login(loginInfo, function(err) {
+					if(err) {
+						base.CloseWaiting();
+						mui.toast(err);
+						isLoading = false;
+						return;
+					}
+					accountBox.value = "";
+					passwordBox.value = "";
+					base.ShowWaiting("登录成功，载入中~");
 					isLoading = false;
-					return;
-				}
-
-				accountBox.value = "";
-				passwordBox.value = "";
-				base.ShowWaiting("登录成功，载入中~");
-				isLoading = false;
-				toMain();
-			});
+					toMain();
+				});
+			}, 1000);
 		});
 
 		//退出登录
@@ -217,7 +220,9 @@
 	 * 注册账号
 	 */
 	document.getElementById('reg').addEventListener('tap', function(event) {
-		mui.openWindow({
+		base.OpenWindow("reg", "reg.html", {});
+		
+		/*mui.openWindow({
 			id: 'reg',
 			url: 'reg.html',
 			preload: true,
@@ -227,14 +232,15 @@
 			waiting: {
 				autoShow: false
 			}
-		});
+		});*/
 	}, false);
 
 	/*
 	 * 忘记密码
 	 */
 	document.getElementById('forgetPassword').addEventListener('tap', function(event) {
-		mui.openWindow({
+		base.OpenWindow("forget_password", "forget_password.html", {});
+		/*mui.openWindow({
 			url: 'forget_password.html',
 			id: 'forget_password',
 			preload: true,
@@ -247,22 +253,22 @@
 			waiting: {
 				autoShow: false
 			}
-		});
+		});*/ 
 	}, false);
 
 	document.getElementById('weixin').addEventListener('tap', function() {
 		authLogin('weixin');
-	})
+	});
 	document.getElementById('qq').addEventListener('tap', function() {
-			authLogin('qq');
-		})
-		/*document.getElementById('sinaweibo').addEventListener('tap', function() {
-			authLogin('sinaweibo');
-		});*/
+		authLogin('qq');
+	});
+	/*document.getElementById('sinaweibo').addEventListener('tap', function() {
+		authLogin('sinaweibo');
+	});*/
 
 	// 登录操作 
 	function authLogin(type) {
-		mui.toast("正在授权~~")
+		mui.toast("正在授权~")
 		var s;
 		for(var i = 0; i < auths.length; i++) {
 			if(auths[i].id == type) {
@@ -272,10 +278,10 @@
 		}
 		if(!s.authResult) {
 			s.login(function(e) {
-				mui.toast("正在登录~~");
+				mui.toast("正在登录~");
 				authUserInfo(type, s);
 			}, function(e) {
-				mui.toast("登录认证失败~~");
+				mui.toast("登录认证失败~");
 			});
 		} else {
 			//mui.toast("已登录认证~~");

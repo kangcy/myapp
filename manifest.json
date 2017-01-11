@@ -1779,6 +1779,15 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"page/notice.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {

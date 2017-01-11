@@ -10,21 +10,21 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<style type="text/css">
 			.mui-card-content-inner p {
-				color: #000 !important;
+				color: #333 !important;
+				line-height:1.5;
 			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">用户协议</h1>
 		</header>
-		<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-content mui-scroll-wrapper" style="top:0px;">
 			<div class="mui-scroll">
 				<div class="mui-card-content-inner c000">
-					<h4>用户协议</h4>
-					<p class="bold">欢迎您来到「Go」</p>
+					<p class="bold mt10">欢迎您来到「Go」</p>
 					<p>请您仔细阅读以下条款，如果您对本协议的任何条款表示异议，您可以选择不进入「GoApp（以下简称Go）」。当您注册成功，无论是进入Go，还是在Go上发布任何内容（即「内容」），均意味着您（即「用户」）完全接受本协议项下的全部条款。</p>
 					<p class="bold">使用规则</p>
 					<p>1. 用户注册成功后，Go将给予每个用户一个用户帐号以及对通过微信或者微博账户登录后获得的Token提供保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。</p>
@@ -78,7 +78,7 @@
 
 </html>
 <script src="../js/mui.min.js"></script>
-<script>
+<script type="text/javascript">
 	mui.init({
 		swipeBack: true //启用右滑关闭功能
 	});
