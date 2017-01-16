@@ -142,7 +142,7 @@
 								if(data.result) {
 									var addarticlePage = plus.webview.getWebviewById('addarticle');
 									if(addarticlePage) {
-										addarticlePage.evalJS("AddPic('" + base.ShowThumb(data.message, 1) + "','" + src + "','" + PartID + "')");
+										addarticlePage.evalJS("AddPic('" + data.message + "','" + src + "','" + PartID + "')");
 									}
 									mui.back();
 								} else {

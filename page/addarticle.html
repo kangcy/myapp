@@ -296,6 +296,8 @@
 
 	//编辑图片
 	function AddPic(partid, url, index) {
+		console.log(partid + "," + url + "," + index);
+
 		if(index == 0) {
 			var html = appendStr(url, "pic", partid);
 			$("#" + currEditID).parents(".edit-body").after(html);
