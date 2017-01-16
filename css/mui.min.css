@@ -1587,12 +1587,14 @@ input[type=submit]:enabled:active {
 	border-radius: 0.375rem
 }
 
+
 /*.mui-card .mui-table-view .mui-table-view-cell:first-child,
 .mui-card .mui-table-view .mui-table-view-divider:first-child {
 	top: 0;
 	border-top-left-radius: 0.375rem;
 	border-top-right-radius: 0.375rem
 }*/
+
 
 /*.mui-card .mui-table-view .mui-table-view-cell:last-child,
 .mui-card .mui-table-view .mui-table-view-divider:last-child {
@@ -2155,6 +2157,7 @@ input[type=submit]:enabled:active {
 .mui-table-view-cell.mui-collapse>.mui-push-right:after {
 	content: '\e581'
 }
+
 
 /*.mui-table-view-cell.mui-collapse.mui-active {
 	margin-top: -0.0625rem
@@ -3802,8 +3805,8 @@ body>.mui-progressbar {
 .mui-switch {
 	position: relative;
 	display: block;
-	width: 60px;
-	height: 25px;
+	width: 3.75rem;
+	height: 1.5625rem;
 	-webkit-transition-timing-function: ease-in-out;
 	transition-timing-function: ease-in-out;
 	-webkit-transition-duration: .2s;
@@ -3822,10 +3825,10 @@ body>.mui-progressbar {
 .mui-switch .mui-switch-handle {
 	position: absolute;
 	z-index: 1;
-	top: -1px;
-	left: -1px;
-	width: 23px;
-	height: 23px;
+	/*top: -1px;
+	left: -1px;*/
+	width: 1.35rem;
+	height: 1.35rem;
 	-webkit-transition: .2s ease-in-out;
 	transition: .2s ease-in-out;
 	-webkit-transition-property: -webkit-transform, width, left;
@@ -3838,10 +3841,10 @@ body>.mui-progressbar {
 }
 
 .mui-switch:before {
-	font-size: 11px;
+	font-size: 0.6875rem;
 	position: absolute;
-	top: 3px;
-	right: 6px;
+	top: 0.2875rem;
+	right: 0.5625rem;
 	content: 'Off';
 	text-transform: uppercase;
 	color: #999
@@ -5133,6 +5136,50 @@ body>.mui-progressbar {
 	height: 60%;
 	color: #888;
 	text-align: center;
+}
+
+
+/**自定义开关**/
+
+.my-switch {
+	width: 3.525rem;
+	height: 1.38rem;
+	border-radius: 3px;
+	position: relative;
+	display: inline-block;
+	background: #ccc;
+	transition: background ease 0.2s;
+}
+
+.my-switch.active {
+	background: rgba(0, 184, 0, 0.8);
+}
+
+.my-switch div {
+	width: 1.5625rem;
+	height: 1.255rem;
+	border-radius: 3px;
+	position: absolute;
+	background: #fff;
+	left: 0.0625rem;
+	top: 0.0625rem;
+	transition: left ease 0.5s;
+}
+
+.my-switch.active div {
+	left: 1.9rem;
+}
+
+.divSwitch {
+	position: absolute;
+	top: 22%;
+	right: 0.9375rem;
+}
+
+.divSwitch2 {
+	position: absolute;
+	top: 35%;
+	right: 0.9375rem;
 }
 
 

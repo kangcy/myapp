@@ -296,8 +296,6 @@
 
 	//编辑图片
 	function AddPic(partid, url, index) {
-		console.log(partid + "," + url + "," + index);
-
 		if(index == 0) {
 			var html = appendStr(url, "pic", partid);
 			$("#" + currEditID).parents(".edit-body").after(html);
@@ -324,7 +322,6 @@
 			$.when.apply(null, imgdefereds).done(function() {
 				Group(document.getElementById('edit'), window.innerWidth * 0.05);
 			});
-
 		} else {
 			$("#" + currEditID).find("img").attr("src", url);
 		}

@@ -50,7 +50,8 @@
 						ShareNick: data.ShareNick,
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,
-						Money: data.Money
+						Money: data.Money,
+						UseDraw: data.UseDraw
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -105,7 +106,8 @@
 						ShareNick: data.ShareNick,
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,
-						Money: data.Money
+						Money: data.Money,
+						UseDraw: data.UseDraw
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -180,7 +182,8 @@
 						ShareNick: data.ShareNick,
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,
-						Money: data.Money
+						Money: data.Money,
+						UseDraw: data.UseDraw
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();

@@ -10,9 +10,13 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<style type="text/css">
-			.check {
-				background: url(../images/check.png) 97% center no-repeat;
-				background-size: 1.25rem;
+			.mui-icon-checkmarkempty {
+				/*background: url(../images/check.png) 97% center no-repeat;
+				background-size: 1.25rem;*/
+				position: absolute;
+				right: 0px;
+				top: 10%;
+				display: none;
 			}
 			
 			.mui-table-view-cell {
@@ -31,6 +35,10 @@
 			.mui-popup-title+.mui-popup-text {
 				display: none;
 			}
+			
+			.check .mui-icon-checkmarkempty {
+				display: block !important;
+			}
 		</style>
 	</head>
 
@@ -47,18 +55,22 @@
 				<li class="mui-table-view-cell list" index="3">
 					<span class="fl">公开</span>
 					<span class="fr caaa mr20 f11">所有人都可以看到</span>
+					<span class="fr caaa mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
 				<li class="mui-table-view-cell list" index="2">
 					<span class="fl">不公开</span>
 					<span class="fr caaa mr20 f11">仅通过自己分享后才可见</span>
+					<span class="fr caaa mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
 				<li class="mui-table-view-cell list" index="1">
 					<span class="fl">密码可见</span>
 					<span class="fr caaa mr20 f11">设置密码,输入密码才可见</span>
+					<span class="fr caaa mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
 				<li class="mui-table-view-cell list" index="0">
 					<span class="fl">私密</span>
 					<span class="fr caaa mr20 f11">仅自己可见</span>
+					<span class="fr caaa mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
 					<span class="fl f11" onclick="PayTan(1)">文章类别</span>
@@ -71,8 +83,10 @@
 				</li>
 				<li class="mui-table-view-cell">
 					<p class="f13 c333">投稿</p>
-					<div class="mui-switch mui-switch-blue" id="switch">
-						<div class="mui-switch-handle"></div>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="switch">
+							<div></div>
+						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
@@ -174,13 +188,6 @@
 			var page = plus.webview.getWebviewById("articledetail");
 			if(page) {
 				page.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
-
-				/*mui.fire(page, "UpdatePower", {
-					ArticlePower: ArticlePower,
-					ArticlePowerPwd: ArticlePowerPwd,
-					ArticleType: ArticleType,
-					ArticleTypeName: ArticleTypeName
-				});*/
 			}
 
 			plus.webview.close(self);
@@ -192,13 +199,16 @@
 		});
 
 		//投稿
-		document.getElementById("switch").addEventListener('toggle', function(event) {
+		document.getElementById("switch").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
 			isLoading = true;
-			if(event.detail.isActive) {
-				base.ShowWaiting("正在投稿~")
+			var draw = this.className.indexOf("active") >= 0;
+			base.SwitchChange("switch", !draw);
+
+			base.ShowWaiting("正在投稿~");
+			setTimeout(function() {
 				HttpGet(base.RootUrl + "Article/Recommend", {
 						ID: userinfo.ID,
 						ArticleID: ArticleID
@@ -208,13 +218,12 @@
 						if(data.result) {
 							mui.toast("投稿成功~");
 						} else {
+							base.SwitchChange("switch", draw);
 							ActionTan(1, data.message);
 						}
 						isLoading = false;
 					});
-			} else {
-				isLoading = false;
-			}
+			}, 1000);
 		});
 	});
 

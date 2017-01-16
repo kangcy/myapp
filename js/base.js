@@ -262,7 +262,8 @@ var base = new function() {
 						ShareNick: data.ShareNick,
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,
-						Money: data.Money
+						Money: data.Money,
+						UseDraw: data.UseDraw
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 
@@ -486,6 +487,17 @@ var base = new function() {
 				mui.toast("网络异常，请检查网络设置！");
 			}
 		}, false);
+	}
+
+	/**
+	 * 切换Switch
+	 */
+	this.SwitchChange = function(id, isopen) {
+		if(isopen) {
+			document.getElementById(id).classList.add("active");
+		} else {
+			document.getElementById(id).classList.remove("active");
+		}
 	}
 }
 
