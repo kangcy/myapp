@@ -634,9 +634,12 @@
 					"images/header.png",
 					"page/helpSub.html",
 					"images/logo.png",
-					"images/login/logo.png"
+					"images/login/logo.png",
+					"css/loading.css"
 				],
-				"refer": [],
+				"refer": [
+					"page/feedback.html"
+				],
 				"priority": 0
 			},
 			"page/comment.html": {

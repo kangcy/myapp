@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.css">
 		<style type="text/css">
 			#list {
 				display: inline-block;
@@ -26,7 +27,7 @@
 			}
 			
 			#list div img {
-				width: 40%;
+				width: 35%;
 				margin-top: 20px;
 			}
 			
@@ -42,13 +43,23 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
+			<a id="feedback" class="mui-icon blue f13 fr mt6">意见反馈</a>
 			<h1 class="mui-title c333">求助或建议</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper tc">
+			<div class="mui-loader tc" id="loader"> 
+				<div class="line-scale-pulse-out">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
 			<div class="mui-scroll">
-				<div id="list">
+				<div id="list" class="hide">
 				</div>
 			</div>
 		</div>
@@ -94,6 +105,12 @@
 				tid: tid
 			});
 		});
+
+		document.getElementById('feedback').addEventListener('tap', function(event) {
+			base.OpenWindow("feedback", "feedback.html", {
+
+			});
+		});
 	});
 
 	//加载类型
@@ -101,6 +118,7 @@
 		HttpGet(base.RootUrl + "Help/HelpType", {}, function(data) {
 			var table = document.getElementById("list");
 			table.innerHTML = "";
+			
 			if(data != null) {
 				var length = data.length;
 				if(length > 0) {
@@ -112,6 +130,8 @@
 					table.appendChild(div);
 				}
 			}
+			document.getElementById("loader").classList.add("hide");
+			document.getElementById("list").classList.remove("hide");
 		});
 	}
 
@@ -119,7 +139,7 @@
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.setAttribute("tid", item.ID);
-		div.innerHTML = '<img src="' + (base.IsNullOrEmpty(item.Cover) ? "../images/login/logo.png" : item.Cover) + '" /><p class="f12 mt15 mb20 c000">' + item.Name + '</p>';
+		div.innerHTML = '<img src="' + (base.IsNullOrEmpty(item.Cover) ? "../images/login/logo.png" : item.Cover) + '" /><p class="f12 mt5 mb20 c000">' + item.Name + '</p>';
 		return div;
 	}
 </script>
