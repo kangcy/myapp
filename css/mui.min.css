@@ -1587,18 +1587,18 @@ input[type=submit]:enabled:active {
 	border-radius: 0.375rem
 }
 
-.mui-card .mui-table-view .mui-table-view-cell:first-child,
+/*.mui-card .mui-table-view .mui-table-view-cell:first-child,
 .mui-card .mui-table-view .mui-table-view-divider:first-child {
 	top: 0;
 	border-top-left-radius: 0.375rem;
 	border-top-right-radius: 0.375rem
-}
+}*/
 
-.mui-card .mui-table-view .mui-table-view-cell:last-child,
+/*.mui-card .mui-table-view .mui-table-view-cell:last-child,
 .mui-card .mui-table-view .mui-table-view-divider:last-child {
 	border-bottom-right-radius: 0.375rem;
 	border-bottom-left-radius: 0.375rem
-}
+}*/
 
 .mui-card .mui-table-view:after,
 .mui-card .mui-table-view:before,
@@ -1886,7 +1886,7 @@ input[type=submit]:enabled:active {
 }
 
 .mui-table-view-cell>a:not(.mui-btn).mui-active {
-	background-color: #eee
+	/*background-color: #eee*/
 }
 
 .mui-table-view-cell p {
@@ -2156,9 +2156,9 @@ input[type=submit]:enabled:active {
 	content: '\e581'
 }
 
-.mui-table-view-cell.mui-collapse.mui-active {
+/*.mui-table-view-cell.mui-collapse.mui-active {
 	margin-top: -0.0625rem
-}
+}*/
 
 .mui-table-view-cell.mui-collapse.mui-active .mui-collapse-content,
 .mui-table-view-cell.mui-collapse.mui-active .mui-table-view {

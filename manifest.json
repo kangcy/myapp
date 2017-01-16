@@ -632,7 +632,9 @@
 					"js/mui.min.js",
 					"images/menu.png",
 					"images/header.png",
-					"page/helpSub.html"
+					"page/helpSub.html",
+					"images/logo.png",
+					"images/login/logo.png"
 				],
 				"refer": [],
 				"priority": 0

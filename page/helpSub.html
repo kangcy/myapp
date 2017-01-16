@@ -8,11 +8,39 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/comment.css">
 		<link rel="stylesheet" href="../css/loading.css">
+		<style type="text/css">
+			.mui-content>.mui-card:first-child {
+				margin-top: 0px !important;
+			}
+			
+			.mui-table-view-cell.mui-collapse .mui-collapse-content {
+				background: #fafafa;
+			}
+			
+			.mui-collapse-content:before {
+				position: absolute;
+				right: 0;
+				top: 0;
+				left: 0px;
+				height: 0.0625rem;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #eee;
+			}
+			
+			.mui-table-view:after {
+				background-color: #eee !important;
+			}
+		</style>
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon mui-icon-back fl"></a>
+			<h1 class="mui-title c333">求助或建议</h1>
+		</header>
 		<div class="mui-content">
 			<div class="mui-loader tc" id="loader">
 				<div class="line-scale-pulse-out">
@@ -23,13 +51,22 @@
 					<div></div>
 				</div>
 			</div>
-			<div class="mui-slider mui-fullscreen">
-				<div class="mui-scroll-wrapper">
-					<div id="pullrefresh" class="mui-scroll">
-						<div id="scroll-view">
+
+			<div class="mui-card">
+				<ul class="mui-table-view" id="list">
+					<!--<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right f13" href="#">文字排版</a>
+						<div class="mui-collapse-content f12 c666">
+							p. 目前最接近原生App效果的框架。
 						</div>
-					</div>
-				</div>
+					</li>
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right f13" href="#">文字排版</a>
+						<div class="mui-collapse-content f12 c666">
+							p. 目前最接近原生App效果的框架。
+						</div>
+					</li>-->
+				</ul>
 			</div>
 		</div>
 	</body>
@@ -37,13 +74,8 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.pullToRefresh.js"></script>
-<script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currpage = 1;
-	var totalpage = 2;
-	var pagesize = base.PageSize;
 	var isLoading = false;
 
 	mui.init();
@@ -51,88 +83,38 @@
 	mui.plusReady(function() {
 		base.InitScroll();
 
-		mui(document.getElementById("pullrefresh")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
+		self = plus.webview.currentWebview();
+		var type = self.tid || 0;
+
+		console.log(type)
+		Load(type);
+
+		//返回
+		mui.back = function() {
+			plus.webview.close(plus.webview.currentWebview());
+		}
 	});
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了~");
-		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
-	}
 
 	/**
 	 * 加载数据
 	 */
-	function Load(callback) {
+	function Load(type) {
 		var data = {
-			page: currpage,
-			rows: pagesize
+			type: type
 		};
+		var table = document.getElementById('list');
+		table.innerHTML = "";
 		HttpGet(base.RootUrl + "Help/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				totalpage = data.totalpage;
-				var length = data.list.length;
+				var length = data.length;
 				if(length > 0) {
-					var table = document.getElementById('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
+					for(var i = 0; i < length; i++) {
+						var div = appendStr(data[i]);
 						table.appendChild(div);
 					}
 				}
 			}
-			callback();
 		});
 	}
 
@@ -140,16 +122,9 @@
 	 * 拼接Html
 	 */
 	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		var model = [];
-		model.push('<div class="mui-slider-cell mt10 mb10" onclick="message(' + item.ID + ')">');
-		//昵称、签名
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f13 c000 mb5">' + item.Name + '</p><p class="f12 csubtitle">' + item.Summary + '</p></div>');
-		//关注
-		model.push('<div class="oa-contact-icon mui-table-cell"><span class="mui-icon fr mui-icon-arrowright select caaa"></span></div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
+		var div = document.createElement('li');
+		div.className = 'mui-table-view-cell mui-collapse';
+		div.innerHTML = '<a class="mui-navigate-right f13" href="#">' + item.Name + '</a><div class="mui-collapse-content"><span class="f12 c666 mt5 mb5">' + item.Summary + '</span></div>';
 		return div;
 	}
 </script>

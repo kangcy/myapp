@@ -301,7 +301,28 @@
 			$("#" + currEditID).parents(".edit-body").after(html);
 			$("#edit").find(".banner").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
-			Group(document.getElementById('edit'), window.innerWidth * 0.05);
+			//Group(document.getElementById('edit'), window.innerWidth * 0.05);
+
+			var imgdefereds = [];
+			$('img').each(function() {
+				var dfd = $.Deferred();
+				$(this).bind('load', function() {
+					dfd.resolve();
+				}).bind('error', function() {
+					//图片加载错误，加入错误处理
+					// dfd.resolve();
+				})
+				if(this.complete) {
+					setTimeout(function() {
+						dfd.resolve();
+					}, 1000);
+				}
+				imgdefereds.push(dfd);
+			})
+			$.when.apply(null, imgdefereds).done(function() {
+				Group(document.getElementById('edit'), window.innerWidth * 0.05);
+			});
+
 		} else {
 			$("#" + currEditID).find("img").attr("src", url);
 		}

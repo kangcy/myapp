@@ -8,6 +8,37 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			#list {
+				display: inline-block;
+				width: 100%;
+				position: relative;
+			}
+			
+			#list div {
+				width: 50%;
+				display: inline-block;
+				float: left;
+			}
+			
+			#list div {
+				border-bottom: 1px solid #eee;
+			}
+			
+			#list div img {
+				width: 40%;
+				margin-top: 20px;
+			}
+			
+			#list .border {
+				width: 1px;
+				height: 100%;
+				background: #eee;
+				position: absolute;
+				left: 50%;
+				top: 0px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -15,36 +46,38 @@
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
 			<h1 class="mui-title c333">求助或建议</h1>
 		</header>
+		<div class="mui-content mui-scroll-wrapper tc">
+			<div class="mui-scroll">
+				<div id="list">
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false, //启用右滑关闭功能
-		subpages: [{
-			id: 'helpSub',
-			url: 'helpSub.html',
-			styles: {
-				top: '50px',
-				bottom: '0px',
-			}
-		}]
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.ready(function() {
+		base.InitScroll();
+
+		LoadHelpType();
 	});
 
 	mui.plusReady(function() {
+
 		//判断网络状态
-		document.addEventListener("netchange", function() {
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置！");
-			}
-		}, false);
-		
+		base.NetChange();
+
 		//返回
 		mui.back = function() {
 			plus.webview.close(plus.webview.currentWebview());
@@ -55,13 +88,38 @@
 			mui.back();
 		});
 
-		//双击滚动到头部
-		var contentWebview = null;
-		document.querySelector('header').addEventListener('doubletap', function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		mui("#list").on('tap', 'div', function(event) {
+			var tid = this.getAttribute("tid");
+			base.OpenWindow("helpSub", "helpSub.html", {
+				tid: tid
+			});
 		});
 	});
+
+	//加载类型
+	function LoadHelpType() {
+		HttpGet(base.RootUrl + "Help/HelpType", {}, function(data) {
+			var table = document.getElementById("list");
+			table.innerHTML = "";
+			if(data != null) {
+				var length = data.length;
+				if(length > 0) {
+					for(var i = 0, len = length; i < len; i++) {
+						table.appendChild(appendStr(data[i]));
+					}
+					var div = document.createElement('div');
+					div.className = 'border';
+					table.appendChild(div);
+				}
+			}
+		});
+	}
+
+	//拼接Html
+	function appendStr(item) {
+		var div = document.createElement('div');
+		div.setAttribute("tid", item.ID);
+		div.innerHTML = '<img src="' + (base.IsNullOrEmpty(item.Cover) ? "../images/login/logo.png" : item.Cover) + '" /><p class="f12 mt15 mb20 c000">' + item.Name + '</p>';
+		return div;
+	}
 </script>
