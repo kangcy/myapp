@@ -346,7 +346,19 @@
 					"css/guide.css",
 					"js/base.js",
 					"css/mui.min.css",
-					"js/mui.min.js"
+					"js/mui.min.js",
+					"images/adv/01_text.png",
+					"images/adv/03_text2.png",
+					"images/adv/02_text.png",
+					"images/adv/03.jpg",
+					"images/adv/01.jpg",
+					"images/adv/04.jpg",
+					"images/logo.png",
+					"js/jquery-1.10.2.min.js",
+					"images/adv/02.jpg",
+					"images/adv/chair.png",
+					"images/adv/03_text1.png",
+					"images/adv/04_text.png"
 				],
 				"refer": [
 					"page/login.html"

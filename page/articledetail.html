@@ -349,8 +349,14 @@
 
 		//获取支付通道
 		plus.payment.getChannels(function(channels) {
-			aliChannel = channels[0];
-			wxChannel = channels[1];
+			for(var i in channels) {
+				var c = channels[i];
+				if(c.id == 'qhpay' || c.id == 'qihoo') { // 过滤掉不支持的支付通道：暂不支持360相关支付
+					continue;
+				}
+				console.log(JSON.stringify(c));
+				channel[c.id] = c;
+			}
 		}, function(e) {
 			console.log("获取支付通道失败：" + e.message);
 		});
@@ -434,7 +440,7 @@
 			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
-			console.log(JSON.stringify(data));
+			//console.log(JSON.stringify(data));
 			if(data != null) {
 				if(data.result) {
 					data = data.message;

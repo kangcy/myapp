@@ -1,6 +1,6 @@
 var wxChannel = null; //微信支付
 var aliChannel = null; //支付宝支付
-var channel = null; //支付渠道
+var channel = {}; //支付渠道
 var payway = 0; //支付方式
 
 //发起支付
@@ -21,26 +21,30 @@ function Payment() {
 	var PAYSERVER = '';
 	if(id == 'alipay') {
 		PAYSERVER = ALIPAYSERVER;
-		channel = aliChannel; 
 	} else if(id == 'wxpay') {
-		PAYSERVER = WXPAYSERVER; 
-		channel = wxChannel;
+		PAYSERVER = WXPAYSERVER;
 	} else {
-		isLoading = false; 
+		isLoading = false;
 		plus.nativeUI.alert("不支持此支付通道！", null, "捐赠");
 		return;
 	}
-	mui.get(PAYSERVER, {}, function(data) { 
-		console.log(data);
-		plus.payment.request(channel, data, function(result) {
-			plus.nativeUI.alert("支付成功！", function() {
-				back();
+	mui.get(PAYSERVER, {}, function(data) {
+		console.log(JSON.stringify(data));
+		if(data.result) {
+			console.log(id);
+			plus.payment.request(channel[id], data.message, function(result) {
+				plus.nativeUI.alert("支付成功！", function() {
+					back();
+				});
+			}, function(error) {
+				alert(JSON.stringify(error));
+				plus.nativeUI.alert("支付失败：" + error.code);
 			});
-		}, function(error) {
-			plus.nativeUI.alert("支付失败：" + error.code);
-		});
+		} else {
+			plus.nativeUI.alert("支付失败");
+		}
 		isLoading = false;
-	}, "text");
+	}, "json");
 
 	/*var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
