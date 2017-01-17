@@ -1534,7 +1534,8 @@
 					"js/copper2.js",
 					"images/editimage/e4.png",
 					"images/60x60.gif",
-					"images/header.png"
+					"images/header.png",
+					"css/loading.css"
 				],
 				"refer": [
 					"page/addarticle.html"

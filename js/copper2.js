@@ -181,7 +181,7 @@ function Upload(imgurl, callback) {
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		standard: Standard,
-		isDraw: 0,
+		isDraw: userinfo.UseDraw,
 		isThumb: 1
 	}, function(data) {
 		if(data != null) {
@@ -211,7 +211,7 @@ function compressImage(src, newsrc, callback) {
 			dst: newsrc,
 			overwrite: true,
 			width: width,
-			quality: 100
+			quality: 80
 		},
 		function(event) {
 			if($.isFunction(callback)) {
@@ -272,5 +272,5 @@ function getBase64Image(img) {
 	canvas.height = height; /*设置新的图片的长度*/
 	var ctx = canvas.getContext("2d");
 	ctx.drawImage(img, 0, 0, width, height); /*绘图*/
-	return canvas.toDataURL("image/jpeg", 1);
+	return canvas.toDataURL("image/jpeg", 0.8);
 }

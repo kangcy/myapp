@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../cropper/cropper.css">
 		<style type="text/css">
 			.mui-loader {
@@ -26,6 +27,15 @@
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
 			<h1 class="mui-title c333">图片编辑</h1>
 		</header>
+		<div class="mui-loader tc" id="loader">
+			<div class="line-scale-pulse-out">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
 		<div id="editimage" class="mui-iframe-wrapper full tc" style="top:45px;botom:50px;">
 			<img id="readyimg" style="width:100%;display:none;" />
 		</div>
@@ -82,11 +92,13 @@
 		Standard = self.Standard || "Article";
 
 		if(base.IsNullOrEmpty(Url)) {
+			document.getElementById("loader").classList.add("hide");
 			showActionSheet();
 		} else {
 			$("#readyimg").attr("src", Url).load(function() {
 				var imagewidth = $("#readyimg").width();
 				var imageheight = $("#readyimg").height();
+				document.getElementById("loader").classList.add("hide");
 				if(totalheight > imageheight) {
 					$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
 				} else {
