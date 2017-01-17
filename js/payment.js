@@ -11,23 +11,26 @@ function Payment() {
 	isLoading = true;
 	var id = payway == 0 ? "alipay" : "wxpay";
 
-	var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
-	var WXPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+	/*var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
+	var WXPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';*/
+
+	var ALIPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserID=' + userinfo.ID;
+	var WXPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserID=' + userinfo.ID;
 
 	// 从服务器请求支付订单
 	var PAYSERVER = '';
 	if(id == 'alipay') {
 		PAYSERVER = ALIPAYSERVER;
-		channel = aliChannel;
+		channel = aliChannel; 
 	} else if(id == 'wxpay') {
-		PAYSERVER = WXPAYSERVER;
+		PAYSERVER = WXPAYSERVER; 
 		channel = wxChannel;
 	} else {
-		isLoading = false;
+		isLoading = false; 
 		plus.nativeUI.alert("不支持此支付通道！", null, "捐赠");
 		return;
 	}
-	mui.get(PAYSERVER, {}, function(data) {
+	mui.get(PAYSERVER, {}, function(data) { 
 		console.log(data);
 		plus.payment.request(channel, data, function(result) {
 			plus.nativeUI.alert("支付成功！", function() {

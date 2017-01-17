@@ -242,6 +242,10 @@
 
 	// 登录操作 
 	function authLogin(type) {
+		if(isLoading) {
+			return false;
+		}
+		isLoading = true;
 		mui.toast("正在授权~")
 		var s;
 		for(var i = 0; i < auths.length; i++) {
@@ -261,6 +265,7 @@
 			//mui.toast("已登录认证~~");
 			authUserInfo(type, s);
 		}
+		isLoading = false;
 	}
 
 	//注销 

@@ -100,7 +100,7 @@
 			"plugins": {
 				"share": {
 					"qq": {
-						"appid": "100371282",
+						"appid": "101365355",
 						"description": "QQ分享"
 					},
 					"sina": {
@@ -111,7 +111,7 @@
 					},
 					"weixin": {
 						"appid": "wxbf415b2a2d7f5af2",  //wx4868b35061f87885
-						"appsecret": "e943afa28eb3dc85fd8e309376759338", //64020361b8ec4c99936c0e3999a9f249
+						"appsecret": "03cdde17b14e84a45fbe666cb2428492", //64020361b8ec4c99936c0e3999a9f249
 						"description": "可选，微信分享"
 					},
 					"tencent": {
@@ -133,7 +133,7 @@
 				},
 				"oauth": {
 					"qq": {
-						"appid": "100371282"
+						"appid": "101365355"
 					},
 					"sina": {
 						"appkey": "568898243",
@@ -142,7 +142,7 @@
 					},
 					"weixin": {
 						"appid": "wxbf415b2a2d7f5af2",
-						"appsecret": "e943afa28eb3dc85fd8e309376759338"
+						"appsecret": "03cdde17b14e84a45fbe666cb2428492"
 					}
 				}
 			},
