@@ -14,10 +14,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
 			<div class="mui-title">
-				<div id="tabs">
-					<span class="tab curr" id="tab1">评论我的</span>
-					<span class="tab" id="tab2">回复我的</span>
-				</div>
+				评论与回复
 			</div>
 		</header>
 		<div class="mui-content">
@@ -63,37 +60,5 @@
 		document.getElementById("back").addEventListener('tap', function(event) {
 			mui.back();
 		}, false);
-
-		document.getElementById('tab1').addEventListener('tap', function(event) {
-			if(this.getAttribute("class") == "tab curr")
-				return;
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			document.getElementById("tab2").setAttribute("class", "tab");
-			document.getElementById("tab1").setAttribute("class", "tab curr");
-			contentWebview.evalJS("ChangeSlider(0)");
-		});
-
-		document.getElementById('tab2').addEventListener('tap', function(event) {
-			if(this.getAttribute("class") == "tab curr")
-				return;
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			document.getElementById("tab1").setAttribute("class", "tab");
-			document.getElementById("tab2").setAttribute("class", "tab curr");
-			contentWebview.evalJS("ChangeSlider(1)");
-		});
 	});
-
-	function UpdateCurr(index) {
-		if(index == 0) {
-			document.getElementById("tab2").setAttribute("class", "tab");
-			document.getElementById("tab1").setAttribute("class", "tab curr");
-		} else {
-			document.getElementById("tab1").setAttribute("class", "tab");
-			document.getElementById("tab2").setAttribute("class", "tab curr");
-		}
-	}
 </script>
