@@ -157,7 +157,7 @@
 				ArticleNumber: ArticleNumber,
 				PartID: 0,
 				//Url: currEditImg,
-				Url: "", 
+				Url: "",
 				Source: "ArticleAvatar"
 			});
 		});
@@ -192,12 +192,13 @@
 					HttpGet(base.RootUrl + "ArticlePart/Delete", {
 						ID: userinfo.ID,
 						PartID: $this.getAttribute("partid")
-					}, function(data) {
+					}, function(data) { 
 						base.CloseWaiting();
 						if(data != null) {
 							if(data.result) {
 								$this.parentNode.parentNode.parentNode.remove();
 								Group(document.getElementById('edit'), window.innerWidth * 0.05);
+								mui(".mui-scroll-wrapper").scroll().refresh();//刷新下拉
 							} else {
 								mui.toast(data.message);
 							}
@@ -216,8 +217,6 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber || "";
-
-		console.log(ArticleID + "," + ArticleNumber);
 
 		Source = self.Source || "Add";
 
@@ -324,7 +323,10 @@
 				Group(document.getElementById('edit'), window.innerWidth * 0.05);
 			});
 		} else {
-			$("#" + currEditID).find("img").attr("src", url);
+			$("#" + currEditID).attr("src", base.ShowThumb(url, 0));
+			$("#" + currEditID).find("img").attr("src", base.ShowThumb(url, 1)).load(function() {
+				Group(document.getElementById('edit'), window.innerWidth * 0.05);
+			});
 		}
 	}
 
@@ -416,7 +418,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 1) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {
@@ -434,7 +436,7 @@
 		model.push('<div class="edit-body">');
 		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
 		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
+			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 1) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		} else if(type == "video") {
