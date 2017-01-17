@@ -518,8 +518,8 @@ function ChangeSlider(index) {
 //编辑器弹窗
 function EditorTan(index) {
 	if(index == 0) {
-		$(".emojionearea").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+		$(".emojionearea").removeClass("bounceInUp").addClass("hide");
 	} else {
-		$(".emojionearea").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+		$(".emojionearea").removeClass("hide").addClass("bounceInUp");
 	}
 }

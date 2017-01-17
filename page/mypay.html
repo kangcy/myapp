@@ -57,8 +57,10 @@
 				<li class="mui-table-view-cell">
 					<p class="f13 c333">启用打赏</p>
 					<p class="f11 caaa mt5">分享文章，读者即可打赏支持</p>
-					<div class="mui-switch" id="autoMusicSwitch">
-						<div class="mui-switch-handle"></div>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="autoMusicSwitch">
+							<div></div>
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -103,17 +105,17 @@
 		})
 
 		if(userinfo.IsPay == 1) {
-			mui("#autoMusicSwitch").switch().toggle();
+			base.SwitchChange("autoMusicSwitch", true);
 		}
 
 		//是否自动播放音乐
-		document.getElementById("autoMusicSwitch").addEventListener('toggle', function(event) {
+		document.getElementById("autoMusicSwitch").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
 			isLoading = true;
-			ispay = event.detail.isActive ? 1 : 0;
-
+			base.SwitchChange("autoMusicSwitch", this.className.indexOf("active") < 0);
+			ispay = this.className.indexOf("active") >= 0;
 			if(ispay == 1) {
 				ActionTan(1);
 			} else {
@@ -162,7 +164,8 @@
 	});
 
 	function NotAgree() {
-		mui("#autoMusicSwitch").switch().toggle();
+		ispay = 0;
+		base.SwitchChange("autoMusicSwitch", false);
 		ActionTan(0);
 		isLoading = false;
 	}
