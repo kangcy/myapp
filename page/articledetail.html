@@ -354,7 +354,6 @@
 				if(c.id == 'qhpay' || c.id == 'qihoo') { // 过滤掉不支持的支付通道：暂不支持360相关支付
 					continue;
 				}
-				console.log(JSON.stringify(c));
 				channel[c.id] = c;
 			}
 		}, function(e) {

@@ -42,16 +42,18 @@
 		})
 
 		document.getElementById('weixin').addEventListener('tap', function() {
-			console.log("微信");
 			pay('wxpay');
 		})
 		document.getElementById('zhifubao').addEventListener('tap', function() {
-			console.log("zhifubao");
 			pay('alipay');
 		})
 
-		var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
-		var WXPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+		//var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
+		//var WXPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+
+		var ALIPAYSERVER = 'http://139.224.51.196/Notify/AddWxOrder?UserID=1';
+		var WXPAYSERVER = 'http://139.224.51.196/Notify/AddWxOrder?UserID=1';
+
 		// 2. 发起支付请求
 		function pay(id) {
 			// 从服务器请求支付订单
@@ -71,13 +73,34 @@
 				switch(xhr.readyState) {
 					case 4:
 						if(xhr.status == 200) {
-							plus.payment.request(channel, xhr.responseText, function(result) {
-								plus.nativeUI.alert("支付成功！", function() {
-									back();
+
+							var model = JSON.parse(xhr.responseText);
+							var obj = {
+								"retcode": 0,
+								"retmsg": "ok",
+								"appid": model.appid,
+								"noncestr": model.noncestr,
+								"package": model.package,
+								"partnerid": model.partnerid,
+								"prepayid": model.prepayid,
+								"timestamp": model.timestamp,
+								"sign": model.sign
+							} 
+							console.log(JSON.stringify(obj))
+
+							/*var obj = xhr.responseText;
+							console.log(obj)*/
+
+							plus.payment.request(channel,
+								obj,
+								function(result) {
+									plus.nativeUI.alert("支付成功！", function() {
+										back();
+									});
+								},
+								function(error) {
+									plus.nativeUI.alert("支付失败：" + error.code);
 								});
-							}, function(error) {
-								plus.nativeUI.alert("支付失败：" + error.code);
-							});
 						} else {
 							alert("获取订单信息失败！");
 						}

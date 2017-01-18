@@ -31,12 +31,13 @@ function Payment() {
 	mui.get(PAYSERVER, {}, function(data) {
 		console.log(JSON.stringify(data));
 		if(data.result) {
-			console.log(id);
+			console.log(JSON.stringify(channel[id]) + "," + id + "," + data.message);
 			plus.payment.request(channel[id], data.message, function(result) {
 				plus.nativeUI.alert("支付成功！", function() {
 					back();
 				});
 			}, function(error) {
+				console.log(JSON.stringify(error));
 				alert(JSON.stringify(error));
 				plus.nativeUI.alert("支付失败：" + error.code);
 			});
@@ -76,7 +77,10 @@ function PayTan(index) {
 	if(index == 0) {
 		$("#mypaybg,#mypay").addClass("hide");
 	} else {
-		$("#mypaybg,#mypay").removeClass("hide");
+		
+		base.OpenWindow("payment", "../page/payment.html", {});
+		
+		//$("#mypaybg,#mypay").removeClass("hide");
 	}
 }
 

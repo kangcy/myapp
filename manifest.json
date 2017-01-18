@@ -95,7 +95,8 @@
 		},
 		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
-		"signature": "14:19:A1:71:13:75:31:38:E0:FF:1C:58:CA:13:BC:54:A9:F4:1D:81",/*可选，保留给应用签名，暂不使用:Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==*/
+		//"signature": "14:19:A1:71:13:75:31:38:E0:FF:1C:58:CA:13:BC:54:A9:F4:1D:81",/*可选，保留给应用签名，暂不使用:Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==*/
+		"signature": "6e38929cef403c839fc0c2987164e208",
 		"distribute": {
 			"plugins": {
 				"share": {
@@ -124,7 +125,7 @@
 				"payment": {
 					"weixin": {
 						"description": "微信支付",
-						"appid": "wxbf415b2a2d7f5af2"//
+						"appid": "wxbf415b2a2d7f5af2"
 					},
 					"alipay": {
 						"description": "阿里支付",
@@ -923,7 +924,8 @@
 					"page/articleComment.html",
 					"page/showhref.html",
 					"page/report.html",
-					"page/templateSide.html"
+					"page/templateSide.html",
+					"page/payment.html"
 				],
 				"priority": 0
 			},
