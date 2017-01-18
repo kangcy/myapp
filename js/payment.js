@@ -3,7 +3,6 @@ var payway = 0; //支付方式
 
 //发起支付
 function Payment() {
-	console.log(isLoading);
 	if(isLoading) {
 		return;
 	}
@@ -25,33 +24,28 @@ function Payment() {
 	}
 	mui.get(PAYSERVER, {}, function(data) {
 		console.log(JSON.stringify(data));
-		if(data.result) {
-			console.log(JSON.stringify(channel[id]) + "," + data.message);
-			var model = data.message;
-			var obj = {
-				"retcode": 0,
-				"retmsg": "ok",
-				"appid": model.appid,
-				"noncestr": model.noncestr,
-				"package": model.package,
-				"partnerid": model.partnerid,
-				"prepayid": model.prepayid,
-				"timestamp": model.timestamp,
-				"sign": model.sign
-			}
-
-			plus.payment.request(channel[id], obj, function(result) {
-				plus.nativeUI.alert("支付成功！", function() {
-					back();
-				});
-			}, function(error) {
-				console.log(JSON.stringify(error));
-				alert(JSON.stringify(error));
-				plus.nativeUI.alert("支付失败：" + error.code);
-			});
-		} else {
-			plus.nativeUI.alert("支付失败");
+		var model = data;
+		var obj = {
+			"retcode": 0,
+			"retmsg": "ok",
+			"appid": model.appid,
+			"noncestr": model.noncestr,
+			"package": model.package,
+			"partnerid": model.partnerid,
+			"prepayid": model.prepayid,
+			"timestamp": model.timestamp,
+			"sign": model.sign
 		}
+
+		plus.payment.request(channel[id], obj, function(result) {
+			plus.nativeUI.alert("支付成功！", function() {
+				back();
+			});
+		}, function(error) {
+			console.log(JSON.stringify(error));
+			alert(JSON.stringify(error));
+			plus.nativeUI.alert("支付失败：" + error.code);
+		});
 		isLoading = false;
 	}, "json");
 }

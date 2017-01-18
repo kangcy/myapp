@@ -790,7 +790,6 @@
 				var t = s[i];
 				shares[t.id] = t;
 			}
-			console.log("获取分享服务列表成功");
 		}, function(e) {
 			console.log("获取分享服务列表失败：" + e.message);
 		});
@@ -823,10 +822,10 @@
 
 	//模板选择弹窗
 	function TempTan(index) {
-		
-		base.OpenWindow("payment", "../page/payment.html", {});
-		return;
-		
+
+		/*base.OpenWindow("payment", "../page/payment.html", {});
+		return;*/
+
 		if(index == 0) {
 			$("#agreeTemp,#temps").addClass("hide");
 			$("#btnTemp").removeClass("hide");

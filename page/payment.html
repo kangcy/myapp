@@ -34,9 +34,9 @@
 		mui.plusReady(function() {
 			// 获取支付通道
 			plus.payment.getChannels(function(channels) {
-				channel = channels;
-				/*aliChannel = channels[0];
-				wxChannel = channels[1];*/
+				//channel = channels;
+				aliChannel = channels[0];
+				wxChannel = channels[1];
 			}, function(e) {
 				alert("获取支付通道失败：" + e.message);
 			});
@@ -61,10 +61,10 @@
 			var PAYSERVER = '';
 			if(id == 'alipay') {
 				PAYSERVER = ALIPAYSERVER;
-				//channel = aliChannel;
+				channel = aliChannel;
 			} else if(id == 'wxpay') {
 				PAYSERVER = WXPAYSERVER;
-				//channel = wxChannel;
+				channel = wxChannel;
 			} else {
 				plus.nativeUI.alert("不支持此支付通道！", null, "捐赠");
 				return;
@@ -73,11 +73,10 @@
 			xhr.onreadystatechange = function() {
 				switch(xhr.readyState) {
 					case 4:
-						if(xhr.status == 200) { 
+						if(xhr.status == 200) {
 
 							console.log("xhr.responseText:" + xhr.responseText)
-							var model = JSON.parse(xhr.responseText).message;
-							
+							var model = JSON.parse(xhr.responseText);
 							var obj = {
 								"retcode": 0,
 								"retmsg": "ok",
@@ -90,7 +89,8 @@
 								"sign": model.sign
 							}
 							console.log(JSON.stringify(obj))
-							plus.payment.request(channel[id],
+							console.log(JSON.stringify(channel));
+							plus.payment.request(channel,
 								obj,
 								function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
