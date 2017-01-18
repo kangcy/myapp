@@ -1,19 +1,14 @@
-var wxChannel = null; //微信支付
-var aliChannel = null; //支付宝支付
 var channel = {}; //支付渠道
 var payway = 0; //支付方式
 
 //发起支付
 function Payment() {
+	console.log(isLoading);
 	if(isLoading) {
 		return;
 	}
 	isLoading = true;
 	var id = payway == 0 ? "alipay" : "wxpay";
-
-	/*var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
-	var WXPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';*/
-
 	var ALIPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserID=' + userinfo.ID;
 	var WXPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserID=' + userinfo.ID;
 
@@ -31,8 +26,21 @@ function Payment() {
 	mui.get(PAYSERVER, {}, function(data) {
 		console.log(JSON.stringify(data));
 		if(data.result) {
-			console.log(JSON.stringify(channel[id]) + "," + id + "," + data.message);
-			plus.payment.request(channel[id], data.message, function(result) {
+			console.log(JSON.stringify(channel[id]) + "," + data.message);
+			var model = data.message;
+			var obj = {
+				"retcode": 0,
+				"retmsg": "ok",
+				"appid": model.appid,
+				"noncestr": model.noncestr,
+				"package": model.package,
+				"partnerid": model.partnerid,
+				"prepayid": model.prepayid,
+				"timestamp": model.timestamp,
+				"sign": model.sign
+			}
+
+			plus.payment.request(channel[id], obj, function(result) {
 				plus.nativeUI.alert("支付成功！", function() {
 					back();
 				});
@@ -46,30 +54,6 @@ function Payment() {
 		}
 		isLoading = false;
 	}, "json");
-
-	/*var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		switch(xhr.readyState) {
-			case 4:
-				if(xhr.status == 200) {
-					plus.payment.request(channel, xhr.responseText, function(result) {
-						plus.nativeUI.alert("支付成功！", function() {
-							back();
-						});
-					}, function(error) {
-						plus.nativeUI.alert("支付失败：" + error.code);
-					});
-				} else {
-					alert("获取订单信息失败！");
-				}
-				break;
-			default:
-				break;
-		}
-		isLoading = false;
-	}
-	xhr.open('GET', PAYSERVER);
-	xhr.send();*/
 }
 
 //支付弹窗
@@ -77,10 +61,10 @@ function PayTan(index) {
 	if(index == 0) {
 		$("#mypaybg,#mypay").addClass("hide");
 	} else {
-		
-		base.OpenWindow("payment", "../page/payment.html", {});
-		
-		//$("#mypaybg,#mypay").removeClass("hide");
+
+		//base.OpenWindow("payment", "../page/payment.html", {});
+
+		$("#mypaybg,#mypay").removeClass("hide");
 	}
 }
 

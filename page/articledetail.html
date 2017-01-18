@@ -340,7 +340,7 @@
 
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
-			console.log(JSON.stringify(p));
+			//console.log(JSON.stringify(p));
 			Province = p.address.province;
 			City = p.address.city;
 		}, function(e) {
@@ -482,7 +482,7 @@
 						CurrCover = "";
 					}
 
-					console.log(data.Cover + "," + data.TemplateJson.Cover);
+					//console.log(data.Cover + "," + data.TemplateJson.Cover);
 					CurrTemplate = data.Template;
 					CurrBackground = data.Background;
 
@@ -823,6 +823,10 @@
 
 	//模板选择弹窗
 	function TempTan(index) {
+		
+		base.OpenWindow("payment", "../page/payment.html", {});
+		return;
+		
 		if(index == 0) {
 			$("#agreeTemp,#temps").addClass("hide");
 			$("#btnTemp").removeClass("hide");
