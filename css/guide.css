@@ -82,10 +82,10 @@
 }
 
 .coverMoved .fadeInd {
-	-webkit-animation: fadeIn 2s linear;
-	-moz-animation: fadeIn 2s linear;
-	-ms-animation: fadeIn 2s linear;
-	animation: fadeIn 2s linear;
+	-webkit-animation: fadeIn 1.5s linear;
+	-moz-animation: fadeIn 1.5s linear;
+	-ms-animation: fadeIn 1.5s linear;
+	animation: fadeIn 1.5s linear;
 	animation-fill-mode: forwards;
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;

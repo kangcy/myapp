@@ -32,10 +32,11 @@
 			<div class="mui-scroll-wrapper">
 				<div id="scroll" class="mui-scroll">
 					<div id="scroll-view">
+
 					</div>
 					<div id="none" class="full tc hide">
 						<img src="../images/my/111.png" class="none" />
-						<p class="f13 mt10">你关注的人，会在这里显示</p>
+						<p class="f13 mt10">关注你的人，会在这里显示</p>
 					</div>
 				</div>
 			</div>
@@ -62,7 +63,7 @@
 
 		base.InitScroll();
 
-		//我关注的
+		//关注我的
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -89,7 +90,7 @@
 		});
 	});
 
-	//我关注的-下拉刷新
+	//关注我的-下拉刷新
 	function pulldownRefresh(self) {
 		if(isLoading == true) {
 			return;
@@ -108,7 +109,7 @@
 		}, 500);
 	}
 
-	//我关注的-上拉加载
+	//关注我的-上拉加载
 	function pullupRefresh(self) {
 		if(isLoading == true) {
 			return;
@@ -128,12 +129,12 @@
 		}, 500);
 	}
 
-	//我的关注-加载数据
+	//关注我的-加载数据
 	function Load(callback) {
-		data = {
+		var data = {
 			page: currpage,
 			rows: pagesize,
-			FromUserID: userinfo.ID
+			ToUserID: userinfo.ID
 		}
 		HttpGet(base.RootUrl + "Fan/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
@@ -144,12 +145,13 @@
 					document.getElementById("none").classList.add("hide");
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i], 0);
+						var div = appendStr(data.list[i], 1);
 						table.appendChild(div);
 					}
 				} else {
 					document.getElementById("none").classList.remove("hide");
 				}
+
 				if(parentPage == null) {
 					parentPage = plus.webview.currentWebview().parent();
 				}
