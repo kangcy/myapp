@@ -101,13 +101,14 @@ var base = new function() {
 	/**
 	 * 打开新页面
 	 **/
-	this.OpenWindow = function(id, url, data) {
+	this.OpenWindow = function(id, url, data, aniShow) {
 		mui.openWindow({
 			id: id,
 			url: url,
 			show: {
 				autoShow: true,
-				duration: base.AnimateDuration
+				duration: base.AnimateDuration,
+				aniShow: aniShow ? aniShow : "slide-in-right"
 			},
 			waiting: {
 				autoShow: false

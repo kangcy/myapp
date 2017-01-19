@@ -1403,11 +1403,10 @@
 					"images/home.png",
 					"js/jquery-1.10.2.min.js",
 					"js/default.js",
-					"page/fanSub.html"
-				],
-				"refer": [
+					"page/fanSub.html",
 					"page/followSub.html"
 				],
+				"refer": [],
 				"priority": 0
 			},
 			"page/zanSub.html": {
@@ -1818,11 +1817,10 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"js/default.js",
-					"page/followSub.html"
-				],
-				"refer": [
+					"page/followSub.html",
 					"page/fanSub.html"
 				],
+				"refer": [],
 				"priority": 0
 			},
 			"page/followSub.html": {

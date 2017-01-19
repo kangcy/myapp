@@ -135,7 +135,7 @@
 			rows: pagesize,
 			FromUserID: userinfo.ID
 		}
-		HttpGet(base.RootUrl + "Fan/All", data, function(data) {
+		HttpGet(base.RootUrl + "Fan/FollowsAll", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage;

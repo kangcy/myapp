@@ -149,15 +149,15 @@
 
 	//跳转首页
 	var toMain = function() {
-		base.OpenWindow("subindex", "subindex.html", {});
+		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
 	};
 
 	mui.ready(function() {
 		if(window.innerHeight <= 480) {
 			document.getElementById("logo").style.margin = "1.6rem";
 		}
-
-		base.InitScroll();
+ 
+		base.InitScroll(); 
 	})
 
 	var auths = {};

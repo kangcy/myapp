@@ -57,6 +57,10 @@
 					<span class="fl">昵称</span>
 					<span class="fr caaa" id="nickname"></span>
 				</li>
+				<li class="mui-table-view-cell" id="editnickname">
+					<span class="fl">Go号</span>
+					<span class="fr caaa" id="userid"></span>
+				</li>
 				<li class="mui-table-view-cell" id="sexPicker">
 					<span class="fl">性别</span>
 					<span class="fr caaa" id="sex"></span>
@@ -94,6 +98,7 @@
 	});
 
 	$(function() {
+		$("#userid").html(userinfo.ID);
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
 		$("#nickname").html(base.IsNullOrEmpty(userinfo.NickName) ? "请填写" : userinfo.NickName);
 		$("#sex").html(userinfo.Sex);
