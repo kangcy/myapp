@@ -10,8 +10,8 @@
 		if(loginInfo.UserName.length < 5) {
 			return callback('账号最短为 5 个字符');
 		}
-		if(loginInfo.Password.length < 6) {
-			return callback('密码最短为 6 个字符');
+		if(loginInfo.Password.length < 6 || loginInfo.Password.length > 16) {
+			return callback('密码为6-16个字符');
 		}
 
 		//登录验证

@@ -78,6 +78,58 @@
 					<span class="fr caaa tr" id="signature"></span></a>
 				</li>
 			</ul>
+			<div style="background: #eee;height:0.5rem;" class="full"></div>
+			<ul class="mui-table-view f13" style="margin-top:0px;">
+				<li class="mui-table-view-cell" onclick="BindPwd()">
+					<span class="fl">密码</span>
+					<span class="fr caaa" id="password"></span>
+				</li>
+				<li class="mui-table-view-cell" onclick="BindPhone()">
+					<span class="fl">绑定手机号</span>
+					<span class="fr caaa" id="phone"></span>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="fl">绑定微信账号</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="weixinSwitch">
+							<div></div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="fl">绑定QQ账号</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="qqSwitch">
+							<div></div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="fl">绑定微博账号</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="weiboSwitch">
+							<div></div>
+						</div>
+					</div>
+				</li>
+				<!--<li class="mui-table-view-cell" onclick="BindEmail()">
+					<span class="fl">绑定邮箱</span>
+					<span class="mui-pull-right caaa"></span>
+				</li>-->
+				<!--<li class="mui-table-view-cell">
+					<span class="fl">清除缓存</span>
+					<span class="mui-pull-right caaa">60M</span>
+				</li>-->
+			</ul>
+			<div style="background: #eee;height:2rem;line-height:2rem;" class="f12 full tc c999">绑定后可使用微信、QQ、微博、手机号登录</div>
+			<ul class="mui-table-view f13">
+				<li class="mui-table-view-cell">
+					<a id="exit" style="text-align: center;color: #FF3B30;">
+						退出登录
+					</a>
+				</li>
+			</ul>
+			<div style="background: #eee;height:1rem;" class="full"></div>
 		</div>
 	</body>
 
@@ -89,6 +141,8 @@
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var auths = {};
+	var isLoading = false; //是否操作中
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -97,7 +151,19 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	$(function() {
+	mui.ready(function() {
+		base.InitScroll();
+		document.getElementById("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone;
+		document.getElementById("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未绑定" : "已绑定";
+
+		if(base.IsNullOrEmpty(userinfo.Phone)) {
+			mui.confirm('您还没有绑定手机号，绑定后账号更安全。', '提示', ['去绑定', '取消'], function(e) {
+				if(e.index == 0) {
+					BindPhone();
+				}
+			});
+		}
+
 		$("#userid").html(userinfo.ID);
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
 		$("#nickname").html(base.IsNullOrEmpty(userinfo.NickName) ? "请填写" : userinfo.NickName);
@@ -105,6 +171,54 @@
 		$("#city").html(base.IsNullOrEmpty(userinfo.Address) ? "请选择" : userinfo.Address);
 		$("#time").html(base.IsNullOrEmpty(userinfo.Birthday) ? "请选择" : userinfo.Birthday);
 		$("#signature").html(base.IsNullOrEmpty(userinfo.Signature) ? "请填写" : userinfo.Signature);
+
+		//微信 
+		if(CheckBind(1)) {
+			base.SwitchChange("weixinSwitch", true)
+		}
+
+		//QQ
+		if(CheckBind(2)) {
+			base.SwitchChange("qqSwitch", true)
+		}
+
+		//微博
+		if(CheckBind(3)) {
+			base.SwitchChange("weiboSwitch", true)
+		}
+
+		//绑定微信切换
+		document.getElementById("weixinSwitch").addEventListener('tap', function(event) {
+			var weixin = this.className.indexOf("active") >= 0;
+			base.SwitchChange("weixinSwitch", !weixin);
+			if(this.className.indexOf("active") < 0) {
+				authLogin('weixin');
+			} else {
+				authLogout('weixin');
+			}
+		});
+
+		//绑定QQ切换
+		document.getElementById("qqSwitch").addEventListener('tap', function(event) {
+			var qq = this.className.indexOf("active") >= 0;
+			base.SwitchChange("qqSwitch", !qq);
+			if(this.className.indexOf("active") < 0) {
+				authLogin('qq');
+			} else {
+				authLogout('qq');
+			}
+		});
+
+		//绑定微博切换
+		document.getElementById("weiboSwitch").addEventListener('tap', function(event) {
+			var weibo = this.className.indexOf("active") >= 0;
+			base.SwitchChange("weiboSwitch", !weibo);
+			if(this.className.indexOf("active") < 0) {
+				authLogout('sinaweibo');
+			} else {
+				authLogin('sinaweibo');
+			}
+		});
 
 		document.getElementById('cityPicker').addEventListener('tap', function(event) {
 			base.OpenWindow("province", "province.html", {
@@ -186,6 +300,12 @@
 
 	mui.plusReady(function() {
 
+		plus.oauth.getServices(function(services) {
+			auths = services;
+		}, function(e) {
+			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
+		});
+
 		//返回
 		mui.back = function() {
 			var self = plus.webview.currentWebview();
@@ -198,6 +318,36 @@
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
 		});
+
+		//退出操作
+		document.getElementById('exit').addEventListener('tap', function() {
+			var btnArray = [{
+				title: "注销当前账号"
+			}, {
+				title: "直接关闭应用"
+			}];
+			plus.nativeUI.actionSheet({
+				cancel: "取消",
+				buttons: btnArray
+			}, function(event) {
+				switch(event.index) {
+					case 1:
+						mui.confirm('退出当前账号不会删除任何数据，下次登录仍可使用本账号。', '提示', ['确定退出', '取消'], function(e) {
+							if(e.index == 0) {
+								app.loginOut();
+								plus.webview.close("login")
+								plus.webview.close("index")
+								plus.webview.close("subindex")
+								base.OpenWindow("login", "login.html", {});
+							}
+						});
+						break;
+					case 2:
+						plus.runtime.quit();
+						break;
+				}
+			});
+		}, false);
 	});
 
 	var editnickname = document.getElementById("editnickname");
@@ -294,5 +444,214 @@
 			plus.webview.close("province");
 			plus.webview.close("city");
 		});
+	}
+
+	//更新绑定密码
+	function UpdatePwd(pwd) {
+		userinfo.Password = pwd;
+		document.getElementById("password").innerText = pwd == "" ? "未绑定" : "已绑定";
+	}
+
+	//更新绑定号码
+	function UpdatePhone(phone) {
+		userinfo.Phone = phone;
+		document.getElementById("phone").innerText = phone == "" ? "未绑定" : phone;
+	}
+
+	//检测是否绑定
+	function CheckBind(source) {
+		if(!userinfo.UserLogin) {
+			return false;
+		}
+		var exist = userinfo.UserLogin.some(function(userlogin) {
+			return userlogin.Source == source;
+		});
+		return exist;
+	}
+
+	//绑定密码
+	function BindPwd() {
+		base.OpenWindow("bindpassword", "bindpassword.html", {});
+	}
+
+	//绑定手机号
+	function BindPhone() {
+		base.OpenWindow("bindphone", "bindphone.html", {});
+	}
+
+	//绑定邮箱
+	function BindEmail() {
+		base.OpenWindow("bindemail", "bindemail.html", {});
+	}
+
+	//登录操作 
+	function authLogin(type) {
+		if(isLoading) {
+			return false;
+		}
+		isLoading = true;
+		base.ShowWaiting("正在绑定~");
+		var s;
+		for(var i = 0; i < auths.length; i++) {
+			if(auths[i].id == type) {
+				s = auths[i];
+				break;
+			}
+		}
+		if(!s.authResult) {
+			s.login(function(e) {
+				authUserInfo(type, s);
+			}, function(e) {
+				base.ShowWaiting("取消绑定~");
+				switch(type) {
+					case "weixin":
+						base.SwitchChange("weixinSwitch", false);
+						break;
+					case "sinaweibo":
+						base.SwitchChange("weiboSwitch", false);
+						break;
+					case "qq":
+						base.SwitchChange("qqSwitch", false);
+						break;
+					default:
+						break;
+				}
+				setTimeout(function() {
+					base.CloseWaiting();
+				}, 1000);
+			});
+		} else {
+			authUserInfo(type, s);
+		}
+		isLoading = false;
+	}
+
+	//注销 
+	function authLogout(id) {
+		base.ShowWaiting("正在解绑~");
+		for(var i in auths) {
+			var s = auths[i];
+			if(s.id == id) {
+				if(s.authResult) {
+					s.logout(function(e) {
+						console.log("注销登录认证成功~~");
+					}, function(e) {
+						console.log("注销登录认证失败~~");
+					});
+				}
+
+				var key = 0;
+				var source = 0;
+				switch(id) {
+					case "weixin":
+						source = 1;
+						break;
+					case "qq":
+						source = 2;
+						break;
+					case "sinaweibo":
+						source = 3;
+						break;
+					default:
+						break;
+				}
+				for(var j = 0; j < userinfo.UserLogin.length; j++) {
+					if(userinfo.UserLogin[j].Source == source) {
+						key = userinfo.UserLogin[j].ID;
+					}
+				}
+				if(key > 0 && source > 0) {
+					HttpGet(base.RootUrl + "UserLogin/Delete", {
+						ID: key
+					}, function(data) {
+						if(data == null) {
+							return callback("系统异常,请稍后再试~");
+						} else {
+							if(data.result) {
+								base.UpdateUser(userinfo.ID);
+								userinfo = base.GetUserInfo();
+							} else {
+								return callback(data.message);
+							}
+						}
+						base.CloseWaiting();
+						mui.toast("解绑成功");
+					});
+				}
+			}
+		}
+	}
+
+	//登录认证信息 
+	function authUserInfo(type, s) {
+		if(!s.authResult) {
+			mui.toast("未授权登录！");
+		} else {
+			s.getUserInfo(function(e) {
+				var josnStr = JSON.stringify(s.userInfo);
+				var jsonObj = s.userInfo;
+				console.log("获取用户信息成功：" + josnStr);
+
+				var openId = showData(type, jsonObj);
+
+				var url = "";
+				switch(type) {
+					case "weixin":
+						url = "User/BindWeixin";
+						break;
+					case "sinaweibo":
+						url = "User/BindWeibo";
+						break;
+					case "qq":
+						url = "User/BindQQ";
+						break;
+					default:
+						break;
+				}
+				if(url == "" || openId == "") {
+					return mui.toast("授权失败");
+				}
+				HttpGet(base.RootUrl + url, {
+					ID: userinfo.ID,
+					Key: openId
+				}, function(data) {
+					if(data == null) {
+						return callback("系统异常,请稍后再试~");
+					} else {
+						if(data.result) {
+							base.UpdateUser(userinfo.ID);
+							userinfo = base.GetUserInfo();
+							mui.toast("绑定成功");
+						} else {
+							return callback(data.message);
+						}
+					}
+				});
+			}, function(e) {
+				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
+			});
+		}
+	}
+
+	//显示用户信息 
+	function showData(type, data) {
+		var openId
+		switch(type) {
+			case 'weixin':
+				//{"openid":"oRrdQt8RTwroyZTnROSsJKHRM1Yw","nickname":"一个傻瓜","sex":1,"language":"zh_CN","city":"Changzhou","province":"Jiangsu","country":"CN","headimgurl":"http://wx.qlogo.cn/mmopen/eytJa9K5jkpPNvxRBGM4nIVq8iaaAH7Al37gxgs7t3TomcxByyFmYcvxhmBPRRFwrtKHapYGs8OSTticyOWLhbanpmrgMQiabsR/0","privilege":[],"unionid":"oU5Yyt4lcveMTHQvHHnE_kymcuDQ"}
+				openId = data.openid;
+				break;
+			case 'qq':
+				//{"ret":0,"msg":"","is_lost":0,"nickname":"你好，陌生人","gender":"男","province":"江苏","city":"南京","figureurl":"http://qzapp.qlogo.cn/qzapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/30","figureurl_1":"http://qzapp.qlogo.cn/qzapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/50","figureurl_2":"http://qzapp.qlogo.cn/qzapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/100","figureurl_qq_1":"http://q.qlogo.cn/qqapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/40","figureurl_qq_2":"http://q.qlogo.cn/qqapp/1104455702/6CDDCBB7B812BEA1D889FD32F6483A99/100","is_yellow_vip":"0","vip":"0","yellow_vip_level":"0","level":"0","is_yellow_year_vip":"0"}
+				openId = data.figureurl_qq_2.split("/")[4];
+				break;
+			case 'sinaweibo':
+				//{"id":5332090239,"idstr":"5332090239","class":1,"screen_name":"康春阳93212","name":"康春阳93212","province":"100","city":"1000","location":"其他","description":"","url":"","profile_image_url":"http://tva4.sinaimg.cn/crop.0.0.100.100.50/005OQUftjw8elc7b5ibj4j302s02sa9v.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"u/5332090239","domain":"","weihao":"","gender":"m","followers_count":1,"friends_count":22,"pagefriends_count":0,"statuses_count":0,"favourites_count":0,"created_at":"Wed Oct 15 22:15:06 +0800 2014","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"","ptype":0,"allow_all_comment":true,"avatar_large":"http://tva4.sinaimg.cn/crop.0.0.100.100.180/005OQUftjw8elc7b5ibj4j302s02sa9v.jpg","avatar_hd":"http://tva4.sinaimg.cn/crop.0.0.100.100.1024/005OQUftjw8elc7b5ibj4j302s02sa9v.jpg","verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"online_status":0,"bi_followers_count":0,"lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"credit_score":80,"user_ability":0,"urank":3}
+				openId = data.id;
+				break;
+			default:
+				break;
+		}
+		return openId;
 	}
 </script>

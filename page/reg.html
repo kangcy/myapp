@@ -150,9 +150,8 @@
 				isCountDown = true;
 				var mob = document.getElementById("account").value;
 				if(!checkPhone(mob)) {
-					mui.toast("友情提醒：您输入手机号码格式异常~");
 					isCountDown = false;
-					return;
+					return mui.toast("友情提醒：您输入手机号码格式异常~");
 				}
 				var time = 60;
 				var count = setInterval(function() {
@@ -208,9 +207,8 @@
 					var passwordConfirm = passwordConfirmBox.value;
 					if(passwordConfirm != regInfo.Password) {
 						base.CloseWaiting();
-						mui.toast('密码两次输入不一致');
-						isLoading = false;
-						return;
+						isLoading=false;
+						return mui.toast('密码两次输入不一致');
 					}
 					app.reg(regInfo, function(err) {
 						if(err) {
