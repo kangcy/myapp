@@ -165,7 +165,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
+<!--<script src="../js/jquery-1.10.2.min.js"></script>-->
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -198,7 +198,7 @@
 
 		//相册
 		document.getElementById('pic').addEventListener('tap', function(event) {
-			if($("#picnum").html() != "0") {
+			if(document.getElementById("picnum").innerHTML.trim() != "0") {
 				base.OpenWindow("pic", "pic.html", {
 					UserID: UserID
 				});
@@ -207,7 +207,7 @@
 
 		//文章
 		document.getElementById('articles').addEventListener('tap', function(event) {
-			if($("#articlenum").html() != "0") {
+			if(document.getElementById("articlenum").innerHTML.trim() != "0") {
 				base.OpenWindow("article", "article.html", {
 					CreateUserID: UserID,
 					ArticleTypeName: "他的动态",
@@ -218,7 +218,7 @@
 
 		//回复
 		document.getElementById('comments').addEventListener('tap', function(event) {
-			if($("#commentnum").html() != "0") {
+			if(document.getElementById("commentnum").innerHTML.trim() != "0") {
 				base.OpenWindow("reply", "reply.html", {
 					UserID: UserID
 				});
@@ -230,7 +230,6 @@
 	function Init(userId) {
 		UserID = userId;
 		LoadUserInfo();
-		CheckFan();
 		LoadPic()
 		LoadArticle();
 		LoadComment();
@@ -247,7 +246,7 @@
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
-					$("#picnum").html(data.records);
+					document.getElementById("picnum").innerHTML = data.records;
 					for(var i = 0, len = length; i < len; i++) {
 						var div = AppendPic(data.list[i]);
 						table.appendChild(div);
@@ -280,7 +279,7 @@
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
-					$("#articlenum").html(data.records);
+					document.getElementById("articlenum").innerHTML = data.records;
 					for(var i = 0, len = length; i < len; i++) {
 						var div = AppendArticle(data.list[i], i);
 						table.appendChild(div);
@@ -327,7 +326,7 @@
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
-					$("#commentnum").html(data.records);
+					document.getElementById("commentnum").innerHTML = data.records;
 					for(var i = 0, len = length; i < len; i++) {
 						var div = AppendComment(data.list[i], i);
 						table.appendChild(div);
@@ -362,28 +361,32 @@
 		}, function(data) {
 			if(data.result) {
 				data = data.message;
-				$("#bg").css({
-					"background": "url(" + data.Cover + ") center center",
-					"background-size": "100%"
-				});
-				$("#avatar").attr("src", base.ShowThumb(data.Avatar, 2)).removeClass("hide");
-				$("#nickname").html(data.NickName);
-				$("#signature").html(data.Signature);
-				$("#follows").html(data.Follows);
-				$("#fans").html(data.Fans);
+				document.getElementById("bg").style.background = "url(" + data.Cover + ") center center";
+				document.getElementById("bg").style.backgroundSize = "100%";
+				document.getElementById("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
+				document.getElementById("avatar").classList.remove("hide");
+				document.getElementById("nickname").innerHTML = data.NickName;
+				document.getElementById("signature").innerHTML = data.Signature;
+				//document.getElementById("follows").innerHTML = data.Follows;
+				//document.getElementById("fans").innerHTML = data.Fans;
 			} else {
 				mui.toast(data.message);
 			}
 			base.CloseWaiting();
+
+			CheckFan(); //检查关注
 		});
 	}
 
 	//判断是否关注
 	function CheckFan() {
+		var $guanzhu = document.getElementById("guanzhu");
 		if(base.CheckFan(userinfo.FanText, UserID)) {
-			$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+			$guanzhu.classList.add("guanzhu2");
+			$guanzhu.classList.remove("guanzhu")
+			$guanzhu.innerHTML = "已关注";
 		} else {
-			document.getElementById("guanzhu").addEventListener('tap', function(e) {
+			$guanzhu.addEventListener('tap', function(e) {
 				if(isLoading)
 					return;
 				var data = {
@@ -395,12 +398,14 @@
 						mui.toast(data.result ? "关注成功" : data.message);
 						if(data.result) {
 							base.AddFan(userinfo, UserID);
-							$("#guanzhu").addClass("guanzhu2").removeClass("guanzhu").html("已关注");
+							$guanzhu.classList.add("guanzhu2");
+							$guanzhu.classList.remove("guanzhu")
+							$guanzhu.innerHTML = "已关注";
 						}
 					}
 				});
 			});
 		}
-		$("#action").removeClass("hide");
+		document.getElementById("action").classList.remove("hide");
 	}
 </script>

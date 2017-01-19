@@ -23,8 +23,13 @@ function Payment() {
 		return;
 	}
 	mui.get(PAYSERVER, {}, function(data) {
-		console.log(JSON.stringify(data));
+		//console.log(JSON.stringify(data));
 		var model = data;
+		if(base.IsNullOrEmpty(model)) {
+			isLoading = false;
+			plus.nativeUI.alert("请求订单失败");
+			return false;
+		}
 		var obj = {
 			"retcode": 0,
 			"retmsg": "ok",
@@ -36,15 +41,13 @@ function Payment() {
 			"timestamp": model.timestamp,
 			"sign": model.sign
 		}
-
 		plus.payment.request(channel[id], obj, function(result) {
-			plus.nativeUI.alert("支付成功！", function() {
-				back();
+			plus.nativeUI.alert("支付成功", function() {
+				mui.back();
 			});
 		}, function(error) {
-			console.log(JSON.stringify(error));
-			alert(JSON.stringify(error));
-			plus.nativeUI.alert("支付失败：" + error.code);
+			//console.log(JSON.stringify(error));
+			plus.nativeUI.alert("一毛一分都是情  打赏一下都不行？");
 		});
 		isLoading = false;
 	}, "json");
@@ -55,9 +58,6 @@ function PayTan(index) {
 	if(index == 0) {
 		$("#mypaybg,#mypay").addClass("hide");
 	} else {
-
-		//base.OpenWindow("payment", "../page/payment.html", {});
-
 		$("#mypaybg,#mypay").removeClass("hide");
 	}
 }
