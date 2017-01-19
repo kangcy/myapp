@@ -528,7 +528,6 @@
 
 	//注销 
 	function authLogout(id) {
-		base.ShowWaiting("正在解绑~");
 		for(var i in auths) {
 			var s = auths[i];
 			if(s.id == id) {
@@ -576,24 +575,37 @@
 						}
 						mui.toast("解绑成功");
 					});
+				} else {
+					mui.toast("解绑失败");
+					switch(source) {
+						case 1:
+							base.SwitchChange("weixinSwitch", true);
+							break;
+						case 2:
+							base.SwitchChange("qqSwitch", true);
+							break;
+						case 3:
+							base.SwitchChange("weiboSwitch", true);
+							break;
+						default:
+							break;
+					}
 				}
 			}
 		}
-		base.CloseWaiting();
 	}
 
 	//登录认证信息 
 	function authUserInfo(type, s) {
 		if(!s.authResult) {
-			mui.toast("未授权登录！");
+			base.CloseWaiting();
+			mui.toast("未授权登录");
 		} else {
 			s.getUserInfo(function(e) {
 				var josnStr = JSON.stringify(s.userInfo);
 				var jsonObj = s.userInfo;
 				console.log("获取用户信息成功：" + josnStr);
-
 				var openId = showData(type, jsonObj);
-
 				var url = "";
 				switch(type) {
 					case "weixin":
@@ -609,12 +621,14 @@
 						break;
 				}
 				if(url == "" || openId == "") {
+					base.CloseWaiting();
 					return mui.toast("授权失败");
 				}
 				HttpGet(base.RootUrl + url, {
 					ID: userinfo.ID,
 					Key: openId
 				}, function(data) {
+					base.CloseWaiting();
 					if(data == null) {
 						return callback("系统异常,请稍后再试~");
 					} else {
@@ -628,6 +642,7 @@
 					}
 				});
 			}, function(e) {
+				base.CloseWaiting();
 				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
 			});
 		}
