@@ -28,17 +28,17 @@
 							<p class="c333 f14 tc name bold" id="nickname"></p>
 							<p class="caaa signature tc mt10 mb10 f13" id="signature"></p>
 							<div class="csubtitle content1 tc">
-								<div class="items" id="my-articles">
-									<p class="csubtitle item1"><i class="fa fa-file-text f20" style="color:#97CC00;"></i></p>
-									<p class="c333 item2 f12">我的&nbsp;<span id="articles">0</span></p>
+								<div class="items" id="my-follows">
+									<p class="csubtitle item1"><i class="fa fa-user f20" style="color:#5796BD;"></i></p>
+									<p class="c333 item2 f12">关注&nbsp;<span id="follows">0</span></p>
 								</div>
 								<div class="items" id="my-keeps">
 									<p class="csubtitle item1"><i class="fa fa-th-large f20" style="color:#7ECB7C;"></i></p>
-									<p class="c333 item2 f12">收藏&nbsp;<span id="keeps">0</span></p>
+									<p class="c333 item2 f12">喜欢&nbsp;<span id="keeps">0</span></p>
 								</div>
 								<div class="items" id="my-fans">
-									<p class="csubtitle item1"><i class="fa fa-user f20" style="color:#5796BD;"></i></p>
-									<p class="c333 item2 f12">关注&nbsp;<span id="follows">0</span></p>
+									<p class="csubtitle item1"><i class="fa fa-file-text f20" style="color:#97CC00;"></i></p>
+									<p class="c333 item2 f12">粉丝&nbsp;<span id="fans">0</span></p>
 								</div>
 								<div class="items" id="my-zans">
 									<p class="csubtitle item1"><i class="fa fa-heart f20" style="color:#E85141;"></i></p>
@@ -46,6 +46,9 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="c000 menu f12" id="my-articles"><i class="fa fa-rmb mr10 f16 caaa"></i>
+						<div>我的作品<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
 					</div>
 					<div class="c000 menu f12" id="my-mypay"><i class="fa fa-rmb mr10 f16 caaa"></i>
 						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
@@ -200,17 +203,18 @@
 		});
 
 		//我的关注
-		document.getElementById('my-fans').addEventListener('tap', function(event) {
-			base.OpenWindow("fan", "fan.html", {
+		document.getElementById('my-follows').addEventListener('tap', function(event) {
+			base.OpenWindow("follow", "follow.html", {});
+		});
 
-			});
+		//我的粉丝
+		document.getElementById('my-fans').addEventListener('tap', function(event) {
+			base.OpenWindow("fan", "fan.html", {});
 		});
 
 		//我的点赞
 		document.getElementById('my-zans').addEventListener('tap', function(event) {
-			base.OpenWindow("zan", "zan.html", {
-
-			});
+			base.OpenWindow("zan", "zan.html", {});
 		});
 	});
 

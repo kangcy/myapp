@@ -93,7 +93,19 @@
       "css/guide.css",
       "js/base.js",
       "css/mui.min.css",
-      "js/mui.min.js"
+      "js/mui.min.js",
+      "images/adv/01_text.png",
+      "images/adv/03_text2.png",
+      "images/adv/02_text.png",
+      "images/adv/03.jpg",
+      "images/adv/01.jpg",
+      "images/adv/04.jpg",
+      "images/logo.png",
+      "js/jquery-1.10.2.min.js",
+      "images/adv/02.jpg",
+      "images/adv/chair.png",
+      "images/adv/03_text1.png",
+      "images/adv/04_text.png"
     ],
     "refer": [
       "page/login.html"
@@ -367,10 +379,12 @@
       "images/header.png",
       "page/helpSub.html",
       "images/logo.png",
-      "images/login/logo.png"
+      "images/login/logo.png",
+      "css/loading.css"
     ],
     "refer": [
-      "page/helpSub.html"
+      "page/helpSub.html",
+      "page/feedback.html"
     ]
   },
   "page/share.html": {
@@ -702,7 +716,8 @@
       "page/addcomment.html",
       "page/showhref.html",
       "page/report.html",
-      "page/templateSide.html"
+      "page/templateSide.html",
+      "page/payment.html"
     ]
   },
   "page/sharesetting.html": {
@@ -1127,7 +1142,8 @@
       "js/copper2.js",
       "images/editimage/e4.png",
       "images/60x60.gif",
-      "images/header.png"
+      "images/header.png",
+      "css/loading.css"
     ],
     "refer": [
       "page/addarticle.html"
@@ -1269,7 +1285,8 @@
       "js/mui.lazyload.img.js",
       "images/logo.png",
       "images/60x60.gif"
-    ]
+    ],
+    "refer": []
   },
   "page/province.html": {
     "resources": [
@@ -1294,7 +1311,8 @@
       "js/jquery-1.10.2.min.js",
       "js/default.js",
       "js/base.js"
-    ]
+    ],
+    "refer": []
   },
   "page/reply.html": {
     "resources": [
@@ -1307,7 +1325,8 @@
       "css/mui.min.css",
       "js/default.js",
       "js/jquery-1.10.2.min.js"
-    ]
+    ],
+    "refer": []
   },
   "emotion/index.html": {
     "resources": [
@@ -1318,7 +1337,8 @@
       "emotion/css/emojione.sprites.png",
       "emotion/css/emojione.sprites.css",
       "css/animate.css"
-    ]
+    ],
+    "refer": []
   },
   "page/mypay.html": {
     "resources": [
@@ -1345,7 +1365,8 @@
       "fonts/mui.ttf",
       "css/mui.min.css",
       "js/default.js"
-    ]
+    ],
+    "refer": []
   },
   "page/editvideo.html": {
     "resources": [
@@ -1370,7 +1391,8 @@
       "css/mui.min.css",
       "js/default.js",
       "js/base.js"
-    ]
+    ],
+    "refer": []
   },
   "page/report.html": {
     "resources": [
@@ -1379,7 +1401,8 @@
       "css/mui.min.css",
       "js/default.js",
       "fonts/mui.ttf"
-    ]
+    ],
+    "refer": []
   },
   "page/templateSide.html": {
     "resources": [
@@ -1387,13 +1410,15 @@
       "css/mui.min.css",
       "js/default.js",
       "fonts/mui.ttf"
-    ]
+    ],
+    "refer": []
   },
   "page/notice.html": {
     "resources": [
       "js/mui.min.js",
       "fonts/mui.ttf",
       "css/mui.min.css"
-    ]
+    ],
+    "refer": []
   }
 }
