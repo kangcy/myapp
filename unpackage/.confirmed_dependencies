@@ -284,7 +284,8 @@
 			"page/follow.html",
 			"page/keepSub.html",
 			"page/followSub.html",
-			"page/fanSub.html"
+			"page/fanSub.html",
+			"page/commentSub.html"
 		]
 	},
 	"page/article.html": {
@@ -565,7 +566,8 @@
 			"emotion/css/emojione.sprites.css",
 			"emotion/css/emojionearea.min.css",
 			"emotion/css/emojione.sprites.png",
-			"css/animate.css"
+			"css/animate.css",
+			"fonts/mui.ttf"
 		],
 		"refer": [
 			"page/articledetail.html",
