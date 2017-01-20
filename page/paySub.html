@@ -10,6 +10,12 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/pay.css">
 		<link rel="stylesheet" href="../css/loading.css">
+		<style type="text/css">
+			.none {
+				width: 100px !important;
+				margin-top: 100px !important;
+			}
+		</style>
 	</head>
 
 	<body style="background:#F4F5F5;">
@@ -67,7 +73,7 @@
 	var isLoading2 = false;
 	var pagesize = base.PageSize;
 	var parentPage = null;
-	var userId = base.GetUserID();
+	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
@@ -202,9 +208,9 @@
 		var data = {
 			page: currpage1,
 			rows: pagesize,
-			FromUserID: userId
+			UserNumber: userinfo.Number
 		}
-		HttpGet(base.RootUrl + "Pay/All", data, function(data) {
+		HttpGet(base.RootUrl + "Order/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage1 = data.totalpage;
@@ -232,7 +238,7 @@
 		var data = {
 			page: currpage2,
 			rows: pagesize,
-			ToUserID: userId
+			ToUserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "Pay/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
