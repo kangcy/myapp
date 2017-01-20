@@ -8,65 +8,198 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-
+		<link rel="stylesheet" href="../css/fan.css">
+		<link rel="stylesheet" href="../css/loading.css">
+		<style type="text/css">
+			.none {
+				width: 100px !important;
+				margin-top: 100px !important;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<div class="mui-title" id="title">
-				我的粉丝(0)
-			</div>
+			<div class="mui-title c333 f15" id="title">我的粉丝(0)</div>
 		</header>
-		<div class="mui-content">
 
+		<div class="mui-content">
+			<div class="mui-loader tc" id="loader">
+				<div class="line-scale-pulse-out">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="mui-scroll-wrapper" style="top:45px;">
+				<div id="scroll" class="mui-scroll">
+					<div id="scroll-view">
+
+					</div>
+					<div id="none" class="full tc hide">
+						<img src="../images/my/111.png" class="none" />
+						<p class="f13 mt10">关注你的人，会在这里显示</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
-	//启用双击监听
+	var currpage = 1;
+	var totalpage = 2;
+	var isLoading = false;
+	var pagesize = base.PageSize;
+	var parentPage = null;
+	var userinfo = base.GetUserInfo();
+
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false,
-		subpages: [{
-			id: 'followSub',
-			url: 'followSub.html',
-			styles: {
-				top: '46px',
-				bottom: '0px',
-			}
-		}]
+		swipeBack: false //启用右滑关闭功能
 	});
 
-	var contentWebview = null;
-	mui.plusReady(function() {
-		//判断网络状态
-		document.addEventListener("netchange", function() {
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置！");
+	mui.ready(function() {
+
+		base.InitScroll();
+
+		//关注我的
+		mui(document.getElementById("scroll")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
 			}
-		}, false);
+		});
+
+		base.ShowUser("#scroll"); //用户详细
+
+		base.ShowArticle("#scroll", "List", userinfo.ID); //文章详细
+
+		//添加关注
+		base.GuanZhu("#scroll", userinfo, function($this) {
+			$this.parentNode.remove();
+		});
+
+		base.ScrollTop();
+	});
+
+	mui.plusReady(function() {
+		base.NetChange();
 
 		//返回
 		mui.back = function() {
-			plus.webview.close(plus.webview.currentWebview());
+			var self = plus.webview.currentWebview();
+			plus.webview.close(self)
 		}
-
-		//返回
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		}, false);
 	});
 
-	function InitNum(num) {
-		if(num < 0) {
-			num = 0;
+	//关注我的-下拉刷新
+	function pulldownRefresh(self) {
+		if(isLoading == true) {
+			return;
 		}
-		document.getElementById("title").innerHTML = "我的粉丝(" + num + ")";
+		isLoading = true;
+		setTimeout(function() {
+			currpage = 1;
+			totalpage = 2;
+			document.getElementById('scroll-view').innerHTML = "";
+			Load(function() {
+				++currpage;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//关注我的-上拉加载
+	function pullupRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
+		}
+		setTimeout(function() {
+			Load(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//关注我的-加载数据
+	function Load(callback) {
+		var data = {
+			page: currpage,
+			rows: pagesize,
+			ToUserID: userinfo.ID
+		}
+		HttpGet(base.RootUrl + "Fan/FansAll", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.records;
+				if(length > 0) {
+					document.getElementById("none").classList.add("hide");
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i], 1);
+						table.appendChild(div);
+					}
+				} else {
+					document.getElementById("none").classList.remove("hide");
+				}
+
+				document.getElementById("title").innerHTML = "我的粉丝(" + data.records + ")";
+			}
+			if(data == null && currpage == 1) {
+				document.getElementById("none").classList.remove("hide");
+			}
+			callback();
+		});
+	}
+
+	//拼接Html
+	function appendStr(item, index) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell">');
+		//分类图片
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserID + '" /></div>');
+		//分类信息
+		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
+		if(index == 1) {
+			if(!base.CheckFan(userinfo.FanText, item.UserID)) {
+				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.UserID + '">关注</div></div>');
+			}
+		}
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>

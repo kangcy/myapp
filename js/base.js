@@ -229,6 +229,15 @@ var base = new function() {
 	}
 
 	/**
+	 * 双击顶部滚动到顶部
+	 **/
+	this.ScrollTop = function() {
+		document.querySelector('header').addEventListener('doubletap', function() {
+			mui(".mui-scroll-wrapper").scroll().scrollTo(0, 0, 1000);
+		});
+	}
+
+	/**
 	 * 更新用户信息
 	 **/
 	this.UpdateUser = function(id, callback) {

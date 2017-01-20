@@ -46,6 +46,8 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -54,7 +56,20 @@
 	var pagesize = base.PageSize;
 	var isLoading = false;
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.ready(function() {
+		base.InitScroll();
+
+		mui.previewImage();
+
+		base.ScrollTop();
+	});
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
@@ -78,9 +93,6 @@
 			});
 		}
 
-		mui.previewImage();
-
-		base.InitScroll();
 	});
 
 	/**
@@ -153,13 +165,18 @@
 			if(callback) {
 				callback();
 			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: base.DefaultImg,
+				diff: window.innerHeight
+			});
 		});
 	}
 
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
-		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" />';
+		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" />';
 		return div;
 	}
 </script>
