@@ -432,7 +432,7 @@ var base = new function() {
 		var parts = item.ArticlePart;
 		if(parts.length == 1) {
 			if(islazyload) {
-				model.push('<div class="onefloor"><img data-lazyload="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				model.push('<div class="onefloor"><img data-lazyload="' + base.ShowThumb(parts[0].Introduction, 1) + '" href="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			} else {
 				model.push('<div class="onefloor"><img src="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			}
@@ -440,9 +440,9 @@ var base = new function() {
 			var name = parts.length == 3 ? "thirdfloor" : "secondfloor";
 			for(var i = 0; i < parts.length; i++) {
 				if(islazyload) {
-					model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 				} else {
-					model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 				}
 			}
 		}

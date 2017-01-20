@@ -41,6 +41,8 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -138,7 +140,7 @@
 				var length = data.records;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], true, false, false);
+						var div = base.AppendArticle(data.list[i], true, false, true);
 						table.appendChild(div);
 					}
 				} else {
@@ -148,6 +150,11 @@
 			if(callback) {
 				callback();
 			}
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: base.DefaultImg,
+				diff: window.innerHeight
+			});
 		});
 	}
 </script>

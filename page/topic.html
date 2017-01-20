@@ -184,7 +184,7 @@
 					html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">');
 					html.push('<div class="mui-scroll mt10" style="height:4rem;">');
 					for(var l = 0; l < child.length; l++) {
-						html.push('<div class="mui-control-item subtype topic" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img src="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
+						html.push('<div class="mui-control-item subtype topic" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img data-lazyload="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
 					}
 					html.push('</div></div>');
 				}
@@ -315,7 +315,7 @@
 					document.getElementById("loader").classList.add("hide");
 					var table = document.getElementById('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i]);
+						var div = base.AppendArticle(data.list[i], false, false, true);
 						if(table) {
 							table.appendChild(div);
 						}

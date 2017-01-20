@@ -487,7 +487,8 @@
 					"js/base.js",
 					"images/login/phone.png",
 					"images/login/pwd.png",
-					"images/login/user.png"
+					"images/login/user.png",
+					"css/input.css"
 				],
 				"refer": [
 					"page/notice.html",
@@ -591,7 +592,8 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"js/default.js",
-					"images/logo.png"
+					"images/logo.png",
+					"images/login/logo.png"
 				],
 				"refer": [
 					"page/articledetail.html",
@@ -761,7 +763,8 @@
 					"images/60x60.gif",
 					"images/logo.png",
 					"js/update.js",
-					"css/animate.css"
+					"css/animate.css",
+					"images/login/logo.png"
 				],
 				"refer": [
 					"page/articledetail.html",

@@ -159,7 +159,7 @@
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
-		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" data-preview-src="" data-preview-group="0" />';
+		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" />';
 		return div;
 	}
 </script>

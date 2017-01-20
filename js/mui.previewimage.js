@@ -104,7 +104,10 @@
 		if(!this.groups[group]) {
 			this.groups[group] = [];
 		}
-		var src = img.getAttribute('src');
+		var src = img.getAttribute('href');
+		if(!src) {
+			src = img.getAttribute('src');
+		}
 		if(img.__mui_img_data && img.__mui_img_data.src === src) { //已缓存且图片未变化
 			this.groups[group].push(img.__mui_img_data);
 		} else {

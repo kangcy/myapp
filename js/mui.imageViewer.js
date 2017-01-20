@@ -246,6 +246,7 @@
 			self.index = index;
 			var item = $.dom("<div class='mui-imageviewer-item'></div>")[0];
 			item.appendChild($.dom('<span><img src="' + self.images[self.index].src + '"/></span>')[0]);
+			item.appendChild($.dom('<span><img src="' + self.images[self.index].src + '"/></span>')[0]);
 			item.classList.add('mui-imageviewer-item-' + type);
 			self.viewer.appendChild(item);
 			self.state.innerText = (self.index + 1) + "/" + self.images.length;
