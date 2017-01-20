@@ -547,7 +547,8 @@
 					"emotion/index.html",
 					"page/mypay.html",
 					"page/editvideo.html",
-					"page/follow.html"
+					"page/follow.html",
+					"page/keepSub.html"
 				],
 				"priority": 0
 			},
@@ -571,7 +572,13 @@
 					"images/home.png",
 					"page/listSub.html",
 					"page/articleSub.html",
-					"css/img.preview.css"
+					"css/img.preview.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.zoom.js",
+					"images/logo.png",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"js/mui.previewimage.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -593,7 +600,8 @@
 					"css/mui.min.css",
 					"js/default.js",
 					"images/logo.png",
-					"images/login/logo.png"
+					"images/login/logo.png",
+					"fonts/mui.ttf"
 				],
 				"refer": [
 					"page/articledetail.html",
@@ -771,7 +779,8 @@
 					"page/search.html",
 					"page/user.html",
 					"page/userSub.html",
-					"page/article.html"
+					"page/article.html",
+					"page/articleSub.html"
 				],
 				"priority": 0
 			},
@@ -1381,7 +1390,8 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"js/default.js",
-					"images/logo.png"
+					"images/logo.png",
+					"fonts/mui.ttf"
 				],
 				"refer": [
 					"page/articledetail.html",
