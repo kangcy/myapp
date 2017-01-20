@@ -550,7 +550,8 @@
 					"page/follow.html",
 					"page/keepSub.html",
 					"page/followSub.html",
-					"page/fanSub.html"
+					"page/fanSub.html",
+					"page/commentSub.html"
 				],
 				"priority": 0
 			},
