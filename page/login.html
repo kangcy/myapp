@@ -6,57 +6,9 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/input.css" rel="stylesheet" />
 		<style type="text/css">
-			#login-form {
-				display: inline-block;
-				width: 100%;
-			}
-			
-			#login-form .div1,
-			#login-form .div2,
-			#login-form .div3 {
-				width: 85%;
-				margin: 0px 7.5%;
-				border-radius: 30px;
-				height: 2.5rem;
-				line-height: 2.5rem;
-			}
-			
-			#login-form .div1 {
-				background: #EFEFEF;
-				background-image: url(../images/login/user.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem 0.6rem;
-				background-size: 1.3rem;
-			}
-			
-			#login-form .div2 {
-				background: #EFEFEF;
-				background-image: url(../images/login/pwd.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem 0.6rem;
-				background-size: 1.3rem;
-			}
-			
-			#login-form .div3 {
-				color: #fff;
-				background: #4087CB;
-			}
-			
-			#login-form .text {
-				height: 1.2rem;
-				line-height: 1.2rem;
-				margin-top: 0.6rem;
-				width: 14.5rem;
-				border: 0px;
-				float: right;
-				background: transparent;
-				border-left: 1px solid #333;
-				text-indent: 0.5rem;
-				color: #999;
-				border-radius: 0px;
-			}
-			
+		
 			#login-form .border {
 				width: 1px;
 				height: 40px;
@@ -102,14 +54,14 @@
 		<div class="mui-content mui-scroll-wrapper tc">
 			<div class="mui-scroll">
 				<img src="../images/login/logo.png" style="margin:3.5rem;width:30%;" id="logo" />
-				<div id="login-form">
-					<div class="div1">
-						<input id='account' type="tel" class="text f13" placeholder="请输入您的手机号码" />
+				<div id="input-form">
+					<div class="user mui-input-row">
+						<input id='account' type="tel" class="mui-input-clear text f13" placeholder="请输入您的手机号码" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 					</div>
-					<div class="div2 mt20">
-						<input id='password' type="password" class="text f13" placeholder="请输入密码" />
+					<div class="pwd mt20 mui-input-row">
+						<input id='password' type="password" class="mui-input-password text f13" placeholder="请输入密码" maxlength="20" /><span class="mui-icon mui-icon-eye" style="top:0.8rem !important;"></span>
 					</div>
-					<div class="div3 mt20" id='login'>
+					<div class="input mt20" id='login'>
 						登&nbsp;录
 					</div>
 					<div class="c999 f13 mt10">

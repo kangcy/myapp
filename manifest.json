@@ -331,7 +331,9 @@
 					"images/login/user.png",
 					"images/login/qq.png",
 					"images/login/wx.png",
-					"images/login/logo.png"
+					"images/login/logo.png",
+					"fonts/mui.ttf",
+					"css/input.css"
 				],
 				"refer": [
 					"index.html",
@@ -710,7 +712,8 @@
 					"js/jquery-1.10.2.min.js",
 					"cropper/cropper.min.js",
 					"js/default.js",
-					"images/60x60.gif"
+					"images/60x60.gif",
+					"js/login.js"
 				],
 				"refer": [
 					"page/editnickname.html",
@@ -718,7 +721,8 @@
 					"page/editimage.html",
 					"page/province.html",
 					"page/bindphone.html",
-					"page/bindpassword.html"
+					"page/bindpassword.html",
+					"page/login.html"
 				],
 				"priority": 0
 			},
@@ -1263,7 +1267,10 @@
 					"css/mui.min.css",
 					"images/login/user.png",
 					"js/base.js",
-					"js/default.js"
+					"js/default.js",
+					"images/login/phone.png",
+					"images/login/pwd.png",
+					"css/input.css"
 				],
 				"refer": [],
 				"priority": 0

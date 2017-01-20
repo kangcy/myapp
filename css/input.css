@@ -2,7 +2,7 @@
 	display: inline-block;
 	width: 100%;
 }
-
+#input-form .user,
 #input-form .phone,
 #input-form .pwd,
 #input-form .input {
@@ -12,7 +12,13 @@
 	height: 2.5rem;
 	line-height: 2.5rem;
 }
-
+#input-form .user {
+	background: #EFEFEF;
+	background-image: url(../images/login/user.png);
+	background-repeat: no-repeat;
+	background-position: 0.8rem 0.6rem;
+	background-size: 1.3rem;
+}
 #input-form .phone {
 	background: #EFEFEF;
 	background-image: url(../images/login/phone.png);
