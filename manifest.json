@@ -1272,7 +1272,9 @@
 					"images/login/pwd.png",
 					"css/input.css"
 				],
-				"refer": [],
+				"refer": [
+					"page/bindpassword.html"
+				],
 				"priority": 0
 			},
 			"page/share.html": {

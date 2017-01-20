@@ -105,6 +105,18 @@
 						btnCode.innerText = time + "秒 ";
 					}
 				}, 1000);
+				//发送验证码
+				HttpGet(base.RootUrl + "System/SendSMS", {
+					Mobile: mob,
+					SMS: "regsms"
+				}, function(data) {
+					base.CloseWaiting();
+					if(data) {
+						mui.toast("验证码发送成功");
+					} else {
+						mui.toast("验证码发送失败");
+					}
+				});
 			});
 		})
 
@@ -148,7 +160,7 @@
 					var passwordConfirm = passwordConfirmBox.value;
 					if(passwordConfirm != regInfo.Password) {
 						base.CloseWaiting();
-						isLoading=false;
+						isLoading = false;
 						return mui.toast('密码两次输入不一致');
 					}
 					app.reg(regInfo, function(err) {
