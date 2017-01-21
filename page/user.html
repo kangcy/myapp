@@ -430,4 +430,25 @@
 			}
 		);
 	}
+
+	//添加黑名单
+	function Black() {
+		if(isLoading) {
+			return false;
+		}
+		isLoading = true;
+		var data = {
+			ID: userinfo.ID,
+			ToUserID: UserID
+		}
+		HttpGet(base.RootUrl + "Black/Edit", data, function(data) {
+			if(data != null) {
+				mui.toast(data.result ? "成功添加黑名单" : "添加黑名单失败");
+				if(data.result) {
+					mui.back();
+				}
+			}
+			isLoading = false;
+		});
+	}
 </script>
