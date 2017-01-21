@@ -177,13 +177,15 @@
 						passwordConfirmBox.value = "";
 						plus.nativeUI.toast('注册成功');
 						isLoading = false;
-						$.openWindow({
+						/*$.openWindow({
 							url: 'login.html',
 							id: 'login',
 							show: {
 								aniShow: 'pop-in'
 							}
-						});
+						});*/
+						
+						base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
 					});
 				}, 1000);
 			});

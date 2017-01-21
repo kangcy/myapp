@@ -775,7 +775,8 @@
 					"images/logo.png",
 					"js/update.js",
 					"css/animate.css",
-					"images/login/logo.png"
+					"images/login/logo.png",
+					"images/logo_default.png"
 				],
 				"refer": [
 					"page/articledetail.html",
@@ -1154,7 +1155,8 @@
 					"js/default.js",
 					"images/60x60.gif",
 					"css/pay.css",
-					"images/my/222.png"
+					"images/my/222.png",
+					"images/logo_default.png"
 				],
 				"refer": [
 					"page/user.html"

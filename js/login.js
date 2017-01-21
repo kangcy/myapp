@@ -51,7 +51,8 @@
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,
 						Money: data.Money,
-						UseDraw: data.UseDraw
+						UseDraw: data.UseDraw,
+						Number: data.Number
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -107,7 +108,8 @@
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,
 						Money: data.Money,
-						UseDraw: data.UseDraw
+						UseDraw: data.UseDraw,
+						Number: data.Number
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -183,7 +185,8 @@
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,
 						Money: data.Money,
-						UseDraw: data.UseDraw
+						UseDraw: data.UseDraw,
+						Number: data.Number
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();

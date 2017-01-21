@@ -210,6 +210,7 @@
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
+		console.log(JSON.stringify(userinfo));
 		HttpGet(base.RootUrl + "Order/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
@@ -271,7 +272,7 @@
 		model.push('<div class="mui-slider-cell">');
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.ToUserAvatar, 1) + '" class="user" userid="' + item.ToUserID + '" /></div>');
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f13 c000 mb5">' + item.ToUserName + '</p><p class="f12 csubtitle mb5">打赏</p><p class="f12 csubtitle">' + item.CreateDate + '</p></div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + parseFloat(item.Price).toFixed(2) + '元</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
@@ -285,7 +286,7 @@
 		model.push('<div class="mui-slider-cell">');
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.FromUserAvatar, 1) + '" class="user" userid="' + item.FromUserID + '" /></div>');
 		model.push('<div class="oa-contact-content mui-table-cell"><p class="f13 c000 mb5">' + item.FromUserName + '</p><p class="f12 csubtitle mb5">打赏</p><p class="f12 csubtitle">' + item.CreateDate + '</p></div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + item.Money + '元</p></div>');
+		model.push('<div class="oa-contact-icon mui-table-cell tr"><img src="../images/price.png"/><p style="color:#FFAD00;">' + parseFloat(item.Price).toFixed(2) + '元</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

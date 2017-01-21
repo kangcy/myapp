@@ -28,7 +28,7 @@ var base = new function() {
 	/**
 	 * 默认图片
 	 **/
-	this.DefaultImg = "../images/logo.png";
+	this.DefaultImg = "../images/logo_default.png";
 
 	/**
 	 * 获取当前用户ID
@@ -273,7 +273,8 @@ var base = new function() {
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,
 						Money: data.Money,
-						UseDraw: data.UseDraw
+						UseDraw: data.UseDraw,
+						Number: data.Number
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 

@@ -13,6 +13,7 @@
 
 </html>
 <script src="js/mui.min.js"></script>
+<script src="js/base.js"></script>
 <script type="text/javascript">
 	var aniShow = "pop-in";
 	if(mui.os.android) {
@@ -25,10 +26,7 @@
 		//仅支持竖屏显示
 		plus.screen.lockOrientation("portrait-primary");
 
-		//判断网络状态
-		if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-			mui.toast("网络异常，请检查网络设置！");
-		}
+		base.NetChange();
 
 		//读取本地存储，检查是否为首次启动
 		var showGuide = plus.storage.getItem("lauchFlag");
@@ -36,7 +34,8 @@
 			//判断是否登录
 			var userinfo = localStorage.getItem('$userinfo') || "{}";
 			if(userinfo == "{}") {
-				mui.openWindow({
+				base.OpenWindow("login", "page/login.html", {}, "slide-in-bottom");
+				/*mui.openWindow({
 					id: 'login',
 					url: 'page/login.html',
 					styles: {
@@ -48,13 +47,14 @@
 					waiting: {
 						autoShow: false
 					}
-				});
+				});*/
 			} else {
 				preload();
 			}
 		} else {
 			//显示启动导航
-			mui.openWindow({
+			base.OpenWindow("guide", "page/guide.html", {}, "fade-out");
+			/*mui.openWindow({
 				id: 'guide',
 				url: 'page/guide.html',
 				styles: {
@@ -66,7 +66,7 @@
 				waiting: {
 					autoShow: false
 				}
-			});
+			});*/
 		}
 	});
 
