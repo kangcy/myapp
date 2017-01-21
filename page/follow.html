@@ -55,6 +55,7 @@
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
+	var records = 0;
 	var isLoading = false;
 	var pagesize = base.PageSize;
 	var parentPage = null;
@@ -98,6 +99,7 @@
 		});
 
 		base.ScrollTop();
+
 	});
 
 	mui.plusReady(function() {
@@ -105,9 +107,47 @@
 
 		//返回
 		mui.back = function() {
+			var my = plus.webview.getWebviewById("my.html");
+			my.evalJS("Refresh()");
+
 			var self = plus.webview.currentWebview();
-			plus.webview.close(self)
+			plus.webview.close(self);
 		}
+
+		//取消关注
+		mui("#scroll").on('tap', '.mui-btn', function(event) {
+			var elem = this;
+			var li = elem.parentNode.parentNode;
+			mui.confirm('确认取消关注？', '友情提醒', ['确认', '取消'], function(e) {
+				if(e.index == 0) {
+					HttpGet(base.RootUrl + "Fan/Delete", {
+						ID: userinfo.ID,
+						FanID: li.getAttribute("fid")
+					}, function(data) {
+						if(data) {
+							if(data.result) {
+								li.parentNode.removeChild(li);
+								records = records - 1;
+								document.getElementById("title").innerHTML = "我的关注(" + records + ")";
+								base.RefreshScroll();
+
+								userinfo.Follows = records;
+								userinfo.FanText = data.message;
+								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+							} else {
+								mui.toast(data.message);
+								mui.swipeoutClose(li);
+							}
+						} else {
+							mui.toast("失败");
+							mui.swipeoutClose(li);
+						}
+					});
+				} else {
+					mui.swipeoutClose(li);
+				}
+			});
+		});
 	});
 
 	//我关注的-下拉刷新
@@ -160,8 +200,8 @@
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage;
-				var length = data.records;
-				if(length > 0) {
+				records = data.records;
+				if(records > 0) {
 					document.getElementById("none").classList.add("hide");
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
@@ -171,7 +211,7 @@
 				} else {
 					document.getElementById("none").classList.remove("hide");
 				}
-				document.getElementById("title").innerHTML = "我的关注(" + data.records + ")";
+				document.getElementById("title").innerHTML = "我的关注(" + records + ")";
 			}
 			if(data == null && currpage == 1) {
 				document.getElementById("none").classList.remove("hide");
@@ -184,8 +224,10 @@
 	function appendStr(item, index) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
+		div.setAttribute("fid", item.ID);
 		var model = [];
-		model.push('<div class="mui-slider-cell">');
+		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div>');
+		model.push('<div class="mui-slider-cell mui-slider-handle">');
 		//分类图片
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserID + '" /></div>');
 		//分类信息

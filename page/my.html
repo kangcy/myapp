@@ -74,7 +74,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
-
+console.log(JSON.stringify(userinfo));
 	//启用双击监听
 	mui.init({
 		gestureConfig: {
@@ -105,6 +105,7 @@
 		});
 	});
 
+	//服务器加载用户信息
 	function Load() {
 		base.UpdateUser(userinfo.ID, function() {
 			userinfo = base.GetUserInfo();
@@ -112,8 +113,8 @@
 		});
 	}
 
+	//初始化绑定用户信息
 	function Init() {
-		//初始化赋值
 		$("#bg").css({
 			"background": "url(" + userinfo.Cover + ") center center",
 			"background-size": "100%"
@@ -129,8 +130,15 @@
 		$("#zans").html(userinfo.Zans);
 	}
 
+	//更新本地用户信息
+	function Refresh() {
+		console.log(JSON.stringify(userinfo));
+		userinfo = base.GetUserInfo();
+		Init();
+	}
+
 	mui.plusReady(function() {
-		
+
 		base.NetChange();
 
 		//用户设置
@@ -172,7 +180,7 @@
 		document.getElementById('my-comment').addEventListener('tap', function(event) {
 			base.OpenWindow("comment", "comment.html", {
 
-			}); 
+			});
 		});
 
 		//我的文章

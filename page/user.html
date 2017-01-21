@@ -121,7 +121,7 @@
 						<div id="bg" style="width:100%;height:10rem;"></div>
 						<div id="info-body" class="info-body mb8">
 							<div class="info-content">
-								<img id="avatar" class="hide" />
+								<img id="avatar" src="../images/login/logo.png" class="hide" />
 								<p class="c333 f16 tc name bold" id="nickname"></p>
 								<p class="caaa signature tc mt5 f12" id="signature"></p>
 								<div class="full tc mt10 hide" id="action">
@@ -380,6 +380,7 @@
 
 	//判断是否关注
 	function CheckFan() {
+		console.log(userinfo.FanText)
 		var $guanzhu = document.getElementById("guanzhu");
 		if(base.CheckFan(userinfo.FanText, UserID)) {
 			$guanzhu.classList.add("guanzhu2");
