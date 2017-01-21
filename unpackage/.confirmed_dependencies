@@ -615,7 +615,8 @@
 			"css/loading.css",
 			"js/mui.previewimage.js",
 			"images/logo.png",
-			"images/login/logo.png"
+			"images/login/logo.png",
+			"js/mui.js"
 		],
 		"refer": [
 			"page/userSub.html",
