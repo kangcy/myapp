@@ -58,10 +58,17 @@ var base = new function() {
 	 * 校验字符串是否为空
 	 **/
 	this.IsNullOrEmpty = function(str) {
-		if(str == null || str == undefined || str == "") {
+		if(!str) {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 格式化字符串显示
+	 **/
+	this.FormatStr = function(str, defaultStr) {
+		return base.IsNullOrEmpty(str) ? defaultStr : str
 	}
 
 	/**
@@ -75,7 +82,7 @@ var base = new function() {
 	 * 手机号码校验
 	 **/
 	this.CheckPhone = function(phone) {
-		if(base.IsNullOrEmpty(phone)){
+		if(base.IsNullOrEmpty(phone)) {
 			return false;
 		}
 		return phone.length == 11 && !isNaN(phone) && (/^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/.test(phone));

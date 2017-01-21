@@ -154,16 +154,16 @@
 
 	mui.ready(function() {
 		base.InitScroll();
-		document.getElementById("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone;
+		document.getElementById("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(8, 11);
 		document.getElementById("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未绑定" : "已绑定";
 
 		$("#userid").html(userinfo.ID);
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
-		$("#nickname").html(base.IsNullOrEmpty(userinfo.NickName) ? "请填写" : userinfo.NickName);
+		$("#nickname").html(base.FormatStr(userinfo.NickName, "请填写"));
 		$("#sex").html(userinfo.Sex);
-		$("#city").html(base.IsNullOrEmpty(userinfo.Address) ? "请选择" : userinfo.Address);
-		$("#time").html(base.IsNullOrEmpty(userinfo.Birthday) ? "请选择" : userinfo.Birthday);
-		$("#signature").html(base.IsNullOrEmpty(userinfo.Signature) ? "请填写" : userinfo.Signature);
+		$("#city").html(base.FormatStr(userinfo.Address, "请填写"));
+		$("#time").html(base.FormatStr(userinfo.Birthday, "请填写"));
+		$("#signature").html(base.FormatStr(userinfo.Signature, "请填写"));
 
 		//微信 
 		if(CheckBind(1)) {
@@ -222,11 +222,7 @@
 			var optionsJson = this.getAttribute('data-options') || '{}';
 			var options = JSON.parse(optionsJson);
 			var id = this.getAttribute('id');
-			/*
-			 * 首次显示时实例化组件
-			 * 示例为了简洁，将 options 放在了按钮的 dom 上
-			 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
-			 */
+
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
 				document.getElementById("time").innerHTML = rs.text;
