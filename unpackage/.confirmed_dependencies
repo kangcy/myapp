@@ -34,7 +34,8 @@
 			"page/subindex.html",
 			"js/default.js",
 			"css/mui.css",
-			"images/add.png"
+			"images/add.png",
+			"js/base.js"
 		],
 		"refer": [
 			"page/about.html",
@@ -314,7 +315,8 @@
 			"images/logo.png",
 			"js/mui.pullToRefresh.material.js",
 			"css/loading.css",
-			"js/mui.previewimage.js"
+			"js/mui.previewimage.js",
+			"images/logo_default.png"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -612,7 +614,8 @@
 			"js/mui.zoom.js",
 			"css/loading.css",
 			"js/mui.previewimage.js",
-			"images/logo.png"
+			"images/logo.png",
+			"images/login/logo.png"
 		],
 		"refer": [
 			"page/userSub.html",
@@ -859,7 +862,16 @@
 			"fonts/mui.ttf",
 			"css/mui.min.css",
 			"js/default.js",
-			"css/loading.css"
+			"css/loading.css",
+			"js/base.js",
+			"js/mui.pullToRefresh.js",
+			"js/mui.zoom.js",
+			"js/mui.pullToRefresh.material.js",
+			"js/mui.previewimage.js",
+			"js/mui.lazyload.js",
+			"js/mui.lazyload.img.js",
+			"css/img.preview.css",
+			"images/logo_default.png"
 		],
 		"refer": [
 			"page/keepSub.html"
@@ -919,7 +931,11 @@
 			"js/jquery-1.10.2.min.js",
 			"js/default.js",
 			"page/fanSub.html",
-			"page/followSub.html"
+			"page/followSub.html",
+			"images/my/111.png",
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/loading.css"
 		],
 		"refer": [
 			"page/fanSub.html",
@@ -1465,7 +1481,13 @@
 			"css/mui.min.css",
 			"js/default.js",
 			"page/followSub.html",
-			"page/fanSub.html"
+			"page/fanSub.html",
+			"js/base.js",
+			"js/mui.pullToRefresh.js",
+			"css/fan.css",
+			"js/mui.pullToRefresh.material.js",
+			"css/loading.css",
+			"images/my/111.png"
 		],
 		"refer": [
 			"page/followSub.html",

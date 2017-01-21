@@ -173,7 +173,7 @@ var base = new function() {
 			return true;
 		} else {
 			userinfo.FanText += userid + ",";
-			userinfo.Fans += 1;
+			userinfo.Follows += 1;
 			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			mui.toast("关注成功");
 			return true;
@@ -391,13 +391,22 @@ var base = new function() {
 	}
 
 	/**
-	 * 拼接文章Html(ismy:是否我的,isuser:是否用户,islazyload:是否延迟加载)
+	 * 拼接文章Html(ismy:是否我的,isuser:是否用户,islazyload:是否延迟加载,isdel:是否有左滑操作)
 	 */
-	this.AppendArticle = function(item, ismy, isuser, islazyload) {
+	this.AppendArticle = function(item, ismy, isuser, islazyload, isdel) {
 		var div = document.createElement('div');
-		div.className = 'mui-card';
+		if(isdel) {
+			div.className = 'mui-card mui-table-view-cell';
+			div.style.padding = "0px";
+			div.setAttribute("kid", item.ArticleNumber);
+		} else {
+			div.className = 'mui-card';
+		}
 		div.setAttribute("id", "article" + item.ArticleID)
 		var model = [];
+		if(isdel) {
+			model.push('<div class="mui-slider-right mui-disabled tc"><a class="mui-btn mui-btn-red">删除</a></div>');
+		}
 		if(ismy == true) {
 			var power = "";
 			switch(item.ArticlePower) {
@@ -436,6 +445,9 @@ var base = new function() {
 				}
 				model.push('</span></div></div>');
 			} else {
+				if(isdel) {
+					model.push('<div class="mui-slider-cell mui-slider-handle">');
+				}
 				if(islazyload) {
 					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				} else {
@@ -482,6 +494,9 @@ var base = new function() {
 		model.push('</div></div>');
 		model.push('<div class="mui-card-footer fl full">');
 		model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f11 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
+		if(isdel) {
+			model.push('</div>');
+		}
 		div.innerHTML = model.join('');
 		return div;
 	}

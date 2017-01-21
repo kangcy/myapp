@@ -49,6 +49,7 @@
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
+	var records = 0;
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
 	var isLoading = false;
@@ -94,9 +95,50 @@
 
 		//返回
 		mui.back = function() {
+			var my = plus.webview.getWebviewById("my.html");
+			my.evalJS("Refresh()");
+
 			var self = plus.webview.currentWebview();
 			plus.webview.close(self)
 		}
+
+		//取消收藏
+		mui("#pullrefresh").on('tap', '.mui-btn', function(event) {
+			var elem = this;
+			var li = elem.parentNode.parentNode;
+			mui.confirm('确认取消收藏？', '友情提醒', ['确认', '取消'], function(e) {
+				if(e.index == 0) {
+					HttpGet(base.RootUrl + "Keep/Delete", {
+						ID: userinfo.ID,
+						ArticleNumber: li.getAttribute("kid")
+					}, function(data) {
+						if(data) {
+							if(data.result) {
+								li.parentNode.removeChild(li);
+								records = records - 1;
+								if(records < 0) {
+									records = 0;
+								}
+								document.getElementById("title").innerHTML = "我的关注(" + records + ")";
+								base.RefreshScroll();
+
+								userinfo.Keeps = records;
+								userinfo.KeepText = data.message;
+								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+							} else {
+								mui.toast(data.message);
+								mui.swipeoutClose(li);
+							}
+						} else {
+							mui.toast("失败");
+							mui.swipeoutClose(li);
+						}
+					});
+				} else {
+					mui.swipeoutClose(li);
+				}
+			});
+		});
 	});
 
 	/**
@@ -156,10 +198,10 @@
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage;
-				var length = data.records;
-				if(length > 0) {
+				records = data.records;
+				if(records > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], false, false, true);
+						var div = base.AppendArticle(data.list[i], false, false, true, true);
 						table.appendChild(div);
 					}
 				} else {

@@ -128,6 +128,9 @@
 							if(data.result) {
 								li.parentNode.removeChild(li);
 								records = records - 1;
+								if(records < 0) {
+									records = 0;
+								}
 								document.getElementById("title").innerHTML = "我的关注(" + records + ")";
 								base.RefreshScroll();
 
