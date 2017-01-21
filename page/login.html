@@ -120,7 +120,7 @@
 		plus.oauth.getServices(function(services) {
 			auths = services;
 		}, function(e) {
-			alert("获取登录服务列表失败：" + e.message + " - " + e.code);
+			mui.toast("获取登录服务列表失败：" + e.message + " - " + e.code);
 		});
 
 		//点击登录
@@ -132,7 +132,7 @@
 			base.ShowWaiting("正在登录~");
 			setTimeout(function() {
 				var loginInfo = {
-					UserName: accountBox.value,
+					Phone: accountBox.value,
 					Password: passwordBox.value
 				};
 				//登录
@@ -214,7 +214,6 @@
 				mui.toast("登录认证失败~");
 			});
 		} else {
-			//mui.toast("已登录认证~~");
 			authUserInfo(type, s);
 		}
 		isLoading = false;

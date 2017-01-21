@@ -72,6 +72,16 @@ var base = new function() {
 	}
 
 	/**
+	 * 手机号码校验
+	 **/
+	this.CheckPhone = function(phone) {
+		if(base.IsNullOrEmpty(phone)){
+			return false;
+		}
+		return phone.length == 11 && !isNaN(phone) && (/^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/.test(phone));
+	};
+
+	/**
 	 * 打开等待提示框
 	 **/
 	this.ShowWaiting = function(title) {
@@ -252,7 +262,6 @@ var base = new function() {
 						ID: data.ID,
 						Sex: data.Sex == "0" ? "男" : "女",
 						Signature: data.Signature,
-						UserName: data.UserName,
 						Password: data.Password,
 						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
 						NickName: data.NickName,

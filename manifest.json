@@ -290,7 +290,8 @@
 					"page/payment.html",
 					"js/default.js",
 					"css/mui.css",
-					"images/add.png"
+					"images/add.png",
+					"js/base.js"
 				],
 				"refer": [
 					"page/about.html",

@@ -5,9 +5,9 @@
 	owner.login = function(loginInfo, callback) {
 		callback = callback || $.noop;
 		loginInfo = loginInfo || {};
-		loginInfo.UserName = loginInfo.UserName || '';
+		loginInfo.Phone = loginInfo.Phone || '';
 		loginInfo.Password = loginInfo.Password || '';
-		if(loginInfo.UserName.length < 5) {
+		if(loginInfo.Phone.length < 5) {
 			return callback('账号最短为 5 个字符');
 		}
 		if(loginInfo.Password.length < 6 || loginInfo.Password.length > 16) {
@@ -16,7 +16,7 @@
 
 		//登录验证
 		HttpGet(base.RootUrl + "User/Login", {
-			UserName: loginInfo.UserName,
+			Phone: loginInfo.Phone,
 			Password: loginInfo.Password
 		}, function(data) {
 			if(data == null) {
@@ -30,7 +30,6 @@
 						ID: data.ID,
 						Sex: data.Sex == "0" ? "男" : "女",
 						Signature: data.Signature,
-						UserName: data.UserName,
 						Password: data.Password,
 						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
 						NickName: data.NickName,
@@ -87,7 +86,6 @@
 						ID: data.ID,
 						Sex: data.Sex == "0" ? "男" : "女",
 						Signature: data.Signature,
-						UserName: data.UserName,
 						Password: data.Password,
 						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
 						NickName: data.NickName,
@@ -126,28 +124,11 @@
 	owner.reg = function(regInfo, callback) {
 		callback = callback || $.noop;
 		regInfo = regInfo || {};
-		regInfo.UserName = regInfo.UserName || '';
+		regInfo.Phone = regInfo.Phone || '';
 		regInfo.NickName = regInfo.NickName || '';
 		regInfo.Password = regInfo.Password || '';
-
-		if(!checkPhone(regInfo.UserName)) {
-			return callback('手机号码不合法');
-		}
-		if(regInfo.NickName.length < 1) {
-			return callback('昵称最短需要 1 个字符');
-		}
-		if(regInfo.NickName.length > 12) {
-			return callback('昵称最长限制 12 个字符');
-		}
-		if(regInfo.Password.length < 6) {
-			return callback('密码最短需要 6 个字符');
-		}
-		if(regInfo.Password.length > 16) {
-			return callback('密码最长限制 16 个字符');
-		}
-
 		HttpGet(base.RootUrl + "User/Register", {
-			UserName: regInfo.UserName,
+			Phone: regInfo.Phone,
 			Password: regInfo.Password,
 			NickName: regInfo.NickName,
 			Province: regInfo.Province,
@@ -162,7 +143,6 @@
 					data = data.message;
 					var info = {
 						ID: data.ID,
-						UserName: data.UserName,
 						Password: data.Password,
 						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
 						NickName: data.NickName,
