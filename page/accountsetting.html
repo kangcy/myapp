@@ -43,41 +43,44 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<h1 class="mui-title c333">编辑个人资料</h1>
+			<h1 class="mui-title c333">账号设置</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view f13 mt0">
-				<li class="mui-table-view-cell" id="divavatar">
-					<span class="fl mt10">头像</span>
-					<span class="mui-pull-right head">
-						<img class="head-img mui-action-preview" id="avatar" src="../images/60x60.gif" style="width:2.5rem;height:2.5rem;border-radius:50%;" />
-					</span>
+			<ul class="mui-table-view f13" style="margin-top:0px;">
+				<li class="mui-table-view-cell" onclick="BindPwd()">
+					<span class="fl">密码</span>
+					<span class="fr c999" id="password"></span>
 				</li>
-				<li class="mui-table-view-cell" id="editnickname">
-					<span class="fl">昵称</span>
-					<span class="fr c999" id="nickname"></span>
+				<li class="mui-table-view-cell" onclick="BindPhone()">
+					<span class="fl">绑定手机号</span>
+					<span class="fr c999" id="phone"></span>
 				</li>
-				<li class="mui-table-view-cell" id="editnickname">
-					<span class="fl">Go号</span>
-					<span class="fr c999" id="userid"></span>
+				<li class="mui-table-view-cell">
+					<span class="fl">绑定微信账号</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="weixinSwitch">
+							<div></div>
+						</div>
+					</div>
 				</li>
-				<li class="mui-table-view-cell" id="sexPicker">
-					<span class="fl">性别</span>
-					<span class="fr c999" id="sex"></span>
+				<li class="mui-table-view-cell">
+					<span class="fl">绑定QQ账号</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="qqSwitch">
+							<div></div>
+						</div>
+					</div>
 				</li>
-				<li class="mui-table-view-cell" id="cityPicker">
-					<span class="fl">地区</span>
-					<span class="fr c999" id="city"></span></a>
-				</li>
-				<li class="mui-table-view-cell" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker">
-					<span class="fl">生日</span>
-					<span class="fr c999" id="time"></span></a>
-				</li>
-				<li class="mui-table-view-cell" id="editsignature">
-					<span class="fl">个性签名</span>
-					<span class="fr c999 tr" id="signature"></span></a>
+				<li class="mui-table-view-cell">
+					<span class="fl">绑定微博账号</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="weiboSwitch">
+							<div></div>
+						</div>
+					</div>
 				</li>
 			</ul>
+			<div style="background: #eee;height:2rem;line-height:2rem;" class="f12 full tc c999">绑定后可使用微信、QQ、微博、手机号登录</div>
 			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell">
 					<a id="exit" style="text-align: center;color: #FF3B30;">
@@ -93,8 +96,6 @@
 <script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.picker.min.js"></script>
-<script src="../js/mui.poppicker.js"></script>
 <script src="../js/login.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
@@ -110,100 +111,87 @@
 
 	mui.ready(function() {
 		base.InitScroll();
+		document.getElementById("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(8, 11);
+		document.getElementById("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未绑定" : "已绑定";
 
-		$("#userid").html(userinfo.ID);
-		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
-		$("#nickname").html(base.FormatStr(userinfo.NickName, "请填写"));
-		$("#sex").html(userinfo.Sex);
-		$("#city").html(base.FormatStr(userinfo.Address, "请填写"));
-		$("#time").html(base.FormatStr(userinfo.Birthday, "请填写"));
-		$("#signature").html(base.FormatStr(userinfo.Signature, "请填写"));
+		//微信 
+		if(CheckBind(1)) {
+			base.SwitchChange("weixinSwitch", true)
+		}
 
-		document.getElementById('cityPicker').addEventListener('tap', function(event) {
-			base.OpenWindow("province", "province.html", {});
-		});
+		//QQ
+		if(CheckBind(2)) {
+			base.SwitchChange("qqSwitch", true)
+		}
 
-		//性别选择
-		var sexPicker = new mui.PopPicker();
-		sexPicker.setData([{
-			value: '0',
-			text: "男"
-		}, {
-			value: '1',
-			text: "女"
-		}]);
-		var sexResult = document.getElementById('sexResult');
-		document.getElementById('sexPicker').addEventListener('tap', function(event) {
-			sexPicker.show(function(items) {
-				document.getElementById("sex").innerHTML = items[0].text;
-				base.ShowWaiting("正在编辑性别~");
-				setTimeout(function() {
-					HttpGet(base.RootUrl + "User/EditSex", {
-						ID: userinfo.ID,
-						Sex: items[0].value
-					}, function(data) {
-						base.CloseWaiting();
-						mui.toast(data.result ? "编辑成功~" : data.message);
-						if(data.result) {
-							userinfo.Sex = items[0].value == "0" ? "男" : "女";
-							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-						}
-					});
-					sexPicker.dispose(); //资源释放
-				}, 1000);
-			});
-		}, false);
-
-		//日期
-		document.getElementById('timePicker').addEventListener('tap', function() {
-			var optionsJson = this.getAttribute('data-options') || '{}';
-			var options = JSON.parse(optionsJson);
-			var id = this.getAttribute('id');
-
-			var picker = new mui.DtPicker(options);
-			picker.show(function(rs) {
-				document.getElementById("time").innerHTML = rs.text;
-				base.ShowWaiting("正在编辑生日~");
-				setTimeout(function() {
-					HttpGet(base.RootUrl + "User/EditBirthday", {
-						ID: userinfo.ID,
-						Birthday: rs.text
-					}, function(data) {
-						base.CloseWaiting();
-						mui.toast(data.result ? "编辑成功~" : data.message);
-						if(data.result) {
-							userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
-							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-						}
-					});
-					picker.dispose(); //资源释放
-				}, 1000);
-			});
-		}, false);
-
-		//头像
-		document.getElementById('divavatar').addEventListener('tap', function(event) {
-			base.OpenWindow("editimage", "editimage.html", {
-				Url: userinfo.Avatar,
-				Source: "UserAvatar",
-				Standard: "UserAvatar"
-			});
-		});
+		//微博
+		if(CheckBind(3)) {
+			base.SwitchChange("weiboSwitch", true)
+		}
 	})
 
 	mui.plusReady(function() {
+
+		plus.oauth.getServices(function(services) {
+			auths = services;
+		}, function(e) {
+			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
+		});
+
+		if(base.IsNullOrEmpty(userinfo.Phone)) {
+			mui.confirm('您还没有绑定手机号，绑定后账号更安全。', '提示', ['去绑定', '取消'], function(e) {
+				if(e.index == 0) {
+					BindPhone();
+				}
+			});
+		}
 
 		//返回
 		mui.back = function() {
 			var self = plus.webview.currentWebview();
 			var myPage = plus.webview.getWebviewById('my.html');
-			mui.fire(myPage, "UpdateUser", {});
+			if(myPage) {
+				mui.fire(myPage, "UpdateUser", {});
+			}
 			plus.webview.close(self);
 		}
 
 		//返回
 		document.getElementById('back').addEventListener('tap', function(e) {
 			mui.back();
+		});
+
+		//绑定微信切换
+		document.getElementById("weixinSwitch").addEventListener('tap', function(event) {
+			var weixin = this.className.indexOf("active") >= 0;
+			base.SwitchChange("weixinSwitch", !weixin);
+			if(!weixin) {
+				authLogin('weixin');
+			} else {
+				authLogout('weixin');
+			}
+		});
+
+		//绑定QQ切换
+		document.getElementById("qqSwitch").addEventListener('tap', function(event) {
+			var qq = this.className.indexOf("active") >= 0;
+			base.SwitchChange("qqSwitch", !qq);
+			if(!qq) {
+				authLogin('qq');
+			} else {
+				authLogout('qq');
+			}
+		});
+
+		//绑定微博切换
+		document.getElementById("weiboSwitch").addEventListener('tap', function(event) {
+			var weibo = this.className.indexOf("active") >= 0;
+			base.SwitchChange("weiboSwitch", !weibo);
+			if(!weibo) {
+				authLogin('sinaweibo');
+			} else {
+				authLogout('sinaweibo');
+			}
 		});
 
 		//退出操作
@@ -237,100 +225,42 @@
 		}, false);
 	});
 
-	var editnickname = document.getElementById("editnickname");
-	var editsignature = document.getElementById("editsignature");
-	var nickname = document.getElementById("nickname");
-	var signature = document.getElementById("signature");
+	//更新绑定密码
+	function UpdatePwd(pwd) {
+		userinfo.Password = pwd;
+		document.getElementById("password").innerText = pwd == "" ? "未绑定" : "已绑定";
+	}
 
-	//修改头像
-	function UpdateAvatar(url) {
-		if(userinfo.Avatar == url) {
-			mui.toast("编辑成功~");
-			return;
+	//更新绑定号码
+	function UpdatePhone(phone) {
+		userinfo.Phone = phone;
+		document.getElementById("phone").innerText = phone == "" ? "未绑定" : phone;
+	}
+
+	//检测是否绑定
+	function CheckBind(source) {
+		if(!userinfo.UserLogin) {
+			return false;
 		}
-		HttpGet(base.RootUrl + "User/EditAvatar", {
-			ID: userinfo.ID,
-			Avatar: url
-		}, function(data) {
-			mui.toast(data.result ? "编辑成功~" : data.message);
-			if(data.result) {
-				$("#avatar").attr("src", base.ShowThumb(url, 1));
-				userinfo.Avatar = url;
-				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			}
+		var exist = userinfo.UserLogin.some(function(userlogin) {
+			return userlogin.Source == source;
 		});
+		return exist;
 	}
 
-	//修改昵称
-	function UpdateNickName(t) {
-		nickname.innerHTML = t;
-		base.ShowWaiting("正在编辑昵称~");
-		setTimeout(function() {
-			HttpGet(base.RootUrl + "User/EditNickName", {
-				ID: userinfo.ID,
-				NickName: t
-			}, function(data) {
-				base.CloseWaiting();
-				mui.toast(data.result ? "编辑成功~" : data.message);
-				if(data.result) {
-					userinfo.NickName = t;
-					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-				}
-			});
-		}, 1000);
+	//绑定密码
+	function BindPwd() {
+		base.OpenWindow("bindpassword", "bindpassword.html", {});
 	}
 
-	//修改签名
-	function UpdateSignature(t) {
-		signature.innerHTML = t;
-		base.ShowWaiting("正在编辑签名~");
-		setTimeout(function() {
-			HttpGet(base.RootUrl + "User/EditSignature", {
-				ID: userinfo.ID,
-				Signature: t
-			}, function(data) {
-				base.CloseWaiting();
-				mui.toast(data.result ? "编辑成功~" : data.message);
-				if(data.result) {
-					userinfo.Signature = t;
-					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-				}
-			});
-		}, 1000);
+	//绑定手机号
+	function BindPhone() {
+		base.OpenWindow("bindphone", "bindphone.html", {});
 	}
 
-	//编辑昵称
-	editnickname.addEventListener('tap', function(event) {
-		var text = nickname.innerHTML.trim();
-		base.OpenWindow("editnickname", "editnickname.html", {
-			title: text == "请填写" ? "" : text
-		});
-	});
-
-	//编辑个性签名
-	editsignature.addEventListener('tap', function(event) {
-		var text = signature.innerHTML.trim();
-		base.OpenWindow("editsignature", "editsignature.html", {
-			title: text == "请填写" ? "" : text
-		});
-	});
-
-	//修改地址
-	function UpdateAddress(province, city) {
-		document.getElementById("city").innerHTML = province + " " + city;
-		HttpGet(base.RootUrl + "User/EditAddress", {
-			ID: userinfo.ID,
-			ProvinceName: province,
-			CityName: city
-		}, function(data) {
-			mui.toast(data.result ? "编辑成功~" : data.message);
-			if(data.result) {
-				userinfo.Address = province + " " + city
-				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			}
-			plus.webview.close("province");
-			plus.webview.close("city");
-		});
+	//绑定邮箱
+	function BindEmail() {
+		base.OpenWindow("bindemail", "bindemail.html", {});
 	}
 
 	//登录操作 

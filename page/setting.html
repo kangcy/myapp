@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>设置</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -70,12 +70,21 @@
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view f13 mt0">
-				<li class="mui-table-view-cell" id="black">
+				<li class="mui-table-view-cell" id="account">
 					<a class="mui-navigate-right">
-						<span class="fl">黑名单管理</span>
+						<span class="fl">账号管理</span>
 						<span class="fr caaa"></span>
 					</a>
 				</li>
+				<li class="mui-table-view-cell" id="secret">
+					<a class="mui-navigate-right">
+						<span class="fl">隐私设置</span>
+						<span class="fr caaa"></span>
+					</a>
+				</li>
+			</ul>
+			<div style="background: #eee;height:0.5rem;" class="full"></div>
+			<ul class="mui-table-view f13 mt0">
 				<li class="mui-table-view-cell">
 					<p class="fl full c000">图片水印</p>
 					<span class="fl caaa f11 mt5">开启后新导入图片自动添加水印</span>
@@ -323,9 +332,14 @@
 			mui.back();
 		});
 
-		//黑名单
-		document.getElementById('black').addEventListener('tap', function(event) {
-			base.OpenWindow("black", "black.html", {});
+		//账号管理
+		document.getElementById('account').addEventListener('tap', function(event) {
+			base.OpenWindow("accountsetting", "accountsetting.html", {});
+		});
+
+		//隐私设置
+		document.getElementById('secret').addEventListener('tap', function(event) {
+			base.OpenWindow("secretsetting", "secretsetting.html", {});
 		});
 	});
 </script>

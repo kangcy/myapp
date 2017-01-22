@@ -313,7 +313,10 @@ var base = new function() {
 						IsPay: data.IsPay,
 						Money: data.Money,
 						UseDraw: data.UseDraw,
-						Number: data.Number
+						Number: data.Number,
+						ShowArticle: data.ShowArticle,
+						ShowFollow: data.ShowFollow,
+						ShowFan: data.ShowFan
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 

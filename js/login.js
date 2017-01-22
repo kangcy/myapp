@@ -44,7 +44,7 @@
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						BlackText:data.BlackText,
+						BlackText: data.BlackText,
 						Phone: data.Phone,
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,
@@ -52,7 +52,10 @@
 						IsPay: data.IsPay,
 						Money: data.Money,
 						UseDraw: data.UseDraw,
-						Number: data.Number
+						Number: data.Number,
+						ShowArticle: data.ShowArticle,
+						ShowFollow: data.ShowFollow,
+						ShowFan: data.ShowFan
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -101,7 +104,7 @@
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						BlackText:data.BlackText,
+						BlackText: data.BlackText,
 						Phone: data.Phone,
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,
@@ -109,7 +112,10 @@
 						IsPay: data.IsPay,
 						Money: data.Money,
 						UseDraw: data.UseDraw,
-						Number: data.Number
+						Number: data.Number,
+						ShowArticle: data.ShowArticle,
+						ShowFollow: data.ShowFollow,
+						ShowFan: data.ShowFan
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -161,7 +167,7 @@
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
-						BlackText:data.BlackText,
+						BlackText: data.BlackText,
 						Phone: data.Phone,
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,
@@ -169,7 +175,10 @@
 						IsPay: data.IsPay,
 						Money: data.Money,
 						UseDraw: data.UseDraw,
-						Number: data.Number
+						Number: data.Number,
+						ShowArticle: data.ShowArticle,
+						ShowFollow: data.ShowFollow,
+						ShowFan: data.ShowFan
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
