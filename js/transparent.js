@@ -16,7 +16,7 @@
 		this.element = element;
 		this.options = $.extend({
 			top: 0,
-			offset: 150,
+			offset: 100,
 			duration: 16
 		}, options || {});
 		this._style = this.element.style;
@@ -38,12 +38,16 @@
 		window.addEventListener('scroll', this._bufferFn);
 		window.addEventListener($.EVENT_MOVE, this._bufferFn);
 	};
-	Transparent.prototype.handleScroll = function() {
+	Transparent.prototype.handleScroll = function() { 
 		//背景色渐变
 		this._style.backgroundColor = 'rgba(' + this._BR + ',' + this._BG + ',' + this._BB + ',' + (window.scrollY - this.options.top) / this.options.offset + ')';
 
-		//文字颜色渐变
-		this._style.color = 'rgba(' + this._BR + ',' + this._BG + ',' + this._BB + ',' + (window.scrollY - this.options.top) / this.options.offset + ')';
+		/*var success = window.scrollY - this.options.top > this.options.offset;
+		if(success) {
+			document.getElementsByClassName(".headericon").classList.remove("cfff");
+		} else {
+			document.getElementsByClassName(".headericon").classList.add("cfff");
+		}*/
 	};
 	Transparent.prototype.destory = function() {
 		window.removeEventListener('scroll', this._bufferFn);
