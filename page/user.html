@@ -204,7 +204,7 @@
 					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作，也无法私信你
 				</li>
 				<li class="mui-table-view-cell noborder">
-					<a href="#" class="red f15">确认加入</a>
+					<a href="#" class="red f15" onclick="InBlack()">确认加入</a>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -228,7 +228,6 @@
 	var pagesize = base.PageSize;
 	var UserID = 0; //用户ID
 	var userinfo = base.GetUserInfo();
-
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -253,6 +252,11 @@
 
 		//返回
 		mui.back = function() {
+			var black = plus.webview.getWebviewById("black");
+			if(black) {
+				black.evalJS("Refresh()");
+			}
+
 			plus.webview.currentWebview().close();
 		}
 
@@ -513,7 +517,7 @@
 					mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
 					if(data.result) {
 
-						userinfo.Fans = data.message.Fans;
+						userinfo.Follows = data.message.Follows;
 						userinfo.FanText = data.message.FanText;
 						userinfo.BlackText = data.message.BlackText;
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));

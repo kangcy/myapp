@@ -23,7 +23,7 @@
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
 			<div class="mui-title c333 f15" id="title">黑名单</div>
 		</header>
-		<div class="mui-content"> 
+		<div class="mui-content">
 			<div class="mui-loader tc" id="loader">
 				<div class="line-scale-pulse-out">
 					<div></div>
@@ -114,8 +114,17 @@
 		});
 	});
 
+	//刷新
+	function Refresh() {
+		Load(function() {
+			base.RefreshScroll();
+		});
+	}
+
 	//我的拉黑
-	function Load() {
+	function Load(callback) {
+		var table = document.getElementById('scroll-view');
+		table.innerHTML = "";
 		HttpGet(base.RootUrl + "Black/All", {
 			CreateUserID: userinfo.ID
 		}, function(data) {
@@ -124,7 +133,7 @@
 				var records = data.records;
 				if(records > 0) {
 					document.getElementById("none").classList.add("hide");
-					var table = document.getElementById('scroll-view');
+
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i], 0);
 						table.appendChild(div);
@@ -135,6 +144,9 @@
 			}
 			if(data == null) {
 				document.getElementById("none").classList.remove("hide");
+			}
+			if(callback) {
+				callback();
 			}
 		});
 	}
