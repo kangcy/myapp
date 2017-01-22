@@ -185,8 +185,11 @@
 				<li class="mui-table-view-cell">
 					<a href="#" class="c333 f15" onclick="Copy()">复制链接</a>
 				</li>
-				<li class="mui-table-view-cell noborder">
-					<a href="#black" class="red f15" id="blackname"></a>
+				<li class="mui-table-view-cell noborder hide" id="inblack">
+					<a href="#black" class="red f15">加入黑名单</a>
+				</li>
+				<li class="mui-table-view-cell noborder hide" id="outblack">
+					<a href="#" class="red f15" onclick="OutBlack()">解除黑名单</a>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -201,7 +204,7 @@
 					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作，也无法私信你
 				</li>
 				<li class="mui-table-view-cell noborder">
-					<a href="#" class="red f15" id="blackaction"></a>
+					<a href="#" class="red f15">确认加入</a>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -224,9 +227,14 @@
 	var isLoading = false;
 	var pagesize = base.PageSize;
 	var UserID = 0; //用户ID
-	var IsInBlack = false;
 	var userinfo = base.GetUserInfo();
-	mui.init();
+
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
 
 	mui.ready(function() {
 		var transparentApi = mui('.mui-bar-transparent').transparent();
@@ -274,15 +282,6 @@
 				base.OpenWindow("reply", "reply.html", {
 					UserID: UserID
 				});
-			}
-		});
-
-		//黑名单处理
-		document.getElementById("blackaction").addEventListener('tap', function(event) {
-			if(IsInBlack) {
-				OutBlack();
-			} else {
-				InBlack();
 			}
 		});
 	});
@@ -485,41 +484,14 @@
 	//检查黑名单
 	function CheckBlack() {
 		if(base.CheckBlack(userinfo.BlackText, UserID)) {
-			IsInBlack = true;
-			document.getElementById("blackname").innerText = "解除黑名单";
-			document.getElementById("blackaction").innerText = "确认解除";
+			document.getElementById("inblack").classList.add("hide");
+			document.getElementById("outblack").classList.remove("hide");
 			Init(0);
 		} else {
-			IsInBlack = false;
-			document.getElementById("blackname").innerText = "加入黑名单";
-			document.getElementById("blackaction").innerText = "确认加入";
+			document.getElementById("outblack").classList.add("hide");
+			document.getElementById("inblack").classList.remove("hide");
 			Init(1);
 		}
-	}
-
-	//操作
-	function ActionSheet() {
-		var bts = [{
-			title: "分享给朋友"
-		}, {
-			title: "复制链接"
-		}, {
-			title: "加入黑名单"
-		}];
-		plus.nativeUI.actionSheet({
-				cancel: "取消",
-				buttons: bts
-			},
-			function(e) {
-				if(e.index == 1) {
-					console.log("分享给朋友")
-				} else if(e.index == 2) {
-					console.log("复制链接")
-				} else if(e.index == 3) {
-					console.log("加入黑名单")
-				}
-			}
-		);
 	}
 
 	//添加黑名单
@@ -541,7 +513,9 @@
 					mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
 					if(data.result) {
 
-						userinfo.BlackText = data.message;
+						userinfo.Fans = data.message.Fans;
+						userinfo.FanText = data.message.FanText;
+						userinfo.BlackText = data.message.BlackText;
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 
 						mui.back();

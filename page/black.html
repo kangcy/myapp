@@ -21,9 +21,9 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<div class="mui-title c333 f15" id="title">我的关注(0)</div>
+			<div class="mui-title c333 f15" id="title">黑名单</div>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content"> 
 			<div class="mui-loader tc" id="loader">
 				<div class="line-scale-pulse-out">
 					<div></div>
@@ -39,7 +39,7 @@
 					</div>
 					<div id="none" class="full tc hide">
 						<img src="../images/my/111.png" class="none" />
-						<p class="f13 mt10">你关注的人，会在这里显示</p>
+						<p class="f13 mt10">黑名单会在这里显示</p>
 					</div>
 				</div>
 			</div>
@@ -49,16 +49,9 @@
 </html>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/mui.pullToRefresh.js"></script>
-<script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var currpage = 1;
-	var totalpage = 2;
-	var records = 0;
 	var isLoading = false;
-	var pagesize = base.PageSize;
-	var parentPage = null;
 	var userinfo = base.GetUserInfo();
 
 	mui.init({
@@ -70,36 +63,13 @@
 
 	mui.ready(function() {
 
-		base.InitScroll();
+		Load();
 
-		//我关注的
-		mui(document.getElementById("scroll")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
+		base.InitScroll();
 
 		base.ShowUser("#scroll"); //用户详细
 
-		base.ShowArticle("#scroll", "List", userinfo.ID); //文章详细
-
-		//添加关注
-		base.GuanZhu("#scroll", userinfo, function($this) {
-			$this.parentNode.remove();
-		});
-
 		base.ScrollTop();
-
 	});
 
 	mui.plusReady(function() {
@@ -107,35 +77,26 @@
 
 		//返回
 		mui.back = function() {
-			var my = plus.webview.getWebviewById("my.html");
-			my.evalJS("Refresh()");
-
 			var self = plus.webview.currentWebview();
 			plus.webview.close(self);
 		}
 
-		//取消关注
+		//取消拉黑
 		mui("#scroll").on('tap', '.mui-btn', function(event) {
 			var elem = this;
 			var li = elem.parentNode.parentNode;
-			mui.confirm('确认取消关注？', '友情提醒', ['确认', '取消'], function(e) {
+			mui.confirm('确认移除黑名单？', '友情提醒', ['确认', '取消'], function(e) {
 				if(e.index == 0) {
-					HttpGet(base.RootUrl + "Fan/Delete", {
+					HttpGet(base.RootUrl + "Black/Delete", {
 						ID: userinfo.ID,
 						FanID: li.getAttribute("fid")
 					}, function(data) {
 						if(data) {
 							if(data.result) {
 								li.parentNode.removeChild(li);
-								records = records - 1;
-								if(records < 0) {
-									records = 0;
-								}
-								document.getElementById("title").innerHTML = "我的关注(" + records + ")";
 								base.RefreshScroll();
 
-								userinfo.Follows = records;
-								userinfo.FanText = data.message;
+								userinfo.BlackText = data.message;
 								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							} else {
 								mui.toast(data.message);
@@ -153,57 +114,14 @@
 		});
 	});
 
-	//我关注的-下拉刷新
-	function pulldownRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
-	}
-
-	//我关注的-上拉加载
-	function pullupRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了~");
-		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
-	}
-
-	//我的关注-加载数据
-	function Load(callback) {
-		data = {
-			page: currpage,
-			rows: pagesize,
-			FromUserID: userinfo.ID
-		}
-		HttpGet(base.RootUrl + "Fan/FollowsAll", data, function(data) {
+	//我的拉黑
+	function Load() {
+		HttpGet(base.RootUrl + "Black/All", {
+			CreateUserID: userinfo.ID
+		}, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				totalpage = data.totalpage;
-				records = data.records;
+				var records = data.records;
 				if(records > 0) {
 					document.getElementById("none").classList.add("hide");
 					var table = document.getElementById('scroll-view');
@@ -214,12 +132,10 @@
 				} else {
 					document.getElementById("none").classList.remove("hide");
 				}
-				document.getElementById("title").innerHTML = "我的关注(" + records + ")";
 			}
-			if(data == null && currpage == 1) {
+			if(data == null) {
 				document.getElementById("none").classList.remove("hide");
 			}
-			callback();
 		});
 	}
 
@@ -229,17 +145,12 @@
 		div.className = 'mui-table-view-cell';
 		div.setAttribute("fid", item.ID);
 		var model = [];
-		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">取消关注</a></div>');
-		model.push('<div class="mui-slider-cell mui-slider-handle">');
+		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">移除黑名单</a></div>');
+		model.push('<div class="mui-slider-cell mui-slider-handle user" userid="' + item.UserID + '">');
 		//分类图片
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserID + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" /></div>');
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
-		if(index == 1) {
-			if(!base.CheckFan(userinfo.FanText, item.UserID)) {
-				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.UserID + '">关注</div></div>');
-			}
-		}
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
