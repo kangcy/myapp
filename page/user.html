@@ -128,13 +128,19 @@
 			.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
 				background-color: #ddd !important;
 			}
+			
+			.more {
+				margin-top: 0.3rem;
+				margin-right: 0.4rem;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-transparent">
 			<a class="mui-action-back mui-icon mui-icon-left-nav fl"></a>
-			<a href="#power" class="mui-icon mui-icon-more fr" style="font-size:30px;"></a>
+			<!--<a href="#power" class="mui-icon mui-icon-more fr" style="font-size:30px;"></a>-->
+			<span class="cfff f25 fr more" onclick="More()">•••</span>
 			<h1 class="mui-title c333"></h1>
 		</header>
 		<div class="mui-content">
@@ -171,7 +177,7 @@
 
 				</div>
 			</div>
-			<div id="comment" class="hide f13 caaa tc mt5 fl" style="height:300px;;">
+			<div id="comment" class="hide f13 caaa tc mt5 mb10 fl" style="height:300px;;">
 				<div id="comments" class="left"><span class="c333">回复</span><br />
 					<p class="f20 mb0" id="commentnum">0</p>
 				</div>
@@ -226,6 +232,7 @@
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/transparent.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
@@ -241,8 +248,6 @@
 	});
 
 	mui.ready(function() {
-		var transparentApi = mui('.mui-bar-transparent').transparent();
-
 		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //展示文章
 	});
 
@@ -586,5 +591,10 @@
 	function Share() {
 		mui('#power').popover('toggle');
 		console.log("Share");
+	}
+
+	//操作
+	function More() {
+		mui('#power').popover('toggle');
 	}
 </script>

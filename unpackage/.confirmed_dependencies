@@ -633,7 +633,9 @@
 			"js/mui.previewimage.js",
 			"images/logo.png",
 			"images/login/logo.png",
-			"js/mui.js"
+			"js/mui.js",
+			"images/my/more.png",
+			"js/transparent.js"
 		],
 		"refer": [
 			"page/userSub.html",

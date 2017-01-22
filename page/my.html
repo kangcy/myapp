@@ -27,7 +27,7 @@
 							<img id="avatar" src="../images/logo_default.png" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
 							<p class="c333 f16 tc name" id="nickname"></p>
 							<p class="signature tc mt10 mb10 f12" id="signature"></p>
-							<div class="csubtitle content1 tc">
+							<!--<div class="csubtitle content1 tc">
 								<div class="items" id="my-articles">
 									<p class="csubtitle item1 f16" id="articles">0</p>
 									<p class="c333 item2 f13">动态</p>
@@ -44,12 +44,13 @@
 									<p class="csubtitle item1 f16" id="fans">0</p>
 									<p class="c333 item2 f13">粉丝</p>
 								</div>
-
-								<!--<div class="items" id="my-zans">
-									<p class="csubtitle item1 f16" id="zans">0</p>
-									<p class="c333 item2 f13">点赞</p>
-								</div>-->
-							</div>
+							</div> -->
+							<p class="secret tc mt5 f13">
+								<span class="c666" id="my-articles">动态&nbsp;<span class="c333" id="articles">0</span></span>
+								<span class="c666" id="my-follows">关注&nbsp;<span class="c333" id="follows">0</span></span>
+								<span class="c666" id="my-fans">粉丝&nbsp;<span class="c333" id="fans">0</span></span>
+								<span class="c666" id="my-keeps">喜欢&nbsp;<span class="c333" id="articles">0</span></span>
+							</p>
 						</div>
 					</div>
 					<div class="c000 menu f13" id="my-mypay">
@@ -65,7 +66,7 @@
 						<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
 					</div>
 					<div class="c000 menu f13" id="my-help">
-						<div>帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
+						<div class="noborder">帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
 					</div>
 				</div>
 			</div>
@@ -179,13 +180,13 @@
 		});
 
 		//我的文章
-		/*document.getElementById('my-articles').addEventListener('tap', function(event) {
+		document.getElementById('my-articles').addEventListener('tap', function(event) {
 			base.OpenWindow("article", "article.html", {
 				CreateUserID: userinfo.ID,
 				ArticleTypeName: "我的动态",
 				Source: "My"
 			});
-		});*/
+		});
 
 		//我的收藏
 		document.getElementById('my-keeps').addEventListener('tap', function(event) {
