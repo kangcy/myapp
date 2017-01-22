@@ -142,8 +142,13 @@
 			<div id="info-body" class="info-body mb8">
 				<div class="info-content">
 					<img id="avatar" src="../images/login/logo.png" class="hide" />
-					<p class="c333 f16 tc name bold" id="nickname"></p>
-					<p class="caaa signature tc mt5 f12" id="signature"></p>
+					<p class="c333 f16 tc name" id="nickname"></p>
+					<p class="signature tc mt5 f13" id="signature"></p>
+					<p class="secret tc mt5 f13">
+						<span class="c666 hide" id="showFollow">关注&nbsp;<span class="c333" id="showFollowNum">0</span></span>
+						<span class="c666 hide" id="showFan">粉丝&nbsp;<span class="c333" id="showFanNum">0</span></span>
+						<span class="c666 hide" id="showArticle">喜欢&nbsp;<span class="c333" id="showArticleNum">0</span></span>
+					</p>
 					<div class="full tc mt10 hide" id="action">
 						<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
 						<div class="dashang f14">打赏</div>
@@ -432,8 +437,19 @@
 				document.getElementById("avatar").classList.remove("hide");
 				document.getElementById("nickname").innerHTML = data.NickName;
 				document.getElementById("signature").innerHTML = data.Signature;
-				//document.getElementById("follows").innerHTML = data.Follows;
-				//document.getElementById("fans").innerHTML = data.Fans;
+
+				if(data.ShowArticle == 1) {
+					document.getElementById("showArticleNum").innerHTML = data.Keeps;
+					document.getElementById("showArticle").classList.remove("hide");
+				}
+				if(data.ShowFollow == 1) {
+					document.getElementById("showFollowNum").innerHTML = data.Follows;
+					document.getElementById("showFollow").classList.remove("hide");
+				}
+				if(data.ShowFan == 1) {
+					document.getElementById("showFanNum").innerHTML = data.Fans;
+					document.getElementById("showFan").classList.remove("hide");
+				}
 			} else {
 				mui.toast(data.message);
 			}

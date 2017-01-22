@@ -60,6 +60,18 @@
 .signature {
 	margin: 0px;
 	line-height: 1.25rem;
+	color: #a3a3a3;
+}
+
+.secret {
+	margin: 0px;
+	line-height: 1.25rem;
+	color: #a3a3a3;
+}
+
+.secret span.c666 {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
 }
 
 .content1 {
@@ -119,8 +131,9 @@
 	border-radius: 15px;
 	padding: 0.4rem 1.2rem;
 	display: inline-block;
-	width:6rem;
+	width: 6rem;
 }
+
 .guanzhu2 {
 	border: 1px solid #aaa;
 	background: #aaa;
@@ -129,7 +142,7 @@
 	border-radius: 15px;
 	padding: 0.4rem 1.2rem;
 	display: inline-block;
-	width:6rem;
+	width: 6rem;
 }
 
 .dashang {
@@ -139,5 +152,5 @@
 	border-radius: 15px;
 	padding: 0.4rem 1.2rem;
 	display: inline-block;
-	width:6rem;
+	width: 6rem;
 }
