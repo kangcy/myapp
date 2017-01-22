@@ -1737,7 +1737,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #c8c7cc
+	background-color: #ddd
 }
 
 .mui-table-view:before {
@@ -1853,7 +1853,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #eee
+	background-color: #ddd
 }
 
 .mui-table-view-cell.mui-checkbox input[type=checkbox],
@@ -2228,7 +2228,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #eee
+	background-color: #ddd
 }
 
 .mui-table-view.mui-grid-view {
@@ -3080,7 +3080,7 @@ select:focus {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #eee
+	background-color: #ddd
 }
 
 .mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell.noborder:after {
@@ -4819,7 +4819,12 @@ body>.mui-progressbar {
 .mt20 {
 	margin-top: 1.25rem !important;
 }
-
+.mt25 {
+	margin-top: 1.5625rem !important;
+}
+.mt30 {
+	margin-top: 1.875rem !important;
+}
 .mb0 {
 	margin-bottom: 0px !important;
 }

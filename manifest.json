@@ -731,7 +731,8 @@
 					"cropper/cropper.min.js",
 					"js/default.js",
 					"images/60x60.gif",
-					"js/login.js"
+					"js/login.js",
+					"images/logo_default.png"
 				],
 				"refer": [
 					"page/editnickname.html",

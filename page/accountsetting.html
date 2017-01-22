@@ -8,8 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/mui.picker.css">
-		<link rel="stylesheet" href="../css/mui.poppicker.css">
 		<style type="text/css">
 			body {
 				background: #eee;
@@ -85,7 +83,6 @@
 
 </html>
 <script src="../js/default.js"></script>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/login.js"></script>
 <script src="../js/base.js"></script>
@@ -230,7 +227,7 @@
 			return false;
 		}
 		isLoading = true;
-		base.ShowWaiting("正在绑定~");
+		base.ShowWaiting("正在绑定");
 		var s;
 		for(var i = 0; i < auths.length; i++) {
 			if(auths[i].id == type) {
@@ -242,7 +239,7 @@
 			s.login(function(e) {
 				authUserInfo(type, s);
 			}, function(e) {
-				base.ShowWaiting("取消绑定~");
+				base.ShowWaiting("取消绑定");
 				switch(type) {
 					case "weixin":
 						base.SwitchChange("weixinSwitch", false);
@@ -273,9 +270,9 @@
 			if(s.id == id) {
 				if(s.authResult) {
 					s.logout(function(e) {
-						console.log("注销登录认证成功~~");
+						console.log("注销登录认证成功");
 					}, function(e) {
-						console.log("注销登录认证失败~~");
+						console.log("注销登录认证失败");
 					});
 				}
 
@@ -304,7 +301,7 @@
 						ID: key
 					}, function(data) {
 						if(data == null) {
-							return callback("系统异常,请稍后再试~");
+							return callback("系统异常,请稍后再试");
 						} else {
 							if(data.result) {
 								base.UpdateUser(userinfo.ID);
@@ -370,7 +367,7 @@
 				}, function(data) {
 					base.CloseWaiting();
 					if(data == null) {
-						return callback("系统异常,请稍后再试~");
+						return callback("系统异常,请稍后再试");
 					} else {
 						if(data.result) {
 							base.UpdateUser(userinfo.ID);

@@ -673,7 +673,8 @@
 			"js/default.js",
 			"fonts/mui.ttf",
 			"images/logo.png",
-			"js/login.js"
+			"js/login.js",
+			"images/logo_default.png"
 		],
 		"refer": [
 			"page/editsignature.html",
