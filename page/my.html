@@ -132,7 +132,7 @@
 	}
 
 	//更新本地用户信息
-	function Refresh() { 
+	function Refresh() {
 		userinfo = base.GetUserInfo();
 		Init();
 	}
@@ -141,25 +141,24 @@
 
 		base.NetChange();
 
+		//消息
+		document.getElementById('tip').addEventListener('tap', function(event) {
+			base.OpenWindow("tipsetting", "tipsetting.html", {});
+		});
+
 		//用户设置
 		document.getElementById('avatar').addEventListener('tap', function(event) {
-			base.OpenWindow("mysetting", "mysetting.html", {
-
-			});
+			base.OpenWindow("mysetting", "mysetting.html", {});
 		});
 
 		//系统设置
 		document.getElementById('setting').addEventListener('tap', function(event) {
-			base.OpenWindow("setting", "setting.html", {
-
-			});
+			base.OpenWindow("setting", "setting.html", {});
 		});
 
 		//我的打赏
 		document.getElementById('my-mypay').addEventListener('tap', function(event) {
-			base.OpenWindow("mypay", "mypay.html", {
-
-			});
+			base.OpenWindow("mypay", "mypay.html", {});
 		});
 
 		//给个好评
@@ -171,9 +170,7 @@
 
 		//帮助中心
 		document.getElementById('my-help').addEventListener('tap', function(event) {
-			base.OpenWindow("help", "help.html", {
-
-			});
+			base.OpenWindow("help", "help.html", {});
 		});
 
 		//我的评论

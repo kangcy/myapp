@@ -21,7 +21,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<div class="mui-title c333 f15" id="title">新的粉丝(0)</div>
+			<div class="mui-title c333 f15" id="title">粉丝</div>
 		</header>
 
 		<div class="mui-content">
@@ -173,8 +173,6 @@
 				} else {
 					document.getElementById("none").classList.remove("hide");
 				}
-
-				document.getElementById("title").innerHTML = "新的粉丝(" + data.records + ")";
 			}
 			if(data == null && currpage == 1) {
 				document.getElementById("none").classList.remove("hide");

@@ -4792,6 +4792,22 @@ body>.mui-progressbar {
 	margin-top: 0px !important;
 }
 
+.mt1 {
+	margin-top: 0.0625rem !important;
+}
+
+.mt2 {
+	margin-top: 0.125rem !important;
+}
+
+.mt3 {
+	margin-top: 0.1875rem !important;
+}
+
+.mt4 {
+	margin-top: 0.25rem !important;
+}
+
 .mt5 {
 	margin-top: 0.3125rem !important;
 }

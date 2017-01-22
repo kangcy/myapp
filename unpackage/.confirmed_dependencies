@@ -297,7 +297,8 @@
 			"page/keepSub.html",
 			"page/followSub.html",
 			"page/fanSub.html",
-			"page/commentSub.html"
+			"page/commentSub.html",
+			"page/tipsetting.html"
 		]
 	},
 	"page/article.html": {
@@ -373,7 +374,12 @@
 			"js/mui.lazyload.js",
 			"js/default.js",
 			"js/mui.lazyload.img.js",
-			"page/paySub.html"
+			"page/paySub.html",
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/loading.css",
+			"images/my/222.png",
+			"images/price.png"
 		],
 		"refer": [
 			"page/paySub.html"
@@ -1577,6 +1583,24 @@
 		],
 		"refer": [
 			"page/black.html"
+		]
+	},
+	"page/tipsetting.html": {
+		"resources": [
+			"js/base.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/default.js",
+			"images/tip/01.png",
+			"images/tip/04.png",
+			"images/tip/03.png",
+			"images/tip/02.png"
+		],
+		"refer": [
+			"page/fan.html",
+			"page/zan.html",
+			"page/pay.html"
 		]
 	}
 }

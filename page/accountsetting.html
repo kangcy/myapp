@@ -100,7 +100,7 @@
 	mui.ready(function() {
 		base.InitScroll();
 		document.getElementById("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(8, 11);
-		document.getElementById("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未绑定" : "已绑定";
+		document.getElementById("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置";
 
 		//微信 
 		if(CheckBind(1)) {

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>隐私设置</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			body {
+				background: #eee;
+			}
+			
+			.mui-bar {
+				background: #fff;
+			}
+			
+			.mui-table-view:after {
+				height: 0px; 
+			}
+			
+			.mui-table-view-cell img {
+				width: 2.5rem;
+				margin-right: 0.5rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-back fl"></a>
+			<h1 class="mui-title c333">消息</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view f13">
+				<li class="mui-table-view-cell" onclick="Fan()">
+					<img src="../images/tip/01.png" class="fl" />
+					<span class="fl mt15">粉丝</span>
+					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell" onclick="Zan()">
+					<img src="../images/tip/02.png" class="fl" />
+					<span class="fl mt15">赞与评论</span>
+					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell" onclick="Keep()">
+					<img src="../images/tip/03.png" class="fl" />
+					<span class="fl mt15">收藏与转发</span>
+					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell" onclick="Pay()">
+					<img src="../images/tip/04.png" class="fl" />
+					<span class="fl mt15">赞赏</span>
+					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
+				</li>
+			</ul>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var isLoading = false;
+	var userinfo = base.GetUserInfo();
+
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.ready(function() {
+
+	});
+
+	mui.plusReady(function() {
+
+		//返回
+		mui.back = function() {
+			plus.webview.close(plus.webview.currentWebview());
+		}
+
+		/*//黑名单
+		document.getElementById('black').addEventListener('tap', function(event) {
+			base.OpenWindow("black", "black.html", {});
+		});*/
+	});
+
+	//粉丝
+	function Fan() {
+		base.OpenWindow("fan", "fan.html", {});
+	}
+
+	//赞与评论
+	function Zan() {
+		base.OpenWindow("zan", "zan.html", {});
+	}
+
+	//收藏
+	function Keep() {
+		base.OpenWindow("zan", "zan.html", {});
+	}
+
+	//转发
+	function Share() {
+		base.OpenWindow("zan", "zan.html", {});
+	}
+
+	//打赏
+	function Pay() {
+		base.OpenWindow("pay", "pay.html", {});
+	}
+</script>
