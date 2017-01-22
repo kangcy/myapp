@@ -17,7 +17,7 @@
 			
 			.mui-table-view-cell {
 				background: #fff;
-				padding: 0px 0.9375rem;
+				padding: 0px 0.3rem;
 				border-bottom: 1px solid #eee;
 			}
 			
@@ -30,25 +30,25 @@
 				position: relative;
 			}
 			
-			.oa-contact-avatar {
-				width: 3.5rem;
+			.avatar {
+				width: 4rem;
 			}
 			
-			.oa-contact-avatar img {
+			.avatar img {
 				width: 2.75rem !important;
 				height: 2.75rem !important;
 				border-radius: 50%;
 			}
 			
-			.oa-contact-content {
+			.home {
 				width: 100%;
 			}
 			
-			.oa-contact-icon {
+			.icon {
 				width: 3rem !important;
 			}
 			
-			.oa-contact-icon img {
+			.icon img {
 				width: 1.25rem !important;
 			}
 			
@@ -66,7 +66,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<div class="mui-title c333 f15">赞赏</div>
+			<div class="mui-title c333">赞赏</div>
 		</header>
 		<div class="mui-content">
 			<div class="mui-loader tc" id="loader">
@@ -82,7 +82,7 @@
 			<div class="mui-scroll-wrapper" style="top:45px;">
 				<div id="scroll" class="mui-scroll">
 					<div id="scroll-view">
-						<div class="mui-table-view-cell"><div class="mui-slider-cell user" userid="1"><div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="http://139.224.51.196/Upload/Images/UserAvatar/20170104/201701041730289931_2.jpg" /></div><div class="oa-contact-content mui-table-cell"><p class="f14 c000 mb5">一个傻瓜啊</p><p class="f12 c999">2017-01-18</p></div><div class="oa-contact-icon mui-table-cell tc"><img src="../images/price.png"/><p class="price f14">1.00</p></div></div></div>
+
 					</div>
 					<div id="none" class="full tc hide">
 						<img src="../images/my/222.png" class="none" />
@@ -113,7 +113,7 @@
 
 		base.InitScroll();
 
-		/*mui(document.getElementById("scroll")).pullToRefresh({
+		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -127,7 +127,7 @@
 					pullupRefresh(self);
 				}
 			}
-		});*/
+		});
 
 		base.ShowUser("#slider");
 	});
@@ -216,10 +216,10 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell user" userid="' + item.FromUserID + '">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.FromUserAvatar, 2) + '" /></div>');
-		model.push('<div class="oa-contact-content mui-table-cell"><p class="f14 c000 mb5">' + item.FromUserName + '</p><p class="f12 c999">' + item.CreateDate + '</p></div>');
-		model.push('<div class="oa-contact-icon mui-table-cell tc"><img src="../images/price.png"/><p class="price f14">' + parseFloat(item.Price).toFixed(2) + '</p></div>');
+		model.push('<div class="mui-slider-cell user" userid="' + item.FromUserID + '"><div class="oa-contact-cell mui-table">');
+		model.push('<div class="mui-table-cell avatar tc"><img src="' + base.ShowThumb(item.FromUserAvatar, 2) + '" /></div>');
+		model.push('<div class="mui-table-cell name"><p class="f14 c000 mb5">' + item.FromUserName + '</p><p class="f13 c999">' + item.CreateDate + '</p></div>');
+		model.push('<div class="mui-table-cell icon tc"><img src="../images/price.png"/><p class="price f14">' + parseFloat(item.Price).toFixed(2) + '</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
