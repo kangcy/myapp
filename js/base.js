@@ -154,11 +154,26 @@ var base = new function() {
 	 * 判断是否收藏
 	 **/
 	this.CheckKeep = function(keeps, articleid) {
-		userid = "," + articleid + ",";
+		articleid = "," + articleid + ",";
 		if(base.IsNullOrEmpty(keeps)) {
 			return false;
 		}
 		if(keeps.indexOf(articleid) >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 判断是否加入黑名单
+	 **/
+	this.CheckBlack = function(blacks, userid) {
+		userid = "," + userid + ",";
+		if(base.IsNullOrEmpty(blacks)) {
+			return false;
+		}
+		if(blacks.indexOf(userid) >= 0) {
 			return true;
 		} else {
 			return false;
@@ -290,6 +305,7 @@ var base = new function() {
 						Cover: data.Cover,
 						FanText: data.FanText,
 						KeepText: data.KeepText,
+						BlackText: data.BlackText,
 						Phone: data.Phone,
 						UserLogin: data.UserLogin,
 						ShareNick: data.ShareNick,

@@ -120,8 +120,9 @@
 			.mui-popover.mui-popover-action .mui-table-view {
 				margin-left: 0px !important;
 				margin-right: 0px !important;
-				border-radius: 0px !important;
 				margin-bottom: 0px !important;
+				margin-top: 0.3rem !important;
+				border-radius: 0px !important;
 			}
 			
 			.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
@@ -149,7 +150,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="pic" class="f13 caaa tc" style="padding:2.5%">
+			<div id="pic" class="hide f13 caaa tc" style="padding:2.5%">
 				<div class="left"><span class="c333">相册</span><br />
 					<p class="f20" id="picnum">0</p>
 				</div>
@@ -157,7 +158,7 @@
 
 				</div>
 			</div>
-			<div id="record" class="f13 caaa tc mt8">
+			<div id="record" class="hide f13 caaa tc mt8">
 				<div id="articles" class="left"><span class="c333">动态</span><br />
 					<p class="f20 mb0" id="articlenum">0</p>
 				</div>
@@ -165,7 +166,7 @@
 
 				</div>
 			</div>
-			<div id="comment" class="f13 caaa tc mt5 fl" style="height:300px;;">
+			<div id="comment" class="hide f13 caaa tc mt5 fl" style="height:300px;;">
 				<div id="comments" class="left"><span class="c333">回复</span><br />
 					<p class="f20 mb0" id="commentnum">0</p>
 				</div>
@@ -173,6 +174,7 @@
 
 				</div>
 			</div>
+			<div id="blacktip" class="hide f13 caaa tc mt8">您已经将Ta拉黑</div>
 		</div>
 		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
@@ -184,7 +186,7 @@
 					<a href="#" class="c333 f15" onclick="Copy()">复制链接</a>
 				</li>
 				<li class="mui-table-view-cell noborder">
-					<a href="#black" class="red f15">加入黑名单</a>
+					<a href="#black" class="red f15" id="blackname"></a>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -195,18 +197,16 @@
 		</div>
 		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell caaa f11">
+				<li class="mui-table-view-cell noborder caaa f11">
 					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作，也无法私信你
 				</li>
-			</ul>
-			<ul class="mui-table-view noborder">
-				<li class="mui-table-view-cell">
-					<a href="#" class="red f15" onclick="Black()">确认加入</a>
+				<li class="mui-table-view-cell noborder">
+					<a href="#" class="red f15" id="blackaction"></a>
 				</li>
 			</ul>
-			<ul class="mui-table-view noborder">
-				<li class="mui-table-view-cell f14">
-					<a href="#black" class="c333 f15">取消</a>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#black" class="c333 f14">取消</a>
 				</li>
 			</ul>
 		</div>
@@ -224,6 +224,7 @@
 	var isLoading = false;
 	var pagesize = base.PageSize;
 	var UserID = 0; //用户ID
+	var IsInBlack = false;
 	var userinfo = base.GetUserInfo();
 	mui.init();
 
@@ -240,7 +241,7 @@
 		var self = plus.webview.currentWebview();
 		UserID = self.UserID || 0;
 
-		Init(UserID);
+		CheckBlack();
 
 		//返回
 		mui.back = function() {
@@ -275,15 +276,25 @@
 				});
 			}
 		});
+
+		//黑名单处理
+		document.getElementById("blackaction").addEventListener('tap', function(event) {
+			if(IsInBlack) {
+				OutBlack();
+			} else {
+				InBlack();
+			}
+		});
 	});
 
 	//初始化获取参数
-	function Init(userId) {
-		UserID = userId;
-		LoadUserInfo();
-		LoadPic()
-		LoadArticle();
-		LoadComment();
+	function Init(index) {
+		LoadUserInfo(index);
+		if(index == 1) {
+			LoadPic()
+			LoadArticle();
+			LoadComment();
+		}
 	}
 
 	function LoadPic() {
@@ -406,7 +417,7 @@
 	}
 
 	//获取用户信息
-	function LoadUserInfo() {
+	function LoadUserInfo(index) {
 		HttpGet(base.RootUrl + "User/Detail", {
 			ID: UserID
 		}, function(data) {
@@ -426,6 +437,17 @@
 			base.CloseWaiting();
 
 			CheckFan(); //检查关注
+			if(index == 0) {
+				document.getElementById("pic").classList.add("hide");
+				document.getElementById("record").classList.add("hide");
+				document.getElementById("comment").classList.add("hide");
+				document.getElementById("blacktip").classList.remove("hide");
+			} else {
+				document.getElementById("blacktip").classList.add("hide");
+				document.getElementById("pic").classList.remove("hide");
+				document.getElementById("record").classList.remove("hide");
+				document.getElementById("comment").classList.remove("hide");
+			}
 		});
 	}
 
@@ -460,6 +482,21 @@
 		document.getElementById("action").classList.remove("hide");
 	}
 
+	//检查黑名单
+	function CheckBlack() {
+		if(base.CheckBlack(userinfo.BlackText, UserID)) {
+			IsInBlack = true;
+			document.getElementById("blackname").innerText = "解除黑名单";
+			document.getElementById("blackaction").innerText = "确认解除";
+			Init(0);
+		} else {
+			IsInBlack = false;
+			document.getElementById("blackname").innerText = "加入黑名单";
+			document.getElementById("blackaction").innerText = "确认加入";
+			Init(1);
+		}
+	}
+
 	//操作
 	function ActionSheet() {
 		var bts = [{
@@ -486,33 +523,74 @@
 	}
 
 	//添加黑名单
-	function Black() {
+	function InBlack() {
 		if(isLoading) {
 			return false;
 		}
 		isLoading = true;
+		base.ShowWaiting("操作中~");
+		mui('#black').popover('toggle');
 		var data = {
 			ID: userinfo.ID,
 			ToUserID: UserID
 		}
-		HttpGet(base.RootUrl + "Black/Edit", data, function(data) {
-			if(data != null) {
-				mui.toast(data.result ? "成功添加黑名单" : "添加黑名单失败");
-				if(data.result) {
-					mui.back();
+		setTimeout(function() {
+			HttpGet(base.RootUrl + "Black/Edit", data, function(data) {
+				base.CloseWaiting();
+				if(data != null) {
+					mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
+					if(data.result) {
+
+						userinfo.BlackText = data.message;
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+
+						mui.back();
+					}
 				}
-			}
-			isLoading = false;
-		});
+				isLoading = false;
+			});
+		}, 500);
+	}
+
+	//解除黑名单
+	function OutBlack() {
+		if(isLoading) {
+			return false;
+		}
+		isLoading = true;
+		base.ShowWaiting("操作中~");
+		mui('#black').popover('toggle');
+		var data = {
+			ID: userinfo.ID,
+			ToUserID: UserID
+		}
+		setTimeout(function() {
+			HttpGet(base.RootUrl + "Black/Delete", data, function(data) {
+				base.CloseWaiting();
+				if(data != null) {
+					mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
+					if(data.result) {
+
+						userinfo.BlackText = data.message;
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+
+						mui.back();
+					}
+				}
+				isLoading = false;
+			});
+		}, 500);
 	}
 
 	//复制链接
 	function Copy() {
+		mui('#power').popover('toggle');
 		console.log("copy");
 	}
 
 	//分享
 	function Share() {
+		mui('#power').popover('toggle');
 		console.log("Share");
 	}
 </script>
