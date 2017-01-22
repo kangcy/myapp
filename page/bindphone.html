@@ -45,7 +45,7 @@
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {
@@ -78,7 +78,7 @@
 	})
 
 	mui.plusReady(function() {
-		//判断网络状态
+
 		base.NetChange();
 
 		//返回
@@ -117,7 +117,7 @@
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 
 							if(!settingPage) {
-								settingPage = plus.webview.getWebviewById('setting');
+								settingPage = plus.webview.getWebviewById('accountsetting');
 							}
 							settingPage.evalJS("UpdatePhone('" + phone + "')");
 							mui.back();

@@ -66,10 +66,10 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
-			<h1 class="mui-title c333">通用设置</h1>
+			<h1 class="mui-title c333">设置</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view f13 mt0">
+			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell" id="account">
 					<a class="mui-navigate-right">
 						<span class="fl">账号管理</span>
@@ -83,8 +83,7 @@
 					</a>
 				</li>
 			</ul>
-			<div style="background: #eee;height:0.5rem;" class="full"></div>
-			<ul class="mui-table-view f13 mt0">
+			<ul class="mui-table-view f13 mt15">
 				<li class="mui-table-view-cell">
 					<p class="fl full c000">图片水印</p>
 					<span class="fl caaa f11 mt5">开启后新导入图片自动添加水印</span>
@@ -113,6 +112,13 @@
 				<li class="mui-table-view-cell" id="checkupdate">
 					<span class="fl">检查更新</span>
 					<span class="fr caaa" id="version"></span>
+				</li>
+			</ul>
+			<ul class="mui-table-view f13 mt15">
+				<li class="mui-table-view-cell">
+					<a id="exit" style="text-align: center;color: #FF3B30;">
+						退出登录
+					</a>
 				</li>
 			</ul>
 		</div>
@@ -165,7 +171,7 @@
 		//是否启用水印
 		document.getElementById("drawSwitch").addEventListener('tap', function(event) {
 			if(isLoading) {
-				return mui.toast("编辑中~~");
+				return false;
 			}
 			isLoading = true;
 			var draw = this.className.indexOf("active") >= 0;
@@ -254,6 +260,36 @@
 			version = inf.version;
 			document.getElementById("version").innerText = "v" + inf.version;
 		});
+
+		//退出操作
+		document.getElementById('exit').addEventListener('tap', function() {
+			var btnArray = [{
+				title: "注销当前账号"
+			}, {
+				title: "直接关闭应用"
+			}];
+			plus.nativeUI.actionSheet({
+				cancel: "取消",
+				buttons: btnArray
+			}, function(event) {
+				switch(event.index) {
+					case 1:
+						mui.confirm('退出当前账号不会删除任何数据，下次登录仍可使用本账号。', '提示', ['确定退出', '取消'], function(e) {
+							if(e.index == 0) {
+								app.loginOut();
+								plus.webview.close("login")
+								plus.webview.close("index")
+								plus.webview.close("subindex")
+								base.OpenWindow("login", "login.html", {}, "slide-in-bottom");
+							}
+						});
+						break;
+					case 2:
+						plus.runtime.quit();
+						break;
+				}
+			});
+		}, false);
 
 		//检查更新
 		document.getElementById("checkupdate").addEventListener('tap', function(event) {
