@@ -109,13 +109,31 @@
 				left: 10px;
 				top: -12px;
 			}
+			/**操作**/
+			
+			.mui-popover.mui-popover-action .mui-table-view {
+				margin-left: 0 !important;
+				margin-right: 0px !important;
+				border-radius: 0px !important;
+			}
+			
+			.mui-popover.mui-popover-action .mui-table-view {
+				margin-left: 0px !important;
+				margin-right: 0px !important;
+				border-radius: 0px !important;
+				margin-bottom: 0px !important;
+			}
+			
+			.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
+				background-color: #ddd !important;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-transparent">
 			<a class="mui-action-back mui-icon mui-icon-left-nav fl"></a>
-			<a id="action" class="mui-icon mui-icon-more fr" style="font-size:30px;" onclick="ActionSheet()"></a>
+			<a href="#power" class="mui-icon mui-icon-more fr" style="font-size:30px;"></a>
 			<h1 class="mui-title"></h1>
 		</header>
 		<div class="mui-content">
@@ -155,6 +173,42 @@
 
 				</div>
 			</div>
+		</div>
+		<!--操作-->
+		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" class="c333 f15" onclick="Share()">分享给朋友</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" class="c333 f15" onclick="Copy()">复制链接</a>
+				</li>
+				<li class="mui-table-view-cell noborder">
+					<a href="#black" class="red f15">加入黑名单</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#power" class="c333 f14">取消</a>
+				</li>
+			</ul>
+		</div>
+		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell caaa f11">
+					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作，也无法私信你
+				</li>
+			</ul>
+			<ul class="mui-table-view noborder">
+				<li class="mui-table-view-cell">
+					<a href="#" class="red f15" onclick="Black()">确认加入</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view noborder">
+				<li class="mui-table-view-cell f14">
+					<a href="#black" class="c333 f15">取消</a>
+				</li>
+			</ul>
 		</div>
 	</body>
 
@@ -450,5 +504,15 @@
 			}
 			isLoading = false;
 		});
+	}
+
+	//复制链接
+	function Copy() {
+		console.log("copy");
+	}
+
+	//分享
+	function Share() {
+		console.log("Share");
 	}
 </script>
