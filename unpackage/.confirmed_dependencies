@@ -265,7 +265,15 @@
 			"js/copper.js",
 			"cropper/cropper.min.js",
 			"images/add2.png",
-			"images/logo.png"
+			"images/logo.png",
+			"images/my/menu02.png",
+			"images/my/menu04.png",
+			"images/my/menu01.png",
+			"images/my/menu05.png",
+			"images/my/menu03.png",
+			"images/my/tip.png",
+			"images/my/setting.png",
+			"images/logo_default.png"
 		],
 		"refer": [
 			"page/pay.html",

@@ -17,49 +17,54 @@
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
 				<div class="mui-scroll">
 					<header class="mui-bar" style="box-shadow:none;">
-						<a id="setting" class="mui-icon mui-icon-gear fl cfff" style="font-size:30px;"></a>
-						<a id="search" class="mui-icon mui-icon-search fr cfff" style="font-size:30px;"></a>
+						<img src="../images/my/setting.png" style="width:1.2rem;margin-top:1rem;margin-left:0.5rem;" class="fl" id="setting" />
+						<img src="../images/my/tip.png" style="width:1.2rem;margin-top:1rem;margin-right:0.5rem;" class="fr" id="tip" />
 						<h1 class="mui-title c333"></h1>
 					</header>
 					<div id="bg" style="width:100%;height:10rem;"></div>
 					<div class="info-body mb8">
 						<div class="info-content">
-							<img id="avatar" src="../images/60x60.gif" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
-							<p class="c333 f16 tc name bold" id="nickname"></p>
-							<p class="signature tc mt10 mb10 f13" id="signature"></p>
+							<img id="avatar" src="../images/logo_default.png" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
+							<p class="c333 f16 tc name" id="nickname"></p>
+							<p class="signature tc mt10 mb10 f12" id="signature"></p>
 							<div class="csubtitle content1 tc">
-								<div class="items" id="my-follows">
-									<p class="csubtitle item1"><i class="fa fa-user f20" style="color:#5796BD;"></i></p>
-									<p class="c333 item2 f12">关注&nbsp;<span id="follows">0</span></p>
+								<div class="items" id="my-articles">
+									<p class="csubtitle item1 f16" id="articles">0</p>
+									<p class="c333 item2 f13">动态</p>
 								</div>
 								<div class="items" id="my-keeps">
-									<p class="csubtitle item1"><i class="fa fa-th-large f20" style="color:#7ECB7C;"></i></p>
-									<p class="c333 item2 f12">喜欢&nbsp;<span id="keeps">0</span></p>
+									<p class="csubtitle item1 f16" id="keeps">0</p>
+									<p class="c333 item2 f13">喜欢</p>
+								</div>
+								<div class="items" id="my-follows">
+									<p class="csubtitle item1 f16" id="follows">0</p>
+									<p class="c333 item2 f13">关注</p>
 								</div>
 								<div class="items" id="my-fans">
-									<p class="csubtitle item1"><i class="fa fa-user f20" style="color:#97CC00;"></i></p>
-									<p class="c333 item2 f12">粉丝&nbsp;<span id="fans">0</span></p>
+									<p class="csubtitle item1 f16" id="fans">0</p>
+									<p class="c333 item2 f13">粉丝</p>
 								</div>
-								<div class="items" id="my-zans">
-									<p class="csubtitle item1"><i class="fa fa-heart f20" style="color:#E85141;"></i></p>
-									<p class="c333 item2 f12">点赞&nbsp;<span id="zans">0</span></p>
-								</div>
+
+								<!--<div class="items" id="my-zans">
+									<p class="csubtitle item1 f16" id="zans">0</p>
+									<p class="c333 item2 f13">点赞</p>
+								</div>-->
 							</div>
 						</div>
 					</div>
-					<div class="c000 menu f12" id="my-articles"><i class="fa fa-file-text mr10 f16 caaa"></i>
-						<div>我的作品<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
-					</div>
-					<div class="c000 menu f12" id="my-mypay"><i class="fa fa-rmb mr10 f16 caaa"></i>
+					<div class="c000 menu f13" id="my-mypay">
 						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
 					</div>
-					<div class="c000 menu f12" id="my-comment"><i class="fa fa-comments mr10 f16 caaa"></i>
+					<div class="c000 menu f13" id="my-comment">
 						<div>评论与回复<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
 					</div>
-					<div class="c000 menu f12" id="my-good"><i class="fa fa-check mr10 f16 caaa"></i>
+					<div class="c000 menu f13" id="my-feedback">
+						<div>意见与反馈<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
+					</div>
+					<div class="c000 menu f13" id="my-good">
 						<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
 					</div>
-					<div class="c000 menu f12" id="my-help"><i class="fa fa-question-circle mr10 f16 caaa"></i>
+					<div class="c000 menu f13" id="my-help">
 						<div>帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 caaa f20 mr10"></span></div>
 					</div>
 				</div>
@@ -88,8 +93,6 @@
 		Init();
 
 		base.InitScroll();
-
-		base.ShowSearch(); //跳转搜索页
 
 		//封面
 		document.getElementById('bg').addEventListener('tap', function(event) {
@@ -126,12 +129,10 @@
 		$("#fans").html(userinfo.Fans);
 		$("#articles").html(userinfo.Articles);
 		$("#keeps").html(userinfo.Keeps);
-		$("#coments").html(userinfo.Comments);
-		$("#zans").html(userinfo.Zans);
 	}
 
 	//更新本地用户信息
-	function Refresh() {
+	function Refresh() { 
 		userinfo = base.GetUserInfo();
 		Init();
 	}
@@ -177,19 +178,17 @@
 
 		//我的评论
 		document.getElementById('my-comment').addEventListener('tap', function(event) {
-			base.OpenWindow("comment", "comment.html", {
-
-			});
+			base.OpenWindow("comment", "comment.html", {});
 		});
 
 		//我的文章
-		document.getElementById('my-articles').addEventListener('tap', function(event) {
+		/*document.getElementById('my-articles').addEventListener('tap', function(event) {
 			base.OpenWindow("article", "article.html", {
 				CreateUserID: userinfo.ID,
 				ArticleTypeName: "我的动态",
 				Source: "My"
 			});
-		});
+		});*/
 
 		//我的收藏
 		document.getElementById('my-keeps').addEventListener('tap', function(event) {
@@ -207,9 +206,9 @@
 		});
 
 		//我的点赞
-		document.getElementById('my-zans').addEventListener('tap', function(event) {
+		/*document.getElementById('my-zans').addEventListener('tap', function(event) {
 			base.OpenWindow("zan", "zan.html", {});
-		});
+		});*/
 	});
 
 	//修改封面		

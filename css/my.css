@@ -36,7 +36,7 @@
 .info-content {
 	width: 90%;
 	display: inline-block;
-	margin: -20% 5% 5% 5%;
+	margin: -20% 5% 0.5rem 5%;
 	text-align: center;
 }
 
@@ -98,9 +98,9 @@
 
 .content1 .items .item2 {
 	margin: 0px;
-	line-height: 1.5625rem;
 	width: 100%;
 	float: left;
+	line-height: 1.25rem;
 }
 
 .setting {
@@ -153,4 +153,39 @@
 	padding: 0.4rem 1.2rem;
 	display: inline-block;
 	width: 6rem;
+}
+
+#my-mypay {
+	background-image: url(../images/my/menu01.png);
+	background-repeat: no-repeat;
+	background-position: 0.8rem center;
+	background-size: 1.5rem;
+}
+
+#my-comment {
+	background-image: url(../images/my/menu02.png);
+	background-repeat: no-repeat;
+	background-position: 0.8rem center;
+	background-size: 1.5rem;
+}
+
+#my-feedback {
+	background-image: url(../images/my/menu03.png);
+	background-repeat: no-repeat;
+	background-position: 0.8rem center;
+	background-size: 1.5rem;
+}
+
+#my-good {
+	background-image: url(../images/my/menu04.png);
+	background-repeat: no-repeat;
+	background-position: 0.8rem center;
+	background-size: 1.5rem;
+}
+
+#my-help {
+	background-image: url(../images/my/menu05.png);
+	background-repeat: no-repeat;
+	background-position: 0.8rem center;
+	background-size: 1.5rem;
 }
