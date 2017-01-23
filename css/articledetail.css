@@ -302,3 +302,8 @@ video {
 	display: block;
 	font-size: 0;
 }
+
+.more {
+	margin-top: 8px;
+	margin-right: 0.4rem;
+}

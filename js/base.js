@@ -492,7 +492,7 @@ var base = new function() {
 		}
 		model.push(item.Title + '</p>');
 
-		//部分拼接 
+		//图片拼接 
 		var parts = item.ArticlePart;
 		if(parts.length == 1) {
 			if(islazyload) {
@@ -511,8 +511,12 @@ var base = new function() {
 			}
 		}
 		model.push('</div></div>');
+		//底部统计
+		model.push('<div class="mui-card-footer fl full"><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f11 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
+		//评论
 		model.push('<div class="mui-card-footer fl full">');
-		model.push('<span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f11 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span><span class="f11">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
+		console.log(JSON.stringify(item.CommentList))
+		model.push('</div">');
 		if(isdel) {
 			model.push('</div>');
 		}

@@ -466,7 +466,8 @@
 			"js/update.js",
 			"css/animate.css",
 			"images/login/logo.png",
-			"images/logo_default.png"
+			"images/logo_default.png",
+			"images/search_blue.png"
 		],
 		"refer": [
 			"page/topicSub.html",
@@ -813,7 +814,8 @@
 			"css/mui.min.css",
 			"js/default.js",
 			"page/searchSub2.html",
-			"css/img.preview.css"
+			"css/img.preview.css",
+			"images/search_blue.png"
 		],
 		"refer": [
 			"page/searchSub.html",
