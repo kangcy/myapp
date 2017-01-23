@@ -1733,7 +1733,8 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -1801,7 +1802,8 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -1813,7 +1815,8 @@ input[type=submit]:enabled:active {
 	top: 0;
 	right: 0;
 	left: 0;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -1825,7 +1828,8 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 0.9375rem;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -1849,7 +1853,8 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 0px;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -2003,7 +2008,8 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -2015,7 +2021,8 @@ input[type=submit]:enabled:active {
 	top: 0;
 	right: 0;
 	left: 0;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -2077,11 +2084,12 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 50.3125rem;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #c8c7cc
+	background-color: #ddd
 }
 
 .mui-table-view .mui-table-view-cell.mui-media-icon:after {
@@ -2102,11 +2110,12 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 70px;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #c8c7cc
+	background-color: #ddd
 }
 
 .mui-table-view-cell>.mui-badge,
@@ -2224,7 +2233,8 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 30px;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -2449,7 +2459,8 @@ select:focus {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -2461,7 +2472,8 @@ select:focus {
 	top: 0;
 	right: 0;
 	left: 0;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -3076,7 +3088,8 @@ select:focus {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
@@ -3273,7 +3286,8 @@ select:focus {
 	left: 0;
 	display: block;
 	width: 100%;
-	height: 0.0625rem;
+	/*height: 0.0625rem;*/
+	height: 1px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);

@@ -38,16 +38,19 @@
 		window.addEventListener('scroll', this._bufferFn);
 		window.addEventListener($.EVENT_MOVE, this._bufferFn);
 	};
-	Transparent.prototype.handleScroll = function() { 
+	Transparent.prototype.handleScroll = function() {
 		//背景色渐变
 		this._style.backgroundColor = 'rgba(' + this._BR + ',' + this._BG + ',' + this._BB + ',' + (window.scrollY - this.options.top) / this.options.offset + ')';
 
-		/*var success = window.scrollY - this.options.top > this.options.offset;
-		if(success) {
-			document.getElementsByClassName(".headericon").classList.remove("cfff");
-		} else {
-			document.getElementsByClassName(".headericon").classList.add("cfff");
-		}*/
+		var success = window.scrollY - this.options.top > this.options.offset;
+		mui.each(document.querySelectorAll(".headericon"), function() {
+			if(success) {
+				this.classList.remove("cfff");
+			} else {
+				this.classList.add("cfff");
+			}
+		});
+
 	};
 	Transparent.prototype.destory = function() {
 		window.removeEventListener('scroll', this._bufferFn);

@@ -273,7 +273,8 @@
 			"images/my/menu03.png",
 			"images/my/tip.png",
 			"images/my/setting.png",
-			"images/logo_default.png"
+			"images/logo_default.png",
+			"js/transparent.js"
 		],
 		"refer": [
 			"page/pay.html",
@@ -529,7 +530,8 @@
 			"js/jquery-1.10.2.min.js",
 			"images/add2.png",
 			"js/update.js",
-			"css/img.preview.css"
+			"css/img.preview.css",
+			"page/my.html"
 		],
 		"refer": [
 			"page/topic.html",

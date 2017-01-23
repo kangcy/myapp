@@ -17,41 +17,36 @@
 				background: #fff;
 			}
 			
-			#signature {
-				width: 75%;
-				line-height: 20px;
-				white-space: normal;
-			}
-			
 			.mui-table-view-cell {
 				padding: .8rem 0.9375rem;
 			}
 			
-			.mui-table-view-cell:after {
-				left: 0.9375rem;
-				right: 0.9375rem;
-			}
-			
 			.mui-table-view:after {
 				height: 0px;
+			}
+			
+			.mui-icon-arrowright {
+				margin-right: -0.3rem;
 			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon mui-icon-back fl"></a>
+			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
 			<h1 class="mui-title c333">账号设置</h1>
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell" onclick="BindPwd()">
 					<span class="fl">密码</span>
-					<span class="fr c999" id="password"></span>
+					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
+					<span class="fr c999 mr10" id="password"></span>
 				</li>
 				<li class="mui-table-view-cell" onclick="BindPhone()">
 					<span class="fl">绑定手机号</span>
-					<span class="fr c999" id="phone"></span>
+					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
+					<span class="fr c999 mr10" id="phone"></span>
 				</li>
 				<li class="mui-table-view-cell">
 					<span class="fl">绑定微信账号</span>
