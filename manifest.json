@@ -705,7 +705,19 @@
 					"js/mui.lazyload.img.js",
 					"images/menu.png",
 					"images/header.png",
-					"page/commentSub.html"
+					"page/commentSub.html",
+					"css/loading.css",
+					"emotion/js/emojionearea.js",
+					"js/mui.pullToRefresh.js",
+					"emotion/css/emojione.sprites.png",
+					"images/my/333.png",
+					"js/mui.pullToRefresh.material.js",
+					"css/animate.css",
+					"emotion/css/emojione.sprites.css",
+					"emotion/js/emojione.min.js",
+					"font-awesome-4.6.3/css/font-awesome.min.css",
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+					"emotion/css/emojionearea.min.css"
 				],
 				"refer": [
 					"page/addcomment.html"
