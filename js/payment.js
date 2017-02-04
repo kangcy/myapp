@@ -7,9 +7,24 @@ function Payment() {
 		return;
 	}
 	isLoading = true;
+	var money = $("#txtmoney").val();
+	if(isNaN(money)) {
+		base.CloseWaiting();
+		isLoading = false;
+		plus.nativeUI.alert("输入金额格式不正确", null, "");
+		return;
+	}
+	if(money < 0) {
+		base.CloseWaiting();
+		isLoading = false;
+		plus.nativeUI.alert("输入金额格式不正确", null, "");
+		return;
+	}
+
+	base.ShowWaiting("支付请求中");
 	var id = payway == 0 ? "alipay" : "wxpay";
-	var ALIPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserID=' + userinfo.ID;
-	var WXPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserID=' + userinfo.ID;
+	var ALIPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserNumber=' + userinfo.ID + "&Money=" + money + "&Anony=" + (anony ? 1 : 0) + "&ArticleID=" + ArticleID;
+	var WXPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserNumber=' + userinfo.ID + "&Money=" + money + "&Anony=" + (anony ? 1 : 0) + "&ArticleID=" + ArticleID;
 
 	// 从服务器请求支付订单
 	var PAYSERVER = '';
@@ -19,10 +34,12 @@ function Payment() {
 		PAYSERVER = WXPAYSERVER;
 	} else {
 		isLoading = false;
+		base.CloseWaiting();
 		plus.nativeUI.alert("不支持此支付通道！", null, "捐赠");
 		return;
 	}
 	mui.get(PAYSERVER, {}, function(data) {
+		base.CloseWaiting();
 		//console.log(JSON.stringify(data));
 		var model = data;
 		if(base.IsNullOrEmpty(model)) {
@@ -74,7 +91,7 @@ function ChangePayMoney(index) {
 //更换支付方式
 function ChangePayWay(index, type) {
 	payway = type;
-	if(index == 0) {
+	/*if(index == 0) {
 		$("#payway").addClass("hide");
 		if(type == 0) {
 			$("#paybyalipay").removeClass("hide");
@@ -84,5 +101,5 @@ function ChangePayWay(index, type) {
 	} else {
 		$("#paybyalipay,#paybyweixin").addClass("hide");
 		$("#payway").removeClass("hide");
-	}
+	}*/
 }

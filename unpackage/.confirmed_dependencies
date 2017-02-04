@@ -784,7 +784,8 @@
 			"page/showhref.html",
 			"page/report.html",
 			"page/templateSide.html",
-			"page/payment.html"
+			"page/payment.html",
+			"page/money.html"
 		]
 	},
 	"page/sharesetting.html": {

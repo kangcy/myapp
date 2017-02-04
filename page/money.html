@@ -31,6 +31,11 @@
 				margin-bottom: 0.8rem;
 			}
 			
+			.items .item div.check {
+				color: #ed5565;
+				border: 1px solid #ed5565;
+			}
+			
 			.items .item div.noborder {
 				border: 0px;
 			}
@@ -90,48 +95,48 @@
 			<img id="payuser" src="" class="mt20" />
 			<div class="items c333 mt20">
 				<div class="item">
-					<div class="f11"><span class="f16">5</span>元</div>
+					<div class="f11 choosemoney" money="5"><span class="f16">5</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11"><span class="f16">15</span>元</div>
+					<div class="f11 choosemoney" money="15"><span class="f16">15</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11"><span class="f16">25</span>元</div>
+					<div class="f11 choosemoney" money="25"><span class="f16">25</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11"><span class="f16">35</span>元</div>
+					<div class="f11 choosemoney" money="35"><span class="f16">35</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11"><span class="f16">45</span>元</div>
+					<div class="f11 choosemoney" money="45"><span class="f16">45</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11"><span class="f16">55</span>元</div>
+					<div class="f11 choosemoney" money="55"><span class="f16">55</span>元</div>
 				</div>
 				<div class="item">
 					<div class="noborder"></div>
 				</div>
 				<div class="item">
-					<div class="f12 caaa">其他金额</div>
+					<div class="f12 caaa" onclick="OtherMoney()">其他金额</div>
 				</div>
 				<div class="item">
 					<div class="noborder"></div>
 				</div>
 			</div>
-			<p class="f13 bold c333 mb0" style="font-weight:normal;">赏金：<input type="number" id="txtmoney" class="f30" /></p>
+			<p class="f13 bold c333 mb0 hide" style="font-weight:normal;" id="divMoney">赏金：<input type="number" id="txtmoney" class="f30" /></p>
 			<div class="f11 mt30" id="payway">
-				<div class="mui-radio" onclick="ChangePayWay(0,0)">
-					<input name="background" value="0" type="radio" checked="checked" class="radio">
+				<div class="mui-radio">
+					<input name="background" value="0" type="radio" checked="checked" class="radio" onclick="ChangePayWay(0,0)">
 					<span>支付宝支付</span>
 				</div>
-				<div class="mui-radio mt10" onclick="ChangePayWay(0,1)">
-					<input name="background" value="1" type="radio" class="radio">
+				<div class="mui-radio mt10">
+					<input name="background" value="1" type="radio" class="radio" onclick="ChangePayWay(0,1)">
 					<span>微 信 支 付</span>
 				</div>
 			</div>
 			<div class="f18 payment mt30" onclick="Payment()">赏</div>
 			<div class="f11 mt20 mb20">
 				<div class="mui-checkbox">
-					<input value="0" type="checkbox" class="checkbox">
+					<input value="0" type="checkbox" class="checkbox" onclick="Anony()">
 					<span>匿名赞赏</span>
 				</div>
 			</div>
@@ -146,6 +151,10 @@
 <script type="text/javascript" src="../js/payment.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
+	var anony = false; //匿名
+	var ArticleNumber = "";
+	var ArticleUserNumber = "";
+	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -155,12 +164,22 @@
 
 	mui.ready(function() {
 		base.InitScroll();
+
+		//金额切换
+		$(".choosemoney").click(function() {
+			$("#divMoney").addClass("hide");
+			var $this = $(this);
+			$("#txtmoney").val($this.attr("money"));
+			$(".check").removeClass("check");
+			$this.addClass("check");
+		});
 	});
 
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
-		var ArticleID = self.ArticleID || 0;
+		ArticleNumber = self.ArticleNumber || 0;
+		ArticleUserNumber = self.ArticleUserNumber || 0;
 		var Name = self.Name || "";
 		var Avatar = self.Avatar || "";
 
@@ -188,4 +207,16 @@
 			plus.webview.close(self)
 		}
 	});
+
+	//其他金额
+	function OtherMoney() {
+		$(".check").removeClass("check");
+		$("#divMoney").removeClass("hide");
+		$("#txtmoney").val("");
+	}
+
+	//是否匿名
+	function Anony() {
+		anony = !anony;
+	}
 </script>

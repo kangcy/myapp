@@ -824,18 +824,15 @@
 	//打开支付
 	function PaymentTan() {
 		base.OpenWindow("money", "money.html", {
-			ArticleID: ArticleID,
-			Name: Article.Name,
+			ArticleNumber: Article.Number,
+			ArticleUserNumber: Article.UserNumber,
+			Name: Article.NickName,
 			Avatar: Article.Avatar
 		});
 	}
 
 	//模板选择弹窗
 	function TempTan(index) {
-
-		/*base.OpenWindow("payment", "../page/payment.html", {});
-		return;*/
-
 		if(index == 0) {
 			$("#agreeTemp,#temps").addClass("hide");
 			$("#btnTemp").removeClass("hide");
