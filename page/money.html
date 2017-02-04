@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>打赏</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			.items {
+				width: 90%;
+				display: inline-block;
+			}
+			
+			.items .item {
+				width: 33.3%;
+				float: left;
+				display: inline-block;
+				text-align: center;
+			}
+			
+			.items .item div {
+				width: 80%;
+				display: inline-block;
+				border: 1px solid #eee;
+				height: 1.8rem;
+				line-height: 1.8rem;
+				border-radius: 5px;
+				margin-bottom: 0.8rem;
+			}
+			
+			.items .item div.noborder {
+				border: 0px;
+			}
+			
+			#txtmoney {
+				height: 45px;
+				text-align: center;
+				width: 5rem;
+				border: 0px;
+				border-bottom: 1px solid #007aff;
+				padding: 3px;
+			}
+			
+			#btnPay {
+				position: fixed;
+				left: 10px;
+				bottom: 110px;
+				z-index: 999;
+			}
+			
+			#payuser {
+				width: 3rem;
+				height: 3rem;
+				border-radius: 50px;
+			}
+			
+			.payment {
+				width: 6rem;
+				height: 2rem;
+				line-height: 2rem;
+				border-radius: 30px;
+				background: #ed5565;
+				color: #fff;
+				display: inline-block;
+			}
+			
+			.radio,
+			.checkbox {
+				position: initial !important;
+			}
+			
+			.mui-radio span,
+			.mui-checkbox span {
+				width: 4rem;
+				display: inline-block;
+				text-align: left;
+			}
+		</style>
+	</head>
+
+	<body id="body">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-back fl c333"></a>
+			<div class="mui-title c333" id="title"></div>
+		</header>
+		<div class="mui-content tc caaa">
+			<img id="payuser" src="" class="mt20" />
+			<div class="items c333 mt20">
+				<div class="item">
+					<div class="f11"><span class="f16">5</span>元</div>
+				</div>
+				<div class="item">
+					<div class="f11"><span class="f16">15</span>元</div>
+				</div>
+				<div class="item">
+					<div class="f11"><span class="f16">25</span>元</div>
+				</div>
+				<div class="item">
+					<div class="f11"><span class="f16">35</span>元</div>
+				</div>
+				<div class="item">
+					<div class="f11"><span class="f16">45</span>元</div>
+				</div>
+				<div class="item">
+					<div class="f11"><span class="f16">55</span>元</div>
+				</div>
+				<div class="item">
+					<div class="noborder"></div>
+				</div>
+				<div class="item">
+					<div class="f12 caaa">其他金额</div>
+				</div>
+				<div class="item">
+					<div class="noborder"></div>
+				</div>
+			</div>
+			<p class="f13 bold c333 mb0" style="font-weight:normal;">赏金：<input type="number" id="txtmoney" class="f30" /></p>
+			<div class="f11 mt30" id="payway">
+				<div class="mui-radio" onclick="ChangePayWay(0,0)">
+					<input name="background" value="0" type="radio" checked="checked" class="radio">
+					<span>支付宝支付</span>
+				</div>
+				<div class="mui-radio mt10" onclick="ChangePayWay(0,1)">
+					<input name="background" value="1" type="radio" class="radio">
+					<span>微 信 支 付</span>
+				</div>
+			</div>
+			<div class="f18 payment mt30" onclick="Payment()">赏</div>
+			<div class="f11 mt20 mb20">
+				<div class="mui-checkbox">
+					<input value="0" type="checkbox" class="checkbox">
+					<span>匿名赞赏</span>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript" src="../js/default.js"></script>
+<script type="text/javascript" src="../js/mui.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/payment.js"></script>
+<script type="text/javascript">
+	var isLoading = false;
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.ready(function() {
+		base.InitScroll();
+	});
+
+	mui.plusReady(function() {
+
+		var self = plus.webview.currentWebview();
+		var ArticleID = self.ArticleID || 0;
+		var Name = self.Name || "";
+		var Avatar = self.Avatar || "";
+
+		if(!base.IsNullOrEmpty(Name)) {
+			$("#title").html("赞赏-" + Name);
+		}
+		$("#payuser").attr("src", base.ShowThumb(Avatar, 1));
+
+		//获取支付通道
+		plus.payment.getChannels(function(channels) {
+			for(var i in channels) {
+				var c = channels[i];
+				if(c.id == 'qhpay' || c.id == 'qihoo') { // 过滤掉不支持的支付通道：暂不支持360相关支付
+					continue;
+				}
+				channel[c.id] = c;
+			}
+		}, function(e) {
+			console.log("获取支付通道失败：" + e.message);
+		});
+
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			plus.webview.close(self)
+		}
+	});
+</script>

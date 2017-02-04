@@ -159,7 +159,8 @@
 			</div>
 		</div>
 		<!--打赏-->
-		<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;z-index:99;" id="btnPay"></i>
+		<img class="hide" src="../images/article/pay.jpg" onclick="PaymentTan()" style="width:2.5rem;border-radius:50px;z-index:99;" id="btnPay"></i>
+		<!--<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;z-index:99;" id="btnPay"></i>
 		<div class="mytanbg hide" id="mypaybg"></div>
 		<div class="boxshadow hide" id="mypay">
 			<div id="mypaycontent">
@@ -182,7 +183,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div>-->
 		<textarea id="textarea" class="hide"></textarea>
 	</body>
 
@@ -192,7 +193,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
-<script type="text/javascript" src="../js/payment.js"></script>
+<!--<script type="text/javascript" src="../js/payment.js"></script>-->
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
@@ -348,7 +349,7 @@
 		});
 
 		//获取支付通道
-		plus.payment.getChannels(function(channels) {
+		/*plus.payment.getChannels(function(channels) {
 			for(var i in channels) {
 				var c = channels[i];
 				if(c.id == 'qhpay' || c.id == 'qihoo') { // 过滤掉不支持的支付通道：暂不支持360相关支付
@@ -358,7 +359,7 @@
 			}
 		}, function(e) {
 			console.log("获取支付通道失败：" + e.message);
-		});
+		});*/
 
 		//分享设置
 		updateSerivces();
@@ -818,6 +819,15 @@
 			$("#myactionbg").removeClass("hide");
 			$("#myaction").removeClass("hide").addClass("bounceInDown");
 		}
+	}
+
+	//打开支付
+	function PaymentTan() {
+		base.OpenWindow("money", "money.html", {
+			ArticleID: ArticleID,
+			Name: Article.Name,
+			Avatar: Article.Avatar
+		});
 	}
 
 	//模板选择弹窗

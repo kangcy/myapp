@@ -1142,7 +1142,8 @@
 					"page/list.html",
 					"page/guide.html",
 					"page/chooseimage.html",
-					"page/editimage.html"
+					"page/editimage.html",
+					"page/money.html"
 				],
 				"priority": 0
 			},
@@ -2009,6 +2010,19 @@
 					"page/zan.html",
 					"page/pay.html"
 				],
+				"priority": 0
+			},
+			"page/money.html": {
+				"resources": [
+					"js/payment.js",
+					"js/base.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/default.js",
+					"js/jquery-1.10.2.min.js"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
