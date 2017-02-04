@@ -23,8 +23,8 @@ function Payment() {
 
 	base.ShowWaiting("支付请求中");
 	var id = payway == 0 ? "alipay" : "wxpay";
-	var ALIPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserNumber=' + userinfo.ID + "&Money=" + money + "&Anony=" + (anony ? 1 : 0) + "&ArticleID=" + ArticleID;
-	var WXPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserNumber=' + userinfo.ID + "&Money=" + money + "&Anony=" + (anony ? 1 : 0) + "&ArticleID=" + ArticleID;
+	var ALIPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserNumber=' + userinfo.Number + "&Money=" + money + "&Anony=" + (anony ? 1 : 0) + "&ArticleNumber=" + ArticleNumber+ "&ArticleUserNumber=" + ArticleUserNumber;
+	var WXPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserNumber=' + userinfo.Number + "&Money=" + money + "&Anony=" + (anony ? 1 : 0) + "&ArticleNumber=" + ArticleNumber+ "&ArticleUserNumber=" + ArticleUserNumber;
 
 	// 从服务器请求支付订单
 	var PAYSERVER = '';
@@ -35,7 +35,7 @@ function Payment() {
 	} else {
 		isLoading = false;
 		base.CloseWaiting();
-		plus.nativeUI.alert("不支持此支付通道！", null, "捐赠");
+		plus.nativeUI.alert("不支持此支付通道！", null, "");
 		return;
 	}
 	mui.get(PAYSERVER, {}, function(data) {
