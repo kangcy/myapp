@@ -157,7 +157,8 @@
 		SearchName = nickname;
 		HttpGet(base.RootUrl + "User/All", {
 			NickName: nickname,
-			Source: SearchName == "" ? "Search" : ""
+			Source: SearchName == "" ? "Search" : "",
+			UserID: userinfo.ID
 		}, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			document.getElementById('scroll-view1').innerHTML = "";
@@ -234,7 +235,8 @@
 			page: currpage,
 			rows: pagesize,
 			Title: SearchName,
-			Source: SearchName == "" ? "Search" : ""
+			Source: SearchName == "" ? "Search" : "",
+			UserID: userinfo.ID
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
