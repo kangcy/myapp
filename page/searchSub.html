@@ -95,7 +95,7 @@
 
 		base.ShowUser("#slider"); //用户详细
 
-		base.ShowArticle("#slider", "List", userinfo.ID); //文章详细	 
+		base.ShowArticle("#slider", "List", userinfo.Number); //文章详细	 
 
 		//切换
 		mui("#slider").on('tap', '.mui-control-item', function(event) {
@@ -158,7 +158,7 @@
 		HttpGet(base.RootUrl + "User/All", {
 			NickName: nickname,
 			Source: SearchName == "" ? "Search" : "",
-			UserID: userinfo.ID
+			Number: userinfo.Number
 		}, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			document.getElementById('scroll-view1').innerHTML = "";
@@ -236,7 +236,7 @@
 			rows: pagesize,
 			Title: SearchName,
 			Source: SearchName == "" ? "Search" : "",
-			UserID: userinfo.ID
+			Number: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
@@ -273,7 +273,7 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell user" userid="' + item.ID + '">');
+		model.push('<div class="mui-slider-cell user" userid="' + item.Number + '">');
 		//分类图片
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
 		//分类信息

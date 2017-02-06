@@ -48,7 +48,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
-	var CreateUserID = 0;
+	var CreateUserNumber = "";
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = base.PageSize;
@@ -77,13 +77,13 @@
 
 		var self = plus.webview.currentWebview();
 		ArticleType = self.ArticleType || 0;
-		CreateUserID = self.CreateUserID || 0;
+		CreateUserNumber = self.CreateUserNumber || "";
 		Source = self.Source || "List";
 		document.getElementById("header").innerHTML = self.ArticleTypeName || "列表";
 
 		base.NetChange();
 
-		Init(ArticleType, CreateUserID, Source);
+		Init(ArticleType, CreateUserNumber, Source);
 
 		//返回
 		mui.back = function() {
@@ -92,8 +92,8 @@
 	});
 
 	//初始化获取参数
-	function Init(articleType, createUserID, source) {
-		base.ShowArticle("#pullrefresh", source, userinfo.ID); //文章详细
+	function Init(articleType, createUserNumber, source) {
+		base.ShowArticle("#pullrefresh", source, userinfo.Number); //文章详细
 
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {
@@ -170,8 +170,8 @@
 			page: currpage,
 			rows: pagesize,
 			TypeID: ArticleType,
-			CreateUserID: CreateUserID,
-			CurrUserID: userinfo.ID
+			CreateUserNumber: CreateUserNumber,
+			CurrUserNumber: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 
@@ -181,7 +181,7 @@
 				var length = data.records;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], CreateUserID == userinfo.ID, CreateUserID != userinfo.ID, true);
+						var div = base.AppendArticle(data.list[i], CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, true);
 
 						table.appendChild(div);
 					}

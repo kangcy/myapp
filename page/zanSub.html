@@ -125,7 +125,7 @@
 
 		base.ShowUser("#slider"); //展示用户
 
-		base.ShowArticle("#slider", "List", userinfo.ID); //展示文章
+		base.ShowArticle("#slider", "List", userinfo.Number); //展示文章
 
 		//添加关注
 		base.GuanZhu("#slider", userinfo, function($this) {
@@ -223,7 +223,7 @@
 		var data = {
 			page: currpage1,
 			rows: pagesize,
-			CreateUserID: userinfo.ID
+			CreateUserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "Zan/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
@@ -262,7 +262,7 @@
 		var data = {
 			page: currpage2,
 			rows: pagesize,
-			ArticleUserID: userinfo.ID
+			ArticleUserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "Zan/All2", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
@@ -298,12 +298,12 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
 		//分类图片 
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserID + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.Number + '" /></div>');
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f11 caaa">' + item.Signature + '</p></div>');
 		model.push('<div class="oa-contact-icon mui-table-cell">');
-		if(!base.CheckFan(userinfo.FanText, item.UserID)) {
-			model.push('<div class="guanzhu f13" userid="' + item.UserID + '">关注</div>');
+		if(!base.CheckFan(userinfo.FanText, item.Number)) {
+			model.push('<div class="guanzhu f13" userid="' + item.Number + '">关注</div>');
 		}
 		model.push('</div></div>');
 		div.innerHTML = model.join('');

@@ -160,30 +160,6 @@
 		</div>
 		<!--打赏-->
 		<img class="hide" src="../images/article/pay.jpg" onclick="PaymentTan()" style="width:2.5rem;border-radius:50px;z-index:99;" id="btnPay"></i>
-		<!--<img class="hide" src="../images/article/pay.jpg" onclick="PayTan(1)" style="width:2.5rem;border-radius:50px;z-index:99;" id="btnPay"></i>
-		<div class="mytanbg hide" id="mypaybg"></div>
-		<div class="boxshadow hide" id="mypay">
-			<div id="mypaycontent">
-				<i class="fa fa-remove caaa f20" onclick="PayTan(0)"></i>
-				<img id="payuser" src="" />
-				<p class="f13 bold c333 mt5 mb0" style="font-weight:normal;">赏金：<input type="number" id="txtmoney" class="f30" /></p>
-				<div class="f18 full payment" onclick="Payment()">赏</div>
-				<div class="f11 caaa mt15" id="paybyalipay">使用支付宝付款，<span class="blue" onclick="ChangePayWay(1,0)">更换</span></div>
-				<div class="f11 caaa mt15 hide" id="paybyweixin">使用微信付款，<span class="blue" onclick="ChangePayWay(1,1)">更换</span></div>
-				<div class="mui-card f11 mt15 tl caaa hide" id="payway">
-					<form class="mui-input-group">
-						<div class="mui-input-row mui-radio" onclick="ChangePayWay(0,0)">
-							<label>支付宝</label>
-							<input name="background" value="0" type="radio" checked="checked">
-						</div>
-						<div class="mui-input-row mui-radio" onclick="ChangePayWay(0,1)">
-							<label>微信</label>
-							<input name="background" value="1" type="radio">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>-->
 		<textarea id="textarea" class="hide"></textarea>
 	</body>
 
@@ -193,7 +169,6 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
-<!--<script type="text/javascript" src="../js/payment.js"></script>-->
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
@@ -348,19 +323,6 @@
 			//mui.toast("未授权")
 		});
 
-		//获取支付通道
-		/*plus.payment.getChannels(function(channels) {
-			for(var i in channels) {
-				var c = channels[i];
-				if(c.id == 'qhpay' || c.id == 'qihoo') { // 过滤掉不支持的支付通道：暂不支持360相关支付
-					continue;
-				}
-				channel[c.id] = c;
-			}
-		}, function(e) {
-			console.log("获取支付通道失败：" + e.message);
-		});*/
-
 		//分享设置
 		updateSerivces();
 		if(plus.os.name == "Android") {
@@ -389,8 +351,8 @@
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
-			ParentCommentID: 0,
-			ParentUserID: 0,
+			ParentCommentNumber: "",
+			ParentUserNumber: "",
 			Summary: escape(val),
 			Province: Province,
 			City: City
@@ -448,7 +410,7 @@
 					MusicUrl = data.MusicUrl;
 
 					$("#payuser").attr("src", base.ShowThumb(data.Avatar, 1));
-					$(".user").attr("userid", data.CreateUserID);
+					$(".user").attr("userid", data.UserID);
 
 					//段落
 					var html = [];
@@ -511,7 +473,7 @@
 					$("#main" + mainIndex).removeClass("hide");
 
 					//显示操作
-					if(userinfo.ID == data.CreateUserID) {
+					if(userinfo.ID == data.UserID) {
 						$("#action").removeClass("hide");
 					} else {
 						base.ShowUser("#body");

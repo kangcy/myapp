@@ -194,17 +194,17 @@
 			<a id="back" class="mui-icon mui-icon-back fl"></a>
 			<div class="mui-title c333" id="title">评论与回复</div>
 		</header>
-		
+
 		<div class="mui-content">
 			<div class="mui-loader tc" id="loader">
-			<div class="line-scale-pulse-out">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
+				<div class="line-scale-pulse-out">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
 			</div>
-		</div>
 			<div class="mui-scroll-wrapper" style="top:45px;">
 				<div id="scroll1" class="mui-scroll">
 					<div id="scroll-view1">
@@ -241,8 +241,8 @@
 	var Province = "";
 	var City = "";
 	var ArticleID = 0;
-	var ParentCommentID = 0;
-	var ParentUserID = 0;
+	var ParentCommentNumber = 0;
+	var ParentUserNumber = 0;
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -274,9 +274,9 @@
 
 		base.ShowUser("#scroll1"); //用户详细
 
-		base.ShowArticle("#scroll1", "List", userinfo.ID); //文章详细
+		base.ShowArticle("#scroll1", "List", userinfo.Number); //文章详细
 
-base.ScrollTop();
+		base.ScrollTop();
 
 		//点赞
 		mui('#scroll1').on('tap', '.fa-thumbs-o-up', function() {
@@ -310,8 +310,8 @@ base.ScrollTop();
 		//评论
 		mui('#scroll1').on('tap', '.fa-commenting-o', function() {
 			ArticleID = this.getAttribute("articleid");
-			ParentCommentID = this.getAttribute("cid");
-			ParentUserID = this.getAttribute("userid");
+			ParentCommentNumber = this.getAttribute("cid");
+			ParentUserNumber = this.getAttribute("userid");
 
 			if(editor == null) {
 				editor = $("#textarea").emojioneArea({
@@ -352,8 +352,8 @@ base.ScrollTop();
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
-			ParentCommentID: ParentCommentID,
-			ParentUserID: ParentUserID,
+			ParentCommentNumber: ParentCommentNumber,
+			ParentUserNumber: ParentUserNumber,
 			Summary: escape(val),
 			Province: Province,
 			City: City
@@ -454,22 +454,22 @@ base.ScrollTop();
 	//拼接Html 
 	function appendStr(item, index) {
 		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell'; 
+		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserID + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserID + '">' + item.NickName + '<span class="fr caaa">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
+		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr caaa">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
 		if(!base.IsNullOrEmpty(item.City)) {
 			model.push('<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City)
 		}
 		model.push('</p>');
 		model.push('<p class="f12 c333 mt10 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
-			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		} else {
 			model.push('<p class="tip mb0 f12 blue article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
 		}
-		model.push('<p class="tr blue mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" articleid="' + item.ArticleID + '" cid="' + item.ID + '" userid="' + item.UserID + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<p class="tr blue mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" articleid="' + item.ArticleID + '" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

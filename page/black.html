@@ -126,7 +126,7 @@
 		var table = document.getElementById('scroll-view');
 		table.innerHTML = "";
 		HttpGet(base.RootUrl + "Black/All", {
-			CreateUserID: userinfo.ID
+			CreateUserNumber: userinfo.Number
 		}, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
@@ -158,7 +158,7 @@
 		div.setAttribute("fid", item.ID);
 		var model = [];
 		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">移除黑名单</a></div>');
-		model.push('<div class="mui-slider-cell mui-slider-handle user" userid="' + item.UserID + '">');
+		model.push('<div class="mui-slider-cell mui-slider-handle user" userid="' + item.Number + '">');
 		//分类图片
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" /></div>');
 		//分类信息

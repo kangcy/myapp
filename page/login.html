@@ -129,7 +129,7 @@
 				return false;
 			}
 			isLoading = true;
-			base.ShowWaiting("正在登录~");
+			base.ShowWaiting("正在登录");
 			setTimeout(function() {
 				var loginInfo = {
 					Phone: accountBox.value,
@@ -145,7 +145,7 @@
 					}
 					accountBox.value = "";
 					passwordBox.value = "";
-					base.ShowWaiting("登录成功，正在加载~");
+					base.ShowWaiting("登录成功，正在加载");
 					isLoading = false;
 					toMain();
 				});
@@ -236,7 +236,7 @@
 	// 微信登录认证信息 
 	function authUserInfo(type, s) {
 		if(!s.authResult) {
-			mui.toast("未授权登录！");
+			mui.toast("未授权登录");
 		} else {
 			s.getUserInfo(function(e) {
 				var josnStr = JSON.stringify(s.userInfo);

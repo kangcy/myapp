@@ -134,7 +134,7 @@
 				margin-right: 0.4rem;
 			}
 		</style>
-	</head> 
+	</head>
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-transparent">
@@ -237,7 +237,7 @@
 	var totalpage = 2;
 	var isLoading = false;
 	var pagesize = base.PageSize;
-	var UserID = 0; //用户ID
+	var UserNumber = "";
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -247,7 +247,7 @@
 	});
 
 	mui.ready(function() {
-		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //展示文章
+		base.ShowArticle("#pullrefresh", "List", userinfo.Number); //展示文章
 	});
 
 	mui.plusReady(function() { //判断网络类型
@@ -255,7 +255,7 @@
 		base.NetChange();
 
 		var self = plus.webview.currentWebview();
-		UserID = self.UserID || 0;
+		UserNumber = self.UserNumber || "";
 
 		CheckBlack();
 
@@ -273,7 +273,7 @@
 		document.getElementById('pic').addEventListener('tap', function(event) {
 			if(document.getElementById("picnum").innerHTML.trim() != "0") {
 				base.OpenWindow("pic", "pic.html", {
-					UserID: UserID
+					UserNumber: UserNumber
 				});
 			}
 		});
@@ -282,7 +282,7 @@
 		document.getElementById('articles').addEventListener('tap', function(event) {
 			if(document.getElementById("articlenum").innerHTML.trim() != "0") {
 				base.OpenWindow("article", "article.html", {
-					CreateUserID: UserID,
+					CreateUserNumber: UserNumber,
 					ArticleTypeName: "他的动态",
 					Source: "User"
 				});
@@ -293,7 +293,7 @@
 		document.getElementById('comments').addEventListener('tap', function(event) {
 			if(document.getElementById("commentnum").innerHTML.trim() != "0") {
 				base.OpenWindow("reply", "reply.html", {
-					UserID: UserID
+					UserNumber: UserNumber
 				});
 			}
 		});
@@ -313,7 +313,7 @@
 		var data = {
 			page: 1,
 			rows: 3,
-			UserID: UserID
+			UserNumber: UserNumber
 		};
 		HttpGet(base.RootUrl + "User/Pic", data, function(data) {
 			var table = document.getElementById('list1');
@@ -346,7 +346,7 @@
 		var data = {
 			page: 1,
 			rows: 5,
-			CreateUserID: UserID
+			CreateUserNumber: UserNumber
 		}
 		HttpGet(base.RootUrl + "Article/Top", data, function(data) {
 			var table = document.getElementById('list2');
@@ -375,7 +375,7 @@
 			div.className = 'article mt8 bt';
 		}
 		div.setAttribute("articleid", item.ArticleID);
-		div.setAttribute("userid", item.UserID);
+		div.setAttribute("userid", item.UserNumber);
 		div.setAttribute("power", item.ArticlePower);
 		var model = [];
 		model.push('<div class="' + (index == 0 ? "" : "mt10") + '" style="width:4rem;height:4rem;float:left;margin-left:1%;overflow:hidden;"><img src="' + base.ShowThumb(item.Cover, 2) + '" style="width:4rem;height:auto;min-height:100%;float:left;" /></div>');
@@ -392,7 +392,7 @@
 		var data = {
 			page: 1,
 			rows: 5,
-			CreateUserID: UserID,
+			CreateUserNumber: UserNumber,
 			IsReply: 1
 		}
 		HttpGet(base.RootUrl + "Comment/Top", data, function(data) {
@@ -431,7 +431,7 @@
 	//获取用户信息
 	function LoadUserInfo(index) {
 		HttpGet(base.RootUrl + "User/Detail", {
-			ID: UserID
+			Number: UserNumber
 		}, function(data) {
 			if(data.result) {
 				data = data.message;
@@ -477,7 +477,7 @@
 	//判断是否关注
 	function CheckFan() {
 		var $guanzhu = document.getElementById("guanzhu");
-		if(base.CheckFan(userinfo.FanText, UserID)) {
+		if(base.CheckFan(userinfo.FanText, UserNumber)) {
 			$guanzhu.classList.add("guanzhu2");
 			$guanzhu.classList.remove("guanzhu")
 			$guanzhu.innerHTML = "已关注";
@@ -487,13 +487,13 @@
 					return;
 				var data = {
 					ID: userinfo.ID,
-					ToUserID: UserID
+					ToUserNumber: UserNumber
 				}
 				HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
 					if(data != null) {
 						mui.toast(data.result ? "关注成功" : data.message);
 						if(data.result) {
-							base.AddFan(userinfo, UserID);
+							base.AddFan(userinfo, UserNumber);
 							$guanzhu.classList.add("guanzhu2");
 							$guanzhu.classList.remove("guanzhu")
 							$guanzhu.innerHTML = "已关注";
@@ -507,7 +507,7 @@
 
 	//检查黑名单
 	function CheckBlack() {
-		if(base.CheckBlack(userinfo.BlackText, UserID)) {
+		if(base.CheckBlack(userinfo.BlackText, UserNumber)) {
 			document.getElementById("inblack").classList.add("hide");
 			document.getElementById("outblack").classList.remove("hide");
 			Init(0);
@@ -528,7 +528,7 @@
 		mui('#black').popover('toggle');
 		var data = {
 			ID: userinfo.ID,
-			ToUserID: UserID
+			ToUserNumber: UserNumber
 		}
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "Black/Edit", data, function(data) {
@@ -560,7 +560,7 @@
 		mui('#black').popover('toggle');
 		var data = {
 			ID: userinfo.ID,
-			ToUserID: UserID
+			ToUserNumber: UserNumber
 		}
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "Black/Delete", data, function(data) {

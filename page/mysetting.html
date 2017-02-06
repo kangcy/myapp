@@ -371,7 +371,7 @@
 							return callback("系统异常,请稍后再试~");
 						} else {
 							if(data.result) {
-								base.UpdateUser(userinfo.ID);
+								base.UpdateUser(userinfo.Number);
 								userinfo = base.GetUserInfo();
 							} else {
 								return callback(data.message);
@@ -437,7 +437,7 @@
 						return callback("系统异常,请稍后再试~");
 					} else {
 						if(data.result) {
-							base.UpdateUser(userinfo.ID);
+							base.UpdateUser(userinfo.Number);
 							userinfo = base.GetUserInfo();
 							mui.toast("绑定成功");
 						} else {

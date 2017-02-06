@@ -52,7 +52,7 @@
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
-	var UserID = 0;
+	var UserNumber = 0;
 	var pagesize = base.PageSize;
 	var isLoading = false;
 
@@ -73,9 +73,9 @@
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
-		UserID = self.UserID || 0;
+		UserNumber = self.UserNumber || "";
 
-		if(UserID > 0) {
+		if(UserNumber != "") {
 			mui(document.getElementById("pullrefresh")).pullToRefresh({
 				down: {
 					callback: function() {
@@ -146,7 +146,7 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			UserID: UserID
+			UserNumber: UserNumber
 		};
 		HttpGet(base.RootUrl + "User/Pic", data, function(data) {
 			document.getElementById("loader").classList.add("hide");

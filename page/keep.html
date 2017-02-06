@@ -85,7 +85,7 @@
 
 		base.ShowUser("#pullrefresh"); //用户详细
 
-		base.ShowArticle("#pullrefresh", "List", userinfo.ID); //文章详细
+		base.ShowArticle("#pullrefresh", "List", userinfo.Number); //文章详细
 
 		base.ScrollTop();
 	});
@@ -192,7 +192,7 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			CreateUserID: userinfo.ID
+			CreateUserNumber: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "Keep/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");

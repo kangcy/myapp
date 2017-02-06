@@ -111,7 +111,7 @@
 
 	//服务器加载用户信息
 	function Load() {
-		base.UpdateUser(userinfo.ID, function() {
+		base.UpdateUser(userinfo.Number, function() {
 			userinfo = base.GetUserInfo();
 			Init();
 		});
@@ -182,7 +182,7 @@
 		//我的文章
 		document.getElementById('my-articles').addEventListener('tap', function(event) {
 			base.OpenWindow("article", "article.html", {
-				CreateUserID: userinfo.ID,
+				CreateUserNumber: userinfo.Number,
 				ArticleTypeName: "我的动态",
 				Source: "My"
 			});

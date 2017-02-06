@@ -67,8 +67,8 @@
 	var editor = null;
 	var Province = "";
 	var City = "";
-	var ParentCommentID = 0;
-	var ParentUserID = 0;
+	var ParentCommentNumber = "";
+	var ParentUserNumber = "";
 	mui.init();
 
 	mui.ready(function() {
@@ -109,8 +109,8 @@
 
 		//评论
 		mui('#scroll').on('tap', '.fa-commenting-o', function() {
-			ParentCommentID = this.getAttribute("cid");
-			ParentUserID = this.getAttribute("userid");
+			ParentCommentNumber = this.getAttribute("cid");
+			ParentUserNumber = this.getAttribute("userid");
 
 			if(editor == null) {
 				editor = $("#textarea").emojioneArea({
@@ -166,8 +166,8 @@
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
-			ParentCommentID: ParentCommentID,
-			ParentUserID: ParentUserID,
+			ParentCommentNumber: ParentCommentNumber,
+			ParentUserNumber: ParentUserNumber,
 			Summary: escape(val),
 			Province: Province,
 			City: City
@@ -286,17 +286,17 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserID + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserID + '">' + item.NickName + '<span class="fr caaa">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
+		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr caaa">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
 		if(!base.IsNullOrEmpty(item.City)) {
 			model.push('<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City)
 		}
 		model.push('</p>');
 		model.push('<p class="f12 c333 mt10 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
-			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserID + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<p class="tr blue mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.ID + '" userid="' + item.UserID + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<p class="tr blue mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

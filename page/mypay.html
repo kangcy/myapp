@@ -99,7 +99,7 @@
 	});
 
 	$(function() {
-		base.UpdateUser(userinfo.ID, function() {
+		base.UpdateUser(userinfo.Number, function() {
 			userinfo = base.GetUserInfo();
 			document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
 		})

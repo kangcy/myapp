@@ -281,7 +281,7 @@ var base = new function() {
 	 **/
 	this.UpdateUser = function(id, callback) {
 		HttpGet(base.RootUrl + "User/Detail", {
-			ID: id
+			Number: id
 		}, function(data) {
 			if(data != null) {
 				if(data.result) {
@@ -343,9 +343,9 @@ var base = new function() {
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
 			base.ShowWaiting("正在加载~");
-			var userId = this.getAttribute("userid");
+			var userNumber = this.getAttribute("userid");
 			base.OpenWindow("user", "user.html", {
-				UserID: userId
+				UserNumber: userNumber
 			});
 		});
 	}
@@ -353,16 +353,16 @@ var base = new function() {
 	/**
 	 * 展示文章信息
 	 **/
-	this.ShowArticle = function(id, Source, curruserid) {
+	this.ShowArticle = function(id, Source, currUserNumber) {
 		mui(id).on('tap', '.article', function(event) {
 			var articleId = this.getAttribute("articleid");
-			var userid = this.getAttribute("userid");
+			var userNumber = this.getAttribute("userid");
 			var power = this.getAttribute("power").toString();
-			if(power == "0" && curruserid != userid) {
+			if(power == "0" && currUserNumber != userNumber) {
 				return mui.toast("私密文章，不可见");
-			} else if(power == "2" && curruserid != userid) {
+			} else if(power == "2" && currUserNumber != userNumber) {
 				return mui.toast("仅作者分享可见");
-			} else if(power == "1" && curruserid != userid) {
+			} else if(power == "1" && currUserNumber != userNumber) {
 				var btnArray = ['确定', '取消'];
 				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
 					if(e.index == 0) {
@@ -446,21 +446,21 @@ var base = new function() {
 					break;
 			}
 			model.push('<div class="mui-card-header mui-card-media">');
-			model.push('<div class="mui-media-body f12" style="margin:0px;margin-top:0.2rem;"><span class="fl caaa">');
+			model.push('<div class="mui-media-body f12" style="margin:0px;margin-top:0.2rem;"><span class="fl c999">');
 			if(base.IsNullOrEmpty(item.City)) {
 				model.push(item.CreateDate);
 			} else {
-				model.push(item.CreateDate + '<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City);
+				model.push(item.CreateDate + '<span class="ml10 mr10">来自</span> ' + item.City);
 			}
 			model.push('</span><span style="border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;margin-top:-0.1rem;" class="f11 fr">' + power + '</span>');
 			model.push('</div></div>');
 		} else {
 			if(isuser) {
-				model.push('<div class="mui-card-header mui-card-media"><div class="mui-media-body f12"><span class="fr caaa">');
+				model.push('<div class="mui-card-header mui-card-media"><div class="mui-media-body f12"><span class="fr c999">');
 				if(base.IsNullOrEmpty(item.City)) {
 					model.push(item.CreateDate);
 				} else {
-					model.push(item.CreateDate + '<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City);
+					model.push(item.CreateDate + '<span class="ml10 mr10">来自</span> ' + item.City);
 				}
 				model.push('</span></div></div>');
 			} else {
@@ -468,9 +468,9 @@ var base = new function() {
 					model.push('<div class="mui-slider-cell mui-slider-handle">');
 				}
 				if(islazyload) {
-					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserNumber + '"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				} else {
-					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserID + '"><img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserNumber + '"><img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				}
 
 				if(base.IsNullOrEmpty(item.City)) {
@@ -483,8 +483,8 @@ var base = new function() {
 
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
-		model.push('<p class="c333 fl article full mt5 mb10 f15" articleid="' + item.ArticleID + '" userid="' + item.UserID + '" power="' + item.ArticlePower + '">');
-		if(item.Tag == 99) {
+		model.push('<p class="c333 fl article full mt5 mb10 f15" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
+		if(item.Recommend == 99) {
 			model.push('<span class="fl f12" style="padding:1px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');
 		}
 		if(base.IsNullOrEmpty(item.Title)) {
@@ -512,9 +512,9 @@ var base = new function() {
 		}
 		model.push('</div></div>');
 		//底部统计
-		model.push('<div class="mui-card-footer fl full"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f12 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span></div>');
+		model.push('<div class="mui-card-footer fl full c999"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f12 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span></div>');
 		//评论
-		model.push('<div class="mui-card-footer fl full" style="margin-bottom:0.8rem;">');
+		model.push('<div class="mui-card-footer fl full c999" style="margin-bottom:0.8rem;">');
 		for(var i = 0; i < item.CommentList.length; i++) {
 			model.push('<div class="f12 full fl" style="line-height:1.3rem;"><span class="blue f12">' + item.CommentList[i].UserName + '</span>&nbsp;:<span class="ml5">' + item.CommentList[i].Summary + '</span><div>');
 		}

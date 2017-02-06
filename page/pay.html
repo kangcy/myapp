@@ -216,7 +216,7 @@
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell user" userid="' + item.FromUserID + '"><div class="oa-contact-cell mui-table">');
+		model.push('<div class="mui-slider-cell user" userid="' + item.FromUserNumber + '"><div class="oa-contact-cell mui-table">');
 		model.push('<div class="mui-table-cell avatar tc"><img src="' + base.ShowThumb(item.FromUserAvatar, 2) + '" /></div>');
 		model.push('<div class="mui-table-cell name"><p class="f14 c000 mb5">' + item.FromUserName + '</p><p class="f13 c999">' + item.CreateDate + '</p></div>');
 		model.push('<div class="mui-table-cell icon tc"><img src="../images/price.png"/><p class="price f14">' + parseFloat(item.Price).toFixed(2) + '</p></div>');

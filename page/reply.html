@@ -156,7 +156,7 @@
 	var pagesize = base.PageSize;
 	var Month = "";
 	var Day = "";
-	var UserID = 0;
+	var UserNumber = "";
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	mui.init();
@@ -168,7 +168,7 @@
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
-		UserID = self.UserID || 0;
+		UserNumber = self.UserNumber || "";
 
 		//返回
 		mui.back = function() {
@@ -180,7 +180,7 @@
 			mui.back();
 		}, false);
 
-		if(UserID > 0) {
+		if(!base.IsNullOrEmpty(UserNumber)) {
 			mui(document.getElementById("scroll")).pullToRefresh({
 				down: {
 					callback: function() {
@@ -243,7 +243,7 @@
 		data = {
 			page: currpage,
 			rows: pagesize,
-			CreateUserID: UserID,
+			CreateUserNumber: UserNumber,
 			IsReply: 1
 		}
 		HttpGet(base.RootUrl + "Comment/Top", data, function(data) {
