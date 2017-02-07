@@ -822,7 +822,8 @@
 		],
 		"refer": [
 			"page/articleType.html",
-			"page/payment.html"
+			"page/payment.html",
+			"page/articletype2.html"
 		]
 	},
 	"page/articleType.html": {
@@ -1655,6 +1656,16 @@
 			"js/default.js",
 			"js/jquery-1.10.2.min.js",
 			"images/logo_default.png"
+		]
+	},
+	"page/articletype2.html": {
+		"resources": [
+			"js/base.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/jquery-1.10.2.min.js",
+			"js/default.js"
 		]
 	}
 }

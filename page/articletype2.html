@@ -32,7 +32,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon blue fl mt6" style="font-size:16px;">取消</a>
 			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;" onclick="Submit()">完成</a>
-			<h1 class="mui-title c333">选择文章类别</h1>
+			<h1 class="mui-title c333">选择文章分类</h1>
 		</header>
 		<div class="mui-content">
 			<div class="mui-scroll-wrapper" style="top:45px;">
@@ -73,7 +73,7 @@
 			$("#list .mui-icon").removeClass("mui-icon-checkmarkempty");
 			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
 			ArticleType = this.getAttribute("index");
-			MusicName = this.getAttribute("name");
+			ArticleTypeName = this.getAttribute("name");
 		});
 	});
 
@@ -99,9 +99,9 @@
 		});
 	});
 
-	//加载音乐
+	//加载
 	function Load(musicid) {
-		HttpGet(base.RootUrl + "Article/All", {}, function(data) {
+		HttpGet(base.RootUrl + "ArticleType/All2", {}, function(data) {
 			var table = $('#list');
 			table.empty();
 			if(data != null) {
@@ -109,10 +109,10 @@
 				if(length > 0) {
 					var html = [];
 					for(var i = 0, len = length; i < len; i++) {
-						html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell" style="background:#E8E8E8;"><span class="fl">' + data.list[i].Name + '</span></li>');
-						var musics = data.list[i].Music;
+						html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell music" style="background:#E8E8E8;" index="' + data.list[i].ID + '" name="' + data.list[i].Name + '"><span class="fl">' + data.list[i].Name + '</span><span class="fr csubtitle mui-icon ' + (data.list[i].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+						var musics = data.list[i].List;
 						for(var j = 0, len2 = musics.length; j < len2; j++) {
-							html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+							html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
 						}
 						html.push('</ul>');
 					}
@@ -148,6 +148,5 @@
 					mui.toast(data.message);
 				}
 			});
-	}, false);
 	}
 </script>
