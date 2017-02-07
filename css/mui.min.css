@@ -1899,7 +1899,7 @@ input[type=submit]:enabled:active {
 	position: relative;
 	display: block;
 	overflow: hidden;
-	margin: -0.55rem -0.9375rem;
+	margin: -0.35rem -0.9375rem;
 	padding: inherit;
 	white-space: nowrap;
 	text-overflow: ellipsis;

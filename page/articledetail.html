@@ -827,17 +827,15 @@
 
 	//分享信息
 	function ShareAction(index) {
-		ShareTan(1); //关闭分享弹窗
+		ShareTan(0); //关闭分享弹窗
 
 		//系统分享
 		if(index == 6) {
-			ShareTan(0);
 			ShareSystem();
 			return;
 		}
 		//复制链接
 		if(index == 7) {
-			ShareTan(0);
 			CopyToClip();
 			return;
 		}
@@ -848,7 +846,6 @@
 		}
 		//举报
 		if(index == 9) {
-			ShareTan(0);
 			base.OpenWindow("report", "report.html", {
 				ArticleID: ArticleID
 			});
@@ -911,10 +908,8 @@
 		}
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
-		intent.putExtra(Intent.EXTRA_SUBJECT, "【我的GO-" +
-			ShareInfo.Title + "】" + " " + ShareInfo.Url);
-		intent.putExtra(Intent.EXTRA_TEXT, "【我的GO-" +
-			ShareInfo.Title + "】" + " " + ShareInfo.Url);
+		intent.putExtra(Intent.EXTRA_SUBJECT, "");
+		intent.putExtra(Intent.EXTRA_TEXT, "分享自「Go」" + ShareInfo.Title + " " + ShareInfo.Url);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
 		base.ShareLog(userinfo.ID, Article.Number, "system");
@@ -924,8 +919,8 @@
 	function shareMessage(s, ex, id) {
 		var msg = {
 			href: ShareInfo.Url,
-			title: "【我的GO-" + ShareInfo.Title + "】",
-			content: ShareInfo.Title,
+			title: ShareInfo.Title,
+			content: "分享自「Go」",
 			thumbs: [ShareInfo.Cover],
 			pictures: [ShareInfo.Cover],
 			extra: {
@@ -933,7 +928,6 @@
 			}
 		};
 		s.send(msg, function() {
-			ShareTan(0);
 			mui.toast("分享成功");
 			base.ShareLog(userinfo.ID, Article.Number, id);
 		}, function(e) {
