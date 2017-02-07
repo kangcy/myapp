@@ -78,8 +78,7 @@
 
 		//返回
 		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			plus.webview.close(self);
+			plus.webview.currentWebview().close();
 		}
 
 		//取消拉黑
@@ -156,7 +155,7 @@
 	function appendStr(item, index) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
-		div.setAttribute("fid", item.ToUserNumber);
+		div.setAttribute("fid", item.Number);
 		var model = [];
 		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">移除黑名单</a></div>');
 		model.push('<div class="mui-slider-cell mui-slider-handle user" userid="' + item.Number + '">');

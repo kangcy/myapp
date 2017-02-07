@@ -496,7 +496,8 @@
 				],
 				"refer": [
 					"page/notice.html",
-					"page/login.html"
+					"page/login.html",
+					"page/subindex.html"
 				],
 				"priority": 0
 			},

@@ -128,7 +128,7 @@
 
 			var settings = app.getSettings();
 			var accountBox = doc.getElementById('account'); //手机号码
-			var nickname = doc.getElementById('nickname'); //昵称
+			var nicknameBox = doc.getElementById('nickname'); //昵称
 			var passwordBox = doc.getElementById('password'); //密码
 			var passwordConfirmBox = doc.getElementById('password_confirm'); //确认密码
 
@@ -156,13 +156,14 @@
 					isLoading = false;
 					return mui.toast('密码两次输入不一致');
 				}
-				var nickname = nickname.value;
+				var nickname = nicknameBox.value;
 				if(nickname.length < 0 || nickname.length > 12) {
 					isLoading = false;
 					return mui.toast('请输入昵称，最多12字');
 				}
-
-				base.ShowWaiting("正在注册~");
+				var mask = mui.createMask(function() {});
+				mask.show(); //显示遮罩
+				base.ShowWaiting("正在注册");
 				setTimeout(function() {
 					var regInfo = {
 						Phone: mob,
@@ -172,26 +173,19 @@
 						City: City
 					};
 					app.reg(regInfo, function(err) {
+						mask.close();
+						base.CloseWaiting();
 						if(err) {
-							base.CloseWaiting();
 							mui.toast(err);
 							isLoading = false;
-							return;
+							return; 
 						}
 						accountBox.value = "";
-						nickname.value = "";
+						nicknameBox.value = "";
 						passwordBox.value = "";
 						passwordConfirmBox.value = "";
-						plus.nativeUI.toast('注册成功');
+						mui.toast('注册成功');
 						isLoading = false;
-						/*$.openWindow({
-							url: 'login.html',
-							id: 'login',
-							show: {
-								aniShow: 'pop-in'
-							}
-						});*/
-
 						base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
 					});
 				}, 1000);
