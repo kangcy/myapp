@@ -671,7 +671,8 @@
 			"images/share/1.png",
 			"images/share/5.png",
 			"images/share/6.png",
-			"images/share/2.png"
+			"images/share/2.png",
+			"css/animate.css"
 		],
 		"refer": [
 			"page/userSub.html",
@@ -1396,7 +1397,8 @@
 			"js/mui.lazyload.js",
 			"js/mui.lazyload.img.js",
 			"images/logo.png",
-			"images/60x60.gif"
+			"images/60x60.gif",
+			"images/logo_default.png"
 		],
 		"refer": []
 	},

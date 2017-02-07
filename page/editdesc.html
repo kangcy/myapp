@@ -124,7 +124,7 @@
 		//切换颜色
 		mui('#color').on('tap', '.color', function() {
 			var $this = $(this);
-			$("#edit").css("color", );
+			$("#edit").css("color", $this.attr("color"));
 			$("#color").toggleClass("hide");
 			Color = $this.attr("color");
 		});

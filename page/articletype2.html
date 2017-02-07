@@ -32,19 +32,14 @@
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon blue fl mt6" style="font-size:16px;">取消</a>
 			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;" onclick="Submit()">完成</a>
-			<h1 class="mui-title c333">选择背景音乐</h1>
+			<h1 class="mui-title c333">选择文章类别</h1>
 		</header>
 		<div class="mui-content">
-			<div class="mui-scroll-wrapper" style="top:45px;bottom:50px;">
+			<div class="mui-scroll-wrapper" style="top:45px;">
 				<div class="mui-scroll" id="list">
 				</div>
 			</div>
 		</div>
-		<nav class="mui-bar mui-bar-tab" id="search">
-			<div class="mui-tab-item blue" style="font-size:16px;">
-				<span class="mui-icon mui-icon-search" style="top:0px;font-size:20px;margin-right:5px;"></span>搜索在线音乐
-			</div>
-		</nav>
 	</body>
 
 </html>
@@ -53,9 +48,12 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ArticleID = 0;
-	var MusicID = 0;
-	var MusicName = "";
+	var ArticleID = 0; //文章ID
+	var ArticleType = 0; //文章类型ID
+	var ArticleTypeName = 0; //文章类型名称
+	var isLoading = false;
+	var userinfo = base.GetUserInfo();
+	var shareSettingPage = null;
 
 	//启用双击监听
 	mui.init({
@@ -74,30 +72,21 @@
 		$("#list").on('tap', 'li.music', function(event) {
 			$("#list .mui-icon").removeClass("mui-icon-checkmarkempty");
 			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
-			MusicID = this.getAttribute("index");
+			ArticleType = this.getAttribute("index");
 			MusicName = this.getAttribute("name");
-		});
-
-		//搜索
-		document.getElementById("search").addEventListener('tap', function(event) {
-			base.OpenWindow("musicsearch", "musicsearch.html", {});
 		});
 	});
 
 	mui.plusReady(function() {
-		//判断网络状态
+
 		base.NetChange();
 
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
-		MusicID = self.MusicID || 0;
-		MusicName = self.MusicName || "";
+		ArticleType = self.ArticleType || 0;
+		ArticleTypeName = self.ArticleTypeName || "";
 
-		if(MusicID == 0 && !base.IsNullOrEmpty(MusicName)) {
-			MusicID = -1;
-		}
-
-		Load(MusicID);
+		Load(ArticleType);
 
 		//返回
 		mui.back = function() {
@@ -112,7 +101,7 @@
 
 	//加载音乐
 	function Load(musicid) {
-		HttpGet(base.RootUrl + "Music/All", {}, function(data) {
+		HttpGet(base.RootUrl + "Article/All", {}, function(data) {
 			var table = $('#list');
 			table.empty();
 			if(data != null) {
@@ -135,16 +124,30 @@
 		});
 	}
 
-	var addarticlePage = null;
+	var shareSettingPage = null;
 
 	function Submit() {
-		if(MusicID == -1) {
-			plus.webview.close("music");
-		} else {
-			if(!addarticlePage) {
-				addarticlePage = plus.webview.getWebviewById('addarticle');
-			}
-			addarticlePage.evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','')");
+		if(isLoading) {
+			return;
 		}
+		isLoading = true;
+		HttpGet(base.RootUrl + "Article/EditArticleType", {
+				ID: userinfo.ID,
+				ArticleID: ArticleID,
+				ArticleType: ArticleType
+			},
+			function(data) {
+				isLoading = false;
+				if(data.result) {
+					if(!shareSettingPage) {
+						shareSettingPage = plus.webview.getWebviewById('sharesetting');
+					}
+					shareSettingPage.evalJS("UpdateArticleType('" + ArticleType + "','" + ArticleTypeName + "')")
+					mui.back();
+				} else {
+					mui.toast(data.message);
+				}
+			});
+	}, false);
 	}
 </script>

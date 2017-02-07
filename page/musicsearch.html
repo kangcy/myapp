@@ -138,7 +138,7 @@
 		//搜索
 		document.getElementById("btnSearch").addEventListener('tap', function(e) {
 			if(search.value == "") {
-				return mui.toast("请输入搜索内容~");
+				return mui.toast("请输入搜索内容");
 			}
 			InitMusic(search.value);
 		});
@@ -164,7 +164,7 @@
 					fileName = data.fileName;
 					fileUrl = data.url;
 				} else {
-					mui.toast("音乐解析失败~~");
+					mui.toast("音乐解析失败");
 				}
 			});
 		});
@@ -172,7 +172,7 @@
 
 	//加载
 	function InitMusic(title) {
-		base.ShowWaiting("搜索中~");
+		base.ShowWaiting("正在搜索");
 		SearchName = title;
 		currpage = 1;
 		totalpage = 2;
@@ -194,7 +194,7 @@
 		if(currpage > totalpage) {
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了~");
+			return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			LoadMusic(function() {
@@ -234,16 +234,14 @@
 							table.append('<li class="mui-table-view-cell music" hash="' + item.hash + '"><span class="fl">' + item.filename + '</span><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
 						}
 					} else {
-						mui.toast("没有更多数据了~");
+						mui.toast("没有更多数据了");
 					}
 				} else {
-					mui.toast("没有更多数据了~");
+					mui.toast("没有更多数据了");
 				}
 			} else {
-				mui.toast("没有更多数据了~");
+				mui.toast("没有更多数据了");
 			}
-
-			//mui('#pullwrapper').scroll().reLayout();
 
 			if($.isFunction(callback)) {
 				callback();
