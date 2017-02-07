@@ -475,9 +475,9 @@ var base = new function() {
 				}
 
 				if(base.IsNullOrEmpty(item.City)) {
-					model.push('<div class="mui-media-body f13">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
+					model.push('<div class="mui-media-body f12">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
 				} else {
-					model.push('<div class="mui-media-body f13 mt0">' + item.NickName + '<p class="f11 full caaa mt5">' + item.CreateDate + '<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City + '</p></div></div>');
+					model.push('<div class="mui-media-body f12 mt0">' + item.NickName + '<p class="f11 full caaa mt5">' + item.CreateDate + '<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City + '</p></div></div>');
 				}
 			}
 		}
@@ -485,7 +485,7 @@ var base = new function() {
 		//内容
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner" style="padding-top:0.3rem;">');
 
-		model.push('<p class="c333 fl article full mb10 f15" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
+		model.push('<p class="c333 fl article full mb10 f13" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
 		//加精
 		if(item.Recommend == 99) {
 			model.push('<span class="fl f12" style="padding:1px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');

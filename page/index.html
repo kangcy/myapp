@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/img.preview.css">
+		<link rel="stylesheet" href="../css/loading.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
+			<div class="mui-title c333">关注</div>
+		</header>
+		<div class="mui-content">
+			<div class="mui-loader tc" id="loader">
+				<div class="line-scale-pulse-out">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="mui-scroll-wrapper" style="top:45px;">
+				<div id="pullrefresh" class="mui-scroll">
+					<div id="scroll-view">
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.previewimage.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var currpage = 1;
+	var totalpage = 2;
+	var pagesize = base.PageSize;
+	var userinfo = base.GetUserInfo();
+	var subindexPage = null;
+	var isLoading = false;
+
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.ready(function() {
+
+		base.InitScroll();
+
+		base.ShowUser("#pullrefresh");
+
+		mui.previewImage({
+			callback: function(index) {
+				if(subindexPage == null) {
+					subindexPage = plus.webview.getWebviewById("subindex");
+				}
+				subindexPage.evalJS("PreviewTan(" + index + ")");
+			}
+		});
+
+		base.ScrollTop();
+	});
+
+	mui.plusReady(function() {
+
+		base.NetChange();
+
+		base.ShowArticle("#pullrefresh", "List", userinfo.Number);
+
+		mui(document.getElementById("pullrefresh")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
+	});
+
+	/**
+	 * 下拉刷新
+	 */
+	function pulldownRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		setTimeout(function() {
+			currpage = 1;
+			totalpage = 2;
+			document.getElementById('scroll-view').innerHTML = "";
+			Load(function() {
+				++currpage;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	/**
+	 * 上拉加载
+	 */
+	function pullupRefresh(self) {
+		if(isLoading == true) {
+			return;
+		}
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return mui.toast("没有更多数据了~");
+		}
+		setTimeout(function() {
+			Load(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	/**
+	 * 加载数据
+	 */
+	function Load(callback) {
+		var table = document.getElementById('scroll-view');
+		var data = {
+			ID: userinfo.ID,
+			page: currpage,
+			rows: pagesize,
+			UserNumber: userinfo.Number
+		};
+		HttpGet(base.RootUrl + "Fan/Article", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.records;
+				if(length > 0) {
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = base.AppendArticle(data.list[i], false, false, true);
+						table.appendChild(div);
+					}
+				} else {
+					mui.toast("没有更多数据了~");
+				}
+			}
+			callback();
+			document.body.removeAttribute('data-imageLazyload');
+			mui(document).imageLazyload({
+				placeholder: base.DefaultImg,
+				diff: window.innerHeight
+			});
+		});
+	}
+</script>

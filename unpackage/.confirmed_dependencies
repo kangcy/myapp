@@ -542,7 +542,8 @@
 			"images/base/02_1.png",
 			"images/base/02_2.png",
 			"images/base/03_2.png",
-			"images/base/04_1.png"
+			"images/base/04_1.png",
+			"images/base/01_1.png"
 		],
 		"refer": [
 			"page/topic.html",
@@ -551,7 +552,8 @@
 			"page/chooseimage.html",
 			"page/editimage.html",
 			"page/money.html",
-			"page/tipsetting.html"
+			"page/tipsetting.html",
+			"page/index.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -996,7 +998,8 @@
 			"images/my/111.png",
 			"js/mui.pullToRefresh.js",
 			"js/mui.pullToRefresh.material.js",
-			"css/loading.css"
+			"css/loading.css",
+			"images/logo_default.png"
 		],
 		"refer": [
 			"page/fanSub.html",
@@ -1666,6 +1669,23 @@
 			"css/mui.min.css",
 			"js/jquery-1.10.2.min.js",
 			"js/default.js"
+		]
+	},
+	"page/index.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"js/base.js",
+			"js/mui.pullToRefresh.js",
+			"js/mui.zoom.js",
+			"js/mui.min.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/loading.css",
+			"css/mui.min.css",
+			"js/mui.previewimage.js",
+			"js/mui.lazyload.js",
+			"js/default.js",
+			"js/mui.lazyload.img.js",
+			"css/img.preview.css"
 		]
 	}
 }

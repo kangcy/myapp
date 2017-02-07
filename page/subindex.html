@@ -89,7 +89,7 @@
 
 	<body>
 		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item tc" href="my.html">
+			<a class="mui-tab-item tc" href="index.html">
 				<div class="item item1"></div>
 				<p class="mui-tab-label f11 mb0">首页</p>
 			</a>
@@ -125,7 +125,7 @@
 		swipeBack: false //启用右滑关闭功能
 	});
 
-	var subpages = ['my.html', 'topic.html', 'tipsetting.html', 'my.html'];
+	var subpages = ['index.html', 'topic.html', 'tipsetting.html', 'my.html'];
 	var subpage_style = {
 		top: '0px',
 		bottom: '50px'
@@ -133,7 +133,7 @@
 
 	var myPage = null;
 	var aniShow = {};
-	var activeTab = subpages[0];
+	var activeTab = subpages[1];
 	var backButtonPress = 0;
 	mui.plusReady(function() {
 
@@ -166,6 +166,11 @@
 
 		//选项卡点击事件
 		mui('.mui-bar-tab').on('tap', 'a', function(e) {
+
+			if(userinfo === "{}") {
+				base.OpenWindow("login", "login.html", {}, "slide-in-bottom");
+				return;
+			}
 
 			var targetTab = this.getAttribute('href');
 			if(targetTab == activeTab) {
