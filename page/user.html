@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/loading.css">
+		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" href="../css/my.css">
 		<style type="text/css">
 			/*头部*/
@@ -121,7 +122,7 @@
 				margin-left: 0px !important;
 				margin-right: 0px !important;
 				margin-bottom: 0px !important;
-				margin-top: 0.3rem !important;
+				margin-top: 0.5rem !important;
 				border-radius: 0px !important;
 			}
 			
@@ -223,9 +224,39 @@
 				</li>
 			</ul>
 		</div>
+		<!--分享-->
+		<div class="mui-backdrop hide" id="mysharebg" onclick="ShareTan(0)"></div>
+		<div class="myshare hide" id="myshare">
+			<p class="f16 c000 tc mt10 mb0">分享到</p>
+			<div class="tc c000 myshare_body">
+				<div class="myshare_items" onclick="ShareAction(1)"><img src="../images/share/1.png" />
+					<p class="f11 mb0 c000">朋友圈</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(2)"><img src="../images/share/2.png" />
+					<p class="f11 mb0 c000">微信</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(3)"><img src="../images/share/3.png" />
+					<p class="f11 mb0 c000">新浪微博</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(4)"><img src="../images/share/4.png" />
+					<p class="f11 mb0 c000">QQ</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(5)"><img src="../images/share/5.png" />
+					<p class="f11 mb0 c000">QQ空间</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(6)"><img src="../images/share/6.png" />
+					<p class="f11 mb0 c000">其他</p>
+				</div>
+				<!--<div class="myshare_items" onclick="ShareAction(7)"><img src="../images/share/7.png" />
+					<p class="f11 mb0 c000">复制链接</p>
+				</div>-->
+				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
+			</div>
+		</div>
 	</body>
 
 </html>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
@@ -238,7 +269,14 @@
 	var UserNumber = "";
 	var NickName = "";
 	var Avatar = "";
+	var ShareInfo = {}; //分享信息
 	var userinfo = base.GetUserInfo();
+
+	var Intent = null,
+		File = null,
+		Uri = null,
+		main = null;
+
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -251,7 +289,7 @@
 	});
 
 	mui.plusReady(function() { //判断网络类型
-		//判断网络状态
+
 		base.NetChange();
 
 		var self = plus.webview.currentWebview();
@@ -265,7 +303,6 @@
 			if(black) {
 				black.evalJS("Refresh()");
 			}
-
 			plus.webview.currentWebview().close();
 		}
 
@@ -297,6 +334,16 @@
 				});
 			}
 		});
+
+		//分享设置
+		UpdateSerivces();
+
+		if(plus.os.name == "Android") {
+			Intent = plus.android.importClass("android.content.Intent");
+			File = plus.android.importClass("java.io.File");
+			Uri = plus.android.importClass("android.net.Uri");
+			main = plus.android.runtimeMainActivity();
+		}
 	});
 
 	//初始化获取参数
@@ -458,6 +505,12 @@
 					document.getElementById("showFanNum").innerHTML = data.Fans;
 					document.getElementById("showFan").classList.remove("hide");
 				}
+
+				//分享信息 
+				ShareInfo.Title = NickName + "的专栏";
+				ShareInfo.Cover = Avatar;
+				ShareInfo.Url = "http://www.baidu.com";
+
 			} else {
 				mui.toast(data.message);
 			}
@@ -528,7 +581,7 @@
 			return false;
 		}
 		isLoading = true;
-		base.ShowWaiting("操作中~");
+		base.ShowWaiting("操作中");
 		mui('#black').popover('toggle');
 		var data = {
 			ID: userinfo.ID,
@@ -560,7 +613,7 @@
 			return false;
 		}
 		isLoading = true;
-		base.ShowWaiting("操作中~");
+		base.ShowWaiting("操作中");
 		mui('#black').popover('toggle');
 		var data = {
 			ID: userinfo.ID,
@@ -596,17 +649,153 @@
 	//复制链接
 	function Copy() {
 		mui('#power').popover('toggle');
-		console.log("copy");
+		CopyToClip();
 	}
 
-	//分享
-	function Share() {
-		mui('#power').popover('toggle');
-		console.log("Share");
+	//复制到剪贴板 
+	function CopyToClip() {
+		var Context = plus.android.importClass("android.content.Context");
+		var main = plus.android.runtimeMainActivity();
+		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+		plus.android.invoke(clip, "setText", ShareInfo.Url);
+		mui.toast("分享链接已复制到剪贴板");
 	}
 
 	//操作
 	function More() {
 		mui('#power').popover('toggle');
+	}
+	//分享
+	function Share() {
+		mui('#power').popover('toggle');
+		ShareTan(1);
+	}
+
+	//分享
+	var shares = null; //分享服务
+	var shareImageUrl = ''; //分享图片地址
+
+	//更新分享服务
+	function UpdateSerivces() {
+		plus.share.getServices(function(s) {
+			shares = {};
+			for(var i in s) {
+				var t = s[i];
+				shares[t.id] = t;
+			}
+		}, function(e) {
+			console.log("获取分享服务列表失败：" + e.message);
+		});
+	}
+
+	//分享弹窗
+	function ShareTan(index) {
+		if(index == 0) {
+			$("#mysharebg").addClass("hide");
+			$("#myshare").removeClass("bounceInUp").addClass("hide");
+		} else {
+			$("#mysharebg").removeClass("hide");
+			$("#myshare").removeClass("hide").addClass("bounceInUp");
+		}
+	}
+
+	//分享信息 
+	function ShareAction(index) {
+		ShareTan(1); //关闭分享弹窗
+
+		//系统分享
+		if(index == 6) {
+			ShareTan(0);
+			ShareSystem();
+			return;
+		}
+		//复制链接
+		/*if(index == 7) {
+			ShareTan(0);
+			CopyToClip();
+			return;
+		}*/
+		var id = "";
+		var ex = "";
+		switch(index) {
+			//朋友圈
+			case 1:
+				id = "weixin";
+				ex = "WXSceneTimeline";
+				break;
+				//微信
+			case 2:
+				id = "weixin";
+				ex = "WXSceneSession";
+				break;
+				//新浪微博
+			case 3:
+				id = "sinaweibo";
+				ex = "";
+				break;
+				//qq
+			case 4:
+				id = "qq";
+				ex = "";
+				break;
+				//qq空间
+			case 5:
+				id = "qq";
+				ex = "";
+				break;
+			default:
+				break;
+		}
+		var s = null;
+		if(!id || !(s = shares[id])) {
+			console.log("无效的分享服务！");
+			return;
+		}
+		if(s.authenticated) {
+			shareMessage(s, ex, id);
+		} else {
+			mui.toast("授权中");
+			s.authorize(function() {
+				shareMessage(s, ex, id);
+			}, function(e) {
+				mui.toast("认证授权失败");
+			});
+		}
+	}
+
+	//系统分享
+	function ShareSystem() {
+		if(plus.os.name !== "Android") {
+			plus.nativeUI.alert("此平台暂不支持系统分享功能!");
+			return;
+		}
+		var intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_SUBJECT, ShareInfo.Title + " " + ShareInfo.Url);
+		intent.putExtra(Intent.EXTRA_TEXT, ShareInfo.Title + " " + ShareInfo.Url);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		main.startActivity(Intent.createChooser(intent, "系统分享"));
+		base.ShareLog(userinfo.ID, "", "system");
+	}
+
+	//发送分享信息
+	function shareMessage(s, ex, id) {
+		var msg = {
+			href: ShareInfo.Url,
+			title: ShareInfo.Title,
+			content: ShareInfo.Title,
+			thumbs: [ShareInfo.Cover],
+			pictures: [ShareInfo.Cover],
+			extra: {
+				scene: ex
+			}
+		};
+		s.send(msg, function() {
+			ShareTan(0);
+			mui.toast("分享成功");
+			base.ShareLog(userinfo.ID, "", id);
+		}, function(e) {
+			mui.toast("分享失败");
+		});
 	}
 </script>

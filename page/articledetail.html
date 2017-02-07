@@ -325,6 +325,7 @@
 
 		//分享设置
 		updateSerivces();
+
 		if(plus.os.name == "Android") {
 			Intent = plus.android.importClass("android.content.Intent");
 			File = plus.android.importClass("java.io.File");
@@ -358,7 +359,7 @@
 			City: City
 		}, function(data) {
 			base.CloseWaiting();
-			mui.toast(data.result ? "感谢您的评论~" : data.message);
+			mui.toast(data.result ? "感谢您的评论" : data.message);
 			if(data.result) {
 				EditorClose();
 				UpdateComment(); //更新文章评论数
@@ -379,7 +380,7 @@
 		var main = plus.android.runtimeMainActivity();
 		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
 		plus.android.invoke(clip, "setText", ShareInfo.Url);
-		mui.toast("复制成功");
+		mui.toast("分享链接已复制到剪贴板");
 	}
 
 	//更新文章评论数
@@ -689,7 +690,6 @@
 						index += 1;
 						var item = data.list[i];
 						table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.TitleColor + '" mt="' + item.MarginTop + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
-
 					}
 				}
 			}
@@ -917,7 +917,7 @@
 			ShareInfo.Title + "】" + " " + ShareInfo.Url);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
-		base.ShareLog(userinfo.ID, ArticleID, "system");
+		base.ShareLog(userinfo.ID, Article.Number, "system");
 	}
 
 	//发送分享信息
@@ -935,7 +935,7 @@
 		s.send(msg, function() {
 			ShareTan(0);
 			mui.toast("分享成功");
-			base.ShareLog(userinfo.ID, ArticleID, id);
+			base.ShareLog(userinfo.ID, Article.Number, id);
 		}, function(e) {
 			mui.toast("分享失败");
 		});

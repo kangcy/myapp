@@ -665,7 +665,13 @@
 			"images/login/logo.png",
 			"js/mui.js",
 			"images/my/more.png",
-			"js/transparent.js"
+			"js/transparent.js",
+			"images/share/3.png",
+			"images/share/4.png",
+			"images/share/1.png",
+			"images/share/5.png",
+			"images/share/6.png",
+			"images/share/2.png"
 		],
 		"refer": [
 			"page/userSub.html",

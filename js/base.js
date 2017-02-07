@@ -468,7 +468,7 @@ var base = new function() {
 				if(isdel) {
 					model.push('<div class="mui-slider-cell mui-slider-handle">');
 				}
-				if(islazyload) { 
+				if(islazyload) {
 					model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				} else {
 					model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '"><img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
@@ -547,10 +547,10 @@ var base = new function() {
 	/**
 	 * 分享日志
 	 */
-	this.ShareLog = function(userid, articleid, source) {
+	this.ShareLog = function(userid, articleNumber, source) {
 		HttpGet(base.RootUrl + "ShareLog/Edit", {
 			ID: userid,
-			ArticleID: articleid,
+			ArticleNumber: articleNumber,
 			Source: source
 		}, function(data) {
 
