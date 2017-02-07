@@ -190,7 +190,6 @@ var base = new function() {
 			userinfo.FanText += userid + ",";
 			userinfo.Follows += 1;
 			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			mui.toast("关注成功");
 			return true;
 		}
 		return false;
@@ -342,7 +341,7 @@ var base = new function() {
 	 **/
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
-			base.ShowWaiting("正在加载~");
+			base.ShowWaiting("正在加载");
 			var userNumber = this.getAttribute("userid");
 			base.OpenWindow("user", "user.html", {
 				UserNumber: userNumber
@@ -376,7 +375,7 @@ var base = new function() {
 					}
 				})
 			} else {
-				base.ShowWaiting("正在加载~");
+				base.ShowWaiting("正在加载");
 				base.OpenWindow("articledetail", "articledetail.html", {
 					ArticleID: articleId,
 					Source: "View"
@@ -484,7 +483,7 @@ var base = new function() {
 		}
 
 		//内容
-		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner" style="padding-top:0.3rem;">');
 
 		model.push('<p class="c333 fl article full mb10 f15" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
 		//加精

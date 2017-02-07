@@ -156,7 +156,7 @@
 					</p>
 					<div class="full tc mt10 hide" id="action">
 						<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
-						<div class="dashang f14">打赏</div>
+						<div class="dashang f14" onclick="Payment()">打赏</div>
 					</div>
 				</div>
 			</div>
@@ -176,7 +176,7 @@
 
 				</div>
 			</div>
-			<div id="comment" class="hide f13 caaa tc mt5 mb10 fl" style="height:300px;;">
+			<div id="comment" class="hide f13 caaa tc mt5 mb10 fl">
 				<div id="comments" class="left"><span class="c333">回复</span><br />
 					<p class="f20 mb0" id="commentnum">0</p>
 				</div>
@@ -236,6 +236,8 @@
 	var isLoading = false;
 	var pagesize = base.PageSize;
 	var UserNumber = "";
+	var NickName = "";
+	var Avatar = "";
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		gestureConfig: {
@@ -433,6 +435,10 @@
 		}, function(data) {
 			if(data.result) {
 				data = data.message;
+
+				NickName = data.NickName;
+				Avatar = data.Avatar;
+
 				document.getElementById("bg").style.background = "url(" + data.Cover + ") center center";
 				document.getElementById("bg").style.backgroundSize = "100%";
 				document.getElementById("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
@@ -576,6 +582,15 @@
 				isLoading = false;
 			});
 		}, 500);
+	}
+
+	function Payment() {
+		base.OpenWindow("money", "money.html", {
+			ArticleNumber: "",
+			ArticleUserNumber: UserNumber,
+			Name: NickName,
+			Avatar: Avatar
+		});
 	}
 
 	//复制链接

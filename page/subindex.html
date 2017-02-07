@@ -30,8 +30,8 @@
 			}
 			
 			.item {
-				width: 25px;
-				height: 20px;
+				width: 28px;
+				height: 23px;
 				margin-top: 3px;
 				display: inline-block;
 			}
@@ -73,6 +73,7 @@
 			}
 			
 			.item4 {
+				position: relative;
 				background: url(../images/base/04_2.png) no-repeat;
 				background-size: 100% 100%;
 				background-position: center center;
@@ -104,8 +105,7 @@
 				<p class="mui-tab-label f11 mb0">消息</p>
 			</a>
 			<a class="mui-tab-item" href="my.html">
-				<div class="item item4"></div>
-				<!--<span class="mui-icon mui-icon-contact" style="font-size:25px;"><span class="mui-badge mui-badge-danger" style="width:10px;height:10px;padding:0px;margin-left: 0px;top: 0px;background:red;"></span></span>-->
+				<div class="item item4"><span class="mui-badge mui-badge-danger" style="width:10px;height:10px;padding:0px;margin-left: 0px;top: -1px;right:-8px;position:absolute;background:red;"></span></div>
 				<p class="mui-tab-label f11 mb0">我的</p>
 			</a>
 		</nav>
@@ -216,7 +216,7 @@
 		for(var i = 0; i < 4; i++) {
 			var temp = {};
 			var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
-			if(i == 0) {
+			if(i == 1) {
 				temp[subpages[i]] = "true";
 				mui.extend(aniShow, temp);
 			} else {
@@ -234,7 +234,7 @@
 		mui.trigger(defaultTab, 'tap');
 
 		//切换选项卡高亮
-		var current = document.querySelector(".mui-bar-tab>.mui-tab-item>.item.active");
+		var current = document.querySelector(".active");
 		if(defaultTab !== current) {
 			current.classList.remove('active');
 			defaultTab.classList.add('active');
