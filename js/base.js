@@ -366,7 +366,7 @@ var base = new function() {
 				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
 					if(e.index == 0) {
 						base.CheckPowerPwd(articleId, e.value, function() {
-							base.ShowWaiting("正在加载~");
+							base.ShowWaiting("正在加载");
 							base.OpenWindow("articledetail", "articledetail.html", {
 								ArticleID: articleId,
 								Source: Source
@@ -388,7 +388,7 @@ var base = new function() {
 	 * 验证权限密码
 	 */
 	this.CheckPowerPwd = function(articleid, pwd, callback) {
-		base.ShowWaiting("校验中~");
+		base.ShowWaiting("正在校验");
 		HttpGet(base.RootUrl + "Article/CheckPowerPwd", {
 			ArticleID: articleid,
 			ArticlePowerPwd: pwd

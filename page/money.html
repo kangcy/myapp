@@ -155,6 +155,7 @@
 	var ArticleNumber = "";
 	var ArticleUserNumber = "";
 	var userinfo = base.GetUserInfo();
+
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -176,7 +177,6 @@
 	});
 
 	mui.plusReady(function() {
-
 		var self = plus.webview.currentWebview();
 		ArticleNumber = self.ArticleNumber || "";
 		ArticleUserNumber = self.ArticleUserNumber || "";
