@@ -28,7 +28,7 @@ var base = new function() {
 	/**
 	 * 默认图片
 	 **/
-	this.DefaultImg = "../images/logo.png";
+	this.DefaultImg = "../images/logo_default.png";
 
 	/**
 	 * 获取当前用户ID
@@ -421,6 +421,8 @@ var base = new function() {
 		} else {
 			div.className = 'mui-card';
 		}
+		div.style.paddingBottom = "0.8rem";
+
 		div.setAttribute("id", "article" + item.ArticleID)
 		var model = [];
 		if(isdel) {
@@ -456,7 +458,7 @@ var base = new function() {
 			model.push('</div></div>');
 		} else {
 			if(isuser) {
-				model.push('<div class="mui-card-header mui-card-media"><div class="mui-media-body f12"><span class="fr c999">');
+				model.push('<div class="mui-card-header noborder mui-card-media"><div class="mui-media-body f12"><span class="fr c999">');
 				if(base.IsNullOrEmpty(item.City)) {
 					model.push(item.CreateDate);
 				} else {
@@ -467,10 +469,10 @@ var base = new function() {
 				if(isdel) {
 					model.push('<div class="mui-slider-cell mui-slider-handle">');
 				}
-				if(islazyload) {
-					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserNumber + '"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+				if(islazyload) { 
+					model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				} else {
-					model.push('<div class="mui-card-header mui-card-media user" userid="' + item.UserNumber + '"><img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+					model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '"><img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				}
 
 				if(base.IsNullOrEmpty(item.City)) {
@@ -481,9 +483,10 @@ var base = new function() {
 			}
 		}
 
+		//内容
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
-		model.push('<p class="c333 fl article full mt5 mb10 f15" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
+		model.push('<p class="c333 fl article full mb10 f15" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
 		//加精
 		if(item.Recommend == 99) {
 			model.push('<span class="fl f12" style="padding:1px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');
@@ -515,11 +518,13 @@ var base = new function() {
 		//底部统计
 		model.push('<div class="mui-card-footer fl full c999"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f12 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span></div>');
 		//评论
-		model.push('<div class="mui-card-footer fl full c999" style="margin-bottom:0.8rem;">');
-		for(var i = 0; i < item.CommentList.length; i++) {
-			model.push('<div class="f12 full fl" style="line-height:1.3rem;"><span class="blue f12">' + item.CommentList[i].UserName + '</span>&nbsp;:<span class="ml5">' + item.CommentList[i].Summary + '</span><div>');
+		if(item.CommentList.length > 0) {
+			model.push('<div class="mui-card-footer fl full c999">');
+			for(var i = 0; i < item.CommentList.length; i++) {
+				model.push('<div class="f12 full fl" style="line-height:1.3rem;"><span class="blue f12">' + item.CommentList[i].UserName + '</span>&nbsp;:<span class="ml5">' + item.CommentList[i].Summary + '</span><div>');
+			}
+			model.push('</div">');
 		}
-		model.push('</div">');
 		if(isdel) {
 			model.push('</div>');
 		}

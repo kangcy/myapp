@@ -1668,6 +1668,11 @@ input[type=submit]:enabled:active {
 	background-color: #eee;
 }
 
+.mui-card-footer.noborder:before,
+.mui-card-header.noborder:after {
+	height: 0px !important;
+}
+
 .mui-card-header {
 	font-size: 1.0625rem;
 	border-radius: 0.125rem 0.125rem 0 0
@@ -1698,7 +1703,7 @@ input[type=submit]:enabled:active {
 
 .mui-card-content-inner {
 	position: relative;
-	padding: 0.625rem
+	padding: 0.625rem;
 }
 
 .mui-card-media {

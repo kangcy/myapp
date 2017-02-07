@@ -541,7 +541,8 @@
 					"images/my/tip.png",
 					"images/my/setting.png",
 					"images/logo_default.png",
-					"js/transparent.js"
+					"js/transparent.js",
+					"images/login/logo.png"
 				],
 				"refer": [
 					"page/pay.html",
@@ -599,7 +600,9 @@
 					"js/mui.previewimage.js",
 					"images/logo_default.png"
 				],
-				"refer": [],
+				"refer": [
+					"page/articledetail.html"
+				],
 				"priority": 0
 			},
 			"page/articleSub.html": {
@@ -1137,7 +1140,13 @@
 					"images/add2.png",
 					"js/update.js",
 					"css/img.preview.css",
-					"page/my.html"
+					"page/my.html",
+					"images/base/01_2.png",
+					"images/base/03_1.png",
+					"images/base/04_2.png",
+					"images/base/02_1.png",
+					"images/base/02_2.png",
+					"images/base/03_2.png"
 				],
 				"refer": [
 					"page/addarticle.html",
@@ -1145,7 +1154,8 @@
 					"page/guide.html",
 					"page/chooseimage.html",
 					"page/editimage.html",
-					"page/money.html"
+					"page/money.html",
+					"page/tipsetting.html"
 				],
 				"priority": 0
 			},

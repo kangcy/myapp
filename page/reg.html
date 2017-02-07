@@ -122,8 +122,7 @@
 
 			//返回
 			mui.back = function() {
-				var self = plus.webview.currentWebview();
-				plus.webview.close(self);
+				plus.webview.currentWebview.close();
 			}
 
 			var settings = app.getSettings();

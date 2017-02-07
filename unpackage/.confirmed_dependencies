@@ -275,7 +275,8 @@
 			"images/my/tip.png",
 			"images/my/setting.png",
 			"images/logo_default.png",
-			"js/transparent.js"
+			"js/transparent.js",
+			"images/login/logo.png"
 		],
 		"refer": [
 			"page/pay.html",
@@ -334,7 +335,8 @@
 		],
 		"refer": [
 			"page/listSub.html",
-			"page/articleSub.html"
+			"page/articleSub.html",
+			"page/articledetail.html"
 		]
 	},
 	"page/articleSub.html": {
@@ -533,7 +535,13 @@
 			"images/add2.png",
 			"js/update.js",
 			"css/img.preview.css",
-			"page/my.html"
+			"page/my.html",
+			"images/base/01_2.png",
+			"images/base/03_1.png",
+			"images/base/04_2.png",
+			"images/base/02_1.png",
+			"images/base/02_2.png",
+			"images/base/03_2.png"
 		],
 		"refer": [
 			"page/topic.html",
@@ -541,7 +549,8 @@
 			"page/addarticle.html",
 			"page/chooseimage.html",
 			"page/editimage.html",
-			"page/money.html"
+			"page/money.html",
+			"page/tipsetting.html"
 		]
 	},
 	"page/topicSub.html": {
