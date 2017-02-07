@@ -67,12 +67,13 @@
 
 		base.InitScroll();
 
-		base.ShowUser("#scroll"); //用户详细
+		base.ShowUser("#scroll");
 
 		base.ScrollTop();
 	});
 
 	mui.plusReady(function() {
+
 		base.NetChange();
 
 		//返回
@@ -89,7 +90,7 @@
 				if(e.index == 0) {
 					HttpGet(base.RootUrl + "Black/Delete", {
 						ID: userinfo.ID,
-						FanID: li.getAttribute("fid")
+						ToUserNumber: li.getAttribute("fid")
 					}, function(data) {
 						if(data) {
 							if(data.result) {
@@ -155,7 +156,7 @@
 	function appendStr(item, index) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
-		div.setAttribute("fid", item.ID);
+		div.setAttribute("fid", item.ToUserNumber);
 		var model = [];
 		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">移除黑名单</a></div>');
 		model.push('<div class="mui-slider-cell mui-slider-handle user" userid="' + item.Number + '">');

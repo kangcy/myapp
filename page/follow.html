@@ -197,7 +197,7 @@
 		data = {
 			page: currpage,
 			rows: pagesize,
-			FromUserNumber: userinfo.Number
+			CreateUserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "Fan/FollowsAll", data, function(data) {
 			document.getElementById("loader").classList.add("hide");

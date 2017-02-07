@@ -210,8 +210,8 @@
 			base.ShowWaiting("正在投稿~");
 			setTimeout(function() {
 				HttpGet(base.RootUrl + "Article/Recommend", {
-						ID: userinfo.ID,
-						ArticleID: ArticleID
+						UserNumber: userinfo.Number,
+						ArticleNumber: ArticleNumber
 					},
 					function(data) {
 						base.CloseWaiting();
