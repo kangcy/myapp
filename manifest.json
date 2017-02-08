@@ -2079,7 +2079,8 @@
 					"js/mui.lazyload.js",
 					"js/default.js",
 					"js/mui.lazyload.img.js",
-					"css/img.preview.css"
+					"css/img.preview.css",
+					"images/logo_default.png"
 				],
 				"refer": [],
 				"priority": 0

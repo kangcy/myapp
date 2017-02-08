@@ -493,7 +493,7 @@ var base = new function() {
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的GO";
 		}
-		model.push(item.Title + '</p>');
+		model.push(item.Title + '</p>'); 
 
 		//图片拼接 
 		var parts = item.ArticlePart;
