@@ -20,7 +20,7 @@
 .oa-contact-avatar img {
 	width: 2.5rem !important;
 	height: 2.5rem !important;
-	border-radius:50px;
+	border-radius: 50px;
 }
 
 .oa-contact-content {
@@ -33,6 +33,15 @@
 
 .oa-contact-icon img {
 	width: 2.5rem;
+	float: right;
+}
+
+.cover {
+	width: 3.5rem;
+}
+
+.cover img {
+	width: 3rem;
 	float: right;
 }
 

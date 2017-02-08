@@ -22,7 +22,7 @@
 			}
 			
 			.mui-table-view-cell img {
-				width: 2.5rem;
+				width: 2.3rem;
 				margin-right: 0.5rem;
 			}
 		</style>
@@ -37,22 +37,22 @@
 			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell" onclick="Fan()">
 					<img src="../images/tip/01.png" class="fl" />
-					<span class="fl mt15">新的粉丝</span>
-					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
-				</li>
-				<li class="mui-table-view-cell" onclick="Keep()">
-					<img src="../images/tip/03.png" class="fl" />
-					<span class="fl mt15">收藏与转发</span>
+					<span class="fl mt10">新的粉丝</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
 				</li>
 				<li class="mui-table-view-cell" onclick="Zan()">
+					<img src="../images/tip/03.png" class="fl" />
+					<span class="fl mt10">喜欢</span>
+					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell" onclick="Comment()">
 					<img src="../images/tip/02.png" class="fl" />
-					<span class="fl mt15">评论</span>
+					<span class="fl mt10">评论</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
 				</li>
 				<li class="mui-table-view-cell" onclick="Pay()">
 					<img src="../images/tip/04.png" class="fl" />
-					<span class="fl mt15">赞赏</span>
+					<span class="fl mt10">赞赏</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f20 mt10"></span>
 				</li>
 			</ul>
@@ -82,13 +82,8 @@
 
 		//返回
 		mui.back = function() {
-			plus.webview.close(plus.webview.currentWebview());
+			plus.webview.currentWebview().close();
 		}
-
-		/*//黑名单
-		document.getElementById('black').addEventListener('tap', function(event) {
-			base.OpenWindow("black", "black.html", {});
-		});*/
 	});
 
 	//粉丝
@@ -96,18 +91,13 @@
 		base.OpenWindow("fan", "fan.html", {});
 	}
 
-	//赞与评论
+	//喜欢
 	function Zan() {
-		base.OpenWindow("zan", "zan.html", {});
+		base.OpenWindow("zan2", "zan2.html", {});
 	}
 
-	//收藏
-	function Keep() {
-		base.OpenWindow("zan", "zan.html", {});
-	}
-
-	//转发
-	function Share() {
+	//评论
+	function Comment() {
 		base.OpenWindow("zan", "zan.html", {});
 	}
 
