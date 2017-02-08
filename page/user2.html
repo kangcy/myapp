@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../css/my.css">
+		<style type="text/css">
+			/*头部*/
+			
+			.tabs {
+				width: 100%;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				background: #fff;
+				text-align: center;
+				font-weight: bold;
+			}
+			
+			.tabs .curr {
+				border-bottom: 3px solid #e78170;
+				height: 2.5rem;
+				display: inline-block;
+				color: #e78170;
+			}
+			
+			#avatar {
+				border-radius: 50%;
+				width: 5rem;
+				height: 5rem;
+				border: 3px solid #fff;
+			}
+			
+			#article .head {
+				background: #EEEEEE;
+				height: 2.5rem;
+				line-height: 2.5rem;
+			}
+			
+			#article .title {
+				height: 3rem;
+				line-height: 3rem;
+			}
+			
+			#article .list {
+				display: inline-block;
+				background: #EEEEEE;
+			}
+			
+			#article .list img {
+				width: 33.3%;
+				float: left;
+				border: 1px solid #fff;
+			}
+			
+			.bt {
+				border-top: 1px solid #eee;
+			}
+			/**操作**/
+			
+			.mui-popover.mui-popover-action .mui-table-view {
+				margin-left: 0 !important;
+				margin-right: 0px !important;
+				border-radius: 0px !important;
+			}
+			
+			.mui-popover.mui-popover-action .mui-table-view {
+				margin-left: 0px !important;
+				margin-right: 0px !important;
+				margin-bottom: 0px !important;
+				margin-top: 0.5rem !important;
+				border-radius: 0px !important;
+			}
+			
+			.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
+				background-color: #ddd !important;
+			}
+			
+			.more {
+				margin-top: 0.35rem;
+				margin-right: 0.4rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-transparent">
+			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
+			<span class="headericon cfff f25 fr more" onclick="More()">•••</span>
+			<h1 class="mui-title c333"></h1>
+		</header>
+		<div class="mui-content">
+			<div id="bg" style="width:100%;height:10rem;"></div>
+			<div id="info-body" class="info-body mb8">
+				<div class="info-content">
+					<img id="avatar" src="../images/login/logo.png" class="hide" />
+					<p class="c333 f16 tc name" id="nickname"></p>
+					<p class="signature tc mt5 f12" id="signature"></p>
+					<p class="secret tc mt5 f13">
+						<span class="c666 hide" id="showFollow">关注&nbsp;<span class="c333" id="showFollowNum">0</span></span>
+						<span class="c666 hide" id="showFan">粉丝&nbsp;<span class="c333" id="showFanNum">0</span></span>
+						<span class="c666 hide" id="showArticle">喜欢&nbsp;<span class="c333" id="showArticleNum">0</span></span>
+					</p>
+					<div class="full tc mt10 hide" id="action">
+						<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
+						<div class="dashang f14" onclick="Payment()">打赏</div>
+					</div>
+				</div>
+			</div>
+			<div id="article" class="hide f13 caaa full">
+				<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
+				<div id="a_list">
+				</div>
+			</div>
+			<div id="blacktip" class="hide f13 caaa tc mt8">您已经将Ta拉黑</div>
+		</div>
+		<!--操作-->
+		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" class="c333 f15" onclick="Pic()">查看相册</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" class="c333 f15" onclick="Share()">分享给朋友</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" class="c333 f15" onclick="Copy()">复制链接</a>
+				</li>
+				<li class="mui-table-view-cell noborder hide" id="inblack">
+					<a href="#black" class="red f15">加入黑名单</a>
+				</li>
+				<li class="mui-table-view-cell noborder hide" id="outblack">
+					<a href="#" class="red f15" onclick="OutBlack()">解除黑名单</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#power" class="c333 f14">取消</a>
+				</li>
+			</ul>
+		</div>
+		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder caaa f11">
+					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作，也无法私信你
+				</li>
+				<li class="mui-table-view-cell noborder">
+					<a href="#" class="red f15" onclick="InBlack()">确认加入</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#black" class="c333 f14">取消</a>
+				</li>
+			</ul>
+		</div>
+		<!--分享-->
+		<div class="mui-backdrop hide" id="mysharebg" onclick="ShareTan(0)"></div>
+		<div class="myshare hide" id="myshare">
+			<p class="f16 c000 tc mt10 mb0">分享到</p>
+			<div class="tc c000 myshare_body">
+				<div class="myshare_items" onclick="ShareAction(1)"><img src="../images/share/1.png" />
+					<p class="f11 mb0 c000">朋友圈</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(2)"><img src="../images/share/2.png" />
+					<p class="f11 mb0 c000">微信</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(3)"><img src="../images/share/3.png" />
+					<p class="f11 mb0 c000">新浪微博</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(4)"><img src="../images/share/4.png" />
+					<p class="f11 mb0 c000">QQ</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(5)"><img src="../images/share/5.png" />
+					<p class="f11 mb0 c000">QQ空间</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(6)"><img src="../images/share/6.png" />
+					<p class="f11 mb0 c000">其他</p>
+				</div>
+				<!--<div class="myshare_items" onclick="ShareAction(7)"><img src="../images/share/7.png" />
+					<p class="f11 mb0 c000">复制链接</p>
+				</div>-->
+				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/default.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/transparent.js"></script>
+<script type="text/javascript">
+	var currpage = 1;
+	var totalpage = 2;
+	var isLoading = false;
+	var pagesize = base.PageSize;
+	var UserNumber = "";
+	var NickName = "";
+	var Avatar = "";
+	var ShareInfo = {}; //分享信息
+	var userinfo = base.GetUserInfo();
+
+	var Intent = null,
+		File = null,
+		Uri = null,
+		main = null;
+
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false //启用右滑关闭功能
+	});
+
+	mui.ready(function() {
+		base.ShowArticle("#a_list", "List", userinfo.Number); //展示文章
+	});
+
+	mui.plusReady(function() { //判断网络类型
+
+		base.NetChange();
+
+		var self = plus.webview.currentWebview();
+		UserNumber = self.UserNumber || "";
+
+		CheckBlack();
+
+		//返回
+		mui.back = function() {
+			var black = plus.webview.getWebviewById("black");
+			if(black) {
+				black.evalJS("Refresh()");
+			}
+			plus.webview.currentWebview().close();
+		}
+
+		//文章
+		/*document.getElementById('articles').addEventListener('tap', function(event) {
+			if(document.getElementById("articlenum").innerHTML.trim() != "0") {
+				base.OpenWindow("article", "article.html", {
+					CreateUserNumber: UserNumber,
+					ArticleTypeName: "他的动态",
+					Source: "User"
+				});
+			}
+		});*/
+
+		//分享设置
+		UpdateSerivces();
+
+		if(plus.os.name == "Android") {
+			Intent = plus.android.importClass("android.content.Intent");
+			File = plus.android.importClass("java.io.File");
+			Uri = plus.android.importClass("android.net.Uri");
+			main = plus.android.runtimeMainActivity();
+		}
+	});
+
+	//初始化获取参数
+	function Init(index) {
+		LoadUserInfo(index);
+		if(index == 1) {
+			LoadArticle();
+		}
+	}
+
+	//文章
+	function LoadArticle() {
+		var data = {
+			UserNumber: UserNumber
+		}
+		HttpGet(base.RootUrl + "User/Article", data, function(data) {
+			var table = document.getElementById('a_list');
+			if(data != null) {
+				var length = data.records;
+				if(length > 0) {
+					document.getElementById("a_title").innerHTML = data.records + "篇文章";
+
+					for(var i = 0; i < data.list.length; i++) {
+						var html = [];
+						var div = document.createElement('div');
+						div.className = 'title tl';
+						div.innerHTML = '<span class="ml15">' + data.list[i].CreateDate + '</span><span class="ml15" id="a_num">' + data.list[i].Count + '篇</span>';
+						table.appendChild(div);
+
+						var div2 = document.createElement('div');
+						div2.className = 'list full';
+						var html = [];
+						for(var y = 0; y < data.list[i].List.length; y++) {
+							var item = data.list[i].List[y];
+							html.push('<img src="' + base.ShowThumb(item.Cover, 2) + '" class="article" articleid="' + item.ID + '" userid="' + item.CreateUserNumber + '" power="' + item.ArticlePower + '" />');
+						}
+						div2.innerHTML = html.join('');
+						table.appendChild(div2);
+					}
+				}
+			}
+		});
+	}
+
+	//获取用户信息
+	function LoadUserInfo(index) {
+		HttpGet(base.RootUrl + "User/Detail", {
+			Number: UserNumber
+		}, function(data) {
+			if(data.result) {
+				data = data.message;
+
+				NickName = data.NickName;
+				Avatar = data.Avatar;
+
+				document.getElementById("bg").style.background = "url(" + data.Cover + ") center center";
+				document.getElementById("bg").style.backgroundSize = "100%";
+				document.getElementById("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
+				document.getElementById("avatar").classList.remove("hide");
+				document.getElementById("nickname").innerHTML = data.NickName;
+				document.getElementById("signature").innerHTML = data.Signature;
+
+				if(data.ShowArticle == 1) {
+					document.getElementById("showArticleNum").innerHTML = data.Keeps;
+					document.getElementById("showArticle").classList.remove("hide");
+				}
+				if(data.ShowFollow == 1) {
+					document.getElementById("showFollowNum").innerHTML = data.Follows;
+					document.getElementById("showFollow").classList.remove("hide");
+				}
+				if(data.ShowFan == 1) {
+					document.getElementById("showFanNum").innerHTML = data.Fans;
+					document.getElementById("showFan").classList.remove("hide");
+				}
+
+				//分享信息 
+				ShareInfo.Title = NickName + "的专栏";
+				ShareInfo.Cover = Avatar;
+				ShareInfo.Url = "http://www.baidu.com";
+
+			} else {
+				mui.toast(data.message);
+			}
+			base.CloseWaiting();
+
+			CheckFan(); //检查关注
+			if(index == 0) {
+				document.getElementById("article").classList.add("hide");
+				document.getElementById("blacktip").classList.remove("hide");
+			} else {
+				document.getElementById("blacktip").classList.add("hide");
+				document.getElementById("article").classList.remove("hide");
+			}
+		});
+	}
+
+	//判断是否关注
+	function CheckFan() {
+		var $guanzhu = document.getElementById("guanzhu");
+		if(base.CheckFan(userinfo.FanText, UserNumber)) {
+			$guanzhu.classList.add("guanzhu2");
+			$guanzhu.classList.remove("guanzhu")
+			$guanzhu.innerHTML = "已关注";
+		} else {
+			$guanzhu.addEventListener('tap', function(e) {
+				if(isLoading)
+					return;
+				var data = {
+					ID: userinfo.ID,
+					ToUserNumber: UserNumber
+				}
+				HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+					if(data != null) {
+						mui.toast(data.result ? "关注成功" : data.message);
+						if(data.result) {
+							base.AddFan(userinfo, UserNumber);
+							$guanzhu.classList.add("guanzhu2");
+							$guanzhu.classList.remove("guanzhu")
+							$guanzhu.innerHTML = "已关注";
+						}
+					}
+				});
+			});
+		}
+		document.getElementById("action").classList.remove("hide");
+	}
+
+	//检查黑名单
+	function CheckBlack() {
+		if(base.CheckBlack(userinfo.BlackText, UserNumber)) {
+			document.getElementById("inblack").classList.add("hide");
+			document.getElementById("outblack").classList.remove("hide");
+			Init(0);
+		} else {
+			document.getElementById("outblack").classList.add("hide");
+			document.getElementById("inblack").classList.remove("hide");
+			Init(1);
+		}
+	}
+
+	//添加黑名单
+	function InBlack() {
+		if(isLoading) {
+			return false;
+		}
+		isLoading = true;
+		base.ShowWaiting("操作中");
+		mui('#black').popover('toggle');
+		var data = {
+			ID: userinfo.ID,
+			ToUserNumber: UserNumber
+		}
+		setTimeout(function() {
+			HttpGet(base.RootUrl + "Black/Edit", data, function(data) {
+				base.CloseWaiting();
+				if(data != null) {
+					mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
+					if(data.result) {
+
+						userinfo.Follows = data.message.Follows;
+						userinfo.FanText = data.message.FanText;
+						userinfo.BlackText = data.message.BlackText;
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+
+						mui.back();
+					}
+				}
+				isLoading = false;
+			});
+		}, 500);
+	}
+
+	//解除黑名单
+	function OutBlack() {
+		if(isLoading) {
+			return false;
+		}
+		isLoading = true;
+		base.ShowWaiting("操作中");
+		mui('#black').popover('toggle');
+		var data = {
+			ID: userinfo.ID,
+			ToUserNumber: UserNumber
+		}
+		setTimeout(function() {
+			HttpGet(base.RootUrl + "Black/Delete", data, function(data) {
+				base.CloseWaiting();
+				if(data != null) {
+					mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
+					if(data.result) {
+
+						userinfo.BlackText = data.message;
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+
+						mui.back();
+					}
+				}
+				isLoading = false;
+			});
+		}, 500);
+	}
+
+	//查看相册
+	function Pic() {
+		mui('#power').popover('toggle');
+		base.OpenWindow("pic", "pic.html", {
+			UserNumber: UserNumber
+		});
+	}
+
+	//打赏
+	function Payment() {
+		base.OpenWindow("money", "money.html", {
+			ArticleNumber: "",
+			ArticleUserNumber: UserNumber,
+			Name: NickName,
+			Avatar: Avatar
+		});
+	}
+
+	//复制链接
+	function Copy() {
+		mui('#power').popover('toggle');
+		CopyToClip();
+	}
+
+	//复制到剪贴板 
+	function CopyToClip() {
+		var Context = plus.android.importClass("android.content.Context");
+		var main = plus.android.runtimeMainActivity();
+		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+		plus.android.invoke(clip, "setText", ShareInfo.Url);
+		mui.toast("分享链接已复制到剪贴板");
+	}
+
+	//操作
+	function More() {
+		mui('#power').popover('toggle');
+	}
+	//分享
+	function Share() {
+		mui('#power').popover('toggle');
+		ShareTan(1);
+	}
+
+	//分享
+	var shares = null; //分享服务
+	var shareImageUrl = ''; //分享图片地址
+
+	//更新分享服务
+	function UpdateSerivces() {
+		plus.share.getServices(function(s) {
+			shares = {};
+			for(var i in s) {
+				var t = s[i];
+				shares[t.id] = t;
+			}
+		}, function(e) {
+			console.log("获取分享服务列表失败：" + e.message);
+		});
+	}
+
+	//分享弹窗
+	function ShareTan(index) {
+		if(index == 0) {
+			$("#mysharebg").addClass("hide");
+			$("#myshare").removeClass("bounceInUp").addClass("hide");
+		} else {
+			$("#mysharebg").removeClass("hide");
+			$("#myshare").removeClass("hide").addClass("bounceInUp");
+		}
+	}
+
+	//分享信息 
+	function ShareAction(index) {
+		ShareTan(0); //关闭分享弹窗
+
+		//系统分享
+		if(index == 6) {
+			ShareSystem();
+			return;
+		}
+		var id = "";
+		var ex = "";
+		switch(index) {
+			//朋友圈
+			case 1:
+				id = "weixin";
+				ex = "WXSceneTimeline";
+				break;
+				//微信
+			case 2:
+				id = "weixin";
+				ex = "WXSceneSession";
+				break;
+				//新浪微博
+			case 3:
+				id = "sinaweibo";
+				ex = "";
+				break;
+				//qq
+			case 4:
+				id = "qq";
+				ex = "";
+				break;
+				//qq空间
+			case 5:
+				id = "qq";
+				ex = "";
+				break;
+			default:
+				break;
+		}
+		var s = null;
+		if(!id || !(s = shares[id])) {
+			console.log("无效的分享服务！");
+			return;
+		}
+		if(s.authenticated) {
+			shareMessage(s, ex, id);
+		} else {
+			mui.toast("授权中");
+			s.authorize(function() {
+				shareMessage(s, ex, id);
+			}, function(e) {
+				mui.toast("认证授权失败");
+			});
+		}
+	}
+
+	//系统分享
+	function ShareSystem() {
+		if(plus.os.name !== "Android") {
+			plus.nativeUI.alert("此平台暂不支持系统分享功能!");
+			return;
+		}
+		var intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_SUBJECT, "");
+		intent.putExtra(Intent.EXTRA_TEXT, "分享自「Go」" + ShareInfo.Title + " " + ShareInfo.Url);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		main.startActivity(Intent.createChooser(intent, "系统分享"));
+		base.ShareLog(userinfo.ID, "", "system");
+	}
+
+	//发送分享信息 
+	function shareMessage(s, ex, id) {
+		var msg = {
+			href: ShareInfo.Url,
+			title: ShareInfo.Title,
+			content: "分享自「Go」",
+			thumbs: [ShareInfo.Cover],
+			pictures: [ShareInfo.Cover],
+			extra: {
+				scene: ex
+			}
+		};
+		s.send(msg, function() {
+			mui.toast("分享成功");
+			base.ShareLog(userinfo.ID, "", id);
+		}, function(e) {
+			mui.toast("分享失败");
+		});
+	}
+</script>

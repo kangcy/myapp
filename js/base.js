@@ -343,7 +343,7 @@ var base = new function() {
 		mui(id).on('tap', '.user', function(event) {
 			base.ShowWaiting("正在加载");
 			var userNumber = this.getAttribute("userid");
-			base.OpenWindow("user", "user.html", {
+			base.OpenWindow("user2", "user2.html", {
 				UserNumber: userNumber
 			});
 		});

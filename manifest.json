@@ -821,7 +821,8 @@
 					"page/user.html",
 					"page/userSub.html",
 					"page/article.html",
-					"page/articleSub.html"
+					"page/articleSub.html",
+					"page/user2.html"
 				],
 				"priority": 0
 			},
@@ -1149,7 +1150,8 @@
 					"images/base/02_2.png",
 					"images/base/03_2.png",
 					"images/base/04_1.png",
-					"images/base/01_1.png"
+					"images/base/01_1.png",
+					"page/index.html"
 				],
 				"refer": [
 					"page/addarticle.html",
@@ -1158,8 +1160,7 @@
 					"page/chooseimage.html",
 					"page/editimage.html",
 					"page/money.html",
-					"page/tipsetting.html",
-					"page/index.html"
+					"page/tipsetting.html"
 				],
 				"priority": 0
 			},
@@ -2080,6 +2081,34 @@
 					"css/img.preview.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"page/user2.html": {
+				"resources": [
+					"images/share/3.png",
+					"images/share/4.png",
+					"images/share/1.png",
+					"js/transparent.js",
+					"images/share/5.png",
+					"images/share/6.png",
+					"images/share/2.png",
+					"images/login/logo.png",
+					"fonts/mui.ttf",
+					"images/header.png",
+					"css/animate.css",
+					"js/base.js",
+					"css/my.css",
+					"js/mui.min.js",
+					"css/loading.css",
+					"images/logo_default.png",
+					"css/mui.min.css",
+					"js/jquery-1.10.2.min.js",
+					"js/default.js"
+				],
+				"refer": [
+					"page/articledetail.html",
+					"page/pic.html"
+				],
 				"priority": 0
 			}
 		},
