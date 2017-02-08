@@ -60,7 +60,7 @@
 						<div>评论与回复<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
 					</div>
 					<div class="c000 menu f13" id="my-feedback">
-						<div>意见与反馈<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
+						<div>意见反馈<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
 					</div>
 					<div class="c000 menu f13" id="my-good">
 						<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
@@ -93,7 +93,7 @@
 
 		Init();
 
-		base.InitScroll();
+		base.InitScroll(true);
 
 		//封面
 		document.getElementById('bg').addEventListener('tap', function(event) {
@@ -201,6 +201,11 @@
 		//我的粉丝
 		document.getElementById('my-fans').addEventListener('tap', function(event) {
 			base.OpenWindow("fan", "fan.html", {});
+		});
+
+		//留言反馈
+		document.getElementById('my-feedback').addEventListener('tap', function(event) {
+			base.OpenWindow("feedback", "feedback.html", {});
 		});
 
 		//我的点赞

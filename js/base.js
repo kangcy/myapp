@@ -250,10 +250,10 @@ var base = new function() {
 	/**
 	 * 初始化滚动条
 	 **/
-	this.InitScroll = function() {
+	this.InitScroll = function(isbounce) {
 		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
 		mui('.mui-scroll-wrapper').scroll({
-			bounce: false,
+			bounce: isbounce ? isbounce : false,
 			indicators: false, // 是否显示滚动条
 			deceleration: deceleration
 		});
@@ -490,10 +490,10 @@ var base = new function() {
 		if(item.Recommend == 99) {
 			model.push('<span class="fl f12" style="padding:1px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');
 		}
-		if(base.IsNullOrEmpty(item.Title)) { 
+		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的GO";
 		}
-		model.push(item.Title + '</p>'); 
+		model.push(item.Title + '</p>');
 
 		//图片拼接 
 		var parts = item.ArticlePart;
