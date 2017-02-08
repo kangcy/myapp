@@ -21,6 +21,10 @@
 				white-space: normal;
 			}
 			
+			.mui-table-view-cell {
+				padding: 0.9375rem 0.9375rem;
+			}
+			
 			.mui-icon-arrowright {
 				margin-right: -0.3rem;
 			}
@@ -101,7 +105,7 @@
 		$("#nickname").html(base.FormatStr(userinfo.NickName, "请填写"));
 		$("#sex").html(userinfo.Sex);
 		$("#city").html(base.FormatStr(userinfo.Address, "请填写"));
-		$("#time").html(base.FormatStr(userinfo.Birthday, "请填写"));
+		$("#time").html(userinfo.Birthday == "0001-01-01" ? "请设置" : userinfo.Birthday);
 		$("#signature").html(base.FormatStr(userinfo.Signature, "请填写"));
 
 		document.getElementById('cityPicker').addEventListener('tap', function(event) {
@@ -119,9 +123,14 @@
 		}]);
 		var sexResult = document.getElementById('sexResult');
 		document.getElementById('sexPicker').addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+
 			sexPicker.show(function(items) {
-				document.getElementById("sex").innerHTML = items[0].text;
 				base.ShowWaiting("正在编辑性别");
+				document.getElementById("sex").innerHTML = items[0].text;
 				setTimeout(function() {
 					HttpGet(base.RootUrl + "User/EditSex", {
 						ID: userinfo.ID,
@@ -141,14 +150,18 @@
 
 		//日期
 		document.getElementById('timePicker').addEventListener('tap', function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+
 			var optionsJson = this.getAttribute('data-options') || '{}';
 			var options = JSON.parse(optionsJson);
 			var id = this.getAttribute('id');
-
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
-				document.getElementById("time").innerHTML = rs.text;
 				base.ShowWaiting("正在编辑生日");
+				document.getElementById("time").innerHTML = rs.text;
 				setTimeout(function() {
 					HttpGet(base.RootUrl + "User/EditBirthday", {
 						ID: userinfo.ID,

@@ -77,7 +77,7 @@
 			Avatar: loginInfo.Avatar,
 			Sex: loginInfo.Sex,
 			OpenID: loginInfo.OpenID,
-			Cover: "../images/header.png"
+			Cover: ""
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试~");
@@ -141,7 +141,7 @@
 			NickName: regInfo.NickName,
 			Province: regInfo.Province,
 			City: regInfo.City,
-			Cover: "../images/header.png"
+			Cover: ""
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试~");
