@@ -257,7 +257,9 @@
 				mui.toast("正在导入第" + index + "张图片");
 				if(index == length) {
 					setTimeout(function() {
-						base.ShowWaiting("正在同步文章内容");
+						if(length > 0) {
+							base.ShowWaiting("正在同步文章内容");
+						}
 					}, index * 2000);
 				}
 
@@ -267,7 +269,6 @@
 
 				//压缩图片,并重命名 
 				compressImage(e.files[i], dstname, function(status, src) {
-					console.log("status:" + status);
 					if(!status) {
 						length = length - 1;
 					}
@@ -362,6 +363,7 @@
 							Title: ""
 						}
 						HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
+							base.CloseWaiting();
 							currUploadImg = [];
 							if(data != null) {
 								if(data.result) {
