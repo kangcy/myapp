@@ -793,7 +793,8 @@
 			"css/articledetail.css",
 			"images/logo.png",
 			"js/payment.js",
-			"images/article/pay.jpg"
+			"images/article/pay.jpg",
+			"images/logo_default.png"
 		],
 		"refer": [
 			"page/user.html",

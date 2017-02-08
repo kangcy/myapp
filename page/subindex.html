@@ -251,11 +251,11 @@
 
 	function galleryImgs() {
 		plus.gallery.pick(function(e) {
-
+			var length = e.files.length;
 			var index = 1;
 			for(var i in e.files) {
 				mui.toast("正在导入第" + index + "张图片");
-				if(index == e.files.length) {
+				if(index == length) {
 					setTimeout(function() {
 						base.ShowWaiting("正在同步文章内容");
 					}, index * 2000);
@@ -266,12 +266,28 @@
 				var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 				//压缩图片,并重命名 
-				compressImage(e.files[i], dstname, function(src) {
-					var image = new Image();
-					image.src = src;
-					image.onload = function() {
-						var imgData = getBase64Image(image);
-						Upload(imgData, e.files.length);
+				compressImage(e.files[i], dstname, function(status, src) {
+					console.log("status:" + status);
+					if(!status) {
+						length = length - 1;
+					}
+					if(length <= 0) {
+						base.CloseWaiting();
+						return;
+					}
+					if(status) {
+						var image = new Image();
+						image.src = src;
+
+						if(image.complete) {
+							var imgData = getBase64Image(image);
+							Upload(imgData, length);
+						} else {
+							image.onload = function() {
+								var imgData = getBase64Image(image);
+								Upload(imgData, length);
+							}
+						};
 					}
 				});
 			}
@@ -284,6 +300,13 @@
 		});
 	}
 
+	/* "error:{\"code\":-4,\"message\":\"文件不存在\"}" at page/subindex.html:316
+	 src:file:///storage/emulated/0/DidiScreenAd/httpsstatic.udache.comgulfstreamuploadrooster2017012414852244449565f3d30ef10fe32a1c5f6f98536cfab0cmaterial_1485224444960_1080_1920_400.jpg at page/subindex.html:270
+
+	 "event:{\"target\":\"file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg\",\"width\":393,\"height\":699,\"size\":48523}" at page/subindex.html:310
+	 src:file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg at page/subindex.html:270
+	  */
+
 	//压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
 	function compressImage(src, newsrc, callback) {
 		plus.zip.compressImage({
@@ -294,10 +317,13 @@
 				quality: 80
 			},
 			function(event) {
-				callback(event.target);
+				console.log(JSON.stringify("event:" + JSON.stringify(event)));
+				callback(true, event.target);
 			},
 			function(error) {
-				callback(src);
+				mui.toast(error.message);
+				console.log(JSON.stringify("error:" + JSON.stringify(error)));
+				callback(false, src);
 			});
 	}
 
@@ -315,6 +341,7 @@
 
 	//上传图片到服务器 
 	function Upload(imgurl, length) {
+		console.log(imgurl);
 		mui.post(base.RootUrl + "Upload/Upload", {
 			str: imgurl,
 			Standard: "Article",
