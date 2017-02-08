@@ -168,7 +168,7 @@
 		if(currpage1 > totalpage1) {
 			isLoading1 = false;
 			self.endPullUpToRefresh(currpage1 > totalpage1);
-			return mui.toast("没有更多数据了~");
+			return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load1(function() {
@@ -207,7 +207,7 @@
 		if(currpage2 > totalpage2) {
 			isLoading2 = false;
 			self.endPullUpToRefresh(currpage2 > totalpage2);
-			return mui.toast("没有更多数据了~");
+			return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load2(function() {

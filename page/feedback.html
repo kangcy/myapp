@@ -66,14 +66,14 @@
 			if(isNaN(qq.value)) {
 				return mui.toast('请填写正确的联系方式');
 			}
-			base.ShowWaiting("正在保存~");
+			base.ShowWaiting("正在保存");
 			HttpGet(base.RootUrl + "FeedBack/Edit", {
 				ID: userinfo.ID,
 				Summary: escape(question.value),
 				QQ: qq.value
 			}, function(data) {
 				base.CloseWaiting();
-				mui.toast(data.result ? "感谢您的建议~" : data.message);
+				mui.toast(data.result ? "感谢您的建议" : data.message);
 				if(data.result) {
 					question.value = "";
 					if(mui.os.plus) {

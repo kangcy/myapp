@@ -62,7 +62,7 @@
 				Account: account.value,
 				Name: name.value
 			}, function(data) {
-				mui.toast(data.result ? "申请成功~" : data.message);
+				mui.toast(data.result ? "申请成功" : data.message);
 				plus.webview.close("payapply");
 			});
 		}, false);

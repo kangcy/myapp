@@ -65,7 +65,7 @@
 				ArticleID: ArticleID,
 				Summary: question.value
 			}, function(data) {
-				mui.toast(data.result ? "举报成功，将于1-2个工作日内处理~" : data.message);
+				mui.toast(data.result ? "举报成功，将于1-2个工作日内处理" : data.message);
 				if(data.result) {
 					mui.back();
 				}

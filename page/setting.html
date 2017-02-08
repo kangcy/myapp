@@ -197,7 +197,7 @@
 		//是否分享昵称
 		document.getElementById("shareNickSwitch").addEventListener('tap', function(event) {
 			if(isLoading) {
-				return mui.toast("编辑中~~");
+				return mui.toast("正在编辑");
 			}
 			isLoading = true;
 			var shareNick = this.className.indexOf("active") >= 0;
@@ -225,7 +225,7 @@
 		//是否自动播放音乐
 		document.getElementById("autoMusicSwitch").addEventListener('tap', function(event) {
 			if(isLoading) {
-				return mui.toast("编辑中~~");
+				return mui.toast("正在编辑");
 			}
 			isLoading = true;
 			var autoMusic = this.className.indexOf("active") >= 0;
@@ -296,7 +296,7 @@
 				return;
 			}
 			isLoading = true;
-			base.ShowWaiting("检查更新中~");
+			base.ShowWaiting("检查更新中");
 			setTimeout(function() {
 				var client;
 				if(mui.os.ios) {

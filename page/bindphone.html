@@ -61,7 +61,7 @@
 			var mob = document.getElementById("phone").value;
 			if(!base.CheckPhone(mob)) {
 				isCountDown = false;
-				return mui.toast("友情提醒：您输入手机号码格式异常~");
+				return mui.toast("友情提醒：您输入手机号码格式异常");
 			}
 			var time = 60;
 			var count = setInterval(function() {
@@ -102,7 +102,7 @@
 				isLoading = false;
 				return mui.toast("请输入验证码");
 			}
-			base.ShowWaiting("正在提交~");
+			base.ShowWaiting("正在提交");
 			setTimeout(function() {
 				HttpGet(base.RootUrl + "User/BindPhone", {
 					ID: userinfo.ID,
@@ -110,7 +110,7 @@
 				}, function(data) {
 					isLoading = false;
 					if(data == null) {
-						return mui.toast("系统异常,请稍后再试~");
+						return mui.toast("系统异常,请稍后再试");
 					} else {
 						if(data.result) {
 							userinfo.Phone = phone;

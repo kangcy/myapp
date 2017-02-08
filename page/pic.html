@@ -127,7 +127,7 @@
 		if(currpage > totalpage) {
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了~");
+			return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load(function() {
@@ -159,7 +159,7 @@
 						table.appendChild(div);
 					}
 				} else {
-					mui.toast("没有更多数据了~");
+					mui.toast("没有更多数据了");
 				}
 			}
 			if(callback) {

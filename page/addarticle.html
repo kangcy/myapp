@@ -91,7 +91,7 @@
 		window.addEventListener("UpdateCover", function(e) {
 			var url = e.detail.Url;
 			if(Cover == url) {
-				mui.toast("编辑成功~");
+				mui.toast("编辑成功");
 				return;
 			}
 			HttpGet(base.RootUrl + "Article/EditArticleCover", {
@@ -99,7 +99,7 @@
 				ArticleID: ArticleID,
 				Cover: url
 			}, function(data) {
-				mui.toast(data.result ? "编辑成功~" : data.message);
+				mui.toast(data.result ? "编辑成功" : data.message);
 				if(data.result) {
 					document.getElementById("header").style.backgroundImage = "url(" + url + ")";
 					document.getElementById("header").style.backgroundSize = "cover";
@@ -188,7 +188,7 @@
 			var btnArray = ['确定', '取消'];
 			mui.confirm('删除后不可恢复,确定删除此段？', '', btnArray, function(e) {
 				if(e.index == 0) {
-					base.ShowWaiting("正在删除段落~");
+					base.ShowWaiting("正在删除");
 					HttpGet(base.RootUrl + "ArticlePart/Delete", {
 						ID: userinfo.ID,
 						PartID: $this.getAttribute("partid")
@@ -376,7 +376,7 @@
 			var partid = $(".edit-content").eq(i).attr("partid");
 			ids.push(partid + "-" + $(".edit-body").eq(i).attr("index"));
 		}
-		base.ShowWaiting("正在同步文章内容~");
+		base.ShowWaiting("正在同步文章内容");
 		HttpGet(base.RootUrl + "Article/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,

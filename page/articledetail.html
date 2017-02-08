@@ -236,7 +236,7 @@
 				ArticleID: ArticleID
 			}, function(data) {
 				if(data != null) {
-					mui.toast(data.result ? "感谢您的点赞~" : data.message);
+					mui.toast(data.result ? "感谢您的点赞" : data.message);
 					if(data.result) {
 						$("#footer_zan").html(data.message);
 					}
@@ -348,7 +348,7 @@
 		if(mui.os.plus) {
 			plus.nativeUI.showWaiting();
 		}
-		base.ShowWaiting("正在提交~");
+		base.ShowWaiting("正在提交");
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -550,7 +550,7 @@
 		}
 		isLoading = true;
 		ActionTan(0);
-		base.ShowWaiting("正在复制~");
+		base.ShowWaiting("正在复制");
 		HttpGet(base.RootUrl + "Article/Copy", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -559,7 +559,7 @@
 		}, function(data) {
 			setTimeout(function() {
 				base.CloseWaiting();
-				mui.toast(data.result ? "复制成功,请刷新我的文章查看~" : data.message);
+				mui.toast(data.result ? "复制成功,请刷新我的文章查看" : data.message);
 				isLoading = false;
 			}, 1000);
 		});
@@ -568,7 +568,7 @@
 	//编辑 
 	function Edit() {
 		ActionTan(0);
-		base.ShowWaiting("正在同步文章内容~");
+		base.ShowWaiting("正在同步文章内容");
 		base.OpenWindow("addarticle", "addarticle.html", {
 			ArticleID: ArticleID,
 			ArticleNumber: Article.Number,

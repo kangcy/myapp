@@ -212,14 +212,14 @@
 	//修改封面		
 	function UpdateCover(url) {
 		if(userinfo.Cover == url) {
-			mui.toast("编辑成功~");
+			mui.toast("编辑成功");
 			return;
 		}
 		HttpGet(base.RootUrl + "User/EditCover", {
 			ID: userinfo.ID,
 			Cover: url
 		}, function(data) {
-			mui.toast(data.result ? "编辑成功~" : data.message);
+			mui.toast(data.result ? "编辑成功" : data.message);
 			if(data.result) {
 				$("#bg").css({
 					"background": "url(" + url + ") center center",

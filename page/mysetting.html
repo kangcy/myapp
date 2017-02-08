@@ -121,14 +121,14 @@
 		document.getElementById('sexPicker').addEventListener('tap', function(event) {
 			sexPicker.show(function(items) {
 				document.getElementById("sex").innerHTML = items[0].text;
-				base.ShowWaiting("正在编辑性别~");
+				base.ShowWaiting("正在编辑性别");
 				setTimeout(function() {
 					HttpGet(base.RootUrl + "User/EditSex", {
 						ID: userinfo.ID,
 						Sex: items[0].value
 					}, function(data) {
 						base.CloseWaiting();
-						mui.toast(data.result ? "编辑成功~" : data.message);
+						mui.toast(data.result ? "编辑成功" : data.message);
 						if(data.result) {
 							userinfo.Sex = items[0].value == "0" ? "男" : "女";
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -148,14 +148,14 @@
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
 				document.getElementById("time").innerHTML = rs.text;
-				base.ShowWaiting("正在编辑生日~");
+				base.ShowWaiting("正在编辑生日");
 				setTimeout(function() {
 					HttpGet(base.RootUrl + "User/EditBirthday", {
 						ID: userinfo.ID,
 						Birthday: rs.text
 					}, function(data) {
 						base.CloseWaiting();
-						mui.toast(data.result ? "编辑成功~" : data.message);
+						mui.toast(data.result ? "编辑成功" : data.message);
 						if(data.result) {
 							userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -200,14 +200,14 @@
 	//修改头像
 	function UpdateAvatar(url) {
 		if(userinfo.Avatar == url) {
-			mui.toast("编辑成功~");
+			mui.toast("编辑成功");
 			return;
 		}
 		HttpGet(base.RootUrl + "User/EditAvatar", {
 			ID: userinfo.ID,
 			Avatar: url
 		}, function(data) {
-			mui.toast(data.result ? "编辑成功~" : data.message);
+			mui.toast(data.result ? "编辑成功" : data.message);
 			if(data.result) {
 				$("#avatar").attr("src", base.ShowThumb(url, 1));
 				userinfo.Avatar = url;
@@ -219,14 +219,14 @@
 	//修改昵称
 	function UpdateNickName(t) {
 		nickname.innerHTML = t;
-		base.ShowWaiting("正在编辑昵称~");
+		base.ShowWaiting("正在编辑昵称");
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "User/EditNickName", {
 				ID: userinfo.ID,
 				NickName: t
 			}, function(data) {
 				base.CloseWaiting();
-				mui.toast(data.result ? "编辑成功~" : data.message);
+				mui.toast(data.result ? "编辑成功" : data.message);
 				if(data.result) {
 					userinfo.NickName = t;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -238,14 +238,14 @@
 	//修改签名
 	function UpdateSignature(t) {
 		signature.innerHTML = t;
-		base.ShowWaiting("正在编辑签名~");
+		base.ShowWaiting("正在编辑签名");
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "User/EditSignature", {
 				ID: userinfo.ID,
 				Signature: t
 			}, function(data) {
 				base.CloseWaiting();
-				mui.toast(data.result ? "编辑成功~" : data.message);
+				mui.toast(data.result ? "编辑成功" : data.message);
 				if(data.result) {
 					userinfo.Signature = t;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -278,7 +278,7 @@
 			ProvinceName: province,
 			CityName: city
 		}, function(data) {
-			mui.toast(data.result ? "编辑成功~" : data.message);
+			mui.toast(data.result ? "编辑成功" : data.message);
 			if(data.result) {
 				userinfo.Address = province + " " + city
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -294,7 +294,7 @@
 			return false;
 		}
 		isLoading = true;
-		base.ShowWaiting("正在绑定~");
+		base.ShowWaiting("正在绑定");
 		var s;
 		for(var i = 0; i < auths.length; i++) {
 			if(auths[i].id == type) {
@@ -306,7 +306,7 @@
 			s.login(function(e) {
 				authUserInfo(type, s);
 			}, function(e) {
-				base.ShowWaiting("取消绑定~");
+				base.ShowWaiting("取消绑定");
 				switch(type) {
 					case "weixin":
 						base.SwitchChange("weixinSwitch", false);
@@ -337,9 +337,9 @@
 			if(s.id == id) {
 				if(s.authResult) {
 					s.logout(function(e) {
-						console.log("注销登录认证成功~~");
+						console.log("注销登录认证成功");
 					}, function(e) {
-						console.log("注销登录认证失败~~");
+						console.log("注销登录认证失败");
 					});
 				}
 
@@ -368,7 +368,7 @@
 						ID: key
 					}, function(data) {
 						if(data == null) {
-							return callback("系统异常,请稍后再试~");
+							return callback("系统异常,请稍后再试");
 						} else {
 							if(data.result) {
 								base.UpdateUser(userinfo.Number);
@@ -434,7 +434,7 @@
 				}, function(data) {
 					base.CloseWaiting();
 					if(data == null) {
-						return callback("系统异常,请稍后再试~");
+						return callback("系统异常,请稍后再试");
 					} else {
 						if(data.result) {
 							base.UpdateUser(userinfo.Number);

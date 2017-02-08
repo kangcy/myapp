@@ -296,7 +296,7 @@
 				CommentID: commentid
 			}, function(data) {
 				if(data != null) {
-					mui.toast(data.result ? "感谢您的点赞~" : data.message);
+					mui.toast(data.result ? "感谢您的点赞" : data.message);
 					if(data.result) {
 						$this.classList.add("heartbeat");
 						$this.setAttribute("already", "1");
@@ -348,7 +348,7 @@
 			isLoading = false;
 			return mui.toast("请填写内容");
 		}
-		base.ShowWaiting("正在提交~");
+		base.ShowWaiting("正在提交");
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -359,7 +359,7 @@
 			City: City
 		}, function(data) {
 			base.CloseWaiting();
-			mui.toast(data.result ? "感谢您的评论~" : data.message);
+			mui.toast(data.result ? "感谢您的评论" : data.message);
 			if(data.result) {
 				EditorClose();
 
@@ -407,7 +407,7 @@
 		if(currpage1 > totalpage1) {
 			isLoading1 = false;
 			self.endPullUpToRefresh(currpage1 > totalpage1);
-			return mui.toast("没有更多数据了~");
+			return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load1(function() {
