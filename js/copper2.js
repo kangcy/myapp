@@ -13,8 +13,10 @@ function getImage(long, width) {
 			dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 			//压缩图片,并重命名
-			compressImage(localurl, dstname, function(src) {
-				$("#readyimg").attr("src", src);
+			compressImage(localurl, dstname, function(status, src) {
+				if(status) {
+					$("#readyimg").attr("src", src);
+				}
 				//cutImg(long, width, function() {});
 			});
 		});
@@ -31,21 +33,23 @@ function galleryImgs(long, width, callback) {
 		dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 		//压缩图片,并重命名
-		compressImage(e, dstname, function(src) {
-			$("#readyimg").hide().attr("src", src).load(function() {
-				var totalheight = window.innerHeight - 90;
-				var imagewidth = $("#readyimg").width();
-				var imageheight = $("#readyimg").height();
-				if(totalheight > imageheight) {
-					$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
-				} else {
-					$("#readyimg").css({
-						"width": "auto",
-						"height": totalheight + "px",
-						"margin": "0px"
-					});
-				}
-			}).show();
+		compressImage(e, dstname, function(status, src) {
+			if(status) {
+				$("#readyimg").hide().attr("src", src).load(function() {
+					var totalheight = window.innerHeight - 90;
+					var imagewidth = $("#readyimg").width();
+					var imageheight = $("#readyimg").height();
+					if(totalheight > imageheight) {
+						$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
+					} else {
+						$("#readyimg").css({
+							"width": "auto",
+							"height": totalheight + "px",
+							"margin": "0px"
+						});
+					}
+				}).show();
+			}
 		});
 	}, function(e) {
 		//outSet( "取消选择图片" ) 
@@ -215,12 +219,13 @@ function compressImage(src, newsrc, callback) {
 		},
 		function(event) {
 			if($.isFunction(callback)) {
-				callback(event.target);
+				callback(true, event.target);
 			}
 		},
 		function(error) {
 			if($.isFunction(callback)) {
-				callback(src);
+				mui.toast(error.message);
+				callback(false, src);
 			}
 		});
 }

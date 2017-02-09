@@ -275,7 +275,7 @@
 						mui.confirm('退出当前账号不会删除任何数据，下次登录仍可使用本账号。', '提示', ['确定退出', '取消'], function(e) {
 							if(e.index == 0) {
 								app.loginOut();
-								/*plus.webview.close("login")*/
+								plus.webview.close("login")
 								plus.webview.close("index")
 								plus.webview.close("subindex")
 								plus.webview.close("setting")

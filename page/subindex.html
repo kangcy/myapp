@@ -349,7 +349,6 @@
 			isDraw: userinfo.UseDraw,
 			isThumb: 1
 		}, function(data) {
-			console.log(JSON.stringify(data));
 			if(data != null) {
 				if(data.result) {
 					currUploadImg.push(base.RootUrl + data.message);
