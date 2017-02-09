@@ -1429,10 +1429,10 @@
 }
 
 .tada {
-	-webkit-animation: tada 5s linear;
-	-moz-animation: tada 5s infinite;
-	-ms-animation: tada 5s infinite;
-	animation: tada 5s infinite;
+	-webkit-animation: tada 3s linear;
+	-moz-animation: tada 3s infinite;
+	-ms-animation: tada 3s infinite;
+	animation: tada 3s infinite;
 	animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;
 	-webkit-animation-fill-mode: forwards;

@@ -2247,8 +2247,22 @@
 	},
 	"fullscreen": true,
 	"unpackage": [
-		"css/mui.css",
-		"js/mui.js",
-		"demo.html"
+	  "css/mui.css",
+	  "js/mui.js",
+	  "demo.html",
+	  "go.keystore",
+	  "message.txt",
+	  "css/articleTypeSub.css",
+	  "css/mui.imageviewer.css",
+	  "css/zan.css",
+	  "font-awesome-4.6.3/fonts/FontAwesome.otf",
+	  "images/adv/adv.png",
+	  "images/adv/start.png",
+	  "images/iconfont-tianjia.png",
+	  "js/common.js",
+	  "js/mui.imageViewer.js",
+	  "js/mui.picker.js",
+	  "page/bgtemplate.html",
+	  "page/move2.html"
 	]
 }
