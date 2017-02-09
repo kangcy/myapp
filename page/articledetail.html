@@ -20,10 +20,10 @@
 	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
-			<img src="../images/article/more2.png" class="fr more" onclick="ActionTan(1)" />
-			<img src="../images/article/skin.png" class="fr more" />
+			<img src="../images/article/more2.png" class="fr more hide" onclick="ActionTan(1)" id="action" />
+			<img src="../images/article/skin.png" class="fr more hide" onclick="TempTan(1)"  id="btnTemp" />
 			<h1 class="mui-title c333">详情</h1>
-		</header>
+		</header> 
 
 		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top: 46px; bottom:0px;">
 			<div class="mui-loader tc" id="loader">
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 		<!--模板选择-->
-		<i class="mui-icon mui-icon-pengyouquan hide" onclick="TempTan(1)" style="font-size:50px;color:#ed5565;" id="btnTemp"></i>
+		<!--<i class="mui-icon mui-icon-pengyouquan hide" onclick="TempTan(1)" style="font-size:50px;color:#ed5565;" id="btnTemp"></i>-->
 		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
@@ -170,12 +170,12 @@
 			</div>
 		</div>
 		<!--打赏-->
-		<img class="hide" src="../images/article/pay.jpg" onclick="PaymentTan()" style="width:2.5rem;border-radius:50px;z-index:99;" id="btnPay"></i>
+		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:3rem;z-index:99;" id="btnPay"></i>
 		<textarea id="textarea" class="hide"></textarea>
 	</body>
-
+ 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/jquery-1.10.2.min.js"></script> 
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
@@ -460,7 +460,7 @@
 
 					//console.log(data.Cover + "," + data.TemplateJson.Cover);
 					CurrTemplate = data.Template;
-					CurrBackground = data.Background; 
+					CurrBackground = data.Background;
 
 					if(!base.IsNullOrEmpty(CurrCover)) {
 						ChangeBg(CurrBackground);

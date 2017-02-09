@@ -169,7 +169,6 @@
 	background-color: inherit;
 }
 
-#btnTemp,
 #agreeTemp {
 	position: fixed;
 	right: 10px;
@@ -307,5 +306,5 @@ video {
 .more {
 	margin-top: 13px;
 	margin-right: 0.4rem;
-	height:20px;
+	height: 20px;
 }

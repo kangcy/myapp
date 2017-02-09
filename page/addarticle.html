@@ -17,8 +17,8 @@
 			<div class="mui-scroll-wrapper" style="background: #E8E8E8;bottom:0px;">
 				<div class="mui-scroll" id="mui-scroll">
 					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;">
-						<a id="back" class="mui-icon mui-icon-arrowleft fl cfff"></a>
-						<a id="submit" class="mui-icon cfff f13 fr mt6">保存</a>
+						<a id="back" class="mui-icon mui-icon-arrowleft fl cfff textshadow"></a>
+						<a id="submit" class="mui-icon cfff f13 fr mt6 textshadow">保存</a>
 						<div class="info-body">
 							<div id="title" class="title mb20 cfff f18 textshadow">点击输入标题</div>
 							<div id="music" class="btn cfff fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
@@ -191,13 +191,13 @@
 					HttpGet(base.RootUrl + "ArticlePart/Delete", {
 						ID: userinfo.ID,
 						PartID: $this.getAttribute("partid")
-					}, function(data) { 
+					}, function(data) {
 						base.CloseWaiting();
 						if(data != null) {
 							if(data.result) {
 								$this.parentNode.parentNode.parentNode.remove();
 								Group(document.getElementById('edit'), window.innerWidth * 0.05);
-								mui(".mui-scroll-wrapper").scroll().refresh();//刷新下拉
+								mui(".mui-scroll-wrapper").scroll().refresh(); //刷新下拉
 							} else {
 								mui.toast(data.message);
 							}
@@ -387,6 +387,7 @@
 			City: City,
 			PartIDs: ids.join(",")
 		}, function(data) {
+			base.CloseWaiting();
 			if(data != null) {
 				if(data.result) {
 					var articleDetailPage = plus.webview.getWebviewById('articledetail');
