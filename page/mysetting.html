@@ -28,6 +28,9 @@
 			.mui-icon-arrowright {
 				margin-right: -0.3rem;
 			}
+			.mui-badge-danger{
+				width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;
+			}
 		</style>
 	</head>
 
@@ -48,10 +51,10 @@
 					<span class="fl">昵称</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="nickname"></span>
-					<span class="mui-badge mui-badge-danger hide" style="width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
 				</li>
 				<li class="mui-table-view-cell" id="editnickname">
-					<span class="fl">Go号</span>
+					<span class="fl">ID</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="userid"></span>
 				</li>
@@ -64,32 +67,31 @@
 					<span class="fl">地区</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="city"></span>
-					<span class="mui-badge mui-badge-danger hide" style="width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
 				</li>
 				<li class="mui-table-view-cell" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker" style="position:relative;">
 					<span class="fl">生日</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="time"></span>
-					<span class="mui-badge mui-badge-danger hide" style="width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
 				</li>
 				<li class="mui-table-view-cell" id="editsignature" style="position:relative;">
 					<span class="fl">个性签名</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 tr mr10" id="signature"></span></a>
-					<span class="mui-badge mui-badge-danger hide" style="width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
 				</li>
 			</ul>
 		</div>
 	</body>
 
 </html>
-<script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
 <script src="../js/mui.picker.min.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/login.js"></script>
-<script src="../js/base.js"></script>
 <script type="text/javascript">
 	var auths = {};
 	var isLoading = false; //是否操作中
@@ -212,7 +214,7 @@
 		mui.back = function() {
 			var self = plus.webview.currentWebview();
 			var myPage = plus.webview.getWebviewById('my.html');
-			mui.fire(myPage, "UpdateUser", {});
+			myPage.evalJS("Load()");
 			plus.webview.close(self);
 		}
 

@@ -21,7 +21,7 @@
 						<img src="../images/my/tip.png" style="width:1rem;margin-top:1rem;margin-right:0.5rem;" class="fr" id="tip" />
 						<h1 class="mui-title c333"></h1>
 					</header>
-					<div id="bg" style="width:100%;height:10rem;"></div>
+					<div id="bg" style="width:100%;height:10rem;" onclick="Pic(0)"></div>
 					<div class="info-body mb8">
 						<div class="info-content">
 							<img id="avatar" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
@@ -71,10 +71,22 @@
 				</div>
 			</div>
 		</div>
+		<!--操作-->
+		<div id="pic" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" class="c333 f15" onclick="Pic(1)">更换封面</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#pic" class="c333 f14">取消</a>
+				</li>
+			</ul>
+		</div>
 	</body>
 
 </html>
-<script src="../js/default.js"></script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
@@ -94,20 +106,19 @@
 		Init();
 
 		base.InitScroll(true);
+	});
 
-		//封面
-		document.getElementById('bg').addEventListener('tap', function(event) {
+	//更换封面
+	function Pic(index) {
+		mui('#pic').popover('toggle');
+		if(index == 1) {
+			mui('#pic').popover('toggle');
 			base.OpenWindow("editimage", "editimage.html", {
 				Url: userinfo.Cover,
 				Source: "UserCover"
 			});
-		});
-
-		//重新加载数据
-		window.addEventListener("UpdateUser", function(e) {
-			Load();
-		});
-	});
+		}
+	}
 
 	//服务器加载用户信息
 	function Load() {

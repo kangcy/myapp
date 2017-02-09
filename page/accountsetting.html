@@ -77,10 +77,9 @@
 	</body>
 
 </html>
-<script src="../js/default.js"></script>
 <script src="../js/mui.min.js"></script>
-<script src="../js/login.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/login.js"></script>
 <script type="text/javascript">
 	var auths = {};
 	var isLoading = false; //是否操作中
@@ -134,7 +133,7 @@
 			var self = plus.webview.currentWebview();
 			var myPage = plus.webview.getWebviewById('my.html');
 			if(myPage) {
-				mui.fire(myPage, "UpdateUser", {});
+				myPage.evalJS("Load()");
 			}
 			plus.webview.close(self);
 		}
@@ -151,7 +150,11 @@
 			if(!weixin) {
 				authLogin('weixin');
 			} else {
-				authLogout('weixin');
+				if(base.IsNullOrEmpty(userinfo.Phone)) {
+					mui.toast("解绑微信前需要绑定手机");
+				} else {
+					authLogout('weixin');
+				}
 			}
 		});
 
@@ -162,7 +165,11 @@
 			if(!qq) {
 				authLogin('qq');
 			} else {
-				authLogout('qq');
+				if(base.IsNullOrEmpty(userinfo.Phone)) {
+					mui.toast("解绑QQ前需要绑定手机");
+				} else {
+					authLogout('qq');
+				}
 			}
 		});
 
@@ -173,7 +180,11 @@
 			if(!weibo) {
 				authLogin('sinaweibo');
 			} else {
-				authLogout('sinaweibo');
+				if(base.IsNullOrEmpty(userinfo.Phone)) {
+					mui.toast("解绑微博前需要绑定手机");
+				} else {
+					authLogout('sinaweibo');
+				}
 			}
 		});
 	});

@@ -82,10 +82,9 @@
 	</body>
 
 </html>
-<script type="text/javascript" src="../js/default.js"></script>
-<script type="text/javascript" src="../js/mui.min.js"></script>
-<script type="text/javascript" src="../js/base.js"></script>
-<script type="text/javascript" src="../js/login.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/login.js"></script>
 <script type="text/javascript">
 	var Province = ""; //当前定位省份
 	var City = ""; //当前定位城市
@@ -244,7 +243,7 @@
 		}
 	}
 
-	// 微信登录认证信息 
+	//登录认证信息 
 	function authUserInfo(type, s) {
 		if(!s.authResult) {
 			mui.toast("未授权登录");
