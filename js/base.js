@@ -1,4 +1,3 @@
-
 (function(doc, win) {
 	// 分辨率Resolution适配
 	var docEl = doc.documentElement,
@@ -359,7 +358,9 @@ var base = new function() {
 						KeepText: data.KeepText,
 						BlackText: data.BlackText,
 						Phone: data.Phone,
-						UserLogin: data.UserLogin,
+						Weixin: data.Weixin,
+						QQ: data.QQ,
+						Weibo: data.Weibo,
 						ShareNick: data.ShareNick,
 						AutoMusic: data.AutoMusic,
 						IsPay: data.IsPay,

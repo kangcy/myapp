@@ -203,13 +203,20 @@
 
 	//检测是否绑定
 	function CheckBind(source) {
-		if(!userinfo.UserLogin) {
-			return false;
+		if(source == 1) {
+			return base.IsNullOrEmpty(userinfo.Weixin);
 		}
-		var exist = userinfo.UserLogin.some(function(userlogin) {
+		if(source == 2) {
+			return base.IsNullOrEmpty(userinfo.QQ);
+		}
+		if(source == 3) {
+			return base.IsNullOrEmpty(userinfo.Weibo);
+		}
+		return false;
+		/*var exist = userinfo.UserLogin.some(function(userlogin) {
 			return userlogin.Source == source;
 		});
-		return exist;
+		return exist;*/
 	}
 
 	//绑定密码
@@ -297,14 +304,10 @@
 					default:
 						break;
 				}
-				for(var j = 0; j < userinfo.UserLogin.length; j++) {
-					if(userinfo.UserLogin[j].Source == source) {
-						key = userinfo.UserLogin[j].ID;
-					}
-				}
-				if(key > 0 && source > 0) {
-					HttpGet(base.RootUrl + "UserLogin/Delete", {
-						ID: key
+				if(source > 0) {
+					HttpGet(base.RootUrl + "User/UnBind", {
+						ID: userinfo.ID,
+						Source: source
 					}, function(data) {
 						if(data == null) {
 							return callback("系统异常,请稍后再试");

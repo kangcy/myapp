@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
@@ -19,11 +20,21 @@
 	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
-			<span class="c333 f25 fr more" onclick="ActionTan(1)">•••</span>
-			<h1 class="mui-title c333 user">作者主页</h1>
+			<img src="../images/article/more2.png" class="fr more" onclick="ActionTan(1)" />
+			<img src="../images/article/skin.png" class="fr more" />
+			<h1 class="mui-title c333">详情</h1>
 		</header>
 
 		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top: 46px; bottom:0px;">
+			<div class="mui-loader tc" id="loader">
+				<div class="line-scale-pulse-out">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
 			<div class="mui-content mui-scroll-wrapper bg" id="bg">
 				<div class="mui-scroll">
 					<!--通用样式-->
@@ -410,7 +421,9 @@
 					MusicUrl = data.MusicUrl;
 
 					$("#payuser").attr("src", base.ShowThumb(data.Avatar, 1));
-					$(".user").attr("userid", data.UserID);
+					$(".user").attr("userid", data.CreateUserNumber);
+
+					document.getElementById("loader").classList.add("hide");
 
 					//段落
 					var html = [];
@@ -447,7 +460,7 @@
 
 					//console.log(data.Cover + "," + data.TemplateJson.Cover);
 					CurrTemplate = data.Template;
-					CurrBackground = data.Background;
+					CurrBackground = data.Background; 
 
 					if(!base.IsNullOrEmpty(CurrCover)) {
 						ChangeBg(CurrBackground);
