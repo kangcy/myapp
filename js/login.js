@@ -17,7 +17,9 @@
 		//登录验证
 		HttpGet(base.RootUrl + "User/Login", {
 			Phone: loginInfo.Phone,
-			Password: loginInfo.Password
+			Password: loginInfo.Password,
+			Province: loginInfo.Province,
+			City: loginInfo.City
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试~");
@@ -77,7 +79,10 @@
 			Avatar: loginInfo.Avatar,
 			Sex: loginInfo.Sex,
 			OpenID: loginInfo.OpenID,
-			Cover: ""
+			Cover: "",
+			Province: loginInfo.Province,
+			City: loginInfo.City,
+			Source: loginInfo.Source
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试~");
@@ -152,10 +157,10 @@
 					var info = {
 						ID: data.ID,
 						Password: data.Password,
-						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
+						Avatar: data.Avatar,
 						NickName: data.NickName,
 						Address: "",
-						Birthday: "",
+						Birthday: "0001-01-01",
 						Sex: "男",
 						Signature: "",
 						Follows: 0,

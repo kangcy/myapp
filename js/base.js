@@ -68,7 +68,7 @@ var base = new function() {
 	 * 格式化字符串显示
 	 **/
 	this.FormatStr = function(str, defaultStr) {
-		return base.IsNullOrEmpty(str) ? defaultStr : str
+		return base.IsNullOrEmpty(str) || str == " " ? defaultStr : str
 	}
 
 	/**

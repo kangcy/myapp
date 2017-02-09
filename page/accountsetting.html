@@ -64,7 +64,7 @@
 						</div>
 					</div>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell hide">
 					<span class="fl">绑定微博账号</span>
 					<div class="divSwitch">
 						<div class="my-switch fr" id="weiboSwitch">
@@ -122,7 +122,7 @@
 		});
 
 		if(base.IsNullOrEmpty(userinfo.Phone)) {
-			mui.confirm('您还没有绑定手机号，绑定后账号更安全。', '提示', ['去绑定', '取消'], function(e) {
+			mui.confirm('尚未绑定手机号，有文章丢失的风险，请尽快绑定。', '提示', ['去绑定', '取消'], function(e) {
 				if(e.index == 0) {
 					BindPhone();
 				}

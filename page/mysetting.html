@@ -44,10 +44,11 @@
 						<img class="head-img mui-action-preview" id="avatar" src="../images/logo_default.png" style="width:4rem;height:4rem;border-radius:50%;" />
 					</span>
 				</li>
-				<li class="mui-table-view-cell" id="editnickname">
+				<li class="mui-table-view-cell" id="editnickname" style="position:relative;">
 					<span class="fl">昵称</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="nickname"></span>
+					<span class="mui-badge mui-badge-danger hide" style="width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;"></span>
 				</li>
 				<li class="mui-table-view-cell" id="editnickname">
 					<span class="fl">Go号</span>
@@ -59,20 +60,23 @@
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="sex"></span>
 				</li>
-				<li class="mui-table-view-cell" id="cityPicker">
+				<li class="mui-table-view-cell" id="cityPicker" style="position:relative;">
 					<span class="fl">地区</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="city"></span>
+					<span class="mui-badge mui-badge-danger hide" style="width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;"></span>
 				</li>
-				<li class="mui-table-view-cell" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker">
+				<li class="mui-table-view-cell" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker" style="position:relative;">
 					<span class="fl">生日</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="time"></span>
+					<span class="mui-badge mui-badge-danger hide" style="width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;"></span>
 				</li>
-				<li class="mui-table-view-cell" id="editsignature">
+				<li class="mui-table-view-cell" id="editsignature" style="position:relative;">
 					<span class="fl">个性签名</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 tr mr10" id="signature"></span></a>
+					<span class="mui-badge mui-badge-danger hide" style="width:10px;height:10px;padding:0px;top:0.5rem;right:0.5rem;position:absolute;background:red;"></span>
 				</li>
 			</ul>
 		</div>
@@ -107,6 +111,19 @@
 		$("#city").html(base.FormatStr(userinfo.Address, "请填写"));
 		$("#time").html(userinfo.Birthday == "0001-01-01" ? "请设置" : userinfo.Birthday);
 		$("#signature").html(base.FormatStr(userinfo.Signature, "请填写"));
+
+		if($("#nickname").html() == "请填写") {
+			$("#editnickname").find(".mui-badge").removeClass("hide");
+		}
+		if($("#city").html() == "请填写") {
+			$("#cityPicker").find(".mui-badge").removeClass("hide");
+		}
+		if($("#time").html() == "请设置") {
+			$("#timePicker").find(".mui-badge").removeClass("hide");
+		}
+		if($("#signature").html() == "请填写") {
+			$("#editsignature").find(".mui-badge").removeClass("hide");
+		}
 
 		document.getElementById('cityPicker').addEventListener('tap', function(event) {
 			base.OpenWindow("province", "province.html", {});
