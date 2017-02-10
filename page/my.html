@@ -22,7 +22,6 @@
 						<h1 class="mui-title c333"></h1>
 					</header>
 					<div class="info-content" id="bg" onclick="Pic()">
-						<!--<img id="cover" class="cover" onclick="Pic()" />-->
 						<img id="avatar" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
 						<p class="cfff f16 tc mt10 textshadow" id="nickname"></p>
 						<p class="cfff signature tc mt10 f12 textshadow" id="signature"></p>
@@ -110,7 +109,8 @@
 		}
 		base.OpenWindow("editimage", "editimage.html", {
 			Url: userinfo.Cover,
-			Source: "UserCover"
+			Source: "UserCover",
+			Title: "封面"
 		});
 	}
 

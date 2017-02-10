@@ -27,12 +27,12 @@ function galleryVideo() {
 			//上传完成 
 			if(status == 200) {
 				clearInterval(i);
-				base.ShowWaiting("正在同步视频~")
+				base.ShowWaiting("正在同步视频")
 				if(data.result) {
 					AddVideo(base.RootUrl + data.message, 1)
 				}
 			} else {
-				mui.toast("上传失败~");
+				mui.toast("上传失败");
 			}
 		});
 		task.addFile(path, {

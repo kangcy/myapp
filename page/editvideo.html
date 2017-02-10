@@ -92,7 +92,7 @@
 				</li>
 				<li class="mui-table-view-cell" id="addurl" onclick="ActionTan(1)">
 					<p class="f13 c333">没有优酷账号</p>
-					<p class="f11 blue mt5">从视频网页地址导入</p>
+					<p class="f11 blue mt5">从优酷视频网页地址导入</p>
 				</li>
 				<li class="mui-table-view-cell" onclick="showActionSheet()">
 					<p class="f13 c333">本地视频导入</p>
@@ -145,7 +145,6 @@
 
 	mui.plusReady(function() {
 
-		//判断网络状态
 		base.NetChange();
 
 		//获取参数
@@ -171,19 +170,10 @@
 			isLoading = true;
 			var url = document.getElementById("url");
 			if(base.IsNullOrEmpty(url.value)) {
-				return mui.toast('请粘贴视频网页地址');
+				return mui.toast('请粘贴优酷视频网页地址');
 			}
 			AddVideo(url.value, 0);
 		});
-
-		/*var Intent = plus.android.importClass("android.content.Intent");
-		    var Uri = plus.android.importClass("android.net.Uri");
-		    var main = plus.android.runtimeMainActivity();
-		    var intent=new Intent(Intent.ACTION_VIEW);
-		    var uri=Uri.parse("网络视频地址");
-		    intent.setDataAndType(uri,"video/*");
-		    main.startActivity(intent);*/
-
 	});
 
 	function NotAgree() {

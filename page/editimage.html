@@ -25,7 +25,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
-			<h1 class="mui-title c333">图片编辑</h1>
+			<h1 class="mui-title c333" id="title"></h1>
 		</header>
 		<div class="mui-loader tc" id="loader">
 			<div class="line-scale-pulse-out">
@@ -90,6 +90,8 @@
 		Url = self.Url;
 		Source = self.Source;
 		Standard = self.Standard || "Article";
+		var Title = self.Title || "图片编辑";
+		$("#title").html(Title);
 
 		if(base.IsNullOrEmpty(Url)) {
 			document.getElementById("loader").classList.add("hide");

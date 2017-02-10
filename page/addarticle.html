@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/addarticle.css"> 
+		<link rel="stylesheet" href="../css/addarticle.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 	</head>
 
@@ -82,7 +82,8 @@
 		document.getElementById('cover').addEventListener('tap', function(event) {
 			base.OpenWindow("editimage", "editimage.html", {
 				Url: Cover,
-				Source: "ArticleCover"
+				Source: "ArticleCover",
+				Title: "封面"
 			});
 		});
 

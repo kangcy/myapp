@@ -1278,7 +1278,7 @@
 		-webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 5deg);
 		transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 5deg)
 	}
-	20%, 
+	20%,
 	30%,
 	40% {
 		-ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -5deg);
