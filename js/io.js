@@ -65,17 +65,24 @@ function readFileSize(file) {
  * 读取文件夹下子文件夹及子文件数目
  * @param {Object} file
  */
+var obj = {
+	subFolderNum: 0,
+	subFileNum: 0
+};
+ 
 function readSonFilenum(file) {
 	var subFile = plus.android.invoke(file, "listFiles");
 	var subLen = subFile.length;
-	var obj = {
-		subFolderNum: 0,
-		subFileNum: 0
-	};
 	for(var k = 0; k < subLen; k++) {
 		if(!plus.android.invoke(subFile[k], "isHidden")) {
+			
+			console.log(JSON.stringify(subFile[k]))
+			
 			if(plus.android.invoke(subFile[k], "isDirectory")) {
 				obj.subFolderNum++;
+
+				//readSonFilenum(subFile[k], "listFiles");
+
 			} else {
 				obj.subFileNum++;
 			}

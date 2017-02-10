@@ -137,6 +137,12 @@
 			var sdRoot = null;
 			document.addEventListener("plusready", function() {
 				init();
+
+				//返回
+				mui.back = function() {
+					plus.webview.currentWebview().close();
+				}
+
 			}, false);
 
 			// 渲染列表
@@ -160,7 +166,7 @@
 						li.className = 'mui-table-view-cell mui-media';
 						li.setAttribute('name', name);
 
-						// 判断是文件还是文件夹
+						// 判断是文件还是文件夹 
 						if(plus.android.invoke(file, "isDirectory")) {
 							// 设置标志为文件夹，供后面使用
 							li.setAttribute('data-type', 'Folder');
