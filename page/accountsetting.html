@@ -204,13 +204,13 @@
 	//检测是否绑定
 	function CheckBind(source) {
 		if(source == 1) {
-			return base.IsNullOrEmpty(userinfo.Weixin);
+			return !base.IsNullOrEmpty(userinfo.Weixin);
 		}
 		if(source == 2) {
-			return base.IsNullOrEmpty(userinfo.QQ);
+			return !base.IsNullOrEmpty(userinfo.QQ);
 		}
 		if(source == 3) {
-			return base.IsNullOrEmpty(userinfo.Weibo);
+			return !base.IsNullOrEmpty(userinfo.Weibo);
 		}
 		return false;
 		/*var exist = userinfo.UserLogin.some(function(userlogin) {
@@ -218,10 +218,18 @@
 		});
 		return exist;*/
 	}
-
+ 
 	//绑定密码
 	function BindPwd() {
-		base.OpenWindow("bindpassword", "bindpassword.html", {});
+		if(base.IsNullOrEmpty(userinfo.Phone)) {
+			mui.confirm('尚未绑定手机号，有文章丢失的风险，请尽快绑定。', '提示', ['去绑定', '取消'], function(e) {
+				if(e.index == 0) {
+					BindPhone();
+				}
+			});
+		} else {
+			base.OpenWindow("bindpassword", "bindpassword.html", {});
+		}
 	}
 
 	//绑定手机号
