@@ -20,8 +20,22 @@
 	width: 60%;
 	float: left;
 	height: 50px;
-	line-height: 50px;
+	/*line-height: 50px;*/
 	text-align: center;
+}
+
+#addcomment div {
+	width: 90%;
+	border-radius: 30px;
+	background: #eee;
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	background-image: url(../images/article/pen.png);
+	background-repeat: no-repeat;
+	background-position: 25% center;
+	background-size: 20px;
+	text-indent: 10%;
 }
 
 #footer {
@@ -37,7 +51,7 @@
 	float: left;
 	height: 50px;
 	line-height: 50px;
-	text-align: left;
+	text-align: center;
 }
 
 

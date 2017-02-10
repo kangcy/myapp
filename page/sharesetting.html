@@ -155,7 +155,7 @@
 
 		//分类
 		document.getElementById('articletype').addEventListener('tap', function(event) {
-			base.OpenWindow("articletype2", "articletype2.html", {
+			base.OpenWindow("articletype", "articletype.html", {
 				ArticleID: ArticleID,
 				ArticleType: ArticleType,
 				ArticleTypeName: ArticleTypeName
@@ -209,7 +209,9 @@
 			base.ShowWaiting("正在投稿");
 			setTimeout(function() {
 				HttpGet(base.RootUrl + "Article/Recommend", {
+						ID: userinfo.ID,
 						UserNumber: userinfo.Number,
+						ArticleID: ArticleID,
 						ArticleNumber: ArticleNumber
 					},
 					function(data) {

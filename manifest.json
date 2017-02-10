@@ -970,7 +970,8 @@
 					"images/article/more2.png",
 					"images/article/money.png",
 					"images/article/skin.png",
-					"css/loading.css"
+					"css/loading.css",
+					"images/article/pen.png"
 				],
 				"refer": [
 					"page/sharesetting.html",

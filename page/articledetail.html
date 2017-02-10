@@ -56,7 +56,7 @@
 						</div>
 					</div>
 					<!--排版1-->
-					<div id="main1" class="hide">
+					<!--<div id="main1" class="hide">
 						<div class="tc" style="width:95%;margin:0px 2.5%;padding-top:2.5%;">
 							<div class="full" style="position:relative;">
 								<img id="useravatar1" />
@@ -76,23 +76,23 @@
 
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
 		<div class="mui-bar mui-bar-tab hide" id="bottomAction">
 			<div id="addcomment">
-				<div style="width:85%;border-radius:30px;background:#aaa;display:inline-block;height:35px;line-height:35px;" class="c666 f13">我来说一句</div>
+				<div class="c666 f12">我来说一句</div>
 			</div>
-			<div id="footer">
+			<div id="footer" class="c999">
 				<div>
-					<span id="zan" class="mui-icon fa fa-thumbs-up c999" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_zan">0</span></span>
+					<span id="zan" class="mui-icon fa fa-thumbs-up" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_zan">0</span></span>
 				</div>
 				<div>
-					<span id="comment" class="mui-icon fa fa-comments c999" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_comment">0</span></span>
+					<span id="comment" class="mui-icon fa fa-comments" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_comment">0</span></span>
 				</div>
 				<div>
-					<span id="share" class="mui-icon fa fa-share-alt c999" style="font-size:20px;" onclick="ShareTan(1)"></span>
+					<span id="share" class="mui-icon fa fa-share-alt" style="font-size:20px;" onclick="ShareTan(1)"></span>
 				</div>
 			</div>
 		</div>
@@ -225,13 +225,13 @@
 			$("#nickname1").css("color", $this.attr("color"));
 
 			var templatetype = $this.attr("type");
-			if(templatetype == 0) {
-				$("#main1").addClass("hide");
+			/*if(templatetype == 0) {
+				$("#main1").addClass("hide"); 
 				$("#main0").removeClass("hide");
 			} else {
-				$("#main0").addClass("hide");
+				$("#main0").addClass("hide"); 
 				$("#main1").removeClass("hide");
-			}
+			}*/
 			ChangeBg(CurrBackground); //背景切换
 
 			ChangeMusic(templatetype); //音乐切换
