@@ -2031,7 +2031,8 @@
 					"page/zan.html",
 					"page/pay.html",
 					"page/zan2.html",
-					"page/comment.html"
+					"page/comment.html",
+					"page/file.html"
 				],
 				"priority": 0
 			},
@@ -2130,6 +2131,28 @@
 					"page/user2.html",
 					"page/articledetail.html"
 				],
+				"priority": 0
+			},
+			"page/file.html": {
+				"resources": [
+					"js/io.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"page/filesub.html"
+				],
+				"priority": 0
+			},
+			"page/filesub.html": {
+				"resources": [
+					"js/io.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

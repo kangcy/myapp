@@ -21,6 +21,8 @@ function getVideo() {
 //相册选取视频
 function galleryVideo() {
 	plus.gallery.pick(function(path) {
+		console.log(path);
+		//return;
 		//创建上传任务
 		var task = plus.uploader.createUpload(base.RootUrl + "Upload/UploadFile", {}, function(t, status) {
 			var data = JSON.parse(t.responseText);

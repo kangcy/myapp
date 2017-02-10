@@ -1676,7 +1676,8 @@
 			"page/zan.html",
 			"page/pay.html",
 			"page/zan2.html",
-			"page/comment.html"
+			"page/comment.html",
+			"page/file.html"
 		]
 	},
 	"page/money.html": {
@@ -1770,6 +1771,25 @@
 		"refer": [
 			"page/user2.html",
 			"page/articledetail.html"
+		]
+	},
+	"page/file.html": {
+		"resources": [
+			"js/io.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"page/filesub.html"
+		]
+	},
+	"page/filesub.html": {
+		"resources": [
+			"js/io.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
 		]
 	}
 }
