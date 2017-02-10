@@ -1,6 +1,9 @@
 .mui-table-view-cell {
 	background: #fff;
-	padding: 0px 10px;
+	padding: 0px 0.8rem;
+}
+
+.main {
 	border-bottom: 1px solid #eee;
 }
 
@@ -19,7 +22,7 @@
 }
 
 .oa-contact-avatar {
-	width: 2.5rem;
+	width: 2.8rem;
 }
 
 .oa-contact-avatar img {

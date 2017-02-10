@@ -20,8 +20,11 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
-			<div class="mui-title c333" id="header"></div>
+			<div class="mui-title c333" id="header">评论</div>
 		</header>
+		<div class="mui-bar mui-bar-tab tc f14 cfff bounceIn" id="bottomAction" onclick="Comment()" style="background:#49be38;line-height:50px;">
+			发表评论
+		</div>
 		<div class="mui-content">
 			<div class="mui-loader tc" id="loader">
 				<div class="line-scale-pulse-out">
@@ -33,7 +36,7 @@
 				</div>
 			</div>
 			<div class="mui-slider mui-fullscreen">
-				<div class="mui-scroll-wrapper">
+				<div class="mui-scroll-wrapper" style="bottom:50px;">
 					<div id="scroll" class="mui-scroll">
 						<div id="scroll-view">
 
@@ -61,7 +64,7 @@
 	var pagesize = base.PageSize;
 	var payPage = null;
 	var ArticleID = 0;
-	var ArticleNumber="";
+	var ArticleNumber = "";
 	var CommentTitle = "0条评论";
 	var userinfo = base.GetUserInfo();
 	var editor = null;
@@ -109,6 +112,10 @@
 
 		//评论
 		mui('#scroll').on('tap', '.fa-commenting-o', function() {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
 			ParentCommentNumber = this.getAttribute("cid");
 			ParentUserNumber = this.getAttribute("userid");
 
@@ -118,6 +125,7 @@
 				});
 			}
 			EditorTan(1);
+			isLoading = false;
 		});
 	});
 
@@ -125,9 +133,9 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber || 0;
-		CommentTitle = self.CommentTitle || "评论列表";
+		CommentTitle = self.CommentTitle || "评论";
 
-		document.getElementById("header").innerHTML = CommentTitle;
+		//document.getElementById("header").innerHTML = CommentTitle;
 
 		//返回
 		mui.back = function() {
@@ -181,19 +189,39 @@
 				if(page) {
 					page.evalJS("UpdateComment()")
 				}
-				
+
 				//刷新数据
-				currpage=1;
+				currpage = 1;
 				Load();
 			}
 			isLoading = false;
 		});
 	}
 
+	//发表评论
+	function Comment() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		ParentCommentNumber = "";
+		ParentUserNumber = "";
+		if(editor == null) {
+			editor = $("#textarea").emojioneArea({
+				template: "<editor/><filters/><tabs/>"
+			});
+		}
+		$("#bottomAction").removeClass("bounceIn").addClass("hide");
+		EditorTan(1);
+		isLoading = false;
+	}
+
 	//关闭编辑器
 	function EditorClose() {
 		EditorTan(0);
 		editor[0].emojioneArea.setText("");
+
+		$("#bottomAction").removeClass("hide").addClass("bounceIn");
 	}
 
 	//初始化获取参数
@@ -265,7 +293,7 @@
 		HttpGet(base.RootUrl + "Comment/ArticleComment", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				totalpage = data.totalpage; 
+				totalpage = data.totalpage;
 				var length = data.records;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view');
@@ -284,21 +312,17 @@
 
 	//拼接Html 
 	function appendStr(item, index) {
-		var div = document.createElement('div'); 
+		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
-		model.push('<div class="mui-slider-cell mt10 mb10">');
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr c999">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
-		if(!base.IsNullOrEmpty(item.City)) {
-			model.push('<span class="ml10 mr10">来自</span> ' + item.City)
-		}
-		model.push('</p>');
+		model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
+		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
+		model.push('<div class="mui-table-cell pb0 main"><p class="f12 user cc999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr c999 f11">' + item.CreateDate + '</span></p>');
 		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
 			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<p class="tr mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<p class="tr mt10 mb15 c999"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
