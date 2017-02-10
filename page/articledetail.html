@@ -80,10 +80,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="mui-bar mui-bar-tab hide" id="bottomAction" style="border-top: 1px solid #ccc;">
+		<div class="mui-bar mui-bar-tab hide" id="bottomAction">
 			<div id="addcomment">
-				<span class="mui-icon fa fa-commenting c999" style="font-size:20px;margin-right:3px;"></span>
-				<span class="c999" style="font-size:15px;">添加评论</span>
+				<div style="width:85%;border-radius:30px;background:#aaa;display:inline-block;height:35px;line-height:35px;" class="c666 f13">我来说一句</div>
 			</div>
 			<div id="footer">
 				<div>
@@ -98,7 +97,6 @@
 			</div>
 		</div>
 		<!--模板选择-->
-		<!--<i class="mui-icon mui-icon-pengyouquan hide" onclick="TempTan(1)" style="font-size:50px;color:#ed5565;" id="btnTemp"></i>-->
 		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
@@ -271,10 +269,9 @@
 			}
 			base.OpenWindow("articleComment", "articleComment.html", {
 				ArticleID: ArticleID,
-				ArticleNumber: Article.Number,
-				CommentTitle: Article.Comments + "条评论"
+				ArticleNumber: Article.Number
 			});
-		}); 
+		});
 
 		//打开外链
 		mui('#detail').on('tap', 'span.link', function() {

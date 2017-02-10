@@ -65,7 +65,6 @@
 	var payPage = null;
 	var ArticleID = 0;
 	var ArticleNumber = "";
-	var CommentTitle = "0条评论";
 	var userinfo = base.GetUserInfo();
 	var editor = null;
 	var Province = "";
@@ -133,9 +132,6 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber || 0;
-		CommentTitle = self.CommentTitle || "评论";
-
-		//document.getElementById("header").innerHTML = CommentTitle;
 
 		//返回
 		mui.back = function() {
