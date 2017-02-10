@@ -2123,7 +2123,8 @@
 					"page/fan.html",
 					"page/zan.html",
 					"page/pay.html",
-					"page/zan2.html"
+					"page/zan2.html",
+					"page/comment.html"
 				],
 				"priority": 0
 			},
@@ -2174,7 +2175,8 @@
 					"images/header.png"
 				],
 				"refer": [
-					"page/user2.html"
+					"page/user2.html",
+					"page/articledetail.html"
 				],
 				"priority": 0
 			},

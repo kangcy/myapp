@@ -60,7 +60,7 @@ var base = new function() {
 	/**
 	 * 是否测试
 	 **/
-	this.IsTest = mui.os.plus ? false : true;
+	this.IsTest = mui.os.plus ? false : true; 
 
 	/**
 	 * 列表每次请求数

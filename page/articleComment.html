@@ -47,8 +47,8 @@
 
 </html>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/base.js"></script>
 <script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
@@ -61,6 +61,7 @@
 	var pagesize = base.PageSize;
 	var payPage = null;
 	var ArticleID = 0;
+	var ArticleNumber="";
 	var CommentTitle = "0条评论";
 	var userinfo = base.GetUserInfo();
 	var editor = null;
@@ -123,6 +124,7 @@
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
+		ArticleNumber = self.ArticleNumber || 0;
 		CommentTitle = self.CommentTitle || "评论列表";
 
 		document.getElementById("header").innerHTML = CommentTitle;
@@ -137,7 +139,7 @@
 			mui.back();
 		}, false);
 
-		Init(ArticleID);
+		Init();
 
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
@@ -179,6 +181,10 @@
 				if(page) {
 					page.evalJS("UpdateComment()")
 				}
+				
+				//刷新数据
+				currpage=1;
+				Load();
 			}
 			isLoading = false;
 		});
@@ -192,7 +198,6 @@
 
 	//初始化获取参数
 	function Init(articleId) {
-		ArticleID = articleId;
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -255,12 +260,12 @@
 		data = {
 			page: currpage,
 			rows: pagesize,
-			ArticleID: ArticleID
+			ArticleNumber: ArticleNumber
 		}
 		HttpGet(base.RootUrl + "Comment/ArticleComment", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				totalpage = data.totalpage;
+				totalpage = data.totalpage; 
 				var length = data.records;
 				if(length > 0) {
 					var table = document.getElementById('scroll-view');
@@ -279,21 +284,21 @@
 
 	//拼接Html 
 	function appendStr(item, index) {
-		var div = document.createElement('div');
+		var div = document.createElement('div'); 
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10">');
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr caaa">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
+		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr c999">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
 		if(!base.IsNullOrEmpty(item.City)) {
-			model.push('<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City)
+			model.push('<span class="ml10 mr10">来自</span> ' + item.City)
 		}
 		model.push('</p>');
-		model.push('<p class="f12 c333 mt10 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
+		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
 			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<p class="tr blue mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<p class="tr mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

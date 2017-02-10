@@ -212,7 +212,7 @@
 					</div>
 					<div id="none1" class="full tc hide">
 						<img src="../images/my/333.png" class="none" />
-						<p class="f13 mt10">你的评论，会在这里显示</p>
+						<p class="f13 mt10">你收到的评论，会在这里显示</p>
 					</div>
 				</div>
 			</div>
@@ -422,7 +422,7 @@
 		data = {
 			page: currpage1,
 			rows: pagesize,
-			ArticleUserID: userinfo.ID
+			ArticleUserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
@@ -459,16 +459,16 @@
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
 		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr caaa">' + index + '楼</span></p><p class="f11 caaa mt5">' + item.CreateDate);
 		if(!base.IsNullOrEmpty(item.City)) {
-			model.push('<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City)
+			model.push('<span class="ml10 mr10">来自</span> ' + item.City)
 		}
 		model.push('</p>');
-		model.push('<p class="f12 c333 mt10 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
+		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
 			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		} else {
 			model.push('<p class="tip mb0 f12 blue article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserID + '" power="' + item.ArticlePower + '">' + item.Title + '</p>');
 		}
-		model.push('<p class="tr blue mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" articleid="' + item.ArticleID + '" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<p class="tr mt10"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" articleid="' + item.ArticleID + '" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

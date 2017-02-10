@@ -1672,7 +1672,8 @@
 			"page/fan.html",
 			"page/zan.html",
 			"page/pay.html",
-			"page/zan2.html"
+			"page/zan2.html",
+			"page/comment.html"
 		]
 	},
 	"page/money.html": {
@@ -1717,7 +1718,8 @@
 			"images/logo_default.png"
 		],
 		"refer": [
-			"page/user2.html"
+			"page/user2.html",
+			"page/articledetail.html"
 		]
 	},
 	"page/user2.html": {

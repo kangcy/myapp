@@ -21,9 +21,9 @@
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
 			<img src="../images/article/more2.png" class="fr more hide" onclick="ActionTan(1)" id="action" />
-			<img src="../images/article/skin.png" class="fr more hide" onclick="TempTan(1)"  id="btnTemp" />
+			<img src="../images/article/skin.png" class="fr more hide" onclick="TempTan(1)" id="btnTemp" />
 			<h1 class="mui-title c333">详情</h1>
-		</header> 
+		</header>
 
 		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top: 46px; bottom:0px;">
 			<div class="mui-loader tc" id="loader">
@@ -173,9 +173,9 @@
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
 		<textarea id="textarea" class="hide"></textarea>
 	</body>
-  
+
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script> 
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
@@ -271,9 +271,10 @@
 			}
 			base.OpenWindow("articleComment", "articleComment.html", {
 				ArticleID: ArticleID,
+				ArticleNumber: Article.Number,
 				CommentTitle: Article.Comments + "条评论"
 			});
-		});
+		}); 
 
 		//打开外链
 		mui('#detail').on('tap', 'span.link', function() {
@@ -354,9 +355,6 @@
 		if(base.IsNullOrEmpty(val)) {
 			isLoading = false;
 			return mui.toast("请填写内容");
-		}
-		if(mui.os.plus) {
-			plus.nativeUI.showWaiting();
 		}
 		base.ShowWaiting("正在提交");
 		HttpGet(base.RootUrl + "Comment/Edit", {
@@ -469,7 +467,7 @@
 					$("#musicname0").html(data.MusicName);
 					$("#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(data.Title);
-					$("#nickname0,#nickname1").html(data.NickName).attr("userid", userinfo.ID);
+					$("#nickname0,#nickname1").html(data.NickName);
 					$("#createdate0,#createdate1").html(data.CreateDateText);
 					$("#views0,#views1").html("阅读  " + data.Views);
 					$("#desc0,#desc1").html(html.join(""));
