@@ -17,34 +17,31 @@
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
 				<div class="mui-scroll">
 					<header class="mui-bar" style="box-shadow:none;">
-						<img src="../images/my/setting.png" style="width:1rem;margin-top:1rem;margin-left:0.5rem;" class="fl" id="setting" />
-						<img src="../images/my/tip.png" style="width:1rem;margin-top:1rem;margin-right:0.5rem;" class="fr" id="tip" />
+						<img src="../images/my/setting.png" class="fl" id="setting" />
+						<img src="../images/my/tip.png" class="fr" id="tip" />
 						<h1 class="mui-title c333"></h1>
 					</header>
-
-					<div id="bg" style="width:100%;height:10rem;" onclick="Pic()"></div>
-					<div class="info-body mb8">
-						<div class="info-content">
-							<img id="avatar" class="mt30" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
-							<p class="cfff f16 tc name textshadow" id="nickname"></p>
-							<p class="cfff signature tc mt10 mb10 f12 textshadow" id="signature"></p>
-							<div class="content1 tc cfff textshadow">
-								<div class="items" id="my-articles">
-									<p class="item1 f16" id="articles">0</p>
-									<p class="item2 f13">动态</p>
-								</div>
-								<div class="items" id="my-keeps">
-									<p class="item1 f16" id="keeps">0</p>
-									<p class="item2 f13">收藏</p>
-								</div>
-								<div class="items" id="my-follows">
-									<p class="item1 f16" id="follows">0</p>
-									<p class="item2 f13">关注</p>
-								</div>
-								<div class="items" id="my-fans">
-									<p class="item1 f16" id="fans">0</p>
-									<p class="item2 f13">粉丝</p>
-								</div>
+					<div class="info-content" id="bg" onclick="Pic()">
+						<!--<img id="cover" class="cover" onclick="Pic()" />-->
+						<img id="avatar" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
+						<p class="cfff f16 tc mt10 textshadow" id="nickname"></p>
+						<p class="cfff signature tc mt10 f12 textshadow" id="signature"></p>
+						<div class="content1 tc mt5 mb10 cfff textshadow">
+							<div class="items" id="my-articles">
+								<p class="item1 f20 cfff textshadow" id="articles">0</p>
+								<p class="item2 f12 cfff textshadow">动态</p>
+							</div>
+							<div class="items" id="my-keeps">
+								<p class="item1 f20 cfff textshadow" id="keeps">0</p>
+								<p class="item2 f12 cfff textshadow">收藏</p>
+							</div>
+							<div class="items" id="my-follows">
+								<p class="item1 f20 cfff textshadow" id="follows">0</p>
+								<p class="item2 f12 cfff textshadow">关注</p>
+							</div>
+							<div class="items" id="my-fans">
+								<p class="item1 f20 cfff textshadow" id="fans">0</p>
+								<p class="item2 f12 cfff textshadow">粉丝</p>
 							</div>
 						</div>
 					</div>
@@ -63,7 +60,7 @@
 							</p>
 						</div>
 					</div>-->
-					<div class="c000 menu f13" id="my-mypay">
+					<div class="c000 menu f13 mt15" id="my-mypay">
 						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
 					</div>
 					<div class="c000 menu f13" id="my-comment">
@@ -88,6 +85,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var triggerMain = true; //触发背景修改
 	var userinfo = base.GetUserInfo();
 
 	//启用双击监听
@@ -102,11 +100,14 @@
 
 		Init();
 
-		base.InitScroll(true);
+		base.InitScroll();
 	});
 
 	//更换封面
 	function Pic() {
+		if(!triggerMain) {
+			return false;
+		}
 		base.OpenWindow("editimage", "editimage.html", {
 			Url: userinfo.Cover,
 			Source: "UserCover"
@@ -125,7 +126,7 @@
 	function Init() {
 		$("#bg").css({
 			"background": "url(" + userinfo.Cover + ") center center",
-			"background-size": "100%"
+			"background-size": "100% 100%"
 		});
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 2));
 		$("#nickname").html(userinfo.NickName);
@@ -148,17 +149,29 @@
 
 		//消息
 		document.getElementById('tip').addEventListener('tap', function(event) {
+			triggerMain = false;
 			base.OpenWindow("tipsetting", "tipsetting.html", {});
+			setTimeout(function() {
+				triggerMain = true;
+			}, 2000);
 		});
 
 		//用户设置
 		document.getElementById('avatar').addEventListener('tap', function(event) {
+			triggerMain = false;
 			base.OpenWindow("mysetting", "mysetting.html", {});
+			setTimeout(function() {
+				triggerMain = true;
+			}, 2000);
 		});
 
 		//系统设置
 		document.getElementById('setting').addEventListener('tap', function(event) {
+			triggerMain = false;
 			base.OpenWindow("setting", "setting.html", {});
+			setTimeout(function() {
+				triggerMain = true;
+			}, 2000);
 		});
 
 		//我的打赏
@@ -185,26 +198,42 @@
 
 		//我的文章
 		document.getElementById('my-articles').addEventListener('tap', function(event) {
+			triggerMain = false;
 			base.OpenWindow("article", "article.html", {
 				CreateUserNumber: userinfo.Number,
 				ArticleTypeName: "我的动态",
 				Source: "My"
 			});
+			setTimeout(function() {
+				triggerMain = true;
+			}, 2000);
 		});
 
 		//我的收藏
 		document.getElementById('my-keeps').addEventListener('tap', function(event) {
+			triggerMain = false;
 			base.OpenWindow("keep", "keep.html", {});
+			setTimeout(function() {
+				triggerMain = true;
+			}, 2000);
 		});
 
 		//我的关注
 		document.getElementById('my-follows').addEventListener('tap', function(event) {
+			triggerMain = false;
 			base.OpenWindow("follow", "follow.html", {});
+			setTimeout(function() {
+				triggerMain = true;
+			}, 2000);
 		});
 
 		//我的粉丝
 		document.getElementById('my-fans').addEventListener('tap', function(event) {
+			triggerMain = false;
 			base.OpenWindow("fan", "fan.html", {});
+			setTimeout(function() {
+				triggerMain = true;
+			}, 2000);
 		});
 
 		//留言反馈

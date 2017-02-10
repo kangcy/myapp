@@ -185,8 +185,7 @@ function Upload(imgurl, callback) {
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		standard: Standard,
-		isDraw: userinfo.UseDraw,
-		isThumb: 1
+		Number: userinfo.Number
 	}, function(data) {
 		if(data != null) {
 			if(data.result) {

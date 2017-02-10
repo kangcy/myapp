@@ -254,14 +254,15 @@
 			var length = e.files.length;
 			var index = 1;
 			for(var i in e.files) {
-				mui.toast("正在导入第" + index + "张图片");
+				base.ShowWaiting("正在同步文章内容");
+				/*mui.toast("正在导入第" + index + "张图片");
 				if(index == length) {
 					setTimeout(function() {
 						if(length > 0) {
 							base.ShowWaiting("正在同步文章内容");
 						}
 					}, index * 2000);
-				}
+				}*/
 
 				index += 1;
 				//压缩图片 
@@ -318,7 +319,6 @@
 				quality: 80
 			},
 			function(event) {
-				console.log(JSON.stringify("event:" + JSON.stringify(event)));
 				callback(true, event.target);
 			},
 			function(error) {
@@ -342,12 +342,10 @@
 
 	//上传图片到服务器 
 	function Upload(imgurl, length) {
-		console.log(imgurl);
 		mui.post(base.RootUrl + "Upload/Upload", {
 			str: imgurl,
 			Standard: "Article",
-			isDraw: userinfo.UseDraw,
-			isThumb: 1
+			Number: userinfo.Number
 		}, function(data) {
 			if(data != null) {
 				if(data.result) {

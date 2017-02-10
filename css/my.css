@@ -31,17 +31,25 @@
 	white-space: normal;
 }
 
-.info-body {
-	width: 100%;
-	display: inline-block;
-	background: #fff;
+#setting {
+	width: 1rem;
+	margin-top: 1.5rem;
+	margin-left: 0.5rem;
+}
+
+#tip {
+	width: 1rem;
+	margin-top: 1.5rem;
+	margin-right: 0.5rem;
 }
 
 .info-content {
-	width: 90%;
+	width: 100%;
 	display: inline-block;
-	margin: -20% 5% 1rem 5%;
+	margin: 0px;
 	text-align: center;
+	position: relative;
+	padding-top: 5rem;
 }
 
 .info-content .side {
@@ -49,16 +57,6 @@
 	width: 25%;
 	line-height: 0.625rem;
 	padding-top: 2.1875rem;
-}
-
-.info-content .center {
-	/*float: left;
-	width: 50%;*/
-}
-
-.name {
-	margin: 0px;
-	margin-top: 0.5rem;
 }
 
 .signature {
@@ -150,7 +148,7 @@
 }
 
 .dashang {
-	border: 1px solid #49be38;
+	background:#fff;
 	color: #49be38;
 	text-align: center;
 	border-radius: 15px;

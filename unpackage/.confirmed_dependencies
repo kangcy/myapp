@@ -1716,7 +1716,9 @@
 			"css/img.preview.css",
 			"images/logo_default.png"
 		],
-		"refer": []
+		"refer": [
+			"page/user2.html"
+		]
 	},
 	"page/user2.html": {
 		"resources": [
@@ -1738,7 +1740,8 @@
 			"images/logo_default.png",
 			"css/mui.min.css",
 			"js/jquery-1.10.2.min.js",
-			"js/default.js"
+			"js/default.js",
+			"css/user.css"
 		],
 		"refer": [
 			"page/articledetail.html",

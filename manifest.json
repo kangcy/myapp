@@ -2173,7 +2173,9 @@
 					"images/logo_default.png",
 					"images/header.png"
 				],
-				"refer": [],
+				"refer": [
+					"page/user2.html"
+				],
 				"priority": 0
 			},
 			"page/user2.html": {
@@ -2196,7 +2198,8 @@
 					"images/logo_default.png",
 					"css/mui.min.css",
 					"js/jquery-1.10.2.min.js",
-					"js/default.js"
+					"js/default.js",
+					"css/user.css"
 				],
 				"refer": [
 					"page/articledetail.html",
