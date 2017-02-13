@@ -120,6 +120,7 @@
 		</div>
 
 		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/io.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init({
@@ -134,88 +135,86 @@
 				mask.show(); //显示遮罩
 			})
 
-			var sdRoot = null;
-			document.addEventListener("plusready", function() {
-				init();
+			var count = 0;
+			var sdRoot, File = null;
+			var list = document.getElementById("list");
+			var fragmentFolder = document.createDocumentFragment();
+			var fragmentFile = document.createDocumentFragment();
+
+			mui.plusReady(function() {
+				// 获得sd卡根目录
+				sdRoot = getSDRoot();
+				File = plus.android.importClass("java.io.File");
+				init("", true);
 
 				//返回
 				mui.back = function() {
 					plus.webview.currentWebview().close();
 				}
+			});
 
-			}, false);
-
-			// 渲染列表
-			function init() {
-				// 获得sd卡根目录
-				sdRoot = getSDRoot();
-				// 遍历sd卡根目录下的所有文件和文件夹
-				var files = plus.android.invoke(sdRoot, "listFiles");
+			// 遍历目录下的所有文件和文件夹
+			function init(filepath, isfirst) {
+				var files;
+				if(isfirst) {
+					files = plus.android.invoke(sdRoot, "listFiles");
+				} else {
+					var subRoot = new File(filepath);
+					files = plus.android.invoke(subRoot, "listFiles");
+				}
 				var len = files.length;
-
-				var list = document.getElementById("list");
-				var fragmentFolder = document.createDocumentFragment();
-				var fragmentFile = document.createDocumentFragment();
 				var li;
 				for(var i = 0; i < len; i++) {
 					var file = files[i];
-					// 过滤隐藏文件
+					// 过滤隐藏文件 
 					if(!plus.android.invoke(file, "isHidden")) {
-						var name = plus.android.invoke(file, "getName");
-						li = document.createElement('li');
-						li.className = 'mui-table-view-cell mui-media';
-						li.setAttribute('name', name);
+						var path = plus.android.invoke(file, "getAbsolutePath"); //文件路径
+						if(path.toLowerCase().indexOf("android") < 0 && path.toLowerCase().indexOf("tencent") < 0) {
+							var name = plus.android.invoke(file, "getName"); //文件名称
+							li = document.createElement('li');
+							li.className = 'mui-table-view-cell mui-media';
+							li.setAttribute('name', name);
 
-						// 判断是文件还是文件夹 
-						if(plus.android.invoke(file, "isDirectory")) {
-							// 设置标志为文件夹，供后面使用
-							li.setAttribute('data-type', 'Folder');
-							// 读取文件夹下子文件夹及子文件数目
-							var obj = readSonFilenum(file);
-							if(obj.subFileNum > 0) {
-								li.innerHTML = '<a class="mui-navigate-right">' +
-									'<div class="mui-media-body">' + name +
-									'<p class="mui-ellipsis">文件夹数量：' + obj.subFolderNum + ' 文件数量：' + obj.subFileNum + '</p></div></a>';
-								fragmentFolder.appendChild(li);
+							// 判断是文件还是文件夹 
+							if(plus.android.invoke(file, "isDirectory")) {
+								// 读取文件夹下子文件夹及子文件数目
+								var obj = readSonFilenum(file);
+
+								//存在图片文件
+								if(obj.subFileNum > 0) {
+									count += obj.subFileNum;
+									li.innerHTML = '<a class="mui-navigate-right">' +
+										'<div class="mui-media-body">' + name +
+										'<p class="mui-ellipsis">文件夹数量：' + obj.subFolderNum + ' 文件数量：' + obj.subFileNum + '</p></div></a>';
+									fragmentFolder.appendChild(li);
+								}
+								//遍历子文件夹 
+								if(obj.subFolderNum > 0) {
+									//console.log(name + "," + path);
+									init(path, false);
+								}
+							} else {
+								if(CheckImage(name)) {
+									count += 1;
+
+									// 读文件大小
+									var fileSizeString = readFileSize(file);
+									li.innerHTML = '<a class="mui-navigate-right">' +
+										'<div class="mui-media-body mui-ellipsis"><img src="' + path + '" style="width:100px;" /><br />' + name +
+										'<p class="mui-ellipsis">' + fileSizeString + '</p></div></a>';
+									fragmentFile.appendChild(li);
+								}
 							}
-						} else {
-							li.setAttribute('data-type', 'File');
-							// 读文件大小
-							var fileSizeString = readFileSize(file);
-							li.innerHTML = '<a class="mui-navigate-right">' +
-								'<div class="mui-media-body mui-ellipsis">' + name +
-								'<p class="mui-ellipsis">' + fileSizeString + '</p></div></a>';
-							fragmentFile.appendChild(li);
 						}
 					};
 				}
 				list.appendChild(fragmentFolder);
 				list.appendChild(fragmentFile);
+
 				// 关闭遮罩
 				mask.close();
 				document.querySelector('.loading').style.display = 'none';
 			}
-
-			// 点击打开文件
-			mui('.mui-table-view').on('tap', 'li', function() {
-				var name = this.getAttribute('name');
-				var fileType = this.getAttribute('data-type');
-				var filepath = sdRoot + '/' + name;
-				if(fileType === 'Folder') {
-					// 打开目录详细页面
-					mui.openWindow({
-						url: 'filesub.html',
-						id: 'filesub',
-						extras: {
-							name: name,
-							filepath: filepath
-						}
-					})
-				} else {
-					// 打开文件
-					plus.runtime.openFile(filepath);
-				}
-			})
 
 			// 创建文件夹
 			document.querySelector('#add').addEventListener('tap', function(e) {

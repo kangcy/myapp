@@ -20,6 +20,7 @@
 		</div>
 
 		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/io.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init({
@@ -56,6 +57,8 @@
 					// 过滤隐藏文件
 					if(!plus.android.invoke(file, "isHidden")) {
 						var name = plus.android.invoke(file, "getName");
+						var path = plus.android.invoke(file, "getAbsolutePath");
+						console.log(path);
 						li = document.createElement('li');
 						li.className = 'mui-table-view-cell mui-media';
 						li.setAttribute('name', name);
@@ -66,20 +69,22 @@
 							li.setAttribute('data-type', 'Folder');
 							// 读取文件夹下子文件夹及子文件数目
 							var obj = readSonFilenum(file);
-							if(obj.subFileNum > 0) {
+							if(obj.subFolderNum > 0 || obj.subFileNum > 0) {
 								li.innerHTML = '<a class="mui-navigate-right">' +
 									'<div class="mui-media-body">' + name +
 									'<p class="mui-ellipsis">文件夹数量：' + obj.subFolderNum + ' 文件数量：' + obj.subFileNum + '</p></div></a>';
 								fragmentFolder.appendChild(li);
 							}
 						} else {
-							li.setAttribute('data-type', 'File');
-							// 读文件大小
-							var fileSizeString = readFileSize(file);
-							li.innerHTML = '<a class="mui-navigate-right">' +
-								'<div class="mui-media-body mui-ellipsis">' + name +
-								'<p class="mui-ellipsis">' + fileSizeString + '</p></div></a>';
-							fragmentFile.appendChild(li);
+							if(CheckImage(name)) {
+								li.setAttribute('data-type', 'File');
+								// 读文件大小
+								var fileSizeString = readFileSize(file);
+								li.innerHTML = '<a class="mui-navigate-right">' +
+									'<div class="mui-media-body mui-ellipsis"><img src="' + path + '" style="width:100px;" /><br />' + name +
+									'<p class="mui-ellipsis">' + fileSizeString + '</p></div></a>';
+								fragmentFile.appendChild(li);
+							}
 						}
 					};
 				}
@@ -92,7 +97,6 @@
 				var name = this.getAttribute('name');
 				var fileType = this.getAttribute('data-type');
 				var filepath = subRoot + '/' + name;
-
 				if(fileType === 'Folder') {
 					plus.nativeUI.toast('本例子为演示例子，此处进一步打开文件夹不做演示。')
 				} else {
