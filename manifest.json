@@ -803,7 +803,8 @@
 					"css/animate.css",
 					"images/login/logo.png",
 					"images/logo_default.png",
-					"images/search_blue.png"
+					"images/search_blue.png",
+					"images/base/title.png"
 				],
 				"refer": [
 					"page/articledetail.html",
@@ -1147,7 +1148,8 @@
 					"images/base/03_2.png",
 					"images/base/04_1.png",
 					"images/base/01_1.png",
-					"page/index.html"
+					"page/index.html",
+					"images/base/add.png"
 				],
 				"refer": [
 					"page/addarticle.html",
@@ -1157,9 +1159,6 @@
 					"page/editimage.html",
 					"page/money.html",
 					"page/tipsetting.html",
-					"page/my.html",
-					"page/index.html",
-					"page/topic.html",
 					"page/login.html"
 				],
 				"priority": 0

@@ -1245,6 +1245,11 @@ input[type=submit]:enabled:active {
 	box-shadow: 0 0px 1px #ccc;
 }
 
+.mui-bar-nav.noborder {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
 .mui-bar-nav~.mui-content .mui-anchor {
 	display: block;
 	visibility: hidden;
@@ -5070,7 +5075,7 @@ body>.mui-progressbar {
 }
 
 
-/*文章*/ 
+/*文章*/
 
 .onefloor {
 	width: 100%;
@@ -5079,7 +5084,7 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-	width: 50% !important;
+	width: 75% !important;
 	min-height: 100%;
 }
 
