@@ -77,19 +77,52 @@
 			<img src="../images/search_blue.png" style="width:20px;margin-top:12px;margin-right:8px;" class="fr" id="search" />
 			<img src="../images/base/title.png" style="height:25px;margin-top:15px;" />
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
+		<div class="mui-loader tc" id="loader">
+			<div class="line-scale-pulse-out">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
 			</div>
 		</div>
 		<div class="mui-content">
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
+				<!--<div id="banner" class="mui-slider" style="height:8rem;top:45px;">
+					<div class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
+						</div>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
+						</div>
+					</div>
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+					</div>
+				</div>-->
 				<div id="slider" class="mui-slider mui-fullscreen hide">
 					<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 						<div class="mui-scroll" id="sliderTopBody">
 
 						</div>
 					</div>
+
 					<div class="mui-slider-group" id="sliderGroup" style="top:2.35rem;">
 
 					</div>
@@ -138,6 +171,7 @@
 	});
 
 	mui.ready(function() {
+
 		base.ShowSearch();
 
 		//加载类型
@@ -183,6 +217,22 @@
 					}
 					html.push('</div></div>');
 				}
+
+				//精选添加轮播
+				if(i == 0) {
+					html.push('<div id="banner" class="mui-slider" style="height:8rem;top:0rem;">');
+					html.push('<div class="mui-slider-group mui-slider-loop">');
+					html.push('<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
+					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
+					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
+					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
+					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
+					html.push('<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
+					html.push('</div>');
+					html.push('<div class="mui-slider-indicator"><div class="mui-indicator mui-active"></div><div class="mui-indicator"></div><div class="mui-indicator"></div><div class="mui-indicator"></div></div>');
+					html.push('</div>');
+				}
+
 				html.push('<div id="scroll-view' + i + '"></div>');
 				html.push('</div>');
 				html.push('</div>');
@@ -195,6 +245,10 @@
 
 			//重新注册滑动切换事件
 			mui("#slider").slider();
+
+			mui("#banner").slider({
+				interval: 5000
+			});
 
 			//上划效果
 			$("#slider").removeClass("hide").addClass("bounceInDown");
@@ -368,9 +422,9 @@
 	 */
 	function appendPTypeStr(item, index) {
 		if(index == 0) {
-			return '<div class="mui-control-item f13 topic mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f13 topic bold mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		} else {
-			return '<div class="mui-control-item f13 topic " typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f13 topic bold" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		}
 	}
 

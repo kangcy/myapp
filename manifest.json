@@ -288,9 +288,7 @@
 					"page/about.html",
 					"list.html",
 					"menu.html",
-					"page/guide.html",
-					"page/subindex.html",
-					"page/login.html"
+					"page/guide.html"
 				],
 				"priority": 0
 			},
@@ -804,7 +802,8 @@
 					"images/login/logo.png",
 					"images/logo_default.png",
 					"images/search_blue.png",
-					"images/base/title.png"
+					"images/base/title.png",
+					"js/mui.js"
 				],
 				"refer": [
 					"page/articledetail.html",

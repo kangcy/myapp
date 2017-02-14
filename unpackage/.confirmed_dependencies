@@ -471,7 +471,8 @@
 			"images/login/logo.png",
 			"images/logo_default.png",
 			"images/search_blue.png",
-			"images/base/title.png"
+			"images/base/title.png",
+			"js/mui.js"
 		],
 		"refer": [
 			"page/topicSub.html",
