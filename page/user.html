@@ -96,6 +96,11 @@
 			<h1 class="mui-title c333"></h1>
 		</header>
 		<div class="mui-content">
+			<div class="loading" id="loader">
+				<div class="card">
+					<span class="circles-loader"></span>
+				</div>
+			</div>
 			<div class="info-content" id="bg">
 				<img id="avatar" class="hide" />
 				<p class="f16 tc mt5 cfff textshadow" id="nickname"></p>
@@ -105,7 +110,7 @@
 					<span class="cfff textshadow hide" id="showFan">粉丝&nbsp;<span class="cfff textshadow" id="showFanNum">0</span></span>
 					<span class="cfff textshadow hide" id="showArticle">喜欢&nbsp;<span class="cfff textshadow" id="showArticleNum">0</span></span>
 				</p>
-				<div class="full tc mt20 mb20 hide" id="action"> 
+				<div class="full tc mt20 mb20 hide" id="action">
 					<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
 					<div class="dashang f14" onclick="Payment()">打赏</div>
 				</div>
@@ -223,7 +228,7 @@
 
 		var self = plus.webview.currentWebview();
 		UserNumber = self.UserNumber || "";
-		
+
 		CheckBlack();
 
 		//返回
@@ -348,6 +353,8 @@
 				document.getElementById("blacktip").classList.add("hide");
 				document.getElementById("article").classList.remove("hide");
 			}
+			
+			document.getElementById("loader").classList.add("hide");
 		});
 	}
 

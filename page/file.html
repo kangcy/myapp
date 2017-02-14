@@ -18,6 +18,17 @@
 				}
 			}
 			
+			@-ms-keyframes circles-loader {
+				0% {
+					-ms-transform: rotate(-720deg);
+					transform: rotate(-720deg);
+				}
+				50% {
+					-ms-transform: rotate(720deg);
+					transform: rotate(720deg);
+				}
+			}
+			
 			@-webkit-keyframes circles-loader {
 				0% {
 					-webkit-transform: rotate(-720deg);
@@ -96,7 +107,7 @@
 			
 			.loading .card {
 				display: table-cell;
-				text-align: center;
+				text-align: center; 
 				vertical-align: middle;
 				width: 200px;
 				height: 200px;
@@ -107,7 +118,7 @@
 	<body>
 		<div class="loading">
 			<div class="card">
-				<span class="circles-loader">Loading&#8230;</span>
+				<span class="circles-loader"></span>
 			</div>
 		</div>
 

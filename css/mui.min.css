@@ -5070,7 +5070,7 @@ body>.mui-progressbar {
 }
 
 
-/*文章*/
+/*文章*/ 
 
 .onefloor {
 	width: 100%;
@@ -5079,7 +5079,7 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-	width: 100% !important;
+	width: 50% !important;
 	min-height: 100%;
 }
 
