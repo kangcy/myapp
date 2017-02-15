@@ -500,13 +500,13 @@ var base = new function() {
 					power = "私密";
 					break;
 			}
-			model.push('<div class="mui-card-header noborder mui-card-media">');
-			model.push('<div class="mui-media-body f12"><span class="fl c999">' + item.CreateDate);
+			model.push('<div class="mui-card-header noborder full fl" style="display:inline-block;">');
+			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.CreateDate + '</span><p class="f11 full caaa mt5">');
 			if(!base.IsNullOrEmpty(item.City)) {
-				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
+				model.push('<span class="blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
-			model.push('</span><span style="border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;margin-top:-0.1rem;" class="f11 fr">' + power + '</span>');
-			model.push('</div></div>');
+			model.push('</p><span style="position:absolute;right:0px;top:1%;border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;" />' + power + '</span></div></div>');
+
 		} else {
 			if(isuser) {
 				model.push('<div class="mui-card-header noborder mui-card-media"><div class="mui-media-body f12"><span class="fr c999">' + item.CreateDate);
@@ -518,25 +518,25 @@ var base = new function() {
 				if(isdel) {
 					model.push('<div class="mui-slider-cell mui-slider-handle">');
 				}
-				model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
+				model.push('<div class="mui-card-header noborder mui-card-media">');
 				if(islazyload) {
-					model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+					model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
 				} else {
-					model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+					model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
 				}
 
-				model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span class="bold">' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
+				model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span class="bold user" userid="' + item.UserNumber + '">' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
 				if(!base.IsNullOrEmpty(item.City)) {
 					model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 				}
-				model.push('</p><img src="../images/base/follow0.png" style="position:absolute;right:0px;top:1%;height:60%;" /></div></div>');
+				model.push('</p><img src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1%;height:60%;" /></div></div>');
 			}
 		}
 
 		//内容
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
-		model.push('<p class="c333 fl article full mb20 f13" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
+		model.push('<p class="c333 fl article full mb15 f13" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
 		//加精
 		if(item.Recommend == 99) {
 			model.push('<span class="fl f12" style="padding:1px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');
@@ -567,7 +567,7 @@ var base = new function() {
 		model.push('</div></div>');
 
 		//底部统计
-		model.push('<div class="mui-card-footer fl full c999"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
+		model.push('<div class="mui-card-footer fl full c999 mb10"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
 		//model.push('<div class="mui-card-footer fl full c999"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f12 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span></div>');
 
 		//评论

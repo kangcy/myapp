@@ -1619,7 +1619,7 @@ input[type=submit]:enabled:active {
 	display: -webkit-flex;
 	display: flex;
 	/*min-height: 2.75rem;*/
-	padding: 0.325rem 0.9375rem;
+	padding: 0.325rem 0.625rem;
 	-webkit-box-pack: justify;
 	-webkit-justify-content: space-between;
 	justify-content: space-between;
@@ -1697,7 +1697,6 @@ input[type=submit]:enabled:active {
 
 .mui-card-content-inner {
 	position: relative;
-	padding: 0.625rem;
 }
 
 .mui-card-media {
@@ -5058,7 +5057,7 @@ body>.mui-progressbar {
 }
 
 .mui-card-content-inner {
-	padding: 0.625rem;
+	padding: 0.325rem;
 	width: 100%;
 	display: inline-block;
 }
@@ -5073,8 +5072,8 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-	width: 50% !important;
-	min-height: 100%;
+	max-width: 100% !important;
+	max-height:400px;
 }
 
 .secondfloor {
