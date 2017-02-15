@@ -88,34 +88,6 @@
 		</div>
 		<div class="mui-content">
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
-				<!--<div id="banner" class="mui-slider" style="height:8rem;top:45px;">
-					<div class="mui-slider-group mui-slider-loop">
-						<div class="mui-slider-item mui-slider-item-duplicate">
-							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
-						</div>
-						<div class="mui-slider-item">
-							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
-						</div>
-						<div class="mui-slider-item">
-							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
-						</div>
-						<div class="mui-slider-item">
-							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
-						</div>
-						<div class="mui-slider-item">
-							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
-						</div>
-						<div class="mui-slider-item mui-slider-item-duplicate">
-							<a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a>
-						</div>
-					</div>
-					<div class="mui-slider-indicator">
-						<div class="mui-indicator mui-active"></div>
-						<div class="mui-indicator"></div>
-						<div class="mui-indicator"></div>
-						<div class="mui-indicator"></div>
-					</div>
-				</div>-->
 				<div id="slider" class="mui-slider mui-fullscreen">
 					<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 						<div class="mui-scroll" id="sliderTopBody">
@@ -123,7 +95,7 @@
 						</div>
 					</div>
 
-					<div class="mui-slider-group" id="sliderGroup" style="top:2.35rem;">
+					<div class="mui-slider-group" id="sliderGroup" style="top:2.40rem;">
 
 					</div>
 				</div>
@@ -218,19 +190,9 @@
 					html.push('</div></div>');
 				}
 
-				//精选添加轮播
+				//精选添加轮播 
 				if(i == 0) {
-					html.push('<div id="banner" class="mui-slider" style="height:8rem;top:0rem;">');
-					html.push('<div class="mui-slider-group mui-slider-group2 mui-slider-loop">');
-					html.push('<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
-					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
-					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
-					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
-					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
-					html.push('<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
-					html.push('</div>');
-					html.push('<div class="mui-slider-indicator"><div class="mui-indicator mui-active"></div><div class="mui-indicator"></div><div class="mui-indicator"></div><div class="mui-indicator"></div></div>');
-					html.push('</div>');
+					html.push('<div id="banner"></div>');
 				}
 
 				html.push('<div id="scroll-view' + i + '"></div>');
@@ -241,17 +203,53 @@
 				if(child.length > 0) {
 					mui('#sliderChild' + i).scroll().reLayout();
 				}
+				if(i == 0) {
+					HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
+						if(data != null) {
+							var length = data.records;
+							if(length > 0) {
+								var banner = $("#banner");
+								var bannerHtml = [];
+								bannerHtml.push('<div class="mui-slider-group mui-slider-group2 mui-slider-loop">');
+								for(var j = 0, len = length; j < len; j++) {
+									if(j == 0 || j == length - 1) {
+										bannerHtml.push('<div class="mui-slider-item mui-slider-item-duplicate">');
+									} else {
+										bannerHtml.push('<div class="mui-slider-item">');
+									}
+									bannerHtml.push('<a href="' + data.list[j].Link + '"><img src="' + data.list[j].Cover + '"></a></div>');
+								}
+								bannerHtml.push('</div>');
+								bannerHtml.push('<div class="mui-slider-indicator">');
+								for(var j = 0, len = length - 2; j < len; j++) {
+									if(j == 0) {
+										bannerHtml.push('<div class="mui-indicator mui-active"></div>');
+									} else {
+										bannerHtml.push('<div class="mui-indicator"></div>');
+									}
+								}
+								bannerHtml.push('</div>');
+								banner.append(bannerHtml.join(""));
+								banner.addClass("mui-slider");
+								banner.css({
+									"height": "8rem",
+									"top": "0px"
+								});
+
+								mui("#banner").slider({
+									interval: 5000
+								});
+							}
+						}
+					});
+				}
 			}
 
 			//重新注册滑动切换事件
 			mui("#slider").slider();
 
-			mui("#banner").slider({ 
-				interval: 5000
-			});
-
 			//上划效果
-			$("#slider").removeClass("hide").addClass("bounceInDown");
+			$("#slider").addClass("bounceInDown");
 
 			//监听滑动切换事件
 			document.getElementById('slider').addEventListener('slide', function(e) {
@@ -329,7 +327,8 @@
 	});
 
 	mui.plusReady(function() {
-
+		plus.navigator.setFullscreen(false);
+		
 		base.NetChange();
 
 		mui.previewImage({
@@ -424,7 +423,7 @@
 		if(index == 0) {
 			return '<div class="mui-control-item f13 topic bold mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		} else {
-			return '<div class="mui-control-item f13 topic bold" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f13 topic" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		}
 	}
 

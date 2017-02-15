@@ -715,7 +715,8 @@
 				],
 				"refer": [
 					"page/addcomment.html",
-					"page/user.html"
+					"page/user.html",
+					"page/articledetail.html"
 				],
 				"priority": 0
 			},

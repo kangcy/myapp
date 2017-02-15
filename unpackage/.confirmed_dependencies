@@ -644,7 +644,8 @@
 		],
 		"refer": [
 			"page/commentSub.html",
-			"page/user.html"
+			"page/user.html",
+			"page/articledetail.html"
 		]
 	},
 	"page/user.html": {
