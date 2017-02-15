@@ -116,7 +116,7 @@
 						<div class="mui-indicator"></div>
 					</div>
 				</div>-->
-				<div id="slider" class="mui-slider mui-fullscreen hide">
+				<div id="slider" class="mui-slider mui-fullscreen">
 					<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 						<div class="mui-scroll" id="sliderTopBody">
 
@@ -221,7 +221,7 @@
 				//精选添加轮播
 				if(i == 0) {
 					html.push('<div id="banner" class="mui-slider" style="height:8rem;top:0rem;">');
-					html.push('<div class="mui-slider-group mui-slider-loop">');
+					html.push('<div class="mui-slider-group mui-slider-group2 mui-slider-loop">');
 					html.push('<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
 					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
 					html.push('<div class="mui-slider-item"><a href="#"><img src="http://139.224.51.196/images/Banner/banner.png"></a></div>');
@@ -246,7 +246,7 @@
 			//重新注册滑动切换事件
 			mui("#slider").slider();
 
-			mui("#banner").slider({
+			mui("#banner").slider({ 
 				interval: 5000
 			});
 

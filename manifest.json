@@ -803,7 +803,8 @@
 					"images/logo_default.png",
 					"images/search_blue.png",
 					"images/base/title.png",
-					"js/mui.js"
+					"js/mui.js",
+					"js/slider.js"
 				],
 				"refer": [
 					"page/articledetail.html",
