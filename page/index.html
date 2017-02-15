@@ -28,8 +28,10 @@
 
 						<!--<div class="mui-card">
 							<div class="mui-card-header noborder mui-card-media user" userid="148644569183766"><img data-lazyload="http://139.224.51.196/Upload/Images/UserAvatar/20170208/201702081716433232_1.jpg" style="border-radius:50%;width:2rem !important;height:2rem !important;">
-								<div class="mui-media-body f12 mt0"><span class="bold">你好，陌生人</span>
+								<div class="mui-media-body f12 mt0" style="position:relative;">
+									<span class="bold">你好，陌生人</span>
 									<p class="f11 full caaa mt5">11:35 2017-02-08<span class="ml5 blue">江苏 • 南京</span></p>
+									<img src="../images/base/follow0.png" style="position:absolute;right:0px;top:0px;height: 60%;margin-top: 2%;" />
 								</div>
 							</div>
 							<div class="mui-card-content show">
@@ -193,7 +195,6 @@
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i], false, false, true);
-						console.log(div.innerHTML)
 						table.appendChild(div);
 					}
 				} else {

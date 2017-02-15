@@ -805,7 +805,8 @@
 					"images/search_blue.png",
 					"images/base/title.png",
 					"js/mui.js",
-					"js/slider.js"
+					"js/slider.js",
+					"images/base/follow0.png"
 				],
 				"refer": [
 					"page/articledetail.html",
@@ -2077,7 +2078,8 @@
 					"js/mui.lazyload.img.js",
 					"css/img.preview.css",
 					"images/logo_default.png",
-					"images/header.png"
+					"images/header.png",
+					"images/base/follow0.png"
 				],
 				"refer": [
 					"page/user2.html",

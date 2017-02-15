@@ -1553,7 +1553,7 @@ input[type=submit]:enabled:active {
 	font-size: 0.875rem;
 	position: relative;
 	overflow: hidden;
-	margin: 0.625rem 0px;
+	margin: 0.625rem 0px 0.625rem 0px;
 	background-color: #fff;
 	background-clip: padding-box;
 	/*
@@ -1619,7 +1619,7 @@ input[type=submit]:enabled:active {
 	display: -webkit-flex;
 	display: flex;
 	/*min-height: 2.75rem;*/
-	padding: 0.625rem 0.9375rem;
+	padding: 0.325rem 0.9375rem;
 	-webkit-box-pack: justify;
 	-webkit-justify-content: space-between;
 	justify-content: space-between;
@@ -1649,7 +1649,7 @@ input[type=submit]:enabled:active {
 	align-items: center
 }
 
-.mui-card-footer:before,
+/*.mui-card-footer:before,
 .mui-card-header:after {
 	position: absolute;
 	top: 0;
@@ -1660,7 +1660,7 @@ input[type=submit]:enabled:active {
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
 	background-color: #eee;
-}
+}*/
 
 .mui-card-footer.noborder:before,
 .mui-card-header.noborder:after {
