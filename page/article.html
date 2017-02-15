@@ -169,7 +169,6 @@
 			CurrUserNumber: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
-
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage;

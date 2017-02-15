@@ -500,39 +500,36 @@ var base = new function() {
 					power = "私密";
 					break;
 			}
-			model.push('<div class="mui-card-header mui-card-media">');
-			model.push('<div class="mui-media-body f12" style="margin:0px;margin-top:0.2rem;"><span class="fl c999">');
-			if(base.IsNullOrEmpty(item.City)) {
-				model.push(item.CreateDate);
-			} else {
-				model.push(item.CreateDate + '<span class="ml10 mr10">来自</span> ' + item.City);
+			model.push('<div class="mui-card-header noborder mui-card-media">');
+			model.push('<div class="mui-media-body f12"><span class="fl c999">' + item.CreateDate);
+			if(!base.IsNullOrEmpty(item.City)) {
+				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
 			model.push('</span><span style="border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;margin-top:-0.1rem;" class="f11 fr">' + power + '</span>');
 			model.push('</div></div>');
 		} else {
 			if(isuser) {
-				model.push('<div class="mui-card-header noborder mui-card-media"><div class="mui-media-body f12"><span class="fr c999">');
-				if(base.IsNullOrEmpty(item.City)) {
-					model.push(item.CreateDate);
-				} else {
-					model.push(item.CreateDate + '<span class="ml10 mr10">来自</span> ' + item.City);
+				model.push('<div class="mui-card-header noborder mui-card-media"><div class="mui-media-body f12"><span class="fr c999">' + item.CreateDate);
+				if(!base.IsNullOrEmpty(item.City)) {
+					model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 				}
 				model.push('</span></div></div>');
 			} else {
 				if(isdel) {
 					model.push('<div class="mui-slider-cell mui-slider-handle">');
 				}
+				model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
 				if(islazyload) {
-					model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+					model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				} else {
-					model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '"><img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+					model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 				}
 
-				if(base.IsNullOrEmpty(item.City)) {
-					model.push('<div class="mui-media-body f12">' + item.NickName + '<span class="fr caaa">' + item.CreateDate + '</span></div></div>');
-				} else {
-					model.push('<div class="mui-media-body f12 mt0">' + item.NickName + '<p class="f11 full caaa mt5">' + item.CreateDate + '<span style="margin-left:10px;margin-right:10px;">来自</span> ' + item.City + '</p></div></div>');
+				model.push('<div class="mui-media-body f12 mt0"><span class="bold">' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
+				if(!base.IsNullOrEmpty(item.City)) {
+					model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 				}
+				model.push('</p></div></div>');
 			}
 		}
 
@@ -572,11 +569,11 @@ var base = new function() {
 		model.push('<div class="mui-card-footer fl full c999"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f12 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span></div>');
 		//评论
 		if(item.CommentList.length > 0) {
-			model.push('<div class="mui-card-footer fl full c999">');
+			model.push('<div class="mui-card-footer fl full c999" style="display:inline-block;">');
 			for(var i = 0; i < item.CommentList.length; i++) {
-				model.push('<div class="f12 full fl" style="line-height:1.3rem;"><span class="blue f12">' + item.CommentList[i].UserName + '</span>&nbsp;:<span class="ml5">' + item.CommentList[i].Summary + '</span><div>');
+				model.push('<div class="f12 full fl" style="line-height:1.3rem;"><span class="blue f12">' + item.CommentList[i].UserName + '</span>&nbsp;:<span class="ml5">' + item.CommentList[i].Summary + '</span></div>');
 			}
-			model.push('</div">');
+			model.push('</div>');
 		}
 		if(isdel) {
 			model.push('</div>');

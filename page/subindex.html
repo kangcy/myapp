@@ -120,6 +120,8 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var Province = ""; //当前定位省份
+	var City = ""; //当前定位城市
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		swipeBack: false //启用右滑关闭功能
@@ -136,6 +138,14 @@
 	var activeTab = subpages[1];
 	var backButtonPress = 0;
 	mui.plusReady(function() {
+
+		//系统定位
+		plus.geolocation.getCurrentPosition(function(p) {
+			Province = p.address.province;
+			City = p.address.city;
+		}, function(e) {
+			//mui.toast("未授权")
+		});
 
 		//首页返回键处理
 		//1、若侧滑菜单显示，则关闭侧滑菜单
@@ -357,7 +367,9 @@
 						var data = {
 							ID: userinfo.ID,
 							Cover: currUploadImg.join(","),
-							Title: ""
+							Title: "",
+							Province: Province,
+							City: City
 						}
 						HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 							base.CloseWaiting();
