@@ -1,7 +1,7 @@
 .detail {
-	width: 95%;
-	margin: 2.5%;
-	padding: 2.5%;
+	width: 94%;
+	margin: 3%;
+	padding: 3%;
 	line-height: 1.5625rem;
 	display: inline-block;
 }
@@ -20,7 +20,7 @@
 	width: 60%;
 	float: left;
 	height: 50px;
-	line-height: 50px;
+	line-height: 46px;
 	text-align: center;
 }
 
@@ -92,14 +92,13 @@
 }
 
 #useravatar1 {
-	width: 3rem;
-	height: 3rem;
+	width: 25%;
 	border-radius: 50%;
 	border: 2px solid #fff;
 }
 
 .cover {
-	background: RGBA(255, 255, 255, 0.4);
+	background: RGBA(255, 255, 255, 0.6);
 	height: 100%;
 	z-index: -1;
 	border-radius: 10px;

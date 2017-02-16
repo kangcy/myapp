@@ -25,14 +25,14 @@
 			<h1 class="mui-title c333">详情</h1>
 		</header>
 
-		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top: 46px; bottom:0px;">
+		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top:46px; bottom:0px;background-color:#bad1c7;">
 			<div class="loading" id="loader">
 				<div class="card">
 					<span class="circles-loader"></span>
 				</div>
 			</div>
-			<div class="mui-content mui-scroll-wrapper bg" id="bg">
-				<div class="mui-scroll">
+			<div class="mui-content mui-scroll-wrapper bg">
+				<div class="mui-scroll" id="bg">
 					<!--通用样式-->
 					<div id="main0" class="hide">
 						<div class="f13 tl detail">
@@ -52,27 +52,27 @@
 						</div>
 					</div>
 					<!--排版1-->
-					<!--<div id="main1" class="hide">
-						<div class="tc" style="width:95%;margin:0px 2.5%;padding-top:2.5%;">
+					<div id="main1" class="hide">
+						<div class="tc" style="width:95%;margin:0px 2.5%;">
 							<div class="full" style="position:relative;">
-								<img id="useravatar1" />
-								<p class="full mb0 user mt10" userid="0" id="nickname1" style="color:#007aff"></p>
+								<img id="useravatar1" style="margin-top:2rem;" />
+								<p class="full mb0 user mt10 textshadow f15" userid="0" id="nickname1" style="color:#fff;"></p>
 								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:0px;top:0px;"></i>
 							</div>
 						</div>
 						<div class="f13 tl detail cover">
 							<div class="full tc">
-								<p class="mt10 mb0 f20 c000" id="title1"></p>
-								<p class="mt0 mb10 full csubtitle f13 tc">
-									<span id="createdate1"></span>
-									<span class="ml10" id="views1"></span>
+								<p class="mt10 mb0 f16 c333" id="title1"></p>
+								<p class="mt5 mb10 full csubtitle f13 tc">
+									<span id="createdate1" class="mr15"></span>
+									<span class="ml15" id="views1"></span>
 								</p>
 							</div>
 							<div class="c000 full mb20" id="desc1">
 
 							</div>
 						</div>
-					</div>-->
+					</div>
 				</div>
 			</div>
 		</div>
@@ -221,13 +221,13 @@
 			$("#nickname1").css("color", $this.attr("color"));
 
 			var templatetype = $this.attr("type");
-			/*if(templatetype == 0) {
-				$("#main1").addClass("hide"); 
+			if(templatetype == 0) {
+				$("#main1").addClass("hide");
 				$("#main0").removeClass("hide");
 			} else {
-				$("#main0").addClass("hide"); 
+				$("#main0").addClass("hide");
 				$("#main1").removeClass("hide");
-			}*/
+			}
 			ChangeBg(CurrBackground); //背景切换
 
 			ChangeMusic(templatetype); //音乐切换
@@ -443,13 +443,13 @@
 						mainIndex = data.TemplateJson.TemplateType;
 						CurrCover = data.TemplateJson.Cover;
 
-						$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
-						$("#nickname1").css("color", data.TemplateJson.TitleColor);
+						/*$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
+						$("#nickname1").css("color", data.TemplateJson.TitleColor);*/
 					} else {
 						CurrCover = "";
 					}
 
-					//console.log(data.Cover + "," + data.TemplateJson.Cover);
+					console.log(data.Cover + "," + data.TemplateJson.Cover);
 					CurrTemplate = data.Template;
 					CurrBackground = data.Background;
 
@@ -496,7 +496,7 @@
 
 					$("#btnTemp,#btnPay").removeClass("hide");
 				} else {
-					mui.toast(data.message);
+					mui.toast(data.message); 
 					plus.webview.currentWebview().close();
 				}
 			}
