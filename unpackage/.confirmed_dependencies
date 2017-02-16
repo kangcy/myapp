@@ -480,7 +480,8 @@
 			"images/base/reward_nor.png",
 			"images/base/comment_nor.png",
 			"images/base/like_nor.png",
-			"images/base/reward_hig.png"
+			"images/base/reward_hig.png",
+			"images/base/like_hig.png"
 		],
 		"refer": [
 			"page/topicSub.html",
@@ -1737,7 +1738,8 @@
 			"images/base/follow1.png",
 			"images/base/comment_nor.png",
 			"images/base/reward_nor.png",
-			"images/base/like_nor.png"
+			"images/base/like_nor.png",
+			"images/base/like_hig.png"
 		],
 		"refer": [
 			"page/user2.html",
