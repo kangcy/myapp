@@ -116,6 +116,8 @@
 
 		base.ShowArticle("#pullrefresh", "List", userinfo.Number);
 
+		base.ArticleAddFan("#pullrefresh", userinfo);
+
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {
 				callback: function() {

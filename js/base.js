@@ -58,6 +58,11 @@ var base = new function() {
 	this.youku_client_secret = "244a6bbc4b212e01b8702745b879e52d";
 
 	/**
+	 * 是否正在加载
+	 **/
+	this.IsLoading = false;
+
+	/**
 	 * 是否测试
 	 **/
 	this.IsTest = mui.os.plus ? false : true;
@@ -104,6 +109,17 @@ var base = new function() {
 	this.GetSettings = function() {
 		var settingsText = localStorage.getItem('$settings') || "{}";
 		return JSON.parse(settingsText);
+	}
+
+	/**
+	 * 判断用户是否登录
+	 **/
+	this.CheckLogin = function() {
+		if(base.GetUserInfo() == "{}") {
+			base.IsLoading = false;
+			base.OpenWindow("login", "../page/login.html", {}, "slide-in-bottom");
+			return false;
+		}
 	}
 
 	/**
@@ -395,7 +411,6 @@ var base = new function() {
 	 **/
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
-			//base.ShowWaiting("正在加载");
 			var userNumber = this.getAttribute("userid");
 			base.OpenWindow("user", "user.html", {
 				UserNumber: userNumber
@@ -420,7 +435,6 @@ var base = new function() {
 				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
 					if(e.index == 0) {
 						base.CheckPowerPwd(articleId, e.value, function() {
-							//base.ShowWaiting("正在加载");
 							base.OpenWindow("articledetail", "articledetail.html", {
 								ArticleID: articleId,
 								Source: Source
@@ -429,7 +443,6 @@ var base = new function() {
 					}
 				})
 			} else {
-				//base.ShowWaiting("正在加载");
 				base.OpenWindow("articledetail", "articledetail.html", {
 					ArticleID: articleId,
 					Source: "View"
@@ -529,7 +542,7 @@ var base = new function() {
 				if(!base.IsNullOrEmpty(item.City)) {
 					model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 				}
-				model.push('</p><img src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1%;height:60%;" /></div></div>');
+				model.push('</p><img class="guanzhu" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1%;height:60%;" /></div></div>');
 			}
 		}
 
@@ -583,6 +596,46 @@ var base = new function() {
 		}
 		div.innerHTML = model.join('');
 		return div;
+	}
+
+	/**
+	 * 文章列表添加关注
+	 */
+	this.ArticleAddFan = function(id, userinfo) {
+		if(base.IsLoading) {
+			return false;
+		}
+		base.IsLoading = true;
+		mui(id).on('tap', '.guanzhu', function(event) {
+			//用户未登录
+			if(userinfo == "{}") {
+				base.IsLoading = false;
+				base.OpenWindow("login", "../page/login.html", {}, "slide-in-bottom");
+				return false;
+			}
+			var $this = this;
+			var UserNumber = this.getAttribute("userid");
+			if(base.CheckFan(userinfo.FanText, UserNumber)) {
+				base.IsLoading = false;
+				mui.toast("关注成功");
+				$this.setAttribute("src", "../images/base/follow1.png");
+			} else {
+				var data = {
+					ID: userinfo.ID,
+					ToUserNumber: UserNumber
+				}
+				HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+					base.IsLoading = false;
+					if(data != null) {
+						mui.toast(data.result ? "关注成功" : data.message);
+						if(data.result) {
+							base.AddFan(userinfo, UserNumber);
+							$this.setAttribute("src", "../images/base/follow1.png");
+						}
+					}
+				});
+			}
+		});
 	}
 
 	/**

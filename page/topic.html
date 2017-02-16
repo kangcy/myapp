@@ -85,14 +85,14 @@
 				<div></div>
 				<div></div>
 			</div>
-		</div> 
+		</div>
 		<div class="mui-content">
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
 				<div id="slider" class="mui-slider mui-fullscreen">
 					<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 						<div class="mui-scroll" id="sliderTopBody">
 
-						</div> 
+						</div>
 					</div>
 
 					<div class="mui-slider-group" id="sliderGroup" style="top:2.36rem;">
@@ -128,7 +128,7 @@
 <script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/update.js"></script>
 <script type="text/javascript">
-	var sliders = []; 
+	var sliders = [];
 	var currpage = [];
 	var totalpage = [];
 	var pagesize = base.PageSize;
@@ -327,9 +327,10 @@
 	});
 
 	mui.plusReady(function() {
-		plus.navigator.setFullscreen(false);
-		
+
 		base.NetChange();
+
+		base.ArticleAddFan("#slider", userinfo);
 
 		mui.previewImage({
 			callback: function(index) {

@@ -353,22 +353,24 @@
 				document.getElementById("blacktip").classList.add("hide");
 				document.getElementById("article").classList.remove("hide");
 			}
-			
+
 			document.getElementById("loader").classList.add("hide");
 		});
 	}
 
 	//判断是否关注
 	function CheckFan() {
+		if(isLoading)
+			return;
+		isLoading = true;
 		var $guanzhu = document.getElementById("guanzhu");
 		if(base.CheckFan(userinfo.FanText, UserNumber)) {
 			$guanzhu.classList.add("guanzhu2");
 			$guanzhu.classList.remove("guanzhu")
 			$guanzhu.innerHTML = "已关注";
+			isLoading = false;
 		} else {
 			$guanzhu.addEventListener('tap', function(e) {
-				if(isLoading)
-					return;
 				var data = {
 					ID: userinfo.ID,
 					ToUserNumber: UserNumber
@@ -383,6 +385,7 @@
 							$guanzhu.innerHTML = "已关注";
 						}
 					}
+					isLoading = false;
 				});
 			});
 		}
