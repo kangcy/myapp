@@ -114,8 +114,8 @@ var base = new function() {
 	/**
 	 * 判断用户是否登录
 	 **/
-	this.CheckLogin = function() {
-		if(base.GetUserInfo() == "{}") {
+	this.CheckLogin = function(userinfo) {
+		if(userinfo == "{}") {
 			base.IsLoading = false;
 			base.OpenWindow("login", "../page/login.html", {}, "slide-in-bottom");
 			return false;
@@ -521,29 +521,21 @@ var base = new function() {
 			model.push('</p><span style="position:absolute;right:0px;top:1%;border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;" />' + power + '</span></div></div>');
 
 		} else {
-			if(isuser) {
-				model.push('<div class="mui-card-header noborder mui-card-media"><div class="mui-media-body f12"><span class="fr c999">' + item.CreateDate);
-				if(!base.IsNullOrEmpty(item.City)) {
-					model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
-				}
-				model.push('</span></div></div>');
-			} else {
-				if(isdel) {
-					model.push('<div class="mui-slider-cell mui-slider-handle">');
-				}
-				model.push('<div class="mui-card-header noborder mui-card-media">');
-				if(islazyload) {
-					model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
-				} else {
-					model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
-				}
-
-				model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span class="bold user" userid="' + item.UserNumber + '">' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
-				if(!base.IsNullOrEmpty(item.City)) {
-					model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
-				}
-				model.push('</p><img class="guanzhu" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1%;height:60%;" /></div></div>');
+			if(isdel) {
+				model.push('<div class="mui-slider-cell mui-slider-handle">');
 			}
+			model.push('<div class="mui-card-header noborder mui-card-media">');
+			if(islazyload) {
+				model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
+			} else {
+				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
+			}
+
+			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span class="bold user" userid="' + item.UserNumber + '">' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
+			if(!base.IsNullOrEmpty(item.City)) {
+				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
+			}
+			model.push('</p><img class="guanzhu" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1%;height:60%;" /></div></div>');
 		}
 
 		//内容
@@ -580,8 +572,11 @@ var base = new function() {
 		model.push('</div></div>');
 
 		//底部统计
-		model.push('<div class="mui-card-footer fl full c999 mb10"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span></div>');
-		//model.push('<div class="mui-card-footer fl full c999"><span class="f12">' + item.Views + '次阅 · ' + item.Comments + '评论 · ' + item.Goods + '喜欢 · ' + item.Pays + '打赏</span><span style="border:1px solid #459df5;color:#459df5;border-radius:5px;padding:2px 5px;margin:0px;" class="f12 fl">' + (item.TypeName == "" ? "其它" : item.TypeName) + '</span></div>');
+		model.push('<div class="mui-card-footer fl full c999 mb10 f13" style="display:inline-block;"><span class="fl"><span class="blue">' + item.Views + '次浏览</span></span>');
+		model.push('<span class="fr" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img src="../images/base/reward_nor.png" style="width:0.825rem;float:right;" class="mr15 comments" articleid="' + item.ArticleID + '" />');
+		model.push('<span class="fr" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img src="../images/base/like_nor.png" style="width:0.825rem;float:right;" class="mr15 zans" articleid="' + item.ArticleID + '" />');
+		model.push('<span class="fr" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img src="../images/base/comment_nor.png" style="width:0.825rem;float:right;" class="mr15 pays" articleid="' + item.ArticleID + '" />');
+		model.push('</div>');
 
 		//评论
 		/*if(item.CommentList.length > 0) {
@@ -599,6 +594,14 @@ var base = new function() {
 	}
 
 	/**
+	 * 文章列表操作(关注、点赞、评论、打赏)
+	 */
+	this.ArticleAction = function(id, userinfo) {
+		base.ArticleAddFan(id, userinfo);
+		base.ArticleAddZan(id, userinfo);
+	}
+
+	/**
 	 * 文章列表添加关注
 	 */
 	this.ArticleAddFan = function(id, userinfo) {
@@ -607,12 +610,9 @@ var base = new function() {
 		}
 		base.IsLoading = true;
 		mui(id).on('tap', '.guanzhu', function(event) {
-			//用户未登录
-			if(userinfo == "{}") {
-				base.IsLoading = false;
-				base.OpenWindow("login", "../page/login.html", {}, "slide-in-bottom");
-				return false;
-			}
+			//判断用户是否登录
+			base.CheckLogin(userinfo);
+
 			var $this = this;
 			var UserNumber = this.getAttribute("userid");
 			if(base.CheckFan(userinfo.FanText, UserNumber)) {
@@ -635,6 +635,37 @@ var base = new function() {
 					}
 				});
 			}
+		});
+	}
+
+	/**
+	 * 文章列表添加点赞
+	 */
+	this.ArticleAddZan = function(id, userinfo) {
+		if(base.IsLoading) {
+			return false;
+		}
+		base.IsLoading = true;
+		mui(id).on('tap', '.zan', function(event) {
+			//判断用户是否登录
+			base.CheckLogin(userinfo);
+
+			var $this = this;
+			var ArticleID = this.getAttribute("articleid");
+			HttpGet(base.RootUrl + "Zan/Edit", {
+				ID: userinfo.ID,
+				ArticleID: ArticleID
+			}, function(data) {
+				if(data != null) {
+					mui.toast(data.result ? "感谢您的点赞" : data.message);
+					if(data.result) {
+						$this.setAttribute("src", "../images/base/like_hig.png");
+						var item = document.getElementById("zans" + ArticleID);
+						item.innerHTML = parseInt(item.innerHTML()) + 1;
+					}
+				}
+				base.IsLoading = false;
+			});
 		});
 	}
 

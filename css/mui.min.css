@@ -1689,7 +1689,6 @@ input[type=submit]:enabled:active {
 	/*color: #6d6d72;*/
 	border-radius: 0 0 0.125rem 0.125rem
 }
-
 .mui-card-content {
 	font-size: 0.875rem;
 	position: relative
@@ -5057,7 +5056,7 @@ body>.mui-progressbar {
 }
 
 .mui-card-content-inner {
-	padding: 0.325rem;
+	padding: 0.625rem;
 	width: 100%;
 	display: inline-block;
 }
@@ -5198,6 +5197,7 @@ body>.mui-progressbar {
 	height: 60%;
 	color: #888;
 	text-align: center;
+	z-index:9999;
 }
 
 

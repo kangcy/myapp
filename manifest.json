@@ -590,7 +590,8 @@
 					"js/mui.pullToRefresh.material.js",
 					"css/loading.css",
 					"js/mui.previewimage.js",
-					"images/logo_default.png"
+					"images/logo_default.png",
+					"images/base/follow0.png"
 				],
 				"refer": [
 					"page/articledetail.html"
@@ -807,7 +808,11 @@
 					"js/mui.js",
 					"js/slider.js",
 					"images/base/follow0.png",
-					"images/base/follow1.png"
+					"images/base/follow1.png",
+					"images/base/reward_nor.png",
+					"images/base/comment_nor.png",
+					"images/base/like_nor.png",
+					"images/base/reward_hig.png"
 				],
 				"refer": [
 					"page/articledetail.html",
@@ -1929,7 +1934,8 @@
 					"images/header.png"
 				],
 				"refer": [
-					"page/my.html"
+					"page/my.html",
+					"page/user.html"
 				],
 				"priority": 0
 			},
@@ -2081,7 +2087,10 @@
 					"images/logo_default.png",
 					"images/header.png",
 					"images/base/follow0.png",
-					"images/base/follow1.png"
+					"images/base/follow1.png",
+					"images/base/comment_nor.png",
+					"images/base/reward_nor.png",
+					"images/base/like_nor.png"
 				],
 				"refer": [
 					"page/user2.html",

@@ -192,7 +192,7 @@
 
 				//精选添加轮播 
 				if(i == 0) {
-					html.push('<div id="banner"></div>');
+					html.push('<div style="background:#eee;height:8.8rem;"><div id="banner"></div></div>');
 				}
 
 				html.push('<div id="scroll-view' + i + '"></div>');
@@ -330,7 +330,7 @@
 
 		base.NetChange();
 
-		base.ArticleAddFan("#slider", userinfo);
+		base.ArticleAction("#slider", userinfo);
 
 		mui.previewImage({
 			callback: function(index) {
