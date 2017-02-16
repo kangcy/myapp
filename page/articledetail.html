@@ -212,7 +212,7 @@
 			var $this = $(this);
 			$this.addClass("hover");
 			CurrTemplate = $this.attr("tid");
-			if(CurrTemplate == 0) {
+			if(CurrTemplate == 0) { 
 				CurrCover = Article.Cover;
 			} else {
 				CurrCover = $this.attr("cover");
@@ -447,6 +447,7 @@
 						/*$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
 						$("#nickname1").css("color", data.TemplateJson.TitleColor);*/
 
+console.log(JSON.stringify(data.TemplateJson))
 						$("#mui-iframe-wrapper").css("background-color", data.TemplateJson.TitleColor);
 					} else {
 						CurrCover = "";
