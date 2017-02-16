@@ -573,9 +573,9 @@ var base = new function() {
 
 		//底部统计
 		model.push('<div class="mui-card-footer fl full c999 mb10 f13" style="display:inline-block;"><span class="fl"><span class="blue">' + item.Views + '次浏览</span></span>');
-		model.push('<span class="pays" articleid="' + item.ArticleID + '"><span class="fr" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.825rem;float:right;" class="ml15 mr5" /></span>');
+		model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><span class="fr" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.825rem;float:right;" class="ml15 mr5" /></span>');
 		model.push('<span class="goods" articleid="' + item.ArticleID + '"><span class="fr" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img id="igoods' + item.ArticleID + '" src="../images/base/like_nor.png" style="width:0.825rem;float:right;" class="ml15 mr5" /></span>');
-		model.push('<span class="comments" articleid="' + item.ArticleID + '"><span class="fr" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.825rem;float:right;" class="mr5" /></span>');
+		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><span class="fr" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.825rem;float:right;" class="mr5" /></span>');
 		model.push('</div>');
 
 		//评论
@@ -599,6 +599,8 @@ var base = new function() {
 	this.ArticleAction = function(id, userinfo) {
 		base.ArticleAddFan(id, userinfo);
 		base.ArticleAddZan(id, userinfo);
+		base.ArticleAddPay(id, userinfo);
+		base.ArticleAddComment(id, userinfo);
 	}
 
 	/**
@@ -652,7 +654,6 @@ var base = new function() {
 			//判断用户是否登录
 			base.CheckLogin(userinfo);
 
-			var $this = this;
 			var ArticleID = this.getAttribute("articleid");
 			HttpGet(base.RootUrl + "Zan/Edit", {
 				ID: userinfo.ID,
@@ -669,6 +670,60 @@ var base = new function() {
 					}
 				}
 				base.IsLoading = false;
+			});
+		});
+	}
+
+	/**
+	 * 文章列表打赏
+	 */
+	this.ArticleAddPay = function(id, userinfo) {
+		mui(id).on('tap', '.pays', function(event) {
+			if(base.IsLoading) {
+				return false;
+			}
+			base.IsLoading = true;
+
+			//判断用户是否登录
+			base.CheckLogin(userinfo);
+
+			var ArticleNumber = this.getAttribute("ArticleNumber");
+			var ArticleUserNumber = this.getAttribute("UserNumber");
+			var NickName = this.getAttribute("NickName");
+			var Avatar = this.getAttribute("Avatar");
+
+			base.IsLoading = false;
+
+			base.OpenWindow("money", "../page/money.html", {
+				ArticleNumber: ArticleNumber,
+				ArticleUserNumber: ArticleUserNumber,
+				Name: NickName,
+				Avatar: Avatar 
+			});
+		});
+	}
+
+	/**
+	 * 文章列表添加评论
+	 */
+	this.ArticleAddComment = function(id, userinfo) {
+		mui(id).on('tap', '.comments', function(event) {
+			if(base.IsLoading) {
+				return false;
+			}
+			base.IsLoading = true;
+
+			//判断用户是否登录
+			base.CheckLogin(userinfo);
+
+			var ArticleID = this.getAttribute("articleid");
+			var ArticleNumber = this.getAttribute("ArticleNumber");
+
+			base.IsLoading = false;
+
+			base.OpenWindow("articleComment", "../page/articleComment.html", {
+				ArticleID: ArticleID,
+				ArticleNumber: ArticleNumber
 			});
 		});
 	}
