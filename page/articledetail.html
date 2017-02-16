@@ -23,11 +23,11 @@
 			<img src="../images/article/more2.png" class="fr more hide" onclick="ActionTan(1)" id="action" />
 			<img src="../images/article/skin.png" class="fr more hide" onclick="TempTan(1)" id="btnTemp" />
 			<h1 class="mui-title c333">详情</h1>
-		</header> 
+		</header>
 
-		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top:46px; bottom:0px;background-color:#bad1c7;">
+		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top:46px;bottom:0px;">
 			<div class="loading" id="loader">
-				<div class="card"> 
+				<div class="card">
 					<span class="circles-loader"></span>
 				</div>
 			</div>
@@ -56,7 +56,7 @@
 						<div class="tc" style="width:95%;margin:0px 2.5%;">
 							<div class="full" style="position:relative;">
 								<img id="useravatar1" style="margin-top:2rem;" />
-								<p class="full mb0 user mt10 textshadow f15" userid="0" id="nickname1" style="color:#fff;"></p>
+								<p class="full mb0 user mt10 textshadow f15 cfff" userid="0" id="nickname1"></p>
 								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:0px;top:0px;"></i>
 							</div>
 						</div>
@@ -217,8 +217,9 @@
 			} else {
 				CurrCover = $this.attr("cover");
 			}
-			$("#useravatar1").css("margin-top", $this.attr("mt"));
-			$("#nickname1").css("color", $this.attr("color"));
+			$("#mui-iframe-wrapper").css("background-color", $this.attr("color"));
+			//$("#useravatar1").css("margin-top", $this.attr("mt"));
+			//$("#nickname1").css("color", $this.attr("color"));
 
 			var templatetype = $this.attr("type");
 			if(templatetype == 0) {
@@ -445,6 +446,8 @@
 
 						/*$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
 						$("#nickname1").css("color", data.TemplateJson.TitleColor);*/
+
+						$("#mui-iframe-wrapper").css("background-color", data.TemplateJson.TitleColor);
 					} else {
 						CurrCover = "";
 					}
@@ -496,7 +499,7 @@
 
 					$("#btnTemp,#btnPay").removeClass("hide");
 				} else {
-					mui.toast(data.message); 
+					mui.toast(data.message);
 					plus.webview.currentWebview().close();
 				}
 			}

@@ -37,6 +37,10 @@
 						<div id="scroll-view">
 
 						</div>
+						<div id="none" class="full tc hide">
+							<img src="../images/my/333.png" class="none" />
+							<p class="f13 mt10">你收到的评论，会在这里显示</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -288,13 +292,19 @@
 				totalpage = data.totalpage;
 				var length = data.records;
 				if(length > 0) {
+					document.getElementById("none").classList.add("hide");
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i], index);
 						table.appendChild(div);
 						index++;
 					}
+				} else {
+					document.getElementById("none").classList.remove("hide");
 				}
+			}
+			if(data == null && currpage == 1) {
+				document.getElementById("none").classList.remove("hide");
 			}
 			if(callback) {
 				callback();
