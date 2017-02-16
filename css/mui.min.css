@@ -1649,6 +1649,7 @@ input[type=submit]:enabled:active {
 	align-items: center
 }
 
+
 /*.mui-card-footer:before,
 .mui-card-header:after {
 	position: absolute;
@@ -1689,6 +1690,7 @@ input[type=submit]:enabled:active {
 	/*color: #6d6d72;*/
 	border-radius: 0 0 0.125rem 0.125rem
 }
+
 .mui-card-content {
 	font-size: 0.875rem;
 	position: relative
@@ -5072,7 +5074,7 @@ body>.mui-progressbar {
 
 .onefloor img {
 	max-width: 100% !important;
-	max-height:400px;
+	max-height: 400px;
 }
 
 .secondfloor {
@@ -5197,7 +5199,7 @@ body>.mui-progressbar {
 	height: 60%;
 	color: #888;
 	text-align: center;
-	z-index:9999;
+	z-index: 9999;
 }
 
 
@@ -5242,6 +5244,11 @@ body>.mui-progressbar {
 	position: absolute;
 	top: 35%;
 	right: 0.9375rem;
+}
+
+.none {
+	width: 30% !important;
+	margin-top: 30% !important;
 }
 
 

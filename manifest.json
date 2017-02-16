@@ -1454,7 +1454,8 @@
 					"js/mui.lazyload.img.js",
 					"css/img.preview.css",
 					"images/logo_default.png",
-					"images/header.png"
+					"images/header.png",
+					"images/my/222.png"
 				],
 				"refer": [
 					"page/my.html"

@@ -319,4 +319,5 @@ video {
 	margin-top: 13px;
 	margin-right: 0.4rem;
 	height: 20px;
+	display: inline-block;
 }
