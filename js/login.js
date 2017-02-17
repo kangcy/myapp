@@ -25,9 +25,7 @@
 				return callback("系统异常,请稍后再试~");
 			} else {
 				if(data.result) {
-					//更新用户缓存信息
 					data = data.message;
-
 					var info = {
 						ID: data.ID,
 						Sex: data.Sex == "0" ? "男" : "女",
@@ -59,7 +57,8 @@
 						Number: data.Number,
 						ShowArticle: data.ShowArticle,
 						ShowFollow: data.ShowFollow,
-						ShowFan: data.ShowFan
+						ShowFan: data.ShowFan,
+						UserRole: data.UserRole
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 					return callback();
@@ -88,49 +87,47 @@
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试~");
-			} else {
-				if(data.result) {
-					//更新用户缓存信息
-					data = data.message;
-
-					var info = {
-						ID: data.ID,
-						Sex: data.Sex == "0" ? "男" : "女",
-						Signature: data.Signature,
-						Password: data.Password,
-						Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
-						NickName: data.NickName,
-						Address: data.Address,
-						Birthday: data.BirthdayText,
-						Follows: data.Follows,
-						Fans: data.Fans,
-						Articles: data.Articles,
-						Keeps: data.Keeps,
-						Comments: data.Comments,
-						Zans: data.Zans,
-						Cover: data.Cover,
-						FanText: data.FanText,
-						KeepText: data.KeepText,
-						BlackText: data.BlackText,
-						Phone: data.Phone,
-						Weixin: data.Weixin,
-						QQ: data.QQ,
-						Weibo: data.Weibo,
-						ShareNick: data.ShareNick,
-						AutoMusic: data.AutoMusic,
-						IsPay: data.IsPay,
-						Money: data.Money,
-						UseDraw: data.UseDraw,
-						Number: data.Number,
-						ShowArticle: data.ShowArticle,
-						ShowFollow: data.ShowFollow,
-						ShowFan: data.ShowFan
-					}
-					localStorage.setItem('$userinfo', JSON.stringify(info));
-					return callback();
-				} else {
-					return callback(data.message);
+			}
+			if(data.result) {
+				data = data.message;
+				var info = {
+					ID: data.ID,
+					Sex: data.Sex == "0" ? "男" : "女",
+					Signature: data.Signature,
+					Password: data.Password,
+					Avatar: data.Avatar == "" ? base.DefaultImg : data.Avatar,
+					NickName: data.NickName,
+					Address: data.Address,
+					Birthday: data.BirthdayText,
+					Follows: data.Follows,
+					Fans: data.Fans,
+					Articles: data.Articles,
+					Keeps: data.Keeps,
+					Comments: data.Comments,
+					Zans: data.Zans,
+					Cover: data.Cover,
+					FanText: data.FanText,
+					KeepText: data.KeepText,
+					BlackText: data.BlackText,
+					Phone: data.Phone,
+					Weixin: data.Weixin,
+					QQ: data.QQ,
+					Weibo: data.Weibo,
+					ShareNick: data.ShareNick,
+					AutoMusic: data.AutoMusic,
+					IsPay: data.IsPay,
+					Money: data.Money,
+					UseDraw: data.UseDraw,
+					Number: data.Number,
+					ShowArticle: data.ShowArticle,
+					ShowFollow: data.ShowFollow,
+					ShowFan: data.ShowFan,
+					UserRole: data.UserRole
 				}
+				localStorage.setItem('$userinfo', JSON.stringify(info));
+				return callback();
+			} else {
+				return callback(data.message);
 			}
 		});
 	};
@@ -154,48 +151,48 @@
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试~");
-			} else {
-				if(data.result) {
-					//更新用户缓存信息
-					data = data.message;
-					var info = {
-						ID: data.ID,
-						Password: data.Password,
-						Avatar: data.Avatar,
-						NickName: data.NickName,
-						Address: "",
-						Birthday: "0001-01-01",
-						Sex: "男",
-						Signature: "",
-						Follows: 0,
-						Fans: 0,
-						Articles: 0,
-						Keeps: 0,
-						Comments: 0,
-						Zans: 0,
-						Cover: data.Cover,
-						FanText: data.FanText,
-						KeepText: data.KeepText,
-						BlackText: data.BlackText,
-						Phone: data.Phone,
-						Weixin: data.Weixin,
-						QQ: data.QQ,
-						Weibo: data.Weibo,
-						ShareNick: data.ShareNick,
-						AutoMusic: data.AutoMusic,
-						IsPay: data.IsPay,
-						Money: data.Money,
-						UseDraw: data.UseDraw,
-						Number: data.Number,
-						ShowArticle: data.ShowArticle,
-						ShowFollow: data.ShowFollow,
-						ShowFan: data.ShowFan
-					}
-					localStorage.setItem('$userinfo', JSON.stringify(info));
-					return callback();
-				} else {
-					return callback(data.message);
+			}
+			if(data.result) {
+				//更新用户缓存信息
+				data = data.message;
+				var info = {
+					ID: data.ID,
+					Password: data.Password,
+					Avatar: data.Avatar,
+					NickName: data.NickName,
+					Address: "",
+					Birthday: "0001-01-01",
+					Sex: "男",
+					Signature: "",
+					Follows: 0,
+					Fans: 0,
+					Articles: 0,
+					Keeps: 0,
+					Comments: 0,
+					Zans: 0,
+					Cover: data.Cover,
+					FanText: data.FanText,
+					KeepText: data.KeepText,
+					BlackText: data.BlackText,
+					Phone: data.Phone,
+					Weixin: data.Weixin,
+					QQ: data.QQ,
+					Weibo: data.Weibo,
+					ShareNick: data.ShareNick,
+					AutoMusic: data.AutoMusic,
+					IsPay: data.IsPay,
+					Money: data.Money,
+					UseDraw: data.UseDraw,
+					Number: data.Number,
+					ShowArticle: data.ShowArticle,
+					ShowFollow: data.ShowFollow,
+					ShowFan: data.ShowFan,
+					UserRole: data.UserRole
 				}
+				localStorage.setItem('$userinfo', JSON.stringify(info));
+				return callback();
+			} else {
+				return callback(data.message);
 			}
 		});
 	};

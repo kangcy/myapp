@@ -27,6 +27,10 @@
 				<div id="pullrefresh" class="mui-scroll">
 					<div id="scroll-view">
 					</div>
+					<div id="none" class="full tc hide">
+						<img src="../images/my/444.png" class="none" />
+						<p class="f13 mt10">暂无更多分类文章</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -177,12 +181,19 @@
 				totalpage = data.totalpage;
 				var length = data.records;
 				if(length > 0) {
+					document.getElementById("none").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(data.list[i], CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, true);
 
 						table.appendChild(div);
 					}
 				}
+				else {
+					document.getElementById("none").classList.remove("hide");
+				}
+			}
+			if(data == null && currpage == 1) {
+				document.getElementById("none").classList.remove("hide");
 			}
 			callback();
 			document.body.removeAttribute('data-imageLazyload');

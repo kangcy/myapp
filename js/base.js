@@ -351,7 +351,6 @@ var base = new function() {
 		}, function(data) {
 			if(data != null) {
 				if(data.result) {
-					//更新用户缓存信息
 					data = data.message;
 					var info = {
 						ID: data.ID,
@@ -384,7 +383,8 @@ var base = new function() {
 						Number: data.Number,
 						ShowArticle: data.ShowArticle,
 						ShowFollow: data.ShowFollow,
-						ShowFan: data.ShowFan
+						ShowFan: data.ShowFan,
+						UserRole: data.UserRole
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 
@@ -465,12 +465,10 @@ var base = new function() {
 					if(callback) {
 						callback();
 					}
-				} else {
-					mui.toast("密码不正确");
+					return;
 				}
-			} else {
-				mui.toast("密码不正确");
 			}
+			mui.toast("校验失败");
 		});
 	}
 
@@ -697,7 +695,7 @@ var base = new function() {
 				ArticleNumber: ArticleNumber,
 				ArticleUserNumber: ArticleUserNumber,
 				Name: NickName,
-				Avatar: Avatar 
+				Avatar: Avatar
 			});
 		});
 	}

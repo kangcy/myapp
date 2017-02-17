@@ -332,7 +332,8 @@
 			"css/loading.css",
 			"js/mui.previewimage.js",
 			"images/logo_default.png",
-			"images/base/follow0.png"
+			"images/base/follow0.png",
+			"images/my/444.png"
 		],
 		"refer": [
 			"page/listSub.html",
