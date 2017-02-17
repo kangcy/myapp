@@ -994,7 +994,17 @@
 					"images/article/money.png",
 					"images/article/skin.png",
 					"css/loading.css",
-					"images/article/pen.png"
+					"images/article/pen.png",
+					"images/share/8.jpg",
+					"images/share/9.jpg",
+					"images/share/5.jpg",
+					"images/share/10.jpg",
+					"images/share/7.jpg",
+					"images/share/3.jpg",
+					"images/share/2.jpg",
+					"images/share/6.jpg",
+					"images/share/4.jpg",
+					"images/share/1.jpg"
 				],
 				"refer": [
 					"page/sharesetting.html",
@@ -1492,11 +1502,14 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"js/base.js",
-					"images/header.png"
+					"images/header.png",
+					"js/mui.pullToRefresh.js",
+					"css/fan.css",
+					"js/mui.pullToRefresh.material.js",
+					"css/loading.css",
+					"images/my/111.png"
 				],
-				"refer": [
-					"page/zanSub.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"page/fan.html": {

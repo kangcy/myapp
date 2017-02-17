@@ -212,7 +212,6 @@ var base = new function() {
 			userinfo.KeepText += articleid + ",";
 			userinfo.Keeps += 1;
 			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			mui.toast("收藏成功");
 			return true;
 		}
 		return false;
