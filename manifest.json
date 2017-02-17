@@ -604,7 +604,10 @@
 					"js/mui.previewimage.js",
 					"images/logo_default.png",
 					"images/base/follow0.png",
-					"images/my/444.png"
+					"images/my/444.png",
+					"images/base/comment_nor.png",
+					"images/base/reward_nor.png",
+					"images/base/like_nor.png"
 				],
 				"refer": [
 					"page/articledetail.html"
@@ -866,7 +869,8 @@
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.eot",
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
-					"font-awesome-4.6.3/fonts/fontawesome-webfont.svg"
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.svg",
+					"js/transparent.js"
 				],
 				"refer": [
 					"page/edittitle.html",
@@ -1308,7 +1312,13 @@
 					"images/share/5.png",
 					"images/share/6.png",
 					"images/share/2.png",
-					"css/animate.css"
+					"css/animate.css",
+					"images/share/3.jpg",
+					"images/share/2.jpg",
+					"images/share/6.jpg",
+					"images/share/5.jpg",
+					"images/share/4.jpg",
+					"images/share/1.jpg"
 				],
 				"refer": [
 					"page/articledetail.html",

@@ -12,24 +12,31 @@
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 	</head>
 
-	<body>
-		<div class="mui-content fl">
-			<div class="mui-scroll-wrapper" style="background: #E8E8E8;bottom:0px;">
-				<div class="mui-scroll" id="mui-scroll">
-					<div class="mui-bar mui-bar-nav initial f11" id="header" style="height:auto;">
-						<a id="back" class="mui-icon mui-icon-arrowleft fl cfff textshadow"></a>
-						<a id="submit" class="mui-icon cfff f13 fr mt6 textshadow">保存</a>
-						<div class="info-body">
-							<div id="title" class="title mb20 cfff f18 textshadow">点击输入标题</div>
-							<div id="music" class="btn cfff fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
-							<div id="cover" class="btn cfff fr tr"><i class="fa fa-picture-o f13"></i></div>
-						</div>
-					</div>
-					<div id="edit" class="mb20">
-
-					</div>
+	<body style="background: #E8E8E8;">
+		<header class="mui-bar mui-bar-transparent">
+			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
+			<a class="headericon mui-icon fr mt6 cfff" style="font-size:16px;" id="submit">保存</a>
+			<h1 class="mui-title c333"></h1>
+		</header>
+		<div class="mui-content">
+			<div class="loading" id="loader">
+				<div class="card">
+					<span class="circles-loader"></span>
 				</div>
 			</div>
+			<div class="mui-bar mui-bar-nav initial f11 cfff" id="header" style="height:auto;">
+				<!--<a id="back" class="mui-icon mui-icon-arrowleft fl cfff textshadow"></a>
+						<a id="submit" class="mui-icon f13 fr cfff mt6 textshadow">保存</a>-->
+				<div class="info-body mt30">
+					<div id="title" class="title mb20 f18 textshadow">点击输入标题</div>
+					<div id="music" class="btn fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
+					<div id="cover" class="btn fr tr"><i class="fa fa-picture-o f13"></i></div>
+				</div>
+			</div>
+			<div id="edit" class="mb20">
+
+			</div>
+
 		</div>
 	</body>
 
@@ -37,6 +44,7 @@
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../js/mui.min.js"></script>
 <script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/transparent.js"></script>
 <script type="text/javascript" src="../js/group.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
@@ -83,6 +91,7 @@
 			base.OpenWindow("editimage", "editimage.html", {
 				Url: Cover,
 				Source: "ArticleCover",
+				Standard: "ArticleCover",
 				Title: "封面"
 			});
 		});
@@ -91,8 +100,7 @@
 		window.addEventListener("UpdateCover", function(e) {
 			var url = e.detail.Url;
 			if(Cover == url) {
-				mui.toast("编辑成功");
-				return;
+				return mui.toast("编辑成功");
 			}
 			HttpGet(base.RootUrl + "Article/EditArticleCover", {
 				ID: userinfo.ID,
@@ -101,7 +109,7 @@
 			}, function(data) {
 				mui.toast(data.result ? "编辑成功" : data.message);
 				if(data.result) {
-					document.getElementById("header").style.backgroundImage = "url(" + url + ")";
+					document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
 					document.getElementById("header").style.backgroundSize = "cover";
 					Cover = url;
 				}
@@ -248,11 +256,6 @@
 				}
 			});
 		}
-
-		//返回
-		document.getElementById('back').addEventListener('tap', function(event) {
-			mui.back();
-		});
 
 		//保存
 		document.getElementById('submit').addEventListener('tap', function(event) {
@@ -467,11 +470,12 @@
 					MusicUrl = data.MusicUrl;
 					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 
-					document.getElementById("header").style.backgroundImage = "url(" + Cover + ")";
+					document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
 					document.getElementById("header").style.backgroundSize = "cover";
 					if(Title != "") {
 						$("#title").html(Title);
 					}
+
 					//加载段落
 					var parts = data.ArticlePart;
 					if(parts.length > 0) {
@@ -519,6 +523,7 @@
 					}
 				}
 			}
+			document.getElementById("loader").classList.add("hide");
 			setTimeout(function() {
 				base.CloseWaiting();
 			}, 300);
