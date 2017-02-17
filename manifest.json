@@ -1645,7 +1645,8 @@
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.eot",
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
-					"font-awesome-4.6.3/fonts/fontawesome-webfont.svg"
+					"font-awesome-4.6.3/fonts/fontawesome-webfont.svg",
+					"images/my/333.png"
 				],
 				"refer": [
 					"page/user.html"

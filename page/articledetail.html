@@ -8,8 +8,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" href="../css/loading.css">
+		<link rel="stylesheet" href="../css/animate.css">
+
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
@@ -43,7 +44,7 @@
 								<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
 								<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
 								<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
-								<p id="music0" play="on" class="music" onclick="switchsound()">
+								<p id="music0" play="on" class="music mb10" onclick="switchsound()">
 									<i></i>
 									<span id="musicname0"></span>
 								</p>
@@ -52,11 +53,12 @@
 					</div>
 					<!--排版1-->
 					<div id="main1" class="f13 tc hide">
-						<div style="width:95%;margin:0px 2.5%;">
+						<div class="full">
 							<div class="full" style="position:relative;">
 								<img id="useravatar1" class="mt30" />
 								<p class="full ml15 user mt10 textshadow f15 cfff" userid="0" id="nickname1"></p>
-								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:0px;top:0px;"></i>
+								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:10px;top:10px"></i>
+
 							</div>
 						</div>
 						<div class="detail cover cover1 fl">
@@ -262,9 +264,6 @@
 
 		//文章评论
 		document.getElementById('comment').addEventListener('tap', function(event) {
-			if(Article.Comments == 0) {
-				return mui.toast("暂无评论");
-			}
 			base.OpenWindow("articleComment", "articleComment.html", {
 				ArticleID: ArticleID,
 				ArticleNumber: Article.Number
@@ -457,7 +456,7 @@
 						ChangeBg(CurrBackground);
 					}
 
-					$("#musicname0").html(data.MusicName);
+					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(data.Title);
 					$("#nickname0,#nickname1").html(data.NickName);
@@ -597,9 +596,16 @@
 	function ChangeBg(index) {
 		CurrBackground = index;
 		//纯白背景
-		console.log("CurrCover:" + CurrCover)
+		console.log("CurrCover:" + CurrCover);
+
+		//纯白背景
 		if(CurrTemplate == 1) {
 			$("#bg").css("background", "#fff");
+		} else if(CurrTemplate > 1) {
+			$("#bg").css({
+				"background": "url(" + CurrCover + ") no-repeat top",
+				"background-size": "100% auto"
+			});
 		} else {
 			switch(index) {
 				case 0:
