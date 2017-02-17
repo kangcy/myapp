@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>编辑文字</title>
+		<title>举报内容</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -27,7 +27,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ArticleID = 0;
+	var ArticleNumber = "";
 	var isLoading = false;
 	mui.init({
 		gestureConfig: {
@@ -40,7 +40,7 @@
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID;
+		ArticleNumber = self.ArticleNumber;
 
 		//取消
 		document.getElementById("back").addEventListener('tap', function(event) {
@@ -61,7 +61,7 @@
 			var userinfo = base.GetUserInfo();
 			HttpGet(base.RootUrl + "Report/Edit", {
 				ID: userinfo.ID,
-				ArticleID: ArticleID,
+				ArticleNumber: ArticleNumber,
 				Summary: question.value
 			}, function(data) {
 				mui.toast(data.result ? "举报成功，将于1-2个工作日内处理" : data.message);
