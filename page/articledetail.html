@@ -20,8 +20,10 @@
 	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
-			<img src="../images/article/more2.png" class="fr more hide" onclick="ActionTan(1)" id="action" />
-			<img src="../images/article/skin.png" class="fr more hide" onclick="TempTan(1)" id="btnTemp" />
+			<div onclick="ActionTan(1)" id="action">
+			</div>
+			<div onclick="TempTan(1)" id="btnTemp">
+			</div>
 			<h1 class="mui-title c333">详情</h1>
 		</header>
 
@@ -34,43 +36,42 @@
 			<div class="mui-content mui-scroll-wrapper bg">
 				<div class="mui-scroll" id="bg">
 					<!--通用样式-->
-					<div id="main0" class="hide">
-						<div class="f13 tl detail">
+					<div id="main0" class="f13 tl mt20 hide">
+						<div class="detail">
 							<div class="full tl">
-								<p class="f20 c000" id="title0"></p>
+								<p class="f16 c000" id="title0"></p>
 								<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
-								<span class="mb0 ml10 user mt5" userid="0" id="nickname0" style="color:#007aff"></span>
+								<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
 								<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
 								<p id="music0" play="on" class="music" onclick="switchsound()">
 									<i></i>
 									<span id="musicname0"></span>
 								</p>
 							</div>
-							<div class="c000 full mt20 mb20" id="desc0">
-
-							</div>
 						</div>
 					</div>
 					<!--排版1-->
-					<div id="main1" class="hide">
-						<div class="tc" style="width:95%;margin:0px 2.5%;">
+					<div id="main1" class="f13 tc hide">
+						<div style="width:95%;margin:0px 2.5%;">
 							<div class="full" style="position:relative;">
-								<img id="useravatar1" style="margin-top:2rem;" />
-								<p class="full mb0 user mt10 textshadow f15 cfff" userid="0" id="nickname1"></p>
+								<img id="useravatar1" class="mt30" />
+								<p class="full ml15 user mt10 textshadow f15 cfff" userid="0" id="nickname1"></p>
 								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:0px;top:0px;"></i>
 							</div>
 						</div>
-						<div class="f13 tl detail cover">
-							<div class="full tc">
-								<p class="mt10 mb0 f16 c333" id="title1"></p>
-								<p class="mt5 mb10 full csubtitle f13 tc">
+						<div class="detail cover cover1 fl">
+							<div class="full">
+								<p class="mt10 f16 c333" id="title1"></p>
+								<p class="mt5 mb0 full csubtitle f13">
 									<span id="createdate1" class="mr15"></span>
 									<span class="ml15" id="views1"></span>
 								</p>
 							</div>
-							<div class="c000 full mb20" id="desc1">
+						</div>
+					</div>
+					<div class="detail2 cover cover2 fl tl mb20">
+						<div class="c000 full" id="desc">
 
-							</div>
 						</div>
 					</div>
 				</div>
@@ -96,11 +97,11 @@
 		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
-				<div class="mui-control-item temp f12" tid="0" color="#007aff" mt="8rem" type="1">
-					<div style="line-height:80px;">默认</div>
-				</div>
-				<div class="mui-control-item temp f12" tid="1" color="#007aff" mt="2rem" type="0">
+				<div class="mui-control-item temp f12" tid="1" color="#007aff" type="0">
 					<div style="background:#fff;line-height:80px;">纯白</div>
+				</div>
+				<div class="mui-control-item temp f12" tid="0" color="#007aff" type="1">
+					<div style="line-height:80px;">自定义</div>
 				</div>
 			</div>
 		</div>
@@ -212,16 +213,16 @@
 			var $this = $(this);
 			$this.addClass("hover");
 			CurrTemplate = $this.attr("tid");
-			if(CurrTemplate == 0) { 
+			if(CurrTemplate == 0) {
 				CurrCover = Article.Cover;
 			} else {
 				CurrCover = $this.attr("cover");
 			}
 			$("#mui-iframe-wrapper").css("background-color", $this.attr("color"));
-			//$("#useravatar1").css("margin-top", $this.attr("mt"));
-			//$("#nickname1").css("color", $this.attr("color"));
 
 			var templatetype = $this.attr("type");
+
+			//纯白背景
 			if(templatetype == 0) {
 				$("#main1").addClass("hide");
 				$("#main0").removeClass("hide");
@@ -443,12 +444,7 @@
 					if(data.TemplateJson.ID > 0) {
 						mainIndex = data.TemplateJson.TemplateType;
 						CurrCover = data.TemplateJson.Cover;
-
-						/*$("#useravatar1").css("margin-top", data.TemplateJson.MarginTop);
-						$("#nickname1").css("color", data.TemplateJson.TitleColor);*/
-
-console.log(JSON.stringify(data.TemplateJson))
-						$("#mui-iframe-wrapper").css("background-color", data.TemplateJson.TitleColor);
+						$("#mui-iframe-wrapper").css("background-color", data.TemplateJson.Background);
 					} else {
 						CurrCover = "";
 					}
@@ -462,12 +458,12 @@ console.log(JSON.stringify(data.TemplateJson))
 					}
 
 					$("#musicname0").html(data.MusicName);
-					$("#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
+					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(data.Title);
 					$("#nickname0,#nickname1").html(data.NickName);
 					$("#createdate0,#createdate1").html(data.CreateDateText);
 					$("#views0,#views1").html("阅读  " + data.Views);
-					$("#desc0,#desc1").html(html.join(""));
+					$("#desc").html(html.join(""));
 
 					//实例化播放器
 					$(".youku_player").each(function() {
@@ -483,6 +479,7 @@ console.log(JSON.stringify(data.TemplateJson))
 					//显示操作
 					if(userinfo.ID == data.UserID) {
 						$("#action").removeClass("hide");
+						$("#btnTemp").removeClass("hide");
 					} else {
 						base.ShowUser("#body");
 					}
@@ -498,7 +495,7 @@ console.log(JSON.stringify(data.TemplateJson))
 					$("#bottomAction").removeClass("hide").addClass("bounceInUp");
 					$("#mui-iframe-wrapper").css("bottom", "50px");
 
-					$("#btnTemp,#btnPay").removeClass("hide");
+					$("#btnPay").removeClass("hide");
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().close();
@@ -696,7 +693,7 @@ console.log(JSON.stringify(data.TemplateJson))
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						index += 1;
 						var item = data.list[i];
-						table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.TitleColor + '" mt="' + item.MarginTop + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
+						table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
 					}
 				}
 			}

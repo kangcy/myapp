@@ -1,7 +1,15 @@
 .detail {
 	width: 94%;
-	margin: 3%;
-	padding: 3%;
+	margin: 0% 3%;
+	padding: 0% 3%;
+	line-height: 1.5625rem;
+	display: inline-block;
+}
+
+.detail2 {
+	width: 94%;
+	margin: 0% 3%;
+	padding: 0% 3%;
 	line-height: 1.5625rem;
 	display: inline-block;
 }
@@ -102,7 +110,14 @@
 	height: 100%;
 	z-index: -1;
 	border-radius: 10px;
-	margin-top: 1rem !important;
+}
+
+.cover1 {
+	border-radius: 10px 10px 0px 0px !important;
+}
+
+.cover2 {
+	border-radius: 0px 0px 10px 10px !important;
 }
 
 .bg {
@@ -231,6 +246,7 @@
 .temp.hover div,
 .temp.hover img {
 	border: 2px solid #ff6900;
+	color: #ff6900;
 }
 
 
@@ -319,5 +335,24 @@ video {
 	margin-top: 13px;
 	margin-right: 0.4rem;
 	height: 20px;
-	display: inline-block;
+}
+
+#action {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 40px;
+	height: 45px;
+	background: url(../images/article/more2.png) no-repeat center center;
+	background-size: auto 20px;
+}
+
+#btnTemp {
+	position: absolute;
+	right: 30px;
+	top: 0px;
+	width: 40px;
+	height: 45px;
+	background: url(../images/article/skin.png) no-repeat center center;
+	background-size: auto 20px;
 }
