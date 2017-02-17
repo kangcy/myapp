@@ -193,7 +193,8 @@
 		if(currpage > totalpage) {
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了");
+			return false;
+			//return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			LoadMusic(function() {
@@ -232,16 +233,9 @@
 							var item = data[i];
 							table.append('<li class="mui-table-view-cell music" hash="' + item.hash + '"><span class="fl">' + item.filename + '</span><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
 						}
-					} else {
-						mui.toast("没有更多数据了");
 					}
-				} else {
-					mui.toast("没有更多数据了");
 				}
-			} else {
-				mui.toast("没有更多数据了");
 			}
-
 			if($.isFunction(callback)) {
 				callback();
 			}

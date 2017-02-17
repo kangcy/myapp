@@ -10,11 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../css/animate.css">
-
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
-
-		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
-		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
 		<link rel="stylesheet" type="text/css" href="../css/articledetail.css">
 	</head>
 
@@ -176,8 +172,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
-<script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
-<script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
 <script type="text/javascript">
@@ -194,7 +188,6 @@
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
 
-	var editor = null;
 	var Province = "";
 	var City = "";
 
@@ -254,12 +247,11 @@
 
 		//添加评论
 		document.getElementById('addcomment').addEventListener('tap', function(event) {
-			if(editor == null) {
-				editor = $("#textarea").emojioneArea({
-					template: "<editor/><filters/><tabs/>"
-				});
-			}
-			EditorTan(1);
+			base.OpenWindow("articleComment", "articleComment.html", {
+				ArticleID: ArticleID,
+				ArticleNumber: Article.Number,
+				Action: "Add"
+			});
 		})
 
 		//文章评论
@@ -338,43 +330,6 @@
 			main = plus.android.runtimeMainActivity();
 		}
 	});
-
-	//提交编辑
-	function EditorSubmit() {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		var val = editor[0].emojioneArea.getHtml();
-		if(base.IsNullOrEmpty(val)) {
-			isLoading = false;
-			return mui.toast("请填写内容");
-		}
-		base.ShowWaiting("正在提交");
-		HttpGet(base.RootUrl + "Comment/Edit", {
-			ID: userinfo.ID,
-			ArticleID: ArticleID,
-			ParentCommentNumber: "",
-			ParentUserNumber: "",
-			Summary: escape(val),
-			Province: Province,
-			City: City
-		}, function(data) {
-			base.CloseWaiting();
-			mui.toast(data.result ? "感谢您的评论" : data.message);
-			if(data.result) {
-				EditorClose();
-				UpdateComment(); //更新文章评论数
-			}
-			isLoading = false;
-		});
-	}
-
-	//关闭编辑器
-	function EditorClose() {
-		EditorTan(0);
-		editor[0].emojioneArea.setText("");
-	}
 
 	//复制到剪贴板
 	function CopyToClip() {

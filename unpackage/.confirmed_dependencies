@@ -1221,7 +1221,10 @@
 			"emotion/js/emojione.min.js",
 			"js/jquery-1.10.2.min.js",
 			"emotion/css/emojione.sprites.png",
-			"images/my/333.png"
+			"images/my/333.png",
+			"images/base/comment_nor.png",
+			"images/base/like_nor.png",
+			"images/base/like_hig.png"
 		],
 		"refer": [
 			"page/articleCommentSub.html",

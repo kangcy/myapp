@@ -16,7 +16,7 @@
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
 
-		<style type="text/css">
+		<!--<style type="text/css">
 			.red {
 				color: #ed5565;
 			}
@@ -181,7 +181,7 @@
 			.mui-slider .mui-slider-group .mui-slider-item img {
 				width: initial !important;
 			}
-		</style>
+		</style>-->
 	</head>
 
 	<body>
@@ -397,7 +397,8 @@
 		if(currpage1 > totalpage1) {
 			isLoading1 = false;
 			self.endPullUpToRefresh(currpage1 > totalpage1);
-			return mui.toast("没有更多数据了");
+			return false;
+			//return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load1(function() {

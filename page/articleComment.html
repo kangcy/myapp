@@ -10,8 +10,6 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/comment.css">
 		<link rel="stylesheet" href="../css/loading.css">
-		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
-
 		<link rel="stylesheet" type="text/css" href="../css/animate.css">
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
@@ -22,8 +20,8 @@
 			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
 			<div class="mui-title c333" id="header">评论</div>
 		</header>
-		<div class="mui-bar mui-bar-tab tc f14 cfff bounceIn" id="bottomAction" onclick="Comment()" style="background:#49be38;line-height:50px;">
-			发表评论
+		<div class="mui-bar mui-bar-tab tc f14 cfff hide" id="bottomAction" onclick="Comment()" style="background:#49be38;line-height:50px;">
+			我来说一句
 		</div>
 		<div class="mui-content">
 			<div class="loading" id="loader">
@@ -81,7 +79,7 @@
 		base.ShowUser("#scroll");
 
 		//点赞
-		mui('#scroll').on('tap', '.fa-thumbs-o-up', function() {
+		mui('#scroll').on('tap', '.goods', function() {
 			if(isLoading) {
 				return;
 			}
@@ -91,7 +89,6 @@
 				isLoading = false;
 				return mui.toast("已赞");
 			}
-			var num = this.childNodes[0];
 			var commentid = $this.getAttribute("cid");
 			HttpGet(base.RootUrl + "Comment/Zan", {
 				ID: userinfo.ID,
@@ -102,7 +99,10 @@
 					if(data.result) {
 						$this.classList.add("heartbeat");
 						$this.setAttribute("already", "1");
-						num.innerText = parseInt(num.innerText) + 1;
+						$this.setAttribute("src", "../images/base/like_hig.png");
+						var item = $("#goods" + commentid);
+						item.text(parseInt(item.text()) + 1);
+						item.addClass("red");
 					}
 				}
 				isLoading = false;
@@ -110,7 +110,7 @@
 		});
 
 		//评论
-		mui('#scroll').on('tap', '.fa-commenting-o', function() {
+		mui('#scroll').on('tap', '.comments', function() {
 			if(isLoading) {
 				return;
 			}
@@ -143,8 +143,6 @@
 			mui.back();
 		}, false);
 
-		Init();
-
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
 			Province = p.address.province;
@@ -152,6 +150,15 @@
 		}, function(e) {
 			//mui.toast("未授权")
 		});
+
+		var action = self.Action || null;
+		if(action == null) {
+			$("#bottomAction").removeClass("hide").addClass("bounceIn");
+		} else {
+			Comment();
+		}
+
+		Init();
 	});
 
 	//提交编辑
@@ -268,7 +275,8 @@
 		if(currpage > totalpage) {
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了");
+			return false;
+			//return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load(function() {
@@ -319,12 +327,13 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
 		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-		model.push('<div class="mui-table-cell pb0 main"><p class="f12 user cc999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr c999 f11">' + item.CreateDate + '</span></p>');
+		model.push('<div class="mui-table-cell pb0 main">');
+		model.push('<p class="f12 user cc999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr c999 f11">' + item.CreateDate + '</span></p>');
 		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
 			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<p class="tr mt10 mb15 c999"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.825rem;" class="ml15 fr comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" /><span class="f13 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.825rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" /></div>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

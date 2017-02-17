@@ -171,7 +171,8 @@
 		if(currpage > totalpage) {
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了");
+			return false;
+			//return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load(function() {
@@ -203,9 +204,7 @@
 						var div = base.AppendArticle(data.list[i], false, false, true);
 						table.appendChild(div);
 					}
-				} else {
-					mui.toast("没有更多数据了");
-				}
+				} 
 			}
 			callback();
 			document.body.removeAttribute('data-imageLazyload');

@@ -173,7 +173,8 @@
 		if(currpage > totalpage) {
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
-			return mui.toast("没有更多数据了");
+			return false;
+			//return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load(function() {

@@ -1646,7 +1646,10 @@
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
 					"font-awesome-4.6.3/fonts/fontawesome-webfont.svg",
-					"images/my/333.png"
+					"images/my/333.png",
+					"images/base/comment_nor.png",
+					"images/base/like_nor.png",
+					"images/base/like_hig.png"
 				],
 				"refer": [
 					"page/user.html"

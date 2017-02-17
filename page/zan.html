@@ -8,101 +8,176 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/fan.css">
+		<link rel="stylesheet" href="../css/loading.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
-			<div class="mui-title">
-				<div id="tabs">
-					<span class="tab curr" id="tab1">我赞过的(0)</span>
-					<span class="tab" id="tab2">赞过我的(0)</span>
+			<div class="mui-title c333" id="title">喜欢</div>
+		</header>
+
+		<div class="mui-content">
+			<div class="loading" id="loader">
+				<div class="card">
+					<span class="circles-loader"></span>
 				</div>
 			</div>
-		</header>
-		<div class="mui-content">
+			<div class="mui-scroll-wrapper" style="top:45px;">
+				<div id="scroll" class="mui-scroll">
+					<div id="scroll-view">
 
+					</div>
+					<div id="none" class="full tc hide">
+						<img src="../images/my/111.png" class="none" />
+						<p class="f13 mt10">喜欢你的人，会在这里显示</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
 <script type="text/javascript">
-	//启用双击监听
+	var currpage = 1;
+	var totalpage = 2;
+	var isLoading = false;
+	var pagesize = base.PageSize;
+	var parentPage = null;
+	var userinfo = base.GetUserInfo();
+
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false,
-		subpages: [{
-			id: 'zanSub',
-			url: 'zanSub.html',
-			styles: {
-				top: '46px',
-				bottom: '0px',
-			}
-		}]
+		swipeBack: false //启用右滑关闭功能
 	});
 
-	var contentWebview = null;
+	mui.ready(function() {
+
+		base.InitScroll();
+
+		mui(document.getElementById("scroll")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
+
+		base.ShowUser("#scroll"); //用户详细
+
+		base.ShowArticle("#scroll", "List", userinfo.Number); //文章详细
+
+		base.ScrollTop();
+	});
+
 	mui.plusReady(function() {
-		//判断网络状态
-		document.addEventListener("netchange", function() {
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置！");
-			}
-		}, false);
 
-		//返回
+		base.NetChange();
+
 		mui.back = function() {
-			plus.webview.close(plus.webview.currentWebview());
+			var self = plus.webview.currentWebview();
+			plus.webview.close(self)
 		}
-
-		//返回
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		}, false);
-
-		document.getElementById('tab1').addEventListener('tap', function(event) {
-			if(this.getAttribute("class") == "tab curr")
-				return;
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			document.getElementById("tab2").setAttribute("class", "tab");
-			document.getElementById("tab1").setAttribute("class", "tab curr");
-			contentWebview.evalJS("ChangeSlider(0)");
-		});
-
-		document.getElementById('tab2').addEventListener('tap', function(event) {
-			if(this.getAttribute("class") == "tab curr")
-				return;
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			document.getElementById("tab1").setAttribute("class", "tab");
-			document.getElementById("tab2").setAttribute("class", "tab curr");
-			contentWebview.evalJS("ChangeSlider(1)");
-		});
 	});
 
-	function UpdateCurr(index) {
-		if(index == 0) {
-			document.getElementById("tab2").setAttribute("class", "tab");
-			document.getElementById("tab1").setAttribute("class", "tab curr");
-		} else {
-			document.getElementById("tab1").setAttribute("class", "tab");
-			document.getElementById("tab2").setAttribute("class", "tab curr");
+	//下拉刷新
+	function pulldownRefresh(self) {
+		if(isLoading == true) {
+			return;
 		}
+		isLoading = true;
+		setTimeout(function() {
+			currpage = 1;
+			totalpage = 2;
+			document.getElementById('scroll-view').innerHTML = "";
+			Load(function() {
+				++currpage;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading = false;
+			})
+		}, 500);
 	}
-	
-	function InitNum(num1, num2) {
-		if(num1 > 0) {
-			document.getElementById("tab1").innerHTML = "我赞过的(" + num1 + ")";
+
+	//上拉加载
+	function pullupRefresh(self) {
+		if(isLoading == true) {
+			return;
 		}
-		if(num2 > 0) {
-			document.getElementById("tab2").innerHTML = "赞过我的(" + num2 + ")";
+		isLoading = true;
+		if(currpage > totalpage) {
+			isLoading = false;
+			self.endPullUpToRefresh(currpage > totalpage);
+			return false;
+			//return mui.toast("没有更多数据了");
 		}
+		setTimeout(function() {
+			Load(function() {
+				++currpage;
+				self.endPullUpToRefresh(currpage > totalpage);
+				isLoading = false;
+			})
+		}, 500);
+	}
+
+	//加载数据
+	function Load(callback) {
+		var data = {
+			page: currpage,
+			rows: pagesize,
+			UserNumber: userinfo.Number
+		}
+		HttpGet(base.RootUrl + "Zan/ToMe", data, function(data) {
+			document.getElementById("loader").classList.add("hide");
+			if(data != null) {
+				totalpage = data.totalpage;
+				var length = data.records;
+				if(length > 0) {
+					document.getElementById("none").classList.add("hide");
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i], 1);
+						table.appendChild(div);
+					}
+				} else {
+					document.getElementById("none").classList.remove("hide");
+				}
+			}
+			if(data == null && currpage == 1) {
+				document.getElementById("none").classList.remove("hide");
+			}
+			callback();
+		});
+	}
+
+	//拼接Html
+	function appendStr(item, index) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="mui-slider-cell">');
+		//分类图片
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
+		//分类信息
+		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + item.NickName + '<span class="ml5 c999">喜欢了你的文章「' + item.Title + '」</span></p></div><p class="f12 caaa">' + item.CreateDate + '</p></div>');
+		model.push('<div class="mui-table-cell cover"><img src="' + base.ShowThumb(item.Cover, 2) + '" class="article" articleid="' + item.ArticleID + '" userid="' + userinfo.UserNumber + '" power="' + item.ArticlePower + '" /></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>
