@@ -25,7 +25,7 @@
 	</head>
 
 	<body style="background:#F4F5F5;">
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a id="back" class="mui-icon blue f13 fl mt6">取消</a>
 			<a id="submit" class="mui-icon blue f13 fr mt6">保存</a>
 			<h1 class="mui-title c333">意见反馈</h1>
@@ -34,7 +34,7 @@
 			<div class="f13 mt10 mb10" style="text-indent:10px;">反馈内容：</div>
 			<textarea id='question' class="mui-input-clear f12 mb0" placeholder="欢迎留下您的宝贵意见" maxlength="150"></textarea>
 			<div class="f13 mt10 mb10" style="text-indent:10px;">联系方式：</div>
-			<input id='qq' type="text" class="mui-input-clear f12" placeholder="请输入您的QQ号" maxlength="15" />
+			<input id='qq' type="number" class="mui-input-clear f12" placeholder="请输入您的QQ号" maxlength="15" />
 		</div>
 	</body>
 
@@ -47,10 +47,15 @@
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.plusReady(function() {
+
+		//返回
+		document.getElementById("back").addEventListener('tap', function(event) {
+			plus.webview.close("feedback");
+		});
 
 		//保存
 		var question = document.getElementById("question");
@@ -65,29 +70,16 @@
 			if(isNaN(qq.value)) {
 				return mui.toast('请填写正确的联系方式');
 			}
-			base.ShowWaiting("正在保存");
 			HttpGet(base.RootUrl + "FeedBack/Edit", {
 				ID: userinfo.ID,
 				Summary: escape(question.value),
 				QQ: qq.value
 			}, function(data) {
-				base.CloseWaiting();
 				mui.toast(data.result ? "感谢您的建议" : data.message);
 				if(data.result) {
-					question.value = "";
-					if(mui.os.plus) {
-						mui.back();
-					}
+					plus.webview.close("feedback");
 				}
 			});
 		}, false);
 	})
-
-	mui.plusReady(function() {
-
-		//返回
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		});
-	});
 </script>

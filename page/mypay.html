@@ -43,7 +43,7 @@
 		<div class="mui-content">
 			<ul class="mui-table-view f13 mt0">
 				<li class="mui-table-view-cell tc">
-					<img class="head-img mui-action-preview mt10" id="avatar" src="../images/my/pay.png" style="width:20%;" />
+					<img class="head-img mui-action-preview mt10" id="avatar" src="../images/my/pay.png" style="width:30%;" />
 					<p class="f12 c333 mt5">账户余额</p>
 					<p class="f25 bold c333 mt5" id="money"></p>
 				</li>
@@ -58,7 +58,7 @@
 					<p class="f13 c333">启用打赏</p>
 					<p class="f11 caaa mt5">分享文章，读者即可打赏支持</p>
 					<div class="divSwitch">
-						<div class="my-switch fr" id="autoMusicSwitch">
+						<div class="my-switch fr" id="autoPaySwitch">
 							<div></div>
 						</div>
 					</div>
@@ -104,16 +104,16 @@
 		})
 
 		if(userinfo.IsPay == 1) {
-			base.SwitchChange("autoMusicSwitch", true);
+			base.SwitchChange("autoPaySwitch", true);
 		}
 
-		//是否自动播放音乐
-		document.getElementById("autoMusicSwitch").addEventListener('tap', function(event) {
+		//是否启用打赏
+		document.getElementById("autoPaySwitch").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
 			isLoading = true;
-			base.SwitchChange("autoMusicSwitch", this.className.indexOf("active") < 0);
+			base.SwitchChange("autoPaySwitch", this.className.indexOf("active") < 0);
 			ispay = this.className.indexOf("active") >= 0;
 			if(ispay == 1) {
 				ActionTan(1);
@@ -129,6 +129,8 @@
 
 		//申请提现
 		document.getElementById('apply').addEventListener('tap', function(event) {
+			base.OpenWindow("payapply", "payapply.html", {});
+			return;
 			if(isLoading) {
 				return;
 			}
@@ -164,7 +166,7 @@
 
 	function NotAgree() {
 		ispay = 0;
-		base.SwitchChange("autoMusicSwitch", false);
+		base.SwitchChange("autoPaySwitch", false);
 		ActionTan(0);
 		isLoading = false;
 	}
@@ -177,14 +179,14 @@
 		}, function(data) {
 			if(data == null) {
 				mui.toast("修改失败");
-				mui("#autoMusicSwitch").switch().toggle();
+				mui("#autoPaySwitch").switch().toggle();
 			} else {
 				if(data.result) {
 					userinfo.IsPay = ispay;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 				} else {
 					mui.toast("修改失败");
-					mui("#autoMusicSwitch").switch().toggle();
+					mui("#autoPaySwitch").switch().toggle();
 				}
 			}
 			isLoading = false;
