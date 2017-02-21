@@ -499,7 +499,8 @@
 			"page/article.html",
 			"page/articleSub.html",
 			"page/user2.html",
-			"page/money.html"
+			"page/money.html",
+			"page/articleComment.html"
 		]
 	},
 	"page/addarticle.html": {
