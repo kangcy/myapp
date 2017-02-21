@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="../css/my.css">
 		<style type="text/css">
 			/*头部*/
+			
 			#avatar {
 				border-radius: 50%;
 				width: 5rem;
@@ -256,7 +257,8 @@
 	//文章
 	function LoadArticle() {
 		var data = {
-			UserNumber: UserNumber
+			UserNumber: UserNumber,
+			CurrUserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "User/Article", data, function(data) {
 			var table = document.getElementById('a_list');
@@ -321,7 +323,7 @@
 				//分享信息 
 				ShareInfo.Title = NickName + "的专栏";
 				ShareInfo.Cover = Avatar;
-				ShareInfo.Url = "http://www.baidu.com";
+				ShareInfo.Url = data.ShareUrl;
 
 			} else {
 				mui.toast(data.message);

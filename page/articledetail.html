@@ -94,10 +94,10 @@
 		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
-				<div class="mui-control-item temp f12" tid="1" color="#007aff" type="0">
+				<div class="mui-control-item temp f12" tid="1" color="#fff" type="0">
 					<div style="background:#fff;line-height:80px;">纯白</div>
 				</div>
-				<div class="mui-control-item temp f12" tid="0" color="#007aff" type="1">
+				<div class="mui-control-item temp f12" tid="0" color="#fff" type="1">
 					<div style="line-height:80px;">自定义</div>
 				</div>
 			</div>
@@ -369,8 +369,6 @@
 					$("#payuser").attr("src", base.ShowThumb(data.Avatar, 1));
 					$(".user").attr("userid", data.CreateUserNumber);
 
-					document.getElementById("loader").classList.add("hide");
-
 					//段落
 					var html = [];
 					var parts = data.ArticlePart;
@@ -398,8 +396,6 @@
 						mainIndex = data.TemplateJson.TemplateType;
 						CurrCover = data.TemplateJson.Cover;
 						$("#mui-iframe-wrapper").css("background-color", data.TemplateJson.Background);
-					} else {
-						CurrCover = "";
 					}
 					CurrTemplate = data.Template;
 					CurrBackground = data.Background;
@@ -407,6 +403,8 @@
 					if(!base.IsNullOrEmpty(CurrCover)) {
 						ChangeBg(CurrBackground);
 					}
+
+					document.getElementById("loader").classList.add("hide");
 
 					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
@@ -435,6 +433,10 @@
 						base.ShowUser("#body");
 					}
 
+					$("#bottomAction").removeClass("hide").addClass("bounceIn");
+
+					$("#btnPay").removeClass("hide");
+
 					//分享信息
 					ShareInfo.Title = data.Title;
 					ShareInfo.Cover = data.Cover;
@@ -443,9 +445,6 @@
 					//收藏状态
 					CheckKeep();
 
-					$("#bottomAction").removeClass("hide").addClass("bounceIn");
-
-					$("#btnPay").removeClass("hide");
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().close();

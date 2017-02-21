@@ -358,6 +358,14 @@
 				if(page) {
 					page.evalJS("UpdateComment()")
 				}
+				
+				//刷新数据
+				currpage = 1;
+
+				var table = document.getElementById('scroll-view');
+				table.innerHTML = "";
+
+				Load();
 			}
 			isLoading = false;
 		});
