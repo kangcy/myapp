@@ -150,7 +150,9 @@
 		//消息
 		document.getElementById('tip').addEventListener('tap', function(event) {
 			triggerMain = false;
-			base.OpenWindow("tipsetting", "tipsetting.html", {});
+			base.OpenWindow("tipsetting", "tipsetting.html", {
+				Source: "My" 
+			});
 			setTimeout(function() {
 				triggerMain = true;
 			}, 2000);

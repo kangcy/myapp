@@ -14,7 +14,7 @@
 			}
 			
 			.mui-bar {
-				background: #fff; 
+				background: #fff;
 			}
 			
 			.mui-table-view:after {
@@ -30,7 +30,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back fl c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333 hide" id="back"></a>
 			<h1 class="mui-title c333">消息</h1>
 		</header>
 		<div class="mui-content">
@@ -63,7 +63,7 @@
 			</ul>
 		</div>
 	</body>
- 
+
 </html>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
@@ -82,9 +82,15 @@
 		if(userinfo.Number == "148660714824574") {
 			document.getElementById("file").classList.remove("hide");
 		}
-	});
+	}); 
 
 	mui.plusReady(function() {
+
+		var self = plus.webview.currentWebview();
+		var source = self.Source || "";
+		if(!base.IsNullOrEmpty(source)) {
+			document.getElementById("back").classList.remove("hide");
+		}
 
 		//返回
 		mui.back = function() {
