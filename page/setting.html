@@ -64,7 +64,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333">设置</h1>
 		</header>
 		<div class="mui-content">
@@ -360,11 +360,6 @@
 		mui.back = function() {
 			plus.webview.close(plus.webview.currentWebview());
 		}
-
-		//返回
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		});
 
 		//账号管理
 		document.getElementById('account').addEventListener('tap', function(event) {

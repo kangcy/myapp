@@ -44,7 +44,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333">求助或建议</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper tc">
@@ -80,18 +80,12 @@
 
 	mui.plusReady(function() {
 
-		//判断网络状态
 		base.NetChange();
 
 		//返回
 		mui.back = function() {
 			plus.webview.close(plus.webview.currentWebview());
 		}
-
-		//取消
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		});
 
 		mui("#list").on('tap', 'div', function(event) {
 			var tid = this.getAttribute("tid");

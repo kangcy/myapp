@@ -26,7 +26,7 @@
 
 	<body style="background:#F4F5F5;">
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a id="back" class="mui-icon blue f13 fl mt6">取消</a>
+			<a class="mui-icon mui-action-back blue f13 fl mt6">取消</a>
 			<a id="submit" class="mui-icon blue f13 fr mt6">保存</a>
 			<h1 class="mui-title c333">意见反馈</h1>
 		</header>
@@ -51,11 +51,6 @@
 	});
 
 	mui.plusReady(function() {
-
-		//返回
-		document.getElementById("back").addEventListener('tap', function(event) {
-			plus.webview.close("feedback");
-		});
 
 		//保存
 		var question = document.getElementById("question");

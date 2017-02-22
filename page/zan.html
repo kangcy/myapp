@@ -14,7 +14,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<div class="mui-title c333" id="title">喜欢</div>
 		</header>
 
@@ -78,9 +78,9 @@
 			}
 		});
 
-		base.ShowUser("#scroll"); //用户详细
+		base.ShowUser("#scroll");
 
-		base.ShowArticle("#scroll", "List", userinfo.Number); //文章详细
+		base.ShowArticle("#scroll", "List", userinfo.Number);
 
 		base.ScrollTop();
 	});
@@ -124,7 +124,6 @@
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
-			//return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load(function() {
@@ -172,10 +171,10 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
 		//分类图片
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell" style="vertical-align:top !important;"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" /></div>');
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + item.NickName + '<span class="ml5 c999">喜欢了你的文章「' + item.Title + '」</span></p></div><p class="f12 caaa">' + item.CreateDate + '</p></div>');
-		model.push('<div class="mui-table-cell cover"><img src="' + base.ShowThumb(item.Cover, 2) + '" class="article" articleid="' + item.ArticleID + '" userid="' + userinfo.UserNumber + '" power="' + item.ArticlePower + '" /></div>');
+		model.push('<div class="mui-table-cell cover" style="vertical-align:top !important;"><img src="' + base.ShowThumb(item.Cover, 2) + '" class="article mt5" articleid="' + item.ArticleID + '" userid="' + userinfo.UserNumber + '" power="' + item.ArticlePower + '" /></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

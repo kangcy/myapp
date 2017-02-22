@@ -24,7 +24,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333" id="title"></h1>
 		</header>
 		<div class="loading" id="loader">
@@ -112,11 +112,6 @@
 		mui.back = function() {
 			plus.webview.currentWebview().close();
 		}
-
-		//返回
-		document.getElementById('back').addEventListener('tap', function(e) {
-			mui.back();
-		});
 
 		document.getElementById("confirm").addEventListener('tap', function(event) {
 			confirm(function(src) {

@@ -905,7 +905,8 @@
 			"js/default.js",
 			"page/searchSub2.html",
 			"css/img.preview.css",
-			"images/search_blue.png"
+			"images/search_blue.png",
+			"js/base.js"
 		],
 		"refer": [
 			"page/searchSub.html",

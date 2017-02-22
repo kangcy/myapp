@@ -30,7 +30,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon blue fl mt6" style="font-size:16px;">取消</a>
+			<a class="mui-icon mui-action-back blue fl mt6" style="font-size:16px;">取消</a>
 			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;" onclick="Submit()">完成</a>
 			<h1 class="mui-title c333">选择文章分类</h1>
 		</header>
@@ -91,11 +91,6 @@
 		mui.back = function() {
 			plus.webview.close(self);
 		}
-
-		//返回
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		});
 	});
 
 	//加载

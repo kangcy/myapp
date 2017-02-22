@@ -40,7 +40,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="padding-right:0px;">
-			<a id="back" class="mui-icon mui-icon-back fl" style="width:15%;"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl" style="width:15%;"></a>
 			<a id="btnSearch" class="mui-icon mui-icon-search fr blue" style="width:15%;"></a>
 			<div class="mui-input-row mui-search" style="width:77%;">
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:34px;font-size:16px;">
@@ -104,16 +104,11 @@
 
 	var contentWebview = null;
 	mui.plusReady(function() {
-		//判断网络状态
+
 		base.NetChange();
 
 		//获取参数
 		var self = plus.webview.currentWebview();
-
-		//返回
-		document.getElementById('back').addEventListener('tap', function(e) {
-			mui.back();
-		});
 
 		//取消
 		document.getElementById('no').addEventListener('tap', function(e) {

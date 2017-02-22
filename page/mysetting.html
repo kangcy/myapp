@@ -43,7 +43,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333">编辑个人资料</h1>
 		</header>
 		<div class="mui-content">
@@ -223,11 +223,6 @@
 			myPage.evalJS("Load()");
 			plus.webview.close(self);
 		}
-
-		//返回
-		document.getElementById('back').addEventListener('tap', function(e) {
-			mui.back();
-		});
 	});
 
 	var editnickname = document.getElementById("editnickname");

@@ -16,7 +16,7 @@
 
 	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<div onclick="ActionTan(1)" class="hide" id="action">
 			</div>
 			<div onclick="TempTan(1)" class="hide" id="btnTemp">
@@ -304,11 +304,6 @@
 			}
 			plus.webview.close(self);
 		}
-
-		//返回
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		});
 
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {

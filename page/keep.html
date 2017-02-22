@@ -14,7 +14,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon mui-icon-back fl c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<div class="mui-title c333">我的收藏</div>
 		</header>
 		<div class="mui-content">
@@ -82,9 +82,9 @@
 
 		base.InitScroll();
 
-		base.ShowUser("#pullrefresh"); //用户详细
+		base.ShowUser("#pullrefresh");
 
-		base.ShowArticle("#pullrefresh", "List", userinfo.Number); //文章详细
+		base.ShowArticle("#pullrefresh", "List", userinfo.Number);
 
 		base.ScrollTop();
 	});

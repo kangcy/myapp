@@ -19,7 +19,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon mui-icon-back c333 fl"></a>
+			<a class="mui-icon mui-icon-back mui-action-back c333 fl"></a>
 			<div class="mui-title c333" id="title">评论与回复</div>
 		</header>
 
@@ -148,7 +148,7 @@
 	mui.plusReady(function() {
 
 		base.NetChange();
- 
+
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
 			//console.log(JSON.stringify(p));
@@ -157,6 +157,11 @@
 		}, function(e) {
 			//mui.toast("未授权")
 		});
+
+		//返回
+		mui.back = function() {
+			plus.webview.currentWebview().close();
+		}
 	})
 
 	//提交编辑
@@ -266,7 +271,7 @@
 			if(data != null) {
 				totalpage = data.totalpage;
 				var length = data.records;
-				if(length > 0) { 
+				if(length > 0) {
 					document.getElementById("none").classList.add("hide");
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {

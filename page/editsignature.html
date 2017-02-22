@@ -12,7 +12,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a id="back" class="mui-icon blue fl mt6" style="font-size:16px;">取消</a>
+			<a class="mui-icon mui-action-back blue fl mt6" style="font-size:16px;">取消</a>
 			<a id="submit" class="mui-icon blue fr mt6" style="font-size:16px;">保存</a>
 			<h1 class="mui-title c333">个性签名</h1>
 		</header>
@@ -41,10 +41,6 @@
 		var self = plus.webview.currentWebview();
 		question.value = self.title;
 		question.focus();
-		//取消
-		document.getElementById("back").addEventListener('tap', function(event) {
-			mui.back();
-		}, false);
 
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
