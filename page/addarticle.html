@@ -98,18 +98,19 @@
 		window.addEventListener("UpdateCover", function(e) {
 			var url = e.detail.Url;
 			if(Cover == url) {
-				return mui.toast("编辑成功");
+				return;
 			}
 			HttpGet(base.RootUrl + "Article/EditArticleCover", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID,
 				Cover: url
 			}, function(data) {
-				mui.toast(data.result ? "编辑成功" : data.message);
 				if(data.result) {
 					document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
 					document.getElementById("header").style.backgroundSize = "cover";
 					Cover = url;
+				} else {
+					mui.toast(data.message);
 				}
 			});
 		});

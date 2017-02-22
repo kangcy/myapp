@@ -286,7 +286,7 @@ var base = new function() {
 			var $this = this;
 			HttpGet(base.RootUrl + "Fan/Edit", {
 				ID: userinfo.ID,
-				ToUserID: userId
+				ToUserNumber: userId
 			}, function(data) {
 				if(data != null) {
 					if(data.result) {

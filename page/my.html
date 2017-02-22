@@ -58,7 +58,7 @@
 							</p>
 						</div>
 					</div>-->
-					<div class="c000 menu f13 mt15" id="my-mypay">
+					<div class="c000 menu f13" id="my-mypay">
 						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
 					</div>
 					<div class="c000 menu f13" id="my-comment">
@@ -247,7 +247,7 @@
 	//修改封面		 
 	function UpdateCover(url) {
 		if(userinfo.Cover == url) {
-			return mui.toast("编辑成功");
+			return;
 		}
 		HttpGet(base.RootUrl + "User/EditCover", {
 			ID: userinfo.ID,
