@@ -5059,6 +5059,7 @@ body>.mui-progressbar {
 
 .mui-card-content-inner {
 	padding: 0.625rem;
+	padding-top: 0.3rem;
 	width: 100%;
 	display: inline-block;
 }

@@ -19,7 +19,7 @@
 			<h1 class="mui-title c333"></h1>
 		</header>
 		<div class="mui-content">
-			<div class="loading" id="loader"> 
+			<div class="loading" id="loader">
 				<div class="card">
 					<span class="circles-loader"></span>
 				</div>
@@ -131,6 +131,7 @@
 				base.OpenWindow("editimage", "editimage.html", {
 					Url: currEditImg,
 					Source: "ArticleAvatar",
+					Standard: "Article",
 					ArticleNumber: ArticleNumber,
 					PartID: $("#" + currEditID).attr("partid")
 				});
@@ -164,7 +165,8 @@
 				PartID: 0,
 				//Url: currEditImg,
 				Url: "",
-				Source: "ArticleAvatar"
+				Source: "ArticleAvatar",
+				Standard: "Article"
 			});
 		});
 

@@ -64,7 +64,7 @@
 	var PartID = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	var Standard = "Article";
+	var Standard = "";
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -85,7 +85,7 @@
 		PartID = self.PartID || 0;
 		Url = self.Url;
 		Source = self.Source;
-		Standard = self.Standard || "Article";
+		Standard = self.Standard || "";
 		var Title = self.Title || "图片编辑";
 		$("#title").html(Title);
 

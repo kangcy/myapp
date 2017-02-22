@@ -80,7 +80,7 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://139.224.51.196/";
+	this.RootUrl = "http://www.ishaoxia.com/";
 
 	/**
 	 * 默认图片
@@ -532,7 +532,7 @@ var base = new function() {
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
-			model.push('</p><img class="guanzhu" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1%;height:60%;" /></div></div>');
+			model.push('</p><img class="guanzhu" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1.5%;height:60%;" /></div></div>');
 		}
 
 		//内容

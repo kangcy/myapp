@@ -109,6 +109,7 @@
 		base.OpenWindow("editimage", "editimage.html", {
 			Url: userinfo.Cover,
 			Source: "UserCover",
+			Standard: "UserCover",
 			Title: "封面"
 		});
 	}
@@ -124,8 +125,8 @@
 	//初始化绑定用户信息
 	function Init() {
 		$("#bg").css({
-			"background": "url(" + userinfo.Cover + ") center center",
-			"background-size": "100% 100%"
+			"background": "url(" + base.ShowThumb(userinfo.Cover, 1) + ") center center",
+			"background-size": "100%"
 		});
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 2));
 		$("#nickname").html(userinfo.NickName);
@@ -241,11 +242,10 @@
 		});
 	});
 
-	//修改封面		
+	//修改封面		 
 	function UpdateCover(url) {
 		if(userinfo.Cover == url) {
-			mui.toast("编辑成功");
-			return;
+			return mui.toast("编辑成功");
 		}
 		HttpGet(base.RootUrl + "User/EditCover", {
 			ID: userinfo.ID,
@@ -254,8 +254,8 @@
 			mui.toast(data.result ? "编辑成功" : data.message);
 			if(data.result) {
 				$("#bg").css({
-					"background": "url(" + url + ") center center",
-					"background-size": "100% 100%;"
+					"background": "url(" + base.ShowThumb(url, 1) + ") center center",
+					"background-size": "100%"
 				});
 				userinfo.Cover = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
