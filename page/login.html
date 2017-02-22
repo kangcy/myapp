@@ -102,6 +102,7 @@
 	//跳转首页
 	var toMain = function() {
 		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
+		base.CloseWaiting();
 	};
 
 	mui.ready(function() {

@@ -84,6 +84,10 @@
 					isCountDown = false;
 					return mui.toast("友情提醒：您输入手机号码格式异常");
 				}
+				//显示遮罩
+				var mask = mui.createMask(function() {});
+				mask.show();
+				base.ShowWaiting("正在获取验证码");
 				var time = 60;
 				var count = setInterval(function() {
 					time--;
@@ -95,14 +99,21 @@
 						btnCode.innerText = time + "秒 ";
 					}
 				}, 1000);
-				//发送验证码
 				HttpGet(base.RootUrl + "System/SendSMS", {
 					Mobile: mob,
 					SMS: "regsms"
 				}, function(data) {
 					base.CloseWaiting();
+					mask.close();
 					if(data) {
-						mui.toast("验证码发送成功");
+						if(data.result) {
+							mui.toast("验证码发送成功");
+							if(data.usesms == "0") {
+								document.getElementById("code").value = data.message;
+							}
+						} else {
+							mui.toast("验证码发送失败");
+						}
 					} else {
 						mui.toast("验证码发送失败");
 					}
@@ -165,8 +176,9 @@
 					isLoading = false;
 					return mui.toast('请输入昵称，最多12字');
 				}
+				//显示遮罩
 				var mask = mui.createMask(function() {});
-				mask.show(); //显示遮罩
+				mask.show();
 				base.ShowWaiting("正在注册");
 				setTimeout(function() {
 					var regInfo = {
