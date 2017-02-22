@@ -126,7 +126,7 @@
 	function Init() {
 		$("#bg").css({
 			"background": "url(" + base.ShowThumb(userinfo.Cover, 1) + ") center center",
-			"background-size": "100%"
+			"background-size": "100% 100%"
 		});
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 2));
 		$("#nickname").html(userinfo.NickName);
@@ -257,7 +257,7 @@
 			if(data.result) {
 				$("#bg").css({
 					"background": "url(" + base.ShowThumb(url, 1) + ") center center",
-					"background-size": "100%"
+					"background-size": "100% 100%"
 				});
 				userinfo.Cover = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));

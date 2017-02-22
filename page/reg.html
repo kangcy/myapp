@@ -33,7 +33,7 @@
 						<input id='account' type="tel" class="mui-input-clear text f13" placeholder="请输入您的手机号码" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 					</div>
 					<div class="pwd mt20 mui-input-row">
-						<input id='code' type="number" class="mui-input-clear text reg f13" placeholder="请输入验证码" maxlength="10" /><span class="f13 fl mr10 ml10" style="color:#4087CB;" id="btnCode">获取验证码</span><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
+						<input id='code' type="number" class="mui-input-clear text reg f13" placeholder="请输入验证码" maxlength="6" /><span class="f13 fl mr10 ml10" style="color:#4087CB;" id="btnCode">获取验证码</span><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 					</div>
 
 					<div class="pwd mt20 mui-input-row">
@@ -126,6 +126,7 @@
 
 			var settings = app.getSettings();
 			var accountBox = doc.getElementById('account'); //手机号码
+			var codeBox = doc.getElementById('code'); //手机号码
 			var nicknameBox = doc.getElementById('nickname'); //昵称
 			var passwordBox = doc.getElementById('password'); //密码
 			var passwordConfirmBox = doc.getElementById('password_confirm'); //确认密码
@@ -140,6 +141,11 @@
 				if(!base.CheckPhone(mob)) {
 					isLoading = false;
 					return mui.toast("您输入手机号码格式异常");
+				}
+				var code = codeBox.value;
+				if(base.IsNullOrEmpty(code)) {
+					isLoading = false;
+					return mui.toast('请输入验证码');
 				}
 				var password = passwordBox.value;
 				if(base.IsNullOrEmpty(password)) {
@@ -168,7 +174,9 @@
 						NickName: nickname,
 						Password: password,
 						Province: Province,
-						City: City
+						City: City,
+						Code: code,
+						SMS: "regsms"
 					};
 					app.reg(regInfo, function(err) {
 						mask.close();
@@ -176,9 +184,10 @@
 						if(err) {
 							mui.toast(err);
 							isLoading = false;
-							return; 
+							return;
 						}
 						accountBox.value = "";
+						codeBox.value = "";
 						nicknameBox.value = "";
 						passwordBox.value = "";
 						passwordConfirmBox.value = "";
