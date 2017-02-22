@@ -151,7 +151,7 @@
 		document.getElementById('tip').addEventListener('tap', function(event) {
 			triggerMain = false;
 			base.OpenWindow("tipsetting", "tipsetting.html", {
-				Source: "My" 
+				Source: "My"
 			});
 			setTimeout(function() {
 				triggerMain = true;
@@ -253,7 +253,6 @@
 			ID: userinfo.ID,
 			Cover: url
 		}, function(data) {
-			mui.toast(data.result ? "编辑成功" : data.message);
 			if(data.result) {
 				$("#bg").css({
 					"background": "url(" + base.ShowThumb(url, 1) + ") center center",
@@ -261,6 +260,8 @@
 				});
 				userinfo.Cover = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			} else {
+				mui.toast(data.message);
 			}
 		});
 	}

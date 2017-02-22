@@ -22,7 +22,7 @@
 			City: loginInfo.City
 		}, function(data) {
 			if(data == null) {
-				return callback("系统异常,请稍后再试~");
+				return callback("系统异常,请稍后再试");
 			} else {
 				if(data.result) {
 					data = data.message;
@@ -86,7 +86,7 @@
 			Source: loginInfo.Source
 		}, function(data) {
 			if(data == null) {
-				return callback("系统异常,请稍后再试~");
+				return callback("系统异常,请稍后再试");
 			}
 			if(data.result) {
 				data = data.message;
@@ -147,10 +147,12 @@
 			NickName: regInfo.NickName,
 			Province: regInfo.Province,
 			City: regInfo.City,
-			Cover: ""
+			Cover: "",
+			Code: regInfo.Code,
+			SMS: regInfo.SMS
 		}, function(data) {
 			if(data == null) {
-				return callback("系统异常,请稍后再试~");
+				return callback("系统异常,请稍后再试");
 			}
 			if(data.result) {
 				//更新用户缓存信息

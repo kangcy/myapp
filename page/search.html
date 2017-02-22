@@ -62,7 +62,7 @@
 		//判断网络状态
 		document.addEventListener("netchange", function() {
 			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置！");
+				mui.toast("网络异常，请检查网络设置");
 			}
 		}, false);
 

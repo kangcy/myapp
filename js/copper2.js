@@ -181,7 +181,8 @@ function confirm(callback) {
 //请求上传图片
 function Upload(imgurl, callback) {
 	//上传图片到服务器 
-	base.ShowWaiting("正在同步图片~");
+	mask.show();
+	base.ShowWaiting("正在同步图片");
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		standard: Standard,
@@ -196,11 +197,11 @@ function Upload(imgurl, callback) {
 				document.getElementById("openpop").style.display = "inline-block";
 				$("#readyimg").cropper('destroy');
 				iscutimging = false;
-				base.CloseWaiting();
 			} else {
-				base.CloseWaiting();
 				mui.toast(data.message);
 			}
+			base.CloseWaiting();
+			mask.close();
 		}
 	}, "json");
 }

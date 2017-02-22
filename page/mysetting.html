@@ -102,6 +102,8 @@
 	var auths = {};
 	var isLoading = false; //是否操作中
 	var userinfo = base.GetUserInfo();
+	var mask = mui.createMask(function() {});//显示遮罩
+
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -111,7 +113,6 @@
 
 	mui.ready(function() {
 		base.InitScroll();
-
 		$("#userid").html(userinfo.ID);
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
 		$("#nickname").html(base.FormatStr(userinfo.NickName, "请填写"));
@@ -154,6 +155,7 @@
 			isLoading = true;
 
 			sexPicker.show(function(items) {
+				mask.show();
 				base.ShowWaiting("正在编辑性别");
 				document.getElementById("sex").innerHTML = items[0].text;
 				setTimeout(function() {
@@ -162,14 +164,16 @@
 						Sex: items[0].value
 					}, function(data) {
 						base.CloseWaiting();
-						mui.toast(data.result ? "编辑成功" : data.message);
+						mask.close();
 						if(data.result) {
 							userinfo.Sex = items[0].value == "0" ? "男" : "女";
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+						} else {
+							mui.toast(data.message);
 						}
 					});
-					sexPicker.dispose(); //资源释放
-				}, 1000);
+					sexPicker.dispose();
+				}, 500);
 			});
 		}, false);
 
@@ -179,12 +183,12 @@
 				return false;
 			}
 			isLoading = true;
-
 			var optionsJson = this.getAttribute('data-options') || '{}';
 			var options = JSON.parse(optionsJson);
 			var id = this.getAttribute('id');
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
+				mask.show();
 				base.ShowWaiting("正在编辑生日");
 				document.getElementById("time").innerHTML = rs.text;
 				setTimeout(function() {
@@ -193,14 +197,17 @@
 						Birthday: rs.text
 					}, function(data) {
 						base.CloseWaiting();
-						mui.toast(data.result ? "编辑成功" : data.message);
+						mask.close();
+
 						if(data.result) {
 							userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+						} else {
+							mui.toast(data.message);
 						}
 					});
-					picker.dispose(); //资源释放
-				}, 1000);
+					picker.dispose();
+				}, 500);
 			});
 		}, false);
 
@@ -233,18 +240,18 @@
 	//修改头像
 	function UpdateAvatar(url) {
 		if(userinfo.Avatar == url) {
-			mui.toast("编辑成功");
 			return;
 		}
 		HttpGet(base.RootUrl + "User/EditAvatar", {
 			ID: userinfo.ID,
 			Avatar: url
 		}, function(data) {
-			mui.toast(data.result ? "编辑成功" : data.message);
 			if(data.result) {
 				$("#avatar").attr("src", base.ShowThumb(url, 1));
 				userinfo.Avatar = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			} else {
+				mui.toast(data.message);
 			}
 		});
 	}
@@ -252,6 +259,7 @@
 	//修改昵称
 	function UpdateNickName(t) {
 		nickname.innerHTML = t;
+		mask.show();
 		base.ShowWaiting("正在编辑昵称");
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "User/EditNickName", {
@@ -259,18 +267,21 @@
 				NickName: t
 			}, function(data) {
 				base.CloseWaiting();
-				mui.toast(data.result ? "编辑成功" : data.message);
+				mask.close();
 				if(data.result) {
 					userinfo.NickName = t;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				} else {
+					mui.toast(data.message);
 				}
 			});
-		}, 1000);
+		}, 500);
 	}
 
 	//修改签名
 	function UpdateSignature(t) {
 		signature.innerHTML = t;
+		mask.show();
 		base.ShowWaiting("正在编辑签名");
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "User/EditSignature", {
@@ -278,13 +289,15 @@
 				Signature: t
 			}, function(data) {
 				base.CloseWaiting();
-				mui.toast(data.result ? "编辑成功" : data.message);
+				mask.close();
 				if(data.result) {
 					userinfo.Signature = t;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				} else {
+					mui.toast(data.message);
 				}
 			});
-		}, 1000);
+		}, 500);
 	}
 
 	//编辑昵称
@@ -303,21 +316,28 @@
 		});
 	});
 
-	//修改地址
+	//修改地址 
 	function UpdateAddress(province, city) {
-		document.getElementById("city").innerHTML = province + " " + city;
-		HttpGet(base.RootUrl + "User/EditAddress", {
-			ID: userinfo.ID,
-			ProvinceName: province,
-			CityName: city
-		}, function(data) {
-			mui.toast(data.result ? "编辑成功" : data.message);
-			if(data.result) {
-				userinfo.Address = province + " " + city
-				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			}
-			plus.webview.close("province");
-			plus.webview.close("city");
-		});
+		mask.show();
+		base.ShowWaiting("正在编辑签名");
+		setTimeout(function() {
+			document.getElementById("city").innerHTML = province + " " + city;
+			HttpGet(base.RootUrl + "User/EditAddress", {
+				ID: userinfo.ID,
+				ProvinceName: province,
+				CityName: city
+			}, function(data) {
+				base.CloseWaiting();
+				mask.close();
+				if(data.result) {
+					userinfo.Address = province + " " + city
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				} else {
+					mui.toast(data.message);
+				}
+				plus.webview.close("province");
+				plus.webview.close("city");
+			});
+		}, 500);
 	}
 </script>

@@ -86,8 +86,8 @@
 <script src="../js/base.js"></script>
 <script src="../js/login.js"></script>
 <script type="text/javascript">
-	var Province = ""; //当前定位省份
-	var City = ""; //当前定位城市
+	var Province = "";
+	var City = "";
 	var isLoading = false;
 
 	mui.init({
@@ -102,7 +102,6 @@
 	//跳转首页
 	var toMain = function() {
 		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
-		base.CloseWaiting();
 	};
 
 	mui.ready(function() {
@@ -121,7 +120,7 @@
 			Province = p.address.province;
 			City = p.address.city;
 		}, function(e) {
-			//mui.toast("未授权")
+
 		});
 
 		var settings = app.getSettings();
@@ -138,6 +137,9 @@
 				return false;
 			}
 			isLoading = true;
+			//显示遮罩
+			var mask = mui.createMask(function() {});
+			mask.show();
 			base.ShowWaiting("正在登录");
 			setTimeout(function() {
 				var loginInfo = {
@@ -146,19 +148,20 @@
 					Province: Province,
 					City: City
 				};
-				//登录
+				//登录 
 				app.login(loginInfo, function(err) {
 					if(err) {
 						base.CloseWaiting();
-						mui.toast(err);
 						isLoading = false;
-						return;
+						return mui.toast(err);
 					}
+					base.ShowWaiting("登录成功，正在加载");
+					toMain();
 					accountBox.value = "";
 					passwordBox.value = "";
-					base.ShowWaiting("登录成功，正在加载");
+					mask.close();
+					base.CloseWaiting();
 					isLoading = false;
-					toMain();
 				});
 			}, 1000);
 		});
