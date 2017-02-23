@@ -434,13 +434,24 @@ var base = new function() {
 			var articleId = this.getAttribute("articleid");
 			var userNumber = this.getAttribute("userid");
 			var power = this.getAttribute("power").toString();
-			if(power == "0" && currUserNumber != userNumber) {
-				return mui.toast("私密文章，不可见");
+
+			if(currUserNumber == userNumber) {
+				power = 3;
+			}
+
+			base.OpenWindow("articledetail", "articledetail.html", {
+				ArticleID: articleId,
+				Source: Source,
+				ArticlePower: power
+			});
+
+			/*if(power == "0" && currUserNumber != userNumber) {
+				return mui.toast("您查看的是私密文章,仅作者自己可见");
 			} else if(power == "2" && currUserNumber != userNumber) {
 				return mui.toast("仅作者分享可见");
 			} else if(power == "1" && currUserNumber != userNumber) {
 				var btnArray = ['确定', '取消'];
-				mui.prompt('确认密码', '输入4位数字密码', '权限验证', btnArray, function(e) {
+				mui.prompt('确认密码', '文章已设权限,请输入密码浏览', '权限验证', btnArray, function(e) {
 					if(e.index == 0) {
 						base.CheckPowerPwd(articleId, e.value, function() {
 							base.OpenWindow("articledetail", "articledetail.html", {
@@ -455,7 +466,7 @@ var base = new function() {
 					ArticleID: articleId,
 					Source: "View"
 				});
-			}
+			}*/
 		});
 	}
 
@@ -463,12 +474,10 @@ var base = new function() {
 	 * 验证权限密码
 	 */
 	this.CheckPowerPwd = function(articleid, pwd, callback) {
-		base.ShowWaiting("正在校验");
 		HttpGet(base.RootUrl + "Article/CheckPowerPwd", {
 			ArticleID: articleid,
 			ArticlePowerPwd: pwd
 		}, function(data) {
-			base.CloseWaiting();
 			if(data != null) {
 				if(data.result) {
 					if(callback) {
@@ -477,7 +486,7 @@ var base = new function() {
 					return;
 				}
 			}
-			mui.toast("校验失败");
+			mui.toast("解锁失败");
 		});
 	}
 

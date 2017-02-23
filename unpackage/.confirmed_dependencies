@@ -723,7 +723,8 @@
 			"page/reply.html",
 			"page/fan.html",
 			"page/zan.html",
-			"page/follow.html"
+			"page/follow.html",
+			"page/keep.html"
 		]
 	},
 	"page/userSub.html": {
@@ -849,7 +850,10 @@
 			"images/share/2.jpg",
 			"images/share/6.jpg",
 			"images/share/4.jpg",
-			"images/share/1.jpg"
+			"images/share/1.jpg",
+			"images/article/stop.png",
+			"images/login/pwd.png",
+			"css/input.css"
 		],
 		"refer": [
 			"page/user.html",

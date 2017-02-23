@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../css/input.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="../css/articledetail.css">
 	</head>
@@ -23,8 +24,24 @@
 			</div>
 			<h1 class="mui-title c333 user" id="title"></h1>
 		</header>
-
-		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top:46px;bottom:50px;">
+		<div id="self" class="full tc hide">
+			<img src="../images/article/stop.png" class="none" />
+			<p class="mt20 f16 c333">私密文章</p>
+			<p class="mt10 f12 c999">您查看的是私密文章,仅作者自己可见</p>
+		</div>
+		<div id="password" class="full tc hide">
+			<img src="../images/article/stop.png" class="none" />
+			<p class="mt20 f12 c999">文章已设权限,请输入密码浏览</p>
+			<div id="input-form">
+				<div class="pwd mt10 mui-input-row">
+					<input id='pwd' type="password" class="mui-input-password text f13" placeholder="请输入位密码" maxlength="4" /><span class="mui-icon mui-icon-eye" style="top:0.8rem !important;"></span>
+				</div>
+				<div id="submit" class="input mt20 tc fl">
+					解&nbsp;锁
+				</div>
+			</div>
+		</div>
+		<div class="mui-iframe-wrapper hide" id="wrapper" style="top:46px;bottom:50px;">
 			<div class="loading" id="loader">
 				<div class="card">
 					<span class="circles-loader"></span>
@@ -74,7 +91,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mui-bar mui-bar-tab hide" id="bottomAction">
+		<div class="mui-bar mui-bar-tab hide" id="bottomAction" style="background:#fff;">
 			<div id="addcomment">
 				<div class="c666 f12">我来说一句</div>
 			</div>
@@ -177,6 +194,7 @@
 	var Article = {};
 	var ArticleID = 0; //文章ID
 	var Source = ""; //来源
+	var ArticlePower = 0; //权限
 	var ShareInfo = {}; //分享信息
 	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
@@ -202,6 +220,7 @@
 	});
 
 	mui.ready(function() {
+
 		base.InitScroll();
 
 		//模板选择
@@ -215,7 +234,7 @@
 			} else {
 				CurrCover = $this.attr("cover");
 			}
-			$("#mui-iframe-wrapper").css("background-color", $this.attr("color"));
+			$("#wrapper").css("background-color", $this.attr("color"));
 
 			var templatetype = $this.attr("type");
 
@@ -264,6 +283,23 @@
 			});
 		});
 
+		//解锁
+		document.getElementById('submit').addEventListener('tap', function(event) {
+			var pwd = document.getElementById("pwd").value;
+			if(base.IsNullOrEmpty(pwd)) {
+				return mui.toast("请填写解锁密码"); 
+			}
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			base.CheckPowerPwd(ArticleID, pwd, function() {
+				$("#password").addClass("hide");
+				$("#wrapper").removeClass("hide");
+				isLoading = false;
+			});
+		});
+
 		//打开外链
 		mui('#detail').on('tap', 'span.link', function() {
 			var link = this.getAttribute("link");
@@ -292,6 +328,20 @@
 		self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		Source = self.Source || "Add";
+		ArticlePower = self.ArticlePower || 0;
+
+		//私密可见
+		if(ArticlePower == 0) {
+			$("#wrapper").addClass("hide");
+			$("#self").removeClass("hide");
+		}
+		//密码可见
+		else if(ArticlePower == 1) {
+			$("#wrapper").addClass("hide");
+			$("#password").removeClass("hide");
+		} else {
+			$("#wrapper").removeClass("hide");
+		}
 
 		Load(function() {
 			plus.webview.close("addarticle");
@@ -310,11 +360,10 @@
 
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
-			//console.log(JSON.stringify(p));
 			Province = p.address.province;
 			City = p.address.city;
 		}, function(e) {
-			//mui.toast("未授权")
+
 		});
 
 		//分享设置
@@ -357,13 +406,12 @@
 			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
-			//console.log(JSON.stringify(data));
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
 
 					$("#title").html(data.NickName);
- 
+
 					Article = data;
 					MusicUrl = data.MusicUrl;
 
@@ -396,7 +444,7 @@
 					if(data.TemplateJson.ID > 0) {
 						mainIndex = data.TemplateJson.TemplateType;
 						CurrCover = data.TemplateJson.Cover;
-						$("#mui-iframe-wrapper").css("background-color", data.TemplateJson.Background);
+						$("#wrapper").css("background-color", data.TemplateJson.Background);
 					}
 					CurrTemplate = data.Template;
 					CurrBackground = data.Background;
@@ -436,7 +484,10 @@
 
 					$("#bottomAction").removeClass("hide").addClass("bounceIn");
 
-					$("#btnPay").removeClass("hide");
+					//启用打赏
+					if(data.IsPay == 1) {
+						$("#btnPay").removeClass("hide");
+					}
 
 					//分享信息
 					ShareInfo.Title = data.Title;
