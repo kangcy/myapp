@@ -21,7 +21,7 @@
 				border: 3px solid #fff;
 			}
 			
-			#article .head { 
+			#article .head {
 				background: #EEEEEE;
 				height: 2.5rem;
 				line-height: 2.5rem;
@@ -302,8 +302,9 @@
 				Avatar = data.Avatar;
 				Sex = data.Sex;
 
-				document.getElementById("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center";
-				document.getElementById("bg").style.backgroundSize = "100% 100%";
+				document.getElementById("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") fixed center center no-repeat";
+				document.getElementById("bg").style.backgroundSize = "cover";
+
 				document.getElementById("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
 				document.getElementById("avatar").classList.remove("hide");
 				document.getElementById("nickname").innerHTML = data.NickName;

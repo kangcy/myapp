@@ -24,6 +24,15 @@
 			</div>
 			<h1 class="mui-title c333 user" id="title"></h1>
 		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="delete" class="full tc hide">
+			<img src="../images/article/stop.png" class="none" />
+			<p class="mt20 f12 c999">当前文章已删除</p>
+		</div>
 		<div id="self" class="full tc hide">
 			<img src="../images/article/stop.png" class="none" />
 			<p class="mt20 f16 c333">私密文章</p>
@@ -42,11 +51,6 @@
 			</div>
 		</div>
 		<div class="mui-iframe-wrapper hide" id="wrapper" style="top:46px;bottom:50px;">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
-			</div>
 			<div class="mui-content mui-scroll-wrapper bg">
 				<div class="mui-scroll" id="bg">
 					<!--通用样式-->
@@ -194,7 +198,6 @@
 	var Article = {};
 	var ArticleID = 0; //文章ID
 	var Source = ""; //来源
-	var ArticlePower = 0; //权限
 	var ShareInfo = {}; //分享信息
 	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
@@ -287,7 +290,7 @@
 		document.getElementById('submit').addEventListener('tap', function(event) {
 			var pwd = document.getElementById("pwd").value;
 			if(base.IsNullOrEmpty(pwd)) {
-				return mui.toast("请填写解锁密码"); 
+				return mui.toast("请填写解锁密码");
 			}
 			if(isLoading) {
 				return false;
@@ -328,20 +331,6 @@
 		self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		Source = self.Source || "Add";
-		ArticlePower = self.ArticlePower || 0;
-
-		//私密可见
-		if(ArticlePower == 0) {
-			$("#wrapper").addClass("hide");
-			$("#self").removeClass("hide");
-		}
-		//密码可见
-		else if(ArticlePower == 1) {
-			$("#wrapper").addClass("hide");
-			$("#password").removeClass("hide");
-		} else {
-			$("#wrapper").removeClass("hide");
-		}
 
 		Load(function() {
 			plus.webview.close("addarticle");
@@ -409,8 +398,27 @@
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
-
 					$("#title").html(data.NickName);
+
+					//是否删除
+					if(data.Status == 2) {
+						$("#wrapper").addClass("hide");
+						$("#delete").removeClass("hide");
+						return;
+					}
+ 
+					//私密可见 
+					if(data.ArticlePower == 0) {
+						$("#wrapper").addClass("hide");
+						$("#self").removeClass("hide");
+					}
+					//密码可见
+					else if(data.ArticlePower == 1) {
+						$("#wrapper").addClass("hide");
+						$("#password").removeClass("hide");
+					} else {
+						$("#wrapper").removeClass("hide");
+					}
 
 					Article = data;
 					MusicUrl = data.MusicUrl;

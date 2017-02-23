@@ -254,8 +254,8 @@
 		}, function(data) {
 			if(data.result) {
 				$("#bg").css({
-					"background": "url(" + base.ShowThumb(url, 1) + ") center center",
-					"background-size": "100% 100%"
+					"background": "url(" + base.ShowThumb(url, 1) + ") fixed center center no-repeat",
+					"background-size": "cover"
 				});
 				userinfo.Cover = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
