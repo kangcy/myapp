@@ -50,8 +50,6 @@
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
@@ -68,6 +66,7 @@
 	var ParentCommentNumber = 0;
 	var ParentUserNumber = 0;
 	var NewId = 0; //最新添加评论ID
+	var mask = mui.createMask(function() {}); //显示遮罩
 
 	mui.init({
 		gestureConfig: {
@@ -97,9 +96,9 @@
 			}
 		});
 
-		base.ShowUser("#scroll"); //用户详细
+		base.ShowUser("#scroll"); 
 
-		base.ShowArticle("#scroll", "List", userinfo.Number); //文章详细
+		base.ShowArticle("#scroll", "List", userinfo.Number); 
 
 		base.ScrollTop();
 
@@ -153,12 +152,9 @@
 
 		//系统定位
 		plus.geolocation.getCurrentPosition(function(p) {
-			//console.log(JSON.stringify(p));
 			Province = p.address.province;
 			City = p.address.city;
-		}, function(e) {
-			//mui.toast("未授权")
-		});
+		}, function(e) {});
 
 		//返回
 		mui.back = function() {
@@ -177,6 +173,7 @@
 			isLoading = false;
 			return mui.toast("请填写内容");
 		}
+		mask.show();
 		base.ShowWaiting("正在提交");
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
@@ -187,15 +184,18 @@
 			Province: Province,
 			City: City
 		}, function(data) {
-			base.CloseWaiting();
-			mui.toast(data.result ? "感谢您的评论" : data.message);
-			if(data.result) {
-				EditorClose();
+			setTimeout(function() {
+				base.CloseWaiting();
+				mask.close();
+				mui.toast(data.result ? "感谢您的评论" : data.message);
+				if(data.result) {
+					EditorClose();
 
-				NewId = data.message;
-				AppendComment();
-			}
-			isLoading = false;
+					NewId = data.message;
+					AppendComment();
+				}
+				isLoading = false;
+			}, 500);
 		});
 	}
 
@@ -290,11 +290,6 @@
 			if(callback) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 
@@ -304,7 +299,7 @@
 		div.className = 'mui-table-view-cell';
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
-		model.push('<div class="mui-table-cell oa-contact-avatar"><img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
+		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
 		model.push('<div class="mui-table-cell pb0"><p class="f12 user c999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr f11">' + item.CreateDateText + '</span></p>');
 		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {

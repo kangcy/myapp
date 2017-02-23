@@ -82,7 +82,7 @@
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		document.getElementById("title").innerHTML = name + "的粉丝";
 		if(name == "我") {
-			document.getElementById("tip").innerHTML = "谁说没有粉丝，GO永远爱你";
+			document.getElementById("tip").innerHTML = "谁说没有粉丝，Go永远爱你";
 		} else {
 			document.getElementById("tip").innerHTML = name + "的粉丝，会在这里显示";
 		}
@@ -181,11 +181,12 @@
 	//拼接Html
 	function appendStr(item, index) {
 		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
+		div.className = 'mui-table-view-cell user';
+		div.setAttribute("userid", item.Number);
 		var model = [];
 		model.push('<div class="mui-slider-cell">');
 		//分类图片
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.Number + '" /></div>');
+		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" /></div>');
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
 		if(index == 1) {

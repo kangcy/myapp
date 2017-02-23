@@ -1011,13 +1011,15 @@
 			"images/base/follow0.png",
 			"images/base/comment_nor.png",
 			"images/base/reward_nor.png",
-			"images/base/like_nor.png"
+			"images/base/like_nor.png",
+			"images/base/follow1.png"
 		],
 		"refer": [
 			"page/keepSub.html",
 			"page/my.html",
 			"page/articleComment.html",
-			"page/money.html"
+			"page/money.html",
+			"page/user.html"
 		]
 	},
 	"page/keepSub.html": {

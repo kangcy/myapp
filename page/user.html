@@ -92,7 +92,7 @@
 				<p class="secret tc mt5 mb20 f13">
 					<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow" id="showFollowNum">0</span></span>
 					<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow" id="showFanNum">0</span></span>
-					<span class="cfff textshadow hide ml15" id="showArticle" onclick="Zan()">喜欢&nbsp;<span class="cfff textshadow" id="showArticleNum">0</span></span>
+					<span class="cfff textshadow hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="cfff textshadow" id="showArticleNum">0</span></span>
 				</p>
 				<div class="full tc mb20 hide" id="action">
 					<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
@@ -309,7 +309,7 @@
 				document.getElementById("nickname").innerHTML = data.NickName;
 				document.getElementById("signature").innerHTML = data.Signature;
 				if(data.ShowArticle == 1) {
-					document.getElementById("showArticleNum").innerHTML = data.Zans;
+					document.getElementById("showArticleNum").innerHTML = data.Keeps;
 					document.getElementById("showArticle").classList.remove("hide");
 				}
 				if(data.ShowFollow == 1) {
@@ -351,7 +351,8 @@
 	//关注
 	function Follow() {
 		base.OpenWindow("follow", "follow.html", {
-			Name: Sex == 0 ? "他" : "她",
+			Name: NickName,
+			Sex: Sex == 0 ? "他" : "她",
 			UserNumber: UserNumber
 		});
 	}
@@ -359,15 +360,17 @@
 	//粉丝
 	function Fan() {
 		base.OpenWindow("fan", "fan.html", {
-			Name: Sex == 0 ? "他" : "她",
+			Name: NickName,
+			Sex: Sex == 0 ? "他" : "她",
 			UserNumber: UserNumber
 		});
 	}
 
-	//喜欢
-	function Zan() {
-		base.OpenWindow("zan", "zan.html", {
-			Name: Sex == 0 ? "他" : "她",
+	//收藏
+	function Keep() {
+		base.OpenWindow("keep", "keep.html", {
+			Name: NickName,
+			Sex: Sex == 0 ? "他" : "她",
 			UserNumber: UserNumber
 		});
 	}

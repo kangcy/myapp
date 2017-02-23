@@ -93,11 +93,11 @@
 		swipeBack: false
 	});
 
-	mui.ready(function() { 
+	mui.ready(function() {
 
 		Init();
 
-		base.InitScroll();
+		base.InitScroll(false);
 	});
 
 	//更换封面
@@ -124,8 +124,8 @@
 	//初始化绑定用户信息
 	function Init() {
 		$("#bg").css({
-			"background": "url(" + base.ShowThumb(userinfo.Cover, 1) + ") center center",
-			"background-size": "100% 100%"
+			"background": "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat",
+			"background-size": "cover"
 		});
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 2));
 		$("#nickname").html(userinfo.NickName);

@@ -520,7 +520,7 @@ var base = new function() {
 					break;
 			}
 			model.push('<div class="mui-card-header noborder full fl" style="display:inline-block;">');
-			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.CreateDate + '</span><p class="f11 full caaa mt5">');
+			model.push('<div class="mui-media-body f13 mt0" style="position:relative;"><span>' + item.CreateDate + '</span><p class="f11 full caaa mt5">');
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
@@ -556,7 +556,7 @@ var base = new function() {
 		//加精
 		if(item.Recommend == 99) {
 			model.push('<div class="fl f12" style="padding:0px 3px;border-radius:50px;background:#ff0000;color:#fff;margin-right:5px;display:inline-block;">精</div>');
-		} 
+		}
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的GO";
 		}
@@ -633,6 +633,7 @@ var base = new function() {
 			//判断是否自己
 			if(UserNumber == userinfo.Number) {
 				base.IsLoading = false;
+				$this.classList.remove("guanzhu");
 				$this.setAttribute("src", "../images/base/follow1.png");
 				return mui.toast("关注成功");
 			}
@@ -640,6 +641,7 @@ var base = new function() {
 			if(base.CheckFan(userinfo.FanText, UserNumber)) {
 				base.IsLoading = false;
 				mui.toast("关注成功");
+				$this.classList.remove("guanzhu");
 				$this.setAttribute("src", "../images/base/follow1.png");
 			} else {
 				var data = {
@@ -651,8 +653,9 @@ var base = new function() {
 					if(data != null) {
 						mui.toast(data.result ? "关注成功" : data.message);
 						if(data.result) {
-							base.AddFan(userinfo, UserNumber);
+							$this.classList.remove("guanzhu");
 							$this.setAttribute("src", "../images/base/follow1.png");
+							base.AddFan(userinfo, UserNumber);
 						}
 					}
 				});

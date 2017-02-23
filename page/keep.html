@@ -15,7 +15,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<div class="mui-title c333">我的收藏</div>
+			<div class="mui-title c333" id="title"></div>
 		</header>
 		<div class="mui-content">
 			<div class="loading" id="loader">
@@ -29,7 +29,7 @@
 					</div>
 					<div id="none" class="full tc hide">
 						<img src="../images/my/444.png" class="none" />
-						<p class="f13 mt10">你收藏的文章，会在这里显示</p>
+						<p class="f13 mt10">好内容记得收藏,让我们不再错过</p>
 					</div>
 				</div>
 			</div>
@@ -52,15 +52,40 @@
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
 	var isLoading = false;
+	var name = "我";
+	var UserNumber = "";
 
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {
+
+		mui.previewImage();
+
+		base.InitScroll();
+
+		base.ShowUser("#pullrefresh");
+
+		base.ScrollTop();
+	});
+
+	mui.plusReady(function() {
+
+		base.NetChange();
+
+		var self = plus.webview.currentWebview();
+
+		name = self.Name || "我";
+		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
+		document.getElementById("title").innerHTML = name + "的收藏";
+
+		base.ArticleAction("#pullrefresh", userinfo);
+
+		base.ShowArticle("#pullrefresh", "List", UserNumber);
 
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			down: {
@@ -77,23 +102,6 @@
 				}
 			}
 		});
-
-		mui.previewImage();
-
-		base.InitScroll();
-
-		base.ShowUser("#pullrefresh");
-
-		base.ShowArticle("#pullrefresh", "List", userinfo.Number);
-
-		base.ScrollTop();
-	});
-
-	mui.plusReady(function() {
-
-		base.NetChange();
-
-		base.ArticleAction("#pullrefresh", userinfo);
 
 		//返回
 		mui.back = function() {
@@ -196,7 +204,7 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			CreateUserNumber: userinfo.Number
+			CreateUserNumber: UserNumber
 		};
 		HttpGet(base.RootUrl + "Keep/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
@@ -206,7 +214,7 @@
 				if(records > 0) {
 					document.getElementById("none").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, true, true);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, true, userinfo.Number == data.list[i].UserNumber);
 						table.appendChild(div);
 					}
 				} else {
