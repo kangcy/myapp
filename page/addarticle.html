@@ -109,7 +109,7 @@
 			}, function(data) {
 				if(data.result) {
 					document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
-					document.getElementById("header").style.backgroundSize = "cover";
+					document.getElementById("header").style.backgroundSize = "100%";
 					Cover = url;
 				} else {
 					mui.toast(data.message);
@@ -479,7 +479,7 @@
 					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 
 					document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
-					document.getElementById("header").style.backgroundSize = "cover";
+					document.getElementById("header").style.backgroundSize = "100%";
 					if(Title != "") {
 						$("#title").html(Title);
 					}

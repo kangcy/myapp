@@ -21,7 +21,7 @@
 			</div>
 			<div onclick="TempTan(1)" class="hide" id="btnTemp">
 			</div>
-			<h1 class="mui-title c333">详情</h1>
+			<h1 class="mui-title c333 user" id="title"></h1>
 		</header>
 
 		<div class="mui-iframe-wrapper" id="mui-iframe-wrapper" style="top:46px;bottom:50px;">
@@ -64,7 +64,7 @@
 									<span class="ml15" id="views1"></span>
 								</p>
 							</div>
-						</div> 
+						</div>
 					</div>
 					<div class="detail2 cover cover2 fl tl mb20">
 						<div class="c000 full" id="desc">
@@ -353,7 +353,7 @@
 	//加载文章
 	function Load(callback) {
 		var data = {
-			ID: userinfo.ID, 
+			ID: userinfo.ID,
 			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
@@ -361,6 +361,9 @@
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
+
+					$("#title").html(data.NickName);
+ 
 					Article = data;
 					MusicUrl = data.MusicUrl;
 
@@ -495,7 +498,7 @@
 	}
 
 	//复制
-	function Copy() { 
+	function Copy() {
 		if(isLoading) {
 			return;
 		}
