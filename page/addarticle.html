@@ -60,6 +60,8 @@
 	var currEditID = 0; //当前编辑对象ID
 	var currEditImg = ""; //当前编辑图片
 	var userinfo = base.GetUserInfo();
+	//显示遮罩
+	var mask = mui.createMask(function() {});
 
 	//启用双击监听
 	mui.init({
@@ -219,10 +221,9 @@
 	});
 
 	mui.plusReady(function() {
-		//判断网络状态
+
 		base.NetChange();
 
-		//获取参数
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber || "";
@@ -267,9 +268,7 @@
 		plus.geolocation.getCurrentPosition(function(p) {
 			Province = p.address.province;
 			City = p.address.city;
-		}, function(e) {
-			//mui.toast("未授权")
-		});
+		}, function(e) {});
 	});
 
 	//修改标题
@@ -370,6 +369,8 @@
 
 	//保存
 	function Save() {
+		mask.show();
+
 		if(base.IsNullOrEmpty(Title)) {
 			Title = "我的GO"
 		}
@@ -404,12 +405,18 @@
 					} else {
 						articleDetailPage.evalJS("UpdateDetail()");
 					}
+
+					/*base.OpenWindow("articledetail", "articledetail.html", {
+						ArticleID: ArticleID,
+						Source: Source
+					});*/
 				} else {
 					mui.toast(data.message);
 				}
 			} else {
 				mui.toast("保存失败");
 			}
+			mask.close();
 		});
 	}
 
@@ -527,6 +534,7 @@
 			document.getElementById("loader").classList.add("hide");
 			setTimeout(function() {
 				base.CloseWaiting();
+				//plus.webview.close("articledetail");
 			}, 300);
 		});
 	}

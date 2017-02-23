@@ -139,7 +139,6 @@
 	});
 
 	mui.ready(function() {
-
 		base.ShowSearch();
 
 		//加载类型
@@ -240,7 +239,7 @@
 						}
 					});
 				}
-			} 
+			}
 
 			//重新注册滑动切换事件
 			mui("#slider").slider();
@@ -366,13 +365,12 @@
 					document.getElementById("none" + index).classList.add("hide");
 					var table = document.getElementById('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], false, false, true);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, true);
 						if(table) {
 							table.appendChild(div);
 						}
 					}
-				} else { 
-
+				} else {
 					setTimeout(function() {
 						document.getElementById("loader").classList.add("hide");
 						document.getElementById("none" + index).classList.remove("hide");

@@ -89,12 +89,12 @@
 				<img id="avatar" class="hide" />
 				<p class="f16 tc mt5 cfff textshadow" id="nickname"></p>
 				<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
-				<p class="secret tc mt5 f13">
+				<p class="secret tc mt5 mb20 f13">
 					<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow" id="showFollowNum">0</span></span>
 					<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow" id="showFanNum">0</span></span>
 					<span class="cfff textshadow hide ml15" id="showArticle" onclick="Zan()">喜欢&nbsp;<span class="cfff textshadow" id="showArticleNum">0</span></span>
 				</p>
-				<div class="full tc mt20 mb20 hide" id="action">
+				<div class="full tc mb20 hide" id="action">
 					<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
 					<div class="dashang f14" onclick="Payment()">打赏</div>
 				</div>
@@ -200,14 +200,14 @@
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {
-		base.ShowArticle("#a_list", "List", userinfo.Number); //展示文章
+		base.ShowArticle("#a_list", "List", userinfo.Number);
 	});
 
-	mui.plusReady(function() { //判断网络类型
+	mui.plusReady(function() {
 
 		base.NetChange();
 
@@ -311,7 +311,7 @@
 				if(data.ShowArticle == 1) {
 					document.getElementById("showArticleNum").innerHTML = data.Zans;
 					document.getElementById("showArticle").classList.remove("hide");
-				} 
+				}
 				if(data.ShowFollow == 1) {
 					document.getElementById("showFollowNum").innerHTML = data.Follows;
 					document.getElementById("showFollow").classList.remove("hide");
@@ -331,7 +331,11 @@
 			}
 			base.CloseWaiting();
 
-			CheckFan(); //检查关注
+			//检查关注
+			if(userinfo.Number != UserNumber) {
+				CheckFan();
+			}
+
 			if(index == 0) {
 				document.getElementById("article").classList.add("hide");
 				document.getElementById("blacktip").classList.remove("hide");

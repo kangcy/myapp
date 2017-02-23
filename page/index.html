@@ -36,7 +36,7 @@
 							</div>
 							<div class="mui-card-content show">
 								<div class="mui-card-content-inner">
-									<p class="c333 fl article full mb20 f13" articleid="2" userid="148644569183766" power="3">我的GO</p>
+									<div class="c333 fl article full mb20 f13" articleid="2" userid="148644569183766" power="3"><div class="fl f12" style="padding:1px 3px;border-radius:50px;background:#ff0000;color:#fff;margin-right:5px;">精</div>我的GO</div>
 									<div class="secondfloor"><img data-lazyload="http://139.224.51.196/Upload/Images/Article/20170208/201702081135404500_2.jpg" href="http://139.224.51.196/Upload/Images/Article/20170208/201702081135404500_1.jpg" data-preview-src="" data-preview-group="2"></div>
 									<div class="secondfloor"><img data-lazyload="http://139.224.51.196/Upload/Images/Article/20170208/20170208113542531_2.jpg" href="http://139.224.51.196/Upload/Images/Article/20170208/20170208113542531_1.jpg" data-preview-src="" data-preview-group="2"></div>
 								</div>
@@ -55,7 +55,7 @@
 							</div>
 							<div class="mui-card-content show">
 								<div class="mui-card-content-inner">
-									<p class="c333 fl article full mb20 f13" articleid="1" userid="148644569183766" power="3">我的GO</p>
+									<p class="c333 fl article full mb20 f13" articleid="1" userid="148644569183766" power="3"><div class="fl f12" style="padding:1px 3px;border-radius:50px;background:#ff0000;color:#fff;margin-right:5px;">精</div>我的GO</p>
 									<div class="onefloor"><img data-lazyload="http://139.224.51.196/Upload/Images/Article/20170207/201702071352139446_1.jpg" href="http://139.224.51.196/Upload/Images/Article/20170207/201702071352139446_1.jpg" data-preview-src="" data-preview-group="1"></div>
 								</div>
 							</div>
@@ -93,7 +93,7 @@
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {
@@ -131,9 +131,9 @@
 			},
 			up: {
 				auto: true,
-				callback: function() { 
+				callback: function() {
 					var self = this;
-					pullupRefresh(self); 
+					pullupRefresh(self);
 				}
 			}
 		});
@@ -172,7 +172,6 @@
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
-			//return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load(function() {
@@ -201,10 +200,10 @@
 				var length = data.records;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], false, false, true);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, true);
 						table.appendChild(div);
 					}
-				} 
+				}
 			}
 			callback();
 			document.body.removeAttribute('data-imageLazyload');

@@ -92,6 +92,7 @@
 
 	//初始化获取参数
 	function Init(articleType, createUserNumber, source) {
+
 		base.ShowArticle("#pullrefresh", source, userinfo.Number);
 
 		base.ArticleAction("#pullrefresh", userinfo);
@@ -182,7 +183,7 @@
 				if(length > 0) {
 					document.getElementById("none").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, true);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, true);
 
 						table.appendChild(div);
 					}

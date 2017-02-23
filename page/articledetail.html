@@ -58,13 +58,13 @@
 						</div>
 						<div class="detail cover cover1 fl">
 							<div class="full">
-								<p class="mt10 f16 c333" id="title1"></p>
+								<p class="mt20 f16 c333" id="title1"></p>
 								<p class="mt5 mb0 full csubtitle f13">
 									<span id="createdate1" class="mr15"></span>
 									<span class="ml15" id="views1"></span>
 								</p>
 							</div>
-						</div>
+						</div> 
 					</div>
 					<div class="detail2 cover cover2 fl tl mb20">
 						<div class="c000 full" id="desc">
@@ -190,6 +190,9 @@
 	var Province = "";
 	var City = "";
 
+	//显示遮罩
+	var mask = mui.createMask(function() {});
+
 	//启用双击监听 
 	mui.init({
 		gestureConfig: {
@@ -283,7 +286,7 @@
 		wc = null;
 
 	mui.plusReady(function() {
-		//判断网络状态
+
 		base.NetChange();
 
 		self = plus.webview.currentWebview();
@@ -340,7 +343,7 @@
 		$("#footer_comment").html(Article.Comments);
 	}
 
-	//重新加载数据
+	//重新加载数据 
 	function UpdateDetail() {
 		Load(function() {
 			plus.webview.close("addarticle");
@@ -350,7 +353,7 @@
 	//加载文章
 	function Load(callback) {
 		var data = {
-			ID: userinfo.ID,
+			ID: userinfo.ID, 
 			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
@@ -492,12 +495,13 @@
 	}
 
 	//复制
-	function Copy() {
+	function Copy() { 
 		if(isLoading) {
 			return;
 		}
 		isLoading = true;
 		ActionTan(0);
+		mask.show();
 		base.ShowWaiting("正在复制");
 		HttpGet(base.RootUrl + "Article/Copy", {
 			ID: userinfo.ID,
@@ -507,9 +511,10 @@
 		}, function(data) {
 			setTimeout(function() {
 				base.CloseWaiting();
-				mui.toast(data.result ? "复制成功,请刷新我的文章查看" : data.message);
+				mask.close();
+				mui.toast(data.result ? "复制成功,请刷新我的动态查看" : data.message);
 				isLoading = false;
-			}, 1000);
+			}, 500);
 		});
 	}
 

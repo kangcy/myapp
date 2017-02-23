@@ -178,7 +178,6 @@
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
-			//return mui.toast("没有更多数据了");
 		}
 		setTimeout(function() {
 			Load(function() {
@@ -207,7 +206,7 @@
 				if(records > 0) {
 					document.getElementById("none").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], false, false, true, true);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, true, true);
 						table.appendChild(div);
 					}
 				} else {

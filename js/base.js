@@ -195,6 +195,7 @@ var base = new function() {
 				duration: base.AnimateDuration,
 				aniShow: aniShow ? aniShow : "slide-in-right"
 			},
+			createNew: true,
 			waiting: {
 				autoShow: false
 			},
@@ -283,14 +284,22 @@ var base = new function() {
 	this.GuanZhu = function(id, userinfo, callback) {
 		mui(id).on('tap', '.guanzhu', function(event) {
 			var userId = this.getAttribute("userid");
+
+			if(userNumber == userinfo.Number) {
+				if(callback) {
+					callback($this);
+				}
+				return;
+			}
+
 			var $this = this;
 			HttpGet(base.RootUrl + "Fan/Edit", {
 				ID: userinfo.ID,
-				ToUserNumber: userId
+				ToUserNumber: userNumber
 			}, function(data) {
 				if(data != null) {
 					if(data.result) {
-						base.AddFan(userinfo, userId);
+						base.AddFan(userinfo, userNumber);
 						if(callback) {
 							callback($this);
 						}
@@ -411,7 +420,7 @@ var base = new function() {
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
 			var userNumber = this.getAttribute("userid");
-			base.OpenWindow("user", "user.html", {
+			base.OpenWindow("user" + userNumber, "user.html", {
 				UserNumber: userNumber
 			});
 		});
@@ -475,7 +484,7 @@ var base = new function() {
 	/**
 	 * 拼接文章Html(ismy:是否我的,isuser:是否用户,islazyload:是否延迟加载,isdel:是否有左滑操作)
 	 */
-	this.AppendArticle = function(item, ismy, isuser, islazyload, isdel) {
+	this.AppendArticle = function(userNumber, item, ismy, isuser, islazyload, isdel) {
 		var div = document.createElement('div');
 		if(isdel) {
 			div.className = 'mui-card mui-table-view-cell';
@@ -532,21 +541,26 @@ var base = new function() {
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
-			model.push('</p><img class="guanzhu" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1.5%;height:60%;" /></div></div>');
+			model.push('</p>');
+			//如果是自己隐藏关注按钮
+			if(userNumber != "" && userNumber != item.UserNumber) {
+				model.push('<img class="' + (item.IsFollow == 0 ? "guanzhu" : "") + '" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:1.5%;height:60%;" />');
+			}
+			model.push('</div></div>');
 		}
 
 		//内容
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
-		model.push('<p class="c333 fl article full mb15 f13" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
+		model.push('<div class="c333 fl article full mb15 f13" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
 		//加精
 		if(item.Recommend == 99) {
-			model.push('<span class="fl f12" style="padding:1px;border-radius:5px;background:#ff0000;color:#fff;margin-right:5px;">精</span>');
-		}
+			model.push('<div class="fl f12" style="padding:0px 3px;border-radius:50px;background:#ff0000;color:#fff;margin-right:5px;display:inline-block;">精</div>');
+		} 
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的GO";
 		}
-		model.push(item.Title + '</p>');
+		model.push(item.Title + '</div>');
 
 		//图片拼接 
 		var parts = item.ArticlePart;
@@ -615,6 +629,14 @@ var base = new function() {
 
 			var $this = this;
 			var UserNumber = this.getAttribute("userid");
+
+			//判断是否自己
+			if(UserNumber == userinfo.Number) {
+				base.IsLoading = false;
+				$this.setAttribute("src", "../images/base/follow1.png");
+				return mui.toast("关注成功");
+			}
+
 			if(base.CheckFan(userinfo.FanText, UserNumber)) {
 				base.IsLoading = false;
 				mui.toast("关注成功");

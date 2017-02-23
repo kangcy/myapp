@@ -78,7 +78,7 @@
 
 		base.NetChange();
 		var self = plus.webview.currentWebview();
-		name = self.Name || "我"; 
+		name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		document.getElementById("title").innerHTML = name + "的粉丝";
 		if(name == "我") {
@@ -86,7 +86,7 @@
 		} else {
 			document.getElementById("tip").innerHTML = name + "的粉丝，会在这里显示";
 		}
-		
+
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -189,7 +189,7 @@
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
 		if(index == 1) {
-			if(!base.CheckFan(userinfo.FanText, item.Number)) {
+			if(!base.CheckFan(userinfo.FanText, item.Number) && userinfo.Number != item.Number) {
 				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.Number + '">关注</div></div>');
 			}
 		}

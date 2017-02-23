@@ -336,13 +336,15 @@
 			"images/my/444.png",
 			"images/base/comment_nor.png",
 			"images/base/reward_nor.png",
-			"images/base/like_nor.png"
+			"images/base/like_nor.png",
+			"images/base/like_hig.png"
 		],
 		"refer": [
 			"page/listSub.html",
 			"page/articleSub.html",
 			"page/articledetail.html",
-			"page/articleComment.html"
+			"page/articleComment.html",
+			"page/money.html"
 		]
 	},
 	"page/articleSub.html": {
@@ -937,7 +939,14 @@
 			"css/fan.css",
 			"images/60x60.gif",
 			"images/logo.png",
-			"images/none.png"
+			"images/none.png",
+			"images/my/111.png",
+			"images/my/444.png",
+			"images/base/follow0.png",
+			"images/base/comment_nor.png",
+			"images/base/reward_nor.png",
+			"images/base/like_nor.png",
+			"images/base/follow1.png"
 		],
 		"refer": [
 			"page/user.html",
@@ -1050,7 +1059,8 @@
 			"images/my/111.png"
 		],
 		"refer": [
-			"page/zanSub.html"
+			"page/zanSub.html",
+			"page/articledetail.html"
 		]
 	},
 	"page/fan.html": {

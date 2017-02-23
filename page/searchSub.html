@@ -39,7 +39,8 @@
 								<div id="tip1" style="border-bottom:1px solid #eee;height:2.5rem;line-height:2.5rem;text-indent:0.5rem;" class="f11 caaa">你可能感兴趣的用户</div>
 								<div id="scroll-view1"></div>
 								<div id="none1" class="full tc hide">
-									<img src="../images/none.png" class="none" />
+									<img src="../images/my/111.png" class="none" />
+									<p class="f13 mt10">暂无更多推荐用户</p>
 								</div>
 							</div>
 						</div>
@@ -50,7 +51,8 @@
 								<div id="tip2" style="border-bottom:1px solid #eee;height:2.5rem;line-height:2.5rem;text-indent:0.5rem;" class="f11 caaa">你可能感兴趣的文章</div>
 								<div id="scroll-view2"></div>
 								<div id="none2" class="full tc hide">
-									<img src="../images/none.png" class="none" />
+									<img src="../images/my/444.png" class="none" />
+									<p class="f13 mt10">暂无更多推荐文章</p>
 								</div>
 							</div>
 						</div>
@@ -91,6 +93,8 @@
 		base.ShowUser("#slider"); //用户详细
 
 		base.ShowArticle("#slider", "List", userinfo.Number); //文章详细	 
+
+		base.ArticleAction("#slider", userinfo);
 
 		//切换
 		mui("#slider").on('tap', '.mui-control-item', function(event) {
@@ -242,7 +246,7 @@
 				if(length > 0) {
 					document.getElementById("none2").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(data.list[i], false);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false);
 						table.appendChild(div);
 					}
 				} else {

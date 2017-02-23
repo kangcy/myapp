@@ -158,6 +158,7 @@ function confirm(callback) {
 		return;
 	}
 	if(iscutimging) {
+		mask.show();
 		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
 		imgurl = dataURL.toDataURL("image/jpeg", 0.8);
 		Upload(imgurl, callback);
@@ -168,6 +169,7 @@ function confirm(callback) {
 			}
 			return;
 		} else {
+			mask.show();
 			var image = new Image();
 			image.src = imgurl;
 			image.onload = function() {
@@ -181,7 +183,6 @@ function confirm(callback) {
 //请求上传图片
 function Upload(imgurl, callback) {
 	//上传图片到服务器 
-	mask.show();
 	base.ShowWaiting("正在同步图片");
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
