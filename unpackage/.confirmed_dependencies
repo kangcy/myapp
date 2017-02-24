@@ -493,7 +493,8 @@
 			"images/base/like_nor.png",
 			"images/base/reward_hig.png",
 			"images/base/like_hig.png",
-			"images/my/444.png"
+			"images/my/444.png",
+			"images/article/jing.png"
 		],
 		"refer": [
 			"page/topicSub.html",
@@ -731,7 +732,8 @@
 			"page/zan.html",
 			"page/follow.html",
 			"page/keep.html",
-			"page/addarticle.html"
+			"page/addarticle.html",
+			"page/mypic.html"
 		]
 	},
 	"page/userSub.html": {

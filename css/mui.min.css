@@ -1705,6 +1705,12 @@ input[type=submit]:enabled:active {
 	position: relative;
 }
 
+.mui-card-content-inner.recommend {
+	background: url("../images/article/jing.png") no-repeat;
+	background-size: 3.5rem;
+	background-position: 16rem 0rem;
+}
+
 .mui-card-media {
 	vertical-align: bottom;
 	color: #fff;

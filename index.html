@@ -35,38 +35,12 @@
 			var userinfo = localStorage.getItem('$userinfo') || "{}";
 			if(userinfo == "{}") {
 				base.OpenWindow("login", "page/login.html", {}, "slide-in-bottom");
-				/*mui.openWindow({
-					id: 'login',
-					url: 'page/login.html',
-					styles: {
-						popGesture: 'close'
-					},
-					show: {
-						aniShow: aniShow
-					},
-					waiting: {
-						autoShow: false
-					}
-				});*/
 			} else {
 				preload();
 			}
 		} else {
 			//显示启动导航
 			base.OpenWindow("guide", "page/guide.html", {}, "fade-in");
-			/*mui.openWindow({
-				id: 'guide',
-				url: 'page/guide.html',
-				styles: {
-					popGesture: 'close'
-				},
-				show: {
-					aniShow: aniShow
-				},
-				waiting: {
-					autoShow: false
-				}
-			});*/
 		}
 	});
 

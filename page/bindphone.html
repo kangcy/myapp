@@ -40,6 +40,8 @@
 	var isCountDown = false; //正在倒计时
 	var userinfo = base.GetUserInfo();
 	var settingPage = null;
+	var mask = mui.createMask(function() {});
+
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -101,8 +103,6 @@
 
 	mui.plusReady(function() {
 
-		base.NetChange();
-
 		//返回
 		mui.back = function() {
 			plus.webview.currentWebview().close();
@@ -124,14 +124,17 @@
 				isLoading = false;
 				return mui.toast("请输入验证码");
 			}
-			base.ShowWaiting("正在提交");
-			setTimeout(function() {
-				HttpGet(base.RootUrl + "User/BindPhone", {
-					ID: userinfo.ID,
-					Phone: phone,
-					Code: code,
-					SMS: "bindphone"
-				}, function(data) {
+			mask.show();
+			base.ShowWaiting("正在绑定");
+			HttpGet(base.RootUrl + "User/BindPhone", {
+				ID: userinfo.ID,
+				Phone: phone,
+				Code: code,
+				SMS: "bindphone"
+			}, function(data) {
+				setTimeout(function() {
+					base.CloseWaiting();
+					mask.close();
 					isLoading = false;
 					if(data == null) {
 						return mui.toast("系统异常,请稍后再试");
@@ -149,8 +152,8 @@
 							return mui.toast(data.message);
 						}
 					}
-				});
-			}, 500);
+				}, 500);
+			});
 		}, false);
 	});
 </script>

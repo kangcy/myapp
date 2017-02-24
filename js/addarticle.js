@@ -44,21 +44,6 @@ function getImage() {
 
 			//压缩图片,并重命名
 			compressImage(localurl, dstname, function(status, src) {
-				/*console.log(src);
-				if(status) {
-
-					var image = new Image();
-					image.src = imgurl;
-					image.onload = function() {
-						var imgData = getBase64Image(image);
-						Upload(imgData, callback);
-					}
-
-					Upload(src, 1);
-
-					
-				}*/
-
 				LoadImage(status, src, 1);
 			});
 		});
@@ -80,28 +65,6 @@ function galleryImgs() {
 
 			//压缩图片,并重命名 
 			compressImage(e.files[i], dstname, function(status, src) {
-				/*if(!status) {
-					length = length - 1;
-				}
-				if(length <= 0) {
-					base.CloseWaiting();
-					return;
-				}
-				if(status) {
-					var image = new Image();
-					image.src = src;
-
-					if(image.complete) {
-						var imgData = getBase64Image(image);
-						Upload(imgData, length);
-					} else {
-						image.onload = function() {
-							var imgData = getBase64Image(image);
-							Upload(imgData, length);
-						}
-					};
-				}*/
-
 				LoadImage(status, src, length);
 			});
 		}
