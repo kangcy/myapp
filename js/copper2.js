@@ -244,7 +244,7 @@ function showActionSheet(long, width, callback) {
 	}, {
 		title: "手机相册"
 	}, {
-		title: "我的相册"
+		title: "本地相册"
 	}];
 	plus.nativeUI.actionSheet({
 			cancel: "取消",
@@ -256,14 +256,13 @@ function showActionSheet(long, width, callback) {
 			} else if(e.index == 2) {
 				galleryImgs(long, width, callback);
 			} else if(e.index == 3) {
-				base.OpenWindow("mypic", "mypic.html", {
-					UserNumber: userinfo.Number
-				});
+				base.OpenWindow("mypic", "mypic.html", {});
 			}
 		}
 	);
 }
 
+//我的相册选择图片回调
 function ConfirmImg(src) {
 	$("#readyimg").hide().attr("src", src).load(function() {
 		var totalheight = window.innerHeight - 90;

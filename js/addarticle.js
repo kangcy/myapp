@@ -1,11 +1,77 @@
-//相册选取 
+/* "error:{\"code\":-4,\"message\":\"文件不存在\"}" at page/subindex.html:316
+	 src:file:///storage/emulated/0/DidiScreenAd/httpsstatic.udache.comgulfstreamuploadrooster2017012414852244449565f3d30ef10fe32a1c5f6f98536cfab0cmaterial_1485224444960_1080_1920_400.jpg at page/subindex.html:270
+
+	 "event:{\"target\":\"file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg\",\"width\":393,\"height\":699,\"size\":48523}" at page/subindex.html:310
+	 src:file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg at page/subindex.html:270
+	  */
+
+//选择图片
+function ShowActionSheet() {
+	var bts = [{
+		title: "拍照"
+	}, {
+		title: "手机相册"
+	}, {
+		title: "本地相册"
+	}];
+	plus.nativeUI.actionSheet({
+			cancel: "取消",
+			buttons: bts
+		},
+		function(e) {
+			if(e.index == 1) {
+				getImage();
+			} else if(e.index == 2) {
+				galleryImgs();
+			} else if(e.index == 3) {
+				base.OpenWindow("mypic", "mypic.html", {
+					Source: "subindex"
+				});
+			}
+		}
+	);
+}
+
+//拍照
+function getImage() {
+	var cmr = plus.camera.getCamera();
+	cmr.captureImage(function(p) {
+		plus.io.resolveLocalFileSystemURL(p, function(entry) {
+			var localurl = entry.toLocalURL();
+
+			//压缩图片
+			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
+
+			//压缩图片,并重命名
+			compressImage(localurl, dstname, function(status, src) {
+				/*console.log(src);
+				if(status) {
+
+					var image = new Image();
+					image.src = imgurl;
+					image.onload = function() {
+						var imgData = getBase64Image(image);
+						Upload(imgData, callback);
+					}
+
+					Upload(src, 1);
+
+					
+				}*/
+
+				LoadImage(status, src, 1);
+			});
+		});
+	});
+}
+
+//相册选取
 var currUploadImg = [];
 
 function galleryImgs() {
 	plus.gallery.pick(function(e) {
 		var length = e.files.length;
 		var index = 1;
-		mask.show();
 		base.ShowWaiting("正在同步文章内容");
 		for(var i in e.files) {
 			index += 1;
@@ -14,7 +80,7 @@ function galleryImgs() {
 
 			//压缩图片,并重命名 
 			compressImage(e.files[i], dstname, function(status, src) {
-				if(!status) {
+				/*if(!status) {
 					length = length - 1;
 				}
 				if(length <= 0) {
@@ -34,7 +100,9 @@ function galleryImgs() {
 							Upload(imgData, length);
 						}
 					};
-				}
+				}*/
+
+				LoadImage(status, src, length);
 			});
 		}
 	}, function(e) {
@@ -44,6 +112,32 @@ function galleryImgs() {
 		multiple: true,
 		maximum: 100
 	});
+}
+
+//加载图片
+function LoadImage(status, src, length) {
+	if(!status) {
+		length = length - 1;
+	}
+	if(length <= 0) {
+		base.CloseWaiting();
+		return;
+	}
+	if(status) {
+		base.ShowWaiting("正在同步文章内容");
+		var image = new Image();
+		image.src = src;
+
+		if(image.complete) {
+			var imgData = getBase64Image(image);
+			Upload(imgData, length);
+		} else {
+			image.onload = function() {
+				var imgData = getBase64Image(image);
+				Upload(imgData, length);
+			}
+		};
+	}
 }
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
@@ -100,7 +194,6 @@ function Upload(imgurl, length) {
 					}
 					HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 						base.CloseWaiting();
-						mask.close();
 						currUploadImg = [];
 						if(data != null) {
 							if(data.result) {
@@ -120,4 +213,36 @@ function Upload(imgurl, length) {
 			}
 		}
 	}, "json");
+}
+
+//我的相册选择图片回调
+function ConfirmImg(src) {
+	if(base.IsNullOrEmpty(src)) {
+		return false;
+	}
+	base.ShowWaiting("正在同步文章内容");
+	//创建文章 
+	var data = {
+		ID: userinfo.ID,
+		Cover: src,
+		Title: "",
+		Province: Province,
+		City: City
+	}
+	HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
+		setTimeout(function() {
+			base.CloseWaiting();
+			if(data != null) {
+				if(data.result) {
+					base.OpenWindow("addarticle", "addarticle.html", {
+						ArticleID: data.message.ID,
+						ArticleNumber: data.message.Number,
+						Source: "Add"
+					});
+				} else {
+					mui.toast(data.message);
+				}
+			}
+		}, 1000)
+	});
 }

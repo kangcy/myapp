@@ -13,17 +13,18 @@
 		<style type="text/css">
 			.tip {
 				position: fixed;
-				bottom: 5%;
+				bottom: 2%;
 				text-align: center;
 				width: 100%;
-				z-index: 2;
 			}
 			
-			.tip span {
+			.tip div {
+				z-index: 2;
+				padding: 10px 20px;
+				border-radius: 20px;
 				background: #BBBBBB;
 				color: #fff;
-				padding: 10px 15px;
-				border-radius: 30px;
+				display:inline-block;
 			}
 		</style>
 	</head>
@@ -48,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="tip f11"><span>在动态中发表的图片会自动加入相册</span></div>
+		<div class="tip f11"><div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div></div>
 	</body>
 
 </html>
@@ -67,20 +68,53 @@
 	var pagesize = base.PageSize;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
+	var mask = mui.createMask(function() {}); //显示遮罩
 
 	mui.init({
 		gestureConfig: {
-			doubletap: true
+			doubletap: true,
+			longtap: true
 		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {
+
 		base.InitScroll();
 
 		mui.previewImage();
 
 		base.ScrollTop();
+
+		mui("#pullrefresh").on('longtap', '.thirdfloor', function(event) {
+			var $this = this;
+			var id = $this.getAttribute("pid");
+
+			var btnArray = ['确定', '取消'];
+			mui.confirm('删除后不可恢复,确定删除选中图片？', '', btnArray, function(e) {
+				if(e.index == 0) {
+					mask.show();
+					base.ShowWaiting("正在删除");
+					HttpGet(base.RootUrl + "User/PicDelete", {
+						ID: userinfo.ID,
+						PartID: id
+					}, function(data) {
+						setTimeout(function() {
+							base.CloseWaiting();
+							mask.close();
+							if(data != null) {
+								if(data.result) {
+									$this.remove();
+									base.RefreshScroll();
+								} else {
+									mui.toast(data.message);
+								}
+							}
+						}, 500);
+					});
+				}
+			});
+		});
 	});
 
 	mui.plusReady(function() {
@@ -187,6 +221,7 @@
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
+		div.setAttribute("pid", item.ID);
 		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" />';
 		return div;
 	}

@@ -572,7 +572,8 @@
 			"images/base/04_1.png",
 			"images/base/01_1.png",
 			"page/index.html",
-			"images/base/add.png"
+			"images/base/add.png",
+			"js/addarticle.js"
 		],
 		"refer": [
 			"page/topic.html",
@@ -583,7 +584,8 @@
 			"page/money.html",
 			"page/tipsetting.html",
 			"page/index.html",
-			"page/login.html"
+			"page/login.html",
+			"page/mypic.html"
 		]
 	},
 	"page/topicSub.html": {

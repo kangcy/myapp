@@ -78,7 +78,7 @@
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
-	var UserNumber = 0;
+	var Source = "";
 	var pagesize = base.PageSize;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
@@ -97,7 +97,9 @@
 		base.ScrollTop();
 
 		mui("#pullrefresh").on('tap', '.thirdfloor', function(event) {
-			$(".check").removeClass("check");
+			if(Source != "subindex") {
+				$(".check").removeClass("check");
+			}
 			var check = $(this).hasClass("check");
 			if(check) {
 				this.classList.remove("check");
@@ -109,25 +111,23 @@
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
-		UserNumber = self.UserNumber || "";
+		Source = self.Source || "";
 
-		if(UserNumber != "") {
-			mui(document.getElementById("pullrefresh")).pullToRefresh({
-				down: {
-					callback: function() {
-						var self = this;
-						pulldownRefresh(self);
-					}
-				},
-				up: {
-					auto: true,
-					callback: function() {
-						var self = this;
-						pullupRefresh(self);
-					}
+		mui(document.getElementById("pullrefresh")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
 				}
-			});
-		}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
 
 		//完成
 		document.getElementById("confirm").addEventListener('tap', function() {
@@ -140,10 +140,21 @@
 				isLoading = false;
 				return mui.toast("请选择图片");
 			}
-			var url = check.attr("url");
-			var page = plus.webview.getWebviewById("editimage");
-			if(page) {
-				page.evalJS("ConfirmImg('" + url + "')");
+			if(Source == "subindex") {
+				var url = [];
+				check.each(function() {
+					url.push($(this).attr("url"));
+				});
+				var page = plus.webview.getWebviewById("subindex");
+				if(page) {
+					page.evalJS("ConfirmImg('" + url.join(",") + "')");
+				}
+			} else {
+				var url = check.attr("url");
+				var page = plus.webview.getWebviewById("editimage");
+				if(page) {
+					page.evalJS("ConfirmImg('" + url + "')");
+				}
 			}
 			mui.back();
 			isLoading = false;
@@ -202,7 +213,7 @@
 			page: currpage,
 			rows: pagesize,
 			Number: userinfo.Number,
-			UserNumber: UserNumber
+			UserNumber: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "User/Pic", data, function(data) {
 			document.getElementById("loader").classList.add("hide");
