@@ -1367,7 +1367,8 @@
 		],
 		"refer": [
 			"page/addarticle.html",
-			"page/my.html"
+			"page/my.html",
+			"page/mypic.html"
 		]
 	},
 	"page/searchSub2.html": {
@@ -1919,7 +1920,8 @@
 			"fonts/mui.ttf",
 			"css/mui.min.css",
 			"images/my/nocheck.png",
-			"images/my/check.png"
+			"images/my/check.png",
+			"js/jquery-1.10.2.min.js"
 		]
 	}
 }

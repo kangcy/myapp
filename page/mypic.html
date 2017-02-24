@@ -47,7 +47,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<a id="submit" class="mui-icon mui-text c333 fr">完成</a>
+			<a id="confirm" class="mui-icon mui-text c333 fr">完成</a>
 			<div class="mui-title c333">相册</div>
 		</header>
 		<div class="mui-content">
@@ -68,6 +68,7 @@
 	</body>
 
 </html>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
@@ -96,13 +97,12 @@
 		base.ScrollTop();
 
 		mui("#pullrefresh").on('tap', '.thirdfloor', function(event) {
-			var check = this.getAttribute("check");
-			if(check == 0) {
-				this.setAttribute("check", 1);
-				this.classList.add("check");
-			} else {
-				this.setAttribute("check", 0);
+			$(".check").removeClass("check");
+			var check = $(this).hasClass("check");
+			if(check) {
 				this.classList.remove("check");
+			} else {
+				this.classList.add("check");
 			}
 		});
 	});
@@ -129,6 +129,25 @@
 			});
 		}
 
+		//完成
+		document.getElementById("confirm").addEventListener('tap', function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var check = $(".check");
+			if(check.length == 0) {
+				isLoading = false;
+				return mui.toast("请选择图片");
+			}
+			var url = check.attr("url");
+			var page = plus.webview.getWebviewById("editimage");
+			if(page) {
+				page.evalJS("ConfirmImg('" + url + "')");
+			}
+			mui.back();
+			isLoading = false;
+		});
 	});
 
 	/**
@@ -212,7 +231,7 @@
 		var div = document.createElement('div');
 		div.className = 'thirdfloor nocheck';
 		div.style.position = "relative";
-		div.setAttribute("check", 0);
+		div.setAttribute("url", item.Introduction);
 		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" /><div class="cover"></div><div class="icon"></div>';
 		return div;
 	}

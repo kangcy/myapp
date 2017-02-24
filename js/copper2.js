@@ -242,7 +242,9 @@ function showActionSheet(long, width, callback) {
 	var bts = [{
 		title: "拍照"
 	}, {
-		title: "从相册选择"
+		title: "手机相册"
+	}, {
+		title: "我的相册"
 	}];
 	plus.nativeUI.actionSheet({
 			cancel: "取消",
@@ -253,9 +255,30 @@ function showActionSheet(long, width, callback) {
 				getImage(long, width);
 			} else if(e.index == 2) {
 				galleryImgs(long, width, callback);
+			} else if(e.index == 3) {
+				base.OpenWindow("mypic", "mypic.html", {
+					UserNumber: userinfo.Number
+				});
 			}
 		}
 	);
+}
+
+function ConfirmImg(src) {
+	$("#readyimg").hide().attr("src", src).load(function() {
+		var totalheight = window.innerHeight - 90;
+		var imagewidth = $("#readyimg").width();
+		var imageheight = $("#readyimg").height();
+		if(totalheight > imageheight) {
+			$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
+		} else {
+			$("#readyimg").css({
+				"width": "auto",
+				"height": totalheight + "px",
+				"margin": "0px"
+			});
+		}
+	}).show();
 }
 
 //将图片压缩转成base64 
