@@ -9,11 +9,45 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/loading.css">
+		<style type="text/css">
+			.thirdfloor .cover {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.thirdfloor.check .cover {
+				background: rgba(0, 0, 0, 0.5);
+			}
+			
+			.thirdfloor .icon {
+				position: absolute;
+				right: 0.5rem;
+				top: 0.5rem;
+				width: 1.3rem;
+				height: 1.3rem;
+			}
+			
+			.thirdfloor.nocheck .icon {
+				background: url(../images/my/nocheck.png) no-repeat;
+				background-size: 100% 100%;
+				background-position: center center;
+			}
+			
+			.thirdfloor.check .icon {
+				background: url(../images/my/check.png) no-repeat;
+				background-size: 100% 100%;
+				background-position: center center;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
+			<a id="submit" class="mui-icon mui-text c333 fr">完成</a>
 			<div class="mui-title c333">相册</div>
 		</header>
 		<div class="mui-content">
@@ -56,9 +90,21 @@
 	});
 
 	mui.ready(function() {
+
 		base.InitScroll();
 
 		base.ScrollTop();
+
+		mui("#pullrefresh").on('tap', '.thirdfloor', function(event) {
+			var check = this.getAttribute("check");
+			if(check == 0) {
+				this.setAttribute("check", 1);
+				this.classList.add("check");
+			} else {
+				this.setAttribute("check", 0);
+				this.classList.remove("check");
+			}
+		});
 	});
 
 	mui.plusReady(function() {
@@ -164,8 +210,10 @@
 
 	function appendStr(item) {
 		var div = document.createElement('div');
-		div.className = 'thirdfloor';
-		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" />';
+		div.className = 'thirdfloor nocheck';
+		div.style.position = "relative";
+		div.setAttribute("check", 0);
+		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" /><div class="cover"></div><div class="icon"></div>';
 		return div;
 	}
 </script>
