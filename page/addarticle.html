@@ -393,30 +393,27 @@
 			City: City,
 			PartIDs: ids.join(",")
 		}, function(data) {
-			base.CloseWaiting();
-			if(data != null) {
-				if(data.result) {
-					var articleDetailPage = plus.webview.getWebviewById('articledetail');
-					if(articleDetailPage == null) {
-						base.OpenWindow("articledetail", "articledetail.html", {
-							ArticleID: ArticleID,
-							Source: Source
-						});
+			setTimeout(function() {
+				base.CloseWaiting();
+				if(data != null) {
+					if(data.result) {
+						var articleDetailPage = plus.webview.getWebviewById('articledetail');
+						if(articleDetailPage == null) {
+							base.OpenWindow("articledetail", "articledetail.html", {
+								ArticleID: ArticleID,
+								Source: Source
+							});
+						} else {
+							articleDetailPage.evalJS("UpdateDetail()");
+						}
 					} else {
-						articleDetailPage.evalJS("UpdateDetail()");
+						mui.toast(data.message);
 					}
-
-					/*base.OpenWindow("articledetail", "articledetail.html", {
-						ArticleID: ArticleID,
-						Source: Source
-					});*/
 				} else {
-					mui.toast(data.message);
+					mui.toast("保存失败");
 				}
-			} else {
-				mui.toast("保存失败");
-			}
-			mask.close();
+				mask.close();
+			}, 500);
 		});
 	}
 

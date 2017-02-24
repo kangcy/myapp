@@ -75,7 +75,7 @@
 		var self = plus.webview.currentWebview();
 		var name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
-		document.getElementById("title").innerHTML = name + "的喜欢";
+		document.getElementById("title").innerHTML = name + "的赞";
 		if(name == "我") {
 			document.getElementById("tip").innerHTML = name + "沒人赞你，你可以去赞别人呀";
 		} else {

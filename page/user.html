@@ -70,6 +70,15 @@
 				margin-top: 0.35rem;
 				margin-right: 0.4rem;
 			}
+			
+			.submit {
+				width: 30%;
+				margin: 0px auto;
+				border-radius: 30px;
+				height: 2rem;
+				line-height: 2rem;
+				background: #4087CB;
+			}
 		</style>
 	</head>
 
@@ -102,6 +111,10 @@
 			<div id="article" class="hide f13 caaa full">
 				<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
 				<div id="a_list">
+				</div>
+				<div id="none" class="mb20 hide">
+					<p class="full tc f16 c333 mt50">记录生活中美好的瞬间</p>
+					<div class="tc cfff mt20 submit" onclick="galleryImgs()">去发布</div>
 				</div>
 			</div>
 			<div id="blacktip" class="hide f13 caaa tc mt8">您已经将Ta拉黑</div>
@@ -179,6 +192,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/transparent.js"></script>
+<script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
@@ -188,8 +202,11 @@
 	var NickName = "";
 	var Avatar = "";
 	var Sex = 0;
+	var Province = "";
+	var City = "";
 	var ShareInfo = {}; //分享信息
 	var userinfo = base.GetUserInfo();
+	var mask = mui.createMask(function() {}); //显示遮罩
 
 	var Intent = null,
 		File = null,
@@ -245,6 +262,14 @@
 			Uri = plus.android.importClass("android.net.Uri");
 			main = plus.android.runtimeMainActivity();
 		}
+
+		//系统定位
+		plus.geolocation.getCurrentPosition(function(p) {
+			Province = p.address.province;
+			City = p.address.city;
+		}, function(e) {
+
+		});
 	});
 
 	//初始化获取参数
@@ -263,8 +288,9 @@
 		}
 		HttpGet(base.RootUrl + "User/Article", data, function(data) {
 			var table = document.getElementById('a_list');
+			var length = 0;
 			if(data != null) {
-				var length = data.records;
+				length = data.records;
 				if(length > 0) {
 					document.getElementById("a_title").innerHTML = data.records + "篇文章";
 
@@ -286,6 +312,10 @@
 						table.appendChild(div2);
 					}
 				}
+			}
+			length = 0;
+			if(length == 0 && userinfo.Number == UserNumber) {
+				$("#none").removeClass("hide");
 			}
 		});
 	}

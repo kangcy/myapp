@@ -263,17 +263,8 @@
 		plus.gallery.pick(function(e) {
 			var length = e.files.length;
 			var index = 1;
+			base.ShowWaiting("正在同步文章内容");
 			for(var i in e.files) {
-				base.ShowWaiting("正在同步文章内容");
-				/*mui.toast("正在导入第" + index + "张图片");
-				if(index == length) {
-					setTimeout(function() {
-						if(length > 0) {
-							base.ShowWaiting("正在同步文章内容");
-						}
-					}, index * 2000);
-				}*/
-
 				index += 1;
 				//压缩图片 
 				var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
