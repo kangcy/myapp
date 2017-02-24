@@ -829,7 +829,6 @@
 	    "page/addarticle.html": {
 	      "resources": [
 	        "js/base.js",
-	        "images/article/up.png",
 	        "images/article/add.png",
 	        "images/header.png",
 	        "js/jquery-1.10.2.min.js",
