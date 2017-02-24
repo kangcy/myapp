@@ -8,24 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.css">
-		<style type="text/css">
-			.tip {
-				position: fixed;
-				bottom: 5%;
-				text-align: center;
-				width: 100%;
-				z-index: 2;
-			}
-			
-			.tip span {
-				background: #BBBBBB;
-				color: #fff;
-				padding: 10px 15px;
-				border-radius: 30px;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -48,7 +31,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="tip f11"><span>在动态中发表的图片会自动加入相册</span></div>
 	</body>
 
 </html>
@@ -56,8 +38,6 @@
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.zoom.js"></script>
-<script src="../js/mui.previewimage.js"></script>
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript">
@@ -72,13 +52,11 @@
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {
 		base.InitScroll();
-
-		mui.previewImage();
 
 		base.ScrollTop();
 	});
@@ -187,7 +165,7 @@
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
-		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" />';
+		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" />';
 		return div;
 	}
 </script>

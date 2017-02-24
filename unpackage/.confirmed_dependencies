@@ -276,7 +276,8 @@
 			"images/my/setting.png",
 			"images/logo_default.png",
 			"js/transparent.js",
-			"images/login/logo.png"
+			"images/login/logo.png",
+			"images/my/menu06.png"
 		],
 		"refer": [
 			"page/pay.html",
@@ -301,7 +302,9 @@
 			"page/followSub.html",
 			"page/fanSub.html",
 			"page/commentSub.html",
-			"page/tipsetting.html"
+			"page/tipsetting.html",
+			"page/pic.html",
+			"page/mypic.html"
 		]
 	},
 	"page/article.html": {
@@ -1902,5 +1905,19 @@
 		],
 		"refer": [],
 		"priority": 0
+	},
+	"page/mypic.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/loading.css",
+			"images/logo_default.png",
+			"js/mui.lazyload.js",
+			"js/mui.lazyload.img.js",
+			"js/base.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
 	}
 }

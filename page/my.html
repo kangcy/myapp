@@ -58,6 +58,9 @@
 							</p>
 						</div>
 					</div>-->
+					<div class="c000 menu f13" id="my-mypic">
+						<div>我的相册<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
+					</div>
 					<div class="c000 menu f13" id="my-mypay">
 						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
 					</div>
@@ -173,6 +176,13 @@
 			setTimeout(function() {
 				triggerMain = true;
 			}, 2000);
+		});
+
+		//我的相册
+		document.getElementById('my-mypic').addEventListener('tap', function(event) {
+			base.OpenWindow("mypic", "mypic.html", {
+				UserNumber: userinfo.Number
+			});
 		});
 
 		//我的打赏

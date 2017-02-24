@@ -148,7 +148,7 @@
 }
 
 .dashang {
-	background:#fff;
+	background: #fff;
 	color: #49be38;
 	text-align: center;
 	border-radius: 15px;
@@ -187,6 +187,13 @@
 
 #my-help {
 	background-image: url(../images/my/menu05.png);
+	background-repeat: no-repeat;
+	background-position: 0.8rem center;
+	background-size: 1.5rem;
+}
+
+#my-mypic {
+	background-image: url(../images/my/menu06.png);
 	background-repeat: no-repeat;
 	background-position: 0.8rem center;
 	background-size: 1.5rem;
