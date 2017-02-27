@@ -22,36 +22,15 @@
 			.tip div {
 				padding: 10px 20px;
 				border-radius: 20px;
-				background: rgba(0,0,0,0.5);
+				background: rgba(0, 0, 0, 0.5);
 				color: #fff;
 				display: inline-block;
 			}
 		</style>
 	</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<div class="mui-title c333">相册</div>
-		</header>
-		<div class="mui-content">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
-			</div>
-			<div class="mui-slider mui-fullscreen">
-				<div class="mui-scroll-wrapper">
-					<div id="pullrefresh" class="mui-scroll">
-						<div id="scroll-view">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="tip f11 hide" id="tip">
-			<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>
-		</div>
+	<body id="main">
+
 	</body>
 
 </html>
@@ -70,7 +49,7 @@
 	var pagesize = base.PageSize;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	var mask = mui.createMask(function() {}); //显示遮罩
+	var mask = mui.createMask(function() {});
 
 	mui.init({
 		gestureConfig: {
@@ -81,12 +60,23 @@
 	});
 
 	mui.ready(function() {
+		mui('#main').load("../part/list.html", function(response) {
+			document.getElementById("title").innerHTML = "相册";
+			document.getElementById("none_img").setAttribute("src", "../images/my/444.png");
+			document.getElementById("none_tip").innerHTML = "这里还没有内容";
 
-		base.InitScroll();
+			var div = document.createElement('div');
+			div.className = 'tip f11 hide';
+			div.setAttribute("id", "tip");
+			div.innerHTML = "<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>";
+			document.getElementById("main").appendChild(div);
 
-		mui.previewImage();
+			base.InitScroll();
 
-		base.ScrollTop();
+			mui.previewImage();
+
+			base.ScrollTop();
+		});
 	});
 
 	mui.plusReady(function() {
@@ -94,7 +84,7 @@
 		UserNumber = self.UserNumber || "";
 
 		if(UserNumber != "") {
-			mui(document.getElementById("pullrefresh")).pullToRefresh({
+			mui(document.getElementById("scroll")).pullToRefresh({
 				down: {
 					callback: function() {
 						var self = this;
@@ -112,7 +102,7 @@
 
 			if(UserNumber == userinfo.Number) {
 				document.getElementById("tip").classList.remove("hide");
-				mui("#pullrefresh").on('longtap', '.thirdfloor', function(event) {
+				mui("#scroll").on('longtap', '.thirdfloor', function(event) {
 					var $this = this;
 					var id = $this.getAttribute("pid");
 					var btnArray = ['确定', '取消'];
@@ -204,11 +194,17 @@
 				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
+					document.getElementById("none").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i]);
 						table.appendChild(div);
 					}
+				} else {
+					document.getElementById("none").classList.remove("hide");
 				}
+			}
+			if(data == null && currpage == 1) {
+				document.getElementById("none").classList.remove("hide");
 			}
 			if(callback) {
 				callback();

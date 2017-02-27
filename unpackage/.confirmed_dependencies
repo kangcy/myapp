@@ -340,7 +340,8 @@
 			"images/base/comment_nor.png",
 			"images/base/reward_nor.png",
 			"images/base/like_nor.png",
-			"images/base/like_hig.png"
+			"images/base/like_hig.png",
+			"part/list.html"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -669,7 +670,8 @@
 			"emotion/css/emojionearea.min.css",
 			"js/mui.lazyload.js",
 			"js/mui.lazyload.img.js",
-			"images/logo_default.png"
+			"images/logo_default.png",
+			"part/list.html"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -1071,11 +1073,13 @@
 			"css/fan.css",
 			"js/mui.pullToRefresh.material.js",
 			"css/loading.css",
-			"images/my/111.png"
+			"images/my/111.png",
+			"part/list.html"
 		],
 		"refer": [
 			"page/zanSub.html",
-			"page/articledetail.html"
+			"page/articledetail.html",
+			"page/user.html"
 		]
 	},
 	"page/fan.html": {
@@ -1520,7 +1524,9 @@
 			"js/mui.lazyload.img.js",
 			"images/logo.png",
 			"images/60x60.gif",
-			"images/logo_default.png"
+			"images/logo_default.png",
+			"part/list.html",
+			"images/my/444.png"
 		],
 		"refer": []
 	},

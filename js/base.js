@@ -564,7 +564,7 @@ var base = new function() {
 		model.push('<div class="c333 fl article full mb15 f13" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
 		//加精
 		if(item.Recommend == 99) {
-			model.push('<div class="fl f11 mt1" style="padding:1px 3px;border-radius:2px;line-height:initial;border:1px solid #ff0000;color:#ff0000;margin-right:5px;display:inline-block;">精&nbsp;选</div>');
+			model.push('<div class="fl f11 mt1" style="padding:1px 3px;border-radius:2px;line-height:initial;border:1px solid #ff0000;color:#ff0000;margin-right:5px;display:inline-block;">精选</div>');
 		}
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的GO";

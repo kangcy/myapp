@@ -85,7 +85,6 @@
 
 		base.ScrollTop();
 
-		//用户详细
 		base.ShowUser("#scroll");
 
 		//点赞
@@ -213,7 +212,7 @@
 			ID: NewId
 		}, function(data) {
 			if(data.result) {
-				$("#none").removeClass("hide");
+				$("#none").addClass("hide");
 				var table = document.getElementById('scroll-view');
 				var div = appendStr(data.message);
 				table.appendChild(div);

@@ -12,30 +12,8 @@
 		<link rel="stylesheet" href="../css/loading.css">
 	</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<div class="mui-title c333" id="title"></div>
-		</header>
+	<body id="main">
 
-		<div class="mui-content">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
-			</div>
-			<div class="mui-scroll-wrapper" style="top:45px;">
-				<div id="scroll" class="mui-scroll">
-					<div id="scroll-view">
-
-					</div>
-					<div id="none" class="full tc hide">
-						<img src="../images/my/111.png" class="none" />
-						<p class="f13 mt10" id="tip"></p>
-					</div>
-				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
@@ -48,7 +26,6 @@
 	var totalpage = 2;
 	var isLoading = false;
 	var pagesize = base.PageSize;
-	var parentPage = null;
 	var userinfo = base.GetUserInfo();
 	var name = "我";
 	var UserNumber = "";
@@ -61,12 +38,14 @@
 	});
 
 	mui.ready(function() {
+		mui('#main').load("../part/list.html", function(response) {
 
-		base.InitScroll();
+			base.InitScroll();
 
-		base.ShowUser("#scroll");
+			base.ShowUser("#scroll");
 
-		base.ScrollTop();
+			base.ScrollTop();
+		});
 	});
 
 	mui.plusReady(function() {
@@ -76,9 +55,9 @@
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		document.getElementById("title").innerHTML = name + "的赞";
 		if(name == "我") {
-			document.getElementById("tip").innerHTML = name + "沒人赞你，你可以去赞别人呀";
+			document.getElementById("none_tip").innerHTML = name + "沒人赞你，你可以去赞别人呀";
 		} else {
-			document.getElementById("tip").innerHTML = name + "喜欢的文章，会在这里显示";
+			document.getElementById("none_tip").innerHTML = name + "喜欢的文章，会在这里显示";
 		}
 
 		base.ShowArticle("#scroll", "List", UserNumber);
