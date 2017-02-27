@@ -213,6 +213,7 @@
 			ID: NewId
 		}, function(data) {
 			if(data.result) {
+				$("#none").removeClass("hide");
 				var table = document.getElementById('scroll-view');
 				var div = appendStr(data.message);
 				table.appendChild(div);

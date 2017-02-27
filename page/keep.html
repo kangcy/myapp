@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<!--<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<div class="mui-title c333" id="title"></div>
 		</header>
@@ -33,7 +33,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 	</body>
 
 </html>
@@ -63,14 +63,19 @@
 	});
 
 	mui.ready(function() {
+		mui('#main').load("../part/list.html", function(response) {
+			document.getElementById("title").innerHTML = "黑名单";
+			document.getElementById("none_img").setAttribute("src", "../images/my/444.png");
+			document.getElementById("none_tip").innerHTML = "好内容记得收藏,让我们不再错过";
+			
+			mui.previewImage(); 
 
-		mui.previewImage();
+			base.InitScroll();
 
-		base.InitScroll();
+			base.ShowUser("#pullrefresh");
 
-		base.ShowUser("#pullrefresh");
-
-		base.ScrollTop();
+			base.ScrollTop();
+		});
 	});
 
 	mui.plusReady(function() {

@@ -12,30 +12,8 @@
 		<link rel="stylesheet" href="../css/loading.css">
 	</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<div class="mui-title c333" id="title"></div>
-		</header>
+	<body id="main">
 
-		<div class="mui-content">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
-			</div>
-			<div class="mui-scroll-wrapper" style="top:45px;">
-				<div id="scroll" class="mui-scroll">
-					<div id="scroll-view">
-
-					</div>
-					<div id="none" class="full tc hide">
-						<img src="../images/my/111.png" class="none" />
-						<p class="f13 mt10" id="tip"></p>
-					</div>
-				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
@@ -61,17 +39,11 @@
 	});
 
 	mui.ready(function() {
+		mui('#main').load("../part/list.html", function(response) {
+			base.InitScroll();
 
-		base.InitScroll();
-
-		base.ShowUser("#scroll");
-
-		//添加关注
-		base.GuanZhu("#scroll", userinfo, function($this) {
-			$this.parentNode.remove();
+			base.ScrollTop();
 		});
-
-		base.ScrollTop();
 	});
 
 	mui.plusReady(function() {
@@ -81,9 +53,9 @@
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		document.getElementById("title").innerHTML = name + "的粉丝";
 		if(name == "我") {
-			document.getElementById("tip").innerHTML = "谁说没有粉丝，Go永远爱你";
+			document.getElementById("none_tip").innerHTML = "谁说没有粉丝，Go永远爱你";
 		} else {
-			document.getElementById("tip").innerHTML = name + "的粉丝，会在这里显示";
+			document.getElementById("none_tip").innerHTML = name + "的粉丝，会在这里显示";
 		}
 
 		mui(document.getElementById("scroll")).pullToRefresh({

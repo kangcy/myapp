@@ -786,24 +786,14 @@ var base = new function() {
 	}
 
 	/**
-	 * 判断网络状态
-	 */
-	this.NetChange = function() {
-		document.addEventListener("netchange", function() {
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置！");
-			}
-		}, false);
-	}
-
-	/**
 	 * 切换Switch
 	 */
 	this.SwitchChange = function(id, isopen) {
+		var item = document.getElementById(id);
 		if(isopen) {
-			document.getElementById(id).classList.add("active");
+			item.classList.add("active");
 		} else {
-			document.getElementById(id).classList.remove("active");
+			item.classList.remove("active");
 		}
 	}
 }

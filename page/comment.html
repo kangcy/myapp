@@ -66,13 +66,13 @@
 	var ParentCommentNumber = 0;
 	var ParentUserNumber = 0;
 	var NewId = 0; //最新添加评论ID
-	var mask = mui.createMask(function() {}); //显示遮罩
+	var mask = mui.createMask(function() {});
 
 	mui.init({
 		gestureConfig: {
 			doubletap: true
 		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {
@@ -96,9 +96,9 @@
 			}
 		});
 
-		base.ShowUser("#scroll"); 
+		base.ShowUser("#scroll");
 
-		base.ShowArticle("#scroll", "List", userinfo.Number); 
+		base.ShowArticle("#scroll", "List", userinfo.Number);
 
 		base.ScrollTop();
 
@@ -183,12 +183,12 @@
 			City: City
 		}, function(data) {
 			setTimeout(function() {
+				
 				base.CloseWaiting();
 				mask.close();
 				mui.toast(data.result ? "感谢您的评论" : data.message);
 				if(data.result) {
 					EditorClose();
-
 					NewId = data.message;
 					AppendComment();
 				}
@@ -203,6 +203,7 @@
 			ID: NewId
 		}, function(data) {
 			if(data.result) {
+				$("#none").removeClass("hide");
 				var table = document.getElementById('scroll-view');
 				var div = appendStr(data.message);
 				table.appendChild(div);
