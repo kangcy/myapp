@@ -21,19 +21,27 @@
 				text-align: center;
 			}
 			
+			.items .item2 {
+				width: 66.6%;
+				float: left;
+				display: inline-block;
+				text-align: center;
+			}
+			
 			.items .item div {
 				width: 80%;
 				display: inline-block;
-				border: 1px solid #eee;
+				border: 1px solid #999;
 				height: 1.8rem;
 				line-height: 1.8rem;
-				border-radius: 5px;
+				border-radius: 20px;
 				margin-bottom: 0.8rem;
+				background: #fff;
 			}
 			
 			.items .item div.check {
 				color: #ed5565;
-				border: 1px solid #ed5565;
+				border: 1px solid #BF403A;
 			}
 			
 			.items .item div.noborder {
@@ -41,12 +49,14 @@
 			}
 			
 			#txtmoney {
-				height: 45px;
+				height: 1.8rem;
 				text-align: center;
-				width: 5rem;
+				width: 100%;
 				border: 0px;
-				border-bottom: 1px solid #007aff;
+				border-bottom: 1px solid #999;
 				padding: 3px;
+				color: #BF403A;
+				background: transparent;
 			}
 			
 			#btnPay {
@@ -57,18 +67,30 @@
 			}
 			
 			#payuser {
-				width: 3rem;
-				height: 3rem;
-				border-radius: 50px;
+				width: 6rem;
+				height: 6rem;
+				border-radius: 100%;
 			}
 			
 			.payment {
-				width: 6rem;
-				height: 2rem;
-				line-height: 2rem;
+				position: fixed;
+				bottom: 4rem;
+				left: 10%;
+				width: 80%;
+				height: 2.5rem;
+				line-height: 2.5rem;
 				border-radius: 30px;
-				background: #ed5565;
-				color: #fff;
+				background: #FBEAD2;
+				color: #BF403A;
+				display: inline-block;
+			}
+			
+			.anony {
+				position: fixed;
+				bottom: 1.5rem;
+				left: 10%;
+				width: 80%;
+				color: #FBEAD2;
 				display: inline-block;
 			}
 			
@@ -83,11 +105,16 @@
 				display: inline-block;
 				text-align: left;
 			}
+			
+			body {
+				background: url(../images/pay/bg.png) center center no-repeat;
+				background-size: cover;
+			}
 		</style>
 	</head>
 
 	<body id="body">
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<div class="mui-title c333" id="title"></div>
 		</header>
@@ -95,35 +122,32 @@
 			<img id="payuser" src="" class="mt20" />
 			<div class="items c333 mt20">
 				<div class="item">
-					<div class="f11 choosemoney" money="5"><span class="f16">5</span>元</div>
+					<div class="f11 choosemoney" money="5.88"><span class="f16">5.88</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11 choosemoney" money="15"><span class="f16">15</span>元</div>
+					<div class="f11 choosemoney" money="8.88"><span class="f16">8.88</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11 choosemoney" money="25"><span class="f16">25</span>元</div>
+					<div class="f11 choosemoney" money="12.88"><span class="f16">12.88</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11 choosemoney" money="35"><span class="f16">35</span>元</div>
+					<div class="f11 choosemoney" money="18.88"><span class="f16">18.88</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11 choosemoney" money="45"><span class="f16">45</span>元</div>
+					<div class="f11 choosemoney" money="28.88"><span class="f16">28.88</span>元</div>
 				</div>
 				<div class="item">
-					<div class="f11 choosemoney" money="55"><span class="f16">55</span>元</div>
-				</div>
-				<div class="item">
-					<div class="noborder"></div>
+					<div class="f11 choosemoney" money="88.88"><span class="f16">88.88</span>元</div>
 				</div>
 				<div class="item">
 					<div class="f12 caaa" onclick="OtherMoney()">其他金额</div>
 				</div>
-				<div class="item">
-					<div class="noborder"></div>
+				<div class="item2 hide" id="divMoney">
+					<input type="number" id="txtmoney" class="f30" />
 				</div>
 			</div>
-			<p class="f13 bold c333 mb0 hide" style="font-weight:normal;" id="divMoney">赏金：<input type="number" id="txtmoney" class="f30" /></p>
-			<div class="f11 mt30" id="payway">
+			<div></div>
+			<div class="f11 mt10" id="payway">
 				<div class="mui-radio">
 					<input name="background" value="0" type="radio" checked="checked" class="radio" onclick="ChangePayWay(0,0)">
 					<span>支付宝支付</span>
@@ -133,8 +157,8 @@
 					<span>微 信 支 付</span>
 				</div>
 			</div>
-			<div class="f18 payment mt30" onclick="Payment()">赏</div>
-			<div class="f11 mt20 mb20">
+			<div class="f20 payment" onclick="Payment()">赞&nbsp;赏</div>
+			<div class="f11 anony">
 				<div class="mui-checkbox">
 					<input value="0" type="checkbox" class="checkbox" onclick="Anony()">
 					<span>匿名赞赏</span>
@@ -156,10 +180,7 @@
 	var userinfo = base.GetUserInfo();
 
 	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {
@@ -191,7 +212,7 @@
 		plus.payment.getChannels(function(channels) {
 			for(var i in channels) {
 				var c = channels[i];
-				if(c.id == 'qhpay' || c.id == 'qihoo') { // 过滤掉不支持的支付通道：暂不支持360相关支付
+				if(c.id == 'qhpay' || c.id == 'qihoo') {
 					continue;
 				}
 				channel[c.id] = c;
@@ -202,7 +223,6 @@
 
 		//返回
 		mui.back = function() {
-			var self = plus.webview.currentWebview();
 			plus.webview.close(self)
 		}
 	});

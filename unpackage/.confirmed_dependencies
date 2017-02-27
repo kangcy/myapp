@@ -396,7 +396,8 @@
 			"css/loading.css",
 			"images/my/222.png",
 			"images/price.png",
-			"images/my/555.png"
+			"images/my/555.png",
+			"part/list.html"
 		],
 		"refer": [
 			"page/paySub.html"
@@ -1796,7 +1797,8 @@
 			"css/mui.min.css",
 			"js/default.js",
 			"js/jquery-1.10.2.min.js",
-			"images/logo_default.png"
+			"images/logo_default.png",
+			"images/pay/bg.png"
 		],
 		"refer": []
 	},
@@ -1838,7 +1840,8 @@
 			"page/user2.html",
 			"page/articledetail.html",
 			"page/user.html",
-			"page/articleComment.html"
+			"page/articleComment.html",
+			"page/money.html"
 		]
 	},
 	"page/user2.html": {
