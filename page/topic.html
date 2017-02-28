@@ -313,12 +313,8 @@
 
 		//分类列表
 		mui("#slider").on('tap', '.topic', function(event) {
-			var typeId = this.getAttribute("typeid");
-			var typeName = this.getAttribute("typename");
-			base.OpenWindow("article", "article.html", {
-				ArticleType: typeId,
-				ArticleTypeName: typeName
-			});
+			var index = $(this).index();
+			ChangeSlider(index);
 		});
 	});
 

@@ -123,9 +123,7 @@
 					//文章封面
 					case "ArticleCover":
 						var page = plus.webview.getWebviewById("addarticle");
-						mui.fire(page, "UpdateCover", {
-							"Url": src
-						});
+						page.evalJS("UpdateCover('" + src + "')")
 						mui.back();
 						break;
 						//文章内容
@@ -146,7 +144,7 @@
 							if(data != null) {
 								if(data.result) {
 									var addarticlePage = plus.webview.getWebviewById('addarticle');
-									if(addarticlePage) {
+									if(addarticlePage) { 
 										addarticlePage.evalJS("AddPic('" + data.message + "','" + src + "','" + PartID + "')");
 									}
 									mui.back();

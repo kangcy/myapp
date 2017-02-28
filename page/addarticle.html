@@ -87,27 +87,6 @@
 			});
 		});
 
-		//修改封面
-		window.addEventListener("UpdateCover", function(e) {
-			var url = e.detail.Url;
-			if(Cover == url) {
-				return;
-			}
-			HttpGet(base.RootUrl + "Article/EditArticleCover", {
-				ID: userinfo.ID,
-				ArticleID: ArticleID,
-				Cover: url
-			}, function(data) {
-				if(data.result) {
-					document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
-					document.getElementById("header").style.backgroundSize = "100%";
-					Cover = url;
-				} else {
-					mui.toast(data.message);
-				}
-			});
-		});
-
 		//标题
 		title.addEventListener('tap', function(event) {
 			var html = title.innerHTML.trim();
@@ -291,6 +270,26 @@
 		}
 	}
 
+	//修改封面
+	function UpdateCover(url) {
+		if(Cover == url) { 
+			return;
+		}
+		HttpGet(base.RootUrl + "Article/EditArticleCover", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
+			Cover: url
+		}, function(data) {
+			if(data.result) {
+				document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
+				document.getElementById("header").style.backgroundSize = "cover";
+				Cover = url;
+			} else {
+				mui.toast(data.message);
+			}
+		});
+	}
+
 	//编辑图片
 	function AddPic(partid, url, index) {
 		if(index == 0) {
@@ -298,7 +297,6 @@
 			$("#" + currEditID).parents(".edit-body").after(html);
 			$("#edit").find(".banner").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
-			//Group(document.getElementById('edit'), window.innerWidth * 0.05);
 
 			var imgdefereds = [];
 			$('img').each(function() {
@@ -473,7 +471,7 @@
 					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 
 					document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
-					document.getElementById("header").style.backgroundSize = "100%";
+					document.getElementById("header").style.backgroundSize = "cover";
 					if(Title != "") {
 						$("#title").html(Title);
 					}
