@@ -184,9 +184,27 @@ var base = new function() {
 	}
 
 	/**
+	 * 防止连续点击创建重复页面
+	 */
+	var tap_first = null;
+	function unsafe_tap() {
+		if(!tap_first) {
+			tap_first = new Date().getTime();
+			setTimeout(function() {
+				tap_first = null;
+			}, 1500);
+		} else {
+			return true;
+		}
+	}
+
+	/**
 	 * 打开新页面
 	 **/
 	this.OpenWindow = function(id, url, data, aniShow) {
+		if(unsafe_tap()){
+			return;
+		}
 		mui.openWindow({
 			id: id,
 			url: url,

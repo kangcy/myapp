@@ -45,12 +45,7 @@
 	var NewId = 0; //最新添加评论ID
 	var mask = mui.createMask(function() {});
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.ready(function() {
 
@@ -63,9 +58,6 @@
 			div.className = 'hide';
 			div.setAttribute("id", "textarea");
 			document.getElementById("main").appendChild(div);
-
-			base.InitScroll();
-			base.ScrollTop();
 		});
 	});
 

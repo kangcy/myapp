@@ -109,6 +109,7 @@
 <script src="../js/base.js"></script>
 <script src="../js/mui.indexedlist.js"></script>
 <script type="text/javascript">
+	var isLoading = false;
 	var province = "";
 	var city = "";
 	mui.init();
@@ -142,6 +143,10 @@
 	});
 
 	function FixPosition() {
+		if(isLoading) {
+			return false;
+		}
+		isLoading = true;
 		//系统定位
 		document.getElementById("currPosition").innerHTML = "正在定位...";
 		plus.geolocation.getCurrentPosition(function(p) {
@@ -151,10 +156,11 @@
 			city = p.address.city;
 			setTimeout(function() {
 				document.getElementById("currPosition").innerHTML = city;
-			}, 200)
-
+				isLoading = false;
+			}, 200);
 		}, function(e) {
 			mui.toast("未授权");
+			isLoading = false;
 		});
 	}
 </script>

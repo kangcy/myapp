@@ -53,10 +53,8 @@
 
 	mui.init({
 		gestureConfig: {
-			doubletap: true,
 			longtap: true
-		},
-		swipeBack: false
+		}
 	});
 
 	mui.ready(function() {
@@ -71,11 +69,7 @@
 			div.innerHTML = "<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>";
 			document.getElementById("main").appendChild(div);
 
-			base.InitScroll();
-
 			mui.previewImage();
-
-			base.ScrollTop();
 		});
 	});
 

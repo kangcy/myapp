@@ -24,12 +24,7 @@
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
@@ -37,10 +32,6 @@
 			document.getElementById("none_img").innerHTML = "加入黑名单的用户将无法浏览你的专栏";
 
 			Load();
-
-			base.InitScroll();
-
-			base.ScrollTop();
 		});
 	});
 

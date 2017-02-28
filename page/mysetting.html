@@ -323,7 +323,7 @@
 	//修改地址 
 	function UpdateAddress(province, city) {
 		mask.show();
-		base.ShowWaiting("正在编辑签名");
+		base.ShowWaiting("正在编辑地区");
 		setTimeout(function() {
 			document.getElementById("city").innerHTML = province + " " + city;
 			HttpGet(base.RootUrl + "User/EditAddress", {

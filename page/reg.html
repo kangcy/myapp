@@ -12,7 +12,7 @@
 				float: left !important;
 				width: 9.1rem;
 				margin-left: 2.5rem;
-				border-right: 1px solid #4087CB; 
+				border-right: 1px solid #4087CB;
 			}
 			
 			#reg {
@@ -22,35 +22,33 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333">注册</h1>
 		</header>
-		<div class="mui-content mui-scroll-wrapper tc">
-			<div class="mui-scroll">
-				<div id="input-form">
-					<div class="phone mt20 mui-input-row">
-						<input id='account' type="tel" class="mui-input-clear text f13" placeholder="请输入您的手机号码" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
-					</div>
-					<div class="pwd mt20 mui-input-row">
-						<input id='code' type="number" class="mui-input-clear text reg f13" placeholder="请输入验证码" maxlength="6" /><span class="f13 fl mr10 ml10" style="color:#4087CB;" id="btnCode">获取验证码</span><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
-					</div>
+		<div class="mui-content tc">
+			<div id="input-form">
+				<div class="phone mt20 mui-input-row">
+					<input id='account' type="tel" class="mui-input-clear text f13" placeholder="请输入您的手机号码" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
+				</div>
+				<div class="pwd mt20 mui-input-row">
+					<input id='code' type="number" class="mui-input-clear text reg f13" placeholder="请输入验证码" maxlength="6" /><span class="f13 fl mr10 ml10" style="color:#4087CB;" id="btnCode">获取验证码</span><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
+				</div>
 
-					<div class="pwd mt20 mui-input-row">
-						<input id='password' type="password" class="mui-input-password text f13" placeholder="请输入6-16位密码" maxlength="20" /><span class="mui-icon mui-icon-eye" style="top:0.8rem !important;"></span>
-					</div>
-					<div class="pwd mt20 mui-input-row">
-						<input id='password_confirm' type="password" class="mui-input-password text f13" placeholder="请再输入一次密码" maxlength="20" /><span class="mui-icon mui-icon-eye" style="top:0.8rem !important;"></span>
-					</div>
-					<div class="user mt20 mui-input-row">
-						<input id='nickname' type="text" class="mui-input-clear text f13" placeholder="请输入昵称，最多12字" maxlength="20" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
-					</div>
-					<div class="input mt20" id='reg'>
-						完成注册
-					</div>
-					<div class="c999 f13 mt20">
-						<div id='notice'>*注册代表您同意<span class="fa-underline" style="color:#4087CB;">《Go服务协议》</span></div>
-					</div>
+				<div class="pwd mt20 mui-input-row">
+					<input id='password' type="password" class="mui-input-password text f13" placeholder="请输入6-16位密码" maxlength="20" /><span class="mui-icon mui-icon-eye" style="top:0.8rem !important;"></span>
+				</div>
+				<div class="pwd mt20 mui-input-row">
+					<input id='password_confirm' type="password" class="mui-input-password text f13" placeholder="请再输入一次密码" maxlength="20" /><span class="mui-icon mui-icon-eye" style="top:0.8rem !important;"></span>
+				</div>
+				<div class="user mt20 mui-input-row">
+					<input id='nickname' type="text" class="mui-input-clear text f13" placeholder="请输入昵称，最多12字" maxlength="20" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
+				</div>
+				<div class="input mt20" id='reg'>
+					完成注册
+				</div>
+				<div class="c999 f13 mt20">
+					<div id='notice'>*注册代表您同意<span class="fa-underline" style="color:#4087CB;">《Go服务协议》</span></div>
 				</div>
 			</div>
 		</div>
@@ -67,147 +65,144 @@
 	var City = "";
 	var mask = mui.createMask(function() {});
 
-	(function($, doc) {
-		$.init();
+	mui.init();
 
-		$.ready(function() {
-			base.InitScroll();
+	mui.ready(function() { 
 
-			//发送验证码
-			var btnCode = document.getElementById("btnCode");
-			btnCode.addEventListener('tap', function(event) {
-				if(isCountDown) {
-					return false;
-				}
-				isCountDown = true;
-				var mob = document.getElementById("account").value;
-				if(!base.CheckPhone(mob)) {
+		//发送验证码
+		var btnCode = document.getElementById("btnCode");
+		btnCode.addEventListener('tap', function(event) {
+			if(isCountDown) {
+				return false; 
+			}
+			isCountDown = true;
+			var mob = document.getElementById("account").value;
+			if(!base.CheckPhone(mob)) {
+				isCountDown = false;
+				return mui.toast("友情提醒：您输入手机号码格式异常");
+			}
+			mask.show();
+			base.ShowWaiting("正在获取验证码");
+			var time = 60;
+			var count = setInterval(function() {
+				time--;
+				if(time == 0) {
+					clearInterval(count);
 					isCountDown = false;
-					return mui.toast("友情提醒：您输入手机号码格式异常");
+					btnCode.innerText = "重新获取";
+				} else {
+					btnCode.innerText = time + "秒 ";
 				}
-				mask.show();
-				base.ShowWaiting("正在获取验证码");
-				var time = 60;
-				var count = setInterval(function() {
-					time--;
-					if(time == 0) {
-						clearInterval(count);
-						isCountDown = false;
-						btnCode.innerText = "重新获取";
-					} else {
-						btnCode.innerText = time + "秒 ";
-					}
-				}, 1000);
-				HttpGet(base.RootUrl + "System/SendSMS", {
-					Mobile: mob,
-					SMS: "regsms"
-				}, function(data) {
-					base.CloseWaiting();
-					mask.close();
-					if(data) {
-						if(data.result) {
-							mui.toast("验证码发送成功");
-							if(data.usesms == "0") {
-								document.getElementById("code").value = data.message;
-							}
-						} else {
-							mui.toast("验证码发送失败");
+			}, 1000);
+			HttpGet(base.RootUrl + "System/SendSMS", {
+				Mobile: mob,
+				SMS: "regsms"
+			}, function(data) {
+				base.CloseWaiting();
+				mask.close();
+				if(data) {
+					if(data.result) {
+						mui.toast("验证码发送成功");
+						if(data.usesms == "0") {
+							document.getElementById("code").value = data.message;
 						}
 					} else {
 						mui.toast("验证码发送失败");
 					}
-				});
-			});
-		})
-
-		$.plusReady(function() {
-			//系统定位
-			plus.geolocation.getCurrentPosition(function(p) {
-				Province = p.address.province;
-				City = p.address.city;
-			}, function(e) {
-				//mui.toast("未授权")
-			});
-
-			var settings = app.getSettings();
-			var accountBox = doc.getElementById('account'); //手机号码
-			var codeBox = doc.getElementById('code'); //手机号码
-			var nicknameBox = doc.getElementById('nickname'); //昵称
-			var passwordBox = doc.getElementById('password'); //密码
-			var passwordConfirmBox = doc.getElementById('password_confirm'); //确认密码
-
-			//注册
-			doc.getElementById('reg').addEventListener('tap', function(event) {
-				if(isLoading) {
-					return false;
+				} else {
+					mui.toast("验证码发送失败");
 				}
-				isLoading = true;
-				var mob = accountBox.value;
-				if(!base.CheckPhone(mob)) {
-					isLoading = false;
-					return mui.toast("手机号码格式异常");
-				}
-				var code = codeBox.value;
-				if(base.IsNullOrEmpty(code)) {
-					isLoading = false;
-					return mui.toast('请输入验证码');
-				}
-				var password = passwordBox.value;
-				if(base.IsNullOrEmpty(password)) {
-					isLoading = false;
-					return mui.toast('请输入6-16位密码');
-				}
-				if(password.length < 6 || password.length > 16) {
-					isLoading = false;
-					return mui.toast('密码为6-16个字符');
-				}
-				if(password != passwordConfirmBox.value) {
-					isLoading = false;
-					return mui.toast('密码两次输入不一致');
-				}
-				var nickname = nicknameBox.value;
-				if(nickname.length < 0 || nickname.length > 12) {
-					isLoading = false;
-					return mui.toast('请输入昵称，最多12字');
-				}
-				//显示遮罩
-				var mask = mui.createMask(function() {});
-				mask.show();
-				base.ShowWaiting("正在注册");
-				setTimeout(function() {
-					var regInfo = {
-						Phone: mob,
-						NickName: nickname,
-						Password: password,
-						Province: Province,
-						City: City,
-						Code: code,
-						SMS: "regsms"
-					};
-					app.reg(regInfo, function(err) {
-						mask.close();
-						base.CloseWaiting();
-						if(err) {
-							mui.toast(err);
-							isLoading = false;
-							return;
-						}
-						accountBox.value = "";
-						codeBox.value = "";
-						nicknameBox.value = "";
-						passwordBox.value = "";
-						passwordConfirmBox.value = "";
-						mui.toast('注册成功');
-						isLoading = false;
-						base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
-					});
-				}, 1000);
-			});
-
-			//跳转用户协议页
-			doc.getElementById('notice').addEventListener('tap', function(event) {
-				base.OpenWindow("notice", "notice.html", {});
 			});
 		});
-	}(mui, document));
+	})
+
+	mui.plusReady(function() {
+		//系统定位
+		plus.geolocation.getCurrentPosition(function(p) {
+			Province = p.address.province;
+			City = p.address.city;
+		}, function(e) {
+			//mui.toast("未授权")
+		});
+
+		var settings = app.getSettings();
+		var accountBox = document.getElementById('account'); //手机号码
+		var codeBox = document.getElementById('code'); //手机号码
+		var nicknameBox = document.getElementById('nickname'); //昵称
+		var passwordBox = document.getElementById('password'); //密码
+		var passwordConfirmBox = document.getElementById('password_confirm'); //确认密码
+
+		//注册
+		document.getElementById('reg').addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var mob = accountBox.value;
+			if(!base.CheckPhone(mob)) {
+				isLoading = false;
+				return mui.toast("手机号码格式异常");
+			}
+			var code = codeBox.value;
+			if(base.IsNullOrEmpty(code)) {
+				isLoading = false;
+				return mui.toast('请输入验证码');
+			}
+			var password = passwordBox.value;
+			if(base.IsNullOrEmpty(password)) {
+				isLoading = false;
+				return mui.toast('请输入6-16位密码');
+			}
+			if(password.length < 6 || password.length > 16) {
+				isLoading = false;
+				return mui.toast('密码为6-16个字符');
+			}
+			if(password != passwordConfirmBox.value) {
+				isLoading = false;
+				return mui.toast('密码两次输入不一致');
+			}
+			var nickname = nicknameBox.value;
+			if(nickname.length < 0 || nickname.length > 12) {
+				isLoading = false;
+				return mui.toast('请输入昵称，最多12字');
+			}
+			//显示遮罩
+			var mask = mui.createMask(function() {});
+			mask.show();
+			base.ShowWaiting("正在注册");
+			setTimeout(function() {
+				var regInfo = {
+					Phone: mob,
+					NickName: nickname,
+					Password: password,
+					Province: Province,
+					City: City,
+					Code: code,
+					SMS: "regsms"
+				};
+				app.reg(regInfo, function(err) {
+					mask.close();
+					base.CloseWaiting();
+					if(err) {
+						mui.toast(err);
+						isLoading = false;
+						return;
+					}
+					accountBox.value = "";
+					codeBox.value = "";
+					nicknameBox.value = "";
+					passwordBox.value = "";
+					passwordConfirmBox.value = "";
+					mui.toast('注册成功');
+					isLoading = false;
+					base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
+				});
+			}, 1000);
+		});
+
+		//跳转用户协议页
+		document.getElementById('notice').addEventListener('tap', function(event) {
+			base.OpenWindow("notice", "notice.html", {});
+		});
+	});
 </script>

@@ -1030,7 +1030,8 @@
 			"images/base/comment_nor.png",
 			"images/base/reward_nor.png",
 			"images/base/like_nor.png",
-			"images/base/follow1.png"
+			"images/base/follow1.png",
+			"part/list.html"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -1555,7 +1556,8 @@
 			"css/mui.min.css",
 			"js/jquery-1.10.2.min.js",
 			"js/default.js",
-			"js/base.js"
+			"js/base.js",
+			"css/loading.css"
 		],
 		"refer": []
 	},
