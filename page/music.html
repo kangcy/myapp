@@ -29,22 +29,20 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-action-back mui-text c333 fl">取消</a>
 			<a id="submit" class="mui-icon mui-text c333 fr" onclick="Submit()">完成</a>
 			<h1 class="mui-title c333">选择背景音乐</h1>
 		</header>
-		<div class="mui-content">
-			<div class="mui-scroll-wrapper" style="top:45px;bottom:50px;">
-				<div class="mui-scroll" id="list">
-				</div>
-			</div>
-		</div>
-		<nav class="mui-bar mui-bar-tab" id="search">
+		<nav class="mui-bar mui-bar-tab" id="search" style="background:#fff;">
 			<div class="mui-tab-item blue" style="font-size:16px;">
 				<span class="mui-icon mui-icon-search" style="top:0px;font-size:20px;margin-right:5px;"></span>搜索在线音乐
 			</div>
 		</nav>
+		<div class="mui-content">
+			<div id="list">
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -56,7 +54,6 @@
 	var MusicID = 0;
 	var MusicName = "";
 
-	//启用双击监听
 	mui.init();
 
 	mui.ready(function() {
@@ -120,6 +117,9 @@
 	var addarticlePage = null;
 
 	function Submit() {
+		if(base.RepeatAction()) {
+			return;
+		}
 		if(MusicID == -1) {
 			plus.webview.close("music");
 		} else {
