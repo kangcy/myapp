@@ -81,13 +81,10 @@
 <script src="../js/login.js"></script>
 <script type="text/javascript">
 	var auths = {};
-	var isLoading = false; //是否操作中
+	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
+		swipeBack: false
 	});
 
 	mui.ready(function() {

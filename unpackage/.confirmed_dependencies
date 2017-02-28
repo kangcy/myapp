@@ -793,7 +793,8 @@
 			"page/bindphone.html",
 			"page/bindpassword.html",
 			"page/login.html",
-			"page/my.html"
+			"page/my.html",
+			"page/edittitle.html"
 		]
 	},
 	"page/articledetail.html": {
@@ -880,7 +881,8 @@
 			"page/templateSide.html",
 			"page/payment.html",
 			"page/money.html",
-			"page/user2.html"
+			"page/user2.html",
+			"page/edittitle.html"
 		]
 	},
 	"page/sharesetting.html": {

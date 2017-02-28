@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>编辑标题</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			#question {
+				border: 0px;
+				padding: 0px;
+				line-height: 1.25rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-action-back mui-text c333 fl">取消</a>
+			<a id="submit" class="mui-icon mui-text c333 fr">完成</a>
+			<h1 class="mui-title c333" id="title"></h1>
+		</header>
+		<div class="mui-content">
+			<div style="padding:5%;">
+				<textarea id='question' class="mui-input-clear f13"></textarea>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	var isLoading = false;
+	mui.init({
+		swipeBack: false
+	});
+
+	var page = null;
+	var title = document.getElementById("title");
+	var question = document.getElementById("question");
+	mui.plusReady(function() {
+		question.style.height = (window.innerHeight - 50 - window.innerHeight * 0.1) + "px";
+		var self = plus.webview.currentWebview();
+		var source = self.source;
+		switch(source) {
+			case "title":
+				title.innerHTML = "编辑标题";
+				document.title = "编辑标题";
+				question.setAttribute("maxlength", 30);
+				question.setAttribute("placeholder", "不超过30个字......");
+				break;
+			case "signature":
+				title.innerHTML = "个性签名";
+				document.title = "个性签名";
+				question.setAttribute("maxlength", 100);
+				question.setAttribute("placeholder", "不超过100个字......");
+				break;
+			case "nickname":
+				title.innerHTML = "编辑昵称";
+				document.title = "编辑昵称";
+				question.setAttribute("maxlength", 20);
+				question.setAttribute("placeholder", "不超过20个字......");
+				break;
+			case "report":
+				title.innerHTML = "举报内容";
+				document.title = "举报内容";
+				question.setAttribute("maxlength", 500);
+				question.setAttribute("placeholder", "请填写举报原因,不超过20个字......");
+				break;
+			default:
+				break;
+		}
+		if(source != "report") {
+			question.value = self.title;
+			question.focus();
+		}
+
+		//返回
+		mui.back = function() {
+			plus.webview.close(self);
+		}
+
+		//提交
+		document.getElementById("submit").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var val = question.value;
+			switch(source) {
+				case "title":
+					page = plus.webview.getWebviewById('addarticle');
+					page.evalJS("UpdateTitle('" + val + "')");
+					mui.back();
+					break;
+				case "signature":
+					page = plus.webview.getWebviewById('mysetting');
+					page.evalJS("UpdateSignature('" + val + "')");
+					mui.back();
+					break;
+				case "nickname":
+					page = plus.webview.getWebviewById('mysetting');
+					page.evalJS("UpdateNickName('" + val + "')");
+					mui.back();
+					break;
+				case "report":
+					if(base.IsNullOrEmpty(val)) {
+						isLoading = false;
+						return mui.toast("请填写举报原因");
+					}
+					var userinfo = base.GetUserInfo();
+					HttpGet(base.RootUrl + "Report/Edit", {
+						ID: userinfo.ID,
+						ArticleNumber: self.ArticleNumber,
+						Summary: val
+					}, function(data) {
+						mui.toast(data.result ? "举报成功，将于1-2个工作日内处理" : data.message);
+						mui.back();
+					});
+					break;
+				default:
+					mui.back();
+					break;
+			}
+		}, false);
+	});
+</script>

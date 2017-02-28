@@ -863,7 +863,8 @@
 		}
 		//举报
 		if(index == 9) {
-			base.OpenWindow("report", "report.html", {
+			base.OpenWindow("edittext", "edittext.html", {
+				source: "report",
 				ArticleNumber: Article.Number
 			});
 			return;

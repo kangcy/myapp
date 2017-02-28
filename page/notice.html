@@ -11,14 +11,14 @@
 		<style type="text/css">
 			.mui-card-content-inner p {
 				color: #333 !important;
-				line-height:1.5;
+				line-height: 1.5;
 			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-icon-left-nav mui-pull-left c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333">用户协议</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper" style="top:0px;">
@@ -80,9 +80,23 @@
 <script src="../js/mui.min.js"></script>
 <script type="text/javascript">
 	mui.init({
-		swipeBack: true //启用右滑关闭功能
+		gestureConfig: {
+			doubletap: true
+		},
+		swipeBack: false
 	});
 
-	//启用页面滑动
-	mui('.mui-scroll-wrapper').scroll({});
+	mui.ready(function() {
+
+		var deceleration = mui.os.ios ? 0.003 : 0.0009;
+		mui('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: false,
+			deceleration: deceleration
+		});
+
+		document.querySelector('header').addEventListener('doubletap', function() {
+			mui(".mui-scroll-wrapper").scroll().scrollTo(0, 0, 1000);
+		});
+	});
 </script>

@@ -5058,16 +5058,6 @@ body>.mui-progressbar {
 	margin: 10px;
 }
 
-
-/*输入框*/
-
-#question {
-	border: 0px;
-	height: 400px;
-	padding: 0px;
-	line-height: 1.25rem;
-}
-
 .mui-card-content {
 	width: 100%;
 }

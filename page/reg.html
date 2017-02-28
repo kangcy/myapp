@@ -12,7 +12,7 @@
 				float: left !important;
 				width: 9.1rem;
 				margin-left: 2.5rem;
-				border-right: 1px solid #4087CB;
+				border-right: 1px solid #4087CB; 
 			}
 			
 			#reg {
@@ -23,7 +23,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left c333"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333">注册</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper tc">
@@ -65,7 +65,7 @@
 	var isCountDown = false; //正在倒计时
 	var Province = "";
 	var City = "";
-	var mask = mui.createMask(function() {}); //显示遮罩
+	var mask = mui.createMask(function() {});
 
 	(function($, doc) {
 		$.init();
@@ -128,11 +128,6 @@
 			}, function(e) {
 				//mui.toast("未授权")
 			});
-
-			//返回
-			mui.back = function() {
-				plus.webview.currentWebview.close();
-			}
 
 			var settings = app.getSettings();
 			var accountBox = doc.getElementById('account'); //手机号码

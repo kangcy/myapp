@@ -279,7 +279,7 @@
 #btnPay {
 	position: fixed;
 	left: 10px;
-	bottom: 110px;
+	bottom: 4rem;
 	z-index: 999;
 }
 

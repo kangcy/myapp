@@ -118,7 +118,8 @@
 		//标题
 		title.addEventListener('tap', function(event) {
 			var html = title.innerHTML.trim();
-			base.OpenWindow("edittitle", "edittitle.html", {
+			base.OpenWindow("edittext", "edittext.html", {
+				source: "title",
 				title: html == "点击输入标题" ? "" : html
 			});
 		});
@@ -270,18 +271,6 @@
 		}, function(e) {});
 	});
 
-	//修改标题
-	window.addEventListener("updateTitle", function(e) {
-		var t = e.detail.title;
-		if(t == "") {
-			title.innerHTML = "点击输入标题";
-			Title = "";
-		} else {
-			title.innerHTML = t;
-			Title = t;
-		}
-	});
-
 	//修改图片
 	window.addEventListener("updatePic", function(e) {
 		var t = e.detail.title;
@@ -291,6 +280,17 @@
 			document.getElementById(currEditID).innerHTML = t;
 		}
 	});
+
+	//修改标题
+	function UpdateTitle(title) {
+		if(base.IsNullOrEmpty(title)) {
+			title.innerHTML = "点击输入标题";
+			Title = "";
+		} else {
+			title.innerHTML = title;
+			Title = title;
+		}
+	}
 
 	//编辑图片
 	function AddPic(partid, url, index) {
