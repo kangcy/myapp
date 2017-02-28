@@ -184,25 +184,26 @@ var base = new function() {
 	}
 
 	/**
-	 * 防止连续点击创建重复页面
+	 * 防止连续点击
 	 */
-	var tap_first = null;
-	function unsafe_tap() {
-		if(!tap_first) {
-			tap_first = new Date().getTime();
-			setTimeout(function() {
-				tap_first = null;
-			}, 1500);
-		} else {
+	var Repeat_Action = null;
+
+	this.RepeatAction = function() {
+		if(Repeat_Action) {
 			return true;
 		}
+		Repeat_Action = new Date().getTime();
+		setTimeout(function() {
+			Repeat_Action = null;
+		}, 1500);
+		return false;
 	}
 
 	/**
 	 * 打开新页面
 	 **/
 	this.OpenWindow = function(id, url, data, aniShow) {
-		if(unsafe_tap()){
+		if(base.RepeatAction()) {
 			return;
 		}
 		mui.openWindow({

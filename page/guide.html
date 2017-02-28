@@ -60,6 +60,9 @@
 
 	//立即体验按钮点击事件
 	document.getElementById("close").addEventListener('tap', function(event) {
+		if(base.RepeatAction()) {
+			return;
+		}
 		plus.storage.setItem("lauchFlag", "true");
 		plus.navigator.setFullscreen(false);
 		base.OpenWindow("login", "login.html", {});

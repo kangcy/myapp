@@ -57,17 +57,9 @@
 	var MusicName = "";
 
 	//启用双击监听
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
 	mui.ready(function() {
-		base.InitScroll();
-
-		base.ScrollTop();
 
 		//切换选择
 		$("#list").on('tap', 'li.music', function(event) {
@@ -120,7 +112,7 @@
 						html.push('</ul>');
 					}
 					table.append(html.join(""));
-				} 
+				}
 			}
 		});
 	}

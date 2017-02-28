@@ -206,19 +206,14 @@
 	var City = "";
 	var ShareInfo = {};
 	var userinfo = base.GetUserInfo();
-	var mask = mui.createMask(function() {}); 
+	var mask = mui.createMask(function() {});
 
 	var Intent = null,
 		File = null,
 		Uri = null,
 		main = null;
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.ShowArticle("#a_list", "List", userinfo.Number);
@@ -312,7 +307,7 @@
 			Number: UserNumber
 		}, function(data) {
 			if(data.result) {
-				data = data.message; 
+				data = data.message;
 
 				NickName = data.NickName;
 				Avatar = data.Avatar;
@@ -405,6 +400,9 @@
 			isLoading = false;
 		} else {
 			$guanzhu.addEventListener('tap', function(e) {
+				if(base.RepeatAction()) {
+					return;
+				}
 				var data = {
 					ID: userinfo.ID,
 					ToUserNumber: UserNumber

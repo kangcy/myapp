@@ -60,19 +60,14 @@
 	var Url = "";
 	var Source = "";
 	var ArticleID = 0;
-	var ArticleNumber = ""; //文章编号
+	var ArticleNumber = "";
 	var PartID = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	var Standard = "";
-	var mask = mui.createMask(function() {}); //显示遮罩
+	var mask = mui.createMask(function() {});
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
+	mui.init();
 
 	$(function() {
 		$("#editimage").css("height", (totalheight) + "px");
@@ -116,6 +111,9 @@
 		}
 
 		document.getElementById("confirm").addEventListener('tap', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			confirm(function(src) {
 				if(base.IsNullOrEmpty(src)) {
 					mui.back();

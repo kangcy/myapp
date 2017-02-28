@@ -20,6 +20,7 @@
 			.mui-table-view-cell {
 				padding: .8rem 0.9375rem;
 			}
+			
 			.mui-table-view:after {
 				height: 0px;
 			}
@@ -136,6 +137,9 @@
 
 		//绑定微信切换
 		document.getElementById("weixinSwitch").addEventListener('tap', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			var weixin = this.className.indexOf("active") >= 0;
 			base.SwitchChange("weixinSwitch", !weixin);
 			if(!weixin) {
@@ -151,6 +155,9 @@
 
 		//绑定QQ切换
 		document.getElementById("qqSwitch").addEventListener('tap', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			var qq = this.className.indexOf("active") >= 0;
 			base.SwitchChange("qqSwitch", !qq);
 			if(!qq) {
@@ -166,6 +173,9 @@
 
 		//绑定微博切换
 		document.getElementById("weiboSwitch").addEventListener('tap', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			var weibo = this.className.indexOf("active") >= 0;
 			base.SwitchChange("weiboSwitch", !weibo);
 			if(!weibo) {
@@ -209,7 +219,7 @@
 		});
 		return exist;*/
 	}
- 
+
 	//绑定密码
 	function BindPwd() {
 		if(base.IsNullOrEmpty(userinfo.Phone)) {
@@ -219,7 +229,9 @@
 				}
 			});
 		} else {
-			base.OpenWindow("bindpassword", "bindpassword.html", {Name:"修改密码"});
+			base.OpenWindow("bindpassword", "bindpassword.html", {
+				Name: "修改密码"
+			});
 		}
 	}
 
