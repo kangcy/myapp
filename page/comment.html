@@ -10,8 +10,6 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/comment.css">
 		<link rel="stylesheet" href="../css/loading.css">
-		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
-
 		<link rel="stylesheet" type="text/css" href="../css/animate.css">
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
@@ -30,6 +28,12 @@
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
+	mui('#main').load("../part/list.html", function(response) {
+		document.getElementById("title").innerHTML = "评论与回复";
+		document.getElementById("none_img").setAttribute("src", "../images/my/333.png");
+		document.getElementById("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
+		$("#main").append('<textarea id="textarea" class="hide"></textarea>');
+	});
 	var currpage = 1;
 	var totalpage = 2;
 	var isLoading = false;
@@ -46,20 +50,6 @@
 	var mask = mui.createMask(function() {});
 
 	mui.init();
-
-	mui.ready(function() {
-
-		mui('#main').load("../part/list.html", function(response) {
-			document.getElementById("title").innerHTML = "评论与回复";
-			document.getElementById("none_img").setAttribute("src", "../images/my/333.png");
-			document.getElementById("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
-
-			var div = document.createElement('textarea');
-			div.className = 'hide';
-			div.setAttribute("id", "textarea");
-			document.getElementById("main").appendChild(div);
-		});
-	});
 
 	mui.plusReady(function() {
 
@@ -96,7 +86,7 @@
 		base.ShowArticle("#scroll", "List", userinfo.Number);
 
 		//点赞
-		mui('#scroll').on('tap', '.fa-thumbs-o-up', function() {
+		mui('#scroll').on('tap', '.goods', function() {
 			if(isLoading) {
 				return;
 			}
@@ -106,7 +96,6 @@
 				isLoading = false;
 				return mui.toast("已赞");
 			}
-			var num = this.childNodes[0];
 			var commentid = $this.getAttribute("cid");
 			HttpGet(base.RootUrl + "Comment/Zan", {
 				ID: userinfo.ID,
@@ -117,7 +106,10 @@
 					if(data.result) {
 						$this.classList.add("heartbeat");
 						$this.setAttribute("already", "1");
-						num.innerText = parseInt(num.innerText) + 1;
+						$this.setAttribute("src", "../images/base/like_hig.png");
+						var item = $("#goods" + commentid);
+						item.text(parseInt(item.text()) + 1);
+						item.addClass("red");
 					}
 				}
 				isLoading = false;
@@ -125,7 +117,11 @@
 		});
 
 		//评论
-		mui('#scroll').on('tap', '.fa-commenting-o', function() {
+		mui('#scroll').on('tap', '.comments', function() {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
 			ArticleID = this.getAttribute("articleid");
 			ParentCommentNumber = this.getAttribute("cid");
 			ParentUserNumber = this.getAttribute("userid");
@@ -136,6 +132,7 @@
 				});
 			}
 			EditorTan(1);
+			isLoading = false;
 		});
 	})
 
@@ -162,7 +159,6 @@
 			City: City
 		}, function(data) {
 			setTimeout(function() {
-
 				base.CloseWaiting();
 				mask.close();
 				mui.toast(data.result ? "感谢您的评论" : data.message);
@@ -284,7 +280,8 @@
 		} else {
 			model.push('<p class="tip mb0 f12 blue article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserID + '" power="' + item.ArticlePower + '">「' + item.Title + '」</p>');
 		}
-		model.push('<p class="tr mt10 mb15 c999"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" articleid="' + item.ArticleID + '" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
+		//model.push('<p class="tr mt10 mb15 c999"><i class="fa fa-thumbs-o-up f15" cid="' + item.ID + '" already="0"><span class="f11 ml5">' + item.Goods + '</span></i><i class="fa fa-commenting-o f15 ml15" articleid="' + item.ArticleID + '" cid="' + item.Number + '" userid="' + item.UserNumber + '"><span class="f11 ml5">回复</span></i></p>');
+		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.825rem;" class="ml15 fr comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articleid="' + item.ArticleID + '" /><span class="f13 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.825rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" /></div>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

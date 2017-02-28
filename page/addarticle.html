@@ -18,12 +18,12 @@
 			<a class="headericon mui-icon fr mui-text cfff" id="submit">保存</a>
 			<h1 class="mui-title c333"></h1>
 		</header>
-		<div class="mui-content">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
 			</div>
+		</div>
+		<div class="mui-content">
 			<div class="mui-bar mui-bar-nav initial f11 cfff" id="header" style="height:auto;">
 				<div class="info-body mt30">
 					<div id="title" class="title mb20 f18 textshadow">点击输入标题</div>
@@ -59,21 +59,14 @@
 	var currEditID = 0; //当前编辑对象ID
 	var currEditImg = ""; //当前编辑图片
 	var userinfo = base.GetUserInfo();
-	var mask = mui.createMask(function() {}); //显示遮罩
+	var mask = mui.createMask(function() {});
 
-	//启用双击监听
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
+	mui.init();
 
 	//标题
 	var title = document.getElementById("title");
 
 	mui.ready(function() {
-		base.InitScroll();
 
 		//音乐
 		document.getElementById('music').addEventListener('tap', function(event) {
@@ -126,6 +119,9 @@
 
 		//点击编辑
 		mui('#edit').on('tap', '.edit-content', function() {
+			if(base.RepeatAction()) {
+				return;
+			}
 			currEditID = this.id;
 			var type = this.getAttribute("type");
 			if(type == "pic") {
@@ -189,6 +185,9 @@
 
 		//删除
 		mui('#edit').on('tap', '.edit-del', function() {
+			if(base.RepeatAction()) {
+				return;
+			}
 			var length = $(".edit-content").length;
 			if(length <= 1) {
 				return mui.toast("请至少保留一段内容");

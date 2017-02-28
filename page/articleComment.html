@@ -15,35 +15,8 @@
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
 	</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<div class="mui-title c333" id="header">评论</div>
-		</header>
-		<div class="mui-bar mui-bar-tab tc f14 cfff hide" id="bottomAction" onclick="Comment()" style="background:#49be38;line-height:50px;">
-			我来说一句
-		</div>
-		<div class="mui-content">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
-			</div>
-			<div class="mui-slider mui-fullscreen">
-				<div class="mui-scroll-wrapper" style="bottom:50px;">
-					<div id="scroll" class="mui-scroll">
-						<div id="scroll-view">
+	<body id="main">
 
-						</div>
-						<div id="none" class="full tc hide">
-							<img src="../images/my/333.png" class="none" />
-							<p class="f13 mt10">既然还没人,那就先去首页逛会儿</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<textarea id="textarea" class="hide"></textarea>
 	</body>
 
 </html>
@@ -55,6 +28,14 @@
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
+	mui('#main').load("../part/list.html", function(response) {
+		document.getElementById("title").innerHTML = "评论";
+		document.getElementById("none_img").setAttribute("src", "../images/my/333.png");
+		document.getElementById("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
+		$(".mui-content").before('<div class="mui-bar mui-bar-tab tc f14 cfff hide" id="bottomAction" onclick="Comment()" style="background:#49be38;line-height:50px;">我来说一句</div>');
+		$("#main").append('<textarea id="textarea" class="hide"></textarea>');
+	});
+
 	var currpage = 1;
 	var totalpage = 2;
 	var index = 1;
@@ -79,11 +60,30 @@
 		swipeBack: false
 	});
 
-	mui.ready(function() {
+	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		ArticleID = self.ArticleID || 0;
+		ArticleNumber = self.ArticleNumber || 0;
 
-		base.InitScroll();
+		//返回
+		mui.back = function() {
+			plus.webview.currentWebview().close();
+		}
 
-		base.ScrollTop();
+		//系统定位
+		plus.geolocation.getCurrentPosition(function(p) {
+			Province = p.address.province;
+			City = p.address.city;
+		}, function(e) {});
+
+		var action = self.Action || null;
+		if(action == null) {
+			$("#bottomAction").removeClass("hide").addClass("bounceIn");
+		} else {
+			Comment();
+		}
+
+		Init();
 
 		base.ShowUser("#scroll");
 
@@ -135,32 +135,6 @@
 			EditorTan(1);
 			isLoading = false;
 		});
-	});
-
-	mui.plusReady(function() {
-		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID || 0;
-		ArticleNumber = self.ArticleNumber || 0;
-
-		//返回
-		mui.back = function() {
-			plus.webview.currentWebview().close();
-		}
-
-		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {});
-
-		var action = self.Action || null;
-		if(action == null) {
-			$("#bottomAction").removeClass("hide").addClass("bounceIn");
-		} else {
-			Comment();
-		}
-
-		Init();
 	});
 
 	//提交编辑
@@ -249,7 +223,7 @@
 	}
 
 	//初始化获取参数
-	function Init(articleId) {
+	function Init() {
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {

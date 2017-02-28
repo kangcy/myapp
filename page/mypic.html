@@ -44,27 +44,8 @@
 		</style>
 	</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<a id="confirm" class="mui-icon mui-text c333 fr">完成</a>
-			<div class="mui-title c333">相册</div>
-		</header>
-		<div class="mui-content">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
-			</div>
-			<div class="mui-slider mui-fullscreen">
-				<div class="mui-scroll-wrapper">
-					<div id="pullrefresh" class="mui-scroll">
-						<div id="scroll-view">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<body id="main">
+
 	</body>
 
 </html>
@@ -76,44 +57,27 @@
 <script src="../js/mui.lazyload.js"></script>
 <script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript">
+	mui('#main').load("../part/list.html", function(response) {
+		document.getElementById("title").innerHTML = "相册";
+		document.getElementById("none_img").setAttribute("src", "../images/my/666.png");
+		document.getElementById("none_tip").innerHTML = "这里还没有内容";
+		document.getElementById("confirm").classList.remove("hide");
+	});
+
 	var currpage = 1;
 	var totalpage = 2;
 	var Source = "";
-	var pagesize = base.PageSize;
+	var pagesize = 30;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
-
-	mui.ready(function() {
-
-		base.InitScroll();
-
-		base.ScrollTop();
-
-		mui("#pullrefresh").on('tap', '.thirdfloor', function(event) {
-			if(Source != "subindex") {
-				$(".check").removeClass("check");
-			}
-			var check = $(this).hasClass("check");
-			if(check) {
-				this.classList.remove("check");
-			} else {
-				this.classList.add("check");
-			}
-		});
-	});
+	mui.init();
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		Source = self.Source || "";
 
-		mui(document.getElementById("pullrefresh")).pullToRefresh({
+		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -126,6 +90,19 @@
 					var self = this;
 					pullupRefresh(self);
 				}
+			}
+		});
+
+		//选中切换
+		mui("#scroll").on('tap', '.thirdfloor', function(event) {
+			if(Source != "subindex") {
+				$(".check").removeClass("check");
+			}
+			var check = $(this).hasClass("check");
+			if(check) {
+				this.classList.remove("check");
+			} else {
+				this.classList.add("check");
 			}
 		});
 
@@ -221,11 +198,17 @@
 				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
+					document.getElementById("none").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i]);
 						table.appendChild(div);
 					}
+				} else {
+					document.getElementById("none").classList.remove("hide");
 				}
+			}
+			if(data == null && currpage == 1) {
+				document.getElementById("none").classList.remove("hide");
 			}
 			if(callback) {
 				callback();

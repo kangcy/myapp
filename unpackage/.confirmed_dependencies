@@ -672,7 +672,10 @@
 			"js/mui.lazyload.js",
 			"js/mui.lazyload.img.js",
 			"images/logo_default.png",
-			"part/list.html"
+			"part/list.html",
+			"images/base/like_nor.png",
+			"images/base/comment_nor.png",
+			"images/base/like_hig.png"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -1308,7 +1311,8 @@
 			"images/base/like_hig.png",
 			"js/mui.lazyload.js",
 			"js/mui.lazyload.img.js",
-			"images/logo_default.png"
+			"images/logo_default.png",
+			"part/list.html"
 		],
 		"refer": [
 			"page/articleCommentSub.html",
@@ -1942,7 +1946,10 @@
 			"css/mui.min.css",
 			"images/my/nocheck.png",
 			"images/my/check.png",
-			"js/jquery-1.10.2.min.js"
+			"js/jquery-1.10.2.min.js",
+			"part/list.html",
+			"images/my/333.png",
+			"images/my/666.png"
 		]
 	}
 }
