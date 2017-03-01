@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/loading.css">
 		<style type="text/css">
 			html,
 			body {
@@ -16,15 +17,6 @@
 				margin: 0px;
 			}
 			
-			.mui-loader {
-				position: absolute;
-				top: 25%;
-				width: 100%;
-				height: 60%;
-				color: #888;
-				text-align: center;
-			}
-			
 			.f14 {
 				font-size: 0.875rem !important;
 			}
@@ -32,7 +24,11 @@
 	</head>
 
 	<body>
-		<div class="mui-loader f14">正在加载</div>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -40,10 +36,6 @@
 <script type="text/javascript">
 	var Link = null;
 	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false, //启用右滑关闭功能
 		subpages: [{
 			id: 'showhrefsub',
 			url: 'showhrefsub.html',
@@ -55,14 +47,8 @@
 	});
 
 	mui.plusReady(function() {
-
 		var self = plus.webview.currentWebview();
 		Link = self.Link || "";
-
-		//返回
-		mui.back = function() {
-			plus.webview.currentWebview().close();
-		}
 	});
 
 	var contentWebview = null;
@@ -71,6 +57,7 @@
 		if(contentWebview == null) {
 			contentWebview = plus.webview.getWebviewById("showhrefsub");
 		}
+		document.getElementById("loader").classList.add("hide");
 		mui.fire(contentWebview, 'Init', {
 			Link: Link
 		});

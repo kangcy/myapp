@@ -134,14 +134,9 @@
 <script type="text/javascript">
 	var isLoading = false;
 	var ArticleID = 0;
-	var ArticleNumber = ""; //文章编号
+	var ArticleNumber = "";
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
 	mui.plusReady(function() {
 
@@ -149,12 +144,6 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber;
-
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			plus.webview.close(self);
-		}
 
 		document.getElementById('agree').addEventListener('tap', function(e) {
 			if(isLoading) {

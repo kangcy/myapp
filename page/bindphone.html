@@ -42,9 +42,7 @@
 	var settingPage = null;
 	var mask = mui.createMask(function() {});
 
-	mui.init({
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.ready(function() {
 		document.getElementById("title").innerText = userinfo.Phone == "" ? "绑定手机号" : "更换手机号";
@@ -61,8 +59,6 @@
 				isCountDown = false;
 				return mui.toast("友情提醒：您输入手机号码格式异常");
 			}
-			//显示遮罩
-			var mask = mui.createMask(function() {});
 			mask.show();
 			base.ShowWaiting("正在获取验证码");
 			var time = 60;
@@ -99,12 +95,7 @@
 	})
 
 	mui.plusReady(function() {
-
-		//返回
-		mui.back = function() {
-			plus.webview.currentWebview().close();
-		}
-
+		
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
 			if(isLoading) {

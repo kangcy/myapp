@@ -22,7 +22,9 @@
 
 	mui.plusReady(function() {
 		var parentPage = plus.webview.getWebviewById("showhref");
-		parentPage.evalJS("InitSubPage()");
+		if(parentPage) {
+			parentPage.evalJS("InitSubPage()");
+		}
 	});
 
 	window.addEventListener("Init", function(e) {

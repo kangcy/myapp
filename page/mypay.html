@@ -83,21 +83,16 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var ispay = 0;
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
-	$(function() {
+	mui.ready(function() {
+
 		base.UpdateUser(userinfo.Number, function() {
 			userinfo = base.GetUserInfo();
 			document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
@@ -106,7 +101,9 @@
 		if(userinfo.IsPay == 1) {
 			base.SwitchChange("autoPaySwitch", true);
 		}
+	});
 
+	mui.plusReady(function() {
 		//是否启用打赏
 		document.getElementById("autoPaySwitch").addEventListener('tap', function(event) {
 			if(isLoading) {
@@ -147,15 +144,6 @@
 				}
 			});
 		});
-	})
-
-	mui.plusReady(function() {
-
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			plus.webview.close(self);
-		}
 	});
 
 	function NotAgree() {
@@ -189,12 +177,17 @@
 
 	//操作弹窗
 	function ActionTan(index) {
+		var notice = document.getElementById("notice");
 		if(index == 0) {
-			$("#mytanbg").addClass("hide");
-			$("#notice").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+			document.getElementById("mytanbg").classList.add("hide");
+			notice.classList.remove("bounceIn");
+			notice.classList.add("bounceOut");
+			notice.classList.add("hide");
 		} else {
-			$("#mytanbg").removeClass("hide");
-			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+			document.getElementById("mytanbg").classList.remove("hide");
+			notice.classList.remove("hide");
+			notice.classList.remove("bounceOut");
+			notice.classList.add("bounceIn");
 		}
 	}
 </script>

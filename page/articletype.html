@@ -8,9 +8,11 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.css">
 		<style type="text/css">
 			.mui-table-view-cell {
 				padding: .8rem 0.9375rem;
+				border-bottom: 1px solid #fff;
 			}
 			
 			.mui-table-view:after {
@@ -34,10 +36,13 @@
 			<a id="submit" class="mui-icon mui-text c333 fr" onclick="Submit()">完成</a>
 			<h1 class="mui-title c333">选择文章分类</h1>
 		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
 		<div class="mui-content">
-			<div class="mui-scroll-wrapper" style="top:45px;">
-				<div class="mui-scroll" id="list">
-				</div>
+			<div id="list">
 			</div>
 		</div>
 	</body>
@@ -47,26 +52,16 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ArticleID = 0; //文章ID
-	var ArticleType = 0; //文章类型ID
-	var ArticleTypeName = 0; //文章类型名称
+	var ArticleID = 0;
+	var ArticleType = 0;
+	var ArticleTypeName = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	var shareSettingPage = null;
 
-	//启用双击监听
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
 	mui.ready(function() {
-		base.InitScroll();
-
-		base.ScrollTop();
-
 		//切换选择
 		$("#list").on('tap', 'li.music', function(event) {
 			$("#list .mui-icon").removeClass("mui-icon-checkmarkempty");
@@ -84,11 +79,6 @@
 		ArticleTypeName = self.ArticleTypeName || "";
 
 		Load(ArticleType);
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(self);
-		}
 	});
 
 	//加载
@@ -99,6 +89,7 @@
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
+					$("#loader").addClass("hide");
 					var html = [];
 					for(var i = 0, len = length; i < len; i++) {
 						html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell music" style="background:#E8E8E8;" index="' + data.list[i].ID + '" name="' + data.list[i].Name + '"><span class="fl">' + data.list[i].Name + '</span><span class="fr csubtitle mui-icon ' + (data.list[i].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
@@ -109,12 +100,14 @@
 						html.push('</ul>');
 					}
 					table.append(html.join(""));
+				} else {
+					$("#loader").removeClass("hide");
 				}
+			} else {
+				$("#loader").removeClass("hide");
 			}
 		});
 	}
-
-	var shareSettingPage = null;
 
 	function Submit() {
 		if(isLoading) {

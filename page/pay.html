@@ -103,15 +103,6 @@
 		});
 	});
 
-	mui.plusReady(function() {
-
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			plus.webview.close(self);
-		}
-	});
-
 	//下拉刷新
 	function pulldownRefresh(self) {
 		if(isLoading == true) {

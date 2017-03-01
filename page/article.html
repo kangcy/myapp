@@ -34,12 +34,7 @@
 	var userinfo = base.GetUserInfo();
 	var isLoading = false;
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
@@ -64,11 +59,6 @@
 		document.getElementById("title").innerHTML = self.ArticleTypeName || "列表";
 
 		Init(ArticleType, CreateUserNumber, Source);
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(self)
-		}
 	});
 
 	//初始化获取参数

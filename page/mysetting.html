@@ -104,12 +104,7 @@
 	var userinfo = base.GetUserInfo();
 	var mask = mui.createMask(function() {}); //显示遮罩
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.InitScroll();

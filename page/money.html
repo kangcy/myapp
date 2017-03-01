@@ -233,9 +233,7 @@
 	var ArticleUserNumber = "";
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.InitScroll();
@@ -274,11 +272,6 @@
 		}, function(e) {
 			console.log("获取支付通道失败：" + e.message);
 		});
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(self)
-		}
 	});
 
 	//其他金额

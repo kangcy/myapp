@@ -28,12 +28,6 @@
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
-	mui('#main').load("../part/list.html", function(response) {
-		document.getElementById("title").innerHTML = "评论与回复";
-		document.getElementById("none_img").setAttribute("src", "../images/my/333.png");
-		document.getElementById("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
-		$("#main").append('<textarea id="textarea" class="hide"></textarea>');
-	});
 	var currpage = 1;
 	var totalpage = 2;
 	var isLoading = false;
@@ -49,15 +43,19 @@
 
 	mui.init();
 
+	mui.ready(function() {
+		mui('#main').load("../part/list.html", function(response) {
+			document.getElementById("title").innerHTML = "评论与回复";
+			document.getElementById("none_img").setAttribute("src", "../images/my/333.png");
+			document.getElementById("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
+			$("#main").append('<textarea id="textarea" class="hide"></textarea>');
+		});
+	});
+
 	mui.plusReady(function() {
 
 		//系统定位
 		base.GetCurrentPosition();
-
-		//返回
-		mui.back = function() {
-			plus.webview.currentWebview().close();
-		}
 
 		//评论与回复
 		mui(document.getElementById("scroll")).pullToRefresh({

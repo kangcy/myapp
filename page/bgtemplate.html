@@ -84,12 +84,7 @@
 <script type="text/javascript">
 	var totalheight = window.innerHeight - 90;
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
 	var contentWebview = null;
 	mui.plusReady(function() {
@@ -97,9 +92,5 @@
 		var self = plus.webview.currentWebview();
 		Url = self.Url;
 		Source = self.Source;
-
-		mui.back = function() {
-			plus.webview.currentWebview().close();
-		}
 	});
 </script>

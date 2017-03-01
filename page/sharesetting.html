@@ -40,7 +40,7 @@
 		</style>
 	</head>
 
-	<body style="height: 100%;">
+	<body>
 		<header class="mui-bar mui-bar-nav" style="box-shadow:0px 0px 0.5px #999;background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333">分享设置</h1>
@@ -52,39 +52,39 @@
 				</li>
 				<li class="mui-table-view-cell list" index="3">
 					<span class="fl">公开</span>
-					<span class="fr caaa mr20 f11">所有人都可以看到</span>
-					<span class="fr caaa mui-icon mui-icon-checkmarkempty f30"></span>
+					<span class="fr c999 mr20 f11">所有人都可以看到</span>
+					<span class="fr c999 mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
 				<li class="mui-table-view-cell list" index="2">
 					<span class="fl">不公开</span>
-					<span class="fr caaa mr20 f11">仅通过自己分享后才可见</span>
-					<span class="fr caaa mui-icon mui-icon-checkmarkempty f30"></span>
+					<span class="fr c999 mr20 f11">仅通过自己分享后才可见</span>
+					<span class="fr c999 mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
 				<li class="mui-table-view-cell list" index="1">
 					<span class="fl">密码可见</span>
-					<span class="fr caaa mr20 f11">设置密码,输入密码才可见</span>
-					<span class="fr caaa mui-icon mui-icon-checkmarkempty f30"></span>
+					<span class="fr c999 mr20 f11">设置密码,输入密码才可见</span>
+					<span class="fr c999 mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
 				<li class="mui-table-view-cell list" index="0">
 					<span class="fl">私密</span>
-					<span class="fr caaa mr20 f11">仅自己可见</span>
-					<span class="fr caaa mui-icon mui-icon-checkmarkempty f30"></span>
+					<span class="fr c999 mr20 f11">仅自己可见</span>
+					<span class="fr c999 mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
 					<span class="fl f11" onclick="PayTan(1)">文章类别</span>
 				</li>
 				<li class="mui-table-view-cell" id="articletype">
-					<a class="mui-navigate-right"><span class="f13 c333 fl">分类</span><span class="fr caaa mr20 f12" id="article_type"></span></a>
+					<a class="mui-navigate-right"><span class="f13 c333 fl">分类</span><span class="fr c999 mr20 f12" id="article_type"></span></a>
 				</li>
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
 					<span class="fl f11">准确设置文章类别，方便以后归纳整理</span>
 				</li>
-				<li class="mui-table-view-cell"> 
+				<li class="mui-table-view-cell">
 					<p class="f13 c333">投稿</p>
 					<div class="divSwitch">
 						<div class="my-switch fr" id="switch">
 							<div></div>
-						</div> 
+						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
@@ -109,24 +109,22 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var ArticleID = 0; //文章ID
-	var ArticleNumber = ""; //文章编号
-	var ArticlePower = 0; //分享权限
-	var ArticlePowerPwd = ""; //权限密码
-	var ArticleType = 0; //文章类型ID
-	var ArticleTypeName = ""; //文章类型名称
+	var ArticleID = 0;
+	var ArticleNumber = "";
+	var ArticlePower = 0;
+	var ArticlePowerPwd = "";
+	var ArticleType = 0;
+	var ArticleTypeName = "";
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
-	$(function() {
+	mui.ready(function() {
 		//选中切换
 		$("#list").on('tap', '.list', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			var $this = $(this);
 			var index = $this.attr("index");
 			//密码验证
@@ -159,7 +157,7 @@
 				ArticleTypeName: ArticleTypeName
 			});
 		});
-	})
+	});
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
@@ -186,7 +184,6 @@
 			if(page) {
 				page.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
 			}
-
 			plus.webview.close(self);
 		}
 

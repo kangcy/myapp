@@ -85,12 +85,7 @@
 	var FontSize = "f12";
 	var FontWeight = "";
 	var Link = "";
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
 	mui.ready(function() {
 
@@ -251,11 +246,6 @@
 		//字数限制
 		document.getElementById("edit").ontouchend = function() {
 			document.getElementById("edit").innerHTML = document.getElementById("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
-		}
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(self);
 		}
 
 		//提交

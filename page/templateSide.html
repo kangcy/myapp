@@ -50,13 +50,7 @@
 <script type="text/javascript">
 	var detail;
 
-	//启用双击监听 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.plusReady(function() {
 
@@ -64,10 +58,6 @@
 		var index = self.index || 0;
 
 		document.getElementById("radio" + index).setAttribute("checked", "checked");
-
-		mui.back = function() {
-			plus.webview.close(self);
-		}
 
 		document.getElementById("NotAgree").addEventListener("tap", function() {
 			if(!detail) {

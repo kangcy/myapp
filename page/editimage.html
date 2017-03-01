@@ -10,16 +10,6 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/loading.css">
 		<link rel="stylesheet" href="../cropper/cropper.css">
-		<style type="text/css">
-			.mui-loader {
-				position: absolute;
-				top: 25%;
-				width: 100%;
-				height: 60%;
-				color: #888;
-				text-align: center;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -69,9 +59,9 @@
 
 	mui.init();
 
-	$(function() {
+	mui.ready(function() {
 		$("#editimage").css("height", (totalheight) + "px");
-	})
+	});
 
 	var contentWebview = null;
 	mui.plusReady(function() {
@@ -104,10 +94,6 @@
 					}).show();
 				}
 			});
-		}
-
-		mui.back = function() {
-			plus.webview.currentWebview().close();
 		}
 
 		document.getElementById("confirm").addEventListener('tap', function(event) {
@@ -144,7 +130,7 @@
 							if(data != null) {
 								if(data.result) {
 									var addarticlePage = plus.webview.getWebviewById('addarticle');
-									if(addarticlePage) { 
+									if(addarticlePage) {
 										addarticlePage.evalJS("AddPic('" + data.message + "','" + src + "','" + PartID + "')");
 									}
 									mui.back();

@@ -64,13 +64,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	//启用双击监听
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.InitScroll();
@@ -79,12 +73,6 @@
 	});
 
 	mui.plusReady(function() {
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(plus.webview.currentWebview());
-		}
-
 		mui("#list").on('tap', 'div', function(event) {
 			var tid = this.getAttribute("tid");
 			base.OpenWindow("helpSub", "helpSub.html", {
@@ -118,7 +106,7 @@
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.setAttribute("tid", item.ID);
-		div.innerHTML = '<img src="' + (base.IsNullOrEmpty(item.Cover) ? "../images/login/logo.png" : item.Cover) + '" /><p class="f12 mt5 mb20 c000">' + item.Name + '</p>';
+		div.innerHTML = '<img src="' + (base.IsNullOrEmpty(item.Cover) ? "../images/login/logo.png" : item.Cover) + '" /><p class="f12 mt5 mb20 c333">' + item.Name + '</p>';
 		return div;
 	}
 </script>

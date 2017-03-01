@@ -54,9 +54,7 @@
 <script type="text/javascript">
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		swipeBack: false 
-	});
+	mui.init();
 
 	var parentPage = null;
 
@@ -69,11 +67,6 @@
 		var self = plus.webview.currentWebview();
 		document.getElementById('link').value = self.Link || "";
 		document.getElementById('text').value = self.Text || "";
-
-		//返回
-		mui.back = function() {
-			plus.webview.currentWebview().close();
-		}
 
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
@@ -111,12 +104,4 @@
 			mui.back();
 		});
 	});
-
-	//手机号码校验
-	function CheckPhone(phone) {
-		phone = phone || '';
-		if(phone == '')
-			return false;
-		return phone.length == 11 && !isNaN(phone) && phone.toString().indexOf("1") == 0;
-	};
 </script>

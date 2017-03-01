@@ -81,11 +81,6 @@
 		var type = self.tid || 0;
 
 		Load(type);
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(plus.webview.currentWebview());
-		}
 	});
 
 	/**
@@ -122,7 +117,7 @@
 	function appendStr(item) {
 		var div = document.createElement('li');
 		div.className = 'mui-table-view-cell mui-collapse';
-		div.innerHTML = '<a class="mui-navigate-right f13" href="#">' + item.Name + '</a><div class="mui-collapse-content"><p class="f12 c666 mt5 mb5">' + item.Summary + '</p></div>';
+		div.innerHTML = '<a class="mui-navigate-right f13 c333" href="#">' + item.Name + '</a><div class="mui-collapse-content"><p class="f12 c999 mt5 mb5">' + item.Summary + '</p></div>';
 		return div;
 	}
 </script>

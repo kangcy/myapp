@@ -46,6 +46,10 @@
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:34px;font-size:16px;">
 			</div>
 		</header>
+		<nav class="mui-bar mui-bar-tab" id="search">
+			<div style="margin-left:10px;font-size:16px;height:50px;line-height:50px;" class="fl blue" id="no">取消</div>
+			<div style="margin-right:10px;font-size:16px;height:50px;line-height:50px;" class="fr blue" id="yes">完成</div>
+		</nav>
 		<div class="mui-content ">
 			<div id="pullwrapper" class="mui-scroll-wrapper" style="top:50px;bottom:50px;">
 				<div id="pullrefresh" class="mui-scroll">
@@ -55,10 +59,6 @@
 				</div>
 			</div>
 		</div>
-		<nav class="mui-bar mui-bar-tab" id="search">
-			<div style="margin-left:10px;font-size:16px;height:50px;line-height:50px;" class="fl blue" id="no">取消</div>
-			<div style="margin-right:10px;font-size:16px;height:50px;line-height:50px;" class="fr blue" id="yes">完成</div>
-		</nav>
 	</body>
 
 </html>
@@ -89,12 +89,7 @@
 	mui.ready(function() {
 		base.InitScroll();
 
-		var deceleration = mui.os.ios ? 0.003 : 0.0009; // 阻尼系数
-		mui('.mui-scroll-wrapper').scroll({
-			bounce: true,
-			indicators: false, // 是否显示滚动条
-			deceleration: deceleration
-		});
+		base.ScrollTop();
 
 		//语音识别完成事件
 		search.addEventListener('recognized', function(e) {

@@ -35,9 +35,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	mui.init({
-		swipeBack: false
-	});
+	mui.init();
 
 	var page = null;
 	var title = document.getElementById("title");
@@ -77,11 +75,6 @@
 		if(source != "report") {
 			question.value = self.title;
 			question.focus();
-		}
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(self);
 		}
 
 		//提交

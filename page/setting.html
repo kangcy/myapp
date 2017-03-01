@@ -142,9 +142,7 @@
 <script type="text/javascript">
 	var isLoading = false; //是否操作中
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		swipeBack: false
-	});
+	mui.init();
 	mui.ready(function() {
 
 		//启用水印
@@ -352,11 +350,6 @@
 				});
 			}, 1000);
 		});
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(plus.webview.currentWebview());
-		}
 
 		//账号管理
 		document.getElementById('account').addEventListener('tap', function(event) {
