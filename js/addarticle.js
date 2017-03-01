@@ -152,8 +152,8 @@ function Upload(imgurl, length) {
 						ID: userinfo.ID,
 						Cover: currUploadImg.join(","),
 						Title: "",
-						Province: Province,
-						City: City
+						Province: base.Province,
+						City: base.City
 					}
 					HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 						base.CloseWaiting();
@@ -189,8 +189,8 @@ function ConfirmImg(src) {
 		ID: userinfo.ID,
 		Cover: src,
 		Title: "",
-		Province: Province,
-		City: City
+		Province: base.Province,
+		City: base.City
 	}
 	HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 		setTimeout(function() {

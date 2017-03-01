@@ -5079,8 +5079,10 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-	max-width: 100% !important;
-	max-height: 400px;
+	width: 100%;
+	min-width: 100%;
+	/*max-width: 100% !important;
+	max-height: 400px;*/
 }
 
 .secondfloor {
