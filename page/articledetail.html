@@ -180,7 +180,6 @@
 		</div>
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
-		<textarea id="textarea" class="hide"></textarea>
 	</body>
 
 </html>
@@ -203,9 +202,6 @@
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
-
-	var Province = "";
-	var City = "";
 
 	//显示遮罩
 	var mask = mui.createMask(function() {});
@@ -342,12 +338,7 @@
 		}
 
 		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {
-
-		});
+		base.GetCurrentPosition();
 
 		//分享设置
 		updateSerivces();
@@ -560,8 +551,8 @@
 		HttpGet(base.RootUrl + "Article/Copy", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
-			Province: Province,
-			City: City
+			Province: base.Province,
+			City: base.City
 		}, function(data) {
 			setTimeout(function() {
 				base.CloseWaiting();

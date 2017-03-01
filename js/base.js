@@ -51,6 +51,26 @@
 })(document, window);
 
 var base = new function() {
+
+	/**
+	 * 当前定位信息
+	 **/
+	this.Province = "";
+	this.City = "";
+
+	/**
+	 * 系统定位
+	 **/
+	this.GetCurrentPosition = function() {
+		plus.geolocation.getCurrentPosition(function(p) {
+			base.Province = p.address.province;
+			base.City = p.address.city;
+		}, function(e) {
+			base.Province = "";
+			base.City = "";
+		});
+	}
+
 	/**
 	 * 优酷
 	 **/

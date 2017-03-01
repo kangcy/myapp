@@ -7,7 +7,7 @@
 	"id": "H5CCC9B38",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "GO",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "2.8",/*应用版本名称*/
+		"name": "0.2",/*应用版本名称*/
 		"code": ""
 	},
 	"description": "",/*应用描述信息*/
@@ -87,7 +87,7 @@
 		"Payment": {
 			"description": "管理支付插件"
 		},
-		"Push": {}
+		"Push": {} 
 	},
 	"plus": {
 		"splashscreen": {
@@ -102,9 +102,9 @@
 			"plugins": {
 				"push": {
 					"igexin": {
-						"appid": "Z2BVMC4pXJ9RKhk8tOpp61",
-						"appkey": "t8uxXtZgS96n5ZjNvbtHe",
-						"appsecret": "P1ufG26Zpy7M8CtNzV5PA8"
+						"appid": "lj3zn7lhe8AnwY2fRGkXxA",
+						"appkey": "22yXZ7maL29z3H0OcCnU39",
+						"appsecret": "NfEHRptCe4AqvzpRVqkNL4"
 					}
 				},
 				"share": {

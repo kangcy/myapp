@@ -61,8 +61,6 @@
 <script type="text/javascript">
 	var isLoading = false;
 	var isCountDown = false; //正在倒计时
-	var Province = "";
-	var City = "";
 	var mask = mui.createMask(function() {});
 
 	mui.init();
@@ -118,12 +116,7 @@
 
 	mui.plusReady(function() {
 		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {
-			//mui.toast("未授权")
-		});
+		base.GetCurrentPosition();
 
 		var settings = app.getSettings();
 		var accountBox = document.getElementById('account'); //手机号码
@@ -175,8 +168,8 @@
 					Phone: mob,
 					NickName: nickname,
 					Password: password,
-					Province: Province,
-					City: City,
+					Province: base.Province,
+					City: base.City,
 					Code: code,
 					SMS: "regsms"
 				};

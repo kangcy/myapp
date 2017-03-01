@@ -86,8 +86,6 @@
 <script src="../js/base.js"></script>
 <script src="../js/login.js"></script>
 <script type="text/javascript">
-	var Province = "";
-	var City = "";
 	var isLoading = false;
 
 	mui.init({
@@ -116,12 +114,7 @@
 	mui.plusReady(function() {
 
 		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {
-
-		});
+		base.GetCurrentPosition();
 
 		var settings = app.getSettings();
 
@@ -145,8 +138,8 @@
 				var loginInfo = {
 					Phone: accountBox.value,
 					Password: passwordBox.value,
-					Province: Province,
-					City: City
+					Province: base.Province,
+					City: base.City
 				};
 				//登录 
 				app.login(loginInfo, function(err) {
@@ -284,8 +277,8 @@
 	//显示用户信息 
 	function showData(type, data) {
 		var loginInfo = {};
-		loginInfo.Province = Province;
-		loginInfo.City = City;
+		loginInfo.Province = base.Province;
+		loginInfo.City = base.City;
 		switch(type) {
 			case 'weixin':
 				//{"openid":"oRrdQt8RTwroyZTnROSsJKHRM1Yw","nickname":"一个傻瓜","sex":1,"language":"zh_CN","city":"Changzhou","province":"Jiangsu","country":"CN","headimgurl":"http://wx.qlogo.cn/mmopen/eytJa9K5jkpPNvxRBGM4nIVq8iaaAH7Al37gxgs7t3TomcxByyFmYcvxhmBPRRFwrtKHapYGs8OSTticyOWLhbanpmrgMQiabsR/0","privilege":[],"unionid":"oU5Yyt4lcveMTHQvHHnE_kymcuDQ"}

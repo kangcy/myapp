@@ -202,8 +202,6 @@
 	var NickName = "";
 	var Avatar = "";
 	var Sex = 0;
-	var Province = "";
-	var City = "";
 	var ShareInfo = {};
 	var userinfo = base.GetUserInfo();
 	var mask = mui.createMask(function() {});
@@ -244,14 +242,6 @@
 			Uri = plus.android.importClass("android.net.Uri");
 			main = plus.android.runtimeMainActivity();
 		}
-
-		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {
-
-		});
 	});
 
 	//初始化获取参数

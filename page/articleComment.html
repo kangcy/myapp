@@ -46,19 +46,12 @@
 	var ArticleNumber = "";
 	var userinfo = base.GetUserInfo();
 	var editor = null;
-	var Province = "";
-	var City = "";
 	var ParentCommentNumber = "";
 	var ParentUserNumber = "";
 	var NewId = 0; //最新添加评论ID
 	var mask = mui.createMask(function() {});
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
@@ -71,10 +64,7 @@
 		}
 
 		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {});
+		base.GetCurrentPosition();
 
 		var action = self.Action || null;
 		if(action == null) {
@@ -156,8 +146,8 @@
 			ParentCommentNumber: ParentCommentNumber,
 			ParentUserNumber: ParentUserNumber,
 			Summary: escape(val),
-			Province: Province,
-			City: City
+			Province: base.Province,
+			City: base.City
 		}, function(data) {
 			setTimeout(function() {
 				base.CloseWaiting();

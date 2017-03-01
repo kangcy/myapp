@@ -41,8 +41,6 @@
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
 	var editor = null;
-	var Province = "";
-	var City = "";
 	var ArticleID = 0;
 	var ParentCommentNumber = 0;
 	var ParentUserNumber = 0;
@@ -54,10 +52,7 @@
 	mui.plusReady(function() {
 
 		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {});
+		base.GetCurrentPosition();
 
 		//返回
 		mui.back = function() {
@@ -155,8 +150,8 @@
 			ParentCommentNumber: ParentCommentNumber,
 			ParentUserNumber: ParentUserNumber,
 			Summary: escape(val),
-			Province: Province,
-			City: City
+			Province: base.Province,
+			City: base.City
 		}, function(data) {
 			setTimeout(function() {
 				base.CloseWaiting();

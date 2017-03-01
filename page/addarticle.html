@@ -46,8 +46,6 @@
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
 <script type="text/javascript">
-	var Province = ""; //当前定位省份
-	var City = ""; //当前定位城市
 	var ArticleID = 0; //文章ID
 	var ArticleNumber = ""; //文章编号
 	var MusicID = 0; //音乐
@@ -243,10 +241,7 @@
 		});
 
 		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {});
+		base.GetCurrentPosition();
 	});
 
 	//修改图片
@@ -272,7 +267,7 @@
 
 	//修改封面
 	function UpdateCover(url) {
-		if(Cover == url) { 
+		if(Cover == url) {
 			return;
 		}
 		HttpGet(base.RootUrl + "Article/EditArticleCover", {
@@ -384,8 +379,8 @@
 			MusicID: MusicID,
 			MusicName: MusicName,
 			MusicUrl: MusicUrl,
-			Province: Province,
-			City: City,
+			Province: base.Province,
+			City: base.City,
 			PartIDs: ids.join(",")
 		}, function(data) {
 			setTimeout(function() {

@@ -121,8 +121,6 @@
 <script src="../js/base.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
-	var Province = ""; //当前定位省份
-	var City = ""; //当前定位城市
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		swipeBack: false //启用右滑关闭功能
@@ -140,13 +138,24 @@
 	var backButtonPress = 0;
 	mui.plusReady(function() {
 
+		//用户信息
+		//{"id":"igexin","token":"54f3c1dc7795e813a8e0cdb039becb6f","clientid":"54f3c1dc7795e813a8e0cdb039becb6f","appid":"pPyZWvH3Fa6PXba10aJ009","appkey":"b7dOGlNPHR7pqwUxDhpTi4"}
+		alert(JSON.stringify(plus.push.getClientInfo()));
+
+		//监听推送消息		
+		plus.push.addEventListener("receive", function(msg) {
+			// 分析msg.payload处理业务逻辑 
+			alert("receive" + JSON.stringify(msg));
+
+			//用户手动创建消息
+			plus.push.createMessage(msg.content, msg.payload || '', msg);
+		}, false);
+		plus.push.addEventListener("click", function(msg) {
+			alert("click" + JSON.stringify(msg));
+		}, false);
+
 		//系统定位
-		plus.geolocation.getCurrentPosition(function(p) {
-			Province = p.address.province;
-			City = p.address.city;
-		}, function(e) {
-			//mui.toast("未授权")
-		});
+		base.GetCurrentPosition();
 
 		//首页返回键处理
 		//1、若侧滑菜单显示，则关闭侧滑菜单
