@@ -40,12 +40,12 @@
 			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell" onclick="BindPwd()">
 					<span class="fl">密码</span>
-					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f16"></span>
 					<span class="fr c999 mr10" id="password"></span>
 				</li>
 				<li class="mui-table-view-cell" onclick="BindPhone()">
 					<span class="fl">绑定手机号</span>
-					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f16"></span>
 					<span class="fr c999 mr10" id="phone"></span>
 				</li>
 				<li class="mui-table-view-cell">
@@ -84,12 +84,10 @@
 	var auths = {};
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.ready(function() {
-		base.InitScroll();
+
 		document.getElementById("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(8, 11);
 		document.getElementById("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置";
 
@@ -113,7 +111,7 @@
 
 		plus.oauth.getServices(function(services) {
 			auths = services;
-		}, function(e) {
+		}, function(e) { 
 			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
 		});
 

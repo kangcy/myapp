@@ -354,11 +354,12 @@ var base = new function() {
 	 * 监听标题滑动切换
 	 **/
 	this.InitSlider = function(parentPage) {
-		document.getElementById('slider').addEventListener('slide', function(e) {
-			if(parentPage == null) {
-				parentPage = plus.webview.currentWebview().parent();
-			}
-			parentPage.evalJS("UpdateCurr(" + e.detail.slideNumber + ")");
+		mui('.mui-slider').slider();
+		mui('.mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control').scroll({
+			scrollY: false,
+			scrollX: true,
+			indicators: false,
+			snap: '.mui-control-item'
 		});
 	}
 

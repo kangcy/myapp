@@ -13,6 +13,54 @@
 		<link rel="stylesheet" href="../css/input.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="../css/articledetail.css">
+		<style type="text/css">
+			.custom {
+				position: fixed;
+				bottom: 0px;
+				left: 0px;
+				width: 100%;
+				height: 8rem;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 100;
+				text-align: center;
+			}
+			
+			.custom .span1 {
+				position: absolute;
+				left: 1rem;
+				top: 1rem;
+			}
+			
+			.custom .span2 {
+				position: absolute;
+				right: 1rem;
+				top: 1rem;
+			}
+			
+			.custom .items {
+				width: 90%;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				display: inline-block;
+				border: 1px solid #fff;
+				border-radius: 10px;
+				background: #fff;
+				overflow: hidden;
+				margin-top: 3.5rem;
+			}
+			
+			.custom .items .item {
+				width: 33.3%;
+				display: inline-block;
+				float: left;
+				text-align: center;
+			}
+			
+			.custom .items .item.curr {
+				background: #BF403A;
+				color: #fff;
+			}
+		</style>
 	</head>
 
 	<body id="body">
@@ -136,6 +184,18 @@
 		</div>
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
+		<!--自定义背景-->
+		<div id="custom" class="custom tc hide">
+			<div class="full">
+				<span class="span1 f13 cfff" onclick="NotAgree(0)">取消</span>
+				<span class="span2 f13 cfff" onclick="Agree(0)">完成</span>
+				<div class="items f13">
+					<div class="item curr" onclick="ChangeCustom(0)">全屏</div>
+					<div class="item" onclick="ChangeCustom(1)">居顶</div>
+					<div class="item" onclick="ChangeCustom(2)">平铺</div>
+				</div>
+			</div>
+		</div>
 		<div class="mui-iframe-wrapper hide" id="wrapper" style="top:46px;bottom:50px;">
 			<div class="mui-content mui-scroll-wrapper bg">
 				<div class="mui-scroll" id="bg">
@@ -206,13 +266,13 @@
 
 	//显示遮罩
 	var mask = mui.createMask(function() {});
+	var $custom = $("#custom");
 
 	//启用双击监听 
 	mui.init({
 		gestureConfig: {
 			doubletap: true
-		},
-		swipeBack: false
+		}
 	});
 
 	mui.ready(function() {
@@ -631,11 +691,18 @@
 
 	//取消修改背景设置
 	function NotAgree() {
+		if(base.RepeatAction()) {
+			return;
+		}
+		CustomTan(0);
 		ChangeBg(Article.Background);
 	}
 
 	//修改背景设置
 	function Agree() {
+		if(base.RepeatAction()) {
+			return;
+		}
 		if(Article.Background == CurrBackground) {
 			return;
 		}
@@ -643,6 +710,7 @@
 			return;
 		}
 		isLoading = true;
+		CustomTan(0);
 		HttpGet(base.RootUrl + "Article/EditBackground", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -710,43 +778,11 @@
 
 	//显示侧滑页面
 	function ShowSide() {
-		if(CurrTemplate > 0) {
+		/*if(CurrTemplate > 0) {
 			return mui.toast("仅自定义模板可用");
-		}
-
-		//防止快速点击可能导致多次创建
-		if(wc) {
-			return;
-		}
+		}*/
 		ActionTan(0);
-		//开启遮罩
-		self.setStyle({
-			mask: "rgba(0,0,0,0.5)"
-		});
-		//创建侧滑页面
-		wc = plus.webview.create("templateSide.html", "templateSide", {
-			left: "50%",
-			width: "50%",
-			popGesture: "none"
-		}, {
-			index: CurrBackground
-		});
-
-		//侧滑页面关闭后关闭遮罩
-		wc.addEventListener('close', function() {
-			self.setStyle({
-				mask: "none"
-			});
-			wc = null;
-		}, false);
-		//侧滑页面加载后显示（避免白屏）
-		wc.addEventListener("loaded", function() {
-			wc.show("slide-in-right", 200);
-		}, false);
-		//关闭侧滑窗口
-		self.addEventListener("maskClick", function() {
-			wc.close("auto");
-		}, false);
+		CustomTan(1);
 	}
 
 	//分享
@@ -773,10 +809,10 @@
 		}
 		if(index == 0) {
 			$("#mysharebg").addClass("hide");
-			$("#myshare").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+			$("#myshare").removeClass("bounceIn").addClass("bounceOut");
 		} else {
-			$("#mysharebg").removeClass("hide");
 			$("#myshare").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+			$("#mysharebg").removeClass("hide");
 		}
 	}
 
@@ -784,10 +820,10 @@
 	function ActionTan(index) {
 		if(index == 0) {
 			$("#myactionbg").addClass("hide");
-			$("#myaction").removeClass("bounceInDown").addClass("hide");
+			$("#myaction").removeClass("bounceIn").addClass("bounceOut");
 		} else {
 			$("#myactionbg").removeClass("hide");
-			$("#myaction").removeClass("hide").addClass("bounceInDown");
+			$("#myaction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
 	}
 
@@ -810,6 +846,23 @@
 			$("#btnTemp").addClass("hide");
 			$("#agreeTemp,#temps").removeClass("hide");
 		}
+	}
+
+	//自定义背景弹窗
+	function CustomTan(index) {
+		if(index == 0) {
+			$custom.removeClass("bounceIn").addClass("bounceOut");
+		} else {
+			$custom.find(".curr").removeClass("curr");
+			$custom.find(".item:eq(" + CurrBackground + ")").addClass("curr");
+			$custom.removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+		}
+	}
+
+	function ChangeCustom(index) {
+		$custom.find(".curr").removeClass("curr");
+		$custom.find(".item:eq(" + index + ")").addClass("curr");
+		ChangeBg(index);
 	}
 
 	//确认模板

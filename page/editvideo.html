@@ -127,7 +127,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/video.copper.js"></script>
@@ -165,12 +164,16 @@
 
 	//操作弹窗
 	function ActionTan(index) {
+		var notice = document.getElementById("notice");
 		if(index == 0) {
-			$("#mytanbg").addClass("hide");
-			$("#notice").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+			document.getElementById("mytanbg").classList.add("hide");
+			notice.classList.remove("bounceIn");
+			notice.classList.add("bounceOut");
 		} else {
-			$("#mytanbg").removeClass("hide");
-			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+			document.getElementById("mytanbg").classList.remove("hide");
+			notice.classList.remove("hide");
+			notice.classList.remove("bounceOut");
+			notice.classList.add("bounceIn");
 		}
 	}
 
