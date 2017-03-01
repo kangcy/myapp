@@ -8,7 +8,8 @@ function Payment() {
 	}
 	isLoading = true;
 	var money = $("#txtmoney").val();
-	if(isNaN(money)) {
+
+	if(base.IsNullOrEmpty(money) || isNaN(money)) {
 		base.CloseWaiting();
 		isLoading = false;
 		plus.nativeUI.alert("输入金额格式不正确", null, "");

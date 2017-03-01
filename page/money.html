@@ -74,8 +74,8 @@
 			}
 			
 			.payment {
-				position: fixed;
-				bottom: 4rem;
+				/*position: fixed;
+				bottom: 4rem;*/
 				left: 10%;
 				width: 80%;
 				height: 2.5rem;
@@ -87,8 +87,8 @@
 			}
 			
 			.anony {
-				position: fixed;
-				bottom: 1.5rem;
+				/*position: fixed;
+				bottom: 1.5rem;*/
 				left: 10%;
 				width: 80%;
 				color: #FBEAD2;
@@ -184,7 +184,7 @@
 		</header>
 		<div class="mui-content tc caaa">
 			<img id="payuser" src="" class="mt20" />
-			<div class="items c999 mt20 f13">
+			<div id="price" class="items c999 mt20 f13">
 				<div class="item">
 					<div class="choosemoney" money="5.88">5.88元</div>
 				</div>
@@ -215,7 +215,7 @@
 				<div id="weixin" class="weixin" onclick="ChangePayWay(1)">微信</div>
 			</div>
 			<div class="f13 payment bold" onclick="Payment()">赞&nbsp;赏</div>
-			<div class="f13 anony" onclick="Anony()" id="anony">
+			<div class="f13 anony mt20" onclick="Anony()" id="anony">
 				匿名赞赏
 			</div>
 		</div>
@@ -236,7 +236,8 @@
 	mui.init();
 
 	mui.ready(function() {
-		base.InitScroll();
+		var height = window.innerHeight - ($("#price").height() + $("#payuser").height() + 150);
+		$(".payment").css("margin-top", height / 2 + "px");
 
 		//金额切换
 		$(".choosemoney").click(function() {

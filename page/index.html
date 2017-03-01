@@ -13,22 +13,20 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<div class="mui-title c333">关注</div>
 		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
 		<div class="mui-content">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
+			<div id="pullrefresh">
+				<div id="scroll-view">
 				</div>
 			</div>
-			<div class="mui-scroll-wrapper" style="top:45px;">
-				<div id="pullrefresh" class="mui-scroll">
-					<div id="scroll-view">
-
-					</div>
-				</div>
-			</div>
+		</div>
 	</body>
 
 </html>
@@ -38,8 +36,6 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
@@ -48,12 +44,7 @@
 	var subindexPage = null;
 	var isLoading = false;
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.ready(function() {
 
@@ -157,17 +148,12 @@
 				var length = data.records;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, true);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
 						table.appendChild(div);
 					}
 				}
 			}
 			callback();
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 </script>
