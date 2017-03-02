@@ -8,12 +8,67 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/fan.css">
-		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../css/img.preview.css">
 		<style type="text/css">
 			.none {
 				margin-top: 45% !important;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+				padding: 0 2rem;
+			}
+			
+			.mui-table-view-cell {
+				background: #fff;
+				padding: 0px 0.9375rem;
+				border-bottom: 1px solid #eee;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 0.625rem 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+			}
+			
+			.oa-contact-avatar {
+				width: 3.5rem;
+			}
+			
+			.oa-contact-avatar img {
+				width: 2.5rem !important;
+				height: 2.5rem !important;
+				border-radius: 50px;
+			}
+			
+			.oa-contact-content {
+				width: 100%;
+			}
+			
+			.oa-contact-icon {
+				width: 3.5rem;
+			}
+			
+			.oa-contact-icon img {
+				width: 2.5rem;
+				float: right;
+			}
+			
+			.cover {
+				width: 3.5rem;
+			}
+			
+			.cover img {
+				width: 3rem;
+				float: right;
+			}
+			
+			.mui-table-view-cell:after {
+				left: 0px;
+				background-color: transparent;
 			}
 		</style>
 	</head>
@@ -69,8 +124,6 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript">
 	var SearchName = ""; //搜索词
 	var isLoading = false;
@@ -79,16 +132,13 @@
 	var pagesize = base.PageSize;
 	var parentPage = null;
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false //启用右滑关闭功能 
-	});
+	mui.init();
 
 	mui.ready(function() {
 
 		base.InitScroll();
+
+		base.InitSlider();
 
 		base.ShowUser("#slider"); //用户详细
 
@@ -246,7 +296,7 @@
 				if(length > 0) {
 					document.getElementById("none2").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(userinfo.Number, data.list[i], false);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false);
 						table.appendChild(div);
 					}
 				} else {
@@ -259,12 +309,6 @@
 			if(callback) {
 				callback();
 			}
-
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 

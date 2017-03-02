@@ -69,7 +69,7 @@
 			.mui-table-view:after {
 				height: 0px;
 			}
-		</style> 
+		</style>
 	</head>
 
 	<body>
@@ -173,7 +173,7 @@
 				html.push('<div class="mui-scroll-wrapper">');
 				html.push('<div id="scroll' + i + '" class="mui-scroll scrolls">');
 				if(child.length > 0) {
-					html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#eee;height:5.3rem;">');
+					html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#f5f5f5;height:5.3rem;">');
 					html.push('<div class="mui-scroll mt10" style="height:4rem;">');
 					for(var l = 0; l < child.length; l++) {
 						html.push('<div class="mui-control-item subtype topic" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img data-lazyload="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
@@ -183,7 +183,7 @@
 
 				//精选添加轮播 
 				if(i == 0) {
-					html.push('<div style="background:#eee;height:8.8rem;"><div id="banner"></div></div>');
+					html.push('<div style="background:#f5f5f5;height:8.8rem;"><div id="banner"></div></div>');
 				}
 
 				html.push('<div id="scroll-view' + i + '"></div>');
@@ -405,9 +405,9 @@
 	 */
 	function appendPTypeStr(item, index) {
 		if(index == 0) {
-			return '<div class="mui-control-item f13 topic bold c333 mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f12 topic c333 mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		} else {
-			return '<div class="mui-control-item f13 topic bold c333" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f12 topic c333" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		}
 	}
 
