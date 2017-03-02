@@ -8,8 +8,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/fan.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../css/fan.css">
 	</head>
 
 	<body id="main">
@@ -136,20 +136,18 @@
 	}
 
 	//拼接Html
-	function appendStr(item, index) {
+	function appendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell user';
 		div.setAttribute("userid", item.Number);
 		var model = [];
-		model.push('<div class="mui-slider-cell">');
-		//分类图片
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" /></div>');
-		//分类信息
-		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
-		if(index == 1) {
-			if(!base.CheckFan(userinfo.FanText, item.Number) && userinfo.Number != item.Number) {
-				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.Number + '">关注</div></div>');
-			}
+		model.push('<div class="oa-contact-cell mui-table">');
+		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
+		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + item.NickName + '</p><p class="f11 c999">' + item.Signature + '</p></div>');
+		if(!base.CheckFan(userinfo.FanText, item.Number) && userinfo.Number != item.Number) {
+			model.push('<div class="mui-table-cell guanzhu"><img userid="' + item.Number + '" src="../images/base/follow0.png" /></div>');
+		} else {
+			model.push('<div class="mui-table-cell guanzhu2"><img src="../images/base/follow1.png" /></div>');
 		}
 		model.push('</div>');
 		div.innerHTML = model.join('');

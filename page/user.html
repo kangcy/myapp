@@ -108,7 +108,7 @@
 					<div class="dashang f14" onclick="Payment()">打赏</div>
 				</div>
 			</div>
-			<div id="article" class="hide f13 caaa full">
+			<div id="article" class="hide f13 c999 full">
 				<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
 				<div id="a_list">
 				</div>
@@ -117,7 +117,7 @@
 					<div class="tc cfff mt20 submit" onclick="ShowActionSheet()">去发布</div>
 				</div>
 			</div>
-			<div id="blacktip" class="hide f13 caaa tc mt8">您已经将Ta拉黑</div>
+			<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
 		</div>
 		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
@@ -146,7 +146,7 @@
 		</div>
 		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder caaa f11">
+				<li class="mui-table-view-cell noborder c999 f11">
 					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作
 				</li>
 				<li class="mui-table-view-cell noborder">
@@ -333,17 +333,18 @@
 			}
 			base.CloseWaiting();
 
-			//检查关注
-			if(userinfo.Number != UserNumber) {
-				CheckFan();
-			}
-
+			//已拉黑
 			if(index == 0) {
 				document.getElementById("article").classList.add("hide");
 				document.getElementById("blacktip").classList.remove("hide");
 			} else {
 				document.getElementById("blacktip").classList.add("hide");
 				document.getElementById("article").classList.remove("hide");
+
+				//检查关注
+				if(userinfo.Number != UserNumber) {
+					CheckFan();
+				}
 			}
 
 			document.getElementById("loader").classList.add("hide");
@@ -379,8 +380,9 @@
 
 	//判断是否关注
 	function CheckFan() {
-		if(isLoading)
-			return;
+		if(isLoading) {
+			return false;
+		}
 		isLoading = true;
 		var $guanzhu = document.getElementById("guanzhu");
 		if(base.CheckFan(userinfo.FanText, UserNumber)) {
@@ -389,10 +391,12 @@
 			$guanzhu.innerHTML = "已关注";
 			isLoading = false;
 		} else {
+			isLoading = false;
 			$guanzhu.addEventListener('tap', function(e) {
-				if(base.RepeatAction()) {
-					return;
+				if(isLoading) {
+					return false;
 				}
+				isLoading = true;
 				var data = {
 					ID: userinfo.ID,
 					ToUserNumber: UserNumber
@@ -416,6 +420,7 @@
 
 	//检查黑名单
 	function CheckBlack() {
+		console.log(userinfo.BlackText);
 		if(base.CheckBlack(userinfo.BlackText, UserNumber)) {
 			document.getElementById("inblack").classList.add("hide");
 			document.getElementById("outblack").classList.remove("hide");
@@ -429,6 +434,7 @@
 
 	//添加黑名单
 	function InBlack() {
+		console.log(isLoading);
 		if(isLoading) {
 			return false;
 		}
@@ -466,7 +472,7 @@
 		}
 		isLoading = true;
 		base.ShowWaiting("操作中");
-		mui('#black').popover('toggle');
+		mui('#power').popover('toggle');
 		var data = {
 			ID: userinfo.ID,
 			ToUserNumber: UserNumber
@@ -475,13 +481,15 @@
 			HttpGet(base.RootUrl + "Black/Delete", data, function(data) {
 				base.CloseWaiting();
 				if(data != null) {
+					console.log(data.message)
 					mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
 					if(data.result) {
 
 						userinfo.BlackText = data.message;
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 
-						mui.back();
+						//mui.back();
+						plus.webview.currentWebview().reload();
 					}
 				}
 				isLoading = false;

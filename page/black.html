@@ -8,8 +8,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/fan.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../css/fan.css">
 
 	</head>
 
@@ -29,7 +29,7 @@
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
 			document.getElementById("title").innerHTML = "黑名单";
-			document.getElementById("none_img").innerHTML = "加入黑名单的用户将无法浏览你的专栏";
+			document.getElementById("none_tip").innerHTML = "加入黑名单的用户将无法浏览你的专栏";
 
 			Load();
 		});
@@ -43,7 +43,7 @@
 		mui("#scroll").on('tap', '.mui-btn', function(event) {
 			var elem = this;
 			var li = elem.parentNode.parentNode;
-			mui.confirm('确认移除黑名单？', '友情提醒', ['确认', '取消'], function(e) {
+			mui.confirm('确认移除黑名单？', '', ['确认', '取消'], function(e) {
 				if(e.index == 0) {
 					HttpGet(base.RootUrl + "Black/Delete", {
 						ID: userinfo.ID,
@@ -52,7 +52,11 @@
 						if(data) {
 							if(data.result) {
 								li.parentNode.removeChild(li);
-								base.RefreshScroll();
+
+								var count = document.querySelectorAll(".mui-table-view-cell");
+								if(count == 0) {
+									document.getElementById("none").classList.remove("hide");
+								}
 
 								userinfo.BlackText = data.message;
 								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -75,7 +79,7 @@
 	//刷新
 	function Refresh() {
 		Load(function() {
-			base.RefreshScroll();
+
 		});
 	}
 
@@ -111,7 +115,7 @@
 
 	//拼接Html
 	function appendStr(item, index) {
-		var div = document.createElement('div');
+		/*var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		div.setAttribute("fid", item.Number);
 		var model = [];
@@ -121,6 +125,20 @@
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" /></div>');
 		//分类信息
 		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;*/
+
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell user';
+		div.setAttribute("fid", item.Number);
+		div.setAttribute("userid", item.Number);
+		var model = [];
+		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">移除黑名单</a></div>');
+		model.push('<div class="mui-slider-cell mui-slider-handle">');
+		model.push('<div class="mui-table oa-contact-cell">');
+		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
+		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + item.NickName + '</p><p class="f11 c999">' + item.Signature + '</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
