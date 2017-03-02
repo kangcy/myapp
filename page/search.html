@@ -34,12 +34,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	//启用双击监听
 	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
-		swipeBack: false, //启用右滑关闭功能 
 		subpages: [{
 			id: 'searchSub',
 			url: 'searchSub.html',
@@ -66,10 +61,10 @@
 		}
 
 		document.getElementById("btnSearch").addEventListener('tap', function(e) {
-			/*if(search.value == "") {
+			if(base.IsNullOrEmpty(search.value)) {
 				return mui.toast("请输入搜索内容~");
-			}*/
-			plus.nativeUI.showWaiting("搜索中...");
+			}
+			plus.nativeUI.showWaiting("正在搜索");
 			if(contentWebview == null) {
 				contentWebview = plus.webview.getWebviewById("searchSub");
 			}

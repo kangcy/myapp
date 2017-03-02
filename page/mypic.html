@@ -54,16 +54,7 @@
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript">
-	mui('#main').load("../part/list.html", function(response) {
-		document.getElementById("title").innerHTML = "相册";
-		document.getElementById("none_img").setAttribute("src", "../images/my/666.png");
-		document.getElementById("none_tip").innerHTML = "这里还没有内容";
-		document.getElementById("confirm").classList.remove("hide");
-	});
-
 	var currpage = 1;
 	var totalpage = 2;
 	var Source = "";
@@ -72,6 +63,15 @@
 	var userinfo = base.GetUserInfo();
 
 	mui.init();
+
+	mui.ready(function() {
+		mui('#main').load("../part/list.html", function(response) {
+			document.getElementById("title").innerHTML = "相册";
+			document.getElementById("none_img").setAttribute("src", "../images/my/666.png");
+			document.getElementById("none_tip").innerHTML = "这里还没有内容";
+			document.getElementById("confirm").classList.remove("hide");
+		});
+	})
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
@@ -213,11 +213,6 @@
 			if(callback) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 
@@ -226,7 +221,7 @@
 		div.className = 'thirdfloor nocheck';
 		div.style.position = "relative";
 		div.setAttribute("url", item.Introduction);
-		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" /><div class="cover"></div><div class="icon"></div>';
+		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" /><div class="cover"></div><div class="icon"></div>';
 		return div;
 	}
 </script>

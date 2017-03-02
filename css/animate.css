@@ -156,10 +156,10 @@
 }
 
 .bounceIn {
-	-webkit-animation: bounceIn 500ms ease;
-	-moz-animation: bounceIn 500ms ease;
-	-ms-animation: bounceIn 500ms ease;
-	animation: bounceIn 500ms ease;
+	-webkit-animation: bounceIn 300ms ease;
+	-moz-animation: bounceIn 300ms ease;
+	-ms-animation: bounceIn 300ms ease;
+	animation: bounceIn 300ms ease;
 	animation-fill-mode: forwards;
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;
@@ -265,10 +265,10 @@
 }
 
 .bounceOut {
-	-webkit-animation: bounceOut 500ms ease;
-	-moz-animation: bounceOut 500ms ease;
-	-ms-animation: bounceOut 500ms ease;
-	animation: bounceOut 500ms ease;
+	-webkit-animation: bounceOut 300ms ease;
+	-moz-animation: bounceOut 300ms ease;
+	-ms-animation: bounceOut 300ms ease;
+	animation: bounceOut 300ms ease;
 	animation-fill-mode: forwards;
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;

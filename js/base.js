@@ -444,16 +444,7 @@ var base = new function() {
 			}
 		});
 	}
-
-	/**
-	 * 跳转搜索页
-	 **/
-	this.ShowSearch = function(id) {
-		document.getElementById('search').addEventListener('tap', function(event) {
-			base.OpenWindow("search", "search.html", {});
-		})
-	}
-
+	
 	/**
 	 * 展示用户信息
 	 **/

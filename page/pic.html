@@ -21,7 +21,7 @@
 			
 			.tip div {
 				padding: 10px 20px;
-				border-radius: 20px;
+				border-radius: 10px;
 				background: rgba(0, 0, 0, 0.5);
 				color: #fff;
 				display: inline-block;
@@ -40,8 +40,6 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
@@ -203,11 +201,6 @@
 			if(callback) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 
@@ -215,7 +208,7 @@
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
 		div.setAttribute("pid", item.ID);
-		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" />';
+		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" />';
 		return div;
 	}
 </script>

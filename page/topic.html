@@ -69,13 +69,14 @@
 			.mui-table-view:after {
 				height: 0px;
 			}
-		</style>
+		</style> 
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav noborder tc">
-			<img src="../images/search_blue.png" style="width:20px;margin-top:12px;margin-right:8px;" class="fr" id="search" />
-			<img src="../images/base/title.png" style="height:25px;margin-top:15px;" />
+		<header class="mui-bar mui-bar-nav bounceInDown" id="search" onclick="Search()">
+			<div class="mui-input-row mui-search full">
+				<input type="search" class="c999" placeholder="搜索昵称、标题、支持语音搜索" style="height:34px;font-size:15px;" disabled="disabled">
+			</div>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -83,17 +84,15 @@
 			</div>
 		</div>
 		<div class="mui-content">
-			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
-				<div id="slider" class="mui-slider mui-fullscreen">
-					<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
-						<div class="mui-scroll" id="sliderTopBody">
-
-						</div>
-					</div>
- 
-					<div class="mui-slider-group" id="sliderGroup" style="top:2.36rem;">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+					<div class="mui-scroll" id="sliderTopBody">
 
 					</div>
+				</div>
+
+				<div class="mui-slider-group" id="sliderGroup" style="top:2.36rem;">
+
 				</div>
 			</div>
 		</div>
@@ -120,8 +119,6 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
 <script src="../js/update.js"></script>
 <script type="text/javascript">
 	var sliders = [];
@@ -139,7 +136,6 @@
 	});
 
 	mui.ready(function() {
-		base.ShowSearch();
 
 		//加载类型
 		LoadArticleType(function() {
@@ -305,11 +301,9 @@
 			});
 		});
 
-		base.InitScroll();
+		base.ShowUser("#slider");
 
-		base.ShowUser("#slider"); //用户信息
-
-		base.ShowArticle("#slider", "List", userinfo.Number); //文章信息
+		base.ShowArticle("#slider", "List", userinfo.Number);
 
 		//分类列表
 		mui("#slider").on('tap', '.topic', function(event) {
@@ -319,7 +313,6 @@
 	});
 
 	mui.plusReady(function() {
-
 		base.ArticleAction("#slider", userinfo);
 
 		mui.previewImage({
@@ -359,7 +352,7 @@
 					document.getElementById("none" + index).classList.add("hide");
 					var table = document.getElementById('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, true);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
 						if(table) {
 							table.appendChild(div);
 						}
@@ -379,11 +372,6 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
-			document.body.removeAttribute('data-imageLazyload');
-			mui(document).imageLazyload({
-				placeholder: base.DefaultImg,
-				diff: window.innerHeight
-			});
 		});
 	}
 
@@ -432,5 +420,12 @@
 			subindexPage = plus.webview.getWebviewById("subindex");
 		}
 		subindexPage.evalJS("PreviewTan2(0)");
+	}
+
+	/**
+	 * 跳转搜索
+	 */
+	function Search() {
+		base.OpenWindow("search", "search.html", {});
 	}
 </script>
