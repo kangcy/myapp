@@ -60,9 +60,6 @@
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber || 0;
 
-		//系统定位
-		base.GetCurrentPosition();
-
 		var action = self.Action || null;
 		if(action == null) {
 			$("#bottomAction").removeClass("hide").addClass("bounceIn");
@@ -142,15 +139,7 @@
 			ArticleID: ArticleID,
 			ParentCommentNumber: ParentCommentNumber,
 			ParentUserNumber: ParentUserNumber,
-			Summary: escape(val),
-			Province: base.Province,
-			City: base.City,
-			District: base.District,
-			Street: base.Street,
-			DetailName: base.DetailName,
-			CityCode: base.CityCode,
-			Latitude: base.Latitude,
-			Longitude: base.Longitude
+			Summary: escape(val)
 		}, function(data) {
 			setTimeout(function() {
 				base.CloseWaiting();
@@ -317,11 +306,11 @@
 		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
 		model.push('<div class="mui-table-cell pb0 main">');
 		model.push('<p class="f12 user c999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr c999 f11">' + item.CreateDateText + '</span></p>');
-		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
+		model.push('<p class="f11 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
-			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+			model.push('<p class="tip mb0 f11" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.825rem;" class="ml15 fr comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" /><span class="f13 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.825rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" /></div>');
+		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" /><span class="f11 mt1 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods mt1 ml15 fr" cid="' + item.ID + '" already="0" /></div>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

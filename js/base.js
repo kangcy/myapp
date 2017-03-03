@@ -562,7 +562,7 @@ var base = new function() {
 					break;
 			}
 			model.push('<div class="mui-card-header noborder full fl" style="display:inline-block;">');
-			model.push('<div class="mui-media-body f13 mt0" style="position:relative;"><span>' + item.CreateDate + '</span><p class="f11 full caaa mt5">');
+			model.push('<div class="mui-media-body f13 mt0" style="position:relative;"><span>' + item.CreateDate + '</span><p class="f11 full mt5">');
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
@@ -579,7 +579,7 @@ var base = new function() {
 				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
 			}
 
-			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span class="bold user" userid="' + item.UserNumber + '">' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
+			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span class="user" userid="' + item.UserNumber + '">' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
@@ -594,10 +594,10 @@ var base = new function() {
 		//内容
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
-		model.push('<div class="c333 fl article full mb15 f13" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
+		model.push('<div class="c333 fl article full mb15 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
 		//加精
 		if(item.Recommend == 99) {
-			model.push('<div class="fl f11 mt1" style="padding:1px 3px;border-radius:2px;line-height:initial;border:1px solid #ff0000;color:#ff0000;margin-right:5px;display:inline-block;">精选</div>');
+			model.push('<div class="fl f11 mt1" style="padding:1px;border-radius:2px;line-height:initial;border:1px solid #ff0000;color:#ff0000;margin-right:5px;display:inline-block;">精选</div>');
 		}
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的GO";
@@ -625,10 +625,10 @@ var base = new function() {
 		model.push('</div></div>');
 
 		//底部统计
-		model.push('<div class="mui-card-footer fl full c999 mb10 f13" style="display:inline-block;"><span class="fl"><span class="blue">' + item.Views + '次浏览</span></span>');
-		model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><span class="fr" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.825rem;float:right;" class="ml15 mr5" /></span>');
-		model.push('<span class="goods" articleid="' + item.ArticleID + '"><span class="fr" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img id="igoods' + item.ArticleID + '" src="../images/base/like_nor.png" style="width:0.825rem;float:right;" class="ml15 mr5" /></span>');
-		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><span class="fr" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.825rem;float:right;" class="mr5" /></span>');
+		model.push('<div class="mui-card-footer fl full c999 mb10 f11" style="display:inline-block;"><span class="fl"><span class="blue">' + item.Views + '次浏览</span></span>');
+		model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><span class="fr mt1" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
+		model.push('<span class="goods" articleid="' + item.ArticleID + '"><span class="fr mt1" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img id="igoods' + item.ArticleID + '" src="../images/base/like_nor.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
+		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><span class="fr mt1" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="mr5 fr" /></span>');
 		model.push('</div>');
 
 		//评论

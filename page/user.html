@@ -86,7 +86,7 @@
 		<header id="header" class="mui-bar mui-bar-transparent">
 			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<span class="headericon cfff f25 fr more" onclick="More()">•••</span>
-			<h1 class="mui-title c333"></h1>
+			<h1 class="headericon mui-title cfff">Ta的资料</h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -112,9 +112,12 @@
 				<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
 				<div id="a_list">
 				</div>
-				<div id="none" class="mb20 hide">
+				<div id="mynone" class="mb20 hide">
 					<p class="full tc f16 c333 mt50">记录生活中美好的瞬间</p>
 					<div class="tc cfff mt20 submit" onclick="ShowActionSheet()">去发布</div>
+				</div>
+				<div id="none" class="mb20 hide">
+					<p class="full tc f16 c333 mt50">暂未发表过动态</p>
 				</div>
 			</div>
 			<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
@@ -263,7 +266,7 @@
 			if(data != null) {
 				length = data.records;
 				if(length > 0) {
-					document.getElementById("a_title").innerHTML = data.records + "篇文章";
+					document.getElementById("a_title").innerHTML = length + "篇文章";
 
 					for(var i = 0; i < data.list.length; i++) {
 						var html = [];
@@ -284,9 +287,11 @@
 					}
 				}
 			}
-			if(length == 0 && userinfo.Number == UserNumber) {
-				/*$("#none").removeClass("hide");*/
-				document.getElementById("none").classList.remove("hide");
+			if(length == 0) {
+				if(userinfo.Number == UserNumber)
+					document.getElementById("mynone").classList.remove("hide");
+				else
+					document.getElementById("none").classList.remove("hide");
 			}
 		});
 	}
@@ -528,7 +533,7 @@
 	function More() {
 		mui('#power').popover('toggle');
 	}
-	
+
 	//分享
 	function Share() {
 		mui('#power').popover('toggle');
