@@ -420,7 +420,6 @@
 
 	//检查黑名单
 	function CheckBlack() {
-		console.log(userinfo.BlackText);
 		if(base.CheckBlack(userinfo.BlackText, UserNumber)) {
 			document.getElementById("inblack").classList.add("hide");
 			document.getElementById("outblack").classList.remove("hide");
@@ -434,7 +433,6 @@
 
 	//添加黑名单
 	function InBlack() {
-		console.log(isLoading);
 		if(isLoading) {
 			return false;
 		}
@@ -451,7 +449,6 @@
 				if(data != null) {
 					mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
 					if(data.result) {
-
 						userinfo.Follows = data.message.Follows;
 						userinfo.FanText = data.message.FanText;
 						userinfo.BlackText = data.message.BlackText;
@@ -484,11 +481,8 @@
 					console.log(data.message)
 					mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
 					if(data.result) {
-
 						userinfo.BlackText = data.message;
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-
-						//mui.back();
 						plus.webview.currentWebview().reload();
 					}
 				}

@@ -53,11 +53,6 @@
 
 		base.ShowUser("#scroll");
 
-		//添加关注
-		base.GuanZhu("#scroll", userinfo, function($this) {
-			$this.parentNode.remove();
-		});
-
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -76,36 +71,31 @@
 
 		//取消关注
 		mui("#scroll").on('tap', '.mui-btn', function(event) {
-			var elem = this;
-			var li = elem.parentNode.parentNode;
-			mui.confirm('确认取消关注？', '友情提醒', ['确认', '取消'], function(e) {
+			var li = this.parentNode.parentNode;
+			mui.confirm('确认取消关注？', '', ['确认', '取消'], function(e) {
 				if(e.index == 0) {
+					mui.swipeoutClose(li);
 					HttpGet(base.RootUrl + "Fan/Delete", {
 						ID: userinfo.ID,
-						FanID: li.getAttribute("fid")
-					}, function(data) {
+						ToUserNumber: li.getAttribute("userid")
+					}, function(data) { 
 						if(data) {
 							if(data.result) {
 								li.parentNode.removeChild(li);
-								records = records - 1;
-								if(records < 0) {
-									records = 0;
-								}
-								if(records <= 0) {
+
+								var list = document.querySelectorAll(".mui-table-view-cell");
+								if(list.length == 0) {
 									document.getElementById("none").classList.remove("hide");
 								}
-								base.RefreshScroll();
 
 								userinfo.Follows = records;
 								userinfo.FanText = data.message;
 								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							} else {
 								mui.toast(data.message);
-								mui.swipeoutClose(li);
 							}
 						} else {
 							mui.toast("失败");
-							mui.swipeoutClose(li);
 						}
 					});
 				} else {
@@ -179,7 +169,7 @@
 					document.getElementById("none").classList.add("hide");
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i], 0);
+						var div = base.AppendUser(data.list[i], true, false, true, "取消关注");
 						table.appendChild(div);
 					}
 				} else {
@@ -191,28 +181,5 @@
 			}
 			callback();
 		});
-	}
-
-	//拼接Html
-	function appendStr(item, index) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user';
-		div.setAttribute("fid", item.ID);
-		div.setAttribute("userid", item.Number);
-		var model = [];
-		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">取消关注</a></div>');
-		model.push('<div class="mui-slider-cell mui-slider-handle">');
-		//分类图片
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" /></div>');
-		//分类信息
-		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
-		if(index == 1) {
-			if(!base.CheckFan(userinfo.FanText, item.Number) && userinfo.Number != item.Number) {
-				model.push('<div class="oa-contact-icon mui-table-cell"><div class="guanzhu f13" userid="' + item.Number + '">关注</div></div>');
-			}
-		}
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
 	}
 </script>

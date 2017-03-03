@@ -53,7 +53,7 @@
 			
 			.mui-table-view-cell:after {
 				left: 0px;
-				background-color: transparent;
+				background-color: transparent; 
 			}
 		</style>
 	</head>
@@ -68,8 +68,8 @@
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 					<div class="mui-scroll full" id="sliderTopBody">
-						<a class="mui-control-item f12 topic mui-active" currindex="0">用户</a>
-						<a class="mui-control-item f12 topic " currindex="1">文章</a>
+						<a class="mui-control-item f12 topic border mui-active" currindex="0">用户</a>
+						<a class="mui-control-item f12 topic border" currindex="1">文章</a>
 					</div>
 				</div>
 				<div class="mui-slider-group" id="sliderGroup" style="top:2.4rem;">
@@ -124,6 +124,8 @@
 		base.InitSlider();
 
 		base.ShowUser("#slider");
+
+		base.UserAddFan("#slider", userinfo);
 
 		base.ShowArticle("#slider", "List", userinfo.Number);
 
@@ -195,7 +197,7 @@
 					document.getElementById("none1").classList.add("hide");
 					var table = document.getElementById('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i], 1);
+						var div = base.AppendUser(data.list[i], true, true, false, "");
 						table.appendChild(div);
 					}
 				} else {
@@ -284,27 +286,8 @@
 				document.getElementById("none2").classList.remove("hide");
 			}
 			if(callback) {
-				callback();
+				callback(); 
 			}
 		});
-	}
-
-	//拼接Html
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user';
-		div.setAttribute("userid", item.Number);
-		var model = [];
-		model.push('<div class="oa-contact-cell mui-table">');
-		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
-		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + item.NickName + '</div>');
-		if(!base.CheckFan(userinfo.FanText, item.Number) && userinfo.Number != item.Number) {
-			model.push('<div class="mui-table-cell guanzhu"><img userid="' + item.Number + '" src="../images/base/follow0.png" /></div>');
-		} else {
-			model.push('<div class="mui-table-cell guanzhu2"><img src="../images/base/follow1.png" /></div>');
-		}
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
 	}
 </script>

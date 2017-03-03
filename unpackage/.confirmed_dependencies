@@ -739,7 +739,8 @@
 			"page/follow.html",
 			"page/keep.html",
 			"page/addarticle.html",
-			"page/mypic.html"
+			"page/mypic.html",
+			"page/money.html"
 		]
 	},
 	"page/userSub.html": {
@@ -869,7 +870,8 @@
 			"images/share/1.jpg",
 			"images/article/stop.png",
 			"images/login/pwd.png",
-			"css/input.css"
+			"css/input.css",
+			"css/input.min.css"
 		],
 		"refer": [
 			"page/user.html",
@@ -1114,7 +1116,8 @@
 			"css/loading.min.css",
 			"images/logo_default.png",
 			"part/list.html",
-			"images/base/follow1.png"
+			"images/base/follow1.png",
+			"images/base/follow0.png"
 		],
 		"refer": [
 			"page/fanSub.html",

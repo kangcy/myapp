@@ -242,9 +242,9 @@ function showActionSheet(long, width, callback) {
 	var bts = [{
 		title: "拍照"
 	}, {
-		title: "手机相册"
+		title: "从手机相册选择"
 	}, {
-		title: "本地相册"
+		title: "从Go相册选择"
 	}];
 	plus.nativeUI.actionSheet({
 			cancel: "取消",

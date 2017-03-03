@@ -53,6 +53,11 @@
 var base = new function() {
 
 	/**
+	 * 触发层级(触发父元素事件)
+	 **/
+	this.TriggerMain = true;
+
+	/**
 	 * 当前定位信息
 	 **/
 	this.Province = "";
@@ -137,6 +142,7 @@ var base = new function() {
 	this.CheckLogin = function(userinfo) {
 		if(userinfo == "{}") {
 			base.IsLoading = false;
+			base.TriggerMain = true;
 			base.OpenWindow("login", "../page/login.html", {}, "slide-in-bottom");
 			return false;
 		}
@@ -444,12 +450,15 @@ var base = new function() {
 			}
 		});
 	}
-	
+
 	/**
 	 * 展示用户信息
 	 **/
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
+			if(!base.TriggerMain) {
+				return false;
+			}
 			var userNumber = this.getAttribute("userid");
 			base.OpenWindow("user" + userNumber, "user.html", {
 				UserNumber: userNumber
@@ -465,39 +474,14 @@ var base = new function() {
 			var articleId = this.getAttribute("articleid");
 			var userNumber = this.getAttribute("userid");
 			var power = this.getAttribute("power").toString();
-
 			if(currUserNumber == userNumber) {
 				power = 3;
 			}
-
 			base.OpenWindow("articledetail", "articledetail.html", {
 				ArticleID: articleId,
 				Source: Source,
 				ArticlePower: power
 			});
-
-			/*if(power == "0" && currUserNumber != userNumber) {
-				return mui.toast("您查看的是私密文章,仅作者自己可见");
-			} else if(power == "2" && currUserNumber != userNumber) {
-				return mui.toast("仅作者分享可见");
-			} else if(power == "1" && currUserNumber != userNumber) {
-				var btnArray = ['确定', '取消'];
-				mui.prompt('确认密码', '文章已设权限,请输入密码浏览', '权限验证', btnArray, function(e) {
-					if(e.index == 0) {
-						base.CheckPowerPwd(articleId, e.value, function() {
-							base.OpenWindow("articledetail", "articledetail.html", {
-								ArticleID: articleId,
-								Source: Source
-							});
-						});
-					}
-				})
-			} else {
-				base.OpenWindow("articledetail", "articledetail.html", {
-					ArticleID: articleId,
-					Source: "View"
-				});
-			}*/
 		});
 	}
 
@@ -664,8 +648,7 @@ var base = new function() {
 			}
 			base.IsLoading = true;
 
-			//判断用户是否登录
-			base.CheckLogin(userinfo);
+			base.CheckLogin(userinfo); //判断用户是否登录
 
 			var $this = this;
 			var UserNumber = this.getAttribute("userid");
@@ -826,6 +809,82 @@ var base = new function() {
 		} else {
 			item.classList.remove("active");
 		}
+	}
+
+	/**
+	 * 拼接用户列表
+	 * item:JSON数据
+	 * isSignature:是否显示签名
+	 * isFollow:是否显示关注
+	 * isDelete:是否显示删除
+	 * deletNname:删除名称
+	 */
+	this.AppendUser = function(item, isSignature, isFollow, isDelete, deletNname) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell user';
+		div.setAttribute("userid", item.Number);
+		var model = [];
+		if(isDelete) {
+			model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">' + deletNname + '</a></div>');
+			model.push('<div class="mui-slider-cell mui-slider-handle">');
+		}
+		model.push('<div class="mui-table oa-contact-cell">');
+		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
+		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + item.NickName + '</p>');
+		if(isSignature) {
+			model.push('<p class="f11 c999">' + item.Signature + '</p>');
+		}
+		model.push('</div>');
+		if(isFollow) {
+			if(!base.CheckFan(userinfo.FanText, item.Number) && userinfo.Number != item.Number) {
+				model.push('<div class="mui-table-cell guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" /></div>');
+			} else {
+				model.push('<div class="mui-table-cell guanzhu2"><img src="../images/base/follow1.png" /></div>');
+			}
+		}
+		model.push('</div>');
+		if(isDelete) {
+			model.push('</div>');
+		}
+		div.innerHTML = model.join('');
+		return div;
+	}
+
+	/**
+	 * 用户列表添加关注
+	 * id:容器ID
+	 * userinfo:当前用户信息
+	 */
+	this.UserAddFan = function(id, userinfo) {
+		mui(id).on('tap', '.guanzhu', function(event) {
+			base.TriggerMain = false;
+			if(base.IsLoading) {
+				return false;
+			}
+			base.IsLoading = true;
+
+			base.CheckLogin(userinfo); //判断用户是否登录
+
+			var $this = this;
+			var UserNumber = this.getAttribute("userid");
+			var data = {
+				ID: userinfo.ID,
+				ToUserNumber: UserNumber
+			}
+			HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+				if(data != null) {
+					if(data.result) {
+						$this.classList.remove("guanzhu");
+						$this.classList.add("guanzhu2");
+						$this.childNodes[0].setAttribute("src", "../images/base/follow1.png");
+						base.AddFan(userinfo, UserNumber);
+					}
+					mui.toast(data.result ? "关注成功" : data.message);
+				}
+				base.IsLoading = false;
+				base.TriggerMain = true;
+			});
+		});
 	}
 }
 

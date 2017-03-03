@@ -151,7 +151,7 @@
 			for(var i = 0; i < parent.length; i++) {
 				if(i == 0) {
 					sliders.push(true);
-				} else {
+				} else { 
 					sliders.push(false);
 				}
 				currpage.push(1);
@@ -179,7 +179,7 @@
 						html.push('<div class="mui-control-item subtype topic" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img data-lazyload="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
 					}
 					html.push('</div></div>');
-				}
+				}  
 
 				//精选添加轮播 
 				if(i == 0) {
@@ -405,9 +405,9 @@
 	 */
 	function appendPTypeStr(item, index) {
 		if(index == 0) {
-			return '<div class="mui-control-item f12 topic c333 mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f12 topic mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		} else {
-			return '<div class="mui-control-item f12 topic c333" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+			return '<div class="mui-control-item f12 topic" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
 		}
 	}
 

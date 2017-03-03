@@ -86,7 +86,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var triggerMain = true; //触发背景修改
 	var userinfo = base.GetUserInfo();
 
 	mui.init({
@@ -102,7 +101,7 @@
 
 	//更换封面
 	function Pic() {
-		if(!triggerMain) {
+		if(!base.TriggerMain) {
 			return false;
 		}
 		base.OpenWindow("editimage", "editimage.html", {
@@ -146,30 +145,30 @@
 
 		//消息
 		document.getElementById('tip').addEventListener('tap', function(event) {
-			triggerMain = false;
+			base.TriggerMain = false;
 			base.OpenWindow("tipsetting", "tipsetting.html", {
 				Source: "My"
 			});
 			setTimeout(function() {
-				triggerMain = true;
+				base.TriggerMain = true;
 			}, 2000);
 		});
 
 		//用户设置
 		document.getElementById('avatar').addEventListener('tap', function(event) {
-			triggerMain = false;
+			base.TriggerMain = false;
 			base.OpenWindow("mysetting", "mysetting.html", {});
 			setTimeout(function() {
-				triggerMain = true;
+				base.TriggerMain = true;
 			}, 2000);
 		});
 
 		//系统设置
 		document.getElementById('setting').addEventListener('tap', function(event) {
-			triggerMain = false;
+			base.TriggerMain = false;
 			base.OpenWindow("setting", "setting.html", {});
 			setTimeout(function() {
-				triggerMain = true;
+				base.TriggerMain = true;
 			}, 2000);
 		});
 
@@ -204,41 +203,41 @@
 
 		//我的文章
 		document.getElementById('my-articles').addEventListener('tap', function(event) {
-			triggerMain = false;
+			base.TriggerMain = false;
 			base.OpenWindow("article", "article.html", {
 				CreateUserNumber: userinfo.Number,
 				ArticleTypeName: "我的动态",
 				Source: "My"
 			});
 			setTimeout(function() {
-				triggerMain = true;
+				base.TriggerMain = true;
 			}, 2000);
 		});
 
 		//我的收藏
 		document.getElementById('my-keeps').addEventListener('tap', function(event) {
-			triggerMain = false;
+			base.TriggerMain = false;
 			base.OpenWindow("keep", "keep.html", {});
 			setTimeout(function() {
-				triggerMain = true;
+				base.TriggerMain = true;
 			}, 2000);
 		});
 
 		//我的关注
 		document.getElementById('my-follows').addEventListener('tap', function(event) {
-			triggerMain = false;
+			base.TriggerMain = false;
 			base.OpenWindow("follow", "follow.html", {});
 			setTimeout(function() {
-				triggerMain = true;
+				base.TriggerMain = true;
 			}, 2000);
 		});
 
 		//我的粉丝
 		document.getElementById('my-fans').addEventListener('tap', function(event) {
-			triggerMain = false;
+			base.TriggerMain = false;
 			base.OpenWindow("fan", "fan.html", {});
 			setTimeout(function() {
-				triggerMain = true;
+				base.TriggerMain = true;
 			}, 2000);
 		});
 

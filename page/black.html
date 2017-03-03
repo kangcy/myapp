@@ -41,20 +41,20 @@
 
 		//取消拉黑
 		mui("#scroll").on('tap', '.mui-btn', function(event) {
-			var elem = this;
-			var li = elem.parentNode.parentNode;
-			mui.confirm('确认移除黑名单？', '', ['确认', '取消'], function(e) {
+			var li = this.parentNode.parentNode;
+			mui.confirm('确认移除黑名单？', '', ['确认', '取消'], function(e) { 
 				if(e.index == 0) {
+					mui.swipeoutClose(li);
 					HttpGet(base.RootUrl + "Black/Delete", {
 						ID: userinfo.ID,
-						ToUserNumber: li.getAttribute("fid")
+						ToUserNumber: li.getAttribute("userid")
 					}, function(data) {
 						if(data) {
 							if(data.result) {
 								li.parentNode.removeChild(li);
 
-								var count = document.querySelectorAll(".mui-table-view-cell");
-								if(count == 0) {
+								var list = document.querySelectorAll(".mui-table-view-cell");
+								if(list.length == 0) {
 									document.getElementById("none").classList.remove("hide");
 								}
 
@@ -62,11 +62,9 @@
 								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							} else {
 								mui.toast(data.message);
-								mui.swipeoutClose(li);
 							}
 						} else {
 							mui.toast("失败");
-							mui.swipeoutClose(li);
 						}
 					});
 				} else {
@@ -97,7 +95,7 @@
 					document.getElementById("none").classList.add("hide");
 
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i], 0);
+						var div = base.AppendUser(data.list[i], true, false, true, "移除黑名单");
 						table.appendChild(div);
 					}
 				} else {
@@ -111,36 +109,5 @@
 				callback();
 			}
 		});
-	}
-
-	//拼接Html
-	function appendStr(item, index) {
-		/*var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
-		div.setAttribute("fid", item.Number);
-		var model = [];
-		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">移除黑名单</a></div>');
-		model.push('<div class="mui-slider-cell mui-slider-handle user" userid="' + item.Number + '">');
-		//分类图片
-		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell"><img src="' + base.ShowThumb(item.Avatar, 1) + '" /></div>');
-		//分类信息
-		model.push('<div  class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333">' + item.NickName + '</p></div><p class="f12 caaa">' + item.Signature + '</p></div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;*/
-
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user';
-		div.setAttribute("fid", item.Number);
-		div.setAttribute("userid", item.Number);
-		var model = [];
-		model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">移除黑名单</a></div>');
-		model.push('<div class="mui-slider-cell mui-slider-handle">');
-		model.push('<div class="mui-table oa-contact-cell">');
-		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
-		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + item.NickName + '</p><p class="f11 c999">' + item.Signature + '</p></div>');
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
 	}
 </script>

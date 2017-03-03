@@ -49,6 +49,9 @@
 			document.getElementById("none_tip").innerHTML = name + "的粉丝，会在这里显示";
 		}
 
+		base.ShowUser("#scroll");
+		base.UserAddFan("#scroll", userinfo);
+
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
@@ -121,7 +124,7 @@
 					document.getElementById("none").classList.add("hide");
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i], 1);
+						var div = base.AppendUser(data.list[i], true, true, false, "");
 						table.appendChild(div);
 					}
 				} else {
@@ -133,24 +136,5 @@
 			}
 			callback();
 		});
-	}
-
-	//拼接Html
-	function appendStr(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user';
-		div.setAttribute("userid", item.Number);
-		var model = [];
-		model.push('<div class="oa-contact-cell mui-table">');
-		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
-		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + item.NickName + '</p><p class="f11 c999">' + item.Signature + '</p></div>');
-		if(!base.CheckFan(userinfo.FanText, item.Number) && userinfo.Number != item.Number) {
-			model.push('<div class="mui-table-cell guanzhu"><img userid="' + item.Number + '" src="../images/base/follow0.png" /></div>');
-		} else {
-			model.push('<div class="mui-table-cell guanzhu2"><img src="../images/base/follow1.png" /></div>');
-		}
-		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
 	}
 </script>
