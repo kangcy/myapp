@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../css/img.preview.css">
+		<style type="text/css">
+			.none {
+				margin-top: 45% !important;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+				padding: 0 4rem;
+			}
+			
+			.mui-table-view-cell {
+				background: #fff;
+				padding: 0px 0.9375rem;
+				border-bottom: 1px solid #eee;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 0.625rem 0;
+				vertical-align: middle;
+			}
+			
+			.avatar {
+				width: 3.5rem;
+			}
+			
+			.avatar img {
+				width: 2.5rem !important;
+				height: 2.5rem !important;
+				border-radius: 50px;
+			}
+			
+			.guanzhu,
+			.guanzhu2 {
+				width: 3.2rem;
+			}
+			
+			.guanzhu img,
+			.guanzhu2 img {
+				width: 2.8rem;
+				float: right;
+			}
+			
+			.mui-table-view-cell:after {
+				left: 0px;
+				background-color: transparent;
+			}
+		</style>
+	</head>
+
+	<body> 
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
+			<div class="mui-title c333">添加关注</div>
+		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+					<div class="mui-scroll full" id="sliderTopBody">
+						<a class="mui-control-item f12 topic border mui-active" currindex="0">猜你喜欢</a>
+						<a class="mui-control-item f12 topic border" currindex="1">同城热门</a>
+					</div>
+				</div>
+				<div class="mui-slider-group" id="sliderGroup" style="top:2.4rem;">
+					<div class="mui-slider-item mui-control-content mui-active">
+						<div id="sliderChild0" class="mui-scroll-wrapper">
+							<div id="slider0" class="mui-scroll scrolls">
+								<div id="scroll-view0" class="mt5"></div>
+								<div id="none0" class="full tc hide">
+									<img src="../images/my/111.png" class="none" />
+									<p class="f13 mt10">你可能感兴趣的用户</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mui-slider-item mui-control-content">
+						<div id="sliderChild1" class="mui-scroll-wrapper">
+							<div id="slider1" class="mui-scroll scrolls">
+								<div id="scroll-view1" class="mt5"></div>
+								<div id="none1" class="full tc hide">
+									<img src="../images/my/444.png" class="none" />
+									<p class="f13 mt10">你可能感兴趣的文章</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script type="text/javascript">
+	var isLoading1 = false;
+	var isLoading2 = false;
+	var currpage = [1, 1];
+	var totalpage = [2, 2];
+	var pagesize = base.PageSize;
+	var userinfo = base.GetUserInfo();
+
+	mui.init();
+
+	mui.ready(function() {
+
+		base.InitScroll();
+
+		base.InitSlider();
+
+		//base.ShowUser("#slider");
+
+		//base.UserAddFan("#slider", userinfo);
+
+		//base.ShowArticle("#slider", "List", userinfo.Number);
+
+		//切换
+		mui("#slider").on('tap', '.mui-control-item', function(event) {
+			var index = this.getAttribute("currindex");
+			mui('#slider').slider().gotoItem(index);
+		});
+	});
+
+	mui.plusReady(function() {
+		mui.each(document.querySelectorAll('#sliderGroup .scrolls'), function(index, pullRefreshEl) {
+			mui(pullRefreshEl).pullToRefresh({
+				down: {
+					callback: function() {
+						var self = this;
+						if(isLoading == true) {
+							return;
+						}
+						isLoading = true;
+						setTimeout(function() {
+							currpage[index] = 1;
+							totalpage[index] = 2;
+							document.getElementById('scroll-view' + index).innerHTML = "";
+							Load(index, function() {
+								++currpage[index];
+								self.endPullDownToRefresh();
+								self.refresh(true);
+								isLoading = false;
+							})
+						}, 500);
+					}
+				},
+				up: {
+					auto: index == 0 ? true : false,
+					callback: function() {
+						var self = this;
+						isLoading = true;
+						if(currpage[index] > totalpage[index]) {
+							isLoading = false;
+							self.endPullUpToRefresh(currpage[index] > totalpage[index]);
+							return false;
+						}
+						setTimeout(function() {
+							Load(index, function() {
+								++currpage[index];
+								self.endPullUpToRefresh(currpage[index] > totalpage[index]);
+								isLoading = false;
+							})
+						}, 500);
+					}
+				}
+			});
+		});
+	});
+
+	//猜你喜欢
+	function LoadUser() {
+		HttpGet(base.RootUrl + "User/All", {
+			Number: userinfo.Number
+		}, function(data) {
+			document.getElementById("loader").classList.add("hide");
+			document.getElementById('scroll-view1').innerHTML = "";
+			if(data != null) {
+				var length = data.list.length;
+				if(length > 0) {
+					document.getElementById("none1").classList.add("hide");
+					var table = document.getElementById('scroll-view1');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = base.AppendUser(data.list[i], true, true, false, "", false);
+						table.appendChild(div);
+
+						var div2 = base.AppendUser(data.list[i], true, true, false, "", false);
+						table.appendChild(div2);
+					}
+				} else {
+					document.getElementById("none1").classList.remove("hide");
+				}
+			} else {
+				document.getElementById("none1").classList.remove("hide");
+			}
+		});
+	}
+
+	/**
+	 * 下拉刷新
+	 */
+	function PulldownRefresh1(self) {
+		if(isLoading1 == true) {
+			return;
+		}
+		isLoading1 = true;
+		setTimeout(function() {
+			currpage1 = 1;
+			totalpage1 = 2;
+			document.getElementById('scroll-view1').innerHTML = "";
+			LoadUser(function() {
+				++currpage1;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading1 = false;
+			})
+		}, 500);
+	}
+
+	/**
+	 * 上拉加载
+	 */
+	function PullupRefresh1(self) {
+		if(isLoading1 == true) {
+			return;
+		}
+		isLoading1 = true;
+		if(currpage1 > totalpage1) {
+			isLoading1 = false;
+			self.endPullUpToRefresh(currpage1 > totalpage1);
+			return false;
+		}
+		setTimeout(function() {
+			LoadUser(function() {
+				++currpage1;
+				self.endPullUpToRefresh(currpage1 > totalpage1);
+				isLoading1 = false;
+			})
+		}, 500);
+	}
+
+	//同城热门
+	function LoadCityUser(callback) {
+		var table = document.getElementById('scroll-view2');
+		HttpGet(base.RootUrl + "User/CityAll", {
+			page: currpage2,
+			rows: pagesize,
+			Number: userinfo.Number
+		}, function(data) {
+			document.getElementById("loader").classList.add("hide");
+			if(data != null) {
+				totalpage2 = data.totalpage;
+				var length = data.list.length;
+				if(length > 0) {
+					document.getElementById("none2").classList.add("hide");
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = base.AppendUser(data.list[i], false, true, false, "", true);
+						table.appendChild(div);
+
+						var div2 = base.AppendUser(data.list[i], false, true, false, "", true);
+						table.appendChild(div2);
+					}
+				} else {
+					document.getElementById("none2").classList.remove("hide");
+				}
+			}
+			if(data == null && currpage == 1) {
+				document.getElementById("none2").classList.remove("hide");
+			}
+			if(callback) {
+				callback();
+			}
+		});
+	}
+
+	/**
+	 * 下拉刷新
+	 */
+	function PulldownRefresh2(self) {
+		if(isLoading2 == true) {
+			return;
+		}
+		isLoading2 = true;
+		setTimeout(function() {
+			currpage2 = 1;
+			totalpage2 = 2;
+			document.getElementById('scroll-view2').innerHTML = "";
+			LoadCityUser(function() {
+				++currpage2;
+				self.endPullDownToRefresh();
+				self.refresh(true);
+				isLoading2 = false;
+			})
+		}, 500);
+	}
+
+	/**
+	 * 上拉加载
+	 */
+	function PullupRefresh2(self) {
+		if(isLoading2 == true) {
+			return;
+		}
+		isLoading2 = true;
+		if(currpage2 > totalpage2) {
+			isLoading2 = false;
+			self.endPullUpToRefresh(currpage2 > totalpage2);
+			return false;
+		}
+		setTimeout(function() {
+			LoadCityUser(function() {
+				++currpage2;
+				self.endPullUpToRefresh(currpage2 > totalpage2);
+				isLoading2 = false;
+			})
+		}, 500);
+	}
+
+	function Load(index, callback) {
+		var data = {
+			Number: userinfo.Number,
+			page: currpage[index],
+			rows: pagesize
+		};
+		HttpGet(base.RootUrl + "User/CityAll", data, function(data) {
+			if(data != null) {
+				totalpage[index] = data.totalpage;
+				var length = data.records;
+				if(length > 0) {
+					document.getElementById("loader").classList.add("hide");
+					document.getElementById("none" + index).classList.add("hide");
+					var table = document.getElementById('scroll-view' + index);
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = base.AppendUser(data.list[i], false, true, false, "", true);
+						table.appendChild(div);
+
+						var div2 = base.AppendUser(data.list[i], false, true, false, "", true);
+						table.appendChild(div2);
+					}
+				} else {
+					setTimeout(function() {
+						document.getElementById("loader").classList.add("hide");
+						document.getElementById("none" + index).classList.remove("hide");
+					}, 200);
+				}
+			} else {
+				setTimeout(function() {
+					document.getElementById("loader").classList.add("hide");
+					document.getElementById("none" + index).classList.remove("hide");
+				}, 200);
+			}
+			callback();
+		});
+	}
+</script>

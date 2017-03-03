@@ -511,7 +511,8 @@
 			"page/articleSub.html",
 			"page/user2.html",
 			"page/money.html",
-			"page/articleComment.html"
+			"page/articleComment.html",
+			"page/addfan.html"
 		]
 	},
 	"page/addarticle.html": {
@@ -1981,6 +1982,27 @@
 			"js/mui.min.js",
 			"fonts/mui.ttf",
 			"css/mui.min.css"
+		]
+	},
+	"page/addfan.html": {
+		"resources": [
+			"images/my/111.png",
+			"js/mui.pullToRefresh.js",
+			"js/base.js",
+			"js/mui.zoom.js",
+			"css/loading.min.css",
+			"js/mui.min.js",
+			"js/mui.pullToRefresh.material.js",
+			"images/my/444.png",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/mui.previewimage.js",
+			"css/img.preview.css",
+			"images/base/follow0.png",
+			"images/base/follow1.png"
+		],
+		"refer": [
+			"page/user.html"
 		]
 	}
 }

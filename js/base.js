@@ -420,7 +420,7 @@ var base = new function() {
 	 **/
 	this.UpdateUser = function(id, callback) {
 		HttpGet(base.RootUrl + "User/Detail", {
-			Number: id 
+			Number: id
 		}, function(data) {
 			if(data != null) {
 				if(data.result) {
@@ -434,7 +434,7 @@ var base = new function() {
 						NickName: data.NickName,
 						Address: data.Address,
 						Birthday: data.BirthdayText,
-						Follows: data.Follows, 
+						Follows: data.Follows,
 						Fans: data.Fans,
 						Articles: data.Articles,
 						Keeps: data.Keeps,
@@ -471,7 +471,7 @@ var base = new function() {
 
 	/**
 	 * 展示用户信息
-	 **/
+	 **/ 
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
 			if(!base.TriggerMain) {
@@ -836,8 +836,9 @@ var base = new function() {
 	 * isFollow:是否显示关注
 	 * isDelete:是否显示删除
 	 * deletNname:删除名称
+	 * isDistance:显示距离
 	 */
-	this.AppendUser = function(item, isSignature, isFollow, isDelete, deletNname) {
+	this.AppendUser = function(item, isSignature, isFollow, isDelete, deletNname, isDistance) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell user';
 		div.setAttribute("userid", item.Number);
@@ -851,6 +852,15 @@ var base = new function() {
 		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + item.NickName + '</p>');
 		if(isSignature) {
 			model.push('<p class="f11 c999">' + item.Signature + '</p>');
+		}
+		if(isDistance) { 
+			var distance = parseFloat(item.Distance);
+			var meter = parseInt(distance / 100);
+			if(meter < 9) {
+				model.push('<p class="f11 c999">' + (meter + 1) + '00米以内</p>');
+			} else {
+				model.push('<p class="f11 c999">' + (parseInt(distance / 1000) + 1) + '公里以内</p>');
+			}
 		}
 		model.push('</div>');
 		if(isFollow) {
