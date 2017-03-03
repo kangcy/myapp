@@ -19,7 +19,13 @@
 			Phone: loginInfo.Phone,
 			Password: loginInfo.Password,
 			Province: loginInfo.Province,
-			City: loginInfo.City
+			City: loginInfo.City,
+			District: loginInfo.District,
+			Street: loginInfo.Street,
+			DetailName: loginInfo.DetailName,
+			CityCode: loginInfo.CityCode,
+			Latitude: loginInfo.Latitude,
+			Longitude: loginInfo.Longitude
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试");
@@ -83,7 +89,13 @@
 			Cover: "",
 			Province: loginInfo.Province,
 			City: loginInfo.City,
-			Source: loginInfo.Source
+			District: loginInfo.District,
+			Street: loginInfo.Street,
+			DetailName: loginInfo.DetailName,
+			CityCode: loginInfo.CityCode,
+			Latitude: loginInfo.Latitude,
+			Longitude: loginInfo.Longitude,
+			Source: loginInfo.Source,
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试");
@@ -147,6 +159,12 @@
 			NickName: regInfo.NickName,
 			Province: regInfo.Province,
 			City: regInfo.City,
+			District: regInfo.District,
+			Street: regInfo.Street,
+			DetailName: regInfo.DetailName,
+			CityCode: regInfo.CityCode,
+			Latitude: regInfo.Latitude,
+			Longitude: regInfo.Longitude,
 			Cover: "",
 			Code: regInfo.Code,
 			SMS: regInfo.SMS

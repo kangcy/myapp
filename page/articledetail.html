@@ -565,7 +565,13 @@
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
 			Province: base.Province,
-			City: base.City
+			City: base.City,
+			District: base.District,
+			Street: base.Street,
+			DetailName: base.DetailName,
+			CityCode: base.CityCode,
+			Latitude: base.Latitude,
+			Longitude: base.Longitude
 		}, function(data) {
 			setTimeout(function() {
 				base.CloseWaiting();
@@ -918,7 +924,7 @@
 	//系统分享
 	function ShareSystem() {
 		if(plus.os.name !== "Android") {
-			plus.nativeUI.alert("此平台暂不支持系统分享功能!");
+			plus.nativeUI.alert("此平台暂不支持系统分享功能");
 			return;
 		}
 		var intent = new Intent(Intent.ACTION_SEND);

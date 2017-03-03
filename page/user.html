@@ -188,7 +188,6 @@
 	</body>
 
 </html>
-<!--<script src="../js/jquery-1.10.2.min.js"></script>-->
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/transparent.js"></script>
@@ -627,7 +626,7 @@
 	//系统分享
 	function ShareSystem() {
 		if(plus.os.name !== "Android") {
-			plus.nativeUI.alert("此平台暂不支持系统分享功能!");
+			plus.nativeUI.alert("此平台暂不支持系统分享功能");
 			return;
 		}
 		var intent = new Intent(Intent.ACTION_SEND);

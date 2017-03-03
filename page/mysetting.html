@@ -323,8 +323,8 @@
 			document.getElementById("city").innerHTML = province + " " + city;
 			HttpGet(base.RootUrl + "User/EditAddress", {
 				ID: userinfo.ID,
-				ProvinceName: province,
-				CityName: city
+				Province: province,
+				City: city
 			}, function(data) {
 				base.CloseWaiting();
 				mask.close();

@@ -60,8 +60,14 @@ var base = new function() {
 	/**
 	 * 当前定位信息
 	 **/
-	this.Province = "";
-	this.City = "";
+	this.Province = ""; //省份名称
+	this.City = ""; //城市名称
+	this.District = ""; //地区名称
+	this.Street = ""; //街道名称
+	this.DetailName = ""; //详细定位
+	this.CityCode = ""; //城市编码
+	this.Latitude = ""; //纬度
+	this.Longitude = ""; //经度
 
 	/**
 	 * 系统定位
@@ -70,9 +76,21 @@ var base = new function() {
 		plus.geolocation.getCurrentPosition(function(p) {
 			base.Province = p.address.province;
 			base.City = p.address.city;
+			base.District = p.address.district;
+			base.Street = p.address.street;
+			base.DetailName = p.address.poiName;
+			base.CityCode = p.address.cityCode;
+			base.Latitude = p.coords.latitude;
+			base.Longitude = p.coords.longitude;
 		}, function(e) {
 			base.Province = "";
 			base.City = "";
+			base.District = "";
+			base.Street = "";
+			base.DetailName = "";
+			base.CityCode = "";
+			base.Latitude = "";
+			base.Longitude = "";
 		});
 	}
 

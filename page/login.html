@@ -139,7 +139,13 @@
 					Phone: accountBox.value,
 					Password: passwordBox.value,
 					Province: base.Province,
-					City: base.City
+					City: base.City,
+					District: base.District,
+					Street: base.Street,
+					DetailName: base.DetailName,
+					CityCode: base.CityCode,
+					Latitude: base.Latitude,
+					Longitude: base.Longitude
 				};
 				//登录 
 				app.login(loginInfo, function(err) {
@@ -279,6 +285,12 @@
 		var loginInfo = {};
 		loginInfo.Province = base.Province;
 		loginInfo.City = base.City;
+		loginInfo.District = base.District;
+		loginInfo.Street = base.Street;
+		loginInfo.DetailName = base.DetailName;
+		loginInfo.CityCode = base.CityCode;
+		loginInfo.Latitude = base.Latitude;
+		loginInfo.Longitude = base.Longitude;
 		switch(type) {
 			case 'weixin':
 				//{"openid":"oRrdQt8RTwroyZTnROSsJKHRM1Yw","nickname":"一个傻瓜","sex":1,"language":"zh_CN","city":"Changzhou","province":"Jiangsu","country":"CN","headimgurl":"http://wx.qlogo.cn/mmopen/eytJa9K5jkpPNvxRBGM4nIVq8iaaAH7Al37gxgs7t3TomcxByyFmYcvxhmBPRRFwrtKHapYGs8OSTticyOWLhbanpmrgMQiabsR/0","privilege":[],"unionid":"oU5Yyt4lcveMTHQvHHnE_kymcuDQ"}

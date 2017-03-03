@@ -153,7 +153,13 @@ function Upload(imgurl, length) {
 						Cover: currUploadImg.join(","),
 						Title: "",
 						Province: base.Province,
-						City: base.City
+						City: base.City,
+						District: base.District,
+						Street: base.Street,
+						DetailName: base.DetailName,
+						CityCode: base.CityCode,
+						Latitude: base.Latitude,
+						Longitude: base.Longitude
 					}
 					HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 						base.CloseWaiting();
@@ -190,7 +196,13 @@ function ConfirmImg(src) {
 		Cover: src,
 		Title: "",
 		Province: base.Province,
-		City: base.City
+		City: base.City,
+		District: base.District,
+		Street: base.Street,
+		DetailName: base.DetailName,
+		CityCode: base.CityCode,
+		Latitude: base.Latitude,
+		Longitude: base.Longitude
 	}
 	HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 		setTimeout(function() {

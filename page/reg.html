@@ -65,13 +65,13 @@
 
 	mui.init();
 
-	mui.ready(function() { 
+	mui.ready(function() {
 
 		//发送验证码
 		var btnCode = document.getElementById("btnCode");
 		btnCode.addEventListener('tap', function(event) {
 			if(isCountDown) {
-				return false; 
+				return false;
 			}
 			isCountDown = true;
 			var mob = document.getElementById("account").value;
@@ -170,6 +170,12 @@
 					Password: password,
 					Province: base.Province,
 					City: base.City,
+					District: base.District,
+					Street: base.Street,
+					DetailName: base.DetailName,
+					CityCode: base.CityCode,
+					Latitude: base.Latitude,
+					Longitude: base.Longitude
 					Code: code,
 					SMS: "regsms"
 				};
