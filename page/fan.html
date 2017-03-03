@@ -43,11 +43,7 @@
 		name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		document.getElementById("title").innerHTML = name + "的粉丝";
-		if(name == "我") {
-			document.getElementById("none_tip").innerHTML = "谁说没有粉丝，Go永远爱你";
-		} else {
-			document.getElementById("none_tip").innerHTML = name + "的粉丝，会在这里显示";
-		}
+		document.getElementById("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
 
 		base.ShowUser("#scroll");
 		base.UserAddFan("#scroll", userinfo);

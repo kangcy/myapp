@@ -356,3 +356,53 @@ video {
 	background: url(../images/article/skin.png) no-repeat center center;
 	background-size: auto 20px;
 }
+
+
+/**自定义模板**/
+
+.custom {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 8rem;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 100;
+	text-align: center;
+}
+
+.custom .span1 {
+	position: absolute;
+	left: 1rem;
+	top: 1rem;
+}
+
+.custom .span2 {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+}
+
+.custom .items {
+	width: 90%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	display: inline-block;
+	border: 1px solid #fff;
+	border-radius: 10px;
+	background: #fff;
+	overflow: hidden;
+	margin-top: 3.5rem;
+}
+
+.custom .items .item {
+	width: 33.3%;
+	display: inline-block;
+	float: left;
+	text-align: center;
+}
+
+.custom .items .item.curr {
+	background: #BF403A;
+	color: #fff;
+}
