@@ -85,8 +85,7 @@
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	mui.init();
-
-	mui.ready(function() {
+	mui.ready(function() { 
 
 		document.getElementById("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(8, 11);
 		document.getElementById("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置";
@@ -203,7 +202,7 @@
 	//检测是否绑定
 	function CheckBind(source) {
 		if(source == 1) {
-			return !base.IsNullOrEmpty(userinfo.Weixin);
+			return !base.IsNullOrEmpty(userinfo.WeiXin);
 		}
 		if(source == 2) {
 			return !base.IsNullOrEmpty(userinfo.QQ);

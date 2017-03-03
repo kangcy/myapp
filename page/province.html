@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
 		<link rel="stylesheet" href="../css/province.css">
 	</head>
 
@@ -16,11 +15,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<div class="mui-title c333">选择城市</div>
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
-			</div>
+
 		</header>
 		<div class="mui-content">
 			<div id='list' class="mui-indexed-list">
@@ -152,7 +147,6 @@
 		document.getElementById("currPosition").innerHTML = "正在定位...";
 		plus.geolocation.getCurrentPosition(function(p) {
 			//{"coordsType":"gcj02","address":{"country":"中国","province":"江苏省","city":"南京市","district":"雨花台区","street":"软件大道","poiName":"丰盛·商汇(软件大道)","cityCode":"025"},"addresses":"江苏省南京市雨花台区软件大道靠近丰盛·商汇(软件大道)","coords":{"latitude":31.97603,"longitude":118.761916,"accuracy":25,"altitude":0,"heading":null,"speed":0,"altitudeAccuracy":0},"timestamp":1479280218323}
-			console.log(JSON.stringify(p));
 			province = p.address.province;
 			city = p.address.city;
 			setTimeout(function() {

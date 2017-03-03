@@ -134,22 +134,22 @@
 		});
 
 		//性别选择
-		var sexPicker = new mui.PopPicker();
-		sexPicker.setData([{
-			value: '0',
-			text: "男"
-		}, {
-			value: '1',
-			text: "女"
-		}]);
+
 		var sexResult = document.getElementById('sexResult');
 		document.getElementById('sexPicker').addEventListener('tap', function(event) {
-			if(isLoading) {
-				return false;
-			}
-			isLoading = true;
-
+			var sexPicker = new mui.PopPicker();
+			sexPicker.setData([{
+				value: '0',
+				text: "男"
+			}, {
+				value: '1',
+				text: "女"
+			}]);
 			sexPicker.show(function(items) {
+				if(isLoading) {
+					return false;
+				}
+				isLoading = true;
 				mask.show();
 				base.ShowWaiting("正在编辑性别");
 				document.getElementById("sex").innerHTML = items[0].text;
@@ -166,6 +166,7 @@
 						} else {
 							mui.toast(data.message);
 						}
+						isLoading = false;
 					});
 					sexPicker.dispose();
 				}, 500);
@@ -174,15 +175,15 @@
 
 		//日期
 		document.getElementById('timePicker').addEventListener('tap', function() {
-			if(isLoading) {
-				return false;
-			}
-			isLoading = true;
 			var optionsJson = this.getAttribute('data-options') || '{}';
 			var options = JSON.parse(optionsJson);
 			var id = this.getAttribute('id');
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
+				if(isLoading) {
+					return false;
+				}
+				isLoading = true;
 				mask.show();
 				base.ShowWaiting("正在编辑生日");
 				document.getElementById("time").innerHTML = rs.text;
@@ -200,6 +201,7 @@
 						} else {
 							mui.toast(data.message);
 						}
+						isLoading = false;
 					});
 					picker.dispose();
 				}, 500);

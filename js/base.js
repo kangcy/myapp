@@ -420,7 +420,7 @@ var base = new function() {
 	 **/
 	this.UpdateUser = function(id, callback) {
 		HttpGet(base.RootUrl + "User/Detail", {
-			Number: id
+			Number: id 
 		}, function(data) {
 			if(data != null) {
 				if(data.result) {
@@ -434,7 +434,7 @@ var base = new function() {
 						NickName: data.NickName,
 						Address: data.Address,
 						Birthday: data.BirthdayText,
-						Follows: data.Follows,
+						Follows: data.Follows, 
 						Fans: data.Fans,
 						Articles: data.Articles,
 						Keeps: data.Keeps,
@@ -445,7 +445,7 @@ var base = new function() {
 						KeepText: data.KeepText,
 						BlackText: data.BlackText,
 						Phone: data.Phone,
-						Weixin: data.Weixin,
+						WeiXin: data.WeiXin,
 						QQ: data.QQ,
 						Weibo: data.Weibo,
 						ShareNick: data.ShareNick,
