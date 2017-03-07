@@ -299,7 +299,8 @@
 	//获取用户信息
 	function LoadUserInfo(index) {
 		HttpGet(base.RootUrl + "User/Detail", {
-			Number: UserNumber
+			Number: UserNumber,
+			CurrNumber: userinfo.Number
 		}, function(data) {
 			if(data.result) {
 				data = data.message;
@@ -335,6 +336,7 @@
 
 			} else {
 				mui.toast(data.message);
+				plus.webview.currentWebview().close();
 			}
 			base.CloseWaiting();
 

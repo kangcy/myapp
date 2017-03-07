@@ -72,7 +72,7 @@ var base = new function() {
 	/**
 	 * 系统定位
 	 **/
-	this.GetCurrentPosition = function(callback) {
+	this.GetCurrentPosition = function(callback1,callback2) {
 		plus.geolocation.getCurrentPosition(function(p) {
 			base.Province = p.address.province;
 			base.City = p.address.city;
@@ -82,8 +82,8 @@ var base = new function() {
 			base.CityCode = p.address.cityCode;
 			base.Latitude = p.coords.latitude;
 			base.Longitude = p.coords.longitude;
-			if(callback) {
-				callback();
+			if(callback1) {
+				callback1();
 			}
 		}, function(e) {
 			base.Province = "";
@@ -94,8 +94,8 @@ var base = new function() {
 			base.CityCode = "";
 			base.Latitude = "";
 			base.Longitude = "";
-			if(callback) {
-				callback();
+			if(callback2) {
+				callback2();
 			}
 		});
 	}

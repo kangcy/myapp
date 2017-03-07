@@ -184,9 +184,9 @@
 
 		base.ShowUser("#slider");
 
-		//base.UserAddFan("#slider", userinfo);
+		base.UserAddFan("#slider", userinfo);
 
-		base.ShowArticle("#slider", "List", userinfo.Number);
+		//base.ShowArticle("#slider", "List", userinfo.Number);
 
 		//切换
 		mui("#slider").on('tap', '.mui-control-item', function(event) {
@@ -203,6 +203,26 @@
 
 		base.GetCurrentPosition(function() {
 			document.getElementById("location").innerHTML = base.City + "," + base.District + "," + base.Street;
+
+			if(!base.IsNullOrEmpty(base.CityCode)) {
+				mui(document.getElementById("slider2")).pullToRefresh({
+					down: {
+						callback: function() {
+							var self = this;
+							PulldownRefresh2(self);
+						}
+					},
+					up: {
+						auto: true,
+						callback: function() {
+							var self = this;
+							PullupRefresh2(self);
+						}
+					}
+				});
+			}
+		}, function() {
+			mui.toast("定位失败,请开启定位权限")
 		});
 
 		mui(document.getElementById("slider1")).pullToRefresh({
@@ -220,28 +240,12 @@
 				}
 			}
 		});
-
-		mui(document.getElementById("slider2")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					PulldownRefresh2(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					PullupRefresh2(self);
-				}
-			}
-		});
 	});
 
 	//加载推荐用户
 	function LoadUser(callback) {
 		var table = document.getElementById('scroll-view1');
-		HttpGet(base.RootUrl + "User/CityAll", {
+		HttpGet(base.RootUrl + "User/RecommendAll", {
 			page: currpage[0],
 			rows: pagesize,
 			Number: userinfo.Number
@@ -252,7 +256,7 @@
 				var length = data.list.length;
 				if(length > 0) {
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendUser(data.list[i], false, true, false, "", true);
+						var div = base.AppendUser(data.list[i], true, true, false, "", false);
 						table.appendChild(div);
 					}
 				}
@@ -299,19 +303,22 @@
 	//同城热门
 	function LoadCityUser(callback) {
 		var table = document.getElementById('scroll-view2');
-		HttpGet(base.RootUrl + "User/CityAll", {
+		HttpGet(base.RootUrl + "User/CityAll", { 
 			page: currpage[1],
 			rows: pagesize,
-			Number: userinfo.Number
+			Number: userinfo.Number,
+			CityCode: base.CityCode
 		}, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				totalpage[1] = data.totalpage;
-				var length = data.list.length;
-				if(length > 0) {
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendUser(data.list[i], false, true, false, "", true);
-						table.appendChild(div);
+				if(data.result) {
+					totalpage[1] = data.totalpage;
+					var length = data.list.length;
+					if(length > 0) {
+						for(var i = 0, len = data.list.length; i < len; i++) {
+							var div = base.AppendUser(data.list[i], false, true, false, "", true);
+							table.appendChild(div);
+						}
 					}
 				}
 			}
@@ -388,7 +395,6 @@
 			Name: "ShowPosition",
 			Show: 1
 		}, function(data) {
-			console.log(JSON.stringify(data));
 			if(data == null) {
 				mui.toast("开启定位服务失败");
 			} else {
