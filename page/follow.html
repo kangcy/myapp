@@ -78,7 +78,7 @@
 					HttpGet(base.RootUrl + "Fan/Delete", {
 						ID: userinfo.ID,
 						ToUserNumber: li.getAttribute("userid")
-					}, function(data) { 
+					}, function(data) {
 						if(data) {
 							if(data.result) {
 								li.parentNode.removeChild(li);
@@ -120,17 +120,15 @@
 			return;
 		}
 		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
+		currpage = 1;
+		totalpage = 2;
+		document.getElementById('scroll-view').innerHTML = "";
+		Load(function() {
+			++currpage;
+			self.endPullDownToRefresh();
+			self.refresh(true);
+			isLoading = false;
+		})
 	}
 
 	//我关注的-上拉加载
@@ -144,13 +142,11 @@
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
 		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
+		Load(function() {
+			++currpage;
+			self.endPullUpToRefresh(currpage > totalpage);
+			isLoading = false;
+		})
 	}
 
 	//我的关注-加载数据

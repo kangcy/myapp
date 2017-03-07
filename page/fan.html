@@ -30,7 +30,7 @@
 	var userinfo = base.GetUserInfo();
 	var name = "我";
 	var UserNumber = "";
- 
+
 	mui.init();
 
 	mui.ready(function() {
@@ -71,17 +71,15 @@
 			return;
 		}
 		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
+		currpage = 1;
+		totalpage = 2;
+		document.getElementById('scroll-view').innerHTML = "";
+		Load(function() {
+			++currpage;
+			self.endPullDownToRefresh();
+			self.refresh(true);
+			isLoading = false;
+		})
 	}
 
 	//关注我的-上拉加载
@@ -95,13 +93,11 @@
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
 		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
+		Load(function() {
+			++currpage;
+			self.endPullUpToRefresh(currpage > totalpage);
+			isLoading = false;
+		})
 	}
 
 	//关注我的-加载数据

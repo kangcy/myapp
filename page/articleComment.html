@@ -141,24 +141,22 @@
 			ParentUserNumber: ParentUserNumber,
 			Summary: escape(val)
 		}, function(data) {
-			setTimeout(function() {
-				base.CloseWaiting();
-				mask.close();
-				mui.toast(data.result ? "感谢您的评论" : data.message);
-				if(data.result) {
-					EditorClose();
+			base.CloseWaiting();
+			mask.close();
+			mui.toast(data.result ? "感谢您的评论" : data.message);
+			if(data.result) {
+				EditorClose();
 
-					//更新文章评论数
-					var page = plus.webview.getWebviewById("articledetail");
-					if(page) {
-						page.evalJS("UpdateComment()")
-					}
-
-					NewId = data.message;
-					AppendComment();
+				//更新文章评论数
+				var page = plus.webview.getWebviewById("articledetail");
+				if(page) {
+					page.evalJS("UpdateComment()")
 				}
-				isLoading = false;
-			}, 500);
+
+				NewId = data.message;
+				AppendComment();
+			}
+			isLoading = false;
 		});
 	}
 
@@ -231,17 +229,15 @@
 		}
 		isLoading = true;
 		NewId = 0;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
+		currpage = 1;
+		totalpage = 2;
+		document.getElementById('scroll-view').innerHTML = "";
+		Load(function() {
+			++currpage;
+			self.endPullDownToRefresh();
+			self.refresh(true);
+			isLoading = false;
+		})
 	}
 
 	//文章评论-上拉加载
@@ -255,13 +251,11 @@
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
 		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
+		Load(function() {
+			++currpage;
+			self.endPullUpToRefresh(currpage > totalpage);
+			isLoading = false;
+		})
 	}
 
 	//文章评论-加载数据

@@ -126,24 +126,24 @@
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
-					<a href="#" class="c333 f15" onclick="Pic()">查看相册</a>
+					<a href="#" class="c333 f13" onclick="Pic()">查看相册</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a href="#" class="c333 f15" onclick="Share()">分享给朋友</a>
+					<a href="#" class="c333 f13" onclick="Share()">分享给朋友</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a href="#" class="c333 f15" onclick="Copy()">复制链接</a>
+					<a href="#" class="c333 f13" onclick="Copy()">复制链接</a>
 				</li>
 				<li class="mui-table-view-cell noborder hide" id="inblack">
-					<a href="#black" class="red f15">加入黑名单</a>
+					<a href="#black" class="red f13">加入黑名单</a>
 				</li>
 				<li class="mui-table-view-cell noborder hide" id="outblack">
-					<a href="#" class="red f15" onclick="OutBlack()">解除黑名单</a>
+					<a href="#" class="red f13" onclick="OutBlack()">解除黑名单</a>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
-					<a href="#power" class="c333 f14">取消</a>
+					<a href="#power" class="c333 f13">取消</a>
 				</li>
 			</ul>
 		</div>
@@ -153,12 +153,12 @@
 					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作
 				</li>
 				<li class="mui-table-view-cell noborder">
-					<a href="#" class="red f15" onclick="InBlack()">确认加入</a>
+					<a href="#" class="red f13" onclick="InBlack()">确认加入</a>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
-					<a href="#black" class="c333 f14">取消</a>
+					<a href="#black" class="c333 f13">取消</a>
 				</li>
 			</ul>
 		</div>
@@ -448,8 +448,8 @@
 			ID: userinfo.ID,
 			ToUserNumber: UserNumber
 		}
-		setTimeout(function() {
-			HttpGet(base.RootUrl + "Black/Edit", data, function(data) {
+		HttpGet(base.RootUrl + "Black/Edit", data, function(data) {
+			setTimeout(function() {
 				base.CloseWaiting();
 				if(data != null) {
 					mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
@@ -463,8 +463,8 @@
 					}
 				}
 				isLoading = false;
-			});
-		}, 500);
+			}, 500);
+		});
 	}
 
 	//解除黑名单
@@ -479,8 +479,8 @@
 			ID: userinfo.ID,
 			ToUserNumber: UserNumber
 		}
-		setTimeout(function() {
-			HttpGet(base.RootUrl + "Black/Delete", data, function(data) {
+		HttpGet(base.RootUrl + "Black/Delete", data, function(data) {
+			setTimeout(function() {
 				base.CloseWaiting();
 				if(data != null) {
 					console.log(data.message)
@@ -492,8 +492,8 @@
 					}
 				}
 				isLoading = false;
-			});
-		}, 500);
+			}, 500);
+		});
 	}
 
 	//查看相册

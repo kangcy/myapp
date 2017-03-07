@@ -74,8 +74,11 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav bounceInDown" id="search" onclick="Search()">
-			<div class="mui-input-row mui-search full">
+			<div class="mui-input-row mui-search fl" style="width:90%;display:inline-block;">
 				<input type="search" class="c999" placeholder="搜索昵称、标题、支持语音搜索" style="height:34px;font-size:15px;" disabled="disabled">
+			</div>
+			<div class="fr tc" style="width:10%;display:inline-block;" onclick="AddUser()">
+				<i class="mui-icon mui-icon-personadd"></i>
 			</div>
 		</header>
 		<div class="loading" id="loader">
@@ -131,9 +134,7 @@
 	var currSlider = 0;
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-
-	});
+	mui.init();
 
 	mui.ready(function() {
 
@@ -151,7 +152,7 @@
 			for(var i = 0; i < parent.length; i++) {
 				if(i == 0) {
 					sliders.push(true);
-				} else { 
+				} else {
 					sliders.push(false);
 				}
 				currpage.push(1);
@@ -179,7 +180,7 @@
 						html.push('<div class="mui-control-item subtype topic" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img data-lazyload="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
 					}
 					html.push('</div></div>');
-				}  
+				}
 
 				//精选添加轮播 
 				if(i == 0) {
@@ -265,17 +266,15 @@
 								return;
 							}
 							isLoading = true;
-							setTimeout(function() {
-								currpage[index] = 1;
-								totalpage[index] = 2;
-								document.getElementById('scroll-view' + index).innerHTML = "";
-								Load(index, parent[index].ID, function() {
-									++currpage[index];
-									self.endPullDownToRefresh();
-									self.refresh(true);
-									isLoading = false;
-								})
-							}, 500);
+							currpage[index] = 1;
+							totalpage[index] = 2;
+							document.getElementById('scroll-view' + index).innerHTML = "";
+							Load(index, parent[index].ID, function() {
+								++currpage[index];
+								self.endPullDownToRefresh();
+								self.refresh(true);
+								isLoading = false;
+							})
 						}
 					},
 					up: {
@@ -288,13 +287,11 @@
 								self.endPullUpToRefresh(currpage[index] > totalpage[index]);
 								return false;
 							}
-							setTimeout(function() {
-								Load(index, parent[index].ID, function() {
-									++currpage[index];
-									self.endPullUpToRefresh(currpage[index] > totalpage[index]);
-									isLoading = false;
-								})
-							}, 500);
+							Load(index, parent[index].ID, function() {
+								++currpage[index];
+								self.endPullUpToRefresh(currpage[index] > totalpage[index]);
+								isLoading = false;
+							})
 						}
 					}
 				});
@@ -358,16 +355,12 @@
 						}
 					}
 				} else {
-					setTimeout(function() {
-						document.getElementById("loader").classList.add("hide");
-						document.getElementById("none" + index).classList.remove("hide");
-					}, 200);
-				}
-			} else {
-				setTimeout(function() {
 					document.getElementById("loader").classList.add("hide");
 					document.getElementById("none" + index).classList.remove("hide");
-				}, 200);
+				}
+			} else {
+				document.getElementById("loader").classList.add("hide");
+				document.getElementById("none" + index).classList.remove("hide");
 			}
 			if($.isFunction(callback)) {
 				callback();
@@ -422,11 +415,13 @@
 		subindexPage.evalJS("PreviewTan2(0)");
 	}
 
-	/**
-	 * 跳转搜索
-	 */
+	//搜索
 	function Search() {
-		//base.OpenWindow("search", "search.html", {});
+		base.OpenWindow("search", "search.html", {});
+	}
+
+	//添加用户
+	function AddUser() {
 		base.OpenWindow("addfan", "addfan.html", {});
 	}
 </script>

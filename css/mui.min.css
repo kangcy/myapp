@@ -2955,6 +2955,10 @@ select:focus {
 	border-bottom: 3px solid #5E92D7;
 	background: 0 0
 }
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.nocolor.mui-active {
+	border-bottom: 3px solid #5E92D7;
+	background: 0 0
+}
 
 .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar {
 	background-color: #007aff
@@ -5257,7 +5261,7 @@ body>.mui-progressbar {
 
 .none {
 	width: 30% !important;
-	margin-top: 40% !important;
+	margin-top: 25% !important;
 }
 
 

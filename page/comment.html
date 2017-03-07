@@ -188,17 +188,15 @@
 		}
 		isLoading = true;
 		NewId = 0;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
+		currpage = 1;
+		totalpage = 2;
+		document.getElementById('scroll-view').innerHTML = "";
+		Load(function() {
+			++currpage;
+			self.endPullDownToRefresh();
+			self.refresh(true);
+			isLoading = false;
+		})
 	}
 
 	//评论我的-上拉加载
@@ -212,13 +210,11 @@
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
 		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
+		Load(function() {
+			++currpage;
+			self.endPullUpToRefresh(currpage > totalpage);
+			isLoading = false;
+		})
 	}
 
 	//评论我的-加载数据

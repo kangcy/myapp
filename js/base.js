@@ -72,7 +72,7 @@ var base = new function() {
 	/**
 	 * 系统定位
 	 **/
-	this.GetCurrentPosition = function() {
+	this.GetCurrentPosition = function(callback) {
 		plus.geolocation.getCurrentPosition(function(p) {
 			base.Province = p.address.province;
 			base.City = p.address.city;
@@ -82,6 +82,9 @@ var base = new function() {
 			base.CityCode = p.address.cityCode;
 			base.Latitude = p.coords.latitude;
 			base.Longitude = p.coords.longitude;
+			if(callback) {
+				callback();
+			}
 		}, function(e) {
 			base.Province = "";
 			base.City = "";
@@ -91,6 +94,9 @@ var base = new function() {
 			base.CityCode = "";
 			base.Latitude = "";
 			base.Longitude = "";
+			if(callback) {
+				callback();
+			}
 		});
 	}
 
@@ -233,6 +239,7 @@ var base = new function() {
 	var Repeat_Action = null;
 
 	this.RepeatAction = function() {
+		console.log(Repeat_Action);
 		if(Repeat_Action) {
 			return true;
 		}
@@ -457,6 +464,7 @@ var base = new function() {
 						ShowArticle: data.ShowArticle,
 						ShowFollow: data.ShowFollow,
 						ShowFan: data.ShowFan,
+						ShowPosition: data.ShowPosition,
 						UserRole: data.UserRole
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
@@ -471,7 +479,7 @@ var base = new function() {
 
 	/**
 	 * 展示用户信息
-	 **/ 
+	 **/
 	this.ShowUser = function(id) {
 		mui(id).on('tap', '.user', function(event) {
 			if(!base.TriggerMain) {
@@ -853,7 +861,7 @@ var base = new function() {
 		if(isSignature) {
 			model.push('<p class="f11 c999">' + item.Signature + '</p>');
 		}
-		if(isDistance) { 
+		if(isDistance) {
 			var distance = parseFloat(item.Distance);
 			var meter = parseInt(distance / 100);
 			if(meter < 9) {

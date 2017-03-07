@@ -95,17 +95,15 @@
 			return;
 		}
 		isLoading = true;
-		setTimeout(function() {
-			currpage = 1;
-			totalpage = 2;
-			document.getElementById('scroll-view').innerHTML = "";
-			Load(function() {
-				++currpage;
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading = false;
-			})
-		}, 500);
+		currpage = 1;
+		totalpage = 2;
+		document.getElementById('scroll-view').innerHTML = "";
+		Load(function() {
+			++currpage;
+			self.endPullDownToRefresh();
+			self.refresh(true);
+			isLoading = false;
+		})
 	}
 
 	/**
@@ -121,13 +119,11 @@
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
 		}
-		setTimeout(function() {
-			Load(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
+		Load(function() {
+			++currpage;
+			self.endPullUpToRefresh(currpage > totalpage);
+			isLoading = false;
+		})
 	}
 
 	/**

@@ -64,6 +64,7 @@
 						ShowArticle: data.ShowArticle,
 						ShowFollow: data.ShowFollow,
 						ShowFan: data.ShowFan,
+						ShowPosition: data.ShowPosition,
 						UserRole: data.UserRole
 					}
 					localStorage.setItem('$userinfo', JSON.stringify(info));
@@ -134,6 +135,7 @@
 					ShowArticle: data.ShowArticle,
 					ShowFollow: data.ShowFollow,
 					ShowFan: data.ShowFan,
+					ShowPosition: data.ShowPosition,
 					UserRole: data.UserRole
 				}
 				localStorage.setItem('$userinfo', JSON.stringify(info));
@@ -207,6 +209,7 @@
 					ShowArticle: data.ShowArticle,
 					ShowFollow: data.ShowFollow,
 					ShowFan: data.ShowFan,
+					ShowPosition: data.ShowPosition,
 					UserRole: data.UserRole
 				}
 				localStorage.setItem('$userinfo', JSON.stringify(info));

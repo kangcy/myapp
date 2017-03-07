@@ -106,3 +106,12 @@
 	left: 0px;
 	background-color: transparent;
 }
+
+.cover {
+	width: 3.5rem;
+}
+
+.cover img {
+	width: 3rem;
+	float: right;
+}
