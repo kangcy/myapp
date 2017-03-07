@@ -7,7 +7,7 @@
 	"id": "H5CCC9B38",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "GO",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "0.7",/*应用版本名称*/
+		"name": "0.8",/*应用版本名称*/
 		"code": ""
 	},
 	"description": "",/*应用描述信息*/
@@ -2089,18 +2089,6 @@
 	      "refer": [],
 	      "priority": 0
 	    },
-	    "page/articletype2.html": {
-	      "resources": [
-	        "js/base.js",
-	        "js/mui.min.js",
-	        "fonts/mui.ttf",
-	        "css/mui.min.css",
-	        "js/jquery-1.10.2.min.js",
-	        "images/header.png"
-	      ],
-	      "refer": [],
-	      "priority": 0
-	    },
 	    "page/index.html": {
 	      "resources": [
 	        "fonts/mui.ttf",
@@ -2129,54 +2117,6 @@
 	        "page/articledetail.html",
 	        "page/user.html",
 	        "page/articleComment.html"
-	      ],
-	      "priority": 0
-	    },
-	    "page/user2.html": {
-	      "resources": [
-	        "images/share/3.png",
-	        "images/share/4.png",
-	        "images/share/1.png",
-	        "js/transparent.js",
-	        "images/share/5.png",
-	        "images/share/6.png",
-	        "images/share/2.png",
-	        "images/login/logo.png",
-	        "fonts/mui.ttf",
-	        "images/header.png",
-	        "css/animate.css",
-	        "js/base.js",
-	        "css/my.css",
-	        "js/mui.min.js",
-	        "css/loading.min.css",
-	        "images/logo_default.png",
-	        "css/mui.min.css",
-	        "js/jquery-1.10.2.min.js",
-	        "css/user.css"
-	      ],
-	      "refer": [
-	        "page/articledetail.html",
-	        "page/pic.html"
-	      ],
-	      "priority": 0
-	    },
-	    "page/zan2.html": {
-	      "resources": [
-	        "css/fan.css",
-	        "images/my/111.png",
-	        "js/base.js",
-	        "js/mui.pullToRefresh.js",
-	        "js/mui.min.js",
-	        "js/mui.pullToRefresh.material.js",
-	        "css/loading.min.css",
-	        "fonts/mui.ttf",
-	        "css/mui.min.css",
-	        "images/logo_default.png",
-	        "images/header.png"
-	      ],
-	      "refer": [
-	        "page/user2.html",
-	        "page/articledetail.html"
 	      ],
 	      "priority": 0
 	    },

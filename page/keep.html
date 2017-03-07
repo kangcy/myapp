@@ -103,10 +103,8 @@
 								if(records <= 0) {
 									document.getElementById("none").classList.remove("hide");
 								}
-								base.RefreshScroll();
 
 								userinfo.Keeps = records;
-								userinfo.KeepText = data.message;
 								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							} else {
 								mui.toast(data.message);

@@ -273,36 +273,6 @@ var base = new function() {
 	}
 
 	/**
-	 * 添加收藏
-	 **/
-	this.AddKeep = function(userinfo, articleid) {
-		if(userinfo.KeepText.indexOf("," + articleid + ",") >= 0) {
-			return true;
-		} else {
-			userinfo.KeepText += articleid + ",";
-			userinfo.Keeps += 1;
-			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * 判断是否收藏
-	 **/
-	this.CheckKeep = function(keeps, articleid) {
-		articleid = "," + articleid + ",";
-		if(base.IsNullOrEmpty(keeps)) {
-			return false;
-		}
-		if(keeps.indexOf(articleid) >= 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * 判断是否加入黑名单
 	 **/
 	this.CheckBlack = function(blacks, userid) {
@@ -448,7 +418,6 @@ var base = new function() {
 						Zans: data.Zans,
 						Cover: data.Cover,
 						FanText: data.FanText,
-						KeepText: data.KeepText,
 						BlackText: data.BlackText,
 						Phone: data.Phone,
 						WeiXin: data.WeiXin,
