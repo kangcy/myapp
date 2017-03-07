@@ -366,7 +366,8 @@
 					document.getElementById("loader").classList.add("hide");
 					document.getElementById("none" + index).classList.remove("hide");
 				}
-			} else {
+			}
+			if(data == null && currpage[index] == 1) {
 				document.getElementById("loader").classList.add("hide");
 				document.getElementById("none" + index).classList.remove("hide");
 			}

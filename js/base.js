@@ -72,7 +72,7 @@ var base = new function() {
 	/**
 	 * 系统定位
 	 **/
-	this.GetCurrentPosition = function(callback1,callback2) {
+	this.GetCurrentPosition = function(callback1, callback2) {
 		plus.geolocation.getCurrentPosition(function(p) {
 			base.Province = p.address.province;
 			base.City = p.address.city;
@@ -573,7 +573,7 @@ var base = new function() {
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
-			model.push('</p><span style="position:absolute;right:0px;top:1%;border:1px solid #ff6900;color:#ff6900;border-radius:5px;padding:2px 5px;" />' + power + '</span></div></div>');
+			model.push('</p><span class="f11" style="position:absolute;right:0px;top:1%;border:1px solid #ff0000;color:#ff0000;padding:1px;border-radius:2px;" />' + power + '</span></div></div>');
 
 		} else {
 			if(isdel) {

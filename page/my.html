@@ -12,54 +12,54 @@
 	</head>
 
 	<body>
-		<div class="mui-content fl">
-			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:0px;bottom:0px;">
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<header class="mui-bar" style="box-shadow:none;">
-						<img src="../images/my/setting.png" class="fl" id="setting" />
-						<img src="../images/my/tip.png" class="fr" id="tip" />
+						<img src="../images/my/setting.png" class="fl" id="setting" onclick="Setting()" />
+						<img src="../images/my/tip.png" class="fr" id="tip" onclick="Tip()" />
 						<h1 class="mui-title c333"></h1>
 					</header>
-					<div class="info-content" id="bg" onclick="Pic()">
-						<img id="avatar" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" />
+					<div class="info-content" id="bg" onclick="Cover()">
+						<img id="avatar" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" onclick="MySetting()" />
 						<p class="cfff f16 tc mt10 textshadow" id="nickname"></p>
 						<p class="cfff signature tc mt10 f12 textshadow" id="signature"></p>
 						<div class="content1 tc mt5 mb10 cfff textshadow">
-							<div class="items" id="my-articles">
-								<p class="item1 f18 cfff textshadow" id="articles">0</p>
+							<div class="items" onclick="Article()">
+								<p class="item1 f16 cfff textshadow" id="articles">0</p>
 								<p class="item2 f12 cfff textshadow">动态</p>
 							</div>
-							<div class="items" id="my-keeps">
-								<p class="item1 f18 cfff textshadow" id="keeps">0</p>
+							<div class="items" onclick="Keep()">
+								<p class="item1 f16 cfff textshadow" id="keeps">0</p>
 								<p class="item2 f12 cfff textshadow">收藏</p>
 							</div>
-							<div class="items" id="my-follows">
-								<p class="item1 f18 cfff textshadow" id="follows">0</p>
+							<div class="items" onclick="Follow()">
+								<p class="item1 f16 cfff textshadow" id="follows">0</p>
 								<p class="item2 f12 cfff textshadow">关注</p>
 							</div>
-							<div class="items" id="my-fans">
-								<p class="item1 f18 cfff textshadow" id="fans">0</p>
+							<div class="items" onclick="Fan()">
+								<p class="item1 f16 cfff textshadow" id="fans">0</p>
 								<p class="item2 f12 cfff textshadow">粉丝</p>
 							</div>
 						</div>
 					</div>
-					<div class="c000 menu f13" id="my-mypic">
-						<div>我的相册<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
+					<div class="c333 menu f13" onclick="Pic()">
+						<div>我的相册<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 					</div>
-					<div class="c000 menu f13" id="my-mypay">
-						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
+					<div class="c333 menu f13" onclick="Pay()">
+						<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 					</div>
-					<div class="c000 menu f13" id="my-comment">
-						<div>评论与回复<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
+					<div class="c333 menu f13" onclick="Comment()">
+						<div>评论与回复<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 					</div>
-					<div class="c000 menu f13" id="my-feedback">
-						<div>意见反馈<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
+					<div class="c333 menu f13" onclick="Feedback()">
+						<div>意见反馈<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 					</div>
-					<div class="c000 menu f13" id="my-good">
-						<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
+					<div class="c333 menu f13" onclick="Good()">
+						<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 					</div>
-					<div class="c000 menu f13" id="my-help">
-						<div class="noborder">帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 caaa f16 mr10"></span></div>
+					<div class="c333 menu f13" onclick="Help()">
+						<div class="noborder">帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 					</div>
 				</div>
 			</div>
@@ -67,25 +67,22 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-		swipeBack: false
-	});
+	mui.init();
 
 	mui.ready(function() {
 
 		Init();
 
-		base.InitScroll(false);
+		base.InitScroll();
 	});
 
 	//更换封面
-	function Pic() {
+	function Cover() {
 		if(!base.TriggerMain) {
 			return false;
 		}
@@ -107,17 +104,15 @@
 
 	//初始化绑定用户信息
 	function Init() {
-		$("#bg").css({
-			"background": "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat",
-			"background-size": "cover"
-		});
-		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 2));
-		$("#nickname").html(userinfo.NickName);
-		$("#signature").html(userinfo.Signature);
-		$("#follows").html(userinfo.Follows);
-		$("#fans").html(userinfo.Fans);
-		$("#articles").html(userinfo.Articles);
-		$("#keeps").html(userinfo.Keeps);
+		document.getElementById("bg").style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat";
+		document.getElementById("bg").style.backgroundSize = "cover";
+		document.getElementById("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
+		document.getElementById("nickname").innerHTML = userinfo.NickName;
+		document.getElementById("signature").innerHTML = userinfo.Signature;
+		document.getElementById("follows").innerHTML = userinfo.Follows;
+		document.getElementById("fans").innerHTML = userinfo.Fans;
+		document.getElementById("articles").innerHTML = userinfo.Articles;
+		document.getElementById("keeps").innerHTML = userinfo.Keeps;
 	}
 
 	//更新本地用户信息
@@ -126,111 +121,107 @@
 		Init();
 	}
 
-	mui.plusReady(function() {
+	//用户设置
+	function MySetting() {
+		base.TriggerMain = false;
+		base.OpenWindow("mysetting", "mysetting.html", {});
+		setTimeout(function() {
+			base.TriggerMain = true;
+		}, 1500);
+	}
 
-		//消息
-		document.getElementById('tip').addEventListener('tap', function(event) {
-			base.TriggerMain = false;
-			base.OpenWindow("tipsetting", "tipsetting.html", {
-				Source: "My"
-			});
-			setTimeout(function() {
-				base.TriggerMain = true;
-			}, 2000);
+	//消息
+	function Tip() {
+		base.TriggerMain = false;
+		base.OpenWindow("tipsetting", "tipsetting.html", {
+			Source: "My"
 		});
+		setTimeout(function() {
+			base.TriggerMain = true;
+		}, 1500);
+	};
 
-		//用户设置
-		document.getElementById('avatar').addEventListener('tap', function(event) {
-			base.TriggerMain = false;
-			base.OpenWindow("mysetting", "mysetting.html", {});
-			setTimeout(function() {
-				base.TriggerMain = true;
-			}, 2000);
-		});
+	//系统设置
+	function Setting() {
+		base.TriggerMain = false;
+		base.OpenWindow("setting", "setting.html", {});
+		setTimeout(function() {
+			base.TriggerMain = true;
+		}, 1500);
+	}
 
-		//系统设置
-		document.getElementById('setting').addEventListener('tap', function(event) {
-			base.TriggerMain = false;
-			base.OpenWindow("setting", "setting.html", {});
-			setTimeout(function() {
-				base.TriggerMain = true;
-			}, 2000);
+	//我的文章
+	function Article() {
+		base.TriggerMain = false;
+		base.OpenWindow("article", "article.html", {
+			CreateUserNumber: userinfo.Number,
+			ArticleTypeName: "我的动态",
+			Source: "My"
 		});
+		setTimeout(function() {
+			base.TriggerMain = true;
+		}, 1500);
+	};
 
-		//我的相册
-		document.getElementById('my-mypic').addEventListener('tap', function(event) {
-			base.OpenWindow("pic", "pic.html", {
-				UserNumber: userinfo.Number
-			});
-		});
+	//我的收藏
+	function Keep() {
+		base.TriggerMain = false;
+		base.OpenWindow("keep", "keep.html", {});
+		setTimeout(function() {
+			base.TriggerMain = true;
+		}, 1500);
+	};
 
-		//我的打赏
-		document.getElementById('my-mypay').addEventListener('tap', function(event) {
-			base.OpenWindow("mypay", "mypay.html", {});
-		});
+	//我的关注
+	function Follow() {
+		base.TriggerMain = false;
+		base.OpenWindow("follow", "follow.html", {});
+		setTimeout(function() {
+			base.TriggerMain = true;
+		}, 1500);
+	};
 
-		//给个好评
-		document.getElementById('my-good').addEventListener('tap', function(event) {
-			//应用的appstore地址
-			var url = "";
-			plus.runtime.openURL(url);
-		});
+	//我的粉丝
+	function Fan() {
+		base.TriggerMain = false;
+		base.OpenWindow("fan", "fan.html", {});
+		setTimeout(function() {
+			base.TriggerMain = true;
+		}, 1500);
+	};
 
-		//帮助中心
-		document.getElementById('my-help').addEventListener('tap', function(event) {
-			base.OpenWindow("help", "help.html", {});
+	//我的相册
+	function Pic() {
+		base.OpenWindow("pic", "pic.html", {
+			UserNumber: userinfo.Number
 		});
+	};
 
-		//我的评论
-		document.getElementById('my-comment').addEventListener('tap', function(event) {
-			base.OpenWindow("comment", "comment.html", {});
-		});
+	//我的打赏
+	function Pay() {
+		base.OpenWindow("mypay", "mypay.html", {});
+	};
 
-		//我的文章
-		document.getElementById('my-articles').addEventListener('tap', function(event) {
-			base.TriggerMain = false;
-			base.OpenWindow("article", "article.html", {
-				CreateUserNumber: userinfo.Number,
-				ArticleTypeName: "我的动态",
-				Source: "My"
-			});
-			setTimeout(function() {
-				base.TriggerMain = true;
-			}, 2000);
-		});
+	//给个好评
+	function Good() {
+		var url = ""; //应用的appstore地址
+		plus.runtime.openURL(url);
+	};
 
-		//我的收藏
-		document.getElementById('my-keeps').addEventListener('tap', function(event) {
-			base.TriggerMain = false;
-			base.OpenWindow("keep", "keep.html", {});
-			setTimeout(function() {
-				base.TriggerMain = true;
-			}, 2000);
-		});
+	//我的评论
+	function Comment() {
+		base.OpenWindow("comment", "comment.html", {});
+	};
 
-		//我的关注
-		document.getElementById('my-follows').addEventListener('tap', function(event) {
-			base.TriggerMain = false;
-			base.OpenWindow("follow", "follow.html", {});
-			setTimeout(function() {
-				base.TriggerMain = true;
-			}, 2000);
-		});
+	//留言反馈
+	function Feedback() {
+		base.OpenWindow("feedback", "feedback.html", {});
+	};
 
-		//我的粉丝
-		document.getElementById('my-fans').addEventListener('tap', function(event) {
-			base.TriggerMain = false;
-			base.OpenWindow("fan", "fan.html", {});
-			setTimeout(function() {
-				base.TriggerMain = true;
-			}, 2000);
-		});
-
-		//留言反馈
-		document.getElementById('my-feedback').addEventListener('tap', function(event) {
-			base.OpenWindow("feedback", "feedback.html", {});
-		});
-	});
+	//帮助中心
+	function Help() {
+		base.OpenWindow("help", "help.html", {});
+	};
 
 	//修改封面		 
 	function UpdateCover(url) {
@@ -242,10 +233,10 @@
 			Cover: url
 		}, function(data) {
 			if(data.result) {
-				$("#bg").css({
-					"background": "url(" + base.ShowThumb(url, 1) + ") fixed center center no-repeat",
-					"background-size": "cover"
-				});
+
+				document.getElementById("bg").style.background = "url(" + base.ShowThumb(url, 1) + ") fixed center center no-repeat";
+				document.getElementById("bg").style.backgroundSize = "cover";
+
 				userinfo.Cover = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			} else {

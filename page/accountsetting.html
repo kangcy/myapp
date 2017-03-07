@@ -127,7 +127,7 @@
 			var self = plus.webview.currentWebview();
 			var myPage = plus.webview.getWebviewById('my.html');
 			if(myPage) {
-				myPage.evalJS("Load()");
+				myPage.evalJS("Refresh()");
 			}
 			plus.webview.close(self);
 		}
