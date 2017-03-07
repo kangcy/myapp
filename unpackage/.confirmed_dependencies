@@ -498,7 +498,8 @@
 			"images/base/reward_hig.png",
 			"images/base/like_hig.png",
 			"images/my/444.png",
-			"images/article/jing.png"
+			"images/article/jing.png",
+			"images/base/adduser.png"
 		],
 		"refer": [
 			"page/topicSub.html",

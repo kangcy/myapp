@@ -239,7 +239,6 @@ var base = new function() {
 	var Repeat_Action = null;
 
 	this.RepeatAction = function() {
-		console.log(Repeat_Action);
 		if(Repeat_Action) {
 			return true;
 		}
