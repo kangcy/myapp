@@ -61,6 +61,7 @@
 						ShowArticle: data.ShowArticle,
 						ShowFollow: data.ShowFollow,
 						ShowFan: data.ShowFan,
+						ShowPush: data.ShowPush,
 						ShowPosition: data.ShowPosition,
 						UserRole: data.UserRole
 					}
@@ -129,6 +130,7 @@
 					ShowArticle: data.ShowArticle,
 					ShowFollow: data.ShowFollow,
 					ShowFan: data.ShowFan,
+					ShowPush: data.ShowPush,
 					ShowPosition: data.ShowPosition,
 					UserRole: data.UserRole
 				}
@@ -200,6 +202,7 @@
 					ShowArticle: data.ShowArticle,
 					ShowFollow: data.ShowFollow,
 					ShowFan: data.ShowFan,
+					ShowPush: data.ShowPush,
 					ShowPosition: data.ShowPosition,
 					UserRole: data.UserRole
 				}
