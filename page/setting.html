@@ -162,6 +162,9 @@
 
 		//是否启用水印
 		document.getElementById("drawSwitch").addEventListener('tap', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			if(isLoading) {
 				return false;
 			}
@@ -190,6 +193,9 @@
 
 		//是否分享昵称
 		document.getElementById("shareNickSwitch").addEventListener('tap', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			if(isLoading) {
 				return false;
 			}
@@ -218,6 +224,9 @@
 
 		//是否自动播放音乐
 		document.getElementById("autoMusicSwitch").addEventListener('tap', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			if(isLoading) {
 				return false;
 			}

@@ -106,6 +106,9 @@
 	mui.plusReady(function() {
 		//是否启用打赏
 		document.getElementById("autoPaySwitch").addEventListener('tap', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			if(isLoading) {
 				return;
 			}
@@ -147,6 +150,9 @@
 	});
 
 	function NotAgree() {
+		if(base.RepeatAction()) {
+			return;
+		}
 		ispay = 0;
 		base.SwitchChange("autoPaySwitch", false);
 		ActionTan(0);
@@ -154,6 +160,9 @@
 	}
 
 	function Agree() {
+		if(base.RepeatAction()) {
+			return;
+		}
 		ActionTan(0);
 		HttpGet(base.RootUrl + "User/EditPay", {
 			ID: userinfo.ID,
@@ -161,14 +170,14 @@
 		}, function(data) {
 			if(data == null) {
 				mui.toast("修改失败");
-				mui("#autoPaySwitch").switch().toggle();
+				base.SwitchChange("autoPaySwitch", false);
 			} else {
 				if(data.result) {
 					userinfo.IsPay = ispay;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 				} else {
 					mui.toast("修改失败");
-					mui("#autoPaySwitch").switch().toggle();
+					base.SwitchChange("autoPaySwitch", false);
 				}
 			}
 			isLoading = false;
@@ -177,14 +186,15 @@
 
 	//操作弹窗
 	function ActionTan(index) {
+		var noticebg = document.getElementById("mytanbg");
 		var notice = document.getElementById("notice");
 		if(index == 0) {
-			document.getElementById("mytanbg").classList.add("hide");
+			noticebg.classList.add("hide");
 			notice.classList.remove("bounceIn");
 			notice.classList.add("bounceOut");
 			notice.classList.add("hide");
 		} else {
-			document.getElementById("mytanbg").classList.remove("hide");
+			noticebg.classList.remove("hide");
 			notice.classList.remove("hide");
 			notice.classList.remove("bounceOut");
 			notice.classList.add("bounceIn");

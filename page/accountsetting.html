@@ -266,19 +266,7 @@
 			s.login(function(e) {
 				authUserInfo(type, s);
 			}, function(e) {
-				switch(type) {
-					case "weixin":
-						base.SwitchChange("weixinSwitch", false);
-						break;
-					case "sinaweibo":
-						base.SwitchChange("weiboSwitch", false);
-						break;
-					case "qq":
-						base.SwitchChange("qqSwitch", false);
-						break;
-					default:
-						break;
-				}
+				SwitchToggle(type, false);
 			});
 		} else {
 			authUserInfo(type, s);
