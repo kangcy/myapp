@@ -124,7 +124,7 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://www.ishaoxia.com/";
+	this.RootUrl = "http://www.ishaoxia.com:8080/";
 
 	/**
 	 * 默认图片
@@ -468,13 +468,13 @@ var base = new function() {
 					power = "私密";
 					break;
 			}
-			model.push('<div class="mui-card-header noborder full fl" style="display:inline-block;">');
+			/*model.push('<div class="mui-card-header noborder full fl" style="display:inline-block;padding-bottom:0px;">');
 			model.push('<div class="mui-media-body f13 mt0" style="position:relative;"><span>' + item.CreateDate + '</span><p class="f11 full mt5">');
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
-			model.push('</p><span class="f11" style="position:absolute;right:0px;top:1%;border:1px solid #ff0000;color:#ff0000;padding:1px;border-radius:2px;" />' + power + '</span></div></div>');
-
+			model.push('</p><span class="f11" style="position:absolute;right:0px;top:1%;color:#ff0000;" />「' + power + '」</span></div></div>');*/
+			//model.push('<div class="mui-card-header"><span class="f11 fl">' + item.CreateDate + '</span><span class="f11 fr" style="color:#ff0000;" />「' + power + '」</span></div>');
 		} else {
 			if(isdel) {
 				model.push('<div class="mui-slider-cell mui-slider-handle">');
@@ -504,12 +504,34 @@ var base = new function() {
 		model.push('<div class="c333 fl article full mb15 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
 		//加精
 		if(item.Recommend == 99) {
-			model.push('<div class="fl f11 mt1" style="padding:1px;border-radius:2px;line-height:initial;border:1px solid #ff0000;color:#ff0000;margin-right:5px;display:inline-block;">精选</div>');
+			model.push('<span class="fl f11" style="color:#ff0000;">「精选」</span>');
 		}
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的GO";
 		}
 		model.push(item.Title + '</div>');
+
+		if(ismy == true) {
+			var power = "";
+			switch(item.ArticlePower) {
+				case "0":
+					power = "私密";
+					break;
+				case 1:
+					power = "密码";
+					break;
+				case 2:
+					power = "分享";
+					break;
+				case 3:
+					power = "公开";
+					break;
+				default:
+					power = "私密";
+					break;
+			}
+			model.push('<div class="mui-card-header full c999 fl" style="margin-top:-0.5rem;padding:0px 0px 0.625rem 0px"><span class="f11 fl">' + item.CreateDate + '</span><span class="f11 fr" style="color:#ff0000;" />「' + power + '」</span></div>');
+		}
 
 		//图片拼接 
 		var parts = item.ArticlePart;
