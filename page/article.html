@@ -138,7 +138,8 @@
 			rows: pagesize,
 			TypeID: ArticleType,
 			CreateUserNumber: CreateUserNumber,
-			CurrUserNumber: userinfo.Number
+			CurrUserNumber: userinfo.Number,
+			Number: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "Article/All", data, function(data) {
 			document.getElementById("loader").classList.add("hide");

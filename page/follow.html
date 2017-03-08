@@ -87,10 +87,7 @@
 								if(list.length == 0) {
 									document.getElementById("none").classList.remove("hide");
 								}
-
-								userinfo.Follows = records;
-								userinfo.FanText = data.message;
-								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+								base.AddFan(userinfo, records);
 							} else {
 								mui.toast(data.message);
 							}

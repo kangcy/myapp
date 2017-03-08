@@ -224,7 +224,7 @@
 		var self = plus.webview.currentWebview();
 		UserNumber = self.UserNumber || "";
 
-		CheckBlack();
+		LoadUserInfo();
 
 		//返回
 		mui.back = function() {
@@ -246,12 +246,73 @@
 		}
 	});
 
-	//初始化获取参数
-	function Init(index) {
-		LoadUserInfo(index);
-		if(index == 1) {
-			LoadArticle();
-		}
+	//获取用户信息
+	function LoadUserInfo() {
+		HttpGet(base.RootUrl + "User/Detail", {
+			Number: UserNumber,
+			CurrNumber: userinfo.Number
+		}, function(data) {
+			if(data.result) {
+				data = data.message;
+
+				NickName = data.NickName;
+				Avatar = data.Avatar;
+				Sex = data.Sex;
+
+				document.getElementById("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") fixed center center no-repeat";
+				document.getElementById("bg").style.backgroundSize = "cover";
+				document.getElementById("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
+				document.getElementById("avatar").classList.remove("hide");
+				document.getElementById("nickname").innerHTML = data.NickName;
+				document.getElementById("signature").innerHTML = data.Signature;
+
+				if(data.ShowArticle == 1) {
+					document.getElementById("showArticleNum").innerHTML = data.Keeps;
+					document.getElementById("showArticle").classList.remove("hide");
+				}
+				if(data.ShowFollow == 1) {
+					document.getElementById("showFollowNum").innerHTML = data.Follows;
+					document.getElementById("showFollow").classList.remove("hide");
+				}
+				if(data.ShowFan == 1) {
+					document.getElementById("showFanNum").innerHTML = data.Fans;
+					document.getElementById("showFan").classList.remove("hide");
+				}
+
+				if(data.IsBlack == 1) {
+					document.getElementById("article").classList.add("hide");
+					document.getElementById("blacktip").classList.remove("hide");
+					document.getElementById("inblack").classList.add("hide");
+					document.getElementById("outblack").classList.remove("hide");
+				} else {
+					document.getElementById("blacktip").classList.add("hide");
+					document.getElementById("article").classList.remove("hide");
+					document.getElementById("outblack").classList.add("hide");
+					document.getElementById("inblack").classList.remove("hide");
+
+					//加载文章
+
+					LoadArticle();
+
+					//检查关注
+					if(userinfo.Number != UserNumber) {
+						CheckFan(data.IsFan);
+					}
+				}
+
+				//分享信息 
+				ShareInfo.Title = NickName + "的专栏";
+				ShareInfo.Cover = Avatar;
+				ShareInfo.Url = data.ShareUrl;
+
+			} else {
+				mui.toast(data.message);
+				plus.webview.currentWebview().close();
+			}
+			base.CloseWaiting();
+
+			document.getElementById("loader").classList.add("hide");
+		});
 	}
 
 	//文章
@@ -296,68 +357,6 @@
 		});
 	}
 
-	//获取用户信息
-	function LoadUserInfo(index) {
-		HttpGet(base.RootUrl + "User/Detail", {
-			Number: UserNumber,
-			CurrNumber: userinfo.Number
-		}, function(data) {
-			if(data.result) {
-				data = data.message;
-
-				NickName = data.NickName;
-				Avatar = data.Avatar;
-				Sex = data.Sex;
-
-				document.getElementById("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") fixed center center no-repeat";
-				document.getElementById("bg").style.backgroundSize = "cover";
-
-				document.getElementById("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
-				document.getElementById("avatar").classList.remove("hide");
-				document.getElementById("nickname").innerHTML = data.NickName;
-				document.getElementById("signature").innerHTML = data.Signature;
-				if(data.ShowArticle == 1) {
-					document.getElementById("showArticleNum").innerHTML = data.Keeps;
-					document.getElementById("showArticle").classList.remove("hide");
-				}
-				if(data.ShowFollow == 1) {
-					document.getElementById("showFollowNum").innerHTML = data.Follows;
-					document.getElementById("showFollow").classList.remove("hide");
-				}
-				if(data.ShowFan == 1) {
-					document.getElementById("showFanNum").innerHTML = data.Fans;
-					document.getElementById("showFan").classList.remove("hide");
-				}
-
-				//分享信息 
-				ShareInfo.Title = NickName + "的专栏";
-				ShareInfo.Cover = Avatar;
-				ShareInfo.Url = data.ShareUrl;
-
-			} else {
-				mui.toast(data.message);
-				plus.webview.currentWebview().close();
-			}
-			base.CloseWaiting();
-
-			//已拉黑
-			if(index == 0) {
-				document.getElementById("article").classList.add("hide");
-				document.getElementById("blacktip").classList.remove("hide");
-			} else {
-				document.getElementById("blacktip").classList.add("hide");
-				document.getElementById("article").classList.remove("hide");
-
-				//检查关注
-				if(userinfo.Number != UserNumber) {
-					CheckFan();
-				}
-			}
-
-			document.getElementById("loader").classList.add("hide");
-		});
-	}
-
 	//关注
 	function Follow() {
 		base.OpenWindow("follow", "follow.html", {
@@ -386,13 +385,13 @@
 	}
 
 	//判断是否关注
-	function CheckFan() {
+	function CheckFan(isfan) {
 		if(isLoading) {
 			return false;
 		}
 		isLoading = true;
 		var $guanzhu = document.getElementById("guanzhu");
-		if(base.CheckFan(userinfo.FanText, UserNumber)) {
+		if(isfan == 1) {
 			$guanzhu.classList.add("guanzhu2");
 			$guanzhu.classList.remove("guanzhu")
 			$guanzhu.innerHTML = "已关注";
@@ -412,7 +411,9 @@
 					if(data != null) {
 						mui.toast(data.result ? "关注成功" : data.message);
 						if(data.result) {
-							base.AddFan(userinfo, UserNumber);
+							if(data.message != "exist") {
+								base.AddFan(userinfo);
+							}
 							$guanzhu.classList.add("guanzhu2");
 							$guanzhu.classList.remove("guanzhu")
 							$guanzhu.innerHTML = "已关注";
@@ -423,19 +424,6 @@
 			});
 		}
 		document.getElementById("action").classList.remove("hide");
-	}
-
-	//检查黑名单
-	function CheckBlack() {
-		if(base.CheckBlack(userinfo.BlackText, UserNumber)) {
-			document.getElementById("inblack").classList.add("hide");
-			document.getElementById("outblack").classList.remove("hide");
-			Init(0);
-		} else {
-			document.getElementById("outblack").classList.add("hide");
-			document.getElementById("inblack").classList.remove("hide");
-			Init(1);
-		}
 	}
 
 	//添加黑名单
@@ -451,21 +439,15 @@
 			ToUserNumber: UserNumber
 		}
 		HttpGet(base.RootUrl + "Black/Edit", data, function(data) {
-			setTimeout(function() {
-				base.CloseWaiting();
-				if(data != null) {
-					mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
-					if(data.result) {
-						userinfo.Follows = data.message.Follows;
-						userinfo.FanText = data.message.FanText;
-						userinfo.BlackText = data.message.BlackText;
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-
-						mui.back();
-					}
+			base.CloseWaiting();
+			if(data != null) {
+				mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
+				if(data.result) {
+					base.AddFan(userinfo, data.message);
+					mui.back();
 				}
-				isLoading = false;
-			}, 500);
+			}
+			isLoading = false;
 		});
 	}
 
@@ -482,19 +464,14 @@
 			ToUserNumber: UserNumber
 		}
 		HttpGet(base.RootUrl + "Black/Delete", data, function(data) {
-			setTimeout(function() {
-				base.CloseWaiting();
-				if(data != null) {
-					console.log(data.message)
-					mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
-					if(data.result) {
-						userinfo.BlackText = data.message;
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-						plus.webview.currentWebview().reload();
-					}
+			base.CloseWaiting();
+			if(data != null) {
+				mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
+				if(data.result) {
+					plus.webview.currentWebview().reload();
 				}
-				isLoading = false;
-			}, 500);
+			}
+			isLoading = false;
 		});
 	}
 

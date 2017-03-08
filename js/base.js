@@ -273,33 +273,15 @@ var base = new function() {
 	}
 
 	/**
-	 * 判断是否加入黑名单
-	 **/
-	this.CheckBlack = function(blacks, userid) {
-		userid = "," + userid + ",";
-		if(base.IsNullOrEmpty(blacks)) {
-			return false;
-		}
-		if(blacks.indexOf(userid) >= 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * 添加关注
 	 **/
-	this.AddFan = function(userinfo, userid) {
-		if(userinfo.FanText.indexOf("," + userid + ",") >= 0) {
-			return true;
+	this.AddFan = function(userinfo, num) {
+		if(num) {
+			userinfo.Follows = num;
 		} else {
-			userinfo.FanText += userid + ",";
 			userinfo.Follows += 1;
-			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			return true;
 		}
-		return false;
+		localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 	}
 
 	/**
@@ -338,7 +320,9 @@ var base = new function() {
 			}, function(data) {
 				if(data != null) {
 					if(data.result) {
-						base.AddFan(userinfo, userNumber);
+						if(data.message != "exist") {
+							base.AddFan(userinfo);
+						}
 						if(callback) {
 							callback($this);
 						}
@@ -417,8 +401,6 @@ var base = new function() {
 						Comments: data.Comments,
 						Zans: data.Zans,
 						Cover: data.Cover,
-						FanText: data.FanText,
-						BlackText: data.BlackText,
 						Phone: data.Phone,
 						WeiXin: data.WeiXin,
 						QQ: data.QQ,
@@ -654,29 +636,23 @@ var base = new function() {
 				$this.setAttribute("src", "../images/base/follow1.png");
 				return mui.toast("关注成功");
 			}
-
-			if(base.CheckFan(userinfo.FanText, UserNumber)) {
-				base.IsLoading = false;
-				mui.toast("关注成功");
-				$this.classList.remove("guanzhu");
-				$this.setAttribute("src", "../images/base/follow1.png");
-			} else {
-				var data = {
-					ID: userinfo.ID,
-					ToUserNumber: UserNumber
-				}
-				HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
-					base.IsLoading = false;
-					if(data != null) {
-						mui.toast(data.result ? "关注成功" : data.message);
-						if(data.result) {
-							$this.classList.remove("guanzhu");
-							$this.setAttribute("src", "../images/base/follow1.png");
-							base.AddFan(userinfo, UserNumber);
+			var data = {
+				ID: userinfo.ID,
+				ToUserNumber: UserNumber
+			}
+			HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+				if(data != null) {
+					mui.toast(data.result ? "关注成功" : data.message);
+					if(data.result) {
+						$this.classList.remove("guanzhu");
+						$this.setAttribute("src", "../images/base/follow1.png");
+						if(data.message != "exist") {
+							base.AddFan(userinfo);
 						}
 					}
-				});
-			}
+				}
+				base.IsLoading = false;
+			});
 		});
 	}
 
@@ -840,7 +816,7 @@ var base = new function() {
 		}
 		model.push('</div>');
 		if(isFollow) {
-			if(!base.CheckFan(userinfo.FanText, item.Number) && userinfo.Number != item.Number) {
+			if(item.IsFollow == 0 && userinfo.Number != item.Number) {
 				model.push('<div class="mui-table-cell guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" /></div>');
 			} else {
 				model.push('<div class="mui-table-cell guanzhu2"><img src="../images/base/follow1.png" /></div>');
@@ -881,7 +857,9 @@ var base = new function() {
 						$this.classList.remove("guanzhu");
 						$this.classList.add("guanzhu2");
 						$this.childNodes[0].setAttribute("src", "../images/base/follow1.png");
-						base.AddFan(userinfo, UserNumber);
+						if(data.message != "exist") {
+							base.AddFan(userinfo);
+						}
 					}
 					mui.toast(data.result ? "关注成功" : data.message);
 				}
