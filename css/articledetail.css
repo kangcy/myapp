@@ -278,9 +278,10 @@
 
 #btnPay {
 	position: fixed;
-	left: 10px;
+	left: 1rem;
 	bottom: 4rem;
-	z-index: 999;
+	width: 4rem;
+	z-index: 99;
 }
 
 #mypay {
@@ -348,13 +349,11 @@ video {
 }
 
 #btnTemp {
-	position: absolute;
-	right: 30px;
-	top: 0px;
-	width: 40px;
-	height: 45px;
-	background: url(../images/article/skin.png) no-repeat center center;
-	background-size: auto 20px;
+	position: fixed;
+	right: 1rem;
+	bottom: 4rem;
+	width: 4rem;
+	z-index: 99;
 }
 
 

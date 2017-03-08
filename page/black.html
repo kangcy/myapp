@@ -41,8 +41,11 @@
 
 		//取消拉黑
 		mui("#scroll").on('tap', '.mui-btn', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			var li = this.parentNode.parentNode;
-			mui.confirm('确认移除黑名单？', '', ['确认', '取消'], function(e) { 
+			mui.confirm('确认移除黑名单？', '', ['确认', '取消'], function(e) {
 				if(e.index == 0) {
 					mui.swipeoutClose(li);
 					HttpGet(base.RootUrl + "Black/Delete", {
@@ -90,7 +93,6 @@
 				var records = data.records;
 				if(records > 0) {
 					document.getElementById("none").classList.add("hide");
-
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendUser(data.list[i], true, false, true, "移除黑名单");
 						table.appendChild(div);
@@ -99,7 +101,7 @@
 					document.getElementById("none").classList.remove("hide");
 				}
 			}
-			if(data == null) {
+			if(data == null && currpage == 1) {
 				document.getElementById("none").classList.remove("hide");
 			}
 			if(callback) {

@@ -71,6 +71,9 @@
 
 		//取消关注
 		mui("#scroll").on('tap', '.mui-btn', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
 			var li = this.parentNode.parentNode;
 			mui.confirm('确认取消关注？', '', ['确认', '取消'], function(e) {
 				if(e.index == 0) {
@@ -83,11 +86,14 @@
 							if(data.result) {
 								li.parentNode.removeChild(li);
 
-								var list = document.querySelectorAll(".mui-table-view-cell");
-								if(list.length == 0) {
+								records = records - 1;
+								if(records < 0) {
+									records = 0;
+								}
+								if(records <= 0) {
 									document.getElementById("none").classList.remove("hide");
 								}
-								base.AddFan(userinfo, records);
+								base.UpdateFan(userinfo, records);
 							} else {
 								mui.toast(data.message);
 							}
@@ -113,7 +119,7 @@
 
 	//我关注的-下拉刷新
 	function pulldownRefresh(self) {
-		if(isLoading == true) {
+		if(isLoading) {
 			return;
 		}
 		isLoading = true;
@@ -130,7 +136,7 @@
 
 	//我关注的-上拉加载
 	function pullupRefresh(self) {
-		if(isLoading == true) {
+		if(isLoading) {
 			return;
 		}
 		isLoading = true;
@@ -148,12 +154,11 @@
 
 	//我的关注-加载数据
 	function Load(callback) {
-		data = {
+		HttpGet(base.RootUrl + "Fan/FollowsAll", {
 			page: currpage,
 			rows: pagesize,
 			CreateUserNumber: UserNumber
-		}
-		HttpGet(base.RootUrl + "Fan/FollowsAll", data, function(data) {
+		}, function(data) {
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
 				totalpage = data.totalpage;

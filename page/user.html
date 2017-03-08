@@ -291,7 +291,6 @@
 					document.getElementById("inblack").classList.remove("hide");
 
 					//加载文章
-
 					LoadArticle();
 
 					//检查关注
@@ -412,7 +411,7 @@
 						mui.toast(data.result ? "关注成功" : data.message);
 						if(data.result) {
 							if(data.message != "exist") {
-								base.AddFan(userinfo);
+								base.UpdateFan(userinfo);
 							}
 							$guanzhu.classList.add("guanzhu2");
 							$guanzhu.classList.remove("guanzhu")
@@ -443,7 +442,7 @@
 			if(data != null) {
 				mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
 				if(data.result) {
-					base.AddFan(userinfo, data.message);
+					base.UpdateFan(userinfo, data.message);
 					mui.back();
 				}
 			}

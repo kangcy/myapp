@@ -85,7 +85,7 @@
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	mui.init();
-	mui.ready(function() { 
+	mui.ready(function() {
 
 		document.getElementById("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(8, 11);
 		document.getElementById("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置";
@@ -104,15 +104,6 @@
 		if(CheckBind(3)) {
 			base.SwitchChange("weiboSwitch", true)
 		}
-	})
-
-	mui.plusReady(function() {
-
-		plus.oauth.getServices(function(services) {
-			auths = services;
-		}, function(e) { 
-			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
-		});
 
 		if(base.IsNullOrEmpty(userinfo.Phone)) {
 			mui.confirm('尚未绑定手机号，有文章丢失的风险，请尽快绑定。', '提示', ['去绑定', '取消'], function(e) {
@@ -121,6 +112,15 @@
 				}
 			});
 		}
+	})
+
+	mui.plusReady(function() {
+
+		plus.oauth.getServices(function(services) {
+			auths = services;
+		}, function(e) {
+			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
+		});
 
 		//返回
 		mui.back = function() {
@@ -143,7 +143,11 @@
 				authLogin('weixin');
 			} else {
 				if(base.IsNullOrEmpty(userinfo.Phone)) {
-					mui.toast("解绑微信前需要绑定手机");
+					mui.confirm('解绑微信前需要绑定手机', '', ['去绑定', '取消'], function(e) {
+						if(e.index == 0) {
+							BindPhone();
+						}
+					});
 				} else {
 					authLogout('weixin');
 				}
@@ -161,7 +165,11 @@
 				authLogin('qq');
 			} else {
 				if(base.IsNullOrEmpty(userinfo.Phone)) {
-					mui.toast("解绑QQ前需要绑定手机");
+					mui.confirm('解绑QQ前需要绑定手机', '', ['去绑定', '取消'], function(e) {
+						if(e.index == 0) {
+							BindPhone();
+						}
+					});
 				} else {
 					authLogout('qq');
 				}
@@ -179,7 +187,11 @@
 				authLogin('sinaweibo');
 			} else {
 				if(base.IsNullOrEmpty(userinfo.Phone)) {
-					mui.toast("解绑微博前需要绑定手机");
+					mui.confirm('解绑微博前需要绑定手机', '', ['去绑定', '取消'], function(e) {
+						if(e.index == 0) {
+							BindPhone();
+						}
+					});
 				} else {
 					authLogout('sinaweibo');
 				}
@@ -235,11 +247,6 @@
 	//绑定手机号
 	function BindPhone() {
 		base.OpenWindow("bindphone", "bindphone.html", {});
-	}
-
-	//绑定邮箱
-	function BindEmail() {
-		base.OpenWindow("bindemail", "bindemail.html", {});
 	}
 
 	//登录操作 
@@ -397,7 +404,7 @@
 				});
 			}, function(e) {
 				base.CloseWaiting();
-				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
+				mui.toast("获取用户信息失败");
 			});
 		}
 	}

@@ -112,11 +112,6 @@ var base = new function() {
 	this.IsLoading = false;
 
 	/**
-	 * 是否测试
-	 **/
-	this.IsTest = mui.os.plus ? false : true;
-
-	/**
 	 * 列表每次请求数
 	 **/
 	this.PageSize = 20;
@@ -135,14 +130,6 @@ var base = new function() {
 	 * 默认图片
 	 **/
 	this.DefaultImg = "../images/logo_default.png";
-
-	/**
-	 * 获取当前用户ID
-	 **/
-	this.GetUserID = function() {
-		var userinfo = base.GetUserInfo();
-		return userinfo.ID || 0;
-	}
 
 	/**
 	 * 获取当前用户信息
@@ -237,7 +224,6 @@ var base = new function() {
 	 * 防止连续点击
 	 */
 	var Repeat_Action = null;
-
 	this.RepeatAction = function() {
 		if(Repeat_Action) {
 			return true;
@@ -273,9 +259,9 @@ var base = new function() {
 	}
 
 	/**
-	 * 添加关注
+	 * 更新关注数
 	 **/
-	this.AddFan = function(userinfo, num) {
+	this.UpdateFan = function(userinfo, num) {
 		if(num) {
 			userinfo.Follows = num;
 		} else {
@@ -285,34 +271,17 @@ var base = new function() {
 	}
 
 	/**
-	 * 判断是否关注
-	 **/
-	this.CheckFan = function(fans, userid) {
-		userid = "," + userid + ",";
-		if(base.IsNullOrEmpty(fans)) {
-			return false;
-		}
-		if(fans.indexOf(userid) >= 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * 关注
 	 **/
 	this.GuanZhu = function(id, userinfo, callback) {
 		mui(id).on('tap', '.guanzhu', function(event) {
 			var userId = this.getAttribute("userid");
-
 			if(userNumber == userinfo.Number) {
 				if(callback) {
 					callback($this);
 				}
 				return;
 			}
-
 			var $this = this;
 			HttpGet(base.RootUrl + "Fan/Edit", {
 				ID: userinfo.ID,
@@ -321,7 +290,7 @@ var base = new function() {
 				if(data != null) {
 					if(data.result) {
 						if(data.message != "exist") {
-							base.AddFan(userinfo);
+							base.UpdateFan(userinfo);
 						}
 						if(callback) {
 							callback($this);
@@ -458,26 +427,6 @@ var base = new function() {
 				Source: Source,
 				ArticlePower: power
 			});
-		});
-	}
-
-	/**
-	 * 验证权限密码
-	 */
-	this.CheckPowerPwd = function(articleid, pwd, callback) {
-		HttpGet(base.RootUrl + "Article/CheckPowerPwd", {
-			ArticleID: articleid,
-			ArticlePowerPwd: pwd
-		}, function(data) {
-			if(data != null) {
-				if(data.result) {
-					if(callback) {
-						callback();
-					}
-					return;
-				}
-			}
-			mui.toast("解锁失败");
 		});
 	}
 
@@ -647,7 +596,7 @@ var base = new function() {
 						$this.classList.remove("guanzhu");
 						$this.setAttribute("src", "../images/base/follow1.png");
 						if(data.message != "exist") {
-							base.AddFan(userinfo);
+							base.UpdateFan(userinfo);
 						}
 					}
 				}
@@ -858,7 +807,7 @@ var base = new function() {
 						$this.classList.add("guanzhu2");
 						$this.childNodes[0].setAttribute("src", "../images/base/follow1.png");
 						if(data.message != "exist") {
-							base.AddFan(userinfo);
+							base.UpdateFan(userinfo);
 						}
 					}
 					mui.toast(data.result ? "关注成功" : data.message);
