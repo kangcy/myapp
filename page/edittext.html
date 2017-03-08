@@ -67,7 +67,7 @@
 				title.innerHTML = "举报内容";
 				document.title = "举报内容";
 				question.setAttribute("maxlength", 500);
-				question.setAttribute("placeholder", "请填写举报原因,不超过20个字......");
+				question.setAttribute("placeholder", "请填写举报原因,不超过500个字......");
 				break;
 			default:
 				break;
@@ -106,7 +106,7 @@
 						return mui.toast("请填写举报原因");
 					}
 					var userinfo = base.GetUserInfo();
-					HttpGet(base.RootUrl + "Report/Edit", {
+					HttpPost(base.RootUrl + "Report/Edit", {
 						ID: userinfo.ID,
 						ArticleNumber: self.ArticleNumber,
 						Summary: val

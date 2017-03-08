@@ -849,6 +849,13 @@ function HttpGet(url, data, callback) {
 }
 
 /**
+ * Post请求
+ **/
+function HttpPost(url, data, callback) {
+	mui.post(url, data, callback, 'json');
+}
+
+/**
  * Slider切换动态触发
  **/
 function ChangeSlider(index) {

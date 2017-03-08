@@ -50,7 +50,11 @@
 			document.getElementById("title").innerHTML = "评论";
 			document.getElementById("none_img").setAttribute("src", "../images/my/333.png");
 			document.getElementById("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
-			$(".mui-content").before('<div class="mui-bar mui-bar-tab tc f14 cfff hide" id="bottomAction" onclick="Comment()" style="background:#49be38;line-height:50px;">我来说一句</div>');
+			//$(".mui-content").before('<div class="mui-bar mui-bar-tab tc f14 cfff hide" id="bottomAction" onclick="Comment()" style="background:#49be38;line-height:50px;">我来说一句</div>');
+			
+			$(".mui-content").before('<div class="mui-bar mui-bar-tab tc cfff hide" style="background:#fff;" id="bottomAction" onclick="Comment()"><div id="addcomment"><div class="f12">我来说一句</div></div></div>');
+			
+			
 			$("#main").append('<textarea id="textarea" class="hide"></textarea>');
 		});
 	});
@@ -299,12 +303,12 @@
 		model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
 		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
 		model.push('<div class="mui-table-cell pb0 main">');
-		model.push('<p class="f12 user c999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr c999 f11">' + item.CreateDateText + '</span></p>');
-		model.push('<p class="f11 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
+		model.push('<p class="f12 user c999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr c999 f12">' + item.CreateDateText + '</span></p>');
+		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(item.ParentCommentID > 0) {
-			model.push('<p class="tip mb0 f11" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
+			model.push('<p class="tip mb0 f13" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" /><span class="f11 mt1 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods mt1 ml15 fr" cid="' + item.ID + '" already="0" /></div>');
+		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" /><span class="f13 mt1 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods mt1 ml15 fr" cid="' + item.ID + '" already="0" /></div>');
 		model.push('</div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');

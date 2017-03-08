@@ -250,3 +250,25 @@
 .mui-slider .mui-slider-group .mui-slider-item img {
 	width: initial !important;
 }
+
+#addcomment {
+	width: 100%;
+	float: left;
+	height: 2.8rem;
+	line-height: 2.6rem;
+	text-align: center;
+}
+
+#addcomment div {
+	width: 90%;
+	border-radius: 30px;
+	background: #4087cb;
+	display: inline-block;
+	height: 2.1875rem;
+	line-height: 2.1875rem;
+	background-image: url(../images/article/pen2.png);
+	background-repeat: no-repeat;
+	background-position: 40% center;
+	background-size: 1.25rem;
+	text-indent: 10%;
+}

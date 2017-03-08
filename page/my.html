@@ -13,7 +13,7 @@
 
 	<body>
 		<div class="mui-content">
-			<div id="pullrefresh" class="mui-scroll-wrapper">
+			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<header class="mui-bar" style="box-shadow:none;">
 						<img src="../images/my/setting.png" class="fl" id="setting" onclick="Setting()" />
@@ -21,25 +21,25 @@
 						<h1 class="mui-title c333"></h1>
 					</header>
 					<div class="info-content" id="bg" onclick="Cover()">
-						<img id="avatar" style="border-radius:50%;width:5rem;height:5rem;border:3px solid #fff;" onclick="MySetting()" />
+						<img id="avatar" onclick="MySetting()" />
 						<p class="cfff f16 tc mt10 textshadow" id="nickname"></p>
 						<p class="cfff signature tc mt10 f12 textshadow" id="signature"></p>
 						<div class="content1 tc mt5 mb10 cfff textshadow">
 							<div class="items" onclick="Article()">
 								<p class="item1 f16 cfff textshadow" id="articles">0</p>
-								<p class="item2 f12 cfff textshadow">动态</p>
+								<p class="item2 f13 cfff textshadow">动态</p>
 							</div>
 							<div class="items" onclick="Keep()">
 								<p class="item1 f16 cfff textshadow" id="keeps">0</p>
-								<p class="item2 f12 cfff textshadow">收藏</p>
+								<p class="item2 f13 cfff textshadow">收藏</p>
 							</div>
 							<div class="items" onclick="Follow()">
 								<p class="item1 f16 cfff textshadow" id="follows">0</p>
-								<p class="item2 f12 cfff textshadow">关注</p>
+								<p class="item2 f13 cfff textshadow">关注</p>
 							</div>
 							<div class="items" onclick="Fan()">
 								<p class="item1 f16 cfff textshadow" id="fans">0</p>
-								<p class="item2 f12 cfff textshadow">粉丝</p>
+								<p class="item2 f13 cfff textshadow">粉丝</p>
 							</div>
 						</div>
 					</div>
@@ -70,6 +70,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var $bg = document.getElementById("bg");
 	var userinfo = base.GetUserInfo();
 
 	mui.init();
@@ -79,6 +80,13 @@
 		Init();
 
 		base.InitScroll();
+
+		/*var scroll = mui('.mui-scroll-wrapper').scroll();
+		document.querySelector('.mui-scroll-wrapper').addEventListener('scroll', function(e) {
+			if(scroll.y >= 0) {
+				$bg.style.backgroundSize = (100 + scroll.y / 5) + "%";
+			}
+		})*/
 	});
 
 	//更换封面
@@ -104,8 +112,8 @@
 
 	//初始化绑定用户信息
 	function Init() {
-		document.getElementById("bg").style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat";
-		document.getElementById("bg").style.backgroundSize = "cover";
+		$bg.style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat";
+		$bg.style.backgroundSize = "cover";
 		document.getElementById("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
 		document.getElementById("nickname").innerHTML = userinfo.NickName;
 		document.getElementById("signature").innerHTML = userinfo.Signature;
@@ -234,8 +242,8 @@
 		}, function(data) {
 			if(data.result) {
 
-				document.getElementById("bg").style.background = "url(" + base.ShowThumb(url, 1) + ") fixed center center no-repeat";
-				document.getElementById("bg").style.backgroundSize = "cover";
+				$bg.style.background = "url(" + base.ShowThumb(url, 1) + ") fixed center center no-repeat";
+				$bg.style.backgroundSize = "cover";
 
 				userinfo.Cover = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));

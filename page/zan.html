@@ -143,10 +143,10 @@
 		//分类图片
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell avatar" style="vertical-align:top !important;"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" /></div>');
 		//分类信息
-		model.push('<div class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + item.NickName + '<span class="ml5 c999">喜欢了你的文章<span class="article" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">「' + item.Title + '」</span></span></p></div><p class="f12 caaa">' + item.CreateDate + '</p></div>');
-		model.push('<div class="mui-table-cell cover" style="vertical-align:top !important;"><img src="' + base.ShowThumb(item.Cover, 2) + '" class="mt5" /></div>');
+		model.push('<div class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + item.NickName + '<span class="ml5 c999">喜欢了你的文章<br /><span class="article" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">「' + item.Title + '」</span></span></p></div><p class="f12 caaa">' + item.CreateDate + '</p></div>');
+		//model.push('<div class="mui-table-cell cover" style="vertical-align:top !important;"><img src="' + base.ShowThumb(item.Cover, 2) + '" class="mt5" /></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
-		return div; 
+		return div;
 	}
 </script>
