@@ -124,7 +124,7 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://www.ishaoxia.com:8080/";
+	this.RootUrl = "http://www.ishaoxia.com/";
 
 	/**
 	 * 默认图片
@@ -763,9 +763,6 @@ var base = new function() {
 				return false;
 			}
 			base.IsLoading = true;
-
-			base.CheckLogin(userinfo); //判断用户是否登录
-
 			var $this = this;
 			var UserNumber = this.getAttribute("userid");
 			var data = {

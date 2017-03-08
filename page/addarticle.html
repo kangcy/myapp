@@ -203,7 +203,6 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber || "";
-
 		Source = self.Source || "Add";
 
 		Load();
@@ -454,9 +453,11 @@
 		//编辑文章
 		var data = {
 			ID: userinfo.ID,
+			Number: userinfo.Number, 
 			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
+			console.log(userinfo.ID + "," + ArticleID + "," + JSON.stringify(data));
 			if(data != null) {
 				if(data.result) {
 					data = data.message
