@@ -255,7 +255,6 @@
 			return false;
 		}
 		isLoading = true;
-		base.ShowWaiting("正在绑定");
 		var s;
 		for(var i = 0; i < auths.length; i++) {
 			if(auths[i].id == type) {
@@ -267,7 +266,6 @@
 			s.login(function(e) {
 				authUserInfo(type, s);
 			}, function(e) {
-				base.ShowWaiting("取消绑定");
 				switch(type) {
 					case "weixin":
 						base.SwitchChange("weixinSwitch", false);
@@ -281,9 +279,6 @@
 					default:
 						break;
 				}
-				setTimeout(function() {
-					base.CloseWaiting();
-				}, 500);
 			});
 		} else {
 			authUserInfo(type, s);
@@ -325,32 +320,34 @@
 						Source: source
 					}, function(data) {
 						if(data == null) {
-							return callback("系统异常,请稍后再试");
+							SwitchToggle(id, true);
+							return mui.toast("系统异常,请稍后再试");
 						} else {
 							if(data.result) {
-								base.UpdateUser(userinfo.Number);
-								userinfo = base.GetUserInfo();
+								switch(id) {
+									case "weixin":
+										userinfo.WeiXin = "";
+										break;
+									case "sinaweibo":
+										userinfo.Weibo = "";
+										break;
+									case "qq":
+										userinfo.QQ = "";
+										break;
+									default:
+										break;
+								}
+								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+								mui.toast("解绑成功");
 							} else {
-								return callback(data.message);
+								SwitchToggle(id, true);
+								return mui.toast(data.message);
 							}
 						}
-						mui.toast("解绑成功");
 					});
 				} else {
 					mui.toast("解绑失败");
-					switch(source) {
-						case 1:
-							base.SwitchChange("weixinSwitch", true);
-							break;
-						case 2:
-							base.SwitchChange("qqSwitch", true);
-							break;
-						case 3:
-							base.SwitchChange("weiboSwitch", true);
-							break;
-						default:
-							break;
-					}
+					SwitchToggle(id, true);
 				}
 			}
 		}
@@ -359,13 +356,12 @@
 	//登录认证信息 
 	function authUserInfo(type, s) {
 		if(!s.authResult) {
-			base.CloseWaiting();
+			SwitchToggle(type, false);
 			mui.toast("未授权登录");
 		} else {
 			s.getUserInfo(function(e) {
 				var josnStr = JSON.stringify(s.userInfo);
 				var jsonObj = s.userInfo;
-				console.log("获取用户信息成功：" + josnStr);
 				var openId = showData(type, jsonObj);
 				var url = "";
 				switch(type) {
@@ -382,28 +378,41 @@
 						break;
 				}
 				if(url == "" || openId == "") {
-					base.CloseWaiting();
+					SwitchToggle(type, false);
 					return mui.toast("授权失败");
 				}
 				HttpGet(base.RootUrl + url, {
 					ID: userinfo.ID,
 					Key: openId
 				}, function(data) {
-					base.CloseWaiting();
 					if(data == null) {
-						return callback("系统异常,请稍后再试");
+						SwitchToggle(type, false);
+						mui.toast("系统异常,请稍后再试");
 					} else {
 						if(data.result) {
-							base.UpdateUser(userinfo.Number);
-							userinfo = base.GetUserInfo();
+							switch(type) {
+								case "weixin":
+									userinfo.WeiXin = openId;
+									break;
+								case "sinaweibo":
+									userinfo.Weibo = openId;
+									break;
+								case "qq":
+									userinfo.QQ = openId;
+									break;
+								default:
+									break;
+							}
+							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							mui.toast("绑定成功");
 						} else {
-							return callback(data.message);
+							SwitchToggle(type, false);
+							mui.toast(data.message);
 						}
 					}
 				});
 			}, function(e) {
-				base.CloseWaiting();
+				SwitchToggle(type, false);
 				mui.toast("获取用户信息失败");
 			});
 		}
@@ -429,5 +438,22 @@
 				break;
 		}
 		return openId;
+	}
+
+	//开关
+	function SwitchToggle(type, open) {
+		switch(type) {
+			case "weixin":
+				base.SwitchChange("weixinSwitch", open);
+				break;
+			case "qq":
+				base.SwitchChange("qqSwitch", open);
+				break;
+			case "sinaweibo":
+				base.SwitchChange("weiboSwitch", open);
+				break;
+			default:
+				break;
+		}
 	}
 </script>

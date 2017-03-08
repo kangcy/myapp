@@ -1443,7 +1443,8 @@
 			"images/login/user.png",
 			"images/login/pwd.png",
 			"images/login/phone.png",
-			"css/input.css"
+			"css/input.css",
+			"css/input.min.css"
 		],
 		"refer": []
 	},
@@ -1741,7 +1742,8 @@
 			"css/input.css",
 			"fonts/mui.ttf",
 			"css/mui.min.css",
-			"js/default.js"
+			"js/default.js",
+			"css/input.min.css"
 		],
 		"refer": [
 			"page/login.html"

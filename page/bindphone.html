@@ -59,8 +59,6 @@
 				isCountDown = false;
 				return mui.toast("友情提醒：您输入手机号码格式异常");
 			}
-			mask.show();
-			base.ShowWaiting("正在获取验证码");
 			var time = 60;
 			var count = setInterval(function() {
 				time--;
@@ -72,30 +70,34 @@
 					btnCode.innerText = "接收短信大约需要" + time + "秒 ";
 				}
 			}, 1000);
+			mask.show();
+			base.ShowWaiting("正在发送验证码");
 			HttpGet(base.RootUrl + "System/SendSMS", {
 				Mobile: mob,
 				SMS: "bindphone"
 			}, function(data) {
-				base.CloseWaiting();
-				mask.close();
-				if(data) {
-					if(data.result) {
-						mui.toast("验证码发送成功");
-						if(data.usesms == "0") {
-							document.getElementById("code").value = data.message;
+				setTimeout(function() {
+					base.CloseWaiting();
+					mask.close();
+					if(data) {
+						if(data.result) {
+							mui.toast("验证码发送成功");
+							if(data.usesms == "0") {
+								document.getElementById("code").value = data.message;
+							}
+						} else {
+							mui.toast("验证码发送失败");
 						}
 					} else {
 						mui.toast("验证码发送失败");
 					}
-				} else {
-					mui.toast("验证码发送失败");
-				}
+				}, 500);
 			});
 		});
 	})
 
 	mui.plusReady(function() {
-		
+
 		//提交
 		document.getElementById("submit").addEventListener('tap', function(event) {
 			if(isLoading) {
