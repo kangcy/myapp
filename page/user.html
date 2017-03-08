@@ -329,7 +329,7 @@
 						var html = [];
 						for(var y = 0; y < data.list[i].List.length; y++) {
 							var item = data.list[i].List[y];
-							html.push('<img src="' + base.ShowThumb(item.Cover, 2) + '" class="article" articleid="' + item.ID + '" userid="' + item.CreateUserNumber + '" power="' + item.ArticlePower + '" />');
+							html.push('<img src="' + base.ShowThumb(item.Cover, 2) + '" class="article" articleid="' + item.ID + '" userid="' + item.CreateUserNumber + '" power="' + item.ArticlePower + '" nickname="' + NickName + '" />');
 						}
 						div2.innerHTML = html.join('');
 						table.appendChild(div2);

@@ -331,8 +331,10 @@
 	mui.plusReady(function() {
 
 		self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID || 0;
 		Source = self.Source || "Add";
+		ArticleID = self.ArticleID || 0;
+		NickName = self.NickName || "";
+		document.getElementById("title").innerHTML = NickName;
 
 		Load(function() {
 			plus.webview.close("addarticle");

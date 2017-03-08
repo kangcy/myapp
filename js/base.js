@@ -420,13 +420,15 @@ var base = new function() {
 			var articleId = this.getAttribute("articleid");
 			var userNumber = this.getAttribute("userid");
 			var power = this.getAttribute("power").toString();
+			var nickname = this.getAttribute("nickname").toString();
 			if(currUserNumber == userNumber) {
 				power = 3;
 			}
 			base.OpenWindow("articledetail", "articledetail.html", {
 				ArticleID: articleId,
 				Source: Source,
-				ArticlePower: power
+				ArticlePower: power,
+				NickName: nickname
 			});
 		});
 	}
@@ -450,44 +452,18 @@ var base = new function() {
 		if(isdel) {
 			model.push('<div class="mui-slider-right mui-disabled tc"><a class="mui-btn mui-btn-red">删除</a></div>');
 		}
-		if(ismy == true) {
-			var power = "";
-			switch(item.ArticlePower) {
-				case "0":
-					power = "私密";
-					break;
-				case 1:
-					power = "密码";
-					break;
-				case 2:
-					power = "分享";
-					break;
-				case 3:
-					power = "公开";
-					break;
-				default:
-					power = "私密";
-					break;
-			}
-			/*model.push('<div class="mui-card-header noborder full fl" style="display:inline-block;padding-bottom:0px;">');
-			model.push('<div class="mui-media-body f13 mt0" style="position:relative;"><span>' + item.CreateDate + '</span><p class="f11 full mt5">');
-			if(!base.IsNullOrEmpty(item.City)) {
-				model.push('<span class="blue">' + item.Province + ' • ' + item.City + '</span>');
-			}
-			model.push('</p><span class="f11" style="position:absolute;right:0px;top:1%;color:#ff0000;" />「' + power + '」</span></div></div>');*/
-			//model.push('<div class="mui-card-header"><span class="f11 fl">' + item.CreateDate + '</span><span class="f11 fr" style="color:#ff0000;" />「' + power + '」</span></div>');
-		} else {
+		if(!ismy) {
 			if(isdel) {
 				model.push('<div class="mui-slider-cell mui-slider-handle">');
 			}
-			model.push('<div class="mui-card-header noborder mui-card-media">');
+			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
 			if(islazyload) {
-				model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
+				model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 			} else {
-				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" class="user" userid="' + item.UserNumber + '" />');
+				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 			}
 
-			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span class="user" userid="' + item.UserNumber + '">' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
+			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
@@ -502,7 +478,7 @@ var base = new function() {
 		//内容
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
-		model.push('<div class="c333 fl article full mb15 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '">');
+		model.push('<div class="c333 fl article full mb15 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
 		//加精
 		if(item.Recommend == 99) {
 			model.push('<span class="fl f11" style="color:#ff0000;">「精选」</span>');
@@ -555,20 +531,12 @@ var base = new function() {
 		model.push('</div></div>');
 
 		//底部统计
-		model.push('<div class="mui-card-footer fl full c999 mb10 f11" style="display:inline-block;"><span class="fl"><span class="blue">' + item.Views + '次浏览</span></span>');
-		model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><span class="fr mt1" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
-		model.push('<span class="goods" articleid="' + item.ArticleID + '"><span class="fr mt1" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img id="igoods' + item.ArticleID + '" src="../images/base/like_nor.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
-		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><span class="fr mt1" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="mr5 fr" /></span>');
+		model.push('<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl"><span class="blue">' + item.Views + '次浏览</span></span>');
+		model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><span class="fr" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="ml15 mr5 mt1 fr" /></span>');
+		model.push('<span class="goods" articleid="' + item.ArticleID + '"><span class="fr" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img id="igoods' + item.ArticleID + '" src="../images/base/like_nor.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
+		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><span class="fr" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="mr5 fr mt1" /></span>');
 		model.push('</div>');
 
-		//评论
-		/*if(item.CommentList.length > 0) {
-			model.push('<div class="mui-card-footer fl full c999" style="display:inline-block;">');
-			for(var i = 0; i < item.CommentList.length; i++) {
-				model.push('<div class="f12 full fl" style="line-height:1.3rem;"><span class="blue f12">' + item.CommentList[i].UserName + '</span>&nbsp;:<span class="ml5">' + item.CommentList[i].Summary + '</span></div>');
-			}
-			model.push('</div>');
-		}*/
 		if(isdel) {
 			model.push('</div>');
 		}
@@ -591,28 +559,17 @@ var base = new function() {
 	 */
 	this.ArticleAddFan = function(id, userinfo) {
 		mui(id).on('tap', '.guanzhu', function(event) {
+			base.TriggerMain = false;
 			if(base.IsLoading) {
 				return false;
 			}
 			base.IsLoading = true;
-
-			base.CheckLogin(userinfo); //判断用户是否登录
-
 			var $this = this;
 			var UserNumber = this.getAttribute("userid");
-
-			//判断是否自己
-			if(UserNumber == userinfo.Number) {
-				base.IsLoading = false;
-				$this.classList.remove("guanzhu");
-				$this.setAttribute("src", "../images/base/follow1.png");
-				return mui.toast("关注成功");
-			}
-			var data = {
+			HttpGet(base.RootUrl + "Fan/Edit", {
 				ID: userinfo.ID,
 				ToUserNumber: UserNumber
-			}
-			HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+			}, function(data) {
 				if(data != null) {
 					mui.toast(data.result ? "关注成功" : data.message);
 					if(data.result) {
@@ -624,6 +581,7 @@ var base = new function() {
 					}
 				}
 				base.IsLoading = false;
+				base.TriggerMain = true;
 			});
 		});
 	}
@@ -637,10 +595,6 @@ var base = new function() {
 				return false;
 			}
 			base.IsLoading = true;
-
-			//判断用户是否登录
-			base.CheckLogin(userinfo);
-
 			var ArticleID = this.getAttribute("articleid");
 			HttpGet(base.RootUrl + "Zan/Edit", {
 				ID: userinfo.ID,
@@ -670,10 +624,6 @@ var base = new function() {
 				return false;
 			}
 			base.IsLoading = true;
-
-			//判断用户是否登录
-			base.CheckLogin(userinfo);
-
 			var ArticleNumber = this.getAttribute("ArticleNumber");
 			var ArticleUserNumber = this.getAttribute("UserNumber");
 			var NickName = this.getAttribute("NickName");
@@ -700,7 +650,6 @@ var base = new function() {
 			}
 			base.IsLoading = true;
 
-			//判断用户是否登录
 			base.CheckLogin(userinfo);
 
 			var ArticleID = this.getAttribute("articleid");
