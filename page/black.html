@@ -85,16 +85,17 @@
 	function Load(callback) {
 		var table = document.getElementById('scroll-view');
 		table.innerHTML = "";
-		HttpGet(base.RootUrl + "Black/All", {
+		HttpGet(base.RootUrl + "Api/Black/All", {
 			CreateUserNumber: userinfo.Number
 		}, function(data) {
+			data = JSON.parse(data);
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				var records = data.records;
-				if(records > 0) {
+				if(data.result) {
+					data = data.message;
 					document.getElementById("none").classList.add("hide");
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendUser(data.list[i], true, false, true, "移除黑名单");
+					for(var i = 0, len = data.length; i < len; i++) {
+						var div = base.AppendUser(data[i], true, false, true, "移除黑名单");
 						table.appendChild(div);
 					}
 				} else {

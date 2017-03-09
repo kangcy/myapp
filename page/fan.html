@@ -108,11 +108,12 @@
 			ToUserNumber: UserNumber
 		}
 		HttpGet(base.RootUrl + "Fan/FansAll", data, function(data) {
+			data = JSON.parse(data);
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				totalpage = data.totalpage;
-				var length = data.records;
-				if(length > 0) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
 					document.getElementById("none").classList.add("hide");
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {

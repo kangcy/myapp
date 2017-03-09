@@ -306,14 +306,15 @@
 
 		//解锁
 		document.getElementById('submit').addEventListener('tap', function(event) {
-			var pwd = document.getElementById("pwd").value;
-			if(base.IsNullOrEmpty(pwd)) {
-				return mui.toast("请填写解锁密码");
-			}
 			if(isLoading) {
 				return false;
 			}
 			isLoading = true;
+			var pwd = document.getElementById("pwd").value;
+			if(base.IsNullOrEmpty(pwd)) {
+				isLoading = false;
+				return mui.toast("请填写解锁密码");
+			}
 			CheckPowerPwd(ArticleID, pwd, function() {
 				$("#password").addClass("hide");
 				$("#wrapper").removeClass("hide");
@@ -323,6 +324,9 @@
 
 		//打开外链
 		mui('#detail').on('tap', 'span.link', function() {
+			if(base.RepeatAction()) {
+				return;
+			}
 			var link = this.getAttribute("link");
 			if(base.IsNullOrEmpty(link)) {
 				return;
