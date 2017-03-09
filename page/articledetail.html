@@ -407,11 +407,11 @@
 
 	//加载文章
 	function Load(callback) {
-		var data = {
+		HttpGet(base.RootUrl + "Api/Article/Detail", {
 			Number: userinfo.Number,
 			ArticleID: ArticleID
-		}
-		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
+		}, function(data) {
+			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;

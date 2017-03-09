@@ -348,19 +348,26 @@
 			rows: pagesize,
 			TypeID: typeId
 		};
-		HttpGet(base.RootUrl + "Article/All", data, function(data) {
+		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
+			data = JSON.parse(data);
 			if(data != null) {
-				totalpage[index] = data.totalpage;
-				var length = data.records;
-				if(length > 0) {
-					document.getElementById("loader").classList.add("hide");
-					document.getElementById("none" + index).classList.add("hide");
-					var table = document.getElementById('scroll-view' + index);
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
-						if(table) {
-							table.appendChild(div);
+				if(data.result) {
+					data = data.message;
+					totalpage[index] = data.totalpage;
+					var length = data.records;
+					if(length > 0) {
+						document.getElementById("loader").classList.add("hide");
+						document.getElementById("none" + index).classList.add("hide");
+						var table = document.getElementById('scroll-view' + index);
+						for(var i = 0, len = data.list.length; i < len; i++) {
+							var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
+							if(table) {
+								table.appendChild(div);
+							}
 						}
+					} else {
+						document.getElementById("loader").classList.add("hide");
+						document.getElementById("none" + index).classList.remove("hide");
 					}
 				} else {
 					document.getElementById("loader").classList.add("hide");
@@ -379,21 +386,24 @@
 
 	//加载文章类型
 	function LoadArticleType(callback) {
-		HttpGet(base.RootUrl + "ArticleType/All", {}, function(data) {
+		HttpGet(base.RootUrl + "Api/ArticleType/All", {}, function(data) {
+			data = JSON.parse(data);
 			if(data != null) {
-				var length = data.list.length;
-				if(length > 0) {
-					articleTypes = data.list;
-					var table = $('#sliderTopBody');
-					var index = 0;
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						if(data.list[i].ParentID == 0) {
-							var div = appendPTypeStr(data.list[i], index);
-							table.append(div);
-							index += 1
+				if(data.result) {
+					articleTypes = data.message;
+					var length = articleTypes.length;
+					if(length > 0) {
+						var table = $('#sliderTopBody');
+						var index = 0;
+						for(var i = 0, len = length; i < len; i++) {
+							if(articleTypes[i].ParentID == 0) {
+								var div = appendPTypeStr(articleTypes[i], index);
+								table.append(div);
+								index += 1
+							}
 						}
+						mui('#sliderTop').scroll().reLayout();
 					}
-					mui('#sliderTop').scroll().reLayout();
 				}
 				if($.isFunction(callback)) {
 					callback();

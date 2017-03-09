@@ -452,12 +452,11 @@
 	function Load(callback) {
 		//编辑文章
 		var data = {
-			ID: userinfo.ID,
-			Number: userinfo.Number, 
+			Number: userinfo.Number,
 			ArticleID: ArticleID
 		}
-		HttpGet(base.RootUrl + "Article/Detail", data, function(data) {
-			console.log(userinfo.ID + "," + ArticleID + "," + JSON.stringify(data));
+		HttpGet(base.RootUrl + "Api/Article/Detail", data, function(data) {
+			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
 					data = data.message

@@ -83,25 +83,29 @@
 
 	//加载
 	function Load(musicid) {
-		HttpGet(base.RootUrl + "ArticleType/All2", {}, function(data) {
+		HttpGet(base.RootUrl + "Api/ArticleType/All2", {}, function(data) {
+			data = JSON.parse(data);
 			var table = $('#list');
 			table.empty();
 			if(data != null) {
-				var length = data.list.length;
-				if(length > 0) {
-					$("#loader").addClass("hide");
-					var html = [];
-					for(var i = 0, len = length; i < len; i++) {
-						html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell music" style="background:#E8E8E8;" index="' + data.list[i].ID + '" name="' + data.list[i].Name + '"><span class="fl">' + data.list[i].Name + '</span><span class="fr csubtitle mui-icon ' + (data.list[i].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
-						var musics = data.list[i].List;
-						for(var j = 0, len2 = musics.length; j < len2; j++) {
-							html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+				if(data.result) {
+					var list = data.message;
+					var length = list.length;
+					if(length > 0) {
+						$("#loader").addClass("hide");
+						var html = [];
+						for(var i = 0, len = length; i < len; i++) {
+							html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell music" style="background:#E8E8E8;" index="' + list[i].ID + '" name="' + list[i].Name + '"><span class="fl">' + list[i].Name + '</span><span class="fr csubtitle mui-icon ' + (list[i].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+							var musics = list[i].List;
+							for(var j = 0, len2 = musics.length; j < len2; j++) {
+								html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+							}
+							html.push('</ul>');
 						}
-						html.push('</ul>');
+						table.append(html.join(""));
+					} else {
+						$("#loader").removeClass("hide");
 					}
-					table.append(html.join(""));
-				} else {
-					$("#loader").removeClass("hide");
 				}
 			} else {
 				$("#loader").removeClass("hide");
