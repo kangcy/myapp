@@ -171,12 +171,14 @@
 			rows: pagesize,
 			CreateUserNumber: UserNumber
 		};
-		HttpGet(base.RootUrl + "Keep/All", data, function(data) {
+		HttpGet(base.RootUrl + "Api/Keep/All", data, function(data) {
+			data = JSON.parse(data);
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				totalpage = data.totalpage;
-				records = data.records;
-				if(records > 0) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					records = data.records;
 					document.getElementById("none").classList.add("hide");
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false, userinfo.Number == data.list[i].UserNumber);

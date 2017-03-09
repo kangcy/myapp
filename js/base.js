@@ -533,7 +533,11 @@ var base = new function() {
 		//底部统计
 		model.push('<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl"><span class="blue">' + item.Views + '次浏览</span></span>');
 		model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><span class="fr" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="ml15 mr5 mt1 fr" /></span>');
-		model.push('<span class="goods" articleid="' + item.ArticleID + '"><span class="fr" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img id="igoods' + item.ArticleID + '" src="../images/base/like_nor.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
+		if(item.IsZan == 0) {
+			model.push('<span class="goods" articleid="' + item.ArticleID + '"><span class="fr" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img id="igoods' + item.ArticleID + '" src="../images/base/like_nor.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
+		} else {
+			model.push('<span><span class="fr red">' + item.Goods + '</span>&nbsp;<img src="../images/base/like_hig.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
+		}
 		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><span class="fr" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="mr5 fr mt1" /></span>');
 		model.push('</div>');
 
@@ -596,10 +600,11 @@ var base = new function() {
 			}
 			base.IsLoading = true;
 			var ArticleID = this.getAttribute("articleid");
-			HttpGet(base.RootUrl + "Zan/Edit", {
+			HttpGet(base.RootUrl + "Api/Zan/Edit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID
 			}, function(data) {
+				data = JSON.parse(data);
 				if(data != null) {
 					mui.toast(data.result ? "感谢您的点赞" : data.message);
 					if(data.result) {

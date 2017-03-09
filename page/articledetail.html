@@ -214,6 +214,7 @@
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
+	var $zan = document.getElementById('zan');
 
 	//显示遮罩
 	var mask = mui.createMask(function() {});
@@ -259,17 +260,30 @@
 		});
 
 		//点赞
-		document.getElementById('zan').addEventListener('tap', function(event) {
-			HttpGet(base.RootUrl + "Zan/Edit", {
+		$zan.addEventListener('tap', function(event) {
+			if(isLoading) {
+				return;
+			}
+			isLoading = true;
+			if($zan.getAttribute("already") == "1") {
+				isLoading = false;
+				return mui.toast("已赞");
+			}
+			HttpGet(base.RootUrl + "Api/Zan/Edit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID
 			}, function(data) {
+				data = JSON.parse(data);
 				if(data != null) {
 					mui.toast(data.result ? "感谢您的点赞" : data.message);
 					if(data.result) {
+						$zan.setAttribute("already", "1");
+						$zan.classList.add("heartbeat");
+						$zan.classList.add("red");
 						$("#footer_zan").html(data.message);
 					}
 				}
+				isLoading = false;
 			});
 		})
 
@@ -456,6 +470,11 @@
 							//视频
 							html.push('<div class="full f13 mt10">' + AppendVideo(part.Introduction) + '</div>');
 						}
+					}
+
+					if(data.IsZan > 0) {
+						$zan.setAttribute("already", "1");
+						$zan.classList.add("red");
 					}
 
 					$("#footer_zan").html(data.Goods);

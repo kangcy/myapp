@@ -232,16 +232,11 @@
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
-					var length = data.records;
-					if(length > 0) {
-						document.getElementById("none").classList.add("hide");
-						var table = document.getElementById('scroll-view');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.appendChild(div);
-						}
-					} else {
-						document.getElementById("none").classList.remove("hide");
+					document.getElementById("none").classList.add("hide");
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i]);
+						table.appendChild(div);
 					}
 				} else {
 					document.getElementById("none").classList.remove("hide");
@@ -270,9 +265,13 @@
 		} else {
 			model.push('<p class="tip mb0 f12 article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">「' + item.Title + '」</p>');
 		}
-		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articleid="' + item.ArticleID + '" /><span class="f13 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" /></div>');
-		model.push('</div>');
-		model.push('</div>');
+		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articleid="' + item.ArticleID + '" />');
+		if(item.IsZan == 0) {
+			model.push('<span class="f13 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" />');
+		} else {
+			model.push('<span class="f13 ml5 fr red" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="ml15 fr" cid="' + item.ID + '" already="0" />');
+		}
+		model.push('</div></div></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}

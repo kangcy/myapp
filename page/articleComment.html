@@ -267,7 +267,8 @@
 			page: currpage,
 			rows: pagesize,
 			ArticleNumber: ArticleNumber,
-			NewId: NewId
+			NewId: NewId,
+			UserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "Api/Comment/ArticleComment", data, function(data) {
 			data = JSON.parse(data);
@@ -276,16 +277,11 @@
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
-					var length = data.records;
-					if(length > 0) {
-						document.getElementById("none").classList.add("hide");
-						var table = document.getElementById('scroll-view');
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = appendStr(data.list[i]);
-							table.appendChild(div);
-						}
-					} else {
-						document.getElementById("none").classList.remove("hide");
+					document.getElementById("none").classList.add("hide");
+					var table = document.getElementById('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = appendStr(data.list[i]);
+						table.appendChild(div);
 					}
 				} else {
 					document.getElementById("none").classList.remove("hide");
@@ -313,9 +309,13 @@
 		if(!base.IsNullOrEmpty(item.ParentCommentNumber)) {
 			model.push('<p class="tip mb0 f13" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		}
-		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" /><span class="f13 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" /></div>');
-		model.push('</div>');
-		model.push('</div>');
+		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" />');
+		if(item.IsZan == 0) {
+			model.push('<span class="f13 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" />');
+		} else {
+			model.push('<span class="f13 ml5 fr red" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="ml15 fr" cid="' + item.ID + '" already="0" />');
+		}
+		model.push('</div></div></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}
