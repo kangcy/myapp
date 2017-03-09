@@ -225,17 +225,23 @@
 			ArticleUserNumber: userinfo.Number,
 			NewId: NewId
 		}
-		HttpGet(base.RootUrl + "Comment/All", data, function(data) {
+		HttpGet(base.RootUrl + "Api/Comment/All", data, function(data) {
+			data = JSON.parse(data);
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {
-				totalpage = data.totalpage;
-				var length = data.records;
-				if(length > 0) {
-					document.getElementById("none").classList.add("hide");
-					var table = document.getElementById('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					var length = data.records;
+					if(length > 0) {
+						document.getElementById("none").classList.add("hide");
+						var table = document.getElementById('scroll-view');
+						for(var i = 0, len = data.list.length; i < len; i++) {
+							var div = appendStr(data.list[i]);
+							table.appendChild(div);
+						}
+					} else {
+						document.getElementById("none").classList.remove("hide");
 					}
 				} else {
 					document.getElementById("none").classList.remove("hide");
@@ -259,10 +265,10 @@
 		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
 		model.push('<div class="mui-table-cell pb0"><p class="f12 user c999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr f12">' + item.CreateDateText + '</span></p>');
 		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
-		if(item.ParentCommentID > 0) {
+		if(!base.IsNullOrEmpty(item.ParentCommentNumber)) {
 			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		} else {
-			model.push('<p class="tip mb0 f12 article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserID + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">「' + item.Title + '」</p>');
+			model.push('<p class="tip mb0 f12 article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">「' + item.Title + '」</p>');
 		}
 		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articleid="' + item.ArticleID + '" /><span class="f13 ml5 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" /></div>');
 		model.push('</div>');
