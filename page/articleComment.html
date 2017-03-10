@@ -91,7 +91,6 @@
 				CommentID: commentid
 			}, function(data) {
 				if(data != null) {
-					mui.toast(data.result ? "感谢您的点赞" : data.message);
 					if(data.result) {
 						$this.classList.add("heartbeat");
 						$this.setAttribute("already", "1");

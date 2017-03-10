@@ -124,7 +124,7 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://www.ishaoxia.com:8080/";
+	this.RootUrl = "http://www.ishaoxia.com/";
 
 	/**
 	 * 默认图片
@@ -530,19 +530,10 @@ var base = new function() {
 		}
 		model.push('</div></div>');
 
-		//底部统计
-		/*model.push('<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl"><span class="blue">' + item.Views + '次浏览</span></span>');
-		model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><span class="fr" id="pays' + item.ArticleID + '">' + item.Pays + '</span>&nbsp;<img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="ml15 mr5 mt1 fr" /></span>');
-		if(item.IsZan == 0) {
-			model.push('<span class="goods" articleid="' + item.ArticleID + '"><span class="fr" id="goods' + item.ArticleID + '">' + item.Goods + '</span>&nbsp;<img id="igoods' + item.ArticleID + '" src="../images/base/like_nor.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
-		} else {
-			model.push('<span><span class="fr red">' + item.Goods + '</span>&nbsp;<img src="../images/base/like_hig.png" style="width:0.8rem;" class="ml15 mr5 fr" /></span>');
-		}
-		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><span class="fr" id="comments' + item.ArticleID + '">' + item.Comments + '</span>&nbsp;<img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="mr5 fr mt1" /></span>');
-		model.push('</div>');*/
-
 		model.push('<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览' + item.Views + '次</span>');
-		model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr" /></span>');
+		if(item.IsPay == 1) {
+			model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr" /></span>');
+		}
 		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1" /></span>');
 		if(item.IsZan == 0) {
 			model.push('<img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" />');
@@ -617,19 +608,9 @@ var base = new function() {
 			}, function(data) {
 				data = JSON.parse(data);
 				if(data != null) {
-					mui.toast(data.result ? "感谢您的点赞" : data.message);
 					if(data.result) {
 						$this.setAttribute("src", "../images/base/like_hig.png");
 						$this.classList.add("heartbeat");
-
-						//var item1 = document.getElementById("igoods" + ArticleID);
-						//item1.setAttribute("src", "../images/base/like_hig.png");
-						//var item2 = document.getElementById("goods" + ArticleID);
-						//item2.innerText = parseInt(item2.innerText) + 1;
-						//item2.classList.add("heartbeat");
-						//item2.classList.add("red");
-
-						$this
 					}
 				}
 				base.IsLoading = false;
