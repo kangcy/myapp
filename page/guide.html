@@ -56,17 +56,15 @@
 		plus.navigator.closeSplashscreen(); //关闭启动页
 
 		mui.back = function() {};
-	});
 
-	//立即体验按钮点击事件
-	document.getElementById("close").addEventListener('tap', function(event) {
-		if(base.RepeatAction()) {
-			return;
-		}
-		plus.storage.setItem("lauchFlag", "true");
-		plus.navigator.setFullscreen(false);
-		base.OpenWindow("login", "login.html", {});
-	}, false);
+		base.InitSlider();
+
+		//立即体验按钮点击事件
+		document.getElementById("close").addEventListener('tap', function(event) {
+			plus.storage.setItem("lauchFlag", "true");
+			base.OpenWindow("login", "./login.html", {}, "slide-in-bottom");
+		}, false);
+	});
 
 	//图片切换时，触发动画
 	document.querySelector('.mui-slider').addEventListener('slide', function(event) {

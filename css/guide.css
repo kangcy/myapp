@@ -6,7 +6,7 @@
 
 .mui-slider-item.one {
 	background: url("../images/adv/01.jpg");
-	background-size: 120% 120%;
+	background-size: 120% 100%;
 	background-position: 0% 10%;
 }
 
@@ -20,7 +20,7 @@
 
 .mui-slider-item.two {
 	background: url("../images/adv/02.jpg");
-	background-size: 120% 120%;
+	background-size: 120% 100%;
 	background-position: 0% 10%;
 }
 
@@ -34,7 +34,7 @@
 
 .mui-slider-item.three {
 	background: url("../images/adv/03.jpg");
-	background-size: 120% 120%;
+	background-size: 120% 100%;
 	background-position: 0% 10%;
 }
 
