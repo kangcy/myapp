@@ -4731,7 +4731,7 @@ body>.mui-progressbar {
 }
 
 .red {
-	color: #ed5565 !important;
+	color: #ff0000 !important;
 }
 
 .f10 {
@@ -5068,8 +5068,7 @@ body>.mui-progressbar {
 }
 
 .mui-card-content-inner {
-	padding: 0.625rem;
-	padding-top: 0.3rem;
+	padding: 0rem 0.625rem;
 	width: 100%;
 	display: inline-block;
 }
