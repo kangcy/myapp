@@ -1,5 +1,5 @@
 var channel = {}; //支付渠道
-var payway = 0; //支付方式
+var payway = 1; //支付方式
 
 //发起支付
 function Payment() {
@@ -19,6 +19,12 @@ function Payment() {
 		base.CloseWaiting();
 		isLoading = false;
 		plus.nativeUI.alert("输入金额格式不正确", null, "");
+		return;
+	}
+	if(payway == 0) {
+		base.CloseWaiting();
+		isLoading = false;
+		plus.nativeUI.alert("暂不支持支付宝，请使用微信支付", null, "");
 		return;
 	}
 

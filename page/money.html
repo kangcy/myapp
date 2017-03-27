@@ -186,7 +186,7 @@
 			<img id="payuser" src="" class="mt20" />
 			<div id="price" class="items c999 mt20 f13">
 				<div class="item">
-					<div class="choosemoney" money="5.88">5.88元</div>
+					<div class="choosemoney check" money="5.88">5.88元</div>
 				</div>
 				<div class="item">
 					<div class="choosemoney" money="8.88">8.88元</div>
@@ -207,17 +207,17 @@
 					<div id="otherMoney" onclick="OtherMoney()">其他金额</div>
 				</div>
 				<div class="item2 hide" id="divMoney">
-					<input type="number" id="txtmoney" class="f30" />
+					<input type="number" id="txtmoney" class="f30" value="5.88" /> 
 				</div>
 			</div>
 			<div class="payway f13">
-				<div id="alipay" class="alipay curr" onclick="ChangePayWay(0)">支付宝</div>
-				<div id="weixin" class="weixin" onclick="ChangePayWay(1)">微信</div>
+				<div id="alipay" class="alipay" onclick="ChangePayWay(0)">支付宝</div>
+				<div id="weixin" class="weixin curr" onclick="ChangePayWay(1)">微信</div>
 			</div>
 			<div class="f13 payment bold" onclick="Payment()">赞&nbsp;赏</div>
 			<div class="f13 anony mt20" onclick="Anony()" id="anony">
 				匿名赞赏
-			</div>
+			</div> 
 		</div>
 	</body>
 

@@ -242,6 +242,7 @@
 			} else {
 				CurrCover = $this.attr("cover");
 			}
+
 			$("#wrapper").css("background-color", $this.attr("color"));
 
 			var templatetype = $this.attr("type");
@@ -652,11 +653,27 @@
 	function ChangeBg(index) {
 		CurrBackground = index;
 
+		var $bg = $("#bg");
+
+		if(CurrTemplate > 0) {
+			if(CurrTemplate == 1) {
+				$("#bg").css({
+					"background": "none",
+				});
+				$bg = $("#wrapper");
+			} else {
+				$("#wrapper").css({
+					"background-image": "none",
+				});
+				$bg = $("#bg");
+			}
+		}
+
 		//纯白背景
 		if(CurrTemplate == 0) {
-			$("#bg").css("background", "#fff");
+			$bg.css("background", "#fff");
 		} else if(CurrTemplate > 1) {
-			$("#bg").css({
+			$bg.css({
 				"background": "url(" + CurrCover + ") no-repeat top",
 				"background-size": "100% auto"
 			});
@@ -664,21 +681,21 @@
 			switch(index) {
 				case 0:
 					//全屏
-					$("#bg").css({
+					$bg.css({
 						"background": "url(" + CurrCover + ") no-repeat",
 						"background-size": "100% 100%"
 					});
 					break;
 				case 1:
 					//居顶
-					$("#bg").css({
+					$bg.css({
 						"background": "url(" + CurrCover + ") no-repeat top",
 						"background-size": "100% auto"
 					});
 					break;
 				case 2:
 					//平铺
-					$("#bg").css({
+					$bg.css({
 						"background": "url(" + CurrCover + ") top left repeat",
 						"background-size": "auto auto"
 					});
@@ -704,6 +721,8 @@
 			return;
 		}
 		if(Article.Background == CurrBackground) {
+			isLoading = true;
+			CustomTan(0);
 			return;
 		}
 		if(isLoading) {
@@ -772,9 +791,9 @@
 
 	//显示侧滑页面
 	function ShowSide() {
-		/*if(CurrTemplate > 0) {
+		if(CurrTemplate != 1) {
 			return mui.toast("仅自定义模板可用");
-		}*/
+		}
 		ActionTan(0);
 		CustomTan(1);
 	}

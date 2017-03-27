@@ -2064,9 +2064,9 @@ input[type=submit]:enabled:active {
 }
 
 .mui-table-view .mui-media-object {
-	line-height: 40.125rem;
-	max-width: 40.125rem;
-	height: 40.125rem
+	line-height: 2.625rem;
+	max-width: 2.625rem;
+	height: 2.625rem
 }
 
 .mui-table-view .mui-media-object.mui-pull-left {
