@@ -604,7 +604,7 @@
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, "");
-		intent.putExtra(Intent.EXTRA_TEXT, "分享自「Go」" + ShareInfo.Title + " " + ShareInfo.Url);
+		intent.putExtra(Intent.EXTRA_TEXT, "分享自「微篇」" + ShareInfo.Title + " " + ShareInfo.Url);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
 		base.ShareLog(userinfo.ID, "", "system");
@@ -615,7 +615,7 @@
 		var msg = {
 			href: ShareInfo.Url,
 			title: ShareInfo.Title,
-			content: "分享自「Go」",
+			content: "分享自「微篇」",
 			thumbs: [ShareInfo.Cover],
 			pictures: [ShareInfo.Cover],
 			extra: {

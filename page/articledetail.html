@@ -143,7 +143,7 @@
 				<div class="items f13">
 					<div class="item curr" onclick="ChangeCustom(0)">全屏</div>
 					<div class="item" onclick="ChangeCustom(1)">居顶</div>
-					<div class="item" onclick="ChangeCustom(2)">平铺</div>
+					<div class="item" onclick="ChangeCustom(2)">居底</div>
 				</div>
 			</div>
 		</div>
@@ -151,7 +151,7 @@
 			<div class="mui-content mui-scroll-wrapper bg">
 				<div class="mui-scroll" id="bg">
 					<!--通用样式-->
-					<div id="main0" class="f13 tl mt20 hide">
+					<div id="main0" class="f13 tl mt20 mb10 hide">
 						<div class="detail">
 							<div class="full tl">
 								<p class="f16 c000" id="title0"></p>
@@ -185,7 +185,7 @@
 						</div>
 					</div>
 					<div class="detail2 cover cover2 fl tl mb20">
-						<div class="c000 full mb20" id="desc">
+						<div class="c000 full" id="desc">
 
 						</div>
 					</div>
@@ -674,7 +674,7 @@
 			$bg.css("background", "#fff");
 		} else if(CurrTemplate > 1) {
 			$bg.css({
-				"background": "url(" + CurrCover + ") no-repeat top",
+				"background": "url(" + CurrCover + ") top center no-repeat",
 				"background-size": "100% auto"
 			});
 		} else {
@@ -683,21 +683,21 @@
 					//全屏
 					$bg.css({
 						"background": "url(" + CurrCover + ") no-repeat",
-						"background-size": "100% 100%"
+						"background-size": "100% 100%",
 					});
 					break;
 				case 1:
 					//居顶
 					$bg.css({
-						"background": "url(" + CurrCover + ") no-repeat top",
+						"background": "url(" + CurrCover + ") no-repeat top center",
 						"background-size": "100% auto"
 					});
 					break;
 				case 2:
-					//平铺
+					//居底
 					$bg.css({
-						"background": "url(" + CurrCover + ") top left repeat",
-						"background-size": "auto auto"
+						"background": "url(" + CurrCover + ") bottom center repeat",
+						"background-size": "100% auto"
 					});
 					break;
 				default:
@@ -892,7 +892,7 @@
 		base.ShowWaiting("正在设置模板");
 		HttpGet(base.RootUrl + "Article/EditArticleTemp", {
 			ID: userinfo.ID,
-			ArticleID: ArticleID,
+			ArticleID: ArticleID,  
 			Template: CurrTemplate
 		}, function(data) {
 			base.CloseWaiting();
@@ -985,7 +985,7 @@
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, "");
-		intent.putExtra(Intent.EXTRA_TEXT, "分享自「Go」" + ShareInfo.Title + " " + ShareInfo.Url);
+		intent.putExtra(Intent.EXTRA_TEXT, "分享自「微篇」" + ShareInfo.Title + " " + ShareInfo.Url);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
 		base.ShareLog(userinfo.ID, Article.Number, "system");
@@ -996,7 +996,7 @@
 		var msg = {
 			href: ShareInfo.Url,
 			title: ShareInfo.Title,
-			content: "分享自「Go」",
+			content: "分享自「微篇」",
 			thumbs: [ShareInfo.Cover],
 			pictures: [ShareInfo.Cover],
 			extra: {
