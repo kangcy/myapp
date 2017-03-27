@@ -879,20 +879,21 @@
 	}
 
 	//确认模板
-	function ChooseTan() {
-		if(Article.Template == CurrTemplate) {
-			TempTan(0);
-			return;
-		}
+	function ChooseTan() { 
 		if(isLoading) {
 			return;
 		}
 		isLoading = true;
+		if(Article.Template == CurrTemplate) {
+			isLoading = false;
+			TempTan(0);
+			return;
+		}
 		TempTan(0);
 		base.ShowWaiting("正在设置模板");
 		HttpGet(base.RootUrl + "Article/EditArticleTemp", {
 			ID: userinfo.ID,
-			ArticleID: ArticleID,  
+			ArticleID: ArticleID,
 			Template: CurrTemplate
 		}, function(data) {
 			base.CloseWaiting();
