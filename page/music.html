@@ -88,10 +88,12 @@
 
 	//加载音乐
 	function Load(musicid) {
-		HttpGet(base.RootUrl + "Music/All", {}, function(data) {
+		HttpGet(base.RootUrl + "Api/Music/All", {}, function(data) {
 			var table = $('#list');
 			table.empty();
+			data = JSON.parse(data);
 			if(data != null) {
+				data = data.message;
 				var length = data.list.length;
 				if(length > 0) {
 					var html = [];

@@ -68,6 +68,7 @@
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script type="text/javascript">
+	var fileID = 0;
 	var fileName = "";
 	var fileUrl = "";
 	var SearchName = ""; //搜索词
@@ -111,14 +112,12 @@
 		//确定
 		document.getElementById('yes').addEventListener('tap', function(e) {
 			if(base.IsNullOrEmpty(fileUrl)) {
-				//return mui.toast("还未选择音乐")
-				return;
+				return mui.toast("还未选择音乐")
 			}
-
 			if(!addarticlePage) {
 				addarticlePage = plus.webview.getWebviewById('addarticle');
 			}
-			addarticlePage.evalJS("UpdateMusic('" + 0 + "','" + fileName + "','" + fileUrl + "')")
+			addarticlePage.evalJS("UpdateMusic('" + fileID + "','" + fileName + "','" + fileUrl + "')")
 			plus.webview.currentWebview().close();
 		});
 
@@ -142,18 +141,9 @@
 		$("#pullrefresh").on('tap', 'li.music', function(event) {
 			$("#pullrefresh .mui-icon").removeClass("mui-icon-checkmarkempty");
 			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
-			var hash = this.getAttribute("hash");
-			HttpGet(base.RootUrl + "Music/MusicDetail", {
-				hash: hash
-			}, function(data) {
-				if(data.code == 0) {
-					var data = data.data;
-					fileName = data.fileName;
-					fileUrl = data.url;
-				} else {
-					mui.toast("音乐解析失败");
-				}
-			});
+
+			fileName = this.getAttribute("fileName");
+			fileUrl = this.getAttribute("fileUrl");
 		});
 	});
 
@@ -208,19 +198,18 @@
 			name: SearchName,
 		};
 
-		HttpGet(base.RootUrl + "Music/SearchMusic", data, function(data) {
+		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
 			base.CloseWaiting();
+			console.log(data);
+			data = JSON.parse(data);
 			if(data != null) {
-				if(data.code == 0) {
-					data = data.data;
-					totalpage = parseInt(data.total_page);
-					data = data.data;
-					var length = data.length;
-					if(length > 0) {
-						for(var i = 0, len = data.length; i < len; i++) {
-							var item = data[i];
-							table.append('<li class="mui-table-view-cell music" hash="' + item.hash + '"><span class="fl">' + item.filename + '</span><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
-						}
+				data = data.message;
+				totalpage = data.totalpage;
+				var length = data.list.length;
+				if(length > 0) {
+					for(var i = 0, len = length; i < len; i++) {
+						var item = data.list[i];
+						table.append('<li class="mui-table-view-cell music" fileID="' + item.ID + '" fileName="' + item.Name + '" fileUrl="' + item.FileUrl + '"><img src="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" /><p class="fl c333 f13 mb0">' + item.Name + '<br /><span class="fl c999 f10 mt5">' + item.Author + '</span></p><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span></li>');
 					}
 				}
 			}

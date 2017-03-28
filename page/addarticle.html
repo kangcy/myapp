@@ -348,7 +348,7 @@
 
 	//修改音乐
 	function UpdateMusic(musicID, musicName, musicUrl) {
-		MusicID = musicID;
+		MusicID = musicID; 
 		MusicName = musicName;
 		MusicUrl = musicUrl;
 		$("#musicname").html(MusicID == 0 && base.IsNullOrEmpty(MusicName) ? "无背景音乐" : MusicName);
@@ -361,7 +361,7 @@
 		mask.show();
 
 		if(base.IsNullOrEmpty(Title)) {
-			Title = "我的GO"
+			Title = "我的微篇"
 		}
 
 		var ids = [];

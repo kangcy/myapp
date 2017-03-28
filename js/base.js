@@ -484,7 +484,7 @@ var base = new function() {
 			model.push('<span class="fl f11" style="color:#ff0000;">「精选」</span>');
 		}
 		if(base.IsNullOrEmpty(item.Title)) {
-			item.Title = "我的GO";
+			item.Title = "我的微篇";
 		}
 		model.push(item.Title + '</div>');
 
