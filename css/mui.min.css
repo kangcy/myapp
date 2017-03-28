@@ -2810,7 +2810,7 @@ select:focus {
 }
 
 .mui-search .mui-placeholder {
-	font-size: 16px;
+	font-size: 15px;
 	line-height: 34px;
 	position: absolute;
 	z-index: 1;
