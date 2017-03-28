@@ -12,7 +12,7 @@ function ShowActionSheet() {
 	}, {
 		title: "从手机相册选择"
 	}, {
-		title: "从Go相册选择"
+		title: "从微篇相册选择"
 	}];
 	plus.nativeUI.actionSheet({
 			cancel: "取消",

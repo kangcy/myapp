@@ -356,10 +356,10 @@
 
 		Load(function() {
 			plus.webview.close("addarticle");
-		});
 
-		//加载模板
-		LoadTemplate();
+			//加载模板
+			LoadTemplate();
+		});
 
 		//返回
 		mui.back = function() {
@@ -499,8 +499,6 @@
 						ChangeBg(CurrBackground);
 					}
 
-					document.getElementById("loader").classList.add("hide");
-
 					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(data.Title);
@@ -519,6 +517,8 @@
 					ChangeMusic(mainIndex);
 
 					$("#main" + mainIndex).removeClass("hide");
+
+					document.getElementById("loader").classList.add("hide");
 
 					//显示操作
 					if(userinfo.ID == data.UserID) {
@@ -628,12 +628,16 @@
 	//编辑 
 	function Edit() {
 		ActionTan(0);
+		mask.show();
 		base.ShowWaiting("正在同步文章内容");
 		base.OpenWindow("addarticle", "addarticle.html", {
 			ArticleID: ArticleID,
 			ArticleNumber: Article.Number,
 			Source: Source
 		});
+		setTimeout(function() {
+			mask.close();
+		}, 2500);
 	}
 
 	//权限
@@ -717,18 +721,15 @@
 
 	//修改背景设置
 	function Agree() {
-		if(base.RepeatAction()) {
-			return;
-		}
-		if(Article.Background == CurrBackground) {
-			isLoading = true;
-			CustomTan(0);
-			return;
-		}
 		if(isLoading) {
 			return;
 		}
 		isLoading = true;
+		if(Article.Background == CurrBackground) {
+			isLoading = false;
+			CustomTan(0);
+			return;
+		}
 		CustomTan(0);
 		HttpGet(base.RootUrl + "Article/EditBackground", {
 			ID: userinfo.ID,
@@ -774,7 +775,7 @@
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						index += 1;
 						var item = data.list[i];
-						table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
+						table.append('<div class="mui-control-item temp ' + (item.ID == CurrTemplate ? "hover" : "") + '" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
 					}
 				}
 			}
@@ -879,7 +880,7 @@
 	}
 
 	//确认模板
-	function ChooseTan() { 
+	function ChooseTan() {
 		if(isLoading) {
 			return;
 		}
@@ -890,13 +891,11 @@
 			return;
 		}
 		TempTan(0);
-		base.ShowWaiting("正在设置模板");
 		HttpGet(base.RootUrl + "Article/EditArticleTemp", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
 			Template: CurrTemplate
 		}, function(data) {
-			base.CloseWaiting();
 			isLoading = false;
 		});
 	}

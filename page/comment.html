@@ -248,7 +248,7 @@
 				callback();
 			}
 		});
-	}
+	} 
 
 	//拼接Html 
 	function appendStr(item, index) {
@@ -257,8 +257,8 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
 		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f12 user c999" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr f12">' + item.CreateDateText + '</span></p>');
-		model.push('<p class="f12 c333 mt5 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
+		model.push('<div class="mui-table-cell pb0"><p class="f13 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr f12">' + item.CreateDateText + '</span></p>');
+		model.push('<p class="f11 c999 mt3 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(!base.IsNullOrEmpty(item.ParentCommentNumber)) {
 			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');
 		} else {

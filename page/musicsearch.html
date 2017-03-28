@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.min.css">
 		<style type="text/css">
 			.mui-search {
 				width: 90%;
@@ -40,13 +41,18 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="padding-right:0px;">
-			<a class="mui-icon mui-icon-back mui-action-back fl" style="width:15%;"></a>
-			<a id="btnSearch" class="mui-icon mui-icon-search fr blue" style="width:15%;"></a>
+			<a class="mui-icon mui-icon-back mui-action-back fl c333" style="width:15%;"></a>
+			<a id="btnSearch" class="mui-icon mui-icon-search fr c333" style="width:15%;"></a>
 			<div class="mui-input-row mui-search" style="width:77%;">
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:34px;font-size:16px;">
 			</div>
 		</header>
-		<nav class="mui-bar mui-bar-tab" id="search">
+		<div class="loading hide" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab" id="search" style="border-top:1px solid #eee;">
 			<div style="margin-left:10px;font-size:16px;height:50px;line-height:50px;" class="fl blue" id="no">取消</div>
 			<div style="margin-right:10px;font-size:16px;height:50px;line-height:50px;" class="fr blue" id="yes">完成</div>
 		</nav>
@@ -68,16 +74,18 @@
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script type="text/javascript">
-	var fileID = 0;
+	var fileId = 0;
 	var fileName = "";
 	var fileUrl = "";
-	var SearchName = ""; //搜索词
+	var SearchName = "";
 	var isLoading = false;
 	var currpage = 1;
 	var totalpage = 2;
 	var pagesize = 20;
 	var addarticlePage = null;
 	var userinfo = base.GetUserInfo();
+	var mask = mui.createMask(function() {});
+
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -88,6 +96,7 @@
 	var search = document.getElementById("search");
 
 	mui.ready(function() {
+
 		base.InitScroll();
 
 		base.ScrollTop();
@@ -117,17 +126,19 @@
 			if(!addarticlePage) {
 				addarticlePage = plus.webview.getWebviewById('addarticle');
 			}
-			addarticlePage.evalJS("UpdateMusic('" + fileID + "','" + fileName + "','" + fileUrl + "')")
-			plus.webview.currentWebview().close();
+			addarticlePage.evalJS("UpdateMusic('" + fileId + "','" + fileName + "','" + fileUrl + "')");
+			plus.webview.getWebviewById('music').close();
+			self.close();
 		});
 
 		//搜索
 		document.getElementById("btnSearch").addEventListener('tap', function(e) {
-			if(search.value == "") {
+			if(base.IsNullOrEmpty(search.value)) {
 				return mui.toast("请输入搜索内容");
 			}
 			InitMusic(search.value);
 		});
+
 		mui(document.getElementById("pullrefresh")).pullToRefresh({
 			up: {
 				auto: true,
@@ -142,6 +153,7 @@
 			$("#pullrefresh .mui-icon").removeClass("mui-icon-checkmarkempty");
 			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
 
+			fileId = this.getAttribute("fileId");
 			fileName = this.getAttribute("fileName");
 			fileUrl = this.getAttribute("fileUrl");
 		});
@@ -149,7 +161,8 @@
 
 	//加载
 	function InitMusic(title) {
-		base.ShowWaiting("正在搜索");
+		document.getElementById("loader").classList.remove("hide");
+
 		SearchName = title;
 		currpage = 1;
 		totalpage = 2;
@@ -172,15 +185,12 @@
 			isLoading = false;
 			self.endPullUpToRefresh(currpage > totalpage);
 			return false;
-			//return mui.toast("没有更多数据了");
 		}
-		setTimeout(function() {
-			LoadMusic(function() {
-				++currpage;
-				self.endPullUpToRefresh(currpage > totalpage);
-				isLoading = false;
-			})
-		}, 500);
+		LoadMusic(function() {
+			++currpage;
+			self.endPullUpToRefresh(currpage > totalpage);
+			isLoading = false;
+		})
 	}
 
 	//搜索文章
@@ -199,8 +209,6 @@
 		};
 
 		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
-			base.CloseWaiting();
-			console.log(data);
 			data = JSON.parse(data);
 			if(data != null) {
 				data = data.message;
@@ -209,10 +217,13 @@
 				if(length > 0) {
 					for(var i = 0, len = length; i < len; i++) {
 						var item = data.list[i];
-						table.append('<li class="mui-table-view-cell music" fileID="' + item.ID + '" fileName="' + item.Name + '" fileUrl="' + item.FileUrl + '"><img src="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" /><p class="fl c333 f13 mb0">' + item.Name + '<br /><span class="fl c999 f10 mt5">' + item.Author + '</span></p><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span></li>');
+						table.append('<li class="mui-table-view-cell music" fileId="' + item.ID + '" fileName="' + item.Name + '" fileUrl="' + item.FileUrl + '"><img src="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" /><p class="fl c333 f13 mb0">' + item.Name + '<br /><span class="fl c999 f11 mt5">' + item.Author + '</span></p><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span></li>');
 					}
+				} else {
+					mui.toast("未搜索到内容");
 				}
 			}
+			document.getElementById("loader").classList.add("hide");
 			if($.isFunction(callback)) {
 				callback();
 			}

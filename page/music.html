@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.min.css">
 		<style type="text/css">
 			.mui-table-view-cell {
 				padding: .8rem 0.9375rem;
@@ -34,11 +35,16 @@
 			<a id="submit" class="mui-icon mui-text c333 fr" onclick="Submit()">完成</a>
 			<h1 class="mui-title c333">选择背景音乐</h1>
 		</header>
-		<nav class="mui-bar mui-bar-tab" id="search" style="background:#fff;">
+		<nav class="mui-bar mui-bar-tab" id="search" style="background:#fff;border-top:1px solid #eee;">
 			<div class="mui-tab-item blue" style="font-size:16px;">
 				<span class="mui-icon mui-icon-search" style="top:0px;font-size:20px;margin-right:5px;"></span>搜索在线音乐
 			</div>
 		</nav>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
 		<div class="mui-content">
 			<div id="list">
 			</div>
@@ -108,6 +114,7 @@
 					table.append(html.join(""));
 				}
 			}
+			document.getElementById("loader").classList.add("hide");
 		});
 	}
 

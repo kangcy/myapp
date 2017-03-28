@@ -96,11 +96,9 @@
 
 		//点击编辑
 		mui('#edit').on('tap', '.edit-content', function() {
-			if(base.RepeatAction()) {
-				return;
-			}
 			currEditID = this.id;
 			var type = this.getAttribute("type");
+
 			if(type == "pic") {
 				currEditImg = this.getAttribute("src");
 				base.OpenWindow("editimage", "editimage.html", {
@@ -348,7 +346,7 @@
 
 	//修改音乐
 	function UpdateMusic(musicID, musicName, musicUrl) {
-		MusicID = musicID; 
+		MusicID = musicID;
 		MusicName = musicName;
 		MusicUrl = musicUrl;
 		$("#musicname").html(MusicID == 0 && base.IsNullOrEmpty(MusicName) ? "无背景音乐" : MusicName);
