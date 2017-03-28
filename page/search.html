@@ -58,9 +58,9 @@
 
 		document.getElementById("btnSearch").addEventListener('tap', function(e) {
 			if(base.IsNullOrEmpty(search.value)) {
-				return mui.toast("请输入搜索内容~");
+				return mui.toast("请输入搜索内容");
 			}
-			plus.nativeUI.showWaiting("正在搜索");
+			base.ShowWaiting("正在搜索")
 			if(contentWebview == null) {
 				contentWebview = plus.webview.getWebviewById("searchSub");
 			}
