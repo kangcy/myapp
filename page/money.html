@@ -74,8 +74,6 @@
 			}
 			
 			.payment {
-				/*position: fixed;
-				bottom: 4rem;*/
 				left: 10%;
 				width: 80%;
 				height: 2.5rem;
@@ -87,9 +85,7 @@
 			}
 			
 			.anony {
-				/*position: fixed;
-				bottom: 1.5rem;*/
-				left: 10%;
+				left: 15%;
 				width: 80%;
 				color: #FBEAD2;
 				display: inline-block;
@@ -171,8 +167,7 @@
 			}
 			
 			body {
-				background: url(../images/pay/bg.png) center center no-repeat;
-				background-size: cover;
+				background: #BF403A;
 			}
 		</style>
 	</head>
@@ -182,42 +177,46 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<div class="mui-title c333" id="title"></div>
 		</header>
-		<div class="mui-content tc caaa">
-			<img id="payuser" src="" class="mt20" />
-			<div id="price" class="items c999 mt20 f13">
-				<div class="item">
-					<div class="choosemoney check" money="5.88">5.88元</div>
+		<div class="mui-content tc caaa full fl" style="position:relative;display:inline-block;">
+			<img src="../images/pay/bg.png" style="width:100%;float:left;" id="cover" />
+			<div class="tc full" style="position:absolute;top:8%;left:0px;">
+				<img id="payuser" src="" class="mt20" />
+				<div id="price" class="items c999 mt20 f13">
+					<div class="item">
+						<div class="choosemoney check" money="5.88">5.88元</div>
+					</div>
+					<div class="item">
+						<div class="choosemoney" money="8.88">8.88元</div>
+					</div>
+					<div class="item">
+						<div class="choosemoney" money="12.88">12.88元</div>
+					</div>
+					<div class="item">
+						<div class="choosemoney" money="18.88">18.88元</div>
+					</div>
+					<div class="item">
+						<div class="choosemoney" money="28.88">28.88元</div>
+					</div>
+					<div class="item">
+						<div class="choosemoney" money="88.88">88.88元</div>
+					</div>
+					<div class="item">
+						<div id="otherMoney" onclick="OtherMoney()">其他金额</div>
+					</div>
+					<div class="item2 hide" id="divMoney">
+						<input type="number" id="txtmoney" class="f30" value="5.88" />
+					</div>
 				</div>
-				<div class="item">
-					<div class="choosemoney" money="8.88">8.88元</div>
-				</div>
-				<div class="item">
-					<div class="choosemoney" money="12.88">12.88元</div>
-				</div>
-				<div class="item">
-					<div class="choosemoney" money="18.88">18.88元</div>
-				</div>
-				<div class="item">
-					<div class="choosemoney" money="28.88">28.88元</div>
-				</div>
-				<div class="item">
-					<div class="choosemoney" money="88.88">88.88元</div>
-				</div>
-				<div class="item">
-					<div id="otherMoney" onclick="OtherMoney()">其他金额</div>
-				</div>
-				<div class="item2 hide" id="divMoney">
-					<input type="number" id="txtmoney" class="f30" value="5.88" /> 
+				<div class="payway f13">
+					<div id="alipay" class="alipay" onclick="ChangePayWay(0)">支付宝</div>
+					<div id="weixin" class="weixin curr" onclick="ChangePayWay(1)">微信</div>
 				</div>
 			</div>
-			<div class="payway f13">
-				<div id="alipay" class="alipay" onclick="ChangePayWay(0)">支付宝</div>
-				<div id="weixin" class="weixin curr" onclick="ChangePayWay(1)">微信</div>
-			</div>
-			<div class="f13 payment bold" onclick="Payment()">赞&nbsp;赏</div>
-			<div class="f13 anony mt20" onclick="Anony()" id="anony">
+
+			<div class="f16 payment bold" onclick="Payment()" style="position:absolute;bottom:10%;">赞&nbsp;赏</div>
+			<div class="f13 anony mt20" onclick="Anony()" id="anony" style="position:absolute;bottom:3%;">
 				匿名赞赏
-			</div> 
+			</div>
 		</div>
 	</body>
 
@@ -236,8 +235,7 @@
 	mui.init();
 
 	mui.ready(function() {
-		var height = window.innerHeight - ($("#price").height() + $("#payuser").height() + 150);
-		$(".payment").css("margin-top", height / 2 + "px");
+		document.getElementById("cover").style.height = window.innerHeight - 45 + "px";
 
 		//金额切换
 		$(".choosemoney").click(function() {

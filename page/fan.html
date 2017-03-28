@@ -107,7 +107,7 @@
 			rows: pagesize,
 			ToUserNumber: UserNumber
 		}
-		HttpGet(base.RootUrl + "Fan/FansAll", data, function(data) {
+		HttpGet(base.RootUrl + "Api/Fan/FansAll", data, function(data) {
 			data = JSON.parse(data);
 			document.getElementById("loader").classList.add("hide");
 			if(data != null) {

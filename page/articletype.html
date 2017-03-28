@@ -93,10 +93,11 @@
 					var length = list.length;
 					if(length > 0) {
 						$("#loader").addClass("hide");
-						var html = [];
+						var html = []; 
 						for(var i = 0, len = length; i < len; i++) {
-							html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell music" style="background:#E8E8E8;" index="' + list[i].ID + '" name="' + list[i].Name + '"><span class="fl">' + list[i].Name + '</span><span class="fr csubtitle mui-icon ' + (list[i].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
 							var musics = list[i].List;
+							html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell music" style="' + (musics.length > 0 ? "background:#E8E8E8;" : "background:#fff;") + '" index="' + list[i].ID + '" name="' + list[i].Name + '"><span class="fl">' + list[i].Name + '</span><span class="fr csubtitle mui-icon ' + (list[i].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+
 							for(var j = 0, len2 = musics.length; j < len2; j++) {
 								html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
 							}

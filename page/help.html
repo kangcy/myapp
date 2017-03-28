@@ -27,7 +27,7 @@
 			}
 			
 			#list div img {
-				width: 35%;
+				width: 30%;
 				margin-top: 20px;
 			}
 			
@@ -106,7 +106,7 @@
 	function appendStr(item) {
 		var div = document.createElement('div');
 		div.setAttribute("tid", item.ID);
-		div.innerHTML = '<img src="' + (base.IsNullOrEmpty(item.Cover) ? "../images/login/logo.png" : item.Cover) + '" /><p class="f12 mt5 mb20 c333">' + item.Name + '</p>';
+		div.innerHTML = '<img src="' + (base.IsNullOrEmpty(item.Cover) ? base.DefaultImg : item.Cover) + '" /><p class="f12 mt5 mb20 c333">' + item.Name + '</p>';
 		return div;
 	}
 </script>

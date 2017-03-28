@@ -195,9 +195,8 @@
 			isLoading = true;
 			var draw = this.className.indexOf("active") >= 0;
 			base.SwitchChange("switch", !draw);
-
-			base.ShowWaiting("正在投稿");
-			setTimeout(function() {
+			if(!draw) {
+				base.ShowWaiting("正在投稿");
 				HttpGet(base.RootUrl + "Article/Recommend", {
 						ID: userinfo.ID,
 						UserNumber: userinfo.Number,
@@ -205,16 +204,20 @@
 						ArticleNumber: ArticleNumber
 					},
 					function(data) {
-						base.CloseWaiting();
-						if(data.result) {
-							mui.toast("投稿成功");
-						} else {
-							base.SwitchChange("switch", draw);
-							ActionTan(1, data.message);
-						}
-						isLoading = false;
+						setTimeout(function() {
+							base.CloseWaiting();
+							if(data.result) {
+								mui.toast("投稿成功");
+							} else {
+								base.SwitchChange("switch", draw);
+								ActionTan(1, data.message);
+							}
+							isLoading = false;
+						}, 1000);
 					});
-			}, 1000);
+			} else {
+				isLoading = false;
+			}
 		});
 	});
 
