@@ -1842,7 +1842,10 @@
       "images/pay/nm1.png",
       "images/pay/wx1.png",
       "images/pay/zfb2.png",
-      "images/pay/nm2.png"
+      "images/pay/nm2.png",
+      "css/money.css",
+      "images/pay/header1.png",
+      "images/pay/header2.png"
     ],
     "refer": []
   },

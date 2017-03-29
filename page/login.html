@@ -85,7 +85,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/login.js"></script>
-<script type="text/javascript"> 
+<script type="text/javascript">
 	var isLoading = false;
 	var mask = mui.createMask(function() {});
 
@@ -267,8 +267,9 @@
 				var josnStr = JSON.stringify(s.userInfo);
 				var jsonObj = s.userInfo;
 				console.log("获取用户信息成功：" + josnStr);
-
+				//alert("获取用户信息成功1：" + josnStr)
 				var loginInfo = showData(type, jsonObj);
+				//alert("获取用户信息成功2：" + JSON.stringify(loginInfo))
 				app.loginThird(loginInfo, function(err) {
 					if(err) {
 						mui.toast(err);

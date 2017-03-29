@@ -8,26 +8,29 @@ function Payment() {
 	}
 	isLoading = true;
 	var money = $("#txtmoney").val();
-
 	if(base.IsNullOrEmpty(money) || isNaN(money)) {
-		base.CloseWaiting();
 		isLoading = false;
-		plus.nativeUI.alert("输入金额格式不正确", null, "");
+		plus.nativeUI.alert("红包金额格式错误", null, "");
 		return;
 	}
 	if(money < 0) {
-		base.CloseWaiting();
 		isLoading = false;
-		plus.nativeUI.alert("输入金额格式不正确", null, "");
+		plus.nativeUI.alert("红包金额格式错误", null, "");
+		return;
+	}
+	if(/^\d+(\.\d{1,2})?$/.test(money)) {
+		money = money * 100;
+	} else {
+		isLoading = false;
+		plus.nativeUI.alert("红包金额格式错误", null, "");
 		return;
 	}
 	if(payway == 0) {
-		base.CloseWaiting();
 		isLoading = false;
 		plus.nativeUI.alert("暂不支持支付宝，请使用微信支付", null, "");
 		return;
 	}
-
+	mask.show();
 	base.ShowWaiting("支付请求中");
 	var id = payway == 0 ? "alipay" : "wxpay";
 	var ALIPAYSERVER = base.RootUrl + 'Notify/AddWxOrder?UserNumber=' + userinfo.Number + "&Money=" + money + "&Anony=" + (anony ? 1 : 0) + "&ArticleNumber=" + ArticleNumber + "&ArticleUserNumber=" + ArticleUserNumber;
@@ -41,6 +44,7 @@ function Payment() {
 		PAYSERVER = WXPAYSERVER;
 	} else {
 		isLoading = false;
+		mask.close();
 		base.CloseWaiting();
 		plus.nativeUI.alert("不支持此支付通道！", null, "");
 		return;
@@ -51,6 +55,7 @@ function Payment() {
 		var model = data;
 		if(base.IsNullOrEmpty(model)) {
 			isLoading = false;
+			mask.close();
 			plus.nativeUI.alert("请求订单失败");
 			return false;
 		}
@@ -66,12 +71,9 @@ function Payment() {
 			"sign": model.sign
 		}
 		plus.payment.request(channel[id], obj, function(result) {
-			plus.nativeUI.alert("支付成功", function() {
-				mui.back();
-			});
+			document.getElementById("success").classList.remove("hide");
 		}, function(error) {
-			//console.log(JSON.stringify(error));
-			plus.nativeUI.alert("一毛一分都是情  打赏一下都不行？");
+			document.getElementById("error").classList.remove("hide");
 		});
 		isLoading = false;
 	}, "json");

@@ -8,168 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<style type="text/css">
-			.items {
-				width: 90%;
-				display: inline-block;
-			}
-			
-			.items .item {
-				width: 33.3%;
-				float: left;
-				display: inline-block;
-				text-align: center;
-			}
-			
-			.items .item2 {
-				width: 66.6%;
-				float: left;
-				display: inline-block;
-				text-align: center;
-			}
-			
-			.items .item div {
-				width: 80%;
-				display: inline-block;
-				border: 1px solid #999;
-				height: 1.8rem;
-				line-height: 1.8rem;
-				border-radius: 20px;
-				margin-bottom: 0.8rem;
-				background: #fff;
-			}
-			
-			.items .item.check,
-			.items .item div.check {
-				color: #ed5565;
-				border: 1px solid #BF403A;
-			}
-			
-			.items .item div.noborder {
-				border: 0px;
-			}
-			
-			#txtmoney {
-				height: 1.8rem;
-				text-align: center;
-				width: 100%;
-				border: 0px;
-				border-bottom: 1px solid #999;
-				padding: 3px;
-				color: #BF403A;
-				background: transparent;
-			}
-			
-			#btnPay {
-				position: fixed;
-				left: 10px;
-				bottom: 110px;
-				z-index: 999;
-			}
-			
-			#payuser {
-				width: 6rem;
-				height: 6rem;
-				border-radius: 100%;
-			}
-			
-			.payment {
-				left: 10%;
-				width: 80%;
-				height: 2.5rem;
-				line-height: 2.5rem;
-				border-radius: 30px;
-				background: #FBEAD2;
-				color: #BF403A;
-				display: inline-block;
-			}
-			
-			.anony {
-				left: 15%;
-				width: 80%;
-				color: #FBEAD2;
-				display: inline-block;
-				height: 1rem;
-				background-image: url(../images/pay/nm1.png);
-				background-size: 1rem;
-				background-position: 5rem 0rem;
-				background-repeat: no-repeat;
-				line-height: 1rem;
-			}
-			
-			.anony.curr {
-				background-image: url(../images/pay/nm2.png);
-			}
-			
-			.payway {
-				width: 85%;
-				height: 2rem;
-				line-height: 2rem;
-				display: inline-block;
-				position: relative;
-				text-indent: 2rem;
-			}
-			
-			.payway div {
-				top: 0px;
-				position: absolute;
-				width: 56%;
-				height: 2rem;
-				line-height: 2rem;
-				border-radius: 30px;
-				z-index: 0;
-				border: 1px solid #999;
-				background: #fff;
-			}
-			
-			.payway div.alipay {
-				left: 0px;
-				background-image: url(../images/pay/zfb2.png);
-				background-size: 1.5rem;
-				background-position: 2.5rem 0.25rem;
-				background-repeat: no-repeat;
-			}
-			
-			.payway div.alipay.curr {
-				background-image: url(../images/pay/zfb1.png);
-				color: #019FE6;
-				border: 1px solid #BF403A;
-			}
-			
-			.payway div.weixin {
-				right: 0px;
-				background-image: url(../images/pay/wx2.png);
-				background-size: 1.5rem;
-				background-position: 2.5rem 0.25rem;
-				background-repeat: no-repeat;
-			}
-			
-			.payway div.weixin.curr {
-				background-image: url(../images/pay/wx1.png);
-				color: #46B034;
-				border: 1px solid #BF403A;
-			}
-			
-			.payway div.curr {
-				z-index: 1;
-			}
-			
-			.radio,
-			.checkbox {
-				position: initial !important;
-			}
-			
-			.mui-radio span,
-			.mui-checkbox span {
-				width: 4rem;
-				display: inline-block;
-				text-align: left;
-			}
-			
-			body {
-				background: #BF403A;
-			}
-		</style>
+		<link rel="stylesheet" href="../css/money.css">
 	</head>
 
 	<body id="body">
@@ -177,6 +16,30 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<div class="mui-title c333" id="title"></div>
 		</header>
+		<div class="tan hide" id="success">
+			<div class="full tc">
+				<img src="../images/pay/header1.png" class="full" />
+			</div>
+			<div class="summary c333 f13">
+				<p class="fr full hot f16 bold tc">打赏成功~</p>
+				<p class="fl full desc">
+					<span class="hot" id="title1"></span>已经成功收到小主你的打赏啦，送你一个超大的么么哒！
+				</p>
+				<p class="fl full tr blue" onclick="Out()">收下TA的么么哒</p>
+			</div>
+		</div>
+		<div class="tan hide" id="error">
+			<div class="full tc">
+				<img src="../images/pay/header2.png" class="full" />
+			</div>
+			<div class="summary f13">
+				<p class="fr full hot f16 bold tc">打赏失败•••</p>
+				<p class="fl full desc c333">
+					<span class="hot" id="title2"></span>知道小主您收回了打赏，流出了理(shang)解(xin)的目(lei)光(shui)•••
+				</p>
+				<p class="fl full tr c333"><span class="fr hot" onclick="Again()">再爱TA一回</span><span class="fr mr20" onclick="Out()">残忍走开</span></p>
+			</div>
+		</div>
 		<div class="mui-content tc caaa full fl" style="position:relative;display:inline-block;">
 			<img src="../images/pay/bg.png" style="width:100%;float:left;" id="cover" />
 			<div class="tc full" style="position:absolute;top:8%;left:0px;">
@@ -213,8 +76,8 @@
 				</div>
 			</div>
 
-			<div class="f16 payment bold" onclick="Payment()" style="position:absolute;bottom:10%;">赞&nbsp;赏</div>
-			<div class="f13 anony mt20" onclick="Anony()" id="anony" style="position:absolute;bottom:3%;">
+			<div class="f16 payment bold" onclick="Payment()">赞&nbsp;赏</div>
+			<div class="f13 anony mt20" onclick="Anony()" id="anony">
 				匿名赞赏
 			</div>
 		</div>
@@ -231,6 +94,10 @@
 	var ArticleNumber = "";
 	var ArticleUserNumber = "";
 	var userinfo = base.GetUserInfo();
+	var mask = mui.createMask(function() {
+		$("#success,#error").addClass("hide");
+		$(".choosemoney:first").trigger("click");
+	});
 
 	mui.init();
 
@@ -245,6 +112,13 @@
 			$(".check").removeClass("check");
 			$this.addClass("check");
 		});
+
+		document.getElementById("txtmoney").addEventListener("input", function() {
+			var money = $("#txtmoney").val();
+			if(!/^\d+(\.\d{1,2})?$/.test(money)) {
+				mui.toast("红包金额格式错误");
+			}
+		});
 	});
 
 	mui.plusReady(function() {
@@ -256,6 +130,7 @@
 
 		if(!base.IsNullOrEmpty(Name)) {
 			$("#title").html("打赏 • " + Name);
+			$("#title1,#title2").html(Name);
 		}
 		$("#payuser").attr("src", base.ShowThumb(Avatar, 1));
 
@@ -289,5 +164,15 @@
 		} else {
 			$("#anony").removeClass("curr");
 		}
+	}
+
+	function Again() {
+		mask.close();
+		$("#success,#error").addClass("hide");
+		$(".choosemoney:first").trigger("click");
+	}
+
+	function Out() {
+		mui.back();
 	}
 </script>

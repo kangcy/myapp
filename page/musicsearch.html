@@ -126,15 +126,13 @@
 
 		//确定
 		document.getElementById('yes').addEventListener('tap', function(e) {
-			if(base.IsNullOrEmpty(fileUrl)) {
+			if(fileId <= 0) {
 				return mui.toast("还未选择音乐")
 			}
 			if(!addarticlePage) {
 				addarticlePage = plus.webview.getWebviewById('addarticle');
 			}
 			addarticlePage.evalJS("UpdateMusic('" + fileId + "','" + fileName + "','" + fileUrl + "')");
-			plus.webview.getWebviewById('music').close();
-			self.close();
 		});
 
 		//搜索

@@ -57,8 +57,9 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
-	var MusicID = 0;
+	var MusicID = -1;
 	var MusicName = "";
+	var MusicUrl = "";
 
 	mui.init();
 
@@ -70,6 +71,7 @@
 			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
 			MusicID = this.getAttribute("index");
 			MusicName = this.getAttribute("name");
+			MusicUrl = this.getAttribute("url");
 		});
 
 		//搜索
@@ -82,12 +84,8 @@
 
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
-		MusicID = self.MusicID || 0;
+		MusicID = self.MusicID || -1;
 		MusicName = self.MusicName || "";
-
-		if(MusicID == 0 && !base.IsNullOrEmpty(MusicName)) {
-			MusicID = -1;
-		}
 
 		Load(MusicID);
 	});
@@ -107,7 +105,7 @@
 						html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell" style="background:#E8E8E8;"><span class="fl">' + data.list[i].Name + '</span></li>');
 						var musics = data.list[i].Music;
 						for(var j = 0, len2 = musics.length; j < len2; j++) {
-							html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+							html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '" url="' + musics[j].FileUrl + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
 						}
 						html.push('</ul>');
 					}
@@ -124,13 +122,13 @@
 		if(base.RepeatAction()) {
 			return;
 		}
-		if(MusicID == -1) {
-			plus.webview.close("music");
+		if(MusicID < 0) {
+			return mui.toast("还未选择音乐");
 		} else {
 			if(!addarticlePage) {
 				addarticlePage = plus.webview.getWebviewById('addarticle');
 			}
-			addarticlePage.evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','')");
+			addarticlePage.evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','" + MusicUrl + "')");
 		}
 	}
 </script>
