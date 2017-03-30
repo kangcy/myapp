@@ -143,8 +143,15 @@ function Upload(imgurl, length) {
 	}, function(data) {
 		if(data != null) {
 			if(data.result) {
-				currUploadImg.push(base.RootUrl + data.message);
-
+				if(base.IsNullOrEmpty(data.message)) {
+					length = length - 1;
+				} else {
+					currUploadImg.push(base.RootUrl + data.message);
+				}
+				if(length <= 0) {
+					plus.nativeUI.alert("图片上传失败", null, "");
+					return;
+				}
 				//图片上传完毕，创建文章
 				if(currUploadImg.length == length) {
 					//创建文章 

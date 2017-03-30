@@ -11,20 +11,34 @@
 		<link rel="stylesheet" href="../css/loading.min.css">
 		<style type="text/css">
 			.mui-table-view-cell {
-				padding: .8rem 0.9375rem;
+				border-bottom: 1px solid #fff;
 			}
 			
-			.mui-table-view:after {
+			.mui-table-view-cell:after {
 				height: 0px;
 			}
 			
 			.mui-table-view-cell:last-child:after,
 			.mui-table-view-cell:last-child:before {
-				height: 1px;
+				height: 0px;
 			}
 			
 			.mui-popup-title+.mui-popup-text {
 				display: none;
+			}
+			
+			.music {
+				padding: .5rem 0rem;
+				border-bottom: 1px solid #eee;
+				position: relative;
+			}
+			
+			.music:last-child {
+				border: 0px;
+			}
+			
+			.mui-table-view-cell.mui-collapse .mui-collapse-content {
+				padding: 0rem 0.9375rem;
 			}
 		</style>
 	</head>
@@ -35,7 +49,7 @@
 			<a id="submit" class="mui-icon mui-text c333 fr" onclick="Submit()">完成</a>
 			<h1 class="mui-title c333">选择背景音乐</h1>
 		</header>
-		<nav class="mui-bar mui-bar-tab" id="search" style="background:#fff;border-top:1px solid #eee;">
+		<nav class="mui-bar mui-bar-tab" id="search" style="background:#f8f8f8;border-top:1px solid #eee;">
 			<div class="mui-tab-item blue" style="font-size:16px;">
 				<span class="mui-icon mui-icon-search" style="top:0px;font-size:20px;margin-right:5px;"></span>搜索在线音乐
 			</div>
@@ -47,6 +61,7 @@
 		</div>
 		<div class="mui-content">
 			<div id="list">
+
 			</div>
 		</div>
 	</body>
@@ -64,9 +79,8 @@
 	mui.init();
 
 	mui.ready(function() {
-
 		//切换选择
-		$("#list").on('tap', 'li.music', function(event) {
+		$("#list").on('tap', 'div.music', function(event) {
 			$("#list .mui-icon").removeClass("mui-icon-checkmarkempty");
 			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
 			MusicID = this.getAttribute("index");
@@ -102,12 +116,12 @@
 				if(length > 0) {
 					var html = [];
 					for(var i = 0, len = length; i < len; i++) {
-						html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell" style="background:#E8E8E8;"><span class="fl">' + data.list[i].Name + '</span></li>');
+						html.push('<div class="mui-table-view-cell mui-collapse ' + (i == 0 ? "mui-active" : "") + '"style="background:#eee;"><a class="mui-navigate-right f13 c333" href="#">' + data.list[i].Name + '</a><div class="mui-collapse-content">');
 						var musics = data.list[i].Music;
 						for(var j = 0, len2 = musics.length; j < len2; j++) {
-							html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '" url="' + musics[j].FileUrl + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+							html.push('<div class="music" index="' + musics[j].ID + '" name="' + musics[j].Name + '" url="' + musics[j].FileUrl + '"><p class="f12 c999 mt5 mb5">' + musics[j].Name + '<span class="fr c999 mui-icon ' + (musics[j].ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0rem;top:0.5rem;"></span></p></div>');
 						}
-						html.push('</ul>');
+						html.push('</div></div>');
 					}
 					table.append(html.join(""));
 				}

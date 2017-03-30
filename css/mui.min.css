@@ -2181,10 +2181,10 @@ input[type=submit]:enabled:active {
 	height: 0
 }
 
-.mui-table-view-cell.mui-collapse>.mui-navigate-right:after,
+/*.mui-table-view-cell.mui-collapse>.mui-navigate-right:after,
 .mui-table-view-cell.mui-collapse>.mui-push-right:after {
 	content: '\e581'
-}
+}*/
 
 
 /*.mui-table-view-cell.mui-collapse.mui-active {

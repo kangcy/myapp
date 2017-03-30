@@ -200,15 +200,9 @@
 	}, false);
 
 	document.getElementById('weixin').addEventListener('tap', function() {
-		if(base.RepeatAction()) {
-			return;
-		}
 		authLogin('weixin');
 	});
 	document.getElementById('qq').addEventListener('tap', function() {
-		if(base.RepeatAction()) {
-			return;
-		}
 		authLogin('qq');
 	});
 	/*document.getElementById('sinaweibo').addEventListener('tap', function() {
@@ -275,7 +269,7 @@
 						mui.toast(err);
 						return;
 					}
-					//base.ShowWaiting("登录成功，正在加载");
+					base.ShowWaiting("登录成功，正在加载");
 					toMain();
 				});
 

@@ -166,6 +166,9 @@ var base = new function() {
 		if(!str) {
 			return true;
 		}
+		if(str == "") {
+			return true;
+		}
 		return false;
 	}
 
@@ -456,6 +459,10 @@ var base = new function() {
 			if(isdel) {
 				model.push('<div class="mui-slider-cell mui-slider-handle">');
 			}
+
+			//加精
+			model.push('<div class="mui-card-header">精华</div>');
+
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
 			if(islazyload) {
 				model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
@@ -463,7 +470,7 @@ var base = new function() {
 				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 			}
 
-			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.NickName + '</span><p class="f11 full caaa mt5">' + item.CreateDate);
+			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.NickName + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
 			}
