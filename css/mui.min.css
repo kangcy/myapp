@@ -1558,7 +1558,8 @@ input[type=submit]:enabled:active {
 	font-size: 0.875rem;
 	position: relative;
 	overflow: hidden;
-	margin: 0.625rem 0px 0.625rem 0px;
+	/*margin: 0rem 0px 0.625rem 0px;*/
+	margin: 0px;
 	background-color: #fff;
 	background-clip: padding-box;
 	/*
@@ -1865,6 +1866,10 @@ input[type=submit]:enabled:active {
 	overflow: hidden;
 	padding: 0.625rem 0.9375rem;
 	-webkit-touch-callout: none
+}
+
+.mui-table-view-cell .nopaddingtop {
+	padding-top: 0px !important;
 }
 
 .mui-table-view-cell:after {
@@ -2180,6 +2185,7 @@ input[type=submit]:enabled:active {
 .mui-table-view-cell.mui-collapse .mui-table-view:before {
 	height: 0
 }
+
 
 /*.mui-table-view-cell.mui-collapse>.mui-navigate-right:after,
 .mui-table-view-cell.mui-collapse>.mui-push-right:after {
@@ -2955,6 +2961,7 @@ select:focus {
 	border-bottom: 2px solid #5E92D7;
 	background: 0 0
 }
+
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.nocolor.mui-active {
 	border-bottom: 2px solid #5E92D7;
 	background: 0 0

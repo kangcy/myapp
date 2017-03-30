@@ -24,6 +24,33 @@
 		<div class="mui-content">
 			<div id="pullrefresh">
 				<div id="scroll-view">
+					<!--<div class="mui-card nopaddingtop" id="article14" style="padding-bottom: 0.8rem;">
+						<div class="mui-card-header noborder mui-card-media user" userid="148669779097040"><img src="http://q.qlogo.cn/qqapp/101365355/D3B5A665A4B75C7049255303D49A568B/100" style="border-radius:50%;width:2rem !important;height:2rem !important;">
+							<div class="mui-media-body f12 mt0" style="position:relative;"><span>咚董咚董咚</span>
+								<p class="f10 full c999 mt5">2017-02-17 07:42</p><img class="" userid="148669779097040" src="../images/base/follow1.png" style="position:absolute;right:0px;top:2%;width:3rem;"></div>
+						</div>
+						<div class="mui-card-content show">
+							<div class="mui-card-content-inner">
+								<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="14" userid="148669779097040" power="3" nickname="咚董咚董咚">睡觉睡觉都觉得姐姐发就发</div>
+								<div class="secondfloor"><img src="http://www.ishaoxia.com/Upload/Images/Article/20170217/201702170742406187_2.jpg" href="http://www.ishaoxia.com/Upload/Images/Article/20170217/201702170742406187_1.jpg" data-preview-src="" data-preview-group="14"></div>
+								<div class="secondfloor"><img src="http://www.ishaoxia.com/Upload/Images/Article/20170217/201702170742406503_2.jpg" href="http://www.ishaoxia.com/Upload/Images/Article/20170217/201702170742406503_1.jpg" data-preview-src="" data-preview-group="14"></div>
+							</div>
+						</div>
+						<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览44次</span><span class="pays" articleid="14" articlenumber="148728856020246" usernumber="148669779097040" nickname="咚董咚董咚" avatar="http://q.qlogo.cn/qqapp/101365355/D3B5A665A4B75C7049255303D49A568B/100"><img id="ipays14" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr"></span><span class="comments" articleid="14" articlenumber="148728856020246"><img id="icomments14" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1"></span><span><img src="../images/base/like_hig.png" style="width:0.9rem;" class="mr10 fr"></span></div>
+					</div>
+					<div class="mui-card nopaddingtop" id="article13" style="padding-bottom: 0.8rem;">
+						<div class="mui-card-header noborder mui-card-media user" userid="148660825261686"><img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6Y1vTan72YUMlFWBqqW7K4eSRSGOL78h2jBETPLDenSiaP5m4wbgJemQQJa5k8XCjpXhBMecohJUg/0" style="border-radius:50%;width:2rem !important;height:2rem !important;">
+							<div class="mui-media-body f12 mt0" style="position:relative;"><span>潘荣波</span>
+								<p class="f10 full c999 mt5">2017-02-15 09:11</p><img class="" userid="148660825261686" src="../images/base/follow1.png" style="position:absolute;right:0px;top:2%;width:3rem;"></div>
+						</div>
+						<div class="mui-card-content show">
+							<div class="mui-card-content-inner">
+								<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="13" userid="148660825261686" power="3" nickname="潘荣波">佑佑</div>
+								<div class="onefloor"><img src="http://www.ishaoxia.com/Upload/Images/Article/20170215/201702152111203554_1.jpg" data-preview-src="" data-preview-group="13"></div>
+							</div>
+						</div>
+						<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览25次</span><span class="pays" articleid="13" articlenumber="148716428051705" usernumber="148660825261686" nickname="潘荣波" avatar="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6Y1vTan72YUMlFWBqqW7K4eSRSGOL78h2jBETPLDenSiaP5m4wbgJemQQJa5k8XCjpXhBMecohJUg/0"><img id="ipays13" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr"></span><span class="comments" articleid="13" articlenumber="148716428051705"><img id="icomments13" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1"></span><img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="13"></div>
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -151,5 +178,122 @@
 			}
 			callback();
 		});
+	}
+
+	/**
+	 * 拼接文章Html(ismy:是否我的,isuser:是否用户,islazyload:是否延迟加载,isdel:是否有左滑操作)
+	 */
+	function AppendArticle(userNumber, item, ismy, isuser, islazyload, isdel) {
+		var div = document.createElement('div');
+		if(isdel) {
+			div.className = 'mui-card mui-table-view-cell';
+			div.style.padding = "0px";
+			div.setAttribute("kid", item.ArticleNumber);
+		} else {
+			div.className = 'mui-card';
+		}
+		div.style.paddingBottom = "0.8rem";
+
+		div.setAttribute("id", "article" + item.ArticleID)
+		var model = []; 
+		if(isdel) {
+			model.push('<div class="mui-slider-right mui-disabled tc"><a class="mui-btn mui-btn-red">删除</a></div>');
+		}
+		if(!ismy) {
+			if(isdel) {
+				model.push('<div class="mui-slider-cell mui-slider-handle">');
+			}
+
+			//加精
+			if(item.Recommend == 99) {
+				model.push('<div class="c999 f10" style="color:#ff0000;border-top:1px solid f5f5f5;border-bottom:1px solid #f5f5f5;height:2rem;line-height:2rem;padding:0px 0.625rem">精华</div>');
+			}
+			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
+			if(islazyload) {
+				model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+			} else {
+				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+			}
+
+			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.NickName + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
+			if(!base.IsNullOrEmpty(item.City)) {
+				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
+			}
+			model.push('</p>');
+			//如果是自己隐藏关注按钮
+			if(userNumber != "" && userNumber != item.UserNumber) {
+				model.push('<img class="' + (item.IsFollow == 0 ? "guanzhu" : "") + '" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:2%;width:3rem;" />');
+			}
+			model.push('</div></div>');
+		}
+
+		//内容
+		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+
+		model.push('<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
+		if(base.IsNullOrEmpty(item.Title)) {
+			item.Title = "我的微篇";
+		}
+		model.push(item.Title + '</div>');
+
+		if(ismy == true) {
+			var power = "";
+			switch(item.ArticlePower) {
+				case "0":
+					power = "私密";
+					break;
+				case 1:
+					power = "密码";
+					break;
+				case 2:
+					power = "分享";
+					break;
+				case 3:
+					power = "公开";
+					break;
+				default:
+					power = "私密";
+					break;
+			}
+			model.push('<div class="mui-card-header full c999 fl" style="margin-top:-0.5rem;padding:0px 0px 0.625rem 0px"><span class="f11 fl">' + item.CreateDate + '</span><span class="f11 fr" style="color:#ff0000;" />「' + power + '」</span></div>');
+		}
+
+		//图片拼接 
+		var parts = item.ArticlePart;
+		if(parts.length == 1) {
+			if(islazyload) {
+				model.push('<div class="onefloor"><img data-lazyload="' + base.ShowThumb(parts[0].Introduction, 1) + '" href="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+			} else {
+				model.push('<div class="onefloor"><img src="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+			}
+		} else {
+			var name = parts.length == 3 ? "thirdfloor" : "secondfloor";
+			for(var i = 0; i < parts.length; i++) {
+				if(islazyload) {
+					model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				} else {
+					model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				}
+			}
+		}
+		model.push('</div></div>');
+
+		model.push('<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览' + item.Views + '次</span>');
+		if(item.IsPay == 1) {
+			model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr" /></span>');
+		}
+		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1" /></span>');
+		if(item.IsZan == 0) {
+			model.push('<img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" />');
+		} else {
+			model.push('<span><img src="../images/base/like_hig.png" style="width:0.9rem;" class="mr10 fr" /></span>');
+		}
+		model.push('</div>');
+
+		if(isdel) {
+			model.push('</div>');
+		}
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>

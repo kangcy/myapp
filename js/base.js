@@ -461,8 +461,9 @@ var base = new function() {
 			}
 
 			//加精
-			model.push('<div class="mui-card-header">精华</div>');
-
+			if(item.Recommend == 99) {
+				model.push('<div class="c999 f10" style="color:#ff0000;border-top:1px solid f5f5f5;border-bottom:1px solid #f5f5f5;height:2rem;line-height:2rem;padding:0px 0.625rem">精华</div>');
+			}
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
 			if(islazyload) {
 				model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
@@ -487,9 +488,9 @@ var base = new function() {
 
 		model.push('<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
 		//加精
-		if(item.Recommend == 99) {
+		/*if(item.Recommend == 99) {
 			model.push('<span class="fl f11" style="color:#ff0000;">「精选」</span>');
-		}
+		}*/
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的微篇";
 		}
