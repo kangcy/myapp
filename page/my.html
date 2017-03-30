@@ -91,9 +91,6 @@
 
 	//更换封面
 	function Cover() {
-		if(!base.TriggerMain) {
-			return false;
-		}
 		base.OpenWindow("editimage", "editimage.html", {
 			Url: userinfo.Cover,
 			Source: "UserCover",
@@ -131,71 +128,43 @@
 
 	//用户设置
 	function MySetting() {
-		base.TriggerMain = false;
 		base.OpenWindow("mysetting", "mysetting.html", {});
-		setTimeout(function() {
-			base.TriggerMain = true;
-		}, 1500);
 	}
 
 	//消息
 	function Tip() {
-		base.TriggerMain = false;
 		base.OpenWindow("tipsetting", "tipsetting.html", {
 			Source: "My"
 		});
-		setTimeout(function() {
-			base.TriggerMain = true;
-		}, 1500);
 	};
 
 	//系统设置
 	function Setting() {
-		base.TriggerMain = false;
 		base.OpenWindow("setting", "setting.html", {});
-		setTimeout(function() {
-			base.TriggerMain = true;
-		}, 1500);
 	}
 
 	//我的文章
 	function Article() {
-		base.TriggerMain = false;
 		base.OpenWindow("article", "article.html", {
 			CreateUserNumber: userinfo.Number,
 			ArticleTypeName: "我的动态",
 			Source: "My"
 		});
-		setTimeout(function() {
-			base.TriggerMain = true;
-		}, 1500);
 	};
 
 	//我的收藏
 	function Keep() {
-		base.TriggerMain = false;
 		base.OpenWindow("keep", "keep.html", {});
-		setTimeout(function() {
-			base.TriggerMain = true;
-		}, 1500);
 	};
 
 	//我的关注
 	function Follow() {
-		base.TriggerMain = false;
 		base.OpenWindow("follow", "follow.html", {});
-		setTimeout(function() {
-			base.TriggerMain = true;
-		}, 1500);
 	};
 
 	//我的粉丝
 	function Fan() {
-		base.TriggerMain = false;
 		base.OpenWindow("fan", "fan.html", {});
-		setTimeout(function() {
-			base.TriggerMain = true;
-		}, 1500);
 	};
 
 	//我的相册

@@ -234,7 +234,7 @@ var base = new function() {
 		Repeat_Action = new Date().getTime();
 		setTimeout(function() {
 			Repeat_Action = null;
-		}, 1500);
+		}, 1000);
 		return false;
 	}
 
@@ -484,7 +484,7 @@ var base = new function() {
 		}
 
 		//内容
-		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
+		model.push('<div class="mui-card-content show ' + (ismy ? "mt10" : "") + '"><div class="mui-card-content-inner">');
 
 		model.push('<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
 		//加精

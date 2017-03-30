@@ -1727,7 +1727,7 @@ input[type=submit]:enabled:active {
 
 .mui-card-header.mui-card-media .mui-media-body {
 	font-size: 0.875rem;
-	font-weight: 500;
+	/*font-weight: 500;*/
 	margin-bottom: 0;
 	margin-left: 2.5rem;
 	color: #333;
@@ -4943,6 +4943,10 @@ body>.mui-progressbar {
 
 .bold {
 	font-weight: bold;
+}
+
+.normal {
+	font-weight: normal;
 }
 
 .full {
