@@ -70,6 +70,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
+	var $none = document.getElementById("none");
 
 	mui.init();
 
@@ -92,21 +93,25 @@
 		};
 		var table = document.getElementById('list');
 		table.innerHTML = "";
-		HttpGet(base.RootUrl + "Help/All", data, function(data) {
-			document.getElementById("loader").classList.add("hide");
+		HttpGet(base.RootUrl + "Api/Help/All", data, function(data) {
+			base.ShowLoading(false);
+			data = JSON.parse(data);
 			if(data != null) {
-				var length = data.length;
-				if(length > 0) {
-					document.getElementById("none").classList.add("hide");
-					for(var i = 0; i < length; i++) {
-						var div = appendStr(data[i]);
-						table.appendChild(div);
+				if(data.result) {
+					data = data.message;
+					var length = data.length;
+					if(length > 0) {
+						$none.classList.add("hide");
+						for(var i = 0; i < length; i++) {
+							var div = appendStr(data[i]);
+							table.appendChild(div);
+						}
+					} else {
+						$none.classList.remove("hide");
 					}
-				} else {
-					document.getElementById("none").classList.remove("hide");
 				}
 			} else {
-				document.getElementById("none").classList.remove("hide");
+				$none.classList.remove("hide");
 			}
 		});
 	}

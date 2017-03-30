@@ -132,6 +132,26 @@ var base = new function() {
 	this.DefaultImg = "../images/logo_default.png";
 
 	/**
+	 * 显示等待、关闭等待
+	 **/
+	this.ShowLoading = function(show) {
+		if(show)
+			document.getElementById("loader").classList.remove("hide");
+		else
+			document.getElementById("loader").classList.add("hide");
+	}
+
+	/**
+	 * 显示列表空、关闭列表空
+	 **/
+	this.ShowNone = function(show) {
+		if(show)
+			document.getElementById("none").classList.remove("hide");
+		else
+			document.getElementById("none").classList.add("hide");
+	}
+
+	/**
 	 * 获取当前用户信息
 	 **/
 	this.GetUserInfo = function() {
@@ -462,7 +482,10 @@ var base = new function() {
 
 			//加精
 			if(item.Recommend == 99) {
-				model.push('<div class="c999 f10" style="color:#ff0000;border-top:1px solid f5f5f5;border-bottom:1px solid #f5f5f5;height:2rem;line-height:2rem;padding:0px 0.625rem">精华</div>');
+				model.push('<div class="c999 f10 star"><img src="../images/article/star.png" class="fl" /><span class="fl">精华</span></div>');
+			}
+			if(item.Recommend == 100) {
+				model.push('<div class="c999 f10 star"><img src="../images/article/top.png" class="fl" /><span class="fl">置顶</span></div>');
 			}
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
 			if(islazyload) {
@@ -487,10 +510,6 @@ var base = new function() {
 		model.push('<div class="mui-card-content show ' + (ismy ? "mt10" : "") + '"><div class="mui-card-content-inner">');
 
 		model.push('<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
-		//加精
-		/*if(item.Recommend == 99) {
-			model.push('<span class="fl f11" style="color:#ff0000;">「精选」</span>');
-		}*/
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的微篇";
 		}

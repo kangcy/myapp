@@ -83,21 +83,25 @@
 
 	//加载类型
 	function LoadHelpType() {
-		HttpGet(base.RootUrl + "Help/HelpType", {}, function(data) {
+		HttpGet(base.RootUrl + "Api/Help/HelpType", {}, function(data) {
 			var table = document.getElementById("list");
 			table.innerHTML = "";
+			data = JSON.parse(data);
 			if(data != null) {
-				var length = data.length;
-				if(length > 0) {
-					for(var i = 0, len = length; i < len; i++) {
-						table.appendChild(appendStr(data[i]));
+				if(data.result) {
+					data = data.message;
+					var length = data.length;
+					if(length > 0) {
+						for(var i = 0, len = length; i < len; i++) {
+							table.appendChild(appendStr(data[i]));
+						}
+						var div = document.createElement('div');
+						div.className = 'border';
+						table.appendChild(div);
 					}
-					var div = document.createElement('div');
-					div.className = 'border';
-					table.appendChild(div);
 				}
 			}
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			document.getElementById("list").classList.remove("hide");
 		});
 	}

@@ -56,7 +56,7 @@ function Payment() {
 		if(base.IsNullOrEmpty(model)) {
 			isLoading = false;
 			mask.close();
-			plus.nativeUI.alert("请求订单失败");
+			plus.nativeUI.alert("请求订单失败！", null, "");
 			return false;
 		}
 		var obj = {

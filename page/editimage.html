@@ -76,13 +76,13 @@
 		$("#title").html(Title);
 
 		if(base.IsNullOrEmpty(Url)) {
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			showActionSheet();
 		} else {
 			$("#readyimg").attr("src", Url).load(function() {
 				var imagewidth = $("#readyimg").width();
 				var imageheight = $("#readyimg").height();
-				document.getElementById("loader").classList.add("hide");
+				base.ShowLoading(false);
 				if(totalheight > imageheight) {
 					$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
 				} else {

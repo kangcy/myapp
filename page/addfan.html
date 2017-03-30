@@ -250,7 +250,7 @@
 			rows: pagesize,
 			Number: userinfo.Number
 		}, function(data) {
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			if(data != null) {
 				totalpage[0] = data.totalpage;
 				var length = data.list.length;
@@ -309,7 +309,7 @@
 			Number: userinfo.Number,
 			CityCode: base.CityCode
 		}, function(data) {
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
 					totalpage[1] = data.totalpage;

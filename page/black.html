@@ -58,7 +58,7 @@
 
 								var list = document.querySelectorAll(".mui-table-view-cell");
 								if(list.length == 0) {
-									document.getElementById("none").classList.remove("hide");
+									base.ShowNone(true);
 								}
 							} else {
 								mui.toast(data.message);
@@ -89,7 +89,7 @@
 			CreateUserNumber: userinfo.Number
 		}, function(data) {
 			data = JSON.parse(data);
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
@@ -99,11 +99,11 @@
 						table.appendChild(div);
 					}
 				} else {
-					document.getElementById("none").classList.remove("hide");
+					base.ShowNone(true);
 				}
 			}
 			if(data == null && currpage == 1) {
-				document.getElementById("none").classList.remove("hide");
+				base.ShowNone(true);
 			}
 			if(callback) {
 				callback();

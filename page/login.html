@@ -100,7 +100,13 @@
 
 	//跳转首页
 	var toMain = function() {
+		//base.ShowWaiting("登录成功，正在加载");
 		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
+		accountBox.value = "";
+		passwordBox.value = "";
+		mask.close();
+		base.CloseWaiting();
+		isLoading = false;
 	};
 
 	mui.ready(function() {
@@ -134,39 +140,33 @@
 				return false;
 			}
 			isLoading = true;
-			//显示遮罩
-			var mask = mui.createMask(function() {});
 			mask.show();
 			base.ShowWaiting("正在登录");
-			setTimeout(function() {
-				var loginInfo = {
-					Phone: accountBox.value,
-					Password: passwordBox.value,
-					Province: base.Province,
-					City: base.City,
-					District: base.District,
-					Street: base.Street,
-					DetailName: base.DetailName,
-					CityCode: base.CityCode,
-					Latitude: base.Latitude,
-					Longitude: base.Longitude
-				};
-				//登录 
-				app.login(loginInfo, function(err) {
+			var loginInfo = {
+				Phone: accountBox.value,
+				Password: passwordBox.value,
+				Province: base.Province,
+				City: base.City,
+				District: base.District,
+				Street: base.Street,
+				DetailName: base.DetailName,
+				CityCode: base.CityCode,
+				Latitude: base.Latitude,
+				Longitude: base.Longitude
+			};
+			//登录 
+			app.login(loginInfo, function(err) {
+				setTimeout(function() {
 					if(err) {
 						base.CloseWaiting();
 						isLoading = false;
-						return mui.toast(err);
+						mask.close();
+						plus.nativeUI.alert(err, null, "");
+						return;
 					}
-					base.ShowWaiting("登录成功，正在加载");
 					toMain();
-					accountBox.value = "";
-					passwordBox.value = "";
-					mask.close();
-					base.CloseWaiting();
-					isLoading = false;
-				});
-			}, 1000);
+				}, 500);
+			});
 		});
 
 		//退出登录
@@ -216,7 +216,7 @@
 		}
 		isLoading = true;
 		mask.show();
-		mui.toast("正在授权")
+		base.ShowWaiting("正在登录");
 		var s;
 		for(var i = 0; i < auths.length; i++) {
 			if(auths[i].id == type) {
@@ -226,11 +226,10 @@
 		}
 		if(!s.authResult) {
 			s.login(function(e) {
-				mui.toast("正在登录");
 				authUserInfo(type, s);
 			}, function(e) {
 				mask.close();
-				mui.toast("登录认证失败");
+				mui.toast("登录失败");
 			});
 		} else {
 			authUserInfo(type, s);
@@ -260,16 +259,15 @@
 			s.getUserInfo(function(e) {
 				var josnStr = JSON.stringify(s.userInfo);
 				var jsonObj = s.userInfo;
-				console.log("获取用户信息成功：" + josnStr);
-				//alert("获取用户信息成功1：" + josnStr)
 				var loginInfo = showData(type, jsonObj);
-				//alert("获取用户信息成功2：" + JSON.stringify(loginInfo))
 				app.loginThird(loginInfo, function(err) {
 					if(err) {
-						mui.toast(err);
+						base.CloseWaiting();
+						isLoading = false;
+						mask.close();
+						plus.nativeUI.alert(err, null, "");
 						return;
 					}
-					base.ShowWaiting("登录成功，正在加载");
 					toMain();
 				});
 

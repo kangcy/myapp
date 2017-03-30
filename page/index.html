@@ -39,6 +39,9 @@
 						<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览44次</span><span class="pays" articleid="14" articlenumber="148728856020246" usernumber="148669779097040" nickname="咚董咚董咚" avatar="http://q.qlogo.cn/qqapp/101365355/D3B5A665A4B75C7049255303D49A568B/100"><img id="ipays14" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr"></span><span class="comments" articleid="14" articlenumber="148728856020246"><img id="icomments14" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1"></span><span><img src="../images/base/like_hig.png" style="width:0.9rem;" class="mr10 fr"></span></div>
 					</div>
 					<div class="mui-card nopaddingtop" id="article13" style="padding-bottom: 0.8rem;">
+						<div class="c999 f10 star">
+							<img src="../images/article/star.png" class="fl" /><span class="fl">精华</span>
+						</div>
 						<div class="mui-card-header noborder mui-card-media user" userid="148660825261686"><img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6Y1vTan72YUMlFWBqqW7K4eSRSGOL78h2jBETPLDenSiaP5m4wbgJemQQJa5k8XCjpXhBMecohJUg/0" style="border-radius:50%;width:2rem !important;height:2rem !important;">
 							<div class="mui-media-body f12 mt0" style="position:relative;"><span>潘荣波</span>
 								<p class="f10 full c999 mt5">2017-02-15 09:11</p><img class="" userid="148660825261686" src="../images/base/follow1.png" style="position:absolute;right:0px;top:2%;width:3rem;"></div>
@@ -63,6 +66,7 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
+<script src="../js/PullRefresh.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
@@ -115,45 +119,6 @@
 	});
 
 	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		currpage = 1;
-		totalpage = 2;
-		document.getElementById('scroll-view').innerHTML = "";
-		Load(function() {
-			++currpage;
-			self.endPullDownToRefresh();
-			self.refresh(true);
-			isLoading = false;
-		})
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return false;
-		}
-		Load(function() {
-			++currpage;
-			self.endPullUpToRefresh(currpage > totalpage);
-			isLoading = false;
-		})
-	}
-
-	/**
 	 * 加载数据
 	 */
 	function Load(callback) {
@@ -163,9 +128,9 @@
 			page: currpage,
 			rows: pagesize,
 			UserNumber: userinfo.Number
-		};
+		}; 
 		HttpGet(base.RootUrl + "Fan/Article", data, function(data) {
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			if(data != null) {
 				totalpage = data.totalpage;
 				var length = data.records;
@@ -195,7 +160,7 @@
 		div.style.paddingBottom = "0.8rem";
 
 		div.setAttribute("id", "article" + item.ArticleID)
-		var model = []; 
+		var model = [];
 		if(isdel) {
 			model.push('<div class="mui-slider-right mui-disabled tc"><a class="mui-btn mui-btn-red">删除</a></div>');
 		}
@@ -206,7 +171,7 @@
 
 			//加精
 			if(item.Recommend == 99) {
-				model.push('<div class="c999 f10" style="color:#ff0000;border-top:1px solid f5f5f5;border-bottom:1px solid #f5f5f5;height:2rem;line-height:2rem;padding:0px 0.625rem">精华</div>');
+				model.push('<div class="c999 f10 star"><img src="../images/article/star.png" class="fl" /><span class="fl">精华</span></div>');
 			}
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
 			if(islazyload) {

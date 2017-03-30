@@ -189,7 +189,7 @@
 			Source: SearchName == "" ? "Search" : "",
 			Number: userinfo.Number
 		}, function(data) {
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			document.getElementById('scroll-view1').innerHTML = "";
 			if(data != null) {
 				var length = data.list.length;
@@ -269,7 +269,7 @@
 		};
 		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
 			data = JSON.parse(data);
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;

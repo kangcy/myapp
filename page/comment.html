@@ -25,6 +25,7 @@
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/PullRefresh.js"></script>
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
@@ -59,6 +60,7 @@
 			down: {
 				callback: function() {
 					var self = this;
+					NewId = 0;
 					pulldownRefresh(self);
 				}
 			},
@@ -180,42 +182,6 @@
 		editor[0].emojioneArea.setText("");
 	}
 
-	//评论我的-下拉刷新
-	function pulldownRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		NewId = 0;
-		currpage = 1;
-		totalpage = 2;
-		document.getElementById('scroll-view').innerHTML = "";
-		Load(function() {
-			++currpage;
-			self.endPullDownToRefresh();
-			self.refresh(true);
-			isLoading = false;
-		})
-	}
-
-	//评论我的-上拉加载
-	function pullupRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return false;
-		}
-		Load(function() {
-			++currpage;
-			self.endPullUpToRefresh(currpage > totalpage);
-			isLoading = false;
-		})
-	}
-
 	//评论我的-加载数据
 	function Load(callback) {
 		data = {
@@ -226,7 +192,7 @@
 		}
 		HttpGet(base.RootUrl + "Api/Comment/All", data, function(data) {
 			data = JSON.parse(data);
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
@@ -238,17 +204,17 @@
 						table.appendChild(div);
 					}
 				} else {
-					document.getElementById("none").classList.remove("hide");
+					base.ShowNone(true);
 				}
 			}
 			if(data == null && currpage == 1) {
-				document.getElementById("none").classList.remove("hide");
+				base.ShowNone(true);
 			}
 			if(callback) {
 				callback();
 			}
 		});
-	} 
+	}
 
 	//拼接Html 
 	function appendStr(item, index) {
@@ -257,7 +223,7 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
 		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f13 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr f12">' + item.CreateDateText + '</span></p>');
+		model.push('<div class="mui-table-cell pb0"><p class="f13 user c333" userid="' + item.UserNumber + '">' + item.NickName + '<span class="fr f11">' + item.CreateDateText + '</span></p>');
 		model.push('<p class="f11 c999 mt3 mb5" style="line-height:1.3rem;">' + item.Summary + '</p>');
 		if(!base.IsNullOrEmpty(item.ParentCommentNumber)) {
 			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + item.ParentNickName + '：</span>' + item.ParentSummary + '</p>');

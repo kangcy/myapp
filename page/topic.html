@@ -241,6 +241,8 @@
 								mui("#banner").slider({
 									interval: 5000
 								});
+							} else {
+								$("#divBanner").css("height", "0.8rem");
 							}
 						}
 					});
@@ -257,7 +259,7 @@
 			document.getElementById('slider').addEventListener('slide', function(e) {
 				var index = e.detail.slideNumber;
 				if(!sliders[index]) {
-					document.getElementById("loader").classList.remove("hide");
+					base.ShowLoading(true);
 					Load(index, parent[index].ID, function() {
 						sliders[index] = true;
 						++currpage[index];
@@ -356,7 +358,7 @@
 					data = data.message;
 					totalpage[index] = data.totalpage;
 
-					document.getElementById("loader").classList.add("hide");
+					base.ShowLoading(false);
 					document.getElementById("none" + index).classList.add("hide");
 					var table = document.getElementById('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
@@ -366,12 +368,12 @@
 						}
 					}
 				} else {
-					document.getElementById("loader").classList.add("hide");
+					base.ShowLoading(false);
 					document.getElementById("none" + index).classList.remove("hide");
 				}
 			}
 			if(data == null && currpage[index] == 1) {
-				document.getElementById("loader").classList.add("hide");
+				base.ShowLoading(false);
 				document.getElementById("none" + index).classList.remove("hide");
 			}
 			if($.isFunction(callback)) {

@@ -598,7 +598,7 @@
 		for(var i = 0; i < list.length; i++) {
 			list[i].classList.remove("hide");
 		}
-		document.getElementById("loader").classList.add("hide");
+		base.ShowLoading(false);
 
 		mui("#list").on('tap', '.mui-indexed-list-item', function(event) {
 			var city = this.getAttribute("data-value");

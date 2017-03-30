@@ -21,6 +21,7 @@
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/PullRefresh.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
@@ -91,7 +92,7 @@
 									records = 0;
 								}
 								if(records <= 0) {
-									document.getElementById("none").classList.remove("hide");
+									base.ShowNone(true);
 								}
 								base.UpdateFan(userinfo, records);
 							} else {
@@ -117,41 +118,6 @@
 		}
 	});
 
-	//我关注的-下拉刷新
-	function pulldownRefresh(self) {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		currpage = 1;
-		totalpage = 2;
-		document.getElementById('scroll-view').innerHTML = "";
-		Load(function() {
-			++currpage;
-			self.endPullDownToRefresh();
-			self.refresh(true);
-			isLoading = false;
-		})
-	}
-
-	//我关注的-上拉加载
-	function pullupRefresh(self) {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return false;
-		}
-		Load(function() {
-			++currpage;
-			self.endPullUpToRefresh(currpage > totalpage);
-			isLoading = false;
-		})
-	}
-
 	//我的关注-加载数据
 	function Load(callback) {
 		HttpGet(base.RootUrl + "Api/Fan/FollowsAll", {
@@ -160,7 +126,7 @@
 			CreateUserNumber: UserNumber
 		}, function(data) {
 			data = JSON.parse(data);
-			document.getElementById("loader").classList.add("hide");
+			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
@@ -173,11 +139,11 @@
 						table.appendChild(div);
 					}
 				} else {
-					document.getElementById("none").classList.remove("hide");
+					base.ShowNone(true);
 				}
 			}
 			if(data == null && currpage == 1) {
-				document.getElementById("none").classList.remove("hide");
+				base.ShowNone(true);
 			}
 			callback();
 		});
