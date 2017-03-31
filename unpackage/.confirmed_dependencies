@@ -2001,7 +2001,8 @@
 			"js/jquery-1.10.2.min.js",
 			"part/list.html",
 			"images/my/333.png",
-			"images/my/666.png"
+			"images/my/666.png",
+			"js/PullRefresh.js"
 		],
 		"refer": []
 	},
