@@ -12,9 +12,20 @@
 		<link rel="stylesheet" href="../css/loading.min.css">
 	</head>
 
-	<body id="main">
-
-	</body>
+	<body>
+		<!--操作-->
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;display:inline-block;bottom:inherit;">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" class="c333 f13" onclick="OutKeep()">取消收藏</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" class="red f13" onclick="Report()">举报</a>
+				</li>
+			</ul>
+		</div>
+		<div id="main"></div>
+	</body> 
 
 </html>
 <script src="../js/mui.min.js"></script>
@@ -24,6 +35,7 @@
 <script src="../js/PullRefresh.js"></script>
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
+<script src="../js/article.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
 	var totalpage = 2;
@@ -33,6 +45,7 @@
 	var isLoading = false;
 	var name = "我";
 	var UserNumber = "";
+	var PageName = "keep";
 
 	mui.init();
 
@@ -83,44 +96,6 @@
 			var self = plus.webview.currentWebview();
 			plus.webview.close(self)
 		}
-
-		//取消收藏
-		mui("#scroll").on('tap', '.mui-btn', function(event) {
-			var elem = this;
-			var li = elem.parentNode.parentNode;
-			mui.confirm('确认取消收藏？', '友情提醒', ['确认', '取消'], function(e) {
-				if(e.index == 0) {
-					HttpGet(base.RootUrl + "Keep/Delete", {
-						ID: userinfo.ID,
-						ArticleNumber: li.getAttribute("kid")
-					}, function(data) {
-						if(data) {
-							if(data.result) {
-								li.parentNode.removeChild(li);
-								records = records - 1;
-								if(records < 0) {
-									records = 0;
-								}
-								if(records <= 0) {
-									base.ShowNone(true);
-								}
-
-								userinfo.Keeps = records;
-								localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-							} else {
-								mui.toast(data.message);
-								mui.swipeoutClose(li);
-							}
-						} else {
-							mui.toast("失败");
-							mui.swipeoutClose(li);
-						}
-					});
-				} else {
-					mui.swipeoutClose(li);
-				}
-			});
-		});
 	});
 
 	/**
@@ -130,20 +105,20 @@
 		var table = document.getElementById('scroll-view');
 		var data = {
 			page: currpage,
-			rows: pagesize, 
+			rows: pagesize,
 			CreateUserNumber: UserNumber
-		}; 
+		};
 		HttpGet(base.RootUrl + "Api/Keep/All", data, function(data) {
 			data = JSON.parse(data);
 			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
-					data = data.message; 
+					data = data.message;
 					totalpage = data.totalpage;
 					records = data.records;
 					base.ShowNone(false);
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false, userinfo.Number == data.list[i].UserNumber);
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false, false);
 						table.appendChild(div);
 					}
 				} else {
@@ -157,5 +132,5 @@
 				callback();
 			}
 		});
-	} 
+	}
 </script>

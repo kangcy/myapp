@@ -759,8 +759,9 @@
 		}, function(data) {
 			if(data != null) {
 				if(data.result) {
-					userinfo.Keeps += 1;
 					$("#iskeep,#isnotkeep").toggleClass("hide");
+					userinfo.Keeps += 1;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 				}
 				mui.toast(data.result ? "收藏成功" : data.message);
 			}

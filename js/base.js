@@ -475,7 +475,34 @@ var base = new function() {
 		if(isdel) {
 			model.push('<div class="mui-slider-right mui-disabled tc"><a class="mui-btn mui-btn-red">删除</a></div>');
 		}
-		if(!ismy) {
+
+		var power = "";
+		var name = "";
+		switch(item.ArticlePower) {
+			case "0":
+				name = "power0.png";
+				power = "私密";
+				break;
+			case 1:
+				name = "power2.png";
+				power = "密码可见";
+				break;
+			case 2:
+				name = "power2.png";
+				power = "分享可见";
+				break;
+			case 3:
+				name = "power1.png";
+				power = "公开";
+				break;
+			default:
+				name = "power0.png";
+				power = "私密";
+				break;
+		}
+		if(ismy) {
+			model.push('<div class="c999 f10 star mb10"><img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span><span class="fr">' + item.CreateDate + '</span></div>');
+		} else {
 			if(isdel) {
 				model.push('<div class="mui-slider-cell mui-slider-handle">');
 			}
@@ -487,9 +514,9 @@ var base = new function() {
 			} else if(item.Recommend == 100) {
 				model.push('<img src="../images/article/top.png" class="fl" /><span class="fl">置顶</span>');
 			} else {
-				model.push('<img src="../images/article/top.png" class="fl" /><span class="fl">置顶</span>');
+				model.push('<img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span>');
 			}
-			model.push('<a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10" onclick="ActionTan(true)"></a></div>');
+			model.push('<a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10" onclick="ActionTan(true,' + item.ArticleNumber + ',' + item.ArticleID + ')"></a></div>');
 
 			//用户
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
@@ -506,37 +533,11 @@ var base = new function() {
 			model.push('</p>');
 			//如果是自己隐藏关注按钮
 			if(userNumber != "" && userNumber != item.UserNumber) {
-				model.push('<img class="' + (item.IsFollow == 0 ? "guanzhu" : "") + '" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:2%;width:3rem;" />');
+				if(item.IsFollow == 0) {
+					model.push('<img class="' + (item.IsFollow == 0 ? "guanzhu" : "") + '" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:2%;width:3rem;" />');
+				}
 			}
 			model.push('</div></div>');
-		}
-
-		if(ismy == true) {
-			var power = "";
-			var name = "";
-			switch(item.ArticlePower) {
-				case "0":
-					name = "power0.png";
-					power = "私密";
-					break;
-				case 1:
-					name = "power2.png";
-					power = "密码可见";
-					break;
-				case 2:
-					name = "power2.png";
-					power = "分享可见";
-					break;
-				case 3:
-					name = "power1.png";
-					power = "公开";
-					break;
-				default:
-					name = "power0.png";
-					power = "私密";
-					break;
-			}
-			model.push('<div class="c999 f10 star mb10"><img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span><span class="fr">' + item.CreateDate + '</span></div>');
 		}
 
 		//内容

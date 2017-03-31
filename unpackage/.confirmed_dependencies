@@ -506,7 +506,8 @@
 			"images/my/444.png",
 			"images/article/jing.png",
 			"images/base/adduser.png",
-			"images/article/star.png"
+			"images/article/star.png",
+			"images/article/top.png"
 		],
 		"refer": [
 			"page/topicSub.html",
@@ -1062,14 +1063,16 @@
 			"images/base/follow1.png",
 			"part/list.html",
 			"js/PullRefresh.js",
-			"images/article/star.png"
+			"images/article/star.png",
+			"js/article.js"
 		],
 		"refer": [
 			"page/keepSub.html",
 			"page/my.html",
 			"page/articleComment.html",
 			"page/money.html",
-			"page/user.html"
+			"page/user.html",
+			"page/edittext.html"
 		]
 	},
 	"page/keepSub.html": {
@@ -1899,7 +1902,8 @@
 			"images/base/like_hig.png",
 			"images/article/star.png",
 			"js/PullRefresh.js",
-			"js/article.js"
+			"js/article.js",
+			"images/article/power1.png"
 		],
 		"refer": [
 			"page/user2.html",
