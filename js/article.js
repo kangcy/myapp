@@ -19,6 +19,16 @@ function ActionTan(show, articleNumber, articleId) {
 	if(show) {
 		ArticleNumber = articleNumber;
 		ArticleID = articleId;
+		if(PageName != "keep") {
+			var item = document.getElementById("article" + ArticleID);
+			if(item.getAttribute("iskeep") == 0) {
+				document.getElementById("action_keep").classList.remove("hide");
+				document.getElementById("action_outkeep").classList.add("hide");
+			} else {
+				document.getElementById("action_keep").classList.add("hide");
+				document.getElementById("action_outkeep").classList.remove("hide");
+			}
+		}
 	}
 	if(show) {
 		mask.show();
@@ -50,6 +60,8 @@ function Keep() {
 			if(data.result) {
 				userinfo.Keeps += 1;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				var item = document.getElementById("article" + ArticleID);
+				item.setAttribute("iskeep", 1);
 			}
 			mui.toast(data.result ? "收藏成功" : data.message);
 		}
@@ -83,6 +95,11 @@ function OutKeep() {
 							userinfo.Keeps = records;
 						} else {
 							userinfo.Keeps = userinfo.Keeps - 1;
+							if(userinfo.Keeps < 0) {
+								userinfo.Keeps = 0;
+							}
+							var item = document.getElementById("article" + ArticleID);
+							item.setAttribute("iskeep", 0);
 						}
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 					} else {
@@ -117,6 +134,7 @@ function AppendArticle(userNumber, item, ismy, isuser, islazyload, isdel) {
 	} else {
 		div.className = 'mui-card';
 	}
+	div.setAttribute("iskeep", item.IsKeep);
 	div.style.paddingBottom = "0.8rem";
 
 	div.setAttribute("id", "article" + item.ArticleID)

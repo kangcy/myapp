@@ -468,6 +468,8 @@ var base = new function() {
 		} else {
 			div.className = 'mui-card';
 		}
+		div.setAttribute("iskeep", item.IsKeep);
+		console.log(item.IsKeep);
 		div.style.paddingBottom = "0.8rem";
 
 		div.setAttribute("id", "article" + item.ArticleID)

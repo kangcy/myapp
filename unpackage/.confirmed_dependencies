@@ -507,7 +507,9 @@
 			"images/article/jing.png",
 			"images/base/adduser.png",
 			"images/article/star.png",
-			"images/article/top.png"
+			"images/article/top.png",
+			"images/article/power1.png",
+			"js/article.js"
 		],
 		"refer": [
 			"page/topicSub.html",
@@ -522,7 +524,8 @@
 			"page/money.html",
 			"page/articleComment.html",
 			"page/addfan.html",
-			"page/addfanSub.html"
+			"page/addfanSub.html",
+			"page/edittext.html"
 		]
 	},
 	"page/addarticle.html": {
@@ -1910,7 +1913,8 @@
 			"page/articledetail.html",
 			"page/user.html",
 			"page/articleComment.html",
-			"page/money.html"
+			"page/money.html",
+			"page/edittext.html"
 		]
 	},
 	"page/user2.html": {

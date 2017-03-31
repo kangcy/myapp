@@ -61,10 +61,10 @@
 		<!--操作-->
 		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;display:inline-block;bottom: inherit;">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a href="#" class="c333 f13" onclick="Keep">收藏</a>
+				<li class="mui-table-view-cell" id="action_keep">
+					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
 				</li>
-				<li class="mui-table-view-cell hide">
+				<li class="mui-table-view-cell hide" id="action_outkeep">
 					<a href="#" class="c333 f13" onclick="OutKeep()">取消收藏</a>
 				</li>
 				<li class="mui-table-view-cell">
@@ -90,7 +90,7 @@
 	var userinfo = base.GetUserInfo();
 	var isLoading = false;
 	var PageName = "index.html";
-	
+
 	mui.init();
 
 	mui.ready(function() {
@@ -155,7 +155,7 @@
 					var length = data.records;
 					if(length > 0) {
 						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = AppendArticle(userinfo.Number, data.list[i], false, false, false);
+							var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
 							table.appendChild(div);
 						}
 					}
