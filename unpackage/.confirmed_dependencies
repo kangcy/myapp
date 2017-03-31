@@ -1894,7 +1894,8 @@
 			"images/base/like_nor.png",
 			"images/base/like_hig.png",
 			"images/article/star.png",
-			"js/PullRefresh.js"
+			"js/PullRefresh.js",
+			"js/article.js"
 		],
 		"refer": [
 			"page/user2.html",
