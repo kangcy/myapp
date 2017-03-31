@@ -344,7 +344,11 @@
 			"images/base/like_nor.png",
 			"images/base/like_hig.png",
 			"part/list.html",
-			"js/PullRefresh.js"
+			"js/PullRefresh.js",
+			"images/article/public.png",
+			"images/article/power0.png",
+			"images/article/power2.png",
+			"images/article/power1.png"
 		],
 		"refer": [
 			"page/listSub.html",

@@ -480,13 +480,18 @@ var base = new function() {
 				model.push('<div class="mui-slider-cell mui-slider-handle">');
 			}
 
-			//加精
+			//加精、置顶
+			model.push('<div class="c999 f10 star">');
 			if(item.Recommend == 99) {
-				model.push('<div class="c999 f10 star"><img src="../images/article/star.png" class="fl" /><span class="fl">精华</span></div>');
+				model.push('<img src="../images/article/star.png" class="fl" /><span class="fl">精华</span>');
+			} else if(item.Recommend == 100) {
+				model.push('<img src="../images/article/top.png" class="fl" /><span class="fl">置顶</span>');
+			} else {
+				model.push('<img src="../images/article/top.png" class="fl" /><span class="fl">置顶</span>');
 			}
-			if(item.Recommend == 100) {
-				model.push('<div class="c999 f10 star"><img src="../images/article/top.png" class="fl" /><span class="fl">置顶</span></div>');
-			}
+			model.push('<a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10" onclick="ActionTan(true)"></a></div>');
+
+			//用户
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
 			if(islazyload) {
 				model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
@@ -506,36 +511,42 @@ var base = new function() {
 			model.push('</div></div>');
 		}
 
+		if(ismy == true) {
+			var power = "";
+			var name = "";
+			switch(item.ArticlePower) {
+				case "0":
+					name = "power0.png";
+					power = "私密";
+					break;
+				case 1:
+					name = "power2.png";
+					power = "密码可见";
+					break;
+				case 2:
+					name = "power2.png";
+					power = "分享可见";
+					break;
+				case 3:
+					name = "power1.png";
+					power = "公开";
+					break;
+				default:
+					name = "power0.png";
+					power = "私密";
+					break;
+			}
+			model.push('<div class="c999 f10 star mb10"><img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span><span class="fr">' + item.CreateDate + '</span></div>');
+		}
+
 		//内容
-		model.push('<div class="mui-card-content show ' + (ismy ? "mt10" : "") + '"><div class="mui-card-content-inner">');
+		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
 		model.push('<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的微篇";
 		}
 		model.push(item.Title + '</div>');
-
-		if(ismy == true) {
-			var power = "";
-			switch(item.ArticlePower) {
-				case "0":
-					power = "私密";
-					break;
-				case 1:
-					power = "密码";
-					break;
-				case 2:
-					power = "分享";
-					break;
-				case 3:
-					power = "公开";
-					break;
-				default:
-					power = "私密";
-					break;
-			}
-			model.push('<div class="mui-card-header full c999 fl" style="margin-top:-0.5rem;padding:0px 0px 0.625rem 0px"><span class="f11 fl">' + item.CreateDate + '</span><span class="f11 fr" style="color:#ff0000;" />「' + power + '」</span></div>');
-		}
 
 		//图片拼接 
 		var parts = item.ArticlePart;
