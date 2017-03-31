@@ -112,7 +112,7 @@
 					totalpage = data.totalpage;
 					var length = data.records;
 					if(length > 0) {
-						document.getElementById("none").classList.add("hide");
+						base.ShowNone(false);
 						for(var i = 0, len = data.list.length; i < len; i++) {
 							var div = base.AppendArticle(userinfo.Number, data.list[i], CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
 

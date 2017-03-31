@@ -117,7 +117,7 @@
 				totalpage = data.totalpage;
 				var length = data.list.length;
 				if(length > 0) {
-					document.getElementById("none").classList.add("hide");
+					base.ShowNone(false);
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = appendStr(data.list[i]);

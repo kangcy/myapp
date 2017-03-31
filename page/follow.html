@@ -132,7 +132,7 @@
 					data = data.message;
 					totalpage = data.totalpage;
 					records = data.records;
-					document.getElementById("none").classList.add("hide");
+					base.ShowNone(false);
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendUser(data.list[i], true, false, true, "取消关注");

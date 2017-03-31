@@ -80,18 +80,18 @@
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
-					document.getElementById("none").classList.add("hide");
+					base.ShowNone(false);
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendUser(data.list[i], true, true, false, "");
 						table.appendChild(div);
 					}
 				} else {
-					base.ShowNone(true);;
+					base.ShowNone(true);
 				}
 			}
 			if(data == null && currpage == 1) {
-				base.ShowNone(true);;
+				base.ShowNone(true);
 			}
 			callback();
 		});

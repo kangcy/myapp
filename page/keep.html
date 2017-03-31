@@ -141,7 +141,7 @@
 					data = data.message;
 					totalpage = data.totalpage;
 					records = data.records;
-					document.getElementById("none").classList.add("hide");
+					base.ShowNone(false);
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false, userinfo.Number == data.list[i].UserNumber);
 						table.appendChild(div);
