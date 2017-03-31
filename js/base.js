@@ -496,7 +496,7 @@ var base = new function() {
 
 			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.NickName + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
 			if(!base.IsNullOrEmpty(item.City)) {
-				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
+				model.push('<span class="ml5 mr5 c999">来自</span><span class="c999">' + item.Province + ' • ' + item.City + '</span>');
 			}
 			model.push('</p>');
 			//如果是自己隐藏关注按钮
@@ -557,15 +557,15 @@ var base = new function() {
 		}
 		model.push('</div></div>');
 
-		model.push('<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览' + item.Views + '次</span>');
+		model.push('<div class="mui-card-footer fl full c999 mb10 f10" style="display:inline-block;"><span class="fl">浏览' + item.Views + '次</span>');
 		if(item.IsPay == 1) {
-			model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr" /></span>');
+			model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="ml15 mr10 mt1 fr" /></span>');
 		}
-		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1" /></span>');
+		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 mr10 fr mt1" /></span>');
 		if(item.IsZan == 0) {
-			model.push('<img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" />');
+			model.push('<img src="../images/base/like_nor.png" style="width:0.8rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" />');
 		} else {
-			model.push('<span><img src="../images/base/like_hig.png" style="width:0.9rem;" class="mr10 fr" /></span>');
+			model.push('<span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="mr10 fr" /></span>');
 		}
 		model.push('</div>');
 
@@ -752,7 +752,7 @@ var base = new function() {
 		}
 		model.push('<div class="mui-table oa-contact-cell">');
 		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
-		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + item.NickName + '</p>');
+		model.push('<div class="mui-table-cell"><p class="f12 mb5 c333">' + item.NickName + '</p>');
 		if(isSignature) {
 			model.push('<p class="f11 c999">' + item.Signature + '</p>');
 		}

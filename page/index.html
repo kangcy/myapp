@@ -45,7 +45,7 @@
 		<div class="mui-content">
 			<div id="pullrefresh">
 				<div id="scroll-view">
-					<div class="mui-card nopaddingtop" id="article14" style="padding-bottom: 0.8rem;">
+					<!--<div class="mui-card nopaddingtop" id="article14" style="padding-bottom: 0.8rem;">
 						<div class="mui-card-header noborder mui-card-media user" userid="148669779097040"><img src="http://q.qlogo.cn/qqapp/101365355/D3B5A665A4B75C7049255303D49A568B/100" style="border-radius:50%;width:2rem !important;height:2rem !important;">
 							<div class="mui-media-body f12 mt0" style="position:relative;"><span>咚董咚董咚</span>
 								<p class="f10 full c999 mt5">2017-02-17 07:42</p><img class="" userid="148669779097040" src="../images/base/follow1.png" style="position:absolute;right:0px;top:2%;width:3rem;"></div>
@@ -75,12 +75,12 @@
 							</div>
 						</div>
 						<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览25次</span><span class="pays" articleid="13" articlenumber="148716428051705" usernumber="148660825261686" nickname="潘荣波" avatar="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6Y1vTan72YUMlFWBqqW7K4eSRSGOL78h2jBETPLDenSiaP5m4wbgJemQQJa5k8XCjpXhBMecohJUg/0"><img id="ipays13" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr"></span><span class="comments" articleid="13" articlenumber="148716428051705"><img id="icomments13" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1"></span><img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="13"></div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
 		<!--操作-->
-		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom" style="left:30%;width: 50%;top: 30%;display:inline-block;bottom: inherit;">
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;display:inline-block;bottom: inherit;">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<a href="#" class="c333 f13" onclick="Keep">收藏</a>
@@ -111,7 +111,8 @@
 	var subindexPage = null;
 	var isLoading = false;
 	var mask = mui.createMask(function() {
-		document.getElementById("power").classList.remove("mui-active");
+		SubindexPageTan(false);
+		document.getElementById("action").classList.remove("mui-active");
 	});
 
 	mui.init();
@@ -168,15 +169,19 @@
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		};
-		HttpGet(base.RootUrl + "Fan/Article", data, function(data) {
+		HttpGet(base.RootUrl + "Api/Fan/Article", data, function(data) {
+			data = JSON.parse(data);
 			base.ShowLoading(false);
 			if(data != null) {
-				totalpage = data.totalpage;
-				var length = data.records;
-				if(length > 0) {
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = AppendArticle(userinfo.Number, data.list[i], false, false, false);
-						table.appendChild(div);
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					var length = data.records;
+					if(length > 0) {
+						for(var i = 0, len = data.list.length; i < len; i++) {
+							var div = AppendArticle(userinfo.Number, data.list[i], false, false, false);
+							table.appendChild(div);
+						}
 					}
 				}
 			}
@@ -210,8 +215,10 @@
 
 			//加精
 			if(item.Recommend == 99) {
-				model.push('<div class="c999 f10 star"><img src="../images/article/star.png" class="fl" /><span class="fl">精华</span><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10" onclick="Power(true)"></a></div>');
-
+				model.push('<div class="c999 f10 star"><img src="../images/article/star.png" class="fl" /><span class="fl">精华</span><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10" onclick="ActionTan(true)"></a></div>');
+			}
+			if(item.Recommend == 100) {
+				model.push('<div class="c999 f10 star"><img src="../images/article/top.png" class="fl" /><span class="fl">置顶</span><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10" onclick="ActionTan(true)"></a></div>');
 			}
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
 			if(islazyload) {
@@ -222,7 +229,7 @@
 
 			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.NickName + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
 			if(!base.IsNullOrEmpty(item.City)) {
-				model.push('<span class="ml5 blue">' + item.Province + ' • ' + item.City + '</span>');
+				model.push('<span class="ml5 mr5 c999">来自</span><span class="c999">' + item.Province + ' • ' + item.City + '</span>');
 			}
 			model.push('</p>');
 			//如果是自己隐藏关注按钮
@@ -283,15 +290,15 @@
 		}
 		model.push('</div></div>');
 
-		model.push('<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览' + item.Views + '次</span>');
+		model.push('<div class="mui-card-footer fl full c999 mb10 f10" style="display:inline-block;"><span class="fl">浏览' + item.Views + '次</span>');
 		if(item.IsPay == 1) {
-			model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr" /></span>');
+			model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="ml15 mr10 mt1 fr" /></span>');
 		}
-		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1" /></span>');
+		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 mr10 fr mt1" /></span>');
 		if(item.IsZan == 0) {
-			model.push('<img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" />');
+			model.push('<img src="../images/base/like_nor.png" style="width:0.8rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" />');
 		} else {
-			model.push('<span><img src="../images/base/like_hig.png" style="width:0.9rem;" class="mr10 fr" /></span>');
+			model.push('<span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="mr10 fr" /></span>');
 		}
 		model.push('</div>');
 
@@ -302,17 +309,26 @@
 		return div;
 	}
 
-	function Power(show) {
-		//mui('#power').popover('toggle');
-		if(base.RepeatAction()) {
-			return;
+	function SubindexPageTan(show) {
+		if(subindexPage == null) {
+			subindexPage = plus.webview.getWebviewById("subindex");
 		}
+		subindexPage.evalJS("ActionTan(" + show + ",'index.html')");
+	}
+
+	function ActionTan(show) {
+		SubindexPageTan(show);
+		console.log(show);
 		if(show) {
 			mask.show();
-			document.getElementById("power").classList.add("mui-active");
+			document.getElementById("action").classList.add("mui-active");
 		} else {
-			document.getElementById("power").classList.remove("mui-active");
 			mask.close();
+			document.getElementById("action").classList.remove("mui-active");
 		}
+	}
+
+	function ActionTan2() {
+		document.getElementById("action").classList.remove("mui-active");
 	}
 </script>

@@ -114,6 +114,8 @@
 		<div class="mui-preview-image mui-fullscreen" id="previewTan"></div>
 		<!--检测更新满屏弹窗-->
 		<div class="mytanbg hide" id="myprogressbg" onclick="PreviewTan2(0)"></div>
+		<!--文章操作弹窗-->
+		<div class="mytanbg hide" id="actionTan" onclick="ActionTan2()"></div>
 	</body>
 
 </html>
@@ -121,7 +123,9 @@
 <script src="../js/base.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
+	var subPage = null;
 	var userinfo = base.GetUserInfo();
+
 	mui.init();
 
 	var subpages = ['index.html', 'topic.html', 'tipsetting.html', 'my.html'];
@@ -285,5 +289,20 @@
 		} else {
 			document.getElementById("myprogressbg").classList.remove("hide");
 		}
+	}
+
+	//子页面操作弹窗
+	function ActionTan(show, pagename) {
+		if(show) {
+			document.getElementById("actionTan").classList.remove("hide");
+		} else {
+			document.getElementById("actionTan").classList.add("hide");
+		}
+		subPage = plus.webview.getWebviewById(pagename);
+	}
+
+	//父页面关闭弹窗
+	function ActionTan2() {
+		subPage.evalJS("ActionTan2()");
 	}
 </script>

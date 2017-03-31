@@ -130,15 +130,15 @@
 		var table = document.getElementById('scroll-view');
 		var data = {
 			page: currpage,
-			rows: pagesize,
+			rows: pagesize, 
 			CreateUserNumber: UserNumber
-		};
+		}; 
 		HttpGet(base.RootUrl + "Api/Keep/All", data, function(data) {
 			data = JSON.parse(data);
 			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
-					data = data.message;
+					data = data.message; 
 					totalpage = data.totalpage;
 					records = data.records;
 					base.ShowNone(false);
@@ -157,5 +157,5 @@
 				callback();
 			}
 		});
-	}
+	} 
 </script>

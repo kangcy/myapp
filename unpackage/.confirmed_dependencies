@@ -400,7 +400,8 @@
 			"images/my/222.png",
 			"images/price.png",
 			"images/my/555.png",
-			"part/list.html"
+			"part/list.html",
+			"js/PullRefresh.js"
 		],
 		"refer": [
 			"page/paySub.html"
@@ -1104,7 +1105,8 @@
 			"js/mui.pullToRefresh.material.js",
 			"css/loading.min.css",
 			"images/my/111.png",
-			"part/list.html"
+			"part/list.html",
+			"js/PullRefresh.js"
 		],
 		"refer": [
 			"page/zanSub.html",
