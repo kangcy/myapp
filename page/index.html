@@ -318,7 +318,6 @@
 
 	function ActionTan(show) {
 		SubindexPageTan(show);
-		console.log(show);
 		if(show) {
 			mask.show();
 			document.getElementById("action").classList.add("mui-active");
@@ -329,6 +328,6 @@
 	}
 
 	function ActionTan2() {
-		document.getElementById("action").classList.remove("mui-active");
+		mask.close();
 	}
 </script>
