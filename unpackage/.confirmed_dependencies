@@ -969,7 +969,13 @@
 			"images/base/follow0.png",
 			"css/loading.min.css",
 			"images/my/111.png",
-			"images/base/follow1.png"
+			"images/base/follow1.png",
+			"js/mui.pullToRefresh.js",
+			"js/mui.zoom.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/animate.css",
+			"js/mui.previewimage.js",
+			"js/article.js"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -1915,7 +1921,8 @@
 			"images/article/star.png",
 			"js/PullRefresh.js",
 			"js/article.js",
-			"images/article/power1.png"
+			"images/article/power1.png",
+			"css/animate.css"
 		],
 		"refer": [
 			"page/user2.html",

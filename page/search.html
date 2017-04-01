@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
+		<link rel="stylesheet" href="../css/animate.css">
 		<style type="text/css">
 			.none {
 				margin-top: 45% !important;
@@ -72,7 +73,7 @@
 			</div>
 		</div>
 		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;display:inline-block;bottom: inherit;">
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;bottom: inherit;">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="action_keep">
 					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
@@ -138,6 +139,7 @@
 	var parentPage = null;
 	var userinfo = base.GetUserInfo();
 	var PageName = "searchSub";
+	var NeedParentPage = false;//是否触发父窗口弹窗
 
 	var search = document.getElementById("search");
 

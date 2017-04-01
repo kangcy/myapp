@@ -117,11 +117,11 @@
 						<progress class="fl" value="" max="" id="proDownFile" style="width:80%;"></progress>
 						<span class="persent fl ml10 caaa" id="persent" style="line-height:1rem;">0%</span>
 					</li>
-				</ul>
+				</ul> 
 			</div>
 		</div>
 		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;display:inline-block;bottom: inherit;">
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;bottom: inherit;">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="action_keep">
 					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
@@ -157,6 +157,7 @@
 	var currSlider = 0;
 	var userinfo = base.GetUserInfo();
 	var PageName = "topic.html";
+	var NeedParentPage = true;//是否触发父窗口弹窗
 
 	mui.init();
 

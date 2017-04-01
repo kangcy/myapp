@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
+		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
 	</head>
 
@@ -59,7 +60,7 @@
 			</div>
 		</div>
 		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;display:inline-block;bottom: inherit;">
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;bottom: inherit;">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="action_keep">
 					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
@@ -90,6 +91,7 @@
 	var userinfo = base.GetUserInfo();
 	var isLoading = false;
 	var PageName = "index.html";
+	var NeedParentPage = true;//是否触发父窗口弹窗
 
 	mui.init();
 
@@ -152,13 +154,13 @@
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
-					var length = data.records;
+					var length = data.records; 
 					if(length > 0) {
 						for(var i = 0, len = data.list.length; i < len; i++) {
 							var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
 							table.appendChild(div);
 						}
-					}
+					} 
 				}
 			}
 			callback();

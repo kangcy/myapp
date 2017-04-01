@@ -517,7 +517,7 @@ var base = new function() {
 			} else {
 				model.push('<img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span>');
 			}
-			model.push('<a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10" onclick="ActionTan(true,' + item.ArticleNumber + ',' + item.ArticleID + ')"></a></div>');
+			model.push('<div style="width:1.5rem;height:100%;" class="fr" onclick="ActionTan(true,' + item.ArticleNumber + ',' + item.ArticleID + ')"><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10"></a></div></div>');
 
 			//用户
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
@@ -570,15 +570,15 @@ var base = new function() {
 		}
 		model.push('</div></div>');
 
-		model.push('<div class="mui-card-footer fl full c999 mb10 f10" style="display:inline-block;"><span class="fl">浏览' + item.Views + '次</span>');
+		model.push('<div class="mui-card-footer fl full c999 f10" style="display:inline-block;"><span class="fl mt1">浏览' + item.Views + '次</span>');
 		if(item.IsPay == 1) {
-			model.push('<span class="pays" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="ml15 mr10 mt1 fr" /></span>');
+			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="pays fr tc" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="mt1" /></div>');
 		}
-		model.push('<span class="comments" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 mr10 fr mt1" /></span>');
+		model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="comments fr tc" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="mt1" /></div>');
 		if(item.IsZan == 0) {
-			model.push('<img src="../images/base/like_nor.png" style="width:0.8rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" />');
+			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/like_nor.png" style="width:0.8rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" /></div>');
 		} else {
-			model.push('<span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="mr10 fr" /></span>');
+			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/like_hig.png" style="width:0.8rem;" class="mr10 fr" articleid="' + item.ArticleID + '"  /></div>');
 		}
 		model.push('</div>');
 
@@ -636,10 +636,9 @@ var base = new function() {
 	 */
 	this.ArticleAddZan = function(id, userinfo) {
 		mui(id).on('tap', '.goods', function(event) {
-			if(base.IsLoading) {
-				return false;
+			if(base.RepeatAction()) {
+				return;
 			}
-			base.IsLoading = true;
 			var $this = this;
 			var ArticleID = $this.getAttribute("articleid");
 			HttpGet(base.RootUrl + "Api/Zan/Edit", {
@@ -650,10 +649,10 @@ var base = new function() {
 				if(data != null) {
 					if(data.result) {
 						$this.setAttribute("src", "../images/base/like_hig.png");
+						$this.classList.remove("goods");
 						$this.classList.add("heartbeat");
 					}
 				}
-				base.IsLoading = false;
 			});
 		});
 	}
