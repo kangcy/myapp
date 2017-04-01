@@ -51,11 +51,12 @@ function getImage() {
 }
 
 //相册选取
+var length = 0;
 var currUploadImg = [];
 
 function galleryImgs() {
 	plus.gallery.pick(function(e) {
-		var length = e.files.length;
+		length = e.files.length;
 		var index = 1;
 		base.ShowWaiting("正在同步文章内容");
 		for(var i in e.files) {
@@ -78,16 +79,15 @@ function galleryImgs() {
 }
 
 //加载图片
-function LoadImage(status, src, length) {
+function LoadImage(status, src, len) {
 	if(!status) {
-		length = length - 1;
+		length = len - 1;
 	}
 	if(length <= 0) {
 		base.CloseWaiting();
 		return;
 	}
 	if(status) {
-		base.ShowWaiting("正在同步文章内容");
 		var image = new Image();
 		image.src = src;
 
@@ -135,20 +135,22 @@ function getBase64Image(img) {
 }
 
 //上传图片到服务器 
-function Upload(imgurl, length) {
+function Upload(imgurl) {
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		Standard: "Article",
 		Number: userinfo.Number
 	}, function(data) {
+		console.log(JSON.stringify(data));
 		if(data != null) {
 			if(data.result) {
 				if(base.IsNullOrEmpty(data.message)) {
 					length = length - 1;
-				} else {
+				} else { 
 					currUploadImg.push(base.RootUrl + data.message);
 				}
 				if(length <= 0) {
+					base.CloseWaiting();
 					plus.nativeUI.alert("图片上传失败", null, "");
 					return;
 				}

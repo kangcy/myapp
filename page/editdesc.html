@@ -32,7 +32,7 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-action-back  mui-text c333 fl">取消</a>
 			<a id="submit" class="mui-icon  mui-text c333 fr">保存</a>
 			<h1 class="mui-title c333">编辑文字</h1>
@@ -260,7 +260,7 @@
 			}
 			$("#edit").removeAttr("contenteditable").removeAttr("id");
 			base.ShowWaiting("正在保存");
-			HttpGet(base.RootUrl + "ArticlePart/Edit", {
+			HttpPost(base.RootUrl + "ArticlePart/Edit", {
 				ID: userinfo.ID,
 				ArticleNumber: ArticleNumber,
 				PartID: PartID,

@@ -324,10 +324,10 @@
 			$("#" + currEditID).parents(".edit-body").after(html);
 			$("#edit").find(".banner").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
-			Group(document.getElementById('edit'), window.innerWidth * 0.05);
 		} else {
 			document.getElementById(currEditID).innerHTML = unescape(text);
 		}
+		Group(document.getElementById('edit'), window.innerWidth * 0.05);
 	}
 
 	//添加视频
