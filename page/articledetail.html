@@ -67,10 +67,10 @@
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
 				<div class="mui-control-item temp f12" tid="0" color="#fff" type="0">
-					<div style="background:#fff;line-height:80px;display:inline-block;border:1px solid red;">纯白</div>
+					<div style="background:#fff;line-height:80px;display:inline-block;border:1px solid red;width:100%;" class="blue">纯白</div>
 				</div>
 				<div class="mui-control-item temp f12" tid="1" color="#fff" type="1">
-					<div style="line-height:80px;display:inline-block;border:1px solid red;">自定义</div>
+					<div style="line-height:80px;display:inline-block;border:1px solid red;width:100%;" class="blue">自定义</div>
 				</div>
 			</div>
 		</div>
@@ -228,7 +228,6 @@
 	});
 
 	mui.ready(function() {
-
 		base.InitScroll();
 
 		//模板选择
@@ -780,7 +779,7 @@
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						index += 1;
 						var item = data.list[i];
-						table.append('<div class="mui-control-item temp ' + (item.ID == CurrTemplate ? "hover" : "") + '" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '" style="display:inline-block;border:1px solid red;"><img src="' + item.ThumbUrl + '" /></div>');
+						table.append('<div class="mui-control-item temp ' + (item.ID == CurrTemplate ? "hover" : "") + '" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '" style="display:inline-block;border:1px solid red;width:100%;"><img src="' + item.ThumbUrl + '" /></div>');
 					}
 				}
 			}

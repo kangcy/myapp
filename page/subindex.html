@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<style type="text/css">
 			body {
-				background: #f5f5f5;
+				background: #eee;
 			}
 			
 			.mui-bar {
@@ -88,7 +88,7 @@
 	</head>
 
 	<body>
-		<nav class="mui-bar mui-bar-tab" style="border-top:2px solid #ddd;">
+		<nav class="mui-bar mui-bar-tab" style="border-top:1px solid #eee;">
 			<a class="mui-tab-item tc" href="index.html">
 				<div class="item item1"></div>
 				<p class="mui-tab-label mb0" style="font-size:11px;">首页</p>
@@ -118,7 +118,7 @@
 		<div class="mytanbg hide" id="actionTan" onclick="ActionTan2()"></div>
 	</body>
 
-</html> 
+</html>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/addarticle.js"></script>
@@ -136,6 +136,7 @@
 
 	var myPage = null;
 	var aniShow = {};
+	var targetTab = subpages[1];
 	var activeTab = subpages[1];
 	var backButtonPress = 0;
 	mui.plusReady(function() {
@@ -221,7 +222,7 @@
 			//显示目标选项卡
 			//若为iOS平台或非首次显示，则直接显示
 			if(mui.os.ios || aniShow[targetTab]) {
-				plus.webview.show(targetTab);
+				plus.webview.show(targetTab, "none", 250);
 			} else {
 				//否则，使用fade-in动画，且保存变量
 				var temp = {};

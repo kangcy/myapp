@@ -91,7 +91,7 @@
 	var userinfo = base.GetUserInfo();
 	var isLoading = false;
 	var PageName = "index.html";
-	var NeedParentPage = true;//是否触发父窗口弹窗
+	var NeedParentPage = true; //是否触发父窗口弹窗
 
 	mui.init();
 
@@ -154,16 +154,16 @@
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
-					var length = data.records; 
+					var length = data.records;
 					if(length > 0) {
 						for(var i = 0, len = data.list.length; i < len; i++) {
 							var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
 							table.appendChild(div);
 						}
-					} 
+					}
 				}
 			}
 			callback();
 		});
 	}
-</script>
+</script> 

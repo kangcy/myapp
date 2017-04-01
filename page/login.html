@@ -282,6 +282,14 @@
 
 	//显示用户信息 
 	function showData(type, data) {
+
+		//访问日志
+		HttpGet(base.RootUrl + "Api/UserLog/Edit", {
+			info: escape(JSON.stringify(data))
+		}, function(data) {
+
+		});
+
 		var loginInfo = {};
 		loginInfo.Province = base.Province;
 		loginInfo.City = base.City;
@@ -305,7 +313,7 @@
 				loginInfo.NickName = data.nickname;
 				loginInfo.Avatar = data.figureurl_qq_2;
 				loginInfo.Sex = data.gender == "男" ? 0 : 1;
-				loginInfo.OpenID = data.figureurl.split("/")[4];
+				loginInfo.OpenID = data.figureurl.split("/")[5];
 				loginInfo.Source = 2;
 				break;
 			case 'sinaweibo':

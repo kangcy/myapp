@@ -46,6 +46,7 @@
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
 <script type="text/javascript">
+	var isLoading = false;
 	var ArticleID = 0; //文章ID
 	var ArticleNumber = ""; //文章编号
 	var MusicID = 0; //音乐
@@ -356,9 +357,10 @@
 
 	//保存
 	function Save() {
-		if(base.RepeatAction()) {
+		if(isLoading) {
 			return;
 		}
+		isLoading = true;
 		mask.show();
 
 		if(base.IsNullOrEmpty(Title)) {
@@ -373,44 +375,47 @@
 		}
 		base.ShowWaiting("正在同步文章内容");
 		HttpGet(base.RootUrl + "Article/Edit", {
-			ID: userinfo.ID,
-			ArticleID: ArticleID,
-			Title: escape(Title),
-			MusicID: MusicID,
-			MusicName: MusicName,
-			MusicUrl: MusicUrl,
-			Province: base.Province,
-			City: base.City,
-			District: base.District,
-			Street: base.Street,
-			DetailName: base.DetailName,
-			CityCode: base.CityCode,
-			Latitude: base.Latitude,
-			Longitude: base.Longitude,
-			PartIDs: ids.join(",")
-		}, function(data) {
-			setTimeout(function() {
-				base.CloseWaiting();
-				if(data != null) {
-					if(data.result) {
-						var articleDetailPage = plus.webview.getWebviewById('articledetail');
-						if(articleDetailPage == null) {
-							base.OpenWindow("articledetail", "articledetail.html", {
-								ArticleID: ArticleID,
-								Source: Source
-							});
+				ID: userinfo.ID,
+				ArticleID: ArticleID,
+				Title: escape(Title),
+				MusicID: MusicID,
+				MusicName: MusicName,
+				MusicUrl: MusicUrl,
+				Province: base.Province,
+				City: base.City,
+				District: base.District,
+				Street: base.Street,
+				DetailName: base.DetailName,
+				CityCode: base.CityCode,
+				Latitude: base.Latitude,
+				Longitude: base.Longitude,
+				PartIDs: ids.join(",")
+			},
+			function(data) {
+				setTimeout(function() {
+					base.CloseWaiting();
+					if(data != null) {
+						if(data.result) {
+							var articleDetailPage = plus.webview.getWebviewById('articledetail');
+							if(articleDetailPage == null) {
+								base.OpenWindow("articledetail", "articledetail.html", {
+									ArticleID: ArticleID,
+									Source: Source
+								});
+							} else {
+								articleDetailPage.evalJS("UpdateDetail()");
+							}
 						} else {
-							articleDetailPage.evalJS("UpdateDetail()");
+							isLoading = false;
+							mui.toast(data.message);
 						}
 					} else {
-						mui.toast(data.message);
+						isLoading = false;
+						mui.toast("保存失败");
 					}
-				} else {
-					mui.toast("保存失败");
-				}
-				mask.close();
-			}, 500);
-		});
+					mask.close();
+				}, 500);
+			});
 	}
 
 	//拼接字符串

@@ -100,9 +100,7 @@ function rotateimgright() {
 			$("#readyimg").cropper('rotate', 90);
 		} else {
 			cutImg(0, 0, function() {
-				setTimeout(function() {
-					$("#readyimg").cropper('rotate', 90);
-				}, 500);
+				$("#readyimg").cropper('rotate', 90);
 			});
 		}
 	} else {
@@ -160,7 +158,7 @@ function confirm(callback) {
 	if(iscutimging) {
 		mask.show();
 		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
-		imgurl = dataURL.toDataURL("image/jpeg", 0.9);
+		imgurl = dataURL.toDataURL("image/jpeg", 1);
 		Upload(imgurl, callback);
 	} else {
 		if(imgurl.toLowerCase().indexOf("http") > -1) {
@@ -216,7 +214,7 @@ function compressImage(src, newsrc, callback) {
 			dst: newsrc,
 			overwrite: true,
 			width: width,
-			quality: 90
+			quality: 80
 		},
 		function(event) {
 			if($.isFunction(callback)) {
@@ -300,5 +298,5 @@ function getBase64Image(img) {
 	canvas.height = height; /*设置新的图片的长度*/
 	var ctx = canvas.getContext("2d");
 	ctx.drawImage(img, 0, 0, width, height); /*绘图*/
-	return canvas.toDataURL("image/jpeg", 1);
+	return canvas.toDataURL("image/jpeg", 0.8);
 }
