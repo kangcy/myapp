@@ -525,7 +525,8 @@
 			"page/articleComment.html",
 			"page/addfan.html",
 			"page/addfanSub.html",
-			"page/edittext.html"
+			"page/edittext.html",
+			"page/search2.html"
 		]
 	},
 	"page/addarticle.html": {
@@ -964,7 +965,11 @@
 			"page/searchSub2.html",
 			"css/img.preview.css",
 			"images/search_blue.png",
-			"js/base.js"
+			"js/base.js",
+			"images/base/follow0.png",
+			"css/loading.min.css",
+			"images/my/111.png",
+			"images/base/follow1.png"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -997,11 +1002,15 @@
 			"images/base/reward_nor.png",
 			"images/base/like_nor.png",
 			"images/base/follow1.png",
-			"images/base/like_hig.png"
+			"images/base/like_hig.png",
+			"js/article.js",
+			"images/article/star.png",
+			"fonts/mui.ttf"
 		],
 		"refer": [
 			"page/user.html",
-			"page/articledetail.html"
+			"page/articledetail.html",
+			"page/edittext.html"
 		]
 	},
 	"page/editnickname.html": {
@@ -2075,5 +2084,29 @@
 			"css/img.preview.css"
 		],
 		"refer": []
+	},
+	"page/search2.html": {
+		"resources": [
+			"images/base/follow0.png",
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"fonts/mui.ttf",
+			"images/base/like_nor.png",
+			"images/base/follow1.png",
+			"css/img.preview.css",
+			"images/base/like_hig.png",
+			"js/base.js",
+			"css/loading.min.css",
+			"js/mui.zoom.js",
+			"js/mui.min.js",
+			"images/my/444.png",
+			"images/base/reward_nor.png",
+			"images/base/comment_nor.png",
+			"css/mui.min.css",
+			"js/mui.previewimage.js",
+			"images/article/star.png",
+			"images/my/111.png",
+			"js/article.js"
+		]
 	}
 }

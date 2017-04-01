@@ -24,7 +24,7 @@
 			
 			.subtype:first-child {
 				margin-left: 0px !important;
-			}
+			} 
 			
 			.subtype img {
 				width: 100% !important;
@@ -157,7 +157,7 @@
 	var currSlider = 0;
 	var userinfo = base.GetUserInfo();
 	var PageName = "topic.html";
- 
+
 	mui.init();
 
 	mui.ready(function() {
@@ -275,7 +275,7 @@
 			document.getElementById('slider').addEventListener('slide', function(e) {
 				var index = e.detail.slideNumber;
 				if(!sliders[index]) {
-					base.ShowLoading(true);
+					//base.ShowLoading(true);
 					Load(index, parent[index].ID, function() {
 						sliders[index] = true;
 						++currpage[index];

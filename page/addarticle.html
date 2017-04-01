@@ -184,7 +184,7 @@
 							if(data != null) {
 								if(data.result) {
 									$this.parentNode.parentNode.parentNode.remove();
-									Group(document.getElementById('edit'), window.innerWidth * 0.05);
+									InitGroup();
 									base.RefreshScroll();
 								} else {
 									mui.toast(data.message);
@@ -307,12 +307,12 @@
 				imgdefereds.push(dfd);
 			})
 			$.when.apply(null, imgdefereds).done(function() {
-				Group(document.getElementById('edit'), window.innerWidth * 0.05);
+				InitGroup();
 			});
 		} else {
 			$("#" + currEditID).attr("src", base.ShowThumb(url, 0));
 			$("#" + currEditID).find("img").attr("src", base.ShowThumb(url, 1)).load(function() {
-				Group(document.getElementById('edit'), window.innerWidth * 0.05);
+				InitGroup();
 			});
 		}
 	}
@@ -327,7 +327,7 @@
 		} else {
 			document.getElementById(currEditID).innerHTML = unescape(text);
 		}
-		Group(document.getElementById('edit'), window.innerWidth * 0.05);
+		InitGroup();
 	}
 
 	//添加视频
@@ -336,7 +336,7 @@
 		$("#" + currEditID).parents(".edit-body").after(html);
 		$("#edit").find(".banner").addClass("hide");
 		$("#edit").find(".edit-add").removeClass("hide");
-		Group(document.getElementById('edit'), window.innerWidth * 0.05);
+		InitGroup();
 
 		$(".youku_player").each(function() {
 			var $this = $(this);
@@ -356,6 +356,9 @@
 
 	//保存
 	function Save() {
+		if(base.RepeatAction()) {
+			return;
+		}
 		mask.show();
 
 		if(base.IsNullOrEmpty(Title)) {
@@ -517,16 +520,18 @@
 							imgdefereds.push(dfd);
 						})
 						$.when.apply(null, imgdefereds).done(function() {
-							Group(document.getElementById('edit'), window.innerWidth * 0.05);
+							InitGroup();
 						});
 					}
 				}
 			}
 			base.ShowLoading(false);
-			setTimeout(function() {
-				base.CloseWaiting();
-				//plus.webview.close("articledetail");
-			}, 300);
+			base.CloseWaiting();
 		});
+	}
+
+	//更新布局
+	function InitGroup() {
+		Group(document.getElementById('edit'), window.innerWidth * 0.05);
 	}
 </script>

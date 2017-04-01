@@ -43,38 +43,33 @@ function getImage() {
 			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 			//压缩图片,并重命名
-			compressImage(localurl, dstname, function(status, src) {
-				LoadImage(status, src, 1);
-			});
+			compressIndex = 0;
+			compressTotal = 1;
+			compressImage(localurl);
 		});
 	});
 }
 
 //相册选取
 var length = 0;
+var files = [];
+var compressIndex = 0; //当前压缩图片索引
+var compressTotal = 0; //需要压缩图片个数
 var currUploadImg = [];
 
 function galleryImgs() {
 	plus.gallery.pick(function(e) {
+		files = e.files;
 		length = e.files.length;
-		var index = 1;
+		compressTotal = length;
 		base.ShowWaiting("正在同步文章内容");
-		for(var i in e.files) {
-			index += 1;
-			//压缩图片 
-			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
-
-			//压缩图片,并重命名 
-			compressImage(e.files[i], dstname, function(status, src) {
-				LoadImage(status, src, length);
-			});
-		}
+		compressImage(e.files[0]);
 	}, function(e) {
 
 	}, {
 		filter: "image",
 		multiple: true,
-		maximum: 100
+		maximum: 20
 	});
 }
 
@@ -90,7 +85,6 @@ function LoadImage(status, src, len) {
 	if(status) {
 		var image = new Image();
 		image.src = src;
-
 		if(image.complete) {
 			var imgData = getBase64Image(image);
 			Upload(imgData, length);
@@ -104,7 +98,8 @@ function LoadImage(status, src, len) {
 }
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
-function compressImage(src, newsrc, callback) {
+function compressImage(src) {
+	var newsrc = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 	plus.zip.compressImage({
 			src: src,
 			dst: newsrc,
@@ -113,12 +108,18 @@ function compressImage(src, newsrc, callback) {
 			quality: 90
 		},
 		function(event) {
-			callback(true, event.target);
+			LoadImage(true, event.target, length);
+			compressIndex += 1;
+			if(compressIndex < compressTotal) {
+				compressImage(files[compressIndex]);
+			}
 		},
 		function(error) {
-			mui.toast(error.message);
-			console.log(JSON.stringify("error:" + JSON.stringify(error)));
-			callback(false, src);
+			LoadImage(false, src, length);
+			compressIndex += 1;
+			if(compressIndex < compressTotal) {
+				compressImage(files[compressIndex]);
+			}
 		});
 }
 
@@ -131,7 +132,7 @@ function getBase64Image(img) {
 	canvas.height = height; /*设置新的图片的长度*/
 	var ctx = canvas.getContext("2d");
 	ctx.drawImage(img, 0, 0, width, height); /*绘图*/
-	return canvas.toDataURL("image/jpeg", 0.9);
+	return canvas.toDataURL("image/jpeg", 1);
 }
 
 //上传图片到服务器 
@@ -141,12 +142,11 @@ function Upload(imgurl) {
 		Standard: "Article",
 		Number: userinfo.Number
 	}, function(data) {
-		console.log(JSON.stringify(data));
 		if(data != null) {
 			if(data.result) {
 				if(base.IsNullOrEmpty(data.message)) {
 					length = length - 1;
-				} else { 
+				} else {
 					currUploadImg.push(base.RootUrl + data.message);
 				}
 				if(length <= 0) {
@@ -186,8 +186,6 @@ function Upload(imgurl) {
 						}
 					});
 				}
-			} else {
-				mui.toast(data.message);
 			}
 		}
 	}, "json");
