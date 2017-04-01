@@ -134,9 +134,11 @@
 
 		//绑定微信切换
 		document.getElementById("weixinSwitch").addEventListener('tap', function(event) {
-			if(base.RepeatAction()) {
-				return;
+			console.log(isLoading);
+			if(isLoading) {
+				return false;
 			}
+			isLoading = true;
 			var weixin = this.className.indexOf("active") >= 0;
 			base.SwitchChange("weixinSwitch", !weixin);
 			if(!weixin) {
@@ -156,9 +158,10 @@
 
 		//绑定QQ切换
 		document.getElementById("qqSwitch").addEventListener('tap', function(event) {
-			if(base.RepeatAction()) {
-				return;
+			if(isLoading) {
+				return false;
 			}
+			isLoading = true;
 			var qq = this.className.indexOf("active") >= 0;
 			base.SwitchChange("qqSwitch", !qq);
 			if(!qq) {
@@ -178,9 +181,10 @@
 
 		//绑定微博切换
 		document.getElementById("weiboSwitch").addEventListener('tap', function(event) {
-			if(base.RepeatAction()) {
-				return;
+			if(isLoading) {
+				return false;
 			}
+			isLoading = true;
 			var weibo = this.className.indexOf("active") >= 0;
 			base.SwitchChange("weiboSwitch", !weibo);
 			if(!weibo) {
@@ -251,10 +255,6 @@
 
 	//登录操作 
 	function authLogin(type) {
-		if(isLoading) {
-			return false;
-		}
-		isLoading = true;
 		var s;
 		for(var i = 0; i < auths.length; i++) {
 			if(auths[i].id == type) {
@@ -266,12 +266,12 @@
 			s.login(function(e) {
 				authUserInfo(type, s);
 			}, function(e) {
+				isLoading = false;
 				SwitchToggle(type, false);
 			});
 		} else {
 			authUserInfo(type, s);
 		}
-		isLoading = false;
 	}
 
 	//注销 
@@ -308,6 +308,7 @@
 						Source: source
 					}, function(data) {
 						if(data == null) {
+							isLoading = false;
 							SwitchToggle(id, true);
 							return mui.toast("系统异常,请稍后再试");
 						} else {
@@ -329,11 +330,13 @@
 								mui.toast("解绑成功");
 							} else {
 								SwitchToggle(id, true);
-								return mui.toast(data.message);
+								mui.toast(data.message);
 							}
+							isLoading = false;
 						}
 					});
 				} else {
+					isLoading = false;
 					mui.toast("解绑失败");
 					SwitchToggle(id, true);
 				}
@@ -344,6 +347,7 @@
 	//登录认证信息 
 	function authUserInfo(type, s) {
 		if(!s.authResult) {
+			isLoading = false;
 			SwitchToggle(type, false);
 			mui.toast("未授权登录");
 		} else {
@@ -366,6 +370,7 @@
 						break;
 				}
 				if(url == "" || openId == "") {
+					isLoading = false;
 					SwitchToggle(type, false);
 					return mui.toast("授权失败");
 				}
@@ -374,9 +379,11 @@
 					Key: openId
 				}, function(data) {
 					if(data == null) {
+						isLoading = false;
 						SwitchToggle(type, false);
 						mui.toast("系统异常,请稍后再试");
 					} else {
+						console.log(JSON.stringify(data));
 						if(data.result) {
 							switch(type) {
 								case "weixin":
@@ -397,9 +404,11 @@
 							SwitchToggle(type, false);
 							mui.toast(data.message);
 						}
+						isLoading = false;
 					}
 				});
 			}, function(e) {
+				isLoading = false;
 				SwitchToggle(type, false);
 				mui.toast("获取用户信息失败");
 			});

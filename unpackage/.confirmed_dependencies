@@ -1922,7 +1922,8 @@
 			"js/PullRefresh.js",
 			"js/article.js",
 			"images/article/power1.png",
-			"css/animate.css"
+			"css/animate.css",
+			"images/article/power0.png"
 		],
 		"refer": [
 			"page/user2.html",

@@ -252,13 +252,13 @@
 	});
 
 	//修改标题
-	function UpdateTitle(title) {
-		if(base.IsNullOrEmpty(title)) {
+	function UpdateTitle(val) {
+		if(base.IsNullOrEmpty(val)) {
 			title.innerHTML = "点击输入标题";
 			Title = "";
 		} else {
-			title.innerHTML = title;
-			Title = title;
+			title.innerHTML = val;
+			Title = val;
 		}
 	}
 
