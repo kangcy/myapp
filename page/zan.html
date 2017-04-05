@@ -43,10 +43,11 @@
 
 		var self = plus.webview.currentWebview();
 		var name = self.Name || "我";
+		name = base.UnUnicodeText(name);
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		document.getElementById("title").innerHTML = name + "的赞";
 		if(name == "我") {
-			document.getElementById("none_tip").innerHTML = name + "沒人赞你，你可以去赞别人呀";
+			document.getElementById("none_tip").innerHTML = "沒人赞你，你可以去赞别人呀";
 		} else {
 			document.getElementById("none_tip").innerHTML = name + "喜欢的文章，会在这里显示";
 		}

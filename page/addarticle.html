@@ -186,7 +186,6 @@
 								if(data.result) {
 									$this.parentNode.parentNode.parentNode.remove();
 									InitGroup();
-									base.RefreshScroll();
 								} else {
 									mui.toast(data.message);
 								}
@@ -426,7 +425,7 @@
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 1) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
+			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
 			model.push('<div class="edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
 		}
@@ -444,7 +443,7 @@
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 1) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + text + '</div>');
+			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
 			model.push('<div class="edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
 		}

@@ -351,7 +351,7 @@
 		Source = self.Source || "Add";
 		ArticleID = self.ArticleID || 0;
 		NickName = self.NickName || "";
-		document.getElementById("title").innerHTML = NickName;
+		document.getElementById("title").innerHTML = base.UnUnicodeText(NickName);
 
 		Load(function() {
 			plus.webview.close("addarticle");
@@ -432,7 +432,6 @@
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
-					$("#title").html(data.NickName);
 
 					//不是本人
 					if(userinfo.Number != data.CreateUserNumber) {
@@ -504,10 +503,10 @@
 					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(data.Title);
-					$("#nickname0,#nickname1").html(data.NickName);
+					$("#nickname0,#nickname1").html(base.UnUnicodeText(data.NickName));
 					$("#createdate0,#createdate1").html(data.CreateDateText);
 					$("#views0,#views1").html("阅读  " + data.Views);
-					$("#desc").html(html.join(""));
+					$("#desc").html(base.UnUnicodeText(html.join("")));
 
 					//实例化播放器
 					$(".youku_player").each(function() {

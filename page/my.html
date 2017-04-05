@@ -21,7 +21,7 @@
 						<h1 class="mui-title c333"></h1>
 					</header>
 					<div class="info-content" id="bg" onclick="Cover()">
-						<img id="avatar" onclick="MySetting()" /> 
+						<img id="avatar" onclick="MySetting()" />
 						<p class="cfff f15 tc mt10 textshadow" id="nickname"></p>
 						<p class="cfff signature tc mt5 f12 textshadow" id="signature"></p>
 						<div class="content1 tc mt5 mb10 cfff textshadow">
@@ -113,6 +113,7 @@
 		$bg.style.backgroundSize = "cover";
 		document.getElementById("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
 		document.getElementById("nickname").innerHTML = userinfo.NickName;
+		//document.getElementById("nickname").innerHTML = base.UnUnicodeText("\u4e00\u4e2a\u50bb\u74dc\ud83d\ude0b");
 		document.getElementById("signature").innerHTML = userinfo.Signature;
 		document.getElementById("follows").innerHTML = userinfo.Follows;
 		document.getElementById("fans").innerHTML = userinfo.Fans;

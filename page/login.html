@@ -69,12 +69,12 @@
 					</div>
 				</div>
 				<!--第三方登录-->
-				<div class="oauth-area" style="float: left;width:85%;margin:7.5%;" id="oauth">
-					<div style="position:relative;" class="mb20">
+				<div class="oauth-area" style="float: left;width:85%;margin:7.5%;margin-bottom:0px;" id="oauth">
+					<div style="position:relative;" class="mb10">
 						<div class="border"></div>
 						<div class="tip f12">其他账号登录</div>
 					</div>
-					<img src="../images/login/qq.png" style="width:20%;margin-right:10%;" id="qq" />
+					<img src="../images/login/qq.png" style="width:20%;margin-right:20%;" id="qq" />
 					<img src="../images/login/wx.png" style="width:20%;" id="weixin" />
 				</div>
 			</div>
@@ -228,6 +228,7 @@
 			s.login(function(e) {
 				authUserInfo(type, s);
 			}, function(e) {
+				base.CloseWaiting();
 				mask.close();
 				mui.toast("登录失败");
 			});
@@ -254,6 +255,7 @@
 	//登录认证信息 
 	function authUserInfo(type, s) {
 		if(!s.authResult) {
+			base.CloseWaiting();
 			mui.toast("未授权登录");
 		} else {
 			s.getUserInfo(function(e) {
@@ -275,6 +277,7 @@
 				//authLogout();
 			}, function(e) {
 				mask.close();
+				base.CloseWaiting();
 				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
 			});
 		}
@@ -282,13 +285,6 @@
 
 	//显示用户信息 
 	function showData(type, data) {
-
-		//访问日志
-		HttpGet(base.RootUrl + "Api/UserLog/Edit", {
-			info: escape(JSON.stringify(data))
-		}, function(data) {
-
-		});
 
 		var loginInfo = {};
 		loginInfo.Province = base.Province;
@@ -328,6 +324,27 @@
 				loginInfo.Source = 0
 				break;
 		}
+
+		switch(type) {
+			case 'weixin':
+				data.nickname = base.UnicodeText(data.nickname);
+				break;
+			case 'qq':
+				data.nickname = base.UnicodeText(data.nickname);
+				break;
+			case 'sinaweibo':
+				data.screen_name = base.UnicodeText(data.screen_name);
+				break;
+			default:
+				break;
+		}
+		//访问日志
+		HttpGet(base.RootUrl + "Api/UserLog/Edit", {
+			info: JSON.stringify(data)
+		}, function(data) {
+
+		});
+
 		return loginInfo;
 	}
 </script>

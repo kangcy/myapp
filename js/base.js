@@ -828,6 +828,27 @@ var base = new function() {
 			});
 		});
 	}
+
+	/**
+	 * js Unicode编码
+	 */
+	this.UnicodeText = function(str) {
+		/*var res = [];
+		for(var i = 0; i < str.length; i++) {
+			res[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+		}
+		return "\\u" + res.join("\\u");*/
+		return escape(str).toLocaleLowerCase().replace(/%u/gi,'\\u');
+	}
+
+	/**
+	 * js Unicode解码
+	 */
+	this.UnUnicodeText = function(str) {
+		/*str = str.replace(/\\/g, "%");
+		return unescape(str);*/
+		return unescape(str.replace(/\\u/gi,'%u'));
+	}
 }
 
 /**
