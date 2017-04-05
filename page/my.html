@@ -112,9 +112,8 @@
 		$bg.style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat";
 		$bg.style.backgroundSize = "cover";
 		document.getElementById("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
-		document.getElementById("nickname").innerHTML = userinfo.NickName;
-		//document.getElementById("nickname").innerHTML = base.UnUnicodeText("\u4e00\u4e2a\u50bb\u74dc\ud83d\ude0b");
-		document.getElementById("signature").innerHTML = userinfo.Signature;
+		document.getElementById("nickname").innerHTML = base.UnUnicodeText(userinfo.NickName);
+		document.getElementById("signature").innerHTML = base.UnUnicodeText(userinfo.Signature);
 		document.getElementById("follows").innerHTML = userinfo.Follows;
 		document.getElementById("fans").innerHTML = userinfo.Fans;
 		document.getElementById("articles").innerHTML = userinfo.Articles;

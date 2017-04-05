@@ -129,7 +129,7 @@
 		var Avatar = self.Avatar || "";
 
 		if(!base.IsNullOrEmpty(Name)) {
-			$("#title").html("打赏 • " + Name);
+			$("#title").html("打赏 • " + base.UnUnicodeText(Name));
 			$("#title1,#title2").html(Name);
 		}
 		$("#payuser").attr("src", base.ShowThumb(Avatar, 1));

@@ -81,7 +81,7 @@
 		callback = callback || $.noop;
 
 		HttpGet(base.RootUrl + "User/LoginThird", {
-			NickName: escape(loginInfo.NickName),
+			NickName: loginInfo.NickName,
 			Avatar: loginInfo.Avatar,
 			Sex: loginInfo.Sex,
 			OpenID: loginInfo.OpenID,

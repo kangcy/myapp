@@ -139,13 +139,14 @@
 	var parentPage = null;
 	var userinfo = base.GetUserInfo();
 	var PageName = "searchSub";
-	var NeedParentPage = false;//是否触发父窗口弹窗
+	var NeedParentPage = false; //是否触发父窗口弹窗
 
 	var search = document.getElementById("search");
 
 	//语音识别完成事件
 	search.addEventListener('recognized', function(e) {
-		search.value = e.detail.value;
+		//search.value = e.detail.value;
+		search.value = e.detail.value.replace(/，/g, '').replace(/,。/g, '。');
 	});
 
 	mui.init();

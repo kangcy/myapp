@@ -226,7 +226,7 @@
 		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '<span class="fr f11 c999">' + item.CreateDateText + '</span></p>');
 		model.push('<p class="f11 c999 mt3 mb5" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</p>');
 		if(!base.IsNullOrEmpty(item.ParentCommentNumber)) {
-			model.push('<p class="tip mb0 f11" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + base.UnUnicodeText(item.ParentNickName) + '：</span>' + item.ParentSummary + '</p>');
+			model.push('<p class="tip mb0 f11" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + base.UnUnicodeText(item.ParentNickName) + '：</span>' + base.UnUnicodeText(item.ParentSummary) + '</p>');
 		} else {
 			model.push('<p class="tip mb0 f11 article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">「' + base.UnUnicodeText(item.Title) + '」</p>');
 		}

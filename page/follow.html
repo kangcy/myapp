@@ -44,7 +44,7 @@
 		var self = plus.webview.currentWebview();
 		name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
-
+		name = base.UnUnicodeText(name);
 		document.getElementById("title").innerHTML = name + "的关注";
 		if(name == "我") {
 			document.getElementById("none_tip").innerHTML = "关注别人,第一时间得到他们的专栏更新";

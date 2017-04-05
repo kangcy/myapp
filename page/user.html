@@ -95,7 +95,7 @@
 				<div class="full tc mb20 hide" id="action">
 					<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
 					<div class="dashang f14" onclick="Payment()">打赏</div>
-				</div> 
+				</div>
 			</div>
 			<div id="article" class="hide f13 c999 full">
 				<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
@@ -117,7 +117,7 @@
 				<li class="mui-table-view-cell">
 					<a href="#" class="c333 f13" onclick="Pic()">查看相册</a>
 				</li>
-				<li class="mui-table-view-cell"> 
+				<li class="mui-table-view-cell">
 					<a href="#" class="c333 f13" onclick="Share()">分享给朋友</a>
 				</li>
 				<li class="mui-table-view-cell">
@@ -244,7 +244,7 @@
 			if(data.result) {
 				data = data.message;
 
-				NickName = data.NickName;
+				NickName = base.UnUnicodeText(data.NickName);
 				Avatar = data.Avatar;
 				Sex = data.Sex;
 
@@ -252,8 +252,8 @@
 				document.getElementById("bg").style.backgroundSize = "cover";
 				document.getElementById("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
 				document.getElementById("avatar").classList.remove("hide");
-				document.getElementById("nickname").innerHTML = data.NickName;
-				document.getElementById("signature").innerHTML = data.Signature;
+				document.getElementById("nickname").innerHTML = NickName;
+				document.getElementById("signature").innerHTML = base.UnUnicodeText(data.Signature);
 
 				if(data.ShowArticle == 1) {
 					document.getElementById("showArticleNum").innerHTML = data.Keeps;

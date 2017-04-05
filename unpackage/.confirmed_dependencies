@@ -1597,7 +1597,9 @@
 			"part/list.html",
 			"images/my/444.png",
 			"images/my/666.png",
-			"js/PullRefresh.js"
+			"js/PullRefresh.js",
+			"images/my/nocheck.png",
+			"js/jquery-1.10.2.min.js"
 		],
 		"refer": []
 	},

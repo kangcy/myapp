@@ -110,11 +110,11 @@
 		base.InitScroll();
 		$("#userid").html(userinfo.ID);
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
-		$("#nickname").html(base.FormatStr(userinfo.NickName, "请填写"));
+		$("#nickname").html(base.FormatStr(base.UnUnicodeText(userinfo.NickName), "请填写"));
 		$("#sex").html(userinfo.Sex);
 		$("#city").html(base.FormatStr(userinfo.Address, "请填写"));
 		$("#time").html(userinfo.Birthday == "0001-01-01" ? "请设置" : userinfo.Birthday);
-		$("#signature").html(base.FormatStr(userinfo.Signature, "请填写"));
+		$("#signature").html(base.FormatStr(base.UnUnicodeText(userinfo.Signature), "请填写"));
 
 		if($("#nickname").html() == "请填写") {
 			$("#editnickname").find(".mui-badge").removeClass("hide");

@@ -527,7 +527,7 @@ var base = new function() {
 				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 			}
 
-			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.NickName + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
+			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + base.UnUnicodeText(item.NickName) + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="ml5 mr5 c999">来自</span><span class="c999">' + item.Province + ' • ' + item.City + '</span>');
 			}
@@ -548,7 +548,7 @@ var base = new function() {
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的微篇";
 		}
-		model.push(item.Title + '</div>');
+		model.push(base.UnUnicodeText(item.Title) + '</div>');
 
 		//图片拼接 
 		var parts = item.ArticlePart;
@@ -764,7 +764,7 @@ var base = new function() {
 		}
 		model.push('<div class="mui-table oa-contact-cell">');
 		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
-		model.push('<div class="mui-table-cell"><p class="f12 mb5 c333">' + item.NickName + '</p>');
+		model.push('<div class="mui-table-cell"><p class="f12 mb5 c333">' + base.UnUnicodeText(item.NickName) + '</p>');
 		if(isSignature) {
 			model.push('<p class="f11 c999">' + item.Signature + '</p>');
 		}
@@ -833,21 +833,14 @@ var base = new function() {
 	 * js Unicode编码
 	 */
 	this.UnicodeText = function(str) {
-		/*var res = [];
-		for(var i = 0; i < str.length; i++) {
-			res[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
-		}
-		return "\\u" + res.join("\\u");*/
-		return escape(str).toLocaleLowerCase().replace(/%u/gi,'\\u');
+		return escape(str).toLocaleLowerCase().replace(/%u/gi, '\\u');
 	}
 
 	/**
 	 * js Unicode解码
 	 */
 	this.UnUnicodeText = function(str) {
-		/*str = str.replace(/\\/g, "%");
-		return unescape(str);*/
-		return unescape(str.replace(/\\u/gi,'%u'));
+		return unescape(str.replace(/\\u/gi, '%u'));
 	}
 }
 

@@ -198,7 +198,7 @@ function AppendArticle(userNumber, item, ismy, isuser, islazyload, isdel) {
 			model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 		}
 
-		model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + item.NickName + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
+		model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + base.UnUnicodeText(item.NickName) + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
 		if(!base.IsNullOrEmpty(item.City)) {
 			model.push('<span class="ml5 mr5 c999">来自</span><span class="c999">' + item.Province + ' • ' + item.City + '</span>');
 		}
