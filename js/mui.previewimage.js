@@ -5,6 +5,7 @@
 	var defaultGroupName = '__DEFAULT';
 	var div = document.createElement('div');
 	var imgId = 0;
+	var isEnable = true;
 	var PreviewImage = function(options) {
 		this.options = $.extend(true, {
 			id: '__MUI_PREVIEWIMAGE',
@@ -307,6 +308,9 @@
 		this.refresh(index, this.groups[group]);
 	};
 	proto.open = function(index, group) {
+		if(!isEnable) {
+			return;
+		}
 		if(this.isShown()) {
 			return;
 		}
@@ -325,6 +329,9 @@
 		}
 	};
 	proto.close = function(index, group) {
+		if(!isEnable) {
+			return;
+		}
 		if(!this.isShown()) {
 			return;
 		}
@@ -364,7 +371,6 @@
 	proto.isShown = function() {
 		return this.element.classList.contains($.className('preview-in'));
 	};
-
 	var previewImageApi = null;
 	$.previewImage = function(options) {
 		if(!previewImageApi) {
@@ -375,5 +381,7 @@
 	$.getPreviewImage = function() {
 		return previewImageApi;
 	}
-
+	$.setPreviewEnable = function(enable) {
+		isEnable = enable;
+	}
 })(mui, window);

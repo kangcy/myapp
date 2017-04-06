@@ -1601,7 +1601,8 @@
 			"images/my/666.png",
 			"js/PullRefresh.js",
 			"images/my/nocheck.png",
-			"js/jquery-1.10.2.min.js"
+			"js/jquery-1.10.2.min.js",
+			"images/my/check.png"
 		],
 		"refer": []
 	},

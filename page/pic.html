@@ -26,6 +26,38 @@
 				color: #fff;
 				display: inline-block;
 			}
+			
+			.thirdfloor .cover {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.thirdfloor.check .cover {
+				background: rgba(0, 0, 0, 0.5);
+			}
+			
+			.thirdfloor .icon {
+				position: absolute;
+				right: 0.5rem;
+				top: 0.5rem;
+				width: 1.3rem;
+				height: 1.3rem;
+			}
+			
+			.thirdfloor.nocheck .icon {
+				background: url(../images/my/nocheck.png) no-repeat;
+				background-size: 100% 100%;
+				background-position: center center;
+			}
+			
+			.thirdfloor.check .icon {
+				background: url(../images/my/check.png) no-repeat;
+				background-size: 100% 100%;
+				background-position: center center;
+			}
 		</style>
 	</head>
 
@@ -34,6 +66,7 @@
 	</body>
 
 </html>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
@@ -47,7 +80,8 @@
 	var UserNumber = 0;
 	var pagesize = 30;
 	var isLoading = false;
-	var userinfo = base.GetUserInfo(); 
+	var PreviewEnable = true; //是否启用图片预览
+	var userinfo = base.GetUserInfo();
 	var mask = mui.createMask(function() {});
 
 	mui.init({
@@ -59,6 +93,10 @@
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
 			document.getElementById("title").innerHTML = "相册";
+			document.getElementById("confirm").innerHTML = "删除";
+			document.getElementById("confirm").onclick = function() {
+				Confirm()
+			};
 			document.getElementById("none_img").setAttribute("src", "../images/my/666.png");
 			document.getElementById("none_tip").innerHTML = "这里还没有内容";
 
@@ -80,6 +118,7 @@
 			mui(document.getElementById("scroll")).pullToRefresh({
 				down: {
 					callback: function() {
+						PreviewEnable = true;
 						var self = this;
 						pulldownRefresh(self);
 					}
@@ -93,38 +132,48 @@
 				}
 			});
 
+			//选中切换
+			mui("#scroll").on('tap', '.thirdfloor', function(event) {
+				if(PreviewEnable) {
+					return;
+				}
+				var check = $(this).hasClass("check");
+				if(check) {
+					this.classList.remove("check");
+				} else {
+					this.classList.add("check");
+				}
+				if($(".check").length > 0) {
+					$("#confirm").removeClass("hide");
+				} else {
+					$("#confirm").addClass("hide");
+				}
+			});
+
 			if(UserNumber == userinfo.Number) {
 				document.getElementById("tip").classList.remove("hide");
 				mui("#scroll").on('longtap', '.thirdfloor', function(event) {
-					var $this = this;
-					var id = $this.getAttribute("pid");
-					var btnArray = ['确定', '取消'];
-					mui.confirm('删除后不可恢复,确定删除选中图片？', '', btnArray, function(e) {
-						if(e.index == 0) {
-							mask.show();
-							base.ShowWaiting("正在删除");
-							HttpGet(base.RootUrl + "User/PicDelete", {
-								ID: userinfo.ID,
-								PartID: id
-							}, function(data) {
-								setTimeout(function() {
-									base.CloseWaiting();
-									mask.close();
-									if(data != null) {
-										if(data.result) {
-											$this.remove();
-										} else {
-											mui.toast(data.message);
-										}
-									}
-								}, 500);
-							});
-						}
-					});
+					PreviewEnable = !PreviewEnable;
+					Preview(PreviewEnable);
 				});
 			}
 		}
 	});
+
+	function Preview(PreviewEnable) {
+		//屏蔽图片预览
+		mui.setPreviewEnable(PreviewEnable);
+		if(PreviewEnable) {
+			$(".cover").addClass("hide");
+			$(".thirdfloor").removeClass("nocheck check");
+		} else {
+			$(".cover").removeClass("hide");
+			$(".thirdfloor").addClass("nocheck");
+			this.classList.remove("nocheck");
+			this.classList.add("check");
+			$("#confirm").removeClass("hide");
+		}
+	}
 
 	/**
 	 * 加载数据
@@ -163,9 +212,60 @@
 
 	function appendStr(item) {
 		var div = document.createElement('div');
-		div.className = 'thirdfloor';
+		if(PreviewEnable) {
+			div.className = 'thirdfloor';
+		} else {
+			div.className = 'thirdfloor nocheck';
+		}
+		div.style.position = "relative";
 		div.setAttribute("pid", item.ID);
-		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" />';
+		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" /><div class="cover ' + (PreviewEnable ? "hide" : "") + '"></div><div class="icon"></div>';
 		return div;
+	}
+
+	function Confirm() {
+		if(isLoading) {
+			return false;
+		}
+		isLoading = true;
+		var check = $(".check");
+		if(check.length == 0) {
+			isLoading = false;
+			return mui.toast("请选择图片");
+		}
+		var $this = this;
+		var btnArray = ['确定', '取消'];
+		mui.confirm('删除后不可恢复,确定删除选中图片？', '', btnArray, function(e) {
+			if(e.index == 0) {
+				mask.show();
+				base.ShowWaiting("正在删除");
+
+				var ids = [];
+				check.each(function() {
+					ids.push($(this).attr("pid"));
+				});
+				HttpGet(base.RootUrl + "User/PicDelete", {
+					ID: userinfo.ID,
+					PartID: ids.join(",")
+				}, function(data) {
+					setTimeout(function() {
+						isLoading = false;
+						base.CloseWaiting();
+						mask.close();
+						if(data != null) {
+							if(data.result) {
+								PreviewEnable = false;
+								Preview(PreviewEnable);
+								check.each(function() {
+									$this.remove();
+								});
+							} else {
+								mui.toast(data.message);
+							}
+						}
+					}, 500);
+				});
+			}
+		});
 	}
 </script>
