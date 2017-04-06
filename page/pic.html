@@ -154,23 +154,24 @@
 				document.getElementById("tip").classList.remove("hide");
 				mui("#scroll").on('longtap', '.thirdfloor', function(event) {
 					PreviewEnable = !PreviewEnable;
-					Preview(PreviewEnable);
+					Preview(PreviewEnable, this);
 				});
 			}
 		}
 	});
 
-	function Preview(PreviewEnable) {
+	function Preview(PreviewEnable, $this) {
 		//屏蔽图片预览
 		mui.setPreviewEnable(PreviewEnable);
 		if(PreviewEnable) {
 			$(".cover").addClass("hide");
 			$(".thirdfloor").removeClass("nocheck check");
+			$("#confirm").addClass("hide");
 		} else {
 			$(".cover").removeClass("hide");
 			$(".thirdfloor").addClass("nocheck");
-			this.classList.remove("nocheck");
-			this.classList.add("check");
+			$this.classList.remove("nocheck");
+			$this.classList.add("check");
 			$("#confirm").removeClass("hide");
 		}
 	}
@@ -249,22 +250,24 @@
 					PartID: ids.join(",")
 				}, function(data) {
 					setTimeout(function() {
-						isLoading = false;
 						base.CloseWaiting();
 						mask.close();
 						if(data != null) {
 							if(data.result) {
-								PreviewEnable = false;
+								PreviewEnable = true;
 								Preview(PreviewEnable);
 								check.each(function() {
-									$this.remove();
+									$(this).remove();
 								});
 							} else {
 								mui.toast(data.message);
 							}
 						}
+						isLoading = false;
 					}, 500);
 				});
+			} else {
+				isLoading = false;
 			}
 		});
 	}

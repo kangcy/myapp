@@ -91,15 +91,17 @@ function Delete() {
 				ID: userinfo.ID,
 				ArticleID: ArticleID
 			}, function(data) {
-				if(data != null) {
-					if(data.result) {
-						plus.webview.close("articledetail");
-						var articlePage = plus.webview.getWebviewById("articleSub");
-						if(articlePage) {
-							articlePage.evalJS("Delete(" + ArticleID + ")");
+				setTimeout(function() {
+					if(data != null) {
+						if(data.result) {
+							plus.webview.close("articledetail");
+							/*var articlePage = plus.webview.getWebviewById("articleSub");
+							if(articlePage) {
+								articlePage.evalJS("Delete(" + ArticleID + ")");
+							}*/
 						}
 					}
-				}
+				}, 500);
 			});
 		}
 	});

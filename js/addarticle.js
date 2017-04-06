@@ -111,7 +111,7 @@ function compressImage(src) {
 			dst: newsrc,
 			overwrite: true,
 			width: window.innerWidth + "px",
-			quality: 80
+			quality: 100
 		},
 		function(event) {
 			LoadImage(true, event.target, length);
@@ -138,7 +138,7 @@ function getBase64Image(img) {
 	canvas.height = height; /*设置新的图片的长度*/
 	var ctx = canvas.getContext("2d");
 	ctx.drawImage(img, 0, 0, width, height); /*绘图*/
-	return canvas.toDataURL("image/jpeg", 0.8);
+	return canvas.toDataURL("image/jpeg", 1);
 }
 
 //上传图片到服务器 

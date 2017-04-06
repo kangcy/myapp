@@ -211,20 +211,24 @@
 			var btnArray = ['删除草稿', '存草稿'];
 			mui.confirm('确定要退出编辑？', '', btnArray, function(e) {
 				if(e.index == 0) {
+					mask.show();
+					base.ShowWaiting("正在删除");
 					HttpGet(base.RootUrl + "Article/Delete", {
 						ID: userinfo.ID,
 						ArticleID: ArticleID
 					}, function(data) {
-						if(data != null) {
-							if(data.result) {
-								plus.webview.close("articledetail");
-								plus.webview.close("addarticle");
-								var articlePage = plus.webview.getWebviewById("articleSub");
-								if(articlePage) {
-									articlePage.evalJS("Delete(" + ArticleID + ")");
+						setTimeout(function() {
+							if(data != null) {
+								if(data.result) {
+									plus.webview.close("articledetail");
+									plus.webview.close("addarticle");
+									/*var articlePage = plus.webview.getWebviewById("articleSub");
+									if(articlePage) {
+										articlePage.evalJS("Delete(" + ArticleID + ")");
+									}*/
 								}
 							}
-						}
+						}, 500);
 					});
 				} else {
 					Save();

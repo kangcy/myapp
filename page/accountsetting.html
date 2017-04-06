@@ -148,6 +148,8 @@
 					mui.confirm('解绑微信前需要绑定手机', '', ['去绑定', '取消'], function(e) {
 						if(e.index == 0) {
 							BindPhone();
+						} else {
+							isLoading = false;
 						}
 					});
 				} else {
@@ -171,6 +173,8 @@
 					mui.confirm('解绑QQ前需要绑定手机', '', ['去绑定', '取消'], function(e) {
 						if(e.index == 0) {
 							BindPhone();
+						} else {
+							isLoading = false;
 						}
 					});
 				} else {
@@ -194,6 +198,8 @@
 					mui.confirm('解绑微博前需要绑定手机', '', ['去绑定', '取消'], function(e) {
 						if(e.index == 0) {
 							BindPhone();
+						} else {
+							isLoading = false;
 						}
 					});
 				} else {
