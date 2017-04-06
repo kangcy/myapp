@@ -11,7 +11,8 @@
 			zoom: true,
 			header: '<span class="mui-preview-indicator"></span>',
 			footer: '',
-			callback: null
+			callback1: null,
+			callback2: null
 		}, options || {});
 		this.init();
 		this.initEvent();
@@ -250,20 +251,6 @@
 			from: 0,
 			to: length - 1
 		};
-		//		var from = Math.max(index - 1, 0);
-		//		var to = Math.min(index + 1, length);
-		//		if (index === length - 1) {
-		//			from = Math.max(length - 3, 0);
-		//			to = length - 1;
-		//		}
-		//		if (index === 0) {
-		//			from = 0;
-		//			to = Math.min(2, length - 1);
-		//		}
-		//		return {
-		//			from: from,
-		//			to: to
-		//		};
 	};
 
 	proto._getPosition = function(itemData) {
@@ -323,7 +310,6 @@
 		if(this.isShown()) {
 			return;
 		}
-
 		if(typeof index === "number") {
 			group = group || defaultGroupName;
 			this.addImages(group, index); //刷新当前group
@@ -334,8 +320,8 @@
 			this.addImages(group, index); //刷新当前group
 			this.openByGroup(this.groups[group].indexOf(index.__mui_img_data), group);
 		}
-		if(this.options.callback != null) {
-			this.options.callback(1);
+		if(this.options.callback1 != null) {
+			this.options.callback1(1);
 		}
 	};
 	proto.close = function(index, group) {
@@ -370,8 +356,8 @@
 			$(zoomers[i]).zoom().destroy();
 		}
 		$(this.element).slider().destroy();
-		if(this.options.callback != null) {
-			this.options.callback(0);
+		if(this.options.callback2 != null) {
+			this.options.callback2(0);
 		}
 		//		this.empty();
 	};

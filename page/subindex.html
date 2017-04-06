@@ -109,9 +109,6 @@
 				<p class="mui-tab-label mb0" style="font-size:11px;">我的</p>
 			</a>
 		</nav>
-
-		<!--图片预览满屏弹窗-->
-		<div class="mui-preview-image mui-fullscreen" id="previewTan"></div>
 		<!--检测更新满屏弹窗-->
 		<div class="mytanbg hide" id="myprogressbg" onclick="PreviewTan2(0)"></div>
 		<!--文章操作弹窗-->
@@ -267,18 +264,6 @@
 			defaultTab.classList.add('active');
 		}
 	});
-
-	function PreviewTan(index) {
-		if(index == 0) {
-			document.getElementById("previewTan").classList.remove("mui-preview-in");
-			document.getElementById("previewTan").style.display = "none";
-			document.getElementById("previewTan").classList.add("mui-preview-out");
-		} else {
-			document.getElementById("previewTan").classList.remove("mui-preview-out");
-			document.getElementById("previewTan").style.display = "block";
-			document.getElementById("previewTan").classList.add("mui-preview-in");
-		}
-	}
 
 	function PreviewTan2(index) {
 		if(index == 0) {

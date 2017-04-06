@@ -898,7 +898,8 @@
 			"images/article/stop.png",
 			"images/login/pwd.png",
 			"css/input.css",
-			"css/input.min.css"
+			"css/input.min.css",
+			"js/articledetail.js"
 		],
 		"refer": [
 			"page/user.html",

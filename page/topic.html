@@ -24,7 +24,7 @@
 			
 			.subtype:first-child {
 				margin-left: 0px !important;
-			} 
+			}
 			
 			.subtype img {
 				width: 100% !important;
@@ -117,7 +117,7 @@
 						<progress class="fl" value="" max="" id="proDownFile" style="width:80%;"></progress>
 						<span class="persent fl ml10 caaa" id="persent" style="line-height:1rem;">0%</span>
 					</li>
-				</ul> 
+				</ul>
 			</div>
 		</div>
 		<!--操作-->
@@ -157,7 +157,7 @@
 	var currSlider = 0;
 	var userinfo = base.GetUserInfo();
 	var PageName = "topic.html";
-	var NeedParentPage = true;//是否触发父窗口弹窗
+	var NeedParentPage = true; //是否触发父窗口弹窗
 
 	mui.init();
 
@@ -341,11 +341,19 @@
 		base.ArticleAction("#slider", userinfo);
 
 		mui.previewImage({
-			callback: function(index) {
-				if(subindexPage == null) {
-					subindexPage = plus.webview.getWebviewById("subindex");
-				}
-				subindexPage.evalJS("PreviewTan(" + index + ")");
+			callback1: function(img) {
+				plus.webview.currentWebview().setStyle({
+					top: '0px',
+					bottom: '0px'
+				});
+			},
+			callback2: function(img) {
+				setTimeout(function() {
+					plus.webview.currentWebview().setStyle({
+						top: '0px',
+						bottom: '50px'
+					});
+				}, 400);
 			}
 		});
 

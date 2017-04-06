@@ -53,12 +53,11 @@ function getImage() {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
 			var localurl = entry.toLocalURL();
 
-			//压缩图片
-			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
-
 			//压缩图片,并重命名
 			compressIndex = 0;
 			compressTotal = 1;
+			length = 1;
+			base.ShowWaiting("正在同步文章内容");
 			compressImage(localurl);
 		});
 	});

@@ -101,15 +101,6 @@
 
 		base.ShowUser("#pullrefresh");
 
-		mui.previewImage({
-			callback: function(index) {
-				if(subindexPage == null) {
-					subindexPage = plus.webview.getWebviewById("subindex");
-				}
-				subindexPage.evalJS("PreviewTan(" + index + ")");
-			}
-		});
-
 		base.ScrollTop();
 	});
 
@@ -132,6 +123,23 @@
 					var self = this;
 					pullupRefresh(self);
 				}
+			}
+		});
+
+		mui.previewImage({
+			callback1: function(img) {
+				plus.webview.currentWebview().setStyle({
+					top: '0px',
+					bottom: '0px'
+				});
+			},
+			callback2: function(img) {
+				setTimeout(function() {
+					plus.webview.currentWebview().setStyle({
+						top: '0px',
+						bottom: '50px'
+					});
+				}, 400); 
 			}
 		});
 	});
@@ -166,4 +174,4 @@
 			callback();
 		});
 	}
-</script> 
+</script>

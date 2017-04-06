@@ -4,7 +4,6 @@ var subindexPage = null;
 var mask = mui.createMask(function() {
 	SubIndexPageTan(false);
 	document.getElementById("action").classList.remove("mui-active");
-	//document.getElementById("action").classList.add("hide");
 });
 
 //调用父窗口
@@ -35,15 +34,13 @@ function ActionTan(show, articleNumber, articleId) {
 		}
 	}
 	if(show) {
-		mask.show();
 		SubIndexPageTan(show);
-		//document.getElementById("action").classList.remove("hide");
+		mask.show(); 
 		document.getElementById("action").classList.add("mui-active");
 	} else {
 		mask.close();
 		SubIndexPageTan(show);
 		document.getElementById("action").classList.remove("mui-active");
-		//document.getElementById("action").classList.add("hide");
 	}
 }
 
