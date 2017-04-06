@@ -103,10 +103,10 @@
 				<div id="isnotkeep" class="myshare_items" onclick="ShareAction(8)"><img src="../images/share/8.jpg" />
 					<p class="f11 mb0 c000" style="">收藏</p>
 				</div>
-				<div id="iskeep" class="myshare_items hide"><img src="../images/share/10.jpg" />
-					<p class="f11 mb0 c000" style="">收藏</p>
+				<div id="iskeep" class="myshare_items hide" onclick="ShareAction(10)"><img src="../images/share/10.jpg" />
+					<p class="f11 mb0 c000" style="">已收藏</p>
 				</div>
-				<div class="myshare_items" onclick="ShareAction(9)"><img src="../images/share/9.jpg" />
+				<div id="report" class="myshare_items" onclick="ShareAction(9)"><img src="../images/share/9.jpg" />
 					<p class="f11 mb0 c000">举报</p>
 				</div>
 				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
@@ -323,9 +323,6 @@
 
 		//打开外链
 		mui('#detail').on('tap', 'span.link', function() {
-			if(base.RepeatAction()) {
-				return;
-			}
 			var link = this.getAttribute("link");
 			if(base.IsNullOrEmpty(link)) {
 				return;
@@ -449,6 +446,8 @@
 						}
 					} else {
 						$("#wrapper").removeClass("hide");
+						
+						$("#iskeep,#isnotkeep,#report").addClass("hide");
 					}
 
 					Article = data;
@@ -767,6 +766,31 @@
 		});
 	}
 
+	//取消收藏
+	function OutKeep() {
+		mui.confirm('确认取消收藏？', '', ['确认', '取消'], function(e) {
+			if(e.index == 0) {
+				HttpGet(base.RootUrl + "Keep/Delete", {
+					ID: userinfo.ID,
+					ArticleNumber: Article.Number
+				}, function(data) {
+					if(data != null) {
+						if(data.result) {
+							$("#iskeep,#isnotkeep").toggleClass("hide");
+							userinfo.Keeps -= 1;
+							if(userinfo.Keeps < 0) {
+								userinfo.Keeps = 0;
+							}
+							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+						}
+						mui.toast(data.result ? "已取消收藏" : data.message);
+					}
+					isLoading = false;
+				});
+			}
+		});
+	}
+
 	//加载模板
 	function LoadTemplate() {
 		HttpGet(base.RootUrl + "Article/Template", {}, function(data) {
@@ -928,6 +952,11 @@
 				source: "report",
 				ArticleNumber: Article.Number
 			});
+			return;
+		} 
+		//取消收藏
+		if(index == 10) {
+			OutKeep();
 			return;
 		}
 

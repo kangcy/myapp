@@ -5,6 +5,13 @@
 	 src:file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg at page/subindex.html:270
 	  */
 
+//相册选取
+var length = 0;
+var files = [];
+var compressIndex = 0; //当前压缩图片索引
+var compressTotal = 0; //需要压缩图片个数
+var currUploadImg = [];
+
 //选择图片
 function ShowActionSheet() {
 	var bts = [{
@@ -19,6 +26,13 @@ function ShowActionSheet() {
 			buttons: bts
 		},
 		function(e) {
+			//相册选取
+			length = 0;
+			files = [];
+			compressIndex = 0; //当前压缩图片索引
+			compressTotal = 0; //需要压缩图片个数
+			currUploadImg = [];
+
 			if(e.index == 1) {
 				getImage();
 			} else if(e.index == 2) {
@@ -49,13 +63,6 @@ function getImage() {
 		});
 	});
 }
-
-//相册选取
-var length = 0;
-var files = [];
-var compressIndex = 0; //当前压缩图片索引
-var compressTotal = 0; //需要压缩图片个数
-var currUploadImg = [];
 
 function galleryImgs() {
 	plus.gallery.pick(function(e) {
