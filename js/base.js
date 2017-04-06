@@ -371,7 +371,7 @@ var base = new function() {
 	 * 更新用户信息
 	 **/
 	this.UpdateUser = function(id, callback) {
-		HttpGet(base.RootUrl + "User/Detail", {
+		HttpGet(base.RootUrl + "User/Info", {
 			Number: id
 		}, function(data) {
 			if(data != null) {

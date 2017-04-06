@@ -44,8 +44,8 @@
 			<ul class="mui-table-view f13 mt0">
 				<li class="mui-table-view-cell tc">
 					<img class="head-img mui-action-preview mt10" id="avatar" src="../images/my/pay.png" style="width:30%;" />
-					<p class="f13 c333 mt5">账户余额</p>
-					<p class="f25 bold c333 mt5" id="money"></p>
+					<p class="f13 c333 mt10">账户余额</p>
+					<p class="f25 bold c333 mt10" id="money">￥0.00</p>
 				</li>
 				<li class="mui-table-view-cell" id="mypay">
 					<p class="f12 c333">打赏记录</p>
@@ -92,7 +92,6 @@
 	mui.init();
 
 	mui.ready(function() {
-
 		base.UpdateUser(userinfo.Number, function() {
 			userinfo = base.GetUserInfo();
 			document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
@@ -137,7 +136,6 @@
 			HttpGet(base.RootUrl + "System/CheckApplyMoney", {
 				ID: userinfo.ID
 			}, function(data) {
-				isLoading = false;
 				if(data != null) {
 					if(data.result) {
 						base.OpenWindow("payapply", "payapply.html", {});
@@ -145,14 +143,12 @@
 						mui.toast(data.message);
 					}
 				}
+				isLoading = false;
 			});
 		});
 	});
 
 	function NotAgree() {
-		if(base.RepeatAction()) {
-			return;
-		}
 		ispay = 0;
 		base.SwitchChange("autoPaySwitch", false);
 		ActionTan(0);
@@ -160,9 +156,6 @@
 	}
 
 	function Agree() {
-		if(base.RepeatAction()) {
-			return;
-		}
 		ActionTan(0);
 		HttpGet(base.RootUrl + "User/EditPay", {
 			ID: userinfo.ID,

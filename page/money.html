@@ -18,7 +18,7 @@
 		</header>
 		<div class="tan hide" id="success">
 			<div class="full tc">
-				<img src="../images/pay/header1.png" class="full" />
+				<img src="../images/logo.png" class="full" />
 			</div>
 			<div class="summary c333 f13">
 				<p class="fr full hot f16 bold tc">打赏成功~</p>
@@ -130,7 +130,7 @@
 
 		if(!base.IsNullOrEmpty(Name)) {
 			$("#title").html("打赏 • " + base.UnUnicodeText(Name));
-			$("#title1,#title2").html(Name);
+			$("#title1,#title2").html(base.UnUnicodeText(Name));
 		}
 		$("#payuser").attr("src", base.ShowThumb(Avatar, 1));
 

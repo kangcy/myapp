@@ -67,10 +67,10 @@
 		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
 			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
 				<div class="mui-control-item temp f12" tid="0" color="#fff" type="0">
-					<div style="background:#fff;line-height:80px;display:inline-block;border:1px solid red;width:100%;" class="blue">纯白</div>
+					<div style="background:#fff;line-height:80px;display:inline-block;width:100%;" class="blue">纯白</div>
 				</div>
 				<div class="mui-control-item temp f12" tid="1" color="#fff" type="1">
-					<div style="line-height:80px;display:inline-block;border:1px solid red;width:100%;" class="blue">自定义</div>
+					<div style="line-height:80px;display:inline-block;width:100%;" class="blue">自定义</div>
 				</div>
 			</div>
 		</div>
@@ -158,7 +158,7 @@
 								<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
 								<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
 								<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
-								<p id="music0" play="on" class="music mb10" onclick="switchsound()">
+								<p id="music0" play="on" class="music" onclick="switchsound()">
 									<i></i>
 									<span id="musicname0"></span>
 								</p>
@@ -502,7 +502,7 @@
 
 					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
-					$("#title0,#title1").html(data.Title);
+					$("#title0,#title1").html(base.UnUnicodeText(data.Title));
 					$("#nickname0,#nickname1").html(base.UnUnicodeText(data.NickName));
 					$("#createdate0,#createdate1").html(data.CreateDateText);
 					$("#views0,#views1").html("阅读  " + data.Views);
@@ -693,7 +693,7 @@
 					});
 					break;
 				case 1:
-					//居顶
+					//居顶 
 					$bg.css({
 						"background": "url(" + CurrCover + ") no-repeat top center",
 						"background-size": "100% auto"
@@ -778,7 +778,7 @@
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						index += 1;
 						var item = data.list[i];
-						table.append('<div class="mui-control-item temp ' + (item.ID == CurrTemplate ? "hover" : "") + '" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '" style="display:inline-block;border:1px solid red;width:100%;"><img src="' + item.ThumbUrl + '" /></div>');
+						table.append('<div class="mui-control-item temp ' + (item.ID == CurrTemplate ? "hover" : "") + '" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '" style="display:inline-block;width:100%;"><img src="' + item.ThumbUrl + '" /></div>');
 					}
 				}
 			}
