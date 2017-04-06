@@ -88,9 +88,9 @@
 				<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
 				<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
 				<p class="secret tc mt5 mb15 f12">
-					<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow" id="showFollowNum">0</span></span>
-					<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow" id="showFanNum">0</span></span>
-					<span class="cfff textshadow hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="cfff textshadow" id="showArticleNum">0</span></span>
+					<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow f13" id="showFollowNum">0</span></span>
+					<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow f13" id="showFanNum">0</span></span>
+					<span class="cfff textshadow hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="cfff textshadow f13" id="showArticleNum">0</span></span>
 				</p>
 				<div class="full tc mb20 hide" id="action">
 					<div id="guanzhu" class="guanzhu f14 mr10">关注</div>
@@ -114,13 +114,13 @@
 		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" id="pic">
 					<a href="#" class="c333 f13" onclick="Pic()">查看相册</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" id="share">
 					<a href="#" class="c333 f13" onclick="Share()">分享给朋友</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" id="copy">
 					<a href="#" class="c333 f13" onclick="Copy()">复制链接</a>
 				</li>
 				<li class="mui-table-view-cell noborder hide" id="inblack">
@@ -268,9 +268,13 @@
 					document.getElementById("showFan").classList.remove("hide");
 				}
 
+				//在黑名单
 				if(data.IsBlack == 1) {
 					document.getElementById("article").classList.add("hide");
 					document.getElementById("blacktip").classList.remove("hide");
+					document.getElementById("pic").classList.add("hide");
+					document.getElementById("share").classList.add("hide");
+					document.getElementById("copy").classList.add("hide");
 					document.getElementById("inblack").classList.add("hide");
 					document.getElementById("outblack").classList.remove("hide");
 				} else {
@@ -289,7 +293,7 @@
 				}
 
 				//分享信息 
-				ShareInfo.Title = NickName + "的专栏";
+				ShareInfo.Title = base.UnUnicodeText(NickName) + "的专栏";
 				ShareInfo.Cover = Avatar;
 				ShareInfo.Url = data.ShareUrl;
 
@@ -420,7 +424,6 @@
 			return false;
 		}
 		isLoading = true;
-		base.ShowWaiting("操作中");
 		mui('#black').popover('toggle');
 		var data = {
 			ID: userinfo.ID,
@@ -432,7 +435,7 @@
 				mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
 				if(data.result) {
 					base.UpdateFan(userinfo, data.message);
-					mui.back();
+					plus.webview.currentWebview().reload();
 				}
 			}
 			isLoading = false;
@@ -445,7 +448,6 @@
 			return false;
 		}
 		isLoading = true;
-		base.ShowWaiting("操作中");
 		mui('#power').popover('toggle');
 		var data = {
 			ID: userinfo.ID,

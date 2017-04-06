@@ -407,7 +407,6 @@
 		mui.toast("分享链接已复制到剪贴板");
 	}
 
-
 	//加载文章
 	function Load(callback) {
 		HttpGet(base.RootUrl + "Api/Article/Detail", {
@@ -491,7 +490,7 @@
 					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(base.UnUnicodeText(data.Title));
-					$("#nickname0,#nickname1").html(base.UnUnicodeText(data.NickName));
+					$("#nickname0,#nickname1,#title").html(base.UnUnicodeText(data.NickName));
 					$("#createdate0,#createdate1").html(data.CreateDateText);
 					$("#views0,#views1").html("阅读  " + data.Views);
 					$("#desc").html(base.UnUnicodeText(html.join("")));
@@ -526,7 +525,7 @@
 					}
 
 					//分享信息
-					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + userinfo.NickName + "]" : "") + data.Title;
+					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);
 					ShareInfo.Cover = data.Cover;
 					ShareInfo.Url = data.ShareUrl;
 

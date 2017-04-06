@@ -342,17 +342,11 @@
 
 		mui.previewImage({
 			callback1: function(img) {
-				plus.webview.currentWebview().setStyle({
-					top: '0px',
-					bottom: '0px'
-				});
+				ShowMask(true, false, "topic.html");
 			},
 			callback2: function(img) {
 				setTimeout(function() {
-					plus.webview.currentWebview().setStyle({
-						top: '0px',
-						bottom: '50px'
-					});
+					ShowMask(false, false, "topic.html");
 				}, 400);
 			}
 		});
@@ -364,6 +358,7 @@
 			}
 			subindexPage.evalJS("PreviewTan2(" + index + ")");
 		});
+
 	});
 
 	/**

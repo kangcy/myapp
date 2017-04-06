@@ -753,20 +753,20 @@ var base = new function() {
 	 * deletNname:删除名称
 	 * isDistance:显示距离
 	 */
-	this.AppendUser = function(item, isSignature, isFollow, isDelete, deletNname, isDistance) {
+	this.AppendUser = function(item, isSignature, isFollow, isDelete, deleteName, isDistance) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell user';
 		div.setAttribute("userid", item.Number);
 		var model = [];
 		if(isDelete) {
-			model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">' + deletNname + '</a></div>');
+			model.push('<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">' + deleteName + '</a></div>');
 			model.push('<div class="mui-slider-cell mui-slider-handle">');
 		}
 		model.push('<div class="mui-table oa-contact-cell">');
 		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
 		model.push('<div class="mui-table-cell"><p class="f12 mb5 c333">' + base.UnUnicodeText(item.NickName) + '</p>');
 		if(isSignature) {
-			model.push('<p class="f11 c999">' + item.Signature + '</p>');
+			model.push('<p class="f11 c999">' + base.UnUnicodeText(item.Signature) + '</p>');
 		}
 		if(isDistance) {
 			var distance = parseFloat(item.Distance);
@@ -871,5 +871,33 @@ function EditorTan(index) {
 		$(".emojionearea").removeClass("bounceInUp").addClass("hide");
 	} else {
 		$(".emojionearea").removeClass("hide").addClass("bounceInUp");
+	}
+}
+
+//显示遮罩
+function ShowMask(show, showmask, pageid) {
+	var view = plus.webview.getWebviewById(pageid);
+	if(view == null) {
+		return;
+	}
+	if(show) {
+		view.setStyle({
+			top: '0px',
+			bottom: '0px'
+		});
+	} else {
+		view.setStyle({
+			top: '0px',
+			bottom: '50px'
+		});
+	}
+	if(showmask) {
+		view.setStyle({
+			mask: "rgba(0,0,0,0.6)"
+		});
+	} else {
+		view.setStyle({
+			mask: "none"
+		});
 	}
 }

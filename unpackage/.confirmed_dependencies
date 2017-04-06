@@ -1808,7 +1808,8 @@
 			"js/default.js",
 			"images/logo_default.png",
 			"js/jquery-1.10.2.min.js",
-			"part/list.html"
+			"part/list.html",
+			"images/base/follow1.png"
 		],
 		"refer": [
 			"page/user.html"

@@ -218,6 +218,8 @@
 						ArticleID: ArticleID
 					}, function(data) {
 						setTimeout(function() {
+							base.CloseWaiting();
+							mask.close();
 							if(data != null) {
 								if(data.result) {
 									plus.webview.close("articledetail");

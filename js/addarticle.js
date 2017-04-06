@@ -57,7 +57,9 @@ function getImage() {
 			compressIndex = 0;
 			compressTotal = 1;
 			length = 1;
-			base.ShowWaiting("正在同步文章内容");
+
+			ShowMaskHere(true);
+
 			compressImage(localurl);
 		});
 	});
@@ -68,7 +70,9 @@ function galleryImgs() {
 		files = e.files;
 		length = e.files.length;
 		compressTotal = length;
-		base.ShowWaiting("正在同步文章内容");
+
+		ShowMaskHere(true);
+
 		compressImage(e.files[0]);
 	}, function(e) {
 
@@ -85,7 +89,7 @@ function LoadImage(status, src, len) {
 		length = len - 1;
 	}
 	if(length <= 0) {
-		base.CloseWaiting();
+		ShowMaskHere(false);
 		return;
 	}
 	if(status) {
@@ -156,7 +160,7 @@ function Upload(imgurl) {
 					currUploadImg.push(base.RootUrl + data.message);
 				}
 				if(length <= 0) {
-					base.CloseWaiting();
+					ShowMaskHere(false);
 					plus.nativeUI.alert("图片上传失败", null, "");
 					return;
 				}
@@ -177,7 +181,7 @@ function Upload(imgurl) {
 						Longitude: base.Longitude
 					}
 					HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
-						base.CloseWaiting();
+						ShowMaskHere(false);
 						currUploadImg = [];
 						if(data != null) {
 							if(data.result) {
@@ -202,7 +206,9 @@ function ConfirmImg(src) {
 	if(base.IsNullOrEmpty(src)) {
 		return false;
 	}
-	base.ShowWaiting("正在同步文章内容");
+
+	ShowMaskHere(true);
+
 	//创建文章 
 	var data = {
 		ID: userinfo.ID,
@@ -219,7 +225,7 @@ function ConfirmImg(src) {
 	}
 	HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 		setTimeout(function() {
-			base.CloseWaiting();
+			ShowMaskHere(false);
 			if(data != null) {
 				if(data.result) {
 					base.OpenWindow("addarticle", "addarticle.html", {
@@ -233,4 +239,19 @@ function ConfirmImg(src) {
 			}
 		}, 1000)
 	});
+}
+
+function ShowMaskHere(show) {
+	if(show) {
+		ShowMask(true, true, activeTab);
+	} else {
+		ShowMask(false, false, activeTab);
+	}
+	if(show) {
+		setTimeout(function() {
+			base.ShowWaiting("正在同步文章内容");
+		}, 250);
+	} else {
+		base.CloseWaiting();
+	}
 }
