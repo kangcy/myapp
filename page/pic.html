@@ -77,7 +77,9 @@
 <script type="text/javascript">
 	var UserNumber = 0;
 	var PreviewEnable = true; //是否启用图片预览
-	var mask = mui.createMask(function() {});
+	var mask = mui.createMask(function() {
+		base.CloseWaiting();
+	});
 
 	mui.init({
 		gestureConfig: {
@@ -86,6 +88,7 @@
 	});
 
 	mui.ready(function() {
+
 		mui('#main').load("../part/list.html", function(response) {
 			document.getElementById("title").innerHTML = "相册";
 			document.getElementById("confirm").innerHTML = "删除";
@@ -235,7 +238,6 @@
 			if(e.index == 0) {
 				mask.show();
 				base.ShowWaiting("正在删除");
-
 				var ids = [];
 				check.each(function() {
 					ids.push($(this).attr("pid"));

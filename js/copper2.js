@@ -33,22 +33,24 @@ function galleryImgs(long, width, callback) {
 		dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片路径
 
 		//压缩图片,并重命名
-		compressImage(e, dstname, function(status, src) {
+		compressImage(e.files[0], dstname, function(status, src) {
 			if(status) {
 				$("#readyimg").hide().attr("src", src).load(function() {
-					var totalheight = window.innerHeight - 90;
 					var imagewidth = $("#readyimg").width();
 					var imageheight = $("#readyimg").height();
+
 					if(totalheight > imageheight) {
-						$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
+						$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px");
+					} else if(totalwidth > imagewidth) {
+						$("#readyimg").css("margin-left", (totalwidth - imagewidth) / 2 + "px");
 					} else {
 						$("#readyimg").css({
 							"width": "auto",
-							"height": totalheight + "px",
-							"margin": "0px"
+							"height": "auto"
 						});
 					}
-				}).show();
+					$("#readyimg").show();
+				});
 			}
 		});
 	}, function(e) {
@@ -59,7 +61,8 @@ function galleryImgs(long, width, callback) {
 	}, {
 		filter: "image",
 		maximum: 1,
-		system:false
+		multiple: true,
+		system: false
 	});
 }
 
@@ -264,19 +267,21 @@ function showActionSheet(long, width, callback) {
 //我的相册选择图片回调
 function ConfirmImg(src) {
 	$("#readyimg").hide().attr("src", src).load(function() {
-		var totalheight = window.innerHeight - 90;
 		var imagewidth = $("#readyimg").width();
 		var imageheight = $("#readyimg").height();
+
 		if(totalheight > imageheight) {
-			$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
+			$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px");
+		} else if(totalwidth > imagewidth) {
+			$("#readyimg").css("margin-left", (totalwidth - imagewidth) / 2 + "px");
 		} else {
 			$("#readyimg").css({
 				"width": "auto",
-				"height": totalheight + "px",
-				"margin": "0px"
+				"height": "auto"
 			});
 		}
-	}).show();
+		$("#readyimg").show();
+	});
 }
 
 //将图片压缩转成base64 

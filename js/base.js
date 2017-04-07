@@ -50,6 +50,36 @@
 
 })(document, window);
 
+//等待框
+var waiting = new function() {
+	//创建
+	this.create = function(title) {
+		var item = document.getElementById("waiting");
+		if(item) {
+			document.getElementById("waiting_title").innerHTML = title;
+			return item;
+		}
+		var div = document.createElement('div');
+		div.className = 'waiting c333 f13 tc';
+		div.setAttribute("id", "waiting");
+		div.innerHTML = '<div><img src="../images/loading.gif" class="fl" /><span id="waiting_title">' + title + '</span></div>';
+		document.getElementsByTagName("body")[0].appendChild(div);
+		return div;
+	}
+	this.setTitle = function(title) {
+		var item = this.create(title);
+		document.getElementById("waiting_title").innerHTML = title;
+	}
+	this.show = function(title) {
+		var item = this.create(title);
+		item.classList.remove("hide");
+	}
+	this.close = function() {
+		var item = this.create("");
+		item.classList.add("hide");
+	}
+}
+
 var base = new function() {
 
 	/**
@@ -220,30 +250,29 @@ var base = new function() {
 	 * 打开等待提示框 
 	 **/
 	this.ShowWaiting = function(title) {
-		if(mui.os.plus) {
+		waiting.show(title);
+		/*if(mui.os.plus) {
 			plus.nativeUI.showWaiting(title, {
 				width: "80%",
 				padding: "4%",
-				/*background: "rgba(0,0,0,0.5)",*/
-				background: "rgba(255,255,255)",
-				color: "rgba(0,0,0)",
+				background: "rgba(0,0,0,0.5)",
 				textalign: "left",
 				back: "none",
 				loading: {
-					display: "inline",
-					icon:"../images/loading.png"
+					display: "inline"
 				}
 			});
-		}
+		}*/
 	}
 
 	/**
 	 * 关闭等待提示框
 	 **/
 	this.CloseWaiting = function() {
-		if(mui.os.plus) {
+		waiting.close();
+		/*if(mui.os.plus) {
 			plus.nativeUI.closeWaiting();
-		}
+		}*/
 	}
 
 	/**

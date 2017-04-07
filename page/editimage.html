@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333" id="title"></h1>
 		</header>
@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div id="editimage" class="mui-iframe-wrapper full tc" style="top:45px;botom:50px;">
-			<img id="readyimg" style="width:100%;display:none;" />
+			<img id="readyimg" style="display:none;max-width:100%;max-height:100%;" class="fl" />
 		</div>
 		<footer class="mui-bar mui-bar-tab" style="background:#F4F4F4;">
 			<a class="mui-icon blue fl mt6 ml10" style="font-size:16px;" onclick="showActionSheet()">更换</a>
@@ -46,7 +46,8 @@
 <script src="../cropper/cropper.min.js"></script>
 <script src="../js/copper2.js"></script>
 <script type="text/javascript">
-	var totalheight = window.innerHeight - 90;
+	var totalheight = window.innerHeight - 95;
+	var totalwidth = window.innerWidth;
 	var Url = "";
 	var Source = "";
 	var ArticleID = 0;
@@ -83,15 +84,18 @@
 				var imagewidth = $("#readyimg").width();
 				var imageheight = $("#readyimg").height();
 				base.ShowLoading(false);
+
 				if(totalheight > imageheight) {
-					$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px").show();
+					$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px");
+				} else if(totalwidth > imagewidth) {
+					$("#readyimg").css("margin-left", (totalwidth - imagewidth) / 2 + "px");
 				} else {
 					$("#readyimg").css({
 						"width": "auto",
-						"height": totalheight + "px",
-						"margin": "0px"
-					}).show();
+						"height": "auto"
+					});
 				}
+				$("#readyimg").show();
 			});
 		}
 

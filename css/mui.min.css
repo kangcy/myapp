@@ -5289,6 +5289,30 @@ body>.mui-progressbar {
 }
 
 
+/**等待框**/
+
+.waiting {
+	position: fixed;
+	top: 42%;
+	width: 80%;
+	margin: 0px 10%;
+	height: 4rem;
+	line-height: 4rem;
+	background: #fff;
+	z-index: 99999999;
+	border-radius: 5px;
+}
+
+.waiting div {
+	display: inline-block;
+}
+
+.waiting div img {
+	width: 1.5rem;
+	margin: 1.25rem 0.75rem 1.25rem 0px;
+}
+
+
 /*
   1: 0.0625rem
   2: 0.125rem

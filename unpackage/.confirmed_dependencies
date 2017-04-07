@@ -601,7 +601,8 @@
 			"images/share/6.jpg",
 			"images/share/5.jpg",
 			"images/share/4.jpg",
-			"images/share/1.jpg"
+			"images/share/1.jpg",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/topic.html",
@@ -1440,7 +1441,8 @@
 			"images/editimage/e4.png",
 			"images/60x60.gif",
 			"images/header.png",
-			"css/loading.min.css"
+			"css/loading.min.css",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/addarticle.html",
@@ -1603,7 +1605,8 @@
 			"js/PullRefresh.js",
 			"images/my/nocheck.png",
 			"js/jquery-1.10.2.min.js",
-			"images/my/check.png"
+			"images/my/check.png",
+			"images/loading.gif"
 		],
 		"refer": []
 	},
