@@ -224,7 +224,9 @@ var base = new function() {
 			plus.nativeUI.showWaiting(title, {
 				width: "80%",
 				padding: "4%",
-				background: "rgba(0,0,0,0.6)",
+				/*background: "rgba(0,0,0,0.6)",*/
+				background: "rgba(255,255,255)",
+				color: "rgba(0,0,0)",
 				textalign: "left",
 				back: "none",
 				loading: {

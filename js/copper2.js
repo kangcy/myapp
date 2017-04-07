@@ -58,7 +58,8 @@ function galleryImgs(long, width, callback) {
 		}
 	}, {
 		filter: "image",
-		maximum: 1
+		maximum: 1,
+		system:false
 	});
 }
 

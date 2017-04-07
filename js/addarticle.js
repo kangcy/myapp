@@ -69,6 +69,7 @@ function galleryImgs() {
 	plus.gallery.pick(function(e) {
 		files = e.files;
 		length = e.files.length;
+
 		compressTotal = length;
 
 		ShowMaskHere(true);
@@ -79,12 +80,13 @@ function galleryImgs() {
 	}, {
 		filter: "image",
 		multiple: true,
-		maximum: 20
+		maximum: 20,
+		system: false
 	});
 }
 
 //加载图片
-function LoadImage(status, src, len) {
+function LoadImage(status, src, len, callback) {
 	if(!status) {
 		length = len - 1;
 	}
@@ -97,11 +99,11 @@ function LoadImage(status, src, len) {
 		image.src = src;
 		if(image.complete) {
 			var imgData = getBase64Image(image);
-			Upload(imgData, length);
+			Upload(imgData, callback);
 		} else {
 			image.onload = function() {
 				var imgData = getBase64Image(image);
-				Upload(imgData, length);
+				Upload(imgData, callback);
 			}
 		};
 	}
@@ -118,18 +120,20 @@ function compressImage(src) {
 			quality: 100
 		},
 		function(event) {
-			LoadImage(true, event.target, length);
-			compressIndex += 1;
-			if(compressIndex < compressTotal) {
-				compressImage(files[compressIndex]);
-			}
+			LoadImage(true, event.target, length, function() {
+				compressIndex += 1;
+				if(compressIndex < compressTotal) {
+					compressImage(files[compressIndex]);
+				}
+			});
 		},
 		function(error) {
-			LoadImage(false, src, length);
-			compressIndex += 1;
-			if(compressIndex < compressTotal) {
-				compressImage(files[compressIndex]);
-			}
+			LoadImage(false, src, length, function() {
+				compressIndex += 1;
+				if(compressIndex < compressTotal) {
+					compressImage(files[compressIndex]);
+				}
+			});
 		});
 }
 
@@ -146,26 +150,30 @@ function getBase64Image(img) {
 }
 
 //上传图片到服务器 
-function Upload(imgurl) {
+function Upload(imgurl, callback) {
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		Standard: "Article",
 		Number: userinfo.Number
 	}, function(data) {
 		if(data != null) {
+
 			if(data.result) {
+				base.CloseWaiting();
+				base.ShowWaiting("正在导入第" + (currUploadImg.length + 1) + "张图片...")
 				if(base.IsNullOrEmpty(data.message)) {
 					length = length - 1;
 				} else {
 					currUploadImg.push(base.RootUrl + data.message);
 				}
+
 				if(length <= 0) {
 					ShowMaskHere(false);
-					plus.nativeUI.alert("图片上传失败", null, "");
+					plus.nativeUI.alert("图片导入失败", null, "");
 					return;
 				}
 				//图片上传完毕，创建文章
-				if(currUploadImg.length == length) {
+				if(currUploadImg.length >= length) {
 					//创建文章 
 					var data = {
 						ID: userinfo.ID,
@@ -196,7 +204,12 @@ function Upload(imgurl) {
 						}
 					});
 				}
+
+				if(callback) {
+					callback();
+				}
 			}
+
 		}
 	}, "json");
 }
@@ -249,7 +262,7 @@ function ShowMaskHere(show) {
 	}
 	if(show) {
 		setTimeout(function() {
-			base.ShowWaiting("正在同步文章内容");
+			base.ShowWaiting("正在导入图片");
 		}, 250);
 	} else {
 		base.CloseWaiting();

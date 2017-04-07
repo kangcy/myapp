@@ -40,7 +40,9 @@
 	var ParentCommentNumber = 0;
 	var ParentUserNumber = 0;
 	var NewId = 0; //最新添加评论ID
-	var mask = mui.createMask(function() {});
+	var mask = mui.createMask(function() {
+		EditorHide();
+	});
 
 	mui.init();
 
@@ -136,7 +138,7 @@
 			isLoading = false;
 			return mui.toast("请填写内容");
 		}
-		EditorClose();
+		EditorHide();
 		mask.show();
 		base.ShowWaiting("正在提交");
 		HttpGet(base.RootUrl + "Comment/Edit", {
@@ -177,6 +179,12 @@
 	//关闭编辑器
 	function EditorClose() {
 		EditorTan(0);
+		editor[0].emojioneArea.setText("");
+	}
+
+	//隐藏编辑器
+	function EditorHide() {
+		$(".emojionearea").removeClass("zoomIn").addClass("zoomOut hide");
 		editor[0].emojioneArea.setText("");
 	}
 
