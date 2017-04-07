@@ -83,24 +83,22 @@
 				return;
 			}
 			isLoading = true;
-			var $this = this;
-			if($this.getAttribute("already") == "1") {
+			if(this.getAttribute("already") == "1") {
 				isLoading = false;
 				return mui.toast("已赞");
 			}
-			var commentid = $this.getAttribute("cid");
+			var commentid = this.getAttribute("cid");
 			HttpGet(base.RootUrl + "Comment/Zan", {
 				ID: userinfo.ID,
 				CommentID: commentid
 			}, function(data) {
 				if(data != null) {
 					if(data.result) {
-						$this.classList.add("heartbeat");
-						$this.setAttribute("already", "1");
-						$this.setAttribute("src", "../images/base/like_hig.png");
 						var item = $("#goods" + commentid);
-						item.text(parseInt(item.text()) + 1);
-						item.addClass("red");
+						item.addClass("heartbeat red");
+						item.attr("already", "1");
+						item.find("img").attr("src", "../images/base/like_hig.png");
+						item.find("span").html(parseInt(item.find("span").html()) + 1);
 					}
 				}
 				isLoading = false;
@@ -138,6 +136,7 @@
 			isLoading = false;
 			return mui.toast("请填写内容");
 		}
+		EditorClose();
 		mask.show();
 		base.ShowWaiting("正在提交");
 		HttpGet(base.RootUrl + "Comment/Edit", {
@@ -152,7 +151,6 @@
 				mask.close();
 				mui.toast(data.result ? "感谢您的评论" : data.message);
 				if(data.result) {
-					EditorClose();
 					NewId = data.message;
 					AppendComment();
 				}
@@ -232,12 +230,25 @@
 		}
 		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articleid="' + item.ArticleID + '" />');
 		if(item.IsZan == 0) {
-			model.push('<span class="f11 ml5 mt1 fr" id="goods' + item.ID + '">' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class="goods ml15 fr" cid="' + item.ID + '" already="0" />');
+			model.push('<div id="goods' + item.ID + '" cid="' + item.ID + '" already="0" class="goods fr">');
+			model.push('<span class="f11 ml5 mt1 fr" >' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class=" ml15 fr"  />');
 		} else {
-			model.push('<span class="f11 ml5 mt1 fr red">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="ml15 fr" cid="' + item.ID + '" already="1" />');
+			model.push('<div class="red fr" cid="' + item.ID + '" already="1">');
+			model.push('<span class="f11 ml5 mt1 fr">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="ml15 fr"  />');
 		}
-		model.push('</div></div></div>');
+		model.push('</div></div></div></div>');
 		div.innerHTML = model.join('');
 		return div;
+	}
+
+	//编辑器弹窗
+	function EditorTan(index) {
+		if(index == 0) {
+			mask.close();
+			$(".emojionearea").removeClass("zoomIn").addClass("zoomOut hide");
+		} else {
+			mask.show();
+			$(".emojionearea").removeClass("zoomOut hide").addClass("zoomIn");
+		}
 	}
 </script>

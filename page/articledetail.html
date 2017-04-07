@@ -44,8 +44,8 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="mui-bar mui-bar-tab hide" id="bottomAction" style="background:#fff;border-top:1px solid #eee">
+		<!--底部-->
+		<div class="mui-bar mui-bar-tab hide" id="bottomAction" style="background:#fff;">
 			<div id="addcomment">
 				<div class="c666 f12">我来说一句</div>
 			</div>
@@ -63,19 +63,20 @@
 		</div>
 		<!--模板选择-->
 		<img class="hide" src="../images/article/skin.png" onclick="TempTan(1)" id="btnTemp"></i>
-		<i class="fa fa-check-circle hide" style="font-size:50px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
-		<div id="temps" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow hide">
-			<div class="mui-scroll" style="height:100px;margin-top:10px;" id="temp">
-				<div class="mui-control-item temp f12" tid="0" color="#fff" type="0">
-					<div style="background:#fff;line-height:80px;display:inline-block;width:100%;" class="blue">纯白</div>
-				</div>
-				<div class="mui-control-item temp f12" tid="1" color="#fff" type="1">
-					<div style="line-height:80px;display:inline-block;width:100%;" class="blue">自定义</div>
+		<i class="fa fa-check-circle hide" style="font-size:60px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
+		<div id="temps" class="hide">
+			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow" style="height:6.25rem;border: 0px;border-radius: 0px;">
+				<div class="mui-scroll" style="height:6.25rem;margin-top:0.625rem;" id="temp">
+					<div class="mui-control-item temp f12" tid="0" color="#fff" type="0">
+						<div class="blue">纯白</div>
+					</div>
+					<div class="mui-control-item temp f12" tid="1" color="#fff" type="1">
+						<div class="blue">自定义</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<!--分享-->
-		<div class="mytanbg hide" id="mysharebg" onclick="ShareTan(0)"></div>
 		<div class="myshare hide" id="myshare">
 			<p class="f16 c000 tc mt10 mb0">分享到</p>
 			<div class="tc c000 myshare_body">
@@ -109,11 +110,10 @@
 				<div id="report" class="myshare_items" onclick="ShareAction(9)"><img src="../images/share/9.jpg" />
 					<p class="f11 mb0 c000">举报</p>
 				</div>
-				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
+				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(2)">取消</div>
 			</div>
 		</div>
 		<!--操作-->
-		<div class="mytanbg hide" id="myactionbg" onclick="ActionTan(0)"></div>
 		<div class="myaction boxshadow hide" id="myaction">
 			<div class="tc c000 myaction_body">
 				<div class="myaction_items" onclick="Delete()"><img src="../images/article/1.png" />
@@ -218,7 +218,11 @@
 	var $zan = document.getElementById('zan');
 
 	//显示遮罩
-	var mask = mui.createMask(function() {});
+	var mask = mui.createMask(function() {
+		ShareTan(0);
+		ActionTan(0);
+	});
+
 	var $custom = $("#custom");
 
 	//启用双击监听 
@@ -570,21 +574,21 @@
 			return mui.toast("私密文章不可以分享");
 		}
 		if(index == 0) {
-			$("#mysharebg").addClass("hide");
 			$("#myshare").removeClass("bounceIn").addClass("bounceOut");
-		} else {
+		} else if(index == 1) {
+			mask.show();
 			$("#myshare").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
-			$("#mysharebg").removeClass("hide");
+		} else {
+			mask.close();
 		}
 	}
 
 	//操作弹窗
 	function ActionTan(index) {
 		if(index == 0) {
-			$("#myactionbg").addClass("hide");
 			$("#myaction").removeClass("bounceIn").addClass("bounceOut");
 		} else {
-			$("#myactionbg").removeClass("hide");
+			mask.show();
 			$("#myaction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
 		}
 	}
@@ -650,7 +654,7 @@
 
 	//分享信息
 	function ShareAction(index) {
-		ShareTan(0); //关闭分享弹窗
+		ShareTan(2);
 
 		//系统分享
 		if(index == 6) {

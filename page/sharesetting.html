@@ -236,7 +236,6 @@
 
 	//保存权限
 	function SaveArticlePower() {
-		base.ShowWaiting("正在编辑");
 		setTimeout(function() {
 			HttpGet(base.RootUrl + "Article/EditArticlePower", {
 					ID: userinfo.ID,
@@ -245,8 +244,8 @@
 					ArticlePowerPwd: ArticlePowerPwd
 				},
 				function(data) {
-					base.CloseWaiting();
-					mui.toast(data.result ? "编辑成功" : data.message);
+					if(!data.result)
+						mui.toast(data.message);
 				});
 		}, 500);
 	}

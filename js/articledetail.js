@@ -256,7 +256,7 @@ function LoadTemplate() {
 				for(var i = 0, len = data.list.length; i < len; i++) {
 					index += 1;
 					var item = data.list[i];
-					table.append('<div class="mui-control-item temp ' + (item.ID == CurrTemplate ? "hover" : "") + '" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '" style="display:inline-block;width:100%;"><img src="' + item.ThumbUrl + '" /></div>');
+					table.append('<div class="mui-control-item temp ' + (item.ID == CurrTemplate ? "hover" : "") + '" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
 				}
 			}
 		}

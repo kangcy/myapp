@@ -1084,7 +1084,8 @@
 			"js/PullRefresh.js",
 			"images/article/star.png",
 			"js/article.js",
-			"css/animate.css"
+			"css/animate.css",
+			"images/article/power1.png"
 		],
 		"refer": [
 			"page/keepSub.html",

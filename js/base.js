@@ -509,7 +509,7 @@ var base = new function() {
 			}
 
 			//加精、置顶
-			model.push('<div class="c999 f10 star">');
+			model.push('<div class="c999 f11 star">');
 			if(item.Recommend == 99) {
 				model.push('<img src="../images/article/star.png" class="fl" /><span class="fl">精华</span>');
 			} else if(item.Recommend == 100) {
@@ -517,7 +517,7 @@ var base = new function() {
 			} else {
 				model.push('<img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span>');
 			}
-			model.push('<div style="width:1.5rem;height:100%;" class="fr" onclick="ActionTan(true,' + item.ArticleNumber + ',' + item.ArticleID + ')"><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10"></a></div></div>');
+			model.push('<div style="width:1.5rem;height:100%;" class="fr" onclick="ActionTan(true,' + item.ArticleNumber + ',' + item.ArticleID + ')"><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10 c999"></a></div></div>');
 
 			//用户
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
@@ -865,14 +865,14 @@ function ChangeSlider(index) {
 	mui('#slider').slider().gotoItem(index);
 }
 
-//编辑器弹窗
+/*//编辑器弹窗
 function EditorTan(index) {
 	if(index == 0) {
 		$(".emojionearea").removeClass("bounceInUp").addClass("hide");
 	} else {
 		$(".emojionearea").removeClass("hide").addClass("bounceInUp");
 	}
-}
+}*/
 
 //显示遮罩
 function ShowMask(show, showmask, pageid) {
