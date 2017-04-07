@@ -151,6 +151,12 @@ function getBase64Image(img) {
 
 //上传图片到服务器 
 function Upload(imgurl, callback) {
+
+	/*setTimeout(function() {
+		ShowMaskHere(false);
+	}, 5000);
+	return; */
+
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		Standard: "Article",
@@ -204,7 +210,6 @@ function Upload(imgurl, callback) {
 						}
 					});
 				}
-
 				if(callback) {
 					callback();
 				}
@@ -262,7 +267,7 @@ function ShowMaskHere(show) {
 	}
 	if(show) {
 		setTimeout(function() {
-			base.ShowWaiting("正在导入图片");
+			base.ShowWaiting("正在压缩图片");
 		}, 250);
 	} else {
 		base.CloseWaiting();

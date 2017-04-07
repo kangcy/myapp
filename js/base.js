@@ -217,20 +217,21 @@ var base = new function() {
 	};
 
 	/**
-	 * 打开等待提示框
+	 * 打开等待提示框 
 	 **/
 	this.ShowWaiting = function(title) {
 		if(mui.os.plus) {
 			plus.nativeUI.showWaiting(title, {
 				width: "80%",
 				padding: "4%",
-				/*background: "rgba(0,0,0,0.6)",*/
+				/*background: "rgba(0,0,0,0.5)",*/
 				background: "rgba(255,255,255)",
 				color: "rgba(0,0,0)",
 				textalign: "left",
 				back: "none",
 				loading: {
-					display: "inline"
+					display: "inline",
+					icon:"../images/loading.png"
 				}
 			});
 		}
