@@ -23,14 +23,7 @@
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/PullRefresh.js"></script>
 <script type="text/javascript">
-	var currpage = 1;
-	var totalpage = 2;
-	var records = 0;
-	var isLoading = false;
-	var pagesize = base.PageSize;
-	var parentPage = null;
-	var userinfo = base.GetUserInfo();
-	var name = "我";
+	var Name = "我";
 	var UserNumber = "";
 
 	mui.init();
@@ -42,11 +35,11 @@
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
-		name = self.Name || "我";
-		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
-		name = base.UnUnicodeText(name);
-		document.getElementById("title").innerHTML = name + "的关注";
-		if(name == "我") {
+		Name = self.Name || "我";
+		UserNumber = Name == "我" ? userinfo.Number : self.UserNumber;
+		Name = base.UnUnicodeText(Name);
+		document.getElementById("title").innerHTML = Name + "的关注";
+		if(Name == "我") {
 			document.getElementById("none_tip").innerHTML = "关注别人,第一时间得到他们的专栏更新";
 		} else {
 			document.getElementById("none_tip").innerHTML = "关注了,才能看到第一时间动态呀";

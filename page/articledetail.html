@@ -570,14 +570,15 @@
 
 	//分享弹窗
 	function ShareTan(index) {
-		if(Article.ArticlePower == 0) {
-			return mui.toast("私密文章不可以分享");
-		}
 		if(index == 0) {
-			$("#myshare").removeClass("bounceIn").addClass("bounceOut");
+			$("#myshare").removeClass("zoomIn").addClass("hide");
 		} else if(index == 1) {
-			mask.show();
-			$("#myshare").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+			if(Article.ArticlePower == 0) {
+				return mui.toast("私密文章不可以分享");
+			} else {
+				mask.show();
+				$("#myshare").removeClass("hide").addClass("zoomIn");
+			}
 		} else {
 			mask.close();
 		}
@@ -586,10 +587,10 @@
 	//操作弹窗
 	function ActionTan(index) {
 		if(index == 0) {
-			$("#myaction").removeClass("bounceIn").addClass("bounceOut");
+			$("#myaction").removeClass("zoomIn").addClass("hide");
 		} else {
 			mask.show();
-			$("#myaction").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+			$("#myaction").removeClass("hide").addClass("zoomIn");
 		}
 	}
 
