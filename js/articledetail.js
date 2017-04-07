@@ -271,8 +271,15 @@ function UpdatePower(ArticlePower, ArticlePowerPwd, ArticleType, ArticleTypeName
 	Article.TypeName = ArticleTypeName;
 }
 
-//背景设置
+//自定义背景设置
 function ShowSide() {
+	base.OpenWindow("customsetting", "customsetting.html", {
+		ArticleID: ArticleID,
+		ArticleNumber: Article.Number,
+		Source: Source
+	});
+	return;
+
 	if(CurrTemplate != 1) {
 		return mui.toast("仅自定义模板可用");
 	}

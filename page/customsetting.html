@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>自定义背景</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			.tip {
+				position: fixed;
+				top: 20%;
+				text-align: center;
+				width: 100%;
+				z-index: 2;
+			}
+			
+			.tip div {
+				padding: 10px 20px;
+				border-radius: 10px;
+				background: rgba(0, 0, 0, 0.5);
+				color: #fff;
+				display: inline-block;
+			}
+			
+			.mui-bar {
+				background: #fff;
+			}
+			
+			.mui-table-view-cell {
+				padding: 0.9375rem;
+			}
+			
+			.mui-icon-arrowright {
+				margin-right: -0.3rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
+			<h1 class="mui-title c333">自定义背景</h1>
+		</header>
+		<!--<div id="editimage" style="width:100%;position:fixed;top:45px;bottom:0px;">-->
+		<div id="editimage" class="full tc" style="top:45px;botom:0px;">
+			<img id="readyimg" style="width:500px;" class="fl" src="http://www.ishaoxia.com/Upload/Images/Article/20170407/201704071123342189_0.jpg" />
+		</div>
+		<div class="tip f11">
+			<div>拖拽进行裁剪</div>
+		</div>
+		<div style="width:100%;position:fixed;bottom:0px;height:50%;background:rgba(255,255,255,0.5);" id="cover">
+			<ul class="mui-table-view f13">
+				<li class="mui-table-view-cell">
+					<span class="fl">开启全屏背景</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="qqSwitch">
+							<div></div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="fl">开启高清背景</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="weiboSwitch">
+							<div></div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<span class="fl f11 blue ml15 mt20">说明:该透明度将会运用到文章详情展示</span>
+			<div class="fl f11 full mt10"><span class="fl ml15 mt10 c333">透明度:</span>
+				<div class="mui-input-row mui-input-range fl ml10" style="clear:none;width: 80%;">
+					<input type="range" id='range' value="50" min="0" max="100">
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script src="../cropper/cropper.min.js"></script>
+<script type="text/javascript">
+	var cover = document.getElementById("cover");
+	var userinfo = base.GetUserInfo();
+	mui.init();
+	mui.ready(function() {
+		$("#editimage").css("height", (window.innerHeight - 45) + "px");
+
+		var range = document.getElementById("range");
+		range.addEventListener('input', function() {
+			cover.style.background = "rgba(255, 255, 255, " + (1 - (this.value / 100)) + ")";
+		});
+		cutImg(0, 0, function() {
+
+		})
+	})
+
+	mui.plusReady(function() {
+
+		//返回
+		mui.back = function() {
+			var self = plus.webview.currentWebview();
+			var myPage = plus.webview.getWebviewById('my.html');
+			if(myPage) {
+				myPage.evalJS("Refresh()");
+			}
+			plus.webview.close(self);
+		}
+	});
+ 
+	//照片裁剪类  
+	function cutImg(long, width, callback) {
+		$("#readyimg").cropper({ 
+			background: true,
+			checkImageOrigin: true,
+			autoCropArea: 0.3,
+			zoom: -0.2,
+			build: function() {
+				callback();
+			}
+		});
+	}
+</script>
