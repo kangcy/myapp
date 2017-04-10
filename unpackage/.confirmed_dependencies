@@ -82,7 +82,8 @@
 			"images/login/logo.png",
 			"fonts/mui.ttf",
 			"css/input.css",
-			"css/input.min.css"
+			"css/input.min.css",
+			"images/loading.gif"
 		],
 		"refer": [
 			"index.html",
@@ -900,7 +901,8 @@
 			"images/login/pwd.png",
 			"css/input.css",
 			"css/input.min.css",
-			"js/articledetail.js"
+			"js/articledetail.js",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/user.html",
@@ -2146,7 +2148,8 @@
 			"js/cropper.js",
 			"images/201704071612501672_2.jpg",
 			"images/bg.jpg",
-			"images/article/pen2.png"
+			"images/article/pen2.png",
+			"css/loading.min.css"
 		]
 	}
 }

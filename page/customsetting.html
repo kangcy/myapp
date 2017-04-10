@@ -156,9 +156,6 @@
 			} else {
 				full = 0;
 			}
-			//$readyimg.hide();
-			//$readyimg.cropper('destroy');
-
 			if(full == 0) {
 				windowHeight = windowHeight * 0.4;
 			} else {
@@ -189,7 +186,6 @@
 				movable: true
 			});
 			$readyimg.cropper('reset');
-
 			isLoading = false;
 		});
 
@@ -215,13 +211,15 @@
 
 		self = plus.webview.currentWebview();
 		articleNumber = self.ArticleNumber || "";
-		full = self.Full || 0;
-		hign = self.Hign || 0;
-		transparency = self.Transparency || 0;
-		url = self.Url || "../images/201704071612501672_0.jpg";
+		url = self.Url || "";
+
+		if(base.IsNullOrEmpty(articleNumber) || base.IsNullOrEmpty(url)) {
+			mui.toast("信息异常");
+			plus.webview.close("customsetting");
+		}
 
 		base.SwitchChange("fullSwitch", full);
-		base.SwitchChange("highSwitch", hign);
+		base.SwitchChange("highSwitch", high);
 
 		CutImg(full);
 
@@ -280,8 +278,9 @@
 	//请求上传图片
 	function Upload(imgurl, callback) {
 		//上传图片到服务器 
+		mask.show();
 		base.ShowWaiting("正在同步图片");
-		mui.post(base.RootUrl + "Upload/Upload", {
+		HttpPost(base.RootUrl + "Upload/Upload", {
 			str: imgurl,
 			standard: "ArticleCover",
 			Number: userinfo.Number
@@ -297,7 +296,7 @@
 				base.CloseWaiting();
 				mask.close();
 			}
-		}, "json");
+		});
 	}
 
 	function Save() {
@@ -309,14 +308,18 @@
 		imgurl = dataURL.toDataURL("image/jpeg", 1);
 		Upload(imgurl, function(data) {
 			console.log(data);
+			var url = data;
 			//保存设置
-			HttpGet(base.RootUrl + "Api/Background/Edit", {
+			HttpPost(base.RootUrl + "Api/Background/Edit", {
 				ID: userinfo.ID,
 				ArticleNumber: articleNumber,
 				Full: full,
-				Hign: hign,
-				Transparency: transparency
+				Hign: high,
+				Transparency: transparency,
+				Url: url
 			}, function(data) {
+				console.log(data);
+				data = JSON.parse(data);
 				if(data == null) {
 					isLoading = false;
 					mui.toast("系统异常,请稍后再试");

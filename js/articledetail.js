@@ -274,9 +274,8 @@ function UpdatePower(ArticlePower, ArticlePowerPwd, ArticleType, ArticleTypeName
 //自定义背景设置
 function ShowSide() {
 	base.OpenWindow("customsetting", "customsetting.html", {
-		ArticleID: ArticleID,
 		ArticleNumber: Article.Number,
-		Source: Source
+		Url: "../images/201704071612501672_0.jpg"
 	});
 	return;
 

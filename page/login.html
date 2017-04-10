@@ -87,7 +87,9 @@
 <script src="../js/login.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var mask = mui.createMask(function() {});
+	var mask = mui.createMask(function() {
+		base.CloseWaiting();
+	});
 
 	mui.init({
 		//statusBarBackground: '#f7f7f7'
@@ -99,7 +101,7 @@
 	var passwordBox = document.getElementById('password');
 
 	//跳转首页
-	var toMain = function() {
+	var toMain = function() { 
 		//base.ShowWaiting("登录成功，正在加载");
 		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
 		accountBox.value = "";
