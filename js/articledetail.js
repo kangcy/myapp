@@ -235,18 +235,3 @@ function UpdatePower(ArticlePower, ArticlePowerPwd, ArticleType, ArticleTypeName
 	Article.TypeID = ArticleType;
 	Article.TypeName = ArticleTypeName;
 }
-
-//自定义背景设置
-function ShowSide() {
-	base.OpenWindow("customsetting", "customsetting.html", {
-		ArticleNumber: Article.Number,
-		Url: "../images/201704071612501672_0.jpg"
-	});
-	return;
-
-	if(CurrTemplate != 1) {
-		return mui.toast("仅自定义模板可用");
-	}
-	ActionTan(0);
-	CustomTan(1);
-}

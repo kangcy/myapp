@@ -63,7 +63,7 @@
 	mui.init();
 
 	//标题
-	var title = document.getElementById("title");
+	var title = document.getElementById("title"); 
 
 	mui.ready(function() {
 
@@ -78,11 +78,9 @@
 
 		//封面
 		document.getElementById('cover').addEventListener('tap', function(event) {
-			base.OpenWindow("editimage", "editimage.html", {
-				Url: Cover,
-				Source: "ArticleCover",
-				Standard: "ArticleCover",
-				Title: "封面"
+			base.OpenWindow("customsetting", "customsetting.html", {
+				ArticleNumber: ArticleNumber,
+				Url: "../images/201704071612501672_0.jpg"
 			});
 		});
 
@@ -266,26 +264,6 @@
 			title.innerHTML = val;
 			Title = val;
 		}
-	}
-
-	//修改封面
-	function UpdateCover(url) {
-		if(Cover == url) {
-			return;
-		}
-		HttpGet(base.RootUrl + "Article/EditArticleCover", {
-			ID: userinfo.ID,
-			ArticleID: ArticleID,
-			Cover: url
-		}, function(data) {
-			if(data.result) {
-				document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
-				document.getElementById("header").style.backgroundSize = "cover";
-				Cover = url;
-			} else {
-				mui.toast(data.message);
-			}
-		});
 	}
 
 	//编辑图片
@@ -476,7 +454,11 @@
 					ArticleTypeName = data.TypeName;
 					ArticleUserID = data.UserID;
 					Title = data.Title;
-					Cover = data.Cover;
+					if(data.BackgroundJson != null) {
+						Cover = data.BackgroundJson.Url;
+					} else {
+						Cover = data.Cover;
+					}
 					MusicID = data.MusicID;
 					MusicName = data.MusicName;
 					MusicUrl = data.MusicUrl;
@@ -490,7 +472,7 @@
 
 					//加载段落
 					var parts = data.ArticlePart;
-					if(parts.length > 0) {
+					if(parts.length > 0) { 
 						var $edit = $("#edit");
 						for(var i = 0; i < parts.length; i++) {
 							var part = parts[i];
@@ -543,5 +525,13 @@
 	//更新布局
 	function InitGroup() {
 		Group(document.getElementById('edit'), window.innerWidth * 0.05);
+	}
+
+	//刷新封面
+	function RefreshCover(url) {
+		document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
+		document.getElementById("header").style.backgroundSize = "cover";
+		Cover = url;
+		plus.webview.close("customsetting");
 	}
 </script>

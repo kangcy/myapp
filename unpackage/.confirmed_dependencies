@@ -560,7 +560,8 @@
 			"page/music.html",
 			"page/editimage.html",
 			"page/editvideo.html",
-			"page/edittext.html"
+			"page/edittext.html",
+			"page/customsetting.html"
 		]
 	},
 	"page/subindex.html": {
