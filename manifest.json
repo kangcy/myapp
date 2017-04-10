@@ -529,8 +529,10 @@
 	        "images/my/setting.png",
 	        "images/logo_default.png",
 	        "js/transparent.js",
-	        "images/login/logo.png",
+	        "images/login/logo.png"
 	      ],
+	      "priority": 0
+	    },
 	      "refer": [
 	        "page/pay.html",
 	        "page/feedback.html",
@@ -2170,7 +2172,6 @@
 	      "page/bgtemplate.html",
 	      "go.keystore"
 	    ]
-	  }
 	},
 	"fullscreen": true,
 	"unpackage": [

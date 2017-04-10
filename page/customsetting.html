@@ -8,6 +8,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../cropper/cropper.css">
 		<style type="text/css">
 			.tip {
 				position: fixed;
@@ -25,10 +27,6 @@
 				display: inline-block;
 			}
 			
-			.mui-bar {
-				background: #fff;
-			}
-			
 			.mui-table-view-cell {
 				padding: 0.9375rem;
 			}
@@ -36,17 +34,26 @@
 			.mui-icon-arrowright {
 				margin-right: -0.3rem;
 			}
+			
+			.cropper-crop-box {
+				z-index: -1;
+			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333">自定义背景</h1>
+		<header class="mui-bar mui-bar-nav" style="background:transparent;box-shadow:none;">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff textshadow"></a>
+			<a class="mui-icon mui-text cfff fr textshadow" id="confirm" onclick="Save()">完成</a>
+			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
-		<!--<div id="editimage" style="width:100%;position:fixed;top:45px;bottom:0px;">-->
-		<div id="editimage" class="full tc" style="top:45px;botom:0px;">
-			<img id="readyimg" style="width:500px;" class="fl" src="http://www.ishaoxia.com/Upload/Images/Article/20170407/201704071123342189_0.jpg" />
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div class="full tc">
+			<img id="readyimg" class="fl" />
 		</div>
 		<div class="tip f11">
 			<div>拖拽进行裁剪</div>
@@ -71,7 +78,7 @@
 				</li>
 			</ul>
 			<span class="fl f11 blue ml15 mt20">说明:该透明度将会运用到文章详情展示</span>
-			<div class="fl f11 full mt10"><span class="fl ml15 mt10 c333">透明度:</span>
+			<div class="fl f11 full mt20"><span class="fl ml15 mt10 c333">透明度:</span>
 				<div class="mui-input-row mui-input-range fl ml10" style="clear:none;width: 80%;">
 					<input type="range" id='range' value="50" min="0" max="100">
 				</div>
@@ -83,21 +90,21 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
-<script src="../cropper/cropper.min.js"></script>
+<script src="../js/cropper.js"></script>
 <script type="text/javascript">
+	var $readyimg = $("#readyimg");
 	var cover = document.getElementById("cover");
+	var mask = mui.createMask(function() {
+		base.CloseWaiting();
+	});
 	var userinfo = base.GetUserInfo();
 	mui.init();
 	mui.ready(function() {
-		$("#editimage").css("height", (window.innerHeight - 45) + "px");
-
 		var range = document.getElementById("range");
 		range.addEventListener('input', function() {
 			cover.style.background = "rgba(255, 255, 255, " + (1 - (this.value / 100)) + ")";
 		});
-		cutImg(0, 0, function() {
-
-		})
+		CutImg();
 	})
 
 	mui.plusReady(function() {
@@ -112,17 +119,72 @@
 			plus.webview.close(self);
 		}
 	});
- 
+
 	//照片裁剪类  
-	function cutImg(long, width, callback) {
-		$("#readyimg").cropper({ 
-			background: true,
-			checkImageOrigin: true,
-			autoCropArea: 0.3,
-			zoom: -0.2,
-			build: function() {
-				callback();
+	function CutImg() {
+		$readyimg.hide().attr("src", '../images/201704071612501672_0.jpg?random=' + base.GetUid()).load(function() {
+			var imgWidth = $readyimg.width();
+			var imgHeight = $readyimg.height();
+			var windowWidth = window.innerWidth;
+			var windowHeight = window.innerHeight;
+			var initWidth = windowWidth;
+			var initHeight = windowHeight;
+			//计算长宽比
+			if((imgWidth / imgHeight) >= (windowWidth / windowHeight)) {
+				initWidth = 0;
 			}
+			$readyimg.cropper({
+				minCanvasWidth: initWidth,
+				minCanvasHeight: initHeight,
+				minContainerWidth: windowWidth,
+				minContainerHeight: windowHeight,
+				minCropBoxWidth: windowWidth,
+				minCropBoxHeight: windowHeight,
+				viewMode: 3,
+				background: false,
+				checkImageOrigin: true,
+				modal: false,
+				autoCrop: true,
+				dragCrop: false,
+				zoomable: false,
+				movable: true,
+				built: function() {
+					$readyimg.show();
+					base.ShowLoading(false);
+				}
+			});
+		});
+	}
+
+	//请求上传图片
+	function Upload(imgurl, callback) {
+		//上传图片到服务器 
+		base.ShowWaiting("正在同步图片");
+		mui.post(base.RootUrl + "Upload/Upload", {
+			str: imgurl,
+			standard: "ArticleCover",
+			Number: userinfo.Number
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					if($.isFunction(callback)) {
+						callback(base.RootUrl + data.message);
+					}
+					//$("#readyimg").cropper('destroy');
+				} else {
+					mui.toast(data.message);
+				}
+				base.CloseWaiting();
+				mask.close();
+			}
+		}, "json");
+	}
+
+	function Save() {
+		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
+		imgurl = dataURL.toDataURL("image/jpeg", 1);
+		Upload(imgurl, function(data) {
+			console.log(data);
 		});
 	}
 </script>
