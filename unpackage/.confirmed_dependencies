@@ -2150,7 +2150,10 @@
 			"images/201704071612501672_2.jpg",
 			"images/bg.jpg",
 			"images/article/pen2.png",
-			"css/loading.min.css"
+			"css/loading.min.css",
+			"images/logo_default.png",
+			"images/my/check.png",
+			"images/share/5.jpg"
 		]
 	}
 }

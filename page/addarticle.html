@@ -63,7 +63,7 @@
 	mui.init();
 
 	//标题
-	var title = document.getElementById("title"); 
+	var title = document.getElementById("title");
 
 	mui.ready(function() {
 
@@ -78,10 +78,12 @@
 
 		//封面
 		document.getElementById('cover').addEventListener('tap', function(event) {
-			base.OpenWindow("customsetting", "customsetting.html", {
+			base.OpenWindow("customsetting", "customsetting.html", {});
+
+			/*base.OpenWindow("custom", "custom.html", {
 				ArticleNumber: ArticleNumber,
 				Url: "../images/201704071612501672_0.jpg"
-			});
+			});*/
 		});
 
 		//标题
@@ -222,10 +224,6 @@
 								if(data.result) {
 									plus.webview.close("articledetail");
 									plus.webview.close("addarticle");
-									/*var articlePage = plus.webview.getWebviewById("articleSub");
-									if(articlePage) {
-										articlePage.evalJS("Delete(" + ArticleID + ")");
-									}*/
 								}
 							}
 						}, 500);
@@ -472,7 +470,7 @@
 
 					//加载段落
 					var parts = data.ArticlePart;
-					if(parts.length > 0) { 
+					if(parts.length > 0) {
 						var $edit = $("#edit");
 						for(var i = 0; i < parts.length; i++) {
 							var part = parts[i];
@@ -533,5 +531,6 @@
 		document.getElementById("header").style.backgroundSize = "cover";
 		Cover = url;
 		plus.webview.close("customsetting");
+		plus.webview.close("custom");
 	}
 </script>

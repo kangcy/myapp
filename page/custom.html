@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>自定义背景</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../cropper/cropper.css">
+		<style type="text/css">
+			.tip {
+				position: fixed;
+				top: 18%;
+				text-align: center;
+				width: 100%;
+				z-index: 2;
+			}
+			
+			.tip div {
+				padding: 10px 20px;
+				border-radius: 10px;
+				background: rgba(0, 0, 0, 0.5);
+				color: #fff;
+				display: inline-block;
+			}
+			
+			.mui-table-view-cell {
+				padding: 0.9375rem;
+			}
+			
+			.mui-icon-arrowright {
+				margin-right: -0.3rem;
+			}
+			
+			.cropper-crop-box {
+				z-index: -1;
+			}
+			
+			#addcomment {
+				width: 100%;
+				float: left;
+				height: 2.8rem;
+				line-height: 2.6rem;
+				text-align: center;
+				position: fixed;
+				bottom: 1rem;
+			}
+			
+			#addcomment div {
+				width: 90%;
+				border-radius: 5px;
+				background: #4087cb;
+				display: inline-block;
+				height: 2.1875rem;
+				line-height: 2.1875rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background:transparent;box-shadow:none;">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff textshadow"></a>
+			<h1 class="mui-title cfff" id="title"></h1>
+		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div class="full tc">
+			<img id="readyimg" class="fl" />
+		</div>
+		<div class="tip f11">
+			<div>拖拽进行裁剪</div>
+		</div>
+		<div style="width:100%;position:fixed;bottom:0px;height:60%;background:rgba(255,255,255,0.5);" class="hide" id="cover">
+			<ul class="mui-table-view f13">
+				<li class="mui-table-view-cell">
+					<span class="fl">开启全屏背景</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="fullSwitch">
+							<div></div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<span class="fl">开启高清背景</span>
+					<div class="divSwitch">
+						<div class="my-switch fr" id="highSwitch">
+							<div></div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<span class="fl f11 blue ml15 mt20">说明:该透明度将会运用到文章详情展示</span>
+			<div class="fl f11 full mt20"><span class="fl ml15 mt10 c333">透明度:</span>
+				<div class="mui-input-row mui-input-range fl ml10" style="clear:none;width: 80%;">
+					<input type="range" id='range' value="50" min="0" max="100">
+				</div>
+			</div>
+			<div id="addcomment">
+				<div class="f12 cfff" onclick="Save()">使用</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/cropper.js"></script>
+<script type="text/javascript">
+	var full = 0;
+	var high = 0;
+	var transparency = 0;
+	var articleNumber = "";
+	var url = "";
+	var isLoading = false;
+	var imgWidth = 0;
+	var imgHeight = 0;
+	var windowWidth = window.innerWidth;
+	var windowHeight = window.innerHeight;
+	var $readyimg = $("#readyimg");
+	var $cover = document.getElementById("cover");
+	var mask = mui.createMask(function() {
+		base.CloseWaiting();
+	});
+	var userinfo = base.GetUserInfo();
+
+	mui.init();
+
+	mui.ready(function() {
+		var range = document.getElementById("range");
+		range.addEventListener('input', function() {
+			transparency = this.value;
+			$cover.style.background = "rgba(255, 255, 255, " + (1 - (this.value / 100)) + ")";
+		});
+
+		//开启全屏背景
+		document.getElementById("fullSwitch").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var active = this.className.indexOf("active") >= 0;
+			base.SwitchChange("fullSwitch", !active);
+			if(!active) {
+				full = 1;
+			} else {
+				full = 0;
+			}
+			if(full == 0) {
+				windowHeight = windowHeight * 0.4;
+			} else {
+				windowHeight = window.innerHeight;
+			}
+			var initWidth = windowWidth;
+			var initHeight = windowHeight;
+
+			//计算长宽比
+			if((imgWidth / imgHeight) >= (windowWidth / windowHeight)) {
+				initWidth = 0;
+			}
+			$readyimg.cropper('destroy');
+			$readyimg.cropper.setDefaults({
+				minCanvasWidth: initWidth,
+				minCanvasHeight: initHeight,
+				minContainerWidth: windowWidth,
+				minContainerHeight: windowHeight,
+				minCropBoxWidth: windowWidth,
+				minCropBoxHeight: windowHeight,
+				viewMode: 3,
+				background: false,
+				checkImageOrigin: true,
+				modal: false,
+				autoCrop: true,
+				dragCrop: false,
+				zoomable: false,
+				movable: true
+			});
+			$readyimg.cropper('reset');
+			isLoading = false;
+		});
+
+		//开启高清背景
+		document.getElementById("highSwitch").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var active = this.className.indexOf("active") >= 0;
+			base.SwitchChange("highSwitch", !active);
+			if(!active) {
+				hign = 1;
+			} else {
+				hign = 0;
+			}
+
+			isLoading = false;
+		});
+	})
+
+	mui.plusReady(function() {
+
+		self = plus.webview.currentWebview();
+		articleNumber = self.ArticleNumber || "";
+		url = self.Url || "";
+
+		if(base.IsNullOrEmpty(articleNumber) || base.IsNullOrEmpty(url)) {
+			mui.toast("信息异常");
+			plus.webview.close("customsetting");
+		}
+
+		base.SwitchChange("fullSwitch", full);
+		base.SwitchChange("highSwitch", high);
+
+		CutImg(full);
+
+		//返回
+		mui.back = function() {
+			plus.webview.close(self);
+		}
+	});
+
+	//照片裁剪类(0:不全屏,1:全屏)  
+	function CutImg(type) {
+		$readyimg.hide().attr("src", url).load(function() {
+			imgWidth = $readyimg.width();
+			imgHeight = $readyimg.height();
+			if(type == 0) {
+				windowHeight = windowHeight * 0.4;
+			} else {
+				windowHeight = window.innerHeight;
+			}
+			var initWidth = windowWidth;
+			var initHeight = windowHeight;
+
+			//计算长宽比
+			if((imgWidth / imgHeight) >= (windowWidth / windowHeight)) {
+				initWidth = 0;
+			}
+			$readyimg.cropper({
+				minCanvasWidth: initWidth,
+				minCanvasHeight: initHeight,
+				minContainerWidth: windowWidth,
+				minContainerHeight: windowHeight,
+				minCropBoxWidth: windowWidth,
+				minCropBoxHeight: windowHeight,
+				viewMode: 3,
+				background: false,
+				checkImageOrigin: true,
+				modal: false,
+				autoCrop: true,
+				dragCrop: false,
+				zoomable: false,
+				movable: true,
+				built: function() {
+					$readyimg.show();
+					$cover.classList.remove("hide");
+					base.ShowLoading(false);
+				}
+			});
+		});
+	}
+
+	//请求上传图片
+	function Upload(imgurl, callback) {
+		//上传图片到服务器 
+		mask.show();
+		base.ShowWaiting("图片上传中");
+		HttpPost(base.RootUrl + "Upload/Upload", {
+			str: imgurl,
+			standard: "ArticleCover",
+			Number: userinfo.Number
+		}, function(data) {
+			if(data != null) {
+				if(data.result) {
+					if($.isFunction(callback)) {
+						callback(base.RootUrl + data.message);
+					}
+				} else {
+					mui.toast(data.message);
+				}
+				base.CloseWaiting();
+				mask.close();
+			}
+		});
+	}
+
+	function Save() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
+		imgurl = dataURL.toDataURL("image/jpeg", 1);
+		Upload(imgurl, function(data) {
+			var url = data;
+			//保存设置
+			HttpPost(base.RootUrl + "Api/Background/Edit", {
+				ID: userinfo.ID,
+				ArticleNumber: articleNumber,
+				Full: full,
+				Hign: high,
+				Transparency: transparency,
+				Url: url
+			}, function(data) {
+				data = JSON.parse(data);
+				if(data == null) {
+					mui.toast("系统异常,请稍后再试");
+				} else {
+					if(data.result) {
+						mui.toast("设置成功");
+						var page = plus.webview.getWebviewById("addarticle");
+						if(page) {
+							page.evalJS("RefreshCover('" + url + "')");
+						}
+					} else {
+						mui.toast(data.message);
+					}
+				}
+				isLoading = false;
+			});
+		});
+	}
+</script>
