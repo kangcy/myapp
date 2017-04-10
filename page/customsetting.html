@@ -32,6 +32,18 @@
 				height: 2rem;
 			}
 			
+			#scroll {
+				background: #fff;
+				padding: 5%;
+				display: inline-block;
+			}
+			
+			.thirdfloor {
+				margin: 1%;
+				width: 31.3%;
+				height: 5rem;
+			}
+			
 			.thirdfloor .cover {
 				position: absolute;
 				left: 0px;
@@ -63,6 +75,25 @@
 				background-size: 100% 100%;
 				background-position: center center;
 			}
+			/**操作**/
+			
+			.mui-popover.mui-popover-action .mui-table-view {
+				margin-left: 0 !important;
+				margin-right: 0px !important;
+				border-radius: 0px !important;
+			}
+			
+			.mui-popover.mui-popover-action .mui-table-view {
+				margin-left: 0px !important;
+				margin-right: 0px !important;
+				margin-bottom: 0px !important;
+				margin-top: 0.5rem !important;
+				border-radius: 0px !important;
+			}
+			
+			.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
+				background-color: #ddd !important;
+			}
 		</style>
 	</head>
 
@@ -76,20 +107,60 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
+		<!--操作-->
+		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="pic">
+					<a href="#" class="c333 f13" onclick="Pic()">查看相册</a>
+				</li>
+				<li class="mui-table-view-cell" id="share">
+					<a href="#" class="c333 f13" onclick="Share()">分享给朋友</a>
+				</li>
+				<li class="mui-table-view-cell" id="copy">
+					<a href="#" class="c333 f13" onclick="Copy()">复制链接</a>
+				</li>
+				<li class="mui-table-view-cell noborder hide" id="inblack">
+					<a href="#black" class="red f13">加入黑名单</a>
+				</li>
+				<li class="mui-table-view-cell noborder hide" id="outblack">
+					<a href="#" class="red f13" onclick="OutBlack()">解除黑名单</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#power" class="c333 f13">取消</a>
+				</li>
+			</ul>
+		</div>
+		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder c999 f11">
+					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作
+				</li>
+				<li class="mui-table-view-cell noborder">
+					<a href="#" class="red f13" onclick="InBlack()">确认加入</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#black" class="c333 f13">取消</a>
+				</li>
+			</ul>
+		</div>
 		<div class="mui-content">
 			<div class="full tc" id="items">
 				<div class="item fl">
-					<img src="../images/share/5.jpg" />
-					<div class="full f13">单图背景</div>
+					<a href="#power"><img src="../images/share/5.jpg" />
+						<div class="full f13 c333">单图背景</div>
+					</a>
 				</div>
 				<div class="item fl">
-					<img src="../images/share/5.jpg" />
-					<div class="full f13">多图背景</div>
+					<a href="#power"><img src="../images/share/5.jpg" />
+						<div class="full f13 c333">多图背景</div>
+					</a>
 				</div>
 			</div>
 			<div id="scroll">
-				<div id="scroll-view">
-				</div>
 			</div>
 		</div>
 	</body>
@@ -111,7 +182,7 @@
 	mui.init();
 
 	mui.ready(function() {
-
+		Load();
 	})
 
 	mui.plusReady(function() {
@@ -129,12 +200,39 @@
 	});
 
 	function Load() {
+		var table = document.getElementById("scroll");
+		var item = {
+			Url: "http://www.ishaoxia.com/Upload/Images/ArticleCover/20170410/201704101839545982_0.jpg",
+			IsUsed: 0,
+			ID: 0
+		}
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		table.appendChild(AppendStr(item));
+		return;
 		HttpGet(base.RootUrl + "Api/Background/All", {
 			UserNumber: userinfo.Number
 		}, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
-				var table = document.getElementById("scroll-view");
+				var table = document.getElementById("scroll");
 				totalpage = data.totalpage;
 				var length = data.message.length;
 				if(length > 0) {
