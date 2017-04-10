@@ -13,10 +13,7 @@ function ChangeMusic(index) {
 
 //背景状态切换
 function ChangeBg(index) {
-	CurrBackground = index;
-
 	var $bg = $("#bg");
-
 	if(CurrTemplate > 0) {
 		if(CurrTemplate == 1) {
 			$("#bg").css({
@@ -40,30 +37,31 @@ function ChangeBg(index) {
 			"background-size": "100% auto"
 		});
 	} else {
-		switch(index) {
-			case 0:
-				//全屏
-				$bg.css({
-					"background": "url(" + CurrCover + ") no-repeat",
-					"background-size": "100% 100%",
-				});
-				break;
-			case 1:
-				//居顶 
-				$bg.css({
-					"background": "url(" + CurrCover + ") no-repeat top center",
-					"background-size": "100% auto"
-				});
-				break;
-			case 2:
-				//居底
-				$bg.css({
-					"background": "url(" + CurrCover + ") bottom center repeat",
-					"background-size": "100% auto"
-				});
-				break;
-			default:
-				break;
+		if(CurrBackground == null) {
+			//全屏
+			$bg.css({
+				"background": "url(" + CurrCover + ") no-repeat",
+				"background-size": "100% 100%",
+			});
+		} else {
+			switch(CurrBackground.Full) {
+				case 0:
+					//居顶 
+					$bg.css({
+						"background": "url(" + CurrCover + ") no-repeat top center",
+						"background-size": "100% auto"
+					});
+					break;
+				case 1:
+					//全屏
+					$bg.css({
+						"background": "url(" + CurrCover + ") no-repeat",
+						"background-size": "100% 100%",
+					});
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }
@@ -209,39 +207,6 @@ function OutKeep() {
 				isLoading = false;
 			});
 		}
-	});
-}
-
-//取消修改背景设置
-function NotAgree() {
-	if(base.RepeatAction()) {
-		return;
-	}
-	CustomTan(0);
-	ChangeBg(Article.Background);
-}
-
-//修改背景设置
-function Agree() {
-	if(isLoading) {
-		return;
-	}
-	isLoading = true;
-	if(Article.Background == CurrBackground) {
-		isLoading = false;
-		CustomTan(0);
-		return;
-	}
-	CustomTan(0);
-	HttpGet(base.RootUrl + "Article/EditBackground", {
-		ID: userinfo.ID,
-		ArticleID: ArticleID,
-		Background: CurrBackground
-	}, function(data) {
-		if(data.result) {
-			Article.Background = CurrBackground;
-		}
-		isLoading = false;
 	});
 }
 

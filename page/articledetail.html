@@ -135,18 +135,6 @@
 		</div>
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
-		<!--自定义背景-->
-		<div id="custom" class="custom tc hide">
-			<div class="full">
-				<span class="span1 f13 cfff" onclick="NotAgree(0)">取消</span>
-				<span class="span2 f13 cfff" onclick="Agree(0)">完成</span>
-				<div class="items f13">
-					<div class="item curr" onclick="ChangeCustom(0)">全屏</div>
-					<div class="item" onclick="ChangeCustom(1)">居顶</div>
-					<div class="item" onclick="ChangeCustom(2)">居底</div>
-				</div>
-			</div>
-		</div>
 		<div class="mui-iframe-wrapper hide" id="wrapper" style="top:46px;bottom:50px;">
 			<div class="mui-content mui-scroll-wrapper bg">
 				<div class="mui-scroll" id="bg">
@@ -211,7 +199,7 @@
 	var currEditID = 0; //当前操作对象ID
 	var MusicID = ""; //音乐控件ID
 	var MusicUrl = "";
-	var CurrBackground = 0; //当前选中背景设置
+	var CurrBackground = null; //背景设置
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
@@ -222,8 +210,6 @@
 		ShareTan(0);
 		ActionTan(0);
 	});
-
-	var $custom = $("#custom");
 
 	//启用双击监听 
 	mui.init({
@@ -259,7 +245,7 @@
 				$("#main0").addClass("hide");
 				$("#main1").removeClass("hide");
 			}
-			ChangeBg(CurrBackground); //背景切换
+			ChangeBg(); //背景切换
 
 			ChangeMusic(templatetype); //音乐切换
 		});
@@ -473,22 +459,28 @@
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
 
-					//排版
-					CurrCover = data.Cover;
-					var mainIndex = 0;
-					if(data.TemplateJson.ID > 0) {
-						mainIndex = data.TemplateJson.TemplateType;
-						CurrCover = data.TemplateJson.Cover;
-						$("#wrapper").css("background-color", data.TemplateJson.Background);
-					}
 					CurrTemplate = data.Template;
-					CurrBackground = data.Background;
 					if(CurrTemplate == 1) {
 						mainIndex = 1;
 					}
 
+					//排版
+					CurrCover = data.Cover;
+					var mainIndex = 0;
+					if(data.TemplateJson != null) {
+						if(data.TemplateJson.ID > 0) {
+							mainIndex = data.TemplateJson.TemplateType;
+							CurrCover = data.TemplateJson.Cover;
+							$("#wrapper").css("background-color", data.TemplateJson.Background);
+						}
+					}
+					if(data.BackgroundJson != null) {
+						CurrBackground = data.BackgroundJson;
+						CurrCover = data.BackgroundJson.Url;
+					}
+
 					if(!base.IsNullOrEmpty(CurrCover)) {
-						ChangeBg(CurrBackground);
+						ChangeBg();
 					}
 
 					$("#musicname0,#musicname1").html(data.MusicName);
@@ -613,23 +605,6 @@
 			$("#btnTemp").addClass("hide");
 			$("#agreeTemp,#temps").removeClass("hide");
 		}
-	}
-
-	//自定义背景弹窗
-	function CustomTan(index) {
-		if(index == 0) {
-			$custom.removeClass("bounceIn").addClass("bounceOut");
-		} else {
-			$custom.find(".curr").removeClass("curr");
-			$custom.find(".item:eq(" + CurrBackground + ")").addClass("curr");
-			$custom.removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
-		}
-	}
-
-	function ChangeCustom(index) {
-		$custom.find(".curr").removeClass("curr");
-		$custom.find(".item:eq(" + index + ")").addClass("curr");
-		ChangeBg(index);
 	}
 
 	//确认模板
