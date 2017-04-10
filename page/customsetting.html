@@ -38,13 +38,31 @@
 			.cropper-crop-box {
 				z-index: -1;
 			}
+			
+			#addcomment {
+				width: 100%;
+				float: left;
+				height: 2.8rem;
+				line-height: 2.6rem;
+				text-align: center;
+				position: fixed;
+				bottom: 1rem;
+			}
+			
+			#addcomment div {
+				width: 90%;
+				border-radius: 5px;
+				background: #4087cb;
+				display: inline-block;
+				height: 2.1875rem;
+				line-height: 2.1875rem;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:transparent;box-shadow:none;">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff textshadow"></a>
-			<a class="mui-icon mui-text cfff fr textshadow" id="confirm" onclick="Save()">完成</a>
 			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
 		<div class="loading" id="loader">
@@ -58,12 +76,12 @@
 		<div class="tip f11">
 			<div>拖拽进行裁剪</div>
 		</div>
-		<div style="width:100%;position:fixed;bottom:0px;height:50%;background:rgba(255,255,255,0.5);" id="cover">
+		<div style="width:100%;position:fixed;bottom:0px;height:60%;background:rgba(255,255,255,0.5);" id="cover">
 			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell">
 					<span class="fl">开启全屏背景</span>
 					<div class="divSwitch">
-						<div class="my-switch fr" id="qqSwitch">
+						<div class="my-switch fr" id="fullSwitch">
 							<div></div>
 						</div>
 					</div>
@@ -71,7 +89,7 @@
 				<li class="mui-table-view-cell">
 					<span class="fl">开启高清背景</span>
 					<div class="divSwitch">
-						<div class="my-switch fr" id="weiboSwitch">
+						<div class="my-switch fr" id="highSwitch">
 							<div></div>
 						</div>
 					</div>
@@ -82,6 +100,9 @@
 				<div class="mui-input-row mui-input-range fl ml10" style="clear:none;width: 80%;">
 					<input type="range" id='range' value="50" min="0" max="100">
 				</div>
+			</div>
+			<div id="addcomment">
+				<div class="f12 cfff" onclick="Save()">使用</div>
 			</div>
 		</div>
 	</body>
@@ -105,6 +126,46 @@
 			cover.style.background = "rgba(255, 255, 255, " + (1 - (this.value / 100)) + ")";
 		});
 		CutImg();
+
+		//开启全屏背景
+		document.getElementById("fullSwitch").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var active = this.className.indexOf("active") >= 0;
+			base.SwitchChange("fullSwitch", !active);
+			if(!active) {
+				authLogin('qq');
+			} else {
+
+			}
+		});
+
+		//开启高清背景
+		document.getElementById("highSwitch").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var active = this.className.indexOf("active") >= 0;
+			base.SwitchChange("highSwitch", !active);
+			if(!active) {
+				authLogin('qq');
+			} else {
+				if(base.IsNullOrEmpty(userinfo.Phone)) {
+					mui.confirm('解绑QQ前需要绑定手机', '', ['去绑定', '取消'], function(e) {
+						if(e.index == 0) {
+							BindPhone();
+						} else {
+							isLoading = false;
+						}
+					});
+				} else {
+					authLogout('qq');
+				}
+			}
+		});
 	})
 
 	mui.plusReady(function() {
