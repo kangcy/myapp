@@ -146,6 +146,7 @@ function Edit() {
 		Source: Source
 	});
 	setTimeout(function() {
+		base.CloseWaiting();
 		mask.close();
 	}, 2000);
 }
