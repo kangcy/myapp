@@ -1,21 +1,10 @@
 var ArticleNumber = "";
 var ArticleID = 0;
 var subindexPage = null;
-var mask = mui.createMask(function() {
-	SubIndexPageTan(false);
-	document.getElementById("action").classList.remove("mui-active");
+var mask = base.CreateMask(true, function() {
+	base.CloseWaiting();
+	mui('#action').popover('hide');
 });
-
-//调用父窗口
-function SubIndexPageTan(show) {
-	if(!NeedParentPage) {
-		return;
-	}
-	if(subindexPage == null) {
-		subindexPage = plus.webview.getWebviewById("subindex");
-	}
-	subindexPage.evalJS("ActionTan(" + show + ",'" + PageName + "')");
-}
 
 //子窗口弹窗
 function ActionTan(show, articleNumber, articleId) {
@@ -34,19 +23,11 @@ function ActionTan(show, articleNumber, articleId) {
 		}
 	}
 	if(show) {
-		SubIndexPageTan(show);
-		mask.show(); 
-		document.getElementById("action").classList.add("mui-active");
-	} else {
-		mask.close();
-		SubIndexPageTan(show);
-		document.getElementById("action").classList.remove("mui-active");
+		if(!FullScreen) {
+			ShowMask(true, false, PageName);
+		}
+		mui('#action').popover('show');
 	}
-}
-
-//父窗口关闭回调
-function ActionTan2() {
-	mask.close();
 }
 
 //收藏

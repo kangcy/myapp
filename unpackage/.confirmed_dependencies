@@ -510,7 +510,8 @@
 			"images/article/star.png",
 			"images/article/top.png",
 			"images/article/power1.png",
-			"js/article.js"
+			"js/article.js",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/topicSub.html",

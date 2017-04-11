@@ -121,7 +121,7 @@
 			</div>
 		</div>
 		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;bottom: inherit;">
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="action_keep">
 					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
@@ -157,7 +157,7 @@
 	var currSlider = 0;
 	var userinfo = base.GetUserInfo();
 	var PageName = "topic.html";
-	var NeedParentPage = true; //是否触发父窗口弹窗
+	var FullScreen = false;
 
 	mui.init();
 
@@ -338,16 +338,21 @@
 	});
 
 	mui.plusReady(function() {
+
 		base.ArticleAction("#slider", userinfo);
+
+		document.getElementById("action").addEventListener('hidden', function(event) {
+			ShowMask(false, false, PageName);
+		});
 
 		mui.previewImage({
 			callback1: function(img) {
-				ShowMask(true, false, "topic.html");
+				ShowMask(true, false, PageName);
 			},
 			callback2: function(img) {
 				mui.later(function() {
-					ShowMask(false, false, "topic.html");
-				}, 400);
+					ShowMask(false, false, PageName);
+				}, 350);
 			}
 		});
 
@@ -358,7 +363,6 @@
 			}
 			subindexPage.evalJS("PreviewTan2(" + index + ")");
 		});
-
 	});
 
 	/**

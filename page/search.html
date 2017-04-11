@@ -73,7 +73,7 @@
 			</div>
 		</div>
 		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;bottom: inherit;">
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="action_keep">
 					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
@@ -139,7 +139,7 @@
 	var parentPage = null;
 	var userinfo = base.GetUserInfo();
 	var PageName = "searchSub";
-	var NeedParentPage = false; //是否触发父窗口弹窗
+	var FullScreen = true;
 
 	var search = document.getElementById("search");
 

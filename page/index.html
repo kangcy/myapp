@@ -60,7 +60,20 @@
 			</div>
 		</div>
 		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;bottom: inherit;">
+		<!--<div id="action" class="mui-popover mui-popover-action mui-popover-bottom" style="left:25%;width:50%;top:40%;bottom: inherit;">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="action_keep">
+					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
+				</li>
+				<li class="mui-table-view-cell hide" id="action_outkeep">
+					<a href="#" class="c333 f13" onclick="OutKeep()">取消收藏</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" class="red f13" onclick="Report()">举报</a>
+				</li>
+			</ul>
+		</div>-->
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="action_keep">
 					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
@@ -91,7 +104,7 @@
 	var userinfo = base.GetUserInfo();
 	var isLoading = false;
 	var PageName = "index.html";
-	var NeedParentPage = true; //是否触发父窗口弹窗
+	var FullScreen = false;
 
 	mui.init();
 
@@ -102,6 +115,10 @@
 		base.ShowUser("#pullrefresh");
 
 		base.ScrollTop();
+
+		document.getElementById("action").addEventListener('hidden', function(event) {
+			ShowMask(false, false, PageName);
+		});
 	});
 
 	mui.plusReady(function() {
@@ -128,12 +145,12 @@
 
 		mui.previewImage({
 			callback1: function(img) {
-				ShowMask(true, false, "index.html");
+				ShowMask(true, false, PageName);
 			},
 			callback2: function(img) {
 				mui.later(function() {
-					ShowMask(false, false, "index.html");
-				}, 400);
+					ShowMask(false, false, PageName);
+				}, 350);
 			}
 		});
 	});
