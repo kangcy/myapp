@@ -251,18 +251,6 @@ var base = new function() {
 	 **/
 	this.ShowWaiting = function(title) {
 		waiting.show(title);
-		/*if(mui.os.plus) {
-			plus.nativeUI.showWaiting(title, {
-				width: "80%",
-				padding: "4%",
-				background: "rgba(0,0,0,0.5)",
-				textalign: "left",
-				back: "none",
-				loading: {
-					display: "inline"
-				}
-			});
-		}*/
 	}
 
 	/**
@@ -270,10 +258,46 @@ var base = new function() {
 	 **/
 	this.CloseWaiting = function() {
 		waiting.close();
-		/*if(mui.os.plus) {
-			plus.nativeUI.closeWaiting();
-		}*/
 	}
+
+	/**
+	 * 创建弹出层
+	 **/
+	this.CreateMask = function(enable, callback) {
+		var element = document.createElement('div');
+		element.classList.add('mui-backdrop');
+		element.addEventListener(mui.EVENT_MOVE, mui.preventDefault);
+		element.addEventListener('tap', function() {
+			if(mask._enable) {
+				mask.close();
+			}
+		});
+		var mask = [element];
+		mask._show = false;
+		mask._enable = enable;
+		mask.show = function() {
+			mask._show = true;
+			element.setAttribute('style', 'opacity:1');
+			document.body.appendChild(element);
+			return mask;
+		};
+		mask._remove = function() { 
+			if(mask._show) {
+				mask._show = false;
+				element.setAttribute('style', 'opacity:0');
+				mui.later(function() {
+					var body = document.body;
+					element.parentNode === body && body.removeChild(element);
+				}, 350);
+			}
+			return mask;
+		};
+		mask.close = function() {
+			mask._remove();
+			callback();
+		};
+		return mask;
+	};
 
 	/**
 	 * 防止连续点击
@@ -284,7 +308,7 @@ var base = new function() {
 			return true;
 		}
 		Repeat_Action = new Date().getTime();
-		setTimeout(function() {
+		mui.later(function() {
 			Repeat_Action = null;
 		}, 1000);
 		return false;

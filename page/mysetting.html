@@ -102,7 +102,9 @@
 	var auths = {};
 	var isLoading = false; //是否操作中
 	var userinfo = base.GetUserInfo();
-	var mask = mui.createMask(function() {}); //显示遮罩
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
 
 	mui.init();
 
@@ -157,8 +159,7 @@
 					ID: userinfo.ID,
 					Sex: items[0].value
 				}, function(data) {
-					setTimeout(function() {
-						base.CloseWaiting();
+					mui.later(function() {
 						mask.close();
 						if(data.result) {
 							userinfo.Sex = items[0].value == "0" ? "男" : "女";
@@ -192,10 +193,8 @@
 					ID: userinfo.ID,
 					Birthday: rs.text
 				}, function(data) {
-					setTimeout(function() {
-						base.CloseWaiting();
+					mui.later(function() {
 						mask.close();
-
 						if(data.result) {
 							userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -265,8 +264,7 @@
 			ID: userinfo.ID,
 			NickName: t
 		}, function(data) {
-			setTimeout(function() {
-				base.CloseWaiting();
+			mui.later(function() {
 				mask.close();
 				if(data.result) {
 					userinfo.NickName = t;
@@ -287,8 +285,7 @@
 			ID: userinfo.ID,
 			Signature: t
 		}, function(data) {
-			setTimeout(function() {
-				base.CloseWaiting();
+			mui.later(function() {
 				mask.close();
 				if(data.result) {
 					userinfo.Signature = t;
@@ -328,8 +325,7 @@
 			Province: province,
 			City: city
 		}, function(data) {
-			setTimeout(function() {
-				base.CloseWaiting();
+			mui.later(function() {
 				mask.close();
 				if(data.result) {
 					userinfo.Address = province + " " + city

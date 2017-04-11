@@ -706,7 +706,8 @@
 			"images/base/like_nor.png",
 			"images/base/comment_nor.png",
 			"images/base/like_hig.png",
-			"js/PullRefresh.js"
+			"js/PullRefresh.js",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -1378,7 +1379,8 @@
 			"part/list.html",
 			"images/article/pen.png",
 			"images/article/pen2.png",
-			"js/PullRefresh.js"
+			"js/PullRefresh.js",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/articleCommentSub.html",

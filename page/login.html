@@ -87,7 +87,7 @@
 <script src="../js/login.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var mask = mui.createMask(function() {
+	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
 
@@ -101,13 +101,12 @@
 	var passwordBox = document.getElementById('password');
 
 	//跳转首页
-	var toMain = function() { 
+	var toMain = function() {
 		//base.ShowWaiting("登录成功，正在加载");
 		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
 		accountBox.value = "";
 		passwordBox.value = "";
 		mask.close();
-		base.CloseWaiting();
 		isLoading = false;
 	};
 
@@ -158,9 +157,8 @@
 			};
 			//登录 
 			app.login(loginInfo, function(err) {
-				setTimeout(function() {
+				mui.later(function() {
 					if(err) {
-						base.CloseWaiting();
 						isLoading = false;
 						mask.close();
 						plus.nativeUI.alert(err, null, "");
@@ -180,7 +178,7 @@
 			} else {
 				plus.nativeUI.toast('再按一次退出应用');
 			}
-			setTimeout(function() {
+			mui.later(function() {
 				backButtonPress = 0;
 			}, 1000);
 			return false;
@@ -230,7 +228,6 @@
 			s.login(function(e) {
 				authUserInfo(type, s);
 			}, function(e) {
-				base.CloseWaiting();
 				mask.close();
 				mui.toast("登录失败");
 			});
@@ -266,7 +263,6 @@
 				var loginInfo = showData(type, jsonObj);
 				app.loginThird(loginInfo, function(err) {
 					if(err) {
-						base.CloseWaiting();
 						isLoading = false;
 						mask.close();
 						plus.nativeUI.alert(err, null, "");
@@ -279,7 +275,6 @@
 				//authLogout();
 			}, function(e) {
 				mask.close();
-				base.CloseWaiting();
 				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
 			});
 		}

@@ -204,7 +204,7 @@
 						ArticleNumber: ArticleNumber
 					},
 					function(data) {
-						setTimeout(function() {
+						mui.later(function() {
 							base.CloseWaiting();
 							if(data.result) {
 								mui.toast("投稿成功");
@@ -236,7 +236,7 @@
 
 	//保存权限
 	function SaveArticlePower() {
-		setTimeout(function() {
+		mui.later(function() {
 			HttpGet(base.RootUrl + "Article/EditArticlePower", {
 					ID: userinfo.ID,
 					ArticleID: ArticleID,

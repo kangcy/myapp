@@ -1,10 +1,3 @@
-/* "error:{\"code\":-4,\"message\":\"文件不存在\"}" at page/subindex.html:316
-	 src:file:///storage/emulated/0/DidiScreenAd/httpsstatic.udache.comgulfstreamuploadrooster2017012414852244449565f3d30ef10fe32a1c5f6f98536cfab0cmaterial_1485224444960_1080_1920_400.jpg at page/subindex.html:270
-
-	 "event:{\"target\":\"file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg\",\"width\":393,\"height\":699,\"size\":48523}" at page/subindex.html:310
-	 src:file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg at page/subindex.html:270
-	  */
-
 //相册选取
 var length = 0;
 var files = [];
@@ -152,12 +145,6 @@ function getBase64Image(img) {
 
 //上传图片到服务器 
 function Upload(imgurl, callback) {
-
-	/*setTimeout(function() {
-		ShowMaskHere(false);
-	}, 5000);
-	return; */
-
 	mui.post(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		Standard: "Article",
@@ -243,7 +230,7 @@ function ConfirmImg(src) {
 		Longitude: base.Longitude
 	}
 	HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
-		setTimeout(function() {
+		mui.later(function() {
 			ShowMaskHere(false);
 			if(data != null) {
 				if(data.result) {
@@ -267,7 +254,7 @@ function ShowMaskHere(show) {
 		ShowMask(false, false, activeTab);
 	}
 	if(show) {
-		setTimeout(function() {
+		mui.later(function() {
 			base.ShowWaiting("正在压缩图片");
 		}, 250);
 	} else {

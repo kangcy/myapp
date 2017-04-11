@@ -94,7 +94,7 @@
 	var ArticleNumber = "";
 	var ArticleUserNumber = "";
 	var userinfo = base.GetUserInfo();
-	var mask = mui.createMask(function() {
+	var mask = base.CreateMask(false, function() {
 		$("#success,#error").addClass("hide");
 		$(".choosemoney:first").trigger("click");
 	});
@@ -168,8 +168,6 @@
 
 	function Again() {
 		mask.close();
-		$("#success,#error").addClass("hide");
-		$(".choosemoney:first").trigger("click");
 	}
 
 	function Out() {

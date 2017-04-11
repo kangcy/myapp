@@ -34,8 +34,12 @@
 	var ParentCommentNumber = 0;
 	var ParentUserNumber = 0;
 	var NewId = 0; //最新添加评论ID
-	var mask = mui.createMask(function() {
-		EditorHide();
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+		$(".emojionearea").removeClass("zoomIn").addClass("zoomOut hide");
+		if(editor != null) {
+			editor[0].emojioneArea.setText("");
+		}
 	});
 
 	mui.init();
@@ -110,13 +114,12 @@
 			ArticleID = this.getAttribute("articleid");
 			ParentCommentNumber = this.getAttribute("cid");
 			ParentUserNumber = this.getAttribute("userid");
-
 			if(editor == null) {
 				editor = $("#textarea").emojioneArea({
 					template: "<editor/><filters/><tabs/>"
 				});
 			}
-			EditorTan(1);
+			EditorShow();
 			isLoading = false;
 		});
 	})
@@ -127,14 +130,18 @@
 			return;
 		}
 		isLoading = true;
+		if(editor == null) {
+			isLoading = false;
+			return mui.toast("信息异常");
+		}
 		var val = editor[0].emojioneArea.getHtml();
 		if(base.IsNullOrEmpty(val)) {
 			isLoading = false;
 			return mui.toast("请填写内容");
 		}
-		EditorHide();
 		mask.show();
 		base.ShowWaiting("正在提交");
+		EditorHide();
 		HttpGet(base.RootUrl + "Comment/Edit", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
@@ -142,8 +149,7 @@
 			ParentUserNumber: ParentUserNumber,
 			Summary: escape(val)
 		}, function(data) {
-			setTimeout(function() {
-				base.CloseWaiting();
+			mui.later(function() {
 				mask.close();
 				mui.toast(data.result ? "感谢您的评论" : data.message);
 				if(data.result) {
@@ -163,23 +169,30 @@
 			if(data.result) {
 				$("#none").addClass("hide");
 				var table = document.getElementById('scroll-view');
-				var div = appendStr(data.message);
+				var div = AppendStr(data.message);
 				table.appendChild(div);
 			}
 			isLoading = false;
 		});
 	}
 
-	//关闭编辑器
-	function EditorClose() {
-		EditorTan(0);
-		editor[0].emojioneArea.setText("");
+	//编辑器弹窗
+	function EditorShow() {
+		mask.show();
+		$(".emojionearea").removeClass("zoomOut hide").addClass("zoomIn");
 	}
 
 	//隐藏编辑器
 	function EditorHide() {
 		$(".emojionearea").removeClass("zoomIn").addClass("zoomOut hide");
-		editor[0].emojioneArea.setText("");
+		if(editor != null) {
+			editor[0].emojioneArea.setText("");
+		}
+	}
+
+	//隐藏编辑器
+	function EditorClose() {
+		mask.close();
 	}
 
 	//评论我的-加载数据
@@ -200,7 +213,7 @@
 					base.ShowNone(false);
 					var table = document.getElementById('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
+						var div = AppendStr(data.list[i]);
 						table.appendChild(div);
 					}
 				} else {
@@ -217,7 +230,7 @@
 	}
 
 	//拼接Html 
-	function appendStr(item, index) {
+	function AppendStr(item, index) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
@@ -241,16 +254,5 @@
 		model.push('</div></div></div></div>');
 		div.innerHTML = model.join('');
 		return div;
-	}
-
-	//编辑器弹窗
-	function EditorTan(index) {
-		if(index == 0) {
-			mask.close();
-			$(".emojionearea").removeClass("zoomIn").addClass("zoomOut hide");
-		} else {
-			mask.show();
-			$(".emojionearea").removeClass("zoomOut hide").addClass("zoomIn");
-		}
 	}
 </script>

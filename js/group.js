@@ -58,7 +58,7 @@ function Group(ele, margin) {
 		arr2 = makeArr(t2, t1 < t2 ? -h1 : h1);
 		for(var i = 0; i < N; i++)(function() {
 			var j = i;
-			setTimeout(function() {
+			mui.later(function() {
 				p1.style.top = arr1[j] + "px";
 				p2.style.top = arr2[j] + "px";
 				if(j == N - 1) {

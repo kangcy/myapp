@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" href="../css/input.min.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="../css/articledetail.css"> 
+		<link rel="stylesheet" type="text/css" href="../css/articledetail.css">
 	</head>
 
 	<body id="body">
@@ -203,7 +203,7 @@
 	var $zan = document.getElementById('zan');
 
 	//显示遮罩
-	var mask = mui.createMask(function() {
+	var mask = base.CreateMask(true, function() {
 		ShareTan(0);
 		ActionTan(0);
 	});
@@ -398,7 +398,7 @@
 			Number: userinfo.Number,
 			ArticleID: ArticleID
 		}, function(data) {
-			data = JSON.parse(data); 
+			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
@@ -523,7 +523,7 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
-			setTimeout(function() {
+			mui.later(function() {
 				base.CloseWaiting();
 			}, 300);
 		});

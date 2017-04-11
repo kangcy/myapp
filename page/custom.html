@@ -125,7 +125,7 @@
 	var windowHeight = window.innerHeight;
 	var $readyimg = $("#readyimg");
 	var $cover = document.getElementById("cover");
-	var mask = mui.createMask(function() {
+	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
 	var userinfo = base.GetUserInfo();
@@ -284,7 +284,6 @@
 				} else {
 					mui.toast(data.message);
 				}
-				base.CloseWaiting();
 				mask.close();
 			}
 		});

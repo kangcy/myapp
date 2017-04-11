@@ -117,9 +117,9 @@
 				<li class="mui-table-view-cell" id="gallery">
 					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
 				</li>
-				<!--<li class="mui-table-view-cell" id="pic">
+				<li class="mui-table-view-cell" id="pic">
 					<a href="#" class="c333 f13" onclick="Pic()">从微篇相册选择</a>
-				</li>-->
+				</li>
 			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
@@ -174,15 +174,14 @@
 	var number = "";
 	var multiple = 0; //是否多图
 	var isLoading = false;
-	var mask = mui.createMask(function() {
-		base.CloseWaiting();
-	});
+
+	var mask = base.CreateMask(true, function() {});
+
 	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
-	mui.ready(function() { 
-		//选中切换
+	mui.ready(function() {
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");
 			if(isused == 0) {
@@ -200,7 +199,6 @@
 
 		self = plus.webview.currentWebview();
 		articleNumber = self.ArticleNumber || "";
-		url = self.Url || "";
 
 		Load();
 
@@ -224,6 +222,7 @@
 		mui('#power').popover('toggle');
 	}
 
+	//列表
 	function Load() {
 		HttpGet(base.RootUrl + "Api/Background/All", {
 			ArticleNumber: articleNumber
@@ -252,7 +251,7 @@
 		} else {
 			div.className = 'thirdfloor check';
 		}
-		div.style.position = "relative"; 
+		div.style.position = "relative";
 		div.setAttribute("id", item.Number);
 		div.setAttribute("isused", item.IsUsed);
 		div.setAttribute("number", item.Number);
@@ -260,67 +259,6 @@
 		div.innerHTML = '<img src="' + base.ShowThumb(item.Url, 2) + '" /><div class="cover ' + (item.IsUsed == 0 ? "hide" : "") + '"></div><div class="icon"></div>';
 		return div;
 	}
-
-	/*//请求上传图片 
-	function Upload(imgurl, callback) {
-		//上传图片到服务器 
-		mask.show();
-		base.ShowWaiting("图片上传中");
-		HttpPost(base.RootUrl + "Upload/Upload", {
-			str: imgurl,
-			standard: "ArticleCover",
-			Number: userinfo.Number
-		}, function(data) {
-			if(data != null) {
-				if(data.result) {
-					if($.isFunction(callback)) {
-						callback(base.RootUrl + data.message);
-					}
-				} else {
-					mui.toast(data.message);
-				}
-				base.CloseWaiting();
-				mask.close();
-			}
-		});
-	}*/
-
-	/*function Save() {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		var dataURL = $("#readyimg").cropper("getCroppedCanvas");
-		imgurl = dataURL.toDataURL("image/jpeg", 1);
-		Upload(imgurl, function(data) {
-			var url = data;
-			//保存设置
-			HttpPost(base.RootUrl + "Api/Background/Edit", {
-				ID: userinfo.ID,
-				ArticleNumber: articleNumber,
-				Full: full,
-				Hign: high,
-				Transparency: transparency,
-				Url: url
-			}, function(data) {
-				data = JSON.parse(data);
-				if(data == null) {
-					mui.toast("系统异常,请稍后再试");
-				} else {
-					if(data.result) {
-						mui.toast("设置成功");
-						var page = plus.webview.getWebviewById("addarticle");
-						if(page) {
-							page.evalJS("RefreshCover('" + url + "')");
-						}
-					} else {
-						mui.toast(data.message);
-					}
-				}
-				isLoading = false;
-			});
-		});
-	}*/
 
 	//使用
 	function Used() {

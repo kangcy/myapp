@@ -58,7 +58,9 @@
 	var currEditID = 0; //当前编辑对象ID
 	var currEditImg = ""; //当前编辑图片
 	var userinfo = base.GetUserInfo();
-	var mask = mui.createMask(function() {});
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
 
 	mui.init();
 
@@ -176,8 +178,7 @@
 						ID: userinfo.ID,
 						PartID: $this.getAttribute("partid")
 					}, function(data) {
-						setTimeout(function() {
-							base.CloseWaiting();
+						mui.later(function() {
 							mask.close();
 							if(data != null) {
 								if(data.result) {
@@ -214,8 +215,7 @@
 						ID: userinfo.ID,
 						ArticleID: ArticleID
 					}, function(data) {
-						setTimeout(function() {
-							base.CloseWaiting();
+						mui.later(function() {
 							mask.close();
 							if(data != null) {
 								if(data.result) {
@@ -279,7 +279,7 @@
 					// dfd.resolve();
 				})
 				if(this.complete) {
-					setTimeout(function() {
+					mui.later(function() {
 						dfd.resolve();
 					}, 1000);
 				}
@@ -370,8 +370,7 @@
 				PartIDs: ids.join(",")
 			},
 			function(data) {
-				setTimeout(function() {
-					base.CloseWaiting();
+				mui.later(function() {
 					if(data != null) {
 						if(data.result) {
 							var articleDetailPage = plus.webview.getWebviewById('articledetail');
@@ -500,7 +499,7 @@
 								// dfd.resolve();
 							})
 							if(this.complete) {
-								setTimeout(function() {
+								mui.later(function() {
 									dfd.resolve();
 								}, 1000);
 							}
@@ -512,7 +511,7 @@
 					}
 				}
 			}
-			base.ShowLoading(false); 
+			base.ShowLoading(false);
 			base.CloseWaiting();
 		});
 	}

@@ -336,7 +336,7 @@
 			return;
 		}
 		isLoading[1] = true;
-		setTimeout(function() {
+		mui.later(function() {
 			currpage[1] = 1;
 			totalpage[1] = 2;
 			document.getElementById('scroll-view2').innerHTML = "";
@@ -362,7 +362,7 @@
 			self.endPullUpToRefresh(currpage[1] > totalpage[1]);
 			return false;
 		}
-		setTimeout(function() {
+		mui.later(function() {
 			LoadCityUser(function() {
 				++currpage[1];
 				self.endPullUpToRefresh(currpage[1] > totalpage[1]);

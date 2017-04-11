@@ -40,7 +40,9 @@
 	var isCountDown = false; //正在倒计时
 	var userinfo = base.GetUserInfo();
 	var settingPage = null;
-	var mask = mui.createMask(function() {});
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
 
 	mui.init();
 
@@ -76,8 +78,7 @@
 				Mobile: mob,
 				SMS: "bindphone"
 			}, function(data) {
-				setTimeout(function() {
-					base.CloseWaiting();
+				mui.later(function() {
 					mask.close();
 					if(data) {
 						if(data.result) {
@@ -122,8 +123,7 @@
 				Code: code,
 				SMS: "bindphone"
 			}, function(data) {
-				setTimeout(function() {
-					base.CloseWaiting();
+				mui.later(function() {
 					mask.close();
 					isLoading = false;
 					if(data == null) {

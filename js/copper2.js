@@ -186,7 +186,7 @@ function confirm(callback) {
 function Upload(imgurl, callback) {
 	//上传图片到服务器 
 	base.ShowWaiting("正在同步图片");
-	mui.post(base.RootUrl + "Upload/Upload", {
+	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		standard: Standard,
 		Number: userinfo.Number
@@ -203,10 +203,9 @@ function Upload(imgurl, callback) {
 			} else {
 				mui.toast(data.message);
 			}
-			base.CloseWaiting();
 			mask.close();
 		}
-	}, "json");
+	});
 }
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 

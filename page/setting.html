@@ -305,7 +305,7 @@
 			}
 			isLoading = true;
 			base.ShowWaiting("检查更新中");
-			setTimeout(function() {
+			mui.later(function() {
 				var client;
 				if(mui.os.ios) {
 					client = 'ios';
@@ -335,7 +335,7 @@
 										clearInterval(i);
 										document.getElementById("persent").innerHTML = "100%";
 										plus.nativeUI.toast("正在准备安装环境，请稍后！");
-										setTimeout(function() {
+										mui.later(function() {
 											var path = d.filename;
 											plus.runtime.install(path); // 安装下载的apk文件
 										}, 1000);

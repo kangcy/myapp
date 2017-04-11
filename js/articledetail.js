@@ -129,8 +129,7 @@ function Copy() {
 		Latitude: base.Latitude,
 		Longitude: base.Longitude
 	}, function(data) {
-		setTimeout(function() {
-			base.CloseWaiting();
+		mui.later(function() {
 			mask.close();
 			mui.toast(data.result ? "复制成功,请刷新我的动态查看" : data.message);
 			isLoading = false;
@@ -148,8 +147,7 @@ function Edit() {
 		ArticleNumber: Article.Number,
 		Source: Source
 	});
-	setTimeout(function() {
-		base.CloseWaiting();
+	mui.later(function() {
 		mask.close();
 	}, 2000);
 }
