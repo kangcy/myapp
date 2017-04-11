@@ -137,7 +137,6 @@ function Upload(imgurl, callback) {
 		Standard: "Article",
 		Number: userinfo.Number
 	}, function(data) {
-		console.log(JSON.stringify(data));
 		if(data != null) {
 			if(data.result) {
 				base.CloseWaiting();
@@ -183,15 +182,9 @@ function ConfirmImg(src) {
 
 function ShowMaskHere(show) {
 	if(show) {
-		ShowMask(true, true, "customsetting");
+		mask.show();
+		base.ShowWaiting("正在压缩图片");
 	} else {
-		ShowMask(false, false, "customsetting");
-	}
-	if(show) {
-		setTimeout(function() {
-			base.ShowWaiting("正在压缩图片");
-		}, 250);
-	} else {
-		base.CloseWaiting();
+		mask.close();
 	}
 }

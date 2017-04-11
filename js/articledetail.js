@@ -39,10 +39,7 @@ function ChangeBg() {
 	} else {
 		if(CurrBackground == null) {
 			//全屏
-			$bg.css({
-				"background": "url(" + CurrCover + ") no-repeat",
-				"background-size": "100% 100%",
-			});
+			$("#bg").css("background", "#fff");
 		} else {
 			var url = CurrBackground.Url;
 			if(CurrBackground.High == 0) {

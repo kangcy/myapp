@@ -512,7 +512,7 @@
 					}
 				}
 			}
-			base.ShowLoading(false);
+			base.ShowLoading(false); 
 			base.CloseWaiting();
 		});
 	}
@@ -527,7 +527,7 @@
 		document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
 		document.getElementById("header").style.backgroundSize = "cover";
 		Cover = url;
-		plus.webview.close("customsetting");
 		plus.webview.close("custom");
+		plus.webview.close("customsetting");
 	}
 </script>
