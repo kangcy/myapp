@@ -1,10 +1,3 @@
-/* "error:{\"code\":-4,\"message\":\"文件不存在\"}" at page/subindex.html:316
-	 src:file:///storage/emulated/0/DidiScreenAd/httpsstatic.udache.comgulfstreamuploadrooster2017012414852244449565f3d30ef10fe32a1c5f6f98536cfab0cmaterial_1485224444960_1080_1920_400.jpg at page/subindex.html:270
-
-	 "event:{\"target\":\"file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg\",\"width\":393,\"height\":699,\"size\":48523}" at page/subindex.html:310
-	 src:file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/downloads/1486525314259.jpg at page/subindex.html:270
-	  */
-
 //相册选取
 var length = 0;
 var files = [];
@@ -12,43 +5,20 @@ var compressIndex = 0; //当前压缩图片索引
 var compressTotal = 0; //需要压缩图片个数
 var currUploadImg = [];
 
-//选择图片
-function ShowActionSheet() {
-	var bts = [{
-		title: "拍照"
-	}, {
-		title: "从手机相册选择"
-	}, {
-		title: "从微篇相册选择"
-	}];
-	plus.nativeUI.actionSheet({
-			cancel: "取消",
-			buttons: bts
-		},
-		function(e) {
-			//相册选取
-			length = 0;
-			files = [];
-			compressIndex = 0; //当前压缩图片索引
-			compressTotal = 0; //需要压缩图片个数
-			currUploadImg = [];
-
-			if(e.index == 1) {
-				getImage();
-			} else if(e.index == 2) {
-				galleryImgs();
-			} else if(e.index == 3) {
-				base.OpenWindow("mypic", "mypic.html", {
-					Source: "subindex",
-					Multiple: 1
-				});
-			}
-		}
-	);
+//初始化
+function Reset() {
+	mui('#power').popover('toggle');
+	length = 0;
+	files = [];
+	compressIndex = 0; //当前压缩图片索引
+	compressTotal = 0; //需要压缩图片个数
+	currUploadImg = [];
 }
 
 //拍照
-function getImage() {
+function Camera() {
+	Reset();
+
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
@@ -66,23 +36,33 @@ function getImage() {
 	});
 }
 
-function galleryImgs() {
+//相册
+function Gallery() {
+	Reset();
+
 	plus.gallery.pick(function(e) {
 		files = e.files;
 		length = e.files.length;
-
 		compressTotal = length;
-
 		ShowMaskHere(true);
-
 		compressImage(e.files[0]);
 	}, function(e) {
 
 	}, {
 		filter: "image",
 		multiple: true,
-		maximum: 20,
+		maximum: multiple == 0 ? 1 : 20,
 		system: false
+	});
+}
+
+//微篇相册
+function Pic() {
+	Reset();
+
+	base.OpenWindow("mypic", "mypic.html", {
+		Source: "customsetting",
+		Multiple: multiple
 	});
 }
 
@@ -152,19 +132,13 @@ function getBase64Image(img) {
 
 //上传图片到服务器 
 function Upload(imgurl, callback) {
-
-	/*setTimeout(function() {
-		ShowMaskHere(false);
-	}, 5000);
-	return; */
-
-	mui.post(base.RootUrl + "Upload/Upload", {
+	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		Standard: "Article",
 		Number: userinfo.Number
 	}, function(data) {
+		console.log(JSON.stringify(data));
 		if(data != null) {
-
 			if(data.result) {
 				base.CloseWaiting();
 				base.ShowWaiting("正在导入第" + (currUploadImg.length + 1) + "张图片...")
@@ -181,43 +155,19 @@ function Upload(imgurl, callback) {
 				}
 				//图片上传完毕，创建文章
 				if(currUploadImg.length >= length) {
-					//创建文章 
-					var data = {
-						ID: userinfo.ID,
-						Cover: currUploadImg.join(","),
-						Title: "",
-						Province: base.Province,
-						City: base.City,
-						District: base.District,
-						Street: base.Street,
-						DetailName: base.DetailName,
-						CityCode: base.CityCode,
-						Latitude: base.Latitude,
-						Longitude: base.Longitude
-					}
-					HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
-						ShowMaskHere(false);
-						currUploadImg = [];
-						if(data != null) {
-							if(data.result) {
-								base.OpenWindow("addarticle", "addarticle.html", {
-									ArticleID: data.message.ID,
-									ArticleNumber: data.message.Number,
-									Source: "Add"
-								});
-							} else {
-								mui.toast(data.message);
-							}
-						}
+					base.OpenWindow("custom", "custom.html", {
+						ArticleNumber: articleNumber,
+						Url: currUploadImg.join(",")
 					});
+					ShowMaskHere(false);
+					currUploadImg = [];
 				}
 				if(callback) {
 					callback();
 				}
 			}
-
 		}
-	}, "json");
+	});
 }
 
 //我的相册选择图片回调
@@ -225,46 +175,17 @@ function ConfirmImg(src) {
 	if(base.IsNullOrEmpty(src)) {
 		return false;
 	}
-
-	ShowMaskHere(true);
-
-	//创建文章 
-	var data = {
-		ID: userinfo.ID,
-		Cover: src,
-		Title: "",
-		Province: base.Province,
-		City: base.City,
-		District: base.District,
-		Street: base.Street,
-		DetailName: base.DetailName,
-		CityCode: base.CityCode,
-		Latitude: base.Latitude,
-		Longitude: base.Longitude
-	}
-	HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
-		setTimeout(function() {
-			ShowMaskHere(false);
-			if(data != null) {
-				if(data.result) {
-					base.OpenWindow("addarticle", "addarticle.html", {
-						ArticleID: data.message.ID,
-						ArticleNumber: data.message.Number,
-						Source: "Add"
-					});
-				} else {
-					mui.toast(data.message);
-				}
-			}
-		}, 1000)
+	base.OpenWindow("custom", "custom.html", {
+		ArticleNumber: articleNumber,
+		Url: src
 	});
 }
 
 function ShowMaskHere(show) {
 	if(show) {
-		ShowMask(true, true, activeTab);
+		ShowMask(true, true, "customsetting");
 	} else {
-		ShowMask(false, false, activeTab);
+		ShowMask(false, false, "customsetting");
 	}
 	if(show) {
 		setTimeout(function() {

@@ -28,8 +28,9 @@
 			}
 			
 			#items .item img {
-				width: 2rem;
-				height: 2rem;
+				width: 1.8rem;
+				height: 1.8rem;
+				margin-bottom: 0.2rem;
 			}
 			
 			#scroll {
@@ -58,8 +59,8 @@
 			
 			.thirdfloor .icon {
 				position: absolute;
-				right: 40%;
-				top: 38%;
+				right: 35%;
+				top: 35%;
 				width: 1.5rem;
 				height: 1.5rem;
 			}
@@ -110,21 +111,15 @@
 		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="pic">
-					<a href="#" class="c333 f13" onclick="Pic()">查看相册</a>
+				<li class="mui-table-view-cell" id="camera">
+					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
 				</li>
-				<li class="mui-table-view-cell" id="share">
-					<a href="#" class="c333 f13" onclick="Share()">分享给朋友</a>
+				<li class="mui-table-view-cell" id="gallery">
+					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
 				</li>
-				<li class="mui-table-view-cell" id="copy">
-					<a href="#" class="c333 f13" onclick="Copy()">复制链接</a>
-				</li>
-				<li class="mui-table-view-cell noborder hide" id="inblack">
-					<a href="#black" class="red f13">加入黑名单</a>
-				</li>
-				<li class="mui-table-view-cell noborder hide" id="outblack">
-					<a href="#" class="red f13" onclick="OutBlack()">解除黑名单</a>
-				</li>
+				<!--<li class="mui-table-view-cell" id="pic">
+					<a href="#" class="c333 f13" onclick="Pic()">从微篇相册选择</a>
+				</li>-->
 			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
@@ -132,13 +127,14 @@
 				</li>
 			</ul>
 		</div>
+		<!--删除-->
 		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder c999 f11">
-					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作
+				<li class="mui-table-view-cell hide" id="inused">
+					<a href="#" class="c333 f13" onclick="Used()">使用</a>
 				</li>
 				<li class="mui-table-view-cell noborder">
-					<a href="#" class="red f13" onclick="InBlack()">确认加入</a>
+					<a href="#" class="c333 f13" onclick="Delete()">删除</a>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -150,17 +146,19 @@
 		<div class="mui-content">
 			<div class="full tc" id="items">
 				<div class="item fl">
-					<a href="#power"><img src="../images/share/5.jpg" />
+					<a onclick="Single()"><img src="../images/background/1.png" />
 						<div class="full f13 c333">单图背景</div>
 					</a>
 				</div>
 				<div class="item fl">
-					<a href="#power"><img src="../images/share/5.jpg" />
+					<a onclick="Figure()"><img src="../images/background/2.png" />
 						<div class="full f13 c333">多图背景</div>
 					</a>
 				</div>
 			</div>
-			<div id="scroll">
+			<div id="scroll" class="full">
+				<p class="c333">图片</p>
+				<div id="scroll_view"></div>
 			</div>
 		</div>
 	</body>
@@ -169,10 +167,12 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
-<script src="../js/cropper.js"></script>
+<script src="../js/addbackground.js"></script>
 <script type="text/javascript">
 	var articleNumber = "";
 	var url = "";
+	var number = "";
+	var multiple = 0; //是否多图
 	var isLoading = false;
 	var mask = mui.createMask(function() {
 		base.CloseWaiting();
@@ -182,7 +182,18 @@
 	mui.init();
 
 	mui.ready(function() {
-		Load();
+		//选中切换
+		mui("#scroll").on('tap', '.thirdfloor', function(event) {
+			var isused = this.getAttribute("isused");
+			if(isused == 0) {
+				$("#inused").removeClass("hide");
+			} else {
+				$("#inused").addClass("hide");
+			}
+			number = this.getAttribute("number");
+			url = this.getAttribute("url");
+			mui('#black').popover('toggle');
+		});
 	})
 
 	mui.plusReady(function() {
@@ -199,40 +210,28 @@
 		}
 	});
 
+	//单图
+	function Single() {
+		multiple = 0;
+		$("#camera").removeClass("hide");
+		mui('#power').popover('toggle');
+	}
+
+	//多图
+	function Figure() {
+		multiple = 1;
+		$("#camera").addClass("hide");
+		mui('#power').popover('toggle');
+	}
+
 	function Load() {
-		var table = document.getElementById("scroll");
-		var item = {
-			Url: "http://www.ishaoxia.com/Upload/Images/ArticleCover/20170410/201704101839545982_0.jpg",
-			IsUsed: 0,
-			ID: 0
-		}
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		table.appendChild(AppendStr(item));
-		return;
 		HttpGet(base.RootUrl + "Api/Background/All", {
-			UserNumber: userinfo.Number
+			ArticleNumber: articleNumber
 		}, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
-				var table = document.getElementById("scroll");
+				var table = document.getElementById("scroll_view");
+				table.innerHTML = "";
 				totalpage = data.totalpage;
 				var length = data.message.length;
 				if(length > 0) {
@@ -254,12 +253,15 @@
 			div.className = 'thirdfloor check';
 		}
 		div.style.position = "relative";
-		div.setAttribute("pid", item.ID);
+		div.setAttribute("id", item.ID);
+		div.setAttribute("isused", item.IsUsed);
+		div.setAttribute("number", item.Number);
+		div.setAttribute("url", item.Url);
 		div.innerHTML = '<img src="' + base.ShowThumb(item.Url, 2) + '" /><div class="cover ' + (item.IsUsed == 0 ? "hide" : "") + '"></div><div class="icon"></div>';
 		return div;
 	}
 
-	//请求上传图片 
+	/*//请求上传图片 
 	function Upload(imgurl, callback) {
 		//上传图片到服务器 
 		mask.show();
@@ -281,9 +283,9 @@
 				mask.close();
 			}
 		});
-	}
+	}*/
 
-	function Save() {
+	/*function Save() {
 		if(isLoading) {
 			return;
 		}
@@ -317,6 +319,69 @@
 				}
 				isLoading = false;
 			});
+		});
+	}*/
+
+	//使用
+	function Used() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		mui('#black').popover('toggle');
+		if(base.IsNullOrEmpty(number)) {
+			isLoading = false;
+			return mui.toast("参数异常");
+		}
+		//保存设置
+		HttpGet(base.RootUrl + "Api/Background/Used", {
+			ID: userinfo.ID,
+			Number: number,
+		}, function(data) {
+			data = JSON.parse(data);
+			if(data == null) {
+				mui.toast("系统异常,请稍后再试");
+			} else {
+				if(data.result) {
+					var page = plus.webview.getWebviewById("addarticle");
+					if(page) {
+						page.evalJS("RefreshCover('" + url + "')");
+					}
+				} else {
+					mui.toast(data.message);
+				}
+			}
+			isLoading = false;
+		});
+	}
+
+	//删除
+	function Delete() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		mui('#black').popover('toggle');
+		if(base.IsNullOrEmpty(number)) {
+			isLoading = false;
+			return mui.toast("参数异常");
+		}
+		//保存设置
+		HttpGet(base.RootUrl + "Api/Background/Delete", {
+			ID: userinfo.ID,
+			Number: number,
+		}, function(data) {
+			data = JSON.parse(data);
+			if(data == null) {
+				mui.toast("系统异常,请稍后再试");
+			} else {
+				if(data.result) {
+					$("#" + number).remove();
+				} else {
+					mui.toast(data.message);
+				}
+			}
+			isLoading = false;
 		});
 	}
 </script>

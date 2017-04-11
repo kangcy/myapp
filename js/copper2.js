@@ -217,7 +217,7 @@ function compressImage(src, newsrc, callback) {
 			src: src,
 			dst: newsrc,
 			overwrite: true,
-			width: width,
+			width: "640px",
 			quality: 100
 		},
 		function(event) {

@@ -60,7 +60,7 @@
 					<span class="fl mt10">文件系统</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 				</li>
-				<li class="mui-table-view-cell" id="custom" onclick="Custom()">
+				<li class="mui-table-view-cell hide" id="custom" onclick="Custom()">
 					<img src="../images/tip/04.png" class="fl" />
 					<span class="fl mt10">自定义背景</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
@@ -116,11 +116,13 @@
 
 	//文件系统
 	function File() {
-		base.OpenWindow("file", "file.html", {}); 
+		base.OpenWindow("file", "file.html", {});
 	}
- 
+
 	//自定义背景
 	function Custom() {
-		base.OpenWindow("customsetting", "customsetting.html", {});
+		base.OpenWindow("customsetting", "customsetting.html", {
+			ArticleNumber: "149153624568956"
+		});
 	}
 </script>

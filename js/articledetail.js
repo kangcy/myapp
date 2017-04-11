@@ -12,7 +12,7 @@ function ChangeMusic(index) {
 }
 
 //背景状态切换
-function ChangeBg(index) {
+function ChangeBg() {
 	var $bg = $("#bg");
 	if(CurrTemplate > 0) {
 		if(CurrTemplate == 1) {
@@ -44,18 +44,24 @@ function ChangeBg(index) {
 				"background-size": "100% 100%",
 			});
 		} else {
+			var url = CurrBackground.Url;
+			if(CurrBackground.High == 0) {
+				url = base.ShowThumb(url, 1);
+			} else {
+				url = base.ShowThumb(url, 0);
+			}
 			switch(CurrBackground.Full) {
 				case 0:
 					//居顶 
 					$bg.css({
-						"background": "url(" + CurrCover + ") no-repeat top center",
+						"background": "url(" + url + ") no-repeat top center",
 						"background-size": "100% auto"
 					});
 					break;
 				case 1:
 					//全屏
 					$bg.css({
-						"background": "url(" + CurrCover + ") no-repeat",
+						"background": "url(" + url + ") center center no-repeat",
 						"background-size": "100% 100%",
 					});
 					break;

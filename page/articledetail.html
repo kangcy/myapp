@@ -70,7 +70,7 @@
 					<div class="mui-control-item temp f12" tid="0" color="#fff" type="0">
 						<div class="blue">纯白</div>
 					</div>
-					<div class="mui-control-item temp f12" tid="1" color="#fff" type="0">
+					<div class="mui-control-item temp f12" tid="1" color="#fff" type="1">
 						<div class="blue">自定义</div>
 					</div>
 				</div>
@@ -224,14 +224,12 @@
 			var $this = $(this);
 			$this.addClass("hover");
 			CurrTemplate = $this.attr("tid");
-			if(CurrTemplate == 1) {
-				CurrCover = Article.Cover;
-			} else {
+			if(CurrTemplate > 1) {
 				CurrCover = $this.attr("cover");
+			} else if(CurrTemplate > 1) {
+				CurrCover = "";
 			}
-
 			$("#wrapper").css("background-color", $this.attr("color"));
-
 			var templatetype = $this.attr("type");
 
 			//纯白背景
@@ -245,7 +243,7 @@
 			ChangeBg(); //背景切换
 
 			ChangeMusic(templatetype); //音乐切换
-		}); 
+		});
 
 		//点赞
 		$zan.addEventListener('tap', function(event) {
@@ -456,14 +454,11 @@
 					$("#footer_zan").html(data.Goods);
 					$("#footer_comment").html(data.Comments);
 
+					var mainIndex = 0;
 					CurrTemplate = data.Template;
 					if(CurrTemplate == 1) {
 						mainIndex = 1;
 					}
-
-					//排版
-					CurrCover = data.Cover;
-					var mainIndex = 0;
 					if(data.TemplateJson != null) {
 						if(data.TemplateJson.ID > 0) {
 							mainIndex = data.TemplateJson.TemplateType;
@@ -471,15 +466,9 @@
 							$("#wrapper").css("background-color", data.TemplateJson.Background);
 						}
 					}
-					if(data.BackgroundJson != null) {
-						CurrBackground = data.BackgroundJson;
-						CurrCover = data.BackgroundJson.Url;
-					}
+					CurrBackground = data.BackgroundJson;
 
-					if(!base.IsNullOrEmpty(CurrCover)) {
-						ChangeBg();
-					}
-
+					ChangeBg();
 					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(base.UnUnicodeText(data.Title));
@@ -494,10 +483,10 @@
 						ShowVideo($this.attr("id"), $this.attr("sid"));
 					});
 
-					//音乐
+					//音乐 
 					ChangeMusic(mainIndex);
 
-					$("#main0,#main0").addClass("hide");
+					$("#main0,#main1").addClass("hide");
 					$("#main" + mainIndex).removeClass("hide");
 
 					base.ShowLoading(false);

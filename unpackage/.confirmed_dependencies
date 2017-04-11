@@ -551,7 +551,9 @@
 			"images/60x60.gif",
 			"images/article/down.png",
 			"js/video.js",
-			"js/transparent.js"
+			"js/transparent.js",
+			"images/loading.gif",
+			"images/logo_default.png"
 		],
 		"refer": [
 			"page/edittitle.html",
@@ -2153,7 +2155,27 @@
 			"css/loading.min.css",
 			"images/logo_default.png",
 			"images/my/check.png",
-			"images/share/5.jpg"
+			"images/share/5.jpg",
+			"images/background/2.png",
+			"images/background/1.png",
+			"js/addbackground.js"
+		],
+		"refer": [
+			"page/mypic.html",
+			"page/custom.html"
+		]
+	},
+	"page/custom.html": {
+		"resources": [
+			"js/base.js",
+			"js/mui.min.js",
+			"cropper/cropper.css",
+			"css/mui.min.css",
+			"js/cropper.js",
+			"js/jquery-1.10.2.min.js",
+			"css/loading.min.css",
+			"images/loading.gif",
+			"fonts/mui.ttf"
 		]
 	}
 }

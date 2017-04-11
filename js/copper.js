@@ -119,11 +119,10 @@ function compressImage(src, newsrc, callback) {
 			src: src,
 			dst: newsrc,
 			overwrite: true,
-			width: window.innerWidth + "px",
+			width: "640px",
 			quality: 100
 		},
 		function(event) {
-			//console.log(JSON.stringify(event));
 			if($.isFunction(callback)) {
 				callback(event.target);
 			}
