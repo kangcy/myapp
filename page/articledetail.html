@@ -605,11 +605,6 @@
 			return;
 		}
 		isLoading = true;
-		if(Article.Template == CurrTemplate) {
-			isLoading = false;
-			TempTan(0);
-			return;
-		}
 		TempTan(0);
 		HttpGet(base.RootUrl + "Article/EditArticleTemp", {
 			ID: userinfo.ID,

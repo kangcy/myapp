@@ -315,7 +315,7 @@
 						mui.toast("设置成功");
 						var page = plus.webview.getWebviewById('articledetail');
 						if(page) {
-							page.evalJS("UpdateDetail()");
+							page.evalJS("UpdateDetail2()");
 						}
 					} else {
 						mui.toast(data.message);
