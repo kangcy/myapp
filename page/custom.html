@@ -313,9 +313,9 @@
 				} else {
 					if(data.result) {
 						mui.toast("设置成功");
-						var page = plus.webview.getWebviewById("addarticle");
+						var page = plus.webview.getWebviewById('articledetail');
 						if(page) {
-							page.evalJS("RefreshCover('" + url + "')");
+							page.evalJS("UpdateDetail()");
 						}
 					} else {
 						mui.toast(data.message);

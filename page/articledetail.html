@@ -154,22 +154,24 @@
 					<div id="main1" class="f13 tc hide">
 						<div class="full">
 							<div class="full" style="position:relative;">
-								<img id="useravatar1" class="mt30" />
-								<p class="full user mt10 textshadow f15 cfff" userid="0" id="nickname1"></p>
 								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:10px;top:10px"></i>
 							</div>
 						</div>
-						<div class="detail cover cover1 fl">
-							<div class="full">
-								<p class="mt20 f16 c333" id="title1"></p>
-								<p class="mb0 full csubtitle f13">
-									<span id="createdate1" class="mr15"></span>
+						<div class="detail full fl" id="detail1">
+							<div class="fl" style="width:25%;display:inline-block;">
+								<img id="useravatar1" class="full fl" />
+							</div>
+							<div class="fr tl" style="width:75%;display:inline-block;">
+								<p class="user ml10 mt15 mb0 textshadow f15 cfff fl full" userid="0" id="nickname1"></p>
+								<p class="ml10 mb0 cfff textshadow f13 full">
+									<span id="createdate1" class="mr10"></span>
 									<span class="ml15" id="views1"></span>
 								</p>
 							</div>
 						</div>
 					</div>
-					<div class="detail2 cover cover2 fl tl mb20">
+					<div class="detail2 cover fl tl">
+						<p class="f16 c333 tc" id="title1"></p>
 						<div class="c000 full" id="desc">
 
 						</div>
@@ -216,6 +218,8 @@
 	});
 
 	mui.ready(function() {
+		$("#detail1").css("margin-top", window.innerHeight * 0.3 + "px");
+
 		base.InitScroll();
 
 		//模板选择
@@ -224,9 +228,14 @@
 			var $this = $(this);
 			$this.addClass("hover");
 			CurrTemplate = $this.attr("tid");
-			if(CurrTemplate > 1) {
-				CurrCover = $this.attr("cover");
+			if(CurrTemplate == 1) {
+				base.OpenWindow("customsetting", "customsetting.html", {
+					ArticleNumber: Article.Number
+				});
+				return;
 			} else if(CurrTemplate > 1) {
+				CurrCover = $this.attr("cover");
+			} else {
 				CurrCover = "";
 			}
 			$("#wrapper").css("background-color", $this.attr("color"));
@@ -489,8 +498,6 @@
 					$("#main0,#main1").addClass("hide");
 					$("#main" + mainIndex).removeClass("hide");
 
-					base.ShowLoading(false);
-
 					//显示操作
 					if(userinfo.ID == data.UserID) {
 						$("#action").removeClass("hide");
@@ -523,9 +530,8 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
-			mui.later(function() {
-				base.CloseWaiting();
-			}, 300);
+			base.ShowLoading(false);
+			base.CloseWaiting();
 		});
 	}
 

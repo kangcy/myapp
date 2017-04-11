@@ -1,15 +1,15 @@
 .detail {
-	width: 94%;
-	margin: 0% 3%;
-	padding: 0% 3%;
+	width: 100%;
+	margin: 0%;
+	padding: 3%;
 	line-height: 1.5625rem;
 	display: inline-block;
 }
 
 .detail2 {
-	width: 94%;
-	margin: 0% 3%;
-	padding: 0% 3%;
+	width: 100%;
+	margin: 0%;
+	padding: 0%;
 	line-height: 1.5625rem;
 	display: inline-block;
 }
@@ -105,24 +105,24 @@
 	border: 2px solid #fff;
 }
 
+#title1 {
+	line-height: 1.5625rem;
+	padding: 0.8rem 0px;
+	border-bottom: 1px solid #eee;
+}
+
+#desc {
+	padding: 0.1rem 3% 3% 3%;
+}
+
 .cover {
-	background: RGBA(255, 255, 255, 0.6);
+	background: RGBA(255, 255, 255, 1);
 	height: 100%;
 	z-index: -1;
-	border-radius: 10px;
-}
-
-.cover1 {
-	border-radius: 10px 10px 0px 0px !important;
-}
-
-.cover2 {
-	border-radius: 0px 0px 10px 10px !important;
 }
 
 .bg {
 	width: 100%;
-	/*position: relative;*/
 	z-index: 1;
 	min-height: 100%;
 }
@@ -197,7 +197,7 @@
 }
 
 #agreeTemp {
-	position: fixed; 
+	position: fixed;
 	right: 1rem;
 	bottom: 6.875rem;
 	z-index: 999;

@@ -281,7 +281,7 @@ var base = new function() {
 			document.body.appendChild(element);
 			return mask;
 		};
-		mask._remove = function() { 
+		mask._remove = function() {
 			if(mask._show) {
 				mask._show = false;
 				element.setAttribute('style', 'opacity:0');
@@ -920,15 +920,6 @@ function HttpPost(url, data, callback) {
 function ChangeSlider(index) {
 	mui('#slider').slider().gotoItem(index);
 }
-
-/*//编辑器弹窗
-function EditorTan(index) {
-	if(index == 0) {
-		$(".emojionearea").removeClass("bounceInUp").addClass("hide");
-	} else {
-		$(".emojionearea").removeClass("hide").addClass("bounceInUp");
-	}
-}*/
 
 //显示遮罩
 function ShowMask(show, showmask, pageid) {

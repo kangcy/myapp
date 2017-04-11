@@ -41,6 +41,9 @@ function ChangeBg() {
 			//全屏
 			$("#bg").css("background", "#fff");
 		} else {
+			//背景透明度
+			$(".cover").css("background", "RGBA(255, 255, 255, " + CurrBackground.Transparency / 100 + ")");
+
 			var url = CurrBackground.Url;
 			if(CurrBackground.High == 0) {
 				url = base.ShowThumb(url, 1);
@@ -79,6 +82,8 @@ function UpdateComment() {
 function UpdateDetail() {
 	Load(function() {
 		plus.webview.close("addarticle");
+		plus.webview.close("custom");
+		plus.webview.close("customsetting");
 	});
 }
 
