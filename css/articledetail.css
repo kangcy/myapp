@@ -107,12 +107,11 @@
 
 #title1 {
 	line-height: 1.5625rem;
-	padding: 0.8rem 0px;
-	border-bottom: 1px solid #eee;
+	padding: 0.8rem 0px 0px;
 }
 
 #desc {
-	padding: 0.1rem 3% 3% 3%;
+	padding: 0px 3% 3% 3%;
 }
 
 .cover {

@@ -163,7 +163,7 @@
 							</div>
 							<div class="fr tl" style="width:75%;display:inline-block;">
 								<p class="user ml10 mt15 mb0 textshadow f15 cfff fl full" userid="0" id="nickname1"></p>
-								<p class="ml10 mb0 cfff textshadow f13 full">
+								<p class="ml10 mb0 mt10 cfff textshadow f13 full">
 									<span id="createdate1" class="mr10"></span>
 									<span class="ml15" id="views1"></span>
 								</p>
@@ -171,7 +171,7 @@
 						</div>
 					</div>
 					<div class="detail2 cover fl tl">
-						<p class="f16 c333 tc" id="title1"></p>
+						<p class="f16 c333 tc hide" id="title1"></p>
 						<div class="c000 full" id="desc">
 
 						</div>
@@ -218,7 +218,7 @@
 	});
 
 	mui.ready(function() {
-		$("#detail1").css("margin-top", window.innerHeight * 0.3 + "px");
+		$("#detail1").css("margin-top", (window.innerHeight - 95) * 0.35 + "px");
 
 		base.InitScroll();
 
@@ -445,13 +445,13 @@
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 mt10"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full" /></div>');
+							html.push('<div class="full f13 "' + (i == 0 ? "" : "mt10") + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full" /></div>');
 						} else if(part.Types == 2) {
 							//文本
-							html.push('<div class="full f13 mt10">' + part.Introduction + '</div>');
+							html.push('<div class="full f13 "' + (i == 0 ? "" : "mt10") + '">' + part.Introduction + '</div>');
 						} else if(part.Types == 3) {
 							//视频
-							html.push('<div class="full f13 mt10">' + AppendVideo(part.Introduction) + '</div>');
+							html.push('<div class="full f13 "' + (i == 0 ? "" : "mt10") + '"">' + AppendVideo(part.Introduction) + '</div>');
 						}
 					}
 
@@ -600,7 +600,7 @@
 	}
 
 	//确认模板
-	function ChooseTan() {
+	function ChooseTan(callback) {
 		if(isLoading) {
 			return;
 		}
@@ -617,6 +617,9 @@
 			Template: CurrTemplate
 		}, function(data) {
 			isLoading = false;
+			if(callback) {
+				callback();
+			}
 		});
 	}
 

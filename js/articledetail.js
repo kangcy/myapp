@@ -26,6 +26,9 @@ function ChangeBg() {
 			});
 			$bg = $("#bg");
 		}
+		$("#title1").removeClass("hide");
+	} else {
+		$("#title1").addClass("hide");
 	}
 
 	//纯白背景
@@ -82,8 +85,16 @@ function UpdateComment() {
 function UpdateDetail() {
 	Load(function() {
 		plus.webview.close("addarticle");
-		plus.webview.close("custom");
-		plus.webview.close("customsetting");
+	});
+}
+
+//重新加载数据 
+function UpdateDetail2() {
+	ChooseTan(function() {
+		Load(function() {
+			plus.webview.close("custom");
+			plus.webview.close("customsetting");
+		});
 	});
 }
 
@@ -101,10 +112,6 @@ function Delete() {
 					if(data != null) {
 						if(data.result) {
 							plus.webview.close("articledetail");
-							/*var articlePage = plus.webview.getWebviewById("articleSub");
-							if(articlePage) {
-								articlePage.evalJS("Delete(" + ArticleID + ")");
-							}*/
 						}
 					}
 				}, 500);
