@@ -26,7 +26,7 @@ function Camera() {
 			compressTotal = 1;
 			length = 1;
 			mask.show();
-			base.ShowWaiting("正在压缩图片");
+			base.ShowWaiting("正在上传图片");
 			compressImage(localurl);
 		});
 	});
@@ -40,7 +40,7 @@ function Gallery() {
 		length = e.files.length;
 		compressTotal = length;
 		mask.show();
-		base.ShowWaiting("正在压缩图片");
+		base.ShowWaiting("正在上传图片");
 		compressImage(e.files[0]);
 	}, function(e) {
 
@@ -148,9 +148,9 @@ function Upload(imgurl, callback) {
 				}
 				//图片上传完毕，创建文章
 				if(currUploadImg.length >= length) {
-					mui.later(function() {
-						Import(currUploadImg.join(","), false);
-					}, 250);
+
+					Import(currUploadImg.join(","), false);
+
 				}
 				if(callback) {
 					callback();
@@ -180,27 +180,27 @@ function Import(url, showmask) {
 		ArticleNumber: ArticleNumber
 	}
 	HttpGet(base.RootUrl + "Api/ArticlePart/Import", data, function(data) {
-		data = JSON.parse(data);
-		if(data != null) {
-			if(data.result) {
-				var list = data.message;
-				var length = list.length;
-				mui.each(list, function(index, item) {
-					mui.later(function() {
-						AddPic(item.ID, item.Url, 0);
-						if(index >= length - 1) {
-							mask.close();
-						}
-					}, 250);
-				});
+		mui.later(function() {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					var list = data.message;
+					var length = list.length;
+					mui.each(list, function(index, item) {
+						mui.later(function() {
+							AddPic(item.ID, item.Url, 0);
+							if(index >= length - 1) {
+								mask.close();
+							}
+						}, 250);
+					});
+				} else {
+					mask.close();
+					mui.toast(data.message);
+				}
 			} else {
 				mask.close();
-				mui.toast(data.message);
 			}
-		}
+		}, 1000);
 	});
-}
-
-function Create() {
-
 }

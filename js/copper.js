@@ -93,8 +93,8 @@ function confirm(targetid, callback) {
 	}
 
 	//上传图片到服务器 
-	base.ShowWaiting("正在同步图片");
-	mui.post(base.RootUrl + "Upload/Upload", {
+	base.ShowWaiting("正在上传图片");
+	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl
 	}, function(data) {
 		if(data != null) {
@@ -110,7 +110,7 @@ function confirm(targetid, callback) {
 				mui.toast(data.message);
 			}
 		}
-	}, "json");
+	});
 }
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 

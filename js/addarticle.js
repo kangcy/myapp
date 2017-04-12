@@ -46,14 +46,10 @@ function getImage() {
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
 			var localurl = entry.toLocalURL();
-
-			//压缩图片,并重命名
 			compressIndex = 0;
 			compressTotal = 1;
 			length = 1;
-
 			ShowMaskHere(true);
-
 			compressImage(localurl);
 		});
 	});
@@ -63,11 +59,8 @@ function galleryImgs() {
 	plus.gallery.pick(function(e) {
 		files = e.files;
 		length = e.files.length;
-
 		compressTotal = length;
-
 		ShowMaskHere(true);
-
 		compressImage(e.files[0]);
 	}, function(e) {
 
@@ -145,15 +138,13 @@ function getBase64Image(img) {
 
 //上传图片到服务器 
 function Upload(imgurl, callback) {
-	mui.post(base.RootUrl + "Upload/Upload", {
+	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		Standard: "Article",
 		Number: userinfo.Number
 	}, function(data) {
 		if(data != null) {
-
 			if(data.result) {
-				base.CloseWaiting();
 				base.ShowWaiting("正在导入第" + (currUploadImg.length + 1) + "张图片...")
 				if(base.IsNullOrEmpty(data.message)) {
 					length = length - 1;
@@ -168,43 +159,14 @@ function Upload(imgurl, callback) {
 				}
 				//图片上传完毕，创建文章
 				if(currUploadImg.length >= length) {
-					//创建文章 
-					var data = {
-						ID: userinfo.ID,
-						Cover: currUploadImg.join(","),
-						Title: "",
-						Province: base.Province,
-						City: base.City,
-						District: base.District,
-						Street: base.Street,
-						DetailName: base.DetailName,
-						CityCode: base.CityCode,
-						Latitude: base.Latitude,
-						Longitude: base.Longitude
-					}
-					HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
-						ShowMaskHere(false);
-						currUploadImg = [];
-						if(data != null) {
-							if(data.result) {
-								base.OpenWindow("addarticle", "addarticle.html", {
-									ArticleID: data.message.ID,
-									ArticleNumber: data.message.Number,
-									Source: "Add"
-								});
-							} else {
-								mui.toast(data.message);
-							}
-						}
-					});
+					Import(currUploadImg.join(","));
 				}
 				if(callback) {
 					callback();
 				}
 			}
-
 		}
-	}, "json");
+	});
 }
 
 //我的相册选择图片回调
@@ -212,13 +174,15 @@ function ConfirmImg(src) {
 	if(base.IsNullOrEmpty(src)) {
 		return false;
 	}
-
 	ShowMaskHere(true);
+	Import(src);
+}
 
-	//创建文章 
+//创建文章
+function Import(url) {
 	var data = {
 		ID: userinfo.ID,
-		Cover: src,
+		Cover: url,
 		Title: "",
 		Province: base.Province,
 		City: base.City,
@@ -255,7 +219,7 @@ function ShowMaskHere(show) {
 	}
 	if(show) {
 		mui.later(function() {
-			base.ShowWaiting("正在压缩图片");
+			base.ShowWaiting("正在上传图片");
 		}, 250);
 	} else {
 		base.CloseWaiting();
