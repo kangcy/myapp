@@ -132,6 +132,7 @@
 		</div>
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
+		<i id="music1" class="fa fa-music f13 hide" onclick="switchsound()" style="position:fixed;right:10px;top:60px;z-index:999;"></i>
 		<div class="mui-iframe-wrapper hide" id="wrapper" style="top:46px;bottom:50px;">
 			<div class="mui-content mui-scroll-wrapper bg">
 				<div class="mui-scroll" id="bg">
@@ -152,7 +153,6 @@
 					</div>
 					<!--排版1-->
 					<div id="main1" class="f13 tc hide" style="position:relative;">
-						<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:10px;top:10px"></i>
 						<div class="detail full fl" id="detail1">
 							<div class="fl" style="width:23%;display:inline-block;">
 								<img id="useravatar1" class="full fl" />
@@ -204,6 +204,7 @@
 	var mask = base.CreateMask(true, function() {
 		ShareTan(0);
 		ActionTan(0);
+		base.CloseWaiting();
 	});
 
 	//启用双击监听 
@@ -214,7 +215,7 @@
 	});
 
 	mui.ready(function() {
-		$("#detail1").css("margin-top", (window.innerHeight - 95) * 0.35 + "px");
+		$("#detail1").css("margin-top", (window.innerHeight - 95) * 0.3 + "px");
 
 		base.InitScroll();
 
@@ -245,6 +246,7 @@
 				$("#main0").addClass("hide");
 				$("#main1").removeClass("hide");
 			}
+
 			ChangeBg(); //背景切换
 
 			ChangeMusic(templatetype); //音乐切换
@@ -474,6 +476,7 @@
 					CurrBackground = data.BackgroundJson;
 
 					ChangeBg();
+
 					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1").html(base.UnUnicodeText(data.Title));
@@ -509,15 +512,15 @@
 						$("#btnPay").removeClass("hide");
 					}
 
-					//分享信息
-					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);
-					ShareInfo.Cover = data.Cover;
-					ShareInfo.Url = data.ShareUrl;
-
 					//收藏状态
 					if(data.IsKeep == 1) {
 						$("#iskeep,#isnotkeep").toggleClass("hide");
 					}
+
+					//分享信息
+					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);
+					ShareInfo.Cover = data.Cover;
+					ShareInfo.Url = data.ShareUrl;
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().close();

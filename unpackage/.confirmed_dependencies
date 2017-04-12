@@ -1096,7 +1096,8 @@
 			"images/article/star.png",
 			"js/article.js",
 			"css/animate.css",
-			"images/article/power1.png"
+			"images/article/power1.png",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -1104,7 +1105,8 @@
 			"page/articleComment.html",
 			"page/money.html",
 			"page/user.html",
-			"page/edittext.html"
+			"page/edittext.html",
+			"page/articledetail.html"
 		]
 	},
 	"page/keepSub.html": {

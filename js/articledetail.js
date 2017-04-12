@@ -5,7 +5,7 @@ function ChangeMusic(index) {
 		if(Article.AutoMusic == 1) {
 			document.addEventListener('touchstart', startsound);
 		}
-		$("#music0,#music1").removeClass("hide");
+		$("#music" + index).removeClass("hide");
 	} else {
 		$("#music0,#music1").addClass("hide");
 	}
@@ -58,9 +58,9 @@ function ChangeBg() {
 					//居顶 
 					$bg.css({
 						"background": "url(" + url + ") no-repeat top center",
-						"background-size": "100% auto"
+						"background-size": "cover"
 					});
-					break; 
+					break;
 				case 1:
 					//全屏
 					$bg.css({
