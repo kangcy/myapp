@@ -151,18 +151,14 @@
 						</div>
 					</div>
 					<!--排版1-->
-					<div id="main1" class="f13 tc hide">
-						<div class="full">
-							<div class="full" style="position:relative;">
-								<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:10px;top:10px"></i>
-							</div>
-						</div>
+					<div id="main1" class="f13 tc hide" style="position:relative;">
+						<i id="music1" class="fa fa-music f13" onclick="switchsound()" style="position:absolute;right:10px;top:10px"></i>
 						<div class="detail full fl" id="detail1">
-							<div class="fl" style="width:25%;display:inline-block;">
+							<div class="fl" style="width:23%;display:inline-block;">
 								<img id="useravatar1" class="full fl" />
 							</div>
-							<div class="fr tl" style="width:75%;display:inline-block;">
-								<p class="user ml10 mt15 mb0 textshadow f15 cfff fl full" userid="0" id="nickname1"></p>
+							<div class="fr tl" style="width:77%;display:inline-block;">
+								<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
 								<p class="ml10 mb0 mt10 cfff textshadow f13 full">
 									<span id="createdate1" class="mr10"></span>
 									<span class="ml15" id="views1"></span>
@@ -172,7 +168,7 @@
 					</div>
 					<div class="detail2 cover fl tl">
 						<p class="f16 c333 tc hide" id="title1"></p>
-						<div class="c000 full" id="desc">
+						<div class="c333 full" id="desc">
 
 						</div>
 					</div>
@@ -445,13 +441,13 @@
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 "' + (i == 0 ? "" : "mt10") + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full" /></div>');
+							html.push('<div class="full f13 mt15"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full" /></div>');
 						} else if(part.Types == 2) {
 							//文本
-							html.push('<div class="full f13 "' + (i == 0 ? "" : "mt10") + '">' + part.Introduction + '</div>');
+							html.push('<div class="full f13 mt15">' + part.Introduction + '</div>');
 						} else if(part.Types == 3) {
 							//视频
-							html.push('<div class="full f13 "' + (i == 0 ? "" : "mt10") + '"">' + AppendVideo(part.Introduction) + '</div>');
+							html.push('<div class="full f13 mt15">' + AppendVideo(part.Introduction) + '</div>');
 						}
 					}
 

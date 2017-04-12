@@ -337,7 +337,10 @@
 										plus.nativeUI.toast("正在准备安装环境，请稍后！");
 										mui.later(function() {
 											var path = d.filename;
-											plus.runtime.install(path); // 安装下载的apk文件
+											plus.runtime.install(path); // 安装下载的apk文件 
+											//清除用户信息
+											var userinfo = {};
+											localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 										}, 1000);
 									} else {
 										mui.toast("更新失败");

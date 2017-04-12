@@ -133,10 +133,11 @@
 
 		//新增图片
 		mui('#edit').on('tap', '.edit-add-pic', function() {
+			//上传多张图片
+			return;
 			base.OpenWindow("editimage", "editimage.html", {
 				ArticleNumber: ArticleNumber,
 				PartID: 0,
-				//Url: currEditImg,
 				Url: "",
 				Source: "ArticleAvatar",
 				Standard: "Article"

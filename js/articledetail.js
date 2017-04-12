@@ -60,12 +60,12 @@ function ChangeBg() {
 						"background": "url(" + url + ") no-repeat top center",
 						"background-size": "100% auto"
 					});
-					break;
+					break; 
 				case 1:
 					//全屏
 					$bg.css({
 						"background": "url(" + url + ") center center no-repeat",
-						"background-size": "100% 100%",
+						"background-size": "100% auto",
 					});
 					break;
 				default:
