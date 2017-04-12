@@ -909,7 +909,8 @@
 			"css/input.css",
 			"css/input.min.css",
 			"js/articledetail.js",
-			"images/loading.gif"
+			"images/loading.gif",
+			"images/loading2.gif"
 		],
 		"refer": [
 			"page/user.html",
