@@ -148,7 +148,9 @@ function Upload(imgurl, callback) {
 				}
 				//图片上传完毕，创建文章
 				if(currUploadImg.length >= length) {
-					Import(currUploadImg.join(","), false);
+					mui.later(function() {
+						Import(currUploadImg.join(","), false);
+					}, 250);
 				}
 				if(callback) {
 					callback();
@@ -182,56 +184,15 @@ function Import(url, showmask) {
 		if(data != null) {
 			if(data.result) {
 				var list = data.message;
-				/*var length = list.length;
-				var i = 0;
-				while(i < length) {
+				var length = list.length;
+				mui.each(list, function(index, item) {
 					mui.later(function() {
-						console.log(list[i].ID);
-						AddPic(list[i].ID, list[i].Url, 0);
-						i++; 
-						if(i >= length) {
+						AddPic(item.ID, item.Url, 0);
+						if(index >= length - 1) {
 							mask.close();
 						}
 					}, 250);
-				}*/
-				console.log(JSON.stringify(list) + "," + list.length);
-
-				mui.each(list, function(index, item) {
-					console.log(index + "," + JSON.stringify(item));
 				});
-
-				for(var i = 0, len = list.length; i < len; i++) {
-					console.log(JSON.stringify(list[i]));
-					//AddPic(list[i].ID, list[i].Url, 0);
-
-					var html = appendStr(list[i].Url, "pic", list[i].ID);
-					$("#" + currEditID).parents(".edit-body").after(html);
-					$("#edit").find(".banner").addClass("hide");
-					$("#edit").find(".edit-add").removeClass("hide");
-
-					if(i = len - 1) {
-						var imgdefereds = [];
-						$('img').each(function() {
-							var dfd = $.Deferred();
-							$(this).bind('load', function() {
-								dfd.resolve();
-							}).bind('error', function() {
-								//图片加载错误，加入错误处理
-								// dfd.resolve();
-							})
-							if(this.complete) {
-								mui.later(function() {
-									dfd.resolve();
-								}, 1000);
-							}
-							imgdefereds.push(dfd);
-						})
-						$.when.apply(null, imgdefereds).done(function() {
-							InitGroup();
-							mask.close();
-						});
-					}
-				}
 			} else {
 				mask.close();
 				mui.toast(data.message);
