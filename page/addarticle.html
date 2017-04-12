@@ -10,6 +10,27 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/addarticle.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
+		<style type="text/css">
+			/**操作**/
+			
+			.mui-popover.mui-popover-action .mui-table-view {
+				margin-left: 0 !important;
+				margin-right: 0px !important;
+				border-radius: 0px !important;
+			}
+			
+			.mui-popover.mui-popover-action .mui-table-view {
+				margin-left: 0px !important;
+				margin-right: 0px !important;
+				margin-bottom: 0px !important;
+				margin-top: 0.5rem !important;
+				border-radius: 0px !important;
+			}
+			
+			.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
+				background-color: #ddd !important;
+			}
+		</style>
 	</head>
 
 	<body style="background: #E8E8E8;">
@@ -22,6 +43,25 @@
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
+		</div>
+		<!--操作-->
+		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="camera">
+					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
+				</li>
+				<li class="mui-table-view-cell" id="gallery">
+					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
+				</li>
+				<li class="mui-table-view-cell" id="pic">
+					<a href="#" class="c333 f13" onclick="Pic()">从微篇相册选择</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#power" class="c333 f13">取消</a>
+				</li>
+			</ul>
 		</div>
 		<div class="mui-content">
 			<div class="mui-bar mui-bar-nav initial f11 cfff" id="header" style="height:auto;">
@@ -45,6 +85,7 @@
 <script type="text/javascript" src="../js/group.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
+<script type="text/javascript" src="../js/addarticlepart.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var ArticleID = 0; //文章ID
@@ -134,6 +175,7 @@
 		//新增图片
 		mui('#edit').on('tap', '.edit-add-pic', function() {
 			//上传多张图片
+			mui('#power').popover('show');
 			return;
 			base.OpenWindow("editimage", "editimage.html", {
 				ArticleNumber: ArticleNumber,
@@ -269,7 +311,7 @@
 			$("#" + currEditID).parents(".edit-body").after(html);
 			$("#edit").find(".banner").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
-
+ 
 			var imgdefereds = [];
 			$('img').each(function() {
 				var dfd = $.Deferred();

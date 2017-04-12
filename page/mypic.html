@@ -57,6 +57,7 @@
 <script src="../js/PullRefresh.js"></script>
 <script type="text/javascript">
 	var Source = "";
+	var Multiple = 0; //是否多选
 
 	mui.init();
 
@@ -72,7 +73,7 @@
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		Source = self.Source || "";
-		Multiple = self.Multiple || 0; //是否多选
+		Multiple = self.Multiple || 0;
 
 		mui(document.getElementById("scroll")).pullToRefresh({
 			down: {
@@ -115,6 +116,7 @@
 				return mui.toast("请选择图片");
 			}
 			switch(Source) {
+				//创建文章
 				case "subindex":
 					var url = [];
 					check.each(function() {
@@ -125,12 +127,24 @@
 						page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					}
 					break;
+					//自定义背景
 				case "customsetting":
 					var url = [];
 					check.each(function() {
 						url.push($(this).attr("url"));
 					});
 					var page = plus.webview.getWebviewById("customsetting");
+					if(page) {
+						page.evalJS("ConfirmImg('" + url.join(",") + "')");
+					}
+					break;
+					//创建段落
+				case "addarticle":
+					var url = [];
+					check.each(function() {
+						url.push($(this).attr("url"));
+					});
+					var page = plus.webview.getWebviewById("addarticle");
 					if(page) {
 						page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					}

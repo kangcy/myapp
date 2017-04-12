@@ -441,13 +441,13 @@
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 mt15"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full" /></div>');
+							html.push('<div class="full f13 mt5"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full" /></div>');
 						} else if(part.Types == 2) {
 							//文本
-							html.push('<div class="full f13 mt15">' + part.Introduction + '</div>');
+							html.push('<div class="full f13 mt5">' + part.Introduction + '</div>');
 						} else if(part.Types == 3) {
 							//视频
-							html.push('<div class="full f13 mt15">' + AppendVideo(part.Introduction) + '</div>');
+							html.push('<div class="full f13 mt5">' + AppendVideo(part.Introduction) + '</div>');
 						}
 					}
 

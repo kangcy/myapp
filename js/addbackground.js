@@ -1,6 +1,6 @@
 //拍照
 function Camera() {
-	mui('#power').popover('toggle');
+	mui('#power').popover('hide');
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
@@ -15,7 +15,7 @@ function Camera() {
 
 //相册
 function Gallery() {
-	mui('#power').popover('toggle');
+	mui('#power').popover('hide');
 	plus.gallery.pick(function(e) {
 		var url = [];
 		for(var i = 0; i < e.files.length; i++) {
@@ -37,7 +37,7 @@ function Gallery() {
 
 //微篇相册
 function Pic() {
-	mui('#power').popover('toggle');
+	mui('#power').popover('hide');
 	base.OpenWindow("mypic", "mypic.html", {
 		Source: "customsetting",
 		Multiple: multiple
