@@ -760,7 +760,8 @@
 			"images/share/5.jpg",
 			"images/share/4.jpg",
 			"images/share/1.jpg",
-			"js/addarticle.js"
+			"js/addarticle.js",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/userSub.html",

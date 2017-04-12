@@ -58,9 +58,9 @@ function ChangeBg() {
 					//居顶 
 					$bg.css({
 						"background": "url(" + url + ") no-repeat top center",
-						"background-size": "cover"
+						"background-size": "100% auto"
 					});
-					break;
+					break; 
 				case 1:
 					//全屏
 					$bg.css({
@@ -235,8 +235,9 @@ function LoadTemplate() {
 				for(var i = 0, len = data.list.length; i < len; i++) {
 					index += 1;
 					var item = data.list[i];
-					table.append('<div class="mui-control-item temp ' + (item.ID == CurrTemplate ? "hover" : "") + '" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
+					table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
 				}
+				$(".temp:eq("+CurrTemplate+")").addClass("hover");
 			}
 		}
 	});

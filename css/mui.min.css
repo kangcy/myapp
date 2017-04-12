@@ -1551,7 +1551,7 @@ input[type=submit]:enabled:active {
 	margin-left: -10px;
 	padding: 0.0625rem 0.3125rem;
 	color: #fff;
-	background: #ed5565;
+	background: #e33e3e;
 }
 
 .mui-card {
@@ -4752,7 +4752,7 @@ body>.mui-progressbar {
 }
 
 .red {
-	color: #ff0000 !important;
+	color: #e33e3e !important;
 }
 
 .f10 {
