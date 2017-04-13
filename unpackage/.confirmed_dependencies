@@ -1457,7 +1457,9 @@
 			"images/60x60.gif",
 			"images/header.png",
 			"css/loading.min.css",
-			"images/loading.gif"
+			"images/loading.gif",
+			"part/pic.html",
+			"js/editimage.js"
 		],
 		"refer": [
 			"page/addarticle.html",
@@ -2167,7 +2169,8 @@
 			"images/share/5.jpg",
 			"images/background/2.png",
 			"images/background/1.png",
-			"js/addbackground.js"
+			"js/addbackground.js",
+			"part/pic.html"
 		],
 		"refer": [
 			"page/mypic.html",

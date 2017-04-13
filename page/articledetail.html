@@ -67,13 +67,13 @@
 		<div id="temps" class="hide">
 			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow" style="height:6.25rem;border: 0px;border-radius: 0px;">
 				<div class="mui-scroll" style="height:6.25rem;margin-top:0.625rem;" id="temp">
-					<div class="mui-control-item temp hover f12" tid="0" color="#fff" type="0">
+					<div class="mui-control-item temp f12" tid="0" color="#fff" type="0">
 						<div class="blue">纯白</div>
 					</div>
 					<div class="mui-control-item temp f12" tid="1" color="#fff" type="1">
 						<div class="blue">自定义</div>
 					</div>
-				</div> 
+				</div>
 			</div>
 		</div>
 		<!--分享-->
@@ -229,6 +229,7 @@
 				base.OpenWindow("customsetting", "customsetting.html", {
 					ArticleNumber: Article.Number
 				});
+				TempTan(0);
 				return;
 			} else if(CurrTemplate > 1) {
 				CurrCover = $this.attr("cover");
@@ -593,6 +594,7 @@
 			$("#agreeTemp,#temps").addClass("hide");
 			$("#btnTemp").removeClass("hide");
 		} else {
+			$(".temp:eq(" + CurrTemplate + ")").addClass("hover");
 			$("#btnTemp").addClass("hide");
 			$("#agreeTemp,#temps").removeClass("hide");
 		}

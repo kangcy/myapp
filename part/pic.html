@@ -1,0 +1,39 @@
+<style type="text/css">
+	.mui-popover.mui-popover-action .mui-table-view {
+		margin-left: 0 !important;
+		margin-right: 0px !important;
+		border-radius: 0px !important;
+	}
+	
+	.mui-popover.mui-popover-action .mui-table-view {
+		margin-left: 0px !important;
+		margin-right: 0px !important;
+		margin-bottom: 0px !important;
+		margin-top: 0.5rem !important;
+		border-radius: 0px !important;
+	}
+	
+	.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
+		background-color: #ddd !important;
+	}
+</style>
+
+<!--操作-->
+<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell" id="camera">
+			<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
+		</li>
+		<li class="mui-table-view-cell" id="gallery">
+			<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
+		</li>
+		<li class="mui-table-view-cell" id="pic">
+			<a href="#" class="c333 f13" onclick="Pic()">从微篇相册选择</a>
+		</li>
+	</ul>
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell noborder">
+			<a href="#power" class="c333 f13">取消</a>
+		</li>
+	</ul>
+</div>

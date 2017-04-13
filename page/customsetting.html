@@ -10,10 +10,6 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
 		<style type="text/css">
-			body {
-				background: #f8f8f8;
-			}
-			
 			#items {
 				height: 5.5rem;
 				background: #fff;
@@ -76,32 +72,13 @@
 				background-size: 100% 100%;
 				background-position: center center;
 			}
-			/**操作**/
-			
-			.mui-popover.mui-popover-action .mui-table-view {
-				margin-left: 0 !important;
-				margin-right: 0px !important;
-				border-radius: 0px !important;
-			}
-			
-			.mui-popover.mui-popover-action .mui-table-view {
-				margin-left: 0px !important;
-				margin-right: 0px !important;
-				margin-bottom: 0px !important;
-				margin-top: 0.5rem !important;
-				border-radius: 0px !important;
-			}
-			
-			.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
-				background-color: #ddd !important;
-			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<a class="mui-icon mui-text c333 fr" href="#power">创建</a>
+			<a class="mui-icon mui-text c333 fr hide" href="#power" id="create">创建</a>
 			<h1 class="mui-title c333">背景设置</h1>
 		</header>
 		<div class="loading" id="loader">
@@ -109,25 +86,8 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<!--操作-->
-		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="camera">
-					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
-				</li>
-				<li class="mui-table-view-cell" id="gallery">
-					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
-				</li>
-				<li class="mui-table-view-cell" id="pic">
-					<a href="#" class="c333 f13" onclick="Pic()">从微篇相册选择</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder">
-					<a href="#power" class="c333 f13">取消</a>
-				</li>
-			</ul>
-		</div>
+		<!--图片操作-->
+		<div id="picupload"></div>
 		<!--删除-->
 		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
@@ -185,6 +145,10 @@
 	mui.init();
 
 	mui.ready(function() {
+		mui('#picupload').load("../part/pic.html", function(response) {
+			$("#create").removeClass("hide");
+		});
+
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");
 			if(isused == 0) {

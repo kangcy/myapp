@@ -34,11 +34,13 @@ function ChangeBg() {
 	//纯白背景
 	if(CurrTemplate == 0) {
 		$bg.css("background", "#fff");
+		$(".cover").css("background", "RGBA(255, 255, 255, 1");
 	} else if(CurrTemplate > 1) {
 		$bg.css({
 			"background": "url(" + CurrCover + ") top center no-repeat",
 			"background-size": "100% auto"
 		});
+		$(".cover").css("background", "RGBA(255, 255, 255, 0.5");
 	} else {
 		if(CurrBackground == null) {
 			//全屏
@@ -60,7 +62,7 @@ function ChangeBg() {
 						"background": "url(" + url + ") no-repeat top center",
 						"background-size": "100% auto"
 					});
-					break; 
+					break;
 				case 1:
 					//全屏
 					$bg.css({
@@ -237,7 +239,6 @@ function LoadTemplate() {
 					var item = data.list[i];
 					table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
 				}
-				$(".temp:eq("+CurrTemplate+")").addClass("hover");
 			}
 		}
 	});

@@ -2,7 +2,8 @@ var iscutimging = false;
 var dstname = "";
 
 //拍照
-function getImage(long, width) {
+function Camera() {
+	mui('#power').popover('hide');
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
@@ -17,15 +18,14 @@ function getImage(long, width) {
 				if(status) {
 					$("#readyimg").attr("src", src);
 				}
-				//cutImg(long, width, function() {});
 			});
 		});
 	});
 }
 
 //相册选取  
-function galleryImgs(long, width, callback) {
-
+function Gallery() {
+	mui('#power').popover('hide');
 	plus.gallery.pick(function(e) {
 		closepop(); //关闭裁剪
 
@@ -55,15 +55,18 @@ function galleryImgs(long, width, callback) {
 		});
 	}, function(e) {
 		//outSet( "取消选择图片" ) 
-		if($.isFunction(callback)) {
-			callback();
-		}
 	}, {
 		filter: "image",
 		maximum: 1,
 		multiple: true,
 		system: false
 	});
+}
+
+//微篇相册
+function Pic() {
+	mui('#power').popover('hide');
+	base.OpenWindow("mypic", "mypic.html", {});
 }
 
 //照片裁剪类  
@@ -183,7 +186,7 @@ function confirm(callback) {
 }
 
 //请求上传图片
-function Upload(imgurl, callback) { 
+function Upload(imgurl, callback) {
 	base.ShowWaiting("正在上传图片");
 	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
@@ -209,8 +212,6 @@ function Upload(imgurl, callback) {
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
 function compressImage(src, newsrc, callback) {
-	//文章封面压缩
-	var width = Source == "ArticleCover" ? window.innerWidth + "px" : "auto";
 	plus.zip.compressImage({
 			src: src,
 			dst: newsrc,
@@ -231,54 +232,24 @@ function compressImage(src, newsrc, callback) {
 		});
 }
 
-//选择图片
-function showActionSheet(long, width, callback) {
-	if(!long) {
-		long = 1;
-	}
-	if(!width) {
-		width = 1;
-	}
-	var bts = [{
-		title: "拍照"
-	}, {
-		title: "从手机相册选择"
-	}, {
-		title: "从微篇相册选择"
-	}];
-	plus.nativeUI.actionSheet({
-			cancel: "取消",
-			buttons: bts
-		},
-		function(e) {
-			if(e.index == 1) {
-				getImage(long, width);
-			} else if(e.index == 2) {
-				galleryImgs(long, width, callback);
-			} else if(e.index == 3) {
-				base.OpenWindow("mypic", "mypic.html", {});
-			}
-		}
-	);
-}
-
 //我的相册选择图片回调
 function ConfirmImg(src) {
-	$("#readyimg").hide().attr("src", src).load(function() {
-		var imagewidth = $("#readyimg").width();
-		var imageheight = $("#readyimg").height();
+	var $readyimg = $("#readyimg");
+	$readyimg.hide().attr("src", src).load(function() {
+		var imagewidth = $readyimg.width();
+		var imageheight = $readyimg.height();
 
-		if(totalheight > imageheight) {
-			$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px");
-		} else if(totalwidth > imagewidth) {
-			$("#readyimg").css("margin-left", (totalwidth - imagewidth) / 2 + "px");
-		} else {
-			$("#readyimg").css({
-				"width": "auto",
-				"height": "auto"
-			});
+		if(totalheight >= imageheight) {
+			$readyimg.css("margin-top", (totalheight - imageheight) / 2 + "px");
 		}
-		$("#readyimg").show();
+		if(totalwidth >= imagewidth) {
+			$readyimg.css("margin-left", (totalwidth - imagewidth) / 2 + "px");
+		}
+		$readyimg.css({
+			"max-width": totalwidth + "px",
+			"max-height": totalheight + "px"
+		});
+		$readyimg.show();
 	});
 }
 
