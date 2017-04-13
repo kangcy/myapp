@@ -121,7 +121,7 @@
 
 		base.ScrollTop();
 
-		document.getElementById("action").addEventListener('hidden', function(event) {
+		base.Get("action").addEventListener('hidden', function(event) {
 			ShowMask(false, false, PageName);
 		});
 	});
@@ -132,7 +132,7 @@
 
 		base.ArticleAction("#pullrefresh", userinfo);
 
-		mui(document.getElementById("pullrefresh")).pullToRefresh({
+		mui(base.Get("pullrefresh")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -164,7 +164,7 @@
 	 * 加载数据
 	 */
 	function Load(callback) {
-		var table = document.getElementById('scroll-view');
+		var table = base.Get('scroll-view');
 		var data = {
 			ID: userinfo.ID,
 			page: currpage,

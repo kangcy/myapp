@@ -150,7 +150,7 @@
 		});
 
 		//分类
-		document.getElementById('articletype').addEventListener('tap', function(event) {
+		base.Get('articletype').addEventListener('tap', function(event) {
 			base.OpenWindow("articletype", "articletype.html", {
 				ArticleID: ArticleID,
 				ArticleType: ArticleType,
@@ -173,7 +173,7 @@
 		} else if(ArticleType == 0) {
 			ArticleTypeName = "请选择"
 		}
-		document.getElementById("article_type").innerHTML = ArticleTypeName;
+		base.Get("article_type").innerHTML = ArticleTypeName;
 
 		//初始化
 		$("#list").find("[index=" + ArticlePower + "]").addClass("check");
@@ -188,7 +188,7 @@
 		}
 
 		//投稿
-		document.getElementById("switch").addEventListener('tap', function(event) {
+		base.Get("switch").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
@@ -253,7 +253,7 @@
 	function UpdateArticleType(id, name) {
 		ArticleType = id;
 		ArticleTypeName = name;
-		document.getElementById("article_type").innerHTML = name;
+		base.Get("article_type").innerHTML = name;
 	}
 
 	//操作弹窗

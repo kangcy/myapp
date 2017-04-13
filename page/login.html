@@ -96,9 +96,9 @@
 	});
 
 	//检查 "登录状态/锁屏状态" 结束
-	var loginButton = document.getElementById('login');
-	var accountBox = document.getElementById('account');
-	var passwordBox = document.getElementById('password');
+	var loginButton = base.Get('login');
+	var accountBox = base.Get('account');
+	var passwordBox = base.Get('password');
 
 	//跳转首页
 	var toMain = function() {
@@ -112,7 +112,7 @@
 
 	mui.ready(function() {
 		if(window.innerHeight <= 480) {
-			document.getElementById("logo").style.margin = "1.6rem";
+			base.Get("logo").style.margin = "1.6rem";
 		}
 
 		base.InitScroll();
@@ -188,24 +188,24 @@
 	/*
 	 * 注册账号
 	 */
-	document.getElementById('reg').addEventListener('tap', function(event) {
+	base.Get('reg').addEventListener('tap', function(event) {
 		base.OpenWindow("reg", "reg.html", {});
 	}, false);
 
 	/*
 	 * 忘记密码
 	 */
-	document.getElementById('forgetPassword').addEventListener('tap', function(event) {
+	base.Get('forgetPassword').addEventListener('tap', function(event) {
 		base.OpenWindow("forget_password", "forget_password.html", {});
 	}, false);
 
-	document.getElementById('weixin').addEventListener('tap', function() {
+	base.Get('weixin').addEventListener('tap', function() {
 		authLogin('weixin');
 	});
-	document.getElementById('qq').addEventListener('tap', function() {
+	base.Get('qq').addEventListener('tap', function() {
 		authLogin('qq');
 	});
-	/*document.getElementById('sinaweibo').addEventListener('tap', function() {
+	/*base.Get('sinaweibo').addEventListener('tap', function() {
 		authLogin('sinaweibo');
 	});*/
 

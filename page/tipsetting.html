@@ -80,8 +80,8 @@
 
 	mui.ready(function() {
 		if(userinfo.UserRole == 2) {
-			document.getElementById("file").classList.remove("hide");
-			document.getElementById("custom").classList.remove("hide");
+			base.Get("file").classList.remove("hide");
+			base.Get("custom").classList.remove("hide");
 		}
 	});
 
@@ -90,7 +90,7 @@
 		var self = plus.webview.currentWebview();
 		var source = self.Source || "";
 		if(!base.IsNullOrEmpty(source)) {
-			document.getElementById("back").classList.remove("hide");
+			base.Get("back").classList.remove("hide");
 		}
 	});
 

@@ -50,9 +50,9 @@
 
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
-			document.getElementById("title").innerHTML = "评论";
-			document.getElementById("none_img").setAttribute("src", "../images/my/333.png");
-			document.getElementById("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
+			base.Get("title").innerHTML = "评论";
+			base.Get("none_img").setAttribute("src", "../images/my/333.png");
+			base.Get("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
 			$(".mui-content").before('<div class="mui-bar mui-bar-tab tc cfff hide" style="background:#f8f8f8;border-top:1px solid #eee;" id="bottomAction" onclick="Comment()"><div id="addcomment"><div class="f12">我来说一句</div></div></div>');
 
 			$("#main").append('<textarea id="textarea" class="hide"></textarea>');
@@ -172,7 +172,7 @@
 		}, function(data) {
 			if(data.result) {
 				$("#none").addClass("hide");
-				var table = document.getElementById('scroll-view');
+				var table = base.Get('scroll-view');
 				var div = AppendStr(data.message);
 				table.appendChild(div);
 			}
@@ -218,7 +218,7 @@
 
 	//初始化获取参数
 	function Init() {
-		mui(document.getElementById("scroll")).pullToRefresh({
+		mui(base.Get("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
 					NewId = 0;
@@ -253,7 +253,7 @@
 					data = data.message;
 					totalpage = data.totalpage;
 					base.ShowNone(false);
-					var table = document.getElementById('scroll-view');
+					var table = base.Get('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = AppendStr(data.list[i]);
 						table.appendChild(div);

@@ -28,8 +28,8 @@
 
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
-			document.getElementById("title").innerHTML = "黑名单";
-			document.getElementById("none_tip").innerHTML = "加入黑名单的用户将无法浏览你的专栏";
+			base.Get("title").innerHTML = "黑名单";
+			base.Get("none_tip").innerHTML = "加入黑名单的用户将无法浏览你的专栏";
 
 			Load();
 		});
@@ -83,7 +83,7 @@
 
 	//我的拉黑
 	function Load(callback) {
-		var table = document.getElementById('scroll-view');
+		var table = base.Get('scroll-view');
 		table.innerHTML = "";
 		HttpGet(base.RootUrl + "Api/Black/All", {
 			CreateUserNumber: userinfo.Number

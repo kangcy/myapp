@@ -91,28 +91,28 @@
 	mui.ready(function() {
 
 		//加粗
-		document.getElementById("btn10").addEventListener('tap', function(event) {
+		base.Get("btn10").addEventListener('tap', function(event) {
 			$("#edit").addClass("bold");
 			$("#btn10,#btn11").toggleClass("hide");
 			FontWeight = "bold";
 		}, false);
 
 		//字体放大
-		document.getElementById("btn20").addEventListener('tap', function(event) {
+		base.Get("btn20").addEventListener('tap', function(event) {
 			$("#edit").removeClass("f12").addClass("f14");
 			$("#btn20,#btn21").toggleClass("hide");
 			FontSize = "f14";
 		}, false);
 
 		//文字居中
-		document.getElementById("btn30").addEventListener('tap', function(event) {
+		base.Get("btn30").addEventListener('tap', function(event) {
 			$("#edit").removeClass("tl").addClass("tc");
 			$("#btn30,#btn31").toggleClass("hide");
 			Align = "center";
 		}, false);
 
 		//颜色
-		document.getElementById("btn40").addEventListener('tap', function(event) {
+		base.Get("btn40").addEventListener('tap', function(event) {
 			$("#color").toggleClass("hide");
 		}, false);
 
@@ -125,34 +125,34 @@
 		});
 
 		//超链接
-		document.getElementById("btn50").addEventListener('tap', function(event) {
+		base.Get("btn50").addEventListener('tap', function(event) {
 			$("#btn50,#btn51").toggleClass("hide");
 			ShowLink();
 		}, false);
 
 		//取消加粗
-		document.getElementById("btn11").addEventListener('tap', function(event) {
+		base.Get("btn11").addEventListener('tap', function(event) {
 			$("#edit").removeClass("bold");
 			$("#btn10,#btn11").toggleClass("hide");
 			FontWeight = "";
 		}, false);
 
 		//字体缩小
-		document.getElementById("btn21").addEventListener('tap', function(event) {
+		base.Get("btn21").addEventListener('tap', function(event) {
 			$("#edit").removeClass("f14").addClass("f12");
 			$("#btn20,#btn21").toggleClass("hide");
 			FontSize = "f12";
 		}, false);
 
 		//取消文字居中
-		document.getElementById("btn31").addEventListener('tap', function(event) {
+		base.Get("btn31").addEventListener('tap', function(event) {
 			$("#edit").removeClass("tc").addClass("tl");
 			$("#btn30,#btn31").toggleClass("hide");
 			Align = "tl";
 		}, false);
 
 		//取消超链接
-		document.getElementById("btn51").addEventListener('tap', function(event) {
+		base.Get("btn51").addEventListener('tap', function(event) {
 			ShowLink();
 		}, false);
 	})
@@ -245,12 +245,12 @@
 		}
 
 		//字数限制
-		document.getElementById("edit").ontouchend = function() {
-			document.getElementById("edit").innerHTML = document.getElementById("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
+		base.Get("edit").ontouchend = function() {
+			base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
 		}
 
 		//提交
-		document.getElementById("submit").addEventListener('tap', function(event) {
+		base.Get("submit").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}

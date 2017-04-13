@@ -90,19 +90,19 @@
 	mui.ready(function() {
 
 		mui('#main').load("../part/list.html", function(response) {
-			document.getElementById("title").innerHTML = "相册";
-			document.getElementById("confirm").innerHTML = "删除";
-			document.getElementById("confirm").onclick = function() {
+			base.Get("title").innerHTML = "相册";
+			base.Get("confirm").innerHTML = "删除";
+			base.Get("confirm").onclick = function() {
 				Confirm()
 			};
-			document.getElementById("none_img").setAttribute("src", "../images/my/666.png");
-			document.getElementById("none_tip").innerHTML = "这里还没有内容";
+			base.Get("none_img").setAttribute("src", "../images/my/666.png");
+			base.Get("none_tip").innerHTML = "这里还没有内容";
 
 			var div = document.createElement('div');
 			div.className = 'tip f11 hide';
 			div.setAttribute("id", "tip");
 			div.innerHTML = "<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>";
-			document.getElementById("main").appendChild(div);
+			base.Get("main").appendChild(div);
 
 			mui.previewImage();
 		});
@@ -113,7 +113,7 @@
 		UserNumber = self.UserNumber || "";
 
 		if(UserNumber != "") {
-			mui(document.getElementById("scroll")).pullToRefresh({
+			mui(base.Get("scroll")).pullToRefresh({
 				down: {
 					callback: function() {
 						PreviewEnable = true;
@@ -149,7 +149,7 @@
 			});
 
 			if(UserNumber == userinfo.Number) {
-				document.getElementById("tip").classList.remove("hide");
+				base.Get("tip").classList.remove("hide");
 				mui("#scroll").on('longtap', '.thirdfloor', function(event) {
 					PreviewEnable = !PreviewEnable;
 					Preview(PreviewEnable, this);
@@ -178,7 +178,7 @@
 	 * 加载数据
 	 */
 	function Load(callback) {
-		var table = document.getElementById('scroll-view');
+		var table = base.Get('scroll-view');
 		var data = {
 			page: currpage,
 			rows: pagesize,

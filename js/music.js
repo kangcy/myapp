@@ -16,10 +16,10 @@ function switchsound() {
 
 	if(audio.paused) {
 		audio.play();
-		document.getElementById(MusicID).setAttribute("play", "stop");
+		base.Get(MusicID).setAttribute("play", "stop");
 	} else if(new Date().getTime() > timestamp + 1000) {
 		audio.pause();
-		document.getElementById(MusicID).setAttribute("play", "on");
+		base.Get(MusicID).setAttribute("play", "on");
 	}
 }
 
@@ -27,7 +27,7 @@ function stopsound() {
 	if(audio != null) {
 		audio.pause();
 	}
-	document.getElementById(MusicID).setAttribute("play", "on");
+	base.Get(MusicID).setAttribute("play", "on");
 }
 
 function startsound() {
@@ -41,6 +41,6 @@ function startsound() {
 		document.body.appendChild(audio);
 	}
 	audio.play();
-	document.getElementById(MusicID).setAttribute('play', 'stop');
+	base.Get(MusicID).setAttribute('play', 'stop');
 	timestamp = new Date().getTime();
 }

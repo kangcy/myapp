@@ -70,13 +70,13 @@
 	mui.ready(function() {
 
 		//发送验证码
-		var btnCode = document.getElementById("btnCode");
+		var btnCode = base.Get("btnCode");
 		btnCode.addEventListener('tap', function(event) {
 			if(isCountDown) {
 				return false;
 			}
 			isCountDown = true;
-			var mob = document.getElementById("account").value;
+			var mob = base.Get("account").value;
 			if(!base.CheckPhone(mob)) {
 				isCountDown = false;
 				return mui.toast("友情提醒：您输入手机号码格式异常");
@@ -103,7 +103,7 @@
 					if(data.result) {
 						mui.toast("验证码发送成功");
 						if(data.usesms == "0") {
-							document.getElementById("code").value = data.message;
+							base.Get("code").value = data.message;
 						}
 					} else {
 						mui.toast("验证码发送失败");
@@ -120,14 +120,14 @@
 		base.GetCurrentPosition();
 
 		var settings = app.getSettings();
-		var accountBox = document.getElementById('account'); //手机号码
-		var codeBox = document.getElementById('code'); //手机号码
-		var nicknameBox = document.getElementById('nickname'); //昵称
-		var passwordBox = document.getElementById('password'); //密码
-		var passwordConfirmBox = document.getElementById('password_confirm'); //确认密码
+		var accountBox = base.Get('account'); //手机号码
+		var codeBox = base.Get('code'); //手机号码
+		var nicknameBox = base.Get('nickname'); //昵称
+		var passwordBox = base.Get('password'); //密码
+		var passwordConfirmBox = base.Get('password_confirm'); //确认密码
 
 		//注册
-		document.getElementById('reg').addEventListener('tap', function(event) {
+		base.Get('reg').addEventListener('tap', function(event) {
 			if(isLoading) {
 				return false;
 			}
@@ -198,7 +198,7 @@
 		});
 
 		//跳转用户协议页
-		document.getElementById('notice').addEventListener('tap', function(event) {
+		base.Get('notice').addEventListener('tap', function(event) {
 			base.OpenWindow("notice", "notice.html", {});
 		});
 	});

@@ -65,17 +65,17 @@
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
-		document.getElementById('link').value = self.Link || "";
-		document.getElementById('text').value = self.Text || "";
+		base.Get('link').value = self.Link || "";
+		base.Get('text').value = self.Text || "";
 
 		//提交
-		document.getElementById("submit").addEventListener('tap', function(event) {
+		base.Get("submit").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
 			isLoading = true;
-			var link = document.getElementById('link').value;
-			var text = document.getElementById('text').value;
+			var link = base.Get('link').value;
+			var text = base.Get('text').value;
 			if(base.IsNullOrEmpty(link)) {
 				isLoading = false;
 				return mui.toast('请填写链接地址');
@@ -92,7 +92,7 @@
 		});
 
 		//删除
-		document.getElementById("delete").addEventListener('tap', function(event) {
+		base.Get("delete").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}

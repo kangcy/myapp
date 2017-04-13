@@ -38,8 +38,8 @@
 	mui.init();
 
 	var page = null;
-	var title = document.getElementById("title");
-	var question = document.getElementById("question");
+	var title = base.Get("title");
+	var question = base.Get("question");
 	mui.plusReady(function() {
 		question.style.height = (window.innerHeight - 50 - window.innerHeight * 0.1) + "px";
 		var self = plus.webview.currentWebview();
@@ -78,7 +78,7 @@
 		}
 
 		//提交
-		document.getElementById("submit").addEventListener('tap', function(event) {
+		base.Get("submit").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return false;
 			}

@@ -54,9 +54,9 @@
 var waiting = new function() {
 	//创建
 	this.create = function(title) {
-		var item = document.getElementById("waiting");
+		var item = base.Get("waiting");
 		if(item) {
-			document.getElementById("waiting_title").innerHTML = title;
+			base.Get("waiting_title").innerHTML = title;
 			return item;
 		}
 		var div = document.createElement('div');
@@ -68,7 +68,7 @@ var waiting = new function() {
 	}
 	this.setTitle = function(title) {
 		var item = this.create(title);
-		document.getElementById("waiting_title").innerHTML = title;
+		base.Get("waiting_title").innerHTML = title;
 	}
 	this.show = function(title) {
 		var item = this.create(title);
@@ -166,9 +166,9 @@ var base = new function() {
 	 **/
 	this.ShowLoading = function(show) {
 		if(show)
-			document.getElementById("loader").classList.remove("hide");
+			base.Get("loader").classList.remove("hide");
 		else
-			document.getElementById("loader").classList.add("hide");
+			base.Get("loader").classList.add("hide");
 	}
 
 	/**
@@ -176,9 +176,9 @@ var base = new function() {
 	 **/
 	this.ShowNone = function(show) {
 		if(show)
-			document.getElementById("none").classList.remove("hide");
+			base.Get("none").classList.remove("hide");
 		else
-			document.getElementById("none").classList.add("hide");
+			base.Get("none").classList.add("hide");
 	}
 
 	/**
@@ -792,12 +792,7 @@ var base = new function() {
 	 * 切换Switch
 	 */
 	this.SwitchChange = function(id, isopen) {
-		var item = document.getElementById(id);
-		if(isopen) {
-			item.classList.add("active");
-		} else {
-			item.classList.remove("active");
-		}
+		base.ToggleClass("#" + id, active, isopen);
 	}
 
 	/**
@@ -897,6 +892,43 @@ var base = new function() {
 	 */
 	this.UnUnicodeText = function(str) {
 		return unescape(str.replace(/\\u/gi, '%u'));
+	}
+
+	/**
+	 * 切换样式
+	 */
+	this.ToggleClass = function(name, classname, add) {
+		if(base.IsNullOrEmpty(name) || base.IsNullOrEmpty(classname)) {
+			return;
+		}
+		if(name.indexOf('#') < 0) {
+			if(add) {
+				mui(name).each(function(index, item) {
+					item.classList.add(classname);
+				});
+			} else {
+				mui(name).each(function(index, item) {
+					item.classList.remove(classname);
+				});
+			}
+		} else {
+			if(add) {
+				mui(name)[0].classList.add(classname);
+			} else {
+				mui(name)[0].classList.remove(classname);
+			}
+		}
+	}
+
+	/**
+	 * 获取对象
+	 */
+	this.Get = function(name) {
+		if(name.indexOf('.') < 0) {
+			return mui("#" + name)[0];
+		} else {
+			return mui(name);
+		}
 	}
 }
 

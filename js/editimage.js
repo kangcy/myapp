@@ -70,10 +70,10 @@ function Pic() {
 }
 
 //照片裁剪类  
-function cutImg(long, width, callback) {
-	document.getElementById("openpop").style.display = "none";
-	document.getElementById("closepop").style.display = "inline-block";
-	if(long > 0 && width > 0) {
+function cutImg(callback) {
+	base.Get("openpop").style.display = "none";
+	base.Get("closepop").style.display = "inline-block";
+	/*if(long > 0 && width > 0) {
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
 			aspectRatio: long / width,
@@ -84,7 +84,7 @@ function cutImg(long, width, callback) {
 				iscutimging = true;
 			}
 		});
-	} else {
+	}*/
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
 			autoCropArea: 0.3,
@@ -94,7 +94,6 @@ function cutImg(long, width, callback) {
 				iscutimging = true;
 			}
 		});
-	}
 }
 
 //右旋转90度  
@@ -106,7 +105,7 @@ function rotateimgright() {
 		if(iscutimging) {
 			$("#readyimg").cropper('rotate', 90);
 		} else {
-			cutImg(0, 0, function() {
+			cutImg(function() {
 				$("#readyimg").cropper('rotate', 90);
 			});
 		}
@@ -132,7 +131,7 @@ function rotateimgleft() {
 	if(iscutimging) {
 		$("#readyimg").cropper('rotate', -90);
 	} else {
-		cutImg(0, 0, function() {
+		cutImg(function() {
 			$("#readyimg").cropper('rotate', -90);
 		});
 	}
@@ -140,15 +139,15 @@ function rotateimgleft() {
 
 //打开裁剪窗口
 function openpop() {
-	cutImg(0, 0, function() {
+	cutImg(function() {
 
 	})
 }
 
 //关闭裁剪窗口
 function closepop() {
-	document.getElementById("closepop").style.display = "none";
-	document.getElementById("openpop").style.display = "inline-block";
+	base.Get("closepop").style.display = "none";
+	base.Get("openpop").style.display = "inline-block";
 	$("#readyimg").cropper('destroy');
 	iscutimging = false;
 }
@@ -198,8 +197,8 @@ function Upload(imgurl, callback) {
 				if($.isFunction(callback)) {
 					callback(base.RootUrl + data.message);
 				}
-				document.getElementById("closepop").style.display = "none";
-				document.getElementById("openpop").style.display = "inline-block";
+				base.Get("closepop").style.display = "none";
+				base.Get("openpop").style.display = "inline-block";
 				$("#readyimg").cropper('destroy');
 				iscutimging = false;
 			} else {

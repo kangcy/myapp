@@ -21,16 +21,16 @@ function CheckUpdate(callback) {
 				remark = remark.replace(/ /g, "\n");
 				mui.confirm(remark, '发现最新版本', ['立即更新', '暂不更新'], function(z) {
 					if(z.index == 0) {
-						document.getElementById("myprogressbg").classList.remove("hide");
+						base.Get("myprogressbg").classList.remove("hide");
 
-						document.getElementById("myprogress").classList.remove("hide");
+						base.Get("myprogress").classList.remove("hide");
 						callback(1);
-						document.getElementById("myprogress").classList.add("bounceIn");
+						base.Get("myprogress").classList.add("bounceIn");
 
 						var dtask = plus.downloader.createDownload(data.url, {}, function(d, status) {
 							if(status == 200) {
 								clearInterval(i);
-								document.getElementById("persent").innerHTML = "100%";
+								base.Get("persent").innerHTML = "100%";
 								plus.nativeUI.toast("正在准备安装环境，请稍后！");
 								setTimeout(function() {
 									var path = d.filename;
@@ -47,10 +47,10 @@ function CheckUpdate(callback) {
 						var i = setInterval(function() {
 							var totalSize = dtask.totalSize;
 							var downloadedSize = dtask.downloadedSize;
-							document.getElementById("proDownFile").setAttribute("value", downloadedSize);
-							document.getElementById("proDownFile").setAttribute("max", totalSize);
+							base.Get("proDownFile").setAttribute("value", downloadedSize);
+							base.Get("proDownFile").setAttribute("max", totalSize);
 							if(totalSize > 0) {
-								document.getElementById("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
+								base.Get("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
 							}
 						}, 100);
 					}

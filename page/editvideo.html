@@ -144,12 +144,12 @@
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber;
 
-		document.getElementById('agree').addEventListener('tap', function(e) {
+		base.Get('agree').addEventListener('tap', function(e) {
 			if(isLoading) {
 				return;
 			}
 			isLoading = true;
-			var url = document.getElementById("url");
+			var url = base.Get("url");
 			if(base.IsNullOrEmpty(url.value)) {
 				return mui.toast('请粘贴优酷视频网页地址');
 			}
@@ -164,13 +164,13 @@
 
 	//操作弹窗
 	function ActionTan(index) {
-		var notice = document.getElementById("notice");
+		var notice = base.Get("notice");
 		if(index == 0) {
-			document.getElementById("mytanbg").classList.add("hide");
+			base.Get("mytanbg").classList.add("hide");
 			notice.classList.remove("bounceIn");
 			notice.classList.add("bounceOut");
 		} else {
-			document.getElementById("mytanbg").classList.remove("hide");
+			base.Get("mytanbg").classList.remove("hide");
 			notice.classList.remove("hide");
 			notice.classList.remove("bounceOut");
 			notice.classList.add("bounceIn");

@@ -251,7 +251,7 @@
 	}
 
 	//自定义事件，模拟点击“首页选项卡”
-	var defaultTab = document.getElementById("defaultTab");
+	var defaultTab = base.Get("defaultTab");
 	document.addEventListener('gohome', function(event) {
 
 		//模拟首页点击
@@ -267,13 +267,13 @@
 
 	function PreviewTan2(index) {
 		if(index == 0) {
-			document.getElementById("myprogressbg").classList.add("hide");
+			base.Get("myprogressbg").classList.add("hide");
 			var topicPage = plus.webview.getWebviewById("topic");
 			if(topicPage) {
 				topicPage.evalJS("CloseUpdate()");
 			}
 		} else {
-			document.getElementById("myprogressbg").classList.remove("hide");
+			base.Get("myprogressbg").classList.remove("hide");
 		}
 	}
 </script>

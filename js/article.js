@@ -12,13 +12,13 @@ function ActionTan(show, articleNumber, articleId) {
 		ArticleNumber = articleNumber;
 		ArticleID = articleId;
 		if(PageName != "keep") {
-			var item = document.getElementById("article" + ArticleID);
+			var item = base.Get("article" + ArticleID);
 			if(item.getAttribute("iskeep") == 0) {
-				document.getElementById("action_keep").classList.remove("hide");
-				document.getElementById("action_outkeep").classList.add("hide");
+				base.Get("action_keep").classList.remove("hide");
+				base.Get("action_outkeep").classList.add("hide");
 			} else {
-				document.getElementById("action_keep").classList.add("hide");
-				document.getElementById("action_outkeep").classList.remove("hide");
+				base.Get("action_keep").classList.add("hide");
+				base.Get("action_outkeep").classList.remove("hide");
 			}
 		}
 	}
@@ -44,7 +44,7 @@ function Keep() {
 			if(data.result) {
 				userinfo.Keeps += 1;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-				var item = document.getElementById("article" + ArticleID);
+				var item = base.Get("article" + ArticleID);
 				item.setAttribute("iskeep", 1);
 			}
 			mui.toast(data.result ? "收藏成功" : data.message);
@@ -58,7 +58,7 @@ function OutKeep() {
 		return;
 	}
 	mask.close();
-	var item = document.getElementById("article" + ArticleID);
+	var item = base.Get("article" + ArticleID);
 	mui.confirm('确认取消收藏？', '', ['确认', '取消'], function(e) {
 		if(e.index == 0) {
 			HttpGet(base.RootUrl + "Keep/Delete", {
@@ -82,7 +82,7 @@ function OutKeep() {
 							if(userinfo.Keeps < 0) {
 								userinfo.Keeps = 0;
 							}
-							var item = document.getElementById("article" + ArticleID);
+							var item = base.Get("article" + ArticleID);
 							item.setAttribute("iskeep", 0);
 						}
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));

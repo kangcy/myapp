@@ -71,9 +71,9 @@ function Payment() {
 			"sign": model.sign
 		}
 		plus.payment.request(channel[id], obj, function(result) {
-			document.getElementById("success").classList.remove("hide");
+			base.Get("success").classList.remove("hide");
 		}, function(error) {
-			document.getElementById("error").classList.remove("hide");
+			base.Get("error").classList.remove("hide");
 		});
 		isLoading = false;
 	}, "json");

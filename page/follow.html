@@ -38,16 +38,16 @@
 		Name = self.Name || "我";
 		UserNumber = Name == "我" ? userinfo.Number : self.UserNumber;
 		Name = base.UnUnicodeText(Name);
-		document.getElementById("title").innerHTML = Name + "的关注";
+		base.Get("title").innerHTML = Name + "的关注";
 		if(Name == "我") {
-			document.getElementById("none_tip").innerHTML = "关注别人,第一时间得到他们的专栏更新";
+			base.Get("none_tip").innerHTML = "关注别人,第一时间得到他们的专栏更新";
 		} else {
-			document.getElementById("none_tip").innerHTML = "关注了,才能看到第一时间动态呀";
+			base.Get("none_tip").innerHTML = "关注了,才能看到第一时间动态呀";
 		}
 
 		base.ShowUser("#scroll");
 
-		mui(document.getElementById("scroll")).pullToRefresh({
+		mui(base.Get("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -126,7 +126,7 @@
 					totalpage = data.totalpage;
 					records = data.records;
 					base.ShowNone(false);
-					var table = document.getElementById('scroll-view');
+					var table = base.Get('scroll-view');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendUser(data.list[i], true, false, true, "取消关注");
 						table.appendChild(div);

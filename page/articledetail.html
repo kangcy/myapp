@@ -198,7 +198,7 @@
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
-	var $zan = document.getElementById('zan');
+	var $zan = base.Get('zan');
 
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
@@ -281,7 +281,7 @@
 		})
 
 		//添加评论
-		document.getElementById('addcomment').addEventListener('tap', function(event) {
+		base.Get('addcomment').addEventListener('tap', function(event) {
 			base.OpenWindow("articleComment", "articleComment.html", {
 				ArticleID: ArticleID,
 				ArticleNumber: Article.Number,
@@ -290,7 +290,7 @@
 		})
 
 		//文章评论
-		document.getElementById('comment').addEventListener('tap', function(event) {
+		base.Get('comment').addEventListener('tap', function(event) {
 			base.OpenWindow("articleComment", "articleComment.html", {
 				ArticleID: ArticleID,
 				ArticleNumber: Article.Number
@@ -298,12 +298,12 @@
 		});
 
 		//解锁
-		document.getElementById('submit').addEventListener('tap', function(event) {
+		base.Get('submit').addEventListener('tap', function(event) {
 			if(isLoading) {
 				return false;
 			}
 			isLoading = true;
-			var pwd = document.getElementById("pwd").value;
+			var pwd = base.Get("pwd").value;
 			if(base.IsNullOrEmpty(pwd)) {
 				isLoading = false;
 				return mui.toast("请填写解锁密码");
@@ -342,7 +342,7 @@
 		Source = self.Source || "Add";
 		ArticleID = self.ArticleID || 0;
 		NickName = self.NickName || "";
-		document.getElementById("title").innerHTML = base.UnUnicodeText(NickName);
+		base.Get("title").innerHTML = base.UnUnicodeText(NickName);
 
 		Load(function() {
 			plus.webview.close("addarticle");

@@ -63,10 +63,10 @@
 
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
-			document.getElementById("title").innerHTML = "相册";
-			document.getElementById("none_img").setAttribute("src", "../images/my/666.png");
-			document.getElementById("none_tip").innerHTML = "这里还没有内容";
-			document.getElementById("confirm").classList.remove("hide");
+			base.Get("title").innerHTML = "相册";
+			base.Get("none_img").setAttribute("src", "../images/my/666.png");
+			base.Get("none_tip").innerHTML = "这里还没有内容";
+			base.Get("confirm").classList.remove("hide");
 		});
 	})
 
@@ -75,7 +75,7 @@
 		Source = self.Source || "";
 		Multiple = self.Multiple || 0;
 
-		mui(document.getElementById("scroll")).pullToRefresh({
+		mui(base.Get("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -105,7 +105,7 @@
 		});
 
 		//完成
-		document.getElementById("confirm").addEventListener('tap', function() {
+		base.Get("confirm").addEventListener('tap', function() {
 			if(isLoading) {
 				return false;
 			}
@@ -166,7 +166,7 @@
 	 * 加载数据
 	 */
 	function Load(callback) {
-		var table = document.getElementById('scroll-view');
+		var table = base.Get('scroll-view');
 		var data = {
 			page: currpage,
 			rows: pagesize,

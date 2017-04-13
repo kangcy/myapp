@@ -131,13 +131,13 @@
 			$("#editsignature").find(".mui-badge").removeClass("hide");
 		}
 
-		document.getElementById('cityPicker').addEventListener('tap', function(event) {
+		base.Get('cityPicker').addEventListener('tap', function(event) {
 			base.OpenWindow("province", "province.html", {});
 		});
 
 		//性别选择
-		var sexResult = document.getElementById('sexResult');
-		document.getElementById('sexPicker').addEventListener('tap', function(event) {
+		var sexResult = base.Get('sexResult');
+		base.Get('sexPicker').addEventListener('tap', function(event) {
 			var sexPicker = new mui.PopPicker();
 			sexPicker.setData([{
 				value: '0',
@@ -153,7 +153,7 @@
 				isLoading = true;
 				mask.show();
 				base.ShowWaiting("正在编辑性别");
-				document.getElementById("sex").innerHTML = items[0].text;
+				base.Get("sex").innerHTML = items[0].text;
 
 				HttpGet(base.RootUrl + "User/EditSex", {
 					ID: userinfo.ID,
@@ -175,7 +175,7 @@
 		}, false);
 
 		//日期
-		document.getElementById('timePicker').addEventListener('tap', function() {
+		base.Get('timePicker').addEventListener('tap', function() {
 			var optionsJson = this.getAttribute('data-options') || '{}';
 			var options = JSON.parse(optionsJson);
 			var id = this.getAttribute('id');
@@ -187,7 +187,7 @@
 				isLoading = true;
 				mask.show();
 				base.ShowWaiting("正在编辑生日");
-				document.getElementById("time").innerHTML = rs.text;
+				base.Get("time").innerHTML = rs.text;
 
 				HttpGet(base.RootUrl + "User/EditBirthday", {
 					ID: userinfo.ID,
@@ -209,7 +209,7 @@
 		}, false);
 
 		//头像
-		document.getElementById('divavatar').addEventListener('tap', function(event) {
+		base.Get('divavatar').addEventListener('tap', function(event) {
 			base.OpenWindow("editimage", "editimage.html", {
 				Url: userinfo.Avatar,
 				Source: "UserAvatar",
@@ -231,10 +231,10 @@
 		}
 	});
 
-	var editnickname = document.getElementById("editnickname");
-	var editsignature = document.getElementById("editsignature");
-	var nickname = document.getElementById("nickname");
-	var signature = document.getElementById("signature");
+	var editnickname = base.Get("editnickname");
+	var editsignature = base.Get("editsignature");
+	var nickname = base.Get("nickname");
+	var signature = base.Get("signature");
 
 	//修改头像
 	function UpdateAvatar(url) {
@@ -319,7 +319,7 @@
 	function UpdateAddress(province, city) {
 		mask.show();
 		base.ShowWaiting("正在编辑地区");
-		document.getElementById("city").innerHTML = province + " " + city;
+		base.Get("city").innerHTML = province + " " + city;
 		HttpGet(base.RootUrl + "User/EditAddress", {
 			ID: userinfo.ID,
 			Province: province,

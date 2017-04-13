@@ -47,9 +47,9 @@
 	mui.plusReady(function() {
 
 		//保存
-		var name = document.getElementById("name");
-		var account = document.getElementById("account");
-		document.getElementById("submit").addEventListener('tap', function(event) {
+		var name = base.Get("name");
+		var account = base.Get("account");
+		base.Get("submit").addEventListener('tap', function(event) {
 			if(base.IsNullOrEmpty(name.value)) {
 				return mui.toast('请填写账户昵称');
 			}

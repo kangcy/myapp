@@ -161,7 +161,7 @@
 		}
 
 		//是否启用水印
-		document.getElementById("drawSwitch").addEventListener('tap', function(event) {
+		base.Get("drawSwitch").addEventListener('tap', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
@@ -192,7 +192,7 @@
 		});
 
 		//是否分享昵称
-		document.getElementById("shareNickSwitch").addEventListener('tap', function(event) {
+		base.Get("shareNickSwitch").addEventListener('tap', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
@@ -223,7 +223,7 @@
 		});
 
 		//是否自动播放音乐
-		document.getElementById("autoMusicSwitch").addEventListener('tap', function(event) {
+		base.Get("autoMusicSwitch").addEventListener('tap', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
@@ -259,11 +259,11 @@
 
 		plus.runtime.getProperty(plus.runtime.appid, function(inf) {
 			version = inf.version;
-			document.getElementById("version").innerText = "v" + inf.version;
+			base.Get("version").innerText = "v" + inf.version;
 		});
 
 		//退出操作
-		document.getElementById('exit').addEventListener('tap', function() {
+		base.Get('exit').addEventListener('tap', function() {
 			var btnArray = [{
 				title: "注销当前账号"
 			}, {
@@ -299,7 +299,7 @@
 		}, false);
 
 		//检查更新
-		document.getElementById("checkupdate").addEventListener('tap', function(event) {
+		base.Get("checkupdate").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
@@ -326,14 +326,14 @@
 						remark = remark.replace(" ", "\n");
 						mui.confirm(remark, '发现最新版本', ['立即更新', '暂不更新'], function(z) {
 							if(z.index == 0) {
-								document.getElementById("checkupdate").style.display = "none";
-								document.getElementById("myprogressbg").classList.remove("hide");
-								document.getElementById("myprogress").classList.remove("hide");
-								document.getElementById("myprogress").classList.add("bounceIn");
+								base.Get("checkupdate").style.display = "none";
+								base.Get("myprogressbg").classList.remove("hide");
+								base.Get("myprogress").classList.remove("hide");
+								base.Get("myprogress").classList.add("bounceIn");
 								var dtask = plus.downloader.createDownload(data.url, {}, function(d, status) {
 									if(status == 200) {
 										clearInterval(i);
-										document.getElementById("persent").innerHTML = "100%";
+										base.Get("persent").innerHTML = "100%";
 										plus.nativeUI.toast("正在准备安装环境，请稍后！");
 										mui.later(function() {
 											var path = d.filename;
@@ -350,18 +350,18 @@
 								var i = setInterval(function() {
 									var totalSize = dtask.totalSize;
 									var downloadedSize = dtask.downloadedSize;
-									document.getElementById("proDownFile").setAttribute("value", downloadedSize);
-									document.getElementById("proDownFile").setAttribute("max", totalSize);
+									base.Get("proDownFile").setAttribute("value", downloadedSize);
+									base.Get("proDownFile").setAttribute("max", totalSize);
 									if(totalSize > 0) {
-										document.getElementById("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
+										base.Get("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
 									}
 								}, 100);
 							} else {
-								document.getElementById("checkupdate").style.display = "block";
+								base.Get("checkupdate").style.display = "block";
 							}
 						});
 					} else {
-						document.getElementById("checkupdate").style.display = "block";
+						base.Get("checkupdate").style.display = "block";
 						mui.toast(data.message);
 					}
 				});

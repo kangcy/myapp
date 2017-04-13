@@ -54,12 +54,3 @@ function ConfirmImg(src) {
 		Url: src
 	});
 }
-
-function ShowMaskHere(show) {
-	if(show) {
-		mask.show();
-		base.ShowWaiting("正在压缩图片");
-	} else {
-		mask.close();
-	}
-}

@@ -67,7 +67,7 @@
 	mui.init();
 
 	//标题
-	var title = document.getElementById("title");
+	var title = base.Get("title");
 
 	mui.ready(function() {
 
@@ -76,7 +76,7 @@
 		});
 
 		//音乐
-		document.getElementById('music').addEventListener('tap', function(event) {
+		base.Get('music').addEventListener('tap', function(event) {
 			base.OpenWindow("music", "music.html", {
 				ArticleID: ArticleID,
 				MusicID: MusicID,
@@ -109,7 +109,7 @@
 				});
 			} else if(type == "text") {
 				//编辑文字
-				var html = document.getElementById(currEditID).innerHTML.trim();
+				var html = base.Get(currEditID).innerHTML.trim();
 				base.OpenWindow("editdesc", "editdesc.html", {
 					ArticleNumber: ArticleNumber,
 					PartID: $("#" + currEditID).attr("partid"),
@@ -233,7 +233,7 @@
 		}
 
 		//保存
-		document.getElementById('submit').addEventListener('tap', function(event) {
+		base.Get('submit').addEventListener('tap', function(event) {
 			Save();
 		});
 
@@ -245,9 +245,9 @@
 	window.addEventListener("updatePic", function(e) {
 		var t = e.detail.title;
 		if(t == "") {
-			document.getElementById(currEditID).innerHTML = "点击添加图片";
+			base.Get(currEditID).innerHTML = "点击添加图片";
 		} else {
-			document.getElementById(currEditID).innerHTML = t;
+			base.Get(currEditID).innerHTML = t;
 		}
 	});
 
@@ -305,7 +305,7 @@
 			$("#edit").find(".banner").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 		} else {
-			document.getElementById(currEditID).innerHTML = unescape(text);
+			base.Get(currEditID).innerHTML = unescape(text);
 		}
 		InitGroup();
 	}
@@ -459,8 +459,8 @@
 					MusicUrl = data.MusicUrl;
 					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 
-					document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
-					document.getElementById("header").style.backgroundSize = "cover";
+					base.Get("header").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
+					base.Get("header").style.backgroundSize = "cover";
 					if(Title != "") {
 						$("#title").html(Title);
 					}
@@ -519,13 +519,13 @@
 
 	//更新布局
 	function InitGroup() {
-		Group(document.getElementById('edit'), window.innerWidth * 0.05);
+		Group(base.Get("edit"), window.innerWidth * 0.05);
 	}
 
 	//刷新封面
 	function RefreshCover(url) {
-		document.getElementById("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
-		document.getElementById("header").style.backgroundSize = "cover";
+		base.Get("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
+		base.Get("header").style.backgroundSize = "cover";
 		Cover = url;
 		plus.webview.close("custom");
 		plus.webview.close("customsetting");

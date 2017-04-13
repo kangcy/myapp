@@ -48,9 +48,9 @@
 	mui.plusReady(function() {
 
 		//保存
-		var question = document.getElementById("question");
-		var qq = document.getElementById("qq");
-		document.getElementById("submit").addEventListener('tap', function(event) {
+		var question = base.Get("question");
+		var qq = base.Get("qq");
+		base.Get("submit").addEventListener('tap', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}

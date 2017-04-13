@@ -102,7 +102,7 @@
 	mui.init();
 
 	mui.ready(function() {
-		document.getElementById("cover").style.height = window.innerHeight - 45 + "px";
+		base.Get("cover").style.height = window.innerHeight - 45 + "px";
 
 		//金额切换
 		$(".choosemoney").click(function() {
@@ -113,7 +113,7 @@
 			$this.addClass("check");
 		});
 
-		document.getElementById("txtmoney").addEventListener("input", function() {
+		base.Get("txtmoney").addEventListener("input", function() {
 			var money = $("#txtmoney").val();
 			if(!/^\d+(\.\d{1,2})?$/.test(money)) {
 				mui.toast("红包金额格式错误");

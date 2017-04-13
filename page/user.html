@@ -248,40 +248,40 @@
 				Avatar = data.Avatar;
 				Sex = data.Sex;
 
-				document.getElementById("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
-				document.getElementById("bg").style.backgroundSize = "cover";
-				document.getElementById("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
-				document.getElementById("avatar").classList.remove("hide");
-				document.getElementById("nickname").innerHTML = NickName;
-				document.getElementById("signature").innerHTML = base.UnUnicodeText(data.Signature);
+				base.Get("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
+				base.Get("bg").style.backgroundSize = "cover";
+				base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
+				base.Get("avatar").classList.remove("hide");
+				base.Get("nickname").innerHTML = NickName;
+				base.Get("signature").innerHTML = base.UnUnicodeText(data.Signature);
 
 				if(data.ShowArticle == 1) {
-					document.getElementById("showArticleNum").innerHTML = data.Keeps;
-					document.getElementById("showArticle").classList.remove("hide");
+					base.Get("showArticleNum").innerHTML = data.Keeps;
+					base.Get("showArticle").classList.remove("hide");
 				}
 				if(data.ShowFollow == 1) {
-					document.getElementById("showFollowNum").innerHTML = data.Follows;
-					document.getElementById("showFollow").classList.remove("hide");
+					base.Get("showFollowNum").innerHTML = data.Follows;
+					base.Get("showFollow").classList.remove("hide");
 				}
 				if(data.ShowFan == 1) {
-					document.getElementById("showFanNum").innerHTML = data.Fans;
-					document.getElementById("showFan").classList.remove("hide");
+					base.Get("showFanNum").innerHTML = data.Fans;
+					base.Get("showFan").classList.remove("hide");
 				}
 
 				//在黑名单
 				if(data.IsBlack == 1) {
-					document.getElementById("article").classList.add("hide");
-					document.getElementById("blacktip").classList.remove("hide");
-					document.getElementById("pic").classList.add("hide");
-					document.getElementById("share").classList.add("hide");
-					document.getElementById("copy").classList.add("hide");
-					document.getElementById("inblack").classList.add("hide");
-					document.getElementById("outblack").classList.remove("hide");
+					base.Get("article").classList.add("hide");
+					base.Get("blacktip").classList.remove("hide");
+					base.Get("pic").classList.add("hide");
+					base.Get("share").classList.add("hide");
+					base.Get("copy").classList.add("hide");
+					base.Get("inblack").classList.add("hide");
+					base.Get("outblack").classList.remove("hide");
 				} else {
-					document.getElementById("blacktip").classList.add("hide");
-					document.getElementById("article").classList.remove("hide");
-					document.getElementById("outblack").classList.add("hide");
-					document.getElementById("inblack").classList.remove("hide");
+					base.Get("blacktip").classList.add("hide");
+					base.Get("article").classList.remove("hide");
+					base.Get("outblack").classList.add("hide");
+					base.Get("inblack").classList.remove("hide");
 
 					//加载文章
 					LoadArticle();
@@ -314,12 +314,12 @@
 			CurrUserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "User/Article", data, function(data) {
-			var table = document.getElementById('a_list');
+			var table = base.Get('a_list');
 			var length = 0;
 			if(data != null) {
 				length = data.records;
 				if(length > 0) {
-					document.getElementById("a_title").innerHTML = length + "篇文章";
+					base.Get("a_title").innerHTML = length + "篇文章";
 
 					for(var i = 0; i < data.list.length; i++) {
 						var html = [];
@@ -342,9 +342,9 @@
 			}
 			if(length == 0) {
 				if(userinfo.Number == UserNumber)
-					document.getElementById("mynone").classList.remove("hide");
+					base.Get("mynone").classList.remove("hide");
 				else
-					document.getElementById("none").classList.remove("hide");
+					base.Get("none").classList.remove("hide");
 			}
 		});
 	}
@@ -382,7 +382,7 @@
 			return false;
 		}
 		isLoading = true;
-		var $guanzhu = document.getElementById("guanzhu");
+		var $guanzhu = base.Get("guanzhu");
 		if(isfan == 1) {
 			$guanzhu.classList.add("guanzhu2");
 			$guanzhu.classList.remove("guanzhu")
@@ -415,7 +415,7 @@
 				});
 			});
 		}
-		document.getElementById("action").classList.remove("hide");
+		base.Get("action").classList.remove("hide");
 	}
 
 	//添加黑名单
@@ -528,13 +528,13 @@
 
 	//分享弹窗
 	function ShareTan(index) {
-		var myshare = document.getElementById("myshare");
+		var myshare = base.Get("myshare");
 		if(index == 0) {
-			document.getElementById("mysharebg").classList.add("hide");
+			base.Get("mysharebg").classList.add("hide");
 			myshare.classList.remove("bounceInUp");
 			myshare.classList.add("hide");
 		} else {
-			document.getElementById("mysharebg").classList.remove("hide");
+			base.Get("mysharebg").classList.remove("hide");
 			myshare.classList.remove("hide");
 			myshare.classList.add("bounceInUp");
 		}

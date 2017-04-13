@@ -52,8 +52,8 @@
 
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
-			document.getElementById("none_img").setAttribute("src", "../images/my/444.png");
-			document.getElementById("none_tip").innerHTML = "好内容记得收藏,让我们不再错过";
+			base.Get("none_img").setAttribute("src", "../images/my/444.png");
+			base.Get("none_tip").innerHTML = "好内容记得收藏,让我们不再错过";
 
 			mui.previewImage();
 
@@ -67,13 +67,14 @@
 
 		name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
-		document.getElementById("title").innerHTML = name + "的收藏";
+
+		base.Get("title").innerHTML = name + "的收藏";
 
 		base.ArticleAction("#scroll", userinfo);
 
 		base.ShowArticle("#scroll", "List", UserNumber);
 
-		mui(document.getElementById("scroll")).pullToRefresh({
+		mui(base.Get("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -103,7 +104,7 @@
 	 * 加载数据
 	 */
 	function Load(callback) {
-		var table = document.getElementById('scroll-view');
+		var table = base.Get("scroll-view");
 		var data = {
 			page: currpage,
 			rows: pagesize,

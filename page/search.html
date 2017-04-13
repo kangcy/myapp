@@ -146,7 +146,7 @@
 	var PageName = "searchSub";
 	var FullScreen = true;
 
-	var search = document.getElementById("search");
+	var search = base.Get("search");
 
 	//语音识别完成事件
 	search.addEventListener('recognized', function(e) {
@@ -181,7 +181,7 @@
 
 		InitLoadUser("");
 
-		mui(document.getElementById("slider2")).pullToRefresh({
+		mui(base.Get("slider2")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -201,7 +201,7 @@
 			callback: function(index) {}
 		});
 
-		document.getElementById("btnSearch").addEventListener('tap', function(e) {
+		base.Get("btnSearch").addEventListener('tap', function(e) {
 			var searchval = search.value;
 			InitLoadUser(searchval);
 			InitLoadArticle(searchval);
@@ -213,7 +213,7 @@
 		SearchName = title;
 		currpage = 1;
 		totalpage = 2;
-		document.getElementById('scroll-view2').innerHTML = "";
+		base.Get('scroll-view2').innerHTML = "";
 		LoadArticle(function() {
 			++currpage;
 			isLoading = false;
@@ -229,21 +229,21 @@
 			Number: userinfo.Number
 		}, function(data) {
 			base.ShowLoading(false);
-			document.getElementById('scroll-view1').innerHTML = "";
+			base.Get('scroll-view1').innerHTML = "";
 			if(data != null) {
 				var length = data.list.length;
 				if(length > 0) {
-					document.getElementById("none1").classList.add("hide");
-					var table = document.getElementById('scroll-view1');
+					base.Get("none1").classList.add("hide");
+					var table = base.Get('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendUser(data.list[i], true, true, false, "");
 						table.appendChild(div);
 					}
 				} else {
-					document.getElementById("none1").classList.remove("hide");
+					base.Get("none1").classList.remove("hide");
 				}
 			} else {
-				document.getElementById("none1").classList.remove("hide");
+				base.Get("none1").classList.remove("hide");
 			}
 
 			mui('#sliderChild1').scroll().reLayout();
@@ -262,7 +262,7 @@
 		isLoading = true;
 		currpage = 1;
 		totalpage = 2;
-		document.getElementById('scroll-view2').innerHTML = "";
+		base.Get('scroll-view2').innerHTML = "";
 		LoadArticle(function() {
 			++currpage;
 			self.endPullDownToRefresh();
@@ -293,7 +293,7 @@
 
 	//搜索文章
 	function LoadArticle(callback) {
-		var table = document.getElementById('scroll-view2');
+		var table = base.Get('scroll-view2');
 		var data = {
 			ID: userinfo.ID,
 			page: currpage,
@@ -311,20 +311,20 @@
 					totalpage = data.totalpage;
 					var length = data.list.length;
 					if(length > 0) {
-						document.getElementById("none2").classList.add("hide");
+						base.Get("none2").classList.add("hide");
 						for(var i = 0, len = data.list.length; i < len; i++) {
 							var div = base.AppendArticle(userinfo.Number, data.list[i], false, false);
 							table.appendChild(div);
 						}
 					} else {
-						document.getElementById("none2").classList.remove("hide");
+						base.Get("none2").classList.remove("hide");
 					}
 				} else {
-					document.getElementById("none2").classList.remove("hide");
+					base.Get("none2").classList.remove("hide");
 				}
 			}
 			if(data == null && currpage == 1) {
-				document.getElementById("none2").classList.remove("hide");
+				base.Get("none2").classList.remove("hide");
 			}
 			if(callback) {
 				callback();

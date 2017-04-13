@@ -70,7 +70,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	var $bg = document.getElementById("bg");
+	var $bg = base.Get("bg");
 	var userinfo = base.GetUserInfo();
 
 	mui.init();
@@ -113,13 +113,13 @@
 	function Init() {
 		$bg.style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat";
 		$bg.style.backgroundSize = "cover";
-		document.getElementById("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
-		document.getElementById("nickname").innerHTML = base.UnUnicodeText(userinfo.NickName);
-		document.getElementById("signature").innerHTML = base.UnUnicodeText(userinfo.Signature);
-		document.getElementById("follows").innerHTML = userinfo.Follows;
-		document.getElementById("fans").innerHTML = userinfo.Fans;
-		document.getElementById("articles").innerHTML = userinfo.Articles;
-		document.getElementById("keeps").innerHTML = userinfo.Keeps;
+		base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
+		base.Get("nickname").innerHTML = base.UnUnicodeText(userinfo.NickName);
+		base.Get("signature").innerHTML = base.UnUnicodeText(userinfo.Signature);
+		base.Get("follows").innerHTML = userinfo.Follows;
+		base.Get("fans").innerHTML = userinfo.Fans;
+		base.Get("articles").innerHTML = userinfo.Articles;
+		base.Get("keeps").innerHTML = userinfo.Keeps;
 	}
 
 	//更新本地用户信息
@@ -221,6 +221,6 @@
 			} else {
 				mui.toast(data.message);
 			}
-		});
+		}); 
 	}
 </script>

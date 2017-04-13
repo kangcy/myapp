@@ -194,7 +194,7 @@
 			mui('#slider').slider().gotoItem(index);
 		});
 
-		document.getElementById("btn").addEventListener("tap", function() {
+		base.Get("btn").addEventListener("tap", function() {
 			OpenPosition();
 		});
 	});
@@ -202,10 +202,10 @@
 	mui.plusReady(function() {
 
 		base.GetCurrentPosition(function() {
-			document.getElementById("location").innerHTML = base.City + "," + base.District + "," + base.Street;
+			base.Get("location").innerHTML = base.City + "," + base.District + "," + base.Street;
 
 			if(!base.IsNullOrEmpty(base.CityCode)) {
-				mui(document.getElementById("slider2")).pullToRefresh({
+				mui(base.Get("slider2")).pullToRefresh({
 					down: {
 						callback: function() {
 							var self = this;
@@ -225,7 +225,7 @@
 			mui.toast("定位失败,请开启定位权限")
 		});
 
-		mui(document.getElementById("slider1")).pullToRefresh({
+		mui(base.Get("slider1")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -244,7 +244,7 @@
 
 	//加载推荐用户
 	function LoadUser(callback) {
-		var table = document.getElementById('scroll-view1');
+		var table = base.Get('scroll-view1');
 		HttpGet(base.RootUrl + "User/RecommendAll", {
 			page: currpage[0],
 			rows: pagesize,
@@ -274,7 +274,7 @@
 		isLoading[0] = true;
 		currpage[0] = 1;
 		totalpage[0] = 2;
-		document.getElementById('scroll-view1').innerHTML = "";
+		base.Get('scroll-view1').innerHTML = "";
 		LoadUser(function() {
 			++currpage[0];
 			self.endPullDownToRefresh();
@@ -302,7 +302,7 @@
 
 	//同城热门
 	function LoadCityUser(callback) {
-		var table = document.getElementById('scroll-view2');
+		var table = base.Get('scroll-view2');
 		HttpGet(base.RootUrl + "User/CityAll", { 
 			page: currpage[1],
 			rows: pagesize,
@@ -339,7 +339,7 @@
 		mui.later(function() {
 			currpage[1] = 1;
 			totalpage[1] = 2;
-			document.getElementById('scroll-view2').innerHTML = "";
+			base.Get('scroll-view2').innerHTML = "";
 			LoadCityUser(function() {
 				++currpage[1];
 				self.endPullDownToRefresh();
@@ -374,13 +374,13 @@
 	//初始化定位
 	function InitPosition() {
 		if(userinfo.ShowPosition == 0) {
-			document.getElementById("divLocation").classList.add("hide");
-			document.getElementById("scroll-view2").classList.add("hide");
-			document.getElementById("showPosition").classList.remove("hide");
+			base.Get("divLocation").classList.add("hide");
+			base.Get("scroll-view2").classList.add("hide");
+			base.Get("showPosition").classList.remove("hide");
 		} else {
-			document.getElementById("showPosition").classList.add("hide");
-			document.getElementById("divLocation").classList.remove("hide");
-			document.getElementById("scroll-view2").classList.remove("hide");
+			base.Get("showPosition").classList.add("hide");
+			base.Get("divLocation").classList.remove("hide");
+			base.Get("scroll-view2").classList.remove("hide");
 		}
 	}
 

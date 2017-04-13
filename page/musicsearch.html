@@ -98,7 +98,7 @@
 		swipeBack: false
 	});
 
-	var search = document.getElementById("search");
+	var search = base.Get("search");
 
 	mui.ready(function() {
 
@@ -119,12 +119,12 @@
 		var self = plus.webview.currentWebview();
 
 		//取消
-		document.getElementById('no').addEventListener('tap', function(e) {
+		base.Get('no').addEventListener('tap', function(e) {
 			mui.back();
 		});
 
 		//确定
-		document.getElementById('yes').addEventListener('tap', function(e) {
+		base.Get('yes').addEventListener('tap', function(e) {
 			if(fileId <= 0) {
 				return mui.toast("还未选择音乐")
 			}
@@ -135,14 +135,14 @@
 		});
 
 		//搜索
-		document.getElementById("btnSearch").addEventListener('tap', function(e) {
+		base.Get("btnSearch").addEventListener('tap', function(e) {
 			if(base.IsNullOrEmpty(search.value)) {
 				return mui.toast("请输入搜索内容");
 			}
 			InitMusic(search.value);
 		});
 
-		mui(document.getElementById("pullrefresh")).pullToRefresh({
+		mui(base.Get("pullrefresh")).pullToRefresh({
 			up: {
 				auto: true,
 				callback: function() {
@@ -169,7 +169,7 @@
 		SearchName = title;
 		currpage = 1;
 		totalpage = 2;
-		document.getElementById('scroll-view').innerHTML = "";
+		base.Get('scroll-view').innerHTML = "";
 		LoadMusic(function() {
 			++currpage;
 			isLoading = false;

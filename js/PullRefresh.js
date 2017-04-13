@@ -15,7 +15,7 @@ function pulldownRefresh(self) {
 	isLoading = true;
 	currpage = 1;
 	totalpage = 2;
-	document.getElementById('scroll-view').innerHTML = "";
+	base.Get('scroll-view').innerHTML = "";
 	Load(function() {
 		++currpage;
 		self.endPullDownToRefresh();

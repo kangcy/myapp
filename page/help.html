@@ -84,7 +84,7 @@
 	//加载类型
 	function LoadHelpType() {
 		HttpGet(base.RootUrl + "Api/Help/HelpType", {}, function(data) {
-			var table = document.getElementById("list");
+			var table = base.Get("list");
 			table.innerHTML = "";
 			data = JSON.parse(data);
 			if(data != null) {
@@ -102,7 +102,7 @@
 				}
 			}
 			base.ShowLoading(false);
-			document.getElementById("list").classList.remove("hide"); 
+			base.Get("list").classList.remove("hide"); 
 		});
 	}
 

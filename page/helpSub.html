@@ -70,7 +70,7 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var $none = document.getElementById("none");
+	var $none = base.Get("none");
 
 	mui.init();
 
@@ -91,7 +91,7 @@
 		var data = {
 			type: type
 		};
-		var table = document.getElementById('list');
+		var table = base.Get('#list');
 		table.innerHTML = "";
 		HttpGet(base.RootUrl + "Api/Help/All", data, function(data) {
 			base.ShowLoading(false);

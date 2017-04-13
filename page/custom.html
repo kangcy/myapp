@@ -124,7 +124,7 @@
 	var windowWidth = window.innerWidth;
 	var windowHeight = window.innerHeight;
 	var $readyimg = $("#readyimg");
-	var $cover = document.getElementById("cover");
+	var $cover = base.Get("cover");
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
@@ -133,14 +133,14 @@
 	mui.init();
 
 	mui.ready(function() {
-		var range = document.getElementById("range");
+		var range = base.Get("range");
 		range.addEventListener('input', function() {
 			transparency = this.value;
 			$cover.style.background = "rgba(255, 255, 255, " + (1 - (this.value / 100)) + ")";
 		});
 
 		//开启全屏背景
-		document.getElementById("fullSwitch").addEventListener('tap', function(event) {
+		base.Get("fullSwitch").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return false;
 			}
@@ -186,7 +186,7 @@
 		});
 
 		//开启高清背景
-		document.getElementById("highSwitch").addEventListener('tap', function(event) {
+		base.Get("highSwitch").addEventListener('tap', function(event) {
 			if(isLoading) {
 				return false;
 			}

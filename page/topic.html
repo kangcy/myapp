@@ -278,7 +278,7 @@
 			$("#slider").addClass("bounceInDown");
 
 			//监听滑动切换事件
-			document.getElementById('slider').addEventListener('slide', function(e) {
+			base.Get('slider').addEventListener('slide', function(e) {
 				var index = e.detail.slideNumber;
 				if(!sliders[index]) {
 					//base.ShowLoading(true);
@@ -301,7 +301,7 @@
 							isLoading = true;
 							currpage[index] = 1;
 							totalpage[index] = 2;
-							document.getElementById('scroll-view' + index).innerHTML = "";
+							base.Get('scroll-view' + index).innerHTML = "";
 							Load(index, parent[index].ID, function() {
 								++currpage[index];
 								self.endPullDownToRefresh();
@@ -346,7 +346,7 @@
 
 		base.ArticleAction("#slider", userinfo);
 
-		document.getElementById("action").addEventListener('hidden', function(event) {
+		base.Get("action").addEventListener('hidden', function(event) {
 			ShowMask(false, false, PageName);
 		});
 
@@ -388,8 +388,8 @@
 					totalpage[index] = data.totalpage;
 
 					base.ShowLoading(false);
-					document.getElementById("none" + index).classList.add("hide");
-					var table = document.getElementById('scroll-view' + index);
+					base.Get("none" + index).classList.add("hide");
+					var table = base.Get('scroll-view' + index);
 					for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
 						if(table) {
@@ -398,12 +398,12 @@
 					}
 				} else {
 					base.ShowLoading(false);
-					document.getElementById("none" + index).classList.remove("hide");
+					base.Get("none" + index).classList.remove("hide");
 				}
 			}
 			if(data == null && currpage[index] == 1) {
 				base.ShowLoading(false);
-				document.getElementById("none" + index).classList.remove("hide");
+				base.Get("none" + index).classList.remove("hide");
 			}
 			if($.isFunction(callback)) {
 				callback();
@@ -452,9 +452,9 @@
 
 	//关闭更新弹窗
 	function CloseUpdate() {
-		document.getElementById("myprogressbg").classList.add("hide");
-		document.getElementById("myprogress").classList.add("hide");
-		document.getElementById("myprogress").classList.remove("bounceIn");
+		base.Get("myprogressbg").classList.add("hide");
+		base.Get("myprogress").classList.add("hide");
+		base.Get("myprogress").classList.remove("bounceIn");
 		if(subindexPage == null) {
 			subindexPage = plus.webview.getWebviewById("subindex");
 		}

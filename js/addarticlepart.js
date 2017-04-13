@@ -140,7 +140,6 @@ function Upload(imgurl, callback) {
 				} else {
 					currUploadImg.push(base.RootUrl + data.message);
 				}
-
 				if(length <= 0) {
 					mask.close();
 					plus.nativeUI.alert("图片导入失败", null, "");
@@ -148,9 +147,7 @@ function Upload(imgurl, callback) {
 				}
 				//图片上传完毕，创建文章
 				if(currUploadImg.length >= length) {
-
 					Import(currUploadImg.join(","), false);
-
 				}
 				if(callback) {
 					callback();

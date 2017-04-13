@@ -105,7 +105,7 @@
 			</ul>
 		</div>
 		<div class="mui-content">
-			<!--<div class="full tc" id="items">
+			<!--<div class="full tc" id="items"> 
 				<div class="item fl">
 					<a onclick="Single()"><img src="../images/background/1.png" />
 						<div class="full f13 c333">单图背景</div>
@@ -127,7 +127,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/addbackground.js"></script>
@@ -137,25 +136,18 @@
 	var number = "";
 	var multiple = 0; //是否多图
 	var isLoading = false;
-
-	var mask = base.CreateMask(true, function() {});
-
 	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
 	mui.ready(function() {
 		mui('#picupload').load("../part/pic.html", function(response) {
-			$("#create").removeClass("hide");
+			base.ToggleClass("#create", "hide", false);
 		});
 
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");
-			if(isused == 0) {
-				$("#inused").removeClass("hide");
-			} else {
-				$("#inused").addClass("hide");
-			}
+			base.ToggleClass("#inused", "hide", isused != 0);
 			number = this.getAttribute("number");
 			url = this.getAttribute("url");
 			mui('#black').popover('toggle');
@@ -175,20 +167,6 @@
 		}
 	});
 
-	//单图
-	function Single() {
-		multiple = 0;
-		$("#camera").removeClass("hide");
-		mui('#power').popover('toggle');
-	}
-
-	//多图
-	function Figure() {
-		multiple = 1;
-		$("#camera").addClass("hide");
-		mui('#power').popover('toggle');
-	}
-
 	//列表
 	function Load() {
 		HttpGet(base.RootUrl + "Api/Background/All", {
@@ -196,7 +174,7 @@
 		}, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
-				var table = document.getElementById("scroll_view");
+				var table = base.Get("scroll_view");
 				table.innerHTML = "";
 				totalpage = data.totalpage;
 				var length = data.message.length;
@@ -233,7 +211,7 @@
 			return;
 		}
 		isLoading = true;
-		mui('#black').popover('toggle');
+		mui('#black').popover('hide');
 		if(base.IsNullOrEmpty(number)) {
 			isLoading = false;
 			return mui.toast("参数异常");
@@ -266,7 +244,7 @@
 			return;
 		}
 		isLoading = true;
-		mui('#black').popover('toggle');
+		mui('#black').popover('hide');
 		if(base.IsNullOrEmpty(number)) {
 			isLoading = false;
 			return mui.toast("参数异常");
@@ -281,7 +259,8 @@
 				mui.toast("系统异常,请稍后再试");
 			} else {
 				if(data.result) {
-					$("#" + number).remove();
+					var item = mui("#" + number)[0];
+					item.parentNode.removeChild(item);
 				} else {
 					mui.toast(data.message);
 				}

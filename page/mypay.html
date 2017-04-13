@@ -94,7 +94,7 @@
 	mui.ready(function() {
 		base.UpdateUser(userinfo.Number, function() {
 			userinfo = base.GetUserInfo();
-			document.getElementById("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
+			base.Get("money").innerHTML = "￥" + parseFloat(userinfo.Money).toFixed(2);
 		})
 
 		if(userinfo.IsPay == 1) {
@@ -104,7 +104,7 @@
 
 	mui.plusReady(function() {
 		//是否启用打赏
-		document.getElementById("autoPaySwitch").addEventListener('tap', function(event) {
+		base.Get("autoPaySwitch").addEventListener('tap', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
@@ -123,12 +123,12 @@
 		});
 
 		//我的打赏
-		document.getElementById('mypay').addEventListener('tap', function(event) {
+		base.Get('mypay').addEventListener('tap', function(event) {
 			base.OpenWindow("pay", "pay.html", {});
 		});
 
 		//申请提现
-		document.getElementById('apply').addEventListener('tap', function(event) {
+		base.Get('apply').addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
@@ -179,8 +179,8 @@
 
 	//操作弹窗
 	function ActionTan(index) {
-		var noticebg = document.getElementById("mytanbg");
-		var notice = document.getElementById("notice");
+		var noticebg = base.Get("mytanbg");
+		var notice = base.Get("notice");
 		if(index == 0) {
 			noticebg.classList.add("hide");
 			notice.classList.remove("bounceIn");
