@@ -80,8 +80,7 @@
 
 	mui.ready(function() {
 		if(userinfo.UserRole == 2) {
-			base.Get("file").classList.remove("hide");
-			base.Get("custom").classList.remove("hide");
+			base.RemoveClass(["#file", "#custom"], ["hide"]);
 		}
 	});
 

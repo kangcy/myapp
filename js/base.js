@@ -895,28 +895,62 @@ var base = new function() {
 	}
 
 	/**
+	 * 新增样式
+	 * name:元素名称集合
+	 * classname:样式名称集合
+	 */
+	this.AddClass = function(name, classname) {
+		this.ToggleClass(name, classname, true);
+	}
+
+	/**
+	 * 删除样式
+	 * name:元素名称集合
+	 * classname:样式名称集合
+	 */
+	this.RemoveClass = function(name, classname) {
+		this.ToggleClass(name, classname, false);
+	}
+
+	/**
 	 * 切换样式
+	 * name:元素名称集合
+	 * classname:样式名称集合
 	 */
 	this.ToggleClass = function(name, classname, add) {
 		if(base.IsNullOrEmpty(name) || base.IsNullOrEmpty(classname)) {
 			return;
 		}
-		if(name.indexOf('#') < 0) {
-			if(add) {
-				mui(name).each(function(index, item) {
-					item.classList.add(classname);
-				});
-			} else {
-				mui(name).each(function(index, item) {
-					item.classList.remove(classname);
-				});
-			}
+		if(add) {
+			mui.each(name, function(index1, n) {
+				if(n.indexOf('.') < 0) {
+					var item = mui(n)[0];
+					mui.each(classname, function(index2, cn) {
+						item.classList.add(cn);
+					});
+				} else {
+					mui.each(classname, function(index2, cn) {
+						mui(n).each(function(index3, item) {
+							item.classList.add(cn);
+						});
+					});
+				}
+			});
 		} else {
-			if(add) {
-				mui(name)[0].classList.add(classname);
-			} else {
-				mui(name)[0].classList.remove(classname);
-			}
+			mui.each(name, function(index1, n) {
+				if(n.indexOf('.') < 0) {
+					var item = mui(n)[0];
+					mui.each(classname, function(index2, cn) {
+						item.classList.remove(cn);
+					});
+				} else {
+					mui.each(classname, function(index2, cn) {
+						mui(n).each(function(index3, item) {
+							item.classList.remove(cn);
+						});
+					});
+				}
+			});
 		}
 	}
 

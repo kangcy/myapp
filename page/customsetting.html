@@ -142,12 +142,12 @@
 
 	mui.ready(function() {
 		mui('#picupload').load("../part/pic.html", function(response) {
-			base.ToggleClass("#create", "hide", false);
+			base.RemoveClass(["#create"], ["hide"]);
 		});
 
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");
-			base.ToggleClass("#inused", "hide", isused != 0);
+			base.ToggleClass(["#inused"], ["hide"], isused != 0);
 			number = this.getAttribute("number");
 			url = this.getAttribute("url");
 			mui('#black').popover('toggle');

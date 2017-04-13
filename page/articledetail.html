@@ -248,7 +248,7 @@
 				$("#main1").removeClass("hide");
 			}
 
-			ChangeBg(); //背景切换
+			ChangeBg(); //背景切换 
 
 			ChangeMusic(templatetype); //音乐切换
 		});
@@ -271,9 +271,10 @@
 				if(data != null) {
 					if(data.result) {
 						$zan.setAttribute("already", "1");
-						$zan.classList.add("heartbeat");
-						$zan.classList.add("red");
+						base.AddClass(["#zan"], ["heartbeat", "red"]);
 						$("#footer_zan").html(data.message);
+					} else {
+						mui.toast("已赞");
 					}
 				}
 				isLoading = false;
@@ -454,6 +455,7 @@
 						}
 					}
 
+					console.log(data.IsZan + "," + data.Number + "," + data.CreateUserNumber);
 					if(data.IsZan > 0) {
 						$zan.setAttribute("already", "1");
 						$zan.classList.add("red");

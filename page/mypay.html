@@ -182,13 +182,11 @@
 		var noticebg = base.Get("mytanbg");
 		var notice = base.Get("notice");
 		if(index == 0) {
-			noticebg.classList.add("hide");
+			base.AddClass(["#mytanbg", "#notice"], ["hide"]);
 			notice.classList.remove("bounceIn");
 			notice.classList.add("bounceOut");
-			notice.classList.add("hide");
 		} else {
-			noticebg.classList.remove("hide");
-			notice.classList.remove("hide");
+			base.RemoveClass(["#mytanbg", "#notice"], ["hide"]);
 			notice.classList.remove("bounceOut");
 			notice.classList.add("bounceIn");
 		}

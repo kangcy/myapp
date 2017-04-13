@@ -270,18 +270,12 @@
 
 				//在黑名单
 				if(data.IsBlack == 1) {
-					base.Get("article").classList.add("hide");
-					base.Get("blacktip").classList.remove("hide");
-					base.Get("pic").classList.add("hide");
-					base.Get("share").classList.add("hide");
-					base.Get("copy").classList.add("hide");
-					base.Get("inblack").classList.add("hide");
-					base.Get("outblack").classList.remove("hide");
+					base.AddClass(["#article", "#pic", "#share", "#copy", "#inblack"], ["hide"]);
+					base.RemoveClass(["#blacktip", "#outblack"], ["hide"]);
 				} else {
-					base.Get("blacktip").classList.add("hide");
-					base.Get("article").classList.remove("hide");
-					base.Get("outblack").classList.add("hide");
-					base.Get("inblack").classList.remove("hide");
+
+					base.AddClass(["#blacktip", "#outblack"], ["hide"]);
+					base.RemoveClass(["#article", "#inblack"], ["hide"]);
 
 					//加载文章
 					LoadArticle();

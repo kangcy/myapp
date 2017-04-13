@@ -452,9 +452,11 @@
 
 	//关闭更新弹窗
 	function CloseUpdate() {
-		base.Get("myprogressbg").classList.add("hide");
-		base.Get("myprogress").classList.add("hide");
-		base.Get("myprogress").classList.remove("bounceIn");
+		//base.AddClass(["myprogressbg", "myprogress"], "hide");
+
+		base.AddClass("myprogressbg", "hide");
+		base.AddClass("myprogress", "hide");
+		base.RemoveClass("myprogress", "bounceIn");
 		if(subindexPage == null) {
 			subindexPage = plus.webview.getWebviewById("subindex");
 		}

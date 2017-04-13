@@ -374,13 +374,13 @@
 	//初始化定位
 	function InitPosition() {
 		if(userinfo.ShowPosition == 0) {
-			base.Get("divLocation").classList.add("hide");
-			base.Get("scroll-view2").classList.add("hide");
-			base.Get("showPosition").classList.remove("hide");
+			base.AddClass("divLocation","hide");
+			base.AddClass("scroll-view2","hide");
+			base.RemoveClass("showPosition","hide");
 		} else {
-			base.Get("showPosition").classList.add("hide");
-			base.Get("divLocation").classList.remove("hide");
-			base.Get("scroll-view2").classList.remove("hide");
+			base.AddClass("showPosition","hide");
+			base.RemoveClass("divLocation","hide");
+			base.RemoveClass("scroll-view2","hide");
 		}
 	}
 
