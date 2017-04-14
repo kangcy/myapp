@@ -102,7 +102,7 @@ function UpdateDetail2() {
 
 //删除
 function Delete() {
-	ActionTan(0);
+	mask.close();
 	var btnArray = ['确定', '取消'];
 	mui.confirm('删除后将无法在浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
 		if(e.index == 0) {
@@ -168,7 +168,7 @@ function Edit() {
 
 //权限
 function Power() {
-	ActionTan(0);
+	mask.close();
 	base.OpenWindow("sharesetting", "sharesetting.html", {
 		ArticleID: ArticleID,
 		ArticleNumber: Article.Number,
