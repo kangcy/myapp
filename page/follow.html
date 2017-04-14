@@ -29,7 +29,10 @@
 	mui.init();
 
 	mui.ready(function() {
-		mui('#main').load("../part/list.html", function(response) {});
+		
+		mui('#main').load("../part/list.html", function(response) {
+			base.InitScroll();
+		});
 	});
 
 	mui.plusReady(function() {

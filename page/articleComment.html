@@ -49,6 +49,8 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.InitScroll();
+
 		mui('#main').load("../part/list.html", function(response) {
 			base.Get("title").innerHTML = "评论";
 			base.Get("none_img").setAttribute("src", "../images/my/333.png");

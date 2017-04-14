@@ -1,1 +1,938 @@
-{}
+{
+  "part/list.html": {
+    "href": "part/list.html",
+    "resources": [
+      "images/my/111.png"
+    ],
+    "priority": 0
+  },
+  "page/mypic.html": {
+    "href": "page/mypic.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "images/my/666.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "images/my/nocheck.png",
+      "images/my/check.png"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 0
+  },
+  "page/edithref.html": {
+    "href": "page/edithref.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 1
+  },
+  "page/editdesc.html": {
+    "href": "page/editdesc.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "images/edittxt/1.png",
+      "images/edittxt/01.png",
+      "images/edittxt/2.png",
+      "images/edittxt/02.png",
+      "images/edittxt/3.png",
+      "images/edittxt/03.png",
+      "images/edittxt/4.png",
+      "images/edittxt/5.png",
+      "images/edittxt/05.png"
+    ],
+    "refer": [
+      "page/edithref.html"
+    ],
+    "priority": 1
+  },
+  "page/edittext.html": {
+    "href": "page/edittext.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 2
+  },
+  "part/pic.html": {
+    "href": "part/pic.html",
+    "priority": 4
+  },
+  "page/zan.html": {
+    "href": "page/zan.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/fan.css",
+      "css/loading.min.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 5
+  },
+  "page/comment.html": {
+    "href": "page/comment.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "emotion/js/emojione.min.js",
+      "emotion/js/emojionearea.js",
+      "images/base/comment_nor.png",
+      "images/base/like_hig.png",
+      "images/base/like_nor.png",
+      "images/my/333.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/comment.css",
+      "images/article/pen2.png",
+      "css/loading.min.css",
+      "css/animate.css",
+      "emotion/css/emojione.sprites.css",
+      "emotion/css/emojione.sprites.png",
+      "emotion/css/emojionearea.min.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 6
+  },
+  "page/pay.html": {
+    "href": "page/pay.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "images/my/555.png",
+      "images/price.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 7
+  },
+  "page/fan.html": {
+    "href": "page/fan.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "css/fan.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 8
+  },
+  "page/tipsetting.html": {
+    "href": "page/tipsetting.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "images/tip/01.png",
+      "images/tip/03.png",
+      "images/tip/02.png",
+      "images/tip/04.png"
+    ],
+    "refer": [
+      "page/zan.html",
+      "page/comment.html",
+      "page/pay.html",
+      "page/fan.html"
+    ],
+    "priority": 5
+  },
+  "page/helpSub.html": {
+    "href": "page/helpSub.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "images/my/333.png"
+    ],
+    "priority": 6
+  },
+  "page/help.html": {
+    "href": "page/help.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css"
+    ],
+    "refer": [
+      "page/helpSub.html"
+    ],
+    "priority": 6
+  },
+  "page/article.html": {
+    "href": "page/article.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js",
+      "images/my/444.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/img.preview.css",
+      "css/loading.min.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 8
+  },
+  "page/feedback.html": {
+    "href": "page/feedback.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 9
+  },
+  "page/city.html": {
+    "href": "page/city.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "css/province.css"
+    ],
+    "priority": 11
+  },
+  "page/province.html": {
+    "href": "page/province.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.indexedlist.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/province.css"
+    ],
+    "refer": [
+      "page/city.html"
+    ],
+    "priority": 11
+  },
+  "page/mysetting.html": {
+    "href": "page/mysetting.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.picker.min.js",
+      "js/mui.poppicker.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/mui.picker.css",
+      "css/mui.poppicker.css",
+      "images/logo_default.png"
+    ],
+    "refer": [
+      "page/edittext.html",
+      "page/province.html",
+      "page/editimage.html",
+      "page/my.html"
+    ],
+    "priority": 10
+  },
+  "page/payapply.html": {
+    "href": "page/payapply.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 13
+  },
+  "page/mypay.html": {
+    "href": "page/mypay.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/animate.css",
+      "images/my/pay.png"
+    ],
+    "refer": [
+      "page/pay.html",
+      "page/payapply.html"
+    ],
+    "priority": 12
+  },
+  "page/keep.html": {
+    "href": "page/keep.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js",
+      "js/article.js",
+      "images/article/top.png",
+      "images/base/like_nor.png",
+      "images/base/reward_nor.png",
+      "images/article/star.png",
+      "images/base/like_hig.png",
+      "images/base/comment_nor.png",
+      "images/my/444.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/img.preview.css",
+      "css/loading.min.css",
+      "css/animate.css"
+    ],
+    "refer": [
+      "page/edittext.html",
+      "page/my.html",
+      "part/list.html"
+    ],
+    "priority": 13
+  },
+  "page/black.html": {
+    "href": "page/black.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "css/fan.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 14
+  },
+  "page/secretsetting.html": {
+    "href": "page/secretsetting.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "page/black.html"
+    ],
+    "priority": 14
+  },
+  "page/bindphone.html": {
+    "href": "page/bindphone.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/input.min.css",
+      "images/login/user.png",
+      "images/login/phone.png",
+      "images/login/pwd.png"
+    ],
+    "priority": 15
+  },
+  "page/forget_password.html": {
+    "href": "page/forget_password.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/login.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/input.min.css",
+      "images/login/user.png",
+      "images/login/phone.png",
+      "images/login/pwd.png"
+    ],
+    "refer": [
+      "page/bindpassword.html"
+    ],
+    "priority": 17
+  },
+  "page/notice.html": {
+    "href": "page/notice.html",
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 19
+  },
+  "page/bindpassword.html": {
+    "href": "page/bindpassword.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/input.min.css",
+      "images/login/user.png",
+      "images/login/phone.png",
+      "images/login/pwd.png"
+    ],
+    "refer": [
+      "page/login.html"
+    ],
+    "priority": 16
+  },
+  "page/accountsetting.html": {
+    "href": "page/accountsetting.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/login.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "page/bindphone.html",
+      "page/bindpassword.html",
+      "page/my.html"
+    ],
+    "priority": 15
+  },
+  "page/follow.html": {
+    "href": "page/follow.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/fan.css",
+      "css/loading.min.css"
+    ],
+    "refer": [
+      "part/list.html",
+      "page/my.html"
+    ],
+    "priority": 15
+  },
+  "page/pic.html": {
+    "href": "page/pic.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js",
+      "images/my/666.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/img.preview.css",
+      "css/loading.min.css",
+      "images/my/nocheck.png",
+      "images/my/check.png"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 17
+  },
+  "page/my.html": {
+    "href": "page/my.html",
+    "resources": [
+      "images/my/menu06.png"
+    ],
+    "refer": [
+      "page/tipsetting.html",
+      "page/help.html",
+      "page/comment.html",
+      "page/article.html",
+      "page/feedback.html",
+      "page/mysetting.html",
+      "page/fan.html",
+      "page/mypay.html",
+      "page/keep.html",
+      "page/setting.html",
+      "page/follow.html",
+      "page/editimage.html",
+      "page/pic.html"
+    ],
+    "priority": 5
+  },
+  "page/editimage.html": {
+    "href": "page/editimage.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "cropper/cropper.min.js",
+      "js/editimage.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "cropper/cropper.css",
+      "images/editimage/e1.png",
+      "images/editimage/e2.png",
+      "images/editimage/e4.png"
+    ],
+    "refer": [
+      "page/mypic.html",
+      "part/pic.html",
+      "page/my.html"
+    ],
+    "priority": 3
+  },
+  "page/videonotice.html": {
+    "href": "page/videonotice.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 4
+  },
+  "page/editvideo.html": {
+    "href": "page/editvideo.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/video.copper.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/animate.css"
+    ],
+    "refer": [
+      "page/videonotice.html"
+    ],
+    "priority": 4
+  },
+  "page/musicsearch.html": {
+    "href": "page/musicsearch.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "images/check.png"
+    ],
+    "priority": 5
+  },
+  "page/music.html": {
+    "href": "page/music.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css"
+    ],
+    "refer": [
+      "page/musicsearch.html"
+    ],
+    "priority": 5
+  },
+  "page/articletype.html": {
+    "href": "page/articletype.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css"
+    ],
+    "priority": 7
+  },
+  "page/sharesetting.html": {
+    "href": "page/sharesetting.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "font-awesome-4.6.3/css/font-awesome.min.css",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.eot",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.svg"
+    ],
+    "refer": [
+      "page/articletype.html"
+    ],
+    "priority": 7
+  },
+  "page/custom.html": {
+    "href": "page/custom.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/cropper.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "cropper/cropper.css"
+    ],
+    "priority": 9
+  },
+  "page/customsetting.html": {
+    "href": "page/customsetting.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/addbackground.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "images/my/nocheck.png",
+      "images/my/check.png"
+    ],
+    "refer": [
+      "page/custom.html",
+      "page/mypic.html",
+      "part/pic.html"
+    ],
+    "priority": 9
+  },
+  "page/showhrefsub.html": {
+    "href": "page/showhrefsub.html",
+    "resources": [
+      "js/mui.min.js"
+    ],
+    "priority": 10
+  },
+  "page/showhref.html": {
+    "href": "page/showhref.html",
+    "resources": [
+      "js/mui.min.js",
+      "css/loading.min.css"
+    ],
+    "refer": [
+      "page/showhrefsub.html"
+    ],
+    "priority": 10
+  },
+  "page/money.html": {
+    "href": "page/money.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/payment.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/money.css",
+      "images/pay/nm1.png",
+      "images/pay/nm2.png",
+      "images/pay/zfb2.png",
+      "images/pay/zfb1.png",
+      "images/pay/wx2.png",
+      "images/pay/wx1.png",
+      "images/pay/bg.png",
+      "images/logo.png"
+    ],
+    "priority": 11
+  },
+  "page/articleComment.html": {
+    "href": "page/articleComment.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/PullRefresh.js",
+      "emotion/js/emojione.min.js",
+      "emotion/js/emojionearea.js",
+      "images/base/comment_nor.png",
+      "images/base/like_hig.png",
+      "images/base/like_nor.png",
+      "images/my/333.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/comment.css",
+      "images/article/pen2.png",
+      "css/loading.min.css",
+      "css/animate.css",
+      "emotion/css/emojione.sprites.css",
+      "emotion/css/emojione.sprites.png",
+      "emotion/css/emojionearea.min.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 12
+  },
+  "page/articledetail.html": {
+    "href": "page/articledetail.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/music.js",
+      "js/transparent.js",
+      "js/video.js",
+      "js/articledetail.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "css/animate.css",
+      "css/input.min.css",
+      "images/login/user.png",
+      "images/login/phone.png",
+      "images/login/pwd.png",
+      "font-awesome-4.6.3/css/font-awesome.min.css",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.eot",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.svg",
+      "css/articledetail.css",
+      "images/article/pen.png",
+      "images/article/on.png",
+      "images/article/off.png",
+      "images/article/more2.png",
+      "images/article/skin.png",
+      "images/article/money.png",
+      "images/article/stop.png",
+      "images/share/1.jpg",
+      "images/share/2.jpg",
+      "images/share/3.jpg",
+      "images/share/4.jpg",
+      "images/share/5.jpg",
+      "images/share/6.jpg",
+      "images/share/7.jpg",
+      "images/share/8.jpg",
+      "images/share/10.jpg",
+      "images/share/9.jpg",
+      "images/article/1.png",
+      "images/article/2.png",
+      "images/article/3.png",
+      "images/article/4.png"
+    ],
+    "refer": [
+      "page/addarticle.html",
+      "page/sharesetting.html",
+      "page/edittext.html",
+      "page/customsetting.html",
+      "page/showhref.html",
+      "page/money.html",
+      "page/articleComment.html"
+    ],
+    "priority": 6
+  },
+  "page/addarticle.html": {
+    "href": "page/addarticle.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/transparent.js",
+      "js/group.js",
+      "js/video.js",
+      "js/addarticlepart.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/addarticle.css",
+      "font-awesome-4.6.3/css/font-awesome.min.css",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.eot",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.svg"
+    ],
+    "refer": [
+      "page/mypic.html",
+      "page/editdesc.html",
+      "page/edittext.html",
+      "page/editimage.html",
+      "page/editvideo.html",
+      "page/music.html",
+      "page/articledetail.html",
+      "part/pic.html"
+    ],
+    "priority": 0
+  },
+  "page/addfan.html": {
+    "href": "page/addfan.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "css/img.preview.css",
+      "images/my/333.png"
+    ],
+    "priority": 2
+  },
+  "part/action.html": {
+    "href": "part/action.html",
+    "priority": 3
+  },
+  "page/search.html": {
+    "href": "page/search.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js",
+      "js/article.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/loading.min.css",
+      "css/img.preview.css",
+      "css/animate.css",
+      "images/my/111.png",
+      "images/my/444.png"
+    ],
+    "refer": [
+      "part/action.html"
+    ],
+    "priority": 4
+  },
+  "page/topic.html": {
+    "href": "page/topic.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js",
+      "js/update.js",
+      "js/article.js",
+      "images/my/444.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/animate.css",
+      "css/img.preview.css",
+      "css/loading.min.css",
+      "images/base/adduser.png"
+    ],
+    "refer": [
+      "page/addfan.html",
+      "part/action.html",
+      "page/search.html",
+      "page/topic.html"
+    ],
+    "priority": 2
+  },
+  "page/index.html": {
+    "href": "page/index.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js",
+      "js/PullRefresh.js",
+      "js/article.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/img.preview.css",
+      "css/animate.css",
+      "css/loading.min.css"
+    ],
+    "refer": [
+      "page/index.html",
+      "part/action.html"
+    ],
+    "priority": 6
+  },
+  "page/subindex.html": {
+    "href": "page/subindex.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/base.js",
+      "js/addarticle.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/img.preview.css",
+      "images/base/01_2.png",
+      "images/base/01_1.png",
+      "images/base/02_2.png",
+      "images/base/02_1.png",
+      "images/base/03_2.png",
+      "images/base/03_1.png",
+      "images/base/04_2.png",
+      "images/base/04_1.png",
+      "images/base/add.png"
+    ],
+    "refer": [
+      "page/addarticle.html",
+      "page/mypic.html",
+      "page/topic.html",
+      "page/login.html",
+      "page/my.html",
+      "page/tipsetting.html",
+      "page/index.html",
+      "page/editimage.html"
+    ],
+    "priority": 0
+  }
+}

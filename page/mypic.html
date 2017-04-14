@@ -62,11 +62,13 @@
 	mui.init();
 
 	mui.ready(function() {
+
 		mui('#main').load("../part/list.html", function(response) {
 			base.Get("title").innerHTML = "相册";
 			base.Get("none_img").setAttribute("src", "../images/my/666.png");
 			base.Get("none_tip").innerHTML = "这里还没有内容";
 			base.Get("confirm").classList.remove("hide");
+			base.InitScroll();
 		});
 	})
 

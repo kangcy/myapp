@@ -88,6 +88,7 @@
 	});
 
 	mui.ready(function() {
+		base.InitScroll();
 
 		mui('#main').load("../part/list.html", function(response) {
 			base.Get("title").innerHTML = "相册";

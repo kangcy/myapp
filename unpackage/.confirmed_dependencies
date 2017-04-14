@@ -529,7 +529,8 @@
       "page/addfan.html",
       "page/addfanSub.html",
       "page/edittext.html",
-      "page/search2.html"
+      "page/search2.html",
+      "page/topic.html"
     ]
   },
   "page/addarticle.html": {
@@ -1110,7 +1111,8 @@
       "js/article.js",
       "css/animate.css",
       "images/article/power1.png",
-      "images/loading.gif"
+      "images/loading.gif",
+      "images/article/top.png"
     ],
     "refer": [
       "page/keepSub.html",
@@ -1293,7 +1295,8 @@
       "js/default.js",
       "images/login/phone.png",
       "images/login/pwd.png",
-      "css/input.css"
+      "css/input.css",
+      "css/input.min.css"
     ],
     "refer": [
       "page/bindpassword.html"
@@ -1557,7 +1560,8 @@
   "page/showhref.html": {
     "resources": [
       "js/mui.min.js",
-      "page/showhrefsub.html"
+      "page/showhrefsub.html",
+      "css/loading.min.css"
     ],
     "refer": [
       "page/showhrefsub.html"
@@ -1974,7 +1978,8 @@
       "page/user.html",
       "page/articleComment.html",
       "page/money.html",
-      "page/edittext.html"
+      "page/edittext.html",
+      "page/index.html"
     ]
   },
   "page/user2.html": {
@@ -2183,7 +2188,8 @@
       "images/background/2.png",
       "images/background/1.png",
       "js/addbackground.js",
-      "part/pic.html"
+      "part/pic.html",
+      "images/my/nocheck.png"
     ],
     "refer": [
       "page/mypic.html",
@@ -2203,5 +2209,21 @@
       "fonts/mui.ttf"
     ],
     "refer": []
+  },
+  "part/list.html": {
+    "href": "part/list.html",
+    "resources": [
+      "images/my/111.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "part/pic.html": {
+    "href": "part/pic.html",
+    "priority": 0
+  },
+  "part/action.html": {
+    "href": "part/action.html",
+    "priority": 0
   }
 }
