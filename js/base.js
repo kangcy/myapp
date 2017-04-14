@@ -792,7 +792,7 @@ var base = new function() {
 	 * 切换Switch
 	 */
 	this.SwitchChange = function(id, isopen) {
-		base.ToggleClass("#" + id, active, isopen);
+		base.ToggleClass(["#" + id], ["active"], isopen);
 	}
 
 	/**

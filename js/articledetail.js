@@ -38,7 +38,6 @@ function ChangeBg() {
 			"background": "url(" + CurrCover + ") top center no-repeat",
 			"background-size": "100% auto"
 		});
-		//$(".cover").css("background", "none"); 
 		$(".cover").css("background", "RGBA(255, 255, 255, 0.5");
 	} else {
 		$("#wrapper").css("background-color", "transparent");
