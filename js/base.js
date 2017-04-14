@@ -409,7 +409,7 @@ var base = new function() {
 
 	/**
 	 * 刷新滚动条
-	 **/
+	 **/ 
 	this.RefreshScroll = function() {
 		mui(".mui-scroll-wrapper").scroll().refresh(); //刷新下拉
 	}
