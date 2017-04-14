@@ -120,12 +120,6 @@
 	z-index: -1;
 }
 
-.bg {
-	width: 100%;
-	z-index: 1;
-	min-height: 100%;
-}
-
 .fa-music {
 	padding: 0.35rem;
 	background: #fff;
@@ -335,6 +329,12 @@ video {
 }
 
 .more {
+	margin-top: 0.35rem;
+	margin-right: 0.4rem;
+}
+
+
+/*.more {
 	margin-top: 13px;
 	margin-right: 0.4rem;
 	height: 20px;
@@ -348,7 +348,7 @@ video {
 	height: 45px;
 	background: url(../images/article/more2.png) no-repeat center center;
 	background-size: auto 20px;
-}
+}*/
 
 #btnTemp {
 	position: fixed;

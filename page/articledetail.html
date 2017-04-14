@@ -16,11 +16,10 @@
 	</head>
 
 	<body id="body">
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<div onclick="ActionTan(1)" class="hide" id="action">
-			</div>
-			<h1 class="mui-title c333 user" id="title"></h1>
+		<header id="header" class="mui-bar mui-bar-transparent">
+			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
+			<span class="headericon cfff f25 fr hide" onclick="ActionTan(1)" id="action" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</span>
+			<h1 class="headericon mui-title cfff" id="title"></h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -133,44 +132,43 @@
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
 		<i id="music1" class="fa fa-music f13 hide" onclick="switchsound()" style="position:fixed;right:10px;top:60px;z-index:999;"></i>
-		<div class="mui-iframe-wrapper hide" id="wrapper" style="top:46px;bottom:50px;">
-			<div class="mui-content mui-scroll-wrapper bg">
-				<div class="mui-scroll" id="bg">
-					<!--通用样式-->
-					<div id="main0" class="f13 tl mt20 mb10 hide">
-						<div class="detail">
-							<div class="full tl">
-								<p class="f16 c000" id="title0"></p>
-								<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
-								<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
-								<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
-								<p id="music0" play="on" class="music" onclick="switchsound()">
-									<i></i>
-									<span id="musicname0"></span>
-								</p>
-							</div>
+		<div id="wrapper2"></div>
+		<div id="wrapper" class="hide" style="margin-bottom:50px;">
+			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
+				<!--通用样式-->
+				<div id="main0" class="f13 tl mt20 mb10 hide">
+					<div class="detail">
+						<div class="full tl">
+							<p class="f16 c000 mt20" id="title0"></p>
+							<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
+							<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
+							<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
+							<p id="music0" play="on" class="music" onclick="switchsound()">
+								<i></i>
+								<span id="musicname0"></span>
+							</p>
 						</div>
 					</div>
-					<!--排版1-->
-					<div id="main1" class="f13 tc hide" style="position:relative;">
-						<div class="detail full fl" id="detail1">
-							<div class="fl" style="width:23%;display:inline-block;">
-								<img id="useravatar1" class="full fl" />
-							</div>
-							<div class="fr tl" style="width:77%;display:inline-block;">
-								<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
-								<p class="ml10 mb0 mt10 cfff textshadow f13 full">
-									<span id="createdate1" class="mr10"></span>
-									<span class="ml15" id="views1"></span>
-								</p>
-							</div>
+				</div>
+				<!--排版1-->
+				<div id="main1" class="f13 tc hide" style="position:relative;">
+					<div class="detail full fl" id="detail1">
+						<div class="fl" style="width:23%;display:inline-block;">
+							<img id="useravatar1" class="full fl" />
+						</div>
+						<div class="fr tl" style="width:77%;display:inline-block;">
+							<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
+							<p class="ml10 mb0 mt10 cfff textshadow f13 full">
+								<span id="createdate1" class="mr10"></span>
+								<span class="ml15" id="views1"></span>
+							</p>
 						</div>
 					</div>
-					<div class="detail2 cover fl tl">
-						<p class="f16 c333 tc hide" id="title1"></p>
-						<div class="c333 full" id="desc">
+				</div>
+				<div class="detail2 cover fl tl">
+					<p class="f16 c333 tc hide" id="title1"></p>
+					<div class="c333 full" id="desc">
 
-						</div>
 					</div>
 				</div>
 			</div>
@@ -182,6 +180,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
+<script type="text/javascript" src="../js/transparent.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
 <script src="../js/articledetail.js"></script>
@@ -215,7 +214,13 @@
 	});
 
 	mui.ready(function() {
-		$("#detail1").css("margin-top", (window.innerHeight - 95) * 0.3 + "px");
+		$("#wrapper2").css({
+			"width": window.innerWidth + "px",
+			"height": (window.innerHeight - 50) + "px",
+			"position": "fixed",
+			"z-index": -1
+		});
+		$("#detail1").css("margin-top", (window.innerHeight - 50) * 0.3 + "px");
 
 		base.InitScroll();
 
@@ -343,7 +348,6 @@
 		Source = self.Source || "Add";
 		ArticleID = self.ArticleID || 0;
 		NickName = self.NickName || "";
-		base.Get("title").innerHTML = base.UnUnicodeText(NickName);
 
 		Load(function() {
 			plus.webview.close("addarticle");
@@ -455,7 +459,6 @@
 						}
 					}
 
-					console.log(data.IsZan + "," + data.Number + "," + data.CreateUserNumber);
 					if(data.IsZan > 0) {
 						$zan.setAttribute("already", "1");
 						$zan.classList.add("red");
@@ -476,14 +479,14 @@
 							$("#wrapper").css("background-color", data.TemplateJson.Background);
 						}
 					}
-					CurrBackground = data.BackgroundJson;
+					CurrBackground = data.BackgroundJson; 
 
 					ChangeBg();
 
 					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
-					$("#title0,#title1").html(base.UnUnicodeText(data.Title));
-					$("#nickname0,#nickname1,#title").html(base.UnUnicodeText(data.NickName));
+					$("#title0,#title1,#title").html(base.UnUnicodeText(data.Title));
+					$("#nickname0,#nickname1").html(base.UnUnicodeText(data.NickName));
 					$("#createdate0,#createdate1").html(data.CreateDateText);
 					$("#views0,#views1").html("阅读  " + data.Views);
 					$("#desc").html(base.UnUnicodeText(html.join("")));

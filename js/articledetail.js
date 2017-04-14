@@ -13,38 +13,39 @@ function ChangeMusic(index) {
 
 //背景状态切换
 function ChangeBg() {
-	var $bg = $("#bg");
 	if(CurrTemplate > 0) {
-		if(CurrTemplate == 1) {
-			$("#bg").css({
-				"background": "none",
-			});
-			$bg = $("#wrapper");
-		} else {
-			$("#wrapper").css({
-				"background-image": "none",
-			});
-			$bg = $("#bg");
-		}
 		$("#title1").removeClass("hide");
 	} else {
 		$("#title1").addClass("hide");
 	}
+	if(CurrTemplate == 0) {
+		$("#header").find("span").removeClass("cfff headericon").addClass("c333");
+		$("#header").find("h1").removeClass("cfff headericon").addClass("c333");
+	} else {
+		$("#header").find("span").removeClass("c333").addClass("cfff headericon");
+		$("#header").find("h1").removeClass("c333").addClass("cfff headericon");
+	}
 
 	//纯白背景
 	if(CurrTemplate == 0) {
-		$bg.css("background", "#fff");
+		$("#wrapper").css("background-color", "transparent");
+		$("#wrapper1").css("background", "none");
+		$("#wrapper2").css("background", "#fff");
 		$(".cover").css("background", "RGBA(255, 255, 255, 1");
 	} else if(CurrTemplate > 1) {
-		$bg.css({
+		$("#wrapper2").css("background", "none");
+		$("#wrapper1").css({
 			"background": "url(" + CurrCover + ") top center no-repeat",
 			"background-size": "100% auto"
 		});
+		//$(".cover").css("background", "none"); 
 		$(".cover").css("background", "RGBA(255, 255, 255, 0.5");
 	} else {
+		$("#wrapper").css("background-color", "transparent");
+		$("#wrapper1").css("background", "none");
 		if(CurrBackground == null) {
 			//全屏
-			$("#bg").css("background", "#fff");
+			$("#wrapper2").css("background", "#fff");
 		} else {
 			//背景透明度
 			$(".cover").css("background", "RGBA(255, 255, 255, " + CurrBackground.Transparency / 100 + ")");
@@ -58,14 +59,14 @@ function ChangeBg() {
 			switch(CurrBackground.Full) {
 				case 0:
 					//居顶 
-					$bg.css({
+					$("#wrapper2").css({
 						"background": "url(" + url + ") no-repeat top center",
 						"background-size": "100% auto"
 					});
 					break;
 				case 1:
 					//全屏
-					$bg.css({
+					$("#wrapper2").css({
 						"background": "url(" + url + ") center center no-repeat",
 						"background-size": "100% auto",
 					});

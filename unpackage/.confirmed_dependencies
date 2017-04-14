@@ -556,7 +556,8 @@
 			"js/transparent.js",
 			"images/loading.gif",
 			"images/logo_default.png",
-			"js/addarticlepart.js"
+			"js/addarticlepart.js",
+			"part/pic.html"
 		],
 		"refer": [
 			"page/edittitle.html",
@@ -912,7 +913,8 @@
 			"css/input.min.css",
 			"js/articledetail.js",
 			"images/loading.gif",
-			"images/loading2.gif"
+			"images/loading2.gif",
+			"js/transparent.js"
 		],
 		"refer": [
 			"page/user.html",
