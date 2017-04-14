@@ -303,7 +303,7 @@
 	//同城热门
 	function LoadCityUser(callback) {
 		var table = base.Get('scroll-view2');
-		HttpGet(base.RootUrl + "User/CityAll", { 
+		HttpGet(base.RootUrl + "User/CityAll", {
 			page: currpage[1],
 			rows: pagesize,
 			Number: userinfo.Number,
@@ -374,13 +374,11 @@
 	//初始化定位
 	function InitPosition() {
 		if(userinfo.ShowPosition == 0) {
-			base.AddClass("divLocation","hide");
-			base.AddClass("scroll-view2","hide");
-			base.RemoveClass("showPosition","hide");
+			base.AddClass(["#divLocation", "#scroll-view2"], ["hide"]);
+			base.RemoveClass(["showPosition"], ["hide"]);
 		} else {
-			base.AddClass("showPosition","hide");
-			base.RemoveClass("divLocation","hide");
-			base.RemoveClass("scroll-view2","hide");
+			base.AddClass(["#showPosition"], ["hide"]);
+			base.RemoveClass(["#divLocation", "#scroll-view2"], ["hide"]);
 		}
 	}
 

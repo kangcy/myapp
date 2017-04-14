@@ -22,6 +22,8 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
+		<!--操作-->
+		<div id="actionwrapper"></div>
 		<div class="mui-content">
 			<div id="pullrefresh">
 				<div id="scroll-view">
@@ -59,25 +61,6 @@
 				</div>
 			</div>
 		</div>
-		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="action_keep">
-					<a href="#" class="c333 f13" onclick="Keep()">收藏</a>
-				</li>
-				<li class="mui-table-view-cell hide" id="action_outkeep">
-					<a href="#" class="c333 f13" onclick="OutKeep()">取消收藏</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="#" class="c333 f13" onclick="Report()">举报</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder">
-					<a href="#action" class="c333 f13">取消</a>
-				</li>
-			</ul>
-		</div>
 	</body>
 
 </html>
@@ -102,15 +85,17 @@
 
 	mui.ready(function() {
 
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			base.Get("action").addEventListener('hidden', function(event) {
+				ShowMask(false, false, PageName);
+			});
+		});
+
 		base.InitScroll();
 
 		base.ShowUser("#pullrefresh");
 
 		base.ScrollTop();
-
-		base.Get("action").addEventListener('hidden', function(event) {
-			ShowMask(false, false, PageName);
-		});
 	});
 
 	mui.plusReady(function() {

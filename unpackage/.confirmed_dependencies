@@ -511,7 +511,8 @@
 			"images/article/top.png",
 			"images/article/power1.png",
 			"js/article.js",
-			"images/loading.gif"
+			"images/loading.gif",
+			"part/action.html"
 		],
 		"refer": [
 			"page/topicSub.html",
@@ -989,7 +990,9 @@
 			"js/mui.pullToRefresh.material.js",
 			"css/animate.css",
 			"js/mui.previewimage.js",
-			"js/article.js"
+			"js/article.js",
+			"part/action.html",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -1954,7 +1957,8 @@
 			"js/article.js",
 			"images/article/power1.png",
 			"css/animate.css",
-			"images/article/power0.png"
+			"images/article/power0.png",
+			"part/action.html"
 		],
 		"refer": [
 			"page/user2.html",
