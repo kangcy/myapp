@@ -83,12 +83,12 @@
 
 	mui.init({
 		gestureConfig: {
+			doubletap: true,
 			longtap: true
 		}
 	});
 
 	mui.ready(function() {
-		base.InitScroll();
 
 		mui('#main').load("../part/list.html", function(response) {
 			base.Get("title").innerHTML = "相册";
@@ -104,6 +104,9 @@
 			div.setAttribute("id", "tip");
 			div.innerHTML = "<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>";
 			base.Get("main").appendChild(div);
+
+			base.InitScroll();
+			base.ScrollTop();
 
 			mui.previewImage();
 		});

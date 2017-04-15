@@ -133,42 +133,46 @@
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
 		<i id="music1" class="fa fa-music f13 hide" onclick="switchsound()" style="position:fixed;right:10px;top:60px;z-index:999;"></i>
 		<div id="wrapper2"></div>
-		<div id="wrapper" class="hide" style="margin-bottom:50px;">
-			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
-				<!--通用样式-->
-				<div id="main0" class="f13 tl mt20 mb10 hide">
-					<div class="detail">
-						<div class="full tl">
-							<p class="f16 c000 mt20" id="title0"></p>
-							<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
-							<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
-							<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
-							<p id="music0" play="on" class="music" onclick="switchsound()">
-								<i></i>
-								<span id="musicname0"></span>
-							</p>
+		<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
+			<div class="mui-scroll" id="scroll">
+				<div id="wrapper" class="hide" style="margin-bottom:50px;">
+					<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
+						<!--通用样式-->
+						<div id="main0" class="f13 tl mt10 mb10 hide">
+							<div class="detail">
+								<div class="full tl">
+									<p class="f16 c000" id="title0"></p>
+									<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
+									<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
+									<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
+									<p id="music0" play="on" class="music" onclick="switchsound()">
+										<i></i>
+										<span id="musicname0"></span>
+									</p>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<!--排版1-->
-				<div id="main1" class="f13 tc hide" style="position:relative;">
-					<div class="detail full fl" id="detail1">
-						<div class="fl" style="width:23%;display:inline-block;">
-							<img id="useravatar1" class="full fl" />
+						<!--排版1-->
+						<div id="main1" class="f13 tc hide" style="position:relative;">
+							<div class="detail full fl" id="detail1">
+								<div class="fl" style="width:23%;display:inline-block;">
+									<img id="useravatar1" class="full fl" />
+								</div>
+								<div class="fr tl" style="width:77%;display:inline-block;">
+									<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
+									<p class="ml10 mb0 mt10 cfff textshadow f13 full">
+										<span id="createdate1" class="mr10"></span>
+										<span class="ml15" id="views1"></span>
+									</p>
+								</div>
+							</div>
 						</div>
-						<div class="fr tl" style="width:77%;display:inline-block;">
-							<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
-							<p class="ml10 mb0 mt10 cfff textshadow f13 full">
-								<span id="createdate1" class="mr10"></span>
-								<span class="ml15" id="views1"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="detail2 cover fl tl">
-					<p class="f16 c333 tc hide" id="title1"></p>
-					<div class="c333 full" id="desc">
+						<div class="detail2 cover fl tl">
+							<p class="f16 c333 tc hide" id="title1"></p>
+							<div class="c333 full" id="desc">
 
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -180,7 +184,6 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/music.js"></script>
-<script type="text/javascript" src="../js/transparent.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
 <script src="../js/articledetail.js"></script>
@@ -198,6 +201,8 @@
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
 	var $zan = base.Get('zan');
+	var $heade=base.Get("header");
+	var scrolly = 0;
 
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
@@ -223,6 +228,30 @@
 		$("#detail1").css("margin-top", (window.innerHeight - 50) * 0.3 + "px");
 
 		base.InitScroll();
+		base.ScrollTop();
+
+		var scroll = mui("#scroll-wrapper").scroll();
+		var $header = base.Get("header");
+		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
+			scrolly = -scroll.y;
+
+			//背景色渐变
+			$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
+
+			var success = scrolly > 100;
+			mui.each(document.querySelectorAll(".headericon"), function() {
+				if(success) {
+					this.classList.remove("cfff");
+				} else {
+					this.classList.add("cfff");
+				}
+			});
+
+			/*if(scroll.y >= 0) {
+				base.Get("bg").style.backgroundSize = (100 - scrolly / 5) + "%";
+			}*/
+
+		})
 
 		//模板选择
 		mui('#temps').on('tap', '.temp', function() {
@@ -230,6 +259,7 @@
 			var $this = $(this);
 			$this.addClass("hover");
 			CurrTemplate = $this.attr("tid");
+
 			if(CurrTemplate == 1) {
 				base.OpenWindow("customsetting", "customsetting.html", {
 					ArticleNumber: Article.Number
@@ -479,7 +509,7 @@
 							$("#wrapper").css("background-color", data.TemplateJson.Background);
 						}
 					}
-					CurrBackground = data.BackgroundJson; 
+					CurrBackground = data.BackgroundJson;
 
 					ChangeBg();
 

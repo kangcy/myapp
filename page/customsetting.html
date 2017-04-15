@@ -117,8 +117,11 @@
 					</a>
 				</div>
 			</div>-->
-			<div id="scroll" class="full">
-				<div id="scroll_view"></div>
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:0px;">
+				<div class="mui-scroll" id="scroll">
+
+					<div id="scroll_view"></div>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -135,12 +138,19 @@
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		mui('#picupload').load("../part/pic.html", function(response) {
 			base.RemoveClass(["#create"], ["hide"]);
 		});
+
+		base.InitScroll();
+		base.ScrollTop();
 
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");

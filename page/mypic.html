@@ -59,7 +59,11 @@
 	var Source = "";
 	var Multiple = 0; //是否多选
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 
@@ -69,6 +73,7 @@
 			base.Get("none_tip").innerHTML = "这里还没有内容";
 			base.Get("confirm").classList.remove("hide");
 			base.InitScroll();
+			base.ScrollTop();
 		});
 	})
 

@@ -71,7 +71,7 @@
 		</style>
 	</head>
 
-	<body>
+	<body id="body">
 		<header id="header" class="mui-bar mui-bar-transparent">
 			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<span class="headericon cfff f25 fr more" onclick="More()">•••</span>
@@ -83,33 +83,37 @@
 			</div>
 		</div>
 		<div class="mui-content">
-			<div class="info-content" id="bg">
-				<img id="avatar" class="hide" src="../images/logo.png" />
-				<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
-				<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
-				<p class="secret tc mt5 mb15 f12">
-					<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow f13" id="showFollowNum">0</span></span>
-					<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow f13" id="showFanNum">0</span></span>
-					<span class="cfff textshadow hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="cfff textshadow f13" id="showArticleNum">0</span></span>
-				</p>
-				<div class="full tc mb20 hide" id="action">
-					<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
-					<div class="dashang f14" onclick="Payment()">打赏</div>
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
+				<div class="mui-scroll" id="scroll">
+					<div class="info-content" id="bg">
+						<img id="avatar" class="hide" src="../images/logo.png" />
+						<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
+						<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
+						<p class="secret tc mt5 mb15 f12">
+							<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow f13" id="showFollowNum">0</span></span>
+							<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow f13" id="showFanNum">0</span></span>
+							<span class="cfff textshadow hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="cfff textshadow f13" id="showArticleNum">0</span></span>
+						</p>
+						<div class="full tc mb20 hide" id="action">
+							<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
+							<div class="dashang f14" onclick="Payment()">打赏</div>
+						</div>
+					</div>
+					<div id="article" class="hide f13 c999 full">
+						<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
+						<div id="a_list">
+						</div>
+						<div id="mynone" class="mb20 hide">
+							<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
+							<div class="tc cfff mt20 submit" onclick="ShowActionSheet()">去发布</div>
+						</div>
+						<div id="none" class="mb20 hide">
+							<p class="full tc f13 c333 mt50">暂未发表过动态</p>
+						</div>
+					</div>
+					<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
 				</div>
 			</div>
-			<div id="article" class="hide f13 c999 full">
-				<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
-				<div id="a_list">
-				</div>
-				<div id="mynone" class="mb20 hide">
-					<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
-					<div class="tc cfff mt20 submit" onclick="ShowActionSheet()">去发布</div>
-				</div>
-				<div id="none" class="mb20 hide">
-					<p class="full tc f13 c333 mt50">暂未发表过动态</p>
-				</div>
-			</div>
-			<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
 		</div>
 		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
@@ -182,7 +186,6 @@
 </html>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
-<script src="../js/transparent.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var currpage = 1;
@@ -196,15 +199,45 @@
 	var ShareInfo = {};
 	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {});
+	
 
 	var Intent = null,
 		File = null,
 		Uri = null,
 		main = null;
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
+		base.InitScroll();
+		base.ScrollTop();
+
+		var scrolly = 0;
+		var scroll = mui("#scroll-wrapper").scroll();
+		var $header = base.Get("header");
+		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
+			scrolly = -scroll.y;
+			//背景色渐变
+			$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
+
+			var success = scrolly > 100;
+			mui.each(document.querySelectorAll(".headericon"), function() {
+				if(success) {
+					this.classList.remove("cfff");
+				} else { 
+					this.classList.add("cfff");
+				}
+			});
+
+			/*if(scroll.y >= 0) {
+				base.Get("bg").style.backgroundSize = (100 - scrolly / 5) + "%";
+			}*/
+		})
+
 		base.ShowArticle("#a_list", "List", userinfo.Number);
 	});
 
@@ -250,6 +283,7 @@
 
 				base.Get("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
 				base.Get("bg").style.backgroundSize = "cover";
+
 				base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
 				base.Get("avatar").classList.remove("hide");
 				base.Get("nickname").innerHTML = NickName;

@@ -26,12 +26,17 @@
 	var Name = "我";
 	var UserNumber = "";
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		
 		mui('#main').load("../part/list.html", function(response) {
 			base.InitScroll();
+			base.ScrollTop();
 		});
 	});
 

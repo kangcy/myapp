@@ -28,20 +28,23 @@
 	var ArticleType = 0;
 	var CreateUserNumber = "";
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
 			base.Get("none_img").setAttribute("src", "../images/my/444.png");
 			base.Get("none_tip").innerHTML = "这里还没有内容";
-			
+
 			base.InitScroll();
+			base.ScrollTop();
 
 			base.ShowUser("#scroll");
 
 			mui.previewImage();
-
-			base.ScrollTop();
 		});
 	});
 
@@ -54,6 +57,7 @@
 		base.Get("title").innerHTML = self.ArticleTypeName || "列表";
 
 		Init(ArticleType, CreateUserNumber, Source);
+
 	});
 
 	//初始化获取参数

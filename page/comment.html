@@ -42,7 +42,11 @@
 		}
 	});
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 
@@ -53,6 +57,7 @@
 			$("#main").append('<textarea id="textarea" class="hide"></textarea>');
 
 			base.InitScroll();
+			base.ScrollTop();
 		});
 	});
 

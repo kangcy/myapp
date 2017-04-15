@@ -13,6 +13,12 @@ function ChangeMusic(index) {
 
 //背景状态切换
 function ChangeBg() {
+	if(CurrTemplate == 0) {
+				base.Get("scroll-wrapper").style.top = "45px";
+			} else {
+				base.Get("scroll-wrapper").style.top = "0px";
+			}
+	
 	if(CurrTemplate > 0) {
 		$("#title1").removeClass("hide");
 	} else {
@@ -22,8 +28,17 @@ function ChangeBg() {
 		$("#header").find("span").removeClass("cfff headericon").addClass("c333");
 		$("#header").find("h1").removeClass("cfff headericon").addClass("c333");
 	} else {
-		$("#header").find("span").removeClass("c333").addClass("cfff headericon");
-		$("#header").find("h1").removeClass("c333").addClass("cfff headericon");
+		//背景色渐变
+		$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
+
+		var success = scrolly > 100;
+		mui.each(document.querySelectorAll(".headericon"), function() {
+			if(success) {
+				this.classList.remove("cfff");
+			} else {
+				this.classList.add("cfff");
+			}
+		});
 	}
 
 	//纯白背景

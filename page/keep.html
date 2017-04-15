@@ -48,7 +48,11 @@
 	var PageName = "keep";
 	var FullScreen = true;
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 
@@ -57,6 +61,7 @@
 			base.Get("none_tip").innerHTML = "好内容记得收藏,让我们不再错过";
 
 			base.InitScroll();
+			base.ScrollTop();
 
 			mui.previewImage();
 
