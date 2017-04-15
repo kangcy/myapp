@@ -183,7 +183,7 @@
 		base.InitSlider();
 
 		base.ShowUser("#slider");
-
+ 
 		base.UserAddFan("#slider", userinfo);
 
 		//base.ShowArticle("#slider", "List", userinfo.Number);
@@ -375,7 +375,7 @@
 	function InitPosition() {
 		if(userinfo.ShowPosition == 0) {
 			base.AddClass(["#divLocation", "#scroll-view2"], ["hide"]);
-			base.RemoveClass(["showPosition"], ["hide"]);
+			base.RemoveClass(["#showPosition"], ["hide"]);
 		} else {
 			base.AddClass(["#showPosition"], ["hide"]);
 			base.RemoveClass(["#divLocation", "#scroll-view2"], ["hide"]);
@@ -384,7 +384,7 @@
 
 	//开启定位
 	function OpenPosition() {
-		if(base.IsLoading) {
+		if(base.IsLoading) { 
 			return false;
 		}
 		base.IsLoading = true;

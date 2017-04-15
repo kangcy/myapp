@@ -25,17 +25,18 @@ function ChangeBg() {
 		$("#title1").addClass("hide");
 	}
 	if(CurrTemplate == 0) {
-		$("#header").find("span").removeClass("cfff headericon").addClass("c333");
-		$("#header").find("h1").removeClass("cfff headericon").addClass("c333");
+		$("#header").find("span").removeClass("cfff").addClass("c333");
+		$("#header").find("h1").removeClass("cfff").addClass("c333");
 	} else {
 		//背景色渐变
 		$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
-
 		var success = scrolly > 100;
 		mui.each(document.querySelectorAll(".headericon"), function() {
 			if(success) {
 				this.classList.remove("cfff");
+				this.classList.remove("c333");
 			} else {
+				this.classList.remove("c333");
 				this.classList.add("cfff");
 			}
 		});

@@ -13,7 +13,7 @@
 	</head>
 
 	<body style="background: #E8E8E8;">
-		<header class="mui-bar mui-bar-transparent">
+		<header class="mui-bar mui-bar-transparent" id="header">
 			<span class="headericon mui-action-back mui-icon mui-icon-back fl cfff"></span>
 			<span class="headericon mui-icon fr mui-text cfff" id="submit">保存</span>
 			<h1 class="headericon mui-title c333"></h1>
@@ -26,14 +26,18 @@
 		<!--图片操作-->
 		<div id="picupload"></div>
 		<div class="mui-content">
-			<div class="mui-bar mui-bar-nav initial f11 cfff" id="header" style="height:auto;">
-				<div class="info-body mt30">
-					<div id="title" class="title mb20 f18 textshadow">点击输入标题</div>
-					<div id="music" class="btn fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
-				</div>
-			</div>
-			<div id="edit" class="mb20">
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
+				<div class="mui-scroll" id="scroll">
+					<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
+						<div class="info-body mt30">
+							<div id="title" class="title mb20 f18 textshadow">点击输入标题</div>
+							<div id="music" class="btn fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
+						</div>
+					</div>
+					<div id="edit" class="mb20">
 
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -42,7 +46,6 @@
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../js/mui.min.js"></script>
 <script type="text/javascript" src="../js/base.js"></script>
-<script type="text/javascript" src="../js/transparent.js"></script>
 <script type="text/javascript" src="../js/group.js"></script>
 <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script type="text/javascript" src="../js/video.js"></script>
@@ -63,13 +66,39 @@
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
+	var $header = base.Get("header");
 
-	mui.init();
+	//启用双击监听 
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	//标题
 	var title = base.Get("title");
 
 	mui.ready(function() {
+
+		base.InitScroll();
+		base.ScrollTop();
+
+		var scroll = mui("#scroll-wrapper").scroll();
+		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
+			scrolly = -scroll.y;
+
+			//背景色渐变
+			$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
+
+			var success = scrolly > 100;
+			mui.each(document.querySelectorAll(".headericon"), function() {
+				if(success) {
+					this.classList.remove("cfff");
+				} else {
+					this.classList.add("cfff");
+				}
+			});
+		});
 
 		mui('#picupload').load("../part/pic.html", function(response) {
 
@@ -459,8 +488,8 @@
 					MusicUrl = data.MusicUrl;
 					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
 
-					base.Get("header").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
-					base.Get("header").style.backgroundSize = "cover";
+					base.Get("cover").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
+					base.Get("cover").style.backgroundSize = "cover";
 					if(Title != "") {
 						$("#title").html(Title);
 					}
@@ -524,8 +553,8 @@
 
 	//刷新封面
 	function RefreshCover(url) {
-		base.Get("header").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
-		base.Get("header").style.backgroundSize = "cover";
+		base.Get("cover").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
+		base.Get("cover").style.backgroundSize = "cover";
 		Cover = url;
 		plus.webview.close("custom");
 		plus.webview.close("customsetting");

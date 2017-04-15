@@ -348,13 +348,13 @@
 			var sTop = posi.top;
 			if(sTop > window.innerHeight || sLeft > window.innerWidth || sTop < 0 || sLeft < 0) { //out viewport
 				imgEl.style.opacity = 0;
-				imgEl.style.webkitTransitionDuration = '0.5s';
+				imgEl.style.webkitTransitionDuration = '0s';
 				imgEl.style.webkitTransform = 'scale(' + itemData.sScale + ')';
 			} else {
 				if(this.options.zoom) {
 					$(imgEl.parentNode.parentNode).zoom().toggleZoom(0);
 				}
-				imgEl.style.webkitTransitionDuration = '0.5s';
+				imgEl.style.webkitTransitionDuration = '0s';
 				imgEl.style.webkitTransform = 'translate3d(' + posi.x + 'px,' + posi.y + 'px,0) scale(' + itemData.sScale + ')';
 			}
 		}

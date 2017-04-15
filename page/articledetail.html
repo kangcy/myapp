@@ -21,7 +21,7 @@
 			<span class="headericon cfff f25 fr hide" onclick="ActionTan(1)" id="action" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</span>
 			<h1 class="headericon mui-title cfff" id="title"></h1>
 		</header>
-		<div class="loading" id="loader">
+		<div class="loading" id="loader"> 
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
@@ -201,7 +201,7 @@
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
 	var $zan = base.Get('zan');
-	var $heade=base.Get("header");
+	var $header = base.Get("header");
 	var scrolly = 0;
 
 	//显示遮罩
@@ -231,7 +231,6 @@
 		base.ScrollTop();
 
 		var scroll = mui("#scroll-wrapper").scroll();
-		var $header = base.Get("header");
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
 			scrolly = -scroll.y;
 
@@ -246,12 +245,7 @@
 					this.classList.add("cfff");
 				}
 			});
-
-			/*if(scroll.y >= 0) {
-				base.Get("bg").style.backgroundSize = (100 - scrolly / 5) + "%";
-			}*/
-
-		})
+		});
 
 		//模板选择
 		mui('#temps').on('tap', '.temp', function() {

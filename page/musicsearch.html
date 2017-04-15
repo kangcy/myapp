@@ -108,7 +108,7 @@
 
 		//语音识别完成事件
 		search.addEventListener('recognized', function(e) {
-			search.value = e.detail.value;
+			search.value = e.detail.value.replace(/，/g, '').replace(/,。/g, '');
 		});
 	})
 
@@ -212,6 +212,7 @@
 		};
 
 		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
+			console.log(data);
 			data = JSON.parse(data);
 			if(data != null) {
 				data = data.message;
