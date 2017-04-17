@@ -88,7 +88,7 @@
 	mui.ready(function() {
 
 		base.Get("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(7, 11);
-		base.Get("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置"+userinfo.Phone;
+		base.Get("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置";
 
 		//微信 
 		if(CheckBind(1)) {
