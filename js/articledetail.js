@@ -14,11 +14,11 @@ function ChangeMusic(index) {
 //背景状态切换
 function ChangeBg() {
 	if(CurrTemplate == 0) {
-				base.Get("scroll-wrapper").style.top = "45px";
-			} else {
-				base.Get("scroll-wrapper").style.top = "0px";
-			}
-	
+		base.Get("scroll-wrapper").style.top = "45px";
+	} else {
+		base.Get("scroll-wrapper").style.top = "0px";
+	}
+
 	if(CurrTemplate > 0) {
 		$("#title1").removeClass("hide");
 	} else {
@@ -63,7 +63,7 @@ function ChangeBg() {
 			$("#wrapper2").css("background", "#fff");
 		} else {
 			//背景透明度
-			$(".cover").css("background", "RGBA(255, 255, 255, " + CurrBackground.Transparency / 100 + ")");
+			$(".cover").css("background", "RGBA(255, 255, 255, " + (100 - CurrBackground.Transparency) / 100 + ")");
 
 			var url = CurrBackground.Url;
 			if(CurrBackground.High == 0) {
