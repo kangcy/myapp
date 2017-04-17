@@ -11,10 +11,23 @@
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
+		<style type="text/css">
+			#adduser {
+				width: 10%;
+				height: 100%;
+				display: inline-block;
+				background: url(../images/base/adduser.png) center center no-repeat;
+				background-size: 20px;
+				position: absolute;
+				right: 10px;
+				top: 0px;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
+			<div class="fr tc" id="adduser" onclick="AddUser()"></div>
 			<div class="mui-title c333">关注</div>
 		</header>
 		<div class="loading" id="loader">
@@ -167,5 +180,10 @@
 			}
 			callback();
 		});
+	}
+
+	//添加用户
+	function AddUser() {
+		base.OpenWindow("addfan", "addfan.html", {});
 	}
 </script>

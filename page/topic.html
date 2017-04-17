@@ -69,24 +69,13 @@
 			.mui-table-view:after {
 				height: 0px;
 			}
-			
-			#adduser {
-				width: 10%;
-				height: 100%;
-				display: inline-block;
-				background: url(../images/base/adduser.png) center center no-repeat;
-				background-size: 20px
-			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav bounceInDown" id="search" onclick="Search()">
-			<div class="mui-input-row mui-search fl" style="width:86%;display:inline-block;">
+			<div class="mui-input-row mui-search fl" style="width:100%;display:inline-block;">
 				<input type="search" class="c999" placeholder="搜索昵称、标题、支持语音搜索" style="height:34px;font-size:15px;" disabled="disabled">
-			</div>
-			<div class="fr tc" id="adduser" onclick="AddUser()">
-
 			</div>
 		</header>
 		<div class="loading" id="loader">
@@ -448,10 +437,5 @@
 	//搜索
 	function Search() {
 		base.OpenWindow("search", "search.html", {});
-	}
-
-	//添加用户
-	function AddUser() {
-		base.OpenWindow("addfan", "addfan.html", {});
 	}
 </script>

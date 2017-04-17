@@ -1980,7 +1980,8 @@
 			"page/articleComment.html",
 			"page/money.html",
 			"page/edittext.html",
-			"page/index.html"
+			"page/index.html",
+			"page/addfan.html"
 		]
 	},
 	"page/user2.html": {
