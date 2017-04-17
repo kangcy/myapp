@@ -230,7 +230,8 @@
 			"images/login/pwd.png",
 			"images/login/user.png",
 			"css/input.css",
-			"css/input.min.css"
+			"css/input.min.css",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/notice.html",
@@ -1518,7 +1519,8 @@
 			"images/login/pwd.png",
 			"images/login/phone.png",
 			"css/input.css",
-			"css/input.min.css"
+			"css/input.min.css",
+			"images/loading.gif"
 		],
 		"refer": []
 	},
@@ -1971,7 +1973,8 @@
 			"images/article/power1.png",
 			"css/animate.css",
 			"images/article/power0.png",
-			"part/action.html"
+			"part/action.html",
+			"images/base/adduser.png"
 		],
 		"refer": [
 			"page/user2.html",

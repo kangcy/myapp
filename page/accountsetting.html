@@ -87,8 +87,8 @@
 	mui.init();
 	mui.ready(function() {
 
-		base.Get("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(8, 11);
-		base.Get("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置";
+		base.Get("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(7, 11);
+		base.Get("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置"+userinfo.Phone;
 
 		//微信 
 		if(CheckBind(1)) {
@@ -218,7 +218,7 @@
 	//更新绑定号码
 	function UpdatePhone(phone) {
 		userinfo.Phone = phone;
-		base.Get("phone").innerText = phone == "" ? "未绑定" : phone;
+		base.Get("phone").innerText = phone == "" ? "未绑定" : phone.substring(0, 3) + "****" + phone.substring(7, 11); 
 	}
 
 	//检测是否绑定
