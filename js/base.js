@@ -409,7 +409,7 @@ var base = new function() {
 
 	/**
 	 * 刷新滚动条
-	 **/ 
+	 **/
 	this.RefreshScroll = function() {
 		mui(".mui-scroll-wrapper").scroll().refresh(); //刷新下拉
 	}
@@ -608,19 +608,27 @@ var base = new function() {
 
 		//图片拼接 
 		var parts = item.ArticlePart;
-		if(parts.length == 1) {
+		if(parts.length == 0) {
 			if(islazyload) {
-				model.push('<div class="onefloor"><img data-lazyload="' + base.ShowThumb(parts[0].Introduction, 1) + '" href="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				model.push('<div class="onefloor"><img data-lazyload="' + base.ShowThumb(item.Cover, 1) + '" href="' + base.ShowThumb(item.Cover, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			} else {
-				model.push('<div class="onefloor"><img src="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				model.push('<div class="onefloor"><img src="' + base.ShowThumb(item.Cover, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			}
 		} else {
-			var name = parts.length == 3 ? "thirdfloor" : "secondfloor";
-			for(var i = 0; i < parts.length; i++) {
+			if(parts.length == 1) {
 				if(islazyload) {
-					model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					model.push('<div class="onefloor"><img data-lazyload="' + base.ShowThumb(parts[0].Introduction, 1) + '" href="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 				} else {
-					model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					model.push('<div class="onefloor"><img src="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				}
+			} else {
+				var name = parts.length == 3 ? "thirdfloor" : "secondfloor";
+				for(var i = 0; i < parts.length; i++) {
+					if(islazyload) {
+						model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					} else {
+						model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					}
 				}
 			}
 		}
