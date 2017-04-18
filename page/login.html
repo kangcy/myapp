@@ -124,7 +124,9 @@
 		plus.navigator.setFullscreen(false);
 
 		//系统定位
-		base.GetCurrentPosition();
+		mui.later(function() {
+			base.GetCurrentPosition();
+		});
 
 		var settings = app.getSettings();
 

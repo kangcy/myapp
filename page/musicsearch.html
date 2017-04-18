@@ -212,8 +212,7 @@
 		};
 		console.log(SearchName);
 		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
-			console.log(data);
-			data = JSON.parse(data); 
+			data = JSON.parse(data);
 			if(data != null) {
 				data = data.message;
 				totalpage = data.totalpage;

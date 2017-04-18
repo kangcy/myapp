@@ -85,7 +85,7 @@
 						<div class="my-switch fr" id="switch">
 							<div></div>
 						</div>
-					</div>
+					</div> 
 				</li>
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
 					<span class="fl f11">每周只有一次投稿机会，被选中的文章会有“精”字标识</span>
@@ -122,31 +122,55 @@
 	mui.ready(function() {
 		//选中切换
 		$("#list").on('tap', '.list', function(event) {
-			if(base.RepeatAction()) {
-				return;
-			}
 			var $this = $(this);
 			var index = $this.attr("index");
-			//密码验证
-			if(index == 1) {
-				var btnArray = ['确定', '取消'];
-				mui.prompt('设置密码', '输入4位数字密码', '分享设置', btnArray, function(e) {
-					if(e.index == 0) {
-						if(ChechPwd(e.value)) {
-							ArticlePowerPwd = e.value;
-							$(".check").removeClass("check");
-							$this.addClass("check");
-							ArticlePower = index;
-							SaveArticlePower();
-						}
+
+			if(index > 0) {
+				//密码验证
+				if(index == 1) {
+					if(ArticleType == 0) {
+						mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
+							if(e.index == 0) {
+								base.OpenWindow("articletype", "articletype.html", {
+									ArticleID: ArticleID,
+									ArticleType: ArticleType,
+									ArticleTypeName: ArticleTypeName
+								});
+							}
+						});
+						return;
+					} else {
+						mui.prompt('设置密码', '输入4位数字密码', '分享设置', ['确定', '取消'], function(e) {
+							if(e.index == 0) {
+								if(ChechPwd(e.value)) {
+									ArticlePowerPwd = e.value;
+									$(".check").removeClass("check");
+									$this.addClass("check");
+									ArticlePower = index;
+									SaveArticlePower();
+								}
+							}
+						});
+						return;
 					}
-				})
-			} else {
-				$(".check").removeClass("check");
-				$this.addClass("check");
-				ArticlePower = index;
-				SaveArticlePower();
+				}
+				if(ArticleType == 0) {
+					mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
+						if(e.index == 0) {
+							base.OpenWindow("articletype", "articletype.html", {
+								ArticleID: ArticleID,
+								ArticleType: ArticleType,
+								ArticleTypeName: ArticleTypeName
+							});
+						}
+					});
+					return;
+				}
 			}
+			$(".check").removeClass("check");
+			$this.addClass("check");
+			ArticlePower = index;
+			SaveArticlePower();
 		});
 
 		//分类

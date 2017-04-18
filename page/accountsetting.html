@@ -106,7 +106,7 @@
 		}
 
 		if(base.IsNullOrEmpty(userinfo.Phone)) {
-			mui.confirm('尚未绑定手机号，有文章丢失的风险，请尽快绑定。', '提示', ['去绑定', '取消'], function(e) {
+			mui.confirm('尚未绑定手机号，有文章丢失的风险，请尽快绑定。', '', ['去绑定', '取消'], function(e) {
 				if(e.index == 0) {
 					BindPhone();
 				}
