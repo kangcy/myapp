@@ -51,6 +51,10 @@ function ConfirmImg(src) {
 	}
 	base.OpenWindow("custom", "custom.html", {
 		ArticleNumber: articleNumber,
-		Url: src
+		Url: src,
+		ID: id,
+		full: full,
+		high: high,
+		transparency: transparency
 	});
 }

@@ -117,6 +117,7 @@
 	var high = 0;
 	var transparency = 50;
 	var articleNumber = "";
+	var id = 0;
 	var url = "";
 	var isLoading = false;
 	var imgWidth = 0;
@@ -208,14 +209,20 @@
 		self = plus.webview.currentWebview();
 		articleNumber = self.ArticleNumber || "";
 		url = self.Url || "";
+		id = self.ID || 0;
+		high = self.high || 0;
+		full = self.full || 0;
+		transparency = self.transparency || 50;
+		base.Get("range").value = transparency;
+		$cover.style.background = "rgba(255, 255, 255, " + ((100 - transparency) / 100) + ")";
 
 		if(base.IsNullOrEmpty(articleNumber) || base.IsNullOrEmpty(url)) {
 			mui.toast("信息异常");
 			plus.webview.close("customsetting");
 		}
 
-		base.SwitchChange("fullSwitch", full);
-		base.SwitchChange("highSwitch", high);
+		base.SwitchChange("fullSwitch", full > 0);
+		base.SwitchChange("highSwitch", high > 0);
 
 		CutImg(full);
 
@@ -305,7 +312,8 @@
 				Full: full,
 				High: high,
 				Transparency: transparency,
-				Url: url
+				Url: url,
+				EditID: id
 			}, function(data) {
 				data = JSON.parse(data);
 				if(data == null) {

@@ -64,14 +64,14 @@ function galleryImgs() {
 		files = e.files;
 		length = e.files.length;
 		compressTotal = length;
-		//ShowMaskHere(true);
+		ShowMaskHere(true);
 
-		console.log(activeTab);
+		/*console.log(activeTab);
 		ShowMask(true, false, activeTab);
 		mask.show();
 		base.ShowWaiting("正在上传图片");
 
-		return;
+		return;*/
 
 		compressImage(e.files[0]);
 	}, function(e) {

@@ -78,7 +78,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<a class="mui-icon mui-text c333 fr hide" href="#power" id="create">创建</a>
+			<a class="mui-icon mui-text c333 fr hide" id="create" onclick="Create()">创建</a>
 			<h1 class="mui-title c333">背景设置</h1>
 		</header>
 		<div class="loading" id="loader">
@@ -94,7 +94,7 @@
 				<li class="mui-table-view-cell hide" id="inused">
 					<a href="#" class="c333 f13" onclick="Used()">使用</a>
 				</li>
-				<li class="mui-table-view-cell hide">
+				<li class="mui-table-view-cell">
 					<a href="#" class="c333 f13" onclick="Edit()">编辑</a>
 				</li>
 				<li class="mui-table-view-cell noborder">
@@ -137,9 +137,13 @@
 <script src="../js/base.js"></script>
 <script src="../js/addbackground.js"></script>
 <script type="text/javascript">
+	var id = 0;
 	var articleNumber = "";
 	var url = "";
 	var number = "";
+	var full = 0;
+	var high = 0;
+	var transparency = 50;
 	var multiple = 0; //是否多图
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
@@ -161,8 +165,12 @@
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");
 			base.ToggleClass(["#inused"], ["hide"], isused != 0);
+			id = this.getAttribute("id");
 			number = this.getAttribute("number");
 			url = this.getAttribute("url");
+			full = this.getAttribute("full");
+			high = this.getAttribute("high");
+			transparency = this.getAttribute("transparency");
 			mui('#black').popover('toggle');
 		});
 	})
@@ -214,12 +222,23 @@
 			div.className = 'thirdfloor check';
 		}
 		div.style.position = "relative";
-		div.setAttribute("id", item.Number);
+		div.setAttribute("id", item.ID);
 		div.setAttribute("isused", item.IsUsed);
 		div.setAttribute("number", item.Number);
 		div.setAttribute("url", item.Url);
+		div.setAttribute("full", item.Full);
+		div.setAttribute("high", item.High);
+		div.setAttribute("transparency", item.Transparency);
 		div.innerHTML = '<img src="' + base.ShowThumb(item.Url, 2) + '" /><div class="cover ' + (item.IsUsed == 0 ? "hide" : "") + '"></div><div class="icon"></div>';
 		return div;
+	}
+
+	function Create() {
+		var url = "";
+		var full = 0;
+		var high = 0;
+		var transparency = 50;
+		mui('#power').popover('show');
 	}
 
 	//使用
@@ -285,7 +304,7 @@
 			isLoading = false;
 		});
 	}
-	
+
 	//编辑
 	function Edit() {
 		if(isLoading) {
