@@ -6,6 +6,22 @@ var mask = base.CreateMask(true, function() {
 	mui('#action').popover('hide');
 });
 
+//首页调用打开
+function OpenMask() {
+	mask = base.CreateMask(false, function() {	});
+	mask.show();
+	base.ShowWaiting("");
+}
+
+//首页调用关闭
+function CloseMask() {
+	mask = base.CreateMask(true, function() {
+		base.CloseWaiting();
+		mui('#action').popover('hide');
+	});
+	mask.close();
+}
+
 //子窗口弹窗
 function ActionTan(show, articleNumber, articleId) {
 	if(show) {

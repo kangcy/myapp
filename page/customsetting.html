@@ -94,6 +94,9 @@
 				<li class="mui-table-view-cell hide" id="inused">
 					<a href="#" class="c333 f13" onclick="Used()">使用</a>
 				</li>
+				<li class="mui-table-view-cell hide">
+					<a href="#" class="c333 f13" onclick="Edit()">编辑</a>
+				</li>
 				<li class="mui-table-view-cell noborder">
 					<a href="#" class="c333 f13" onclick="Delete()">删除</a>
 				</li>
@@ -193,12 +196,10 @@
 						var div = AppendStr(data.message[i]);
 						table.appendChild(div);
 					}
-				}
-				else {
+				} else {
 					base.ShowNone(true);
 				}
-			}
-			else {
+			} else {
 				base.ShowNone(true);
 			}
 			base.ShowLoading(false);
@@ -283,5 +284,19 @@
 			}
 			isLoading = false;
 		});
+	}
+	
+	//编辑
+	function Edit() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		mui('#black').popover('hide');
+		if(base.IsNullOrEmpty(number)) {
+			isLoading = false;
+			return mui.toast("参数异常");
+		}
+		ConfirmImg(url);
 	}
 </script>

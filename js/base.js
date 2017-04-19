@@ -731,7 +731,6 @@ var base = new function() {
 			}
 			base.IsLoading = true;
 			var ArticleNumber = this.getAttribute("ArticleNumber");
-			var ArticleUserNumber = this.getAttribute("UserNumber");
 			var NickName = this.getAttribute("NickName");
 			var Avatar = this.getAttribute("Avatar");
 
@@ -739,7 +738,7 @@ var base = new function() {
 
 			base.OpenWindow("money", "../page/money.html", {
 				ArticleNumber: ArticleNumber,
-				ArticleUserNumber: ArticleUserNumber,
+				ArticleUserNumber: "",
 				Name: NickName,
 				Avatar: Avatar
 			});

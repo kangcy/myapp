@@ -49,7 +49,11 @@ function getImage() {
 			compressIndex = 0;
 			compressTotal = 1;
 			length = 1;
-			ShowMaskHere(true);
+			//ShowMaskHere(true);
+
+			mask.show();
+			ShowMask(true, false, activeTab);
+
 			compressImage(localurl);
 		});
 	});
@@ -60,7 +64,15 @@ function galleryImgs() {
 		files = e.files;
 		length = e.files.length;
 		compressTotal = length;
-		ShowMaskHere(true);
+		//ShowMaskHere(true);
+
+		console.log(activeTab);
+		ShowMask(true, false, activeTab);
+		mask.show();
+		base.ShowWaiting("正在上传图片");
+
+		return;
+
 		compressImage(e.files[0]);
 	}, function(e) {
 
