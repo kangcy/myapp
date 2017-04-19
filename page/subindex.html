@@ -119,7 +119,6 @@
 </html>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
-<script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var subPage = null;
 	var userinfo = base.GetUserInfo();
@@ -198,7 +197,8 @@
 			}
 
 			if(targetTab == "editimage.html") {
-				ShowActionSheet();
+				var view = plus.webview.getWebviewById(activeTab);
+				view.evalJS("ShowActionSheet()");
 				return;
 			}
 
