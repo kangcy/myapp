@@ -321,9 +321,16 @@
 				} else {
 					if(data.result) {
 						mui.toast("设置成功");
-						var page = plus.webview.getWebviewById('articledetail');
-						if(page) {
-							page.evalJS("UpdateDetail2()");
+						if(id == 0) {
+							var page = plus.webview.getWebviewById('articledetail');
+							if(page) {
+								page.evalJS("UpdateDetail2()");
+							}
+						} else {
+							var page = plus.webview.getWebviewById('customsetting');
+							if(page) {
+								page.evalJS("UpdateDetail2()");
+							}
 						}
 					} else {
 						mui.toast(data.message);

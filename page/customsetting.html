@@ -189,7 +189,7 @@
 	});
 
 	//列表
-	function Load() {
+	function Load(callback) {
 		HttpGet(base.RootUrl + "Api/Background/All", {
 			ArticleNumber: articleNumber
 		}, function(data) {
@@ -211,6 +211,9 @@
 				base.ShowNone(true);
 			}
 			base.ShowLoading(false);
+			if(callback) {
+				callback();
+			}
 		});
 	}
 
@@ -234,10 +237,10 @@
 	}
 
 	function Create() {
-		var url = "";
-		var full = 0;
-		var high = 0;
-		var transparency = 50;
+		url = "";
+		full = 0;
+		high = 0;
+		transparency = 50;
 		mui('#power').popover('show');
 	}
 
@@ -317,5 +320,13 @@
 			return mui.toast("参数异常");
 		}
 		ConfirmImg(url);
+	}
+
+	//重新加载数据 
+	function UpdateDetail2() {
+		Load(function() {
+			plus.webview.close("custom");
+
+		});
 	}
 </script>

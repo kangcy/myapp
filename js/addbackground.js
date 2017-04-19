@@ -57,4 +57,5 @@ function ConfirmImg(src) {
 		high: high,
 		transparency: transparency
 	});
+	isLoading = false;
 }
