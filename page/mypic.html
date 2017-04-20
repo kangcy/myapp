@@ -124,12 +124,15 @@
 			}
 			switch(Source) {
 				//创建文章
-				case "subindex":
+				case "index.html":
+				case "topic.html":
+				case "tipsetting.html":
+				case "my.html":
 					var url = [];
 					check.each(function() {
 						url.push($(this).attr("url"));
 					});
-					var page = plus.webview.getWebviewById("subindex");
+					var page = plus.webview.getWebviewById(Source);
 					if(page) {
 						page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					}

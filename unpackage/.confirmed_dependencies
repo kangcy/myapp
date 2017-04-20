@@ -515,7 +515,8 @@
 			"images/article/power1.png",
 			"js/article.js",
 			"images/loading.gif",
-			"part/action.html"
+			"part/action.html",
+			"js/addarticle2.js"
 		],
 		"refer": [
 			"page/topicSub.html",
@@ -534,7 +535,8 @@
 			"page/edittext.html",
 			"page/search2.html",
 			"page/topic.html",
-			"page/addarticle.html"
+			"page/addarticle.html",
+			"page/mypic.html"
 		]
 	},
 	"page/addarticle.html": {

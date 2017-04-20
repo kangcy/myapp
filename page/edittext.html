@@ -84,41 +84,56 @@
 			}
 			isLoading = true;
 			var val = question.value;
-			switch(source) {
-				case "title":
-					page = plus.webview.getWebviewById('addarticle');
-					page.evalJS("UpdateTitle('" + val + "')");
-					mui.back();
-					break;
-				case "signature":
-					page = plus.webview.getWebviewById('mysetting');
-					page.evalJS("UpdateSignature('" + val + "')");
-					mui.back();
-					break;
-				case "nickname":
-					page = plus.webview.getWebviewById('mysetting');
-					page.evalJS("UpdateNickName('" + val + "')");
-					mui.back();
-					break;
-				case "report":
-					if(base.IsNullOrEmpty(val)) {
-						isLoading = false;
-						return mui.toast("请填写举报原因");
+
+			//过滤敏感词
+			HttpGet(base.RootUrl + "Api/System/CheckDirtyword", {
+				Title: val
+			}, function(data) {
+				console.log(data);
+				data = JSON.parse(data);
+				if(data != null) {
+					if(data.result) {
+						switch(source) {
+							case "title":
+								page = plus.webview.getWebviewById('addarticle');
+								page.evalJS("UpdateTitle('" + val + "')");
+								mui.back();
+								break;
+							case "signature":
+								page = plus.webview.getWebviewById('mysetting');
+								page.evalJS("UpdateSignature('" + val + "')");
+								mui.back();
+								break;
+							case "nickname":
+								page = plus.webview.getWebviewById('mysetting');
+								page.evalJS("UpdateNickName('" + val + "')");
+								mui.back();
+								break;
+							case "report":
+								if(base.IsNullOrEmpty(val)) {
+									isLoading = false;
+									return mui.toast("请填写举报原因");
+								}
+								var userinfo = base.GetUserInfo();
+								HttpPost(base.RootUrl + "Report/Edit", {
+									ID: userinfo.ID,
+									ArticleNumber: self.ArticleNumber,
+									Summary: val
+								}, function(data) {
+									mui.toast(data.result ? "举报成功，将于1-2个工作日内处理" : data.message);
+									mui.back();
+								});
+								break;
+							default:
+								mui.back();
+								break;
+						}
+					} else {
+						mui.toast(data.message);
 					}
-					var userinfo = base.GetUserInfo();
-					HttpPost(base.RootUrl + "Report/Edit", {
-						ID: userinfo.ID,
-						ArticleNumber: self.ArticleNumber,
-						Summary: val
-					}, function(data) {
-						mui.toast(data.result ? "举报成功，将于1-2个工作日内处理" : data.message);
-						mui.back();
-					});
-					break;
-				default:
-					mui.back();
-					break;
-			}
+				}
+				isLoading = false;
+			});
 		}, false);
 	});
 </script>
