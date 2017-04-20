@@ -127,7 +127,7 @@
 <script type="text/javascript">
 	var sliders = [];
 	var currpage = [];
-	var totalpage = []; 
+	var totalpage = [];
 	var pagesize = base.PageSize;
 	var isLoading = false; //是否数据加载中
 	var subindexPage = null;
@@ -193,7 +193,7 @@
 
 				//精选添加轮播 
 				if(i == 0) {
-					html.push('<div style="background:#f5f5f5;" id="divBanner"><div id="banner"></div></div>');
+					html.push('<div id="divBanner"><div id="banner"></div></div>');
 				}
 
 				html.push('<div id="scroll-view' + i + '"></div>');
@@ -242,8 +242,6 @@
 								mui("#banner").slider({
 									interval: 5000
 								});
-							} else {
-								$("#divBanner").css("height", "1px");
 							}
 						}
 					});
@@ -251,7 +249,7 @@
 			}
 
 			//重新注册滑动切换事件
-			base.InitSlider();
+			base.InitSlider(false);
 
 			//上划效果
 			$("#slider").addClass("bounceInDown");

@@ -110,7 +110,8 @@
 			"images/adv/02.jpg",
 			"images/adv/chair.png",
 			"images/adv/03_text1.png",
-			"images/adv/04_text.png"
+			"images/adv/04_text.png",
+			"js/mui.js"
 		],
 		"refer": [
 			"page/login.html"
@@ -1904,7 +1905,8 @@
 			"images/tip/03.png",
 			"images/tip/02.png",
 			"images/loading.gif",
-			"js/addarticle2.js"
+			"js/addarticle2.js",
+			"css/my.css"
 		],
 		"refer": [
 			"page/fan.html",
@@ -1916,7 +1918,8 @@
 			"page/customsetting.html",
 			"demo.html",
 			"page/demo.html",
-			"page/addarticle.html"
+			"page/addarticle.html",
+			"page/guide.html"
 		]
 	},
 	"page/money.html": {
@@ -1985,7 +1988,8 @@
 			"part/action.html",
 			"images/base/adduser.png",
 			"js/addarticle2.js",
-			"part/pic.html"
+			"part/pic.html",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/user2.html",

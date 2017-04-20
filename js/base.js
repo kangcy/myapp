@@ -385,12 +385,15 @@ var base = new function() {
 	/**
 	 * 监听标题滑动切换
 	 **/
-	this.InitSlider = function(parentPage) {
-		mui('.mui-slider').slider();
+	this.InitSlider = function(isbounce) {
+		mui('.mui-slider').slider({
+			bounce: isbounce
+		});
 		mui('.mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control').scroll({
 			scrollY: false,
 			scrollX: true,
 			indicators: false,
+			bounce: false,
 			snap: '.mui-control-item'
 		});
 	}

@@ -50,27 +50,26 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	mui.init();
-	mui.back = function() {};
 	mui.plusReady(function() {
 		plus.navigator.setFullscreen(true); //全屏展示
 		plus.navigator.closeSplashscreen(); //关闭启动页
 
 		mui.back = function() {};
 
-		base.InitSlider();
-
-		//立即体验按钮点击事件
+		base.InitSlider(false);
+ 
+		//立即体验按钮点击事件 
 		document.getElementById("close").addEventListener('tap', function(event) {
 			plus.storage.setItem("lauchFlag", "true");
 			base.OpenWindow("login", "./login.html", {}, "slide-in-bottom");
 		}, false);
-	});
 
-	//图片切换时，触发动画
-	document.querySelector('.mui-slider').addEventListener('slide', function(event) {
-		var index = event.detail.slideNumber;
-		$(".mui-slider-item").removeClass("coverMoved");
-		$(".mui-slider-item .fadeInUpd,.mui-slider-item .fadeInd,.mui-slider-item .swingd").css("opacity", "0");
-		$(".mui-slider-item:eq(" + index + ")").addClass("coverMoved");
+		//图片切换时，触发动画
+		document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+			var index = event.detail.slideNumber;
+			$(".mui-slider-item").removeClass("coverMoved");
+			$(".mui-slider-item .fadeInUpd,.mui-slider-item .fadeInd,.mui-slider-item .swingd").css("opacity", "0");
+			$(".mui-slider-item:eq(" + index + ")").addClass("coverMoved");
+		});
 	});
 </script>
