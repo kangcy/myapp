@@ -25,7 +25,8 @@
 			DetailName: loginInfo.DetailName,
 			CityCode: loginInfo.CityCode,
 			Latitude: loginInfo.Latitude,
-			Longitude: loginInfo.Longitude
+			Longitude: loginInfo.Longitude,
+			ClientID: loginInfo.ClientID
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试");
@@ -95,6 +96,7 @@
 			Latitude: loginInfo.Latitude,
 			Longitude: loginInfo.Longitude,
 			Source: loginInfo.Source,
+			ClientID: loginInfo.ClientID
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试");
@@ -165,7 +167,8 @@
 			Longitude: regInfo.Longitude,
 			Cover: "",
 			Code: regInfo.Code,
-			SMS: regInfo.SMS
+			SMS: regInfo.SMS,
+			ClientID: loginInfo.ClientID
 		}, function(data) {
 			if(data == null) {
 				return callback("系统异常,请稍后再试");

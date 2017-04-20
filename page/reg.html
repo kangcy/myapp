@@ -176,7 +176,8 @@
 					Latitude: base.Latitude,
 					Longitude: base.Longitude,
 					//Code: code,
-					SMS: "regsms"
+					SMS: "regsms",
+					ClientID: plus.push.getClientInfo().clientid
 				};
 				app.reg(regInfo, function(err) {
 					mask.close();
