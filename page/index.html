@@ -37,6 +37,8 @@
 		</div>
 		<!--操作-->
 		<div id="actionwrapper"></div>
+		<!--图片操作-->
+		<div id="picupload"></div>
 		<div class="mui-content">
 			<div class="mui-scroll-wrapper" style="top:45px;bottom:0px;">
 				<div class="mui-scroll" id="pullrefresh">
@@ -73,7 +75,6 @@
 	});
 
 	mui.ready(function() {
-
 		mui('#actionwrapper').load("../part/action.html", function(response) {
 			base.Get("action").addEventListener('hidden', function(event) {
 				ShowMask(false, false, PageName);

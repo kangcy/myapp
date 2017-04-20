@@ -195,7 +195,7 @@
 	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
 	var MusicID = ""; //音乐控件ID
-	var MusicUrl = ""; 
+	var MusicUrl = "";
 	var CurrBackground = null; //背景设置
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
@@ -241,6 +241,9 @@
 
 			var success = scrolly > 100;
 			mui.each(document.querySelectorAll(".headericon"), function() {
+				if(CurrTemplate == 0) {
+					return;
+				}
 				if(success) {
 					this.classList.remove("cfff");
 				} else {

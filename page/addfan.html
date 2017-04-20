@@ -15,8 +15,8 @@
 				margin-top: 45% !important;
 			}
 			
-			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
-				padding: 0 4rem;
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+				width: 50%;
 			}
 			
 			#slider .mui-table-view-cell {
@@ -183,7 +183,7 @@
 		base.InitSlider();
 
 		base.ShowUser("#slider");
- 
+
 		base.UserAddFan("#slider", userinfo);
 
 		//base.ShowArticle("#slider", "List", userinfo.Number);
@@ -384,7 +384,7 @@
 
 	//开启定位
 	function OpenPosition() {
-		if(base.IsLoading) { 
+		if(base.IsLoading) {
 			return false;
 		}
 		base.IsLoading = true;

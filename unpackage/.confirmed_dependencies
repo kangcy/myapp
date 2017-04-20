@@ -282,7 +282,8 @@
 			"js/transparent.js",
 			"images/login/logo.png",
 			"images/my/menu06.png",
-			"images/loading.gif"
+			"images/loading.gif",
+			"js/addarticle2.js"
 		],
 		"refer": [
 			"page/pay.html",
@@ -1902,7 +1903,8 @@
 			"images/tip/04.png",
 			"images/tip/03.png",
 			"images/tip/02.png",
-			"images/loading.gif"
+			"images/loading.gif",
+			"js/addarticle2.js"
 		],
 		"refer": [
 			"page/fan.html",
@@ -1982,7 +1984,8 @@
 			"images/article/power0.png",
 			"part/action.html",
 			"images/base/adduser.png",
-			"js/addarticle2.js"
+			"js/addarticle2.js",
+			"part/pic.html"
 		],
 		"refer": [
 			"page/user2.html",
