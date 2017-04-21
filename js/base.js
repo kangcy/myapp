@@ -149,7 +149,7 @@ var base = new function() {
 	/**
 	 * 窗口动画持续时间
 	 **/
-	this.AnimateDuration = 250;
+	this.AnimateDuration = 200;
 
 	/**
 	 * 接口请求根路径

@@ -12,6 +12,9 @@
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
 		<style type="text/css">
+			body {
+				background: #fff;
+			}
 			/*二级分类*/
 			
 			.subtype {
@@ -183,7 +186,7 @@
 				html.push('<div class="mui-scroll-wrapper">');
 				html.push('<div id="scroll' + i + '" class="mui-scroll scrolls">');
 				if(child.length > 0) {
-					html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="background:#f5f5f5;height:5.3rem;">');
+					html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="height:5.3rem;">');
 					html.push('<div class="mui-scroll mt10" style="height:4rem;">');
 					for(var l = 0; l < child.length; l++) {
 						html.push('<div class="mui-control-item subtype topic" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img data-lazyload="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');

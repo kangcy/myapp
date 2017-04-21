@@ -144,12 +144,8 @@
 
 		//监听推送消息		
 		plus.push.addEventListener("receive", function(msg) {
-			// 分析msg.payload处理业务逻辑 
-			alert("receive" + JSON.stringify(msg));
-
 			if(!base.IsNullOrEmpty(msg.payload)) {
 				var param = msg.payload.split('|');
-				alert(param[0] + "," + param[1]);
 				//打开文章
 				if(param[0] == 0) {
 					base.OpenWindow("articledetail", "articledetail.html", {
@@ -158,14 +154,25 @@
 						NickName: ""
 					});
 				}
+				//打开评论
+				if(param[0] == 1) {
+					base.OpenWindow("articleComment", "articleComment.html", {
+						ArticleID: param[1],
+						ArticleNumber: param[2]
+					});
+				}
+				//打开打赏
+				if(param[0] == 2) {
+					base.OpenWindow("pay", "pay.html", {});
+				}
 			}
 
 			//用户手动创建消息
 			//plus.push.createMessage(msg.content, msg.payload || '', msg);
 		}, false);
-		plus.push.addEventListener("click", function(msg) {
+		/*plus.push.addEventListener("click", function(msg) {
 			alert("click" + JSON.stringify(msg));
-		}, false);
+		}, false);*/
 
 		//系统定位
 		base.GetCurrentPosition();
