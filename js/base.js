@@ -62,7 +62,7 @@ var waiting = new function() {
 		var div = document.createElement('div');
 		div.className = 'waiting c333 f13 tc';
 		div.setAttribute("id", "waiting");
-		div.innerHTML = '<div><img src="../images/loading.gif" class="fl" /><span id="waiting_title">' + title + '</span></div>';
+		div.innerHTML = '<div><img src="../images/loading2.gif" class="fl" /><span id="waiting_title">' + title + '</span></div>';
 		document.getElementsByTagName("body")[0].appendChild(div);
 		return div;
 	}
@@ -73,7 +73,7 @@ var waiting = new function() {
 	this.show = function(title) {
 		var item = this.create(title);
 		item.classList.remove("hide");
-	}
+	} 
 	this.close = function() {
 		var item = this.create("");
 		item.classList.add("hide");

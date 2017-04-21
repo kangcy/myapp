@@ -19,7 +19,7 @@
 			.mui-table-view-cell {
 				padding: .8rem 0.9375rem;
 			}
-			 
+			
 			.mui-table-view-cell:after {
 				left: 0.9375rem;
 				right: 0.9375rem;
@@ -147,8 +147,21 @@
 			// 分析msg.payload处理业务逻辑 
 			alert("receive" + JSON.stringify(msg));
 
+			if(!base.IsNullOrEmpty(msg.payload)) {
+				var param = msg.payload.split('|');
+				alert(param[0] + "," + param[1]);
+				//打开文章
+				if(param[0] == 0) {
+					base.OpenWindow("articledetail", "articledetail.html", {
+						ArticleID: param[1],
+						Source: "",
+						NickName: ""
+					});
+				}
+			}
+
 			//用户手动创建消息
-			plus.push.createMessage(msg.content, msg.payload || '', msg);
+			//plus.push.createMessage(msg.content, msg.payload || '', msg);
 		}, false);
 		plus.push.addEventListener("click", function(msg) {
 			alert("click" + JSON.stringify(msg));
