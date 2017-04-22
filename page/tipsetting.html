@@ -57,13 +57,15 @@
 							<span class="fl mt10">赞赏</span>
 							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 						</li>
+						<li class="mui-table-view-cell hide" onclick="Update()" id="update">
+							<span class="fl mt10">更新</span>
+							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+						</li>
 						<li class="mui-table-view-cell hide" onclick="Client()" id="client">
-							<img src="../images/tip/04.png" class="fl" />
 							<span class="fl mt10">设备信息</span>
 							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 						</li>
 						<li class="mui-table-view-cell hide" onclick="Push()" id="push">
-							<img src="../images/tip/04.png" class="fl" />
 							<span class="fl mt10">推送</span>
 							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 						</li>
@@ -89,7 +91,7 @@
 
 	mui.ready(function() {
 		if(userinfo.UserRole == 2) {
-			base.RemoveClass(["#client", "#push"], ["hide"]);
+			base.RemoveClass(["#client", "#push","#update"], ["hide"]);
 		}
 		base.InitScroll();
 	});
@@ -121,6 +123,11 @@
 	//打赏
 	function Pay() {
 		base.OpenWindow("pay", "pay.html", {}); 
+	}
+
+	//更新
+	function Update() {
+		base.OpenWindow("test", "test.html", {}); 
 	}
 
 	//设备信息

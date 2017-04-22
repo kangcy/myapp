@@ -1,0 +1,49 @@
+<style type="text/css">
+	/**进度条**/
+	
+	progress {
+		border-radius: 2px;
+		background-color: #eee;
+		height: 1rem;
+	}
+	
+	progress::-webkit-progress-bar {
+		background-color: #d7d7d7;
+	}
+	
+	progress::-webkit-progress-value {
+		background-color: #aadd6a;
+	}
+	
+	.myprogress {
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		z-index: 1000;
+	}
+	
+	.myprogress .myaction_body {
+		width: 100%;
+		padding: 5%;
+		display: inline-block;
+	}
+	
+	.mui-table-view:after {
+		height: 0px;
+	}
+</style>
+
+<!--更新进度条-->
+<div class="mytanbg" id="myprogressbg" onclick="CloseUpdate()"></div>
+<div class="myprogress" id="myprogress">
+	<div class="tc c000 myaction_body">
+		<ul class="mui-table-view f13" style="border-radius: 20px;">
+			<li class="mui-table-view-cell">
+				<p class="full tl mb10 c333" id="checkupdate">更新进度</p>
+				<progress class="fl" value="" max="" id="proDownFile" style="width:80%;"></progress>
+				<span class="persent fl ml10 caaa" id="persent" style="line-height:1rem;">0%</span>
+			</li>
+		</ul>
+	</div>
+</div>

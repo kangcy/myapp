@@ -59,3 +59,30 @@ function CheckUpdate(callback) {
 		});
 	});
 }
+
+//立即下载
+function Download() {
+	base.Get("myprogress_btn").classList.add("hide");
+	base.Get("myprogress_progress").classList.remove("hide");
+
+	var persent = base.Get("persent");
+	var proDownFile = base.Get("proDownFile");
+	var totalProgress = document.getElementById("proDownFile").clientWidth;
+	base.Get("persent").style.width = document.getElementById("myprogress_progress").clientWidth * 0.16 + "px";
+
+	var index = 0;
+	var i = setInterval(function() {
+		proDownFile.value = index;
+		persent.style.left = totalProgress * index / 100 + "px";
+		persent.innerHTML = index + "%";
+		index++;
+		if(index > 100) {
+			clearInterval(i);
+		}
+	}, 100);
+}
+
+//下次再说
+function Next() {
+
+}

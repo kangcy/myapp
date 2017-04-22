@@ -50,7 +50,7 @@ to{transform:rotate(-360deg);-moz-transform:rotate(-360deg)}
 @-o-keyframes rotate{from{transform:rotate(0);-o-transform:rotate(0)}
 to{transform:rotate(-360deg);-o-transform:rotate(-360deg)}
 }
-@-ms-keyframes bounceInUp{0%,100%,60%,75%,90%{-ms-transition-timing-function:cubic-bezier(.215,.61,.355,1);-moz-transition-timing-function:cubic-bezier(.215,.61,.355,1);-o-transition-timing-function:cubic-bezier(.215,.61,.355,1);-webkit-transition-timing-function:cubic-bezier(.215,.61,.355,1);transition-timing-function:cubic-bezier(.215,.61,.355,1)}
+/*@-ms-keyframes bounceInUp{0%,100%,60%,75%,90%{-ms-transition-timing-function:cubic-bezier(.215,.61,.355,1);-moz-transition-timing-function:cubic-bezier(.215,.61,.355,1);-o-transition-timing-function:cubic-bezier(.215,.61,.355,1);-webkit-transition-timing-function:cubic-bezier(.215,.61,.355,1);transition-timing-function:cubic-bezier(.215,.61,.355,1)}
 0%{opacity:0;-ms-transform:translate3d(0,3000px,0);-moz-transform:translate3d(0,3000px,0);-o-transform:translate3d(0,3000px,0);-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}
 60%{opacity:1;-ms-transform:translate3d(0,-25px,0);-moz-transform:translate3d(0,-25px,0);-o-transform:translate3d(0,-25px,0);-webkit-transform:translate3d(0,-25px,0);transform:translate3d(0,-25px,0)}
 90%{-ms-transform:translate3d(0,-5px,0);-moz-transform:translate3d(0,-5px,0);-o-transform:translate3d(0,-5px,0);-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}
@@ -79,8 +79,8 @@ to{transform:rotate(-360deg);-o-transform:rotate(-360deg)}
 60%{opacity:1;-ms-transform:translate3d(0,-25px,0);-moz-transform:translate3d(0,-25px,0);-o-transform:translate3d(0,-25px,0);-webkit-transform:translate3d(0,-25px,0);transform:translate3d(0,-25px,0)}
 90%{-ms-transform:translate3d(0,-5px,0);-moz-transform:translate3d(0,-5px,0);-o-transform:translate3d(0,-5px,0);-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}
 100%{-ms-transform:none;-moz-transform:none;-o-transform:none;-webkit-transform:none;transform:none}
-}
-.bounceInUp{-webkit-animation:bounceInUp .5s linear;-moz-animation:bounceInUp .5s linear;-ms-animation:bounceInUp .5s linear;animation:bounceInUp .5s linear;animation-fill-mode:forwards;-webkit-animation-fill-mode:forwards;-moz-animation-fill-mode:forwards;-ms-animation-fill-mode:forwards}
+}*/
+.bounceInUp{-webkit-animation:bounceInUp 2s linear;-moz-animation:bounceInUp 2s linear;-ms-animation:bounceInUp 2s linear;animation:bounceInUp 2s linear;animation-fill-mode:forwards;-webkit-animation-fill-mode:forwards;-moz-animation-fill-mode:forwards;-ms-animation-fill-mode:forwards}
 @-ms-keyframes bounceOutUp{20%{-ms-transform:translate3d(0,-10px,0);-moz-transform:translate3d(0,-10px,0);-o-transform:translate3d(0,-10px,0);-webkit-transform:translate3d(0,-10px,0);transform:translate3d(0,-10px,0)}
 40%,45%{opacity:1;-ms-transform:translate3d(0,20px,0);-moz-transform:translate3d(0,20px,0);-o-transform:translate3d(0,20px,0);-webkit-transform:translate3d(0,20px,0);transform:translate3d(0,20px,0)}
 100%{opacity:0;-ms-transform:translate3d(0,-2000px,0);-moz-transform:translate3d(0,-2000px,0);-o-transform:translate3d(0,-2000px,0);-webkit-transform:translate3d(0,-2000px,0);transform:translate3d(0,-2000px,0)}
@@ -323,3 +323,8 @@ to{transform:rotate(-360deg);-o-transform:rotate(-360deg)}
 @keyframes zoomOut{0%{opacity:1}50%{opacity:0;-ms-transform:scale3d(.3,.3,.3);-moz-transform:scale3d(.3,.3,.3);-o-transform:scale3d(.3,.3,.3);-webkit-transform:scale3d(.3,.3,.3);transform:scale3d(.3,.3,.3)}100%{opacity:0}}
 .zoomOut {-webkit-animation: zoomOut 250ms linear;-moz-animation: zoomOut 250ms linear;-ms-animation: zoomOut 250ms linear;animation: zoomOut 250ms linear;animation-fill-mode: forwards;-webkit-animation-fill-mode: forwards;	-moz-animation-fill-mode: forwards;	-ms-animation-fill-mode: forwards;}
  
+
+@-webkit-keyframes bounceInUp{0%{opacity:0;-webkit-transform:translateY(2000px);transform:translateY(2000px)}60%{opacity:1;-webkit-transform:translateY(-30px);transform:translateY(-30px)}80%{-webkit-transform:translateY(10px);transform:translateY(10px)}100%{-webkit-transform:translateY(0);transform:translateY(0)}}
+@keyframes bounceInUp{0%{opacity:0;-webkit-transform:translateY(2000px);-ms-transform:translateY(2000px);transform:translateY(2000px)}60%{opacity:1;-webkit-transform:translateY(-30px);
+-ms-transform:translateY(-30px);transform:translateY(-30px)}80%{-webkit-transform:translateY(10px);-ms-transform:translateY(10px);transform:translateY(10px)}100%{-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}
+/*.bounceInUp{-webkit-animation-name:bounceInUp;animation-name:bounceInUp}*/
