@@ -76,8 +76,10 @@
 			.myprogress .myaction_body .num {
 				width: 3rem;
 				height: 1.5rem;
-				line-height: 1.5rem;
+				line-height: 1.4rem;
 				background: #007aff;
+				background: url(../images/tip.png) center center no-repeat;
+				background-size: 100% 100%;
 				display: inline-block;
 				border-radius: 5px;
 				position: absolute;
@@ -88,14 +90,11 @@
 	</head>
 
 	<body id="main">
-		<div class="mytanbg hide" id="myprogressbg" onclick="CloseUpdate()"></div>
+		<div class="mytanbg hide" id="myprogressbg"></div>
 		<div class="myprogress hide" id="myprogress">
 			<div class="tc c333 myaction_body">
 				<img src="../images/update.png" class="full" />
 				<div class="desc f12" id="myprogress_desc">
-					<p class="full tl mb10">1、优化了相关页面</p>
-					<p class="full tl mb10">2、优化了相关页面</p>
-					<p class="full tl mb10">3、优化了相关页面</p>
 				</div>
 				<div class="progress1" id="myprogress_btn">
 					<div class="btn f11 cfff f13" onclick="Download()">立即下载</div>
@@ -103,7 +102,10 @@
 				</div>
 				<div class="progress2 hide" id="myprogress_progress">
 					<div class="num f11 cfff" id="persent">0%</div>
-					<progress class="fl mt15" value="0" max="100" id="proDownFile" style="width:100%;"></progress>
+					<div style="display: inline-block;width: 100%;border-radius: 5px;overflow: hidden;" class="mt15">
+						<progress class="fl" value="50" max="100" id="proDownFile" style="width:100%;"></progress>
+					</div>
+					<!--<progress class="fl mt15" value="0" max="100" id="proDownFile" style="width:100%;"></progress>-->
 				</div>
 			</div>
 		</div>
@@ -129,16 +131,17 @@
 	});
 
 	mui.ready(function() {
-		$("#myprogressbg").removeClass("hide");
-		$("#myprogress").removeClass("hide").addClass("bounceInUp");
-		
-		/*mui('#main').load("../part/update.html", function(response) {
+		//base.RemoveClass(["#myprogressbg", "#myprogress"], ["hide"]);
+		//base.AddClass(["#myprogress"], ["bounceInUp"])
 
-		});*/
+		//$("#myprogressbg").removeClass("hide");
+		//$("#myprogress").removeClass("hide").addClass("bounceInUp");
 	});
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
+
+		CheckUpdate(function() {});
 
 	});
 </script>

@@ -83,7 +83,8 @@
 			"fonts/mui.ttf",
 			"css/input.css",
 			"css/input.min.css",
-			"images/loading.gif"
+			"images/loading.gif",
+			"images/loading2.gif"
 		],
 		"refer": [
 			"index.html",
@@ -518,7 +519,8 @@
 			"js/article.js",
 			"images/loading.gif",
 			"part/action.html",
-			"js/addarticle2.js"
+			"js/addarticle2.js",
+			"images/loading2.gif"
 		],
 		"refer": [
 			"page/topicSub.html",
@@ -1920,7 +1922,8 @@
 			"demo.html",
 			"page/demo.html",
 			"page/addarticle.html",
-			"page/guide.html"
+			"page/guide.html",
+			"page/test.html"
 		]
 	},
 	"page/money.html": {
@@ -2249,5 +2252,18 @@
 	"part/action.html": {
 		"href": "part/action.html",
 		"priority": 0
+	},
+	"page/test.html": {
+		"resources": [
+			"js/base.js",
+			"js/mui.min.js",
+			"css/animate.css",
+			"css/mui.min.css",
+			"js/update.js",
+			"js/jquery-1.10.2.min.js",
+			"images/update.png",
+			"images/tip.png",
+			"css/loading.min.css"
+		]
 	}
 }
