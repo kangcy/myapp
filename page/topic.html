@@ -39,35 +39,6 @@
 				left: .5rem;
 				bottom: -.5rem;
 			}
-			/**进度条**/
-			
-			progress {
-				border-radius: 2px;
-				background-color: #eee;
-				height: 1rem;
-			}
-			
-			progress::-webkit-progress-bar {
-				background-color: #d7d7d7;
-			}
-			
-			progress::-webkit-progress-value {
-				background-color: #aadd6a;
-			}
-			
-			.myprogress {
-				position: fixed;
-				left: 0px;
-				top: 0px;
-				width: 100%;
-				z-index: 1000;
-			}
-			
-			.myprogress .myaction_body {
-				width: 100%;
-				padding: 5%;
-				display: inline-block;
-			}
 			
 			.mui-table-view:after {
 				height: 0px;
@@ -88,6 +59,8 @@
 		</div>
 		<!--操作-->
 		<div id="actionwrapper"></div>
+		<!--更新进度条-->
+		<div id="updatewrapper"></div>
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
@@ -99,19 +72,6 @@
 				<div class="mui-slider-group" id="sliderGroup" style="top:2.36rem;">
 
 				</div>
-			</div>
-		</div>
-		<!--更新进度条-->
-		<div class="mytanbg hide" id="myprogressbg" onclick="CloseUpdate()"></div>
-		<div class="myprogress hide" id="myprogress">
-			<div class="tc c000 myaction_body">
-				<ul class="mui-table-view f13" style="border-radius: 20px;">
-					<li class="mui-table-view-cell">
-						<p class="full tl mb10 c333" id="checkupdate">更新进度</p>
-						<progress class="fl" value="" max="" id="proDownFile" style="width:80%;"></progress>
-						<span class="persent fl ml10 caaa" id="persent" style="line-height:1rem;">0%</span>
-					</li>
-				</ul>
 			</div>
 		</div>
 	</body>
@@ -338,11 +298,13 @@
 		});
 
 		//检查更新
-		CheckUpdate(function(index) {
-			if(subindexPage == null) {
-				subindexPage = plus.webview.getWebviewById("subindex");
-			}
-			subindexPage.evalJS("PreviewTan2(" + index + ")");
+		mui('#updatewrapper').load("../part/update.html", function(response) {
+			CheckUpdate(function(index) {
+				if(subindexPage == null) {
+					subindexPage = plus.webview.getWebviewById("subindex");
+				}
+				subindexPage.evalJS("PreviewTan2(" + index + ")");
+			});
 		});
 	});
 
@@ -426,18 +388,14 @@
 		}
 	}
 
-	//关闭更新弹窗
-	function CloseUpdate() {
-		base.AddClass(["#myprogressbg", "#myprogress"], "hide");
-		base.RemoveClass("myprogress", "bounceIn");
-		if(subindexPage == null) {
-			subindexPage = plus.webview.getWebviewById("subindex");
-		}
-		subindexPage.evalJS("PreviewTan2(0)");
-	}
-
 	//搜索
 	function Search() {
 		base.OpenWindow("search", "search.html", {});
+	}
+
+	//关闭更新弹窗
+	function CloseUpdate() {
+		base.AddClass(["#myprogressbg", "#myprogress"], "hide");
+		base.RemoveClass(["#myprogress"], ["bounceIn"]);
 	}
 </script>

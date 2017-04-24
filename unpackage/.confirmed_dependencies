@@ -209,7 +209,9 @@
 			"images/share/7.png",
 			"images/share/6.png",
 			"images/share/2.png",
-			"css/animate.css"
+			"css/animate.css",
+			"js/update.js",
+			"part/update.html"
 		],
 		"refer": [
 			"page/login.html",
@@ -520,7 +522,10 @@
 			"images/loading.gif",
 			"part/action.html",
 			"js/addarticle2.js",
-			"images/loading2.gif"
+			"images/loading2.gif",
+			"images/update.png",
+			"part/update.html",
+			"images/tip.png"
 		],
 		"refer": [
 			"page/topicSub.html",

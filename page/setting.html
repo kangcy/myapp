@@ -25,36 +25,6 @@
 			.mui-table-view:after {
 				height: 0px;
 			}
-			/**进度条**/
-			
-			progress {
-				border-radius: 2px;
-				background-color: #eee;
-				height: 1rem;
-			}
-			
-			progress::-webkit-progress-bar {
-				background-color: #d7d7d7;
-			}
-			
-			progress::-webkit-progress-value {
-				background-color: #aadd6a;
-			}
-			
-			.myprogress {
-				position: fixed;
-				left: 0px;
-				top: 0px;
-				width: 100%;
-				z-index: 1000;
-				display: block;
-			}
-			
-			.myprogress .myaction_body {
-				width: 100%;
-				padding: 5%;
-				display: inline-block;
-			}
 			
 			.mui-icon-arrowright {
 				margin-right: -0.3rem;
@@ -67,6 +37,8 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
 			<h1 class="mui-title c333">通用设置</h1>
 		</header>
+		<!--更新进度条-->
+		<div id="updatewrapper"></div>
 		<div class="mui-content">
 			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell" onclick="Account()">
@@ -119,29 +91,20 @@
 				</li>
 			</ul>
 		</div>
-		<!--更新进度条-->
-		<div class="mytanbg hide" id="myprogressbg"></div>
-		<div class="myprogress hide" id="myprogress">
-			<div class="tc c000 myaction_body">
-				<ul class="mui-table-view f13" style="border-radius: 20px;">
-					<li class="mui-table-view-cell">
-						<p class="full tl mb10 c333" id="checkupdate">更新进度</p>
-						<progress class="fl" value="" max="" id="proDownFile" style="width:80%;"></progress>
-						<span class="persent fl ml10 caaa" id="persent" style="line-height:1rem;">0%</span>
-					</li>
-				</ul>
-			</div>
-		</div>
-
 	</body>
 
 </html>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/login.js"></script>
+<script src="../js/update.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
+
 	mui.init();
 	mui.ready(function() {
 
@@ -300,12 +263,20 @@
 
 		//检查更新
 		base.Get("checkupdate").addEventListener('tap', function(event) {
-			if(isLoading) {
+			if(base.RepeatAction()) {
 				return;
 			}
-			isLoading = true;
+			mask.show();
 			base.ShowWaiting("检查更新中");
-			mui.later(function() {
+
+			//检查更新 
+			mui('#updatewrapper').load("../part/update.html", function(response) {
+				CheckUpdate(function(index) {
+					mask.close();
+				});
+			});
+
+			/*mui.later(function() {
 				var client;
 				if(mui.os.ios) {
 					client = 'ios';
@@ -316,7 +287,7 @@
 					version: version,
 					client: client
 				}, function(data) {
-					base.CloseWaiting();
+					mask.close();
 					isLoading = false;
 					if(data == null) {
 						return mui.toast("网络异常,请稍候再试");
@@ -365,7 +336,7 @@
 						mui.toast(data.message);
 					}
 				});
-			}, 500);
+			}, 500);*/
 		});
 	});
 

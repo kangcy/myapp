@@ -269,7 +269,7 @@
 			}
 			self.append(sub);
 		}
-	}
+	} 
 
 	//自定义事件，模拟点击“首页选项卡”
 	var defaultTab = base.Get("defaultTab");
@@ -289,10 +289,6 @@
 	function PreviewTan2(index) {
 		if(index == 0) {
 			base.Get("myprogressbg").classList.add("hide");
-			var topicPage = plus.webview.getWebviewById("topic");
-			if(topicPage) {
-				topicPage.evalJS("CloseUpdate()");
-			}
 		} else {
 			base.Get("myprogressbg").classList.remove("hide");
 		}

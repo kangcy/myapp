@@ -4,50 +4,95 @@
 	progress {
 		border-radius: 2px;
 		background-color: #eee;
-		height: 1rem;
+		height: 1.2rem;
 	}
 	
 	progress::-webkit-progress-bar {
-		background-color: #d7d7d7;
+		background-color: lightcyan;
 	}
 	
 	progress::-webkit-progress-value {
-		background-color: #aadd6a;
+		background-color: #007aff;
 	}
 	
 	.myprogress {
 		position: fixed;
 		left: 0px;
-		top: 0px;
+		top: 1\n%;
 		width: 100%;
 		z-index: 1000;
 	}
 	
 	.myprogress .myaction_body {
-		width: 100%;
+		width: 90%;
+		margin: 5%;
+		display: inline-block;
+		border-radius: 10px;
+		background: #fff;
+	}
+	
+	.myprogress .myaction_body .desc {
+		width: 90%;
 		padding: 5%;
 		display: inline-block;
 	}
 	
-	.mui-table-view:after {
-		height: 0px;
+	.myprogress .myaction_body .progress1 {
+		position: relative;
+		width: 90%;
+		padding: 5% 8%;
+		padding-top: 0px;
+		display: inline-block;
+	}
+	
+	.myprogress .myaction_body .progress2 {
+		position: relative;
+		width: 90%;
+		padding: 8%;
+		display: inline-block;
+	}
+	
+	.myprogress .myaction_body .btn {
+		width: 80%;
+		height: 2rem;
+		line-height: 2rem;
+		background: #007aff;
+		display: inline-block;
+		border-radius: 5px;
+	}
+	
+	.myprogress .myaction_body .num {
+		width: 3rem;
+		height: 1.5rem;
+		line-height: 1.4rem;
+		background: #007aff;
+		background: url(../images/tip.png) center center no-repeat;
+		background-size: 100% 100%;
+		display: inline-block;
+		border-radius: 5px;
+		position: absolute;
+		top: 0px;
+		left: 0px;
 	}
 </style>
 
 <!--更新进度条-->
 <div class="mytanbg hide" id="myprogressbg"></div>
-		<div class="myprogress hide" id="myprogress">
-			<div class="tc c333 myaction_body">
-				<img src="../images/update.png" class="full" />
-				<div class="desc f12" id="myprogress_desc">
-				</div>
-				<div class="progress1" id="myprogress_btn">
-					<div class="btn f11 cfff f13" onclick="Download()">立即下载</div>
-					<p class="full f12 caaa mt10 td" onclick="Next()">下次再说</p>
-				</div>
-				<div class="progress2 hide" id="myprogress_progress">
-					<div class="num f11 cfff" id="persent">0%</div>
-					<progress class="fl mt15" value="0" max="100" id="proDownFile" style="width:100%;"></progress>
-				</div>
-			</div>
+<div class="myprogress hide" id="myprogress">
+	<div class="tc c333 myaction_body">
+		<img src="../images/update.png" class="full" />
+		<div class="desc f12" id="myprogress_desc">
 		</div>
+		<div class="progress1" id="myprogress_btn">
+			<div class="btn f11 cfff f13" onclick="Download()">立即下载</div>
+			<p class="full f12 caaa mt10 td" onclick="Next()">下次再说</p>
+		</div>
+		<div class="progress2 hide" id="myprogress_progress">
+			<div class="num f11 cfff" id="persent">0%</div>
+			<div style="display: inline-block;width: 100%;border-radius: 5px;overflow: hidden;" class="mt15">
+				<progress class="fl" value="50" max="100" id="proDownFile" style="width:100%;"></progress>
+			</div>
+			<!--<progress class="fl mt15" value="0" max="100" id="proDownFile" style="width:100%;"></progress>-->
+		</div>
+	</div>
+</div>
