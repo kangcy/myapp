@@ -8,7 +8,7 @@ var mask = base.CreateMask(false, function() {
 
 //首页调用打开
 function OpenMask() {
-	mask = base.CreateMask(false, function() {	});
+	mask = base.CreateMask(false, function() {});
 	mask.show();
 	base.ShowWaiting("");
 }
@@ -36,11 +36,6 @@ function ActionTan(show, articleNumber, articleId) {
 				base.Get("action_keep").classList.add("hide");
 				base.Get("action_outkeep").classList.remove("hide");
 			}
-		}
-	}
-	if(show) {
-		if(!FullScreen) {
-			ShowMask(true, false, PageName);
 		}
 		mui('#action').popover('show');
 	}

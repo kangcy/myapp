@@ -58,11 +58,52 @@
 				top: 20px;
 				margin: 0px;
 			}
+			
+			.bottom {
+				background: #f8f8f8;
+				border-top: 1px solid #eee;
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+			}
+			
+			#add {
+				width: 100%;
+				float: left;
+				height: 2.8rem;
+				line-height: 2.6rem;
+				text-align: center;
+			}
+			
+			#add div {
+				width: 90%;
+				border-radius: 30px;
+				background: #4087cb;
+				display: inline-block;
+				height: 2.1875rem;
+				line-height: 2.1875rem;
+				background-image: url(../images/article/pen2.png);
+				background-repeat: no-repeat;
+				background-position: 40% center;
+				background-size: 1.25rem;
+				text-indent: 10%;
+			}
 		</style>
 
 	</head>
 
-	<body id="main">
+	<body>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<!--操作-->
+		<div id="actionwrapper"></div>
+		<!--更新进度条-->
+		<div id="updatewrapper"></div>
+		<!--图片操作-->
+		<div id="uploadwrapper"></div>
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 			<!--主界面部分-->
 			<div class="mui-inner-wrap mui-transitioning">
@@ -118,32 +159,25 @@
 						</div>
 					</div>
 				</aside>
-				<header class="mui-bar mui-bar-nav bounceInDown">
+				<header class="mui-bar mui-bar-nav zoomIn">
 					<a class="mui-icon mui-action-menu mui-icon-bars fl c333" id="menu"></a>
 					<a class="mui-icon mui-icon-search fr c333" id="search"></a>
 					<h1 class="mui-title">发现</h1>
 				</header>
-				<div class="loading" id="loader">
-					<div class="card">
-						<span class="circles-loader"></span>
+				<div id="offCanvasContentScroll" class="mui-content">
+					<div id="slider" class="mui-slider mui-fullscreen" style="bottom:3rem;">
+						<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+							<div class="mui-scroll" id="sliderTopBody">
+
+							</div>
+						</div>
+						<div class="mui-slider-group" id="sliderGroup" style="top:2.36rem;">
+
+						</div>
 					</div>
-				</div>
-				<!--操作-->
-				<div id="actionwrapper"></div>
-				<!--更新进度条-->
-				<div id="updatewrapper"></div>
-				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<div id="slider" class="mui-slider mui-fullscreen">
-							<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
-								<div class="mui-scroll" id="sliderTopBody">
-
-								</div>
-							</div>
-
-							<div class="mui-slider-group" id="sliderGroup" style="top:2.36rem;">
-
-							</div>
+					<div class="mui-bar mui-bar-tab bottom tc cfff">
+						<div id="add">
+							<div class="f12">我要发图</div>
 						</div>
 					</div>
 				</div>
@@ -179,17 +213,26 @@
 	var $cover = base.Get("cover");
 	var PageName = "subindex.html";
 	var userinfo = base.GetUserInfo();
-	var mask = base.CreateMask(false, function() {
-		base.CloseWaiting();
-	});
 
 	mui.init();
 
 	mui.ready(function() {
 
 		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#slider').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				ActionTan(true, number, id);
+			});
+
 			base.Get("action").addEventListener('hidden', function(event) {
 				ShowMask(false, false, PageName);
+			});
+		});
+
+		mui('#uploadwrapper').load("../part/pic.html", function(response) {
+			base.Get("add").addEventListener('tap', function() {
+				mui('#power').popover('show');
 			});
 		});
 
@@ -299,8 +342,8 @@
 			//重新注册滑动切换事件
 			base.InitSlider(false);
 
-			//上划效果
-			$("#slider").addClass("bounceInDown");
+			//上划效果   
+			//$("#slider").addClass("bounceInUp");
 
 			//监听滑动切换事件
 			base.Get('slider').addEventListener('slide', function(e) {
@@ -457,7 +500,7 @@
 			CanvasToggle(true);
 		});
 
-		//搜索
+		//搜索 
 		base.Get("search").addEventListener('tap', function() {
 			base.OpenWindow("search", "search.html", {});
 		});

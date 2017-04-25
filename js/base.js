@@ -73,7 +73,7 @@ var waiting = new function() {
 	this.show = function(title) {
 		var item = this.create(title);
 		item.classList.remove("hide");
-	} 
+	}
 	this.close = function() {
 		var item = this.create("");
 		item.classList.add("hide");
@@ -576,7 +576,7 @@ var base = new function() {
 			} else {
 				model.push('<img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span>');
 			}
-			model.push('<div style="width:1.5rem;height:100%;" class="fr" onclick="ActionTan(true,' + item.ArticleNumber + ',' + item.ArticleID + ')"><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10 c999"></a></div></div>');
+			model.push('<div style="width:1.5rem;height:100%;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '"><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10 c999"></a></div></div>');
 
 			//用户
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');

@@ -2297,12 +2297,17 @@
 			"images/my/444.png",
 			"images/base/comment_nor.png",
 			"images/base/reward_nor.png",
-			"images/base/like_nor.png"
+			"images/base/like_nor.png",
+			"images/base/follow1.png",
+			"images/article/pen2.png",
+			"part/pic.html"
 		],
 		"refer": [
 			"page/offcanvas-drag-right-plus-menu.html",
 			"page/pic.html",
-			"page/search.html"
+			"page/search.html",
+			"page/user.html",
+			"page/mypic.html"
 		]
 	},
 	"page/offcanvas-drag-right-plus-menu.html": {
