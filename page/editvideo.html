@@ -138,7 +138,16 @@
 	var userinfo = base.GetUserInfo();
 	mui.init();
 
+	var File = null,
+		Uri = null,
+		MediaStore = null,
+		Intent = null;
 	mui.plusReady(function() {
+ 
+		File = plus.android.importClass("java.io.File");
+		Uri = plus.android.importClass("android.net.Uri");
+		MediaStore = plus.android.importClass("android.provider.MediaStore");
+		Intent = plus.android.importClass("android.content.Intent");
 
 		//获取参数
 		var self = plus.webview.currentWebview();

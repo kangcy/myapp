@@ -119,7 +119,7 @@ function getBase64Image(img) {
 	return canvas.toDataURL("image/jpeg", 1);
 }
 
-//上传图片到服务器 
+//上传图片到服务器  
 function Upload(imgurl, callback) {
 	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl,

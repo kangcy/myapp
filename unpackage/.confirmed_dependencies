@@ -661,7 +661,8 @@
 			"images/my/menu03.png",
 			"images/base/follow1.png",
 			"images/article/star.png",
-			"images/base/like_hig.png"
+			"images/base/like_hig.png",
+			"js/resource.js"
 		],
 		"refer": [
 			"page/topic.html",
