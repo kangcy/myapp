@@ -679,7 +679,8 @@
 			"page/search.html",
 			"page/keep.html",
 			"page/follow.html",
-			"page/mysetting.html"
+			"page/mysetting.html",
+			"page/article.html"
 		]
 	},
 	"page/topicSub.html": {

@@ -1,9 +1,11 @@
+var File = plus.android.importClass("java.io.File");
+var Uri = plus.android.importClass("android.net.Uri");
+var MediaStore = plus.android.importClass("android.provider.MediaStore");
+var Intent = plus.android.importClass("android.content.Intent");
+
 //摄像
 function getVideo() {
-	var File = plus.android.importClass("java.io.File");
-	var Uri = plus.android.importClass("android.net.Uri");
-	var MediaStore = plus.android.importClass("android.provider.MediaStore");
-	var Intent = plus.android.importClass("android.content.Intent");
+
 	var intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 	intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); //0 最低质量, 1高质量MediaStore.EXTRA_SIZE_LIMIT
 	intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10); //10秒视频
@@ -21,6 +23,27 @@ function getVideo() {
 //相册选取视频
 function galleryVideo() {
 	plus.gallery.pick(function(path) {
+		console.log(path);
+		// 读文件大小
+		var file = new File(path);
+		var FileInputStream = plus.android.importClass("java.io.FileInputStream");
+		var fileSize = new FileInputStream(file);
+		var size = fileSize.available();
+		// 单位转换
+		var fileSizeString;
+		if(size == 0) {
+			fileSizeString = "0B";
+		} else if(size < 1024) {
+			fileSizeString = size + "B";
+		} else if(size < 1048576) {
+			fileSizeString = (size / 1024).toFixed(2) + "KB";
+		} else if(size < 1073741824) {
+			fileSizeString = (size / 1048576).toFixed(2) + "MB";
+		} else {
+			fileSizeString = (size / 1073741824).toFixed(2) + "GB";
+		}
+		console.log(fileSizeString);
+
 		console.log(path);
 		//return;
 		//创建上传任务
