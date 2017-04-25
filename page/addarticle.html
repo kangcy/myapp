@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/addarticle.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
-	</head>
+	</head> 
 
 	<body style="background: #E8E8E8;">
 		<header class="mui-bar mui-bar-transparent" id="header">
@@ -435,7 +435,7 @@
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
@@ -453,7 +453,7 @@
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');

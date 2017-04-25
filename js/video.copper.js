@@ -18,28 +18,6 @@ function getVideo() {
 //相册选取视频
 function galleryVideo() {
 	plus.gallery.pick(function(path) {
-			console.log(path);
-			// 读文件大小
-			/*var file = new File(path);
-			var FileInputStream = plus.android.importClass("java.io.FileInputStream");
-			var fileSize = new FileInputStream(file);
-			var size = fileSize.available();
-			// 单位转换
-			var fileSizeString;
-			if(size == 0) {
-				fileSizeString = "0B";
-			} else if(size < 1024) {
-				fileSizeString = size + "B";
-			} else if(size < 1048576) {
-				fileSizeString = (size / 1024).toFixed(2) + "KB";
-			} else if(size < 1073741824) {
-				fileSizeString = (size / 1048576).toFixed(2) + "MB";
-			} else {
-				fileSizeString = (size / 1073741824).toFixed(2) + "GB";
-			}
-			console.log(fileSizeString);*/
-
-			//return;
 			//创建上传任务
 			var task = plus.uploader.createUpload(base.RootUrl + "Upload/UploadFile", {}, function(t, status) {
 				var data = JSON.parse(t.responseText);
@@ -62,7 +40,8 @@ function galleryVideo() {
 			var change = false;
 			var i = setInterval(function() {
 					var totalSize = task.totalSize;
-					if(parseInt(totalSize / 1048576) > 10) {
+					//超过5M
+					if(parseInt(totalSize / 1048576) > 5) {
 						clearInterval(i);
 						plus.uploader.clear();
 						mui.toast("请上传5M内视频文件")
