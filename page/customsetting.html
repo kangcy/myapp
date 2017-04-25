@@ -78,7 +78,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<a class="mui-icon mui-text c333 fr hide" id="create" onclick="Create()">创建</a>
+			<a class="mui-icon mui-text c333 fr hide" id="create">创建</a>
 			<h1 class="mui-title c333">背景设置</h1>
 		</header>
 		<div class="loading" id="loader">
@@ -87,7 +87,7 @@
 			</div>
 		</div>
 		<!--图片操作-->
-		<div id="picupload"></div>
+		<div id="uploadwrapper"></div>
 		<!--删除-->
 		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
@@ -155,8 +155,16 @@
 	});
 
 	mui.ready(function() {
-		mui('#picupload').load("../part/pic.html", function(response) {
+		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.RemoveClass(["#create"], ["hide"]);
+
+			base.Get("create").addEventListener('tap', function() {
+				url = "";
+				full = 0;
+				high = 0;
+				transparency = 50;
+				mui('#upload').popover('show');
+			});
 		});
 
 		base.InitScroll();
@@ -234,14 +242,6 @@
 		div.setAttribute("transparency", item.Transparency);
 		div.innerHTML = '<img src="' + base.ShowThumb(item.Url, 2) + '" /><div class="cover ' + (item.IsUsed == 0 ? "hide" : "") + '"></div><div class="icon"></div>';
 		return div;
-	}
-
-	function Create() {
-		url = "";
-		full = 0;
-		high = 0;
-		transparency = 50;
-		mui('#power').popover('show');
 	}
 
 	//使用

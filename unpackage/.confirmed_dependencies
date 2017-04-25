@@ -2282,7 +2282,8 @@
 			"js/jquery-1.10.2.min.js",
 			"css/loading.min.css",
 			"images/loading.gif",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"images/loading2.gif"
 		],
 		"refer": []
 	},
