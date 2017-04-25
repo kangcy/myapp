@@ -275,68 +275,6 @@
 					mask.close();
 				});
 			});
-
-			/*mui.later(function() {
-				var client;
-				if(mui.os.ios) {
-					client = 'ios';
-				} else {
-					client = 'android';
-				}
-				HttpGet(base.RootUrl + "System/CheckUpdate", {
-					version: version,
-					client: client
-				}, function(data) {
-					mask.close();
-					isLoading = false;
-					if(data == null) {
-						return mui.toast("网络异常,请稍候再试");
-					}
-					if(data.result) {
-						var remark = data.remark;
-						remark = remark.replace(" ", "\n");
-						mui.confirm(remark, '发现最新版本', ['立即更新', '暂不更新'], function(z) {
-							if(z.index == 0) {
-								base.Get("checkupdate").style.display = "none";
-								base.Get("myprogressbg").classList.remove("hide");
-								base.Get("myprogress").classList.remove("hide");
-								base.Get("myprogress").classList.add("bounceIn");
-								var dtask = plus.downloader.createDownload(data.url, {}, function(d, status) {
-									if(status == 200) {
-										clearInterval(i);
-										base.Get("persent").innerHTML = "100%";
-										plus.nativeUI.toast("正在准备安装环境，请稍后！");
-										mui.later(function() {
-											var path = d.filename;
-											plus.runtime.install(path); // 安装下载的apk文件 
-											//清除用户信息
-											var userinfo = {};
-											localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-										}, 1000);
-									} else {
-										mui.toast("更新失败");
-									}
-								});
-								dtask.start();
-								var i = setInterval(function() {
-									var totalSize = dtask.totalSize;
-									var downloadedSize = dtask.downloadedSize;
-									base.Get("proDownFile").setAttribute("value", downloadedSize);
-									base.Get("proDownFile").setAttribute("max", totalSize);
-									if(totalSize > 0) {
-										base.Get("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
-									}
-								}, 100);
-							} else {
-								base.Get("checkupdate").style.display = "block";
-							}
-						});
-					} else {
-						base.Get("checkupdate").style.display = "block";
-						mui.toast(data.message);
-					}
-				});
-			}, 500);*/
 		});
 	});
 

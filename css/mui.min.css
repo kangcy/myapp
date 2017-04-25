@@ -705,7 +705,7 @@ p {
 	display: block;
 	transition: background 350ms cubic-bezier(.165, .84, .44, 1);
 	background: rgba(0, 0, 0, .4);
-	box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);
+	/*box-shadow: -4px 0 4px rgba(0, 0, 0, .5), 4px 0 4px rgba(0, 0, 0, .5);*/
 	-webkit-tap-highlight-color: transparent
 }
 
@@ -727,9 +727,9 @@ p {
 	bottom: 0;
 	visibility: hidden;
 	box-sizing: content-box;
-	width: 70%;
+	width: 80%;
 	min-height: 100%;
-	background: #333;
+	/*background: #333;*/
 	-webkit-overflow-scrolling: touch
 }
 

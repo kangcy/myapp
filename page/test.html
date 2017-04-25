@@ -8,105 +8,147 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/my.css">
 		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
 		<style type="text/css">
-			/**进度条**/
-			
-			progress {
-				border-radius: 2px;
-				background-color: #eee;
-				height: 1.2rem;
-			}
-			
-			progress::-webkit-progress-bar {
-				background-color: lightcyan;
-			}
-			
-			progress::-webkit-progress-value {
-				background-color: #007aff;
-			}
-			
-			.myprogress {
-				position: fixed;
-				left: 0px;
-				bottom: 0px;
-				width: 100%;
-				z-index: 1000;
-			}
-			
-			.myprogress .myaction_body {
-				width: 90%;
-				margin: 5%;
-				display: inline-block;
-				border-radius: 10px;
+			body {
 				background: #fff;
 			}
+			/*二级分类*/
 			
-			.myprogress .myaction_body .desc {
-				width: 90%;
-				padding: 5%;
-				display: inline-block;
-			}
-			
-			.myprogress .myaction_body .progress1 {
+			.subtype {
+				width: 4rem !important;
+				height: 4rem !important;
+				padding: 0px !important;
 				position: relative;
-				width: 90%;
-				padding: 5% 8%;
-				padding-top: 0px;
-				display: inline-block;
+				margin-left: 0.2rem !important;
 			}
 			
-			.myprogress .myaction_body .progress2 {
-				position: relative;
-				width: 90%;
-				padding: 8%;
-				display: inline-block;
+			.subtype:first-child {
+				margin-left: 0px !important;
 			}
 			
-			.myprogress .myaction_body .btn {
-				width: 80%;
-				height: 2rem;
-				line-height: 2rem;
-				background: #007aff;
-				display: inline-block;
-				border-radius: 5px;
+			.subtype img {
+				width: 100% !important;
+				height: 100% !important;
 			}
 			
-			.myprogress .myaction_body .num {
-				width: 3rem;
-				height: 1.5rem;
-				line-height: 1.4rem;
-				background: #007aff;
-				background: url(../images/tip.png) center center no-repeat;
-				background-size: 100% 100%;
-				display: inline-block;
-				border-radius: 5px;
+			.subtype span {
 				position: absolute;
-				top: 0px;
-				left: 0px;
+				left: .5rem;
+				bottom: -.5rem;
+			}
+			
+			.mui-table-view:after {
+				height: 0px;
+			}
+			
+			#setting {
+				position: fixed;
+				left: 20px;
+				top: 20px;
+				margin: 0px;
+			}
+			
+			#tip {
+				position: fixed;
+				right: 20px;
+				top: 20px;
+				margin: 0px;
 			}
 		</style>
+
 	</head>
 
 	<body id="main">
-		<div class="mytanbg hide" id="myprogressbg"></div>
-		<div class="myprogress hide" id="myprogress">
-			<div class="tc c333 myaction_body">
-				<img src="../images/update.png" class="full" />
-				<div class="desc f12" id="myprogress_desc">
-				</div>
-				<div class="progress1" id="myprogress_btn">
-					<div class="btn f11 cfff f13" onclick="Download()">立即下载</div>
-					<p class="full f12 caaa mt10 td" onclick="Next()">下次再说</p>
-				</div>
-				<div class="progress2 hide" id="myprogress_progress">
-					<div class="num f11 cfff" id="persent">0%</div>
-					<div style="display: inline-block;width: 100%;border-radius: 5px;overflow: hidden;" class="mt15">
-						<progress class="fl" value="50" max="100" id="proDownFile" style="width:100%;"></progress>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!--主界面部分-->
+			<div class="mui-inner-wrap mui-transitioning">
+				<!--侧滑菜单部分-->
+				<aside id="offCanvasSide" class="mui-off-canvas-left mui-transitioning">
+					<div class="info-content" id="cover" style="padding-top:2rem;">
+						<img src="../images/my/setting.png" class="fl" id="setting" />
+						<img src="../images/my/tip.png" class="fr" id="tip" />
+						<img id="avatar" src="../images/logo.png" />
+						<p class="cfff f15 tc mt10 textshadow" id="nickname"></p>
+						<p class="cfff signature tc mt5 f12 textshadow" id="signature"></p>
+						<div class="content1 tc mt10 mb10 cfff textshadow">
+							<div class="items" id="my-articles">
+								<p class="item1 f16 cfff textshadow" id="articles">0</p>
+								<p class="item2 f12 cfff textshadow">动态</p>
+							</div>
+							<div class="items" id="my-keeps">
+								<p class="item1 f16 cfff textshadow" id="keeps">0</p>
+								<p class="item2 f12 cfff textshadow">收藏</p>
+							</div>
+							<div class="items" id="my-follows">
+								<p class="item1 f16 cfff textshadow" id="follows">0</p>
+								<p class="item2 f12 cfff textshadow">关注</p>
+							</div>
+							<div class="items" id="my-fans">
+								<p class="item1 f16 cfff textshadow" id="fans">0</p>
+								<p class="item2 f12 cfff textshadow">粉丝</p>
+							</div>
+						</div>
 					</div>
-					<!--<progress class="fl mt15" value="0" max="100" id="proDownFile" style="width:100%;"></progress>-->
+					<div class="mui-scroll-wrapper" id="my-wrapper">
+						<div class="mui-scroll">
+							<div class="mui-content-padded">
+								<div class="c333 menu f12" id="my-mypic">
+									<div>我的相册<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-mypay">
+									<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-comment">
+									<div>评论与回复<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-feedback">
+									<div>意见反馈<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-good">
+									<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-help">
+									<div class="noborder">帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</aside>
+				<header class="mui-bar mui-bar-nav bounceInDown">
+					<a class="mui-icon mui-action-menu mui-icon-bars fl c333" id="menu"></a>
+					<a class="mui-icon mui-icon-search fr c333" id="search"></a>
+					<h1 class="mui-title">发现</h1>
+				</header>
+				<div class="loading" id="loader">
+					<div class="card">
+						<span class="circles-loader"></span>
+					</div>
 				</div>
+				<!--操作-->
+				<div id="actionwrapper"></div>
+				<!--更新进度条-->
+				<div id="updatewrapper"></div>
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div id="slider" class="mui-slider mui-fullscreen">
+							<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+								<div class="mui-scroll" id="sliderTopBody">
+
+								</div>
+							</div>
+
+							<div class="mui-slider-group" id="sliderGroup" style="top:2.36rem;">
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 遮罩层 -->
+				<div class="mui-off-canvas-backdrop"></div>
 			</div>
 		</div>
 	</body>
@@ -115,33 +157,477 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.previewimage.js"></script>
 <script src="../js/update.js"></script>
+<script src="../js/article.js"></script>
+<script src="../js/addarticle2.js"></script>
 <script type="text/javascript">
-	var UserNumber = 0;
-	var PreviewEnable = true; //是否启用图片预览
+	//列表
+	var sliders = [];
+	var currpage = [];
+	var totalpage = [];
+	var pagesize = base.PageSize;
+	var isLoading = false;
+	var subindexPage = null;
+	var articleTypes = [];
+	var currSlider = 0;
+	var FullScreen = false;
+	//用户
+	var $cover = base.Get("cover");
+	var PageName = "subindex.html";
+	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true,
-			longtap: true
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
-		//base.RemoveClass(["#myprogressbg", "#myprogress"], ["hide"]);
-		//base.AddClass(["#myprogress"], ["bounceInUp"])
 
-		//$("#myprogressbg").removeClass("hide");
-		//$("#myprogress").removeClass("hide").addClass("bounceInUp");
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			base.Get("action").addEventListener('hidden', function(event) {
+				ShowMask(false, false, PageName);
+			});
+		});
+
+		Load();
+
+		//加载类型
+		LoadArticleType(function() {
+			//遍历父级节点
+			var parent = [];
+			for(var i = 0; i < articleTypes.length; i++) {
+				if(articleTypes[i].ParentID == 0) {
+					parent.push(articleTypes[i]);
+				}
+			}
+			//遍历子级节点
+			var sliderGroup = $("#sliderGroup");
+			for(var i = 0; i < parent.length; i++) {
+				if(i == 0) {
+					sliders.push(true);
+				} else {
+					sliders.push(false);
+				}
+				currpage.push(1);
+				totalpage.push(2);
+
+				var child = [];
+				for(var j = 0; j < articleTypes.length; j++) {
+					if(articleTypes[j].ParentID == parent[i].ID) {
+						child.push(articleTypes[j]);
+					}
+				}
+
+				var html = [];
+				if(i == 0) {
+					html.push('<div class="mui-slider-item mui-control-content mui-active">');
+				} else {
+					html.push('<div class="mui-slider-item mui-control-content">');
+				}
+				html.push('<div class="mui-scroll-wrapper">');
+				html.push('<div id="scroll' + i + '" class="mui-scroll scrolls">');
+				if(child.length > 0) {
+					html.push('<div id="sliderChild' + i + '" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted subtypebody mb10" style="height:5.3rem;">');
+					html.push('<div class="mui-scroll mt10" style="height:4rem;">');
+					for(var l = 0; l < child.length; l++) {
+						html.push('<div class="mui-control-item subtype topic" typeid="' + child[l].ID + '" typename="' + child[l].Name + '"><img data-lazyload="' + child[l].Cover + '" /><span class="cfff f12">' + child[l].Name + '</span></div>');
+					}
+					html.push('</div></div>');
+				}
+
+				//精选添加轮播 
+				if(i == 0) {
+					html.push('<div id="divBanner"><div id="banner"></div></div>');
+				}
+
+				html.push('<div id="scroll-view' + i + '"></div>');
+				html.push('<div id="none' + i + '" class="full tc hide"><img src="../images/my/444.png" class="none" /><p class="f13 mt10">这里还没有内容</p></div>');
+				html.push('</div>');
+				html.push('</div>');
+				html.push('</div>');
+				sliderGroup.append(html.join(""));
+				if(child.length > 0) {
+					mui('#sliderChild' + i).scroll().reLayout();
+				}
+				if(i == 0) {
+					HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
+						if(data != null) {
+							var length = data.records;
+							if(length > 0) {
+								$("#divBanner").css("height", "8.8rem");
+								var banner = $("#banner");
+								var bannerHtml = [];
+								bannerHtml.push('<div class="mui-slider-group mui-slider-group2 mui-slider-loop">');
+								for(var j = 0, len = length; j < len; j++) {
+									if(j == 0 || j == length - 1) {
+										bannerHtml.push('<div class="mui-slider-item mui-slider-item-duplicate">');
+									} else {
+										bannerHtml.push('<div class="mui-slider-item">');
+									}
+									bannerHtml.push('<a href="' + data.list[j].Link + '"><img src="' + data.list[j].Cover + '"></a></div>');
+								}
+								bannerHtml.push('</div>');
+								bannerHtml.push('<div class="mui-slider-indicator">');
+								for(var j = 0, len = length - 2; j < len; j++) {
+									if(j == 0) {
+										bannerHtml.push('<div class="mui-indicator mui-active"></div>');
+									} else {
+										bannerHtml.push('<div class="mui-indicator"></div>');
+									}
+								}
+								bannerHtml.push('</div>');
+								banner.append(bannerHtml.join(""));
+								banner.addClass("mui-slider");
+								banner.css({
+									"height": "8rem",
+									"top": "0px"
+								});
+
+								mui("#banner").slider({
+									interval: 5000
+								});
+							}
+						}
+					});
+				}
+			}
+
+			//重新注册滑动切换事件
+			base.InitSlider(false);
+
+			//上划效果
+			$("#slider").addClass("bounceInDown");
+
+			//监听滑动切换事件
+			base.Get('slider').addEventListener('slide', function(e) {
+				var index = e.detail.slideNumber;
+				if(!sliders[index]) {
+					//base.ShowLoading(true);
+					LoadArticle(index, parent[index].ID, function() {
+						sliders[index] = true;
+						++currpage[index];
+						isLoading = false;
+					})
+				}
+			});
+
+			mui.each(document.querySelectorAll('#sliderGroup .scrolls'), function(index, pullRefreshEl) {
+				mui(pullRefreshEl).pullToRefresh({
+					down: {
+						callback: function() {
+							var self = this;
+							if(isLoading == true) {
+								return;
+							}
+							isLoading = true;
+							currpage[index] = 1;
+							totalpage[index] = 2;
+							base.Get('scroll-view' + index).innerHTML = "";
+							LoadArticle(index, parent[index].ID, function() {
+								++currpage[index];
+								self.endPullDownToRefresh();
+								self.refresh(true);
+								isLoading = false;
+							})
+						}
+					},
+					up: {
+						auto: index == 0 ? true : false,
+						callback: function() {
+							var self = this;
+							isLoading = true;
+							if(currpage[index] > totalpage[index]) {
+								isLoading = false;
+								self.endPullUpToRefresh(currpage[index] > totalpage[index]);
+								return false;
+							}
+							LoadArticle(index, parent[index].ID, function() {
+								++currpage[index];
+								self.endPullUpToRefresh(currpage[index] > totalpage[index]);
+								isLoading = false;
+							})
+						}
+					}
+				});
+			});
+		});
+
+		base.ShowUser("#slider");
+
+		base.ShowArticle("#slider", "List", userinfo.Number);
+
+		//分类列表
+		mui("#slider").on('tap', '.topic', function(event) {
+			var index = $(this).index();
+			ChangeSlider(index);
+		});
+
+		base.InitScroll(true);
+
+		//用户封面
+		$cover.addEventListener('tap', function() {
+			base.OpenWindow("editimage", "editimage.html", {
+				Url: userinfo.Cover,
+				Source: "UserCover",
+				Standard: "UserCover",
+				Title: "封面"
+			});
+		});
+
+		//用户设置
+		base.Get("avatar").addEventListener('tap', function() {
+			base.OpenWindow("mysetting", "mysetting.html", {});
+		});
+
+		//消息
+		base.Get("tip").addEventListener('tap', function() {
+			base.OpenWindow("tipsetting", "tipsetting.html", {
+				Source: "My"
+			});
+		});
+
+		//系统设置
+		base.Get("setting").addEventListener('tap', function() {
+			base.OpenWindow("setting", "setting.html", {});
+		});
+
+		//我的文章
+		base.Get("my-articles").addEventListener('tap', function() {
+			base.OpenWindow("article", "article.html", {
+				CreateUserNumber: userinfo.Number,
+				ArticleTypeName: "我的动态",
+				Source: "My"
+			});
+		});
+
+		//我的收藏
+		base.Get("my-keeps").addEventListener('tap', function() {
+			base.OpenWindow("keep", "keep.html", {});
+		});
+
+		//我的关注
+		base.Get("my-follows").addEventListener('tap', function() {
+			base.OpenWindow("follow", "follow.html", {});
+		});
+
+		//我的粉丝
+		base.Get("my-fans").addEventListener('tap', function() {
+			base.OpenWindow("fan", "fan.html", {});
+		});
+
+		//我的相册
+		base.Get("my-mypic").addEventListener('tap', function() {
+			base.OpenWindow("pic", "pic.html", {
+				UserNumber: userinfo.Number
+			});
+		});
+
+		//我的打赏
+		base.Get("my-mypay").addEventListener('tap', function() {
+			base.OpenWindow("mypay", "mypay.html", {});
+		});
+
+		//我的评论
+		base.Get("my-comment").addEventListener('tap', function() {
+			base.OpenWindow("comment", "comment.html", {});
+		});
+
+		//我的反馈
+		base.Get("my-feedback").addEventListener('tap', function() {
+			base.OpenWindow("feedback", "feedback.html", {});
+		});
+
+		//给个好评
+		base.Get("my-good").addEventListener('tap', function() {
+			var url = ""; //应用的appstore地址
+			plus.runtime.openURL(url);
+		});
+
+		//帮助中心
+		base.Get("my-help").addEventListener('tap', function() {
+			base.OpenWindow("help", "help.html", {});
+		});
+
+		//打开侧滑
+		base.Get("menu").addEventListener('tap', function() {
+			CanvasToggle(true);
+		});
+
+		//搜索
+		base.Get("search").addEventListener('tap', function() {
+			base.OpenWindow("search", "search.html", {});
+		});
 	});
 
 	mui.plusReady(function() {
-		var self = plus.webview.currentWebview();
+		base.ArticleAction("#slider", userinfo);
 
-		CheckUpdate(function() {});
+		mui.previewImage({
+			callback1: function(img) {
+				ShowMask(true, false, PageName);
+			},
+			callback2: function(img) {
+				mui.later(function() {
+					ShowMask(false, false, PageName);
+				}, 350);
+			}
+		});
 
+		//检查更新
+		mui('#updatewrapper').load("../part/update.html", function(response) {
+			CheckUpdate(function(index) {
+				if(subindexPage == null) {
+					subindexPage = plus.webview.getWebviewById("subindex");
+				}
+				subindexPage.evalJS("PreviewTan2(" + index + ")");
+			});
+		});
+
+		//实现ios平台原生侧滑关闭页面；
+		if(mui.os.plus && mui.os.ios) {
+			mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+				plus.webview.currentWebview().setStyle({
+					'popGesture': 'none'
+				});
+			});
+		}
 	});
+
+	//服务器加载用户信息
+	function Load() {
+		base.UpdateUser(userinfo.Number, function(data) {
+			userinfo = data;
+			Init();
+		});
+	}
+
+	//初始化绑定用户信息
+	function Init() {
+		$cover.style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat";
+		$cover.style.backgroundSize = "cover";
+		base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
+		base.Get("nickname").innerHTML = base.UnUnicodeText(userinfo.NickName);
+		base.Get("signature").innerHTML = base.UnUnicodeText(userinfo.Signature);
+		base.Get("follows").innerHTML = userinfo.Follows;
+		base.Get("fans").innerHTML = userinfo.Fans;
+		base.Get("articles").innerHTML = userinfo.Articles;
+		base.Get("keeps").innerHTML = userinfo.Keeps;
+		base.Get("my-wrapper").style.top = base.Get("cover").clientHeight + "px";
+	}
+
+	//更新本地用户信息
+	function Refresh() {
+		userinfo = base.GetUserInfo();
+		Init();
+	}
+
+	//修改封面		 
+	function UpdateCover(url) {
+		if(userinfo.Cover == url) {
+			return;
+		}
+		HttpGet(base.RootUrl + "User/EditCover", {
+			ID: userinfo.ID,
+			Cover: url
+		}, function(data) {
+			if(data.result) {
+				$cover.style.background = "url(" + base.ShowThumb(url, 1) + ") fixed center center no-repeat";
+				$cover.style.backgroundSize = "cover";
+
+				userinfo.Cover = url;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			} else {
+				mui.toast(data.message);
+			}
+		});
+	}
+
+	/**
+	 * 加载数据
+	 */
+	function LoadArticle(index, typeId, callback) {
+		var data = {
+			Number: userinfo.Number,
+			page: currpage[index],
+			rows: pagesize,
+			TypeID: typeId
+		};
+		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage[index] = data.totalpage;
+
+					base.ShowLoading(false);
+					base.Get("none" + index).classList.add("hide");
+					var table = base.Get('scroll-view' + index);
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
+						if(table) {
+							table.appendChild(div);
+						}
+					}
+				} else {
+					base.ShowLoading(false);
+					base.Get("none" + index).classList.remove("hide");
+				}
+			}
+			if(data == null && currpage[index] == 1) {
+				base.ShowLoading(false);
+				base.Get("none" + index).classList.remove("hide");
+			}
+			if($.isFunction(callback)) {
+				callback();
+			}
+		});
+	}
+
+	//加载文章类型
+	function LoadArticleType(callback) {
+		HttpGet(base.RootUrl + "Api/ArticleType/All", {}, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					articleTypes = data.message;
+					var length = articleTypes.length;
+					if(length > 0) {
+						var table = $('#sliderTopBody');
+						var index = 0;
+						for(var i = 0, len = length; i < len; i++) {
+							if(articleTypes[i].ParentID == 0) {
+								var div = AppendPTypeStr(articleTypes[i], index);
+								table.append(div);
+								index += 1
+							}
+						}
+						mui('#sliderTop').scroll().reLayout();
+					}
+				}
+				if($.isFunction(callback)) {
+					callback();
+				}
+			}
+		});
+	}
+
+	/**
+	 * 拼接文章类型
+	 */
+	function AppendPTypeStr(item, index) {
+		if(index == 0) {
+			return '<div class="mui-control-item f12 topic mui-active" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+		} else {
+			return '<div class="mui-control-item f12 topic" typeid="' + item.ID + '" typename="' + item.Name + '">' + item.Name + '</div>';
+		}
+	}
+
+	//显示/关闭侧滑菜单
+	function CanvasToggle(show) {
+		mui('#offCanvasWrapper').offCanvas(show ? 'show' : 'close');
+	}
 </script>

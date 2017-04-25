@@ -1018,7 +1018,8 @@
 			"images/my/444.png",
 			"images/base/reward_nor.png",
 			"images/base/comment_nor.png",
-			"images/article/star.png"
+			"images/article/star.png",
+			"images/loading2.gif"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -2268,7 +2269,45 @@
 			"js/jquery-1.10.2.min.js",
 			"images/update.png",
 			"images/tip.png",
-			"css/loading.min.css"
+			"css/loading.min.css",
+			"fonts/mui.ttf",
+			"js/my.js",
+			"js/addarticle2.js",
+			"css/my.css",
+			"images/logo.png",
+			"images/my/menu02.png",
+			"images/my/setting.png",
+			"images/my/menu01.png",
+			"images/my/tip.png",
+			"images/my/menu05.png",
+			"css/img.preview.css",
+			"images/my/menu04.png",
+			"images/my/menu03.png",
+			"images/my/menu06.png",
+			"part/update.html",
+			"js/mui.zoom.js",
+			"js/mui.previewimage.js",
+			"part/action.html",
+			"js/article.js",
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"images/base/follow0.png",
+			"images/loading2.gif",
+			"images/article/power1.png",
+			"images/my/444.png",
+			"images/base/comment_nor.png",
+			"images/base/reward_nor.png",
+			"images/base/like_nor.png"
+		],
+		"refer": [
+			"page/offcanvas-drag-right-plus-menu.html",
+			"page/pic.html",
+			"page/search.html"
+		]
+	},
+	"page/offcanvas-drag-right-plus-menu.html": {
+		"resources": [
+			"css/mui.min.css"
 		]
 	}
 }

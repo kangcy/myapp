@@ -472,7 +472,7 @@ var base = new function() {
 					localStorage.setItem('$userinfo', JSON.stringify(info));
 
 					if(callback) {
-						callback();
+						callback(info);
 					}
 				}
 			}
