@@ -658,7 +658,8 @@
 			"images/base/reward_nor.png",
 			"images/my/111.png",
 			"images/my/menu03.png",
-			"images/base/follow1.png"
+			"images/base/follow1.png",
+			"images/article/star.png"
 		],
 		"refer": [
 			"page/topic.html",
@@ -670,7 +671,10 @@
 			"page/tipsetting.html",
 			"page/index.html",
 			"page/login.html",
-			"page/mypic.html"
+			"page/mypic.html",
+			"page/setting.html",
+			"page/articledetail.html",
+			"page/search.html"
 		]
 	},
 	"page/topicSub.html": {
