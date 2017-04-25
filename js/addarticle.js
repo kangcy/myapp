@@ -5,43 +5,8 @@ var compressIndex = 0; //当前压缩图片索引
 var compressTotal = 0; //需要压缩图片个数
 var currUploadImg = [];
 
-//选择图片
-function ShowActionSheet() {
-	var bts = [{
-		title: "拍照"
-	}, {
-		title: "从手机相册选择"
-	}, {
-		title: "从微篇相册选择"
-	}];
-	plus.nativeUI.actionSheet({
-			cancel: "取消",
-			buttons: bts
-		},
-		function(e) {
-			//相册选取
-			length = 0;
-			files = [];
-			compressIndex = 0; //当前压缩图片索引
-			compressTotal = 0; //需要压缩图片个数
-			currUploadImg = [];
-
-			if(e.index == 1) {
-				getImage();
-			} else if(e.index == 2) {
-				galleryImgs();
-			} else if(e.index == 3) {
-				base.OpenWindow("mypic", "mypic.html", {
-					Source: "subindex",
-					Multiple: 1
-				});
-			}
-		}
-	);
-}
-
 //拍照
-function getImage() {
+function Camera() {
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
@@ -49,29 +14,24 @@ function getImage() {
 			compressIndex = 0;
 			compressTotal = 1;
 			length = 1;
-			//ShowMaskHere(true);
 
 			mask.show();
-			ShowMask(true, false, activeTab);
+			base.ShowWaiting("正在上传图片");
 
 			compressImage(localurl);
 		});
 	});
 }
 
-function galleryImgs() {
+//相册
+function Gallery() {
 	plus.gallery.pick(function(e) {
 		files = e.files;
 		length = e.files.length;
 		compressTotal = length;
-		ShowMaskHere(true);
 
-		/*console.log(activeTab);
-		ShowMask(true, false, activeTab);
 		mask.show();
 		base.ShowWaiting("正在上传图片");
-
-		return;*/
 
 		compressImage(e.files[0]);
 	}, function(e) {
@@ -84,13 +44,21 @@ function galleryImgs() {
 	});
 }
 
+//微篇相册
+function Pic() {
+	base.OpenWindow("mypic", "mypic.html", {
+		Source: PageName,
+		Multiple: 1
+	});
+}
+
 //加载图片
 function LoadImage(status, src, len, callback) {
 	if(!status) {
 		length = len - 1;
 	}
 	if(length <= 0) {
-		ShowMaskHere(false);
+		mask.close();
 		return;
 	}
 	if(status) {
@@ -165,7 +133,7 @@ function Upload(imgurl, callback) {
 				}
 
 				if(length <= 0) {
-					ShowMaskHere(false);
+					mask.close();
 					plus.nativeUI.alert("图片导入失败", null, "");
 					return;
 				}
@@ -186,7 +154,8 @@ function ConfirmImg(src) {
 	if(base.IsNullOrEmpty(src)) {
 		return false;
 	}
-	ShowMaskHere(true);
+	mask.show();
+	base.ShowWaiting("正在上传图片");
 	Import(src);
 }
 
@@ -207,7 +176,7 @@ function Import(url) {
 	}
 	HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
 		mui.later(function() {
-			ShowMaskHere(false);
+			mask.close();
 			if(data != null) {
 				if(data.result) {
 					base.OpenWindow("addarticle", "addarticle.html", {
@@ -221,19 +190,4 @@ function Import(url) {
 			}
 		}, 1000)
 	});
-}
-
-function ShowMaskHere(show) {
-	if(show) {
-		ShowMask(true, true, activeTab);
-	} else {
-		ShowMask(false, false, activeTab);
-	}
-	if(show) {
-		mui.later(function() {
-			base.ShowWaiting("正在上传图片");
-		}, 250);
-	} else {
-		base.CloseWaiting();
-	}
 }

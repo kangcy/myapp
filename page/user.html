@@ -82,39 +82,8 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div class="mui-content">
-			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
-				<div class="mui-scroll" id="scroll">
-					<div class="info-content" id="bg">
-						<img id="avatar" class="hide" src="../images/logo.png" />
-						<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
-						<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
-						<p class="secret tc mt5 mb15 f12">
-							<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow f13" id="showFollowNum">0</span></span>
-							<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow f13" id="showFanNum">0</span></span>
-							<span class="cfff textshadow hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="cfff textshadow f13" id="showArticleNum">0</span></span>
-						</p>
-						<div class="full tc mb20 hide" id="action">
-							<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
-							<div class="dashang f14" onclick="Payment()">打赏</div>
-						</div>
-					</div>
-					<div id="article" class="hide f13 c999 full">
-						<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
-						<div id="a_list">
-						</div>
-						<div id="mynone" class="mb20 hide">
-							<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
-							<div class="tc cfff mt20 submit" onclick="ShowActionSheet()">去发布</div>
-						</div>
-						<div id="none" class="mb20 hide">
-							<p class="full tc f13 c333 mt50">暂未发表过动态</p>
-						</div>
-					</div>
-					<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
-				</div>
-			</div>
-		</div>
+		<!--图片操作-->
+		<div id="uploadwrapper"></div>
 		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
@@ -181,6 +150,39 @@
 				<div class="c333 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
 			</div>
 		</div>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
+				<div class="mui-scroll" id="scroll">
+					<div class="info-content" id="bg">
+						<img id="avatar" class="hide" src="../images/logo.png" />
+						<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
+						<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
+						<p class="secret tc mt5 mb15 f12">
+							<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow f13" id="showFollowNum">0</span></span>
+							<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow f13" id="showFanNum">0</span></span>
+							<span class="cfff textshadow hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="cfff textshadow f13" id="showArticleNum">0</span></span>
+						</p>
+						<div class="full tc mb20 hide" id="action">
+							<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
+							<div class="dashang f14" onclick="Payment()">打赏</div>
+						</div>
+					</div>
+					<div id="article" class="hide f13 c999 full">
+						<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
+						<div id="a_list">
+						</div>
+						<div id="mynone" class="mb20 hide">
+							<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
+							<div class="tc cfff mt20 submit" id="add">去发布</div>
+						</div>
+						<div id="none" class="mb20 hide">
+							<p class="full tc f13 c333 mt50">暂未发表过动态</p>
+						</div>
+					</div>
+					<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -199,7 +201,6 @@
 	var ShareInfo = {};
 	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {});
-	
 
 	var Intent = null,
 		File = null,
@@ -228,17 +229,24 @@
 			mui.each(document.querySelectorAll(".headericon"), function() {
 				if(success) {
 					this.classList.remove("cfff");
-				} else { 
+				} else {
 					this.classList.add("cfff");
 				}
 			});
-
-			/*if(scroll.y >= 0) {
-				base.Get("bg").style.backgroundSize = (100 - scrolly / 5) + "%";
-			}*/
-		})
+		});
 
 		base.ShowArticle("#a_list", "List", userinfo.Number);
+
+		mui('#uploadwrapper').load("../part/pic.html", function(response) {
+			base.Get("add").addEventListener('tap', function() {
+				length = 0;
+				files = [];
+				compressIndex = 0; //当前压缩图片索引
+				compressTotal = 0; //需要压缩图片个数
+				currUploadImg = [];
+				mui('#upload').popover('show');
+			});
+		});
 	});
 
 	mui.plusReady(function() {

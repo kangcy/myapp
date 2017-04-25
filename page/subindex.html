@@ -3,144 +3,503 @@
 
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<link href="../css/mui.min.css" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
+		<link rel="stylesheet" href="../css/loading.min.css">
 		<style type="text/css">
 			body {
-				background: #eee;
-			}
-			
-			.mui-bar {
 				background: #fff;
 			}
 			
-			.mui-table-view-cell {
-				padding: .8rem 0.9375rem;
+			.bottom {
+				background: #f8f8f8;
+				border-top: 1px solid #eee;
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
 			}
 			
-			.mui-table-view-cell:after {
-				left: 0.9375rem;
-				right: 0.9375rem;
+			#add {
+				width: 100%;
+				float: left;
+				height: 2.8rem;
+				line-height: 2.6rem;
+				text-align: center;
 			}
 			
-			.mui-table-view:after {
-				height: 0px;
-			}
-			
-			.item {
-				width: 28px;
-				height: 23px;
-				margin-top: 3px;
+			#add div {
+				width: 90%;
+				border-radius: 30px;
+				background: #4087cb;
 				display: inline-block;
+				height: 2.1875rem;
+				line-height: 2.1875rem;
+				background-image: url(../images/article/pen2.png);
+				background-repeat: no-repeat;
+				background-position: 40% center;
+				background-size: 1.25rem;
+				text-indent: 10%;
 			}
 			
-			.item1 {
-				background: url(../images/base/01_2.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
+			#avatar {
+				border-radius: 50%;
+				width: 5rem;
+				height: 5rem;
+				border: 3px solid #fff;
 			}
 			
-			.active .item1 {
-				background: url(../images/base/01_1.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
+			.menu {
+				width: 100%;
+				height: 3rem;
+				line-height: 3rem;
+				text-align: left;
+				text-indent: 0.625rem;
+				background: #fff;
 			}
 			
-			.item2 {
-				background: url(../images/base/02_2.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
+			.menu div {
+				width: 80%;
+				float: right;
+				height: 100%;
+				border-bottom: 1px solid #eee;
+				text-indent: 0px;
 			}
 			
-			.active .item2 {
-				background: url(../images/base/02_1.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
+			.menu div.noborder {
+				border-bottom: 0px;
 			}
 			
-			.item3 {
-				background: url(../images/base/03_2.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
+			.mui-btn {
+				padding: 0.375rem 2.125rem;
 			}
 			
-			.active .item3 {
-				background: url(../images/base/03_1.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
+			.mui-title {
+				white-space: normal;
 			}
 			
-			.item4 {
+			#setting {
+				width: 1.2rem;
+				position: fixed;
+				left: 20px;
+				top: 20px;
+			}
+			
+			#tip {
+				width: 1.2rem;
+				position: fixed;
+				right: 20px;
+				top: 20px;
+			}
+			
+			.info-content {
+				width: 100%;
+				display: inline-block;
+				margin: 0px;
+				text-align: center;
 				position: relative;
-				background: url(../images/base/04_2.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
+				padding-top: 5rem;
 			}
 			
-			.active .item4 {
-				background: url(../images/base/04_1.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
+			.info-content .side {
+				float: left;
+				width: 25%;
+				line-height: 0.625rem;
+				padding-top: 2.1875rem;
+			}
+			
+			.signature {
+				margin: 0px;
+				line-height: 1.25rem;
+				color: #a3a3a3;
+			}
+			
+			.content1 {
+				display: inline-block;
+				width: 100%;
+			}
+			
+			.content1 .items {
+				width: 25%;
+				float: left;
+			}
+			
+			.content1 .items img {
+				width: 1.25rem;
+				height: 1.25rem;
+				margin-right: 0.3125rem;
+			}
+			
+			.content1 .items .item1 {
+				margin: 0px;
+				line-height: 1.25rem;
+				width: 100%;
+			}
+			
+			.content1 .items .item2 {
+				margin: 0px;
+				width: 100%;
+				float: left;
+				line-height: 1.25rem;
+			}
+			
+			#my-mypay {
+				background-image: url(../images/my/menu01.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.5rem;
+			}
+			
+			#my-comment {
+				background-image: url(../images/my/menu02.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.5rem;
+			}
+			
+			#my-feedback {
+				background-image: url(../images/my/menu03.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.5rem;
+			}
+			
+			#my-good {
+				background-image: url(../images/my/menu04.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.5rem;
+			}
+			
+			#my-help {
+				background-image: url(../images/my/menu05.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.5rem;
+			}
+			
+			#my-mypic {
+				background-image: url(../images/my/menu06.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.5rem;
 			}
 		</style>
+
 	</head>
 
 	<body>
-		<nav class="mui-bar mui-bar-tab" style="border-top:2px solid #eee;">
-			<a class="mui-tab-item tc" href="index.html">
-				<div class="item item1"></div>
-				<p class="mui-tab-label mb0" style="font-size:11px;">首页</p>
-			</a>
-			<a id="defaultTab" class="mui-tab-item active" href="topic.html">
-				<div class="item item2"></div>
-				<p class="mui-tab-label mb0" style="font-size:11px;">发现</p>
-			</a>
-			<a class="mui-tab-item" href="editimage.html">
-				<img src="../images/base/add.png" style="height: 40px;margin-top:5px;" />
-			</a>
-			<a class="mui-tab-item" href="tipsetting.html">
-				<div class="item item3"></div>
-				<p class="mui-tab-label mb0" style="font-size:11px;">消息</p>
-			</a>
-			<a class="mui-tab-item" href="my.html">
-				<div class="item item4">
-					<!--<span class="mui-badge mui-badge-danger" style="width:10px;height:10px;padding:0px;margin-left: 0px;top: -1px;right:-8px;position:absolute;background:red;"></span>--></div>
-				<p class="mui-tab-label mb0" style="font-size:11px;">我的</p>
-			</a>
-		</nav>
-		<!--检测更新满屏弹窗-->
-		<div class="mytanbg hide" id="myprogressbg" onclick="PreviewTan2(0)"></div>
-		<!--文章操作弹窗-->
-		<div class="mytanbg hide" id="actionTan" onclick="ActionTan2()"></div>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<!--操作-->
+		<div id="actionwrapper"></div>
+		<!--更新进度条-->
+		<div id="updatewrapper"></div>
+		<!--图片操作-->
+		<div id="uploadwrapper"></div>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!--主界面部分-->
+			<div class="mui-inner-wrap mui-transitioning">
+				<!--侧滑菜单部分-->
+				<aside id="offCanvasSide" class="mui-off-canvas-left mui-transitioning">
+					<div class="info-content" id="cover" style="padding-top:2rem;">
+						<img src="../images/my/setting.png" class="fl" id="setting" />
+						<img src="../images/my/tip.png" class="fr" id="tip" />
+						<img id="avatar" src="../images/logo.png" />
+						<p class="cfff f15 tc mt10 textshadow" id="nickname"></p>
+						<p class="cfff signature tc mt5 f12 textshadow" id="signature"></p>
+						<div class="content1 tc mt10 mb10 cfff textshadow">
+							<div class="items" id="my-articles">
+								<p class="item1 f16 cfff textshadow" id="articles">0</p>
+								<p class="item2 f12 cfff textshadow">动态</p>
+							</div>
+							<div class="items" id="my-keeps">
+								<p class="item1 f16 cfff textshadow" id="keeps">0</p>
+								<p class="item2 f12 cfff textshadow">收藏</p>
+							</div>
+							<div class="items" id="my-follows">
+								<p class="item1 f16 cfff textshadow" id="follows">0</p>
+								<p class="item2 f12 cfff textshadow">关注</p>
+							</div>
+							<div class="items" id="my-fans">
+								<p class="item1 f16 cfff textshadow" id="fans">0</p>
+								<p class="item2 f12 cfff textshadow">粉丝</p>
+							</div>
+						</div>
+					</div>
+					<div class="mui-scroll-wrapper" id="my-wrapper">
+						<div class="mui-scroll">
+							<div class="mui-content-padded">
+								<div class="c333 menu f12" id="my-mypic">
+									<div>我的相册<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-mypay">
+									<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-comment">
+									<div>评论与回复<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-feedback">
+									<div>意见反馈<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-good">
+									<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+								<div class="c333 menu f12" id="my-help">
+									<div class="noborder">帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</aside>
+				<header class="mui-bar mui-bar-nav zoomIn">
+					<a class="mui-icon mui-action-menu mui-icon-bars fl c333" id="menu"></a>
+					<a class="mui-icon mui-icon-search fr c333" id="search"></a>
+					<h1 class="mui-title">发现</h1>
+				</header>
+				<div id="offCanvasContentScroll" class="mui-content">
+					<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:3rem;">
+						<div class="mui-scroll" id="slider">
+							<div id="divBanner">
+								<div id="banner"></div>
+							</div>
+							<div id="scroll-view">
+							</div>
+							<div id="none" class="full tc hide">
+								<img src="../images/my/111.png" class="none" id="none_img" />
+								<p class="f13 mt10" id="none_tip"></p>
+							</div>
+						</div>
+					</div>
+					<div class="mui-bar mui-bar-tab bottom tc cfff">
+						<div id="add">
+							<div class="f13">我要发图</div>
+						</div>
+					</div>
+				</div>
+				<!-- 遮罩层 -->
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+		</div>
 	</body>
 
 </html>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/PullRefresh.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.previewimage.js"></script>
+<script src="../js/update.js"></script>
+<script src="../js/article.js"></script>
+<script src="../js/addarticle.js"></script>
 <script type="text/javascript">
-	var subPage = null;
-	var userinfo = base.GetUserInfo();
-	var mask = base.CreateMask(false, function() {});
+	var $cover = base.Get("cover");
+	var PageName = "subindex";
+
 	mui.init();
 
-	var subpages = ['index.html', 'topic.html', 'tipsetting.html', 'my.html'];
-	var subpage_style = {
-		top: '0px',
-		bottom: '50px'
-	};
+	mui.ready(function() {
 
-	var myPage = null;
-	var aniShow = {};
-	var targetTab = subpages[1];
-	var activeTab = subpages[1];
+		if(userinfo.UserRole == 2) {
+			//base.RemoveClass(["#client", "#push","#update"], ["hide"]);
+		}
+
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#slider').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				ActionTan(true, number, id);
+			});
+
+			base.Get("action").addEventListener('hidden', function(event) {
+				ShowMask(false, false, PageName);
+			});
+		});
+
+		mui('#uploadwrapper').load("../part/pic.html", function(response) {
+			base.Get("add").addEventListener('tap', function() {
+				length = 0;
+				files = [];
+				compressIndex = 0; //当前压缩图片索引
+				compressTotal = 0; //需要压缩图片个数
+				currUploadImg = [];
+				mui('#upload').popover('show');
+			});
+		});
+
+		LoadUser();
+
+		base.ShowUser("#slider");
+
+		base.ShowArticle("#slider", "List", userinfo.Number);
+
+		base.InitScroll(true);
+
+		//用户封面
+		$cover.addEventListener('tap', function() {
+			base.OpenWindow("editimage", "editimage.html", {
+				Url: userinfo.Cover,
+				Source: "UserCover",
+				Standard: "UserCover",
+				Title: "封面"
+			});
+		});
+
+		//用户设置
+		base.Get("avatar").addEventListener('tap', function() {
+			base.OpenWindow("mysetting", "mysetting.html", {});
+		});
+
+		//消息
+		base.Get("tip").addEventListener('tap', function() {
+			base.OpenWindow("tipsetting", "tipsetting.html", {
+				Source: "My"
+			});
+		});
+
+		//系统设置
+		base.Get("setting").addEventListener('tap', function() {
+			base.OpenWindow("setting", "setting.html", {});
+		});
+
+		//我的文章
+		base.Get("my-articles").addEventListener('tap', function() {
+			base.OpenWindow("article", "article.html", {
+				CreateUserNumber: userinfo.Number,
+				ArticleTypeName: "我的动态",
+				Source: "My"
+			});
+		});
+
+		//我的收藏
+		base.Get("my-keeps").addEventListener('tap', function() {
+			base.OpenWindow("keep", "keep.html", {});
+		});
+
+		//我的关注
+		base.Get("my-follows").addEventListener('tap', function() {
+			base.OpenWindow("follow", "follow.html", {});
+		});
+
+		//我的粉丝
+		base.Get("my-fans").addEventListener('tap', function() {
+			base.OpenWindow("fan", "fan.html", {});
+		});
+
+		//我的相册
+		base.Get("my-mypic").addEventListener('tap', function() {
+			base.OpenWindow("pic", "pic.html", {
+				UserNumber: userinfo.Number
+			});
+		});
+
+		//我的打赏
+		base.Get("my-mypay").addEventListener('tap', function() {
+			base.OpenWindow("mypay", "mypay.html", {});
+		});
+
+		//我的评论
+		base.Get("my-comment").addEventListener('tap', function() {
+			base.OpenWindow("comment", "comment.html", {});
+		});
+
+		//我的反馈
+		base.Get("my-feedback").addEventListener('tap', function() {
+			base.OpenWindow("feedback", "feedback.html", {});
+		});
+
+		//给个好评
+		base.Get("my-good").addEventListener('tap', function() {
+			var url = ""; //应用的appstore地址
+			plus.runtime.openURL(url);
+		});
+
+		//帮助中心
+		base.Get("my-help").addEventListener('tap', function() {
+			base.OpenWindow("help", "help.html", {});
+		});
+
+		//打开侧滑
+		base.Get("menu").addEventListener('tap', function() {
+			CanvasToggle(true);
+		});
+
+		//搜索 
+		base.Get("search").addEventListener('tap', function() {
+			base.OpenWindow("search", "search.html", {});
+		});
+	});
+
 	var backButtonPress = 0;
 	mui.plusReady(function() {
+		plus.navigator.closeSplashscreen();
+		plus.navigator.setFullscreen(false);
+		var self = plus.webview.currentWebview();
+		self.show();
 
-		//用户信息
-		//{"id":"igexin","token":"54f3c1dc7795e813a8e0cdb039becb6f","clientid":"54f3c1dc7795e813a8e0cdb039becb6f","appid":"pPyZWvH3Fa6PXba10aJ009","appkey":"b7dOGlNPHR7pqwUxDhpTi4"}
-		//alert(JSON.stringify(plus.push.getClientInfo()));
+		mui(base.Get("slider")).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
+
+		base.ArticleAction("#slider", userinfo);
+
+		mui.previewImage({
+			callback1: function(img) {},
+			callback2: function(img) {}
+		});
+
+		//检查更新
+		mui('#updatewrapper').load("../part/update.html", function(response) {
+			CheckUpdate(function(index) {});
+		});
+
+		//实现ios平台原生侧滑关闭页面；
+		if(mui.os.plus && mui.os.ios) {
+			mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+				plus.webview.currentWebview().setStyle({
+					'popGesture': 'none'
+				});
+			});
+		}
+
+		mui.back = function() {
+			if(mui('#offCanvasWrapper').offCanvas().isShown()) {
+				CanvasToggle(false);
+				return;
+			}
+			backButtonPress++;
+			if(backButtonPress > 1) {
+				plus.runtime.quit();
+			} else {
+				plus.nativeUI.toast('再按一次退出应用');
+			}
+			mui.later(function() {
+				backButtonPress = 0;
+			}, 1000);
+			return false;
+		};
 
 		//监听推送消息		
 		plus.push.addEventListener("receive", function(msg) {
@@ -166,131 +525,141 @@
 					base.OpenWindow("pay", "pay.html", {});
 				}
 			}
-
-			//用户手动创建消息
-			//plus.push.createMessage(msg.content, msg.payload || '', msg);
 		}, false);
-		/*plus.push.addEventListener("click", function(msg) {
-			alert("click" + JSON.stringify(msg));
-		}, false);*/
+	});
 
-		//系统定位
-		base.GetCurrentPosition();
-
-		//首页返回键处理
-		//1、若侧滑菜单显示，则关闭侧滑菜单
-		//2、否则，执行mui框架默认的关闭首页功能
-
-		mui.back = function() {
-			backButtonPress++;
-			if(backButtonPress > 1) {
-				plus.runtime.quit();
-			} else {
-				plus.nativeUI.toast('再按一次退出应用');
-			}
-			mui.later(function() {
-				backButtonPress = 0;
-			}, 1000);
-			return false;
-		};
-
-		base.CloseWaiting();
-
-		plus.navigator.closeSplashscreen();
-		plus.navigator.setFullscreen(false);
-
-		var self = plus.webview.currentWebview();
-		self.show();
-
-		LoadPage();
-
-		//选项卡点击事件
-		mui('.mui-bar-tab').on('tap', 'a', function(e) {
-			if(userinfo === "{}") {
-				base.OpenWindow("login", "login.html", {}, "slide-in-bottom");
-				return;
-			}
-
-			targetTab = this.getAttribute('href');
-			if(targetTab == activeTab) {
-				return;
-			}
-
-			if(targetTab == "editimage.html") {
-				var view = plus.webview.getWebviewById(activeTab);
-				view.evalJS("ShowActionSheet()");
-				return;
-			}
-
-			//切换选项卡高亮
-			var current = document.querySelector(".active");
-			if(!this.classList.contains("active")) {
-				current.classList.remove('active');
-				this.classList.add('active');
-			}
-
-			//刷新用户信息
-			if(targetTab == "my.html") {
-				if(myPage == null) {
-					myPage = plus.webview.getWebviewById("my.html");
-				}
-				myPage.evalJS("Load()");
-			}
-
-			//显示目标选项卡
-			//若为iOS平台或非首次显示，则直接显示
-			if(mui.os.ios || aniShow[targetTab]) {
-				plus.webview.show(targetTab, "pop-in", 0);
-			} else {
-				//否则，使用fade-in动画，且保存变量
-				var temp = {};
-				temp[targetTab] = "true";
-				mui.extend(aniShow, temp);
-				plus.webview.show(targetTab, "pop-in", 0);
-			}
-			//隐藏当前;
-			plus.webview.hide(activeTab);
-			//更改当前活跃的选项卡
-			activeTab = targetTab;
+	//服务器加载用户信息
+	function LoadUser() {
+		base.UpdateUser(userinfo.Number, function(data) {
+			userinfo = data;
+			Init();
 		});
-	});
+	}
 
-	function LoadPage() {
-		//创建子页面，首个选项卡页面显示，其它均隐藏
-		var self = plus.webview.currentWebview();
-		for(var i = 0; i < 4; i++) {
-			var temp = {};
-			var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
-			if(i == 1) {
-				temp[subpages[i]] = "true";
-				mui.extend(aniShow, temp);
+	//初始化绑定用户信息
+	function Init() {
+		$cover.style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat";
+		$cover.style.backgroundSize = "cover";
+		base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
+		base.Get("nickname").innerHTML = base.UnUnicodeText(userinfo.NickName);
+		base.Get("signature").innerHTML = base.UnUnicodeText(userinfo.Signature);
+		base.Get("follows").innerHTML = userinfo.Follows;
+		base.Get("fans").innerHTML = userinfo.Fans;
+		base.Get("articles").innerHTML = userinfo.Articles;
+		base.Get("keeps").innerHTML = userinfo.Keeps;
+		base.Get("my-wrapper").style.top = base.Get("cover").clientHeight + "px";
+	}
+
+	//更新本地用户信息
+	function Refresh() {
+		userinfo = base.GetUserInfo();
+		Init();
+	}
+
+	//修改封面		 
+	function UpdateCover(url) {
+		if(userinfo.Cover == url) {
+			return;
+		}
+		HttpGet(base.RootUrl + "User/EditCover", {
+			ID: userinfo.ID,
+			Cover: url
+		}, function(data) {
+			if(data.result) {
+				$cover.style.background = "url(" + base.ShowThumb(url, 1) + ") fixed center center no-repeat";
+				$cover.style.backgroundSize = "cover";
+
+				userinfo.Cover = url;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			} else {
-				sub.hide();
+				mui.toast(data.message);
 			}
-			self.append(sub);
-		}
-	} 
+		});
+	}
 
-	//自定义事件，模拟点击“首页选项卡”
-	var defaultTab = base.Get("defaultTab");
-	document.addEventListener('gohome', function(event) {
+	/**
+	 * 加载数据
+	 */
+	function Load(callback) {
+		var data = {
+			Number: userinfo.Number,
+			page: currpage,
+			rows: pagesize
+		};
+		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					base.ShowLoading(false);
+					base.Get("none").classList.add("hide");
+					var table = base.Get('scroll-view');
+					for(var i = 0, len = data.list.length; i < len; i++) {
+						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
+						if(table) {
+							table.appendChild(div);
+						}
+					}
+				} else {
+					base.ShowLoading(false);
+					base.Get("none").classList.remove("hide");
+				}
+			}
+			if(data == null && currpage == 1) {
+				base.ShowLoading(false);
+				base.Get("none").classList.remove("hide");
+			}
+			if($.isFunction(callback)) {
+				callback();
+			}
+		});
+	}
 
-		//模拟首页点击
-		mui.trigger(defaultTab, 'tap');
+	//显示/关闭侧滑菜单
+	function CanvasToggle(show) {
+		mui('#offCanvasWrapper').offCanvas(show ? 'show' : 'close');
+	}
 
-		//切换选项卡高亮
-		var current = document.querySelector(".active");
-		if(defaultTab !== current) {
-			current.classList.remove('active');
-			defaultTab.classList.add('active');
-		}
-	});
+	function LoadBanner() {
+		HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
+			if(data != null) {
+				var length = data.records;
+				if(length > 0) {
+					$("#divBanner").css("height", "8.8rem");
+					var banner = $("#banner");
+					var bannerHtml = [];
+					bannerHtml.push('<div class="mui-slider-group mui-slider-group2 mui-slider-loop">');
+					for(var j = 0, len = length; j < len; j++) {
+						if(j == 0 || j == length - 1) {
+							bannerHtml.push('<div class="mui-slider-item mui-slider-item-duplicate">');
+						} else {
+							bannerHtml.push('<div class="mui-slider-item">');
+						}
+						bannerHtml.push('<a href="' + data.list[j].Link + '"><img src="' + data.list[j].Cover + '"></a></div>');
+					}
+					bannerHtml.push('</div>');
+					bannerHtml.push('<div class="mui-slider-indicator">');
+					for(var j = 0, len = length - 2; j < len; j++) {
+						if(j == 0) {
+							bannerHtml.push('<div class="mui-indicator mui-active"></div>');
+						} else {
+							bannerHtml.push('<div class="mui-indicator"></div>');
+						}
+					}
+					bannerHtml.push('</div>');
+					banner.append(bannerHtml.join(""));
+					banner.addClass("mui-slider");
+					banner.css({
+						"height": "8rem",
+						"top": "0px"
+					});
 
-	function PreviewTan2(index) {
-		if(index == 0) {
-			base.Get("myprogressbg").classList.add("hide");
-		} else {
-			base.Get("myprogressbg").classList.remove("hide");
-		}
+					mui("#banner").slider({
+						interval: 5000
+					});
+				}
+			}
+		});
 	}
 </script>

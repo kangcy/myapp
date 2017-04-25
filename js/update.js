@@ -81,6 +81,4 @@ function Download() {
 //下次再说
 function Next() {
 	base.AddClass(["#myprogress", "#myprogressbg"], ["hide"]);
-	var subindexPage = plus.webview.getWebviewById("subindex");
-	subindexPage.evalJS("PreviewTan2(0)");
 }

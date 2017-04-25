@@ -1,6 +1,5 @@
 var ArticleNumber = "";
 var ArticleID = 0;
-var subindexPage = null;
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
 	mui('#action').popover('hide');
