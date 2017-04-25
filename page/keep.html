@@ -46,11 +46,14 @@
 	var name = "我";
 	var UserNumber = "";
 	var PageName = "keep";
-	var FullScreen = true;
 
 	mui.init({
 		gestureConfig: {
 			doubletap: true
+		},
+		beforeback: function() {
+			base.RefreshUser();
+			return true;
 		}
 	});
 
@@ -66,6 +69,12 @@
 			mui.previewImage();
 
 			base.ShowUser("#scroll");
+
+			mui('#scroll').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				ActionTan(true, number, id);
+			});
 		});
 	});
 
@@ -97,15 +106,6 @@
 				}
 			}
 		});
-
-		//返回
-		mui.back = function() {
-			var my = plus.webview.getWebviewById("my.html");
-			if(my) {
-				my.evalJS("Refresh()");
-			}
-			plus.webview.close(self)
-		}
 	});
 
 	/**

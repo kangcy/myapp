@@ -573,7 +573,8 @@
 			"images/loading.gif",
 			"images/logo_default.png",
 			"js/addarticlepart.js",
-			"part/pic.html"
+			"part/pic.html",
+			"images/loading2.gif"
 		],
 		"refer": [
 			"page/edittitle.html",
@@ -659,7 +660,8 @@
 			"images/my/111.png",
 			"images/my/menu03.png",
 			"images/base/follow1.png",
-			"images/article/star.png"
+			"images/article/star.png",
+			"images/base/like_hig.png"
 		],
 		"refer": [
 			"page/topic.html",
@@ -674,7 +676,10 @@
 			"page/mypic.html",
 			"page/setting.html",
 			"page/articledetail.html",
-			"page/search.html"
+			"page/search.html",
+			"page/keep.html",
+			"page/follow.html",
+			"page/mysetting.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -814,7 +819,9 @@
 			"images/share/4.jpg",
 			"images/share/1.jpg",
 			"js/addarticle.js",
-			"images/loading.gif"
+			"images/loading.gif",
+			"part/pic.html",
+			"images/loading2.gif"
 		],
 		"refer": [
 			"page/userSub.html",
@@ -877,7 +884,8 @@
 			"images/logo.png",
 			"js/login.js",
 			"images/logo_default.png",
-			"images/loading.gif"
+			"images/loading.gif",
+			"images/loading2.gif"
 		],
 		"refer": [
 			"page/editsignature.html",
@@ -1164,7 +1172,8 @@
 			"css/animate.css",
 			"images/article/power1.png",
 			"images/loading.gif",
-			"images/article/top.png"
+			"images/article/top.png",
+			"part/action.html"
 		],
 		"refer": [
 			"page/keepSub.html",

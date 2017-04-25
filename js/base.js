@@ -974,6 +974,16 @@ var base = new function() {
 			return mui(name);
 		}
 	}
+
+	/**
+	 * 刷新用户信息
+	 */
+	this.RefreshUser = function() {
+		var page = plus.webview.getWebviewById("subindex");
+		if(page) {
+			page.evalJS("Refresh()");
+		}
+	}
 }
 
 /**

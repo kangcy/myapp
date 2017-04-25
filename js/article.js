@@ -56,6 +56,7 @@ function Keep() {
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 				var item = base.Get("article" + ArticleID);
 				item.setAttribute("iskeep", 1);
+				base.RefreshUser();
 			}
 			mui.toast(data.result ? "收藏成功" : data.message);
 		}
@@ -96,6 +97,7 @@ function OutKeep() {
 							item.setAttribute("iskeep", 0);
 						}
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+						base.RefreshUser();
 					} else {
 						mui.toast(data.message);
 					}

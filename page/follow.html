@@ -29,11 +29,15 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
+		},
+		beforeback: function() {
+			base.RefreshUser();
+			return true;
 		}
 	});
 
 	mui.ready(function() {
-		
+
 		mui('#main').load("../part/list.html", function(response) {
 			base.InitScroll();
 			base.ScrollTop();
@@ -87,7 +91,6 @@
 						if(data) {
 							if(data.result) {
 								li.parentNode.removeChild(li);
-
 								records = records - 1;
 								if(records < 0) {
 									records = 0;
@@ -108,15 +111,6 @@
 				}
 			});
 		});
-
-		//返回
-		mui.back = function() {
-			var my = plus.webview.getWebviewById("my.html");
-			if(my) {
-				my.evalJS("Refresh()");
-			}
-			plus.webview.close(self);
-		}
 	});
 
 	//我的关注-加载数据

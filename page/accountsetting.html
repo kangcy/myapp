@@ -84,7 +84,14 @@
 	var auths = {};
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	mui.init();
+
+	mui.init({
+		beforeback: function() {
+			base.RefreshUser();
+			return true;
+		}
+	});
+
 	mui.ready(function() {
 
 		base.Get("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(7, 11);
@@ -104,6 +111,9 @@
 		if(CheckBind(3)) {
 			base.SwitchChange("weiboSwitch", true)
 		}
+	})
+
+	mui.plusReady(function() {
 
 		if(base.IsNullOrEmpty(userinfo.Phone)) {
 			mui.confirm('尚未绑定手机号，有文章丢失的风险，请尽快绑定。', '', ['去绑定', '取消'], function(e) {
@@ -112,25 +122,12 @@
 				}
 			});
 		}
-	})
-
-	mui.plusReady(function() {
 
 		plus.oauth.getServices(function(services) {
 			auths = services;
 		}, function(e) {
 			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
 		});
-
-		//返回
-		mui.back = function() {
-			var self = plus.webview.currentWebview();
-			var myPage = plus.webview.getWebviewById('my.html');
-			if(myPage) {
-				myPage.evalJS("Refresh()");
-			}
-			plus.webview.close(self);
-		}
 
 		//绑定微信切换
 		base.Get("weixinSwitch").addEventListener('tap', function(event) {
@@ -218,7 +215,7 @@
 	//更新绑定号码
 	function UpdatePhone(phone) {
 		userinfo.Phone = phone;
-		base.Get("phone").innerText = phone == "" ? "未绑定" : phone.substring(0, 3) + "****" + phone.substring(7, 11); 
+		base.Get("phone").innerText = phone == "" ? "未绑定" : phone.substring(0, 3) + "****" + phone.substring(7, 11);
 	}
 
 	//检测是否绑定

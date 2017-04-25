@@ -89,7 +89,6 @@
 			HttpGet(base.RootUrl + "Api/System/CheckDirtyword", {
 				Title: val
 			}, function(data) {
-				console.log(data);
 				data = JSON.parse(data);
 				if(data != null) {
 					if(data.result) {
