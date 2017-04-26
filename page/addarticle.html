@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/addarticle.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
-	</head> 
+	</head>
 
 	<body style="background: #E8E8E8;">
 		<header class="mui-bar mui-bar-transparent" id="header">
@@ -18,12 +18,12 @@
 			<span class="headericon mui-icon fr mui-text cfff" id="submit">保存</span>
 			<h1 class="headericon mui-title c333"></h1>
 		</header>
-		<div class="loading" id="loader"> 
+		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<!--图片操作--> 
+		<!--图片操作-->
 		<div id="picupload"></div>
 		<div class="mui-content">
 			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
@@ -67,6 +67,7 @@
 		base.CloseWaiting();
 	});
 	var $header = base.Get("header");
+	var InitParts = []; //段落
 
 	//启用双击监听 
 	mui.init({
@@ -200,9 +201,19 @@
 
 			var $this = this;
 			var btnArray = ['确定', '取消'];
-			mui.confirm('删除后不可恢复,确定删除此段？', '', btnArray, function(e) {
+			mui.confirm('确定删除此段？', '', btnArray, function(e) {
 				if(e.index == 0) {
-					mask.show();
+					var partid = $this.getAttribute("partid");
+					$this.parentNode.parentNode.parentNode.remove();
+					InitGroup();
+					//同步原始段落信息
+					InitParts.some(function(item) {
+						if(item.ID == partid) {
+
+						}
+					});
+
+					/*mask.show();
 					base.ShowWaiting("正在删除");
 					HttpGet(base.RootUrl + "ArticlePart/Delete", {
 						ID: userinfo.ID,
@@ -219,7 +230,7 @@
 								}
 							}
 						}, 500);
-					});
+					});*/
 				}
 			});
 		});
@@ -236,12 +247,17 @@
 		//返回
 		mui.back = function() {
 			var $this = this;
-			var btnArray = ['删除草稿', '存草稿'];
-			mui.confirm('确定要退出编辑？', '', btnArray, function(e) {
+			var btnArray = ['撤销编辑', '存草稿'];
+			mui.confirm('确定要撤销编辑？', '', btnArray, function(e) {
 				if(e.index == 0) {
 					mask.show();
-					base.ShowWaiting("正在删除");
-					HttpGet(base.RootUrl + "Article/Delete", {
+					base.ShowWaiting("正在撤销");
+					mui.later(function() {
+						mask.close();
+						plus.webview.close("articledetail");
+						plus.webview.close("addarticle");
+					}, 500);
+					/*HttpGet(base.RootUrl + "Article/Delete", {
 						ID: userinfo.ID,
 						ArticleID: ArticleID
 					}, function(data) {
@@ -254,7 +270,7 @@
 								}
 							}
 						}, 500);
-					});
+					});*/
 				} else {
 					Save();
 				}
@@ -510,7 +526,16 @@
 							} else if(part.Types == 3) {
 								//视频段落
 								html = initStr(part.Introduction, "video", part.ID);
+
 							}
+
+							//初始化段落内容(Status:0-未操作，1-已删除，2-已修改)
+							InitParts.push({
+								ID = part.ID,
+								Introduction = part.Introduction,
+								Status = 0
+							});
+
 							$edit.append(html);
 						}
 
