@@ -70,11 +70,12 @@
 	var $header = base.Get("header");
 	var InitParts = []; //段落
 	//声明对象
-	function PartModel(id, introduction, status, sortid) {
+	function PartModel(id, introduction, status, sortid, parttype) {
 		this.ID = id;
 		this.Introduction = introduction;
 		this.Status = status;
 		this.SortID = sortid;
+		this.PartType = parttype;
 	}
 
 	//启用双击监听 
@@ -243,47 +244,62 @@
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber || "";
 		Source = self.Source || "Add";
-
 		Load();
 
 		//返回
 		mui.back = function() {
 			var $this = this;
-			var btnArray = ['撤销编辑', '存草稿'];
-			mui.confirm('确定要撤销编辑？', '', btnArray, function(e) {
-				if(e.index == 0) {
-					mask.show();
-					base.ShowWaiting("正在撤销");
-					mui.later(function() {
-						mask.close();
-						plus.webview.close("articledetail");
-						plus.webview.close("addarticle");
-					}, 500);
-					/*HttpGet(base.RootUrl + "Article/Delete", {
-						ID: userinfo.ID,
-						ArticleID: ArticleID
-					}, function(data) {
+
+			//首次创建
+			if(Source == "Add") {
+				var btnArray = ['删除草稿', '存草稿'];
+				mui.confirm('确定要删除草稿吗？', '', btnArray, function(e) {
+					if(e.index < 0) {
+						return;
+					}
+					if(e.index == 0) {
+						mask.show();
+						base.ShowWaiting("正在删除");
+						HttpGet(base.RootUrl + "Article/Delete", {
+							ID: userinfo.ID,
+							ArticleID: ArticleID
+						}, function(data) {
+							mui.later(function() {
+								mask.close();
+								if(data != null) {
+									if(data.result) {
+										plus.webview.close("articledetail");
+										plus.webview.close("addarticle");
+									}
+								}
+							}, 500);
+						});
+					} else {
+						Save();
+					}
+				});
+			} else {
+				var btnArray = ['撤销编辑', '存草稿'];
+				mui.confirm('确定要撤销编辑？', '', btnArray, function(e) {
+					if(e.index < 0) {
+						return;
+					}
+					if(e.index == 0) {
+						mask.show();
+						base.ShowWaiting("正在撤销");
 						mui.later(function() {
 							mask.close();
-							if(data != null) {
-								if(data.result) {
-									plus.webview.close("articledetail");
-									plus.webview.close("addarticle");
-								}
-							}
+							plus.webview.close("addarticle");
 						}, 500);
-					});*/
-				} else {
-					Save();
-				}
-			});
+					} else {
+						Save();
+					}
+				});
+			}
 		}
 
 		//保存
 		base.Get('submit').addEventListener('tap', function(event) {
-			console.log(JSON.stringify(InitParts));
-
-			return;
 			Save();
 		});
 
@@ -341,7 +357,7 @@
 			});
 
 			//同步原始段落信息	
-			InitParts.push(new PartModel(base.GetUid(), base.ShowThumb(url, 0), 1, 0));
+			InitParts.push(new PartModel(base.GetUid(), base.ShowThumb(url, 0), 1, 0, 1));
 		} else {
 			$("#" + currEditID).attr("src", base.ShowThumb(url, 0));
 			$("#" + currEditID).find("img").attr("src", base.ShowThumb(url, 1)).load(function() {
@@ -351,7 +367,10 @@
 			//同步原始段落信息			
 			mui.each(InitParts, function(index, item) {
 				if(item.ID == currEditPartID) {
-					InitParts.splice(index, 1, new PartModel(currEditPartID, base.ShowThumb(url, 0), 2, 0));
+					InitParts[index].Introduction = base.ShowThumb(url, 0);
+					if(InitParts[index].Status != 1) {
+						InitParts[index].Status = 2;
+					}
 				}
 			});
 		}
@@ -366,19 +385,21 @@
 			$("#edit").find(".edit-add").removeClass("hide");
 
 			//同步原始段落信息	
-			InitParts.push(new PartModel(base.GetUid(), base.UnUnicodeText(text), 1, 0));
+			InitParts.push(new PartModel(base.GetUid(), unescape(text), 1, 0, 2));
 		} else {
 			base.Get(currEditID).innerHTML = unescape(text);
 
 			//同步原始段落信息			
 			mui.each(InitParts, function(index, item) {
 				if(item.ID == currEditPartID) {
-					InitParts.splice(index, 1, new PartModel(currEditPartID, base.UnUnicodeText(text), 2, 0));
+					InitParts[index].Introduction = unescape(text);
+					if(InitParts[index].Status != 1) {
+						InitParts[index].Status = 2;
+					}
 				}
 			});
 		}
 		InitGroup();
-
 	}
 
 	//添加视频
@@ -395,7 +416,7 @@
 		});
 
 		//同步原始段落信息	
-		InitParts.push(new PartModel(base.GetUid(), url, 1, 0));
+		InitParts.push(new PartModel(base.GetUid(), url, 1, 0, 3));
 	}
 
 	//修改音乐
@@ -415,18 +436,25 @@
 		}
 		isLoading = true;
 		mask.show();
-
+		base.ShowWaiting("正在同步文章内容");
 		if(base.IsNullOrEmpty(Title)) {
 			Title = "我的微篇"
 		}
 
+		//刷新缓存列表排序
 		var ids = [];
 		var length = $(".edit-content").length;
 		for(var i = 0; i < length; i++) {
 			var partid = $(".edit-content").eq(i).attr("partid");
-			ids.push(partid + "-" + $(".edit-body").eq(i).attr("index"));
+			var sortid = $(".edit-body").eq(i).attr("index");
+			//同步原始段落信息			
+			mui.each(InitParts, function(index, item) {
+				if(item.ID == partid) {
+					InitParts[index].SortID = sortid;
+				}
+			});
 		}
-		base.ShowWaiting("正在同步文章内容");
+
 		HttpGet(base.RootUrl + "Article/Edit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID,
@@ -442,7 +470,7 @@
 				CityCode: base.CityCode,
 				Latitude: base.Latitude,
 				Longitude: base.Longitude,
-				PartIDs: ids.join(",")
+				Part: escape(JSON.stringify(InitParts))
 			},
 			function(data) {
 				mui.later(function() {
@@ -558,7 +586,7 @@
 							}
 
 							//初始化段落内容(Status:0-未操作，1-新增，2-编辑，3-删除)
-							InitParts.push(new PartModel(part.ID, base.UnUnicodeText(part.Introduction), 0, part.SortID));
+							InitParts.push(new PartModel(part.ID, base.UnUnicodeText(part.Introduction), 0, part.SortID, part.Types));
 
 							$edit.append(html);
 						}

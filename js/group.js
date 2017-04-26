@@ -35,7 +35,7 @@ function Group(ele, margin) {
 	function moveup(evt) {
 		var p = evt ? evt.target : event.srcElement;
 		p = p.parentNode.parentNode.parentNode;
-		swap(p, panels[p.index - 1]);
+		swap(p, panels[p.index - 1]); 
 	}
 
 	//向下移动

@@ -143,7 +143,7 @@
 		MediaStore = null,
 		Intent = null;
 	mui.plusReady(function() {
- 
+
 		File = plus.android.importClass("java.io.File");
 		Uri = plus.android.importClass("android.net.Uri");
 		MediaStore = plus.android.importClass("android.provider.MediaStore");
@@ -193,6 +193,14 @@
 
 	//编辑视频
 	function AddVideo(url, index) {
+
+		var parentPage = plus.webview.getWebviewById("addarticle");
+		if(parentPage) {
+			parentPage.evalJS("AddVideo('" + 0 + "','" + data.message.Url + "')");
+		}
+		mui.back();
+		return;
+
 		HttpGet(base.RootUrl + "ArticlePart/Edit", {
 			ID: userinfo.ID,
 			Introduction: url,
