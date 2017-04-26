@@ -21,6 +21,8 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var totalpage = 0;
+	var records = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
@@ -62,7 +64,6 @@
 						if(data) {
 							if(data.result) {
 								li.parentNode.removeChild(li);
-
 								var list = document.querySelectorAll(".mui-table-view-cell");
 								if(list.length == 0) {
 									base.ShowNone(true);
@@ -81,40 +82,13 @@
 		});
 	});
 
-	//刷新
-	function Refresh() {
-		Load(function() {
-
-		});
-	}
-
 	//我的拉黑
 	function Load(callback) {
-		var table = base.Get('scroll-view');
-		table.innerHTML = "";
-		HttpGet(base.RootUrl + "Api/Black/All", {
+		var data = {
 			CreateUserNumber: userinfo.Number
-		}, function(data) {
-			data = JSON.parse(data);
-			base.ShowLoading(false);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					base.ShowNone(false);
-					for(var i = 0, len = data.length; i < len; i++) {
-						var div = base.AppendUser(data[i], true, false, true, "移除黑名单");
-						table.appendChild(div);
-					}
-				} else {
-					base.ShowNone(true);
-				}
-			}
-			if(data == null && currpage == 1) {
-				base.ShowNone(true);
-			}
-			if(callback) {
-				callback();
-			}
-		});
+		}
+		LoadPull(base.RootUrl + "Api/Black/All", data, true, function(item) {
+			return base.AppendUser(item, true, false, true, "移除黑名单");
+		}, callback);
 	}
 </script>

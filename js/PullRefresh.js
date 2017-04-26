@@ -52,7 +52,7 @@ function pullupRefresh(self) {
  * appendCallback：拼接方法
  * endCallback：回调方法
  */
-function LoadPull(url, data, showNone, appendCallback, endCallback) {
+/*function LoadPull(url, data, showNone, appendCallback, endCallback) {
 	HttpGet(url, data, function(data) {
 		data = JSON.parse(data);
 		base.ShowLoading(false);
@@ -80,4 +80,4 @@ function LoadPull(url, data, showNone, appendCallback, endCallback) {
 			endCallback();
 		}
 	});
-}
+}*/
