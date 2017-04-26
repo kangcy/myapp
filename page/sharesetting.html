@@ -73,10 +73,10 @@
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
 					<span class="fl f11" onclick="PayTan(1)">文章类别</span>
 				</li>
-				<li class="mui-table-view-cell" id="articletype">
+				<li class="mui-table-view-cell hide" id="articletype">
 					<a class="mui-navigate-right"><span class="f13 c333 fl">分类</span><span class="fr c999 mr20 f12" id="article_type"></span></a>
 				</li>
-				<li class="mui-table-view-cell" style="background:#E8E8E8;">
+				<li class="mui-table-view-cell hide" style="background:#E8E8E8;">
 					<span class="fl f11">准确设置文章类别，方便以后归纳整理</span>
 				</li>
 				<li class="mui-table-view-cell">
@@ -85,7 +85,7 @@
 						<div class="my-switch fr" id="switch">
 							<div></div>
 						</div>
-					</div> 
+					</div>
 				</li>
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
 					<span class="fl f11">每周只有一次投稿机会，被选中的文章会有“精”字标识</span>
@@ -128,7 +128,7 @@
 			if(index > 0) {
 				//密码验证
 				if(index == 1) {
-					if(ArticleType == 0) {
+					/*if(ArticleType == 0) {
 						mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
 							if(e.index == 0) {
 								base.OpenWindow("articletype", "articletype.html", {
@@ -139,22 +139,22 @@
 							}
 						});
 						return;
-					} else {
-						mui.prompt('设置密码', '输入4位数字密码', '分享设置', ['确定', '取消'], function(e) {
-							if(e.index == 0) {
-								if(ChechPwd(e.value)) {
-									ArticlePowerPwd = e.value;
-									$(".check").removeClass("check");
-									$this.addClass("check");
-									ArticlePower = index;
-									SaveArticlePower();
-								}
+					} else {*/
+					mui.prompt('设置密码', '输入4位数字密码', '分享设置', ['确定', '取消'], function(e) {
+						if(e.index == 0) {
+							if(ChechPwd(e.value)) {
+								ArticlePowerPwd = e.value;
+								$(".check").removeClass("check");
+								$this.addClass("check");
+								ArticlePower = index;
+								SaveArticlePower();
 							}
-						});
-						return;
-					}
+						}
+					});
+					return;
+					//}
 				}
-				if(ArticleType == 0) {
+				/*if(ArticleType == 0) {
 					mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
 						if(e.index == 0) {
 							base.OpenWindow("articletype", "articletype.html", {
@@ -165,7 +165,7 @@
 						}
 					});
 					return;
-				}
+				}*/
 			}
 			$(".check").removeClass("check");
 			$this.addClass("check");

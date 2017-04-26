@@ -173,38 +173,18 @@
 	 * 加载数据
 	 */
 	function Load(callback) {
-		var table = base.Get('scroll-view');
 		var data = {
 			page: currpage,
 			rows: pagesize,
 			Number: userinfo.Number,
 			UserNumber: userinfo.Number
 		};
-		HttpGet(base.RootUrl + "User/Pic", data, function(data) {
-			base.ShowLoading(false);
-			if(data != null) {
-				totalpage = data.totalpage;
-				var length = data.list.length;
-				if(length > 0) {
-					base.ShowNone(false);
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
-					}
-				} else {
-					base.ShowNone(true);
-				}
-			}
-			if(data == null && currpage == 1) {
-				base.ShowNone(true);
-			}
-			if(callback) {
-				callback();
-			}
-		});
+		LoadPull(base.RootUrl + "Api/User/Pic", data, true, function(item) {
+			return AppendStr(item);
+		}, callback);
 	}
 
-	function appendStr(item) {
+	function AppendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor nocheck';
 		div.style.position = "relative";

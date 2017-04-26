@@ -115,32 +115,13 @@
 
 	//我的关注-加载数据
 	function Load(callback) {
-		HttpGet(base.RootUrl + "Api/Fan/FollowsAll", {
+		var data = {
 			page: currpage,
 			rows: pagesize,
 			CreateUserNumber: UserNumber
-		}, function(data) {
-			data = JSON.parse(data);
-			base.ShowLoading(false);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					totalpage = data.totalpage;
-					records = data.records;
-					base.ShowNone(false);
-					var table = base.Get('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendUser(data.list[i], true, false, true, "取消关注");
-						table.appendChild(div);
-					}
-				} else {
-					base.ShowNone(true);
-				}
-			}
-			if(data == null && currpage == 1) {
-				base.ShowNone(true);
-			}
-			callback();
-		});
+		}
+		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true, function(item) {
+			return base.AppendUser(item, true, false, true, "取消关注");
+		}, callback);
 	}
 </script>

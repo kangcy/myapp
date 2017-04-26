@@ -110,31 +110,13 @@
 			rows: pagesize,
 			ToUserNumber: userinfo.Number
 		}
-		HttpGet(base.RootUrl + "Order/All", data, function(data) {
-			base.ShowLoading(false);
-			if(data != null) {
-				totalpage = data.totalpage;
-				var length = data.list.length;
-				if(length > 0) {
-					base.ShowNone(false);
-					var table = base.Get('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i]);
-						table.appendChild(div);
-					}
-				} else {
-					base.ShowNone(true);
-				}
-			}
-			if(data == null && currpage == 1) {
-				base.ShowNone(true);
-			}
-			callback();
-		});
+		LoadPull(base.RootUrl + "Api/Order/All", data, true, function(item) {
+			return AppendStr(item);
+		}, callback);
 	}
 
 	//打赏我的-拼接Html
-	function appendStr(item) {
+	function AppendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];

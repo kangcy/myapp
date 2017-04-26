@@ -211,30 +211,9 @@
 			ArticleUserNumber: userinfo.Number,
 			NewId: NewId
 		}
-		HttpGet(base.RootUrl + "Api/Comment/All", data, function(data) {
-			data = JSON.parse(data);
-			base.ShowLoading(false);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					totalpage = data.totalpage;
-					base.ShowNone(false);
-					var table = base.Get('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = AppendStr(data.list[i]);
-						table.appendChild(div);
-					}
-				} else {
-					base.ShowNone(true);
-				}
-			}
-			if(data == null && currpage == 1) {
-				base.ShowNone(true);
-			}
-			if(callback) {
-				callback();
-			}
-		});
+		LoadPull(base.RootUrl + "Api/Comment/All", data, true, function(item) {
+			return AppendStr(item);
+		}, callback);
 	}
 
 	//拼接Html 

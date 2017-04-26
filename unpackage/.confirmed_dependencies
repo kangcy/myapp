@@ -681,7 +681,11 @@
 			"page/keep.html",
 			"page/follow.html",
 			"page/mysetting.html",
-			"page/article.html"
+			"page/article.html",
+			"page/articleComment.html",
+			"page/user.html",
+			"page/pic.html",
+			"page/mypay.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -1464,7 +1468,8 @@
 			"images/article/pen.png",
 			"images/article/pen2.png",
 			"js/PullRefresh.js",
-			"images/loading.gif"
+			"images/loading.gif",
+			"images/loading2.gif"
 		],
 		"refer": [
 			"page/articleCommentSub.html",

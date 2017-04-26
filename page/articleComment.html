@@ -26,7 +26,6 @@
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/PullRefresh.js"></script>
-<script type="text/javascript" src="../js/PullRefresh.js"></script>
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
@@ -254,30 +253,9 @@
 			NewId: NewId,
 			UserNumber: userinfo.Number
 		}
-		HttpGet(base.RootUrl + "Api/Comment/ArticleComment", data, function(data) {
-			data = JSON.parse(data);
-			base.ShowLoading(false);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					totalpage = data.totalpage;
-					base.ShowNone(false);
-					var table = base.Get('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = AppendStr(data.list[i]);
-						table.appendChild(div);
-					}
-				} else {
-					base.ShowNone(true);
-				}
-			}
-			if(data == null && currpage == 1) {
-				base.ShowNone(true);
-			}
-			if(callback) {
-				callback();
-			}
-		});
+		LoadPull(base.RootUrl + "Api/Comment/ArticleComment", data, true, function(item) {
+			return AppendStr(item);
+		}, callback);
 	}
 
 	//拼接Html 
@@ -302,7 +280,7 @@
 			model.push('<div class="red fr" cid="' + item.ID + '" already="1">');
 			model.push('<span class="f11 ml5 mt1 fr">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="ml15 fr"  />');
 		}
-		model.push('</div></div></div></div>'); 
+		model.push('</div></div></div></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}

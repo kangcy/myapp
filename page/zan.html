@@ -76,38 +76,17 @@
 	//加载数据
 	function Load(callback) {
 		var data = {
-			page: currpage,
+			page: currpage, 
 			rows: pagesize,
 			UserNumber: UserNumber
 		}
-		HttpGet(base.RootUrl + "Api/Zan/ToMe", data, function(data) {
-			data = JSON.parse(data);
-			base.ShowLoading(false);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					totalpage = data.totalpage;
-					base.ShowNone(false);
-					var table = base.Get('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendStr(data.list[i], 1);
-						table.appendChild(div);
-					}
-				} else {
-					base.ShowNone(true);
-				}
-			}
-			if(data == null && currpage == 1) {
-				base.ShowNone(true);
-			}
-			if(callback) {
-				callback();
-			}
-		});
+		LoadPull(base.RootUrl + "Api/Zan/ToMe", data, true, function(item) {
+			return AppendStr(item)
+		}, callback);
 	}
 
 	//拼接Html
-	function appendStr(item, index) {
+	function AppendStr(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell';
 		var model = [];
@@ -117,7 +96,7 @@
 		//分类信息
 		model.push('<div class="mui-table-cell"><div class="mui-clearfix"><p class="f12 mb5 c333" style="line-height:1.3rem;">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999">喜欢了你的文章<br /><span class="article" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p></div><p class="f12 c999">' + item.CreateDate + '</p></div>');
 		model.push('</div>');
-		div.innerHTML = model.join('');
-		return div;
+		div.innerHTML = model.join(''); 
+		return div; 
 	}
 </script>
