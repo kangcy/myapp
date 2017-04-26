@@ -227,34 +227,44 @@
 				return mui.toast("请编辑文字");
 			}
 			$("#edit").removeAttr("contenteditable").removeAttr("id");
-			base.ShowWaiting("正在保存");
-			HttpPost(base.RootUrl + "ArticlePart/Edit", {
-				ID: userinfo.ID,
-				ArticleNumber: ArticleNumber,
-				PartID: PartID,
-				Types: 2,
-				Introduction: escape($("#divedit").html()),
-				Color: "",
-				Align: "",
-				FontSize: "",
-				FontWeight: "",
-				Link: ""
-			}, function(data) {
-				base.CloseWaiting();
-				if(data != null) {
-					if(data.result) {
-						if(!addarticlePage) {
-							addarticlePage = plus.webview.getWebviewById('addarticle');
-						}
-						addarticlePage.evalJS("AddText('" + data.message + "','" + escape($("#divedit").html()) + "','" + PartID + "')");
-						mui.back();
-					} else {
-						mui.toast(data.message);
-					}
-				}
-				isLoading = false;
-			});
 
+			if(!addarticlePage) {
+				addarticlePage = plus.webview.getWebviewById('addarticle');
+			}
+
+			addarticlePage.evalJS("AddText('" + PartID + "','" + escape($("#divedit").html()) + "','" + PartID + "')");
+			mui.back();
+			return;
+
+			if(PartID == 0) {
+				base.ShowWaiting("正在保存");
+				HttpPost(base.RootUrl + "ArticlePart/Edit", {
+					ID: userinfo.ID,
+					ArticleNumber: ArticleNumber,
+					PartID: PartID,
+					Types: 2,
+					Introduction: escape($("#divedit").html()),
+					Color: "",
+					Align: "",
+					FontSize: "",
+					FontWeight: "",
+					Link: ""
+				}, function(data) {
+					base.CloseWaiting();
+					if(data != null) {
+						if(data.result) {
+							addarticlePage.evalJS("AddText('" + data.message + "','" + escape($("#divedit").html()) + "','" + PartID + "')");
+							mui.back();
+						} else {
+							mui.toast(data.message);
+						}
+					}
+					isLoading = false;
+				});
+			} else {
+				addarticlePage.evalJS("AddText('" + PartID + "','" + escape($("#divedit").html()) + "','" + PartID + "')");
+				mui.back();
+			}
 		}, false);
 	});
 

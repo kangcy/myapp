@@ -61,6 +61,7 @@
 	var Cover = ""; //封面
 	var Source = ""; //来源
 	var currEditID = 0; //当前编辑对象ID
+	var currEditPartID = 0; //当前编辑段落ID
 	var currEditImg = ""; //当前编辑图片
 	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {
@@ -68,6 +69,13 @@
 	});
 	var $header = base.Get("header");
 	var InitParts = []; //段落
+	//声明对象
+	function PartModel(id, introduction, status, sortid) {
+		this.ID = id;
+		this.Introduction = introduction;
+		this.Status = status;
+		this.SortID = sortid;
+	}
 
 	//启用双击监听 
 	mui.init({
@@ -126,6 +134,7 @@
 		//点击编辑
 		mui('#edit').on('tap', '.edit-content', function() {
 			currEditID = this.id;
+			currEditPartID = this.getAttribute("partid");
 			var type = this.getAttribute("type");
 
 			if(type == "pic") {
@@ -135,14 +144,14 @@
 					Source: "ArticleAvatar",
 					Standard: "Article",
 					ArticleNumber: ArticleNumber,
-					PartID: $("#" + currEditID).attr("partid")
+					PartID: currEditPartID
 				});
 			} else if(type == "text") {
 				//编辑文字
 				var html = base.Get(currEditID).innerHTML.trim();
 				base.OpenWindow("editdesc", "editdesc.html", {
 					ArticleNumber: ArticleNumber,
-					PartID: $("#" + currEditID).attr("partid"),
+					PartID: currEditPartID,
 					title: html == "点击添加文字" ? "" : html
 				});
 			} else if(type == "video") {
@@ -162,16 +171,7 @@
 
 		//新增图片
 		mui('#edit').on('tap', '.edit-add-pic', function() {
-			//上传多张图片
 			mui('#power').popover('show');
-			return;
-			base.OpenWindow("editimage", "editimage.html", {
-				ArticleNumber: ArticleNumber,
-				PartID: 0,
-				Url: "",
-				Source: "ArticleAvatar",
-				Standard: "Article"
-			});
 		});
 
 		//新增文本
@@ -206,10 +206,12 @@
 					var partid = $this.getAttribute("partid");
 					$this.parentNode.parentNode.parentNode.remove();
 					InitGroup();
-					//同步原始段落信息
-					InitParts.some(function(item) {
-						if(item.ID == partid) {
+					base.RefreshScroll();
 
+					//同步原始段落信息			
+					mui.each(InitParts, function(index, item) {
+						if(item.ID == partid) {
+							InitParts.splice(index, 1, new PartModel(partid, "", 3, 0));
 						}
 					});
 
@@ -279,6 +281,9 @@
 
 		//保存
 		base.Get('submit').addEventListener('tap', function(event) {
+			console.log(JSON.stringify(InitParts));
+
+			return;
 			Save();
 		});
 
@@ -334,10 +339,20 @@
 			$.when.apply(null, imgdefereds).done(function() {
 				InitGroup();
 			});
+
+			//同步原始段落信息	
+			InitParts.push(new PartModel(base.GetUid(), base.ShowThumb(url, 0), 1, 0));
 		} else {
 			$("#" + currEditID).attr("src", base.ShowThumb(url, 0));
 			$("#" + currEditID).find("img").attr("src", base.ShowThumb(url, 1)).load(function() {
 				InitGroup();
+			});
+
+			//同步原始段落信息			
+			mui.each(InitParts, function(index, item) {
+				if(item.ID == currEditPartID) {
+					InitParts.splice(index, 1, new PartModel(currEditPartID, base.ShowThumb(url, 0), 2, 0));
+				}
 			});
 		}
 	}
@@ -349,10 +364,21 @@
 			$("#" + currEditID).parents(".edit-body").after(html);
 			$("#edit").find(".banner").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
+
+			//同步原始段落信息	
+			InitParts.push(new PartModel(base.GetUid(), base.UnUnicodeText(text), 1, 0));
 		} else {
 			base.Get(currEditID).innerHTML = unescape(text);
+
+			//同步原始段落信息			
+			mui.each(InitParts, function(index, item) {
+				if(item.ID == currEditPartID) {
+					InitParts.splice(index, 1, new PartModel(currEditPartID, base.UnUnicodeText(text), 2, 0));
+				}
+			});
 		}
 		InitGroup();
+
 	}
 
 	//添加视频
@@ -367,6 +393,9 @@
 			var $this = $(this);
 			ShowVideo($this.attr("id"), $this.attr("sid"));
 		});
+
+		//同步原始段落信息	
+		InitParts.push(new PartModel(base.GetUid(), url, 1, 0));
 	}
 
 	//修改音乐
@@ -526,15 +555,10 @@
 							} else if(part.Types == 3) {
 								//视频段落
 								html = initStr(part.Introduction, "video", part.ID);
-
 							}
 
-							//初始化段落内容(Status:0-未操作，1-已删除，2-已修改)
-							InitParts.push({
-								ID = part.ID,
-								Introduction = part.Introduction,
-								Status = 0
-							});
+							//初始化段落内容(Status:0-未操作，1-新增，2-编辑，3-删除)
+							InitParts.push(new PartModel(part.ID, base.UnUnicodeText(part.Introduction), 0, part.SortID));
 
 							$edit.append(html);
 						}
