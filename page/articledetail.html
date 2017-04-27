@@ -26,6 +26,8 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
+		<!--漂浮特效-->
+		<div id="snowwrapper" class="hide"></div>
 		<div id="self" class="full tc hide">
 			<img src="../images/article/stop.png" class="none" />
 			<p class="mt20 f16 c333">私密文章</p>
@@ -452,17 +454,18 @@
 							$("#wrapper").addClass("hide");
 							$("#self").removeClass("hide");
 						}
-						//密码可见
+						//密码可见 
 						else if(data.ArticlePower == 1) {
-							$("#wrapper").addClass("hide");
+							$("#wrapper").addClass("hide"); 
 							$("#password").removeClass("hide");
 						} else {
 							$("#wrapper").removeClass("hide");
+							base.Get("snowwrapper").classList.remove("hide");
 						}
 					} else {
 						$("#wrapper").removeClass("hide");
-
 						$("#iskeep,#isnotkeep,#report").addClass("hide");
+						base.Get("snowwrapper").classList.remove("hide");
 					}
 
 					Article = data;
@@ -471,9 +474,9 @@
 					$("#payuser").attr("src", base.ShowThumb(data.Avatar, 1));
 					$(".user").attr("userid", data.CreateUserNumber);
 
-					//段落
+					//段落 
 					var html = [];
-					var parts = data.ArticlePart;
+					var parts = data.ArticlePart; 
 					for(var i = 0; i < parts.length; i++) {
 						var part = parts[i];
 						if(part.Types == 1) {
@@ -551,6 +554,12 @@
 					if(data.IsKeep == 1) {
 						$("#iskeep,#isnotkeep").toggleClass("hide");
 					}
+
+					mui('#snowwrapper').load("../part/snow/snow.html", function(response) {
+						LoadScript("../part/snow/snow.js", function() {
+							$(".snow-canvas").snow();
+						});
+					});
 
 					//分享信息
 					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);

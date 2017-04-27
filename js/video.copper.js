@@ -49,13 +49,13 @@ function galleryVideo() {
 					} else {
 						if(!change) {
 							change = true;
-							$("#myprogressbg,#myprogress").removeClass("hide");
+							base.RemoveClass(["#myprogressbg", "#myprogress"], ["hide"]);
 						}
 						var downloadedSize = task.uploadedSize;
-						document.getElementById("proDownFile").setAttribute("value", downloadedSize);
-						document.getElementById("proDownFile").setAttribute("max", totalSize);
+						base.Get("proDownFile").setAttribute("value", downloadedSize);
+						base.Get("proDownFile").setAttribute("max", totalSize);
 						if(totalSize > 0) {
-							document.getElementById("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
+							base.Get("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
 						}
 					}
 				},

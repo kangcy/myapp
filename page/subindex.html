@@ -33,17 +33,18 @@
 			}
 			
 			#add div {
-				width: 90%;
+				width: 90%; 
 				border-radius: 30px;
 				background: #4087cb;
 				display: inline-block;
+				margin-top: 0.2rem;
 				height: 2.1875rem;
-				line-height: 2.1875rem;
-				background-image: url(../images/article/pen2.png);
+				line-height: 2.2rem;
+				/*background-image: url(../images/base/pic.png);
 				background-repeat: no-repeat;
-				background-position: 40% center;
+				background-position: 35% center;
 				background-size: 1.25rem;
-				text-indent: 10%;
+				text-indent: 8%;*/
 			}
 			
 			#avatar {
@@ -264,7 +265,6 @@
 						<span class="circles-loader"></span>
 					</div>
 				</div>
-				<div id="snow"></div>
 				<div id="offCanvasContentScroll" class="mui-content">
 					<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:3rem;">
 						<div class="mui-scroll" id="slider">
@@ -279,9 +279,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="mui-bar mui-bar-tab bottom tc cfff">
+					<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom">
 						<div id="add">
-							<div class="f13">我要发图</div>
+							<div class="f13">我也要发图</div>
 						</div>
 					</div>
 				</div>
@@ -308,6 +308,7 @@
 	var PageName = "subindex";
 	var Cover = "";
 	var Avatar = "";
+	var FirstLoad = true; //首次加载
 
 	mui.init();
 
@@ -539,14 +540,6 @@
 				}
 			}
 		}, false);
-
-		mui('#snow').load("../part/snow/snow.html", function(response) {
-			LoadScript("../js/jquery-1.10.2.min.js", function() {
-				LoadScript("../part/snow/snow.js", function() {
-					$(".snow-canvas").snow();
-				});
-			});
-		});
 	});
 
 	//服务器加载用户信息
@@ -638,6 +631,14 @@
 				base.ShowLoading(false);
 				base.Get("none").classList.remove("hide");
 			}
+
+			if(FirstLoad) {
+				mui.later(function() {
+					base.Get("bottom").classList.remove("hide");
+					base.Get("bottom").classList.add("zoomIn");
+				}, 100);
+			}
+			FirstLoad = false;
 			if($.isFunction(callback)) {
 				callback();
 			}

@@ -127,7 +127,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/video.copper.js"></script>
@@ -190,39 +189,13 @@
 	function Notice() {
 		base.OpenWindow("videonotice", "videonotice.html", {});
 	}
-
+ 
 	//编辑视频
 	function AddVideo(url, index) {
-
 		var parentPage = plus.webview.getWebviewById("addarticle");
 		if(parentPage) {
-			parentPage.evalJS("AddVideo('" + base.GetUid() + "','" + data.message.Url + "')");
+			parentPage.evalJS("AddVideo('" + base.GetUid() + "','" + url + "')");
 		}
-		mui.back();
-		return;
-
-		HttpGet(base.RootUrl + "ArticlePart/Edit", {
-			ID: userinfo.ID,
-			Introduction: url,
-			Types: 3,
-			ArticleNumber: ArticleNumber,
-			VideoType: index
-		}, function(data) {
-			base.CloseWaiting();
-			if(data == null) {
-				mui.toast("失败");
-			} else {
-				if(data.result) {
-					var parentPage = plus.webview.getWebviewById("addarticle");
-					if(parentPage) {
-						parentPage.evalJS("AddVideo('" + data.message.ID + "','" + data.message.Url + "')");
-					}
-					mui.back();
-				} else {
-					mui.toast(data.message);
-				}
-			}
-			isLoading = false;
-		});
+		plus.webview.close("editvideo");
 	}
 </script>

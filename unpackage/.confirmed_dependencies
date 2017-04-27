@@ -667,7 +667,8 @@
       "js/resource.js",
       "part/snow/img/snow.png",
       "part/snow/snow.js",
-      "part/snow/snow.html"
+      "part/snow/snow.html",
+      "images/base/pic.png"
     ],
     "refer": [
       "page/topic.html",
@@ -690,7 +691,8 @@
       "page/articleComment.html",
       "page/user.html",
       "page/pic.html",
-      "page/mypay.html"
+      "page/mypay.html",
+      "page/comment.html"
     ]
   },
   "page/topicSub.html": {
@@ -985,7 +987,10 @@
       "js/articledetail.js",
       "images/loading.gif",
       "images/loading2.gif",
-      "js/transparent.js"
+      "js/transparent.js",
+      "part/snow/img/snow.png",
+      "part/snow/snow.js",
+      "part/snow/snow.html"
     ],
     "refer": [
       "page/user.html",
@@ -1812,7 +1817,8 @@
       "css/mui.min.css",
       "js/jquery-1.10.2.min.js",
       "js/default.js",
-      "js/video.copper.js"
+      "js/video.copper.js",
+      "images/loading2.gif"
     ],
     "refer": [
       "page/videonotice.html"
