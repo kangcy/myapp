@@ -75,10 +75,13 @@ function Download() {
 			persent.innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
 		}
 	}, 100);
-
 }
 
 //下次再说
 function Next() {
 	base.AddClass(["#myprogress", "#myprogressbg"], ["hide"]);
+	base.Get("proDownFile").setAttribute("value", 0);
+	base.Get("proDownFile").setAttribute("max", 0);
+	base.Get("persent").style.left = "0px";
+	base.Get("persent").innerHTML = "0%";
 }
