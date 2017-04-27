@@ -9,8 +9,8 @@ function ShowVideo(domid, vid) {
 }
 
 function AppendVideo(sourceurl) {
-	var html = [];
-	var width = window.innerWidth;
+	var html = []; 
+	var width = window.innerWidth * 0.9;
 	var height = window.innerHeight * 0.5;
 	//优酷
 	if(sourceurl.indexOf(".") < 0) {
@@ -22,7 +22,7 @@ function AppendVideo(sourceurl) {
 	}
 	//本地视频
 	if(sourceurl.toLowerCase().indexOf(".") > 0) {
-		return '<video src="' + sourceurl + '" width="' + width + '" height="' + height + '" autoplay="autoplay" controls="controls"></video>';
-	} 
+		return '<video controls="controls" style="width:90%;height:200px;margin:5%;float:left;" preload="Metadata"><source src="' + sourceurl + '" /></video>';
+	}
 	return "";
 }
