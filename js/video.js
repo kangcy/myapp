@@ -10,17 +10,19 @@ function ShowVideo(domid, vid) {
 
 function AppendVideo(sourceurl) {
 	var html = [];
+	var width = window.innerWidth;
+	var height = window.innerHeight * 0.5;
 	//优酷
 	if(sourceurl.indexOf(".") < 0) {
-		return '<div class="media-cont audio-cont" style="margin-top: 10px; width: 100%;"><div id="youku_player_' + sourceurl + '" sid="' + sourceurl + '" class="youku_player" style="width:100%;height:400px;"></div></div>';
+		return '<div class="media-cont audio-cont" style="width:100%;"><div id="youku_player_' + sourceurl + '" sid="' + sourceurl + '" class="youku_player" style="width:' + width + ';height:' + height + ';"></div></div>';
 	}
 	//SWF
 	if(sourceurl.toLowerCase().indexOf(".swf") > 0) {
-		return '<div class="media-cont audio-cont" style="margin-top:10px;width: 100%;"><embed src="' + sourceurl + '" allowfullscreen="true" quality="high" width="100%"  height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash"></embed></div>';
+		return '<div class="media-cont audio-cont" style="width:100%;"><embed src="' + sourceurl + '" allowfullscreen="true" quality="high" width="' + width + '"  height="' + height + '" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash"></embed></div>';
 	}
 	//本地视频
 	if(sourceurl.toLowerCase().indexOf(".") > 0) {
-		return '<video style="margin-top:10px;" src="' + sourceurl + '" controls></video>';
-	}
+		return '<video src="' + sourceurl + '" width="' + width + '" height="' + height + '" autoplay="autoplay" controls="controls"></video>';
+	} 
 	return "";
 }

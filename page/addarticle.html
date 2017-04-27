@@ -47,8 +47,8 @@
 <script type="text/javascript" src="../js/mui.min.js"></script>
 <script type="text/javascript" src="../js/base.js"></script>
 <script type="text/javascript" src="../js/group.js"></script>
-<script type="text/javascript" src="http://player.youku.com/jsapi"></script>
-<script type="text/javascript" src="../js/video.js"></script>
+<!--<script type="text/javascript" src="http://player.youku.com/jsapi"></script>-->
+<!--<script type="text/javascript" src="../js/video.js"></script>-->
 <script type="text/javascript" src="../js/addarticlepart.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
@@ -156,7 +156,11 @@
 					title: html == "点击添加文字" ? "" : html
 				});
 			} else if(type == "video") {
-				//编辑视频
+				//视频预览
+				var src = this.getAttribute("src");
+				base.OpenWindow("videoreview", "videoreview.html", {
+					Url: src
+				});
 			}
 		})
 
@@ -215,25 +219,6 @@
 							InitParts.splice(index, 1, new PartModel(partid, "", 3, 0));
 						}
 					});
-
-					/*mask.show();
-					base.ShowWaiting("正在删除");
-					HttpGet(base.RootUrl + "ArticlePart/Delete", {
-						ID: userinfo.ID,
-						PartID: $this.getAttribute("partid")
-					}, function(data) {
-						mui.later(function() {
-							mask.close();
-							if(data != null) {
-								if(data.result) {
-									$this.parentNode.parentNode.parentNode.remove();
-									InitGroup();
-								} else {
-									mui.toast(data.message);
-								}
-							}
-						}, 500);
-					});*/
 				}
 			});
 		});
@@ -411,10 +396,10 @@
 		$("#edit").find(".edit-add").removeClass("hide");
 		InitGroup();
 
-		$(".youku_player").each(function() {
+		/*$(".youku_player").each(function() {
 			var $this = $(this);
 			ShowVideo($this.attr("id"), $this.attr("sid"));
-		});
+		});*/
 
 		//同步原始段落信息	
 		InitParts.push(new PartModel(base.GetUid(), url, 1, 0, 3));
@@ -508,7 +493,8 @@
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/my/menu06.png" /></div>');
+			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
@@ -526,7 +512,8 @@
 		} else if(type == "text") {
 			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '">' + AppendVideo(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/my/menu06.png" /></div>');
+			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
 		}
 		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
 		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
@@ -591,10 +578,10 @@
 							$edit.append(html);
 						}
 
-						$(".youku_player").each(function() {
+						/*$(".youku_player").each(function() {
 							var $this = $(this);
 							ShowVideo($this.attr("id"), $this.attr("sid"));
-						});
+						});*/
 
 						var imgdefereds = [];
 						$('img').each(function() {

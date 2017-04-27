@@ -13,11 +13,10 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333">视频预览</h1>
+			<h1 class="mui-title c333">视频播放</h1>
 		</header>
 		<div class="mui-content">
-			<div class="mui-content-padded" id="main">
-
+			<div id="main" style="width:100%;" class="mt20">
 			</div>
 		</div>
 	</body>
@@ -25,6 +24,7 @@
 </html>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
+<script type="text/javascript" src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
 <script type="text/javascript">
 	mui.init();
@@ -33,5 +33,9 @@
 		var self = plus.webview.currentWebview();
 		var url = self.Url || "";
 		base.Get("main").innerHTML = AppendVideo(url);
+
+		mui.each(base.Get(".youku_player"), function(index, item) {
+			ShowVideo(item.getAttribute("id"), item.getAttribute("sid"));
+		});
 	});
 </script>
