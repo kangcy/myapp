@@ -43,7 +43,6 @@
 <script src="../js/mui.previewimage.js"></script>
 <script src="../js/article.js"></script>
 <script type="text/javascript">
-	var name = "我";
 	var UserNumber = "";
 	var PageName = "keep";
 
@@ -58,7 +57,6 @@
 	});
 
 	mui.ready(function() {
-
 		mui('#main').load("../part/list.html", function(response) {
 			base.Get("none_img").setAttribute("src", "../images/my/444.png");
 			base.Get("none_tip").innerHTML = "好内容记得收藏,让我们不再错过";
@@ -82,7 +80,7 @@
 
 		var self = plus.webview.currentWebview();
 
-		name = self.Name || "我";
+		var name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 
 		base.Get("title").innerHTML = name + "的收藏";

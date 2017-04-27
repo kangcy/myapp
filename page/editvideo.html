@@ -196,7 +196,7 @@
 
 		var parentPage = plus.webview.getWebviewById("addarticle");
 		if(parentPage) {
-			parentPage.evalJS("AddVideo('" + 0 + "','" + data.message.Url + "')");
+			parentPage.evalJS("AddVideo('" + base.GetUid() + "','" + data.message.Url + "')");
 		}
 		mui.back();
 		return;

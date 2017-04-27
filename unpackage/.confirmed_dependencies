@@ -664,7 +664,10 @@
       "images/base/follow1.png",
       "images/article/star.png",
       "images/base/like_hig.png",
-      "js/resource.js"
+      "js/resource.js",
+      "part/snow/img/snow.png",
+      "part/snow/snow.js",
+      "part/snow/snow.html"
     ],
     "refer": [
       "page/topic.html",
@@ -1181,7 +1184,11 @@
       "images/article/power1.png",
       "images/loading.gif",
       "images/article/top.png",
-      "part/action.html"
+      "part/action.html",
+      "part/snow/snow.html",
+      "js/jquery-1.10.2.min.js",
+      "part/snow/snow.js",
+      "part/snow/img/snow.png"
     ],
     "refer": [
       "page/keepSub.html",

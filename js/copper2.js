@@ -2,8 +2,7 @@ var iscutimging = false;
 var dstname = "";
 
 //拍照
-function Camera() {
-	mui('#upload').popover('hide');
+function getImage(long, width) {
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
@@ -18,14 +17,15 @@ function Camera() {
 				if(status) {
 					$("#readyimg").attr("src", src);
 				}
+				//cutImg(long, width, function() {});
 			});
 		});
 	});
 }
 
 //相册选取  
-function Gallery() {
-	mui('#upload').popover('hide');
+function galleryImgs(long, width, callback) {
+
 	plus.gallery.pick(function(e) {
 		closepop(); //关闭裁剪
 
@@ -55,6 +55,9 @@ function Gallery() {
 		});
 	}, function(e) {
 		//outSet( "取消选择图片" ) 
+		if($.isFunction(callback)) {
+			callback();
+		}
 	}, {
 		filter: "image",
 		maximum: 1,
@@ -63,17 +66,11 @@ function Gallery() {
 	});
 }
 
-//微篇相册
-function Pic() {
-	mui('#upload').popover('hide');
-	base.OpenWindow("mypic", "mypic.html", {});
-}
-
 //照片裁剪类  
-function cutImg(callback) {
-	base.Get("openpop").style.display = "none";
-	base.Get("closepop").style.display = "inline-block";
-	/*if(long > 0 && width > 0) {
+function cutImg(long, width, callback) {
+	document.getElementById("openpop").style.display = "none";
+	document.getElementById("closepop").style.display = "inline-block";
+	if(long > 0 && width > 0) {
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
 			aspectRatio: long / width,
@@ -84,7 +81,7 @@ function cutImg(callback) {
 				iscutimging = true;
 			}
 		});
-	}*/
+	} else {
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
 			autoCropArea: 0.3,
@@ -94,6 +91,7 @@ function cutImg(callback) {
 				iscutimging = true;
 			}
 		});
+	}
 }
 
 //右旋转90度  
@@ -105,7 +103,7 @@ function rotateimgright() {
 		if(iscutimging) {
 			$("#readyimg").cropper('rotate', 90);
 		} else {
-			cutImg(function() {
+			cutImg(0, 0, function() {
 				$("#readyimg").cropper('rotate', 90);
 			});
 		}
@@ -131,7 +129,7 @@ function rotateimgleft() {
 	if(iscutimging) {
 		$("#readyimg").cropper('rotate', -90);
 	} else {
-		cutImg(function() {
+		cutImg(0, 0, function() {
 			$("#readyimg").cropper('rotate', -90);
 		});
 	}
@@ -139,15 +137,15 @@ function rotateimgleft() {
 
 //打开裁剪窗口
 function openpop() {
-	cutImg(function() {
+	cutImg(0, 0, function() {
 
 	})
 }
 
 //关闭裁剪窗口
 function closepop() {
-	base.Get("closepop").style.display = "none";
-	base.Get("openpop").style.display = "inline-block";
+	document.getElementById("closepop").style.display = "none";
+	document.getElementById("openpop").style.display = "inline-block";
 	$("#readyimg").cropper('destroy');
 	iscutimging = false;
 }
@@ -186,7 +184,8 @@ function confirm(callback) {
 
 //请求上传图片
 function Upload(imgurl, callback) {
-	base.ShowWaiting("正在上传图片");
+	//上传图片到服务器 
+	base.ShowWaiting("正在同步图片");
 	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		standard: Standard,
@@ -197,8 +196,8 @@ function Upload(imgurl, callback) {
 				if($.isFunction(callback)) {
 					callback(base.RootUrl + data.message);
 				}
-				base.Get("closepop").style.display = "none";
-				base.Get("openpop").style.display = "inline-block";
+				document.getElementById("closepop").style.display = "none";
+				document.getElementById("openpop").style.display = "inline-block";
 				$("#readyimg").cropper('destroy');
 				iscutimging = false;
 			} else {
@@ -211,6 +210,8 @@ function Upload(imgurl, callback) {
 
 //压缩图片(src：压缩前原始路径,dstname：压缩后保存路径) 
 function compressImage(src, newsrc, callback) {
+	//文章封面压缩
+	var width = Source == "ArticleCover" ? window.innerWidth + "px" : "auto";
 	plus.zip.compressImage({
 			src: src,
 			dst: newsrc,
@@ -231,24 +232,54 @@ function compressImage(src, newsrc, callback) {
 		});
 }
 
+//选择图片
+function showActionSheet(long, width, callback) {
+	if(!long) {
+		long = 1;
+	}
+	if(!width) {
+		width = 1;
+	}
+	var bts = [{
+		title: "拍照"
+	}, {
+		title: "从手机相册选择"
+	}, {
+		title: "从微篇相册选择"
+	}];
+	plus.nativeUI.actionSheet({
+			cancel: "取消",
+			buttons: bts
+		},
+		function(e) {
+			if(e.index == 1) {
+				getImage(long, width);
+			} else if(e.index == 2) {
+				galleryImgs(long, width, callback);
+			} else if(e.index == 3) {
+				base.OpenWindow("mypic", "mypic.html", {});
+			}
+		}
+	);
+}
+
 //我的相册选择图片回调
 function ConfirmImg(src) {
-	var $readyimg = $("#readyimg");
-	$readyimg.hide().attr("src", src).load(function() {
-		var imagewidth = $readyimg.width();
-		var imageheight = $readyimg.height();
+	$("#readyimg").hide().attr("src", src).load(function() {
+		var imagewidth = $("#readyimg").width();
+		var imageheight = $("#readyimg").height();
 
-		if(totalheight >= imageheight) {
-			$readyimg.css("margin-top", (totalheight - imageheight) / 2 + "px");
+		if(totalheight > imageheight) {
+			$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px");
+		} else if(totalwidth > imagewidth) {
+			$("#readyimg").css("margin-left", (totalwidth - imagewidth) / 2 + "px");
+		} else {
+			$("#readyimg").css({
+				"width": "auto",
+				"height": "auto"
+			});
 		}
-		if(totalwidth >= imagewidth) {
-			$readyimg.css("margin-left", (totalwidth - imagewidth) / 2 + "px");
-		}
-		$readyimg.css({
-			"max-width": totalwidth + "px",
-			"max-height": totalheight + "px"
-		});
-		$readyimg.show();
+		$("#readyimg").show();
 	});
 }
 
@@ -257,6 +288,17 @@ function getBase64Image(img) {
 	var canvas = document.createElement("canvas");
 	var width = img.width;
 	var height = img.height;
+	/*if(width > height) {
+		if(width > 100) {
+			height = Math.round(height *= 100 / width);
+			width = 100;
+		}
+	} else {
+		if(height > 100) {
+			width = Math.round(width *= 100 / height);
+			height = 100;
+		}
+	}*/
 	canvas.width = width; /*设置新的图片的宽度*/
 	canvas.height = height; /*设置新的图片的长度*/
 	var ctx = canvas.getContext("2d");

@@ -28,7 +28,7 @@
 			<img id="readyimg" style="display:none;max-width:100%;max-height:100%;" class="fl" />
 		</div>
 		<footer class="mui-bar mui-bar-tab" style="background:#F4F4F4;">
-			<a class="mui-icon blue fl mt6 ml10" style="font-size:16px;" href="#power">更换</a>
+			<a class="mui-icon blue fl mt6 ml10" style="font-size:16px;" href="#upload">更换</a>
 			<a class="mui-icon blue fr mt6 mr10" style="font-size:16px;" id="confirm">完成</a>
 			<div class="mui-title tc">
 				<div style="width:150px;display: inline-block;">
@@ -86,7 +86,7 @@
 
 		if(base.IsNullOrEmpty(Url)) {
 			base.ShowLoading(false);
-			mui('#power').popover('show');
+			mui('#upload').popover('show');
 		} else {
 			$("#readyimg").attr("src", Url).load(function() {
 				var imagewidth = $("#readyimg").width();
@@ -129,29 +129,14 @@
 							return;
 						}
 						isLoading = true;
-						base.ShowWaiting("正在创建");
-						HttpGet(base.RootUrl + "ArticlePart/Edit", {
-							ID: userinfo.ID,
-							ArticleNumber: ArticleNumber,
-							PartID: PartID,
-							Types: 1,
-							Introduction: src
-						}, function(data) {
-							base.CloseWaiting();
-							if(data != null) {
-								if(data.result) {
-									var addarticlePage = plus.webview.getWebviewById('addarticle');
-									if(addarticlePage) {
-										addarticlePage.evalJS("AddPic('" + data.message + "','" + src + "','" + PartID + "')");
-									}
-									mui.back();
-								} else {
-									mui.toast(data.message);
-								}
-							}
-							isLoading = false;
-						});
-						mui.back();
+						mask.show();
+						base.ShowWaiting("正在同步图片");
+						var addarticlePage = plus.webview.getWebviewById('addarticle');
+						if(addarticlePage) {
+							addarticlePage.evalJS("AddPic('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + src + "','" + PartID + "')");
+						}
+						isLoading = false;
+						plus.webview.close("editimage");
 						break;
 						//用户封面
 					case "UserCover":

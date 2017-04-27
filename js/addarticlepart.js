@@ -7,7 +7,7 @@ var currUploadImg = [];
 
 //初始化
 function Init() {
-	mui('#power').popover('hide');
+	mui('#upload').popover('hide');
 	length = 0;
 	files = [];
 	compressIndex = 0; //当前压缩图片索引
@@ -171,33 +171,12 @@ function Import(url, showmask) {
 		mask.show();
 	}
 	base.ShowWaiting("正在同步段落信息");
-	var data = {
-		ID: userinfo.ID,
-		Url: url,
-		ArticleNumber: ArticleNumber
+	var urls = url.split(',');
+	var length = urls.length;
+	for(var i = 0; i < length; i++) {
+		AddPic(base.GetUid(), urls[i], 0);
+		if(i >= length - 1) {
+			mask.close();
+		}
 	}
-	HttpGet(base.RootUrl + "Api/ArticlePart/Import", data, function(data) {
-		mui.later(function() {
-			data = JSON.parse(data);
-			if(data != null) {
-				if(data.result) {
-					var list = data.message;
-					var length = list.length;
-					mui.each(list, function(index, item) {
-						mui.later(function() {
-							AddPic(item.ID, item.Url, 0);
-							if(index >= length - 1) {
-								mask.close();
-							}
-						}, 250);
-					});
-				} else {
-					mask.close();
-					mui.toast(data.message);
-				}
-			} else {
-				mask.close();
-			}
-		}, 1000);
-	});
 }
