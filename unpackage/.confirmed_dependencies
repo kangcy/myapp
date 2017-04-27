@@ -577,7 +577,8 @@
 			"part/pic.html",
 			"images/loading2.gif",
 			"page/%3Cdiv%20class%3D%22edit%20f12%20tl%22%3E%u548C7%u5EA68%u5EA6%u8BFA%3C/div%3E",
-			"images/my/menu06.png"
+			"images/my/menu06.png",
+			"images/article/video.png"
 		],
 		"refer": [
 			"page/edittitle.html",
