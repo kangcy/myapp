@@ -73,6 +73,10 @@
 							<div class="mui-card-footer fl full c999 mb10 f12" style="display:inline-block;"><span class="fl">浏览25次</span><span class="pays" articleid="13" articlenumber="148716428051705" usernumber="148660825261686" nickname="潘荣波" avatar="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6Y1vTan72YUMlFWBqqW7K4eSRSGOL78h2jBETPLDenSiaP5m4wbgJemQQJa5k8XCjpXhBMecohJUg/0"><img id="ipays13" src="../images/base/reward_nor.png" style="width:0.9rem;" class="ml15 mr10 mt1 fr"></span><span class="comments" articleid="13" articlenumber="148716428051705"><img id="icomments13" src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 mr10 fr mt1"></span><img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="13"></div>
 						</div>-->
 					</div>
+					<div id="none" class="full tc hide">
+						<img src="../images/my/444.png" class="none" id="none_img" />
+						<p class="f13 mt10" id="none_tip">关注别人,第一时间得到他们的动态</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -113,7 +117,7 @@
 	mui.plusReady(function() {
 
 		base.InitPull("slider");
- 
+
 		base.ShowArticle("#slider", "List", userinfo.Number);
 
 		base.ArticleAction("#slider", userinfo);
@@ -148,6 +152,7 @@
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
+					base.ShowNone(false);
 					var length = data.records;
 					if(length > 0) {
 						for(var i = 0, len = data.list.length; i < len; i++) {
@@ -156,6 +161,9 @@
 						}
 					}
 				}
+			}
+			if(records == 0) {
+				base.ShowNone(true);
 			}
 			callback();
 		});

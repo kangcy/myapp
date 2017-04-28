@@ -2436,7 +2436,9 @@
 			"images/article/power1.png",
 			"images/base/comment_nor.png",
 			"images/base/reward_nor.png",
-			"images/article/star.png"
+			"images/article/star.png",
+			"part/list.html",
+			"images/my/444.png"
 		],
 		"refer": [
 			"page/addfan.html"

@@ -162,7 +162,8 @@
 				background-size: 1.5rem;
 			}
 			
-			#my-feedback {
+			#my-feedback,
+			#my-tip {
 				background-image: url(../images/my/menu03.png);
 				background-repeat: no-repeat;
 				background-position: 0.8rem center;
@@ -233,6 +234,9 @@
 					<div class="mui-scroll-wrapper" id="my-wrapper">
 						<div class="mui-scroll">
 							<div class="mui-content-padded">
+								<div class="c333 menu f12" id="my-tip">
+									<div>好友动态<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
 								<div class="c333 menu f12" id="my-mypic">
 									<div>我的相册<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 								</div>
@@ -250,9 +254,6 @@
 								</div>
 								<div class="c333 menu f12" id="my-help">
 									<div class="noborder">帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
-								</div>
-								<div class="c333 menu f12 hide" id="my-tip">
-									<div class="noborder">好友动态<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 								</div>
 							</div>
 						</div>
@@ -321,7 +322,7 @@
 
 	mui.ready(function() {
 		if(userinfo.UserRole == 2) {
-			base.RemoveClass(["#my-tip"], ["hide"]);
+			//base.RemoveClass(["#my-tip"], ["hide"]);
 		}
 
 		mui('#actionwrapper').load("../part/action.html", function(response) {
