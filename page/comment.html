@@ -57,28 +57,13 @@
 			$("#main").append('<textarea id="textarea" class="hide"></textarea>');
 
 			base.InitScroll();
-			base.ScrollTop();
 		});
 	});
 
 	mui.plusReady(function() {
 
-		//评论与回复
-		mui(base.Get("scroll")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					NewId = 0;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
+		base.InitPull("scroll", function() {
+			NewId = 0;
 		});
 
 		base.ShowUser("#scroll");

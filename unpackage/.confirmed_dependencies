@@ -2430,7 +2430,16 @@
 			"css/mui.min.css",
 			"js/mui.previewimage.js",
 			"part/action.html",
-			"js/article.js"
+			"js/article.js",
+			"fonts/mui.ttf",
+			"images/base/like_nor.png",
+			"images/article/power1.png",
+			"images/base/comment_nor.png",
+			"images/base/reward_nor.png",
+			"images/article/star.png"
+		],
+		"refer": [
+			"page/addfan.html"
 		]
 	}
 }

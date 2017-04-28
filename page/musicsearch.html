@@ -104,8 +104,6 @@
 
 		base.InitScroll();
 
-		base.ScrollTop();
-
 		//语音识别完成事件
 		search.addEventListener('recognized', function(e) {
 			search.value = e.detail.value.replace(/，/g, '').replace(/,。/g, '');

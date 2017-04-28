@@ -425,7 +425,9 @@ var base = new function() {
 	 **/
 	this.ScrollTop = function() {
 		document.querySelector('header').addEventListener('doubletap', function() {
-			mui(".mui-scroll-wrapper").scroll().scrollTo(0, 0, 1000);
+			mui.each(mui(".mui-scroll-wrapper"), function() {
+				mui(this).scroll().scrollTo(0, 0, 1000);
+			});
 		});
 	}
 

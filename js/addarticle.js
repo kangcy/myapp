@@ -164,7 +164,6 @@ function ConfirmImg(src) {
 
 //创建文章
 function Import(url) {
-	console.log(url);
 	var data = {
 		ID: userinfo.ID,
 		Cover: url,

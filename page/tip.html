@@ -35,7 +35,7 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<!--操作--> 
+		<!--操作-->
 		<div id="actionwrapper"></div>
 		<div class="mui-content">
 			<div class="mui-scroll-wrapper" style="top:45px;bottom:0px;">
@@ -107,32 +107,16 @@
 
 		base.InitScroll();
 
-		base.ScrollTop();
-
 		base.ShowUser("#slider");
 	});
 
 	mui.plusReady(function() {
 
+		base.InitPull("slider");
+ 
 		base.ShowArticle("#slider", "List", userinfo.Number);
 
 		base.ArticleAction("#slider", userinfo);
-
-		mui(base.Get("slider")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
 
 		mui.previewImage({
 			callback1: function(img) {
