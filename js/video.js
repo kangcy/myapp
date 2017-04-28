@@ -19,9 +19,9 @@ function AppendVideo(sourceurl) {
 	if(sourceurl.toLowerCase().indexOf(".swf") > 0) {
 		return '<div class="media-cont audio-cont" style="width:100%;"><embed src="' + sourceurl + '" allowfullscreen="true" quality="high" width="100%"  height="' + height + '" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash"></embed></div>';
 	}
-	//本地视频
+	//本地视频 
 	if(sourceurl.toLowerCase().indexOf(".") > 0) {
-		return '<video style="width:100%;height:' + height + 'px;" autoplay controls preload="none"><source src="' + sourceurl + '" /></video>';
+		return '<video class="video" style="width:100%;height:' + height + 'px;" controls autoplay poster="../images/article/video.png"><source src="' + sourceurl + '" type="video/mp4" /></video>';
 	}
 	return "";
 }

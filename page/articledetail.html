@@ -487,7 +487,8 @@
 							html.push('<div class="full f13 mt5">' + base.UnUnicodeText(part.Introduction) + '</div>');
 						} else if(part.Types == 3) {
 							//视频
-							html.push('<div class="full f13 mt5" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
+							html.push('<div class="full f13 mt5 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
+							//html.push('<div class="full f13 mt5" style="display:inline-block;position:relative;">' + AppendVideo(part.Introduction) + '<img src="../images/article/bg.png" style="width:3.5rem;position:absolute;top:40%;left:40%;" /></div>');
 						}
 					}
 
@@ -527,6 +528,30 @@
 					$(".youku_player").each(function() {
 						var $this = $(this);
 						ShowVideo($this.attr("id"), $this.attr("sid"));
+					});
+					mui.each(document.querySelectorAll(".video"), function() {
+						var $this = this;
+						//可以播放
+						$this.addEventListener('canplay', function() {
+							$this.parentNode.classList.remove("hide");
+							//document.addEventListener('touchstart', Video($this));
+
+							/*var img = $($this).next("img")[0];
+							img.addEventListener('tap', function() { 
+								mui.toast("ok");
+								if($this.paused) {
+									item.classList.add("hide");
+									$this.play();
+								} else {
+									$this.pause();
+								}
+							});*/
+						});
+						//播放结束
+						/*$this.addEventListener('ended', function() {
+							var img = $($this).next("img")[0];
+							item.classList.remove("hide");
+						});*/
 					});
 
 					//音乐 
@@ -576,6 +601,18 @@
 			base.ShowLoading(false);
 			base.CloseWaiting();
 		});
+	}
+
+	function Video(video) {
+		document.removeEventListener('touchstart', Video(video));
+		if(!video) {
+			return;
+		}
+		if(video.paused) {
+			video.play(); 
+		} else {
+			video.pause();
+		}
 	}
 
 	//分享
