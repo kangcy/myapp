@@ -164,6 +164,7 @@ function ConfirmImg(src) {
 
 //创建文章
 function Import(url) {
+	console.log(url);
 	var data = {
 		ID: userinfo.ID,
 		Cover: url,
@@ -177,7 +178,7 @@ function Import(url) {
 		Latitude: base.Latitude,
 		Longitude: base.Longitude
 	}
-	HttpGet(base.RootUrl + "Article/Edit", data, function(data) {
+	HttpPost(base.RootUrl + "Article/Edit", data, function(data) {
 		mui.later(function() {
 			mask.close();
 			if(data != null) {
