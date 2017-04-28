@@ -106,7 +106,6 @@
 			base.Get("main").appendChild(div);
 
 			base.InitScroll();
-			base.ScrollTop();
 
 			mui.previewImage();
 		});
@@ -117,21 +116,8 @@
 		UserNumber = self.UserNumber || "";
 
 		if(UserNumber != "") {
-			mui(base.Get("scroll")).pullToRefresh({
-				down: {
-					callback: function() {
-						PreviewEnable = true;
-						var self = this;
-						pulldownRefresh(self);
-					}
-				},
-				up: {
-					auto: true,
-					callback: function() {
-						var self = this;
-						pullupRefresh(self);
-					}
-				}
+			base.InitPull("scroll", function() {
+				PreviewEnable = true;
 			});
 
 			//选中切换

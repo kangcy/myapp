@@ -82,22 +82,8 @@
 			base.Get("none_img").setAttribute("src", "../images/my/555.png");
 			base.Get("none_tip").innerHTML = "分享出去才有被赞赏的机会";
 			base.InitScroll();
-			base.ScrollTop();
-			mui(base.Get("scroll")).pullToRefresh({
-				down: {
-					callback: function() {
-						var self = this;
-						pulldownRefresh(self);
-					}
-				},
-				up: {
-					auto: true,
-					callback: function() {
-						var self = this;
-						pullupRefresh(self);
-					}
-				}
-			});
+
+			base.InitPull("scroll");
 
 			base.ShowUser("#scroll");
 		});
@@ -124,8 +110,8 @@
 		model.push('<div class="mui-table-cell avatar tc"><img src="' + base.ShowThumb(item.FromUserAvatar, 2) + '" /></div>');
 		model.push('<div class="mui-table-cell name"><p class="f13 c000 mb5">' + item.FromUserName + '</p><p class="f12 c999">' + item.CreateDate + '</p></div>');
 		model.push('<div class="mui-table-cell icon tc"><img src="../images/price.png"/><p class="price f14">' + parseFloat(item.Price / 100).toFixed(2) + '</p></div>');
-		model.push('</div>'); 
+		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
-	} 
+	}
 </script>

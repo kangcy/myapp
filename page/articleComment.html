@@ -63,7 +63,6 @@
 			$("#main").append('<textarea id="textarea" class="hide"></textarea>');
 
 			base.InitScroll();
-			base.ScrollTop();
 		});
 	});
 
@@ -79,7 +78,9 @@
 			Comment();
 		}
 
-		Init();
+		base.InitPull("scroll", function() {
+			NewId = 0;
+		});
 
 		base.ShowUser("#scroll");
 
@@ -224,26 +225,6 @@
 		mask.close();
 	}
 
-	//初始化获取参数
-	function Init() {
-		mui(base.Get("scroll")).pullToRefresh({
-			down: {
-				callback: function() {
-					NewId = 0;
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
-	}
-
 	//文章评论-加载数据
 	function Load(callback) {
 		data = {
@@ -272,13 +253,11 @@
 			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + base.UnUnicodeText(item.ParentNickName) + '：</span>' + base.UnUnicodeText(item.ParentSummary) + '</p>');
 		}
 		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" />');
- 
+
 		if(item.IsZan == 0) {
-			model.push('<div id="goods' + item.ID + '" cid="' + item.ID + '" already="0" class="goods fr">');
-			model.push('<span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.9rem;" class=" ml15 fr"  />');
+			model.push('<div id="goods' + item.ID + '" cid="' + item.ID + '" already="0" class="goods fr"><span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.9rem;" class=" ml15 fr"  />');
 		} else {
-			model.push('<div class="red fr" cid="' + item.ID + '" already="1">');
-			model.push('<span class="f13 ml5 fr">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.9rem;" class="ml15 fr"  />');
+			model.push('<div class="red fr" cid="' + item.ID + '" already="1"><span class="f13 ml5 fr">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.9rem;" class="ml15 fr"  />');
 		}
 		model.push('</div></div></div></div>');
 		div.innerHTML = model.join('');

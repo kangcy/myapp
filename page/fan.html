@@ -33,7 +33,6 @@
 	});
 
 	mui.ready(function() {
-
 		mui('#main').load("../part/list.html", function(response) {
 			base.InitScroll();
 			base.ScrollTop();
@@ -49,24 +48,10 @@
 		base.Get("title").innerHTML = name + "的粉丝";
 		base.Get("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
 
+		base.InitPull("scroll");
+
 		base.ShowUser("#scroll");
 		base.UserAddFan("#scroll", userinfo);
-
-		mui(base.Get("scroll")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
 	});
 
 	//关注我的-加载数据

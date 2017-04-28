@@ -347,6 +347,7 @@ var base = new function() {
 			userinfo.Follows += 1;
 		}
 		localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+		base.RefreshUser();
 	}
 
 	/**
@@ -408,6 +409,8 @@ var base = new function() {
 			indicators: false, // 是否显示滚动条
 			deceleration: deceleration
 		});
+
+		base.ScrollTop();
 	}
 
 	/**
@@ -689,7 +692,6 @@ var base = new function() {
 						$this.setAttribute("src", "../images/base/follow1.png");
 						if(data.message != "exist") {
 							base.UpdateFan(userinfo);
-							base.RefreshUser();
 						}
 					}
 				}
@@ -984,6 +986,36 @@ var base = new function() {
 		if(page) {
 			page.evalJS("Refresh()");
 		}
+	}
+
+	/**
+	 * 初始化下拉
+	 * id：容器ID
+	 * downCallback：下拉回调方法
+	 * upCallback：上拉回调方法
+	 */
+	this.InitPull = function(id, downCallback, upCallback) {
+		mui(base.Get(id)).pullToRefresh({
+			down: {
+				callback: function() {
+					if(downCallback) {
+						downCallback();
+					}
+					var self = this;
+					pulldownRefresh(self);
+				}
+			},
+			up: {
+				auto: true,
+				callback: function() {
+					if(upCallback) {
+						upCallback();
+					}
+					var self = this;
+					pullupRefresh(self);
+				}
+			}
+		});
 	}
 }
 

@@ -698,7 +698,8 @@
 			"page/mypay.html",
 			"page/comment.html",
 			"page/help.html",
-			"page/tip.html"
+			"page/tip.html",
+			"page/fan.html"
 		]
 	},
 	"page/topicSub.html": {

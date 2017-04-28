@@ -37,7 +37,6 @@
 	});
 
 	mui.ready(function() {
-
 		mui('#main').load("../part/list.html", function(response) {
 			base.InitScroll();
 			base.ScrollTop();
@@ -45,7 +44,6 @@
 	});
 
 	mui.plusReady(function() {
-
 		var self = plus.webview.currentWebview();
 		Name = self.Name || "我";
 		UserNumber = Name == "我" ? userinfo.Number : self.UserNumber;
@@ -57,23 +55,9 @@
 			base.Get("none_tip").innerHTML = "关注了,才能看到第一时间动态呀";
 		}
 
-		base.ShowUser("#scroll");
+		base.InitPull("scroll");
 
-		mui(base.Get("scroll")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
+		base.ShowUser("#scroll");
 
 		//取消关注
 		mui("#scroll").on('tap', '.mui-btn', function(event) {

@@ -62,7 +62,6 @@
 			base.Get("none_tip").innerHTML = "好内容记得收藏,让我们不再错过";
 
 			base.InitScroll();
-			base.ScrollTop();
 
 			mui.previewImage();
 
@@ -85,25 +84,11 @@
 
 		base.Get("title").innerHTML = name + "的收藏";
 
+		base.InitPull("scroll");
+
 		base.ArticleAction("#scroll", userinfo);
 
 		base.ShowArticle("#scroll", "List", UserNumber);
-
-		mui(base.Get("scroll")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
 	});
 
 	/**

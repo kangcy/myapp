@@ -35,7 +35,6 @@
 
 		mui('#main').load("../part/list.html", function(response) {
 			base.InitScroll();
-			base.ScrollTop();
 			base.ShowUser("#scroll");
 		});
 	});
@@ -55,7 +54,9 @@
 
 		base.ShowArticle("#scroll", "List", UserNumber);
 
-		mui(base.Get("scroll")).pullToRefresh({
+		base.InitPull("scroll");
+
+		/*mui(base.Get("scroll")).pullToRefresh({
 			down: {
 				callback: function() {
 					var self = this;
@@ -69,7 +70,7 @@
 					pullupRefresh(self);
 				}
 			}
-		});
+		});*/
 	});
 
 	//加载数据

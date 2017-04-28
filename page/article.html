@@ -40,7 +40,6 @@
 			base.Get("none_tip").innerHTML = "这里还没有内容";
 
 			base.InitScroll();
-			base.ScrollTop();
 
 			base.ShowUser("#scroll");
 
@@ -62,26 +61,11 @@
 
 	//初始化获取参数
 	function Init(articleType, createUserNumber, source) {
+		base.InitPull("scroll");
 
 		base.ShowArticle("#scroll", source, userinfo.Number);
 
 		base.ArticleAction("#scroll", userinfo);
-
-		mui(base.Get("scroll")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
 	}
 
 	//删除
