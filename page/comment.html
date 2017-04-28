@@ -223,20 +223,20 @@
 		var model = [];
 		model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
 		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-		model.push('<div class="mui-table-cell pb0"><p class="f12 user c333" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '<span class="fr f11 c999">' + item.CreateDateText + '</span></p>');
-		model.push('<p class="f11 c999 mt3 mb5" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</p>');
+		model.push('<div class="mui-table-cell pb0"><p class="f13 user c333" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '<span class="fr f12 c999">' + item.CreateDateText + '</span></p>');
+		model.push('<p class="f12 c999 mt3 mb10" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</p>');
 		if(!base.IsNullOrEmpty(item.ParentCommentNumber)) {
-			model.push('<p class="tip mb0 f11" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + base.UnUnicodeText(item.ParentNickName) + '：</span>' + base.UnUnicodeText(item.ParentSummary) + '</p>');
+			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + base.UnUnicodeText(item.ParentNickName) + '：</span>' + base.UnUnicodeText(item.ParentSummary) + '</p>');
 		} else {
-			model.push('<p class="tip mb0 f11 article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">「' + base.UnUnicodeText(item.Title) + '」</p>');
+			model.push('<p class="tip mb0 f12 article" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.ArticleUserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">「' + base.UnUnicodeText(item.Title) + '」</p>');
 		}
-		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.8rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articleid="' + item.ArticleID + '" />');
+		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articleid="' + item.ArticleID + '" />');
 		if(item.IsZan == 0) {
 			model.push('<div id="goods' + item.ID + '" cid="' + item.ID + '" already="0" class="goods fr">');
-			model.push('<span class="f11 ml5 mt1 fr" >' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.8rem;" class=" ml15 fr"  />');
+			model.push('<span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.9rem;" class="ml15 fr"  />');
 		} else {
 			model.push('<div class="red fr" cid="' + item.ID + '" already="1">');
-			model.push('<span class="f11 ml5 mt1 fr">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.8rem;" class="ml15 fr"  />');
+			model.push('<span class="f13 ml5 fr">' + item.Goods + '</span><img src="../images/base/like_hig.png" style="width:0.9rem;" class="ml15 fr"  />');
 		}
 		model.push('</div></div></div></div>');
 		div.innerHTML = model.join('');

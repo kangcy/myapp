@@ -251,12 +251,15 @@
 								<div class="c333 menu f12" id="my-help">
 									<div class="noborder">帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
 								</div>
+								<div class="c333 menu f12 hide" id="my-tip">
+									<div class="noborder">好友动态<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</aside>
 				<header class="mui-bar mui-bar-nav zoomIn" style="border-bottom:1px solid #f5f5f5;">
-					<a class="mui-icon mui-action-menu mui-icon-bars fl c333" id="menu"></a>
+					<img id="avatar2" src="../images/logo.png" style="width:30px;margin-top:5px;border-radius:100%;" />
 					<a class="mui-icon mui-icon-search fr c333" id="search"></a>
 					<h1 class="mui-title">发现</h1>
 				</header>
@@ -314,7 +317,7 @@
 
 	mui.ready(function() {
 		if(userinfo.UserRole == 2) {
-			//base.RemoveClass(["#client", "#push","#update"], ["hide"]);
+			base.RemoveClass(["#my-tip"], ["hide"]);
 		}
 
 		mui('#actionwrapper').load("../part/action.html", function(response) {
@@ -429,7 +432,7 @@
 		});
 
 		//打开侧滑
-		base.Get("menu").addEventListener('tap', function() {
+		base.Get("avatar2").addEventListener('tap', function() {
 			CanvasToggle(true);
 		});
 
@@ -437,12 +440,18 @@
 		base.Get("search").addEventListener('tap', function() {
 			base.OpenWindow("search", "search.html", {});
 		});
+
+		//好友动态
+		base.Get("my-tip").addEventListener('tap', function() {
+			base.OpenWindow("tip", "tip.html", {});
+		});
 	});
 
 	var backButtonPress = 0;
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
 		plus.navigator.setFullscreen(false);
+
 		var self = plus.webview.currentWebview();
 		self.show();
 
@@ -558,6 +567,7 @@
 		}
 		if(userinfo.Avatar != Avatar) {
 			base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
+			base.Get("avatar2").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
 		}
 		base.Get("nickname").innerHTML = base.UnUnicodeText(userinfo.NickName);
 		base.Get("signature").innerHTML = base.UnUnicodeText(userinfo.Signature);

@@ -697,7 +697,8 @@
 			"page/pic.html",
 			"page/mypay.html",
 			"page/comment.html",
-			"page/help.html"
+			"page/help.html",
+			"page/tip.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -2411,6 +2412,24 @@
 			"css/mui.min.css",
 			"js/video.js",
 			"fonts/mui.ttf"
+		]
+	},
+	"page/tip.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"images/base/adduser.png",
+			"js/mui.pullToRefresh.material.js",
+			"css/animate.css",
+			"js/PullRefresh.js",
+			"css/img.preview.css",
+			"js/base.js",
+			"css/loading.min.css",
+			"js/mui.zoom.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/mui.previewimage.js",
+			"part/action.html",
+			"js/article.js"
 		]
 	}
 }

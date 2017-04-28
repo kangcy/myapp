@@ -93,7 +93,7 @@
 		//分类图片
 		model.push('<div class="oa-contact-cell mui-table"><div class="oa-contact-avatar mui-table-cell avatar" style="vertical-align:top !important;"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" /></div>');
 		//分类信息
-		model.push('<div class="mui-table-cell"><div class="mui-clearfix"><p class="f12 mb5 c333" style="line-height:1.3rem;">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999">喜欢了你的文章<br /><span class="article" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p></div><p class="f12 c999">' + item.CreateDate + '</p></div>');
+		model.push('<div class="mui-table-cell"><div class="mui-clearfix"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999">喜欢了你的文章<br /><span class="article" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p></div><p class="f12 c999">' + item.CreateDate + '</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

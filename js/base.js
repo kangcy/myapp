@@ -561,7 +561,7 @@ var base = new function() {
 				break;
 		}
 		if(ismy) {
-			model.push('<div class="c999 f10 star mb10"><img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span><span class="fr">' + item.CreateDate + '</span></div>');
+			model.push('<div class="c999 f11 star mb10"><img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span><span class="fr">' + item.CreateDate + '</span></div>');
 		} else {
 			if(isdel) {
 				model.push('<div class="mui-slider-cell mui-slider-handle">');
@@ -586,7 +586,7 @@ var base = new function() {
 				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 			}
 
-			model.push('<div class="mui-media-body f12 mt0" style="position:relative;"><span>' + base.UnUnicodeText(item.NickName) + '</span><p class="f10 full c999 mt5">' + item.CreateDate);
+			model.push('<div class="mui-media-body f13 mt0" style="position:relative;"><span>' + base.UnUnicodeText(item.NickName) + '</span><p class="f11 full c999 mt5">' + item.CreateDate);
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="ml5 mr5 c999">来自</span><span class="c999">' + item.Province + ' • ' + item.City + '</span>');
 			}
@@ -637,15 +637,15 @@ var base = new function() {
 		}
 		model.push('</div></div>');
 
-		model.push('<div class="mui-card-footer fl full c999 f10" style="display:inline-block;"><span class="fl mt1">浏览' + item.Views + '次</span>');
+		model.push('<div class="mui-card-footer fl full c999 f11" style="display:inline-block;"><span class="fl mt1">浏览' + item.Views + '次</span>');
 		if(item.IsPay == 1) {
-			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="pays fr tc" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.8rem;" class="mt1" /></div>');
+			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="pays fr tc" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.9rem;" class="mt1" /></div>');
 		}
-		model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="comments fr tc" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.8rem;" class="mt1" /></div>');
+		model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="comments fr tc" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.9rem;" class="mt1" /></div>');
 		if(item.IsZan == 0) {
-			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/like_nor.png" style="width:0.8rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" /></div>');
+			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" /></div>');
 		} else {
-			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/like_hig.png" style="width:0.8rem;" class="mr10 fr" articleid="' + item.ArticleID + '"  /></div>');
+			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/like_hig.png" style="width:0.9rem;" class="mr10 fr" articleid="' + item.ArticleID + '"  /></div>');
 		}
 		model.push('</div>');
 
@@ -689,6 +689,7 @@ var base = new function() {
 						$this.setAttribute("src", "../images/base/follow1.png");
 						if(data.message != "exist") {
 							base.UpdateFan(userinfo);
+							base.RefreshUser();
 						}
 					}
 				}
@@ -825,9 +826,9 @@ var base = new function() {
 		}
 		model.push('<div class="mui-table oa-contact-cell">');
 		model.push('<div class="mui-table-cell avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '"  /></div>');
-		model.push('<div class="mui-table-cell"><p class="f12 mb5 c333">' + base.UnUnicodeText(item.NickName) + '</p>');
+		model.push('<div class="mui-table-cell"><p class="f13 mb5 c333">' + base.UnUnicodeText(item.NickName) + '</p>');
 		if(isSignature) {
-			model.push('<p class="f11 c999">' + base.UnUnicodeText(item.Signature) + '</p>');
+			model.push('<p class="f12 c999">' + base.UnUnicodeText(item.Signature) + '</p>');
 		}
 		if(isDistance) {
 			var distance = parseFloat(item.Distance);

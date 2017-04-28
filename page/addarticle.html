@@ -461,6 +461,7 @@
 				mui.later(function() {
 					if(data != null) {
 						if(data.result) {
+							base.RefreshUser();
 							var articleDetailPage = plus.webview.getWebviewById('articledetail');
 							if(articleDetailPage == null) {
 								base.OpenWindow("articledetail", "articledetail.html", {
