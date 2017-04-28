@@ -998,7 +998,8 @@
 			"part/snow/snow.js",
 			"part/snow/snow.html",
 			"images/article/video.png",
-			"images/article/top.png"
+			"images/article/top.png",
+			"images/article/poster.png"
 		],
 		"refer": [
 			"page/user.html",

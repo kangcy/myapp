@@ -21,7 +21,7 @@ function AppendVideo(sourceurl) {
 	}
 	//本地视频 
 	if(sourceurl.toLowerCase().indexOf(".") > 0) {
-		return '<video class="video" style="width:100%;height:' + height + 'px;" controls autoplay poster="../images/article/video.png"><source src="' + sourceurl + '" type="video/mp4" /></video>';
+		return '<video class="video" style="width:100%;height:' + height + 'px;" controls autoplay poster="../images/article/poster.png"><source src="' + sourceurl + '" type="video/mp4" /></video>';
 	}
 	return "";
 }

@@ -146,6 +146,8 @@
 				return false;
 			}
 			isLoading = true;
+			mask.show();
+			base.ShowWaiting("正在切换设置");
 			var active = this.className.indexOf("active") >= 0;
 			base.SwitchChange("fullSwitch", !active);
 			if(!active) {
@@ -165,6 +167,7 @@
 			if((imgWidth / imgHeight) >= (windowWidth / windowHeight)) {
 				initWidth = 0;
 			}
+
 			$readyimg.cropper('destroy');
 			$readyimg.cropper.setDefaults({
 				minCanvasWidth: initWidth,
@@ -180,18 +183,22 @@
 				autoCrop: true,
 				dragCrop: false,
 				zoomable: false,
-				movable: true
+				movable: true,
+				built: function() {
+					$readyimg.show();
+					mask.close();
+					isLoading = false;
+				}
 			});
+			$readyimg.hide();
 			$readyimg.cropper('reset');
-			isLoading = false;
 		});
 
 		//开启高清背景
 		base.Get("highSwitch").addEventListener('tap', function(event) {
-			if(isLoading) {
-				return false;
+			if(base.RepeatAction()) {
+				return;
 			}
-			isLoading = true;
 			var active = this.className.indexOf("active") >= 0;
 			base.SwitchChange("highSwitch", !active);
 			if(!active) {
@@ -199,8 +206,6 @@
 			} else {
 				high = 0;
 			}
-
-			isLoading = false;
 		});
 	})
 
@@ -275,9 +280,8 @@
 
 	//请求上传图片
 	function Upload(imgurl, callback) {
-		//上传图片到服务器 
 		mask.show();
-		base.ShowWaiting("图片上传中");
+		base.ShowWaiting("正在保存设置");
 		HttpPost(base.RootUrl + "Upload/Upload", {
 			str: imgurl,
 			standard: "ArticleCover",
@@ -291,8 +295,8 @@
 				} else {
 					mui.toast(data.message);
 				}
-				mask.close();
 			}
+			mask.close();
 		});
 	}
 
@@ -320,7 +324,6 @@
 					mui.toast("系统异常,请稍后再试");
 				} else {
 					if(data.result) {
-						mui.toast("设置成功");
 						if(id == 0) {
 							var page = plus.webview.getWebviewById('articledetail');
 							if(page) {
