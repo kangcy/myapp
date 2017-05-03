@@ -47,32 +47,13 @@
 				text-indent: 8%;*/
 			}
 			
-			#avatar {
-				border-radius: 50%;
-				width: 5rem;
-				height: 5rem;
-				border: 3px solid #fff;
-			}
-			
 			.menu {
 				width: 100%;
 				height: 3rem;
 				line-height: 3rem;
 				text-align: left;
-				text-indent: 0.625rem;
+				text-indent: 2.5rem;
 				background: #fff;
-			}
-			
-			.menu div {
-				width: 80%;
-				float: right;
-				height: 100%;
-				border-bottom: 1px solid #eee;
-				text-indent: 0px;
-			}
-			
-			.menu div.noborder {
-				border-bottom: 0px;
 			}
 			
 			.mui-btn {
@@ -97,31 +78,57 @@
 				top: 20px;
 			}
 			
-			.info-content {
+			.cover {
 				width: 100%;
 				display: inline-block;
 				margin: 0px;
 				text-align: center;
 				position: relative;
-				padding-top: 5rem;
+				height: 13rem;
+				z-index: -1;
 			}
 			
-			.info-content .side {
+			.cover .info {
+				position: absolute;
+				bottom: 3rem;
+				left: 0px;
+			}
+			
+			.cover .left {
+				width: 30%;
 				float: left;
-				width: 25%;
-				line-height: 0.625rem;
-				padding-top: 2.1875rem;
+				display: inline-block;
+			}
+			
+			.cover .left img {
+				border-radius: 50%;
+				width: 80%;
+				border: 3px solid #fff;
+			}
+			
+			.cover .right {
+				width: 65%;
+				float: left;
+				display: inline-block;
+			}
+			
+			.nickname {
+				margin: 0px;
+				line-height: 1.5rem;
 			}
 			
 			.signature {
 				margin: 0px;
 				line-height: 1.25rem;
-				color: #a3a3a3;
 			}
 			
 			.content1 {
 				display: inline-block;
 				width: 100%;
+				background: #fff;
+				border-radius: 10px;
+				box-shadow: 1px 5px 8px #c1e0ff;
+				-webkit-box-shadow: 1px 5px 8px #c1e0ff;
 			}
 			
 			.content1 .items {
@@ -129,15 +136,10 @@
 				float: left;
 			}
 			
-			.content1 .items img {
-				width: 1.25rem;
-				height: 1.25rem;
-				margin-right: 0.3125rem;
-			}
-			
 			.content1 .items .item1 {
 				margin: 0px;
-				line-height: 1.25rem;
+				margin-top: 1rem;
+				line-height: 1.3rem;
 				width: 100%;
 			}
 			
@@ -145,50 +147,63 @@
 				margin: 0px;
 				width: 100%;
 				float: left;
-				line-height: 1.25rem;
+				line-height: 1.3rem;
 			}
 			
-			#my-mypay {
+			#my-tip {
 				background-image: url(../images/my/menu01.png);
 				background-repeat: no-repeat;
 				background-position: 0.8rem center;
-				background-size: 1.5rem;
-			}
-			
-			#my-comment {
-				background-image: url(../images/my/menu02.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.5rem;
-			}
-			
-			#my-feedback,
-			#my-tip {
-				background-image: url(../images/my/menu03.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.5rem;
-			}
-			
-			#my-good {
-				background-image: url(../images/my/menu04.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.5rem;
-			}
-			
-			#my-help {
-				background-image: url(../images/my/menu05.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.5rem;
+				background-size: 1.3rem;
 			}
 			
 			#my-mypic {
+				background-image: url(../images/my/menu02.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.3rem;
+			}
+			
+			#my-mypay {
+				background-image: url(../images/my/menu03.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.3rem;
+			}
+			
+			#my-msg {
+				background-image: url(../images/my/menu04.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.3rem;
+			}
+			
+			#my-feedback {
+				background-image: url(../images/my/menu05.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.3rem;
+			}
+			
+			#my-good {
 				background-image: url(../images/my/menu06.png);
 				background-repeat: no-repeat;
 				background-position: 0.8rem center;
-				background-size: 1.5rem;
+				background-size: 1.3rem;
+			}
+			
+			#my-help {
+				background-image: url(../images/my/menu07.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.3rem;
+			}
+			
+			#my-setting {
+				background-image: url(../images/my/menu08.png);
+				background-repeat: no-repeat;
+				background-position: 0.8rem center;
+				background-size: 1.3rem;
 			}
 		</style>
 
@@ -206,55 +221,65 @@
 			<div class="mui-inner-wrap mui-transitioning">
 				<!--侧滑菜单部分-->
 				<aside id="offCanvasSide" class="mui-off-canvas-left mui-transitioning">
-					<div class="info-content" id="cover" style="padding-top:2rem;">
-						<img src="../images/my/setting.png" class="fl" id="setting" />
-						<img src="../images/my/tip.png" class="fr" id="tip" />
-						<img id="avatar" src="../images/logo.png" />
-						<p class="cfff f15 tc mt10 textshadow" id="nickname"></p>
-						<p class="cfff signature tc mt5 f12 textshadow" id="signature"></p>
-						<div class="content1 tc mt10 mb10 cfff textshadow">
+					<div class="cover fl" id="cover">
+						<!--<img src="../images/my/setting.png" class="fl" id="setting" />
+						<img src="../images/my/tip.png" class="fr" id="tip" />-->
+						<div class="info">
+							<div class="left">
+								<img id="avatar" src="../images/logo.png" />
+							</div>
+							<div class="right tl">
+								<p class="cfff nickname f15 textshadow" id="nickname"></p>
+								<p class="cfff signature mt5 f12 textshadow" id="signature"></p>
+							</div>
+						</div>
+					</div>
+					<div style="width:90%;margin:0px 5%;height:5rem;margin-top:-2.5rem;" class="fl" id="info">
+						<div class="content1 tc cfff fl fullheight mt0">
 							<div class="items" id="my-articles">
-								<p class="item1 f16 cfff textshadow" id="articles">0</p>
-								<p class="item2 f12 cfff textshadow">动态</p>
+								<p class="item1 f16 blue" id="articles">0</p>
+								<p class="item2 f12 c999">动态</p>
 							</div>
 							<div class="items" id="my-keeps">
-								<p class="item1 f16 cfff textshadow" id="keeps">0</p>
-								<p class="item2 f12 cfff textshadow">收藏</p>
+								<p class="item1 f16 blue" id="keeps">0</p>
+								<p class="item2 f12 c999">收藏</p>
 							</div>
 							<div class="items" id="my-follows">
-								<p class="item1 f16 cfff textshadow" id="follows">0</p>
-								<p class="item2 f12 cfff textshadow">关注</p>
+								<p class="item1 f16 blue" id="follows">0</p>
+								<p class="item2 f12 c999">关注</p>
 							</div>
 							<div class="items" id="my-fans">
-								<p class="item1 f16 cfff textshadow" id="fans">0</p>
-								<p class="item2 f12 cfff textshadow">粉丝</p>
+								<p class="item1 f16 blue" id="fans">0</p>
+								<p class="item2 f12 c999">粉丝</p>
 							</div>
 						</div>
 					</div>
 					<div class="mui-scroll-wrapper" id="my-wrapper">
 						<div class="mui-scroll">
-							<div class="mui-content-padded">
-								<div class="c333 menu f12" id="my-tip">
-									<div>好友动态<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
-								</div>
-								<div class="c333 menu f12" id="my-mypic">
-									<div>我的相册<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
-								</div>
-								<div class="c333 menu f12" id="my-mypay">
-									<div>我的打赏<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
-								</div>
-								<div class="c333 menu f12" id="my-comment">
-									<div>评论与回复<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
-								</div>
-								<div class="c333 menu f12" id="my-feedback">
-									<div>意见反馈<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
-								</div>
-								<div class="c333 menu f12" id="my-good">
-									<div>给个好评<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
-								</div>
-								<div class="c333 menu f12" id="my-help">
-									<div class="noborder">帮助中心<span class="mui-icon mui-icon-arrowright fr mt15 c999 f16 mr10"></span></div>
-								</div>
+							<div class="c333 menu f12" id="my-tip">
+								好友动态
+							</div>
+							<div class="c333 menu f12" id="my-mypic">
+								我的相册
+							</div>
+							<div class="c333 menu f12" id="my-mypay">
+								我的打赏
+							</div>
+							<div class="c333 menu f12" id="my-msg">
+								消息中心
+							</div>
+							<div style="height:0.8rem;background:#eee;width:100%;"></div>
+							<div class="c333 menu f12" id="my-feedback">
+								意见反馈
+							</div>
+							<div class="c333 menu f12" id="my-good">
+								给个好评
+							</div>
+							<div class="c333 menu f12" id="my-help">
+								帮助中心
+							</div>
+							<div class="c333 menu f12" id="my-setting">
+								设置
 							</div>
 						</div>
 					</div>
@@ -367,18 +392,6 @@
 			base.OpenWindow("mysetting", "mysetting.html", {});
 		});
 
-		//消息
-		base.Get("tip").addEventListener('tap', function() {
-			base.OpenWindow("tipsetting", "tipsetting.html", {
-				Source: "My"
-			});
-		});
-
-		//系统设置
-		base.Get("setting").addEventListener('tap', function() {
-			base.OpenWindow("setting", "setting.html", {});
-		});
-
 		//我的文章
 		base.Get("my-articles").addEventListener('tap', function() {
 			base.OpenWindow("article", "article.html", {
@@ -416,9 +429,9 @@
 		});
 
 		//我的评论
-		base.Get("my-comment").addEventListener('tap', function() {
+		/*base.Get("my-comment").addEventListener('tap', function() {
 			base.OpenWindow("comment", "comment.html", {});
-		});
+		});*/
 
 		//我的反馈
 		base.Get("my-feedback").addEventListener('tap', function() {
@@ -434,6 +447,18 @@
 		//帮助中心
 		base.Get("my-help").addEventListener('tap', function() {
 			base.OpenWindow("help", "help.html", {});
+		});
+
+		//消息
+		base.Get("my-msg").addEventListener('tap', function() {
+			base.OpenWindow("tipsetting", "tipsetting.html", {
+				Source: "My"
+			});
+		});
+
+		//系统设置
+		base.Get("my-setting").addEventListener('tap', function() {
+			base.OpenWindow("setting", "setting.html", {});
 		});
 
 		//打开侧滑
@@ -553,7 +578,7 @@
 	//初始化绑定用户信息
 	function Init() {
 		if(userinfo.Cover != Cover) {
-			$cover.style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") fixed center center no-repeat";
+			$cover.style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") center center no-repeat";
 			$cover.style.backgroundSize = "cover";
 		}
 		if(userinfo.Avatar != Avatar) {
@@ -566,7 +591,7 @@
 		base.Get("fans").innerHTML = userinfo.Fans;
 		base.Get("articles").innerHTML = userinfo.Articles;
 		base.Get("keeps").innerHTML = userinfo.Keeps;
-		base.Get("my-wrapper").style.top = base.Get("cover").clientHeight + "px";
+		base.Get("my-wrapper").style.top = base.Get("cover").clientHeight + (base.Get("info").clientHeight / 2) + 20 + "px";
 
 		Cover = userinfo.Cover;
 		Avatar = userinfo.Avatar;

@@ -672,7 +672,9 @@
 			"part/snow/img/snow.png",
 			"part/snow/snow.js",
 			"part/snow/snow.html",
-			"images/base/pic.png"
+			"images/base/pic.png",
+			"images/my/menu07.png",
+			"images/my/menu08.png"
 		],
 		"refer": [
 			"page/topic.html",

@@ -172,7 +172,12 @@
 	var totalpage = [2, 2];
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			plus.webview.getWebviewById("tip").reload();
+			return true;
+		}
+	});
 
 	mui.ready(function() {
 
