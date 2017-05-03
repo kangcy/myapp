@@ -96,17 +96,21 @@
 							case "title":
 								page = plus.webview.getWebviewById('addarticle');
 								page.evalJS("UpdateTitle('" + val + "')");
-								mui.back();
+								plus.webview.close("edittext");
 								break;
 							case "signature":
 								page = plus.webview.getWebviewById('mysetting');
 								page.evalJS("UpdateSignature('" + val + "')");
-								mui.back();
+								plus.webview.close("edittext");
 								break;
 							case "nickname":
+								if(base.IsNullOrEmpty(val)) {
+									isLoading = false;
+									return mui.toast("请填写昵称");
+								}
 								page = plus.webview.getWebviewById('mysetting');
 								page.evalJS("UpdateNickName('" + val + "')");
-								mui.back();
+								plus.webview.close("edittext");
 								break;
 							case "report":
 								if(base.IsNullOrEmpty(val)) {
@@ -120,11 +124,11 @@
 									Summary: val
 								}, function(data) {
 									mui.toast(data.result ? "举报成功，将于1-2个工作日内处理" : data.message);
-									mui.back();
+									plus.webview.close("edittext");
 								});
 								break;
 							default:
-								mui.back();
+								plus.webview.close("edittext");
 								break;
 						}
 					} else {

@@ -222,19 +222,17 @@
 				<!--侧滑菜单部分-->
 				<aside id="offCanvasSide" class="mui-off-canvas-left mui-transitioning">
 					<div class="cover fl" id="cover">
-						<!--<img src="../images/my/setting.png" class="fl" id="setting" />
-						<img src="../images/my/tip.png" class="fr" id="tip" />-->
 						<div class="info">
 							<div class="left">
 								<img id="avatar" src="../images/logo.png" />
 							</div>
 							<div class="right tl">
-								<p class="cfff nickname f15 textshadow" id="nickname"></p>
+								<p class="cfff nickname f15 textshadow mt10" id="nickname"></p>
 								<p class="cfff signature mt5 f12 textshadow" id="signature"></p>
 							</div>
 						</div>
 					</div>
-					<div style="width:90%;margin:0px 5%;height:5rem;margin-top:-2.5rem;" class="fl" id="info">
+					<div style="width:90%;margin:0px 5%;height:4rem;margin-top:-2rem;" class="fl" id="info">
 						<div class="content1 tc cfff fl fullheight mt0">
 							<div class="items" id="my-articles">
 								<p class="item1 f16 blue" id="articles">0</p>
@@ -588,6 +586,7 @@
 		}
 		base.Get("nickname").innerHTML = base.UnUnicodeText(userinfo.NickName);
 		base.Get("signature").innerHTML = base.UnUnicodeText(userinfo.Signature);
+
 		base.Get("follows").innerHTML = userinfo.Follows;
 		base.Get("fans").innerHTML = userinfo.Fans;
 		base.Get("articles").innerHTML = userinfo.Articles;

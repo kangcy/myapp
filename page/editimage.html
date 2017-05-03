@@ -113,15 +113,16 @@
 			}
 			confirm(function(src) {
 				if(base.IsNullOrEmpty(src)) {
-					mui.back();
+					plus.webview.close("editimage");
 					return;
 				}
 				switch(Source) {
 					//文章封面
 					case "ArticleCover":
 						var page = plus.webview.getWebviewById("addarticle");
-						page.evalJS("UpdateCover('" + src + "')")
-						mui.back();
+						if(page) {
+							page.evalJS("UpdateCover('" + src + "')")
+						}
 						break;
 						//文章内容
 					case "ArticleAvatar":
@@ -131,29 +132,30 @@
 						isLoading = true;
 						mask.show();
 						base.ShowWaiting("正在同步图片");
-						var addarticlePage = plus.webview.getWebviewById('addarticle');
-						if(addarticlePage) {
-							addarticlePage.evalJS("AddPic('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + src + "','" + PartID + "')");
+						var page = plus.webview.getWebviewById('addarticle');
+						if(page) {
+							page.evalJS("AddPic('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + src + "','" + PartID + "')");
 						}
 						isLoading = false;
-						plus.webview.close("editimage");
 						break;
 						//用户封面
 					case "UserCover":
 						var page = plus.webview.getWebviewById("subindex");
-						page.evalJS("UpdateCover('" + src + "')");
-						mui.back();
+						if(page) {
+							page.evalJS("UpdateCover('" + src + "')");
+						}
 						break;
 						//用户头像
 					case "UserAvatar":
 						var page = plus.webview.getWebviewById("mysetting");
-						page.evalJS("UpdateAvatar('" + src + "')");
-						mui.back();
+						if(page) {
+							page.evalJS("UpdateAvatar('" + src + "')");
+						}
 						break;
 					default:
-						mui.back();
 						break;
 				}
+				plus.webview.close("editimage");
 			});
 		});
 	});
