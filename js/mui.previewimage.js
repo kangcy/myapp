@@ -174,7 +174,7 @@
 		if(isOpening) {
 			var posi = this._getPosition(itemData);
 			imgEl.style.webkitTransitionDuration = '0ms';
-			imgEl.style.webkitTransform = 'translate3d(' + posi.x + 'px,' + posi.y + 'px,0) scale(' + itemData.sScale + ')';
+			//imgEl.style.webkitTransform = 'translate3d(' + posi.x + 'px,' + posi.y + 'px,0) scale(' + itemData.sScale + ')';
 			imgEl.offsetHeight;
 		}
 		if(!itemData.loaded && imgEl.getAttribute('data-preview-lazyload')) {
@@ -183,7 +183,7 @@
 			//移动位置动画
 			imgEl.style.webkitTransitionDuration = '0.5s';
 			imgEl.addEventListener('webkitTransitionEnd', self._imgTransitionEnd.bind(self));
-			imgEl.style.webkitTransform = 'translate3d(0,0,0) scale(' + itemData.sScale + ')';
+			//imgEl.style.webkitTransform = 'translate3d(0,0,0) scale(' + itemData.sScale + ')';
 			this.loadImage(imgEl, function() {
 				itemData.loaded = true;
 				imgEl.src = itemData.lazyload;
@@ -202,7 +202,7 @@
 			imgEl.setAttribute('style', '');
 			imgEl.offsetHeight;
 		}
-		this._preloadItem(index + 1);
+		this._preloadItem(index + 1); 
 		this._preloadItem(index - 1);
 	};
 	proto._preloadItem = function(index) {
@@ -284,7 +284,7 @@
 			var itemData = groupArray[from];
 			var style = '';
 			if(itemData.sWidth) {
-				style = '-webkit-transform:translate3d(0,0,0) scale(' + itemData.sScale + ');transform:translate3d(0,0,0) scale(' + itemData.sScale + ')';
+				//style = '-webkit-transform:translate3d(0,0,0) scale(' + itemData.sScale + ');transform:translate3d(0,0,0) scale(' + itemData.sScale + ')';
 			}
 			itemStr = itemTemplate.replace('{{src}}', itemData.src).replace('{{lazyload}}', itemData.lazyload).replace('{{style}}', style);
 			if(from === index) {
