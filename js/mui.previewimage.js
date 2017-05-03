@@ -146,7 +146,8 @@
 			itemData.sLeft = offset.left;
 			itemData.sScale = Math.max(itemData.sWidth / window.innerWidth, itemData.sHeight / window.innerHeight);
 		}
-		imgEl.style.webkitTransform = 'translate3d(0,0,0) scale(' + itemData.sScale + ')';
+		//取消图片缩放延迟效果
+		//imgEl.style.webkitTransform = 'translate3d(0,0,0) scale(' + itemData.sScale + ')';
 	};
 
 	proto._getScale = function(from, to) {
