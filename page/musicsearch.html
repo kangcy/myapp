@@ -79,6 +79,8 @@
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript">
 	var fileId = 0;
 	var fileName = "";
@@ -90,6 +92,9 @@
 	var pagesize = 20;
 	var addarticlePage = null;
 	var userinfo = base.GetUserInfo();
+var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
 
 	mui.init({
 		gestureConfig: {
@@ -118,7 +123,7 @@
 
 		//取消
 		base.Get('no').addEventListener('tap', function(e) {
-			mui.back();
+			plus.webview.close("musicsearch");
 		});
 
 		//确定
@@ -162,7 +167,8 @@
 
 	//加载
 	function InitMusic(title) {
-		base.ShowLoading(true);
+		mask.show();
+		base.ShowWaiting("正在搜索");
 
 		SearchName = title;
 		currpage = 1;
@@ -217,14 +223,18 @@
 				if(length > 0) {
 					for(var i = 0, len = length; i < len; i++) {
 						var item = data.list[i];
-						console.log(JSON.stringify(item));
-						table.append('<li class="mui-table-view-cell music" fileId="' + item.ID + '" fileName="' + item.Name + '" fileUrl="' + item.FileUrl + '"><img src="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" /><p class="fl c333 f13 mb0">' + item.Name + '<br /><span class="fl c999 f11 mt5">' + item.Author + '</span></p><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span></li>');
+						table.append('<li class="mui-table-view-cell music" fileId="' + item.ID + '" fileName="' + item.Name + '" fileUrl="' + item.FileUrl + '"><img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" /><p class="fl c333 f13 mb0" style="width:80%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt5">' + item.Author + '</span></p><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span></li>');
 					}
+
+					mui(document).imageLazyload({
+						placeholder: '../images/loading.gif'
+					});
+
 				} else {
 					mui.toast("未搜索到内容");
 				}
 			}
-			base.ShowLoading(false);
+			mask.close();
 			if($.isFunction(callback)) {
 				callback();
 			}

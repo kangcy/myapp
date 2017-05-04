@@ -62,7 +62,7 @@ var waiting = new function() {
 		var div = document.createElement('div');
 		div.className = 'waiting c333 f13 tc';
 		div.setAttribute("id", "waiting");
-		div.innerHTML = '<div><img src="../images/loading2.gif" class="fl" /><span id="waiting_title">' + title + '</span></div>';
+		div.innerHTML = '<div><img src="../images/loading.gif" class="fl" /><span id="waiting_title">' + title + '</span></div>';
 		document.getElementsByTagName("body")[0].appendChild(div);
 		return div;
 	}
@@ -633,9 +633,9 @@ var base = new function() {
 				var name = parts.length == 3 ? "thirdfloor" : "secondfloor";
 				for(var i = 0; i < parts.length; i++) {
 					if(islazyload) {
-						model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+						model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 2) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 					} else {
-						model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+						model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 					}
 				}
 			}
