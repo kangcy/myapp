@@ -5288,6 +5288,12 @@ body>.mui-progressbar {
 	margin-top: 25% !important;
 }
 
+.splitline {
+	background: #edf0f2;
+	width: 100%;
+	height: 1rem;
+}
+
 
 /**等待框**/
 

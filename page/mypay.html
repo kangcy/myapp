@@ -24,46 +24,65 @@
 				padding: .8rem 0.9375rem;
 			}
 			
-			.mui-table-view-cell:after {
-				left: 0.9375rem;
-				right: 0.9375rem;
-			}
-			
 			.mui-table-view:after {
 				height: 0px;
+			}
+			
+			#apply {
+				width: 92%;
+				border-radius: 10px;
+				display: inline-block;
+				margin: 0.5rem 4%;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				background: #ef4e3c;
+			}
+			
+			#divmoney {
+				position: fixed;
+			}
+			
+			.my-switch.active {
+				background: #ef4e3c;
 			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333">我的打赏</h1>
+		<header class="mui-bar mui-bar-nav" style="background:transparent;box-shadow:none;">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">我的打赏</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view f13 mt0">
-				<li class="mui-table-view-cell tc">
-					<img class="head-img mui-action-preview mt10" id="avatar" src="../images/my/pay.png" style="width:30%;" />
-					<p class="f13 c333 mt10">账户余额</p>
-					<p class="f25 bold c333 mt10" id="money">￥0.00</p>
-				</li>
-				<li class="mui-table-view-cell" id="mypay">
-					<p class="f12 c333">打赏记录</p>
-				</li>
-				<li class="mui-table-view-cell" id="apply">
-					<p class="f12 c333">申请提现</p>
-					<p class="f11 caaa mt5">提现最小金额300元，收取10%手续费</p>
-				</li>
-				<li class="mui-table-view-cell">
-					<p class="f12 c333">启用打赏</p>
-					<p class="f11 caaa mt5">分享文章，读者即可打赏支持</p>
-					<div class="divSwitch">
-						<div class="my-switch fr" id="autoPaySwitch">
-							<div></div>
-						</div>
-					</div> 
-				</li>
-			</ul>
+			<div class="mui-scroll-wrapper" style="top:0px;">
+				<div class="mui-scroll">
+					<div id="divmoney" class="full hide tc">
+						<p id="money" class="f50 cfff mb0">0.00</p>
+						<p class="f13 cfff">当前余额(元)</p>
+					</div>
+					<img src="../images/pay/head.png" class="full" id="head" />
+					<div id="apply" class="f13 cfff tc">
+						马上提现
+					</div>
+					<p class="f11 tl mt5" style="width:90%;margin:0px auto;"><span class="fl mt2 mr5">*</span>提现最小金额300元，收取10%手续费</p>
+					<div class="splitline mt15"></div>
+					<ul class="mui-table-view f13 mt0">
+						<li class="mui-table-view-cell">
+							<p class="f12 c333">启用打赏</p>
+							<p class="f11 caaa mt5"><span class="fl mt2 mr5">*</span>分享文章，读者即可打赏支持</p>
+							<div class="divSwitch mt5">
+								<div class="my-switch fr" id="autoPaySwitch">
+									<div></div>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell" id="mypay">
+							<span class="f12 c333">打赏记录</span>
+							<span class="mui-icon mui-icon-arrowright fr c999 f16"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
 		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
@@ -92,10 +111,34 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.Get("divmoney").style.top = 45 + (base.Get("head").clientHeight * 0.15) + "px";
+		base.Get("divmoney").classList.remove("hide");
+
 		base.UpdateUser(userinfo.Number, function() {
 			userinfo = base.GetUserInfo();
-			base.Get("money").innerHTML = "￥" + parseFloat(userinfo.Money / 100).toFixed(2);
-		})
+
+			var currScore = 0;
+			var time = 50;
+			var money = parseFloat(userinfo.Money / 100);
+			var $money = base.Get("money"); 
+			if(money > 0) {
+				var limitScore = parseFloat(money / (time - 1));
+				var endScore = money - limitScore * (time - 1);
+				var count = 0;
+				var handle = setInterval(function() {
+					count++;
+					if(count == time) {
+						currScore += endScore;
+						clearInterval(handle);
+					} else {
+						currScore += limitScore;
+					}
+					$money.innerHTML = currScore.toFixed(2);
+				}, 10);
+			} else {
+				$money.innerHTML = money.toFixed(2);
+			}
+		});
 
 		if(userinfo.IsPay == 1) {
 			base.SwitchChange("autoPaySwitch", true);
