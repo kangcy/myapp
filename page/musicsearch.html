@@ -208,7 +208,6 @@
 			rows: pagesize,
 			name: SearchName,
 		};
-		console.log(SearchName);
 		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
@@ -218,6 +217,7 @@
 				if(length > 0) {
 					for(var i = 0, len = length; i < len; i++) {
 						var item = data.list[i];
+						console.log(JSON.stringify(item));
 						table.append('<li class="mui-table-view-cell music" fileId="' + item.ID + '" fileName="' + item.Name + '" fileUrl="' + item.FileUrl + '"><img src="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" /><p class="fl c333 f13 mb0">' + item.Name + '<br /><span class="fl c999 f11 mt5">' + item.Author + '</span></p><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span></li>');
 					}
 				} else {

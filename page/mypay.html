@@ -120,14 +120,16 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.InitScroll();
+
 		base.Get("divmoney").style.top = 45 + (base.Get("head").clientHeight * 0.15) + "px";
 		base.Get("divmoney").classList.remove("hide");
 
 		base.UpdateUser(userinfo.Number, function() {
-			userinfo = base.GetUserInfo(); 
+			userinfo = base.GetUserInfo();
 
 			var currScore = 0;
-			var time = 50;
+			var time = 50; 
 			var money = parseFloat(userinfo.Money / 100);
 			if(money >= 300) {
 				$apply.classList.remove("already");
