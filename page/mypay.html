@@ -36,6 +36,12 @@
 				height: 2.5rem;
 				line-height: 2.5rem;
 				background: #ef4e3c;
+				color: #fff;
+			}
+			
+			#apply.already {
+				background: #edf0f2;
+				color: #999;
 			}
 			
 			#divmoney {
@@ -61,11 +67,11 @@
 						<p class="f13 cfff">当前余额(元)</p>
 					</div>
 					<img src="../images/pay/head.png" class="full" id="head" />
-					<div id="apply" class="f13 cfff tc">
+					<div id="apply" class="f13 tc already">
 						马上提现
 					</div>
-					<p class="f11 tl mt5" style="width:90%;margin:0px auto;"><span class="fl mt2 mr5">*</span>提现最小金额300元，收取10%手续费</p>
-					<div class="splitline mt15"></div>
+					<p class="f11 tl mt5 mb15" style="width:90%;margin:0px auto;"><span class="fl mt2 mr5">*</span>提现最小金额300元，收取10%手续费</p>
+					<div class="splitline"></div>
 					<ul class="mui-table-view f13 mt0">
 						<li class="mui-table-view-cell">
 							<p class="f12 c333">启用打赏</p>
@@ -108,6 +114,9 @@
 	var isLoading = false;
 	var ispay = 0;
 	var userinfo = base.GetUserInfo();
+	var $money = base.Get("money");
+	var $apply = base.Get('apply');
+
 	mui.init();
 
 	mui.ready(function() {
@@ -115,12 +124,15 @@
 		base.Get("divmoney").classList.remove("hide");
 
 		base.UpdateUser(userinfo.Number, function() {
-			userinfo = base.GetUserInfo();
+			userinfo = base.GetUserInfo(); 
 
 			var currScore = 0;
 			var time = 50;
 			var money = parseFloat(userinfo.Money / 100);
-			var $money = base.Get("money"); 
+			if(money >= 300) {
+				$apply.classList.remove("already");
+			}
+
 			if(money > 0) {
 				var limitScore = parseFloat(money / (time - 1));
 				var endScore = money - limitScore * (time - 1);
@@ -171,11 +183,15 @@
 		});
 
 		//申请提现
-		base.Get('apply').addEventListener('tap', function(event) {
+		$apply.addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
 			isLoading = true;
+			if($apply.classList.contains("already")) {
+				isLoading = false;
+				return;
+			}
 			HttpGet(base.RootUrl + "System/CheckApplyMoney", {
 				ID: userinfo.ID
 			}, function(data) {
@@ -184,6 +200,7 @@
 						base.OpenWindow("payapply", "payapply.html", {});
 					} else {
 						mui.toast(data.message);
+						$apply.classList.add("already");
 					}
 				}
 				isLoading = false;
