@@ -155,10 +155,16 @@
 					base.ShowNone(false);
 					var length = data.records;
 					if(length > 0) {
-						for(var i = 0, len = data.list.length; i < len; i++) {
+						/*for(var i = 0, len = data.list.length; i < len; i++) {
 							var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
 							table.appendChild(div);
-						}
+						}*/
+						DelayEachArray(data.list, 0, 100, base.CurrAnimate, function(item) {
+							var div = base.AppendArticle(userinfo.Number, item, false, false, false);
+							if(table) {
+								table.appendChild(div);
+							}
+						})
 					}
 				}
 			}

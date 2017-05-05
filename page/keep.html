@@ -15,21 +15,7 @@
 
 	<body>
 		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a href="#" class="c333 f13" onclick="OutKeep()">取消收藏</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="#" class="c333 f13" onclick="Report()">举报</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder">
-					<a href="#action" class="c333 f13">取消</a>
-				</li>
-			</ul>
-		</div>
+		<div id="actionwrapper"></div>
 		<div id="main"></div>
 	</body>
 
@@ -66,7 +52,9 @@
 			mui.previewImage();
 
 			base.ShowUser("#scroll");
+		});
 
+		mui('#actionwrapper').load("../part/action.html", function(response) {
 			mui('#scroll').on('tap', '.tanaction', function() {
 				var number = this.getAttribute("articleNumber");
 				var id = this.getAttribute("articleId");

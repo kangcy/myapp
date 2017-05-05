@@ -359,7 +359,9 @@
 			"images/article/power2.png",
 			"images/article/power1.png",
 			"page/%3Cdiv%20class%3D%22edit%20f12%20tl%22%3E%u548C7%u5EA68%u5EA6%u8BFA%3C/div%3E",
-			"images/loading.gif"
+			"images/loading.gif",
+			"css/animate.css",
+			"css/animate.min.css"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -417,7 +419,8 @@
 			"images/my/555.png",
 			"part/list.html",
 			"js/PullRefresh.js",
-			"images/logo_default.png"
+			"images/logo_default.png",
+			"css/animate.css"
 		],
 		"refer": [
 			"page/paySub.html"
@@ -1259,7 +1262,8 @@
 			"css/loading.min.css",
 			"images/my/111.png",
 			"part/list.html",
-			"js/PullRefresh.js"
+			"js/PullRefresh.js",
+			"css/animate.css"
 		],
 		"refer": [
 			"page/zanSub.html",
@@ -1294,7 +1298,8 @@
 			"part/list.html",
 			"images/base/follow1.png",
 			"images/base/follow0.png",
-			"js/PullRefresh.js"
+			"js/PullRefresh.js",
+			"css/animate.css"
 		],
 		"refer": [
 			"page/fanSub.html",
@@ -1893,7 +1898,8 @@
 			"css/loading.min.css",
 			"images/my/111.png",
 			"part/list.html",
-			"js/PullRefresh.js"
+			"js/PullRefresh.js",
+			"css/animate.css"
 		],
 		"refer": [
 			"page/followSub.html",

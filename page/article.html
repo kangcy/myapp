@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/animate.css">
 		<link rel="stylesheet" href="../css/img.preview.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
 	</head>
@@ -97,11 +98,12 @@
 					var length = data.records;
 					if(length > 0) {
 						base.ShowNone(false);
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = base.AppendArticle(userinfo.Number, data.list[i], CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
-
-							table.appendChild(div);
-						}
+						DelayEachArray(data.list, 0, 100, base.CurrAnimate, function(item) {
+							var div = base.AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
+							if(table) {
+								table.appendChild(div);
+							}
+						})
 					} else {
 						base.ShowNone(true);
 					}

@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../css/animate.css">
 		<style type="text/css">
 			.mui-table-view-cell {
 				background: #fff;
@@ -104,7 +105,7 @@
 	//打赏我的-拼接Html 
 	function AppendStr(item) {
 		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell';
+		div.className = 'mui-table-view-cell bounceInUp';
 		var model = [];
 		model.push('<div class="mui-slider-cell user" userid="' + item.FromUserNumber + '"><div class="oa-contact-cell mui-table">');
 		model.push('<div class="mui-table-cell avatar tc"><img src="' + base.ShowThumb(item.FromUserAvatar, 2) + '" /></div>');

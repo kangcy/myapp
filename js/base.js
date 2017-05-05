@@ -142,9 +142,14 @@ var base = new function() {
 	this.IsLoading = false;
 
 	/**
+	 * 当前动画标识
+	 **/
+	this.CurrAnimate = "";
+
+	/**
 	 * 列表每次请求数
 	 **/
-	this.PageSize = 20;
+	this.PageSize = 10;
 
 	/**
 	 * 窗口动画持续时间
@@ -533,14 +538,14 @@ var base = new function() {
 	this.AppendArticle = function(userNumber, item, ismy, isuser, islazyload, isdel) {
 		var div = document.createElement('div');
 		if(isdel) {
-			div.className = 'mui-card mui-table-view-cell';
+			div.className = 'mui-card mui-table-view-cell bounceInUp';
 			div.style.padding = "0px";
 			div.setAttribute("kid", item.ArticleNumber);
 		} else {
-			div.className = 'mui-card';
+			div.className = 'mui-card bounceInUp';
 		}
-		div.setAttribute("iskeep", item.IsKeep);//是否收藏
-		div.setAttribute("isfollow", item.IsFollow);//是否关注
+		div.setAttribute("iskeep", item.IsKeep); //是否收藏
+		div.setAttribute("isfollow", item.IsFollow); //是否关注
 		div.style.paddingBottom = "0.8rem";
 
 		div.setAttribute("id", "article" + item.ArticleID)
@@ -589,7 +594,7 @@ var base = new function() {
 			} else {
 				model.push('<img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span>');
 			}
-			model.push('<div style="width:1.5rem;height:100%;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '" articleUserNumber="' + item.UserNumber + '"><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10 c999"></a></div></div>');
+			model.push('<div style="width:1.5rem;height:100%;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '" articleUserNumber="' + item.UserNumber + '"><a class="mui-action-menu mui-icon mui-icon-arrowdown fr f16 mt10 c999"></a></div></div>');
 
 			//用户
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
@@ -628,22 +633,22 @@ var base = new function() {
 			if(islazyload) {
 				model.push('<div class="onefloor"><img data-lazyload="' + base.ShowThumb(item.Cover, 1) + '" href="' + base.ShowThumb(item.Cover, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			} else {
-				model.push('<div class="onefloor"><img src="' + base.ShowThumb(item.Cover, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+				model.push('<div class="onefloor"><img src="' + base.ShowThumb(item.Cover, 1) + '" href="' + base.ShowThumb(item.Cover, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 			}
 		} else {
 			if(parts.length == 1) {
 				if(islazyload) {
 					model.push('<div class="onefloor"><img data-lazyload="' + base.ShowThumb(parts[0].Introduction, 1) + '" href="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 				} else {
-					model.push('<div class="onefloor"><img src="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+					model.push('<div class="onefloor"><img src="' + base.ShowThumb(parts[0].Introduction, 1) + '" href="' + base.ShowThumb(parts[0].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 				}
 			} else {
 				var name = parts.length == 3 ? "thirdfloor" : "secondfloor";
 				for(var i = 0; i < parts.length; i++) {
 					if(islazyload) {
-						model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 2) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+						model.push('<div class="' + name + '"><img data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 					} else {
-						model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
+						model.push('<div class="' + name + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" data-preview-src="" data-preview-group="' + item.ArticleID + '" /></div>');
 					}
 				}
 			}
@@ -673,7 +678,7 @@ var base = new function() {
 	 * 文章列表操作(关注、点赞、评论、打赏)
 	 */
 	this.ArticleAction = function(id, userinfo) {
-		base.ArticleAddFan(id, userinfo);
+		//base.ArticleAddFan(id, userinfo);
 		base.ArticleAddZan(id, userinfo);
 		base.ArticleAddPay(id, userinfo);
 		base.ArticleAddComment(id, userinfo);
@@ -829,7 +834,7 @@ var base = new function() {
 	 */
 	this.AppendUser = function(item, isSignature, isFollow, isDelete, deleteName, isDistance) {
 		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user';
+		div.className = 'mui-table-view-cell user bounceInUp';
 		div.setAttribute("userid", item.Number);
 		var model = [];
 		if(isDelete) {
@@ -1100,10 +1105,10 @@ function LoadPull(url, data, showNone, appendCallback, endCallback) {
 				}
 				var table = base.Get('scroll-view');
 				if(records > 0) {
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = appendCallback(data.list[i]);
+					DelayEachArray(data.list, 0, 100, base.CurrAnimate, function(item) {
+						var div = appendCallback(item);
 						table.appendChild(div);
-					}
+					})
 				}
 			}
 		}
@@ -1140,4 +1145,33 @@ function LoadScript(url, callback) {
 	}
 	script.src = url;
 	document.body.appendChild(script);
+}
+
+/**
+ * 延迟遍历 
+ * arr：集合
+ * index：当前遍历索引
+ * delay：延迟毫秒数
+ * curranimate：当前动画标识
+ * callback：回调方法
+ */
+function DelayEachArray(arr, index, delay, curranimate, callback) {
+	if(index == 0) {
+		base.CurrAnimate = curranimate;
+	}
+	if(curranimate != base.CurrAnimate) {
+		return;
+	}
+
+	if(callback) {
+		callback(arr[index]);
+	}
+	index++;
+	if(index < arr.length) {
+		mui.later(function() {
+			DelayEachArray(arr, index, delay, curranimate, callback);
+		}, delay);
+	} else {
+		base.CurrAnimate = "";
+	}
 }

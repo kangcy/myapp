@@ -648,12 +648,14 @@
 					base.ShowLoading(false);
 					base.Get("none").classList.add("hide");
 					var table = base.Get('scroll-view');
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendArticle(userinfo.Number, data.list[i], false, false, false);
+
+					DelayEachArray(data.list, 0, 100, base.CurrAnimate, function(item) {
+						var div = base.AppendArticle(userinfo.Number, item, false, false, false);
 						if(table) {
 							table.appendChild(div);
 						}
-					}
+					})
+
 				} else {
 					base.ShowLoading(false);
 					base.Get("none").classList.remove("hide");
@@ -665,10 +667,10 @@
 			}
 
 			if(FirstLoad) {
-				mui.later(function() {
+				mui.later(function() { 
 					base.Get("bottom").classList.remove("hide");
 					base.Get("bottom").classList.add("zoomIn");
-				}, 100);
+				}, 400);
 			}
 			FirstLoad = false;
 			if($.isFunction(callback)) {

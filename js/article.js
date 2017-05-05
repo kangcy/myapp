@@ -28,24 +28,23 @@ function ActionTan(show, articleNumber, articleId, articleUserNumber) {
 		ArticleNumber = articleNumber;
 		ArticleID = articleId;
 		ArticleUserNumber = articleUserNumber;
-		if(PageName != "keep") {
-			var item = base.Get("article" + ArticleID);
-			//判断收藏
-			if(item.getAttribute("iskeep") == 0) {
-				base.Get("action_keep").classList.remove("hide");
-				base.Get("action_outkeep").classList.add("hide");
-			} else {
-				base.Get("action_keep").classList.add("hide");
-				base.Get("action_outkeep").classList.remove("hide");
-			}
-			//判断关注
-			if(item.getAttribute("isfollow") == 0) {
-				base.Get("action_follow").classList.remove("hide");
-				base.Get("action_outfollow").classList.add("hide");
-			} else {
-				base.Get("action_follow").classList.add("hide");
-				base.Get("action_outfollow").classList.remove("hide");
-			}
+
+		var item = base.Get("article" + ArticleID);
+		//判断收藏
+		if(item.getAttribute("iskeep") == 0) {
+			base.Get("action_keep").classList.remove("hide");
+			base.Get("action_outkeep").classList.add("hide");
+		} else {
+			base.Get("action_keep").classList.add("hide");
+			base.Get("action_outkeep").classList.remove("hide");
+		}
+		//判断关注
+		if(item.getAttribute("isfollow") == 0) {
+			base.Get("action_follow").classList.remove("hide");
+			base.Get("action_outfollow").classList.add("hide");
+		} else {
+			base.Get("action_follow").classList.add("hide");
+			base.Get("action_outfollow").classList.remove("hide");
 		}
 		mui('#action').popover('show');
 	}
@@ -107,7 +106,6 @@ function OutKeep() {
 							if(userinfo.Keeps < 0) {
 								userinfo.Keeps = 0;
 							}
-							var item = base.Get("article" + ArticleID);
 							item.setAttribute("iskeep", 0);
 						}
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -137,7 +135,7 @@ function Follow() {
 			if(data.result) {
 				if(data.message != "exist") {
 					var item = base.Get("article" + ArticleID);
-					item.setAttribute("iskeep", 1);
+					item.setAttribute("isfollow", 1);
 					base.UpdateFan(userinfo);
 				}
 			}
