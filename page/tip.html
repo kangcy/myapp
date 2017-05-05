@@ -105,7 +105,8 @@
 			mui('#slider').on('tap', '.tanaction', function() {
 				var number = this.getAttribute("articleNumber");
 				var id = this.getAttribute("articleId");
-				ActionTan(true, number, id);
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber);
 			});
 		});
 
@@ -124,10 +125,10 @@
 
 		mui.previewImage({
 			callback1: function(img) {
-				
+
 			},
 			callback2: function(img) {
-				
+
 			}
 		});
 	});
@@ -141,7 +142,7 @@
 			ID: userinfo.ID,
 			page: currpage,
 			rows: pagesize,
-			UserNumber: userinfo.Number 
+			UserNumber: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "Api/Fan/Article", data, function(data) {
 			data = JSON.parse(data);

@@ -149,7 +149,7 @@ var base = new function() {
 	/**
 	 * 窗口动画持续时间
 	 **/
-	this.AnimateDuration = 200;
+	this.AnimateDuration = 250;
 
 	/**
 	 * 接口请求根路径
@@ -160,6 +160,11 @@ var base = new function() {
 	 * 默认图片
 	 **/
 	this.DefaultImg = "../images/logo_default.png";
+
+	/**
+	 * 默认头像
+	 **/
+	this.DefaultAvatar = "../images/avatar.png";
 
 	/**
 	 * 显示等待、关闭等待
@@ -424,11 +429,13 @@ var base = new function() {
 	 * 双击顶部滚动到顶部
 	 **/
 	this.ScrollTop = function() {
-		document.querySelector('header').addEventListener('doubletap', function() {
-			mui.each(mui(".mui-scroll-wrapper"), function() {
-				mui(this).scroll().scrollTo(0, 0, 1000);
+		if(document.querySelectorAll('header').length > 0) {
+			document.querySelector('header').addEventListener('doubletap', function() {
+				mui.each(mui(".mui-scroll-wrapper"), function() {
+					mui(this).scroll().scrollTo(0, 0, 1000);
+				});
 			});
-		});
+		}
 	}
 
 	/**
@@ -532,7 +539,8 @@ var base = new function() {
 		} else {
 			div.className = 'mui-card';
 		}
-		div.setAttribute("iskeep", item.IsKeep);
+		div.setAttribute("iskeep", item.IsKeep);//是否收藏
+		div.setAttribute("isfollow", item.IsFollow);//是否关注
 		div.style.paddingBottom = "0.8rem";
 
 		div.setAttribute("id", "article" + item.ArticleID)
@@ -581,7 +589,7 @@ var base = new function() {
 			} else {
 				model.push('<img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span>');
 			}
-			model.push('<div style="width:1.5rem;height:100%;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '"><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10 c999"></a></div></div>');
+			model.push('<div style="width:1.5rem;height:100%;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '" articleUserNumber="' + item.UserNumber + '"><a class="mui-action-menu mui-icon mui-icon-bars fr f16 mt10 c999"></a></div></div>');
 
 			//用户
 			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
@@ -597,11 +605,11 @@ var base = new function() {
 			}
 			model.push('</p>');
 			//如果是自己隐藏关注按钮
-			if(userNumber != "" && userNumber != item.UserNumber) {
+			/*if(userNumber != "" && userNumber != item.UserNumber) {
 				if(item.IsFollow == 0) {
 					model.push('<img class="' + (item.IsFollow == 0 ? "guanzhu" : "") + '" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:2%;width:3rem;" />');
 				}
-			}
+			}*/
 			model.push('</div></div>');
 		}
 

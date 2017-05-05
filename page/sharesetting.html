@@ -130,6 +130,9 @@
 				if(index == 1) {
 					/*if(ArticleType == 0) {
 						mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
+							if(e.index < 0) {
+			return;
+		}
 							if(e.index == 0) {
 								base.OpenWindow("articletype", "articletype.html", {
 									ArticleID: ArticleID,
@@ -156,6 +159,9 @@
 				}
 				/*if(ArticleType == 0) {
 					mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
+						if(e.index < 0) {
+			return;
+		}
 						if(e.index == 0) {
 							base.OpenWindow("articletype", "articletype.html", {
 								ArticleID: ArticleID,

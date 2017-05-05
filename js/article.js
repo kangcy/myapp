@@ -1,5 +1,6 @@
 var ArticleNumber = "";
 var ArticleID = 0;
+var ArticleUserNumber = "";
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
 	mui('#action').popover('hide');
@@ -22,18 +23,28 @@ function CloseMask() {
 }
 
 //子窗口弹窗
-function ActionTan(show, articleNumber, articleId) {
+function ActionTan(show, articleNumber, articleId, articleUserNumber) {
 	if(show) {
 		ArticleNumber = articleNumber;
 		ArticleID = articleId;
+		ArticleUserNumber = articleUserNumber;
 		if(PageName != "keep") {
 			var item = base.Get("article" + ArticleID);
+			//判断收藏
 			if(item.getAttribute("iskeep") == 0) {
 				base.Get("action_keep").classList.remove("hide");
 				base.Get("action_outkeep").classList.add("hide");
 			} else {
 				base.Get("action_keep").classList.add("hide");
 				base.Get("action_outkeep").classList.remove("hide");
+			}
+			//判断关注
+			if(item.getAttribute("isfollow") == 0) {
+				base.Get("action_follow").classList.remove("hide");
+				base.Get("action_outfollow").classList.add("hide");
+			} else {
+				base.Get("action_follow").classList.add("hide");
+				base.Get("action_outfollow").classList.remove("hide");
 			}
 		}
 		mui('#action').popover('show');
@@ -71,6 +82,9 @@ function OutKeep() {
 	mask.close();
 	var item = base.Get("article" + ArticleID);
 	mui.confirm('确认取消收藏？', '', ['确认', '取消'], function(e) {
+		if(e.index < 0) {
+			return;
+		}
 		if(e.index == 0) {
 			HttpGet(base.RootUrl + "Keep/Delete", {
 				ID: userinfo.ID,
@@ -96,6 +110,65 @@ function OutKeep() {
 							var item = base.Get("article" + ArticleID);
 							item.setAttribute("iskeep", 0);
 						}
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+						base.RefreshUser();
+					} else {
+						mui.toast(data.message);
+					}
+				} else {
+					mui.toast("失败");
+				}
+			});
+		}
+	});
+}
+
+//关注
+function Follow() {
+	if(base.RepeatAction()) {
+		return;
+	}
+	mask.close();
+	HttpGet(base.RootUrl + "Fan/Edit", {
+		ID: userinfo.ID,
+		ToUserNumber: ArticleUserNumber
+	}, function(data) {
+		if(data != null) {
+			if(data.result) {
+				if(data.message != "exist") {
+					var item = base.Get("article" + ArticleID);
+					item.setAttribute("iskeep", 1);
+					base.UpdateFan(userinfo);
+				}
+			}
+			mui.toast(data.result ? "关注成功" : data.message);
+		}
+	});
+}
+
+//取消关注
+function OutFollow() {
+	if(base.RepeatAction()) {
+		return;
+	}
+	mask.close();
+	mui.confirm('确认取消关注？', '', ['确认', '取消'], function(e) {
+		if(e.index < 0) {
+			return;
+		}
+		if(e.index == 0) {
+			HttpGet(base.RootUrl + "Fan/Delete", {
+				ID: userinfo.ID,
+				ToUserNumber: ArticleUserNumber
+			}, function(data) {
+				if(data) {
+					if(data.result) {
+						userinfo.Follows = userinfo.Follows - 1;
+						if(userinfo.Follows < 0) {
+							userinfo.Follows = 0;
+						}
+						var item = base.Get("article" + ArticleID);
+						item.setAttribute("isfollow", 0);
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 						base.RefreshUser();
 					} else {

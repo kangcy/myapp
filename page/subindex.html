@@ -349,7 +349,7 @@
 	});
 
 	mui.ready(function() {
-		
+
 		if(userinfo.UserRole == 2) {
 			//base.RemoveClass(["#my-tip"], ["hide"]);
 		}
@@ -358,7 +358,8 @@
 			mui('#slider').on('tap', '.tanaction', function() {
 				var number = this.getAttribute("articleNumber");
 				var id = this.getAttribute("articleId");
-				ActionTan(true, number, id);
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber);
 			});
 		});
 

@@ -54,6 +54,9 @@
 			}
 			var li = this.parentNode.parentNode;
 			mui.confirm('确认移除黑名单？', '', ['确认', '取消'], function(e) {
+				if(e.index < 0) {
+					return;
+				}
 				if(e.index == 0) {
 					mui.swipeoutClose(li);
 					HttpGet(base.RootUrl + "Black/Delete", {

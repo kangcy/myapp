@@ -121,6 +121,9 @@ function Delete() {
 	mask.close();
 	var btnArray = ['确定', '取消'];
 	mui.confirm('删除后将无法在浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
+		if(e.index < 0) {
+			return;
+		}
 		if(e.index == 0) {
 			HttpGet(base.RootUrl + "Article/Delete", {
 				ID: userinfo.ID,
@@ -220,6 +223,9 @@ function Keep() {
 //取消收藏
 function OutKeep() {
 	mui.confirm('确认取消收藏？', '', ['确认', '取消'], function(e) {
+		if(e.index < 0) {
+			return;
+		}
 		if(e.index == 0) {
 			HttpGet(base.RootUrl + "Keep/Delete", {
 				ID: userinfo.ID,

@@ -40,10 +40,11 @@
 			if(userinfo == "{}") {
 				base.OpenWindow("login", "page/login.html", {}, "slide-in-bottom");
 			} else {
-				preload();
+				//preload();
+				base.OpenWindow("subindex", "page/subindex.html", {}, "pop-in");
 			}
 		} else {
-			base.OpenWindow("guide", "page/guide.html", {}, "fade-in");
+			base.OpenWindow("guide", "page/guide.html", {}, "pop-in");
 		}
 	});
 

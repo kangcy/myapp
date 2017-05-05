@@ -117,6 +117,9 @@
 
 		if(base.IsNullOrEmpty(userinfo.Phone)) {
 			mui.confirm('尚未绑定手机号，有文章丢失的风险，请尽快绑定。', '', ['去绑定', '取消'], function(e) {
+				if(e.index < 0) {
+					return;
+				}
 				if(e.index == 0) {
 					BindPhone();
 				}
@@ -143,6 +146,9 @@
 			} else {
 				if(base.IsNullOrEmpty(userinfo.Phone)) {
 					mui.confirm('解绑微信前需要绑定手机', '', ['去绑定', '取消'], function(e) {
+						if(e.index < 0) {
+							return;
+						}
 						if(e.index == 0) {
 							BindPhone();
 						} else {
@@ -168,6 +174,9 @@
 			} else {
 				if(base.IsNullOrEmpty(userinfo.Phone)) {
 					mui.confirm('解绑QQ前需要绑定手机', '', ['去绑定', '取消'], function(e) {
+						if(e.index < 0) {
+							return;
+						}
 						if(e.index == 0) {
 							BindPhone();
 						} else {
@@ -193,6 +202,9 @@
 			} else {
 				if(base.IsNullOrEmpty(userinfo.Phone)) {
 					mui.confirm('解绑微博前需要绑定手机', '', ['去绑定', '取消'], function(e) {
+						if(e.index < 0) {
+							return;
+						}
 						if(e.index == 0) {
 							BindPhone();
 						} else {

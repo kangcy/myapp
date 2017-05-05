@@ -206,6 +206,9 @@
 			var $this = this;
 			var btnArray = ['确定', '取消'];
 			mui.confirm('确定删除此段？', '', btnArray, function(e) {
+				if(e.index < 0) {
+					return;
+				}
 				if(e.index == 0) {
 					var partid = $this.getAttribute("partid");
 					$this.parentNode.parentNode.parentNode.remove();
