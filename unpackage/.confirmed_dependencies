@@ -2450,7 +2450,8 @@
 			"images/base/reward_nor.png",
 			"images/article/star.png",
 			"part/list.html",
-			"images/my/444.png"
+			"images/my/444.png",
+			"images/base/like_hig.png"
 		],
 		"refer": [
 			"page/addfan.html"

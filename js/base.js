@@ -337,7 +337,8 @@ var base = new function() {
 			show: {
 				autoShow: true,
 				duration: base.AnimateDuration,
-				aniShow: aniShow ? aniShow : "slide-in-right"
+				aniShow: aniShow ? aniShow : "pop-in"
+					//aniShow: aniShow ? aniShow : "slide-in-right"
 			},
 			createNew: true,
 			waiting: {
@@ -586,25 +587,25 @@ var base = new function() {
 			}
 
 			//加精、置顶
-			model.push('<div class="c999 f11 star">');
 			if(item.Recommend == 99) {
+				model.push('<div class="c999 f11 star">');
 				model.push('<img src="../images/article/star.png" class="fl" /><span class="fl">精华</span>');
+				model.push('<div style="width:1.5rem;height:100%;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '" articleUserNumber="' + item.UserNumber + '"><a class="mui-action-menu mui-icon mui-icon-arrowdown fr f16 mt10 c999"></a></div></div>');
 			} else if(item.Recommend == 100) {
+				model.push('<div class="c999 f11 star">');
 				model.push('<img src="../images/article/top.png" class="fl" /><span class="fl">置顶</span>');
-			} else {
-				model.push('<img src="../images/article/' + name + '" class="fl" /><span class="fl">' + power + '</span>');
+				model.push('<div style="width:1.5rem;height:100%;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '" articleUserNumber="' + item.UserNumber + '"><a class="mui-action-menu mui-icon mui-icon-arrowdown fr f16 mt10 c999"></a></div></div>');
 			}
-			model.push('<div style="width:1.5rem;height:100%;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '" articleUserNumber="' + item.UserNumber + '"><a class="mui-action-menu mui-icon mui-icon-arrowdown fr f16 mt10 c999"></a></div></div>');
 
 			//用户
-			model.push('<div class="mui-card-header noborder mui-card-media user" userid="' + item.UserNumber + '">');
+			model.push('<div class="mui-card-header noborder mui-card-media">');
 			if(islazyload) {
-				model.push('<img data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+				model.push('<img class="user" userid="' + item.UserNumber + '" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 			} else {
-				model.push('<img src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
+				model.push('<img class="user" userid="' + item.UserNumber + '" src="' + base.ShowThumb(item.Avatar, 1) + '" style="border-radius:50%;width:2rem !important;height:2rem !important;" />');
 			}
 
-			model.push('<div class="mui-media-body f13 mt0" style="position:relative;"><span>' + base.UnUnicodeText(item.NickName) + '</span><p class="f11 full c999 mt5">' + item.CreateDate);
+			model.push('<div class="mui-media-body f13 mt0" style="position:relative;"><span class="user" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '</span><p class="f11 full c999 mt5">' + item.CreateDate);
 			if(!base.IsNullOrEmpty(item.City)) {
 				model.push('<span class="ml5 mr5 c999">来自</span><span class="c999">' + item.Province + ' • ' + item.City + '</span>');
 			}
@@ -615,6 +616,10 @@ var base = new function() {
 					model.push('<img class="' + (item.IsFollow == 0 ? "guanzhu" : "") + '" userid="' + item.UserNumber + '" src="../images/base/' + (item.IsFollow == 0 ? "follow0" : "follow1") + '.png" style="position:absolute;right:0px;top:2%;width:3rem;" />');
 				}
 			}*/
+
+			if(item.Recommend == 0) {
+				model.push('<div style="width:1.5rem;height:100%;position:absolute;right:0rem;top:0rem;" class="fr tanaction" articleId="' + item.ArticleID + '" articleNumber="' + item.ArticleNumber + '" articleUserNumber="' + item.UserNumber + '"><a class="mui-action-menu mui-icon mui-icon-arrowdown fr f16 mt10 c999"></a></div></div>');
+			}
 			model.push('</div></div>');
 		}
 
@@ -834,7 +839,7 @@ var base = new function() {
 	 */
 	this.AppendUser = function(item, isSignature, isFollow, isDelete, deleteName, isDistance) {
 		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user bounceInUp';
+		div.className = 'mui-table-view-cell user user1 bounceInUp';
 		div.setAttribute("userid", item.Number);
 		var model = [];
 		if(isDelete) {

@@ -635,13 +635,13 @@
 	 */
 	function Load(callback) {
 		var data = {
-			Number: userinfo.Number,
+			CurrUserNumber: userinfo.Number,
 			page: currpage,
 			rows: pagesize
 		};
 		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
 			data = JSON.parse(data);
-			if(data != null) {
+			if(data != null) { 
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
@@ -667,7 +667,7 @@
 			}
 
 			if(FirstLoad) {
-				mui.later(function() { 
+				mui.later(function() {
 					base.Get("bottom").classList.remove("hide");
 					base.Get("bottom").classList.add("zoomIn");
 				}, 400);

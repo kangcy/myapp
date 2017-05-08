@@ -85,8 +85,7 @@
 			rows: pagesize,
 			TypeID: ArticleType,
 			CreateUserNumber: CreateUserNumber,
-			CurrUserNumber: userinfo.Number,
-			Number: userinfo.Number
+			CurrUserNumber: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
 			data = JSON.parse(data);

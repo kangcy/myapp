@@ -20,7 +20,7 @@
 				padding: 0 4rem;
 			}
 			
-			.user {
+			.user1 {
 				background: #fff;
 				padding: 0px 0.9375rem;
 				border-bottom: 1px solid #eee;
@@ -293,7 +293,7 @@
 			rows: pagesize,
 			Title: SearchName,
 			Source: SearchName == "" ? "Search" : "",
-			Number: userinfo.Number
+			CurrUserNumber: userinfo.Number
 		};
 		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
 			data = JSON.parse(data);
