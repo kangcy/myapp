@@ -247,13 +247,15 @@
 		model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
 		model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
 		model.push('<div class="mui-table-cell pb0 main">');
-		model.push('<p class="f13 user c333" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '<span class="fr c999 f12">' + item.CreateDateText + '</span></p>');
+		model.push('<p class="f14 user c333" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '<span class="fr c999 f10">' + item.CreateDateText + '</span></p>');
 		model.push('<p class="f12 c999 mt3 mb10" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</p>');
-		if(!base.IsNullOrEmpty(item.ParentCommentNumber)) {
-			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + base.UnUnicodeText(item.ParentNickName) + '：</span>' + base.UnUnicodeText(item.ParentSummary) + '</p>');
-		}
-		model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" />');
 
+		model.push('<p class="tip mb0 f12"><span class="blue" userid="' + item.ParentUserNumber + '">查看6条回复</span></p>');
+
+		/*if(!base.IsNullOrEmpty(item.ParentCommentNumber)) {
+			model.push('<p class="tip mb0 f12" style="line-height:1.3rem;"><span class="user blue" userid="' + item.ParentUserNumber + '">@' + base.UnUnicodeText(item.ParentNickName) + '：</span>' + base.UnUnicodeText(item.ParentSummary) + '</p>');
+		}*/
+		model.push('<div class="full tr mt15 mb10 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" />');
 		if(item.IsZan == 0) {
 			model.push('<div id="goods' + item.ID + '" cid="' + item.ID + '" already="0" class="goods fr"><span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/base/like_nor.png" style="width:0.9rem;" class=" ml15 fr"  />');
 		} else {

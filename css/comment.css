@@ -86,8 +86,8 @@
 
 .tip {
 	text-align: left;
-	background: #eee;
-	padding: 10px;
+	background: #f5f5f5;
+	padding: 0.5rem;
 	width: 100%;
 	position: relative;
 	border-radius: 3px;
@@ -99,7 +99,7 @@
 	width: 0;
 	height: 0;
 	border: 6px solid transparent;
-	border-bottom-color: #eee;
+	border-bottom-color: #f5f5f5;
 	left: 10px;
 	top: -12px;
 }
