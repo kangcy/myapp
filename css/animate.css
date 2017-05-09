@@ -944,14 +944,16 @@
 		-moz-transform: scale(1);
 		-o-transform: scale(1);
 		-webkit-transform: scale(1);
-		transform: scale(1)
+		transform: scale(1);
+		opacity: 1;
 	}
 	50% {
-		-ms-transform: scale(1.5);
-		-moz-transform: scale(1.5);
-		-o-transform: scale(1.5);
-		-webkit-transform: scale(1.5);
-		transform: scale(1.5);
+		-ms-transform: scale(1.8);
+		-moz-transform: scale(1.8);
+		-o-transform: scale(1.8);
+		-webkit-transform: scale(1.8);
+		transform: scale(1.8);
+		opacity: 0.8;
 	}
 	100% {
 		-ms-transform: scale(1);
@@ -960,6 +962,7 @@
 		-webkit-transform: scale(1);
 		transform: scale(1);
 		color: #ed5565;
+		opacity: 1;
 	}
 }
 
@@ -969,14 +972,16 @@
 		-moz-transform: scale(1);
 		-o-transform: scale(1);
 		-webkit-transform: scale(1);
-		transform: scale(1)
+		transform: scale(1);
+		opacity: 1;
 	}
 	50% {
-		-ms-transform: scale(1.5);
-		-moz-transform: scale(1.5);
-		-o-transform: scale(1.5);
-		-webkit-transform: scale(1.5);
-		transform: scale(1.5);
+		-ms-transform: scale(1.8);
+		-moz-transform: scale(1.8);
+		-o-transform: scale(1.8);
+		-webkit-transform: scale(1.8);
+		transform: scale(1.8);
+		opacity: 0.8;
 	}
 	100% {
 		-ms-transform: scale(1);
@@ -985,6 +990,7 @@
 		-webkit-transform: scale(1);
 		transform: scale(1);
 		color: #ed5565;
+		opacity: 1;
 	}
 }
 
@@ -994,14 +1000,16 @@
 		-moz-transform: scale(1);
 		-o-transform: scale(1);
 		-webkit-transform: scale(1);
-		transform: scale(1)
+		transform: scale(1);
+		opacity: 1;
 	}
 	50% {
-		-ms-transform: scale(1.5);
-		-moz-transform: scale(1.5);
-		-o-transform: scale(1.5);
-		-webkit-transform: scale(1.5);
-		transform: scale(1.5);
+		-ms-transform: scale(1.8);
+		-moz-transform: scale(1.8);
+		-o-transform: scale(1.8);
+		-webkit-transform: scale(1.8);
+		transform: scale(1.8);
+		opacity: 0.8;
 	}
 	100% {
 		-ms-transform: scale(1);
@@ -1010,6 +1018,7 @@
 		-webkit-transform: scale(1);
 		transform: scale(1);
 		color: #ed5565;
+		opacity: 1;
 	}
 }
 
@@ -1019,14 +1028,16 @@
 		-moz-transform: scale(1);
 		-o-transform: scale(1);
 		-webkit-transform: scale(1);
-		transform: scale(1)
+		transform: scale(1);
+		opacity: 1;
 	}
 	50% {
-		-ms-transform: scale(1.5);
-		-moz-transform: scale(1.5);
-		-o-transform: scale(1.5);
-		-webkit-transform: scale(1.5);
-		transform: scale(1.5);
+		-ms-transform: scale(1.8);
+		-moz-transform: scale(1.8);
+		-o-transform: scale(1.8);
+		-webkit-transform: scale(1.8);
+		transform: scale(1.8);
+		opacity: 0.8;
 	}
 	100% {
 		-ms-transform: scale(1);
@@ -1035,6 +1046,7 @@
 		-webkit-transform: scale(1);
 		transform: scale(1);
 		color: #ed5565;
+		opacity: 1;
 	}
 }
 
@@ -1044,14 +1056,16 @@
 		-moz-transform: scale(1);
 		-o-transform: scale(1);
 		-webkit-transform: scale(1);
-		transform: scale(1)
+		transform: scale(1);
+		opacity: 1;
 	}
 	50% {
-		-ms-transform: scale(1.5);
-		-moz-transform: scale(1.5);
-		-o-transform: scale(1.5);
-		-webkit-transform: scale(1.5);
-		transform: scale(1.5);
+		-ms-transform: scale(1.8);
+		-moz-transform: scale(1.8);
+		-o-transform: scale(1.8);
+		-webkit-transform: scale(1.8);
+		transform: scale(1.8);
+		opacity: 0.8;
 	}
 	100% {
 		-ms-transform: scale(1);
@@ -1060,6 +1074,7 @@
 		-webkit-transform: scale(1);
 		transform: scale(1);
 		color: #ed5565;
+		opacity: 1;
 	}
 }
 

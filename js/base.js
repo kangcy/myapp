@@ -159,11 +159,11 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://www.ishaoxia.com/";
+	this.RootUrl = "http://www.ishaoxia.com:8080/";
 
 	/**
 	 * 默认图片
-	 **/
+	 **/ 
 	this.DefaultImg = "../images/logo_default.png";
 
 	/**

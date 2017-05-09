@@ -5,6 +5,15 @@ var isLoading = false;
 var pagesize = base.PageSize;
 var userinfo = base.GetUserInfo();
 
+//刷新下拉
+function PullRefresh() {
+	currpage = 1;
+	totalpage = 2;
+	records = 0;
+	isLoading = false;
+	base.Get('scroll-view').innerHTML = "";
+}
+
 /**
  * 下拉刷新
  */
