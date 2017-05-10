@@ -163,7 +163,7 @@ var base = new function() {
 
 	/**
 	 * 默认图片
-	 **/ 
+	 **/
 	this.DefaultImg = "../images/logo_default.png";
 
 	/**
@@ -914,6 +914,9 @@ var base = new function() {
 	 * js Unicode编码
 	 */
 	this.UnicodeText = function(str) {
+		if(base.IsNullOrEmpty(str)) {
+			return "";
+		}
 		return escape(str).toLocaleLowerCase().replace(/%u/gi, '\\u');
 	}
 
@@ -921,6 +924,9 @@ var base = new function() {
 	 * js Unicode解码
 	 */
 	this.UnUnicodeText = function(str) {
+		if(base.IsNullOrEmpty(str)) {
+			return "";
+		}
 		return unescape(str.replace(/\\u/gi, '%u'));
 	}
 

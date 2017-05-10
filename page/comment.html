@@ -39,7 +39,7 @@
 	mui.ready(function() {
 
 		mui('#main').load("../part/list.html", function(response) {
-			base.Get("title").innerHTML = "评论与回复";
+			base.Get("title").innerHTML = "评论";
 			base.Get("none_img").setAttribute("src", "../images/my/333.png");
 			base.Get("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
 			$("#main").append('<textarea id="textarea" class="hide"></textarea>');
@@ -51,69 +51,6 @@
 	mui.plusReady(function() {
 		InitComment();
 	})
-
-	//提交编辑
-	function EditorSubmit() {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		if(editor == null) {
-			isLoading = false;
-			return mui.toast("信息异常");
-		}
-		var val = editor[0].emojioneArea.getHtml();
-		if(base.IsNullOrEmpty(val)) {
-			isLoading = false;
-			return mui.toast("请填写内容");
-		}
-		mask.show();
-		base.ShowWaiting("正在提交");
-		EditorHide();
-		HttpGet(base.RootUrl + "Api/Comment/Edit", {
-			ID: userinfo.ID,
-			ArticleNumber: ArticleNumber,
-			ParentCommentNumber: ParentCommentNumber,
-			ParentUserNumber: ParentUserNumber,
-			Summary: escape(val)
-		}, function(data) {
-			data = JSON.parse(data);
-			mui.later(function() {
-				mask.close();
-				mui.toast(data.result ? "感谢您的评论" : data.message);
-				if(data.result) {
-					NewId = data.message;
-					if(base.IsNullOrEmpty(ParentCommentNumber)) {
-						AppendComment();
-					} else {
-						var count = (parseInt(Count) + 1);
-						$("#comment0" + ParentCommentNumber).html('查看' + count + '条回复');
-						if(count > 0) {
-							$("#comment0" + ParentCommentNumber).parent("p").removeClass("hide");
-						}
-						$("#comment1" + ParentCommentNumber).attr("count", count);
-					}
-				}
-				isLoading = false;
-			}, 500);
-		});
-	}
-
-	//拼接新增评论
-	function AppendComment() {
-		HttpGet(base.RootUrl + "Api/Comment/Detail", {
-			ID: NewId
-		}, function(data) {
-			data = JSON.parse(data);
-			if(data.result) {
-				$("#none").addClass("hide");
-				var table = base.Get('scroll-view');
-				var div = AppendStr(data.message);
-				table.appendChild(div);
-			}
-			isLoading = false;
-		});
-	}
 
 	//评论我的-加载数据
 	function Load(callback) {

@@ -803,7 +803,8 @@
 		"refer": [
 			"page/commentSub.html",
 			"page/user.html",
-			"page/articledetail.html"
+			"page/articledetail.html",
+			"page/subcomment.html"
 		]
 	},
 	"page/user.html": {
