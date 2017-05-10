@@ -1275,10 +1275,12 @@
 @-webkit-keyframes bounceInUp {
 	0% {
 		opacity: 0;
-		-webkit-transform: translateY(200px);
-		transform: translateY(200px)
+		-webkit-transform: translateY(500px);
+		-ms-transform: translateY(500px);
+		transform: translateY(500px);
+		opacity: 0.5;
 	}
-	60% {
+	/*60% {
 		opacity: 1;
 		-webkit-transform: translateY(50px);
 		transform: translateY(50px)
@@ -1286,21 +1288,24 @@
 	80% {
 		-webkit-transform: translateY(20px);
 		transform: translateY(20px)
-	}
+	}*/
 	100% {
 		-webkit-transform: translateY(0);
-		transform: translateY(0)
+		-ms-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
 	}
 }
 
 @keyframes bounceInUp {
 	0% {
 		opacity: 0;
-		-webkit-transform: translateY(200px);
-		-ms-transform: translateY(200px);
-		transform: translateY(200px)
+		-webkit-transform: translateY(500px);
+		-ms-transform: translateY(500px);
+		transform: translateY(500px);
+		opacity: 0.5;
 	}
-	60% {
+	/*60% {
 		opacity: 1;
 		-webkit-transform: translateY(50px);
 		-ms-transform: translateY(50px);
@@ -1310,19 +1315,20 @@
 		-webkit-transform: translateY(20px);
 		-ms-transform: translateY(20px);
 		transform: translateY(20px)
-	}
+	}*/
 	100% {
 		-webkit-transform: translateY(0);
 		-ms-transform: translateY(0);
-		transform: translateY(0)
+		transform: translateY(0);
+		opacity: 1;
 	}
 }
 
 .bounceInUp {
-	-webkit-animation: bounceInUp 300ms linear;
-	-moz-animation: bounceInUp 300ms linear;
-	-ms-animation: bounceInUp 300ms linear;
-	animation: bounceInUp 300ms linear;
+	-webkit-animation: bounceInUp 250ms ease;
+	-moz-animation: bounceInUp 250ms ease;
+	-ms-animation: bounceInUp 250ms ease;
+	animation: bounceInUp 250ms ease;
 	animation-fill-mode: both;
 	-webkit-animation-fill-mode: both;
 	-moz-animation-fill-mode: both;

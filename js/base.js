@@ -1113,7 +1113,7 @@ function LoadPull(url, data, showNone, appendCallback, endCallback) {
 				}
 				var table = base.Get('scroll-view');
 				if(records > 0) {
-					DelayEachArray(data.list, 0, 100, base.CurrAnimate, function(item) {
+					DelayEachArray(data.list, 0, 50, base.CurrAnimate, function(item) {
 						var div = appendCallback(item);
 						table.appendChild(div);
 					})
