@@ -783,13 +783,10 @@ var base = new function() {
 
 			base.CheckLogin(userinfo);
 
-			var ArticleID = this.getAttribute("articleid");
 			var ArticleNumber = this.getAttribute("ArticleNumber");
-
 			base.IsLoading = false;
 
 			base.OpenWindow("articleComment", "../page/articleComment.html", {
-				ArticleID: ArticleID,
 				ArticleNumber: ArticleNumber
 			});
 		});

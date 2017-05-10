@@ -797,7 +797,8 @@
 			"js/PullRefresh.js",
 			"images/loading.gif",
 			"images/loading2.gif",
-			"images/avatar.png"
+			"images/avatar.png",
+			"js/comment.js"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -1504,7 +1505,8 @@
 			"images/article/pen2.png",
 			"js/PullRefresh.js",
 			"images/loading.gif",
-			"images/loading2.gif"
+			"images/loading2.gif",
+			"js/comment.js"
 		],
 		"refer": [
 			"page/articleCommentSub.html",
@@ -2482,7 +2484,11 @@
 			"fonts/mui.ttf",
 			"images/base/comment_nor.png",
 			"images/base/like_nor.png",
-			"images/base/like_hig.png"
+			"images/base/like_hig.png",
+			"js/comment.js"
+		],
+		"refer": [
+			"page/user.html"
 		]
 	}
 }
