@@ -27,22 +27,11 @@
 		//仅支持竖屏显示
 		plus.screen.lockOrientation("portrait-primary");
 
-		document.addEventListener("netchange", function() {
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置");
-			}
-		}, false);
-
 		//读取本地存储，检查是否为首次启动
 		var showGuide = plus.storage.getItem("lauchFlag");
 		if(showGuide) {
-			var userinfo = localStorage.getItem('$userinfo') || "{}";
-			if(userinfo == "{}") {
-				base.OpenWindow("login", "page/login.html", {}, "slide-in-bottom");
-			} else {
-				//preload();
-				base.OpenWindow("subindex", "page/subindex.html", {}, "slide-in-bottom");
-			}
+			preload();
+			//base.OpenWindow("adv", "page/adv.html", {}, "pop-in");
 		} else {
 			base.OpenWindow("guide", "page/guide.html", {}, "pop-in");
 		}
@@ -51,13 +40,13 @@
 	//初始化，并预加载webview模式的选项卡			
 	function preload() {
 		mui.preload({
-			id: 'subindex',
-			url: 'page/subindex.html',
+			id: 'adv',
+			url: 'page/adv.html',
 			styles: {
 				popGesture: 'hide'
 			},
 			show: {
-				autoShow: false
+				autoShow: true
 			}
 		});
 	}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>广告页面</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, '微软雅黑', '宋体', sans-serif
+			}
+			
+			#circle {
+				position: fixed;
+				color: #FFF;
+				text-align: center;
+				right: 0px;
+				top: 0px;
+				display: none;
+			}
+			
+			.sec-circle {
+				stroke-dashoffset: 0;
+				stroke-dasharray: 314;
+				transition: stroke-dashoffset 1s linear;
+			}
+			
+			#text {
+				position: fixed;
+				top: 30px;
+				right: 0px;
+				color: #333;
+				font-size: 13px;
+				width: 80px;
+				text-align: center;
+				display: none;
+			}
+			
+			#sec-text {
+				font-size: 20px;
+			}
+			
+			#top {
+				background-image: url(../images/adv/001.png);
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: cover;
+				display: none;
+			}
+			
+			#center {
+				background-image: url(../images/adv/002.png);
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: 30%;
+				display: none;
+			}
+			
+			#bottom {
+				background-image: url(../images/adv/003.png);
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: 85%;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="top">
+			<div id="center">
+			</div>
+		</div>
+		<div id="bottom"></div>
+		<svg id="circle" width="80" height="80">
+			<circle cx="40" cy="40" r="20" fill="#eee" stroke="#43AEFA" stroke-width="2"></circle>
+			<circle id="sec-circle" class="sec-circle" cx="40" cy="40" r="20" stroke-width="3" fill="transparent" stroke="#F4F1F1" transform="rotate(-90 40 40)"></circle>
+		</svg>
+		<div id="text"><span id="sec-text">0</span><span>s</span></div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script type="text/javascript">
+	/*mui.init({
+				preloadPages: [{
+					id: 'login',
+					url: 'page/login.html',
+					styles: {
+						popGesture: 'hide'
+					},
+					show: {
+						autoShow: false
+					}
+				}, {
+					id: 'subindex',
+					url: 'page/subindex.html',
+					styles: {
+						popGesture: 'hide'
+					},
+					show: {
+						autoShow: false
+					}
+				}]
+			});*/
+
+	mui.init();
+
+	mui.ready(function() {
+		var top = document.getElementById("top");
+		var center = document.getElementById("center");
+		var bottom = document.getElementById("bottom");
+
+		top.style.height = window.innerHeight * 0.8 + "px";
+		center.style.height = window.innerHeight * 0.8 + "px";
+		bottom.style.height = window.innerHeight * 0.2 + "px";
+
+		top.style.display = "block";
+		center.style.display = "block";
+		bottom.style.display = "block";
+
+		//Time(5);
+	})
+
+	mui.plusReady(function() {
+		plus.navigator.setFullscreen(true); //全屏展示
+		plus.navigator.closeSplashscreen(); //关闭启动页
+
+		mui.back = function() {};
+
+		//仅支持竖屏显示
+		plus.screen.lockOrientation("portrait-primary");
+
+		document.addEventListener("netchange", function() {
+			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+				mui.toast("网络异常，请检查网络设置");
+			}
+		}, false);
+
+		Time(5);
+	});
+
+	function Time(time) {
+		//圆环周长
+		var perimeter = Math.round(2 * Math.PI * 20);
+		var n = document.getElementById("sec-circle");
+		n.style.strokearray = perimeter;
+		document.getElementById("circle").style.display = "block";
+		document.getElementById("text").style.display = "block";
+
+		var t = time;
+
+		var sec_text = document.getElementById("sec-text");
+		sec_text.innerHTML = t;
+		setInterval(function() {
+			if(0 == t) {
+				//读取本地存储，检查是否为首次启动
+				var showGuide = plus.storage.getItem("lauchFlag");
+				if(showGuide) {
+					var userinfo = localStorage.getItem('$userinfo') || "{}";
+					if(userinfo == "{}") {
+						preload_login();
+						//base.OpenWindow("login", "page/login.html", {}, "slide-in-bottom");
+					} else {
+						preload_index();
+						//base.OpenWindow("subindex", "page/subindex.html", {}, "slide-in-bottom");
+					}
+				} else {
+					base.OpenWindow("guide", "page/guide.html", {}, "pop-in");
+				}
+			} else {
+				t -= 1;
+				var e = Math.round(t / time * perimeter);
+				n.style.strokeDashoffset = e - perimeter;
+				sec_text.innerHTML = t;
+			}
+		}, 1000);
+	}
+
+	//预加载-登录页			
+	function preload_login() {
+		mui.preload({
+			id: 'login',
+			url: 'page/login.html',
+			styles: {
+				popGesture: 'hide'
+			},
+			show: {
+				autoShow: true
+			}
+		});
+	}
+
+	//预加载	-首页	
+	function preload_index() {
+		mui.preload({
+			id: 'subindex',
+			url: 'page/subindex.html',
+			styles: {
+				popGesture: 'hide'
+			},
+			show: {
+				autoShow: true
+			}
+		});
+	}
+</script>
