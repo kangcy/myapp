@@ -120,8 +120,8 @@
 
 	var auths = {};
 	mui.plusReady(function() {
-
-		plus.navigator.setFullscreen(false);
+		var self = plus.webview.currentWebview();
+		self.show("slide-in-bottom");
 
 		//系统定位
 		mui.later(function() {

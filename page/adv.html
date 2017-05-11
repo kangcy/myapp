@@ -31,7 +31,7 @@
 			
 			#text {
 				position: fixed;
-				top: 30px;
+				top: 28px;
 				right: 0px;
 				color: #333;
 				font-size: 13px;
@@ -86,28 +86,6 @@
 </html>
 <script src="../js/mui.min.js"></script>
 <script type="text/javascript">
-	/*mui.init({
-				preloadPages: [{
-					id: 'login',
-					url: 'page/login.html',
-					styles: {
-						popGesture: 'hide'
-					},
-					show: {
-						autoShow: false
-					}
-				}, {
-					id: 'subindex',
-					url: 'page/subindex.html',
-					styles: {
-						popGesture: 'hide'
-					},
-					show: {
-						autoShow: false
-					}
-				}]
-			});*/
-
 	mui.init();
 
 	mui.ready(function() {
@@ -129,6 +107,9 @@
 	mui.plusReady(function() {
 		plus.navigator.setFullscreen(true); //全屏展示
 		plus.navigator.closeSplashscreen(); //关闭启动页
+
+		var self = plus.webview.currentWebview();
+		self.show("pop-in");
 
 		mui.back = function() {};
 
@@ -158,19 +139,14 @@
 		sec_text.innerHTML = t;
 		setInterval(function() {
 			if(0 == t) {
-				//读取本地存储，检查是否为首次启动
-				var showGuide = plus.storage.getItem("lauchFlag");
-				if(showGuide) {
-					var userinfo = localStorage.getItem('$userinfo') || "{}";
-					if(userinfo == "{}") {
-						preload_login();
-						//base.OpenWindow("login", "page/login.html", {}, "slide-in-bottom");
-					} else {
-						preload_index();
-						//base.OpenWindow("subindex", "page/subindex.html", {}, "slide-in-bottom");
-					}
+
+				var userinfo = localStorage.getItem('$userinfo') || "{}";
+				if(userinfo == "{}") {
+					preload_login();
+					//base.OpenWindow("login", "page/login.html", {}, "slide-in-bottom");
 				} else {
-					base.OpenWindow("guide", "page/guide.html", {}, "pop-in");
+					preload_index();
+					//base.OpenWindow("subindex", "page/subindex.html", {}, "slide-in-bottom");
 				}
 			} else {
 				t -= 1;
@@ -185,12 +161,12 @@
 	function preload_login() {
 		mui.preload({
 			id: 'login',
-			url: 'page/login.html',
+			url: 'login.html',
 			styles: {
 				popGesture: 'hide'
 			},
 			show: {
-				autoShow: true
+				autoShow: false
 			}
 		});
 	}
@@ -199,12 +175,12 @@
 	function preload_index() {
 		mui.preload({
 			id: 'subindex',
-			url: 'page/subindex.html',
+			url: 'subindex.html',
 			styles: {
 				popGesture: 'hide'
 			},
 			show: {
-				autoShow: true
+				autoShow: false
 			}
 		});
 	}

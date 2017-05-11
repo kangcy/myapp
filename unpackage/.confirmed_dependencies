@@ -45,7 +45,8 @@
 			"page/login.html",
 			"page/share.html",
 			"page/subindex.html",
-			"page/guide.html"
+			"page/guide.html",
+			"page/adv.html"
 		],
 		"priority": 0
 	},
@@ -2490,6 +2491,17 @@
 		],
 		"refer": [
 			"page/user.html"
+		]
+	},
+	"page/adv.html": {
+		"resources": [
+			"images/adv/003.png",
+			"images/adv/001.png",
+			"images/adv/002.png"
+		],
+		"refer": [
+			"page/subindex.html",
+			"page/login.html"
 		]
 	}
 }
