@@ -124,12 +124,9 @@
 		self.show("slide-in-bottom");
 
 		//系统定位
-		mui.later(function() {
-			base.GetCurrentPosition();
-		});
+		base.GetCurrentPosition();
 
 		var settings = app.getSettings();
-
 		plus.oauth.getServices(function(services) {
 			auths = services;
 		}, function(e) {

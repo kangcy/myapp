@@ -54,10 +54,8 @@
 		plus.navigator.setFullscreen(true); //全屏展示
 		plus.navigator.closeSplashscreen(); //关闭启动页
 
-		mui.back = function() {};
-
 		base.InitSlider(false);
- 
+
 		//立即体验按钮点击事件 
 		document.getElementById("close").addEventListener('tap', function(event) {
 			plus.storage.setItem("lauchFlag", "true");
@@ -71,5 +69,20 @@
 			$(".mui-slider-item .fadeInUpd,.mui-slider-item .fadeInd,.mui-slider-item .swingd").css("opacity", "0");
 			$(".mui-slider-item:eq(" + index + ")").addClass("coverMoved");
 		});
+
+		//退出登录
+		var backButtonPress = 0;
+		mui.back = function(event) {
+			backButtonPress++;
+			if(backButtonPress > 1) {
+				plus.runtime.quit();
+			} else {
+				plus.nativeUI.toast('再按一次退出应用');
+			}
+			mui.later(function() {
+				backButtonPress = 0;
+			}, 1000);
+			return false;
+		};
 	});
 </script>

@@ -325,20 +325,33 @@ var base = new function() {
 	}
 
 	/**
+	 * 窗体动画
+	 **/
+	this.ShowAnimate = function() {
+		var show = "pop-in";
+		if(mui.os.android) {
+			if(parseFloat(mui.os.version) < 4.4) {
+				show = "slide-in-right";
+			}
+		}
+		return show;
+	}
+
+	/**
 	 * 打开新页面
 	 **/
 	this.OpenWindow = function(id, url, data, aniShow) {
 		if(base.RepeatAction()) {
 			return;
 		}
+
 		mui.openWindow({
 			id: id,
 			url: url,
 			show: {
 				autoShow: true,
-				duration: base.AnimateDuration,
-				aniShow: aniShow ? aniShow : "pop-in"
-					//aniShow: aniShow ? aniShow : "slide-in-right"
+				//duration: base.AnimateDuration,
+				aniShow: aniShow ? aniShow : base.ShowAnimate()
 			},
 			createNew: true,
 			waiting: {

@@ -85,6 +85,7 @@
 
 </html>
 <script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
 <script type="text/javascript">
 	mui.init();
 
@@ -100,8 +101,6 @@
 		top.style.display = "block";
 		center.style.display = "block";
 		bottom.style.display = "block";
-
-		//Time(5);
 	})
 
 	mui.plusReady(function() {
@@ -109,9 +108,7 @@
 		plus.navigator.closeSplashscreen(); //关闭启动页
 
 		var self = plus.webview.currentWebview();
-		self.show("pop-in");
-
-		mui.back = function() {};
+		self.show(base.ShowAnimate());
 
 		//仅支持竖屏显示
 		plus.screen.lockOrientation("portrait-primary");
@@ -123,6 +120,21 @@
 		}, false);
 
 		Time(5);
+
+		//退出登录
+		var backButtonPress = 0;
+		mui.back = function(event) {
+			backButtonPress++;
+			if(backButtonPress > 1) {
+				plus.runtime.quit();
+			} else {
+				plus.nativeUI.toast('再按一次退出应用');
+			}
+			mui.later(function() {
+				backButtonPress = 0;
+			}, 1000);
+			return false;
+		};
 	});
 
 	function Time(time) {
@@ -139,14 +151,11 @@
 		sec_text.innerHTML = t;
 		setInterval(function() {
 			if(0 == t) {
-
 				var userinfo = localStorage.getItem('$userinfo') || "{}";
 				if(userinfo == "{}") {
 					preload_login();
-					//base.OpenWindow("login", "page/login.html", {}, "slide-in-bottom");
 				} else {
 					preload_index();
-					//base.OpenWindow("subindex", "page/subindex.html", {}, "slide-in-bottom");
 				}
 			} else {
 				t -= 1;

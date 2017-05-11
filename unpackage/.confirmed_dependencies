@@ -2497,7 +2497,9 @@
 		"resources": [
 			"images/adv/003.png",
 			"images/adv/001.png",
-			"images/adv/002.png"
+			"images/adv/002.png",
+			"js/base.js",
+			"js/mui.min.js"
 		],
 		"refer": [
 			"page/subindex.html",

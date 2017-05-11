@@ -484,11 +484,10 @@
 
 	var backButtonPress = 0;
 	mui.plusReady(function() {
-		plus.navigator.closeSplashscreen();
 		plus.navigator.setFullscreen(false);
 
 		var self = plus.webview.currentWebview();
-		self.show("pop-in");
+		self.show(base.ShowAnimate());
 
 		base.InitPull("slider");
 
