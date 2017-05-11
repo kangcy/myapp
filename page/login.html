@@ -28,31 +28,42 @@
 				border-left: 1px solid #999;
 			}
 			
-			.oauth-area .border {
-				width: 100%;
-				height: 1px;
-				background: #333;
-				width: 100%;
-				height: 1px;
-				background: #333;
-				position: absolute;
-				top: 0.7rem;
-				left: 0px;
-				z-index: -1;
+			#top {
+				background-image: url(../images/login/bg.png);
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: cover;
+				display: none;
 			}
 			
-			.oauth-area .tip {
-				background: #fff;
-				padding: 5px;
-				display: inline-block;
+			#bottom {
+				display: none;
+			}
+			.copyright{
+				position:fixed;
+				bottom:0px;
+				left:0px;
 			}
 		</style>
 	</head>
 
 	<body>
-		<div class="mui-content mui-scroll-wrapper tc">
+		<div id="top">
+			<div id="center">
+			</div>
+		</div>
+		<div id="bottom">
+			<div style="width:50%;display:inline-block;margin-top:10%;" class="fl tc">
+				<img src="../images/login/qq_login.png" style="width:80%;float: right;margin-right: 6%;"id="qq"  />
+			</div>
+			<div style="width:50%;display:inline-block;margin-top:10%;" class="fl tc">
+				<img src="../images/login/wx_login.png"  style="width:80%;float: left;margin-left: 6%;" id="weixin"/>
+			</div>
+			<p class="tc f11 c000 fl full mt10">登录即代表您同意<span class="blue" style="text-decoration:underline;">《微篇服务协议》</span></p>
+			<p class="f11 c999 tc copyright full">Copyright © 2016-2017 小微篇版权所有</p>
+		</div>
+		<div class="mui-content mui-scroll-wrapper tc hide">
 			<div class="mui-scroll">
-				<img src="../images/login/logo.png" style="margin:3.5rem;width:30%;" id="logo" />
 				<div id="input-form">
 					<div class="user mui-input-row">
 						<input id='account' type="tel" class="mui-input-clear text f13" placeholder="请输入您的手机号码" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
@@ -67,15 +78,6 @@
 						<div id='reg'>免费注册</div>
 						<div id='forgetPassword' class="hide">忘记密码?</div>
 					</div>
-				</div>
-				<!--第三方登录-->
-				<div class="oauth-area" style="float: left;width:85%;margin:7.5%;margin-bottom:0px;" id="oauth">
-					<div style="position:relative;" class="mb10">
-						<div class="border"></div>
-						<div class="tip f12">其他账号登录</div>
-					</div>
-					<img src="../images/login/qq.png" style="width:20%;margin-right:20%;" id="qq" />
-					<img src="../images/login/wx.png" style="width:20%;" id="weixin" />
 				</div>
 			</div>
 		</div>
@@ -111,10 +113,18 @@
 	};
 
 	mui.ready(function() {
-		if(window.innerHeight <= 480) {
-			base.Get("logo").style.margin = "1.6rem";
-		}
+		var top = document.getElementById("top");
 
+		var bottom = document.getElementById("bottom");
+
+		top.style.height = window.innerHeight * 0.7 + "px";
+		
+		bottom.style.height = window.innerHeight * 0.3 + "px";
+ 
+		top.style.display = "block";
+		
+		bottom.style.display = "block";
+	
 		base.InitScroll();
 	})
 
