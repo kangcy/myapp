@@ -29,7 +29,6 @@ function InitComment() {
 			return;
 		}
 		isLoading = true;
-		var already = this.getAttribute("already") == "1";
 		var commentid = this.getAttribute("cid");
 		HttpGet(base.RootUrl + "Api/Zan/CommentZanEdit", {
 			ID: userinfo.ID,
@@ -40,7 +39,8 @@ function InitComment() {
 				if(data.result) {
 					var item = $("#goods" + commentid);
 					var count = parseInt(item.find("span").html());
-					if(already) {
+					var already = data.message.split('|');
+					if(already[0] == 1) {
 						item.removeClass("heartbeat red");
 						item.attr("already", "0");
 						item.find("img").attr("src", "../images/base/like_nor.png");

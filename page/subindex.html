@@ -487,7 +487,7 @@
 		plus.navigator.setFullscreen(false);
 
 		var self = plus.webview.currentWebview();
-		self.show(base.ShowAnimate());
+		self.show("zoom-fade-out");
 
 		base.InitPull("slider");
 
@@ -640,7 +640,7 @@
 		};
 		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
 			data = JSON.parse(data);
-			if(data != null) { 
+			if(data != null) {
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;

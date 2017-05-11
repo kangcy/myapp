@@ -56,13 +56,14 @@
 		ArticleNumber = self.ArticleNumber || 0;
 
 		var action = self.Action || null;
+
+		InitComment();
+
 		if(action == null) {
 			$("#bottomAction").removeClass("hide").addClass("bounceIn");
 		} else {
 			Comment();
 		}
-
-		InitComment();
 	});
 
 	function Load(callback) {

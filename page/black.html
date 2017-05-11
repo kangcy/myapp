@@ -59,22 +59,19 @@
 				}
 				if(e.index == 0) {
 					mui.swipeoutClose(li);
-					HttpGet(base.RootUrl + "Black/Delete", {
+					HttpGet(base.RootUrl + "Api/Black/Delete", {
 						ID: userinfo.ID,
 						ToUserNumber: li.getAttribute("userid")
 					}, function(data) {
-						if(data) {
-							if(data.result) {
-								li.parentNode.removeChild(li);
-								var list = document.querySelectorAll(".mui-table-view-cell");
-								if(list.length == 0) {
-									base.ShowNone(true);
-								}
-							} else {
-								mui.toast(data.message);
+						data = JSON.parse(data);
+						if(data.result) {
+							li.parentNode.removeChild(li);
+							var list = document.querySelectorAll(".mui-table-view-cell");
+							if(list.length == 0) {
+								base.ShowNone(true);
 							}
 						} else {
-							mui.toast("失败");
+							mui.toast(data.message);
 						}
 					});
 				} else {

@@ -127,17 +127,16 @@ function Follow() {
 		return;
 	}
 	mask.close();
-	HttpGet(base.RootUrl + "Fan/Edit", {
+	HttpGet(base.RootUrl + "Api/Fan/Edit", {
 		ID: userinfo.ID,
 		ToUserNumber: ArticleUserNumber
 	}, function(data) {
+		data = JSON.parse(data);
 		if(data != null) {
 			if(data.result) {
-				if(data.message != "exist") {
-					var item = base.Get("article" + ArticleID);
-					item.setAttribute("isfollow", 1);
-					base.UpdateFan(userinfo);
-				}
+				var item = base.Get("article" + ArticleID);
+				item.setAttribute("isfollow", 1);
+				base.UpdateFan(userinfo, data.message);
 			}
 			mui.toast(data.result ? "关注成功" : data.message);
 		}

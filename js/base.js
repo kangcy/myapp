@@ -387,15 +387,14 @@ var base = new function() {
 				return;
 			}
 			var $this = this;
-			HttpGet(base.RootUrl + "Fan/Edit", {
+			HttpGet(base.RootUrl + "Api/Fan/Edit", {
 				ID: userinfo.ID,
 				ToUserNumber: userNumber
 			}, function(data) {
+				data = JSON.parse(data);
 				if(data != null) {
 					if(data.result) {
-						if(data.message != "exist") {
-							base.UpdateFan(userinfo);
-						}
+						base.UpdateFan(userinfo, data.message);
 						if(callback) {
 							callback($this);
 						}
@@ -678,11 +677,7 @@ var base = new function() {
 			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="pays fr tc" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '" UserNumber="' + item.UserNumber + '" NickName="' + item.NickName + '" Avatar="' + item.Avatar + '" articleid="' + item.ArticleID + '"><img id="ipays' + item.ArticleID + '" src="../images/base/reward_nor.png" style="width:0.9rem;" class="mt1" /></div>');
 		}
 		model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="comments fr tc" articleid="' + item.ArticleID + '" ArticleNumber="' + item.ArticleNumber + '"><img id="icomments' + item.ArticleID + '" src="../images/base/comment_nor.png" style="width:0.9rem;" class="mt1" /></div>');
-		if(item.IsZan == 0) {
-			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/like_nor.png" style="width:0.9rem;" class="mr10 fr goods" articleid="' + item.ArticleID + '" /></div>');
-		} else {
-			model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/like_hig.png" style="width:0.9rem;" class="mr10 fr" articleid="' + item.ArticleID + '"  /></div>');
-		}
+		model.push('<div style="width:2.5rem;height:1.5rem;display:inline-block;" class="fr tc"><img src="../images/base/' + (item.IsZan == 0 ? "like_nor" : "like_hig") + '.png" style="width:0.9rem;" class="mr10 fr goods ' + (item.IsZan == 0 ? "" : "red") + '" articleid="' + item.ArticleID + '" already="' + (item.IsZan == 0 ? 0 : 1) + '" /></div>');
 		model.push('</div>');
 
 		if(isdel) {
@@ -696,42 +691,9 @@ var base = new function() {
 	 * 文章列表操作(关注、点赞、评论、打赏)
 	 */
 	this.ArticleAction = function(id, userinfo) {
-		//base.ArticleAddFan(id, userinfo);
 		base.ArticleAddZan(id, userinfo);
 		base.ArticleAddPay(id, userinfo);
 		base.ArticleAddComment(id, userinfo);
-	}
-
-	/**
-	 * 文章列表添加关注
-	 */
-	this.ArticleAddFan = function(id, userinfo) {
-		mui(id).on('tap', '.guanzhu', function(event) {
-			base.TriggerMain = false;
-			if(base.IsLoading) {
-				return false;
-			}
-			base.IsLoading = true;
-			var $this = this;
-			var UserNumber = this.getAttribute("userid");
-			HttpGet(base.RootUrl + "Fan/Edit", {
-				ID: userinfo.ID,
-				ToUserNumber: UserNumber
-			}, function(data) {
-				if(data != null) {
-					mui.toast(data.result ? "关注成功" : data.message);
-					if(data.result) {
-						$this.classList.remove("guanzhu");
-						$this.setAttribute("src", "../images/base/follow1.png");
-						if(data.message != "exist") {
-							base.UpdateFan(userinfo);
-						}
-					}
-				}
-				base.IsLoading = false;
-				base.TriggerMain = true;
-			});
-		});
 	}
 
 	/**
@@ -744,16 +706,27 @@ var base = new function() {
 			}
 			var $this = this;
 			var ArticleID = $this.getAttribute("articleid");
-			HttpGet(base.RootUrl + "Api/Zan/Edit", {
+			HttpGet(base.RootUrl + "Api/Zan/ArticleZanEdit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID
 			}, function(data) {
 				data = JSON.parse(data);
 				if(data != null) {
 					if(data.result) {
-						$this.setAttribute("src", "../images/base/like_hig.png");
-						$this.classList.remove("goods");
-						$this.classList.add("heartbeat");
+						var already = data.message.split('|');
+						if(already[0] == 1) {
+							$this.setAttribute("already", "0");
+							$this.setAttribute("src", "../images/base/like_nor.png");
+							$this.classList.remove("red");
+							$this.classList.remove("heartbeat");
+						} else {
+							$this.setAttribute("already", "1");
+							$this.setAttribute("src", "../images/base/like_hig.png");
+							$this.classList.add("red");
+							$this.classList.add("heartbeat");
+						}
+					} else {
+						mui.toast(data.message);
 					}
 				}
 			});
@@ -835,7 +808,7 @@ var base = new function() {
 	 * 切换Switch
 	 */
 	this.SwitchChange = function(id, isopen) {
-		base.ToggleClass(["#" + id], ["active"], isopen);
+		base.ToggleClass(["#" + id], "active", isopen);
 	}
 
 	/**
@@ -905,15 +878,14 @@ var base = new function() {
 				ID: userinfo.ID,
 				ToUserNumber: UserNumber
 			}
-			HttpGet(base.RootUrl + "Fan/Edit", data, function(data) {
+			HttpGet(base.RootUrl + "Api/Fan/Edit", data, function(data) {
+				data = JSON.parse(data);
 				if(data != null) {
 					if(data.result) {
 						$this.classList.remove("guanzhu");
 						$this.classList.add("guanzhu2");
 						$this.childNodes[0].setAttribute("src", "../images/base/follow1.png");
-						if(data.message != "exist") {
-							base.UpdateFan(userinfo);
-						}
+						base.UpdateFan(userinfo, data.message);
 					}
 					mui.toast(data.result ? "关注成功" : data.message);
 				}

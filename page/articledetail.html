@@ -294,22 +294,25 @@
 				return;
 			}
 			isLoading = true;
-			if($zan.getAttribute("already") == "1") {
-				isLoading = false;
-				return mui.toast("已赞");
-			}
-			HttpGet(base.RootUrl + "Api/Zan/Edit", {
+			HttpGet(base.RootUrl + "Api/Zan/ArticleZanEdit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID
 			}, function(data) {
 				data = JSON.parse(data);
 				if(data != null) {
 					if(data.result) {
-						$zan.setAttribute("already", "1");
-						base.AddClass(["#zan"], "heartbeat red");
-						$("#footer_zan").html(data.message);
+						var already = data.message.split('|');
+						if(already[0] == 1) {
+							$zan.setAttribute("already", "0");
+							base.RemoveClass(["#zan"], "heartbeat red");
+							$("#footer_zan").html(already[1]);
+						} else {
+							$zan.setAttribute("already", "1");
+							base.AddClass(["#zan"], "heartbeat red");
+							$("#footer_zan").html(already[1]);
+						}
 					} else {
-						mui.toast("已赞");
+						mui.toast(data.message);
 					}
 				}
 				isLoading = false;
@@ -608,7 +611,7 @@
 			return;
 		}
 		if(video.paused) {
-			video.play(); 
+			video.play();
 		} else {
 			video.pause();
 		}

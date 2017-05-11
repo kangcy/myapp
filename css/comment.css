@@ -61,29 +61,6 @@
 	padding-bottom: 0.1875rem;
 }
 
-.footer {
-	background: none;
-	border-top: 1px solid #ccc;
-}
-
-.footer .txt {
-	width: 80%;
-	padding: 2px 10px;
-	height: 30px;
-	line-height: 30px;
-	margin-top: 7px;
-	float: left;
-	border: 0px;
-	border-radius: 5px;
-	border-bottom: 1px solid #2CADFA;
-}
-
-.footer . {
-	padding: 0.175rem 0.75rem;
-	background: #2CADFA;
-	border-color: #2CADFA;
-}
-
 .tip {
 	text-align: left;
 	background: #f5f5f5;
@@ -125,7 +102,7 @@
 	line-height: 2.1875rem;
 	background-image: url(../images/article/pen2.png);
 	background-repeat: no-repeat;
-	background-position: 40% center;
+	background-position: 35% center;
 	background-size: 1.25rem;
 	text-indent: 10%;
 }
