@@ -245,11 +245,11 @@
 		var noticebg = base.Get("mytanbg");
 		var notice = base.Get("notice");
 		if(index == 0) {
-			base.AddClass(["#mytanbg", "#notice"], ["hide"]);
+			base.AddClass(["#mytanbg", "#notice"], "hide");
 			notice.classList.remove("bounceIn");
 			notice.classList.add("bounceOut");
 		} else {
-			base.RemoveClass(["#mytanbg", "#notice"], ["hide"]);
+			base.RemoveClass(["#mytanbg", "#notice"], "hide");
 			notice.classList.remove("bounceOut");
 			notice.classList.add("bounceIn");
 		}

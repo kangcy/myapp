@@ -49,7 +49,7 @@ function galleryVideo() {
 					} else {
 						if(!change) {
 							change = true;
-							base.RemoveClass(["#myprogressbg", "#myprogress"], ["hide"]);
+							base.RemoveClass(["#myprogressbg", "#myprogress"], "hide");
 						}
 						var downloadedSize = task.uploadedSize;
 						base.Get("proDownFile").setAttribute("value", downloadedSize);

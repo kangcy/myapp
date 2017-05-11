@@ -556,7 +556,7 @@ var base = new function() {
 			div.style.padding = "0px";
 			div.setAttribute("kid", item.ArticleNumber);
 		} else {
-			div.className = 'mui-card bounceInUp';
+			div.className = 'mui-card';
 		}
 		div.setAttribute("iskeep", item.IsKeep); //是否收藏
 		div.setAttribute("isfollow", item.IsFollow); //是否关注
@@ -966,10 +966,11 @@ var base = new function() {
 	 * name:元素名称集合
 	 * classname:样式名称集合
 	 */
-	this.ToggleClass = function(name, classname, add) {
-		if(base.IsNullOrEmpty(name) || base.IsNullOrEmpty(classname)) {
+	this.ToggleClass = function(name, classnames, add) {
+		if(base.IsNullOrEmpty(name) || base.IsNullOrEmpty(classnames)) {
 			return;
 		}
+		var classname = classnames.split(' ');
 		if(add) {
 			mui.each(name, function(index1, n) {
 				if(n.indexOf('.') < 0) {

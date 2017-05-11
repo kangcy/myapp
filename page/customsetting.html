@@ -156,7 +156,7 @@
 
 	mui.ready(function() {
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
-			base.RemoveClass(["#create"], ["hide"]);
+			base.RemoveClass(["#create"], "hide");
 
 			base.Get("create").addEventListener('tap', function() {
 				url = "";
@@ -171,7 +171,7 @@
 
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");
-			base.ToggleClass(["#inused"], ["hide"], isused != 0);
+			base.ToggleClass(["#inused"], "hide", isused != 0);
 			id = this.getAttribute("id");
 			number = this.getAttribute("number");
 			url = this.getAttribute("url");

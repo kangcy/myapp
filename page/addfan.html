@@ -379,11 +379,11 @@
 	//初始化定位
 	function InitPosition() {
 		if(userinfo.ShowPosition == 0) {
-			base.AddClass(["#divLocation", "#scroll-view2"], ["hide"]);
-			base.RemoveClass(["#showPosition"], ["hide"]);
+			base.AddClass(["#divLocation", "#scroll-view2"], "hide");
+			base.RemoveClass(["#showPosition"], "hide");
 		} else {
-			base.AddClass(["#showPosition"], ["hide"]);
-			base.RemoveClass(["#divLocation", "#scroll-view2"], ["hide"]);
+			base.AddClass(["#showPosition"], "hide");
+			base.RemoveClass(["#divLocation", "#scroll-view2"], "hide");
 		}
 	}
 

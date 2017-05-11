@@ -28,8 +28,8 @@ function CheckUpdate(callback) {
 					remark.push('<p class="full tl mb10">' + remarks[i] + '</p>');
 				}
 				base.Get("myprogress_desc").innerHTML = remark.join("");
-				base.RemoveClass(["#myprogressbg", "#myprogress"], ["hide"]);
-				base.AddClass(["#myprogress"], ["bounceInUp"]);
+				base.RemoveClass(["#myprogressbg", "#myprogress"], "hide");
+				base.AddClass(["#myprogress"], "bounceInUp");
 
 				callback(1);
 			}
@@ -79,7 +79,7 @@ function Download() {
 
 //下次再说
 function Next() {
-	base.AddClass(["#myprogress", "#myprogressbg"], ["hide"]);
+	base.AddClass(["#myprogress", "#myprogressbg"], "hide");
 	base.Get("proDownFile").setAttribute("value", 0);
 	base.Get("proDownFile").setAttribute("max", 0);
 	base.Get("persent").style.left = "0px";
