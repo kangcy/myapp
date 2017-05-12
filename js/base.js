@@ -640,7 +640,7 @@ var base = new function() {
 
 		model.push('<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
 		if(base.IsNullOrEmpty(item.Title)) {
-			item.Title = "我的微篇";
+			item.Title = "我的小微篇";
 		}
 		model.push(base.UnUnicodeText(item.Title) + '</div>');
 

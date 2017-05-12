@@ -31,18 +31,27 @@
 			#top {
 				background-image: url(../images/login/bg.png);
 				background-repeat: no-repeat;
-				background-position: center center;
+				background-position: center bottom;
 				background-size: cover;
+				display: none;
+			}
+			
+			#center {
+				background-image: url(../images/login/center.png);
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: 60%;
 				display: none;
 			}
 			
 			#bottom {
 				display: none;
 			}
-			.copyright{
-				position:fixed;
-				bottom:0px;
-				left:0px;
+			
+			.copyright {
+				position: fixed;
+				bottom: 0px;
+				left: 0px;
 			}
 		</style>
 	</head>
@@ -54,12 +63,12 @@
 		</div>
 		<div id="bottom">
 			<div style="width:50%;display:inline-block;margin-top:10%;" class="fl tc">
-				<img src="../images/login/qq_login.png" style="width:80%;float: right;margin-right: 6%;"id="qq"  />
+				<img src="../images/login/qq_login.png" style="width:80%;float: right;margin-right: 6%;" id="qq" />
 			</div>
 			<div style="width:50%;display:inline-block;margin-top:10%;" class="fl tc">
-				<img src="../images/login/wx_login.png"  style="width:80%;float: left;margin-left: 6%;" id="weixin"/>
+				<img src="../images/login/wx_login.png" style="width:80%;float: left;margin-left: 6%;" id="weixin" />
 			</div>
-			<p class="tc f11 c000 fl full mt10">登录即代表您同意<span class="blue" style="text-decoration:underline;">《微篇服务协议》</span></p>
+			<p class="tc f11 c000 fl full mt20" id='notice'>登录即代表您同意<span class="blue" style="text-decoration:underline;">《小微篇服务协议》</span></p>
 			<p class="f11 c999 tc copyright full">Copyright © 2016-2017 小微篇版权所有</p>
 		</div>
 		<div class="mui-content mui-scroll-wrapper tc hide">
@@ -105,7 +114,7 @@
 	//跳转首页
 	var toMain = function() {
 		//base.ShowWaiting("登录成功，正在加载");
-		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out");
+		base.OpenWindow("subindex", "subindex.html", {}, "fade-in");
 		accountBox.value = "";
 		passwordBox.value = "";
 		mask.close();
@@ -118,14 +127,17 @@
 		var bottom = document.getElementById("bottom");
 
 		top.style.height = window.innerHeight * 0.7 + "px";
-		
+		center.style.height = window.innerHeight * 0.7 + "px";
 		bottom.style.height = window.innerHeight * 0.3 + "px";
- 
+
 		top.style.display = "block";
-		
+		center.style.display = "block";
 		bottom.style.display = "block";
-	
-		base.InitScroll();
+
+		//跳转用户协议页
+		base.Get('notice').addEventListener('tap', function(event) {
+			base.OpenWindow("notice", "notice.html", {});
+		});
 	})
 
 	var auths = {};
@@ -179,6 +191,16 @@
 			});
 		});
 
+		base.Get('weixin').addEventListener('tap', function() {
+			authLogin('weixin');
+		});
+		base.Get('qq').addEventListener('tap', function() {
+			authLogin('qq');
+		});
+		/*base.Get('sinaweibo').addEventListener('tap', function() {
+			authLogin('sinaweibo');
+		});*/
+
 		//退出登录
 		var backButtonPress = 0;
 		mui.back = function(event) {
@@ -208,16 +230,6 @@
 	base.Get('forgetPassword').addEventListener('tap', function(event) {
 		base.OpenWindow("forget_password", "forget_password.html", {});
 	}, false);
-
-	base.Get('weixin').addEventListener('tap', function() {
-		authLogin('weixin');
-	});
-	base.Get('qq').addEventListener('tap', function() {
-		authLogin('qq');
-	});
-	/*base.Get('sinaweibo').addEventListener('tap', function() {
-		authLogin('sinaweibo');
-	});*/
 
 	// 登录操作 
 	function authLogin(type) {
@@ -268,25 +280,26 @@
 			mui.toast("未授权登录");
 		} else {
 			s.getUserInfo(function(e) {
-				var josnStr = JSON.stringify(s.userInfo);
-				var jsonObj = s.userInfo;
-				var loginInfo = showData(type, jsonObj);
-				app.loginThird(loginInfo, function(err) {
-					if(err) {
-						isLoading = false;
-						mask.close();
-						plus.nativeUI.alert(err, null, "");
-						return;
-					}
-					toMain();
-				});
+					var loginInfo = showData(type, s.userInfo);
+					loginInfo.OpenID = s.authResult.openid;
+					//console.log(JSON.stringify(loginInfo));
+					app.loginThird(loginInfo, function(err) {
+						if(err) {
+							isLoading = false;
+							mask.close();
+							plus.nativeUI.alert(err, null, "");
+							return;
+						}
+						toMain();
+					});
 
-				//注销认证
-				//authLogout();
-			}, function(e) {
-				mask.close();
-				mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
-			});
+					//注销认证
+					//authLogout();
+				},
+				function(e) {
+					mask.close();
+					mui.toast("获取用户信息失败：" + e.message + " - " + e.code);
+				});
 		}
 	}
 
@@ -309,7 +322,6 @@
 				loginInfo.NickName = data.nickname;
 				loginInfo.Avatar = data.headimgurl;
 				loginInfo.Sex = data.sex == 1 ? 0 : 1;
-				loginInfo.OpenID = data.openid;
 				loginInfo.Source = 1;
 				break;
 			case 'qq':
@@ -317,7 +329,6 @@
 				loginInfo.NickName = data.nickname;
 				loginInfo.Avatar = data.figureurl_qq_2;
 				loginInfo.Sex = data.gender == "男" ? 0 : 1;
-				loginInfo.OpenID = data.figureurl.split("/")[5];
 				loginInfo.Source = 2;
 				break;
 			case 'sinaweibo':
@@ -325,7 +336,6 @@
 				loginInfo.NickName = data.screen_name;
 				loginInfo.Avatar = data.avatar_large;
 				loginInfo.Sex = data.gender == "m" ? 0 : 1;
-				loginInfo.OpenID = data.id;
 				loginInfo.Source = 3;
 				break;
 			default:

@@ -85,14 +85,19 @@
 			"css/input.css",
 			"css/input.min.css",
 			"images/loading.gif",
-			"images/loading2.gif"
+			"images/loading2.gif",
+			"images/login/bg.png",
+			"images/login/qq_login.png",
+			"images/login/center.png",
+			"images/login/wx_login.png"
 		],
 		"refer": [
 			"index.html",
 			"page/reg.html",
 			"page/register.html",
 			"page/subindex.html",
-			"page/forget_password.html"
+			"page/forget_password.html",
+			"page/notice.html"
 		]
 	},
 	"page/guide.html": {

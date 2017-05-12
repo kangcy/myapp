@@ -108,7 +108,7 @@
 		plus.navigator.closeSplashscreen(); //关闭启动页
 
 		var self = plus.webview.currentWebview();
-		self.show(base.ShowAnimate());
+		self.show("fade-in");
 
 		//仅支持竖屏显示
 		plus.screen.lockOrientation("portrait-primary");
