@@ -533,6 +533,7 @@
 		}
 		HttpGet(base.RootUrl + "Api/Article/Detail", data, function(data) {
 			data = JSON.parse(data);
+			base.CheckLogin(userinfo, data.code);
 			if(data != null) {
 				if(data.result) {
 					data = data.message

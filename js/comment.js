@@ -35,6 +35,7 @@ function InitComment() {
 			CommentNumber: commentid
 		}, function(data) {
 			data = JSON.parse(data);
+			base.CheckLogin(userinfo, data.code);
 			if(data != null) {
 				if(data.result) {
 					var item = $("#goods" + commentid);
@@ -52,6 +53,8 @@ function InitComment() {
 						item.find("span").html(count + 1);
 					}
 				}
+			} else {
+				mui.toast("失败");
 			}
 			isLoading = false;
 		});
@@ -148,11 +151,16 @@ function AppendComment() {
 		ID: NewId
 	}, function(data) {
 		data = JSON.parse(data);
-		if(data.result) {
-			$("#none").addClass("hide");
-			var table = base.Get('scroll-view');
-			var div = AppendStr(data.message);
-			table.appendChild(div);
+		base.CheckLogin(userinfo, data.code);
+		if(data != null) {
+			if(data.result) {
+				$("#none").addClass("hide");
+				var table = base.Get('scroll-view');
+				var div = AppendStr(data.message);
+				table.appendChild(div);
+			}
+		} else {
+			mui.toast("失败");
 		}
 		isLoading = false;
 	});
@@ -184,6 +192,7 @@ function EditorSubmit() {
 		Summary: escape(val)
 	}, function(data) {
 		data = JSON.parse(data);
+		base.CheckLogin(userinfo, data.code);
 		mui.later(function() {
 			mask.close();
 			mui.toast(data.result ? "感谢您的评论" : data.message);

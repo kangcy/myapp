@@ -83,6 +83,13 @@ var waiting = new function() {
 var base = new function() {
 
 	/**
+	 * 接口错误码
+	 **/
+	this.ErrorCode = {
+		UnLogin: 1
+	}
+
+	/**
 	 * 触发层级(触发父元素事件)
 	 **/
 	this.TriggerMain = true;
@@ -159,7 +166,7 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://www.ishaoxia.com/";
+	this.RootUrl = "http://www.ishaoxia.com:8080/";
 
 	/**
 	 * 默认图片
@@ -210,10 +217,9 @@ var base = new function() {
 	/**
 	 * 判断用户是否登录
 	 **/
-	this.CheckLogin = function(userinfo) {
-		if(userinfo == "{}") {
+	this.CheckLogin = function(userinfo, code) {
+		if(userinfo == "{}" || code == base.ErrorCode.UnLogin) {
 			base.IsLoading = false;
-			base.TriggerMain = true;
 			base.OpenWindow("login", "../page/login.html", {}, "slide-in-bottom");
 			return false;
 		}
@@ -392,6 +398,7 @@ var base = new function() {
 				ToUserNumber: userNumber
 			}, function(data) {
 				data = JSON.parse(data);
+				base.CheckLogin(userinfo, data.code);
 				if(data != null) {
 					if(data.result) {
 						base.UpdateFan(userinfo, data.message);
@@ -401,6 +408,8 @@ var base = new function() {
 					} else {
 						mui.toast(data.message);
 					}
+				} else {
+					mui.toast("失败");
 				}
 			});
 		});
@@ -711,6 +720,7 @@ var base = new function() {
 				ArticleID: ArticleID
 			}, function(data) {
 				data = JSON.parse(data);
+				base.CheckLogin(userinfo, data.code);
 				if(data != null) {
 					if(data.result) {
 						var already = data.message.split('|');
@@ -728,6 +738,8 @@ var base = new function() {
 					} else {
 						mui.toast(data.message);
 					}
+				} else {
+					mui.toast("失败");
 				}
 			});
 		});
@@ -766,9 +778,6 @@ var base = new function() {
 				return false;
 			}
 			base.IsLoading = true;
-
-			base.CheckLogin(userinfo);
-
 			var ArticleNumber = this.getAttribute("ArticleNumber");
 			base.IsLoading = false;
 
@@ -880,6 +889,7 @@ var base = new function() {
 			}
 			HttpGet(base.RootUrl + "Api/Fan/Edit", data, function(data) {
 				data = JSON.parse(data);
+				base.CheckLogin(userinfo, data.code);
 				if(data != null) {
 					if(data.result) {
 						$this.classList.remove("guanzhu");
@@ -888,6 +898,8 @@ var base = new function() {
 						base.UpdateFan(userinfo, data.message);
 					}
 					mui.toast(data.result ? "关注成功" : data.message);
+				} else {
+					mui.toast("失败");
 				}
 				base.IsLoading = false;
 				base.TriggerMain = true;

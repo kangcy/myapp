@@ -71,26 +71,24 @@
 				}
 				if(e.index == 0) {
 					mui.swipeoutClose(li);
-					HttpGet(base.RootUrl + "Fan/Delete", {
+					HttpGet(base.RootUrl + "Api/Fan/Delete", {
 						ID: userinfo.ID,
 						ToUserNumber: li.getAttribute("userid")
 					}, function(data) {
-						if(data) {
-							if(data.result) {
-								li.parentNode.removeChild(li);
-								records = records - 1;
-								if(records < 0) {
-									records = 0;
-								}
-								if(records <= 0) {
-									base.ShowNone(true);
-								}
-								base.UpdateFan(userinfo, records);
-							} else {
-								mui.toast(data.message);
+						data = JSON.parse(data);
+						base.CheckLogin(userinfo, data.code);
+						if(data.result) {
+							li.parentNode.removeChild(li);
+							records = records - 1;
+							if(records < 0) {
+								records = 0;
 							}
+							if(records <= 0) {
+								base.ShowNone(true);
+							}
+							base.UpdateFan(userinfo, records);
 						} else {
-							mui.toast("失败");
+							mui.toast(data.message);
 						}
 					});
 				} else {

@@ -435,6 +435,8 @@
 					ToUserNumber: UserNumber
 				}
 				HttpGet(base.RootUrl + "Api/Fan/Edit", data, function(data) {
+					data = JSON.parse(data);
+					base.CheckLogin(userinfo, data.code);
 					if(data != null) {
 						mui.toast(data.result ? "关注成功" : data.message);
 						if(data.result) {
@@ -465,6 +467,7 @@
 		HttpGet(base.RootUrl + "Api/Black/Edit", data, function(data) {
 			base.CloseWaiting();
 			data = JSON.parse(data);
+			base.CheckLogin(userinfo, data.code);
 			if(data != null) {
 				mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
 				if(data.result) {
@@ -490,6 +493,7 @@
 		HttpGet(base.RootUrl + "Api/Black/Delete", data, function(data) {
 			base.CloseWaiting();
 			data = JSON.parse(data);
+			base.CheckLogin(userinfo, data.code);
 			if(data != null) {
 				mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
 				if(data.result) {

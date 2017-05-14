@@ -56,10 +56,12 @@ function Keep() {
 		return;
 	}
 	mask.close();
-	HttpGet(base.RootUrl + "Keep/Edit", {
+	HttpGet(base.RootUrl + "Api/Keep/Edit", {
 		ID: userinfo.ID,
 		ArticleID: ArticleID
 	}, function(data) {
+		data = JSON.parse(data);
+		base.CheckLogin(userinfo, data.code);
 		if(data != null) {
 			if(data.result) {
 				userinfo.Keeps += 1;
@@ -69,6 +71,8 @@ function Keep() {
 				base.RefreshUser();
 			}
 			mui.toast(data.result ? "收藏成功" : data.message);
+		} else {
+			mui.toast("失败");
 		}
 	});
 }
@@ -85,11 +89,13 @@ function OutKeep() {
 			return;
 		}
 		if(e.index == 0) {
-			HttpGet(base.RootUrl + "Keep/Delete", {
+			HttpGet(base.RootUrl + "Api/Keep/Delete", {
 				ID: userinfo.ID,
 				ArticleNumber: ArticleNumber
 			}, function(data) {
-				if(data) {
+				data = JSON.parse(data);
+				base.CheckLogin(userinfo, data.code);
+				if(data != null) {
 					if(data.result) {
 						if(PageName == "keep") {
 							item.parentNode.removeChild(item);
@@ -132,6 +138,7 @@ function Follow() {
 		ToUserNumber: ArticleUserNumber
 	}, function(data) {
 		data = JSON.parse(data);
+		base.CheckLogin(userinfo, data.code);
 		if(data != null) {
 			if(data.result) {
 				var item = base.Get("article" + ArticleID);
@@ -139,6 +146,8 @@ function Follow() {
 				base.UpdateFan(userinfo, data.message);
 			}
 			mui.toast(data.result ? "关注成功" : data.message);
+		} else {
+			mui.toast("失败");
 		}
 	});
 }
@@ -154,25 +163,22 @@ function OutFollow() {
 			return;
 		}
 		if(e.index == 0) {
-			HttpGet(base.RootUrl + "Fan/Delete", {
+			HttpGet(base.RootUrl + "Api/Fan/Delete", {
 				ID: userinfo.ID,
 				ToUserNumber: ArticleUserNumber
 			}, function(data) {
-				if(data) {
-					if(data.result) {
-						userinfo.Follows = userinfo.Follows - 1;
-						if(userinfo.Follows < 0) {
-							userinfo.Follows = 0;
-						}
-						var item = base.Get("article" + ArticleID);
-						item.setAttribute("isfollow", 0);
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-						base.RefreshUser();
-					} else {
-						mui.toast(data.message);
+				data = JSON.parse(data);
+				if(data.result) {
+					userinfo.Follows = userinfo.Follows - 1;
+					if(userinfo.Follows < 0) {
+						userinfo.Follows = 0;
 					}
+					var item = base.Get("article" + ArticleID);
+					item.setAttribute("isfollow", 0);
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					base.RefreshUser();
 				} else {
-					mui.toast("失败");
+					mui.toast(data.message);
 				}
 			});
 		}

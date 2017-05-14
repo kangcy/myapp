@@ -204,10 +204,12 @@ function Keep() {
 		return;
 	}
 	isLoading = true;
-	HttpGet(base.RootUrl + "Keep/Edit", {
+	HttpGet(base.RootUrl + "Api/Keep/Edit", {
 		ID: userinfo.ID,
 		ArticleID: ArticleID
 	}, function(data) {
+		data = JSON.parse(data);
+		base.CheckLogin(userinfo, data.code);
 		if(data != null) {
 			if(data.result) {
 				$("#iskeep,#isnotkeep").toggleClass("hide");
@@ -215,6 +217,8 @@ function Keep() {
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			}
 			mui.toast(data.result ? "收藏成功" : data.message);
+		} else {
+			mui.toast("失败");
 		}
 		isLoading = false;
 	});
@@ -227,10 +231,12 @@ function OutKeep() {
 			return;
 		}
 		if(e.index == 0) {
-			HttpGet(base.RootUrl + "Keep/Delete", {
+			HttpGet(base.RootUrl + "Api/Keep/Delete", {
 				ID: userinfo.ID,
 				ArticleNumber: Article.Number
 			}, function(data) {
+				data = JSON.parse(data);
+				base.CheckLogin(userinfo, data.code);
 				if(data != null) {
 					if(data.result) {
 						$("#iskeep,#isnotkeep").toggleClass("hide");
@@ -241,6 +247,8 @@ function OutKeep() {
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 					}
 					mui.toast(data.result ? "已取消收藏" : data.message);
+				} else {
+					mui.toast("失败");
 				}
 				isLoading = false;
 			});

@@ -64,6 +64,7 @@
 						ToUserNumber: li.getAttribute("userid")
 					}, function(data) {
 						data = JSON.parse(data);
+						base.CheckLogin(userinfo, data.code);
 						if(data.result) {
 							li.parentNode.removeChild(li);
 							var list = document.querySelectorAll(".mui-table-view-cell");

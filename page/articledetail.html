@@ -299,6 +299,7 @@
 				ArticleID: ArticleID
 			}, function(data) {
 				data = JSON.parse(data);
+				base.CheckLogin(userinfo, data.code);
 				if(data != null) {
 					if(data.result) {
 						var already = data.message.split('|');
@@ -314,6 +315,8 @@
 					} else {
 						mui.toast(data.message);
 					}
+				} else {
+					mui.toast("失败");
 				}
 				isLoading = false;
 			});

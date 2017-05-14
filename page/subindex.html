@@ -217,9 +217,7 @@
 		<!--图片操作-->
 		<div id="uploadwrapper"></div>
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-			<!--主界面部分-->
-			<div class="mui-inner-wrap mui-transitioning">
-				<!--侧滑菜单部分-->
+			<!--侧滑菜单部分-->
 				<aside id="offCanvasSide" class="mui-off-canvas-left mui-transitioning">
 					<div class="cover fl" id="cover">
 						<div class="info">
@@ -287,7 +285,10 @@
 						</div>
 					</div>
 				</aside>
-				<header class="mui-bar mui-bar-nav zoomIn" style="border-bottom:1px solid #f5f5f5;">
+				
+			<!--主界面部分-->
+			<div class="mui-inner-wrap mui-transitioning">
+				<header class="mui-bar mui-bar-nav zoomIn" style="border-bottom:1px solid #f5f5f5;background:#fff;">
 					<img id="avatar2" src="../images/logo.png" style="width:30px;margin-top:5px;border-radius:100%;" />
 					<a class="mui-icon mui-icon-search fr c333" id="search"></a>
 					<h1 class="mui-title">发现</h1>
@@ -298,7 +299,7 @@
 					</div>
 				</div>
 				<div id="offCanvasContentScroll" class="mui-content">
-					<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:3rem;">
+					<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:3rem;background:#fff;">
 						<div class="mui-scroll" id="slider">
 							<div id="divBanner">
 								<div id="banner"></div>
@@ -349,7 +350,6 @@
 	});
 
 	mui.ready(function() {
-
 		if(userinfo.UserRole == 2) {
 			//base.RemoveClass(["#my-tip"], "hide");
 		}
