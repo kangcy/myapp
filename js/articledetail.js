@@ -172,6 +172,7 @@ function Copy() {
 
 //编辑 
 function Edit() {
+	stopsound();
 	ActionTan(0);
 	mask.show();
 	base.ShowWaiting("正在同步文章内容");

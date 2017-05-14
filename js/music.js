@@ -6,11 +6,8 @@ function switchsound() {
 	if(audio == null) {
 		audio = document.createElement('audio');
 		audio.id = 'bgsound';
-		//audio.src = MusicUrl;
 		audio.loop = 'loop';
-
 		audio.innerHTML = '<source src="' + MusicUrl + '" type="audio/mpeg">'
-
 		document.body.appendChild(audio);
 	}
 
@@ -32,12 +29,12 @@ function stopsound() {
 
 function startsound() {
 	document.removeEventListener('touchstart', startsound);
-
 	if(audio == null) {
 		audio = document.createElement('audio');
 		audio.id = 'bgsound';
-		audio.src = MusicUrl;
+		//audio.src = MusicUrl;
 		audio.loop = 'loop';
+		audio.innerHTML = '<source src="' + MusicUrl + '" type="audio/mpeg">'
 		document.body.appendChild(audio);
 	}
 	audio.play();

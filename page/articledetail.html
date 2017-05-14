@@ -475,6 +475,10 @@
 
 					Article = data;
 					MusicUrl = data.MusicUrl;
+					if(audio != null) {
+						$("#bgsound").remove();
+						audio = null;
+					}
 
 					$("#payuser").attr("src", base.ShowThumb(data.Avatar, 1));
 					$(".user").attr("userid", data.CreateUserNumber);
