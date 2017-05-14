@@ -65,7 +65,7 @@
 			rows: pagesize,
 			UserNumber: UserNumber
 		}
-		LoadPull(base.RootUrl + "Api/Zan/ToMe", data, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Zan/ToMe", data, true, true, function(item) {
 			return AppendStr(item)
 		}, callback);
 	}

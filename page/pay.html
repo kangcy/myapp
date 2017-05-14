@@ -97,7 +97,7 @@
 			rows: pagesize,
 			ToUserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Order/All", data, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Order/All", data, true, true, function(item) {
 			return AppendStr(item);
 		}, callback);
 	}

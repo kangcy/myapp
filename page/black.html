@@ -87,7 +87,7 @@
 		var data = {
 			CreateUserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Black/All", data, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Black/All", data, true, true,function(item) {
 			return base.AppendUser(item, true, false, true, "移除黑名单");
 		}, callback);
 	}

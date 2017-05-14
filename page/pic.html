@@ -174,7 +174,7 @@
 			Number: userinfo.Number,
 			UserNumber: UserNumber
 		};
-		LoadPull(base.RootUrl + "Api/User/Pic", data, true, function(item) {
+		LoadPull(base.RootUrl + "Api/User/Pic", data, true, false, function(item) {
 			return AppendStr(item);
 		}, callback);
 	}

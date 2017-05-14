@@ -161,7 +161,7 @@ var base = new function() {
 	/**
 	 * 窗口动画持续时间
 	 **/
-	this.AnimateDuration = 250;
+	this.AnimateDuration = 150;
 
 	/**
 	 * 接口请求根路径
@@ -356,7 +356,7 @@ var base = new function() {
 			url: url,
 			show: {
 				autoShow: true,
-				//duration: base.AnimateDuration,
+				duration: base.AnimateDuration,
 				aniShow: aniShow ? aniShow : base.ShowAnimate()
 			},
 			createNew: true,
@@ -1094,10 +1094,11 @@ function ShowMask(show, showmask, pageid) {
  * url：接口请求地址
  * data：接口请求参数
  * showNone：是否显示空提示
+ * showNone：是否显示加载动画
  * appendCallback：拼接方法
  * endCallback：回调方法
  */
-function LoadPull(url, data, showNone, appendCallback, endCallback) {
+function LoadPull(url, data, showNone, showAnimate, appendCallback, endCallback) {
 	HttpGet(url, data, function(data) {
 		data = JSON.parse(data);
 		base.ShowLoading(false);
@@ -1111,10 +1112,17 @@ function LoadPull(url, data, showNone, appendCallback, endCallback) {
 				}
 				var table = base.Get('scroll-view');
 				if(records > 0) {
-					DelayEachArray(data.list, 0, 50, base.CurrAnimate, function(item) {
-						var div = appendCallback(item);
-						table.appendChild(div);
-					})
+					if(showAnimate) {
+						DelayEachArray(data.list, 0, 50, base.CurrAnimate, function(item) {
+							var div = appendCallback(item);
+							table.appendChild(div);
+						})
+					} else {
+						mui.each(data.list, function(index, item) {
+							var div = appendCallback(item);
+							table.appendChild(div);
+						});
+					}
 				}
 			}
 		}

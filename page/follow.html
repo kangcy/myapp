@@ -105,7 +105,7 @@
 			rows: pagesize,
 			CreateUserNumber: UserNumber
 		}
-		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true,true, function(item) {
 			return base.AppendUser(item, true, false, true, "取消关注");
 		}, callback);
 	}

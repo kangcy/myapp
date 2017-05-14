@@ -61,7 +61,7 @@
 			rows: pagesize,
 			ToUserNumber: UserNumber
 		}
-		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true,function(item) {
 			return base.AppendUser(item, true, true, false, "");
 		}, callback);
 	}

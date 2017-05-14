@@ -81,9 +81,11 @@ function InitComment() {
 	//回复
 	mui('#scroll').on('tap', '.sub', function() {
 		var number = this.getAttribute("number");
+		var name = this.getAttribute("name");
 		base.OpenWindow("subcomment", "subcomment.html", {
 			Number: number,
-			ArticleNumber: ArticleNumber
+			ArticleNumber: ArticleNumber,
+			Name: name
 		});
 	});
 }
@@ -136,7 +138,7 @@ function AppendStr(item) {
 	model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
 	model.push('<div class="mui-table-cell pb0"><p class="f13 user c333" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '<span class="fr f12 c999">' + item.CreateDateText + '</span></p>');
 	model.push('<p class="f12 c999 mt3 mb10" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</p>');
-	model.push('<p class="tip tip1 mb0 f12 ' + (item.SubCommentCount > 1 ? "" : "hide") + '"><span class="blue sub" number="' + item.Number + '" id="comment0' + item.Number + '">查看' + item.SubCommentCount + '条回复</span></p>');
+	model.push('<p class="tip tip1 mb0 f12 ' + (item.SubCommentCount > 1 ? "" : "hide") + '"><span class="blue sub" number="' + item.Number + '" id="comment0' + item.Number + '" name="' + item.NickName + '">查看' + item.SubCommentCount + '条回复</span></p>');
 	model.push('<p class="tip tip0 mb0 f12 ' + (item.SubCommentCount == 1 ? "" : "hide") + '"><span class="c999">' + base.UnUnicodeText(item.SubUserName) + ' : ' + base.UnUnicodeText(item.SubSummary) + '</span></p>');
 	model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/base/comment_nor.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" count="' + item.SubCommentCount + '" id="comment1' + item.Number + '" />');
 	model.push('<div id="goods' + item.Number + '" cid="' + item.Number + '" already="' + (item.IsZan == 0 ? 0 : 1) + '" class="goods fr ' + (item.IsZan == 0 ? "" : "red") + '"><span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/base/' + (item.IsZan == 0 ? "like_nor" : "like_hig") + '.png" style="width:0.9rem;" class="ml15 fr"  />');

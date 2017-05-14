@@ -89,7 +89,7 @@
 			rows: pagesize,
 			CreateUserNumber: UserNumber
 		};
-		LoadPull(base.RootUrl + "Api/Keep/All", data, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Keep/All", data, true,false, function(item) {
 			return base.AppendArticle(userinfo.Number, item, false, false, false, false);
 		}, callback);
 	}
