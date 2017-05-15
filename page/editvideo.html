@@ -192,7 +192,7 @@
  
 	//编辑视频
 	function AddVideo(url, index) {
-		var parentPage = plus.webview.getWebviewById("addarticle");
+		var parentPage = base.GetView("addarticle");
 		if(parentPage) {
 			parentPage.evalJS("AddVideo('" + base.GetUid() + "','" + url + "')");
 		}

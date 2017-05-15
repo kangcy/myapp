@@ -82,7 +82,7 @@
 		return null;
 	};
 	w.openDoc = function(t, c) {
-			var d = plus.webview.getWebviewById('document');
+			var d = base.GetView('document');
 			if(d) {
 				d.evalJS('updateDoc("' + t + '","' + c + '")');
 			} else {

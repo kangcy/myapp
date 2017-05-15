@@ -326,12 +326,12 @@
 				} else {
 					if(data.result) {
 						if(id == 0) {
-							var page = plus.webview.getWebviewById('articledetail');
+							var page = base.GetView('articledetail');
 							if(page) {
 								page.evalJS("UpdateDetail2()");
 							}
 						} else {
-							var page = plus.webview.getWebviewById('customsetting');
+							var page = base.GetView('customsetting');
 							if(page) {
 								page.evalJS("UpdateDetail2()");
 							}

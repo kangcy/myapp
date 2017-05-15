@@ -210,7 +210,7 @@
 
 		//返回
 		mui.back = function() {
-			var page = plus.webview.getWebviewById("articledetail");
+			var page = base.GetView("articledetail");
 			if(page) {
 				page.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
 			}

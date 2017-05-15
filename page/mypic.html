@@ -114,21 +114,14 @@
 					check.each(function() {
 						url.push($(this).attr("url"));
 					});
-					var page = plus.webview.getWebviewById(Source);
-					if(page) {
-						page.evalJS("ConfirmImg('" + url.join(",") + "')");
-					}
+					var page = base.GetView(Source);
+					page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 					//自定义背景
 				case "customsetting":
-					var url = [];
-					check.each(function() {
-						url.push($(this).attr("url"));
-					});
-					var page = plus.webview.getWebviewById("customsetting");
-					if(page) {
-						page.evalJS("ConfirmImg('" + url.join(",") + "')");
-					}
+					var url = check.attr("url");
+					var page = base.GetView("customsetting");
+					page.evalJS("ConfirmImg('" + url + "')");
 					break;
 					//创建段落
 				case "addarticle":
@@ -136,17 +129,13 @@
 					check.each(function() {
 						url.push($(this).attr("url"));
 					});
-					var page = plus.webview.getWebviewById("addarticle");
-					if(page) {
-						page.evalJS("ConfirmImg('" + url.join(",") + "')");
-					}
+					var page = base.GetView("addarticle");
+					page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 				default:
 					var url = check.attr("url");
-					var page = plus.webview.getWebviewById("editimage");
-					if(page) {
-						page.evalJS("ConfirmImg('" + url + "')");
-					}
+					var page = base.GetView("editimage");
+					page.evalJS("ConfirmImg('" + url + "')");
 					break;
 			}
 			mui.back();
@@ -164,7 +153,7 @@
 			Number: userinfo.Number,
 			UserNumber: userinfo.Number
 		};
-		LoadPull(base.RootUrl + "Api/User/Pic", data, true,false, function(item) {
+		LoadPull(base.RootUrl + "Api/User/Pic", data, true, false, function(item) {
 			return AppendStr(item);
 		}, callback);
 	}

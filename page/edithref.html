@@ -85,7 +85,7 @@
 				return mui.toast('请填写链接描述');
 			}
 			if(!parentPage) {
-				parentPage = plus.webview.getWebviewById('editdesc');
+				parentPage = base.GetView('editdesc');
 			}
 			parentPage.evalJS("UpdateLink('" + link + "','" + text + "')");
 			mui.back();
@@ -98,7 +98,7 @@
 			}
 			isLoading = true;
 			if(!parentPage) {
-				parentPage = plus.webview.getWebviewById('editdesc');
+				parentPage = base.GetView('editdesc');
 			}
 			parentPage.evalJS("DeleteLink('" + link + "," + text + "')");
 			mui.back();

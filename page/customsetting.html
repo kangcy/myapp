@@ -265,7 +265,7 @@
 				mui.toast("系统异常,请稍后再试");
 			} else {
 				if(data.result) {
-					var page = plus.webview.getWebviewById('articledetail');
+					var page = base.GetView('articledetail');
 					if(page) {
 						page.evalJS("UpdateDetail2()");
 					}

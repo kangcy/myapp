@@ -95,7 +95,7 @@
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 
 							if(!settingPage) {
-								settingPage = plus.webview.getWebviewById('accountsetting');
+								settingPage = base.GetView('accountsetting');
 							}
 							settingPage.evalJS("UpdatePhone('" + phone + "')");
 							mui.back();

@@ -21,7 +21,7 @@
 	});
 
 	mui.plusReady(function() {
-		var parentPage = plus.webview.getWebviewById("showhref");
+		var parentPage = base.GetView("showhref");
 		if(parentPage) {
 			parentPage.evalJS("InitSubPage()");
 		}

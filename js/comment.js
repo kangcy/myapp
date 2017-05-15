@@ -214,7 +214,7 @@ function EditorSubmit() {
 					$("#comment1" + ParentCommentNumber).attr("count", count);
 				}
 				//更新文章评论数
-				var page = plus.webview.getWebviewById("articledetail");
+				var page = base.GetView("articledetail");
 				if(page) {
 					page.evalJS("UpdateComment()")
 				}

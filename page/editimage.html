@@ -127,7 +127,7 @@
 				switch(Source) {
 					//文章封面
 					case "ArticleCover":
-						var page = plus.webview.getWebviewById("addarticle");
+						var page = base.GetView("addarticle");
 						if(page) {
 							page.evalJS("UpdateCover('" + src + "')")
 						}
@@ -140,7 +140,7 @@
 						isLoading = true;
 						mask.show();
 						base.ShowWaiting("正在同步图片");
-						var page = plus.webview.getWebviewById('addarticle');
+						var page = base.GetView('addarticle');
 						if(page) {
 							page.evalJS("AddPic('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + src + "','" + PartID + "')");
 						}
@@ -148,14 +148,14 @@
 						break;
 						//用户封面
 					case "UserCover":
-						var page = plus.webview.getWebviewById("subindex");
+						var page = base.GetView("subindex");
 						if(page) {
 							page.evalJS("UpdateCover('" + src + "')");
 						}
 						break;
 						//用户头像
 					case "UserAvatar":
-						var page = plus.webview.getWebviewById("mysetting");
+						var page = base.GetView("mysetting");
 						if(page) {
 							page.evalJS("UpdateAvatar('" + src + "')");
 						}

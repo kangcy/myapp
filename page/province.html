@@ -131,7 +131,7 @@
 		});
 
 		base.Get('currPosition').addEventListener('tap', function(e) {
-			var mysettingPage = plus.webview.getWebviewById("mysetting");
+			var mysettingPage = base.GetView("mysetting");
 			if(mysettingPage) {
 				mysettingPage.evalJS("UpdateAddress('" + province + "','" + city + "')");
 			}

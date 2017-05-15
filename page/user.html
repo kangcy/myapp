@@ -257,7 +257,7 @@
 
 		//返回
 		mui.back = function() {
-			var black = plus.webview.getWebviewById("black");
+			var black = base.GetView("black");
 			if(black) {
 				black.evalJS("Refresh()");
 			}

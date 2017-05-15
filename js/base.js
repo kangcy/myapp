@@ -1000,10 +1000,17 @@ var base = new function() {
 	}
 
 	/**
+	 * 获取页面对象
+	 */
+	this.GetView = function(id) {
+		return plus.webview.getWebviewById(id);
+	}
+
+	/**
 	 * 刷新用户信息
 	 */
 	this.RefreshUser = function() {
-		var page = plus.webview.getWebviewById("subindex");
+		var page = base.GetView("subindex");
 		if(page) {
 			page.evalJS("Refresh()");
 		}
@@ -1063,7 +1070,7 @@ function ChangeSlider(index) {
 
 //显示遮罩
 function ShowMask(show, showmask, pageid) {
-	var view = plus.webview.getWebviewById(pageid);
+	var view = base.GetView(pageid);
 	if(view == null) {
 		return;
 	}

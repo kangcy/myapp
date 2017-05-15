@@ -229,7 +229,7 @@
 			$("#edit").removeAttr("contenteditable").removeAttr("id");
 
 			if(!addarticlePage) {
-				addarticlePage = plus.webview.getWebviewById('addarticle');
+				addarticlePage = base.GetView('addarticle');
 			}
 			addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($("#divedit").html()) + "','" + PartID + "')");
 			plus.webview.close("editdesc");

@@ -94,12 +94,12 @@
 					if(data.result) {
 						switch(source) {
 							case "title":
-								page = plus.webview.getWebviewById('addarticle');
+								page = base.GetView('addarticle');
 								page.evalJS("UpdateTitle('" + val + "')");
 								plus.webview.close("edittext");
 								break;
 							case "signature":
-								page = plus.webview.getWebviewById('mysetting');
+								page = base.GetView('mysetting');
 								page.evalJS("UpdateSignature('" + val + "')");
 								plus.webview.close("edittext");
 								break;
@@ -108,7 +108,7 @@
 									isLoading = false;
 									return mui.toast("请填写昵称");
 								}
-								page = plus.webview.getWebviewById('mysetting');
+								page = base.GetView('mysetting');
 								page.evalJS("UpdateNickName('" + val + "')");
 								plus.webview.close("edittext");
 								break;

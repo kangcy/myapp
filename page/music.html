@@ -140,7 +140,7 @@
 			return mui.toast("还未选择音乐");
 		} else {
 			if(!addarticlePage) {
-				addarticlePage = plus.webview.getWebviewById('addarticle');
+				addarticlePage = base.GetView('addarticle');
 			}
 			addarticlePage.evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','" + MusicUrl + "')");
 		}

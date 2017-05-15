@@ -55,7 +55,7 @@
 
 	function InitSubPage() {
 		if(contentWebview == null) {
-			contentWebview = plus.webview.getWebviewById("showhrefsub");
+			contentWebview = base.GetView("showhrefsub");
 		}
 		document.getElementById("loader").classList.add("hide");
 		mui.fire(contentWebview, 'Init', {

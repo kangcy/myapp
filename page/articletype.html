@@ -128,7 +128,7 @@
 				isLoading = false;
 				if(data.result) {
 					if(!shareSettingPage) {
-						shareSettingPage = plus.webview.getWebviewById('sharesetting');
+						shareSettingPage = base.GetView('sharesetting');
 					}
 					shareSettingPage.evalJS("UpdateArticleType('" + ArticleType + "','" + ArticleTypeName + "')")
 					mui.back();
