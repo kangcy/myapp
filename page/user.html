@@ -200,7 +200,9 @@
 	var Sex = 0;
 	var ShareInfo = {};
 	var userinfo = base.GetUserInfo();
-	var mask = base.CreateMask(false, function() {});
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
 
 	var Intent = null,
 		File = null,
@@ -214,6 +216,9 @@
 	});
 
 	mui.ready(function() {
+		mask.show();
+		base.ShowWaiting("正在加载");
+
 		base.InitScroll();
 
 		var scrolly = 0;
@@ -290,7 +295,7 @@
 
 				base.Get("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
 				base.Get("bg").style.backgroundSize = "cover";
- 
+
 				base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
 				base.Get("avatar").classList.remove("hide");
 				base.Get("nickname").innerHTML = NickName;
@@ -339,6 +344,7 @@
 			base.CloseWaiting();
 
 			base.ShowLoading(false);
+			mask.close();
 		});
 	}
 
