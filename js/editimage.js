@@ -71,29 +71,50 @@ function Pic() {
 
 //照片裁剪类  
 function cutImg(callback) {
+	base.Get("rotateimgright").style.display = "none";
 	base.Get("openpop").style.display = "none";
-	base.Get("closepop").style.display = "inline-block";
-	/*if(long > 0 && width > 0) {
+	base.Get("closepop").style.display = "none";
+
+	//用户封面、用户头像
+	if(Standard == "UserCover" || Standard == "UserAvatar") {
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
-			aspectRatio: long / width,
-			autoCropArea: 0.3,
-			zoom: -0.2,
+			aspectRatio: 1 / 1, //裁剪比例
+			autoCropArea: 1, //裁剪框大小
+			toggleDragModeOnDblclick: false,
+			dragCrop: false, //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+			zoomable: true, //是否允许放大缩小图片
+			movable: false, //是否允许移动剪裁框
+			resizable: false, //是否允许改变裁剪框大小
 			build: function() {
 				callback();
 				iscutimging = true;
+				$("#readyimg").show();
+				mui.later(function() {
+					base.Get("rotateimgright").style.display = "inline-block";
+				}, 1500);
 			}
 		});
-	}*/
+	} else {
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
-			autoCropArea: 0.3,
-			zoom: -0.2,
+			autoCropArea: 0.6, //裁剪框大小
+			toggleDragModeOnDblclick: false,
+			dragCrop: false, //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+			zoomable: true, //是否允许放大缩小图片
+			movable: true, //是否允许移动剪裁框
+			resizable: true, //是否允许改变裁剪框大小
 			build: function() {
 				callback();
 				iscutimging = true;
+				$("#readyimg").show();
+				mui.later(function() {
+					base.Get("rotateimgright").style.display = "inline-block";
+					base.Get("closepop").style.display = "inline-block";
+				}, 1500);
 			}
 		});
+	}
 }
 
 //右旋转90度  
@@ -118,7 +139,8 @@ function rotateimgright() {
 			},
 			function(event) {
 				dstname = event.target;
-				$("#readyimg").attr("src", dstname + "?" + new Date().getTime());
+				$("#readyimg").cropper('rotate', 90);
+				//$("#readyimg").attr("src", dstname + "?" + new Date().getTime());
 			},
 			function(error) {
 				console.log("Compress error!");
@@ -146,6 +168,7 @@ function openpop() {
 
 //关闭裁剪窗口
 function closepop() {
+	base.Get("rotateimgright").style.display = "none";
 	base.Get("closepop").style.display = "none";
 	base.Get("openpop").style.display = "inline-block";
 	$("#readyimg").cropper('destroy');
@@ -233,6 +256,7 @@ function compressImage(src, newsrc, callback) {
 
 //我的相册选择图片回调
 function ConfirmImg(src) {
+	console.log(src);
 	var $readyimg = $("#readyimg");
 	$readyimg.hide().attr("src", src).load(function() {
 		var imagewidth = $readyimg.width();
@@ -248,6 +272,7 @@ function ConfirmImg(src) {
 			"max-width": totalwidth + "px",
 			"max-height": totalheight + "px"
 		});
+		$readyimg.cropper('replace', src)
 		$readyimg.show();
 	});
 }

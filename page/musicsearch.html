@@ -92,7 +92,7 @@
 	var pagesize = 20;
 	var addarticlePage = null;
 	var userinfo = base.GetUserInfo();
-var mask = base.CreateMask(false, function() {
+	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
 
@@ -144,6 +144,17 @@ var mask = base.CreateMask(false, function() {
 			}
 			InitMusic(search.value);
 		});
+
+		//监听软键盘搜索键
+		document.getElementById("search").addEventListener("keydown", function(e) {
+			if(13 == e.keyCode) {
+				if(base.IsNullOrEmpty(search.value)) {
+					return mui.toast("请输入搜索内容");
+				}
+				InitMusic(search.value);
+				document.activeElement.blur(); //隐藏软键盘 
+			}
+		}, false);
 
 		mui(base.Get("pullrefresh")).pullToRefresh({
 			up: {
