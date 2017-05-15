@@ -221,6 +221,9 @@
 	});
 
 	mui.ready(function() {
+		mask.show();
+		base.ShowWaiting("正在加载")
+
 		$("#wrapper2").css({
 			"width": window.innerWidth + "px",
 			"height": (window.innerHeight - 50) + "px",
@@ -607,7 +610,9 @@
 			if($.isFunction(callback)) {
 				callback();
 			}
+
 			base.ShowLoading(false);
+			mask.close();
 			base.CloseWaiting();
 		});
 	}
