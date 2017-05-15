@@ -32,6 +32,8 @@ function CheckUpdate(callback) {
 				base.AddClass(["#myprogress"], "bounceInUp");
 
 				callback(1);
+			} else {
+				mask.close();
 			}
 		});
 	});

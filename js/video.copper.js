@@ -73,7 +73,7 @@ function showActionSheet() {
 	var bts = [{
 		title: "拍摄"
 	}, {
-		title: "从视频库选择"
+		title: "调用视频库"
 	}];
 	plus.nativeUI.actionSheet({
 			cancel: "取消",

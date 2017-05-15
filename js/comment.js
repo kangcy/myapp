@@ -92,10 +92,6 @@ function InitComment() {
 
 //发表评论
 function Comment() {
-	if(isLoading) {
-		return;
-	}
-	isLoading = true;
 	ParentCommentNumber = "";
 	ParentUserNumber = "";
 	if(editor == null) {
@@ -104,7 +100,6 @@ function Comment() {
 		});
 	}
 	EditorShow();
-	isLoading = false;
 }
 
 //编辑器弹窗

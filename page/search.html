@@ -168,6 +168,14 @@
 			var index = this.getAttribute("currindex");
 			mui('#slider').slider().gotoItem(index);
 		});
+
+		//监听软键盘搜索键
+		document.getElementById("search").addEventListener("keydown", function(e) {
+			if(13 == e.keyCode) {
+				Search();
+				document.activeElement.blur(); //隐藏软键盘 
+			}
+		}, false);
 	});
 
 	mui.plusReady(function() {
@@ -195,11 +203,16 @@
 		});
 
 		base.Get("btnSearch").addEventListener('tap', function(e) {
-			var searchval = search.value;
-			InitLoadUser(searchval);
-			InitLoadArticle(searchval);
+			Search();
 		});
 	});
+
+//执行搜索
+	function Search() {
+		var searchval = search.value;
+		InitLoadUser(searchval);
+		InitLoadArticle(searchval);
+	}
 
 	//加载搜索文章 
 	function InitLoadArticle(title) {
