@@ -69,7 +69,7 @@
 				<img src="../images/login/wx_login.png" style="width:80%;float: left;margin-left: 6%;" id="weixin" />
 			</div>
 			<p class="tc f11 c000 fl full mt20" id='notice'>登录即代表您同意<span class="blue" style="text-decoration:underline;">《小微篇服务协议》</span></p>
-			<p class="f11 c999 tc copyright full">Copyright © 2016-2017 小微篇版权所有</p>
+			<p class="f11 c999 tc copyright full" id="copyright"></p>
 		</div>
 		<div class="mui-content mui-scroll-wrapper tc hide">
 			<div class="mui-scroll">
@@ -122,6 +122,9 @@
 	};
 
 	mui.ready(function() {
+		var date = new Date();
+		base.Get("copyright").innerHTML = "Copyright © " + (date.getFullYear() - 1) + "-" + date.getFullYear() + " 小微篇版权所有";
+
 		var top = document.getElementById("top");
 
 		var bottom = document.getElementById("bottom");

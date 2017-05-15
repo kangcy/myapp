@@ -218,74 +218,74 @@
 		<div id="uploadwrapper"></div>
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 			<!--侧滑菜单部分-->
-				<aside id="offCanvasSide" class="mui-off-canvas-left mui-transitioning">
-					<div class="cover fl" id="cover">
-						<div class="info">
-							<div class="left">
-								<img id="avatar" src="../images/logo.png" />
-							</div>
-							<div class="right tl">
-								<p class="cfff nickname f15 textshadow mt10 bold" id="nickname"></p>
-								<p class="cfff signature mt5 f12 textshadow" id="signature"></p>
-							</div>
+			<aside id="offCanvasSide" class="mui-off-canvas-left mui-transitioning">
+				<div class="cover fl" id="cover">
+					<div class="info">
+						<div class="left">
+							<img id="avatar" src="../images/logo.png" />
+						</div>
+						<div class="right tl">
+							<p class="cfff nickname f15 textshadow mt10 bold" id="nickname"></p>
+							<p class="cfff signature mt5 f12 textshadow" id="signature"></p>
 						</div>
 					</div>
-					<div style="width:90%;margin:0px 5%;height:4rem;margin-top:-2rem;" class="fl" id="info">
-						<div class="content1 tc cfff fl fullheight mt0">
-							<div class="items" id="my-articles">
-								<p class="item1 f16 blue" id="articles">0</p>
-								<p class="item2 f12 c999">动态</p>
-							</div>
-							<div class="items" id="my-keeps">
-								<p class="item1 f16 blue" id="keeps">0</p>
-								<p class="item2 f12 c999">收藏</p>
-							</div>
-							<div class="items" id="my-follows">
-								<p class="item1 f16 blue" id="follows">0</p>
-								<p class="item2 f12 c999">关注</p>
-							</div>
-							<div class="items" id="my-fans">
-								<p class="item1 f16 blue" id="fans">0</p>
-								<p class="item2 f12 c999">粉丝</p>
-							</div>
+				</div>
+				<div style="width:90%;margin:0px 5%;height:4rem;margin-top:-2rem;" class="fl" id="info">
+					<div class="content1 tc cfff fl fullheight mt0">
+						<div class="items" id="my-articles">
+							<p class="item1 f16 blue" id="articles">0</p>
+							<p class="item2 f12 c999">动态</p>
+						</div>
+						<div class="items" id="my-keeps">
+							<p class="item1 f16 blue" id="keeps">0</p>
+							<p class="item2 f12 c999">收藏</p>
+						</div>
+						<div class="items" id="my-follows">
+							<p class="item1 f16 blue" id="follows">0</p>
+							<p class="item2 f12 c999">关注</p>
+						</div>
+						<div class="items" id="my-fans">
+							<p class="item1 f16 blue" id="fans">0</p>
+							<p class="item2 f12 c999">粉丝</p>
 						</div>
 					</div>
-					<div class="mui-scroll-wrapper" id="my-wrapper">
-						<div class="mui-scroll">
-							<div class="mui-content-padded">
+				</div>
+				<div class="mui-scroll-wrapper" id="my-wrapper">
+					<div class="mui-scroll">
+						<div class="mui-content-padded">
 
-								<div class="c333 menu f12" id="my-tip">
-									好友动态
-								</div>
-								<div class="c333 menu f12" id="my-mypic">
-									我的相册
-								</div>
-								<div class="c333 menu f12" id="my-mypay">
-									我的打赏
-								</div>
-								<div class="c333 menu f12" id="my-msg">
-									消息中心
-								</div>
+							<div class="c333 menu f12" id="my-tip">
+								好友动态
 							</div>
-							<div class="splitline"></div>
-							<div class="mui-content-padded">
-								<div class="c333 menu f12" id="my-feedback">
-									意见反馈
-								</div>
-								<div class="c333 menu f12" id="my-good">
-									给个好评
-								</div>
-								<div class="c333 menu f12" id="my-help">
-									帮助中心
-								</div>
-								<div class="c333 menu f12" id="my-setting">
-									设置
-								</div>
+							<div class="c333 menu f12" id="my-mypic">
+								我的相册
+							</div>
+							<div class="c333 menu f12" id="my-mypay">
+								我的打赏
+							</div>
+							<div class="c333 menu f12" id="my-msg">
+								消息中心
+							</div>
+						</div>
+						<div class="splitline"></div>
+						<div class="mui-content-padded">
+							<div class="c333 menu f12" id="my-feedback">
+								意见反馈
+							</div>
+							<div class="c333 menu f12" id="my-good">
+								给个好评
+							</div>
+							<div class="c333 menu f12" id="my-help">
+								帮助中心
+							</div>
+							<div class="c333 menu f12" id="my-setting">
+								设置
 							</div>
 						</div>
 					</div>
-				</aside>
-				
+				</div>
+			</aside>
+
 			<!--主界面部分-->
 			<div class="mui-inner-wrap mui-transitioning">
 				<header class="mui-bar mui-bar-nav zoomIn" style="border-bottom:1px solid #f5f5f5;background:#fff;">
@@ -503,17 +503,7 @@
 			CheckUpdate(function(index) {});
 		});
 
-		//实现ios平台原生侧滑关闭页面；
-		if(mui.os.plus && mui.os.ios) {
-			mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-				plus.webview.currentWebview().setStyle({
-					'popGesture': 'none'
-				});
-			});
-		}
-
 		mui.back = function() {
-
 			var check = false;
 			mui(".mui-popover").each(function() {
 				if(this.classList.contains('mui-active')) {
