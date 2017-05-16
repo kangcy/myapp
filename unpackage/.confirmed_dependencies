@@ -1391,7 +1391,8 @@
 			"images/edittxt/09.png",
 			"images/edittxt/20.png",
 			"images/edittxt/11.png",
-			"images/edittxt/12.png"
+			"images/edittxt/12.png",
+			"images/edittxt/04.png"
 		],
 		"refer": [
 			"page/edithref.html",

@@ -30,13 +30,17 @@
 			}
 			
 			.menu {
-				float: left;
+				float: right;
 				display: inline-block;
 			}
 			
-			.menu img {
-				width: 50%;
-				height:auto;
+			.menus {
+				display: inline-block;
+				border: 1px solid #ddd;
+				border-radius: 10px;
+				float: right;
+				height: 45px;
+				line-height: 45px;
 			}
 		</style>
 	</head>
@@ -48,10 +52,8 @@
 			<h1 class="mui-title c333">编辑文字</h1>
 		</header>
 		<div class="mui-content">
-			<div style="padding: 5%;" id="divedit" class="hide">
+			<div style="padding:5%;" id="divedit">
 
-			</div>
-			<div style="padding: 5%;" class="edit_wrap" contenteditable="true">
 			</div>
 		</div>
 		<nav id="color" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
@@ -72,45 +74,74 @@
 			<div class="color fl" style="background:#167EFB;" data-type="BackColor" data="#167EFB"></div>
 			<div class="color fl" style="background:#B04FBB;" data-type="BackColor" data="#B04FBB"></div>
 		</nav>
-		<nav id="align" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
-			<img src="../images/edittxt/12.png" class="format fl ml5" data-type="JustifyLeft" />
-			<img src="../images/edittxt/14.png" class="format fl ml5" data-type="JustifyCenter" />
-			<img src="../images/edittxt/16.png" class="format fl ml5" data-type="JustifyRight" />
+		<nav id="align" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
+			<div class="menus" id="align_first">
+				<div class="menu">
+					<img src="../images/edittxt/16.png" class="format" data-type="JustifyRight" />
+				</div>
+				<div class="menu">
+					<img src="../images/edittxt/14.png" class="format" data-type="JustifyCenter" />
+				</div>
+				<div class="menu">
+					<img src="../images/edittxt/12.png" class="format" data-type="JustifyLeft" />
+				</div>
+			</div>
+		</nav>
+		<nav id="fs" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
+			<div class="menus" id="fs_first">
+				<div class="menu f16">
+					A
+				</div>
+				<div class="menu f14">
+					A
+				</div>
+				<div class="menu f12">
+					A
+				</div>
+			</div>
+		</nav>
+		<nav id="bold" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
+			<div class="menus" id="bold_first">
+				<!--下划线-->
+				<div class="menu">
+					<img src="../images/edittxt/09.png" class="Fbtn" data-type="Underline" />
+				</div>
+				<!--斜体-->
+				<div class="menu">
+					<img src="../images/edittxt/07.png" class="Fbtn" data-type="Italic" />
+				</div>
+				<!--加粗-->
+				<div class="menu">
+					<img src="../images/edittxt/03.png" class="Fbtn" data-type="Bold" />
+				</div>
+			</div>
 		</nav>
 		<nav class="mui-bar mui-bar-tab tc" style="background:#F4F4F4;display:inline-block;">
-			<!--字体大小-->
+			<!--超链接-->
 			<div class="menu">
-				<img src="../images/edittxt/01.png" id="btn20" />
-			</div>
-			<!--加粗-->
-			<div class="menu">
-				<img src="../images/edittxt/03.png" class="Fbtn" data-type="Bold" />
-			</div>
-			<!--斜体-->
-			<div class="menu">
-				<img src="../images/edittxt/07.png" class="Fbtn" data-type="Italic" />
-			</div>
-			<!--下划线-->
-			<div class="menu">
-				<img src="../images/edittxt/09.png" class="Fbtn" data-type="Underline" />
-			</div>
-			<!--文字位置-->
-			<div class="menu">
-				<img src="../images/edittxt/11.png" />
-				<img src="../images/edittxt/13.png" class="hide" />
-				<img src="../images/edittxt/15.png" class="hide" />
-			</div>
-			<!--字体颜色-->
-			<div class="menu">
-				<img src="../images/edittxt/20.png" id="btnColor" />
+				<img src="../images/edittxt/17.png" data-type="CreateLink" id="btnLink" />
 			</div>
 			<!--背景颜色-->
 			<div class="menu">
 				<img src="../images/edittxt/19.png" id="btnBgColor" />
 			</div>
-			<!--超链接-->
+			<!--字体颜色-->
 			<div class="menu">
-				<img src="../images/edittxt/17.png" data-type="CreateLink" id="btnLink" />
+				<img src="../images/edittxt/20.png" id="btnColor" />
+			</div>
+			<!--文字位置-->
+			<div class="menu">
+				<img src="../images/edittxt/12.png" class="hide" id="btnLeft" />
+				<img src="../images/edittxt/14.png" class="hide" id="btnCenter" />
+				<img src="../images/edittxt/16.png" class="hide" id="btnRight" />
+			</div>
+			<!--字体大小-->
+			<div class="menu">
+				<img src="../images/edittxt/02.png" id="btnSize" />
+			</div>
+			<!--加粗-->
+			<div class="menu">
+				<img src="../images/edittxt/04.png" id="btnBold" />
 			</div>
 		</nav>
 	</body>
@@ -133,28 +164,53 @@
 	mui.init();
 
 	mui.ready(function() {
+		var limit = window.innerWidth / 8;
+		$(".menu").css("width", limit + "px");
+		$("#align_first").css("margin-right", limit * 2 + "px");
+		$("#fs_first").css("margin-right", limit * 3 + "px");
+		$("#bold_first").css("margin-right", limit * 3 + "px");
 
-		$(".menu").css("width", window.innerWidth / 8 + "px");
-
-		//字体放大
-		base.Get("btn20").addEventListener('tap', function(event) {
-			$("#edit").removeClass("f12").addClass("f14");
-			$("#btn20,#btn21").toggleClass("hide");
-			FontSize = "f14";
+		//字体大小
+		base.Get("btnSize").addEventListener('tap', function(event) {
+			$("#color,#bgcolor,#align,#bold").addClass("hide");
+			$("#fs").toggleClass("hide");
 		}, false);
 
-		//颜色
+		//颜色 
 		base.Get("btnColor").addEventListener('tap', function(event) {
-			$("#bgcolor").addClass("hide");
+			$("#bgcolor,#align,#bold,#fs").addClass("hide");
 			$("#color").toggleClass("hide");
 		}, false);
 
 		//背景色
 		base.Get("btnBgColor").addEventListener('tap', function(event) {
-			$("#color").addClass("hide");
+			$("#color,#align,#bold,#fs").addClass("hide");
 			$("#bgcolor").toggleClass("hide");
 		}, false);
 
+		//加粗
+		base.Get("btnBold").addEventListener('tap', function(event) {
+			$("#color,#bgcolor,#align,#fs").addClass("hide");
+			$("#bold").toggleClass("hide");
+		}, false);
+
+		//对齐
+		base.Get("btnLeft").addEventListener('tap', function(event) {
+			$("#color,#bgcolor,#bold,#fs").addClass("hide");
+			$("#align").toggleClass("hide");
+		}, false);
+
+		//对齐
+		base.Get("btnCenter").addEventListener('tap', function(event) {
+			$("#align").toggleClass("hide");
+		}, false);
+
+		//对齐
+		base.Get("btnRight").addEventListener('tap', function(event) {
+			$("#align").toggleClass("hide");
+		}, false);
+
+		mui('#color').on('tap', '.Fbtn', setTxtStyle);
 		mui('#color').on('tap', 'div', setTxtStyle);
 		mui('#bgcolor').on('tap', 'div', setTxtStyle);
 
@@ -170,12 +226,6 @@
 		ArticleNumber = self.ArticleNumber;
 		PartID = self.PartID || 0;
 
-		Color = self.Color || "";
-		Align = self.Align || "";
-		FontSize = self.FontSize || "";
-		FontWeight = self.FontWeight || "";
-		Link = self.Link || "";
-
 		var html = self.title;
 		if(base.IsNullOrEmpty(html)) {
 			html = '<div class="edit f12 tl"></div>';
@@ -186,13 +236,6 @@
 		});
 
 		var $item = $("#edit");
-		if($item.hasClass("bold")) {
-			$("#btn10").addClass("hide");
-			$("#btn11").removeClass("hide");
-		} else {
-			$("#btn11").addClass("hide");
-			$("#btn10").removeClass("hide");
-		}
 		if($item.hasClass("f14")) {
 			$("#btn20").addClass("hide");
 			$("#btn21").removeClass("hide");
@@ -200,20 +243,14 @@
 			$("#btn21").addClass("hide");
 			$("#btn20").removeClass("hide");
 		}
-		if($item.hasClass("tc")) {
-			$("#btn30").addClass("hide");
-			$("#btn31").removeClass("hide");
-		} else {
-			$("#btn31").addClass("hide");
-			$("#btn30").removeClass("hide");
+		if($item.hasClass("tl")) {
+			$("#btnLeft").removeClass("hide");
 		}
-
-		if($item.find("span").length > 0) {
-			$("#btn50").addClass("hide");
-			$("#btn51").removeClass("hide");
-		} else {
-			$("#btn51").addClass("hide");
-			$("#btn50").removeClass("hide");
+		if($item.hasClass("tc")) {
+			$("#btnCenter").removeClass("hide");
+		}
+		if($item.hasClass("tr")) {
+			$("#btnRight").removeClass("hide");
 		}
 
 		//字数限制
@@ -268,7 +305,7 @@
 	function UpdateLink(link, text) {
 		if(!base.IsNullOrEmpty(link) && !base.IsNullOrEmpty(text)) {
 			ChangeLink(link);
-			console.log($(".edit_wrap:eq(0)").html())
+			console.log($("#edit").html())
 		}
 	}
 
@@ -295,7 +332,7 @@
 	};
 
 	function ChangeLink(link) {
-		var wrap = document.querySelector(".edit_wrap");
+		var wrap = base.Get("edit");
 		var node = wrap.querySelectorAll("a");
 		var Url = "";
 		for(var i = 0; i < node.length; i++) {

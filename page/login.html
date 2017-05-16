@@ -146,6 +146,7 @@
 
 	var auths = {};
 	mui.plusReady(function() {
+		plus.navigator.setFullscreen(false);
 		var page = plus.webview.currentWebview();
 		page.show("fade-in");
 
