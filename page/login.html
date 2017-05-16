@@ -122,6 +122,7 @@
 	};
 
 	mui.ready(function() {
+
 		var date = new Date();
 		base.Get("copyright").innerHTML = "Copyright © " + (date.getFullYear() - 1) + "-" + date.getFullYear() + " 小微篇版权所有";
 
@@ -145,8 +146,8 @@
 
 	var auths = {};
 	mui.plusReady(function() {
-		var self = plus.webview.currentWebview();
-		self.show("slide-in-bottom");
+		var page = plus.webview.currentWebview();
+		page.show("fade-in");
 
 		//系统定位
 		base.GetCurrentPosition();

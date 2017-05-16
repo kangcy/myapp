@@ -1163,10 +1163,10 @@
 }
 
 .zoomIn {
-	-webkit-animation: zoomIn 250ms linear;
-	-moz-animation: zoomIn 250ms linear;
-	-ms-animation: zoomIn 250ms linear;
-	animation: zoomIn 250ms linear;
+	-webkit-animation: zoomIn 150ms linear;
+	-moz-animation: zoomIn 150ms linear;
+	-ms-animation: zoomIn 150ms linear;
+	animation: zoomIn 150ms linear;
 	animation-fill-mode: forwards;
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;

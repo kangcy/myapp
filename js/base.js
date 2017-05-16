@@ -350,7 +350,6 @@ var base = new function() {
 		if(base.RepeatAction()) {
 			return;
 		}
-
 		mui.openWindow({
 			id: id,
 			url: url,
@@ -359,6 +358,9 @@ var base = new function() {
 				duration: base.AnimateDuration,
 				aniShow: aniShow ? aniShow : base.ShowAnimate()
 			},
+			/*styles: {
+				zindex: 1000
+			},*/
 			createNew: true,
 			waiting: {
 				autoShow: false

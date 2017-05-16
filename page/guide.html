@@ -51,15 +51,17 @@
 <script type="text/javascript">
 	mui.init();
 	mui.plusReady(function() {
-		plus.navigator.setFullscreen(true); //全屏展示
 		plus.navigator.closeSplashscreen(); //关闭启动页
+
+		var page = plus.webview.currentWebview();
+		page.show("fade-in");
 
 		base.InitSlider(false);
 
 		//立即体验按钮点击事件 
 		document.getElementById("close").addEventListener('tap', function(event) {
 			plus.storage.setItem("lauchFlag", "true");
-			base.OpenWindow("login", "./login.html", {}, "slide-in-bottom");
+			base.OpenWindow("login", "./login.html", {}, "fade-in");
 		}, false);
 
 		//图片切换时，触发动画

@@ -89,6 +89,8 @@
 	var title = base.Get("title");
 
 	mui.ready(function() {
+		mask.show();
+		base.ShowWaiting("正在加载");
 
 		base.InitScroll();
 
@@ -610,6 +612,7 @@
 				}
 			}
 			base.ShowLoading(false);
+			mask.close();
 			base.CloseWaiting();
 		});
 	}

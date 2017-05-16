@@ -25,7 +25,6 @@
 			
 			.sec-circle {
 				stroke-dashoffset: 0;
-				stroke-dasharray: 314;
 				transition: stroke-dashoffset 1s linear;
 			}
 			
@@ -87,6 +86,7 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
+	var userinfo = localStorage.getItem('$userinfo') || "{}";
 	mui.init();
 
 	mui.ready(function() {
@@ -106,11 +106,8 @@
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen(); //关闭启动页
 
-		var self = plus.webview.currentWebview();
-		self.show("fade-in");
-
-		//仅支持竖屏显示
-		plus.screen.lockOrientation("portrait-primary");
+		var page = plus.webview.currentWebview();
+		page.show("fade-in");
 
 		document.addEventListener("netchange", function() {
 			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
@@ -140,7 +137,7 @@
 		//圆环周长
 		var perimeter = Math.round(2 * Math.PI * 20);
 		var n = document.getElementById("sec-circle");
-		n.style.strokearray = perimeter;
+		n.style.strokeDasharray = perimeter;
 		document.getElementById("circle").style.display = "block";
 		document.getElementById("text").style.display = "block";
 
@@ -150,7 +147,7 @@
 		sec_text.innerHTML = t;
 		setInterval(function() {
 			if(0 == t) {
-				var userinfo = localStorage.getItem('$userinfo') || "{}";
+				plus.navigator.setFullscreen(false);
 				if(userinfo == "{}") {
 					preload_login();
 				} else {

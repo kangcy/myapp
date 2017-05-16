@@ -24,7 +24,7 @@
 			
 			.edit {
 				height: auto;
-				min-height: 400px;
+				/*min-height: 400px;*/
 				line-height: 1.25rem;
 				outline: 0px;
 			}
@@ -66,6 +66,8 @@
 			<!--超链接-->
 			<img src="../images/edittxt/5.png" class="fl ml5 hide" id="btn50" />
 			<img src="../images/edittxt/05.png" class="fl ml5 hide" id="btn51" />
+			<!--<span type="button" class="fl ml5" id="prev" style="width:80px;height:50px;line-height:50px;">上一步</span>
+			<span type="button" class="fl ml5" id="next" style="width:80px;height:50px;line-height:50px;">下一步</span>-->
 		</nav>
 	</body>
 
@@ -93,6 +95,15 @@
 	mui.init();
 
 	mui.ready(function() {
+
+		/*//上一步
+		base.Get("prev").addEventListener('tap', function(event) {
+
+		}, false);
+		//下一步
+		base.Get("next").addEventListener('tap', function(event) {
+
+		}, false);*/
 
 		//加粗
 		base.Get("btn10").addEventListener('tap', function(event) {
@@ -216,8 +227,16 @@
 		}
 
 		//字数限制
-		base.Get("edit").ontouchend = function() {
-			base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
+		//base.Get("edit").ontouchend = function() {
+			//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
+
+			//console.log(base.Get("edit").innerHTML);
+		//}
+		
+		base.Get("edit").onblur = function() {
+			//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
+
+			console.log("asdfasdfasdf");
 		}
 
 		//提交

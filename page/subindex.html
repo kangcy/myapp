@@ -484,10 +484,9 @@
 
 	var backButtonPress = 0;
 	mui.plusReady(function() {
-		plus.navigator.setFullscreen(false);
 
-		var self = plus.webview.currentWebview();
-		self.show("fade-in");
+		var page = plus.webview.currentWebview();
+		page.show("fade-in");
 
 		base.InitPull("slider");
 
