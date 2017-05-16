@@ -24,9 +24,19 @@
 			
 			.edit {
 				height: auto;
-				/*min-height: 400px;*/
+				/*min-height: 300px;*/
 				line-height: 1.25rem;
 				outline: 0px;
+			}
+			
+			.menu {
+				float: left;
+				display: inline-block;
+			}
+			
+			.menu img {
+				width: 50%;
+				height:auto;
 			}
 		</style>
 	</head>
@@ -38,36 +48,70 @@
 			<h1 class="mui-title c333">编辑文字</h1>
 		</header>
 		<div class="mui-content">
-			<div style="padding: 5%;" id="divedit">
+			<div style="padding: 5%;" id="divedit" class="hide">
 
+			</div>
+			<div style="padding: 5%;" class="edit_wrap" contenteditable="true">
 			</div>
 		</div>
 		<nav id="color" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
-			<div class="color fl" style="background:#000;" color="#000"></div>
-			<div class="color fl" style="background:#808080;" color="#808080"></div>
-			<div class="color fl" style="background:#ED2308;" color="#ED2308"></div>
-			<div class="color fl" style="background:#FF8A00;" color="#FF8A00"></div>
-			<div class="color fl" style="background:#39B54A;" color="#39B54A"></div>
-			<div class="color fl" style="background:#167EFB;" color="#167EFB"></div>
-			<div class="color fl" style="background:#B04FBB;" color="#B04FBB"></div>
+			<div class="color fl" style="background:#000;" data-type="ForeColor" data="#000"></div>
+			<div class="color fl" style="background:#808080;" data-type="ForeColor" data="#808080"></div>
+			<div class="color fl" style="background:#ED2308;" data-type="ForeColor" data="#ED2308"></div>
+			<div class="color fl" style="background:#FF8A00;" data-type="ForeColor" data="#FF8A00"></div>
+			<div class="color fl" style="background:#39B54A;" data-type="ForeColor" data="#39B54A"></div>
+			<div class="color fl" style="background:#167EFB;" data-type="ForeColor" data="#167EFB"></div>
+			<div class="color fl" style="background:#B04FBB;" data-type="ForeColor" data="#B04FBB"></div>
 		</nav>
-		<nav class="mui-bar mui-bar-tab" style="background:#F4F4F4;display:inline-block;">
-			<!--加粗-->
-			<img src="../images/edittxt/1.png" class="fl ml5 hide" id="btn10" />
-			<img src="../images/edittxt/01.png" class="fl ml5 hide" id="btn11" />
+		<nav id="bgcolor" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
+			<div class="color fl" style="background:#000;" data-type="ForeColor" data="#000"></div>
+			<div class="color fl" style="background:#808080;" data-type="BackColor" data="#808080"></div>
+			<div class="color fl" style="background:#ED2308;" data-type="BackColor" data="#ED2308"></div>
+			<div class="color fl" style="background:#FF8A00;" data-type="BackColor" data="#FF8A00"></div>
+			<div class="color fl" style="background:#39B54A;" data-type="BackColor" data="#39B54A"></div>
+			<div class="color fl" style="background:#167EFB;" data-type="BackColor" data="#167EFB"></div>
+			<div class="color fl" style="background:#B04FBB;" data-type="BackColor" data="#B04FBB"></div>
+		</nav>
+		<nav id="align" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
+			<img src="../images/edittxt/12.png" class="format fl ml5" data-type="JustifyLeft" />
+			<img src="../images/edittxt/14.png" class="format fl ml5" data-type="JustifyCenter" />
+			<img src="../images/edittxt/16.png" class="format fl ml5" data-type="JustifyRight" />
+		</nav>
+		<nav class="mui-bar mui-bar-tab tc" style="background:#F4F4F4;display:inline-block;">
 			<!--字体大小-->
-			<img src="../images/edittxt/2.png" class="fl ml5 hide" id="btn20" />
-			<img src="../images/edittxt/02.png" class="fl ml5 hide" id="btn21" />
+			<div class="menu">
+				<img src="../images/edittxt/01.png" id="btn20" />
+			</div>
+			<!--加粗-->
+			<div class="menu">
+				<img src="../images/edittxt/03.png" class="Fbtn" data-type="Bold" />
+			</div>
+			<!--斜体-->
+			<div class="menu">
+				<img src="../images/edittxt/07.png" class="Fbtn" data-type="Italic" />
+			</div>
+			<!--下划线-->
+			<div class="menu">
+				<img src="../images/edittxt/09.png" class="Fbtn" data-type="Underline" />
+			</div>
 			<!--文字位置-->
-			<img src="../images/edittxt/3.png" class="fl ml5 hide" id="btn30" />
-			<img src="../images/edittxt/03.png" class="fl ml5 hide" id="btn31" />
+			<div class="menu">
+				<img src="../images/edittxt/11.png" />
+				<img src="../images/edittxt/13.png" class="hide" />
+				<img src="../images/edittxt/15.png" class="hide" />
+			</div>
 			<!--字体颜色-->
-			<img src="../images/edittxt/4.png" class="fl ml5" id="btn40" />
+			<div class="menu">
+				<img src="../images/edittxt/20.png" id="btnColor" />
+			</div>
+			<!--背景颜色-->
+			<div class="menu">
+				<img src="../images/edittxt/19.png" id="btnBgColor" />
+			</div>
 			<!--超链接-->
-			<img src="../images/edittxt/5.png" class="fl ml5 hide" id="btn50" />
-			<img src="../images/edittxt/05.png" class="fl ml5 hide" id="btn51" />
-			<!--<span type="button" class="fl ml5" id="prev" style="width:80px;height:50px;line-height:50px;">上一步</span>
-			<span type="button" class="fl ml5" id="next" style="width:80px;height:50px;line-height:50px;">下一步</span>-->
+			<div class="menu">
+				<img src="../images/edittxt/17.png" data-type="CreateLink" id="btnLink" />
+			</div>
 		</nav>
 	</body>
 
@@ -82,12 +126,6 @@
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
-	var Color = "";
-	var Align = "tl";
-	var FontSize = "f12";
-	var FontWeight = "";
-	var Link = "";
-
 	//编辑变动缓存
 	var ActionCache = [];
 	var CurrActionCache = 0;
@@ -96,21 +134,7 @@
 
 	mui.ready(function() {
 
-		/*//上一步
-		base.Get("prev").addEventListener('tap', function(event) {
-
-		}, false);
-		//下一步
-		base.Get("next").addEventListener('tap', function(event) {
-
-		}, false);*/
-
-		//加粗
-		base.Get("btn10").addEventListener('tap', function(event) {
-			$("#edit").addClass("bold");
-			$("#btn10,#btn11").toggleClass("hide");
-			FontWeight = "bold";
-		}, false);
+		$(".menu").css("width", window.innerWidth / 8 + "px");
 
 		//字体放大
 		base.Get("btn20").addEventListener('tap', function(event) {
@@ -119,57 +143,23 @@
 			FontSize = "f14";
 		}, false);
 
-		//文字居中
-		base.Get("btn30").addEventListener('tap', function(event) {
-			$("#edit").removeClass("tl").addClass("tc");
-			$("#btn30,#btn31").toggleClass("hide");
-			Align = "center";
-		}, false);
-
 		//颜色
-		base.Get("btn40").addEventListener('tap', function(event) {
+		base.Get("btnColor").addEventListener('tap', function(event) {
+			$("#bgcolor").addClass("hide");
 			$("#color").toggleClass("hide");
 		}, false);
 
-		//切换颜色
-		mui('#color').on('tap', '.color', function() {
-			var $this = $(this);
-			$("#edit").css("color", $this.attr("color"));
-			$("#color").toggleClass("hide");
-			Color = $this.attr("color");
-		});
+		//背景色
+		base.Get("btnBgColor").addEventListener('tap', function(event) {
+			$("#color").addClass("hide");
+			$("#bgcolor").toggleClass("hide");
+		}, false);
+
+		mui('#color').on('tap', 'div', setTxtStyle);
+		mui('#bgcolor').on('tap', 'div', setTxtStyle);
 
 		//超链接
-		base.Get("btn50").addEventListener('tap', function(event) {
-			$("#btn50,#btn51").toggleClass("hide");
-			ShowLink();
-		}, false);
-
-		//取消加粗
-		base.Get("btn11").addEventListener('tap', function(event) {
-			$("#edit").removeClass("bold");
-			$("#btn10,#btn11").toggleClass("hide");
-			FontWeight = "";
-		}, false);
-
-		//字体缩小
-		base.Get("btn21").addEventListener('tap', function(event) {
-			$("#edit").removeClass("f14").addClass("f12");
-			$("#btn20,#btn21").toggleClass("hide");
-			FontSize = "f12";
-		}, false);
-
-		//取消文字居中
-		base.Get("btn31").addEventListener('tap', function(event) {
-			$("#edit").removeClass("tc").addClass("tl");
-			$("#btn30,#btn31").toggleClass("hide");
-			Align = "tl";
-		}, false);
-
-		//取消超链接
-		base.Get("btn51").addEventListener('tap', function(event) {
-			ShowLink();
-		}, false);
+		base.Get("btnLink").addEventListener('tap', setTxtStyle, false);
 	})
 
 	var addarticlePage = null;
@@ -228,11 +218,11 @@
 
 		//字数限制
 		//base.Get("edit").ontouchend = function() {
-			//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
+		//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
 
-			//console.log(base.Get("edit").innerHTML);
+		//console.log(base.Get("edit").innerHTML);
 		//}
-		
+
 		base.Get("edit").onblur = function() {
 			//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
 
@@ -277,13 +267,8 @@
 	//编辑超链接
 	function UpdateLink(link, text) {
 		if(!base.IsNullOrEmpty(link) && !base.IsNullOrEmpty(text)) {
-			var length = $("#edit").find("span").length;
-			if(length == 0) {
-				$("#edit").append('<span class="link td" link="' + link + '">' + text + '</span>')
-			} else {
-				$("#edit").find("span").attr("link", link).html(text);
-			}
-			Link = link;
+			ChangeLink(link);
+			console.log($(".edit_wrap:eq(0)").html())
 		}
 	}
 
@@ -297,4 +282,29 @@
 		$("#btn50").removeClass("hide");
 		Link = "";
 	}
+
+	function setTxtStyle(e) {
+		var that = e.target;
+		var type = this.getAttribute("data-type") || "";
+		var valueTxt = this.getAttribute("data") || "";
+		if(that.id === "btnLink") {
+			valueTxt = "placeholder";
+			ShowLink();
+		};
+		document.execCommand(type, false, valueTxt);
+	};
+
+	function ChangeLink(link) {
+		var wrap = document.querySelector(".edit_wrap");
+		var node = wrap.querySelectorAll("a");
+		var Url = "";
+		for(var i = 0; i < node.length; i++) {
+			Url = node[i].getAttribute("href");
+			if(Url === "placeholder") {
+				node[i].setAttribute("href", "#");
+				node[i].setAttribute("link", link);
+				node[i].classList.add("link");
+			};
+		};
+	};
 </script>

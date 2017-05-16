@@ -36,8 +36,8 @@
 			<form class="mui-input-group" style="padding:5%;">
 				<div class="mui-input-row">
 					<label class="f13">链接地址</label>
-					<input id="link" type="url" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接地址"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
-				</div>
+					<input value="http://www.baidu.com" id="link" type="url" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接地址"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
+				</div> 
 				<div class="mui-input-row">
 					<label class="f13">链接描述</label>
 					<input id="text" type="text" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接描述"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
@@ -65,7 +65,7 @@
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
-		base.Get('link').value = self.Link || "";
+		//base.Get('link').value = self.Link || "";
 		base.Get('text').value = self.Text || "";
 
 		//提交
