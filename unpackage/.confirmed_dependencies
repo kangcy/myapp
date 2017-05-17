@@ -1409,7 +1409,10 @@
 			"images/edittxt/062.png",
 			"images/edittxt/023.png",
 			"images/edittxt/053.png",
-			"images/edittxt/043.png"
+			"images/edittxt/043.png",
+			"images/edittxt/073.png",
+			"images/edittxt/083.png",
+			"images/edittxt/063.png"
 		],
 		"refer": [
 			"page/edithref.html",

@@ -23,10 +23,10 @@
 			}
 			
 			.edit {
-				height: auto;
-				/*min-height: 300px;*/
-				line-height: 1.25rem;
 				outline: 0px;
+				display: inline-block;
+				width: 100%;
+				padding: 5%;
 			}
 			
 			.menu {
@@ -100,6 +100,58 @@
 			#btnRight.curr {
 				background-image: url(../images/edittxt/083.png);
 			}
+			
+			#menuPrev {
+				background-image: url(../images/edittxt/prev.png);
+			}
+			
+			#menuNext {
+				background-image: url(../images/edittxt/next.png);
+			}
+			
+			#menuLink {
+				background-image: url(../images/edittxt/0112.png);
+			}
+			
+			#menuBgColor {
+				background-image: url(../images/edittxt/09.png);
+			}
+			
+			#menuColor {
+				background-image: url(../images/edittxt/010.png);
+			}
+			
+			#menuSize {
+				background-image: url(../images/edittxt/012.png);
+			}
+			
+			#menuBold {
+				background-image: url(../images/edittxt/022.png);
+			}
+			
+			#menuAlign.menuLeft {
+				background-image: url(../images/edittxt/062.png);
+			}
+			
+			#menuAlign.menuLeft.curr {
+				background-image: url(../images/edittxt/061.png);
+			}
+			
+			#menuAlign.menuCenter {
+				background-image: url(../images/edittxt/072.png);
+			}
+			
+			#menuAlign.menuCenter.curr {
+				background-image: url(../images/edittxt/071.png);
+			}
+			
+			#menuAlign.menuRight {
+				background-image: url(../images/edittxt/082.png);
+			}
+			
+			#menuAlign.menuRight.curr {
+				background-image: url(../images/edittxt/081.png);
+			}
 		</style>
 	</head>
 
@@ -110,56 +162,49 @@
 			<h1 class="mui-title c333">编辑文字</h1>
 		</header>
 		<div class="mui-content">
-			<div style="padding:5%;" id="divedit">
+			<div id="divedit">
 
 			</div>
 		</div>
 		<nav id="color" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
-			<div class="color fl" style="background:#000;" data-type="ForeColor" data="#000"></div>
-			<div class="color fl" style="background:#808080;" data-type="ForeColor" data="#808080"></div>
-			<div class="color fl" style="background:#ED2308;" data-type="ForeColor" data="#ED2308"></div>
-			<div class="color fl" style="background:#FF8A00;" data-type="ForeColor" data="#FF8A00"></div>
-			<div class="color fl" style="background:#39B54A;" data-type="ForeColor" data="#39B54A"></div>
-			<div class="color fl" style="background:#167EFB;" data-type="ForeColor" data="#167EFB"></div>
-			<div class="color fl" style="background:#B04FBB;" data-type="ForeColor" data="#B04FBB"></div>
+			<div class="color fr" style="background:#000;" data-type="ForeColor" data="#000"></div>
+			<div class="color fr" style="background:#808080;" data-type="ForeColor" data="#808080"></div>
+			<div class="color fr" style="background:#ED2308;" data-type="ForeColor" data="#ED2308"></div>
+			<div class="color fr" style="background:#FF8A00;" data-type="ForeColor" data="#FF8A00"></div>
+			<div class="color fr" style="background:#39B54A;" data-type="ForeColor" data="#39B54A"></div>
+			<div class="color fr" style="background:#167EFB;" data-type="ForeColor" data="#167EFB"></div>
+			<div class="color fr" style="background:#B04FBB;" data-type="ForeColor" data="#B04FBB"></div>
 		</nav>
 		<nav id="bgcolor" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
-			<div class="color fl" style="background:#000;" data-type="ForeColor" data="#000"></div>
-			<div class="color fl" style="background:#808080;" data-type="BackColor" data="#808080"></div>
-			<div class="color fl" style="background:#ED2308;" data-type="BackColor" data="#ED2308"></div>
-			<div class="color fl" style="background:#FF8A00;" data-type="BackColor" data="#FF8A00"></div>
-			<div class="color fl" style="background:#39B54A;" data-type="BackColor" data="#39B54A"></div>
-			<div class="color fl" style="background:#167EFB;" data-type="BackColor" data="#167EFB"></div>
-			<div class="color fl" style="background:#B04FBB;" data-type="BackColor" data="#B04FBB"></div>
+			<div class="color fr" style="background:#808080;" data-type="BackColor" data="#808080"></div>
+			<div class="color fr" style="background:#ED2308;" data-type="BackColor" data="#ED2308"></div>
+			<div class="color fr" style="background:#FF8A00;" data-type="BackColor" data="#FF8A00"></div>
+			<div class="color fr" style="background:#39B54A;" data-type="BackColor" data="#39B54A"></div>
+			<div class="color fr" style="background:#167EFB;" data-type="BackColor" data="#167EFB"></div>
+			<div class="color fr" style="background:#B04FBB;" data-type="BackColor" data="#B04FBB"></div>
 		</nav>
 		<nav id="align" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
 			<div class="menus" id="align_first">
-				<div class="menu format" id="btnLeft"> </div>
-				<div class="menu format" id="btnCenter"> </div>
 				<div class="menu format" id="btnRight"> </div>
+				<div class="menu format" id="btnCenter"> </div>
+				<div class="menu format" id="btnLeft"> </div>
 			</div>
 		</nav>
 		<nav id="fs" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
 			<div class="menus" id="fs_first">
-				<div class="menu f30">
+				<div class="menu fs f36" data-type="FontSize" data="7">
 					A
 				</div>
-				<div class="menu f25">
+				<div class="menu fs f24" data-type="FontSize" data="6">
 					A
 				</div>
-				<div class="menu f20">
+				<div class="menu fs f20" data-type="FontSize" data="5">
 					A
 				</div>
-				<div class="menu f18">
+				<div class="menu fs f14" data-type="FontSize" data="4">
 					A
 				</div>
-				<div class="menu f16">
-					A
-				</div>
-				<div class="menu f14">
-					A
-				</div>
-				<div class="menu f12">
+				<div class="menu fs f12" data-type="FontSize" data="3">
 					A
 				</div>
 			</div>
@@ -176,39 +221,21 @@
 		</nav>
 		<nav id="common" class="mui-bar mui-bar-tab tc" style="background:#F4F4F4;display:inline-block;">
 			<!--上一步-->
-			<div class="menu fl">
-				<img src="../images/edittxt/prev.png" id="menuPrev" />
-			</div>
+			<div class="menu fl" id="menuPrev"> </div>
 			<!--下一步-->
-			<div class="menu fl">
-				<img src="../images/edittxt/next.png" id="menuNext" />
-			</div>
+			<div class="menu fl" id="menuNext"></div>
 			<!--超链接-->
-			<div class="menu">
-				<img src="../images/edittxt/0112.png" data-type="CreateLink" id="menuLink" />
-			</div>
+			<div class="menu" data-type="CreateLink" id="menuLink"></div>
 			<!--背景颜色-->
-			<div class="menu">
-				<img src="../images/edittxt/010.png" id="menuBgColor" />
-			</div>
+			<div class="menu" id="menuBgColor"></div>
 			<!--字体颜色-->
-			<div class="menu">
-				<img src="../images/edittxt/09.png" id="menuColor" />
-			</div>
+			<div class="menu" id="menuColor"></div>
 			<!--文字位置-->
-			<div class="menu">
-				<img src="../images/edittxt/062.png" class="btnAlign hide" id="menuLeft" />
-				<img src="../images/edittxt/072.png" class="btnAlign hide" id="menuCenter" />
-				<img src="../images/edittxt/082.png" class="btnAlign hide" id="menuRight" />
-			</div>
+			<div class="menu btnAlign hide" id="menuAlign"> </div>
 			<!--字体大小-->
-			<div class="menu">
-				<img src="../images/edittxt/012.png" id="menuSize" />
-			</div>
+			<div class="menu" id="menuSize"> </div>
 			<!--加粗-->
-			<div class="menu">
-				<img src="../images/edittxt/022.png" id="menuBold" />
-			</div>
+			<div class="menu" id="menuBold"> </div>
 		</nav>
 	</body>
 
@@ -225,16 +252,51 @@
 
 	//编辑变动缓存
 	var ActionCache = [];
-	var CurrActionCache = 0;
+	var CurrActionCache = -1;
+
+	window.onresize = function() {
+		$("#edit").css("height", window.innerHeight - 180);
+	};
 
 	mui.init();
 
 	mui.ready(function() {
-		var limit = window.innerWidth / 8;
+
+		var limit = window.innerWidth / 9;
 		$(".menu").css("width", limit + "px");
 		$("#align_first").css("margin-right", limit * 2 + "px");
-		$("#fs_first").css("margin-right", limit * 0 + "px");
-		$("#bold_first").css("margin-right", limit * 3 + "px");
+		$("#fs_first").css("margin-right", limit * 2 + "px");
+		$("#bold_first").css("margin-right", limit * 4 + "px");
+
+		//上一步
+		base.Get("menuPrev").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return
+			}
+			isLoading = true;
+			if(CurrActionCache > 0) {
+				CurrActionCache -= 1;
+				$("#edit").html(ActionCache[CurrActionCache]);
+			} else {
+				CurrActionCache = 0;
+			}
+			isLoading = false;
+		}, false);
+
+		//下一步 
+		base.Get("menuNext").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return
+			}
+			isLoading = true;
+			if(CurrActionCache < ActionCache.length - 1) {
+				CurrActionCache += 1;
+				$("#edit").html(ActionCache[CurrActionCache]);
+			} else {
+				CurrActionCache = ActionCache.length - 1;
+			}
+			isLoading = false;
+		}, false);
 
 		//字体大小
 		base.Get("menuSize").addEventListener('tap', function(event) {
@@ -261,53 +323,59 @@
 		}, false);
 
 		//颜色切换
-		mui('#color').on('tap', 'div', setTxtStyle);
+		mui('#color').on('tap', 'div', SetStyle);
 
 		//背景色切换
-		mui('#bgcolor').on('tap', 'div', setTxtStyle);
+		mui('#bgcolor').on('tap', 'div', SetStyle);
+
+		//大小切换
+		mui('#fs').on('tap', '.fs', SetStyle);
 
 		//对齐
-		mui('#common').on('tap', '.btnAlign', function() {
+		base.Get("menuAlign").addEventListener('tap', function(event) {
 			$("#color,#bgcolor,#bold,#fs").addClass("hide");
 			$("#align").toggleClass("hide");
-		});
+		}, false);
 
 		//加粗
-		base.Get("btnBold").addEventListener('tap', setTxtStyle, false);
+		base.Get("btnBold").addEventListener('tap', SetStyle, false);
 
 		//斜体
-		base.Get("btnItalic").addEventListener('tap', setTxtStyle, false);
+		base.Get("btnItalic").addEventListener('tap', SetStyle, false);
 
 		//下划线
-		base.Get("btnUnderline").addEventListener('tap', setTxtStyle, false);
+		base.Get("btnUnderline").addEventListener('tap', SetStyle, false);
 
 		//居左
 		base.Get("btnLeft").addEventListener('tap', function() {
 			InitAlign(this);
-			$("#edit").addClass("tl");
+			$("#edit").find("div:eq(0)").addClass("tl");
+			ActionCache.push($("#edit").html());
 		}, false);
 
 		//居中
 		base.Get("btnCenter").addEventListener('tap', function() {
 			InitAlign(this);
-			$("#edit").addClass("tc");
+			$("#edit").find("div:eq(0)").addClass("tc");
+			ActionCache.push($("#edit").html());
 		}, false);
 
 		//居右
 		base.Get("btnRight").addEventListener('tap', function() {
 			InitAlign(this);
-			$("#edit").addClass("tr");
+			$("#edit").find("div:eq(0)").addClass("tr");
+			ActionCache.push($("#edit").html());
 		}, false);
 
 		//超链接
-		base.Get("menuLink").addEventListener('tap', setTxtStyle, false);
+		base.Get("menuLink").addEventListener('tap', SetStyle, false);
 	})
 
 	//初始化对齐
 	function InitAlign(item) {
-		$("#btnLeft,#btnCenter,#btnRight").removeClass("active");
-		$(item).addClass("active");
-		$("#edit").removeClass("tl tc tr");
+		$("#btnLeft,#btnCenter,#btnRight").removeClass("curr");
+		$(item).addClass("curr");
+		$("#edit").find("div:eq(0)").removeClass("tl tc tr");
 	}
 
 	var addarticlePage = null;
@@ -320,40 +388,49 @@
 
 		var html = self.title;
 		if(base.IsNullOrEmpty(html)) {
-			html = '<div class="edit f12 tl"></div>';
+			html = '<div id="edit" contenteditable="true" tabindex="0"><div class="edit f12 tl"></div></div>';
 		}
-		$("#divedit").html(html).find("div").attr({
-			"id": "edit",
-			"contenteditable": "true"
-		});
+		$("#divedit").html(html);
+
+		InsertPush();
+
+		$("#edit").css("height", window.innerHeight - 180);
 
 		var $item = $("#edit");
-		if($item.hasClass("f14")) {
-			$("#btn20").addClass("hide");
-			$("#btn21").removeClass("hide");
-		} else {
-			$("#btn21").addClass("hide");
-			$("#btn20").removeClass("hide");
+		if($item.find("div:eq(0)").hasClass("tl")) {
+			$("#menuAlign").addClass("menuLeft").removeClass("hide");
 		}
-		if($item.hasClass("tl")) {
-			$("#menuLeft").removeClass("hide");
+		if($item.find("div:eq(0)").hasClass("tc")) {
+			$("#menuAlign").addClass("menuCenter").removeClass("hide");
 		}
-		if($item.hasClass("tc")) {
-			$("#menuCenter").removeClass("hide");
-		}
-		if($item.hasClass("tr")) {
-			$("#menuRight").removeClass("hide");
+		if($item.find("div:eq(0)").hasClass("tr")) {
+			$("#menuAlign").addClass("menuRight").removeClass("hide");
 		}
 
 		//字数限制
 		base.Get("edit").ontouchend = function() {
 			console.log("ontouchend");
+			$("#color,#bgcolor,#bold,#fs,#align").addClass("hide");
+			$(".curr").removeClass("curr");
 			base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
 		}
 
 		base.Get("edit").onblur = function() {
 			console.log("onblur");
-			$("#color,#bgcolor,#bold,#fs,#align").addClass("hide");
+		}
+
+		base.Get("edit").onfocus = function() {
+			console.log("onfocus");
+		}
+
+		base.Get("edit").onchange = function() {
+			console.log("onchange");
+			console.log($("#edit").html())
+		}
+
+		base.Get("edit").onkeyup = function() {
+			console.log("onkeyup");
+			InsertPush();
 		}
 
 		//提交
@@ -378,16 +455,9 @@
 
 	//打开编辑
 	function ShowLink() {
-		var link = "";
-		var text = link;
-		var length = $("#edit").find("span").length;
-		if(length > 0) {
-			link = $("#edit").find("span").attr("link");
-			text = $("#edit").find("span").html();
-		}
 		base.OpenWindow("edithref", "edithref.html", {
-			Link: link,
-			Text: text
+			Link: "",
+			Text: ""
 		});
 	}
 
@@ -395,37 +465,40 @@
 	function UpdateLink(link, text) {
 		if(!base.IsNullOrEmpty(link) && !base.IsNullOrEmpty(text)) {
 			ChangeLink(link);
-			console.log($("#edit").html())
+			InsertPush();
 		}
 	}
 
-	//删除超链接
-	function DeleteLink(link, text) {
-		var length = $("#edit").find("span").length;
-		if(length > 0) {
-			$("#edit").find("span").remove();
-		}
-		$("#btn51").addClass("hide");
-		$("#btn50").removeClass("hide");
-		Link = "";
-	}
-
-	function setTxtStyle(e) {
+	//改变样式
+	function SetStyle(e) {
 		var that = e.target;
-		console.log(that.id);
-		$(this).toggleClass("curr")
 		var type = this.getAttribute("data-type") || "";
 		var valueTxt = this.getAttribute("data") || "";
-		if(that.id === "btnLink") {
+		if(that.id === "menuLink") {
 			valueTxt = "placeholder";
-			ShowLink();
+			//ShowLink();
 		};
 		document.execCommand(type, false, valueTxt);
+		if($(this).hasClass("fs")) {
+			$(".fs").removeClass("curr");
+			$(this).addClass("curr");
+			ChangeFontSize();
+		} else {
+			if(that.id !== "menuLink") {
+				$(this).toggleClass("curr");
+			}
+		}
+		if(that.id !== "menuLink") {
+			InsertPush();
+		}
+		console.log(ActionCache);
 	};
 
+	//超链接替换
 	function ChangeLink(link) {
 		var wrap = base.Get("edit");
 		var node = wrap.querySelectorAll("a");
+		console.log(node.length);
 		var Url = "";
 		for(var i = 0; i < node.length; i++) {
 			Url = node[i].getAttribute("href");
@@ -436,4 +509,48 @@
 			};
 		};
 	};
+
+	//字体大小替换
+	function ChangeFontSize() {
+		var wrap = base.Get("edit");
+		var node = wrap.querySelectorAll("font");
+		var size = "";
+		for(var i = 0; i < node.length; i++) {
+			size = node[i].getAttribute("size");
+			if(!base.IsNullOrEmpty(size)) {
+				node[i].classList.remove("f12");
+				node[i].classList.remove("f14");
+				node[i].classList.remove("f20");
+				node[i].classList.remove("f24");
+				node[i].classList.remove("f36");
+				switch(size) {
+					case "3":
+						node[i].classList.add("f12");
+						break;
+					case "4":
+						node[i].classList.add("f14");
+						break;
+					case "5":
+						node[i].classList.add("f20");
+						break;
+					case "6":
+						node[i].classList.add("f24");
+						break;
+					case "7":
+						node[i].classList.add("f36");
+						break;
+					default:
+						break;
+				}
+				node[i].setAttribute("size", "");
+			}
+		};
+	}
+
+	//添加缓存
+	function InsertPush() {
+		ActionCache.push($("#edit").html());
+		CurrActionCache = ActionCache.length - 1;
+		console.log(ActionCache);
+	}
 </script>
