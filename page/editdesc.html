@@ -30,8 +30,17 @@
 			}
 			
 			.menu {
+				height: 100%;
 				float: right;
 				display: inline-block;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: auto 70%;
+			}
+			
+			.menu.curr {
+				background-color: #0080ff;
+				color: #fff;
 			}
 			
 			.menus {
@@ -41,6 +50,55 @@
 				float: right;
 				height: 45px;
 				line-height: 45px;
+				overflow: hidden;
+			}
+			
+			#btnBold {
+				background-image: url(../images/edittxt/022.png);
+			}
+			
+			#btnBold.curr {
+				background-image: url(../images/edittxt/023.png);
+			}
+			
+			#btnItalic {
+				background-image: url(../images/edittxt/042.png);
+			}
+			
+			#btnItalic.curr {
+				background-image: url(../images/edittxt/043.png);
+			}
+			
+			#btnUnderline {
+				background-image: url(../images/edittxt/052.png);
+			}
+			
+			#btnUnderline.curr {
+				background-image: url(../images/edittxt/053.png);
+			}
+			
+			#btnLeft {
+				background-image: url(../images/edittxt/062.png);
+			}
+			
+			#btnLeft.curr {
+				background-image: url(../images/edittxt/063.png);
+			}
+			
+			#btnCenter {
+				background-image: url(../images/edittxt/072.png);
+			}
+			
+			#btnCenter.curr {
+				background-image: url(../images/edittxt/073.png);
+			}
+			
+			#btnRight {
+				background-image: url(../images/edittxt/082.png);
+			}
+			
+			#btnRight.curr {
+				background-image: url(../images/edittxt/083.png);
 			}
 		</style>
 	</head>
@@ -76,19 +134,25 @@
 		</nav>
 		<nav id="align" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
 			<div class="menus" id="align_first">
-				<div class="menu">
-					<img src="../images/edittxt/16.png" class="format" data-type="JustifyRight" />
-				</div>
-				<div class="menu">
-					<img src="../images/edittxt/14.png" class="format" data-type="JustifyCenter" />
-				</div>
-				<div class="menu">
-					<img src="../images/edittxt/12.png" class="format" data-type="JustifyLeft" />
-				</div>
+				<div class="menu format" id="btnLeft"> </div>
+				<div class="menu format" id="btnCenter"> </div>
+				<div class="menu format" id="btnRight"> </div>
 			</div>
 		</nav>
 		<nav id="fs" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
 			<div class="menus" id="fs_first">
+				<div class="menu f30">
+					A
+				</div>
+				<div class="menu f25">
+					A
+				</div>
+				<div class="menu f20">
+					A
+				</div>
+				<div class="menu f18">
+					A
+				</div>
 				<div class="menu f16">
 					A
 				</div>
@@ -103,45 +167,47 @@
 		<nav id="bold" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
 			<div class="menus" id="bold_first">
 				<!--下划线-->
-				<div class="menu">
-					<img src="../images/edittxt/09.png" class="Fbtn" data-type="Underline" />
-				</div>
+				<div class="menu" data-type="Underline" id="btnUnderline"> </div>
 				<!--斜体-->
-				<div class="menu">
-					<img src="../images/edittxt/07.png" class="Fbtn" data-type="Italic" />
-				</div>
+				<div class="menu" data-type="Italic" id="btnItalic"> </div>
 				<!--加粗-->
-				<div class="menu">
-					<img src="../images/edittxt/03.png" class="Fbtn" data-type="Bold" />
-				</div>
+				<div class="menu" data-type="Bold" id="btnBold"> </div>
 			</div>
 		</nav>
-		<nav class="mui-bar mui-bar-tab tc" style="background:#F4F4F4;display:inline-block;">
+		<nav id="common" class="mui-bar mui-bar-tab tc" style="background:#F4F4F4;display:inline-block;">
+			<!--上一步-->
+			<div class="menu fl">
+				<img src="../images/edittxt/prev.png" id="menuPrev" />
+			</div>
+			<!--下一步-->
+			<div class="menu fl">
+				<img src="../images/edittxt/next.png" id="menuNext" />
+			</div>
 			<!--超链接-->
 			<div class="menu">
-				<img src="../images/edittxt/17.png" data-type="CreateLink" id="btnLink" />
+				<img src="../images/edittxt/0112.png" data-type="CreateLink" id="menuLink" />
 			</div>
 			<!--背景颜色-->
 			<div class="menu">
-				<img src="../images/edittxt/19.png" id="btnBgColor" />
+				<img src="../images/edittxt/010.png" id="menuBgColor" />
 			</div>
 			<!--字体颜色-->
 			<div class="menu">
-				<img src="../images/edittxt/20.png" id="btnColor" />
+				<img src="../images/edittxt/09.png" id="menuColor" />
 			</div>
 			<!--文字位置-->
 			<div class="menu">
-				<img src="../images/edittxt/12.png" class="hide" id="btnLeft" />
-				<img src="../images/edittxt/14.png" class="hide" id="btnCenter" />
-				<img src="../images/edittxt/16.png" class="hide" id="btnRight" />
+				<img src="../images/edittxt/062.png" class="btnAlign hide" id="menuLeft" />
+				<img src="../images/edittxt/072.png" class="btnAlign hide" id="menuCenter" />
+				<img src="../images/edittxt/082.png" class="btnAlign hide" id="menuRight" />
 			</div>
 			<!--字体大小-->
 			<div class="menu">
-				<img src="../images/edittxt/02.png" id="btnSize" />
+				<img src="../images/edittxt/012.png" id="menuSize" />
 			</div>
 			<!--加粗-->
 			<div class="menu">
-				<img src="../images/edittxt/04.png" id="btnBold" />
+				<img src="../images/edittxt/022.png" id="menuBold" />
 			</div>
 		</nav>
 	</body>
@@ -167,56 +233,82 @@
 		var limit = window.innerWidth / 8;
 		$(".menu").css("width", limit + "px");
 		$("#align_first").css("margin-right", limit * 2 + "px");
-		$("#fs_first").css("margin-right", limit * 3 + "px");
+		$("#fs_first").css("margin-right", limit * 0 + "px");
 		$("#bold_first").css("margin-right", limit * 3 + "px");
 
 		//字体大小
-		base.Get("btnSize").addEventListener('tap', function(event) {
+		base.Get("menuSize").addEventListener('tap', function(event) {
 			$("#color,#bgcolor,#align,#bold").addClass("hide");
 			$("#fs").toggleClass("hide");
 		}, false);
 
 		//颜色 
-		base.Get("btnColor").addEventListener('tap', function(event) {
+		base.Get("menuColor").addEventListener('tap', function(event) {
 			$("#bgcolor,#align,#bold,#fs").addClass("hide");
 			$("#color").toggleClass("hide");
 		}, false);
 
 		//背景色
-		base.Get("btnBgColor").addEventListener('tap', function(event) {
+		base.Get("menuBgColor").addEventListener('tap', function(event) {
 			$("#color,#align,#bold,#fs").addClass("hide");
 			$("#bgcolor").toggleClass("hide");
 		}, false);
 
 		//加粗
-		base.Get("btnBold").addEventListener('tap', function(event) {
+		base.Get("menuBold").addEventListener('tap', function(event) {
 			$("#color,#bgcolor,#align,#fs").addClass("hide");
 			$("#bold").toggleClass("hide");
 		}, false);
 
-		//对齐
-		base.Get("btnLeft").addEventListener('tap', function(event) {
-			$("#color,#bgcolor,#bold,#fs").addClass("hide");
-			$("#align").toggleClass("hide");
-		}, false);
-
-		//对齐
-		base.Get("btnCenter").addEventListener('tap', function(event) {
-			$("#align").toggleClass("hide");
-		}, false);
-
-		//对齐
-		base.Get("btnRight").addEventListener('tap', function(event) {
-			$("#align").toggleClass("hide");
-		}, false);
-
-		mui('#color').on('tap', '.Fbtn', setTxtStyle);
+		//颜色切换
 		mui('#color').on('tap', 'div', setTxtStyle);
+
+		//背景色切换
 		mui('#bgcolor').on('tap', 'div', setTxtStyle);
 
+		//对齐
+		mui('#common').on('tap', '.btnAlign', function() {
+			$("#color,#bgcolor,#bold,#fs").addClass("hide");
+			$("#align").toggleClass("hide");
+		});
+
+		//加粗
+		base.Get("btnBold").addEventListener('tap', setTxtStyle, false);
+
+		//斜体
+		base.Get("btnItalic").addEventListener('tap', setTxtStyle, false);
+
+		//下划线
+		base.Get("btnUnderline").addEventListener('tap', setTxtStyle, false);
+
+		//居左
+		base.Get("btnLeft").addEventListener('tap', function() {
+			InitAlign(this);
+			$("#edit").addClass("tl");
+		}, false);
+
+		//居中
+		base.Get("btnCenter").addEventListener('tap', function() {
+			InitAlign(this);
+			$("#edit").addClass("tc");
+		}, false);
+
+		//居右
+		base.Get("btnRight").addEventListener('tap', function() {
+			InitAlign(this);
+			$("#edit").addClass("tr");
+		}, false);
+
 		//超链接
-		base.Get("btnLink").addEventListener('tap', setTxtStyle, false);
+		base.Get("menuLink").addEventListener('tap', setTxtStyle, false);
 	})
+
+	//初始化对齐
+	function InitAlign(item) {
+		$("#btnLeft,#btnCenter,#btnRight").removeClass("active");
+		$(item).addClass("active");
+		$("#edit").removeClass("tl tc tr");
+	}
 
 	var addarticlePage = null;
 	mui.plusReady(function() {
@@ -244,26 +336,24 @@
 			$("#btn20").removeClass("hide");
 		}
 		if($item.hasClass("tl")) {
-			$("#btnLeft").removeClass("hide");
+			$("#menuLeft").removeClass("hide");
 		}
 		if($item.hasClass("tc")) {
-			$("#btnCenter").removeClass("hide");
+			$("#menuCenter").removeClass("hide");
 		}
 		if($item.hasClass("tr")) {
-			$("#btnRight").removeClass("hide");
+			$("#menuRight").removeClass("hide");
 		}
 
 		//字数限制
-		//base.Get("edit").ontouchend = function() {
-		//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
-
-		//console.log(base.Get("edit").innerHTML);
-		//}
+		base.Get("edit").ontouchend = function() {
+			console.log("ontouchend");
+			base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
+		}
 
 		base.Get("edit").onblur = function() {
-			//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{3000}).*/g, '$1');
-
-			console.log("asdfasdfasdf");
+			console.log("onblur");
+			$("#color,#bgcolor,#bold,#fs,#align").addClass("hide");
 		}
 
 		//提交
@@ -322,6 +412,8 @@
 
 	function setTxtStyle(e) {
 		var that = e.target;
+		console.log(that.id);
+		$(this).toggleClass("curr")
 		var type = this.getAttribute("data-type") || "";
 		var valueTxt = this.getAttribute("data") || "";
 		if(that.id === "btnLink") {
