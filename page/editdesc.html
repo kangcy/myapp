@@ -35,7 +35,7 @@
 				display: inline-block;
 				background-repeat: no-repeat;
 				background-position: center center;
-				background-size: auto 70%;
+				background-size: auto 65%;
 			}
 			
 			.menu.curr {
@@ -152,6 +152,18 @@
 			#menuAlign.menuRight.curr {
 				background-image: url(../images/edittxt/081.png);
 			}
+			
+			#all {
+				background: #0080ff;
+				color: #fff;
+				position: fixed;
+				left: 10px;
+				bottom: 60px;
+				height: 30px;
+				line-height: 30px;
+				display: inline-block;
+				border-radius: 10px;
+			}
 		</style>
 	</head>
 
@@ -163,7 +175,7 @@
 		</header>
 		<div class="mui-content">
 			<div id="divedit">
-
+				<div id="edit" contenteditable="true" tabindex="0"></div>
 			</div>
 		</div>
 		<nav id="color" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
@@ -219,6 +231,7 @@
 				<div class="menu" data-type="Bold" id="btnBold"> </div>
 			</div>
 		</nav>
+		<nav id="all" class="menu f11 tc">全选</nav>
 		<nav id="common" class="mui-bar mui-bar-tab tc" style="background:#F4F4F4;display:inline-block;">
 			<!--上一步-->
 			<div class="menu fl" id="menuPrev"> </div>
@@ -267,6 +280,18 @@
 		$("#align_first").css("margin-right", limit * 2 + "px");
 		$("#fs_first").css("margin-right", limit * 2 + "px");
 		$("#bold_first").css("margin-right", limit * 4 + "px");
+
+		//全选 
+		base.Get("all").addEventListener('tap', function(event) {
+			base.Get("edit").focus();
+			if(this.className.indexOf("select") < 0) {
+				this.classList.add("select");
+				document.execCommand("SelectAll");
+			} else {
+				this.classList.remove("select");
+				document.execCommand("Unselect");
+			}
+		}, false);
 
 		//上一步
 		base.Get("menuPrev").addEventListener('tap', function(event) {
@@ -388,13 +413,15 @@
 
 		var html = self.title;
 		if(base.IsNullOrEmpty(html)) {
-			html = '<div id="edit" contenteditable="true" tabindex="0"><div class="edit f12 tl"></div></div>';
+			html = '<div class="edit f12 tl"></div>';
 		}
-		$("#divedit").html(html);
+		$("#edit").html(html);
 
 		InsertPush();
 
 		$("#edit").css("height", window.innerHeight - 180);
+
+		base.Get("edit").focus();
 
 		var $item = $("#edit");
 		if($item.find("div:eq(0)").hasClass("tl")) {
@@ -409,27 +436,12 @@
 
 		//字数限制
 		base.Get("edit").ontouchend = function() {
-			console.log("ontouchend");
 			$("#color,#bgcolor,#bold,#fs,#align").addClass("hide");
 			$(".curr").removeClass("curr");
 			base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
 		}
 
-		base.Get("edit").onblur = function() {
-			console.log("onblur");
-		}
-
-		base.Get("edit").onfocus = function() {
-			console.log("onfocus");
-		}
-
-		base.Get("edit").onchange = function() {
-			console.log("onchange");
-			console.log($("#edit").html())
-		}
-
 		base.Get("edit").onkeyup = function() {
-			console.log("onkeyup");
 			InsertPush();
 		}
 
@@ -439,7 +451,7 @@
 				return;
 			}
 			isLoading = true;
-			if(base.IsNullOrEmpty($("#divedit").html())) {
+			if(base.IsNullOrEmpty($("#edit").html())) {
 				isLoading = false;
 				return mui.toast("请编辑文字");
 			}
@@ -448,7 +460,7 @@
 			if(!addarticlePage) {
 				addarticlePage = base.GetView('addarticle');
 			}
-			addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($("#divedit").html()) + "','" + PartID + "')");
+			addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($("#edit").html()) + "','" + PartID + "')");
 			plus.webview.close("editdesc");
 		}, false);
 	});
@@ -462,10 +474,9 @@
 	}
 
 	//编辑超链接
-	function UpdateLink(link, text) {
-		if(!base.IsNullOrEmpty(link) && !base.IsNullOrEmpty(text)) {
+	function UpdateLink(link) {
+		if(!base.IsNullOrEmpty(link)) {
 			ChangeLink(link);
-			InsertPush();
 		}
 	}
 
@@ -476,7 +487,7 @@
 		var valueTxt = this.getAttribute("data") || "";
 		if(that.id === "menuLink") {
 			valueTxt = "placeholder";
-			//ShowLink();
+			ShowLink();
 		};
 		document.execCommand(type, false, valueTxt);
 		if($(this).hasClass("fs")) {
@@ -491,14 +502,12 @@
 		if(that.id !== "menuLink") {
 			InsertPush();
 		}
-		console.log(ActionCache);
 	};
 
 	//超链接替换
 	function ChangeLink(link) {
 		var wrap = base.Get("edit");
 		var node = wrap.querySelectorAll("a");
-		console.log(node.length);
 		var Url = "";
 		for(var i = 0; i < node.length; i++) {
 			Url = node[i].getAttribute("href");
@@ -551,6 +560,5 @@
 	function InsertPush() {
 		ActionCache.push($("#edit").html());
 		CurrActionCache = ActionCache.length - 1;
-		console.log(ActionCache);
 	}
 </script>

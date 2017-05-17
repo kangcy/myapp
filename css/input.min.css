@@ -3,6 +3,7 @@
 	width: 100%
 }
 
+#input-form .common,
 #input-form .input,
 #input-form .phone,
 #input-form .pwd,
@@ -19,6 +20,7 @@
 	background-image: url(../images/login/user.png) !important
 }
 
+#input-form .common,
 #input-form .phone,
 #input-form .user {
 	background: #efefef;
@@ -52,6 +54,19 @@
 	height: 1.2rem;
 	border: 0;
 	border-left: 1px solid #333;
+	border-radius: 0;
+	background: 0 0;
+	color: #999;
+	line-height: 1.2rem;
+}
+
+#input-form .ctext {
+	float: left;
+	margin-top: .6rem;
+	margin-left: 2.6rem;
+	width: 14.5rem;
+	height: 1.2rem;
+	border: 0;
 	border-radius: 0;
 	background: 0 0;
 	color: #999;

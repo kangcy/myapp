@@ -8,22 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<style type="text/css">
-			#question {
-				border: 0px;
-				height: 400px;
-				padding: 0px;
-				line-height: 1.25rem;
-			}
-			
-			.mui-input-group:after {
-				height: 0px;
-			}
-			
-			.mui-input-group .mui-input-row:after {
-				left: 0px;
-			}
-		</style>
+		<link rel="stylesheet" href="../css/input.min.css">
 	</head>
 
 	<body>
@@ -33,19 +18,20 @@
 			<h1 class="mui-title c333" id="title">添加链接</h1>
 		</header>
 		<div class="mui-content">
-			<form class="mui-input-group" style="padding:5%;">
-				<div class="mui-input-row">
-					<label class="f13">链接地址</label>
-					<input value="http://www.baidu.com" id="link" type="url" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接地址"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
-				</div> 
-				<div class="mui-input-row">
+			<div id="input-form">
+				<div class="common mt20 mui-input-row">
+					<input id='link' type="url" class="mui-input-clear ctext f13" placeholder="请输入您的链接地址" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
+					<span style="position: absolute;left:1rem;" class="c999 f12">Http://</span>
+				</div>
+				<div class="mui-input-row hide">
 					<label class="f13">链接描述</label>
 					<input id="text" type="text" class="mui-input-clear csubtitle f13" placeholder="请输入您的链接描述"><span class="mui-icon mui-icon-clear mui-hidden" style="top:10px !important;"></span>
 				</div>
 				<!--<p class="f13 tc mt20 full fl" style="color:#007aff;">链接到我的文章</p>-->
-				<div id="submit" class="tc f13 cfff mt10 full fl" style="width:100%;height:2rem;line-height:2rem;background:#007aff;border-radius:5px;">添加</div>
-			</form>
-		</div>
+				<div id="submit" class="input mt20 tc fl">
+					添加
+				</div>
+			</div>
 	</body>
 
 </html>
@@ -53,20 +39,8 @@
 <script src="../js/base.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var userinfo = base.GetUserInfo();
 	mui.init();
-
-	var parentPage = null;
-
-	mui.ready(function() {
-
-	})
-
 	mui.plusReady(function() {
-
-		var self = plus.webview.currentWebview();
-		//base.Get('link').value = self.Link || "";
-		base.Get('text').value = self.Text || "";
 
 		//提交
 		base.Get("submit").addEventListener('tap', function(event) {
@@ -75,33 +49,14 @@
 			}
 			isLoading = true;
 			var link = base.Get('link').value;
-			var text = base.Get('text').value;
 			if(base.IsNullOrEmpty(link)) {
 				isLoading = false;
 				return mui.toast('请填写链接地址');
 			}
-			if(base.IsNullOrEmpty(text)) {
-				isLoading = false;
-				return mui.toast('请填写链接描述');
-			}
-			if(!parentPage) {
-				parentPage = base.GetView('editdesc');
-			}
-			parentPage.evalJS("UpdateLink('" + link + "','" + text + "')");
-			mui.back();
-		});
-
-		//删除
-		base.Get("delete").addEventListener('tap', function(event) {
-			if(isLoading) {
-				return;
-			}
-			isLoading = true;
-			if(!parentPage) {
-				parentPage = base.GetView('editdesc');
-			}
-			parentPage.evalJS("DeleteLink('" + link + "," + text + "')");
-			mui.back();
+			link = "Http://" + link;
+			var page = base.GetView('editdesc');
+			page.evalJS("UpdateLink('" + link + "')");
+			plus.webview.close("edithref");
 		});
 	});
 </script>
