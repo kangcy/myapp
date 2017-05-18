@@ -1038,7 +1038,8 @@
 			"page/user2.html",
 			"page/edittitle.html",
 			"page/edittext.html",
-			"page/customsetting.html"
+			"page/customsetting.html",
+			"page/article.html"
 		]
 	},
 	"page/sharesetting.html": {

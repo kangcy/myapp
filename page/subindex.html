@@ -350,9 +350,6 @@
 	});
 
 	mui.ready(function() {
-		if(userinfo.UserRole == 2) {
-			//base.RemoveClass(["#my-tip"], "hide");
-		}
 
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.Get("add").addEventListener('tap', function() {
@@ -423,11 +420,6 @@
 		base.Get("my-mypay").addEventListener('tap', function() {
 			base.OpenWindow("mypay", "mypay.html", {});
 		});
-
-		//我的评论
-		/*base.Get("my-comment").addEventListener('tap', function() {
-			base.OpenWindow("comment", "comment.html", {});
-		});*/
 
 		//我的反馈
 		base.Get("my-feedback").addEventListener('tap', function() {

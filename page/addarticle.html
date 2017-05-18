@@ -464,7 +464,11 @@
 			function(data) {
 				if(data != null) {
 					if(data.result) {
-						base.RefreshUser();
+						if(Source == "Add") {
+							userinfo.Articles += 1;
+							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+							base.RefreshUser();
+						}
 						var articleDetailPage = base.GetView('articledetail');
 						if(articleDetailPage == null) {
 							base.OpenWindow("articledetail", "articledetail.html", {

@@ -185,11 +185,6 @@ function Import(url) {
 					ArticleNumber: data.message.Number,
 					Source: "Add"
 				});
-
-				userinfo.Articles += 1;
-				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-				base.RefreshUser();
-
 				mui.later(function() {
 					mask.close();
 				}, 1000);

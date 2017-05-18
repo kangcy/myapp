@@ -132,6 +132,11 @@ function Delete() {
 				setTimeout(function() {
 					if(data != null) {
 						if(data.result) {
+
+							userinfo.Articles -= 1;
+							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+							base.RefreshUser();
+
 							plus.webview.close("articledetail");
 						}
 					}
@@ -164,8 +169,19 @@ function Copy() {
 	}, function(data) {
 		mui.later(function() {
 			mask.close();
-			mui.toast(data.result ? "复制成功,请刷新我的动态查看" : data.message);
+			mui.toast(data.result ? "复制成功,前往我的动态查看" : data.message);
 			isLoading = false;
+			if(data.result) {
+				base.OpenWindow("article", "article.html", {
+					CreateUserNumber: userinfo.Number,
+					ArticleTypeName: "我的动态",
+					Source: "My"
+				});
+
+				userinfo.Articles += 1;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				base.RefreshUser();
+			}
 		}, 500);
 	});
 }

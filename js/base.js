@@ -1012,10 +1012,7 @@ var base = new function() {
 	 * 刷新用户信息
 	 */
 	this.RefreshUser = function() {
-		var page = base.GetView("subindex");
-		if(page) {
-			page.evalJS("Refresh()");
-		}
+		base.GetView("subindex").evalJS("Refresh()");
 	}
 
 	/**
