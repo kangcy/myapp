@@ -74,7 +74,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/mui.pullToRefresh.js"></script>
@@ -118,7 +117,6 @@
 	var contentWebview = null;
 	mui.plusReady(function() {
 
-		//获取参数
 		var self = plus.webview.currentWebview();
 
 		//取消
@@ -166,9 +164,11 @@
 			}
 		});
 
-		$("#pullrefresh").on('tap', 'li.music', function(event) {
-			$("#pullrefresh .mui-icon").removeClass("mui-icon-checkmarkempty");
-			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
+		mui("#pullrefresh").on('tap', 'li.music', function(event) {
+			base.RemoveClass([".mui-icon"], "mui-icon-checkmarkempty");
+			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
+				item.classList.add("mui-icon-checkmarkempty");
+			});
 
 			fileId = this.getAttribute("fileId");
 			fileName = this.getAttribute("fileName");
@@ -214,41 +214,58 @@
 	//搜索文章
 	function LoadMusic(callback) {
 		if(base.IsNullOrEmpty(search.value)) {
-			if($.isFunction(callback)) {
+			if(callback) {
 				callback();
 			}
 			return;
 		}
-		var table = $("#scroll-view");
+		var table = base.Get("scroll-view");
 		var data = {
 			page: currpage,
 			rows: pagesize,
 			name: SearchName,
 		};
 		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
+			console.log(data);
 			data = JSON.parse(data);
 			if(data != null) {
-				data = data.message;
-				totalpage = data.totalpage;
-				var length = data.list.length;
-				if(length > 0) {
-					for(var i = 0, len = length; i < len; i++) {
-						var item = data.list[i];
-						table.append('<li class="mui-table-view-cell music" fileId="' + item.ID + '" fileName="' + item.Name + '" fileUrl="' + item.FileUrl + '"><img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" /><p class="fl c333 f13 mb0" style="width:80%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt5">' + item.Author + '</span></p><span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span></li>');
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					var length = data.list.length;
+					if(length > 0) {
+						mui.each(data.list, function(index, item) {
+							table.appendChild(AppendHtml(item));
+						});
+
+						mui(document).imageLazyload({
+							placeholder: '../images/loading.gif'
+						});
+					} else {
+						mui.toast("未搜索到内容");
 					}
-
-					mui(document).imageLazyload({
-						placeholder: '../images/loading.gif'
-					});
-
 				} else {
 					mui.toast("未搜索到内容");
 				}
 			}
 			mask.close();
-			if($.isFunction(callback)) {
+			if(callback) {
 				callback();
 			}
 		});
+	}
+
+	function AppendHtml(item) {
+		var div = document.createElement('li');
+		div.className = 'mui-table-view-cell music';
+		div.setAttribute("fileId", item.ID);
+		div.setAttribute("fileName", item.Name);
+		div.setAttribute("fileUrl", item.FileUrl);
+		var model = [];
+		model.push('<img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
+		model.push('<p class="fl c333 f13 mb0" style="width:80%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt5">' + item.Author + '</span></p>');
+		model.push('<span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>

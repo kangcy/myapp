@@ -22,6 +22,8 @@
 <script src="../js/mui.pullToRefresh.js"></script>
 <script src="../js/mui.pullToRefresh.material.js"></script>
 <script src="../js/PullRefresh.js"></script>
+<script src="../js/mui.lazyload.js"></script>
+<script src="../js/mui.lazyload.img.js"></script>
 <script type="text/javascript">
 	var ArticleNumber = 0;
 	mui.init({
@@ -65,7 +67,7 @@
 			}
 			base.GetView('edithref').evalJS("UpdateLink('" + ArticleNumber + "')");
 			plus.webview.close("article_link");
-		}); 
+		});
 	}
 
 	/**
@@ -91,6 +93,10 @@
 						mui.each(data.list, function(index, item) {
 							table.appendChild(AppendHtml(item));
 						});
+
+						mui(document).imageLazyload({
+							placeholder: '../images/loading.gif'
+						});
 					} else {
 						base.ShowNone(true);
 					}
@@ -110,7 +116,7 @@
 		div.className = 'mui-table-view-cell';
 		div.setAttribute("number", item.Number);
 		var model = [];
-		model.push('<img src="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
+		model.push('<img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
 		model.push('<p class="fl c333 f13 mb0" style="width:80%;display:inline-block;"><span class="article" articleid="' + item.ID + '" userid="' + userinfo.Number + '" power="' + item.ArticlePower + '" nickname="' + userinfo.NickName + '">' + item.Title + '</psan><br /><span class="fl c999 f11 mt5">' + item.CreateDate + '</span></p>');
 		model.push('<span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span>');
 		div.innerHTML = model.join('');

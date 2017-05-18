@@ -166,7 +166,7 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://www.ishaoxia.com/";
+	this.RootUrl = "http://www.ishaoxia.com:8080/";
 
 	/**
 	 * 默认图片
@@ -176,7 +176,7 @@ var base = new function() {
 	/**
 	 * 默认头像
 	 **/
-	this.DefaultAvatar = "../images/avatar.png"; 
+	this.DefaultAvatar = "../images/avatar.png";
 
 	/**
 	 * 显示等待、关闭等待
@@ -649,7 +649,7 @@ var base = new function() {
 		//内容
 		model.push('<div class="mui-card-content show"><div class="mui-card-content-inner">');
 
-		model.push('<div class="c333 fl article full mb10 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
+		model.push('<div class="c333 fl article full mt5 mb10 f12" style="line-height:1.3rem;" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="' + item.NickName + '">');
 		if(base.IsNullOrEmpty(item.Title)) {
 			item.Title = "我的小微篇";
 		}
