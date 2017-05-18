@@ -35,7 +35,7 @@
 				display: inline-block;
 				background-repeat: no-repeat;
 				background-position: center center;
-				background-size: auto 65%;
+				background-size: auto 60%;
 			}
 			
 			.menu.curr {
@@ -478,8 +478,15 @@
 		}
 	}
 
+	//撤销链接
+	function Undo() {
+		document.execCommand('undo');
+	}
+
 	//改变样式
 	function SetStyle(e) {
+		document.activeElement.blur();
+
 		var that = e.target;
 		var type = this.getAttribute("data-type") || "";
 		var valueTxt = this.getAttribute("data") || "";
