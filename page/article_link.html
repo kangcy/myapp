@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>链接文章</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../css/loading.min.css">
+	</head>
+
+	<body id="main">
+
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/mui.pullToRefresh.js"></script>
+<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../js/PullRefresh.js"></script>
+<script type="text/javascript">
+	var ArticleNumber = 0;
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
+
+	mui.ready(function() {
+		mui('#main').load("../part/list.html", function(response) {
+			base.Get("none_img").setAttribute("src", "../images/my/444.png");
+			base.Get("none_tip").innerHTML = "这里还没有内容";
+
+			base.InitScroll();
+		});
+	});
+
+	mui.plusReady(function() {
+		base.Get("title").innerHTML = "选择文章";
+		Init();
+	});
+
+	//初始化获取参数
+	function Init() {
+		base.InitPull("scroll");
+		base.ShowArticle("#scroll", "List", userinfo.Number);
+		mui("#scroll").on('tap', '.mui-table-view-cell', function(event) {
+			base.RemoveClass([".mui-icon"], "mui-icon-checkmarkempty");
+			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
+				item.classList.add("mui-icon-checkmarkempty");
+			});
+			ArticleNumber = this.getAttribute("number");
+			base.Get("confirm").innerHTML = "确定";
+			base.Get("confirm").classList.remove("hide");
+		});
+
+		//确定
+		base.Get("confirm").addEventListener("tap", function() {
+			if(base.RepeatAction()) {
+				return;
+			}
+			base.GetView('edithref').evalJS("UpdateLink('" + ArticleNumber + "')");
+			plus.webview.close("article_link");
+		}); 
+	}
+
+	/**
+	 * 加载数据
+	 */
+	function Load(callback) {
+		var table = base.Get('scroll-view');
+		var data = {
+			ID: userinfo.ID,
+			page: currpage,
+			rows: pagesize
+		};
+		HttpGet(base.RootUrl + "Api/Article/LinkAll", data, function(data) {
+			data = JSON.parse(data);
+			base.ShowLoading(false);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					records = data.records;
+					if(data.list.length > 0) {
+						base.ShowNone(false);
+						mui.each(data.list, function(index, item) {
+							table.appendChild(AppendHtml(item));
+						});
+					} else {
+						base.ShowNone(true);
+					}
+				} else {
+					base.ShowNone(true);
+				}
+			}
+			if(records == 0) {
+				base.ShowNone(true);
+			}
+			callback();
+		});
+	}
+
+	function AppendHtml(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		div.setAttribute("number", item.Number);
+		var model = [];
+		model.push('<img src="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
+		model.push('<p class="fl c333 f13 mb0" style="width:80%;display:inline-block;"><span class="article" articleid="' + item.ID + '" userid="' + userinfo.Number + '" power="' + item.ArticlePower + '" nickname="' + userinfo.NickName + '">' + item.Title + '</psan><br /><span class="fl c999 f11 mt5">' + item.CreateDate + '</span></p>');
+		model.push('<span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+</script>

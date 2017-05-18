@@ -1705,7 +1705,9 @@
 			"js/default.js",
 			"css/input.min.css"
 		],
-		"refer": []
+		"refer": [
+			"page/article_link.html"
+		]
 	},
 	"page/showhref.html": {
 		"resources": [
@@ -2066,7 +2068,8 @@
 			"page/demo.html",
 			"page/addarticle.html",
 			"page/guide.html",
-			"page/test.html"
+			"page/test.html",
+			"page/article_link.html"
 		]
 	},
 	"page/money.html": {
@@ -2548,6 +2551,25 @@
 		"refer": [
 			"page/subindex.html",
 			"page/login.html"
+		]
+	},
+	"page/article_link.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"css/loading.min.css",
+			"js/mui.pullToRefresh.material.js",
+			"css/animate.css",
+			"js/PullRefresh.js",
+			"part/list.html",
+			"images/my/444.png",
+			"js/base.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/jquery-1.10.2.min.js",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"page/articledetail.html"
 		]
 	}
 }

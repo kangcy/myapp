@@ -443,7 +443,8 @@
 					InitParts[index].SortID = sortid;
 				}
 			});
-		}
+		} 
+		console.log(JSON.stringify(InitParts));
 		HttpPost(base.RootUrl + "Article/Edit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID,

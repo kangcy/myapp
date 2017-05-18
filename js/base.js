@@ -176,7 +176,7 @@ var base = new function() {
 	/**
 	 * 默认头像
 	 **/
-	this.DefaultAvatar = "../images/avatar.png";
+	this.DefaultAvatar = "../images/avatar.png"; 
 
 	/**
 	 * 显示等待、关闭等待

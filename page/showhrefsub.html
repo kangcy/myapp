@@ -17,9 +17,8 @@
 <script src="../js/mui.min.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	mui.init({
-
-	});
+	var userinfo = base.GetUserInfo();
+	mui.init();
 
 	mui.plusReady(function() {
 		var parentPage = base.GetView("showhref");
@@ -30,9 +29,14 @@
 
 	window.addEventListener("Init", function(e) {
 		var link = e.detail.Link;
-		console.log(link) 
+		console.log(link)
 		if(!link.toLowerCase().indexOf("http://") < 0) {
 			link = "http://" + link;
+		}
+		if(link.indexOf("?") < 0) {
+			link += "?xwp=" + userinfo.Number
+		} else {
+			link += "&xwp=" + userinfo.Number
 		}
 		window.location.href = e.detail.Link;
 	});
