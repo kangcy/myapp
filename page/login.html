@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link href="../css/input.min.css" rel="stylesheet" />
 		<style type="text/css">
 			#login-form .border {
 				width: 1px;
@@ -56,7 +55,7 @@
 		</style>
 	</head>
 
-	<body>
+	<body style="overflow:hidden;">
 		<div id="top">
 			<div id="center">
 			</div>
@@ -102,9 +101,7 @@
 		base.CloseWaiting();
 	});
 
-	mui.init({
-		//statusBarBackground: '#f7f7f7'
-	});
+	mui.init();
 
 	//检查 "登录状态/锁屏状态" 结束
 	var loginButton = base.Get('login');
@@ -146,9 +143,8 @@
 
 	var auths = {};
 	mui.plusReady(function() {
-		plus.navigator.setFullscreen(false);
-		var page = plus.webview.currentWebview();
-		page.show("fade-in");
+		//var page = plus.webview.currentWebview();
+		//page.show("fade-in");
 
 		//系统定位
 		base.GetCurrentPosition();

@@ -18,15 +18,15 @@
 				background: #fff;
 			}
 			
-			.mui-table-view-cell {
+			#wrap .mui-table-view-cell {
 				padding: .8rem 0.9375rem;
 			}
 			
-			.mui-table-view:after {
+			#wrap .mui-table-view:after {
 				height: 0px;
 			}
 			
-			.mui-icon-arrowright {
+			#wrap .mui-icon-arrowright {
 				margin-right: -0.3rem;
 			}
 		</style>
@@ -39,7 +39,23 @@
 		</header>
 		<!--更新进度条-->
 		<div id="updatewrapper"></div>
-		<div class="mui-content">
+		<!--操作-->
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="action_keep">
+					<a href="#" class="c333 f13" onclick="Cancel()">注销当前账号</a>
+				</li>
+				<li class="mui-table-view-cell" id="action_outkeep">
+					<a href="#" class="c333 f13" onclick="Close()">直接关闭应用</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#action" class="c333 f13">取消</a>
+				</li>
+			</ul>
+		</div>
+		<div class="mui-content" id="wrap">
 			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell" onclick="Account()">
 					<span class="fl">账号管理</span>
@@ -227,41 +243,7 @@
 
 		//退出操作
 		base.Get('exit').addEventListener('tap', function() {
-			var btnArray = [{
-				title: "注销当前账号"
-			}, {
-				title: "直接关闭应用"
-			}];
-			plus.nativeUI.actionSheet({
-				cancel: "取消",
-				buttons: btnArray
-			}, function(event) {
-				switch(event.index) {
-					case 1:
-						mui.confirm('退出当前账号不会删除任何数据，下次登录仍可使用本账号。', '', ['确定退出', '取消'], function(e) {
-							if(e.index < 0) {
-								return;
-							}
-							if(e.index == 0) {
-								app.loginOut();
-
-								var all = plus.webview.all();
-								var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
-								for(var i = 0; i < all.length; i++) {
-									if(all[i] === launch || all[i].id === "setting")
-										continue;
-									all[i].close();
-									all[i].clear();
-								}
-								base.OpenWindow("login", "login.html", {}, "fade-in");
-							}
-						});
-						break;
-					case 2:
-						plus.runtime.quit();
-						break;
-				}
-			});
+			mui('#action').popover('show');
 		}, false);
 
 		//检查更新
@@ -289,5 +271,34 @@
 	//隐私设置
 	function Secret() {
 		base.OpenWindow("secretsetting", "secretsetting.html", {});
+	}
+
+	//注销
+	function Cancel() {
+		mui('#action').popover('hide');
+		mui.confirm('退出当前账号不会删除任何数据，下次登录仍可使用本账号。', '', ['确定退出', '取消'], function(e) {
+			if(e.index < 0) {
+				return;
+			}
+			if(e.index == 0) {
+				app.loginOut();
+
+				var all = plus.webview.all();
+				var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
+				for(var i = 0; i < all.length; i++) {
+					if(all[i] === launch || all[i].id === "setting")
+						continue;
+					all[i].close();
+					all[i].clear();
+				}
+				base.OpenWindow("login", "login.html", {}, "fade-in");
+			}
+		});
+	}
+
+	//关闭
+	function Close() {
+		mui('#action').popover('hide');
+		plus.runtime.quit();
 	}
 </script>

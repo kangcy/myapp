@@ -104,16 +104,17 @@
 	})
 
 	mui.plusReady(function() {
-		plus.navigator.closeSplashscreen(); //关闭启动页
-
-		var page = plus.webview.currentWebview();
-		page.show("fade-in");
+		plus.navigator.closeSplashscreen();
 
 		document.addEventListener("netchange", function() {
 			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 				mui.toast("网络异常，请检查网络设置");
 			}
 		}, false);
+
+		if(userinfo == "{}") {
+			preload_login();
+		}
 
 		Time(5);
 
@@ -148,9 +149,9 @@
 		setInterval(function() {
 			if(0 == t) {
 				if(userinfo == "{}") {
-					preload_login();
+					base.GetView("login").show("fade-in");
 				} else {
-					preload_index();
+					base.OpenWindow("subindex", "subindex.html", base.ShowAnimate());
 				}
 			} else {
 				t -= 1;

@@ -28,6 +28,12 @@
 		} else {
 			preload_guide();
 		}
+
+		if(showGuide) {
+			base.GetView("adv").show(base.ShowAnimate());
+		} else {
+			base.GetView("guide").show(base.ShowAnimate());
+		}
 	});
 
 	function preload_adv() {

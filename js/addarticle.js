@@ -178,19 +178,27 @@ function Import(url) {
 		Longitude: base.Longitude
 	}
 	HttpPost(base.RootUrl + "Article/Edit", data, function(data) {
-		mui.later(function() {
-			mask.close();
-			if(data != null) {
-				if(data.result) {
-					base.OpenWindow("addarticle", "addarticle.html", {
-						ArticleID: data.message.ID,
-						ArticleNumber: data.message.Number,
-						Source: "Add"
-					});
-				} else {
-					mui.toast(data.message);
-				}
+		if(data != null) {
+			if(data.result) {
+				base.OpenWindow("addarticle", "addarticle.html", {
+					ArticleID: data.message.ID,
+					ArticleNumber: data.message.Number,
+					Source: "Add"
+				});
+
+				userinfo.Articles += 1;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				base.RefreshUser();
+
+				mui.later(function() {
+					mask.close();
+				}, 1000);
+			} else {
+				mask.close();
+				mui.toast(data.message);
 			}
-		}, 1000)
+		} else {
+			mask.close();
+		}
 	});
 }

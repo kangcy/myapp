@@ -443,8 +443,7 @@
 					InitParts[index].SortID = sortid;
 				}
 			});
-		} 
-		console.log(JSON.stringify(InitParts));
+		}
 		HttpPost(base.RootUrl + "Article/Edit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID,
@@ -463,29 +462,31 @@
 				Part: escape(JSON.stringify(InitParts))
 			},
 			function(data) {
-				mui.later(function() {
-					if(data != null) {
-						if(data.result) {
-							base.RefreshUser();
-							var articleDetailPage = base.GetView('articledetail');
-							if(articleDetailPage == null) {
-								base.OpenWindow("articledetail", "articledetail.html", {
-									ArticleID: ArticleID,
-									Source: Source
-								});
-							} else {
-								articleDetailPage.evalJS("UpdateDetail()");
-							}
+				if(data != null) {
+					if(data.result) {
+						base.RefreshUser();
+						var articleDetailPage = base.GetView('articledetail');
+						if(articleDetailPage == null) {
+							base.OpenWindow("articledetail", "articledetail.html", {
+								ArticleID: ArticleID,
+								Source: Source
+							});
 						} else {
-							isLoading = false;
-							mui.toast(data.message);
+							articleDetailPage.evalJS("UpdateDetail()");
 						}
+						mui.later(function() {
+							mask.close();
+						}, 1500);
 					} else {
 						isLoading = false;
-						mui.toast("保存失败");
+						mask.close();
+						mui.toast(data.message);
 					}
+				} else {
+					isLoading = false;
 					mask.close();
-				}, 500);
+					mui.toast("保存失败");
+				}
 			});
 	}
 

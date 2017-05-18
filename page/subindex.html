@@ -307,8 +307,8 @@
 							<div id="scroll-view">
 							</div>
 							<div id="none" class="full tc hide">
-								<img src="../images/my/111.png" class="none" id="none_img" />
-								<p class="f13 mt10" id="none_tip"></p>
+								<img src="../images/my/444.png" class="none" id="none_img" />
+								<p class="f13 mt10" id="none_tip">这里还没有内容</p>
 							</div>
 						</div>
 					</div>
@@ -475,9 +475,14 @@
 
 	var backButtonPress = 0;
 	mui.plusReady(function() {
+
 		plus.navigator.setFullscreen(false);
-		var page = plus.webview.currentWebview();
-		page.show("fade-in");
+		//var page = plus.webview.currentWebview();
+		//page.show("fade-in");
+
+		plus.webview.close("adv");
+		plus.webview.close("guide");
+		plus.webview.close("login");
 
 		base.InitPull("slider");
 

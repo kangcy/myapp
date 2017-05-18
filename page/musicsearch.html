@@ -226,7 +226,6 @@
 			name: SearchName,
 		};
 		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
-			console.log(data);
 			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
