@@ -19,8 +19,8 @@
 			.bottom {
 				background: #f8f8f8;
 				border-top: 1px solid #eee;
-				position: fixed; 
-				bottom: 0px; 
+				position: fixed;
+				bottom: 0px;
 				width: 100%;
 			}
 			
@@ -354,15 +354,6 @@
 			//base.RemoveClass(["#my-tip"], "hide");
 		}
 
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#slider').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber);
-			});
-		});
-
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.Get("add").addEventListener('tap', function() {
 				length = 0;
@@ -445,7 +436,7 @@
 
 		//给个好评
 		base.Get("my-good").addEventListener('tap', function() {
-			var url = ""; //应用的appstore地址
+			var url = "http://app.qq.com/#id=detail&appid=1106027124"; //应用的appstore地址
 			plus.runtime.openURL(url);
 		});
 
@@ -491,6 +482,15 @@
 		base.InitPull("slider");
 
 		base.ArticleAction("#slider", userinfo);
+
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#slider').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber);
+			});
+		});
 
 		var previewImage = mui.previewImage({
 			callback1: function(img) {},

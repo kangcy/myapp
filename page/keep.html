@@ -53,15 +53,6 @@
 
 			base.ShowUser("#scroll");
 		});
-
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#scroll').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber);
-			});
-		});
 	});
 
 	mui.plusReady(function() {
@@ -78,6 +69,15 @@
 		base.ArticleAction("#scroll", userinfo);
 
 		base.ShowArticle("#scroll", "List", UserNumber);
+
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#scroll').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber);
+			});
+		});
 	});
 
 	/**
@@ -89,7 +89,7 @@
 			rows: pagesize,
 			CreateUserNumber: UserNumber
 		};
-		LoadPull(base.RootUrl + "Api/Keep/All", data, true,false, function(item) {
+		LoadPull(base.RootUrl + "Api/Keep/All", data, true, false, function(item) {
 			return base.AppendArticle(userinfo.Number, item, false, false, false, false);
 		}, callback);
 	}
