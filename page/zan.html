@@ -8,9 +8,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/fan.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
-		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../mincss/fan.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 	</head>
 
 	<body id="main">
@@ -35,6 +35,8 @@
 	mui.ready(function() {
 
 		mui('#main').load("../part/list.html", function(response) {
+			base.Immersed();
+			
 			base.InitScroll();
 			base.ShowUser("#scroll");
 		});

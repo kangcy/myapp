@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
 			#items {
 				height: 5.5rem;
@@ -76,10 +76,10 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<a class="mui-icon mui-text c333 fr hide" id="create">创建</a>
-			<h1 class="mui-title c333">背景设置</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<a class="mui-icon mui-text cfff fr hide" id="create">创建</a>
+			<h1 class="mui-title cfff">背景设置</h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -155,6 +155,8 @@
 	});
 
 	mui.ready(function() {
+		base.Immersed();
+		
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.RemoveClass(["#create"], "hide");
 

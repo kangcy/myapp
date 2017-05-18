@@ -8,24 +8,24 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/input.min.css">
+		<link rel="stylesheet" href="../mincss/input.min.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333" id="title"></h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<div id="input-form">
-				<div class="phone mt20 mui-input-row"> 
+				<div class="phone mt20 mui-input-row">
 					<input id='phone' type="tel" class="mui-input-clear text f13" placeholder="请输入您的手机号码" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 				</div>
 				<div class="pwd mt20 mui-input-row" style="width: 65%;margin-right: 0px;">
 					<input id='code' type="text" class="mui-input-clear text f13" placeholder="请输入验证码" maxlength="6" style="width:60%;" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 				</div>
 				<div style="width:25%;height:2.5rem;display:inline-block;" class="fr mt20 tc">
-					<img id="btnCode" style="width:5rem;height: 2.5rem;margin-top: 0.3rem;" />
+					<img id="btnCode" src="../images/loading.gif" style="width: 2.5rem;height: 2.5rem;" />
 				</div>
 
 				<div id="submit" class="input mt20 tc fl">
@@ -50,9 +50,13 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.Immersed();
+
 		base.Get("title").innerText = userinfo.Phone == "" ? "绑定手机号" : "更换手机号";
 
 		$btnCode.setAttribute("src", base.RootUrl + "System/Validate?rn=" + base.GetUid());
+		$btnCode.style.width = "5rem";
+		$btnCode.style.marginTop = "0.3rem";
 
 		$btnCode.addEventListener('tap', function(event) {
 			$btnCode.setAttribute("src", base.RootUrl + "System/Validate?rn=" + base.GetUid());
@@ -60,7 +64,7 @@
 	})
 
 	mui.plusReady(function() {
- 
+
 		//提交
 		base.Get("submit").addEventListener('tap', function(event) {
 			if(isLoading) {

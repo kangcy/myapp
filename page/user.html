@@ -8,9 +8,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
-		<link rel="stylesheet" href="../css/animate.css">
-		<link rel="stylesheet" href="../css/my.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../mincss/my.min.css">
 		<style type="text/css">
 			/*头部*/
 			
@@ -72,7 +72,7 @@
 	</head>
 
 	<body id="body">
-		<header id="header" class="mui-bar mui-bar-transparent">
+		<header id="header" class="mui-bar mui-bar-transparent" id="header">
 			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<span class="headericon cfff f25 fr more" onclick="More()">•••</span>
 			<h1 class="headericon mui-title cfff">Ta的资料</h1>
@@ -216,12 +216,13 @@
 	});
 
 	mui.ready(function() {
+		base.Immersed();
 		mask.show();
 		base.ShowWaiting("正在加载");
 
 		base.InitScroll();
 
-		var scrolly = 0;
+		/*var scrolly = 0;
 		var scroll = mui("#scroll-wrapper").scroll();
 		var $header = base.Get("header");
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
@@ -237,7 +238,7 @@
 					this.classList.add("cfff");
 				}
 			});
-		});
+		});*/
 
 		base.ShowArticle("#a_list", "List", userinfo.Number);
 

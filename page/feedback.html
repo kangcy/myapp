@@ -13,7 +13,7 @@
 				border: 0px;
 				height: 200px;
 				padding: 20px 10px;
-				line-height: 1.25rem; 
+				line-height: 1.25rem;
 			}
 			
 			#qq {
@@ -25,12 +25,12 @@
 	</head>
 
 	<body style="background:#F4F5F5;">
-		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-action-back mui-text c333 fl">取消</a>
-			<a id="submit" class="mui-icon mui-text c333 fr">保存</a>
-			<h1 class="mui-title c333">意见反馈</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
+			<a id="submit" class="mui-icon mui-text cfff fr">保存</a>
+			<h1 class="mui-title cfff">意见反馈</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<div class="f13 mt10 mb10" style="text-indent:10px;">反馈内容：</div>
 			<textarea id='question' class="mui-input-clear f12 mb0" placeholder="欢迎留下您的宝贵意见" maxlength="150"></textarea>
 			<div class="f13 mt10 mb10" style="text-indent:10px;">联系方式：</div>
@@ -44,6 +44,10 @@
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 	mui.init();
+
+	mui.ready(function() {
+		base.Immersed();
+	})
 
 	mui.plusReady(function() {
 

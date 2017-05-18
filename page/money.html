@@ -12,10 +12,10 @@
 	</head>
 
 	<body id="body">
-		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<div class="mui-title c333" id="title"></div>
-		</header>
+		<header class="mui-bar mui-bar-nav" id="header" immersed="none">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<div class="mui-title cfff" id="title"></div>
+		</header> 
 		<div class="tan hide" id="success">
 			<div class="full tc">
 				<img src="../images/pay/header1.png" class="full" />
@@ -40,7 +40,7 @@
 				<p class="fl full tr c333"><span class="fr hot" onclick="Again()">再爱TA一回</span><span class="fr mr20" onclick="Out()">残忍走开</span></p>
 			</div>
 		</div>
-		<div class="mui-content tc caaa full fl" style="position:relative;display:inline-block;">
+		<div id="muicontent" class="mui-content tc caaa full fl" style="position:relative;display:inline-block;">
 			<img src="../images/pay/bg.png" style="width:100%;float:left;" id="cover" />
 			<div class="tc full" style="position:absolute;top:8%;left:0px;">
 				<img id="payuser" src="../images/logo.png" class="mt20" />
@@ -102,7 +102,8 @@
 	mui.init();
 
 	mui.ready(function() {
-		base.Get("cover").style.height = window.innerHeight - 45 + "px";
+		base.Immersed();
+		base.Get("cover").style.height = window.innerHeight - base.Get("header").clientHeight + "px";
 
 		//金额切换
 		$(".choosemoney").click(function() {

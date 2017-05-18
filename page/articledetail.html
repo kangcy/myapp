@@ -8,13 +8,13 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
-		<link rel="stylesheet" href="../css/animate.css">
-		<link rel="stylesheet" href="../css/input.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../mincss/input.min.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="../css/articledetail.css">
+		<link rel="stylesheet" type="text/css" href="../mincss/articledetail.min.css">
 	</head>
- 
+
 	<body id="body">
 		<header id="header" class="mui-bar mui-bar-transparent">
 			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
@@ -22,7 +22,7 @@
 			<h1 class="headericon mui-title cfff" id="title"></h1>
 		</header>
 		<div class="loading" id="loader">
-			<div class="card">
+			<div class="card"> 
 				<span class="circles-loader"></span>
 			</div>
 		</div>
@@ -221,6 +221,8 @@
 	});
 
 	mui.ready(function() {
+		base.Immersed();
+
 		mask.show();
 		base.ShowWaiting("正在加载")
 
@@ -236,7 +238,7 @@
 
 		base.InitScroll();
 
-		var scroll = mui("#scroll-wrapper").scroll();
+		/*var scroll = mui("#scroll-wrapper").scroll();
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
 			scrolly = -scroll.y;
 
@@ -254,7 +256,7 @@
 					this.classList.add("cfff");
 				}
 			});
-		});
+		});*/
 
 		//模板选择
 		mui('#temps').on('tap', '.temp', function() {
@@ -364,8 +366,8 @@
 		mui('#scroll').on('tap', 'a.link', function() {
 			var link = this.getAttribute("link");
 			if(base.IsNullOrEmpty(link)) {
-				return; 
-			} 
+				return;
+			}
 			base.OpenWindow("showhref", "showhref.html", {
 				Link: link
 			});
@@ -376,7 +378,7 @@
 
 	var Intent = null,
 		File = null,
-		Uri = null,  
+		Uri = null,
 		main = null;
 	var self = null,
 		wc = null;

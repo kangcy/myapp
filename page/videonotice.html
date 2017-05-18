@@ -11,11 +11,11 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333">如何获取视频网页地址</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">如何获取视频网页地址</h1>
 		</header>
-		<div class="mui-content f13">
+		<div class="mui-content f13" id="muicontent">
 			<div class="full" style="padding:20px;line-height:1.2rem;">
 				<p class="c333 mt10 mb10">在添加视频的时候，若没有“优酷”账号，可以直接使用视频地址添加视频</p>
 				<p class="c333 mt10 mb10">1、在“优酷”里打开需要的视频内容，在分享里选择分享到“QQ”。</p>
@@ -35,6 +35,7 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.Immersed();
 		base.Get("step1").setAttribute("src", base.RootUrl + "Images/Source/video/1.png");
 		base.Get("step2").setAttribute("src", base.RootUrl + "Images/Source/video/2.png");
 		base.Get("step3").setAttribute("src", base.RootUrl + "Images/Source/video/3.png");

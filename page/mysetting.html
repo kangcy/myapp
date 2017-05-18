@@ -8,8 +8,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/mui.picker.css">
-		<link rel="stylesheet" href="../css/mui.poppicker.css">
+		<link rel="stylesheet" href="../mincss/mui.picker.min.css">
+		<link rel="stylesheet" href="../mincss/mui.poppicker.min.css">
 		<style type="text/css">
 			.mui-bar {
 				background: #fff;
@@ -42,11 +42,11 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333">编辑个人资料</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">编辑个人资料</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<ul class="mui-table-view f13 mt0">
 				<li class="mui-table-view-cell" id="divavatar">
 					<span class="fl mt25">头像</span>
@@ -60,7 +60,7 @@
 					<span class="fr c999 mr10" id="nickname"></span>
 					<span class="mui-badge mui-badge-danger hide"></span>
 				</li>
-				<li class="mui-table-view-cell" id="editnickname">
+				<li class="mui-table-view-cell">
 					<span class="fl">ID</span>
 					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
 					<span class="fr c999 mr10" id="userid"></span>
@@ -114,6 +114,8 @@
 	});
 
 	mui.ready(function() {
+		base.Immersed();
+		
 		base.InitScroll();
 		$("#userid").html(userinfo.ID);
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
@@ -271,6 +273,11 @@
 	//修改签名
 	function UpdateSignature(t) {
 		signature.innerHTML = t;
+		if(base.IsNullOrEmpty(t)) {
+			$("#editsignature").find(".mui-badge").removeClass("hide");
+		} else {
+			$("#editsignature").find(".mui-badge").addClass("hide");
+		}
 		mask.show();
 		base.ShowWaiting("正在编辑签名");
 		HttpGet(base.RootUrl + "User/EditSignature", {

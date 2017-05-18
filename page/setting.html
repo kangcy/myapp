@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
 			body {
 				background: #eee;
@@ -18,24 +18,24 @@
 				background: #fff;
 			}
 			
-			#wrap .mui-table-view-cell {
+			#muicontent .mui-table-view-cell {
 				padding: .8rem 0.9375rem;
 			}
 			
-			#wrap .mui-table-view:after {
+			#muicontent .mui-table-view:after {
 				height: 0px;
 			}
 			
-			#wrap .mui-icon-arrowright {
+			#muicontent .mui-icon-arrowright {
 				margin-right: -0.3rem;
 			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333">通用设置</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">通用设置</h1>
 		</header>
 		<!--更新进度条-->
 		<div id="updatewrapper"></div>
@@ -55,7 +55,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mui-content" id="wrap">
+		<div class="mui-content" id="muicontent">
 			<ul class="mui-table-view f13">
 				<li class="mui-table-view-cell" onclick="Account()">
 					<span class="fl">账号管理</span>
@@ -123,6 +123,7 @@
 
 	mui.init();
 	mui.ready(function() {
+		base.Immersed();
 
 		//启用水印
 		if(userinfo.UseDraw == 1) {

@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/animate.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
 			.mui-bar {
 				background: #fff;
@@ -76,11 +76,11 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333">编辑视频</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">编辑视频</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<ul class="mui-table-view f13 mt0">
 				<li class="mui-table-view-cell tc">
 					<p class="f18 c333 mt20">小微篇支持导入(优酷)视频</p>
@@ -141,6 +141,11 @@
 		Uri = null,
 		MediaStore = null,
 		Intent = null;
+
+	mui.ready(function() {
+		base.Immersed();
+	})
+
 	mui.plusReady(function() {
 
 		File = plus.android.importClass("java.io.File");
@@ -189,7 +194,7 @@
 	function Notice() {
 		base.OpenWindow("videonotice", "videonotice.html", {});
 	}
- 
+
 	//编辑视频
 	function AddVideo(url, index) {
 		var parentPage = base.GetView("addarticle");

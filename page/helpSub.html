@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
 			.mui-table-view-cell>a:not(.mui-btn) {
 				margin: -0.325rem -0.9375rem !important;
@@ -41,11 +41,11 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333">求助或建议</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">求助或建议</h1>
 		</header>
-		<div class="mui-content mui-scroll-wrapper">
+		<div class="mui-content mui-scroll-wrapper" id="muicontent">
 			<div class="loading" id="loader">
 				<div class="card">
 					<span class="circles-loader"></span>
@@ -74,8 +74,11 @@
 
 	mui.init();
 
-	mui.plusReady(function() {
+	mui.ready(function() {
+		base.Immersed();
+	})
 
+	mui.plusReady(function() {
 		base.InitScroll();
 
 		self = plus.webview.currentWebview();

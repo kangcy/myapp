@@ -13,10 +13,10 @@
 	</head>
 
 	<body style="background: #E8E8E8;">
-		<header class="mui-bar mui-bar-transparent" id="header">
+		<header class="mui-bar" id="header">
 			<span class="headericon mui-action-back mui-icon mui-icon-back fl cfff"></span>
 			<span class="headericon mui-icon fr mui-text cfff" id="submit">保存</span>
-			<h1 class="headericon mui-title c333"></h1>
+			<h1 class="headericon mui-title cfff"></h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -26,7 +26,7 @@
 		<!--图片操作-->
 		<div id="picupload"></div>
 		<div class="mui-content">
-			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:0px;">
 				<div class="mui-scroll" id="scroll">
 					<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
 						<div class="info-body mt30">
@@ -89,12 +89,14 @@
 	var title = base.Get("title");
 
 	mui.ready(function() {
+		base.Immersed();
+		
 		mask.show();
 		base.ShowWaiting("正在加载");
 
 		base.InitScroll();
 
-		var scroll = mui("#scroll-wrapper").scroll();
+		/*var scroll = mui("#scroll-wrapper").scroll();
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
 			scrolly = -scroll.y;
 
@@ -109,7 +111,7 @@
 					this.classList.add("cfff");
 				}
 			});
-		});
+		});*/
 
 		mui('#picupload').load("../part/pic.html", function(response) {
 

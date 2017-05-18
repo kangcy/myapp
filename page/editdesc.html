@@ -168,12 +168,12 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-action-back  mui-text c333 fl">取消</a>
-			<a id="submit" class="mui-icon  mui-text c333 fr">保存</a>
-			<h1 class="mui-title c333">编辑文字</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-action-back  mui-text cfff fl">取消</a>
+			<a id="submit" class="mui-icon  mui-text cfff fr">保存</a>
+			<h1 class="mui-title cfff">编辑文字</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<div id="divedit">
 				<div id="edit" contenteditable="true" tabindex="0"></div>
 			</div>
@@ -274,6 +274,7 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.Immersed();
 
 		var limit = window.innerWidth / 9;
 		$(".menu").css("width", limit + "px");

@@ -18,12 +18,12 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-action-back mui-text c333 fl">取消</a>
-			<a id="submit" class="mui-icon mui-text c333 fr">完成</a>
-			<h1 class="mui-title c333" id="title"></h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
+			<a id="submit" class="mui-icon mui-text cfff fr">完成</a>
+			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<div style="padding:5%;">
 				<textarea id='question' class="mui-input-clear f13"></textarea>
 			</div>
@@ -40,8 +40,13 @@
 	var page = null;
 	var title = base.Get("title");
 	var question = base.Get("question");
-	mui.plusReady(function() {
+
+	mui.ready(function() {
+		base.Immersed();
 		question.style.height = (window.innerHeight - 50 - window.innerHeight * 0.1) + "px";
+	})
+
+	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		var source = self.source;
 		switch(source) {

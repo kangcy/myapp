@@ -105,6 +105,7 @@
 
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
+		plus.webview.currentWebview().show(base.ShowAnimate());
 
 		document.addEventListener("netchange", function() {
 			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
@@ -134,6 +135,8 @@
 		};
 	});
 
+	var index = 0;
+
 	function Time(time) {
 		//圆环周长
 		var perimeter = Math.round(2 * Math.PI * 20);
@@ -146,8 +149,9 @@
 
 		var sec_text = document.getElementById("sec-text");
 		sec_text.innerHTML = t;
-		setInterval(function() {
+		index = setInterval(function() {
 			if(0 == t) {
+				clearInterval(index);
 				if(userinfo == "{}") {
 					base.GetView("login").show("fade-in");
 				} else {

@@ -8,16 +8,15 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/province.css">
+		<link rel="stylesheet" href="../mincss/province.min.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<div class="mui-title c333">选择城市</div>
-
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<div class="mui-title cfff">选择城市</div>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<div id='list' class="mui-indexed-list">
 				<div class="mui-indexed-list-search mui-input-row">
 					<div class="mui-table-view-cell f12"><span id="currPosition">正在定位...</span><span class="fr blue" id="reFixPosition"><span class="mui-icon mui-icon-reload f15 bold"></span><span class="ml5">重新定位</span></span>
@@ -111,6 +110,8 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.Immersed();
+		
 		var list = base.Get('list');
 		list.style.height = (window.innerHeight - 45) + 'px';
 		window.indexedList = new mui.IndexedList(list);

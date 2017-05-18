@@ -8,9 +8,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/img.preview.css">
-		<link rel="stylesheet" href="../css/animate.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../mincss/img.preview.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
 			#adduser {
 				width: 10%;
@@ -26,9 +26,10 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<div class="fr tc" id="adduser" onclick="AddUser()"></div>
-			<div class="mui-title c333">关注</div>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<!--<div class="fr tc" id="adduser" onclick="AddUser()"></div>-->
+			<a class="mui-icon mui-icon-search fr cfff" id="search" onclick="AddUser()"></a>
+			<div class="mui-title cfff">关注</div>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -38,7 +39,7 @@
 		<!--操作-->
 		<div id="actionwrapper"></div>
 		<div class="mui-content">
-			<div class="mui-scroll-wrapper" style="top:45px;bottom:0px;">
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:0px;">
 				<div class="mui-scroll" id="slider">
 					<div id="scroll-view">
 					</div>
@@ -70,6 +71,8 @@
 	});
 
 	mui.ready(function() {
+		base.Immersed();
+
 		base.InitScroll();
 
 		base.ShowUser("#slider");

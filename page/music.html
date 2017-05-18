@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
 			.mui-table-view-cell {
 				border-bottom: 1px solid #fff;
@@ -44,10 +44,10 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="background:#fff;">
-			<a class="mui-icon mui-action-back mui-text c333 fl">取消</a>
-			<a id="submit" class="mui-icon mui-text c333 fr" onclick="Submit()">完成</a>
-			<h1 class="mui-title c333">选择背景音乐</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
+			<a id="submit" class="mui-icon mui-text cfff fr" onclick="Submit()">完成</a>
+			<h1 class="mui-title cfff">选择背景音乐</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab" id="search" style="background:#f8f8f8;border-top:1px solid #eee;">
 			<div class="mui-tab-item blue" style="font-size:16px;">
@@ -59,7 +59,7 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<div id="list">
 
 			</div>
@@ -79,6 +79,8 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.Immersed();
+
 		//切换选择
 		$("#list").on('tap', 'div.music', function(event) {
 			$("#list .mui-icon").removeClass("mui-icon-checkmarkempty");

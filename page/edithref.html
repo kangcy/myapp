@@ -8,15 +8,15 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/input.min.css">
+		<link rel="stylesheet" href="../mincss/input.min.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
-			<h1 class="mui-title c333" id="title">添加链接</h1>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff" id="title">添加链接</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<div id="input-form">
 				<div class="common mt20 mui-input-row">
 					<input id='link' type="text" class="mui-input-clear ctext f13" placeholder="请输入您的链接地址" maxlength="100" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
@@ -43,6 +43,9 @@
 			base.GetView('editdesc').evalJS("Undo()");
 			return true;
 		}
+	});
+	mui.ready(function() {
+		base.Immersed();
 	});
 	mui.plusReady(function() {
 

@@ -1044,6 +1044,39 @@ var base = new function() {
 			}
 		});
 	}
+
+	/**
+	 * 沉浸式状态栏
+	 **/
+	this.Immersed = function() {
+		var immersed = 0;
+		var ms = (/Html5Plus\/.+\s\(.*(Immersed\/(\d+\.?\d*).*)\)/gi).exec(navigator.userAgent);
+		if(ms && ms.length >= 3) {
+			immersed = parseFloat(ms[2]);
+		}
+		if(!immersed) {
+			return;
+		}
+		var t = document.getElementById('header');
+		if(t) {
+			t.style.paddingTop = immersed + 'px';
+			t.style.paddingBottom = '45px';
+			if(t.getAttribute("immersed") != "none") {
+				t.style.background = '-webkit-linear-gradient(top,rgba(0,122,255,1),rgba(0,122,255,0.8))';
+			} else {
+				t.style.background = "transparent";
+			}
+			t.style.color = '#FFF';
+		}
+		t = document.getElementById('scroll-wrapper');
+		if(t) {
+			t.style.marginTop = immersed + 'px';
+		}
+		t = document.getElementById('muicontent');
+		if(t) {
+			t.style.paddingTop = immersed + 45 + 'px';
+		}
+	}
 }
 
 /**

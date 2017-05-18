@@ -52,6 +52,7 @@
 	mui.init();
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
+		plus.webview.currentWebview().show(base.ShowAnimate());
 
 		base.InitSlider(false);
 

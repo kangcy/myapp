@@ -24,7 +24,7 @@ function ChangeBg() {
 	} else {
 		$("#title1").addClass("hide");
 	}
-	if(CurrTemplate == 0) {
+	/*if(CurrTemplate == 0) {
 		$("#header").find("span").removeClass("cfff").addClass("c333");
 		$("#header").find("h1").removeClass("cfff").addClass("c333");
 	} else {
@@ -40,7 +40,7 @@ function ChangeBg() {
 				this.classList.add("cfff");
 			}
 		});
-	}
+	}*/
 
 	//纯白背景
 	if(CurrTemplate == 0) {

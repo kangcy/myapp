@@ -8,205 +8,10 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/animate.css">
-		<link rel="stylesheet" href="../css/img.preview.css">
-		<link rel="stylesheet" href="../css/loading.min.css">
-		<style type="text/css">
-			body {
-				background: #fff;
-			}
-			
-			.bottom {
-				background: #f8f8f8;
-				border-top: 1px solid #eee;
-				position: fixed;
-				bottom: 0px;
-				width: 100%;
-			}
-			
-			#add {
-				width: 100%;
-				float: left;
-				height: 2.8rem;
-				line-height: 2.6rem;
-				text-align: center;
-			}
-			
-			#add div {
-				width: 90%;
-				border-radius: 30px;
-				background: #4087cb;
-				display: inline-block;
-				margin-top: 0.2rem;
-				height: 2.1875rem;
-				line-height: 2.2rem;
-				/*background-image: url(../images/base/pic.png);
-				background-repeat: no-repeat;
-				background-position: 35% center;
-				background-size: 1.25rem;
-				text-indent: 8%;*/
-			}
-			
-			.menu {
-				width: 100%;
-				height: 2.2rem;
-				line-height: 2.2rem;
-				text-align: left;
-				text-indent: 2.5rem;
-				background: #fff;
-			}
-			
-			.mui-btn {
-				padding: 0.375rem 2.125rem;
-			}
-			
-			.mui-title {
-				white-space: normal;
-			}
-			
-			#setting {
-				width: 1.2rem;
-				position: fixed;
-				left: 20px;
-				top: 20px;
-			}
-			
-			#tip {
-				width: 1.2rem;
-				position: fixed;
-				right: 20px;
-				top: 20px;
-			}
-			
-			.cover {
-				width: 100%;
-				display: inline-block;
-				margin: 0px;
-				text-align: center;
-				position: relative;
-				height: 13rem;
-				z-index: -1;
-			}
-			
-			.cover .info {
-				position: absolute;
-				bottom: 2.5rem;
-				left: 0px;
-			}
-			
-			.cover .left {
-				width: 30%;
-				float: left;
-				display: inline-block;
-			}
-			
-			.cover .left img {
-				border-radius: 50%;
-				width: 80%;
-				border: 3px solid #fff;
-			}
-			
-			.cover .right {
-				width: 65%;
-				float: left;
-				display: inline-block;
-			}
-			
-			.nickname {
-				margin: 0px;
-				line-height: 1.5rem;
-			}
-			
-			.signature {
-				margin: 0px;
-				line-height: 1.25rem;
-			}
-			
-			.content1 {
-				display: inline-block;
-				width: 100%;
-				background: #fff;
-				border-radius: 10px;
-				box-shadow: 1px 5px 8px rgba(193, 224, 255, 0.6);
-				-webkit-box-shadow: 1px 5px 8px rgba(193, 224, 255, 0.6);
-			}
-			
-			.content1 .items {
-				width: 25%;
-				float: left;
-			}
-			
-			.content1 .items .item1 {
-				margin: 0px;
-				margin-top: 0.6rem;
-				line-height: 1.5rem;
-				width: 100%;
-			}
-			
-			.content1 .items .item2 {
-				margin: 0px;
-				width: 100%;
-				float: left;
-				line-height: 1.3rem;
-			}
-			
-			#my-tip {
-				background-image: url(../images/my/menu01.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.1rem;
-			}
-			
-			#my-mypic {
-				background-image: url(../images/my/menu02.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.1rem;
-			}
-			
-			#my-mypay {
-				background-image: url(../images/my/menu03.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.1rem;
-			}
-			
-			#my-msg {
-				background-image: url(../images/my/menu04.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.1rem;
-			}
-			
-			#my-feedback {
-				background-image: url(../images/my/menu05.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.1rem;
-			}
-			
-			#my-good {
-				background-image: url(../images/my/menu06.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.1rem;
-			}
-			
-			#my-help {
-				background-image: url(../images/my/menu07.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.1rem;
-			}
-			
-			#my-setting {
-				background-image: url(../images/my/menu08.png);
-				background-repeat: no-repeat;
-				background-position: 0.8rem center;
-				background-size: 1.1rem;
-			}
-		</style>
-
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../mincss/img.preview.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/subindex.min.css">
 	</head>
 
 	<body>
@@ -287,10 +92,10 @@
 			</aside>
 
 			<!--主界面部分-->
-			<div class="mui-inner-wrap mui-transitioning">
-				<header class="mui-bar mui-bar-nav zoomIn cfff" style="background:#007aff;" id="header">
+			<div class="mui-inner-wrap mui-transitioning" style="background:#fff;">
+				<header class="mui-bar mui-bar-nav cfff" id="header">
 					<img id="avatar2" src="../images/logo.png" style="width:30px;margin-top:5px;border-radius:100%;" />
-					<a class="mui-icon mui-icon-search fr c333" id="search"></a>
+					<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
 					<h1 class="mui-title cfff">发现</h1>
 				</header>
 				<div class="loading" id="loader">
@@ -336,7 +141,6 @@
 <script src="../js/update.js"></script>
 <script src="../js/article.js"></script>
 <script src="../js/addarticle.js"></script>
-<script src="../js/immersed.js"></script>
 <script type="text/javascript">
 	var $cover = base.Get("cover");
 	var PageName = "subindex";
@@ -351,6 +155,7 @@
 	});
 
 	mui.ready(function() {
+		base.Immersed();
 
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.Get("add").addEventListener('tap', function() {
@@ -470,12 +275,12 @@
 	mui.plusReady(function() {
 
 		plus.navigator.setFullscreen(false);
-		//var page = plus.webview.currentWebview();
-		//page.show("fade-in");
 
-		plus.webview.close("adv");
-		plus.webview.close("guide");
-		plus.webview.close("login");
+		mui.later(function() {
+			plus.webview.close("adv");
+			plus.webview.close("guide");
+			plus.webview.close("login");
+		}, 2000);
 
 		base.InitPull("slider");
 
