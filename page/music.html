@@ -67,9 +67,8 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.min.js"></script>
-<script src="../js/base.js"></script>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
 	var MusicID = -1;
@@ -81,10 +80,12 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		//切换选择
-		$("#list").on('tap', 'div.music', function(event) {
-			$("#list .mui-icon").removeClass("mui-icon-checkmarkempty");
-			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
+		mui("#list").on('tap', 'div.music', function(event) {
+			base.RemoveClass([".mui-icon"], "mui-icon-checkmarkempty");
+			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
+				item.classList.add("mui-icon-checkmarkempty");
+			});
+
 			MusicID = this.getAttribute("index");
 			MusicName = this.getAttribute("name");
 			MusicUrl = this.getAttribute("url");
@@ -109,30 +110,35 @@
 	//加载音乐
 	function Load(musicid) {
 		HttpGet(base.RootUrl + "Api/Music/All", {}, function(data) {
-			var table = $('#list');
-			table.empty();
+			var table = base.Get("list");
+			table.innerHTML = "";
 			data = JSON.parse(data);
 			if(data != null) {
 				data = data.message;
 				var length = data.list.length;
 				if(length > 0) {
-					var html = [];
-					for(var i = 0, len = length; i < len; i++) {
-						html.push('<div class="mui-table-view-cell mui-collapse ' + (i == 0 ? "mui-active" : "") + '"style="background:#eee;"><a class="mui-navigate-right f13 c333" href="#">' + data.list[i].Name + '</a><div class="mui-collapse-content">');
-						var musics = data.list[i].Music;
-						for(var j = 0, len2 = musics.length; j < len2; j++) {
-							html.push('<div class="music" index="' + musics[j].ID + '" name="' + musics[j].Name + '" url="' + musics[j].FileUrl + '"><p class="f12 c999 mt5 mb5">' + musics[j].Name + '<span class="fr c999 mui-icon ' + (musics[j].ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0rem;top:0.5rem;"></span></p></div>');
-						}
-						html.push('</div></div>');
-					}
-					table.append(html.join(""));
+					mui.each(data.list, function(index, item) {
+						table.appendChild(AppendHtml(index, item));
+					});
 				}
 			}
 			base.ShowLoading(false);
 		});
 	}
 
-	var addarticlePage = null;
+	function AppendHtml(index, item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell mui-collapse ' + (index == 0 ? "mui-active" : "");
+		div.style.background = "#eee";
+		var model = [];
+		model.push('<a class="mui-navigate-right f13 c333" href="#">' + item.Name + '</a><div class="mui-collapse-content">');
+		mui.each(item.Music, function(i, music) {
+			model.push('<div class="music" index="' + music.ID + '" name="' + music.Name + '" url="' + music.FileUrl + '"><p class="f12 c999 mt5 mb5">' + music.Name + '<span class="fr c999 mui-icon ' + (music.ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0rem;top:0.5rem;"></span></p></div>');
+		})
+		model.push("</div>");
+		div.innerHTML = model.join('');
+		return div;
+	}
 
 	function Submit() {
 		if(base.RepeatAction()) {
@@ -141,10 +147,7 @@
 		if(MusicID < 0) {
 			return mui.toast("还未选择音乐");
 		} else {
-			if(!addarticlePage) {
-				addarticlePage = base.GetView('addarticle');
-			}
-			addarticlePage.evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','" + MusicUrl + "')");
+			base.GetView('addarticle').evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','" + MusicUrl + "')");
 		}
 	}
 </script>

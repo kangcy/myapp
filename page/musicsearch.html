@@ -46,9 +46,9 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="padding-right:0px;">
-			<a class="mui-icon mui-icon-back mui-action-back fl c333" style="width:15%;"></a>
-			<a id="btnSearch" class="mui-icon mui-icon-search fr c333" style="width:15%;"></a>
+		<header class="mui-bar mui-bar-nav" style="padding-right:0px;" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff" style="width:15%;"></a>
+			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:15%;"></a>
 			<div class="mui-input-row mui-search" style="width:77%;">
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:34px;font-size:15px;">
 			</div>
@@ -62,8 +62,8 @@
 			<div style="margin-left:10px;" class="fl blue" id="no">取消</div>
 			<div style="margin-right:10px;" class="fr blue" id="yes">完成</div>
 		</nav>
-		<div class="mui-content ">
-			<div id="pullwrapper" class="mui-scroll-wrapper" style="top:50px;bottom:50px;">
+		<div class="mui-content">
+			<div id="scroll-wrapper" class="mui-scroll-wrapper" style="top:50px;bottom:50px;">
 				<div id="pullrefresh" class="mui-scroll">
 					<ul class="mui-table-view f13 mt0" id="scroll-view">
 
@@ -74,12 +74,12 @@
 	</body>
 
 </html>
-<script src="../js/mui.min.js"></script>
-<script src="../js/base.js"></script>
-<script src="../js/mui.pullToRefresh.js"></script>
-<script src="../js/mui.pullToRefresh.material.js"></script>
-<script src="../js/mui.lazyload.js"></script>
-<script src="../js/mui.lazyload.img.js"></script>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../minjs/mui.pullToRefresh.min.js"></script>
+<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
+<script src="../minjs/mui.lazyload.min.js"></script>
+<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script type="text/javascript">
 	var fileId = 0;
 	var fileName = "";
@@ -105,7 +105,7 @@
 	var search = base.Get("search");
 
 	mui.ready(function() {
-
+		base.Immersed();
 		base.InitScroll();
 
 		//语音识别完成事件

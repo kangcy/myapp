@@ -13,10 +13,10 @@
 	</head>
 
 	<body style="background: #E8E8E8;">
-		<header class="mui-bar" id="header">
-			<span class="headericon mui-action-back mui-icon mui-icon-back fl cfff"></span>
-			<span class="headericon mui-icon fr mui-text cfff" id="submit">保存</span>
-			<h1 class="headericon mui-title cfff"></h1>
+		<header class="mui-bar" id="header" immersed="none">
+			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
+			<span class="mui-icon fr mui-text cfff" id="submit">保存</span>
+			<h1 class="mui-title cfff" id="title">点击输入标题</h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -26,11 +26,11 @@
 		<!--图片操作-->
 		<div id="picupload"></div>
 		<div class="mui-content">
-			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:0px;">
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
 				<div class="mui-scroll" id="scroll">
 					<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
-						<div class="info-body mt30">
-							<div id="title" class="title mb20 f18">点击输入标题</div>
+						<div class="info-body" style="margin-top:10rem">
+							<!--<div id="title" class="title mb20 f18">点击输入标题</div>-->
 							<div id="music" class="btn fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
 						</div>
 					</div>
@@ -44,9 +44,9 @@
 
 </html>
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="../js/mui.min.js"></script>
-<script type="text/javascript" src="../js/base.js"></script>
-<script type="text/javascript" src="../js/group.js"></script>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../minjs/group.min.js"></script>
 <!--<script type="text/javascript" src="http://player.youku.com/jsapi"></script>-->
 <!--<script type="text/javascript" src="../js/video.js"></script>-->
 <script type="text/javascript" src="../js/addarticlepart.js"></script>
@@ -90,32 +90,21 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		
+
 		mask.show();
 		base.ShowWaiting("正在加载");
 
 		base.InitScroll();
 
-		/*var scroll = mui("#scroll-wrapper").scroll();
+		var browserName = base.BrowserName();
+		var num = 0;
+		var scroll = mui("#scroll-wrapper").scroll();
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
-			scrolly = -scroll.y;
-
-			//背景色渐变
-			$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
-
-			var success = scrolly > 100;
-			mui.each(document.querySelectorAll(".headericon"), function() {
-				if(success) {
-					this.classList.remove("cfff");
-				} else {
-					this.classList.add("cfff");
-				}
-			});
-		});*/
-
-		mui('#picupload').load("../part/pic.html", function(response) {
-
+			num = -scroll.y / 100;
+			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 		});
+
+		mui('#picupload').load("../part/pic.html", function(response) {});
 
 		//音乐
 		base.Get('music').addEventListener('tap', function(event) {

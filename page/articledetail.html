@@ -183,8 +183,8 @@
 
 </html>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.min.js"></script>
-<script src="../js/base.js"></script>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script src="../js/music.js"></script>
 <script src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
@@ -603,11 +603,11 @@
 						$("#iskeep,#isnotkeep").toggleClass("hide");
 					}
 
-					mui('#snowwrapper').load("../part/snow/snow.html", function(response) {
+					/*mui('#snowwrapper').load("../part/snow/snow.html", function(response) {
 						LoadScript("../part/snow/snow.js", function() {
 							$(".snow-canvas").snow();
 						});
-					});
+					});*/
 
 					//分享信息
 					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);

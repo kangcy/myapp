@@ -1,339 +1,967 @@
 {
+  "page/money.html": {
+    "href": "page/money.html",
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "js/payment.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/money.min.css",
+      "images/pay/nm1.png",
+      "images/pay/nm2.png",
+      "images/pay/zfb2.png",
+      "images/pay/zfb1.png",
+      "images/pay/wx2.png",
+      "images/pay/wx1.png",
+      "images/pay/bg.png",
+      "images/pay/header1.png",
+      "images/pay/header2.png",
+      "images/logo.png"
+    ],
+    "priority": 0
+  },
   "page/edittext.html": {
     "href": "page/edittext.html",
-    "resources": [],
-    "priority": 0
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css"
+    ],
+    "priority": 1
   },
   "part/list.html": {
     "href": "part/list.html",
-    "resources": [],
-    "priority": 1
+    "resources": [
+      "images/my/111.png"
+    ],
+    "priority": 2
   },
   "page/mypic.html": {
     "href": "page/mypic.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css",
+      "images/my/check.png"
+    ],
     "refer": [],
-    "priority": 1
+    "priority": 2
   },
   "page/article_link.html": {
     "href": "page/article_link.html",
-    "resources": [],
-    "refer": [],
-    "priority": 2
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "minjs/PullRefresh.min.js",
+      "js/mui.lazyload.js",
+      "js/mui.lazyload.img.js",
+      "images/loading.gif",
+      "images/my/444.png",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/animate.min.css",
+      "mincss/loading.min.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 3
   },
   "page/edithref.html": {
     "href": "page/edithref.html",
-    "resources": [],
-    "refer": [],
-    "priority": 2
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/input.min.css",
+      "images/login/user.png",
+      "images/login/phone.png",
+      "images/login/pwd.png"
+    ],
+    "refer": [
+      "page/article_link.html"
+    ],
+    "priority": 3
   },
   "page/editdesc.html": {
     "href": "page/editdesc.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "images/edittxt/022.png",
+      "images/edittxt/023.png",
+      "images/edittxt/042.png",
+      "images/edittxt/043.png",
+      "images/edittxt/052.png",
+      "images/edittxt/053.png",
+      "images/edittxt/062.png",
+      "images/edittxt/063.png",
+      "images/edittxt/072.png",
+      "images/edittxt/073.png",
+      "images/edittxt/082.png",
+      "images/edittxt/083.png",
+      "images/edittxt/prev.png",
+      "images/edittxt/next.png",
+      "images/edittxt/0112.png",
+      "images/edittxt/09.png",
+      "images/edittxt/010.png",
+      "images/edittxt/012.png",
+      "images/edittxt/061.png",
+      "images/edittxt/071.png",
+      "images/edittxt/081.png"
+    ],
     "refer": [],
-    "priority": 2
+    "priority": 3
   },
   "part/pic.html": {
     "href": "part/pic.html",
-    "priority": 5
+    "priority": 6
   },
   "page/editimage.html": {
     "href": "page/editimage.html",
-    "resources": [],
-    "refer": [],
-    "priority": 4
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css"
+    ],
+    "refer": [
+      "page/mypic.html"
+    ],
+    "priority": 5
   },
   "page/videonotice.html": {
     "href": "page/videonotice.html",
-    "resources": [],
-    "priority": 5
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 6
   },
   "page/editvideo.html": {
     "href": "page/editvideo.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/animate.min.css"
+    ],
     "refer": [],
-    "priority": 5
+    "priority": 6
   },
   "page/musicsearch.html": {
     "href": "page/musicsearch.html",
-    "resources": [],
-    "priority": 6
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "js/mui.lazyload.js",
+      "js/mui.lazyload.img.js",
+      "images/loading.gif",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css",
+      "images/check.png"
+    ],
+    "priority": 7
   },
   "page/music.html": {
     "href": "page/music.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css"
+    ],
     "refer": [],
-    "priority": 6
+    "priority": 7
   },
   "page/articletype.html": {
     "href": "page/articletype.html",
-    "resources": [],
-    "priority": 8
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css"
+    ],
+    "priority": 9
   },
   "page/sharesetting.html": {
     "href": "page/sharesetting.html",
-    "resources": [],
-    "refer": [],
-    "priority": 8
-  },
-  "page/article.html": {
-    "href": "page/article.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.eot",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.svg"
+    ],
     "refer": [],
     "priority": 9
   },
+  "page/article.html": {
+    "href": "page/article.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "mincss/mui.min.css",
+      "mincss/animate.min.css",
+      "mincss/img.preview.min.css",
+      "mincss/loading.min.css"
+    ],
+    "refer": [],
+    "priority": 10
+  },
   "page/custom.html": {
     "href": "page/custom.html",
-    "resources": [],
-    "priority": 11
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css"
+    ],
+    "priority": 12
   },
   "page/customsetting.html": {
     "href": "page/customsetting.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css",
+      "images/my/nocheck.png",
+      "images/my/666.png"
+    ],
     "refer": [],
-    "priority": 11
+    "priority": 12
   },
   "part/snow/snow.html": {
     "href": "part/snow/snow.html",
-    "priority": 12
+    "priority": 13
   },
   "page/showhrefsub.html": {
     "href": "page/showhrefsub.html",
-    "resources": [],
-    "priority": 13
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js"
+    ],
+    "priority": 14
   },
   "page/showhref.html": {
     "href": "page/showhref.html",
-    "resources": [],
-    "refer": [],
-    "priority": 13
-  },
-  "page/money.html": {
-    "href": "page/money.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/loading.min.css"
+    ],
+    "refer": [
+      "page/showhrefsub.html"
+    ],
     "priority": 14
   },
   "page/subcomment.html": {
     "href": "page/subcomment.html",
-    "resources": [],
-    "refer": [],
-    "priority": 15
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "minjs/PullRefresh.min.js",
+      "minjs/comment.min.js",
+      "emotion/js/emojione.min.js",
+      "emotion/js/emojionearea.js",
+      "images/my/333.png",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/comment.min.css",
+      "images/article/pen2.png",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css",
+      "emotion/css/emojione.sprites.css",
+      "emotion/css/emojione.sprites.png",
+      "emotion/css/emojionearea.min.css"
+    ],
+    "refer": [
+      "part/list.html"
+    ],
+    "priority": 16
   },
   "page/articleComment.html": {
     "href": "page/articleComment.html",
-    "resources": [],
-    "refer": [],
-    "priority": 15
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "minjs/comment.min.js",
+      "images/base/like_hig.png",
+      "images/base/comment_nor.png",
+      "images/base/like_nor.png",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css",
+      "emotion/css/emojione.sprites.png"
+    ],
+    "refer": [
+      "page/subcomment.html"
+    ],
+    "priority": 16
   },
   "page/articledetail.html": {
     "href": "page/articledetail.html",
-    "resources": [],
-    "refer": [],
-    "priority": 7
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "images/article/poster.png",
+      "part/snow/snow.js",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css",
+      "mincss/input.min.css",
+      "images/login/user.png",
+      "images/login/phone.png",
+      "images/login/pwd.png",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.eot",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.svg",
+      "mincss/articledetail.min.css",
+      "images/article/on.png",
+      "images/article/off.png",
+      "images/share/1.png",
+      "images/share/2.png",
+      "images/share/3.png",
+      "images/share/4.png",
+      "images/share/5.png",
+      "images/share/6.png",
+      "images/share/7.png",
+      "images/share/8.png",
+      "images/share/10.png",
+      "images/share/9.png"
+    ],
+    "refer": [
+      "page/article.html",
+      "page/edittext.html",
+      "part/snow/snow.html",
+      "page/showhref.html",
+      "page/money.html"
+    ],
+    "priority": 8
   },
   "page/videoreview.html": {
     "href": "page/videoreview.html",
-    "resources": [],
-    "priority": 8
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "js/video.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 9
   },
   "page/addarticle.html": {
     "href": "page/addarticle.html",
-    "resources": [],
-    "refer": [],
-    "priority": 1
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/group.min.js",
+      "images/article/video.png",
+      "mincss/mui.min.css",
+      "mincss/addarticle.min.css",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.eot",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.woff",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.ttf",
+      "font-awesome-4.6.3/fonts/fontawesome-webfont.svg"
+    ],
+    "refer": [
+      "page/mypic.html",
+      "page/edittext.html",
+      "page/articledetail.html",
+      "page/videoreview.html"
+    ],
+    "priority": 2
   },
   "page/helpSub.html": {
     "href": "page/helpSub.html",
-    "resources": [],
-    "priority": 3
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css"
+    ],
+    "priority": 4
   },
   "page/help.html": {
     "href": "page/help.html",
-    "resources": [],
-    "refer": [],
-    "priority": 3
-  },
-  "page/city.html": {
-    "href": "page/city.html",
-    "resources": [],
-    "priority": 5
-  },
-  "page/province.html": {
-    "href": "page/province.html",
-    "resources": [],
-    "refer": [],
-    "priority": 5
-  },
-  "page/mysetting.html": {
-    "href": "page/mysetting.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css"
+    ],
     "refer": [],
     "priority": 4
   },
-  "page/fan.html": {
-    "href": "page/fan.html",
-    "resources": [],
+  "page/city.html": {
+    "href": "page/city.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css",
+      "mincss/province.min.css"
+    ],
+    "priority": 6
+  },
+  "page/province.html": {
+    "href": "page/province.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/province.min.css"
+    ],
+    "refer": [],
+    "priority": 6
+  },
+  "page/mysetting.html": {
+    "href": "page/mysetting.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/mui.picker.min.css",
+      "mincss/mui.poppicker.min.css"
+    ],
     "refer": [],
     "priority": 5
   },
+  "page/fan.html": {
+    "href": "page/fan.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css",
+      "mincss/fan.min.css",
+      "mincss/animate.min.css"
+    ],
+    "refer": [],
+    "priority": 6
+  },
   "part/action.html": {
     "href": "part/action.html",
-    "priority": 6
+    "priority": 7
   },
   "page/black.html": {
     "href": "page/black.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/loading.min.css",
+      "mincss/fan.min.css",
+      "mincss/animate.min.css"
+    ],
     "refer": [],
-    "priority": 7
+    "priority": 8
   },
   "page/secretsetting.html": {
     "href": "page/secretsetting.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css"
+    ],
     "refer": [],
-    "priority": 7
+    "priority": 8
   },
   "page/bindphone.html": {
     "href": "page/bindphone.html",
-    "resources": [],
-    "priority": 8
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/input.min.css",
+      "images/login/user.png",
+      "images/loading.gif"
+    ],
+    "priority": 9
   },
   "page/bindpassword.html": {
     "href": "page/bindpassword.html",
-    "resources": [],
-    "refer": [],
-    "priority": 9
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/input.min.css",
+      "images/login/user.png",
+      "images/login/phone.png"
+    ],
+    "refer": [
+      "page/login.html"
+    ],
+    "priority": 10
   },
   "page/accountsetting.html": {
     "href": "page/accountsetting.html",
-    "resources": [],
-    "refer": [],
-    "priority": 8
-  },
-  "part/update.html": {
-    "href": "part/update.html",
-    "resources": [],
-    "priority": 10
-  },
-  "page/setting.html": {
-    "href": "page/setting.html",
-    "resources": [],
-    "refer": [],
-    "priority": 7
-  },
-  "page/search.html": {
-    "href": "page/search.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/login.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf"
+    ],
     "refer": [],
     "priority": 9
   },
+  "part/update.html": {
+    "href": "part/update.html",
+    "resources": [
+      "images/tip.png",
+      "images/update.png"
+    ],
+    "priority": 11
+  },
+  "page/setting.html": {
+    "href": "page/setting.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/login.min.js",
+      "js/update.js",
+      "mincss/mui.min.css",
+      "mincss/animate.min.css"
+    ],
+    "refer": [
+      "part/update.html"
+    ],
+    "priority": 8
+  },
+  "page/search.html": {
+    "href": "page/search.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css",
+      "mincss/img.preview.min.css",
+      "mincss/animate.min.css"
+    ],
+    "refer": [],
+    "priority": 10
+  },
   "page/feedback.html": {
     "href": "page/feedback.html",
-    "resources": [],
-    "priority": 11
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css"
+    ],
+    "priority": 12
   },
   "page/pay.html": {
     "href": "page/pay.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "images/price.png",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css"
+    ],
     "refer": [],
-    "priority": 12
+    "priority": 13
   },
   "page/payapply.html": {
     "href": "page/payapply.html",
-    "resources": [],
-    "priority": 13
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 14
   },
   "page/mypay.html": {
     "href": "page/mypay.html",
-    "resources": [],
-    "refer": [],
-    "priority": 12
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/animate.min.css",
+      "images/pay/head.png"
+    ],
+    "refer": [
+      "page/payapply.html"
+    ],
+    "priority": 13
   },
   "page/addfan.html": {
     "href": "page/addfan.html",
-    "resources": [],
-    "priority": 14
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css",
+      "mincss/img.preview.min.css",
+      "images/my/111.png"
+    ],
+    "priority": 15
   },
   "page/tip.html": {
     "href": "page/tip.html",
-    "resources": [],
-    "refer": [],
-    "priority": 14
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js",
+      "minjs/PullRefresh.min.js",
+      "js/article.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/img.preview.min.css",
+      "mincss/animate.min.css",
+      "mincss/loading.min.css",
+      "images/base/adduser.png",
+      "images/my/444.png"
+    ],
+    "refer": [
+      "page/addfan.html",
+      "part/action.html"
+    ],
+    "priority": 15
   },
   "page/comment.html": {
     "href": "page/comment.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "minjs/comment.min.js",
+      "mincss/mui.min.css",
+      "mincss/comment.min.css",
+      "images/article/pen2.png",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css"
+    ],
     "refer": [],
-    "priority": 18
+    "priority": 19
   },
   "page/zan.html": {
     "href": "page/zan.html",
-    "resources": [],
-    "refer": [],
-    "priority": 21
-  },
-  "page/tipsetting.html": {
-    "href": "page/tipsetting.html",
-    "resources": [],
-    "refer": [],
-    "priority": 17
-  },
-  "page/keep.html": {
-    "href": "page/keep.html",
-    "resources": [],
-    "refer": [],
-    "priority": 18
-  },
-  "page/follow.html": {
-    "href": "page/follow.html",
-    "resources": [],
-    "refer": [],
-    "priority": 20
-  },
-  "page/pic.html": {
-    "href": "page/pic.html",
-    "resources": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "mincss/mui.min.css",
+      "mincss/fan.min.css",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css"
+    ],
     "refer": [],
     "priority": 22
   },
+  "page/tipsetting.html": {
+    "href": "page/tipsetting.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css"
+    ],
+    "refer": [
+      "page/tipsetting.html",
+      "page/article_link.html"
+    ],
+    "priority": 18
+  },
+  "page/keep.html": {
+    "href": "page/keep.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "mincss/mui.min.css",
+      "mincss/img.preview.min.css",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css"
+    ],
+    "refer": [
+      "part/action.html"
+    ],
+    "priority": 19
+  },
+  "page/follow.html": {
+    "href": "page/follow.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "mincss/mui.min.css",
+      "mincss/fan.min.css",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css"
+    ],
+    "refer": [],
+    "priority": 21
+  },
+  "page/pic.html": {
+    "href": "page/pic.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/PullRefresh.min.js",
+      "mincss/mui.min.css",
+      "mincss/img.preview.min.css",
+      "mincss/loading.min.css",
+      "images/my/nocheck.png",
+      "images/my/check.png"
+    ],
+    "refer": [],
+    "priority": 23
+  },
   "page/subindex.html": {
     "href": "page/subindex.html",
-    "resources": [],
-    "refer": [],
-    "priority": 0
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "minjs/PullRefresh.min.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js",
+      "js/update.js",
+      "js/article.js",
+      "images/article/top.png",
+      "images/base/like_nor.png",
+      "images/base/reward_nor.png",
+      "images/article/star.png",
+      "images/base/like_hig.png",
+      "images/base/comment_nor.png",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/animate.min.css",
+      "mincss/img.preview.min.css",
+      "mincss/loading.min.css",
+      "mincss/subindex.min.css",
+      "images/my/menu01.png",
+      "images/my/menu02.png",
+      "images/my/menu03.png",
+      "images/my/menu04.png",
+      "images/my/menu05.png",
+      "images/my/menu06.png",
+      "images/my/menu07.png",
+      "images/my/menu08.png",
+      "images/logo.png",
+      "images/my/444.png"
+    ],
+    "refer": [
+      "page/edittext.html",
+      "page/addarticle.html",
+      "page/help.html",
+      "page/mysetting.html",
+      "page/fan.html",
+      "part/action.html",
+      "page/setting.html",
+      "page/editimage.html",
+      "page/search.html",
+      "page/article.html",
+      "page/feedback.html",
+      "page/mypay.html",
+      "part/update.html",
+      "page/tip.html",
+      "page/articledetail.html",
+      "page/pay.html",
+      "page/keep.html",
+      "page/articleComment.html",
+      "page/follow.html",
+      "part/pic.html",
+      "page/pic.html"
+    ],
+    "priority": 1
   },
   "page/forget_password.html": {
     "href": "page/forget_password.html",
-    "resources": [],
-    "refer": [],
-    "priority": 1
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/login.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/input.min.css",
+      "images/login/user.png",
+      "images/login/pwd.png"
+    ],
+    "refer": [
+      "page/bindpassword.html"
+    ],
+    "priority": 2
   },
   "page/notice.html": {
     "href": "page/notice.html",
-    "resources": [],
-    "priority": 2
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "priority": 3
+  },
+  "page/reg.html": {
+    "href": "page/reg.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/login.min.js",
+      "mincss/mui.min.css",
+      "mincss/input.min.css"
+    ],
+    "refer": [
+      "page/subindex.html",
+      "page/notice.html"
+    ],
+    "priority": 4
   },
   "page/login.html": {
     "href": "page/login.html",
-    "resources": [],
-    "refer": [],
-    "priority": 0
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "minjs/login.min.js",
+      "mincss/mui.min.css",
+      "images/login/bg.png",
+      "images/login/center.png",
+      "images/login/qq_login.png",
+      "images/login/wx_login.png"
+    ],
+    "refer": [
+      "page/notice.html"
+    ],
+    "priority": 1
+  },
+  "page/user.html": {
+    "href": "page/user.html",
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "mincss/loading.min.css",
+      "mincss/animate.min.css",
+      "mincss/my.min.css",
+      "images/my/menu01.png",
+      "images/my/menu02.png",
+      "images/my/menu03.png",
+      "images/my/menu04.png",
+      "images/my/menu05.png",
+      "images/my/menu06.png",
+      "images/share/1.png",
+      "images/share/2.png",
+      "images/share/3.png",
+      "images/share/4.png",
+      "images/share/5.png",
+      "images/share/6.png"
+    ],
+    "refer": [
+      "page/fan.html",
+      "page/money.html",
+      "page/keep.html",
+      "part/pic.html",
+      "page/follow.html",
+      "page/pic.html"
+    ],
+    "priority": 4
   },
   "page/adv.html": {
     "href": "page/adv.html",
-    "resources": [],
-    "refer": [],
+    "resources": [
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "images/article/top.png",
+      "images/base/follow1.png",
+      "images/base/comment_nor.png",
+      "images/base/like_hig.png",
+      "images/base/follow0.png",
+      "images/logo_default.png",
+      "images/avatar.png",
+      "images/base/reward_nor.png",
+      "images/article/star.png",
+      "images/loading.gif",
+      "images/base/like_nor.png",
+      "images/adv/001.png",
+      "images/adv/002.png",
+      "images/adv/003.png"
+    ],
+    "refer": [
+      "page/money.html",
+      "page/login.html",
+      "page/articledetail.html",
+      "page/articleComment.html",
+      "page/user.html",
+      "page/subindex.html"
+    ],
     "priority": 0
   },
   "page/guide.html": {
     "href": "page/guide.html",
-    "resources": [],
-    "refer": [],
+    "resources": [
+      "js/jquery-1.10.2.min.js",
+      "minjs/mui.min.js",
+      "minjs/base.min.js",
+      "mincss/mui.min.css",
+      "fonts/mui.ttf",
+      "mincss/guide.min.css",
+      "images/adv/01.jpg",
+      "images/adv/02.jpg",
+      "images/adv/03.jpg",
+      "images/adv/04.jpg",
+      "images/adv/01_text.png",
+      "images/adv/02_text.png",
+      "images/adv/03_text1.png",
+      "images/adv/03_text2.png",
+      "images/logo.png",
+      "images/adv/chair.png",
+      "images/adv/04_text.png"
+    ],
+    "refer": [
+      "page/login.html"
+    ],
     "priority": 1
   },
   "index.html": {
     "href": "index.html",
     "resources": [],
-    "refer": [],
+    "refer": [
+      "page/adv.html",
+      "page/guide.html"
+    ],
     "priority": 0
   }
 }

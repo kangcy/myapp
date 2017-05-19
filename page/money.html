@@ -13,9 +13,9 @@
 
 	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header" immersed="none">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<div class="mui-title cfff" id="title"></div>
-		</header> 
+			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
+			<div class="mui-title c333" id="title"></div>
+		</header>
 		<div class="tan hide" id="success">
 			<div class="full tc">
 				<img src="../images/pay/header1.png" class="full" />
@@ -41,9 +41,8 @@
 			</div>
 		</div>
 		<div id="muicontent" class="mui-content tc caaa full fl" style="position:relative;display:inline-block;">
-			<img src="../images/pay/bg.png" style="width:100%;float:left;" id="cover" />
-			<div class="tc full" style="position:absolute;top:8%;left:0px;">
-				<img id="payuser" src="../images/logo.png" class="mt20" />
+			<div class="tc full" style="position:absolute;top:6%;left:0px;">
+				<img id="payuser" src="../images/logo.png" class="" />
 				<div id="price" class="items c999 mt20 f13">
 					<div class="item">
 						<div class="choosemoney check" money="2.33">2.33元</div>
@@ -85,8 +84,8 @@
 
 </html>
 <script src="../js/jquery-1.10.2.min.js"></script>
-<script src="../js/mui.min.js"></script>
-<script src="../js/base.js"></script>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script src="../js/payment.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
@@ -103,7 +102,13 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		base.Get("cover").style.height = window.innerHeight - base.Get("header").clientHeight + "px";
+
+		/*var $header = base.Get("header");
+		var name = base.BrowserName();
+		$header.style.background = name + 'linear-gradient(left,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.2) 100%)';*/
+
+		base.Get("muicontent").style.height = window.innerHeight - base.Get("header").clientHeight + "px";
+		base.Get("muicontent").style.marginTop = base.Get("header").clientHeight + "px";
 
 		//金额切换
 		$(".choosemoney").click(function() {
@@ -130,7 +135,7 @@
 		var Avatar = self.Avatar || "";
 
 		if(!base.IsNullOrEmpty(Name)) {
-			$("#title").html("打赏 • " + base.UnUnicodeText(Name));
+			$("#title").html("打赏给" + base.UnUnicodeText(Name));
 			$("#title1,#title2").html(base.UnUnicodeText(Name));
 		}
 		$("#payuser").attr("src", base.ShowThumb(Avatar, 1));
