@@ -3,8 +3,6 @@ body {
 }
 
 .bottom {
-	background: #f8f8f8;
-	border-top: 1px solid #eee;
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
@@ -16,12 +14,12 @@ body {
 	height: 2.8rem;
 	line-height: 2.6rem;
 	text-align: center;
+	background: #fff;
 }
 
 #add div {
-	width: 90%;
+	width: 64%;
 	border-radius: 30px;
-	background: #4087cb;
 	display: inline-block;
 	margin-top: 0.2rem;
 	height: 2.1875rem;

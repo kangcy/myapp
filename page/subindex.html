@@ -11,7 +11,8 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/img.preview.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
-		<link rel="stylesheet" href="../mincss/subindex.min.css">
+			<link rel="stylesheet" href="../css/subindex.css">
+		<!--<link rel="stylesheet" href="../mincss/subindex.min.css">-->
 	</head>
 
 	<body>
@@ -119,7 +120,7 @@
 					</div>
 					<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom">
 						<div id="add">
-							<div class="f13">我也要发图</div>
+							<div class="f13" id="btnAdd">制作我的文章</div>
 						</div>
 					</div>
 				</div>
@@ -139,7 +140,7 @@
 <script src="../js/mui.zoom.js"></script>
 <script src="../js/mui.previewimage.js"></script>
 <script src="../js/update.js"></script>
-<script src="../js/article.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var $cover = base.Get("cover");
@@ -156,6 +157,9 @@
 
 	mui.ready(function() {
 		base.Immersed();
+
+		var name = base.BrowserName();
+		base.Get("btnAdd").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.Get("add").addEventListener('tap', function() {
@@ -276,11 +280,11 @@
 
 		plus.navigator.setFullscreen(false);
 
-		mui.later(function() {
+		/*mui.later(function() {
 			plus.webview.close("adv");
 			plus.webview.close("guide");
 			plus.webview.close("login");
-		}, 2000);
+		}, 2000);*/
 
 		base.InitPull("slider");
 

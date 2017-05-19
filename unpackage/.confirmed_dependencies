@@ -748,7 +748,9 @@
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/article.min.js",
+			"css/subindex.css"
 		],
 		"refer": [
 			"page/topic.html",
@@ -1109,7 +1111,17 @@
 			"mincss/animate.min.css",
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"images/share/03.png",
+			"images/share/06.png",
+			"images/share/04.png",
+			"images/share/01.png",
+			"images/share/02.png",
+			"images/share/09.png",
+			"images/share/07.png",
+			"images/share/010.png",
+			"images/share/08.png",
+			"images/share/05.png"
 		],
 		"refer": [
 			"page/user.html",

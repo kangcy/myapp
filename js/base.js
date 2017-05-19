@@ -1100,7 +1100,7 @@ var base = new function() {
 			if(t.getAttribute("immersed") != "none") {
 				t.style.background = '-webkit-linear-gradient(left,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 				var name = base.BrowserName();
-				t.style.background = name + 'gradient(left,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+				t.style.background = name + 'linear-gradient(left,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 				t = document.getElementById('scroll-wrapper');
 				if(t) {
 					t.style.marginTop = immersed + 'px';

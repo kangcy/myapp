@@ -105,7 +105,6 @@
 
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
-		plus.webview.currentWebview().show(base.ShowAnimate());
 
 		document.addEventListener("netchange", function() {
 			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
@@ -115,6 +114,8 @@
 
 		if(userinfo == "{}") {
 			preload_login();
+		} else {
+			preload_index();
 		}
 
 		Time(5);
@@ -153,9 +154,9 @@
 			if(0 == t) {
 				clearInterval(index);
 				if(userinfo == "{}") {
-					base.GetView("login").show("fade-in");
+					base.GetView("login").show(base.ShowAnimate());
 				} else {
-					base.OpenWindow("subindex", "subindex.html", base.ShowAnimate());
+					base.GetView("subindex").show(base.ShowAnimate());
 				}
 			} else {
 				t -= 1;
