@@ -1,6 +1,5 @@
 var audio = null;
 var timestamp = 0;
-/*var music_url = "http://static2.ivwen.com/music/DouNiuShiJinXingQu.m4a";*/
 
 function switchsound() {
 	if(audio == null) {

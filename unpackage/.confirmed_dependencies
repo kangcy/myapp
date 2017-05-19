@@ -1950,7 +1950,13 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.lazyload.min.js",
-			"minjs/mui.lazyload.img.min.js"
+			"minjs/mui.lazyload.img.min.js",
+			"images/music/start.png",
+			"images/share/01.png",
+			"images/share/03.png",
+			"images/share/02.png",
+			"js/music.js",
+			"images/music/stop.png"
 		],
 		"refer": [
 			"page/searchSub.html"
@@ -2321,7 +2327,8 @@
 			"page/guide.html",
 			"page/test.html",
 			"page/article_link.html",
-			"page/tipsetting.html"
+			"page/tipsetting.html",
+			"page/musicsearch.html"
 		]
 	},
 	"page/money.html": {
@@ -2800,7 +2807,9 @@
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"minjs/PullRefresh.min.js"
+			"minjs/PullRefresh.min.js",
+			"minjs/mui.pullToRefresh.material.min.js",
+			"minjs/mui.pullToRefresh.min.js"
 		],
 		"refer": [
 			"page/addfan.html",
