@@ -201,7 +201,6 @@
 	var CurrBackground = null; //背景设置
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
-	var PrevTemplate = 0; //上一次选中模板
 	var userinfo = base.GetUserInfo();
 	var $zan = base.Get('zan');
 	var $header = base.Get("header");
@@ -262,26 +261,6 @@
 				}
 			});
 		});
-
-		/*var scroll = mui("#scroll-wrapper").scroll();
-		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
-			scrolly = -scroll.y;
-
-			//背景色渐变
-			$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
-
-			var success = scrolly > 100;
-			mui.each(document.querySelectorAll(".headericon"), function() {
-				if(CurrTemplate == 0) {
-					return;
-				}
-				if(success) {
-					this.classList.remove("cfff");
-				} else {
-					this.classList.add("cfff");
-				}
-			});
-		});*/
 
 		//模板选择
 		mui('#temps').on('tap', '.temp', function() {
@@ -736,6 +715,7 @@
 		HttpGet(base.RootUrl + "Article/EditArticleTemp", {
 			ID: userinfo.ID,
 			ArticleID: ArticleID,
+			ArticleNumber: Article.Number,
 			Template: CurrTemplate
 		}, function(data) {
 			isLoading = false;

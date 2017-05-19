@@ -32,24 +32,6 @@ function ChangeBg() {
 		base.Immersed();
 	}
 
-	/*if(CurrTemplate == 0) {
-		$("#header").find("span").removeClass("cfff").addClass("c333");
-		$("#header").find("h1").removeClass("cfff").addClass("c333");
-	} else {
-		//背景色渐变
-		$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
-		var success = scrolly > 100;
-		mui.each(document.querySelectorAll(".headericon"), function() {
-			if(success) {
-				this.classList.remove("cfff");
-				this.classList.remove("c333");
-			} else {
-				this.classList.remove("c333");
-				this.classList.add("cfff");
-			}
-		});
-	}*/
-
 	//纯白背景
 	if(CurrTemplate == 0) {
 		$("#wrapper").css("background-color", "transparent");
@@ -63,7 +45,7 @@ function ChangeBg() {
 			"background-size": "100% auto"
 		});
 		$(".cover").css("background", "RGBA(255, 255, 255, 0.5");
-	} else {
+	} else { 
 		$("#wrapper").css("background-color", "transparent");
 		$("#wrapper1").css("background", "none");
 		if(CurrBackground == null) {
