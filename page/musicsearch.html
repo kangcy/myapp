@@ -21,6 +21,7 @@
 				width: 1.5rem;
 				height: 1.5rem;
 			}
+			
 			.check.stop {
 				background: url(../images/music/stop.png) center center no-repeat;
 			}
@@ -132,6 +133,8 @@
 	var contentWebview = null;
 	mui.plusReady(function() {
 
+		base.TriggerMain = false;
+
 		var self = plus.webview.currentWebview();
 
 		//取消
@@ -180,10 +183,13 @@
 		});
 
 		mui("#pullrefresh").on('tap', 'li.music', function(event) {
-			if(base.TriggerMain){
+			console.log("aa" + "," + base.TriggerMain);
+			if(base.TriggerMain) {
 				return;
 			}
+			stopsound();
 			base.RemoveClass([".mui-icon"], "check");
+			base.RemoveClass([".mui-icon"], "stop");
 			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
 				item.classList.add("check");
 			});
@@ -192,15 +198,56 @@
 			fileName = this.getAttribute("fileName");
 			fileUrl = this.getAttribute("fileUrl");
 		});
-		
+
 		mui("#pullrefresh").on('tap', '.check', function(event) {
-			base.TriggerMain=true;
+			console.log("bb");
+			base.TriggerMain = true;
 			this.classList.add("stop");
-			mui.later(function(){
-				base.TriggerMain=false;
-			},500)
+			switchsound();
+			//播放
+			mui.later(function() {
+				base.TriggerMain = false;
+			}, 500)
+		});
+
+		mui("#pullrefresh").on('tap', '.stop', function(event) {
+			console.log("cc");
+			base.TriggerMain = true;
+			this.classList.remove("stop");
+			switchsound();
+			//停止
+			mui.later(function() {
+				base.TriggerMain = false;
+			}, 500)
 		});
 	});
+
+	var audio = base.Get('bgsound');
+	var timestamp = 0;
+
+	function switchsound() {
+		if(audio == null) {
+			audio = document.createElement('audio');
+			audio.id = 'bgsound';
+			audio.loop = 'loop';
+			audio.innerHTML = '<source src="' + fileUrl + '" type="audio/mpeg">';
+			document.body.appendChild(audio);
+		} else {
+			audio.innerHTML = '<source src="' + fileUrl + '" type="audio/mpeg">';
+		}
+
+		if(audio.paused) {
+			audio.play();
+		} else if(new Date().getTime() > timestamp + 1000) {
+			audio.pause();
+		}
+	}
+
+	function stopsound() {
+		if(audio != null) {
+			audio.pause();
+		}
+	}
 
 	//加载
 	function InitMusic(title) {
