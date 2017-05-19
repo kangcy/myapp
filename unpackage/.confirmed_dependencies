@@ -376,7 +376,8 @@
 			"mincss/mui.min.css",
 			"mincss/loading.min.css",
 			"mincss/animate.min.css",
-			"mincss/img.preview.min.css"
+			"mincss/img.preview.min.css",
+			"images/my/111.png"
 		],
 		"refer": [
 			"page/listSub.html",

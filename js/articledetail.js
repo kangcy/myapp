@@ -24,6 +24,14 @@ function ChangeBg() {
 	} else {
 		$("#title1").addClass("hide");
 	}
+	if(CurrTemplate == 0) {
+		$header.setAttribute("immersed", "");
+		base.Immersed();
+	} else {
+		$header.setAttribute("immersed", "none");
+		base.Immersed();
+	}
+
 	/*if(CurrTemplate == 0) {
 		$("#header").find("span").removeClass("cfff").addClass("c333");
 		$("#header").find("h1").removeClass("cfff").addClass("c333");

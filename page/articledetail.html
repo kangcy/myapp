@@ -16,13 +16,13 @@
 	</head>
 
 	<body id="body">
-		<header id="header" class="mui-bar mui-bar-transparent">
+		<header id="header" class="mui-bar mui-bar-transparent" immersed="none">
 			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<span class="headericon cfff f25 fr hide" onclick="ActionTan(1)" id="action" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</span>
 			<h1 class="headericon mui-title cfff" id="title"></h1>
 		</header>
 		<div class="loading" id="loader">
-			<div class="card"> 
+			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
@@ -133,7 +133,7 @@
 		</div>
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
-		<i id="music1" class="fa fa-music f13 hide" onclick="switchsound()" style="position:fixed;right:10px;top:60px;z-index:999;"></i>
+		<i id="music1" class="fa fa-music f13 hide" onclick="switchsound()" style="position:fixed;right:10px;top:80px;z-index:999;"></i>
 		<div id="wrapper2"></div>
 		<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
 			<div class="mui-scroll" id="scroll">
@@ -201,10 +201,13 @@
 	var CurrBackground = null; //背景设置
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
+	var PrevTemplate = 0; //上一次选中模板
 	var userinfo = base.GetUserInfo();
 	var $zan = base.Get('zan');
 	var $header = base.Get("header");
 	var scrolly = 0;
+	var browserName = base.BrowserName();
+	var num = 0;
 
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
@@ -237,6 +240,28 @@
 		$(".cover").css("min-height", (window.innerHeight - 50) * 0.526 + "px");
 
 		base.InitScroll();
+
+		var scroll = mui("#scroll-wrapper").scroll();
+		//背景色渐变
+		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
+			num = -scroll.y / 100;
+			if(CurrTemplate == 0) {
+				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
+			} else {
+				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
+			}
+			var success = scrolly > 100;
+			mui.each(document.querySelectorAll(".headericon"), function() {
+				if(CurrTemplate == 0) {
+					return;
+				}
+				if(success) {
+					this.classList.remove("cfff");
+				} else {
+					this.classList.add("cfff");
+				}
+			});
+		});
 
 		/*var scroll = mui("#scroll-wrapper").scroll();
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
@@ -516,6 +541,11 @@
 
 					var mainIndex = 0;
 					CurrTemplate = data.Template;
+					if(CurrTemplate == 0) {
+						$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
+						$header.setAttribute("immersed", "");
+						base.Immersed();
+					}
 					if(CurrTemplate == 1) {
 						mainIndex = 1;
 					}

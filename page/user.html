@@ -72,10 +72,10 @@
 	</head>
 
 	<body id="body">
-		<header id="header" class="mui-bar mui-bar-transparent" id="header">
-			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
-			<span class="headericon cfff f25 fr more" onclick="More()">•••</span>
-			<h1 class="headericon mui-title cfff">Ta的资料</h1>
+		<header id="header" class="mui-bar" immersed="none">
+			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
+			<span class="cfff f25 fr more" onclick="More()">•••</span>
+			<h1 class="mui-title cfff">Ta的资料</h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -212,6 +212,13 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
+		},
+		beforeback: function() {
+			var black = base.GetView("black");
+			if(black) {
+				black.evalJS("Refresh()");
+			}
+			return true;
 		}
 	});
 
@@ -222,23 +229,15 @@
 
 		base.InitScroll();
 
-		/*var scrolly = 0;
+		var browserName = base.BrowserName();
+		var num = 0;
 		var scroll = mui("#scroll-wrapper").scroll();
 		var $header = base.Get("header");
+		//背景色渐变
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
-			scrolly = -scroll.y;
-			//背景色渐变
-			$header.style.backgroundColor = 'rgba(255,255,255,' + scrolly / 100 + ')';
-
-			var success = scrolly > 100;
-			mui.each(document.querySelectorAll(".headericon"), function() {
-				if(success) {
-					this.classList.remove("cfff");
-				} else {
-					this.classList.add("cfff");
-				}
-			});
-		});*/
+			num = -scroll.y / 100;
+			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
+		});
 
 		base.ShowArticle("#a_list", "List", userinfo.Number);
 
@@ -260,15 +259,6 @@
 		UserNumber = self.UserNumber || "";
 
 		LoadUserInfo();
-
-		//返回
-		mui.back = function() {
-			var black = base.GetView("black");
-			if(black) {
-				black.evalJS("Refresh()");
-			}
-			self.close();
-		}
 
 		//分享设置
 		UpdateSerivces();

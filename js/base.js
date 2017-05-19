@@ -80,6 +80,27 @@ var waiting = new function() {
 	}
 }
 
+//浏览器类型
+var browser = {
+	versions: function() {
+		var u = navigator.userAgent,
+			app = navigator.appVersion;
+		return { //移动终端浏览器版本信息   
+			trident: u.indexOf("Trident") > -1, //IE内核  
+			presto: u.indexOf("Presto") > -1, //opera内核  
+			webKit: u.indexOf("AppleWebKit") > -1, //苹果、谷歌内核  
+			gecko: u.indexOf("Gecko") > -1 && u.indexOf("KHTML") == -1, //火狐内核  
+			mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端  
+			ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端  
+			android: u.indexOf("Android") > -1 || u.indexOf("Linux") > -1, //android终端或者uc浏览器  
+			iPhone: u.indexOf("iPhone") > -1, //是否为iPhone或者QQHD浏览器  
+			iPad: u.indexOf("iPad") > -1, //是否iPad  
+			webApp: u.indexOf("Safari") == -1 //是否web应该程序，没有头部与底部  
+		};
+	}(),
+	language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
 var base = new function() {
 
 	/**
@@ -1045,10 +1066,25 @@ var base = new function() {
 		});
 	}
 
+	//浏览器前缀
+	this.BrowserName = function() {
+		var name = "";
+		if(browser.versions.webKit) {
+			name = "-webkit-"; //谷歌内核
+		} else if(browser.versions.gecko) {
+			name = "-moz-"; //火狐内核
+		} else if(browser.versions.presto) {
+			name = "-o-"; //opera内核
+		} else if(browser.versions.trident) {
+			name = "-ms-"; //IE内核 
+		}
+		return name;
+	}
+
 	/**
 	 * 沉浸式状态栏
 	 **/
-	this.Immersed = function() {
+	this.Immersed = function(effect) {
 		var immersed = 0;
 		var ms = (/Html5Plus\/.+\s\(.*(Immersed\/(\d+\.?\d*).*)\)/gi).exec(navigator.userAgent);
 		if(ms && ms.length >= 3) {
@@ -1063,14 +1099,19 @@ var base = new function() {
 			t.style.paddingBottom = '45px';
 			if(t.getAttribute("immersed") != "none") {
 				t.style.background = '-webkit-linear-gradient(left,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+				var name = base.BrowserName();
+				t.style.background = name + 'gradient(left,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+				t = document.getElementById('scroll-wrapper');
+				if(t) {
+					t.style.marginTop = immersed + 'px';
+				}
 			} else {
 				t.style.background = "transparent";
+				t = document.getElementById('scroll-wrapper');
+				if(t) {
+					t.style.marginTop = '0px';
+				}
 			}
-			t.style.color = '#FFF';
-		}
-		t = document.getElementById('scroll-wrapper');
-		if(t) {
-			t.style.marginTop = immersed + 'px';
 		}
 		t = document.getElementById('muicontent');
 		if(t) {
