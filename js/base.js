@@ -1062,7 +1062,7 @@ var base = new function() {
 			t.style.paddingTop = immersed + 'px';
 			t.style.paddingBottom = '45px';
 			if(t.getAttribute("immersed") != "none") {
-				t.style.background = '-webkit-linear-gradient(top,rgba(0,122,255,1),rgba(0,122,255,0.8))';
+				t.style.background = '-webkit-linear-gradient(left,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 			} else {
 				t.style.background = "transparent";
 			}

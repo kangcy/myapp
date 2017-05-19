@@ -892,7 +892,8 @@
 			"images/loading2.gif",
 			"mincss/mui.min.css",
 			"mincss/my.min.css",
-			"mincss/animate.min.css"
+			"mincss/animate.min.css",
+			"mincss/loading.min.css"
 		],
 		"refer": [
 			"page/userSub.html",
