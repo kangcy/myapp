@@ -15,15 +15,18 @@
 				display: inline-block;
 			}
 			
-			.check {
+			.play {
 				background: url(../images/music/start.png) center center no-repeat;
 				background-size: 100% 100%;
 				width: 1.5rem;
 				height: 1.5rem;
 			}
 			
-			.check.stop {
+			.stop {
 				background: url(../images/music/stop.png) center center no-repeat;
+				background-size: 100% 100%;
+				width: 1.5rem;
+				height: 1.5rem;
 			}
 			
 			.mui-table-view-cell {
@@ -72,16 +75,16 @@
 			<div id="scroll-wrapper" class="mui-scroll-wrapper" style="top:50px;bottom:50px;">
 				<div id="pullrefresh" class="mui-scroll">
 					<ul class="mui-table-view f13 mt0" id="scroll-view">
-						<li class="mui-table-view-cell music">
+						<!--<li class="mui-table-view-cell music" fileUrl="http://www.ishaoxia.com/Init/Music/1/2.mp3">
 							<img src="../images/share/02.png" style="width:2rem;height:2rem;" class="fl mr10" />
 							<p class="fl c333 f13 mb0" style="width:70%;display:inline-block;">名称名称名称名称名称名称名称名称名称名称名称<br /><span class="fl c999 f11 mt5">作者</span></p>
-							<span class="fr csubtitle mui-icon check" style="position:absolute;right:0.5rem;top:1rem;"></span>
+							<span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span>
 						</li>
-						<li class="mui-table-view-cell music">
+						<li class="mui-table-view-cell music" fileUrl="http://www.ishaoxia.com/Init/Music/1/0.mp3">
 							<img src="../images/share/03.png" style="width:2rem;height:2rem;" class="fl mr10" />
 							<p class="fl c333 f13 mb0" style="width:70%;display:inline-block;">名称<br /><span class="fl c999 f11 mt5">作者</span></p>
 							<span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span>
-						</li>
+						</li>-->
 					</ul>
 				</div>
 			</div>
@@ -183,15 +186,15 @@
 		});
 
 		mui("#pullrefresh").on('tap', 'li.music', function(event) {
-			console.log("aa" + "," + base.TriggerMain);
 			if(base.TriggerMain) {
 				return;
 			}
 			stopsound();
-			base.RemoveClass([".mui-icon"], "check");
-			base.RemoveClass([".mui-icon"], "stop");
+			base.RemoveClass([".mui-icon"], "play stop");
+			base.AddClass([".mui-icon"], "uncheck");
 			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
-				item.classList.add("check");
+				item.classList.remove("uncheck");
+				item.classList.add("play");
 			});
 
 			fileId = this.getAttribute("fileId");
@@ -199,23 +202,21 @@
 			fileUrl = this.getAttribute("fileUrl");
 		});
 
-		mui("#pullrefresh").on('tap', '.check', function(event) {
-			console.log("bb");
+		mui("#pullrefresh").on('tap', '.play', function(event) {
 			base.TriggerMain = true;
+			this.classList.remove("play");
 			this.classList.add("stop");
 			switchsound();
-			//播放
 			mui.later(function() {
 				base.TriggerMain = false;
 			}, 500)
 		});
 
 		mui("#pullrefresh").on('tap', '.stop', function(event) {
-			console.log("cc");
 			base.TriggerMain = true;
 			this.classList.remove("stop");
-			switchsound();
-			//停止
+			this.classList.add("play");
+			stopsound();
 			mui.later(function() {
 				base.TriggerMain = false;
 			}, 500)
@@ -226,21 +227,22 @@
 	var timestamp = 0;
 
 	function switchsound() {
-		if(audio == null) {
-			audio = document.createElement('audio');
-			audio.id = 'bgsound';
-			audio.loop = 'loop';
-			audio.innerHTML = '<source src="' + fileUrl + '" type="audio/mpeg">';
-			document.body.appendChild(audio);
-		} else {
-			audio.innerHTML = '<source src="' + fileUrl + '" type="audio/mpeg">';
+		if(audio != null) {
+			document.body.removeChild(audio);
+			audio = null;
 		}
+
+		audio = document.createElement('audio');
+		audio.id = 'bgsound';
+		audio.loop = 'loop';
+		audio.innerHTML = '<source src="' + fileUrl + '" type="audio/mpeg">';
+		document.body.appendChild(audio);
 
 		if(audio.paused) {
 			audio.play();
 		} else if(new Date().getTime() > timestamp + 1000) {
 			audio.pause();
-		}
+		} 
 	}
 
 	function stopsound() {
@@ -336,7 +338,7 @@
 		var model = [];
 		model.push('<img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
 		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt5">' + item.Author + '</span></p>');
-		model.push('<span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span>');
+		model.push('<span class="fr csubtitle mui-icon uncheck" style="position:absolute;right:0.5rem;top:1rem;"></span>');
 		div.innerHTML = model.join('');
 		return div;
 	}
