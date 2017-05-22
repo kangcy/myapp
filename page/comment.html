@@ -10,9 +10,9 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/comment.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
-		<link rel="stylesheet" type="text/css" href="../mincss/animate.min.css">
-		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
-		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../emotion/css/emojione.sprites.css">
+		<link rel="stylesheet" href="../emotion/css/emojionearea.min.css">
 	</head>
 
 	<body id="main">
@@ -40,7 +40,7 @@
 
 		mui('#main').load("../part/list.html", function(response) {
 			base.Immersed();
-			
+
 			base.Get("title").innerHTML = "评论";
 			base.Get("none_img").setAttribute("src", "../images/my/333.png");
 			base.Get("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
@@ -62,7 +62,7 @@
 			ArticleUserNumber: userinfo.Number,
 			NewId: NewId
 		}
-		LoadPull(base.RootUrl + "Api/Comment/All", data, true,true, function(item) {
+		LoadPull(base.RootUrl + "Api/Comment/All", data, true, true, function(item) {
 			return AppendStr(item);
 		}, callback);
 	}

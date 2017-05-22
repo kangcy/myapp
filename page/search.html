@@ -64,7 +64,7 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="padding-right:0px;">
+		<header class="mui-bar mui-bar-nav" style="padding-right:0px;" id="header">
 			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:15%;" id="btnSearch"></a>
 			<div class="mui-input-row mui-search" style="width:87%;	display: inline-block;">
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索昵称、标题、支持语音搜索" maxlength="10" style="height:34px;font-size:15px;">
@@ -79,13 +79,13 @@
 		<div id="actionwrapper"></div>
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
-				<div id="sliderTop" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
+				<div id="scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
 					<div class="mui-scroll full" id="sliderTopBody">
 						<a class="mui-control-item f13 topic border mui-active" currindex="0">用户</a>
 						<a class="mui-control-item f13 topic border" currindex="1">文章</a>
 					</div>
 				</div>
-				<div class="mui-slider-group" id="sliderGroup" style="top:2.4rem;">
+				<div class="mui-slider-group" id="sliderGroup" style="top:3.4rem;">
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div id="sliderChild1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
@@ -141,6 +141,7 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.Immersed();
 
 		mui('#actionwrapper').load("../part/action.html", function(response) {
 			mui('#slider2').on('tap', '.tanaction', function() {
@@ -207,7 +208,7 @@
 		});
 	});
 
-//执行搜索
+	//执行搜索
 	function Search() {
 		var searchval = search.value;
 		InitLoadUser(searchval);
