@@ -173,11 +173,6 @@
 			<a id="submit" class="mui-icon  mui-text cfff fr">保存</a>
 			<h1 class="mui-title cfff">编辑文字</h1>
 		</header>
-		<div class="mui-content" id="muicontent">
-			<div id="divedit">
-				<div id="edit" contenteditable="true" tabindex="0"></div>
-			</div>
-		</div>
 		<nav id="color" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
 			<div class="color fr" style="background:#000;" data-type="ForeColor" data="#000"></div>
 			<div class="color fr" style="background:#808080;" data-type="ForeColor" data="#808080"></div>
@@ -202,6 +197,17 @@
 				<div class="menu format" id="btnLeft"> </div>
 			</div>
 		</nav>
+
+		<nav id="bold" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
+			<div class="menus" id="bold_first">
+				<!--下划线-->
+				<div class="menu" data-type="Underline" id="btnUnderline"> </div>
+				<!--斜体-->
+				<div class="menu" data-type="Italic" id="btnItalic"> </div>
+				<!--加粗-->
+				<div class="menu" data-type="Bold" id="btnBold"> </div>
+			</div>
+		</nav>
 		<nav id="fs" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
 			<div class="menus" id="fs_first">
 				<div class="menu fs f36" data-type="FontSize" data="7">
@@ -219,16 +225,6 @@
 				<div class="menu fs f12" data-type="FontSize" data="3">
 					A
 				</div>
-			</div>
-		</nav>
-		<nav id="bold" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
-			<div class="menus" id="bold_first">
-				<!--下划线-->
-				<div class="menu" data-type="Underline" id="btnUnderline"> </div>
-				<!--斜体-->
-				<div class="menu" data-type="Italic" id="btnItalic"> </div>
-				<!--加粗-->
-				<div class="menu" data-type="Bold" id="btnBold"> </div>
 			</div>
 		</nav>
 		<nav id="all" class="menu f11 tc">全选</nav>
@@ -250,6 +246,11 @@
 			<!--加粗-->
 			<div class="menu" id="menuBold"> </div>
 		</nav>
+		<div id="muicontent" style="padding-bottom:100px;">
+			<div id="divedit">
+				<div id="edit" contenteditable="true"></div>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -355,7 +356,7 @@
 		mui('#bgcolor').on('tap', 'div', SetStyle);
 
 		//大小切换
-		mui('#fs').on('tap', '.fs', SetStyle);
+		mui('#fs').on('tap', 'div', SetStyle);
 
 		//对齐
 		base.Get("menuAlign").addEventListener('tap', function(event) {
@@ -414,7 +415,7 @@
 
 		var html = self.title;
 		if(base.IsNullOrEmpty(html)) {
-			html = '<div class="edit f12 tl"></div>';
+			html = '<div class="edit f12 tl">测试内容</div>';
 		}
 		$("#edit").html(html);
 
@@ -484,9 +485,10 @@
 		document.execCommand('undo');
 	}
 
-	//改变样式
+	//改变样式 
 	function SetStyle(e) {
 		document.activeElement.blur();
+		$("#edit").blur();
 
 		var that = e.target;
 		var type = this.getAttribute("data-type") || "";
