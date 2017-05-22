@@ -114,9 +114,8 @@
 
 		if(userinfo == "{}") {
 			preload_login();
-		} else {
-			preload_index();
 		}
+		preload_index();
 
 		Time(5);
 
@@ -156,7 +155,13 @@
 				if(userinfo == "{}") {
 					base.GetView("login").show(base.ShowAnimate());
 				} else {
-					base.GetView("subindex").show(base.ShowAnimate());
+					plus.webview.show("subindex", base.ShowAnimate(), base.AnimateDuration, function() {
+						mui.later(function() {
+							plus.webview.close("adv");
+							plus.webview.close("guide");
+							plus.webview.close("login");
+						}, 1000);
+					}, {});
 				}
 			} else {
 				t -= 1;

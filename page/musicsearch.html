@@ -107,7 +107,7 @@
 	var isLoading = false;
 	var currpage = 1;
 	var totalpage = 2;
-	var pagesize = 20;
+	var pagesize = 30;
 	var addarticlePage = null;
 	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {
@@ -242,7 +242,7 @@
 			audio.play();
 		} else if(new Date().getTime() > timestamp + 1000) {
 			audio.pause();
-		} 
+		}
 	}
 
 	function stopsound() {
@@ -315,11 +315,7 @@
 						mui(document).imageLazyload({
 							placeholder: '../images/loading.gif'
 						});
-					} else {
-						mui.toast("未搜索到内容");
 					}
-				} else {
-					mui.toast("未搜索到内容");
 				}
 			}
 			mask.close();

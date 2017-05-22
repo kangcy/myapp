@@ -58,7 +58,7 @@
 	<body style="overflow:hidden;">
 		<div id="top">
 			<div id="center">
-			</div> 
+			</div>
 		</div>
 		<div id="bottom">
 			<div style="width:50%;display:inline-block;margin-top:10%;" class="fl tc">
@@ -67,13 +67,15 @@
 			<div style="width:50%;display:inline-block;margin-top:10%;" class="fl tc">
 				<img src="../images/login/wx_login.png" style="width:80%;float: left;margin-left: 6%;" id="weixin" />
 			</div>
+			<!--音乐播放-->
+			<!--<iframe style="display:none;" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=5282665&auto=1&height=66"></iframe>-->
 			<p class="tc f11 c000 fl full mt20" id='notice'>登录即代表您同意<span class="blue" style="text-decoration:underline;">《小微篇服务协议》</span></p>
 			<p class="f11 c999 tc copyright full" id="copyright"></p>
-		</div>
-		<div class="mui-content mui-scroll-wrapper tc hide">
+		</div> 
+		<div class="mui-content mui-scroll-wrapper tc hide">  
 			<div class="mui-scroll">
 				<div id="input-form">
-					<div class="user mui-input-row">
+					<div class="user mui-input-row"> 
 						<input id='account' type="tel" class="mui-input-clear text f13" placeholder="请输入您的手机号码" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 					</div>
 					<div class="pwd mt20 mui-input-row">
@@ -81,7 +83,7 @@
 					</div>
 					<div class="input mt20" id='login'>
 						登&nbsp;录
-					</div>
+					</div> 
 					<div class="c999 f13 mt15">
 						<div id='reg'>免费注册</div>
 						<div id='forgetPassword' class="hide">忘记密码?</div>
@@ -111,7 +113,14 @@
 	//跳转首页
 	var toMain = function() {
 		//base.ShowWaiting("登录成功，正在加载");
-		base.OpenWindow("subindex", "subindex.html", {}, "fade-in");
+		plus.webview.show("subindex", base.ShowAnimate(), base.AnimateDuration, function() {
+			mui.later(function() {
+				plus.webview.close("adv");
+				plus.webview.close("guide");
+				plus.webview.close("login");
+			}, 1000);
+		}, {});
+
 		accountBox.value = "";
 		passwordBox.value = "";
 		mask.close();
@@ -124,7 +133,6 @@
 		base.Get("copyright").innerHTML = "Copyright © " + (date.getFullYear() - 1) + "-" + date.getFullYear() + " 小微篇版权所有";
 
 		var top = document.getElementById("top");
-
 		var bottom = document.getElementById("bottom");
 
 		top.style.height = window.innerHeight * 0.7 + "px";
