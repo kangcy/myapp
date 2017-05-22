@@ -69,7 +69,7 @@
 
 		mui('#main').load("../part/list.html", function(response) {
 			base.Immersed();
-			
+
 			base.Get("title").innerHTML = "相册";
 			base.Get("none_img").setAttribute("src", "../images/my/666.png");
 			base.Get("none_tip").innerHTML = "这里还没有内容";
@@ -88,9 +88,11 @@
 		//选中切换
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			if(Multiple == 0) {
+				//base.RemoveClass([".check"], "check");
 				$(".check").removeClass("check");
 			}
 			var check = $(this).hasClass("check");
+			//var check = this.className.indexOf('check') >= 0;
 			if(check) {
 				this.classList.remove("check");
 			} else {
@@ -105,6 +107,7 @@
 			}
 			isLoading = true;
 			var check = $(".check");
+			//var check = document.querySelectorAll(".check");
 			if(check.length == 0) {
 				isLoading = false;
 				return mui.toast("请选择图片");
@@ -113,6 +116,14 @@
 				//创建文章
 				case "subindex":
 					var url = [];
+
+					/*for(var i = 0; i < node.length; i++) {
+						Url = node[i].getAttribute("href");
+					};*/
+					/*mui.each(check, function(i, item) {
+						url.push(item.getAttribute("url"));
+					});*/
+
 					check.each(function() {
 						url.push($(this).attr("url"));
 					});

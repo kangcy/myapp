@@ -71,11 +71,11 @@
 			<!--<iframe style="display:none;" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=5282665&auto=1&height=66"></iframe>-->
 			<p class="tc f11 c000 fl full mt20" id='notice'>登录即代表您同意<span class="blue" style="text-decoration:underline;">《小微篇服务协议》</span></p>
 			<p class="f11 c999 tc copyright full" id="copyright"></p>
-		</div> 
-		<div class="mui-content mui-scroll-wrapper tc hide">  
+		</div>
+		<div class="mui-content mui-scroll-wrapper tc hide">
 			<div class="mui-scroll">
 				<div id="input-form">
-					<div class="user mui-input-row"> 
+					<div class="user mui-input-row">
 						<input id='account' type="tel" class="mui-input-clear text f13" placeholder="请输入您的手机号码" maxlength="11" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 					</div>
 					<div class="pwd mt20 mui-input-row">
@@ -83,7 +83,7 @@
 					</div>
 					<div class="input mt20" id='login'>
 						登&nbsp;录
-					</div> 
+					</div>
 					<div class="c999 f13 mt15">
 						<div id='reg'>免费注册</div>
 						<div id='forgetPassword' class="hide">忘记密码?</div>
@@ -113,11 +113,12 @@
 	//跳转首页
 	var toMain = function() {
 		//base.ShowWaiting("登录成功，正在加载");
+		plus.webview.close("login");
+		base.RefreshUser();
 		plus.webview.show("subindex", base.ShowAnimate(), base.AnimateDuration, function() {
 			mui.later(function() {
 				plus.webview.close("adv");
 				plus.webview.close("guide");
-				plus.webview.close("login");
 			}, 1000);
 		}, {});
 
@@ -151,8 +152,18 @@
 
 	var auths = {};
 	mui.plusReady(function() {
-		//var page = plus.webview.currentWebview();
-		//page.show("fade-in");
+		mui.later(function() {
+			var all = plus.webview.all();
+			var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
+			for(var i = 0; i < all.length; i++) {
+				if(all[i] === launch || all[i].id === "login" || all[i].id === "subindex" || all[i].id === "adv")
+					continue;
+				all[i].close();
+				all[i].clear();
+			}
+		}, 300);
+
+		preload_index();
 
 		//系统定位
 		base.GetCurrentPosition();
@@ -373,5 +384,19 @@
 		});
 
 		return loginInfo;
+	}
+
+	//预加载	-首页	
+	function preload_index() {
+		mui.preload({
+			id: 'subindex',
+			url: 'subindex.html',
+			styles: {
+				popGesture: 'hide'
+			},
+			show: {
+				autoShow: false
+			}
+		});
 	}
 </script>
