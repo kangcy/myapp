@@ -256,7 +256,6 @@ function compressImage(src, newsrc, callback) {
 
 //我的相册选择图片回调
 function ConfirmImg(src) {
-	console.log(src);
 	var $readyimg = $("#readyimg");
 	$readyimg.hide().attr("src", src).load(function() {
 		var imagewidth = $readyimg.width();

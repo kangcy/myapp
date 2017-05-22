@@ -18,7 +18,7 @@
 				height: 100%;
 			}
 			
-			.thirdfloor.check .cover {
+			.thirdfloor.yescheck .cover {
 				background: rgba(0, 0, 0, 0.5);
 			}
 			
@@ -36,7 +36,7 @@
 				background-position: center center;
 			}
 			
-			.thirdfloor.check .icon {
+			.thirdfloor.yescheck .icon {
 				background: url(../images/my/check.png) no-repeat;
 				background-size: 100% 100%;
 				background-position: center center;
@@ -88,15 +88,13 @@
 		//选中切换
 		mui("#scroll").on('tap', '.thirdfloor', function(event) {
 			if(Multiple == 0) {
-				//base.RemoveClass([".check"], "check");
-				$(".check").removeClass("check");
+				base.RemoveClass([".yescheck"], "yescheck");
 			}
-			var check = $(this).hasClass("check");
-			//var check = this.className.indexOf('check') >= 0;
+			var check = this.className.indexOf('yescheck') >= 0;
 			if(check) {
-				this.classList.remove("check");
+				this.classList.remove("yescheck");
 			} else {
-				this.classList.add("check");
+				this.classList.add("yescheck");
 			}
 		});
 
@@ -106,49 +104,34 @@
 				return false;
 			}
 			isLoading = true;
-			var check = $(".check");
-			//var check = document.querySelectorAll(".check");
+			var check = document.querySelectorAll(".yescheck");
 			if(check.length == 0) {
 				isLoading = false;
 				return mui.toast("请选择图片");
 			}
+			var url = [];
+			mui.each(check, function(i, item) {
+				url.push(item.getAttribute("url"));
+			});
 			switch(Source) {
 				//创建文章
 				case "subindex":
-					var url = [];
-
-					/*for(var i = 0; i < node.length; i++) {
-						Url = node[i].getAttribute("href");
-					};*/
-					/*mui.each(check, function(i, item) {
-						url.push(item.getAttribute("url"));
-					});*/
-
-					check.each(function() {
-						url.push($(this).attr("url"));
-					});
 					var page = base.GetView(Source);
 					page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 					//自定义背景
 				case "customsetting":
-					var url = check.attr("url");
 					var page = base.GetView("customsetting");
-					page.evalJS("ConfirmImg('" + url + "')");
+					page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 					//创建段落
 				case "addarticle":
-					var url = [];
-					check.each(function() {
-						url.push($(this).attr("url"));
-					});
 					var page = base.GetView("addarticle");
 					page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 				default:
-					var url = check.attr("url");
 					var page = base.GetView("editimage");
-					page.evalJS("ConfirmImg('" + url + "')");
+					page.evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 			}
 			mui.back();
