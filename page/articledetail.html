@@ -102,7 +102,7 @@
 				<div class="myshare_items" onclick="ShareAction(7)"><img src="../images/share/07.png" />
 					<p class="f11 mb0 c000">复制链接</p>
 				</div>
-				<div id="isnotkeep" class="myshare_items" onclick="ShareAction(8)"><img src="../images/share/08.png" />
+				<div id="isnotkeep" class="myshare_items hide" onclick="ShareAction(8)"><img src="../images/share/08.png" />
 					<p class="f11 mb0 c000" style="">收藏</p>
 				</div>
 				<div id="iskeep" class="myshare_items hide" onclick="ShareAction(10)"><img src="../images/share/010.png" />
@@ -597,10 +597,13 @@
 					if(data.IsPay == 1) {
 						$("#btnPay").removeClass("hide");
 					}
-
 					//收藏状态
 					if(data.IsKeep == 1) {
-						$("#iskeep,#isnotkeep").toggleClass("hide");
+						$("#isnotkeep").addClass("hide");
+						$("#iskeep").removeClass("hide");
+					} else {
+						$("#iskeep").addClass("hide");
+						$("#isnotkeep").removeClass("hide");
 					}
 
 					/*mui('#snowwrapper').load("../part/snow/snow.html", function(response) {

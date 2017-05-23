@@ -115,17 +115,25 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		
+
 		base.InitScroll();
-		$("#userid").html(userinfo.ID);
+		/*$("#userid").html(userinfo.ID);
 		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
 		$("#nickname").html(base.FormatStr(base.UnUnicodeText(userinfo.NickName), "请填写"));
 		$("#sex").html(userinfo.Sex);
 		$("#city").html(base.FormatStr(userinfo.Address, "请填写"));
 		$("#time").html(userinfo.Birthday == "0001-01-01" ? "请设置" : userinfo.Birthday);
-		$("#signature").html(base.FormatStr(base.UnUnicodeText(userinfo.Signature), "请填写"));
+		$("#signature").html(base.FormatStr(base.UnUnicodeText(userinfo.Signature), "请填写"));*/
 
-		if($("#nickname").html() == "请填写") {
+		base.Get("userid").innerHTML = userinfo.ID;
+		base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 1));
+		base.Get("nickname").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.NickName), "请填写");
+		base.Get("sex").innerHTML = userinfo.Sex;
+		base.Get("city").innerHTML = base.FormatStr(userinfo.Address, "请填写");
+		base.Get("time").innerHTML = userinfo.Birthday == "0001-01-01" ? "请设置" : userinfo.Birthday;
+		base.Get("signature").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.Signature), "请填写");
+
+		/*if($("#nickname").html() == "请填写") {
 			$("#editnickname").find(".mui-badge").removeClass("hide");
 		}
 		if($("#city").html() == "请填写") {
@@ -135,6 +143,20 @@
 			$("#timePicker").find(".mui-badge").removeClass("hide");
 		}
 		if($("#signature").html() == "请填写") {
+			$("#editsignature").find(".mui-badge").removeClass("hide");
+		}*/
+		
+		
+		if(base.Get("nickname").innerHTML == "请填写") {
+			$("#editnickname").find(".mui-badge").removeClass("hide");
+		}
+		if(base.Get("city").innerHTML == "请填写") {
+			$("#cityPicker").find(".mui-badge").removeClass("hide");
+		}
+		if(base.Get("time").innerHTML == "请设置") {
+			$("#timePicker").find(".mui-badge").removeClass("hide");
+		}
+		if(base.Get("signature").innerHTML == "请填写") {
 			$("#editsignature").find(".mui-badge").removeClass("hide");
 		}
 

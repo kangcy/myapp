@@ -464,7 +464,9 @@
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"minjs/PullRefresh.min.js"
+			"minjs/PullRefresh.min.js",
+			"minjs/mui.pullToRefresh.material.min.js",
+			"minjs/mui.pullToRefresh.min.js"
 		],
 		"refer": [
 			"page/paySub.html"
@@ -948,7 +950,8 @@
 			"images/share/03.png",
 			"images/share/06.png",
 			"images/share/05.png",
-			"images/share/04.png"
+			"images/share/04.png",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/userSub.html",
@@ -1355,7 +1358,8 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.previewimage.min.js",
-			"minjs/mui.zoom.min.js"
+			"minjs/mui.zoom.min.js",
+			"minjs/article.min.js"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -2826,7 +2830,10 @@
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/mui.previewimage.min.js",
+			"minjs/mui.zoom.min.js",
+			"minjs/article.min.js"
 		],
 		"refer": [
 			"page/addfan.html",

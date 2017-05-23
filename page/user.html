@@ -77,7 +77,7 @@
 			<span class="cfff f25 fr more" onclick="More()">•••</span>
 			<h1 class="mui-title cfff">Ta的资料</h1>
 		</header>
-		<div class="loading" id="loader">
+		<div class="loading hide" id="loader"> 
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
@@ -154,7 +154,7 @@
 			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
 				<div class="mui-scroll" id="scroll">
 					<div class="info-content" id="bg">
-						<img id="avatar" class="hide" src="../images/logo.png" />
+						<img id="avatar" src="../images/avatar.png" />
 						<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
 						<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
 						<p class="secret tc mt5 mb15 f12">
@@ -222,8 +222,13 @@
 		}
 	});
 
-	mui.ready(function() {
+	mui.ready(function() { 
 		base.Immersed();
+
+		base.Get("bg").style.minHeight = window.innerWidth + "px";
+		base.Get("bg").style.background = "#eee";
+		base.Get("bg").style.backgroundSize = "cover"; 
+
 		mask.show();
 		base.ShowWaiting("正在加载");
 
@@ -288,7 +293,6 @@
 				base.Get("bg").style.backgroundSize = "cover";
 
 				base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
-				base.Get("avatar").classList.remove("hide");
 				base.Get("nickname").innerHTML = NickName;
 				base.Get("signature").innerHTML = base.UnUnicodeText(data.Signature);
 
