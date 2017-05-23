@@ -35,7 +35,7 @@
 				height: 100%;
 			}
 			
-			.thirdfloor.check .cover {
+			.thirdfloor.yescheck .cover {
 				background: rgba(0, 0, 0, 0.5);
 			}
 			
@@ -53,7 +53,7 @@
 				background-position: center center;
 			}
 			
-			.thirdfloor.check .icon {
+			.thirdfloor.yescheck .icon {
 				background: url(../images/my/check.png) no-repeat;
 				background-size: 100% 100%;
 				background-position: center center;
@@ -66,14 +66,13 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/mui.pullToRefresh.min.js"></script>
 <script src="../minjs/mui.pullToRefresh.material.min.js"></script>
 <script src="../minjs/PullRefresh.min.js"></script>
-<script src="../js/mui.zoom.js"></script>
-<script src="../js/mui.previewimage.js"></script>
+<script src="../minjs/mui.zoom.min.js"></script>
+<script src="../minjs/mui.previewimage.min.js"></script>
 <script type="text/javascript">
 	var UserNumber = 0;
 	var PreviewEnable = true; //是否启用图片预览
@@ -92,7 +91,7 @@
 
 		mui('#main').load("../part/list.html", function(response) {
 			base.Immersed();
-			
+
 			base.Get("title").innerHTML = "相册";
 			base.Get("confirm").innerHTML = "删除";
 			base.Get("confirm").onclick = function() {
@@ -127,23 +126,23 @@
 				if(PreviewEnable) {
 					return;
 				}
-				var check = $(this).hasClass("check");
+				var check = this.className.indexOf('yescheck') >= 0;
 				if(check) {
-					this.classList.remove("check");
+					this.classList.remove("yescheck");
 				} else {
-					this.classList.add("check");
+					this.classList.add("yescheck");
 				}
-				if($(".check").length > 0) {
-					$("#confirm").removeClass("hide");
+				if(document.querySelectorAll(".yescheck").length > 0) {
+					base.Get("confirm").classList.remove("hide");
 				} else {
-					$("#confirm").addClass("hide");
+					base.Get("confirm").classList.add("hide");
 				}
 			});
 
 			if(UserNumber == userinfo.Number) {
 				base.Get("tip").classList.remove("hide");
 				mui("#scroll").on('longtap', '.thirdfloor', function(event) {
-					PreviewEnable = !PreviewEnable;
+					PreviewEnable = false;
 					Preview(PreviewEnable, this);
 				});
 			}
@@ -154,15 +153,12 @@
 		//屏蔽图片预览
 		mui.setPreviewEnable(PreviewEnable);
 		if(PreviewEnable) {
-			$(".cover").addClass("hide");
-			$(".thirdfloor").removeClass("nocheck check");
-			$("#confirm").addClass("hide");
+			base.AddClass([".yescheck,#confirm"], "hide");
+			base.RemoveClass([".thirdfloor"], "nocheck yescheck");
 		} else {
-			$(".cover").removeClass("hide");
-			$(".thirdfloor").addClass("nocheck");
-			$this.classList.remove("nocheck");
-			$this.classList.add("check");
-			$("#confirm").removeClass("hide");
+			base.RemoveClass([".yescheck,#confirm"], "hide");
+			base.AddClass([".thirdfloor"], "nocheck");
+			$this.classList.add("yescheck");
 		}
 	}
 
@@ -199,7 +195,7 @@
 			return false;
 		}
 		isLoading = true;
-		var check = $(".check");
+		var check = document.querySelectorAll(".yescheck");
 		if(check.length == 0) {
 			isLoading = false;
 			return mui.toast("请选择图片");
@@ -214,29 +210,30 @@
 				mask.show();
 				base.ShowWaiting("正在删除");
 				var ids = [];
-				check.each(function() {
-					ids.push($(this).attr("pid"));
+				mui.each(check, function(i, item) {
+					ids.push(item.getAttribute("pid"));
 				});
 				HttpGet(base.RootUrl + "User/PicDelete", {
-					ID: userinfo.ID,
-					PartID: ids.join(",")
-				}, function(data) {
-					mui.later(function() {
-						mask.close();
-						if(data != null) {
-							if(data.result) {
-								PreviewEnable = true;
-								Preview(PreviewEnable);
-								check.each(function() {
-									$(this).remove();
-								});
-							} else {
-								mui.toast(data.message);
+						ID: userinfo.ID,
+						PartID: ids.join(",")
+					},
+					function(data) {
+						mui.later(function() {
+							mask.close();
+							if(data != null) {
+								if(data.result) {
+									PreviewEnable = true;
+									Preview(PreviewEnable);
+									mui.each(check, function(i, item) {
+										base.Get("scroll-view").removeChild(item);
+									});
+								} else {
+									mui.toast(data.message);
+								}
 							}
-						}
-						isLoading = false;
-					}, 500);
-				});
+							isLoading = false;
+						}, 500);
+					});
 			} else {
 				isLoading = false;
 			}
