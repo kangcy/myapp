@@ -113,14 +113,13 @@
 	//跳转首页
 	var toMain = function() {
 		//base.ShowWaiting("登录成功，正在加载");
-		plus.webview.close("login");
-		base.RefreshUser();
-		plus.webview.show("subindex", base.ShowAnimate(), base.AnimateDuration, function() {
-			mui.later(function() {
-				plus.webview.close("adv");
-				plus.webview.close("guide");
-			}, 1000);
-		}, {});
+		base.OpenWindow("subindex", "subindex.html", {});
+
+		mui.later(function() {
+			plus.webview.close("adv");
+			plus.webview.close("guide");
+			plus.webview.close("login");
+		}, 2000);
 
 		accountBox.value = "";
 		passwordBox.value = "";
@@ -156,14 +155,14 @@
 			var all = plus.webview.all();
 			var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
 			for(var i = 0; i < all.length; i++) {
-				if(all[i] === launch || all[i].id === "login" || all[i].id === "subindex" || all[i].id === "adv")
+				if(all[i] === launch || all[i].id === "login" || all[i].id === "adv")
 					continue;
 				all[i].close();
 				all[i].clear();
 			}
-		}, 300);
 
-		preload_index();
+			//preload_index();
+		}, base.AnimateDuration);
 
 		//系统定位
 		base.GetCurrentPosition();
@@ -384,19 +383,5 @@
 		});
 
 		return loginInfo;
-	}
-
-	//预加载	-首页	
-	function preload_index() {
-		mui.preload({
-			id: 'subindex',
-			url: 'subindex.html',
-			styles: {
-				popGesture: 'hide'
-			},
-			show: {
-				autoShow: false
-			}
-		});
 	}
 </script>
