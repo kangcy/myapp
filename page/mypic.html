@@ -57,6 +57,7 @@
 <script type="text/javascript">
 	var Source = "";
 	var Multiple = 0; //是否多选
+	var $confirm = null;
 
 	mui.init({
 		gestureConfig: {
@@ -66,15 +67,15 @@
 
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
+			$confirm = base.Get("confirm");
 			base.Immersed();
 
 			base.Get("title").innerHTML = "相册";
 			base.Get("none_img").setAttribute("src", "../images/my/666.png");
 			base.Get("none_tip").innerHTML = "这里还没有内容";
-			base.Get("confirm").classList.remove("hide");
 			base.InitScroll();
 		});
-	})
+	}) 
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
@@ -89,10 +90,15 @@
 				base.RemoveClass([".yescheck"], "yescheck");
 			}
 			this.classList.toggle("yescheck");
+			if(mui(".yescheck").length > 0) {
+				$confirm.classList.remove("hide");
+			} else {
+				$confirm.classList.add("hide");
+			}
 		});
 
 		//完成
-		base.Get("confirm").addEventListener('tap', function() {
+		$confirm.addEventListener('tap', function() {
 			if(isLoading) {
 				return false;
 			}
