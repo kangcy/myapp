@@ -26,6 +26,7 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
+
 		<!--漂浮特效-->
 		<div id="snowwrapper" class="hide"></div>
 		<div id="self" class="full tc hide">
@@ -225,8 +226,7 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		mask.show();
-		base.ShowWaiting("正在加载")
+		//mask.show();
 
 		$("#wrapper2").css({
 			"width": window.innerWidth + "px",
@@ -243,13 +243,13 @@
 		var scroll = mui("#scroll-wrapper").scroll();
 		//背景色渐变
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
-			num = -scroll.y / 100;
+			num = -scroll.y / 200;
 			if(CurrTemplate == 0) {
 				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
 			} else {
 				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 			}
-			var success = scrolly > 100;
+			var success = scrolly > 200;
 			mui.each(document.querySelectorAll(".headericon"), function() {
 				if(CurrTemplate == 0) {
 					return;

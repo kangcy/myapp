@@ -100,7 +100,7 @@
 		var num = 0;
 		var scroll = mui("#scroll-wrapper").scroll();
 		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
-			num = -scroll.y / 100;
+			num = -scroll.y / 200;
 			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 		});
 

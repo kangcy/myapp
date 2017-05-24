@@ -64,7 +64,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		//切换选择
-		$("#list").on('tap', 'li.music', function(event) {
+		mui("#list").on('tap', 'li.music', function(event) {
 			$("#list .mui-icon").removeClass("mui-icon-checkmarkempty");
 			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
 			ArticleType = this.getAttribute("index");

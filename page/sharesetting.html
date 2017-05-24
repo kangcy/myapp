@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<style type="text/css">
 			.mui-icon-checkmarkempty {
 				position: absolute;
@@ -50,22 +49,22 @@
 				<li class="mui-table-view-cell" style="background:#E8E8E8;">
 					<span class="fl f11">谁可以看</span>
 				</li>
-				<li class="mui-table-view-cell list" index="3">
+				<li class="mui-table-view-cell list index3" index="3">
 					<span class="fl">公开</span>
 					<span class="fr c999 mr20 f11">所有人都可以看到</span>
 					<span class="fr c999 mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
-				<li class="mui-table-view-cell list" index="2">
+				<li class="mui-table-view-cell list index2" index="2">
 					<span class="fl">不公开</span>
 					<span class="fr c999 mr20 f11">仅通过自己分享后才可见</span>
 					<span class="fr c999 mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
-				<li class="mui-table-view-cell list" index="1">
+				<li class="mui-table-view-cell list index1" index="1">
 					<span class="fl">密码可见</span>
 					<span class="fr c999 mr20 f11">设置密码,输入密码才可见</span>
 					<span class="fr c999 mui-icon mui-icon-checkmarkempty f30"></span>
 				</li>
-				<li class="mui-table-view-cell list" index="0">
+				<li class="mui-table-view-cell list index0" index="0">
 					<span class="fl">私密</span>
 					<span class="fr c999 mr20 f11">仅自己可见</span>
 					<span class="fr c999 mui-icon mui-icon-checkmarkempty f30"></span>
@@ -105,7 +104,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
@@ -117,15 +115,19 @@
 	var ArticleTypeName = "";
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
+
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
 
 		//选中切换
-		$("#list").on('tap', '.list', function(event) {
-			var $this = $(this);
-			var index = $this.attr("index");
+		mui("#list").on('tap', '.list', function(event) {
+			var $this = this;
+			var index = this.getAttribute("index");
 
 			if(index > 0) {
 				//密码验证
@@ -133,8 +135,8 @@
 					/*if(ArticleType == 0) {
 						mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
 							if(e.index < 0) {
-			return;
-		}
+			                    return;
+		                    }
 							if(e.index == 0) {
 								base.OpenWindow("articletype", "articletype.html", {
 									ArticleID: ArticleID,
@@ -149,8 +151,8 @@
 						if(e.index == 0) {
 							if(ChechPwd(e.value)) {
 								ArticlePowerPwd = e.value;
-								$(".check").removeClass("check");
-								$this.addClass("check");
+								base.RemoveClass([".check"], "check");
+								$this.classList.add("check");
 								ArticlePower = index;
 								SaveArticlePower();
 							}
@@ -175,8 +177,8 @@
 					return;
 				}*/
 			}
-			$(".check").removeClass("check");
-			$this.addClass("check");
+			base.RemoveClass([".check"], "check");
+			$this.classList.add("check");
 			ArticlePower = index;
 			SaveArticlePower();
 		});
@@ -208,7 +210,7 @@
 		base.Get("article_type").innerHTML = ArticleTypeName;
 
 		//初始化
-		$("#list").find("[index=" + ArticlePower + "]").addClass("check");
+		mui("#list .index" + ArticlePower + "")[0].classList.add("check");
 
 		//返回
 		mui.back = function() {
@@ -228,6 +230,7 @@
 			var draw = this.className.indexOf("active") >= 0;
 			base.SwitchChange("switch", !draw);
 			if(!draw) {
+				mask.show();
 				base.ShowWaiting("正在投稿");
 				HttpGet(base.RootUrl + "Article/Recommend", {
 						ID: userinfo.ID,
@@ -237,7 +240,7 @@
 					},
 					function(data) {
 						mui.later(function() {
-							base.CloseWaiting();
+							mask.close();
 							if(data.result) {
 								mui.toast("投稿成功");
 							} else {
@@ -245,7 +248,7 @@
 								ActionTan(1, data.message);
 							}
 							isLoading = false;
-						}, 1000);
+						}, 250);
 					});
 			} else {
 				isLoading = false;
@@ -276,8 +279,9 @@
 					ArticlePowerPwd: ArticlePowerPwd
 				},
 				function(data) {
-					if(!data.result)
+					if(!data.result) {
 						mui.toast(data.message);
+					}
 				});
 		}, 500);
 	}
@@ -291,12 +295,14 @@
 	//操作弹窗
 	function ActionTan(index, text) {
 		if(index == 0) {
-			$("#mytanbg").addClass("hide");
-			$("#notice").removeClass("bounceIn").addClass("bounceOut").addClass("hide");
+			base.Get("mytanbg").classList.add("hide"); 
+			base.RemoveClass(["#notice"], "bounceIn");
+			base.AddClass(["#notice"], "bounceOut hide");
 		} else {
-			$("#error").html(text);
-			$("#mytanbg").removeClass("hide");
-			$("#notice").removeClass("hide").removeClass("bounceOut").addClass("bounceIn");
+			base.Get("error").innerHTML = text;
+			base.Get("mytanbg").classList.remove("hide");
+			base.RemoveClass(["#notice"], "hide bounceOut");
+			base.AddClass(["#notice"], "bounceIn");
 		}
 	}
 </script>

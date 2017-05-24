@@ -115,22 +115,18 @@
 			switch(Source) {
 				//创建文章
 				case "subindex":
-					var page = base.GetView(Source);
-					page.evalJS("ConfirmImg('" + url.join(",") + "')");
+					base.GetView(Source).evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 					//自定义背景
 				case "customsetting":
-					var page = base.GetView("customsetting");
-					page.evalJS("ConfirmImg('" + url.join(",") + "')");
+					base.GetView("customsetting").evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 					//创建段落
 				case "addarticle":
-					var page = base.GetView("addarticle");
-					page.evalJS("ConfirmImg('" + url.join(",") + "')");
+					base.GetView("addarticle").evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 				default:
-					var page = base.GetView("editimage");
-					page.evalJS("ConfirmImg('" + url.join(",") + "')");
+					base.GetView("editimage").evalJS("ConfirmImg('" + url.join(",") + "')");
 					break;
 			}
 			mui.back();

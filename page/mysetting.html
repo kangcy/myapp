@@ -93,7 +93,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../js/mui.picker.min.js"></script>
@@ -117,13 +116,6 @@
 		base.Immersed();
 
 		base.InitScroll();
-		/*$("#userid").html(userinfo.ID);
-		$("#avatar").attr("src", base.ShowThumb(userinfo.Avatar, 1));
-		$("#nickname").html(base.FormatStr(base.UnUnicodeText(userinfo.NickName), "请填写"));
-		$("#sex").html(userinfo.Sex);
-		$("#city").html(base.FormatStr(userinfo.Address, "请填写"));
-		$("#time").html(userinfo.Birthday == "0001-01-01" ? "请设置" : userinfo.Birthday);
-		$("#signature").html(base.FormatStr(base.UnUnicodeText(userinfo.Signature), "请填写"));*/
 
 		base.Get("userid").innerHTML = userinfo.ID;
 		base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 1));
@@ -133,31 +125,17 @@
 		base.Get("time").innerHTML = userinfo.Birthday == "0001-01-01" ? "请设置" : userinfo.Birthday;
 		base.Get("signature").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.Signature), "请填写");
 
-		/*if($("#nickname").html() == "请填写") {
-			$("#editnickname").find(".mui-badge").removeClass("hide");
-		}
-		if($("#city").html() == "请填写") {
-			$("#cityPicker").find(".mui-badge").removeClass("hide");
-		}
-		if($("#time").html() == "请设置") {
-			$("#timePicker").find(".mui-badge").removeClass("hide");
-		}
-		if($("#signature").html() == "请填写") {
-			$("#editsignature").find(".mui-badge").removeClass("hide");
-		}*/
-		
-		
 		if(base.Get("nickname").innerHTML == "请填写") {
-			$("#editnickname").find(".mui-badge").removeClass("hide");
+			mui("#editnickname .mui-badge")[0].classList.remove("hide");
 		}
 		if(base.Get("city").innerHTML == "请填写") {
-			$("#cityPicker").find(".mui-badge").removeClass("hide");
+			mui("#cityPicker .mui-badge")[0].classList.remove("hide");
 		}
 		if(base.Get("time").innerHTML == "请设置") {
-			$("#timePicker").find(".mui-badge").removeClass("hide");
+			mui("#timePicker .mui-badge")[0].classList.remove("hide");
 		}
 		if(base.Get("signature").innerHTML == "请填写") {
-			$("#editsignature").find(".mui-badge").removeClass("hide");
+			mui("#editsignature .mui-badge")[0].classList.remove("hide");
 		}
 
 		base.Get('cityPicker').addEventListener('tap', function(event) {
@@ -262,7 +240,7 @@
 			Avatar: url
 		}, function(data) {
 			if(data.result) {
-				$("#avatar").attr("src", base.ShowThumb(url, 1));
+				base.Get("avatar").setAttribute("src", base.ShowThumb(url, 1));
 				userinfo.Avatar = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			} else {
@@ -296,9 +274,9 @@
 	function UpdateSignature(t) {
 		signature.innerHTML = t;
 		if(base.IsNullOrEmpty(t)) {
-			$("#editsignature").find(".mui-badge").removeClass("hide");
+			mui("#editsignature .mui-badge")[0].classList.remove("hide");
 		} else {
-			$("#editsignature").find(".mui-badge").addClass("hide");
+			mui("#editsignature .mui-badge")[0].classList.add("hide");
 		}
 		mask.show();
 		base.ShowWaiting("正在编辑签名");

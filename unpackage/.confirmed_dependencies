@@ -399,7 +399,9 @@
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/mui.previewimage.min.js",
+			"minjs/mui.zoom.min.js"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -2689,7 +2691,8 @@
 			"mincss/mui.min.css",
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"minjs/cropper.min.js"
 		],
 		"refer": []
 	},

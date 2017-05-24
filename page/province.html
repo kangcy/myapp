@@ -111,9 +111,9 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		
+
 		var list = base.Get('list');
-		list.style.height = (window.innerHeight - 45) + 'px';
+		list.style.height = (window.innerHeight - base.Get("header").clientHeight) + 'px';
 		window.indexedList = new mui.IndexedList(list);
 
 		mui("#list").on('tap', '.mui-indexed-list-item', function(event) {
