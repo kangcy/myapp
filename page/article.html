@@ -25,6 +25,7 @@
 <script src="../minjs/PullRefresh.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
 	var CreateUserNumber = "";
@@ -65,7 +66,7 @@
 	function Init(articleType, createUserNumber, source) {
 		base.InitPull("scroll");
 		base.ShowArticle("#scroll", source, userinfo.Number);
-		base.ArticleAction("#scroll", userinfo);
+		ArticleAction("#scroll", userinfo);
 	}
 
 	//删除
@@ -96,7 +97,7 @@
 					if(length > 0) {
 						base.ShowNone(false);
 						mui.each(data.list, function(index, item) {
-							var div = base.AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
+							var div = AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
 							if(table) {
 								table.appendChild(div);
 							}

@@ -280,7 +280,7 @@
 
 		base.InitPull("slider");
 
-		base.ArticleAction("#slider", userinfo);
+		ArticleAction("#slider", userinfo);
 
 		mui('#actionwrapper').load("../part/action.html", function(response) {
 			mui('#slider').on('tap', '.tanaction', function() {
@@ -437,7 +437,7 @@
 					var table = base.Get('scroll-view');
 
 					DelayEachArray(data.list, 0, 100, base.CurrAnimate, function(item) {
-						var div = base.AppendArticle(userinfo.Number, item, false, false, false);
+						var div = AppendArticle(userinfo.Number, item, false, false, false);
 						if(table) {
 							table.appendChild(div);
 						}

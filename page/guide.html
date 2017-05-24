@@ -45,7 +45,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
@@ -64,9 +63,11 @@
 		//图片切换时，触发动画
 		document.querySelector('.mui-slider').addEventListener('slide', function(event) {
 			var index = event.detail.slideNumber;
-			$(".mui-slider-item").removeClass("coverMoved");
-			$(".mui-slider-item .fadeInUpd,.mui-slider-item .fadeInd,.mui-slider-item .swingd").css("opacity", "0");
-			$(".mui-slider-item:eq(" + index + ")").addClass("coverMoved");
+			base.RemoveClass([".mui-slider-item"], "coverMoved");
+			mui.each(mui(".fadeInUpd,.fadeInd,.swingd"), function(i, item) {
+				item.style.opacity = 0;
+			});
+			mui(".mui-slider-item")[index].classList.add("coverMoved");
 		});
 
 		//退出登录

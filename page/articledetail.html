@@ -226,8 +226,6 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		//mask.show();
-
 		$("#wrapper2").css({
 			"width": window.innerWidth + "px",
 			"height": (window.innerHeight - 50) + "px",
@@ -250,7 +248,7 @@
 				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 			}
 			var success = scrolly > 200;
-			mui.each(document.querySelectorAll(".headericon"), function() {
+			mui.each(mui(".headericon"), function() {
 				if(CurrTemplate == 0) {
 					return;
 				}
@@ -552,7 +550,7 @@
 						var $this = $(this);
 						ShowVideo($this.attr("id"), $this.attr("sid"));
 					});
-					mui.each(document.querySelectorAll(".video"), function() {
+					mui.each(mui(".video"), function() {
 						var $this = this;
 						//可以播放
 						$this.addEventListener('canplay', function() {

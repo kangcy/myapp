@@ -69,7 +69,7 @@
 						base.CheckLogin(userinfo, data.code);
 						if(data.result) {
 							li.parentNode.removeChild(li);
-							var list = document.querySelectorAll(".mui-table-view-cell");
+							var list = mui(".mui-table-view-cell");
 							if(list.length == 0) {
 								base.ShowNone(true);
 							}

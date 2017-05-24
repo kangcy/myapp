@@ -402,7 +402,8 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.previewimage.min.js",
-			"minjs/mui.zoom.min.js"
+			"minjs/mui.zoom.min.js",
+			"minjs/article.min.js"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -2189,9 +2190,13 @@
 			"js/base.js",
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"js/base.min.js",
+			"page/notice_sub.html"
 		],
-		"refer": []
+		"refer": [
+			"page/notice_sub.html"
+		]
 	},
 	"page/follow.html": {
 		"resources": [
@@ -2361,7 +2366,8 @@
 			"page/article_link.html",
 			"page/tipsetting.html",
 			"page/musicsearch.html",
-			"page/adv.html"
+			"page/adv.html",
+			"page/notice.html"
 		]
 	},
 	"page/money.html": {
@@ -2970,5 +2976,12 @@
 		],
 		"refer": [],
 		"priority": 0
+	},
+	"page/notice_sub.html": {
+		"resources": [
+			"mincss/mui.min.css",
+			"js/base.min.js",
+			"minjs/mui.min.js"
+		]
 	}
 }

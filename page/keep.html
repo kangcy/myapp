@@ -68,7 +68,7 @@
 
 		base.InitPull("scroll");
 
-		base.ArticleAction("#scroll", userinfo);
+		ArticleAction("#scroll", userinfo);
 
 		base.ShowArticle("#scroll", "List", UserNumber);
 
@@ -92,7 +92,7 @@
 			CreateUserNumber: UserNumber
 		};
 		LoadPull(base.RootUrl + "Api/Keep/All", data, true, false, function(item) {
-			return base.AppendArticle(userinfo.Number, item, false, false, false, false);
+			return AppendArticle(userinfo.Number, item, false, false, false, false);
 		}, callback);
 	}
 </script>

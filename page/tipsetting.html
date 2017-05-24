@@ -81,6 +81,10 @@
 							<span class="fl mt10">广告</span>
 							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 						</li>
+						<li class="mui-table-view-cell hide" onclick="Guide()" id="guide">
+							<span class="fl mt10">通知</span>
+							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -89,7 +93,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../minjs/base.min.js"></script> 
 <script type="text/javascript">
 	var isLoading = false;
 	var PageName = "tipsetting.html";
@@ -102,9 +106,9 @@
 
 	mui.ready(function() {
 		base.Immersed();
-
+ 
 		if(userinfo.UserRole == 2) {
-			base.RemoveClass(["#client", "#push", "#update", "#article_link", "#music", "#adv"], "hide");
+			base.RemoveClass(["#client", "#push", "#update", "#article_link", "#music", "#adv", "#guide"], "hide");
 		}
 		base.InitScroll();
 	});
@@ -171,5 +175,10 @@
 	//广告
 	function Adv() {
 		base.OpenWindow("adv", "adv.html", {});
+	}
+
+	//通知
+	function Guide() {
+		base.OpenWindow("guide", "guide.html", {});
 	}
 </script>

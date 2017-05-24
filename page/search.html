@@ -162,7 +162,7 @@
 
 		base.ShowArticle("#slider", "List", userinfo.Number);
 
-		base.ArticleAction("#slider", userinfo);
+		ArticleAction("#slider", userinfo);
 
 		//切换
 		mui("#slider").on('tap', '.mui-control-item', function(event) {
@@ -320,7 +320,7 @@
 					if(length > 0) {
 						base.Get("none2").classList.add("hide");
 						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = base.AppendArticle(userinfo.Number, data.list[i], false, false);
+							var div = AppendArticle(userinfo.Number, data.list[i], false, false);
 							table.appendChild(div);
 						}
 					} else {

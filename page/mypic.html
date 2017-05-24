@@ -65,7 +65,6 @@
 	});
 
 	mui.ready(function() {
-
 		mui('#main').load("../part/list.html", function(response) {
 			base.Immersed();
 
@@ -89,12 +88,7 @@
 			if(Multiple == 0) {
 				base.RemoveClass([".yescheck"], "yescheck");
 			}
-			var check = this.className.indexOf('yescheck') >= 0;
-			if(check) {
-				this.classList.remove("yescheck");
-			} else {
-				this.classList.add("yescheck");
-			}
+			this.classList.toggle("yescheck");
 		});
 
 		//完成
@@ -103,7 +97,7 @@
 				return false;
 			}
 			isLoading = true;
-			var check = document.querySelectorAll(".yescheck");
+			var check = mui(".yescheck");
 			if(check.length == 0) {
 				isLoading = false;
 				return mui.toast("请选择图片");

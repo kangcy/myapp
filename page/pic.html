@@ -74,8 +74,10 @@
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script type="text/javascript">
+	pagesize = 18;
 	var UserNumber = 0;
 	var PreviewEnable = true; //是否启用图片预览
+	var $confirm = null;
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
@@ -90,11 +92,11 @@
 	mui.ready(function() {
 
 		mui('#main').load("../part/list.html", function(response) {
+			$confirm = base.Get("confirm");
 			base.Immersed();
-
 			base.Get("title").innerHTML = "相册";
-			base.Get("confirm").innerHTML = "删除";
-			base.Get("confirm").onclick = function() {
+			$confirm.innerHTML = "删除";
+			$confirm.onclick = function() {
 				Confirm()
 			};
 			base.Get("none_img").setAttribute("src", "../images/my/666.png");
@@ -126,16 +128,11 @@
 				if(PreviewEnable) {
 					return;
 				}
-				var check = this.className.indexOf('yescheck') >= 0;
-				if(check) {
-					this.classList.remove("yescheck");
+				this.classList.toggle("yescheck");
+				if(mui(".yescheck").length > 0) {
+					$confirm.classList.remove("hide");
 				} else {
-					this.classList.add("yescheck");
-				}
-				if(document.querySelectorAll(".yescheck").length > 0) {
-					base.Get("confirm").classList.remove("hide");
-				} else {
-					base.Get("confirm").classList.add("hide");
+					$confirm.classList.add("hide");
 				}
 			});
 
@@ -195,7 +192,7 @@
 			return false;
 		}
 		isLoading = true;
-		var check = document.querySelectorAll(".yescheck");
+		var check = mui(".yescheck");
 		if(check.length == 0) {
 			isLoading = false;
 			return mui.toast("请选择图片");

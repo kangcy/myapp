@@ -40,7 +40,6 @@
 	mui.ready(function() {
 		mui('#main').load("../part/list.html", function(response) {
 			base.Immersed();
-			
 			base.InitScroll();
 		});
 	});
@@ -107,7 +106,7 @@
 			rows: pagesize,
 			CreateUserNumber: UserNumber
 		}
-		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true,true, function(item) {
+		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true, true, function(item) {
 			return base.AppendUser(item, true, false, true, "取消关注");
 		}, callback);
 	}
