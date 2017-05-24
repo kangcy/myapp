@@ -10,9 +10,9 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/comment.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
-		<link rel="stylesheet" type="text/css" href="../mincss/animate.min.css">
-		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
-		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../emotion/css/emojione.sprites.css">
+		<link rel="stylesheet" href="../emotion/css/emojionearea.min.css">
 	</head>
 
 	<body id="main">
@@ -37,10 +37,8 @@
 	});
 
 	mui.ready(function() {
-
 		mui('#main').load("../part/list.html", function(response) {
 			base.Immersed();
-			
 			base.Get("scroll-wrapper").style.bottom = "3rem";
 			base.Get("title").innerHTML = "评论";
 			base.Get("none_img").setAttribute("src", "../images/my/333.png");
@@ -77,6 +75,7 @@
 			UserNumber: userinfo.Number
 		}
 		LoadPull(base.RootUrl + "Api/Comment/ArticleComment", data, true, true, function(item) {
+			var str = AppendStr(item);
 			return AppendStr(item);
 		}, callback);
 	}

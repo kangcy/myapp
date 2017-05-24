@@ -154,17 +154,19 @@
 			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
 				<div class="mui-scroll" id="scroll">
 					<div class="info-content" id="bg">
-						<img id="avatar" src="../images/avatar.png" />
-						<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
-						<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
-						<p class="secret tc mt5 mb15 f12">
-							<span class="cfff textshadow hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="cfff textshadow f13" id="showFollowNum">0</span></span>
-							<span class="cfff textshadow hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="cfff textshadow f13" id="showFanNum">0</span></span>
-							<span class="cfff textshadow hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="cfff textshadow f13" id="showArticleNum">0</span></span>
-						</p>
-						<div class="full tc mb20 hide" id="action">
-							<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
-							<div class="dashang f14" onclick="Payment()">打赏</div>
+						<div style="position:absolute;width:100%;bottom:0px;" id="bg2">
+							<img id="avatar" src="../images/avatar.png" />
+							<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
+							<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
+							<p class="secret tc mt5 mb15 f12 cfff textshadow">
+								<span class="hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="f13" id="showFollowNum">0</span></span>
+								<span class="hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="f13" id="showFanNum">0</span></span>
+								<span class="hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="f13" id="showArticleNum">0</span></span>
+							</p>
+							<div class="full tc mb20 hide" id="action">
+								<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
+								<div class="dashang f14" onclick="Payment()">打赏</div>
+							</div>
 						</div>
 					</div>
 					<div id="article" class="hide f13 c999 full">
@@ -199,6 +201,7 @@
 	var Avatar = "";
 	var Sex = 0;
 	var ShareInfo = {};
+	var $bg = base.Get("bg");
 	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
@@ -225,15 +228,14 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		base.Get("bg").style.minHeight = window.innerWidth + "px";
-		base.Get("bg").style.background = "#eee";
-		base.Get("bg").style.backgroundSize = "cover";
-
-		mask.show(); 
+		base.Get("bg2").style.minHeight = window.innerWidth * 0.7 + "px";
+		$bg.style.minHeight = window.innerWidth + "px";
+		$bg.style.background = "#eee";
+		$bg.style.backgroundSize = "cover";
 
 		base.InitScroll();
 
-		var browserName = base.BrowserName(); 
+		var browserName = base.BrowserName();
 		var num = 0;
 		var scroll = mui("#scroll-wrapper").scroll();
 		var $header = base.Get("header");
@@ -288,8 +290,8 @@
 				Avatar = data.Avatar;
 				Sex = data.Sex;
 
-				base.Get("bg").style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
-				base.Get("bg").style.backgroundSize = "cover";
+				$bg.style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
+				$bg.style.backgroundSize = "cover";
 
 				base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
 				base.Get("nickname").innerHTML = NickName;

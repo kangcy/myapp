@@ -289,6 +289,7 @@
 				for(var i = 0; i < all.length; i++) {
 					if(all[i] === launch || all[i].id === "setting")
 						continue;
+					all[i].hide();
 					all[i].close();
 					all[i].clear();
 				}
@@ -297,7 +298,7 @@
 		});
 	}
 
-	//关闭
+	//关闭 
 	function Close() {
 		mui('#action').popover('hide');
 		plus.runtime.quit();

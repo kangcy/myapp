@@ -118,7 +118,7 @@
 		mui.later(function() {
 			plus.webview.close("adv");
 			plus.webview.close("guide");
-			plus.webview.close("login");
+			//plus.webview.close("login");
 		}, 2000);
 
 		accountBox.value = "";
@@ -157,12 +157,11 @@
 			for(var i = 0; i < all.length; i++) {
 				if(all[i] === launch || all[i].id === "login" || all[i].id === "adv")
 					continue;
+				all[i].hide();
 				all[i].close();
 				all[i].clear();
 			}
-
-			//preload_index();
-		}, base.AnimateDuration);
+		}, base.AnimateDuration * 2);
 
 		//系统定位
 		base.GetCurrentPosition();

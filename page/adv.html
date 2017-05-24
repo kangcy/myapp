@@ -138,6 +138,10 @@
 	var index = 0;
 
 	function Time(time) {
+		var sec_text = document.getElementById("sec-text");
+		sec_text.innerHTML = time;
+
+		time = time - 1;
 		//圆环周长
 		var perimeter = Math.round(2 * Math.PI * 20);
 		var n = document.getElementById("sec-circle");
@@ -146,9 +150,6 @@
 		document.getElementById("text").style.display = "block";
 
 		var t = time;
-
-		var sec_text = document.getElementById("sec-text");
-		sec_text.innerHTML = t;
 		index = setInterval(function() {
 			if(0 == t) {
 				clearInterval(index);
@@ -161,13 +162,13 @@
 							plus.webview.close("guide");
 							plus.webview.close("login");
 						}, base.AnimateDuration);
-					}, {}); 
+					}, {});
 				}
 			} else {
-				t -= 1;
-				var e = Math.round(t / time * perimeter);
+				var e = Math.round((t - 1) / time * perimeter);
 				n.style.strokeDashoffset = e - perimeter;
 				sec_text.innerHTML = t;
+				t -= 1;
 			}
 		}, 1000);
 	}

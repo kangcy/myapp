@@ -1231,7 +1231,10 @@
 			"minjs/base.min.js",
 			"mincss/loading.min.css",
 			"mincss/img.preview.min.css",
-			"mincss/animate.min.css"
+			"mincss/animate.min.css",
+			"minjs/mui.previewimage.min.js",
+			"minjs/article.min.js",
+			"minjs/mui.zoom.min.js"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -2014,7 +2017,9 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.previewimage.min.js",
-			"minjs/mui.zoom.min.js"
+			"minjs/mui.zoom.min.js",
+			"minjs/mui.lazyload.img.min.js",
+			"minjs/mui.lazyload.min.js"
 		],
 		"refer": []
 	},
@@ -2349,7 +2354,8 @@
 			"page/test.html",
 			"page/article_link.html",
 			"page/tipsetting.html",
-			"page/musicsearch.html"
+			"page/musicsearch.html",
+			"page/adv.html"
 		]
 	},
 	"page/money.html": {
