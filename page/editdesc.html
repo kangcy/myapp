@@ -261,6 +261,7 @@
 	var ArticleID = 0;
 	var ArticleNumber = ""; //文章编号
 	var PartID = 0;
+	var SelectAll = false; //是否全选
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
@@ -268,30 +269,40 @@
 	var ActionCache = [];
 	var CurrActionCache = -1;
 
+	var $edit = $("#edit");
+
 	window.onresize = function() {
-		$("#edit").css("height", window.innerHeight - 180);
+		$edit[0].style.height = window.innerHeight - 180 + "px";
 	};
 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			longtap: true
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
 
 		var limit = window.innerWidth / 9;
-		$(".menu").css("width", limit + "px");
-		$("#align_first").css("margin-right", limit * 2 + "px");
-		$("#fs_first").css("margin-right", limit * 2 + "px");
-		$("#bold_first").css("margin-right", limit * 4 + "px");
+		mui.each(mui(".menu"), function(i, item) {
+			item.style.width = limit + "px";
+		})
+		base.Get("align_first").style.marginRight = limit * 2 + "px";
+		base.Get("fs_first").style.marginRight = limit * 2 + "px";
+		base.Get("bold_first").style.marginRight = limit * 4 + "px";
 
 		//全选 
 		base.Get("all").addEventListener('tap', function(event) {
 			base.Get("edit").focus();
-			if(this.className.indexOf("select") < 0) {
-				this.classList.add("select");
-				document.execCommand("SelectAll");
-			} else {
+			if(this.classList.contains("select")) {
+				SelectAll = false;
 				this.classList.remove("select");
 				document.execCommand("Unselect");
+			} else {
+				SelectAll = true;
+				this.classList.add("select");
+				document.execCommand("SelectAll");
 			}
 		}, false);
 
@@ -303,7 +314,8 @@
 			isLoading = true;
 			if(CurrActionCache > 0) {
 				CurrActionCache -= 1;
-				$("#edit").html(ActionCache[CurrActionCache]);
+				base.Get("divedit").innerHTML = ActionCache[CurrActionCache];
+				$edit = $("#edit");
 			} else {
 				CurrActionCache = 0;
 			}
@@ -318,7 +330,8 @@
 			isLoading = true;
 			if(CurrActionCache < ActionCache.length - 1) {
 				CurrActionCache += 1;
-				$("#edit").html(ActionCache[CurrActionCache]);
+				base.Get("divedit").innerHTML = ActionCache[CurrActionCache];
+				$edit = $("#edit");
 			} else {
 				CurrActionCache = ActionCache.length - 1;
 			}
@@ -327,26 +340,26 @@
 
 		//字体大小
 		base.Get("menuSize").addEventListener('tap', function(event) {
-			$("#color,#bgcolor,#align,#bold").addClass("hide");
-			$("#fs").toggleClass("hide");
+			base.AddClass(["#color", "#bgcolor", "#align", "#bold"], "hide");
+			base.Get("fs").classList.toggle("hide");
 		}, false);
 
 		//颜色 
 		base.Get("menuColor").addEventListener('tap', function(event) {
-			$("#bgcolor,#align,#bold,#fs").addClass("hide");
-			$("#color").toggleClass("hide");
+			base.AddClass(["#bgcolor", "#align", "#bold", "#fs"], "hide");
+			base.Get("color").classList.toggle("hide");
 		}, false);
 
 		//背景色
 		base.Get("menuBgColor").addEventListener('tap', function(event) {
-			$("#color,#align,#bold,#fs").addClass("hide");
-			$("#bgcolor").toggleClass("hide");
+			base.AddClass(["#color", "#align", "#bold", "#fs"], "hide");
+			base.Get("bgcolor").classList.toggle("hide");
 		}, false);
 
 		//加粗
 		base.Get("menuBold").addEventListener('tap', function(event) {
-			$("#color,#bgcolor,#align,#fs").addClass("hide");
-			$("#bold").toggleClass("hide");
+			base.AddClass(["#color", "#bgcolor", "#align", "#fs"], "hide");
+			base.Get("bold").classList.toggle("hide");
 		}, false);
 
 		//颜色切换
@@ -360,8 +373,8 @@
 
 		//对齐
 		base.Get("menuAlign").addEventListener('tap', function(event) {
-			$("#color,#bgcolor,#bold,#fs").addClass("hide");
-			$("#align").toggleClass("hide");
+			base.AddClass(["#color", "#bgcolor", "#bold", "#fs"], "hide");
+			base.Get("align").classList.toggle("hide");
 		}, false);
 
 		//加粗
@@ -376,22 +389,22 @@
 		//居左
 		base.Get("btnLeft").addEventListener('tap', function() {
 			InitAlign(this);
-			$("#edit").find("div:eq(0)").addClass("tl");
-			ActionCache.push($("#edit").html());
+			$edit[0].classList.add("tl");
+			InsertPush();
 		}, false);
 
 		//居中
 		base.Get("btnCenter").addEventListener('tap', function() {
 			InitAlign(this);
-			$("#edit").find("div:eq(0)").addClass("tc");
-			ActionCache.push($("#edit").html());
+			$edit[0].classList.add("tc");
+			InsertPush();
 		}, false);
 
 		//居右
 		base.Get("btnRight").addEventListener('tap', function() {
 			InitAlign(this);
-			$("#edit").find("div:eq(0)").addClass("tr");
-			ActionCache.push($("#edit").html());
+			$edit[0].classList.add("tr");
+			InsertPush();
 		}, false);
 
 		//超链接
@@ -400,9 +413,9 @@
 
 	//初始化对齐
 	function InitAlign(item) {
-		$("#btnLeft,#btnCenter,#btnRight").removeClass("curr");
-		$(item).addClass("curr");
-		$("#edit").find("div:eq(0)").removeClass("tl tc tr");
+		base.RemoveClass(["#btnLeft", "#btnCenter", "#btnRight"], "curr");
+		item.classList.add("curr");
+		base.RemoveClass(["#edit"], "tl tc tr");
 	}
 
 	var addarticlePage = null;
@@ -414,34 +427,53 @@
 		PartID = self.PartID || 0;
 
 		var html = self.title;
-		if(base.IsNullOrEmpty(html)) {
-			html = '<div class="edit f12 tl">测试内容</div>';
-		}
-		$("#edit").html(html);
 
+		if(base.IsNullOrEmpty(html)) {
+			base.AddClass(["#edit"], "edit f12 tl");
+		} else {
+			base.Get("divedit").innerHTML = html;
+			$("#divedit").find("div:eq(0)").attr({
+				"id": "edit",
+				"contenteditable": "true"
+			});
+			$edit = $("#edit");
+		}
 		InsertPush();
 
-		$("#edit").css("height", window.innerHeight - 180);
+		$edit.css("height", window.innerHeight - 180);
 
 		base.Get("edit").focus();
 
-		var $item = $("#edit");
-		if($item.find("div:eq(0)").hasClass("tl")) {
-			$("#menuAlign").addClass("menuLeft").removeClass("hide");
+		if($edit[0].classList.contains("tl")) {
+			base.Get("menuAlign").classList.add("menuLeft");
 		}
-		if($item.find("div:eq(0)").hasClass("tc")) {
-			$("#menuAlign").addClass("menuCenter").removeClass("hide");
+		if($edit[0].classList.contains("tc")) {
+			base.Get("menuAlign").classList.add("menuCenter");
 		}
-		if($item.find("div:eq(0)").hasClass("tr")) {
-			$("#menuAlign").addClass("menuRight").removeClass("hide");
+		if($edit[0].classList.contains("tr")) {
+			base.Get("menuAlign").classList.add("menuRight");
 		}
+		base.Get("menuAlign").classList.remove("hide");
 
 		//字数限制
 		base.Get("edit").ontouchend = function() {
-			$("#color,#bgcolor,#bold,#fs,#align").addClass("hide");
-			$(".curr").removeClass("curr");
+			base.AddClass(["#color", "#bgcolor", "#bold", "#fs", "#align"], "hide");
+			base.RemoveClass([".curr"], "curr");
 			base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
 		}
+
+		base.Get('muicontent').addEventListener('tap', function(event) {
+			SelectAll = false;
+			base.Get("all").classList.remove("select");
+			document.execCommand("Unselect");
+		});
+
+		base.Get('muicontent').addEventListener('longtap', function(event) {
+			console.log("asdfasdf");
+			SelectAll = false;
+			base.Get("all").classList.remove("select");
+			document.execCommand("Unselect");
+		});
 
 		base.Get("edit").onkeyup = function() {
 			InsertPush();
@@ -460,7 +492,10 @@
 			if(!addarticlePage) {
 				addarticlePage = base.GetView('addarticle');
 			}
-			addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($("#edit").html()) + "','" + PartID + "')");
+			$edit.removeAttr("id");
+			$edit.removeAttr("contenteditable");
+			$edit.css("height", "auto");
+			addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($edit[0].outerHTML) + "','" + PartID + "')");
 			plus.webview.close("editdesc");
 		}, false);
 	});
@@ -498,13 +533,12 @@
 			ShowLink();
 		};
 		document.execCommand(type, false, valueTxt);
-		if($(this).hasClass("fs")) {
-			$(".fs").removeClass("curr");
-			$(this).addClass("curr");
+		if(this.classList.contains("fs")) {
+			base.RemoveClass([".fs"], "curr");
 			ChangeFontSize();
 		} else {
 			if(that.id !== "menuLink") {
-				$(this).toggleClass("curr");
+				this.classList.toggle("curr")
 			}
 		}
 		if(that.id !== "menuLink") {
@@ -529,44 +563,53 @@
 
 	//字体大小替换
 	function ChangeFontSize() {
-		var wrap = base.Get("edit");
-		var node = wrap.querySelectorAll("font");
 		var size = "";
-		for(var i = 0; i < node.length; i++) {
-			size = node[i].getAttribute("size");
+		console.log(SelectAll);
+		if(SelectAll) {
+			mui.each(mui("#edit .f12,#edit .f14,#edit .f20,#edit .f24,#edit .f36"), function(i, node) {
+				node.classList.remove("f12");
+				node.classList.remove("f14");
+				node.classList.remove("f20");
+				node.classList.remove("f24");
+				node.classList.remove("f36");
+			});
+		}
+		mui.each(mui("font"), function(i, node) {
+			size = node.getAttribute("size");
 			if(!base.IsNullOrEmpty(size)) {
-				node[i].classList.remove("f12");
-				node[i].classList.remove("f14");
-				node[i].classList.remove("f20");
-				node[i].classList.remove("f24");
-				node[i].classList.remove("f36");
+				node.classList.remove("f12");
+				node.classList.remove("f14");
+				node.classList.remove("f20");
+				node.classList.remove("f24");
+				node.classList.remove("f36");
 				switch(size) {
 					case "3":
-						node[i].classList.add("f12");
+						node.classList.add("f12");
 						break;
 					case "4":
-						node[i].classList.add("f14");
+						node.classList.add("f14");
 						break;
 					case "5":
-						node[i].classList.add("f20");
+						node.classList.add("f20");
 						break;
 					case "6":
-						node[i].classList.add("f24");
+						node.classList.add("f24");
 						break;
 					case "7":
-						node[i].classList.add("f36");
+						node.classList.add("f36");
 						break;
 					default:
 						break;
 				}
-				node[i].setAttribute("size", "");
+				node.removeAttribute("size");
 			}
-		};
+		})
+		console.log($edit[0].outerHTML);
 	}
 
 	//添加缓存
 	function InsertPush() {
-		ActionCache.push($("#edit").html());
+		ActionCache.push($edit[0].outerHTML);
 		CurrActionCache = ActionCache.length - 1;
 	}
 </script>

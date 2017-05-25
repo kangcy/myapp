@@ -759,7 +759,9 @@
 			"css/subindex.css",
 			"minjs/mui.previewimage.min.js",
 			"minjs/mui.zoom.min.js",
-			"minjs/update.min.js"
+			"minjs/update.min.js",
+			"js/base.min.js",
+			"js/PullRefresh.min.js"
 		],
 		"refer": [
 			"page/topic.html",
