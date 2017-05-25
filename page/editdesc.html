@@ -572,8 +572,8 @@
 			});
 		}
 		mui.each(mui("font"), function(i, node) {
-			size = node.getAttribute("size");
-			if(!base.IsNullOrEmpty(size)) {
+			if(node.hasAttribute("size")) {
+				size = node.getAttribute("size");
 				node.classList.remove("f12");
 				node.classList.remove("f14");
 				node.classList.remove("f20");
