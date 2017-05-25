@@ -269,10 +269,10 @@
 	var ActionCache = [];
 	var CurrActionCache = -1;
 
-	var $edit = $("#edit");
+	var $edit = base.Get("edit");
 
 	window.onresize = function() {
-		$edit[0].style.height = window.innerHeight - 180 + "px";
+		$edit.style.height = window.innerHeight - 180 + "px";
 	};
 
 	mui.init({
@@ -315,7 +315,7 @@
 			if(CurrActionCache > 0) {
 				CurrActionCache -= 1;
 				base.Get("divedit").innerHTML = ActionCache[CurrActionCache];
-				$edit = $("#edit");
+				$edit = base.Get("edit");
 			} else {
 				CurrActionCache = 0;
 			}
@@ -331,7 +331,7 @@
 			if(CurrActionCache < ActionCache.length - 1) {
 				CurrActionCache += 1;
 				base.Get("divedit").innerHTML = ActionCache[CurrActionCache];
-				$edit = $("#edit");
+				$edit = base.Get("edit");
 			} else {
 				CurrActionCache = ActionCache.length - 1;
 			}
@@ -389,21 +389,21 @@
 		//居左
 		base.Get("btnLeft").addEventListener('tap', function() {
 			InitAlign(this);
-			$edit[0].classList.add("tl");
+			$edit.classList.add("tl");
 			InsertPush();
 		}, false);
 
 		//居中
 		base.Get("btnCenter").addEventListener('tap', function() {
 			InitAlign(this);
-			$edit[0].classList.add("tc");
+			$edit.classList.add("tc");
 			InsertPush();
 		}, false);
 
 		//居右
 		base.Get("btnRight").addEventListener('tap', function() {
 			InitAlign(this);
-			$edit[0].classList.add("tr");
+			$edit.classList.add("tr");
 			InsertPush();
 		}, false);
 
@@ -436,30 +436,34 @@
 				"id": "edit",
 				"contenteditable": "true"
 			});
-			$edit = $("#edit");
+			$edit = base.Get("edit");
 		}
 		InsertPush();
 
-		$edit.css("height", window.innerHeight - 180);
+		$edit.style.height = window.innerHeight - 180 + "px";
 
-		base.Get("edit").focus();
+		$edit.focus();
 
-		if($edit[0].classList.contains("tl")) {
+		if($edit.classList.contains("tl")) {
 			base.Get("menuAlign").classList.add("menuLeft");
 		}
-		if($edit[0].classList.contains("tc")) {
+		if($edit.classList.contains("tc")) {
 			base.Get("menuAlign").classList.add("menuCenter");
 		}
-		if($edit[0].classList.contains("tr")) {
+		if($edit.classList.contains("tr")) {
 			base.Get("menuAlign").classList.add("menuRight");
 		}
 		base.Get("menuAlign").classList.remove("hide");
 
 		//字数限制
-		base.Get("edit").ontouchend = function() {
+		$edit.ontouchend = function() {
 			base.AddClass(["#color", "#bgcolor", "#bold", "#fs", "#align"], "hide");
 			base.RemoveClass([".curr"], "curr");
 			base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
+		}
+
+		$edit.onkeyup = function() {
+			InsertPush();
 		}
 
 		base.Get('muicontent').addEventListener('tap', function(event) {
@@ -469,15 +473,10 @@
 		});
 
 		base.Get('muicontent').addEventListener('longtap', function(event) {
-			console.log("asdfasdf");
 			SelectAll = false;
 			base.Get("all").classList.remove("select");
 			document.execCommand("Unselect");
 		});
-
-		base.Get("edit").onkeyup = function() {
-			InsertPush();
-		}
 
 		//提交
 		base.Get("submit").addEventListener('tap', function(event) {
@@ -492,10 +491,10 @@
 			if(!addarticlePage) {
 				addarticlePage = base.GetView('addarticle');
 			}
-			$edit.removeAttr("id");
-			$edit.removeAttr("contenteditable");
-			$edit.css("height", "auto");
-			addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($edit[0].outerHTML) + "','" + PartID + "')");
+			$edit.removeAttribute("id");
+			$edit.removeAttribute("contenteditable");
+			$edit.style.height = "auto";
+			addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($edit.outerHTML) + "','" + PartID + "')");
 			plus.webview.close("editdesc");
 		}, false);
 	});
@@ -523,7 +522,6 @@
 	//改变样式 
 	function SetStyle(e) {
 		document.activeElement.blur();
-		$("#edit").blur();
 
 		var that = e.target;
 		var type = this.getAttribute("data-type") || "";
@@ -564,7 +562,6 @@
 	//字体大小替换
 	function ChangeFontSize() {
 		var size = "";
-		console.log(SelectAll);
 		if(SelectAll) {
 			mui.each(mui("#edit .f12,#edit .f14,#edit .f20,#edit .f24,#edit .f36"), function(i, node) {
 				node.classList.remove("f12");
@@ -604,12 +601,11 @@
 				node.removeAttribute("size");
 			}
 		})
-		console.log($edit[0].outerHTML);
 	}
 
 	//添加缓存
 	function InsertPush() {
-		ActionCache.push($edit[0].outerHTML);
+		ActionCache.push($edit.outerHTML);
 		CurrActionCache = ActionCache.length - 1;
 	}
 </script>
