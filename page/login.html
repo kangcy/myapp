@@ -113,12 +113,12 @@
 	//跳转首页
 	var toMain = function() {
 		//base.ShowWaiting("登录成功，正在加载");
-		base.OpenWindow("subindex", "subindex.html", {});
+		base.OpenWindow("subindex", "subindex.html", {}, "none");
 
 		mui.later(function() {
 			plus.webview.close("adv");
 			plus.webview.close("guide");
-			//plus.webview.close("login");
+			plus.webview.close("login");
 		}, 2000);
 
 		accountBox.value = "";
@@ -132,8 +132,8 @@
 		var date = new Date();
 		base.Get("copyright").innerHTML = "Copyright © " + (date.getFullYear() - 1) + "-" + date.getFullYear() + " 小微篇版权所有";
 
-		var top = document.getElementById("top");
-		var bottom = document.getElementById("bottom");
+		var top = base.Get("top");
+		var bottom = base.Get("bottom");
 
 		top.style.height = window.innerHeight * 0.7 + "px";
 		center.style.height = window.innerHeight * 0.7 + "px";

@@ -59,7 +59,7 @@
 		if(contentWebview == null) {
 			contentWebview = base.GetView("showhrefsub");
 		}
-		document.getElementById("loader").classList.add("hide");
+		base.Get("loader").classList.add("hide");
 		mui.fire(contentWebview, 'Init', {
 			Link: Link
 		});

@@ -90,9 +90,9 @@
 	mui.init();
 
 	mui.ready(function() {
-		var top = document.getElementById("top");
-		var center = document.getElementById("center");
-		var bottom = document.getElementById("bottom");
+		var top = base.Get("top");
+		var center = base.Get("center");
+		var bottom = base.Get("bottom");
 
 		top.style.height = window.innerHeight * 0.8 + "px";
 		center.style.height = window.innerHeight * 0.8 + "px";
@@ -138,25 +138,25 @@
 	var index = 0;
 
 	function Time(time) {
-		var sec_text = document.getElementById("sec-text");
+		var sec_text = base.Get("sec-text");
 		sec_text.innerHTML = time;
 
 		time = time - 1;
 		//圆环周长
 		var perimeter = Math.round(2 * Math.PI * 20);
-		var n = document.getElementById("sec-circle");
+		var n = base.Get("sec-circle");
 		n.style.strokeDasharray = perimeter;
-		document.getElementById("circle").style.display = "block";
-		document.getElementById("text").style.display = "block";
+		base.Get("circle").style.display = "block";
+		base.Get("text").style.display = "block";
 
 		var t = time;
 		index = setInterval(function() {
 			if(0 == t) {
 				clearInterval(index);
 				if(userinfo == "{}") {
-					base.GetView("login").show(base.ShowAnimate());
+					base.GetView("login").show("zoom-fade-out");
 				} else {
-					plus.webview.show("subindex", base.ShowAnimate(), base.AnimateDuration, function() {
+					plus.webview.show("subindex", "none", 0, function() {
 						mui.later(function() {
 							plus.webview.close("adv");
 							plus.webview.close("guide");

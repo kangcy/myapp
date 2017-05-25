@@ -171,7 +171,7 @@
 		});
 
 		//监听软键盘搜索键
-		document.getElementById("search").addEventListener("keydown", function(e) {
+		base.Get("search").addEventListener("keydown", function(e) {
 			if(13 == e.keyCode) {
 				Search();
 				document.activeElement.blur(); //隐藏软键盘 

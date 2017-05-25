@@ -126,7 +126,7 @@ function EditorClose() {
 //拼接Html 
 function AppendStr(item) {
 	var div = document.createElement('div');
-	div.className = 'mui-table-view-cell bounceInUp';
+	div.className = 'mui-table-view-cell';
 	div.setAttribute("id", "article" + item.Number)
 	var model = [];
 	model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');

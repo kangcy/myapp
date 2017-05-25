@@ -55,7 +55,7 @@
 		base.InitSlider(false);
 
 		//立即体验按钮点击事件 
-		document.getElementById("close").addEventListener('tap', function(event) {
+		base.Get("close").addEventListener('tap', function(event) {
 			plus.storage.setItem("lauchFlag", "true");
 			base.OpenWindow("login", "./login.html", {}, "fade-in");
 		}, false);
