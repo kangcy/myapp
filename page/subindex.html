@@ -139,7 +139,7 @@
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/update.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var $cover = base.Get("cover");
@@ -221,14 +221,10 @@
 
 		//我的相册
 		base.Get("my-mypic").addEventListener('tap', function() {
-			/*base.OpenWindow("pic", "pic.html", {
-				UserNumber: userinfo.Number
-			});*/
-
 			var param = {
 				UserNumber: userinfo.Number
 			}
-			base.ShowTemplate("pic", "pic.html", "相册", JSON.stringify(param));
+			base.ShowTemplate("pic", "pic.html", "我的相册", JSON.stringify(param));
 		});
 
 		//我的打赏
@@ -353,10 +349,11 @@
 				}
 				//打开评论
 				if(param[0] == 1) {
-					base.OpenWindow("articleComment", "articleComment.html", {
+					var param = {
 						ArticleID: param[1],
 						ArticleNumber: param[2]
-					});
+					}
+					base.ShowTemplate("articleComment", "articleComment.html", "评论", JSON.stringify(param));
 				}
 				//打开打赏
 				if(param[0] == 2) {

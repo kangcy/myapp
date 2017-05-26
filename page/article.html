@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/img.preview.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
-	</head>
+	</head> 
 
 	<body>
 		<div class="loading" id="loader">
@@ -57,7 +57,9 @@
 		self.setPullToRefresh({
 			support: true,
 			style: "circle"
-		}, pulldownRefresh);
+		}, function() {
+			pulldownRefresh()
+		});
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);

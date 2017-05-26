@@ -38,10 +38,11 @@ function Gallery() {
 //微篇相册
 function Pic() {
 	mui('#upload').popover('hide');
-	base.OpenWindow("mypic", "mypic.html", {
+	var param = {
 		Source: "customsetting",
 		Multiple: multiple
-	});
+	}
+	base.ShowTemplate("mypic", "mypic.html", "我的相册", JSON.stringify(param));
 }
 
 //我的相册选择图片回调

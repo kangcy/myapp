@@ -13,7 +13,8 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="Confirm()">删除</a>
+			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="Pic()">删除</a>
+			<a class="mui-icon mui-text cfff fr hide" id="mypic" onclick="MyPic()">完成</a>
 			<a class="mui-icon mui-icon-plus fr cfff hide" id="add" onclick="AddUser()"></a>
 			<div class="mui-title cfff" id="title"></div>
 		</header>
@@ -46,7 +47,7 @@
 			}
 			plus.webview.currentWebview().hide("auto", base.AnimateDuration);
 			base.Get("title").innerHTML = "";
-			base.AddClass(["#confirm", "#add"], "hide");
+			base.AddClass(["#pic", "#mypic", "#add"], "hide");
 		}
 	})
 
@@ -101,12 +102,11 @@
 		base.OpenWindow("addfan", "addfan.html", {});
 	}
 
-	function Confirm() {
-		switch(currviewid) {
-			case "pic";
-			base.GetView("pic").evalJS("Confirm()");
-			break;
-		}
+	function Pic() {
+		base.GetView("pic").evalJS("Confirm()");
+	}
 
+	function MyPic() {
+		base.GetView("mypic").evalJS("Confirm()");
 	}
 </script>

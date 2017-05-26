@@ -331,19 +331,21 @@
 
 		//添加评论
 		base.Get('addcomment').addEventListener('tap', function(event) {
-			base.OpenWindow("articleComment", "articleComment.html", {
+			var param = {
 				ArticleID: ArticleID,
 				ArticleNumber: Article.Number,
 				Action: "Add"
-			});
+			}
+			base.ShowTemplate("articleComment", "articleComment.html", "评论", JSON.stringify(param));
 		})
 
 		//文章评论
 		base.Get('comment').addEventListener('tap', function(event) {
-			base.OpenWindow("articleComment", "articleComment.html", {
+			var param = {
 				ArticleID: ArticleID,
 				ArticleNumber: Article.Number
-			});
+			}
+			base.ShowTemplate("articleComment", "articleComment.html", "评论", JSON.stringify(param));
 		});
 
 		//解锁

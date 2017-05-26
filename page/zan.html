@@ -55,7 +55,9 @@
 		self.setPullToRefresh({
 			support: true,
 			style: "circle"
-		}, pulldownRefresh);
+		}, function() {
+			pulldownRefresh()
+		});
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);

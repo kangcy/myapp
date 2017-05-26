@@ -49,10 +49,11 @@ function Gallery() {
 //微篇相册
 function Pic() {
 	mui('#upload').popover('hide');
-	base.OpenWindow("mypic", "mypic.html", {
+	var param = {
 		Source: PageName,
 		Multiple: 1
-	});
+	}
+	base.ShowTemplate("mypic", "mypic.html", "我的相册", JSON.stringify(param));
 }
 
 //加载图片

@@ -210,7 +210,10 @@
 			"test/article.html",
 			"js/base.min.js",
 			"page/black.html",
-			"page/follow.html"
+			"page/follow.html",
+			"page/pic.html",
+			"page/tip.html",
+			"page/article.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
@@ -222,7 +225,10 @@
 			"page/black.html",
 			"page/tip.html",
 			"page/zan.html",
-			"page/addfan.html"
+			"page/addfan.html",
+			"page/pic.html",
+			"page/mypic.html",
+			"page/articleComment.html"
 		]
 	},
 	"page/setting.html": {
@@ -783,7 +789,8 @@
 			"minjs/mui.zoom.min.js",
 			"minjs/update.min.js",
 			"js/base.min.js",
-			"js/PullRefresh.min.js"
+			"js/PullRefresh.min.js",
+			"js/article.min.js"
 		],
 		"refer": [
 			"page/topic.html",
@@ -1757,7 +1764,8 @@
 			"minjs/comment.min.js",
 			"mincss/comment.min.css",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/articleCommentSub.html",
@@ -2053,7 +2061,9 @@
 			"minjs/mui.previewimage.min.js",
 			"minjs/mui.zoom.min.js",
 			"minjs/mui.lazyload.img.min.js",
-			"minjs/mui.lazyload.min.js"
+			"minjs/mui.lazyload.min.js",
+			"minjs/refresh.min.js",
+			"js/refresh.min.js"
 		],
 		"refer": []
 	},
@@ -2597,7 +2607,9 @@
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/refresh.min.js",
+			"js/refresh.min.js"
 		],
 		"refer": []
 	},

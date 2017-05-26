@@ -61,15 +61,16 @@
 		</style>
 	</head>
 
-	<body>
-		<!--操作-->
-		<div id="actionwrapper"></div>
+	<body id="main">
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
 		<div id="scroll-view">
+		</div>
+		<div id="tip" class="tip f11 hide">
+			<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>
 		</div>
 		<div id="none" class="full tc hide">
 			<img src="../images/my/666.png" class="none" id="none_img" />
@@ -90,6 +91,7 @@
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
+	var self = null;
 
 	mui.init({
 		gestureConfig: {
@@ -98,19 +100,11 @@
 	});
 
 	mui.ready(function() {
-		base.GetView("template").evalJS("InitAction('pic',true)");
-
-		var div = document.createElement('div');
-		div.className = 'tip f11 hide';
-		div.setAttribute("id", "tip");
-		div.innerHTML = "<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>";
-		base.Get("main").appendChild(div);
-
 		mui.previewImage();
 	});
 
 	mui.plusReady(function() {
-		var self = plus.webview.currentWebview();
+		self = plus.webview.currentWebview();
 		UserNumber = self.UserNumber || "";
 
 		if(UserNumber != "") {
@@ -120,9 +114,11 @@
 			self.setPullToRefresh({
 				support: true,
 				style: "circle"
-			}, pulldownRefresh(function() {
-				PreviewEnable = true;
-			}));
+			}, function() { 
+				pulldownRefresh(function() {
+					PreviewEnable = true;
+				})
+			});
 
 			//上拉加载
 			document.addEventListener("plusscrollbottom", pullupRefresh, false);
@@ -135,6 +131,8 @@
 		});
 
 		if(UserNumber == userinfo.Number) {
+			base.GetView("template").evalJS("InitAction('pic',true)");
+			
 			//选中切换
 			mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
 				if(PreviewEnable) {
@@ -160,10 +158,12 @@
 		//屏蔽图片预览
 		mui.setPreviewEnable(PreviewEnable);
 		if(PreviewEnable) {
-			base.AddClass([".yescheck,#confirm"], "hide");
+			base.AddClass([".yescheck"], "hide");
+			base.GetView("template").evalJS("InitAction('pic',false)");
 			base.RemoveClass([".thirdfloor"], "nocheck yescheck");
 		} else {
-			base.RemoveClass([".yescheck,#confirm"], "hide");
+			base.RemoveClass([".yescheck"], "hide");
+			base.GetView("template").evalJS("InitAction('pic',true)");
 			base.AddClass([".thirdfloor"], "nocheck");
 			$this.classList.add("yescheck");
 		}
