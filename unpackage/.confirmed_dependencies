@@ -2369,7 +2369,8 @@
 			"page/tipsetting.html",
 			"page/musicsearch.html",
 			"page/adv.html",
-			"page/notice.html"
+			"page/notice.html",
+			"test/webview_pullhead.html"
 		]
 	},
 	"page/money.html": {
@@ -2984,6 +2985,21 @@
 			"mincss/mui.min.css",
 			"js/base.min.js",
 			"minjs/mui.min.js"
+		]
+	},
+	"test/webview_pullrefresh.html": {
+		"resources": [
+			"test/common.css"
+		]
+	},
+	"test/webview_pullhead.html": {
+		"resources": [
+			"test/webview_pullrefresh.html",
+			"test/common.js",
+			"test/common.css"
+		],
+		"refer": [
+			"test/webview_pullrefresh.html"
 		]
 	}
 }

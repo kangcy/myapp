@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../mincss/img.preview.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+	</head>
+
+	<body id="main">
+
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../minjs/mui.pullToRefresh.min.js"></script>
+<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
+<script src="../minjs/PullRefresh.min.js"></script>
+<script src="../minjs/mui.zoom.min.js"></script>
+<script src="../minjs/mui.previewimage.min.js"></script>
+<script src="../minjs/article.min.js"></script>
+<script type="text/javascript">
+	var ArticleType = 0;
+	var CreateUserNumber = "";
+
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
+
+	mui.ready(function() {
+		mui('#main').load("../part/list.html", function(response) {
+			base.Immersed();
+
+			base.Get("none_img").setAttribute("src", "../images/my/444.png");
+			base.Get("none_tip").innerHTML = "这里还没有内容";
+
+			base.InitScroll();
+
+			base.ShowUser("#scroll");
+
+			mui.previewImage();
+		});
+	});
+
+	mui.plusReady(function() {
+
+		var self = plus.webview.currentWebview();
+		ArticleType = self.ArticleType || 0;
+		CreateUserNumber = self.CreateUserNumber || "";
+		Source = self.Source || "List";
+		base.Get("title").innerHTML = self.ArticleTypeName || "列表";
+
+		Init(ArticleType, CreateUserNumber, Source);
+
+		document.addEventListener("plusscrollbottom", function() {
+			console.log("end");
+		}, false);
+	});
+
+	//初始化获取参数
+	function Init(articleType, createUserNumber, source) {
+		base.InitPull("scroll");
+		base.ShowArticle("#scroll", source, userinfo.Number);
+		ArticleAction("#scroll", userinfo);
+	}
+
+	//删除
+	function Delete(id) {
+		base.Get("article" + id).remove();
+	}
+
+	/**
+	 * 加载数据
+	 */
+	function Load(callback) {
+		var table = base.Get('scroll-view');
+		var data = {
+			ID: userinfo.ID,
+			page: currpage,
+			rows: pagesize,
+			TypeID: ArticleType,
+			CreateUserNumber: CreateUserNumber,
+			CurrUserNumber: userinfo.Number
+		};
+		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					var length = data.records;
+					if(length > 0) {
+						base.ShowNone(false);
+						mui.each(data.list, function(index, item) {
+							var div = AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
+							if(table) {
+								table.appendChild(div);
+							}
+						});
+					} else {
+						base.ShowNone(true);
+					}
+				} else {
+					base.ShowNone(true);
+				}
+			}
+			if(data == null && currpage == 1) {
+				base.ShowNone(true);
+			}
+			callback();
+		});
+		base.ShowLoading(false);
+	}
+</script>
