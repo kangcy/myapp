@@ -358,6 +358,18 @@
 
 		//加粗
 		base.Get("menuBold").addEventListener('tap', function(event) {
+			var node = ShowParentNode();
+			mui.each(node, function(i, item) {
+				if(item == "B") {
+					base.Get("btnBold").classList.add("curr");
+				}
+				if(item == "I") {
+					base.Get("btnItalic").classList.add("curr");
+				}
+				if(item == "U") {
+					base.Get("btnUnderline").classList.add("curr");
+				}
+			})
 			base.AddClass(["#color", "#bgcolor", "#align", "#fs"], "hide");
 			base.Get("bold").classList.toggle("hide");
 		}, false);
@@ -546,17 +558,13 @@
 
 	//超链接替换
 	function ChangeLink(link) {
-		var wrap = base.Get("edit");
-		var node = wrap.querySelectorAll("a");
-		var Url = "";
-		for(var i = 0; i < node.length; i++) {
-			Url = node[i].getAttribute("href");
-			if(Url === "placeholder") {
-				node[i].setAttribute("href", "#");
-				node[i].setAttribute("link", link);
-				node[i].classList.add("link");
+		mui.each(mui("#edit a"), function(i, node) {
+			if(node.getAttribute("href") === "placeholder") {
+				node.setAttribute("href", "#");
+				node.setAttribute("link", link);
+				node.classList.add("link");
 			};
-		};
+		});
 	};
 
 	//字体大小替换
@@ -607,5 +615,16 @@
 	function InsertPush() {
 		ActionCache.push($edit.outerHTML);
 		CurrActionCache = ActionCache.length - 1;
+	}
+
+	//选中文字父节点
+	function ShowParentNode() {
+		var tbl = [];
+		var direct = (document.selection && document.selection.createRange) ? document.selection.createRange().parentElement() : window.getSelection().focusNode.parentNode;
+		do {
+			tbl.push(direct.tagName);
+		}
+		while ((direct = direct.parentNode) && (direct !== document.documentElement));
+		return tbl.reverse();
 	}
 </script>
