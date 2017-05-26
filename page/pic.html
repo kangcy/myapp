@@ -87,7 +87,6 @@
 	pagesize = 30;
 	var UserNumber = 0;
 	var PreviewEnable = true; //是否启用图片预览
-	var $confirm = null;
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
@@ -99,9 +98,6 @@
 	});
 
 	mui.ready(function() {
-
-		$confirm = base.Get("confirm");
-
 		base.GetView("template").evalJS("InitAction('pic',true)");
 
 		var div = document.createElement('div');
@@ -118,32 +114,47 @@
 		UserNumber = self.UserNumber || "";
 
 		if(UserNumber != "") {
-			base.InitPull("scroll", function() {
-				PreviewEnable = true;
-			});
+			Init();
 
+			//下拉刷新 
+			self.setPullToRefresh({
+				support: true,
+				style: "circle"
+			}, pulldownRefresh(function() {
+				PreviewEnable = true;
+			}));
+
+			//上拉加载
+			document.addEventListener("plusscrollbottom", pullupRefresh, false);
+		}
+	});
+
+	function Init() {
+		pulldownRefresh(function() {
+			PreviewEnable = true;
+		});
+
+		if(UserNumber == userinfo.Number) {
 			//选中切换
-			mui("#scroll").on('tap', '.thirdfloor', function(event) {
+			mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
 				if(PreviewEnable) {
 					return;
 				}
 				this.classList.toggle("yescheck");
 				if(mui(".yescheck").length > 0) {
-					$confirm.classList.remove("hide");
+					base.GetView("template").evalJS("InitAction('pic',true)");
 				} else {
-					$confirm.classList.add("hide");
+					base.GetView("template").evalJS("InitAction('pic',false)");
 				}
 			});
 
-			if(UserNumber == userinfo.Number) {
-				base.Get("tip").classList.remove("hide");
-				mui("#scroll").on('longtap', '.thirdfloor', function(event) {
-					PreviewEnable = false;
-					Preview(PreviewEnable, this);
-				});
-			}
+			base.Get("tip").classList.remove("hide");
+			mui("#scroll-view").on('longtap', '.thirdfloor', function(event) {
+				PreviewEnable = false;
+				Preview(PreviewEnable, this);
+			});
 		}
-	});
+	}
 
 	function Preview(PreviewEnable, $this) {
 		//屏蔽图片预览
@@ -158,9 +169,7 @@
 		}
 	}
 
-	/**
-	 * 加载数据
-	 */
+	//加载数据
 	function Load(callback) {
 		var data = {
 			page: currpage,
