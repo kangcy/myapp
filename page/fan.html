@@ -13,48 +13,55 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 	</head>
 
-	<body id="main">
-
+	<body>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="scroll-view">
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/111.png" class="none" id="none_img" />
+			<p class="f13 mt10" id="none_tip"></p>
+		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
-<script src="../minjs/PullRefresh.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
-	var name = "我";
 	var UserNumber = "";
+	var self = null;
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		}
-	});
-
-	mui.ready(function() {
-		mui('#main').load("../part/list.html", function(response) {
-			base.Immersed();
-			
-			base.InitScroll();
-		});
-	});
+	mui.init();
 
 	mui.plusReady(function() {
-
-		var self = plus.webview.currentWebview();
-		name = self.Name || "我";
+		self = plus.webview.currentWebview();
+		var name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		name = base.UnUnicodeText(name);
-		base.Get("title").innerHTML = name + "的粉丝";
+		base.GetView("template").evalJS("InitTitle('" + name + "的粉丝" + "')");
 		base.Get("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
 
-		base.InitPull("scroll");
+		Init();
 
-		base.ShowUser("#scroll");
-		base.UserAddFan("#scroll", userinfo);
+		//下拉刷新
+		self.setPullToRefresh({
+			support: true,
+			style: "circle"
+		}, pulldownRefresh);
+
+		//上拉加载
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	});
+
+	function Init() {
+		pulldownRefresh();
+		base.ShowUser("#scroll-view");
+		base.UserAddFan("#scroll-view", userinfo);
+	}
 
 	//关注我的-加载数据
 	function Load(callback) {
@@ -63,7 +70,7 @@
 			rows: pagesize,
 			ToUserNumber: UserNumber
 		}
-		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true,function(item) {
+		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true, function(item) {
 			return base.AppendUser(item, true, true, false, "");
 		}, callback);
 	}

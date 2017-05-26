@@ -287,7 +287,7 @@
 				var all = plus.webview.all();
 				var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
 				for(var i = 0; i < all.length; i++) {
-					if(all[i] === launch || all[i].id === "setting")
+					if(all[i] === launch || all[i].id === "setting" || all[i].id === "template")
 						continue;
 					all[i].hide();
 					all[i].close();

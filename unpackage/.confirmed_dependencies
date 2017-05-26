@@ -48,7 +48,8 @@
 			"page/share.html",
 			"page/subindex.html",
 			"page/guide.html",
-			"page/adv.html"
+			"page/adv.html",
+			"page/template.html"
 		],
 		"priority": 0
 	},
@@ -201,9 +202,28 @@
 			"images/header.png",
 			"fonts/mui.ttf",
 			"js/mui.min.js",
-			"css/mui.min.css"
+			"css/mui.min.css",
+			"test/webview_pullrefresh.html",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"test/article.html",
+			"js/base.min.js",
+			"page/black.html",
+			"page/follow.html"
 		],
-		"refer": []
+		"refer": [
+			"test/webview_pullrefresh.html",
+			"test/article.html",
+			"page/article.html",
+			"page/keep.html",
+			"page/follow.html",
+			"page/fan.html",
+			"page/black.html",
+			"page/tip.html",
+			"page/zan.html",
+			"page/addfan.html"
+		]
 	},
 	"page/setting.html": {
 		"resources": [
@@ -403,7 +423,9 @@
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.previewimage.min.js",
 			"minjs/mui.zoom.min.js",
-			"minjs/article.min.js"
+			"minjs/article.min.js",
+			"js/base.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -1371,7 +1393,8 @@
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.previewimage.min.js",
 			"minjs/mui.zoom.min.js",
-			"minjs/article.min.js"
+			"minjs/article.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -1431,7 +1454,8 @@
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/zanSub.html",
@@ -1476,7 +1500,8 @@
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/fanSub.html",
@@ -2225,7 +2250,8 @@
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/followSub.html",
@@ -2370,7 +2396,8 @@
 			"page/musicsearch.html",
 			"page/adv.html",
 			"page/notice.html",
-			"test/webview_pullhead.html"
+			"test/webview_pullhead.html",
+			"page/template.html"
 		]
 	},
 	"page/money.html": {
@@ -2857,11 +2884,13 @@
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.previewimage.min.js",
 			"minjs/mui.zoom.min.js",
-			"minjs/article.min.js"
+			"minjs/article.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/addfan.html",
-			"page/user.html"
+			"page/user.html",
+			"page/articleComment.html"
 		]
 	},
 	"page/subcomment.html": {
@@ -3000,6 +3029,26 @@
 		],
 		"refer": [
 			"test/webview_pullrefresh.html"
+		]
+	},
+	"test/article.html": {
+		"resources": [
+			"mincss/mui.min.css",
+			"minjs/mui.previewimage.min.js",
+			"minjs/mui.zoom.min.js",
+			"minjs/article.min.js",
+			"images/my/111.png",
+			"test/PullRefresh.min.js",
+			"mincss/img.preview.min.css",
+			"mincss/animate.min.css",
+			"mincss/loading.min.css",
+			"minjs/base.min.js",
+			"minjs/mui.min.js",
+			"test/common.css",
+			"js/base.min.js",
+			"images/article/power0.png",
+			"images/article/power1.png",
+			"minjs/PullRefresh.min.js"
 		]
 	}
 }

@@ -196,33 +196,39 @@
 
 		//我的文章
 		base.Get("my-articles").addEventListener('tap', function() {
-			base.OpenWindow("article", "article.html", {
+			var param = {
 				CreateUserNumber: userinfo.Number,
 				ArticleTypeName: "我的动态",
 				Source: "My"
-			});
+			}
+			base.ShowTemplate("article", "article.html", "我的动态", JSON.stringify(param));
 		});
 
 		//我的收藏
 		base.Get("my-keeps").addEventListener('tap', function() {
-			base.OpenWindow("keep", "keep.html", {});
+			base.ShowTemplate("keep", "keep.html", "", "");
 		});
 
 		//我的关注
 		base.Get("my-follows").addEventListener('tap', function() {
-			base.OpenWindow("follow", "follow.html", {});
+			base.ShowTemplate("follow", "follow.html", "", "");
 		});
 
 		//我的粉丝
 		base.Get("my-fans").addEventListener('tap', function() {
-			base.OpenWindow("fan", "fan.html", {});
+			base.ShowTemplate("fan", "fan.html", "", "");
 		});
 
 		//我的相册
 		base.Get("my-mypic").addEventListener('tap', function() {
-			base.OpenWindow("pic", "pic.html", {
+			/*base.OpenWindow("pic", "pic.html", {
 				UserNumber: userinfo.Number
-			});
+			});*/
+
+			var param = {
+				UserNumber: userinfo.Number
+			}
+			base.ShowTemplate("pic", "pic.html", "相册", JSON.stringify(param));
 		});
 
 		//我的打赏
@@ -237,7 +243,7 @@
 
 		//给个好评
 		base.Get("my-good").addEventListener('tap', function() {
-			var url = "http://app.qq.com/#id=detail&appid=1106027124"; //应用的appstore地址
+			var url = "http://app.qq.com/#id=detail&appid=1106027124";
 			plus.runtime.openURL(url);
 		});
 
@@ -270,7 +276,7 @@
 
 		//好友动态
 		base.Get("my-tip").addEventListener('tap', function() {
-			base.OpenWindow("tip", "tip.html", {});
+			base.ShowTemplate("tip", "tip.html", "关注", "");
 		});
 	});
 

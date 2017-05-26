@@ -13,8 +13,18 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 	</head>
 
-	<body id="main">
-
+	<body>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="scroll-view">
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/111.png" class="none" id="none_img" />
+			<p class="f13 mt10" id="none_tip">加入黑名单的用户将无法浏览你的专栏</p>
+		</div>
 	</body>
 
 </html>
@@ -23,34 +33,20 @@
 <script type="text/javascript">
 	var totalpage = 0;
 	var records = 0;
-	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
-		mui('#main').load("../part/list.html", function(response) {
-			base.Immersed();
-			
-			base.Get("title").innerHTML = "黑名单";
-			base.Get("none_tip").innerHTML = "加入黑名单的用户将无法浏览你的专栏";
-
-			base.InitScroll();
-
-			Load();
-		});
+		Load();
 	});
 
 	mui.plusReady(function() {
 
-		base.ShowUser("#scroll");
+		base.ShowUser("#scroll-view");
 
 		//取消拉黑
-		mui("#scroll").on('tap', '.mui-btn', function(event) {
+		mui("#scroll-view").on('tap', '.mui-btn', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
@@ -85,11 +81,12 @@
 	});
 
 	//我的拉黑
-	function Load(callback) { 
+	function Load(callback) {
+		base.Get('scroll-view').innerHTML = "";
 		var data = {
 			CreateUserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Black/All", data, true, true,function(item) {
+		LoadPull(base.RootUrl + "Api/Black/All", data, true, true, function(item) {
 			return base.AppendUser(item, true, false, true, "移除黑名单");
 		}, callback);
 	}

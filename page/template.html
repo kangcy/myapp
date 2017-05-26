@@ -8,28 +8,27 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/animate.min.css">
-		<link rel="stylesheet" href="../mincss/img.preview.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 	</head>
 
-	<body id="main">
-
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="background:#fff;">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="Confirm()">删除</a>
+			<a class="mui-icon mui-icon-plus fr cfff hide" id="add" onclick="AddUser()"></a>
+			<div class="mui-title cfff" id="title"></div>
+		</header>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
-<script src="../minjs/PullRefresh.min.js"></script>
-<script src="../minjs/mui.zoom.min.js"></script>
-<script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
-	var ArticleType = 0;
-	var CreateUserNumber = "";
-
+	var tempview = null;
+	var currview = null;
+	var currviewid = "";
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -37,87 +36,73 @@
 	});
 
 	mui.ready(function() {
-		mui('#main').load("../part/list.html", function(response) {
-			base.Immersed();
-
-			base.Get("none_img").setAttribute("src", "../images/my/444.png");
-			base.Get("none_tip").innerHTML = "这里还没有内容";
-
-			base.InitScroll();
-
-			base.ShowUser("#scroll");
-
-			mui.previewImage();
-		});
+		base.Immersed();
 	});
 
 	mui.plusReady(function() {
-
-		var self = plus.webview.currentWebview();
-		ArticleType = self.ArticleType || 0;
-		CreateUserNumber = self.CreateUserNumber || "";
-		Source = self.Source || "List";
-		base.Get("title").innerHTML = self.ArticleTypeName || "列表";
-
-		Init(ArticleType, CreateUserNumber, Source);
-
-		document.addEventListener("plusscrollbottom", function() {
-			console.log("end");
-		}, false);
-	});
-
-	//初始化获取参数
-	function Init(articleType, createUserNumber, source) {
-		base.InitPull("scroll");
-		base.ShowArticle("#scroll", source, userinfo.Number);
-		ArticleAction("#scroll", userinfo);
-	}
-
-	//删除
-	function Delete(id) {
-		base.Get("article" + id).remove();
-	}
-
-	/**
-	 * 加载数据
-	 */
-	function Load(callback) {
-		var table = base.Get('scroll-view');
-		var data = {
-			ID: userinfo.ID,
-			page: currpage,
-			rows: pagesize,
-			TypeID: ArticleType,
-			CreateUserNumber: CreateUserNumber,
-			CurrUserNumber: userinfo.Number
-		};
-		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
-			data = JSON.parse(data);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					totalpage = data.totalpage;
-					var length = data.records;
-					if(length > 0) {
-						base.ShowNone(false);
-						mui.each(data.list, function(index, item) {
-							var div = AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
-							if(table) {
-								table.appendChild(div);
-							}
-						});
-					} else {
-						base.ShowNone(true);
-					}
-				} else {
-					base.ShowNone(true);
-				}
+		mui.back = function() {
+			if(currview != null) {
+				tempview.remove(currview); //移除子页面
 			}
-			if(data == null && currpage == 1) {
-				base.ShowNone(true);
-			}
-			callback();
+			plus.webview.currentWebview().hide("auto", base.AnimateDuration);
+			base.Get("title").innerHTML = "";
+			base.AddClass(["#confirm", "#add"], "hide");
+		}
+	})
+
+	//加载子页面
+	function InitPage(id, url, title, param) {
+		if(!base.IsNullOrEmpty(title)) {
+			base.Get("title").innerHTML = title;
+		}
+		if(base.IsNullOrEmpty(param)) {
+			param = {};
+		} else {
+			param = JSON.parse(param);
+		}
+		tempview = plus.webview.currentWebview();
+
+		/*tempview.setStyle({
+			mask: "rgba(0,0,0,0.5)"
 		});
-		base.ShowLoading(false);
+		// 点击关闭遮罩层
+		tempview.addEventListener("maskClick", function() {
+			tempview.setStyle({
+				mask: "none"
+			});
+		}, false);*/
+
+		currview = plus.webview.create(url, id, {
+			top: base.Get("header").clientHeight + "px",
+			bottom: "0px",
+			bounce: "vertical",
+			scrollIndicator: "none"
+		}, param);
+		tempview.append(currview);
+	}
+
+	//重置标题
+	function InitTitle(title) {
+		base.Get("title").innerHTML = title;
+	}
+
+	//重置操作
+	function InitAction(id) {
+		currviewid = id;
+		base.Get(id).classList.remove("hide");
+	}
+
+	//添加关注
+	function AddUser() {
+		base.OpenWindow("addfan", "addfan.html", {});
+	}
+
+	function Confirm() {
+		switch(currviewid) {
+			case "pic";
+			base.GetView("pic").evalJS("Confirm()");
+			break;
+		}
+
 	}
 </script>

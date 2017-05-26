@@ -128,22 +128,24 @@
 
 	//粉丝
 	function Fan() {
-		base.OpenWindow("fan", "fan.html", {});
+		base.ShowTemplate("fan", "fan.html", "", "");
 	}
 
 	//喜欢
 	function Zan() {
-		base.OpenWindow("zan", "zan.html", {});
+		base.ShowTemplate("zan", "zan.html", "", "");
 	}
 
 	//评论
 	function Comment() {
-		base.OpenWindow("comment", "comment.html", {});
+		base.ShowTemplate("comment", "comment.html", "", "");
+		//base.OpenWindow("comment", "comment.html", {});
 	}
 
 	//打赏
 	function Pay() {
-		base.OpenWindow("pay", "pay.html", {});
+		base.ShowTemplate("pay", "pay.html", "", "");
+		//base.OpenWindow("pay", "pay.html", {});
 	}
 
 	//更新
@@ -188,6 +190,7 @@
 
 	//下拉
 	function Pull() {
-		base.OpenWindow("pull", "../test/webview_pullhead.html", {});
+		//base.OpenWindow("pull", "../test/webview_pullhead.html", {});
+		base.OpenWindow("pull", "template.html", {});
 	}
 </script>

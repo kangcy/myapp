@@ -28,6 +28,8 @@
 			preload_guide();
 		}
 
+		preload_template();
+
 		if(showGuide) {
 			base.GetView("adv").show("zoom-fade-out");
 		} else {
@@ -54,6 +56,21 @@
 			url: 'page/guide.html',
 			styles: {
 				popGesture: 'hide'
+			},
+			show: {
+				autoShow: false
+			}
+		});
+	}
+
+	//预加载	-模板页	
+	function preload_template() {
+		mui.preload({
+			id: 'template',
+			url: 'page/template.html',
+			styles: {
+				popGesture: 'hide',
+				zindex: 10000
 			},
 			show: {
 				autoShow: false
