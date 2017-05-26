@@ -87,9 +87,13 @@
 	}
 
 	//重置操作
-	function InitAction(id) {
+	function InitAction(id, show) {
 		currviewid = id;
-		base.Get(id).classList.remove("hide");
+		if(show) {
+			base.Get(id).classList.remove("hide");
+		} else {
+			base.Get(id).classList.add("hide");
+		}
 	}
 
 	//添加关注
