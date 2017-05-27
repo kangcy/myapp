@@ -15,8 +15,6 @@
 	</head>
 
 	<body>
-		<!--操作-->
-		<div id="actionwrapper"></div>
 		<!--更新进度条-->
 		<div id="updatewrapper"></div>
 		<!--图片操作-->
@@ -285,13 +283,11 @@
 
 		ArticleAction("#slider", userinfo);
 
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#slider').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber);
-			});
+		mui('#slider').on('tap', '.tanaction', function() {
+			var number = this.getAttribute("articleNumber");
+			var id = this.getAttribute("articleId");
+			var usernumber = this.getAttribute("articleUserNumber");
+			ActionTan(true, number, id, usernumber);
 		});
 
 		var previewImage = mui.previewImage({

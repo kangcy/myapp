@@ -13,9 +13,9 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav" style="background:#fff;">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="Pic()">删除</a>
-			<a class="mui-icon mui-text cfff fr hide" id="mypic" onclick="MyPic()">完成</a>
-			<a class="mui-icon mui-icon-plus fr cfff hide" id="add" onclick="AddUser()"></a>
+			<a class="mui-icon mui-text cfff fr hide" id="pic">删除</a>
+			<a class="mui-icon mui-text cfff fr hide" id="mypic">完成</a>
+			<a class="mui-icon mui-icon-plus fr cfff hide" id="addfan" onclick="AddUser()"></a>
 			<div class="mui-title cfff" id="title"></div>
 		</header>
 	</body>
@@ -26,10 +26,7 @@
 <script type="text/javascript">
 	var tempview = null;
 	var currview = null;
-	var currviewid = "";
-	var mask = base.CreateMask(false, function() {
-		base.CloseWaiting();
-	});
+
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -46,8 +43,10 @@
 				tempview.remove(currview); //移除子页面
 			}
 			plus.webview.currentWebview().hide("auto", base.AnimateDuration);
-			base.Get("title").innerHTML = "";
-			base.AddClass(["#pic", "#mypic", "#add"], "hide");
+			mui.later(function() {
+				base.Get("title").innerHTML = "";
+				base.AddClass(["#pic", "#mypic", "#add"], "hide");
+			}, base.AnimateDuration)
 		}
 	})
 
@@ -63,16 +62,6 @@
 		}
 		tempview = plus.webview.currentWebview();
 
-		/*tempview.setStyle({
-			mask: "rgba(0,0,0,0.5)"
-		});
-		// 点击关闭遮罩层
-		tempview.addEventListener("maskClick", function() {
-			tempview.setStyle({
-				mask: "none"
-			});
-		}, false);*/
-
 		currview = plus.webview.create(url, id, {
 			top: base.Get("header").clientHeight + "px",
 			bottom: "0px",
@@ -80,6 +69,25 @@
 			scrollIndicator: "none"
 		}, param);
 		tempview.append(currview);
+
+		//点击关闭遮罩层
+		tempview.addEventListener("maskClick", function() {
+			tempview.setStyle({
+				mask: "none"
+			});
+		}, false);
+
+		//事件监听
+		if(id == "pic") {
+			base.Get("pic").addEventListener("tap", function() {
+				currview.evalJS("Confirm()");
+			}, false);
+		}
+		if(id == "mypic") {
+			base.Get("mypic").addEventListener("tap", function() {
+				currview.evalJS("Confirm()");
+			}, false);
+		}
 	}
 
 	//重置标题
@@ -89,7 +97,6 @@
 
 	//重置操作
 	function InitAction(id, show) {
-		currviewid = id;
 		if(show) {
 			base.Get(id).classList.remove("hide");
 		} else {
@@ -97,16 +104,21 @@
 		}
 	}
 
+	//遮罩层
+	function Mask(show) {
+		if(show) {
+			tempview.setStyle({
+				mask: "rgba(0,0,0,0.6)"
+			});
+		} else {
+			tempview.setStyle({
+				mask: "none"
+			});
+		}
+	}
+
 	//添加关注
 	function AddUser() {
 		base.OpenWindow("addfan", "addfan.html", {});
-	}
-
-	function Pic() {
-		base.GetView("pic").evalJS("Confirm()");
-	}
-
-	function MyPic() {
-		base.GetView("mypic").evalJS("Confirm()");
 	}
 </script>

@@ -88,9 +88,7 @@
 	pagesize = 30;
 	var UserNumber = 0;
 	var PreviewEnable = true; //是否启用图片预览
-	var mask = base.CreateMask(false, function() {
-		base.CloseWaiting();
-	});
+	var $template = null;
 	var self = null;
 
 	mui.init({
@@ -104,6 +102,7 @@
 	});
 
 	mui.plusReady(function() {
+		$template = base.GetView("template");
 		self = plus.webview.currentWebview();
 		UserNumber = self.UserNumber || "";
 
@@ -114,10 +113,10 @@
 			self.setPullToRefresh({
 				support: true,
 				style: "circle"
-			}, function() { 
-				pulldownRefresh(function() {
-					PreviewEnable = true;
-				})
+			}, function() {
+				PreviewEnable = true;
+				$template.evalJS("InitAction('pic',false)");
+				pulldownRefresh();
 			});
 
 			//上拉加载
@@ -132,7 +131,7 @@
 
 		if(UserNumber == userinfo.Number) {
 			base.GetView("template").evalJS("InitAction('pic',true)");
-			
+
 			//选中切换
 			mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
 				if(PreviewEnable) {
@@ -140,9 +139,9 @@
 				}
 				this.classList.toggle("yescheck");
 				if(mui(".yescheck").length > 0) {
-					base.GetView("template").evalJS("InitAction('pic',true)");
+					$template.evalJS("InitAction('pic',true)");
 				} else {
-					base.GetView("template").evalJS("InitAction('pic',false)");
+					$template.evalJS("InitAction('pic',false)");
 				}
 			});
 
@@ -150,6 +149,7 @@
 			mui("#scroll-view").on('longtap', '.thirdfloor', function(event) {
 				PreviewEnable = false;
 				Preview(PreviewEnable, this);
+
 			});
 		}
 	}
@@ -159,11 +159,11 @@
 		mui.setPreviewEnable(PreviewEnable);
 		if(PreviewEnable) {
 			base.AddClass([".yescheck"], "hide");
-			base.GetView("template").evalJS("InitAction('pic',false)");
+			$template.evalJS("InitAction('pic',false)");
 			base.RemoveClass([".thirdfloor"], "nocheck yescheck");
 		} else {
 			base.RemoveClass([".yescheck"], "hide");
-			base.GetView("template").evalJS("InitAction('pic',true)");
+			$template.evalJS("InitAction('pic',true)");
 			base.AddClass([".thirdfloor"], "nocheck");
 			$this.classList.add("yescheck");
 		}
@@ -212,8 +212,7 @@
 				return;
 			}
 			if(e.index == 0) {
-				mask.show();
-				base.ShowWaiting("正在删除");
+				base.Waiting(true, "正在删除");
 				var ids = [];
 				mui.each(check, function(i, item) {
 					ids.push(item.getAttribute("pid"));
@@ -224,7 +223,7 @@
 					},
 					function(data) {
 						mui.later(function() {
-							mask.close();
+							base.Waiting(false);
 							if(data != null) {
 								if(data.result) {
 									PreviewEnable = true;

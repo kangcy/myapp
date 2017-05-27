@@ -75,8 +75,6 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<!--操作-->
-		<div id="actionwrapper"></div>
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
@@ -129,7 +127,6 @@
 	var pagesize = base.PageSize;
 	var parentPage = null;
 	var userinfo = base.GetUserInfo();
-	var PageName = "searchSub";
 
 	var search = base.Get("search");
 
@@ -143,15 +140,6 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#slider2').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber);
-			});
-		});
-
 		base.InitScroll();
 
 		base.InitSlider(false);
@@ -163,6 +151,13 @@
 		base.ShowArticle("#slider", "List", userinfo.Number);
 
 		ArticleAction("#slider", userinfo);
+
+		mui('#slider2').on('tap', '.tanaction', function() {
+			var number = this.getAttribute("articleNumber");
+			var id = this.getAttribute("articleId");
+			var usernumber = this.getAttribute("articleUserNumber");
+			ActionTan(true, number, id, usernumber);
+		});
 
 		//切换
 		mui("#slider").on('tap', '.mui-control-item', function(event) {

@@ -181,8 +181,8 @@
 			var self = this;
 			self.loader.classList.add($.className('active'));
 			//移动位置动画
-			imgEl.style.webkitTransitionDuration = '0.5s';
-			imgEl.addEventListener('webkitTransitionEnd', self._imgTransitionEnd.bind(self));
+			//imgEl.style.webkitTransitionDuration = '0.5s';
+			//imgEl.addEventListener('webkitTransitionEnd', self._imgTransitionEnd.bind(self));
 			//imgEl.style.webkitTransform = 'translate3d(0,0,0) scale(' + itemData.sScale + ')';
 			this.loadImage(imgEl, function() {
 				itemData.loaded = true;

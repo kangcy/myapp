@@ -14,8 +14,6 @@
 	</head>
 
 	<body>
-		<!--操作-->
-		<div id="actionwrapper"></div>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
@@ -31,24 +29,36 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var self = null;
-	var PageName = "tip";
-
 	mui.init();
 
 	mui.plusReady(function() {
-
-		base.GetView("template").evalJS("InitAction('add',true)");
+		self = plus.webview.currentWebview();
+		base.GetView("template").evalJS("InitAction('addfan',true)");
 
 		Init();
 
-		self = plus.webview.currentWebview();
+		mui.previewImage();
+	});
+
+	//初始化
+	function Init() {
+		pulldownRefresh();
+		base.ShowArticle("#scroll-view", "List", userinfo.Number);
+		base.ShowUser("#scroll-view");
+		ArticleAction("#scroll-view", userinfo);
+		mui('#scroll-view').on('tap', '.tanaction', function() {
+			var number = this.getAttribute("articleNumber");
+			var id = this.getAttribute("articleId");
+			var usernumber = this.getAttribute("articleUserNumber");
+			ActionTan(true, number, id, usernumber);
+		});
 
 		//下拉刷新
 		self.setPullToRefresh({
@@ -60,32 +70,6 @@
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
-
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#scroll-view').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber);
-			});
-		});
-
-		mui.previewImage({
-			callback1: function(img) {
-
-			},
-			callback2: function(img) {
-
-			}
-		});
-	});
-
-	//初始化
-	function Init() {
-		pulldownRefresh();
-		base.ShowArticle("#scroll-view", "List", userinfo.Number);
-		base.ShowUser("#scroll-view");
-		ArticleAction("#scroll-view", userinfo);
 	}
 
 	/**

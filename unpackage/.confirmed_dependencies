@@ -228,7 +228,8 @@
 			"page/addfan.html",
 			"page/pic.html",
 			"page/mypic.html",
-			"page/articleComment.html"
+			"page/articleComment.html",
+			"page/pay.html"
 		]
 	},
 	"page/setting.html": {
@@ -498,7 +499,8 @@
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/paySub.html"
@@ -1401,7 +1403,9 @@
 			"minjs/mui.previewimage.min.js",
 			"minjs/mui.zoom.min.js",
 			"minjs/article.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"js/article.min.js",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -2063,7 +2067,8 @@
 			"minjs/mui.lazyload.img.min.js",
 			"minjs/mui.lazyload.min.js",
 			"minjs/refresh.min.js",
-			"js/refresh.min.js"
+			"js/refresh.min.js",
+			"js/base.min.js"
 		],
 		"refer": []
 	},
@@ -2647,7 +2652,8 @@
 			"mincss/loading.min.css",
 			"mincss/img.preview.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/user.html",
@@ -2897,7 +2903,8 @@
 			"minjs/mui.previewimage.min.js",
 			"minjs/mui.zoom.min.js",
 			"minjs/article.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/addfan.html",

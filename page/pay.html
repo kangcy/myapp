@@ -59,38 +59,50 @@
 		</style>
 	</head>
 
-	<body id="main">
-
+	<body>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="scroll-view">
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/555.png" class="none" id="none_img" />
+			<p class="f13 mt10" id="none_tip">分享出去才有被赞赏的机会</p>
+		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
-<script src="../minjs/PullRefresh.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		}
+	var self = null;
+	mui.init();
+
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+
+		Init();
 	});
 
-	mui.ready(function() {
+	function Init() {
+		pulldownRefresh();
 
-		mui('#main').load("../part/list.html", function(response) {
-			base.Immersed();
-			
-			base.Get("title").innerHTML = "赞赏";
-			base.Get("none_img").setAttribute("src", "../images/my/555.png");
-			base.Get("none_tip").innerHTML = "分享出去才有被赞赏的机会";
-			base.InitScroll();
+		base.ShowUser("#scroll-view");
 
-			base.InitPull("scroll");
-
-			base.ShowUser("#scroll");
+		//下拉刷新
+		self.setPullToRefresh({
+			support: true,
+			style: "circle"
+		}, function() {
+			pulldownRefresh()
 		});
-	});
+
+		//上拉加载
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+	}
 
 	//加载数据
 	function Load(callback) {
