@@ -235,7 +235,8 @@
 			"page/notice.html",
 			"page/user.html",
 			"page/setting.html",
-			"page/accountsetting.html"
+			"page/accountsetting.html",
+			"page/subindex.html"
 		]
 	},
 	"page/setting.html": {
@@ -798,7 +799,8 @@
 			"minjs/update.min.js",
 			"js/base.min.js",
 			"js/PullRefresh.min.js",
-			"js/article.min.js"
+			"js/article.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/topic.html",

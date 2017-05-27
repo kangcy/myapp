@@ -19,7 +19,7 @@
 		<div id="updatewrapper"></div>
 		<!--图片操作-->
 		<div id="uploadwrapper"></div>
-		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable" style="overflow:auto;">
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 			<!--侧滑菜单部分-->
 			<aside id="offCanvasSide" class="mui-off-canvas-left mui-transitioning">
 				<div class="cover fl" id="cover">
@@ -90,7 +90,7 @@
 			</aside>
 
 			<!--主界面部分-->
-			<div class="mui-inner-wrap mui-transitioning" style="background:#fff;overflow:auto;">
+			<div class="mui-inner-wrap mui-transitioning" style="background:#fff;">
 				<header class="mui-bar mui-bar-nav cfff" id="header">
 					<img id="avatar2" src="../images/logo.png" style="width:30px;margin-top:5px;border-radius:100%;" />
 					<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
@@ -101,18 +101,24 @@
 						<span class="circles-loader"></span>
 					</div>
 				</div>
-				<div id="divBanner">
-					<div id="banner"></div>
-				</div>
-				<div id="scroll-view" style="padding-bottom:3rem;">
-				</div>
-				<div id="none" class="full tc hide">
-					<img src="../images/my/444.png" class="none" id="none_img" />
-					<p class="f13 mt10" id="none_tip">这里还没有内容</p>
-				</div>
-				<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom">
-					<div id="add">
-						<div class="f13" id="btnAdd">制作我的文章</div>
+				<div id="offCanvasContentScroll" class="mui-content">
+					<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:3rem;background:#fff;">
+						<div class="mui-scroll" id="slider">
+							<div id="divBanner">
+								<div id="banner"></div>
+							</div>
+							<div id="scroll-view">
+							</div>
+							<div id="none" class="full tc hide">
+								<img src="../images/my/444.png" class="none" id="none_img" />
+								<p class="f13 mt10" id="none_tip">这里还没有内容</p>
+							</div>
+						</div>
+					</div>
+					<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom">
+						<div id="add">
+							<div class="f13" id="btnAdd">制作我的文章</div>
+						</div>
 					</div>
 				</div>
 				<!-- 遮罩层 -->
@@ -125,7 +131,9 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
+<script src="../minjs/mui.pullToRefresh.min.js"></script>
+<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
+<script src="../minjs/PullRefresh.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/update.min.js"></script>
@@ -137,7 +145,6 @@
 	var Cover = "";
 	var Avatar = "";
 	var FirstLoad = true; //首次加载
-	var self = null;
 
 	mui.init({
 		gestureConfig: {
@@ -146,13 +153,7 @@
 	});
 
 	mui.ready(function() {
-
-		document.addEventListener("swiperight", function() {
-			console.log("swiperight");
-		})
-
 		base.Immersed();
-		base.Get("scroll-view").style.paddingTop = base.Get("header").clientHeight + "px";
 
 		var name = base.BrowserName();
 		base.Get("btnAdd").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
@@ -170,9 +171,11 @@
 
 		LoadUser();
 
-		base.ShowUser("#scroll-view");
+		base.ShowUser("#slider");
 
-		base.ShowArticle("#scroll-view", "List", userinfo.Number);
+		base.ShowArticle("#slider", "List", userinfo.Number);
+
+		base.InitScroll(true);
 
 		//用户封面
 		$cover.addEventListener('tap', function() {
@@ -274,25 +277,13 @@
 	var backButtonPress = 0;
 
 	mui.plusReady(function() {
-		self = plus.webview.currentWebview();
 		plus.navigator.setFullscreen(false);
 
-		Load();
+		base.InitPull("slider");
 
-		//下拉刷新
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
+		ArticleAction("#slider", userinfo);
 
-		//上拉加载
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
-
-		ArticleAction("#scroll-view", userinfo);
-
-		mui('#scroll-view').on('tap', '.tanaction', function() {
+		mui('#slider').on('tap', '.tanaction', function() {
 			var number = this.getAttribute("articleNumber");
 			var id = this.getAttribute("articleId");
 			var usernumber = this.getAttribute("articleUserNumber");

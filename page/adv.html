@@ -156,13 +156,15 @@
 				if(userinfo == "{}") {
 					base.GetView("login").show("zoom-fade-out");
 				} else {
-					plus.webview.show("subindex", "none", 0, function() {
+					/*plus.webview.show("subindex", "none", 0, function() {
 						mui.later(function() {
 							plus.webview.close("adv");
 							plus.webview.close("guide");
 							plus.webview.close("login");
 						}, base.AnimateDuration);
-					}, {});
+					}, {});*/
+
+					base.ShowTemplate("subindex", "subindex.html", "", "", "", "0px");
 				}
 			} else {
 				var e = Math.round((t - 1) / time * perimeter);
