@@ -26,6 +26,7 @@
 <script type="text/javascript">
 	var tempview = null;
 	var currview = null;
+	var appendview = [];
 
 	mui.init({
 		gestureConfig: {
@@ -38,44 +39,49 @@
 	});
 
 	mui.plusReady(function() {
+		tempview = plus.webview.currentWebview();
 		mui.back = function() {
-
 			var list = tempview.children();
 			if(list.length > 0) {
 				tempview.remove(currview);
-				currview.close();
+				if(currview)
+					currview.close();
 			}
 			if(list.length == 1) {
 				tempview.hide("auto", base.AnimateDuration);
+				appendview = [];
 				mui.later(function() {
 					base.Get("title").innerHTML = "";
-					base.Get("header").removeAttribute("immersed");
 					base.AddClass(["#pic", "#mypic", "#addfan"], "hide");
 				}, base.AnimateDuration)
+			} else {
+				currview = base.GetView(appendview[list.length - 2].id);
 			}
 		}
 	})
 
 	//加载子页面
-	function InitPage(id, url, title, param) {
-		var top = base.Get("header").clientHeight + "px";
-		if(url == "user.html") {
-			top = "0px";
-		}
-		base.Immersed();
+	function InitPage(id, url, title, param, top) {
+		appendview.push({
+			id: id,
+			url: url,
+			title: title
+		});
 
-		if(!base.IsNullOrEmpty(title)) {
+		var inittop = base.Get("header").clientHeight + "px";
+		if(!top) {
 			base.Get("title").innerHTML = title;
+		} else {
+			inittop = top;
 		}
 		if(base.IsNullOrEmpty(param)) {
 			param = {};
 		} else {
 			param = JSON.parse(param);
 		}
-		tempview = plus.webview.currentWebview();
 
 		currview = plus.webview.create(url, id, {
-			top: top,
+			top: inittop,
 			bottom: "0px",
 			bounce: "vertical",
 			scrollIndicator: "none"

@@ -215,13 +215,13 @@
 			if(black) {
 				black.evalJS("Load()");
 			}
-			return true; 
+			return true;
 		}
 	});
 
 	mui.ready(function() {
 		base.Immersed();
-		
+
 		base.Get("bg2").style.minHeight = window.innerWidth * 0.7 + "px";
 		$bg.style.minHeight = window.innerWidth + "px";
 		$bg.style.background = "#eee";
@@ -511,7 +511,7 @@
 		var param = {
 			UserNumber: UserNumber
 		}
-		base.ShowTemplate("pic", "pic.html", base.UnUnicodeText(NickName) + "的相册", JSON.stringify(param));
+		base.ShowTemplate("pic", "pic.html", base.UnUnicodeText(NickName) + "的相册", JSON.stringify(param), "0px");
 	}
 
 	//打赏

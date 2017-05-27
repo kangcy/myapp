@@ -222,15 +222,15 @@
 			var param = {
 				UserNumber: userinfo.Number
 			}
-			base.ShowTemplate("pic", "pic.html", "我的相册", JSON.stringify(param));
+			base.ShowTemplate("pic", "pic.html", "我的相册", JSON.stringify(param), "0px");
 		});
 
 		//我的打赏
 		base.Get("my-mypay").addEventListener('tap', function() {
 			base.OpenWindow("mypay", "mypay.html", {});
-		});
+		}); 
 
-		//我的反馈
+		//我的反馈 
 		base.Get("my-feedback").addEventListener('tap', function() {
 			base.OpenWindow("feedback", "feedback.html", {});
 		});
