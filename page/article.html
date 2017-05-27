@@ -29,11 +29,11 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../js/article.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
 	var CreateUserNumber = "";
@@ -73,7 +73,7 @@
 		base.ShowUser("#scroll-view");
 	}
 
-	//删除 
+	//删除  
 	function Delete(id) {
 		base.Get("article" + id).remove();
 	}

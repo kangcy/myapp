@@ -150,35 +150,41 @@
 				<div class="c333 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
 			</div>
 		</div>
-		<div class="info-content" id="bg">
-			<div style="position:absolute;width:100%;bottom:0px;" id="bg2">
-				<img id="avatar" src="../images/avatar.png" />
-				<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
-				<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
-				<p class="secret tc mt5 mb15 f12 cfff textshadow">
-					<span class="hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="f13" id="showFollowNum">0</span></span>
-					<span class="hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="f13" id="showFanNum">0</span></span>
-					<span class="hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="f13" id="showArticleNum">0</span></span>
-				</p>
-				<div class="full tc mb20 hide" id="action">
-					<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
-					<div class="dashang f14" onclick="Payment()">打赏</div>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
+				<div class="mui-scroll" id="scroll">
+					<div class="info-content" id="bg">
+						<div style="position:absolute;width:100%;bottom:0px;" id="bg2">
+							<img id="avatar" src="../images/avatar.png" />
+							<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
+							<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
+							<p class="secret tc mt5 mb15 f12 cfff textshadow">
+								<span class="hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="f13" id="showFollowNum">0</span></span>
+								<span class="hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="f13" id="showFanNum">0</span></span>
+								<span class="hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="f13" id="showArticleNum">0</span></span>
+							</p>
+							<div class="full tc mb20 hide" id="action">
+								<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
+								<div class="dashang f14" onclick="Payment()">打赏</div>
+							</div>
+						</div>
+					</div>
+					<div id="article" class="hide f13 c999 full">
+						<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
+						<div id="a_list">
+						</div>
+						<div id="mynone" class="mb20 hide">
+							<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
+							<div class="tc cfff mt20 submit" id="add">去发布</div>
+						</div>
+						<div id="none" class="mb20 hide">
+							<p class="full tc f13 c333 mt50">暂未发表过动态</p>
+						</div>
+					</div>
+					<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
 				</div>
 			</div>
 		</div>
-		<div id="article" class="hide f13 c999 full">
-			<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
-			<div id="a_list">
-			</div>
-			<div id="mynone" class="mb20 hide">
-				<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
-				<div class="tc cfff mt20 submit" id="add">去发布</div>
-			</div>
-			<div id="none" class="mb20 hide">
-				<p class="full tc f13 c333 mt50">暂未发表过动态</p>
-			</div>
-		</div>
-		<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
 	</body>
 
 </html>
@@ -215,24 +221,27 @@
 			if(black) {
 				black.evalJS("Load()");
 			}
-			return true; 
+			return true;
 		}
 	});
 
 	mui.ready(function() {
 		base.Immersed();
-		
+
 		base.Get("bg2").style.minHeight = window.innerWidth * 0.7 + "px";
 		$bg.style.minHeight = window.innerWidth + "px";
 		$bg.style.background = "#eee";
 		$bg.style.backgroundSize = "cover";
 
-		var num = 0;
+		base.InitScroll();
+
 		var browserName = base.BrowserName();
+		var num = 0;
+		var scroll = mui("#scroll-wrapper").scroll();
 		var $header = base.Get("header");
-		//滚动监听、背景色渐变
-		window.addEventListener('scroll', function(e) {
-			num = window.pageYOffset / 200;
+		//背景色渐变
+		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
+			num = -scroll.y / 200;
 			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 		});
 
@@ -248,14 +257,6 @@
 				mui('#upload').popover('show');
 			});
 		});
-
-		//返回顶部
-		base.Get("header").addEventListener("doubletap", function() {
-			if(base.RepeatAction()) {
-				return;
-			}
-			currview.evalJS("Top()");
-		}, false);
 	});
 
 	mui.plusReady(function() {
@@ -509,7 +510,7 @@
 	function Pic() {
 		mui('#power').popover('toggle');
 		var param = {
-			UserNumber: UserNumber
+			UserNumber: UserNumber 
 		}
 		base.ShowTemplate("pic", "pic.html", base.UnUnicodeText(NickName) + "的相册", JSON.stringify(param));
 	}

@@ -11,7 +11,7 @@
 	</head>
 
 	<body>
-		<header id="header" class="mui-bar mui-bar-nav" style="background:#fff;">
+		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<a class="mui-icon mui-text cfff fr hide" id="pic">删除</a>
 			<a class="mui-icon mui-text cfff fr hide" id="mypic">完成</a>
@@ -22,7 +22,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var tempview = null;
 	var currview = null;
@@ -39,19 +39,31 @@
 
 	mui.plusReady(function() {
 		mui.back = function() {
-			if(currview != null) {
-				tempview.remove(currview); //移除子页面
+
+			var list = tempview.children();
+			if(list.length > 0) {
+				tempview.remove(currview);
+				currview.close();
 			}
-			plus.webview.currentWebview().hide("auto", base.AnimateDuration);
-			mui.later(function() {
-				base.Get("title").innerHTML = "";
-				base.AddClass(["#pic", "#mypic", "#add"], "hide");
-			}, base.AnimateDuration)
+			if(list.length == 1) {
+				tempview.hide("auto", base.AnimateDuration);
+				mui.later(function() {
+					base.Get("title").innerHTML = "";
+					base.Get("header").removeAttribute("immersed");
+					base.AddClass(["#pic", "#mypic", "#addfan"], "hide");
+				}, base.AnimateDuration)
+			}
 		}
 	})
 
 	//加载子页面
 	function InitPage(id, url, title, param) {
+		var top = base.Get("header").clientHeight + "px";
+		if(url == "user.html") {
+			top = "0px";
+		}
+		base.Immersed();
+
 		if(!base.IsNullOrEmpty(title)) {
 			base.Get("title").innerHTML = title;
 		}
@@ -63,7 +75,7 @@
 		tempview = plus.webview.currentWebview();
 
 		currview = plus.webview.create(url, id, {
-			top: base.Get("header").clientHeight + "px",
+			top: top,
 			bottom: "0px",
 			bounce: "vertical",
 			scrollIndicator: "none"
@@ -80,14 +92,28 @@
 		//事件监听
 		if(id == "pic") {
 			base.Get("pic").addEventListener("tap", function() {
+				if(base.RepeatAction()) {
+					return;
+				}
 				currview.evalJS("Confirm()");
 			}, false);
 		}
 		if(id == "mypic") {
 			base.Get("mypic").addEventListener("tap", function() {
+				if(base.RepeatAction()) {
+					return;
+				}
 				currview.evalJS("Confirm()");
 			}, false);
 		}
+
+		//返回顶部
+		base.Get("header").addEventListener("doubletap", function() {
+			if(base.RepeatAction()) {
+				return;
+			}
+			currview.evalJS("Top()");
+		}, false);
 	}
 
 	//重置标题

@@ -213,7 +213,9 @@
 			"page/follow.html",
 			"page/pic.html",
 			"page/tip.html",
-			"page/article.html"
+			"page/article.html",
+			"page/notice.html",
+			"page/user.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
@@ -229,7 +231,9 @@
 			"page/pic.html",
 			"page/mypic.html",
 			"page/articleComment.html",
-			"page/pay.html"
+			"page/pay.html",
+			"page/notice.html",
+			"page/user.html"
 		]
 	},
 	"page/setting.html": {
