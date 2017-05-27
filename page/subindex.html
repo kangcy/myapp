@@ -222,13 +222,13 @@
 			var param = {
 				UserNumber: userinfo.Number
 			}
-			base.ShowTemplate("pic", "pic.html", "我的相册", JSON.stringify(param), "0px");
+			base.ShowTemplate("pic", "pic.html", "我的相册", JSON.stringify(param), "", "0px");
 		});
 
 		//我的打赏
 		base.Get("my-mypay").addEventListener('tap', function() {
 			base.OpenWindow("mypay", "mypay.html", {});
-		}); 
+		});
 
 		//我的反馈 
 		base.Get("my-feedback").addEventListener('tap', function() {
@@ -255,7 +255,7 @@
 
 		//系统设置
 		base.Get("my-setting").addEventListener('tap', function() {
-			base.OpenWindow("setting", "setting.html", {});
+			base.ShowTemplate("setting", "setting.html", "通用设置", "", "", "0px");
 		});
 
 		//打开侧滑
@@ -270,7 +270,7 @@
 
 		//好友动态
 		base.Get("my-tip").addEventListener('tap', function() {
-			base.ShowTemplate("tip", "tip.html", "关注", "");
+			base.ShowTemplate("tip", "tip.html", "好友动态", "");
 		});
 	});
 

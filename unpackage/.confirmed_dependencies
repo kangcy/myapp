@@ -233,7 +233,9 @@
 			"page/articleComment.html",
 			"page/pay.html",
 			"page/notice.html",
-			"page/user.html"
+			"page/user.html",
+			"page/setting.html",
+			"page/accountsetting.html"
 		]
 	},
 	"page/setting.html": {

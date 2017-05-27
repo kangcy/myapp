@@ -42,7 +42,7 @@
 		tempview = plus.webview.currentWebview();
 		mui.back = function() {
 			var list = tempview.children();
-			if(list.length > 0) {
+			if(list.length > 1) {
 				tempview.remove(currview);
 				if(currview)
 					currview.close();
@@ -53,6 +53,9 @@
 				mui.later(function() {
 					base.Get("title").innerHTML = "";
 					base.AddClass(["#pic", "#mypic", "#addfan"], "hide");
+					tempview.remove(currview);
+					if(currview)
+						currview.close();
 				}, base.AnimateDuration)
 			} else {
 				currview = base.GetView(appendview[list.length - 2].id);
@@ -67,13 +70,13 @@
 			url: url,
 			title: title
 		});
-
 		var inittop = base.Get("header").clientHeight + "px";
-		if(!top) {
+		if(top == "undefined") {
 			base.Get("title").innerHTML = title;
 		} else {
 			inittop = top;
 		}
+
 		if(base.IsNullOrEmpty(param)) {
 			param = {};
 		} else {

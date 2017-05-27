@@ -14,6 +14,10 @@
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">黑名单</h1>
+		</header>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
@@ -38,6 +42,7 @@
 	mui.init();
 
 	mui.ready(function() {
+		base.Immersed();
 		Load();
 	});
 
