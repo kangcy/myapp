@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-menu mui-icon mui-icon-bars mui-pull-left"></a>
+			<a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a>
+			<h1 class="mui-title">off canvas（侧滑导航）</h1>
+		</header>
+
+		<div class="mui-content-padded" style="margin-top:100px;" id="scroll-view">
+			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
+				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
+				<span class="android-only">4、Android手机按menu键；</span>
+			</p>
+			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
+				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
+				<span class="android-only">4、Android手机按menu键；</span>
+			</p>
+			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
+				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
+				<span class="android-only">4、Android手机按menu键；</span>
+			</p>
+			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
+				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
+				<span class="android-only">4、Android手机按menu键；</span>
+			</p>
+			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
+				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
+				<span class="android-only">4、Android手机按menu键；</span>
+			</p>
+			<p style="padding: 5px 20px;margin-bottom: 5px;">
+				<button id="show-btn" type="button" class="mui-btn mui-btn-primary mui-btn-block" style="padding: 10px;">
+						显示侧滑菜单
+					</button>
+			</p>
+			<p>侧滑菜单的移动动画，支持多种效果，切换如下选项体验不同动画效果：</p>
+
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="../js/refresh.min.js"></script>
+<script>
+	var isScroll = false; //是否滚动
+	var isSwipeRight = false; //是否右滑
+	var main, menu, mask = mui.createMask(_closeMenu);
+	var showMenu = false;
+	var self = null;
+
+	mui.init({
+		beforeback: back
+	});
+
+	function back() {
+		if(showMenu) {
+			closeMenu();
+			return false;
+		} else {
+			menu.close('none');
+			return true;
+		}
+	}
+
+	mui.plusReady(function() {
+		main = plus.webview.currentWebview();
+		self = main;
+
+		//下拉刷新
+		self.setPullToRefresh({
+			support: true,
+			style: "circle"
+		}, function() {
+			pulldownRefresh()
+		});
+
+		//上拉加载
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+
+		mui.later(function() {
+			//侧滑菜单默认隐藏，这样可以节省内存；
+			menu = mui.preload({
+				id: 'menu',
+				url: 'menu.html',
+				styles: {
+					left: 0,
+					width: '70%',
+					zindex: 9999
+				}
+			});
+		}, 300)
+
+		window.addEventListener('scroll', function(e) {
+			if(isScroll) {
+				return;
+			}
+			isScroll = true;
+		});
+
+		window.addEventListener('dragend', function(e) {
+			if(isScroll) {
+				isScroll = false;
+				return;
+			}
+			if(isSwipeRight) {
+				openMenu();
+			}
+		});
+	});
+	
+	function Load(callback){
+		if(callback){
+			callback();
+		}
+	}
+ 
+	//显示菜单菜单
+	function openMenu() {
+		if(!showMenu) {
+			menu.show('none', 0, function() {
+				main.setStyle({
+					left: '70%',
+					transition: {
+						duration: 150
+					}
+				});
+			});
+			mask.show();
+			showMenu = true;
+		}
+	}
+
+	//关闭侧滑菜单
+	function closeMenu() {
+		isScroll = false;
+		isSwipeRight = false;
+		_closeMenu();
+		mask.close();
+	}
+
+	//关闭侧滑菜单（业务部分）
+	function _closeMenu() {
+		if(showMenu) {
+			main.setStyle({
+				left: '0',
+				transition: {
+					duration: 150
+				}
+			});
+			mui.later(function() {
+				menu.hide();
+			}, 200)
+			showMenu = false;
+		}
+	}
+
+	window.addEventListener('dragright', function(e) {
+		e.detail.gesture.preventDefault();
+	});
+	window.addEventListener('dragleft', function(e) {
+		e.detail.gesture.preventDefault();
+	});
+	//主界面向右滑动
+	window.addEventListener("swiperight", function() {
+		isSwipeRight = true;
+	});
+
+	window.addEventListener("swipeleft", closeMenu);
+
+	//menu页面向左滑动，关闭菜单
+	window.addEventListener("menu:swipeleft", closeMenu);
+
+	//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
+	mui.menu = function() {
+		if(showMenu) {
+			closeMenu();
+		} else {
+			openMenu();
+		}
+	}
+</script>

@@ -215,7 +215,8 @@
 			"page/tip.html",
 			"page/article.html",
 			"page/notice.html",
-			"page/user.html"
+			"page/user.html",
+			"page/subindex.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
@@ -2420,7 +2421,8 @@
 			"page/adv.html",
 			"page/notice.html",
 			"test/webview_pullhead.html",
-			"page/template.html"
+			"page/template.html",
+			"test/main.html"
 		]
 	},
 	"page/money.html": {
@@ -2986,7 +2988,8 @@
 			"page/money.html",
 			"page/articledetail.html",
 			"page/articleComment.html",
-			"page/user.html"
+			"page/user.html",
+			"test/main.html"
 		]
 	},
 	"page/article_link.html": {
@@ -3076,6 +3079,24 @@
 			"images/article/power0.png",
 			"images/article/power1.png",
 			"minjs/PullRefresh.min.js"
+		]
+	},
+	"test/main.html": {
+		"resources": [
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"minjs/base.min.js",
+			"minjs/refresh.min.js",
+			"js/refresh.min.js",
+			"js/base.min.js"
+		],
+		"refer": [
+			"test/menu.html"
+		]
+	},
+	"test/menu.html": {
+		"resources": [
+			"mincss/mui.min.css"
 		]
 	}
 }
