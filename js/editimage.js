@@ -66,7 +66,8 @@ function Gallery() {
 //微篇相册
 function Pic() {
 	mui('#upload').popover('hide');
-	base.ShowTemplate("mypic", "mypic.html", "我的相册", "");
+	base.OpenWindow("mypic", "mypic.html", {});
+	//base.ShowTemplate("mypic", "mypic.html", "我的相册", "");
 }
 
 //照片裁剪类  

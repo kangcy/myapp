@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/subindex.min.css">
+	</head>
+
+	<body>
+		<div class="cover fl" id="cover">
+			<div class="info">
+				<div class="left mb10">
+					<img id="avatar" src="../images/avatar.png" />
+				</div>
+				<div class="right tl mb10">
+					<p class="cfff nickname f15 textshadow mt10 bold" id="nickname"></p>
+					<p class="cfff signature mt5 f12 textshadow" id="signature"></p>
+				</div>
+				<div style="width:90%;margin:0px 5%;height:4rem;" class="fl" id="info">
+					<div class="content1 tc cfff fl fullheight mt0 fl">
+						<div class="items" id="my-articles">
+							<p class="item1 f16 blue" id="articles">0</p>
+							<p class="item2 f12 c999">动态</p>
+						</div>
+						<div class="items" id="my-keeps">
+							<p class="item1 f16 blue" id="keeps">0</p>
+							<p class="item2 f12 c999">收藏</p>
+						</div>
+						<div class="items" id="my-follows">
+							<p class="item1 f16 blue" id="follows">0</p>
+							<p class="item2 f12 c999">关注</p>
+						</div>
+						<div class="items" id="my-fans">
+							<p class="item1 f16 blue" id="fans">0</p>
+							<p class="item2 f12 c999">粉丝</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mui-scroll-wrapper" id="my-wrapper">
+			<div class="mui-scroll">
+				<div class="mui-content-padded">
+
+					<div class="c333 menu f12" id="my-tip">
+						好友动态
+					</div>
+					<div class="c333 menu f12" id="my-mypic">
+						我的相册
+					</div>
+					<div class="c333 menu f12" id="my-mypay">
+						我的打赏
+					</div>
+					<div class="c333 menu f12" id="my-msg">
+						消息中心
+					</div>
+				</div>
+				<div class="splitline"></div>
+				<div class="mui-content-padded">
+					<div class="c333 menu f12" id="my-feedback">
+						意见反馈
+					</div>
+					<div class="c333 menu f12" id="my-good">
+						给个好评
+					</div>
+					<div class="c333 menu f12" id="my-help">
+						帮助中心
+					</div>
+					<div class="c333 menu f12" id="my-setting">
+						设置
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script type="text/javascript">
+	var $cover = base.Get("cover");
+	var PageName = "subindex";
+	var Cover = "";
+	var Avatar = "";
+	var self = null;
+	var userinfo = base.GetUserInfo();
+
+	mui.init({
+		keyEventBind: {
+			backbutton: false,
+			menubutton: false
+		}
+	});
+
+	mui.ready(function() {
+		base.Immersed();
+		base.InitScroll();
+
+		//用户封面
+		$cover.addEventListener('tap', function() {
+			base.OpenWindow("editimage", "editimage.html", {
+				Url: userinfo.Cover,
+				Source: "UserCover",
+				Standard: "UserCover",
+				Title: "封面"
+			});
+		});
+
+		//用户设置
+		base.Get("avatar").addEventListener('tap', function() {
+			console.log("avatar")
+			base.OpenWindow("mysetting", "mysetting.html", {});
+		});
+
+		//我的文章
+		base.Get("my-articles").addEventListener('tap', function() {
+			/*var param = {
+				CreateUserNumber: userinfo.Number,
+				ArticleTypeName: "我的动态",
+				Source: "My"
+			}
+			base.ShowTemplate("article", "article.html", "我的动态", JSON.stringify(param));*/
+			base.OpenWindow("article", "article.html", {
+				CreateUserNumber: userinfo.Number,
+				ArticleTypeName: "我的动态",
+				Source: "My"
+			});
+		});
+
+		//我的收藏
+		base.Get("my-keeps").addEventListener('tap', function() {
+			/*base.ShowTemplate("keep", "keep.html", "", "");*/
+			base.OpenWindow("keep", "keep.html", {});
+		});
+
+		//我的关注
+		base.Get("my-follows").addEventListener('tap', function() {
+			/*base.ShowTemplate("follow", "follow.html", "", "");*/
+			base.OpenWindow("follow", "follow.html", {});
+		});
+
+		//我的粉丝
+		base.Get("my-fans").addEventListener('tap', function() {
+			/*base.ShowTemplate("fan", "fan.html", "", "");*/
+			base.OpenWindow("fan", "fan.html", {});
+		});
+
+		//我的相册
+		base.Get("my-mypic").addEventListener('tap', function() {
+			/*var param = {
+				UserNumber: userinfo.Number
+			}
+			base.ShowTemplate("pic", "pic.html", "我的相册", JSON.stringify(param), "", "0px");*/
+			base.OpenWindow("pic", "pic.html", {
+				UserNumber: userinfo.Number
+			})
+		});
+
+		//我的打赏
+		base.Get("my-mypay").addEventListener('tap', function() {
+			base.OpenWindow("mypay", "mypay.html", {});
+		});
+
+		//我的反馈 
+		base.Get("my-feedback").addEventListener('tap', function() {
+			base.OpenWindow("feedback", "feedback.html", {});
+		});
+
+		//给个好评
+		base.Get("my-good").addEventListener('tap', function() {
+			var url = "http://app.qq.com/#id=detail&appid=1106027124";
+			plus.runtime.openURL(url);
+		});
+
+		//帮助中心
+		base.Get("my-help").addEventListener('tap', function() {
+			base.OpenWindow("help", "help.html", {});
+		});
+
+		//消息
+		base.Get("my-msg").addEventListener('tap', function() {
+			base.OpenWindow("tipsetting", "tipsetting.html", {
+				Source: "My"
+			});
+		});
+
+		//系统设置
+		base.Get("my-setting").addEventListener('tap', function() {
+			//base.ShowTemplate("setting", "setting.html", "通用设置", "", "", "0px");
+			base.OpenWindow("setting", "setting.html", {})
+		});
+
+		//好友动态
+		base.Get("my-tip").addEventListener('tap', function() {
+			/*base.ShowTemplate("tip", "tip.html", "好友动态", "");*/
+			base.OpenWindow("tip", "tip.html", {})
+		});
+	});
+
+	var backButtonPress = 0;
+	var main = null;
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+		main = base.GetView("subindex");
+
+		LoadUser();
+
+		//优化显示出来的侧滑菜单，只需监听该菜单的左滑事件，然后将其关闭即可；在菜单上右滑，不做任何操作；
+		window.addEventListener("swipeleft", closeMenu);
+
+		mui.menu = closeMenu;
+	});
+
+	function closeMenu() {
+		mui.fire(main, "menu:swipeleft");
+	}
+
+	//服务器加载用户信息
+	function LoadUser() {
+		base.UpdateUser(userinfo.Number, function(data) {
+			userinfo = data;
+			Init();
+		});
+	}
+
+	//初始化绑定用户信息
+	function Init() {
+		if(userinfo.Cover != Cover) {
+			$cover.style.background = "url(" + base.ShowThumb(userinfo.Cover, 1) + ") center center no-repeat";
+			$cover.style.backgroundSize = "cover";
+		}
+		if(userinfo.Avatar != Avatar) {
+			base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 2));
+			base.GetView("subindex").evalJS("Avartar('" + base.ShowThumb(userinfo.Avatar, 2) + "')");
+		}
+		base.Get("nickname").innerHTML = base.UnUnicodeText(userinfo.NickName);
+		base.Get("signature").innerHTML = base.UnUnicodeText(userinfo.Signature);
+
+		base.Get("follows").innerHTML = userinfo.Follows;
+		base.Get("fans").innerHTML = userinfo.Fans;
+		base.Get("articles").innerHTML = userinfo.Articles;
+		base.Get("keeps").innerHTML = userinfo.Keeps;
+		base.Get("my-wrapper").style.top = base.Get("cover").clientHeight + (base.Get("info").clientHeight / 2) + 20 + "px";
+
+		Cover = userinfo.Cover;
+		Avatar = userinfo.Avatar;
+	}
+
+	//更新本地用户信息
+	function Refresh() {
+		userinfo = base.GetUserInfo();
+		Init();
+	}
+
+	//修改封面		 
+	function UpdateCover(url) {
+		if(userinfo.Cover == url) {
+			return;
+		}
+		HttpGet(base.RootUrl + "User/EditCover", {
+			ID: userinfo.ID,
+			Cover: url
+		}, function(data) {
+			if(data.result) {
+				$cover.style.background = "url(" + base.ShowThumb(url, 1) + ") fixed center center no-repeat";
+				$cover.style.backgroundSize = "cover";
+
+				userinfo.Cover = url;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			} else {
+				mui.toast(data.message);
+			}
+		});
+	}
+</script>

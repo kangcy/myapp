@@ -156,16 +156,19 @@
 				if(userinfo == "{}") {
 					base.GetView("login").show("zoom-fade-out");
 				} else {
-					/*plus.webview.show("subindex", "none", 0, function() {
-						mui.later(function() {
-							plus.webview.close("adv");
-							plus.webview.close("guide");
-							plus.webview.close("login");
-						}, base.AnimateDuration);
-					}, {});*/
+					plus.webview.show("subindex", base.ShowAnimate(), base.AnimateDuration, function() {
+						plus.webview.close("adv");
+						plus.webview.close("guide");
+						plus.webview.close("login");
+					}, {});
 
 					//base.ShowTemplate("subindex", "subindex.html", "", "", "", "0px");
-					base.OpenWindow("test","../test/main.html",{});
+					/*base.OpenWindow("subindex", "subindex.html", {});
+					mui.later(function() {
+						plus.webview.close("adv");
+						plus.webview.close("guide");
+						plus.webview.close("login");
+					}, base.AnimateDuration);*/
 				}
 			} else {
 				var e = Math.round((t - 1) / time * perimeter);

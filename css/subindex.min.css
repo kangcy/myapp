@@ -64,12 +64,11 @@ body {
 	text-align: center;
 	position: relative;
 	height: 13rem;
-	z-index: -1;
 }
 
 .cover .info {
 	position: absolute;
-	bottom: 2.5rem;
+	bottom: -2rem;
 	left: 0px;
 }
 

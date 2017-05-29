@@ -8,55 +8,61 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../mincss/img.preview.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/subindex.min.css">
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-menu mui-icon mui-icon-bars mui-pull-left"></a>
-			<a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a>
-			<h1 class="mui-title">off canvas（侧滑导航）</h1>
+		<!--更新进度条-->
+		<div id="updatewrapper"></div>
+		<!--图片操作-->
+		<div id="uploadwrapper"></div>
+		<header class="mui-bar mui-bar-nav cfff" id="header">
+			<img id="avatar2" src="../images/logo.png" style="width:30px;margin-top:5px;border-radius:100%;" />
+			<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
+			<h1 class="mui-title cfff">发现</h1>
 		</header>
-
-		<div class="mui-content-padded" style="margin-top:100px;" id="scroll-view">
-			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
-				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
-				<span class="android-only">4、Android手机按menu键；</span>
-			</p>
-			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
-				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
-				<span class="android-only">4、Android手机按menu键；</span>
-			</p>
-			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
-				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
-				<span class="android-only">4、Android手机按menu键；</span>
-			</p>
-			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
-				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
-				<span class="android-only">4、Android手机按menu键；</span>
-			</p>
-			<p>这是webview模式右滑导航示例，主页面和菜单在不同的webview中， 优点是支持菜单内容在多页面的复用，缺点是不支持拖动手势（跟手）； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面快速向右滑动（swipe）； 2、点击页面左上角的
-				<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
-				<span class="android-only">4、Android手机按menu键；</span>
-			</p>
-			<p style="padding: 5px 20px;margin-bottom: 5px;">
-				<button id="show-btn" type="button" class="mui-btn mui-btn-primary mui-btn-block" style="padding: 10px;">
-						显示侧滑菜单
-					</button>
-			</p>
-			<p>侧滑菜单的移动动画，支持多种效果，切换如下选项体验不同动画效果：</p>
-
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="divBanner">
+			<div id="banner"></div>
+		</div>
+		<div id="scroll-view">
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/444.png" class="none" id="none_img" />
+			<p class="f13 mt10" id="none_tip">这里还没有内容</p>
+		</div>
+		<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom" style="background:#fff;">
+			<div id="add">
+				<div class="f13" id="btnAdd">制作我的文章</div>
+			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
-<script src="../js/refresh.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
+<script src="../minjs/mui.zoom.min.js"></script>
+<script src="../minjs/mui.previewimage.min.js"></script>
+<script src="../minjs/update.min.js"></script>
+<script src="../js/article.min.js"></script>
+<script src="../js/addarticle.js"></script>
 <script>
 	var isScroll = false; //是否滚动
 	var isSwipeRight = false; //是否右滑
 	var main, menu, mask = mui.createMask(_closeMenu);
 	var showMenu = false;
+	var PageName = "subindex";
+	var Cover = "";
+	var Avatar = "";
+	var FirstLoad = true; //首次加载
 	var self = null;
 
 	mui.init({
@@ -73,9 +79,20 @@
 		}
 	}
 
+	mui.ready(function() {
+		base.Immersed();
+
+		base.Get("scroll-view").style.paddingTop = base.Get("header").clientHeight + "px";
+
+		var name = base.BrowserName();
+		base.Get("btnAdd").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+	})
+
 	mui.plusReady(function() {
 		main = plus.webview.currentWebview();
 		self = main;
+
+		Load();
 
 		//下拉刷新
 		self.setPullToRefresh({
@@ -91,8 +108,8 @@
 		mui.later(function() {
 			//侧滑菜单默认隐藏，这样可以节省内存；
 			menu = mui.preload({
-				id: 'menu',
-				url: 'menu.html',
+				id: 'my',
+				url: '../page/my.html',
 				styles: {
 					left: 0,
 					width: '70%',
@@ -118,13 +135,100 @@
 			}
 		});
 	});
-	
-	function Load(callback){
-		if(callback){
-			callback();
-		}
+
+	/**
+	 * 加载数据
+	 */
+	function Load(callback) {
+		var data = {
+			CurrUserNumber: userinfo.Number,
+			page: currpage,
+			rows: pagesize
+		};
+		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					base.ShowLoading(false);
+					base.Get("none").classList.add("hide");
+					var table = base.Get('scroll-view');
+					mui.each(data.list, function(i, item) {
+						var div = AppendArticle(userinfo.Number, item, false, false, false);
+						if(table) {
+							table.appendChild(div);
+						}
+					})
+
+				} else {
+					base.ShowLoading(false);
+					base.Get("none").classList.remove("hide");
+				}
+			}
+			if(data == null && currpage == 1) {
+				base.ShowLoading(false);
+				base.Get("none").classList.remove("hide");
+			}
+
+			if(FirstLoad) {
+				base.Get("bottom").classList.remove("hide");
+				base.Get("bottom").classList.add("zoomIn");
+				base.Get("scroll-view").style.paddingBottom = base.Get("bottom").clientHeight + "px";
+			}
+			FirstLoad = false;
+			if(callback) {
+				callback();
+			}
+		});
 	}
- 
+
+	function LoadBanner() {
+		HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
+			if(data != null) {
+				var length = data.records;
+				if(length > 0) {
+					$("#divBanner").css("height", "8.8rem");
+					var banner = $("#banner");
+					var bannerHtml = [];
+					bannerHtml.push('<div class="mui-slider-group mui-slider-group2 mui-slider-loop">');
+					for(var j = 0, len = length; j < len; j++) {
+						if(j == 0 || j == length - 1) {
+							bannerHtml.push('<div class="mui-slider-item mui-slider-item-duplicate">');
+						} else {
+							bannerHtml.push('<div class="mui-slider-item">');
+						}
+						bannerHtml.push('<a href="' + data.list[j].Link + '"><img src="' + data.list[j].Cover + '"></a></div>');
+					}
+					bannerHtml.push('</div>');
+					bannerHtml.push('<div class="mui-slider-indicator">');
+					for(var j = 0, len = length - 2; j < len; j++) {
+						if(j == 0) {
+							bannerHtml.push('<div class="mui-indicator mui-active"></div>');
+						} else {
+							bannerHtml.push('<div class="mui-indicator"></div>');
+						}
+					}
+					bannerHtml.push('</div>');
+					banner.append(bannerHtml.join(""));
+					banner.addClass("mui-slider");
+					banner.css({
+						"height": "8rem",
+						"top": "0px"
+					});
+
+					mui("#banner").slider({
+						interval: 5000
+					});
+				}
+			}
+		});
+	}
+
+	function Avartar(url) {
+		base.Get("avatar2").setAttribute("src", url);
+	}
+
 	//显示菜单菜单
 	function openMenu() {
 		if(!showMenu) {

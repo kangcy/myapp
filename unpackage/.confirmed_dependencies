@@ -351,7 +351,18 @@
 			"images/login/logo.png",
 			"images/my/menu06.png",
 			"images/loading.gif",
-			"js/addarticle2.js"
+			"js/addarticle2.js",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"mincss/animate.min.css",
+			"mincss/subindex.min.css",
+			"mincss/img.preview.min.css",
+			"mincss/loading.min.css",
+			"images/my/menu07.png",
+			"images/my/menu08.png",
+			"images/avatar.png",
+			"css/subindex.css"
 		],
 		"refer": [
 			"page/pay.html",
@@ -801,7 +812,8 @@
 			"js/base.min.js",
 			"js/PullRefresh.min.js",
 			"js/article.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/topic.html",
@@ -3088,10 +3100,21 @@
 			"minjs/base.min.js",
 			"minjs/refresh.min.js",
 			"js/refresh.min.js",
-			"js/base.min.js"
+			"js/base.min.js",
+			"js/article.min.js",
+			"minjs/update.min.js",
+			"minjs/mui.previewimage.min.js",
+			"minjs/mui.zoom.min.js",
+			"js/addarticle.js",
+			"mincss/subindex.min.css",
+			"mincss/img.preview.min.css",
+			"mincss/animate.min.css",
+			"mincss/loading.min.css",
+			"images/logo.png"
 		],
 		"refer": [
-			"test/menu.html"
+			"test/menu.html",
+			"page/my.html"
 		]
 	},
 	"test/menu.html": {

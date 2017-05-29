@@ -336,7 +336,8 @@
 				ArticleNumber: Article.Number,
 				Action: "Add"
 			}
-			base.ShowTemplate("articleComment", "articleComment.html", "评论", JSON.stringify(param));
+			base.OpenWindow("articleComment", "articleComment.html", param);
+			//base.ShowTemplate("articleComment", "articleComment.html", "评论", JSON.stringify(param));
 		})
 
 		//文章评论

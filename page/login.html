@@ -145,7 +145,8 @@
 
 		//跳转用户协议页
 		base.Get('notice').addEventListener('tap', function(event) {
-			base.ShowTemplate("notice", "notice.html", "小微篇服务协议", "", "zoom-fade-out");
+			base.OpenWindow("notice", "notice.html", {}, "zoom-fade-out");
+			//base.ShowTemplate("notice", "notice.html", "小微篇服务协议", "", "zoom-fade-out");
 		});
 	})
 

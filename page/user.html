@@ -508,10 +508,14 @@
 	//查看相册
 	function Pic() {
 		mui('#power').popover('toggle');
-		var param = {
+		/*var param = {
 			UserNumber: UserNumber
 		}
-		base.ShowTemplate("pic", "pic.html", base.UnUnicodeText(NickName) + "的相册", JSON.stringify(param), "", "0px");
+		base.ShowTemplate("pic", "pic.html", base.UnUnicodeText(NickName) + "的相册", JSON.stringify(param), "", "0px");*/
+		base.OpenWindow("pic", "pic.html", {
+			UserNumber: UserNumber,
+			Title: base.UnUnicodeText(NickName) + "的相册"
+		});
 	}
 
 	//打赏

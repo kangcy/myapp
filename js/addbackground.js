@@ -42,7 +42,8 @@ function Pic() {
 		Source: "customsetting",
 		Multiple: multiple
 	}
-	base.ShowTemplate("mypic", "mypic.html", "我的相册", JSON.stringify(param));
+	base.OpenWindow("mypic", "mypic.html", param);
+	//base.ShowTemplate("mypic", "mypic.html", "我的相册", JSON.stringify(param));
 }
 
 //我的相册选择图片回调

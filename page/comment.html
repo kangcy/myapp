@@ -16,12 +16,18 @@
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">评论</h1>
+		</header>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div id="scroll-view">
+		<div id="muicontent">
+			<div id="scroll-view">
+			</div>
 		</div>
 		<textarea id="textarea" class="hide"></textarea>
 		<div id="none" class="full tc hide">
@@ -41,6 +47,10 @@
 <script type="text/javascript">
 	var self = null;
 	mui.init();
+
+	mui.ready(function() {
+		base.Immersed();
+	})
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
