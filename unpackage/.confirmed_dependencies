@@ -2044,7 +2044,8 @@
 			"images/share/03.png",
 			"images/share/02.png",
 			"js/music.js",
-			"images/music/stop.png"
+			"images/music/stop.png",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/searchSub.html"
@@ -2462,7 +2463,8 @@
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"mincss/money.min.css"
+			"mincss/money.min.css",
+			"images/avatar.png"
 		],
 		"refer": []
 	},
@@ -3031,7 +3033,8 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.lazyload.min.js",
-			"minjs/mui.lazyload.img.min.js"
+			"minjs/mui.lazyload.img.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/articledetail.html"

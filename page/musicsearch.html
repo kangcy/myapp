@@ -67,28 +67,22 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<nav class="mui-bar mui-bar-tab" id="search" style="border-top:1px solid #eee;">
+		<nav class="mui-bar mui-bar-tab" id="search" style="border-top:1px solid #eee;background:#fff;">
 			<div style="margin-left:10px;" class="fl blue" id="no">取消</div>
 			<div style="margin-right:10px;" class="fr blue" id="yes">完成</div>
 		</nav>
-		<div class="mui-content">
-			<div id="scroll-wrapper" class="mui-scroll-wrapper" style="top:50px;bottom:50px;">
-				<div id="pullrefresh" class="mui-scroll">
-					<ul class="mui-table-view f13 mt0" id="scroll-view">
-					</ul>
-				</div>
-			</div>
+		<div id="muicontent" style="padding-bottom:50px;">
+			<ul class="mui-table-view f13 mt0" id="scroll-view">
+			</ul>
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/mui.lazyload.min.js"></script>
 <script src="../minjs/mui.lazyload.img.min.js"></script>
-<script src="../js/music.js"></script>
 <script type="text/javascript">
 	var fileId = 0;
 	var fileName = "";
@@ -107,15 +101,14 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
-		},
-		swipeBack: false
+		}
 	});
 
 	var search = base.Get("search");
 
 	mui.ready(function() {
 		base.Immersed();
-		base.InitScroll();
+		base.ToTop();
 
 		//语音识别完成事件
 		search.addEventListener('recognized', function(e) {
@@ -129,6 +122,9 @@
 		base.TriggerMain = false;
 
 		var self = plus.webview.currentWebview();
+		
+		//上拉加载
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//取消
 		base.Get('no').addEventListener('tap', function(e) {
@@ -165,17 +161,7 @@
 			}
 		}, false);
 
-		mui(base.Get("pullrefresh")).pullToRefresh({
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
-
-		mui("#pullrefresh").on('tap', 'li.music', function(event) {
+		mui("#scroll-view").on('tap', 'li.music', function(event) {
 			if(base.TriggerMain) {
 				return;
 			}
@@ -192,7 +178,7 @@
 			fileUrl = this.getAttribute("fileUrl");
 		});
 
-		mui("#pullrefresh").on('tap', '.play', function(event) {
+		mui("#scroll-view").on('tap', '.play', function(event) {
 			base.TriggerMain = true;
 			this.classList.remove("play");
 			this.classList.add("stop");
@@ -202,7 +188,7 @@
 			}, 500)
 		});
 
-		mui("#pullrefresh").on('tap', '.stop', function(event) {
+		mui("#scroll-view").on('tap', '.stop', function(event) {
 			base.TriggerMain = true;
 			this.classList.remove("stop");
 			this.classList.add("play");
@@ -250,34 +236,14 @@
 		currpage = 1;
 		totalpage = 2;
 		base.Get('scroll-view').innerHTML = "";
-		LoadMusic(function() {
+		Load(function() {
 			++currpage;
-			isLoading = false;
-		})
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
-			return false;
-		}
-		LoadMusic(function() {
-			++currpage;
-			self.endPullUpToRefresh(currpage > totalpage);
 			isLoading = false;
 		})
 	}
 
 	//搜索文章
-	function LoadMusic(callback) {
+	function Load(callback) {
 		if(base.IsNullOrEmpty(search.value)) {
 			if(callback) {
 				callback();

@@ -25,14 +25,20 @@
 		</div>
 		<!--图片操作-->
 		<div id="picupload"></div>
-		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
-			<div class="info-body" style="margin-top:10rem">
-				<!--<div id="title" class="title mb20 f18">点击输入标题</div>-->
-				<div id="music" class="btn fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
-			</div>
-		</div>
-		<div id="edit" class="mb20">
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
+				<div class="mui-scroll" id="scroll">
+					<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
+						<div class="info-body" style="margin-top:10rem">
+							<!--<div id="title" class="title mb20 f18">点击输入标题</div>-->
+							<div id="music" class="btn fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
+						</div>
+					</div>
+					<div id="edit" class="mb20">
 
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 
@@ -73,22 +79,28 @@
 	}
 
 	//启用双击监听 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	//标题
 	var title = base.Get("title");
 
 	mui.ready(function() {
 		base.Immersed();
-	
+
 		mask.show();
 		base.ShowWaiting("正在加载");
-		
-		//滚动监听、背景色渐变
-		var num = 0;
+
+		base.InitScroll();
+
 		var browserName = base.BrowserName();
-		window.addEventListener('scroll', function(e) {
-			num = window.pageYOffset / 200;
+		var num = 0;
+		var scroll = mui("#scroll-wrapper").scroll();
+		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
+			num = -scroll.y / 200;
 			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 		});
 
@@ -194,6 +206,7 @@
 					var partid = $this.getAttribute("partid");
 					$this.parentNode.parentNode.parentNode.remove();
 					InitGroup();
+					base.RefreshScroll();
 
 					//同步原始段落信息			
 					mui.each(InitParts, function(index, item) {
