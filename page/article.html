@@ -45,11 +45,16 @@
 	var CreateUserNumber = "";
 	var self = null;
 
-	mui.init();
+	mui.init({ 
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
 		mui.previewImage();
+		base.ToTop();
 	});
 
 	mui.plusReady(function() {

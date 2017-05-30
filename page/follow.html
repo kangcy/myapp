@@ -42,6 +42,9 @@
 	var self = null;
 
 	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
 		beforeback: function() {
 			base.RefreshUser();
 			return true;
@@ -50,6 +53,7 @@
 	
 	mui.ready(function(){
 		base.Immersed();
+		base.ToTop();
 	})
 
 	mui.plusReady(function() {

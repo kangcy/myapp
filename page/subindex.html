@@ -64,15 +64,21 @@
 	var FirstLoad = true; //首次加载
 	var self = null;
 
-	mui.init();
+	mui.init({ 
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
-	mui.ready(function() {
+	mui.ready(function() { 
 		base.Immersed();
 
 		base.Get("scroll-view").style.paddingTop = base.Get("header").clientHeight + "px";
 
 		var name = base.BrowserName();
 		base.Get("btnAdd").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+
+		base.ToTop();
 	})
 
 	var backButtonPress = 0;

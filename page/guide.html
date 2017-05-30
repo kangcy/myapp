@@ -48,7 +48,12 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
-	mui.init();
+	mui.init({
+		keyEventBind: {
+			backbutton: false,
+			menubutton: false
+		}
+	});
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
 
@@ -69,20 +74,5 @@
 			});
 			mui(".mui-slider-item")[index].classList.add("coverMoved");
 		});
-
-		//退出登录
-		var backButtonPress = 0;
-		mui.back = function(event) {
-			backButtonPress++;
-			if(backButtonPress > 1) {
-				plus.runtime.quit();
-			} else {
-				plus.nativeUI.toast('再按一次退出应用');
-			}
-			mui.later(function() {
-				backButtonPress = 0;
-			}, 1000);
-			return false;
-		};
 	});
 </script>

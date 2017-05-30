@@ -46,10 +46,15 @@
 <script src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
 	var self = null;
-	mui.init();
+	mui.init({ 
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
+		base.ToTop();
 	})
 
 	mui.plusReady(function() {

@@ -77,7 +77,12 @@
 	</body>
 
 </html>
-<script src="../js/base.min.js"></script>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
-	base.Immersed();
+	mui.init();
+	mui.ready(function() {
+		base.Immersed();
+		base.ToTop();
+	})
 </script>

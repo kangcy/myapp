@@ -250,12 +250,7 @@
 		});
 
 		//返回顶部
-		base.Get("header").addEventListener("doubletap", function() {
-			if(base.RepeatAction()) {
-				return;
-			}
-			currview.evalJS("Top()");
-		}, false);
+		base.ToTop();
 	});
 
 	mui.plusReady(function() {

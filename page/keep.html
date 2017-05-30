@@ -45,15 +45,19 @@
 	var self = null;
 
 	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
 		beforeback: function() {
 			base.RefreshUser();
 			return true;
 		}
 	});
-
+	
 	mui.ready(function() {
 		base.Immersed();
 		mui.previewImage();
+		base.ToTop();
 	});
 
 	mui.plusReady(function() {

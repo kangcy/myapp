@@ -41,10 +41,15 @@
 	var UserNumber = "";
 	var self = null;
 
-	mui.init();
+	mui.init({ 
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
+		base.ToTop();
 	})
 
 	mui.plusReady(function() {

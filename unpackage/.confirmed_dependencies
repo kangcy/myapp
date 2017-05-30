@@ -1081,7 +1081,8 @@
 			"mincss/mui.poppicker.min.css",
 			"mincss/mui.picker.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/editsignature.html",

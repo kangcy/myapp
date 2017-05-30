@@ -87,7 +87,12 @@
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
 	var userinfo = localStorage.getItem('$userinfo') || "{}";
-	mui.init();
+	mui.init({
+		keyEventBind: {
+			backbutton: false,
+			menubutton: false
+		}
+	});
 
 	mui.ready(function() {
 		var top = base.Get("top");
@@ -119,20 +124,9 @@
 		}
 		Time(5);
 
-		//退出登录
-		var backButtonPress = 0;
 		mui.back = function(event) {
-			backButtonPress++;
-			if(backButtonPress > 1) {
-				plus.runtime.quit();
-			} else {
-				plus.nativeUI.toast('再按一次退出应用');
-			}
-			mui.later(function() {
-				backButtonPress = 0;
-			}, 1000);
 			return false;
-		};
+		}
 	});
 
 	var index = 0;

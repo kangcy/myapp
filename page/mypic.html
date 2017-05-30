@@ -45,12 +45,19 @@
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<a class="mui-icon mui-text cfff fr hide" id="mypic">完成</a>
+			<h1 class="mui-title cfff">相册</h1>
+		</header>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div id="scroll-view">
+		<div id="muicontent">
+			<div id="scroll-view">
+			</div>
 		</div>
 		<div id="none" class="full tc hide">
 			<img src="../images/my/666.png" class="none" id="none_img" />
@@ -72,6 +79,11 @@
 			doubletap: true
 		}
 	});
+
+	mui.ready(function() {
+		base.Immersed();
+		base.ToTop();
+	})
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
@@ -103,9 +115,11 @@
 			}
 			this.classList.toggle("yescheck");
 			if(mui(".yescheck").length > 0) {
-				base.GetView("template").evalJS("InitAction('mypic',true)");
+				base.Get("mypic").classList.remove("hide");
+				//base.GetView("template").evalJS("InitAction('mypic',true)");
 			} else {
-				base.GetView("template").evalJS("InitAction('mypic',false)");
+				base.Get("mypic").classList.add("hide");
+				//base.GetView("template").evalJS("InitAction('mypic',false)");
 			}
 		});
 	}
