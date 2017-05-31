@@ -85,7 +85,11 @@
 <script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
 	var self = null;
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
@@ -104,12 +108,7 @@
 		base.ShowUser("#scroll-view");
 
 		//下拉刷新
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
+		SetPullEnable(true);
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
@@ -122,7 +121,7 @@
 			rows: pagesize,
 			ToUserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Order/All", data, true, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Order/All", data, true, false, function(item) {
 			return AppendStr(item);
 		}, callback);
 	}

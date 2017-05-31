@@ -58,7 +58,6 @@
 		name = base.UnUnicodeText(name);
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的赞";
-		//base.GetView("template").evalJS("InitTitle('" + name + "的赞" + "')");
 		if(name == "我") {
 			base.Get("none_tip").innerHTML = "沒人赞你，你可以去赞别人呀";
 		} else {
@@ -66,22 +65,18 @@
 		}
 
 		Init();
-
-		//下拉刷新 
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
-
-		//上拉加载
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	});
 
 	//初始化
 	function Init() {
-		pulldownRefresh();
+		Load();
+
+		//下拉刷新 
+		SetPullEnable(true);
+
+		//上拉加载
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+
 		base.ShowArticle("#scroll-view", "List", UserNumber);
 		base.ShowUser("#scroll-view");
 	}

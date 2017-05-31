@@ -82,7 +82,7 @@
 			ArticleUserNumber: userinfo.Number,
 			NewId: NewId
 		}
-		LoadPull(base.RootUrl + "Api/Comment/All", data, true, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Comment/All", data, true, false, function(item) {
 			return AppendStr(item);
 		}, callback);
 	}

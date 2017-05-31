@@ -156,7 +156,7 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		
+
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.RemoveClass(["#create"], "hide");
 
@@ -209,10 +209,11 @@
 				totalpage = data.totalpage;
 				var length = data.message.length;
 				if(length > 0) {
-					for(var i = 0, len = data.message.length; i < len; i++) {
-						var div = AppendStr(data.message[i]);
-						table.appendChild(div);
-					}
+					var fragment = document.createDocumentFragment();
+					mui.each(data.message, function(i, item) {
+						fragment.appendChild(AppendStr(item));
+					})
+					table.appendChild(fragment);
 				} else {
 					base.ShowNone(true);
 				}
@@ -228,11 +229,7 @@
 
 	function AppendStr(item) {
 		var div = document.createElement('div');
-		if(item.IsUsed == 0) {
-			div.className = 'thirdfloor';
-		} else {
-			div.className = 'thirdfloor check';
-		}
+		div.className = item.IsUsed == 0 ? 'thirdfloor' : 'thirdfloor check';
 		div.style.position = "relative";
 		div.setAttribute("id", item.ID);
 		div.setAttribute("isused", item.IsUsed);

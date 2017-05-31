@@ -41,7 +41,7 @@
 	var UserNumber = "";
 	var self = null;
 
-	mui.init({ 
+	mui.init({
 		gestureConfig: {
 			doubletap: true
 		}
@@ -57,18 +57,12 @@
 		var name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的粉丝";
-		//base.GetView("template").evalJS("InitTitle('" + name + "的粉丝" + "')");
 		base.Get("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
 
 		Init();
 
 		//下拉刷新
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
+		SetPullEnable(true);
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
@@ -88,7 +82,7 @@
 			ToUserNumber: UserNumber
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true, function(item) {
-			return base.AppendUser(item, true, true, false, "");
+			return base.AppendUser(item, true, true, false, "", false, false, true);
 		}, callback);
 	}
 </script>

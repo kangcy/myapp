@@ -37,6 +37,10 @@
 			.mui-table-view:after {
 				background-color: #eee !important;
 			}
+			
+			.mui-card:after {
+				height: 0px;
+			}
 		</style>
 	</head>
 
@@ -45,23 +49,19 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">求助或建议</h1>
 		</header>
-		<div class="mui-content mui-scroll-wrapper" id="muicontent">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
 			</div>
-			<div class="mui-scroll">
-				<div class="mui-card">
-					<ul class="mui-table-view" id="list">
+		</div>
+		<div class="mui-card" id="muicontent">
+			<ul class="mui-table-view" id="list">
 
-					</ul>
-					<div id="none" class="full tc hide">
-						<img src="../images/my/333.png" class="none" />
-						<p class="f13 mt10">暂无更多帮助</p>
-					</div>
-				</div>
-			</div>
+			</ul>
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/333.png" class="none" />
+			<p class="f13 mt10">暂无更多帮助</p>
 		</div>
 	</body>
 
@@ -69,18 +69,18 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
-	var isLoading = false;
-	var $none = base.Get("none");
-
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
+		base.ToTop();
 	})
 
 	mui.plusReady(function() {
-		base.InitScroll();
-
 		self = plus.webview.currentWebview();
 		var type = self.tid || 0;
 
@@ -97,32 +97,33 @@
 		var table = base.Get('list');
 		table.innerHTML = "";
 		HttpGet(base.RootUrl + "Api/Help/All", data, function(data) {
-			base.ShowLoading(false);
 			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
 					var length = data.length;
 					if(length > 0) {
-						$none.classList.add("hide");
-						for(var i = 0; i < length; i++) {
-							var div = appendStr(data[i]);
-							table.appendChild(div);
-						}
+						base.ShowNone(false);
+						var fragment = document.createDocumentFragment();
+						mui.each(data, function(i, item) {
+							fragment.appendChild(AppendStr(item));
+						})
+						table.appendChild(fragment);
 					} else {
-						$none.classList.remove("hide");
+						base.ShowNone(true);
 					}
 				}
 			} else {
-				$none.classList.remove("hide");
+				base.ShowNone(true)
 			}
+			base.ShowLoading(false);
 		});
 	}
 
 	/**
 	 * 拼接Html
 	 */
-	function appendStr(item) {
+	function AppendStr(item) {
 		var div = document.createElement('li');
 		div.className = 'mui-table-view-cell mui-collapse';
 		div.innerHTML = '<a class="mui-navigate-right f12 c333" href="#">' + item.Name + '</a><div class="mui-collapse-content"><p class="f11 c999 mt5 mb5">' + item.Summary + '</p></div>';

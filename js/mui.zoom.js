@@ -99,12 +99,12 @@
 				isScaling = true;
 			}
 			scale = (e.detail ? e.detail.scale : e.scale) * currentScale;
-			if (scale > zoom.options.maxZoom) {
+			/*if (scale > zoom.options.maxZoom) {
 				scale = zoom.options.maxZoom - 1 + Math.pow((scale - zoom.options.maxZoom + 1), 0.5);
 			}
 			if (scale < zoom.options.minZoom) {
 				scale = zoom.options.minZoom + 1 - Math.pow((zoom.options.minZoom - scale + 1), 0.5);
-			}
+			}*/
 			zoom.zoomerTransform(scale);
 		};
 		zoom.onPinchend = function(e) {

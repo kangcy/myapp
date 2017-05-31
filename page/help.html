@@ -68,7 +68,7 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		
+
 		base.InitScroll();
 
 		LoadHelpType();
@@ -94,9 +94,12 @@
 					data = data.message;
 					var length = data.length;
 					if(length > 0) {
-						for(var i = 0, len = length; i < len; i++) {
-							table.appendChild(appendStr(data[i]));
-						}
+						var fragment = document.createDocumentFragment();
+						mui.each(data, function(i, item) {
+							fragment.appendChild(AppendStr(item));
+						})
+						table.appendChild(fragment); 
+
 						var div = document.createElement('div');
 						div.className = 'border';
 						table.appendChild(div);
@@ -104,12 +107,12 @@
 				}
 			}
 			base.ShowLoading(false);
-			base.Get("list").classList.remove("hide"); 
+			base.Get("list").classList.remove("hide");
 		});
 	}
 
 	//拼接Html
-	function appendStr(item) {
+	function AppendStr(item) {
 		var div = document.createElement('div');
 		div.setAttribute("tid", item.ID);
 		div.innerHTML = '<img src="' + (base.IsNullOrEmpty(item.Cover) ? base.DefaultImg : item.Cover) + '" /><p class="f12 mt5 mb20 c333">' + item.Name + '</p>';

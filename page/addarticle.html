@@ -80,16 +80,18 @@
 
 	mui.ready(function() {
 		base.Immersed();
-	
+
 		mask.show();
 		base.ShowWaiting("正在加载");
-		
+
 		//滚动监听、背景色渐变
 		var num = 0;
 		var browserName = base.BrowserName();
 		window.addEventListener('scroll', function(e) {
 			num = window.pageYOffset / 200;
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
+			if(num <= 1) {
+				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
+			}
 		});
 
 		mui('#picupload').load("../part/pic.html", function(response) {});

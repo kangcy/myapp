@@ -51,8 +51,11 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/mui.zoom.min.js"></script>
-<script src="../minjs/mui.previewimage.min.js"></script>
+
+<!--<script src="../minjs/mui.previewimage.min.js"></script>
+<script src="../minjs/mui.zoom.min.js"></script>-->
+<script src="../js/mui.previewimage.js"></script>
+<script src="../js/mui.zoom.js"></script>
 <script src="../minjs/update.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script src="../js/addarticle.js"></script>
@@ -60,6 +63,7 @@
 	var isScroll = false; //是否滚动
 	var isSwipeRight = false; //是否右滑
 	var isSwipe = false; //是否侧滑
+	var isPreview = false; //是否图片预览
 	var menu;
 	var showMenu = false;
 	var PageName = "subindex";
@@ -95,13 +99,7 @@
 
 		Load();
 
-		//下拉刷新
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
+		SetPullEnable(true);
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
@@ -147,11 +145,6 @@
 		base.ShowArticle("#scroll-view", "List", userinfo.Number);
 
 		ArticleAction("#scroll-view", userinfo);
-
-		var previewImage = mui.previewImage({
-			callback1: function(img) {},
-			callback2: function(img) {}
-		});
 
 		//检查更新
 		mui('#updatewrapper').load("../part/update.html", function(response) {
@@ -207,8 +200,7 @@
 						ArticleID: param[1],
 						ArticleNumber: param[2]
 					}
-					base.ShowTemplate("articleComment", "articleComment.html", param);
-					//base.ShowTemplate("articleComment", "articleComment.html", "评论", JSON.stringify(param));
+					base.OpenWindow("articleComment", "articleComment.html", param);
 				}
 				//打开打赏
 				if(param[0] == 2) {
@@ -222,7 +214,7 @@
 				var number = this.getAttribute("articleNumber");
 				var id = this.getAttribute("articleId");
 				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber); 
+				ActionTan(true, number, id, usernumber);
 			});
 		});
 
@@ -236,6 +228,17 @@
 				mui('#upload').popover('show');
 			});
 		});
+	});
+
+	var previewImage = mui.previewImage({
+		callback1: function(img) {
+			isPreview = true;
+			SetPullEnable(false);
+		},
+		callback2: function(img) {
+			isPreview = false;
+			SetPullEnable(true);
+		}
 	});
 
 	/**
@@ -333,6 +336,9 @@
 
 	//显示菜单菜单
 	function openMenu() {
+		if(isPreview) {
+			return;
+		}
 		if(isSwipe) {
 			return;
 		}

@@ -50,8 +50,8 @@
 			return true;
 		}
 	});
-	
-	mui.ready(function(){
+
+	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
 	})
@@ -61,7 +61,6 @@
 		var name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的关注";
-		//base.GetView("template").evalJS("InitTitle('" + name + "的关注" + "')");
 		if(name == "我") {
 			base.Get("none_tip").innerHTML = "关注别人,第一时间得到他们的动态";
 		} else {
@@ -71,12 +70,7 @@
 		Init();
 
 		//下拉刷新
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
+		SetPullEnable(true);
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
@@ -134,7 +128,7 @@
 			CreateUserNumber: UserNumber
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true, true, function(item) {
-			return base.AppendUser(item, true, false, true, "取消关注");
+			return base.AppendUser(item, true, false, true, "取消关注", false, false, true);
 		}, callback);
 	}
 </script>

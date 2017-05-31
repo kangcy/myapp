@@ -13,46 +13,47 @@ function ChangeMusic(index) {
 
 //背景状态切换
 function ChangeBg() {
-	InitHeader();
+	if(CurrTemplate == 0) {
+		base.Get("scroll-wrapper").style.top = "45px";
+	} else {
+		base.Get("scroll-wrapper").style.top = "0px";
+	}
+
+	if(CurrTemplate > 0) {
+		$("#title1").removeClass("hide");
+	} else {
+		$("#title1").addClass("hide");
+	}
+	if(CurrTemplate == 0) {
+		$header.setAttribute("immersed", "");
+		base.Immersed();
+	} else {
+		$header.setAttribute("immersed", "none");
+		base.Immersed();
+	}
 
 	//纯白背景
 	if(CurrTemplate == 0) {
-		//$("#wrapper").css("background-color", "transparent");
-		//$("#wrapper1").css("background", "none");
-		//$("#wrapper2").css("background", "#fff");
-		//$(".cover").css("background", "RGBA(255, 255, 255, 1");
-
-		$wrapper.style.backgroundColor = "transparent";
-		$wrapper1.style.background = "none";
-		$wrapper2.style.background = "#fff";
-		$cover.style.backgroundColor = "RGBA(255, 255, 255, 1)";
+		$("#wrapper").css("background-color", "transparent");
+		$("#wrapper1").css("background", "none");
+		$("#wrapper2").css("background", "#fff");
+		$(".cover").css("background", "RGBA(255, 255, 255, 1");
 	} else if(CurrTemplate > 1) {
-		/*$("#wrapper2").css("background", "none");
+		$("#wrapper2").css("background", "none");
 		$("#wrapper1").css({
 			"background": "url(" + CurrCover + ") top center no-repeat",
 			"background-size": "100% auto"
 		});
-		$(".cover").css("background", "RGBA(255, 255, 255, 0.5");*/
-
-		$wrapper2.style.background = "none";
-		$wrapper1.style.background = "url(" + CurrCover + ") top center no-repeat";
-		$wrapper1.style.backgroundSize = "100% auto";
-		$cover.style.backgroundColor = "RGBA(255, 255, 255, 0.5)";
-	} else {
-		//$("#wrapper").css("background-color", "transparent");
-		//$("#wrapper1").css("background", "none");
-
-		$wrapper.style.backgroundColor = "transparent";
-		$wrapper1.style.background = "none";
-
+		$(".cover").css("background", "RGBA(255, 255, 255, 0.5");
+	} else { 
+		$("#wrapper").css("background-color", "transparent");
+		$("#wrapper1").css("background", "none");
 		if(CurrBackground == null) {
 			//全屏
-			//$("#wrapper2").css("background", "#fff");
-			$wrapper2.style.background = "#fff";
+			$("#wrapper2").css("background", "#fff");
 		} else {
 			//背景透明度
-			//$(".cover").css("background", "RGBA(255, 255, 255, " + (100 - CurrBackground.Transparency) / 100 + ")");
-			$cover.style.background = "RGBA(255, 255, 255, " + (100 - CurrBackground.Transparency) / 100 + ")";
+			$(".cover").css("background", "RGBA(255, 255, 255, " + (100 - CurrBackground.Transparency) / 100 + ")");
 
 			var url = CurrBackground.Url;
 			if(CurrBackground.High == 0) {
@@ -63,21 +64,17 @@ function ChangeBg() {
 			switch(CurrBackground.Full) {
 				case 0:
 					//居顶 
-					/*$("#wrapper2").css({
+					$("#wrapper2").css({
 						"background": "url(" + url + ") no-repeat top center",
 						"background-size": "100% auto"
-					});*/
-					$wrapper2.style.background = "url(" + url + ") no-repeat top center";
-					$wrapper2.style.backgroundSize = "100% auto";
+					});
 					break;
 				case 1:
 					//全屏
-					/*$("#wrapper2").css({
+					$("#wrapper2").css({
 						"background": "url(" + url + ") center center no-repeat",
 						"background-size": "100% auto",
-					});*/
-					$wrapper2.style.background = "url(" + url + ") center center no-repeat";
-					$wrapper2.style.backgroundSize = "100% auto";
+					});
 					break;
 				default:
 					break;
@@ -89,8 +86,7 @@ function ChangeBg() {
 //更新文章评论数
 function UpdateComment() {
 	Article.Comments += 1;
-	base.Get("footer_comment").innerHTML = Article.Comments;
-	//$("#footer_comment").html(Article.Comments);
+	$("#footer_comment").html(Article.Comments);
 }
 
 //重新加载数据 
@@ -223,9 +219,7 @@ function Keep() {
 		base.CheckLogin(userinfo, data.code);
 		if(data != null) {
 			if(data.result) {
-				//$("#iskeep,#isnotkeep").toggleClass("hide");
-				bsae.Get("iskeep").classList.remove("hide");
-				bsae.Get("isnotkeep").classList.add("hide");
+				$("#iskeep,#isnotkeep").toggleClass("hide");
 				userinfo.Keeps += 1;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			}
@@ -252,9 +246,7 @@ function OutKeep() {
 				base.CheckLogin(userinfo, data.code);
 				if(data != null) {
 					if(data.result) {
-						//$("#iskeep,#isnotkeep").toggleClass("hide");
-						bsae.Get("iskeep").classList.add("hide");
-						bsae.Get("isnotkeep").classList.remove("hide");
+						$("#iskeep,#isnotkeep").toggleClass("hide");
 						userinfo.Keeps -= 1;
 						if(userinfo.Keeps < 0) {
 							userinfo.Keeps = 0;
@@ -277,27 +269,16 @@ function LoadTemplate() {
 		if(data != null) {
 			var length = data.records;
 			if(length > 0) {
-				var table = base.Get('temp');
-				table.innerHTML = "";
-				var fragment = document.createDocumentFragment();
-				mui.each(data.list, function(i, item) {
-					fragment.appendChild(AppendTemplate(item));
-				})
-				table.appendChild(fragment);
+				var table = $('#temp');
+				var index = 0;
+				for(var i = 0, len = data.list.length; i < len; i++) {
+					index += 1;
+					var item = data.list[i];
+					table.append('<div class="mui-control-item temp" tid="' + item.ID + '" color="' + item.Background + '" cover="' + item.Cover + '" type="' + item.TemplateType + '"><img src="' + item.ThumbUrl + '" /></div>');
+				}
 			}
 		}
 	});
-}
-
-function AppendTemplate(item) {
-	var div = document.createElement('div');
-	div.className = 'mui-control-item temp';
-	div.setAttribute("tid", item.ID);
-	div.setAttribute("color", item.Background);
-	div.setAttribute("cover", item.Cover);
-	div.setAttribute("type", item.TemplateType);
-	div.innerHTML = '<img src="' + item.ThumbUrl + '" />';
-	return div;
 }
 
 //重新加载数据

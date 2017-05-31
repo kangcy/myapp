@@ -80,7 +80,11 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();

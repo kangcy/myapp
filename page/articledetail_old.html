@@ -16,10 +16,10 @@
 	</head>
 
 	<body id="body">
-		<header id="header" class="mui-bar" immersed="none">
-			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
-			<span class="cfff f25 fr hide" onclick="ActionTan(1)" id="action" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</span>
-			<h1 class="mui-title cfff" id="title"></h1>
+		<header id="header" class="mui-bar mui-bar-transparent" immersed="none">
+			<span class="headericon mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
+			<span class="headericon cfff f25 fr hide" onclick="ActionTan(1)" id="action" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</span>
+			<h1 class="headericon mui-title cfff" id="title"></h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -136,42 +136,46 @@
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
 		<i id="music1" class="fa fa-music f13 hide" onclick="switchsound()" style="position:fixed;right:10px;top:80px;z-index:999;"></i>
 		<div id="wrapper2"></div>
-		<div id="wrapper" class="hide" style="margin-bottom:50px;">
-			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
-				<!--通用样式-->
-				<div id="main0" class="f13 tl mt10 mb10 hide">
-					<div class="detail">
-						<div class="full tl">
-							<p class="f16 c000" id="title0"></p>
-							<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
-							<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
-							<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
-							<p id="music0" play="on" class="music" onclick="switchsound()">
-								<i></i>
-								<span id="musicname0"></span>
-							</p>
+		<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:0px;bottom:0px;">
+			<div class="mui-scroll" id="scroll">
+				<div id="wrapper" class="hide" style="margin-bottom:50px;">
+					<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
+						<!--通用样式-->
+						<div id="main0" class="f13 tl mt10 mb10 hide">
+							<div class="detail">
+								<div class="full tl">
+									<p class="f16 c000" id="title0"></p>
+									<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
+									<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
+									<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
+									<p id="music0" play="on" class="music" onclick="switchsound()">
+										<i></i>
+										<span id="musicname0"></span>
+									</p>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<!--排版1-->
-				<div id="main1" class="f13 tc hide" style="position:relative;">
-					<div class="detail full fl" id="detail1">
-						<div class="fl" style="width:23%;display:inline-block;">
-							<img id="useravatar1" class="full fl" />
+						<!--排版1-->
+						<div id="main1" class="f13 tc hide" style="position:relative;">
+							<div class="detail full fl" id="detail1">
+								<div class="fl" style="width:23%;display:inline-block;">
+									<img id="useravatar1" class="full fl" />
+								</div>
+								<div class="fr tl" style="width:77%;display:inline-block;">
+									<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
+									<p class="ml10 mb0 mt10 cfff textshadow f13 full">
+										<span id="createdate1" class="mr10"></span>
+										<span class="ml15" id="views1"></span>
+									</p>
+								</div>
+							</div>
 						</div>
-						<div class="fr tl" style="width:77%;display:inline-block;">
-							<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
-							<p class="ml10 mb0 mt10 cfff textshadow f13 full">
-								<span id="createdate1" class="mr10"></span>
-								<span class="ml15" id="views1"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 c333 tc hide" id="title1"></p>
-					<div class="c333 full" id="desc">
+						<div class="detail2 cover fl tl">
+							<p class="f16 c333 tc hide" id="title1"></p>
+							<div class="c333 full" id="desc">
 
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -201,10 +205,6 @@
 	var userinfo = base.GetUserInfo();
 	var $zan = base.Get('zan');
 	var $header = base.Get("header");
-	var $wrapper = base.Get("wrapper");
-	var $wrapper1 = base.Get("wrapper1");
-	var $wrapper2 = base.Get("wrapper2");
-	var $cover = base.Get("cover");
 	var scrolly = 0;
 	var browserName = base.BrowserName();
 	var num = 0;
@@ -225,45 +225,47 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		base.ToTop();
-		base.InitScroll();
 
-		/*$("#wrapper2").css({
+		$("#wrapper2").css({
 			"width": window.innerWidth + "px",
 			"height": (window.innerHeight - 50) + "px",
 			"position": "fixed",
 			"z-index": -1
-		});*/
+		});
+		$("#wrapper1").css("min-height", (window.innerHeight - 50) + "px")
+		$("#detail1").css("margin-top", (window.innerHeight - 50) * 0.3 + "px");
+		$(".cover").css("min-height", (window.innerHeight - 50) * 0.526 + "px");
 
-		$wrapper2.style.width = window.innerWidth + "px";
-		$wrapper2.style.height = (window.innerHeight - 50) + "px";
-		$wrapper2.style.position = "fixed";
-		$wrapper2.style.zIndex = "-1";
+		base.InitScroll();
 
-		base.Get("wrapper1").style.minHeight = (window.innerHeight - 50) + "px";
-		base.Get("detail1").style.marginTop = (window.innerHeight - 50) * 0.3 + "px";
-		$cover.style.minHeight = (window.innerHeight - 50) * 0.526 + "px";
-		//$(".cover").css("min-height", (window.innerHeight - 50) * 0.526 + "px");
-
+		var scroll = mui("#scroll-wrapper").scroll();
 		//背景色渐变
-		window.addEventListener('scroll', function(e) {
-			num = window.pageYOffset / 200;
-			if(CurrTemplate > 0) {
-				if(num <= 1) {
-					$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-				}
+		base.Get("scroll-wrapper").addEventListener('scroll', function(e) {
+			num = -scroll.y / 200;
+			if(CurrTemplate == 0) {
+				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
+			} else {
+				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 			}
+			var success = scrolly > 200;
+			mui.each(mui(".headericon"), function() {
+				if(CurrTemplate == 0) {
+					return;
+				}
+				if(success) {
+					this.classList.remove("cfff");
+				} else {
+					this.classList.add("cfff");
+				}
+			});
 		});
 
 		//模板选择
 		mui('#temps').on('tap', '.temp', function() {
-			//$(".temp").removeClass("hover");
-			base.RemoveClass([".temp"], "hover");
+			$(".temp").removeClass("hover");
 			var $this = $(this);
-			//$this.addClass("hover");
-			this.classList.add("hover");
-			//CurrTemplate = $this.attr("tid");
-			CurrTemplate = this.getAttribute("tid");
+			$this.addClass("hover");
+			CurrTemplate = $this.attr("tid");
 
 			if(CurrTemplate == 1) {
 				base.OpenWindow("customsetting", "customsetting.html", {
@@ -272,27 +274,20 @@
 				TempTan(0);
 				return;
 			} else if(CurrTemplate > 1) {
-				//CurrCover = $this.attr("cover");
-				CurrCover = this.getAttribute("cover");
+				CurrCover = $this.attr("cover");
 			} else {
 				CurrCover = "";
 			}
-			$wrapper.style.backgroundColor = this.getAttribute("color");
-			//$("#wrapper").css("background-color", $this.attr("color"));
-			//var templatetype = $this.attr("type");
-			var templatetype = this.getAttribute("type");
+			$("#wrapper").css("background-color", $this.attr("color"));
+			var templatetype = $this.attr("type");
 
 			//纯白背景
 			if(templatetype == 0) {
-				base.Get("main1").classList.add("hide");
-				base.Get("main0").classList.remove("hide");
-				//$("#main1").addClass("hide");
-				//$("#main0").removeClass("hide");
+				$("#main1").addClass("hide");
+				$("#main0").removeClass("hide");
 			} else {
-				base.Get("main0").classList.add("hide");
-				base.Get("main1").classList.remove("hide");
-				//$("#main0").addClass("hide");
-				//$("#main1").removeClass("hide");
+				$("#main0").addClass("hide");
+				$("#main1").removeClass("hide");
 			}
 
 			ChangeBg(); //背景切换 
@@ -318,11 +313,12 @@
 						if(already[0] == 1) {
 							$zan.setAttribute("already", "0");
 							base.RemoveClass(["#zan"], "heartbeat red");
+							$("#footer_zan").html(already[1]);
 						} else {
 							$zan.setAttribute("already", "1");
 							base.AddClass(["#zan"], "heartbeat red");
+							$("#footer_zan").html(already[1]);
 						}
-						base.Get("footer_zan").innerHTML = already[1];
 					} else {
 						mui.toast(data.message);
 					}
@@ -341,6 +337,7 @@
 				Action: "Add"
 			}
 			base.OpenWindow("articleComment", "articleComment.html", param);
+			//base.ShowTemplate("articleComment", "articleComment.html", "评论", JSON.stringify(param));
 		})
 
 		//文章评论
@@ -349,7 +346,7 @@
 				ArticleID: ArticleID,
 				ArticleNumber: Article.Number
 			}
-			base.OpenWindow("articleComment", "articleComment.html", param);
+			base.ShowTemplate("articleComment", "articleComment.html", "评论", JSON.stringify(param));
 		});
 
 		//解锁
@@ -364,14 +361,14 @@
 				return mui.toast("请填写解锁密码");
 			}
 			CheckPowerPwd(ArticleID, pwd, function() {
-				base.Get("password").classList.add("hide");
-				$wrapper.classList.remove("hide");
+				$("#password").addClass("hide");
+				$("#wrapper").removeClass("hide");
 				isLoading = false;
 			});
 		});
 
 		//打开外链
-		mui('#wrapper').on('tap', 'a.link', function() {
+		mui('#scroll').on('tap', 'a.link', function() {
 			var link = this.getAttribute("link");
 			if(base.IsNullOrEmpty(link)) {
 				return;
@@ -469,20 +466,20 @@
 					if(userinfo.Number != data.CreateUserNumber) {
 						//私密可见 
 						if(data.ArticlePower == 0) {
-							$wrapper.classList.add("hide");
-							base.Get("self").classList.remove("hide");
+							$("#wrapper").addClass("hide");
+							$("#self").removeClass("hide");
 						}
 						//密码可见 
 						else if(data.ArticlePower == 1) {
-							$wrapper.classList.add("hide");
-							base.Get("password").classList.remove("hide");
+							$("#wrapper").addClass("hide");
+							$("#password").removeClass("hide");
 						} else {
-							$wrapper.classList.remove("hide");
+							$("#wrapper").removeClass("hide");
 							base.Get("snowwrapper").classList.remove("hide");
 						}
 					} else {
-						$wrapper.classList.remove("hide");
-						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
+						$("#wrapper").removeClass("hide");
+						$("#iskeep,#isnotkeep,#report").addClass("hide");
 						base.Get("snowwrapper").classList.remove("hide");
 					}
 
@@ -493,11 +490,8 @@
 						audio = null;
 					}
 
-					base.Get("payuser").setAttribute("src", base.ShowThumb(data.Avatar, 1));
-
-					mui.each(mui(".user"), function(i, item) {
-						item.setAttribute("userid", data.CreateUserNumber);
-					})
+					$("#payuser").attr("src", base.ShowThumb(data.Avatar, 1));
+					$(".user").attr("userid", data.CreateUserNumber);
 
 					//段落 
 					var html = [];
@@ -521,19 +515,17 @@
 						$zan.setAttribute("already", "1");
 						$zan.classList.add("red");
 					}
-					base.Get("footer_zan").innerHTML = data.Goods;
-					base.Get("footer_comment").innerHTML = data.Comments;
+
+					$("#footer_zan").html(data.Goods);
+					$("#footer_comment").html(data.Comments);
 
 					var mainIndex = 0;
 					CurrTemplate = data.Template;
-					/*if(CurrTemplate == 0) {
+					if(CurrTemplate == 0) {
 						$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
 						$header.setAttribute("immersed", "");
 						base.Immersed();
-					}*/
-
-					InitHeader();
-
+					}
 					if(CurrTemplate == 1) {
 						mainIndex = 1;
 					}
@@ -548,34 +540,13 @@
 
 					ChangeBg();
 
-					/*$("#musicname0,#musicname1").html(data.MusicName);
+					$("#musicname0,#musicname1").html(data.MusicName);
 					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
 					$("#title0,#title1,#title").html(base.UnUnicodeText(data.Title));
 					$("#nickname0,#nickname1").html(base.UnUnicodeText(data.NickName));
 					$("#createdate0,#createdate1").html(data.CreateDateText);
 					$("#views0,#views1").html("阅读  " + data.Views);
-					$("#desc").html(base.UnUnicodeText(html.join("")));*/
-
-					base.Get("musicname0").innerHTML = data.MusicName;
-					base.Get("musicname1").innerHTML = data.MusicName;
-
-					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
-					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
-
-					base.Get("title0").innerHTML = base.UnUnicodeText(data.Title);
-					base.Get("title1").innerHTML = base.UnUnicodeText(data.Title);
-					base.Get("title").innerHTML = base.UnUnicodeText(data.Title);
-
-					base.Get("nickname0").innerHTML = base.UnUnicodeText(data.NickName);
-					base.Get("nickname1").innerHTML = base.UnUnicodeText(data.NickName);
-
-					base.Get("createdate0").innerHTML = data.CreateDateText;
-					base.Get("createdate1").innerHTML = data.CreateDateText;
-
-					base.Get("views0").innerHTML = "阅读  " + data.Views;
-					base.Get("views1").innerHTML = "阅读  " + data.Views;
-
-					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
+					$("#desc").html(base.UnUnicodeText(html.join("")));
 
 					//实例化播放器
 					$(".youku_player").each(function() {
@@ -610,30 +581,30 @@
 					//音乐 
 					ChangeMusic(mainIndex);
 
-					base.AddClass(["#main0", "#main1"], "hide");
-					base.Get("main" + mainIndex).classList.remove("hide");
+					$("#main0,#main1").addClass("hide");
+					$("#main" + mainIndex).removeClass("hide");
 
 					//显示操作
 					if(userinfo.ID == data.UserID) {
-						base.RemoveClass(["#action", "#btnTemp"], "hide");
+						$("#action").removeClass("hide");
+						$("#btnTemp").removeClass("hide");
 					} else {
 						base.ShowUser("#body");
 					}
 
-					base.Get("bottomAction").classList.remove("hide");
-					base.Get("bottomAction").classList.add("bounceIn");
+					$("#bottomAction").removeClass("hide").addClass("bounceIn");
 
 					//启用打赏
 					if(data.IsPay == 1) {
-						base.Get("btnPay").classList.remove("hide");
+						$("#btnPay").removeClass("hide");
 					}
 					//收藏状态
 					if(data.IsKeep == 1) {
-						base.Get("isnotkeep").classList.add("hide");
-						base.Get("iskeep").classList.remove("hide");
+						$("#isnotkeep").addClass("hide");
+						$("#iskeep").removeClass("hide");
 					} else {
-						base.Get("iskeep").classList.add("hide");
-						base.Get("isnotkeep").classList.remove("hide");
+						$("#iskeep").addClass("hide");
+						$("#isnotkeep").removeClass("hide");
 					}
 
 					/*mui('#snowwrapper').load("../part/snow/snow.html", function(response) {
@@ -659,23 +630,6 @@
 			mask.close();
 			base.CloseWaiting();
 		});
-	}
-
-	function InitHeader() {
-		if(CurrTemplate == 0) {
-			$header.setAttribute("immersed", "");
-			base.Immersed();
-			base.Get("title1").classList.add("hide");
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
-			base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
-		} else {
-			$header.setAttribute("immersed", "none");
-			base.Immersed();
-			var num = window.pageYOffset / 200;
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-			base.Get("wrapper").style.paddingTop = "0px";
-			base.Get("title1").classList.remove("hide");
-		}
 	}
 
 	function Video(video) {
@@ -710,15 +664,13 @@
 	//分享弹窗
 	function ShareTan(index) {
 		if(index == 0) {
-			base.Get("myshare").classList.remove("zoomIn");
-			base.Get("myshare").classList.add("hide");
+			$("#myshare").removeClass("zoomIn").addClass("hide");
 		} else if(index == 1) {
 			if(Article.ArticlePower == 0) {
 				return mui.toast("私密文章不可以分享");
 			} else {
 				mask.show();
-				base.Get("myshare").classList.remove("hide");
-				base.Get("myshare").classList.add("zoomIn");
+				$("#myshare").removeClass("hide").addClass("zoomIn");
 			}
 		} else {
 			mask.close();
@@ -728,12 +680,10 @@
 	//操作弹窗
 	function ActionTan(index) {
 		if(index == 0) {
-			base.Get("myaction").classList.remove("bounceInDown");
-			base.Get("myaction").classList.add("hide");
+			$("#myaction").removeClass("bounceInDown").addClass("hide");
 		} else {
 			mask.show();
-			base.Get("myaction").classList.remove("hide");
-			base.Get("myaction").classList.add("bounceInDown");
+			$("#myaction").removeClass("hide").addClass("bounceInDown");
 		}
 	}
 
@@ -750,14 +700,12 @@
 	//模板选择弹窗
 	function TempTan(index) {
 		if(index == 0) {
-			base.AddClass(["#agreeTemp", "#temps"], "hide");
-			base.Get("btnTemp").classList.remove("hide");
+			$("#agreeTemp,#temps").addClass("hide");
+			$("#btnTemp").removeClass("hide");
 		} else {
-			//$(".temp:eq(" + CurrTemplate + ")").addClass("hover");
-
 			$(".temp:eq(" + CurrTemplate + ")").addClass("hover");
-			base.Get("btnTemp").classList.add("hide");
-			base.RemoveClass(["#agreeTemp", "#temps"], "hide");
+			$("#btnTemp").addClass("hide");
+			$("#agreeTemp,#temps").removeClass("hide");
 		}
 	}
 

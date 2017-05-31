@@ -233,7 +233,9 @@
 		//滚动监听、背景色渐变
 		window.addEventListener('scroll', function(e) {
 			num = window.pageYOffset / 200;
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
+			if(num <= 1) {
+				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
+			}
 		});
 
 		base.ShowArticle("#a_list", "List", userinfo.Number);
@@ -503,10 +505,6 @@
 	//查看相册
 	function Pic() {
 		mui('#power').popover('toggle');
-		/*var param = {
-			UserNumber: UserNumber
-		}
-		base.ShowTemplate("pic", "pic.html", base.UnUnicodeText(NickName) + "的相册", JSON.stringify(param), "", "0px");*/
 		base.OpenWindow("pic", "pic.html", {
 			UserNumber: UserNumber,
 			Title: base.UnUnicodeText(NickName) + "的相册"

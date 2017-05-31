@@ -106,7 +106,6 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		mui.previewImage();
 		base.ToTop();
 	});
 
@@ -119,10 +118,7 @@
 			Init();
 
 			//下拉刷新 
-			self.setPullToRefresh({
-				support: true,
-				style: "circle"
-			}, function() {
+			SetPullEnable(true, function() {
 				PreviewEnable = true;
 				base.Get("pic").classList.add("hide");
 				pulldownRefresh();
@@ -134,14 +130,24 @@
 		}
 	});
 
+	var previewImage = mui.previewImage({
+		callback1: function(img) {
+			SetPullEnable(false);
+		},
+		callback2: function(img) {
+			SetPullEnable(true, function() {
+				PreviewEnable = true;
+				base.Get("pic").classList.add("hide");
+				pulldownRefresh();
+				mui.setPreviewEnable(PreviewEnable);
+			});
+		}
+	});
+
 	function Init() {
-		pulldownRefresh(function() {
-			PreviewEnable = true;
-		});
+		Load();
 
 		if(UserNumber == userinfo.Number) {
-			//base.GetView("template").evalJS("InitAction('pic',true)");
-
 			//选中切换
 			mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
 				if(PreviewEnable) {

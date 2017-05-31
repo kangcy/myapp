@@ -45,7 +45,7 @@
 	var CreateUserNumber = "";
 	var self = null;
 
-	mui.init({ 
+	mui.init({
 		gestureConfig: {
 			doubletap: true
 		}
@@ -53,7 +53,6 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		mui.previewImage();
 		base.ToTop();
 	});
 
@@ -66,15 +65,19 @@
 		Init(ArticleType, CreateUserNumber, Source);
 
 		//下拉刷新
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
+		SetPullEnable(true);
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+	});
+
+	var previewImage = mui.previewImage({
+		callback1: function(img) {
+			SetPullEnable(false);
+		},
+		callback2: function(img) {
+			SetPullEnable(true);
+		}
 	});
 
 	//初始化
@@ -126,7 +129,9 @@
 			if(data == null && currpage == 1) {
 				base.ShowNone(true);
 			}
-			callback();
+			if(callback) {
+				callback();
+			}
 			base.ShowLoading(false);
 		});
 	}

@@ -96,8 +96,7 @@
 			NewId: NewId,
 			UserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Comment/ArticleComment", data, true, true, function(item) {
-			var str = AppendStr(item);
+		LoadPull(base.RootUrl + "Api/Comment/ArticleComment", data, true, false, function(item) {
 			return AppendStr(item);
 		}, callback);
 	}

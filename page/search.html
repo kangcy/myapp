@@ -199,15 +199,20 @@
 					pullupRefresh(self);
 				}
 			}
-		}); 
-
-		mui.previewImage({
-			callback: function(index) {}
 		});
 
 		base.Get("btnSearch").addEventListener('tap', function(e) {
 			Search();
 		});
+	});
+
+	var previewImage = mui.previewImage({
+		callback1: function(img) {
+
+		},
+		callback2: function(img) {
+
+		}
 	});
 
 	var lazyLoad = mui(document).imageLazyload({
@@ -249,10 +254,18 @@
 				if(length > 0) {
 					base.Get("none1").classList.add("hide");
 					var table = base.Get('scroll-view1');
-					for(var i = 0, len = data.list.length; i < len; i++) {
+
+					//使用容器存放临时变更， 最后再一次性更新DOM
+					var fragment = document.createDocumentFragment();
+					mui.each(data.list, function(index, item) {
+						fragment.appendChild(base.AppendUser(item, true, true, false, "", false, true));
+					});
+					table.appendChild(fragment);
+
+					/*for(var i = 0, len = data.list.length; i < len; i++) {
 						var div = base.AppendUser(data.list[i], true, true, false, "", false, true);
 						table.appendChild(div);
-					}
+					}*/
 
 					lazyLoad.refresh(true);
 				} else {
@@ -322,7 +335,7 @@
 			data = JSON.parse(data);
 			base.ShowLoading(false);
 			if(data != null) {
-				if(data.result) { 
+				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
 					var length = data.list.length;

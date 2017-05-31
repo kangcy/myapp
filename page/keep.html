@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 	</head>
- 
+
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
@@ -58,7 +58,6 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		mui.previewImage();
 		base.ToTop();
 
 		mui('#actionwrapper').load("../part/action.html", function(response) {
@@ -76,9 +75,17 @@
 		var name = self.Name || "我";
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的收藏";
-		//base.GetView("template").evalJS("InitTitle('" + name + "的收藏" + "')");
 
 		Init();
+	});
+
+	var previewImage = mui.previewImage({
+		callback1: function(img) {
+			SetPullEnable(false);
+		},
+		callback2: function(img) {
+			SetPullEnable(true);
+		}
 	});
 
 	function Init() {
@@ -88,12 +95,7 @@
 		base.ShowUser("#scroll-view");
 
 		//下拉刷新
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
+		SetPullEnable(true);
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);

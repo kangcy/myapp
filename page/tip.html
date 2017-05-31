@@ -58,16 +58,29 @@
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		//base.GetView("template").evalJS("InitAction('addfan',true)");
 
 		Init();
+	});
 
-		mui.previewImage();
+	var previewImage = mui.previewImage({
+		callback1: function(img) {
+			SetPullEnable(false);
+		},
+		callback2: function(img) {
+			SetPullEnable(true);
+		}
 	});
 
 	//初始化
 	function Init() {
 		pulldownRefresh();
+
+		//下拉刷新
+		SetPullEnable(true);
+
+		//上拉加载
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+
 		base.ShowArticle("#scroll-view", "List", userinfo.Number);
 		base.ShowUser("#scroll-view");
 		ArticleAction("#scroll-view", userinfo);
@@ -80,17 +93,6 @@
 				ActionTan(true, number, id, usernumber);
 			});
 		});
-
-		//下拉刷新
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh()
-		});
-
-		//上拉加载
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
 
 	/**
@@ -124,7 +126,9 @@
 			if(records == 0) {
 				base.ShowNone(true);
 			}
-			callback();
+			if(callback) {
+				callback();
+			}
 			base.ShowLoading(false);
 		});
 	}

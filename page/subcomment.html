@@ -89,7 +89,7 @@
 			Number: Number,
 			UserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Comment/SubComment", data, true, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Comment/SubComment", data, true, false, function(item) {
 			return AppendStr(item);
 		}, callback);
 	}
