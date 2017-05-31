@@ -109,6 +109,8 @@
 				</div>
 			</div>
 		</div>
+		<!--操作-->
+		<div id="actionwrapper"></div>
 	</body>
 
 </html>
@@ -152,11 +154,13 @@
 
 		ArticleAction("#slider", userinfo);
 
-		mui('#slider2').on('tap', '.tanaction', function() {
-			var number = this.getAttribute("articleNumber");
-			var id = this.getAttribute("articleId");
-			var usernumber = this.getAttribute("articleUserNumber");
-			ActionTan(true, number, id, usernumber);
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#slider2').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber);
+			});
 		});
 
 		//切换

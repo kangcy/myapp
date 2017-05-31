@@ -32,6 +32,8 @@
 			<img src="../images/my/444.png" class="none" id="none_img" />
 			<p class="f13 mt10" id="none_tip">关注别人,第一时间得到他们的动态</p>
 		</div>
+		<!--操作-->
+		<div id="actionwrapper"></div>
 	</body>
 
 </html>
@@ -43,7 +45,7 @@
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var self = null;
-	mui.init({ 
+	mui.init({
 		gestureConfig: {
 			doubletap: true
 		}
@@ -56,7 +58,7 @@
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		base.GetView("template").evalJS("InitAction('addfan',true)");
+		//base.GetView("template").evalJS("InitAction('addfan',true)");
 
 		Init();
 
@@ -69,11 +71,14 @@
 		base.ShowArticle("#scroll-view", "List", userinfo.Number);
 		base.ShowUser("#scroll-view");
 		ArticleAction("#scroll-view", userinfo);
-		mui('#scroll-view').on('tap', '.tanaction', function() {
-			var number = this.getAttribute("articleNumber");
-			var id = this.getAttribute("articleId");
-			var usernumber = this.getAttribute("articleUserNumber");
-			ActionTan(true, number, id, usernumber);
+
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#scroll-view').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber);
+			});
 		});
 
 		//下拉刷新

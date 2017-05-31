@@ -15,22 +15,38 @@
 		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
 	</head>
 
-	<body id="main">
-
+	<body>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff" id="title"></h1>
+		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="muicontent">
+			<div id="scroll-view">
+			</div>
+		</div>
+		<textarea id="textarea" class="hide"></textarea>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/333.png" class="none" id="none_img" />
+			<p class="f13 mt10" id="none_tip">既然还没人,那就先去首页逛会儿</p>
+		</div>
 	</body>
 
 </html>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
-<script src="../minjs/PullRefresh.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/comment.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
 <script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
 	var Number = "";
+	var self = null;
 
 	mui.init({
 		gestureConfig: {
@@ -39,26 +55,30 @@
 	});
 
 	mui.ready(function() {
-		mui('#main').load("../part/list.html", function(response) {
-			base.Immersed();
-			
-			base.Get("none_img").setAttribute("src", "../images/my/333.png");
-			base.Get("none_tip").innerHTML = "既然还没人,那就先去首页逛会儿";
-			$("#main").append('<textarea id="textarea" class="hide"></textarea>');
-
-			base.InitScroll();
-		});
+		base.Immersed();
+		base.ToTop();
 	});
 
 	mui.plusReady(function() {
 
-		var self = plus.webview.currentWebview();
+		self = plus.webview.currentWebview();
 		Number = self.Number || "";
 		ArticleNumber = self.ArticleNumber || "";
 		var Name = self.Name || "";
 		base.Get("title").innerHTML = "回复:" + base.UnUnicodeText(Name);
 
 		InitComment();
+
+		//下拉刷新 
+		self.setPullToRefresh({
+			support: true,
+			style: "circle"
+		}, function() {
+			pulldownRefresh();
+		});
+
+		//上拉加载
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	})
 
 	//评论我的-加载数据

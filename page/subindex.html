@@ -15,6 +15,8 @@
 	</head>
 
 	<body>
+		<!--操作-->
+		<div id="actionwrapper"></div>
 		<!--更新进度条-->
 		<div id="updatewrapper"></div>
 		<!--图片操作-->
@@ -52,7 +54,7 @@
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/update.min.js"></script>
-<script src="../js/article.min.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var isScroll = false; //是否滚动
@@ -144,25 +146,7 @@
 
 		base.ShowArticle("#scroll-view", "List", userinfo.Number);
 
-		mui('#uploadwrapper').load("../part/pic.html", function(response) {
-			base.Get("add").addEventListener('tap', function() {
-				length = 0;
-				files = [];
-				compressIndex = 0; //当前压缩图片索引 
-				compressTotal = 0; //需要压缩图片个数
-				currUploadImg = [];
-				mui('#upload').popover('show');
-			});
-		});
-
 		ArticleAction("#scroll-view", userinfo);
-
-		mui('#scroll-view').on('tap', '.tanaction', function() {
-			var number = this.getAttribute("articleNumber");
-			var id = this.getAttribute("articleId");
-			var usernumber = this.getAttribute("articleUserNumber");
-			ActionTan(true, number, id, usernumber);
-		});
 
 		var previewImage = mui.previewImage({
 			callback1: function(img) {},
@@ -232,6 +216,26 @@
 				}
 			}
 		}, false);
+
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#scroll-view').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber); 
+			});
+		});
+
+		mui('#uploadwrapper').load("../part/pic.html", function(response) {
+			base.Get("add").addEventListener('tap', function() {
+				length = 0;
+				files = [];
+				compressIndex = 0; //当前压缩图片索引 
+				compressTotal = 0; //需要压缩图片个数
+				currUploadImg = [];
+				mui('#upload').popover('show');
+			});
+		});
 	});
 
 	/**

@@ -16,7 +16,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">评论</h1>
+			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -41,7 +41,7 @@
 	var self = null;
 	var UserNumber = "";
 
-	mui.init({ 
+	mui.init({
 		gestureConfig: {
 			doubletap: true
 		}
@@ -57,7 +57,8 @@
 		var name = self.Name || "我";
 		name = base.UnUnicodeText(name);
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
-		base.GetView("template").evalJS("InitTitle('" + name + "的赞" + "')");
+		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的赞";
+		//base.GetView("template").evalJS("InitTitle('" + name + "的赞" + "')");
 		if(name == "我") {
 			base.Get("none_tip").innerHTML = "沒人赞你，你可以去赞别人呀";
 		} else {

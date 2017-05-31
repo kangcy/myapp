@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 	</head>
-
+ 
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
@@ -31,6 +31,8 @@
 			<img src="../images/my/444.png" class="none" id="none_img" />
 			<p class="f13 mt10" id="none_tip">好内容记得收藏,让我们不再错过</p>
 		</div>
+		<!--操作-->
+		<div id="actionwrapper"></div>
 	</body>
 
 </html>
@@ -53,11 +55,20 @@
 			return true;
 		}
 	});
-	
+
 	mui.ready(function() {
 		base.Immersed();
 		mui.previewImage();
 		base.ToTop();
+
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#scroll-view').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber);
+			});
+		});
 	});
 
 	mui.plusReady(function() {
@@ -75,12 +86,6 @@
 		ArticleAction("#scroll-view", userinfo);
 		base.ShowArticle("#scroll-view", "List", UserNumber);
 		base.ShowUser("#scroll-view");
-		mui('#scroll-view').on('tap', '.tanaction', function() {
-			var number = this.getAttribute("articleNumber");
-			var id = this.getAttribute("articleId");
-			var usernumber = this.getAttribute("articleUserNumber");
-			ActionTan(true, number, id, usernumber);
-		});
 
 		//下拉刷新
 		self.setPullToRefresh({

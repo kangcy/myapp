@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
 			.mui-search {
 				width: 90%;
@@ -62,19 +61,14 @@
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:34px;font-size:15px;">
 			</div>
 		</header>
-		<div class="loading hide" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
 		<nav class="mui-bar mui-bar-tab" id="search" style="border-top:1px solid #eee;background:#fff;">
-			<div style="margin-left:10px;" class="fl blue" id="no">取消</div>
-			<div style="margin-right:10px;" class="fr blue" id="yes">完成</div>
+			<div class="fl blue ml10" id="no">取消</div>
+			<div class="fr blue mr10" id="yes">完成</div>
 		</nav>
-		<div id="muicontent" style="padding-bottom:50px;">
+		<div id="muicontent" style="padding-bottom:50px;"> 
 			<ul class="mui-table-view f13 mt0" id="scroll-view">
 			</ul>
-		</div>
+		</div> 
 	</body>
 
 </html>
@@ -122,7 +116,7 @@
 		base.TriggerMain = false;
 
 		var self = plus.webview.currentWebview();
-		
+
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
@@ -166,6 +160,7 @@
 				return;
 			}
 			stopsound();
+			resetsound();
 			base.RemoveClass([".mui-icon"], "play stop");
 			base.AddClass([".mui-icon"], "uncheck");
 			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
@@ -178,16 +173,18 @@
 			fileUrl = this.getAttribute("fileUrl");
 		});
 
+		//播放
 		mui("#scroll-view").on('tap', '.play', function(event) {
 			base.TriggerMain = true;
 			this.classList.remove("play");
 			this.classList.add("stop");
-			switchsound();
+			playsound();
 			mui.later(function() {
 				base.TriggerMain = false;
 			}, 500)
 		});
 
+		//暂停
 		mui("#scroll-view").on('tap', '.stop', function(event) {
 			base.TriggerMain = true;
 			this.classList.remove("stop");
@@ -199,10 +196,15 @@
 		});
 	});
 
+	var lazyLoad = mui("#scroll-view").imageLazyload({
+		placeholder: '../images/loading.gif',
+		destroy: false
+	});
+
 	var audio = base.Get('bgsound');
 	var timestamp = 0;
 
-	function switchsound() {
+	function resetsound() {
 		if(audio != null) {
 			document.body.removeChild(audio);
 			audio = null;
@@ -214,16 +216,26 @@
 		audio.innerHTML = '<source src="' + fileUrl + '" type="audio/mpeg">';
 		document.body.appendChild(audio);
 
-		if(audio.paused) {
+		/*if(audio.paused) {
 			audio.play();
 		} else if(new Date().getTime() > timestamp + 1000) {
 			audio.pause();
+		}*/
+	}
+
+	function playsound() {
+		if(audio != null) {
+			if(audio.paused) {
+				audio.play();
+			}
 		}
 	}
 
 	function stopsound() {
 		if(audio != null) {
-			audio.pause();
+			if(!audio.paused) {
+				audio.pause();
+			}
 		}
 	}
 
@@ -268,9 +280,7 @@
 							table.appendChild(AppendHtml(item));
 						});
 
-						mui(document).imageLazyload({
-							placeholder: '../images/loading.gif'
-						});
+						lazyLoad.refresh(true);
 					}
 				}
 			}

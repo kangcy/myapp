@@ -390,7 +390,8 @@
 			"page/tipsetting.html",
 			"page/pic.html",
 			"page/mypic.html",
-			"page/addarticle.html"
+			"page/addarticle.html",
+			"page/tip.html"
 		]
 	},
 	"page/article.html": {
@@ -945,7 +946,9 @@
 			"minjs/PullRefresh.min.js",
 			"minjs/comment.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/refresh.min.js",
+			"js/comment.min.js"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -1427,7 +1430,8 @@
 			"minjs/article.min.js",
 			"minjs/refresh.min.js",
 			"js/article.min.js",
-			"js/base.min.js"
+			"js/base.min.js",
+			"mincss/subindex.min.css"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -2970,7 +2974,10 @@
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
 			"minjs/PullRefresh.min.js",
-			"minjs/comment.min.js"
+			"minjs/comment.min.js",
+			"minjs/mui.pullToRefresh.material.min.js",
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/refresh.min.js"
 		],
 		"refer": [
 			"page/user.html"
