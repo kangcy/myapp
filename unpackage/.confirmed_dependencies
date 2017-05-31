@@ -362,7 +362,8 @@
 			"images/my/menu07.png",
 			"images/my/menu08.png",
 			"images/avatar.png",
-			"css/subindex.css"
+			"css/subindex.css",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/pay.html",

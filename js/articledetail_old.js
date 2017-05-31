@@ -223,7 +223,7 @@ function Keep() {
 				userinfo.Keeps += 1;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			}
-			mui.toast(data.result ? "收藏成功" : data.message);
+			mui.toast(data.result ? "收藏成功,在[收藏]中可以找到Ta哦!" : data.message);
 		} else {
 			mui.toast("失败");
 		}
