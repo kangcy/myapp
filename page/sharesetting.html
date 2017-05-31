@@ -227,7 +227,7 @@
 				return;
 			}
 			isLoading = true;
-			var draw = this.className.indexOf("active") >= 0;
+			var draw = base.HasClass(this,"active");
 			base.SwitchChange("switch", !draw);
 			if(!draw) {
 				mask.show();

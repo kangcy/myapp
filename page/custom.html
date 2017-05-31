@@ -150,7 +150,7 @@
 			isLoading = true;
 			mask.show();
 			base.ShowWaiting("正在切换设置");
-			var active = this.className.indexOf("active") >= 0;
+			var active = base.HasClass(this, "active");
 			base.SwitchChange("fullSwitch", !active);
 			if(!active) {
 				full = 1;
@@ -201,7 +201,7 @@
 			if(base.RepeatAction()) {
 				return;
 			}
-			var active = this.className.indexOf("active") >= 0;
+			var active = base.HasClass(this, "active");
 			base.SwitchChange("highSwitch", !active);
 			if(!active) {
 				high = 1;

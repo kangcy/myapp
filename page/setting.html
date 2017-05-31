@@ -149,7 +149,7 @@
 				return false;
 			}
 			isLoading = true;
-			var draw = this.className.indexOf("active") >= 0;
+			var draw = base.HasClass(this, "active");
 			base.SwitchChange("drawSwitch", !draw);
 			HttpGet(base.RootUrl + "User/EditUseDraw", {
 				ID: userinfo.ID,
@@ -180,7 +180,7 @@
 				return false;
 			}
 			isLoading = true;
-			var shareNick = this.className.indexOf("active") >= 0;
+			var shareNick = base.HasClass(this, "active");
 			base.SwitchChange("shareNickSwitch", !shareNick);
 			HttpGet(base.RootUrl + "User/EditShareNick", {
 				ID: userinfo.ID,
@@ -211,7 +211,7 @@
 				return false;
 			}
 			isLoading = true;
-			var autoMusic = this.className.indexOf("active") >= 0;
+			var autoMusic = base.HasClass(this, "active");
 			base.SwitchChange("autoMusicSwitch", !autoMusic);
 			HttpGet(base.RootUrl + "User/EditAutoMusic", {
 				ID: userinfo.ID,

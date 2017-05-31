@@ -102,7 +102,7 @@
 								settingPage = base.GetView('accountsetting');
 							}
 							settingPage.evalJS("UpdatePhone('" + phone + "')");
-							mui.back();
+							plus.webview.close("bindphone");
 						} else {
 							return mui.toast(data.message);
 						}

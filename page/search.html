@@ -116,13 +116,15 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../js/mui.pullToRefresh.js"></script>
-<script src="../js/mui.pullToRefresh.material.js"></script>
+<script src="../minjs/mui.pullToRefresh.min.js"></script>
+<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
+<script src="../minjs/mui.lazyload.min.js"></script>
+<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
-	var SearchName = ""; //搜索词
+	var SearchName = "";
 	var isLoading = false;
 	var currpage = 1;
 	var totalpage = 2;
@@ -181,14 +183,15 @@
 	mui.plusReady(function() {
 
 		InitLoadUser("");
+		InitLoadArticle("");
 
 		mui(base.Get("slider2")).pullToRefresh({
-			down: {
+			/*down: {
 				callback: function() {
 					var self = this;
 					pulldownRefresh(self);
 				}
-			},
+			},*/
 			up: {
 				auto: true,
 				callback: function() {
@@ -196,7 +199,7 @@
 					pullupRefresh(self);
 				}
 			}
-		});
+		}); 
 
 		mui.previewImage({
 			callback: function(index) {}
@@ -205,6 +208,11 @@
 		base.Get("btnSearch").addEventListener('tap', function(e) {
 			Search();
 		});
+	});
+
+	var lazyLoad = mui(document).imageLazyload({
+		placeholder: '../images/loading.gif',
+		destroy: false
 	});
 
 	//执行搜索
@@ -242,9 +250,11 @@
 					base.Get("none1").classList.add("hide");
 					var table = base.Get('scroll-view1');
 					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendUser(data.list[i], true, true, false, "");
+						var div = base.AppendUser(data.list[i], true, true, false, "", false, true);
 						table.appendChild(div);
 					}
+
+					lazyLoad.refresh(true);
 				} else {
 					base.Get("none1").classList.remove("hide");
 				}
@@ -312,7 +322,7 @@
 			data = JSON.parse(data);
 			base.ShowLoading(false);
 			if(data != null) {
-				if(data.result) {
+				if(data.result) { 
 					data = data.message;
 					totalpage = data.totalpage;
 					var length = data.list.length;

@@ -69,6 +69,11 @@
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	});
 
+	var lazyLoad = mui(document).imageLazyload({
+		placeholder: '../images/loading.gif',
+		destroy: false
+	});
+
 	//初始化获取参数
 	function Init() {
 		Load();
@@ -117,9 +122,7 @@
 							table.appendChild(AppendHtml(item));
 						});
 
-						mui(document).imageLazyload({
-							placeholder: '../images/loading.gif'
-						});
+						lazyLoad.refresh(true);
 					} else {
 						base.ShowNone(true);
 					}

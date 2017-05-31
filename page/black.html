@@ -39,7 +39,7 @@
 	var records = 0;
 	var userinfo = base.GetUserInfo();
 
-	mui.init({ 
+	mui.init({
 		gestureConfig: {
 			doubletap: true
 		}
@@ -48,10 +48,10 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
-		Load();
 	});
-
+ 
 	mui.plusReady(function() {
+		Load();
 
 		base.ShowUser("#scroll-view");
 

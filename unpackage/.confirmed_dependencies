@@ -1297,7 +1297,12 @@
 			"mincss/animate.min.css",
 			"minjs/mui.previewimage.min.js",
 			"minjs/article.min.js",
-			"minjs/mui.zoom.min.js"
+			"minjs/mui.zoom.min.js",
+			"minjs/mui.pullToRefresh.material.min.js",
+			"minjs/mui.pullToRefresh.min.js",
+			"minjs/mui.lazyload.img.min.js",
+			"js/base.min.js",
+			"minjs/mui.lazyload.min.js"
 		],
 		"refer": [
 			"page/searchSub.html",

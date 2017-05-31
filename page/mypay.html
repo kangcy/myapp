@@ -170,8 +170,8 @@
 				return;
 			}
 			isLoading = true;
-			base.SwitchChange("autoPaySwitch", this.className.indexOf("active") < 0);
-			ispay = this.className.indexOf("active") >= 0 ? 1 : 0;
+			base.SwitchChange("autoPaySwitch", !base.HasClass(this, "active"));
+			ispay = base.HasClass(this, "active") ? 1 : 0;
 
 			if(ispay == 1) {
 				ActionTan(1);

@@ -135,12 +135,11 @@
 
 		//绑定微信切换
 		base.Get("weixinSwitch").addEventListener('tap', function(event) {
-			console.log(isLoading);
 			if(isLoading) {
 				return false;
 			}
 			isLoading = true;
-			var weixin = this.className.indexOf("active") >= 0;
+			var weixin = base.HasClass(this, "active");
 			base.SwitchChange("weixinSwitch", !weixin);
 			if(!weixin) {
 				authLogin('weixin');
@@ -168,7 +167,7 @@
 				return false;
 			}
 			isLoading = true;
-			var qq = this.className.indexOf("active") >= 0;
+			var qq = base.HasClass(this, "active");
 			base.SwitchChange("qqSwitch", !qq);
 			if(!qq) {
 				authLogin('qq');
@@ -196,7 +195,7 @@
 				return false;
 			}
 			isLoading = true;
-			var weibo = this.className.indexOf("active") >= 0;
+			var weibo = base.HasClass(this, "active");
 			base.SwitchChange("weiboSwitch", !weibo);
 			if(!weibo) {
 				authLogin('sinaweibo');
