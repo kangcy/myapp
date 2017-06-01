@@ -156,14 +156,14 @@
 		</div>
 		<div class="f15 tc mt10 c000 bold" id="nickname"></div>
 		<div class="signature mt5 tc f12 c666" id="signature"></div>
-		<div class="full tc mt10 mb15 hide" id="action">
+		<div class="full tc mt10 mb5 hide" id="action">
 			<div id="guanzhu" class="guanzhu f14 mr30">关注TA</div>
 			<div id="dashang" class="dashang f14" onclick="Payment()">打赏</div>
 		</div>
-		<div class="secret tc f13 c000">
+		<div class="secret tc mt10 f13 c000">
 			<div class="hide" id="showFollow" onclick="Follow()">
 				<p class="f20 mb0 blue bold" id="showFollowNum">0</p>
-				<p>关注</p> 
+				<p>关注</p>
 			</div>
 			<div class="hide" id="showFan" onclick="Fan()">
 				<p class="f20 mb0 blue bold" id="showFanNum">0</p>
@@ -426,8 +426,9 @@
 		isLoading = true;
 		var $guanzhu = base.Get("guanzhu");
 		if(isfan == 1) {
+			$guanzhu.style.background = '#999';
 			$guanzhu.classList.add("guanzhu2");
-			$guanzhu.classList.remove("guanzhu")
+			$guanzhu.classList.remove("guanzhu");
 			$guanzhu.innerHTML = "已关注";
 			isLoading = false;
 		} else {
@@ -448,6 +449,7 @@
 						mui.toast(data.result ? "关注成功,在[关注]中可以找到Ta哦!" : data.message);
 						if(data.result) {
 							base.UpdateFan(userinfo, data.message);
+							$guanzhu.style.background = '#999';
 							$guanzhu.classList.add("guanzhu2");
 							$guanzhu.classList.remove("guanzhu")
 							$guanzhu.innerHTML = "已关注";
