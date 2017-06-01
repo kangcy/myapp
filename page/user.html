@@ -150,20 +150,28 @@
 				<div class="c333 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
 			</div>
 		</div>
-		<div class="info-content" id="bg">
-			<div style="position:absolute;width:100%;bottom:0px;" id="bg2">
-				<img id="avatar" src="../images/avatar.png" />
-				<p class="f15 tc mt10 cfff textshadow" id="nickname"></p>
-				<p class="signature tc mt5 f12 cfff textshadow" id="signature"></p>
-				<p class="secret tc mt5 mb15 f12 cfff textshadow">
-					<span class="hide mr15" id="showFollow" onclick="Follow()">关注&nbsp;<span class="f13" id="showFollowNum">0</span></span>
-					<span class="hide ml15 mr15" id="showFan" onclick="Fan()">粉丝&nbsp;<span class="f13" id="showFanNum">0</span></span>
-					<span class="hide ml15" id="showArticle" onclick="Keep()">收藏&nbsp;<span class="f13" id="showArticleNum">0</span></span>
-				</p>
-				<div class="full tc mb20 hide" id="action">
-					<div id="guanzhu" class="guanzhu f14 mr30">关注</div>
-					<div class="dashang f14" onclick="Payment()">打赏</div>
-				</div>
+		<div class="bg" id="bg"></div>
+		<div class="avatar">
+			<img id="avatar" src="../images/avatar.png" />
+		</div>
+		<div class="f15 tc mt10 c000 bold" id="nickname"></div>
+		<div class="signature mt5 tc f12 c666" id="signature"></div>
+		<div class="full tc mt10 mb15 hide" id="action">
+			<div id="guanzhu" class="guanzhu f14 mr30">关注TA</div>
+			<div id="dashang" class="dashang f14" onclick="Payment()">打赏</div>
+		</div>
+		<div class="secret tc f13 c000">
+			<div class="hide" id="showFollow" onclick="Follow()">
+				<p class="f20 mb0 blue bold" id="showFollowNum">0</p>
+				<p>关注</p> 
+			</div>
+			<div class="hide" id="showFan" onclick="Fan()">
+				<p class="f20 mb0 blue bold" id="showFanNum">0</p>
+				<p>粉丝</p>
+			</div>
+			<div class="hide" id="showArticle" onclick="Keep()">
+				<p class="f20 mb0 blue bold" id="showArticleNum">0</p>
+				<p>收藏</p>
 			</div>
 		</div>
 		<div id="article" class="hide f13 c999 full">
@@ -221,11 +229,12 @@
 
 	mui.ready(function() {
 		base.Immersed();
-
-		base.Get("bg2").style.minHeight = window.innerWidth * 0.7 + "px";
-		$bg.style.minHeight = window.innerWidth + "px";
+		$bg.style.minHeight = window.innerWidth * 3 / 4 + "px";
 		$bg.style.background = "#eee";
 		$bg.style.backgroundSize = "cover";
+		var name = base.BrowserName();
+		base.Get("guanzhu").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+		base.Get("dashang").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 
 		var num = 0;
 		var browserName = base.BrowserName();

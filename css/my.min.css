@@ -1,8 +1,16 @@
+.avatar {
+	margin-top: -2.5rem;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+}
+
 #avatar {
 	border-radius: 50%;
 	width: 5rem;
 	height: 5rem;
 	border: 3px solid #fff;
+	text-align: center;
 }
 
 .menu {
@@ -46,16 +54,14 @@
 	margin-right: 0.5rem;
 }
 
-.info-content {
+.bg {
 	width: 100%;
 	display: inline-block;
 	margin: 0px;
-	text-align: center;
-	position: relative;
-	padding-top: 5rem;
+	z-index: -1;
 }
 
-.info-content .side {
+.bg .side {
 	float: left;
 	width: 25%;
 	line-height: 0.625rem;
@@ -69,14 +75,15 @@
 }
 
 .secret {
-	margin: 0px;
-	line-height: 1.25rem;
-	color: #a3a3a3;
+	margin: 0px 5%;
+	display: inline-block;
+	width: 90%;
 }
 
-.secret span.c666 {
-	padding-left: 0.8rem;
-	padding-right: 0.8rem;
+.secret div {
+	width: 33.3%;
+	display: inline-block;
+	float: left;
 }
 
 .content1 {
@@ -133,28 +140,25 @@
 	background: #49be38;
 	color: #fff;
 	text-align: center;
-	border-radius: 10px;
+	border-radius: 30px;
 	padding: 0.4rem 1.2rem;
 	display: inline-block;
 	width: 6rem;
 }
 
 .guanzhu2 {
-	border: 1px solid #aaa;
-	background: #aaa;
 	color: #fff;
 	text-align: center;
-	border-radius: 10px;
+	border-radius: 30px;
 	padding: 0.4rem 1.2rem;
 	display: inline-block;
 	width: 6rem;
 }
 
 .dashang {
-	background: #fff;
-	color: #49be38;
+	color: #fff;
 	text-align: center;
-	border-radius: 10px;
+	border-radius: 30px;
 	padding: 0.4rem 1.2rem;
 	display: inline-block;
 	width: 6rem;

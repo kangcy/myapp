@@ -1016,7 +1016,8 @@
 			"images/share/06.png",
 			"images/share/05.png",
 			"images/share/04.png",
-			"images/avatar.png"
+			"images/avatar.png",
+			"css/my.min.css"
 		],
 		"refer": [
 			"page/userSub.html",
