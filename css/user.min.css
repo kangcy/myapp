@@ -81,13 +81,9 @@
 }
 
 .secret div {
-	width: 25%;
+	width: 33.3%;
 	display: inline-block;
 	float: left;
-}
-
-.secret img {
-	width: 50%;
 }
 
 .content1 {
@@ -139,29 +135,26 @@
 	margin-left: 1.25rem;
 }
 
-.guanzhu,
-.guanzhu2 {
+.guanzhu,.guanzhu2 {
 	color: #fff;
 	text-align: center;
 	border-radius: 30px;
 	display: inline-block;
 	width: 35%;
-	height: 2.5rem;
-	line-height: 2.5rem;
+	height:2.5rem;
+	line-height:2.5rem;
 }
-
 .dashang {
 	color: #fff;
 	text-align: center;
 	border-radius: 30px;
 	display: inline-block;
 	width: 35%;
-	height: 2.5rem;
-	line-height: 2.5rem;
+	height:2.5rem;
+	line-height:2.5rem;
 }
 
-
-/*#my-mypay {
+#my-mypay {
 	background-image: url(../images/my/menu01.png);
 	background-repeat: no-repeat;
 	background-position: 0.8rem center;
@@ -201,7 +194,7 @@
 	background-repeat: no-repeat;
 	background-position: 0.8rem center;
 	background-size: 1.5rem;
-}*/
+}
 
 
 /**操作**/

@@ -493,7 +493,7 @@
 						audio = null;
 					}
 
-					base.Get("payuser").setAttribute("src", base.ShowThumb(data.Avatar, 1));
+					//base.Get("payuser").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
 					mui.each(mui(".user"), function(i, item) {
 						item.setAttribute("userid", data.CreateUserNumber);
@@ -557,9 +557,9 @@
 					$("#desc").html(base.UnUnicodeText(html.join("")));*/
 
 					base.Get("musicname0").innerHTML = data.MusicName;
-					base.Get("musicname1").innerHTML = data.MusicName;
+					//base.Get("musicname1").innerHTML = data.MusicName;
 
-					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
+					//base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
 					base.Get("title0").innerHTML = base.UnUnicodeText(data.Title);

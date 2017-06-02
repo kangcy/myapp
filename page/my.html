@@ -8,11 +8,11 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/subindex.min.css">
+		<link rel="stylesheet" href="../css/my.min.css">
 	</head>
 
 	<body>
-		<div class="cover fl" id="cover">
+		<!--<div class="cover fl" id="cover">
 			<div class="info">
 				<div class="left mb10">
 					<img id="avatar" src="../images/avatar.png" />
@@ -42,40 +42,93 @@
 					</div>
 				</div>
 			</div>
+		</div>-->
+		<div class="bg" id="cover"></div>
+		<div class="avatar">
+			<img id="avatar" src="../images/avatar.png" />
 		</div>
-		<div class="mui-scroll-wrapper" id="my-wrapper">
-			<div class="mui-scroll">
-				<div class="mui-content-padded">
-					<div class="c333 menu f12" id="my-tip">
-						好友动态
-					</div>
-					<div class="c333 menu f12" id="my-mypic">
-						我的相册
-					</div>
-					<div class="c333 menu f12" id="my-mypay">
-						我的打赏
-					</div>
-					<div class="c333 menu f12" id="my-msg">
-						消息中心
-					</div>
-				</div>
-				<div class="splitline"></div>
-				<div class="mui-content-padded">
-					<div class="c333 menu f12" id="my-feedback">
-						意见反馈
-					</div>
-					<div class="c333 menu f12" id="my-good">
-						给个好评
-					</div>
-					<div class="c333 menu f12" id="my-help">
-						帮助中心
-					</div>
-					<div class="c333 menu f12" id="my-setting">
-						设置
-					</div>
-				</div>
+		<div class="f15 tc mt10 c000 bold" id="nickname"></div>
+		<div class="signature mt5 tc f12 c666" id="signature"></div>
+		<div class="secret tc mt10 f13 c000">
+			<div id="my-articles">
+				<p class="f20 mb0 blue bold" id="articles">0</p>
+				<p>动态</p>
+			</div>
+			<div id="my-keeps">
+				<p class="f20 mb0 blue bold" id="keeps">0</p>
+				<p>收藏</p>
+			</div>
+			<div id="my-follows">
+				<p class="f20 mb0 blue bold" id="follows">0</p>
+				<p>关注</p>
+			</div>
+			<div id="my-fans">
+				<p class="f20 mb0 blue bold" id="fans">0</p>
+				<p>粉丝</p>
 			</div>
 		</div>
+
+		<div class="secret tc mt10 f13 c000">
+			<div id="my-tip">
+				<img src="../images/my/icon_01.png" />
+				<p>好友动态</p>
+			</div>
+			<div id="my-mypic">
+				<img src="../images/my/icon_02.png" />
+				<p>我的相册</p>
+			</div>
+			<div id="my-mypay">
+				<img src="../images/my/icon_03.png" />
+				<p>我的打赏</p>
+			</div>
+			<div id="my-msg">
+				<img src="../images/my/icon_04.png" />
+				<p>消息中心</p>
+			</div>
+			<div id="my-feedback">
+				<img src="../images/my/icon_05.png" />
+				<p>意见反馈</p>
+			</div>
+			<div id="my-good">
+				<img src="../images/my/icon_06.png" />
+				<p>给个好评</p>
+			</div>
+			<div id="my-help">
+				<img src="../images/my/icon_07.png" />
+				<p>帮助中心</p>
+			</div>
+		</div>
+
+		<!--<div class="mui-content-padded">
+			<div class="c333 menu f12" id="my-tip">
+				好友动态
+			</div>
+			<div class="c333 menu f12" id="my-mypic">
+				我的相册
+			</div>
+			<div class="c333 menu f12" id="my-mypay">
+				我的打赏
+			</div>
+			<div class="c333 menu f12" id="my-msg">
+				消息中心
+			</div>
+		</div>
+		<div class="splitline"></div>
+		<div class="mui-content-padded">
+			<div class="c333 menu f12" id="my-feedback">
+				意见反馈
+			</div>
+			<div class="c333 menu f12" id="my-good">
+				给个好评
+			</div>
+			<div class="c333 menu f12" id="my-help">
+				帮助中心
+			</div>
+			<div class="c333 menu f12" id="my-setting">
+				设置
+			</div>
+		</div>-->
+
 	</body>
 
 </html>
@@ -98,7 +151,11 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		base.InitScroll();
+		//base.InitScroll(); 
+
+		$cover.style.minHeight = window.innerWidth * 3 / 4 + "px";
+		$cover.style.background = "#eee";
+		$cover.style.backgroundSize = "cover";
 
 		//用户封面
 		$cover.addEventListener('tap', function() {
@@ -176,10 +233,10 @@
 		});
 
 		//系统设置
-		base.Get("my-setting").addEventListener('tap', function() {
+		/*base.Get("my-setting").addEventListener('tap', function() {
 			base.OpenWindow("setting", "setting.html", {})
 			//base.OpenWindowNew("setting.html",'setting');  
-		});
+		});*/
 
 		//好友动态
 		base.Get("my-tip").addEventListener('tap', function() {
@@ -229,7 +286,7 @@
 		base.Get("fans").innerHTML = userinfo.Fans;
 		base.Get("articles").innerHTML = userinfo.Articles;
 		base.Get("keeps").innerHTML = userinfo.Keeps;
-		base.Get("my-wrapper").style.top = base.Get("cover").clientHeight + (base.Get("info").clientHeight / 2) + 20 + "px";
+		//base.Get("my-wrapper").style.top = base.Get("cover").clientHeight + (base.Get("info").clientHeight / 2) + 20 + "px";
 
 		Cover = userinfo.Cover;
 		Avatar = userinfo.Avatar;
