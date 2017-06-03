@@ -364,7 +364,15 @@
 			"images/avatar.png",
 			"css/subindex.css",
 			"js/base.min.js",
-			"css/my.min.css"
+			"css/my.min.css",
+			"images/my/icon_05.png",
+			"images/my/icon_02.png",
+			"images/my/icon_03.png",
+			"images/my/icon_06.png",
+			"images/my/icon_01.png",
+			"images/my/icon_04.png",
+			"images/my/icon_07.png",
+			"mincss/my.min.css"
 		],
 		"refer": [
 			"page/pay.html",
@@ -1018,7 +1026,8 @@
 			"images/share/05.png",
 			"images/share/04.png",
 			"images/avatar.png",
-			"css/my.min.css"
+			"css/my.min.css",
+			"mincss/user.min.css"
 		],
 		"refer": [
 			"page/userSub.html",

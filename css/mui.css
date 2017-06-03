@@ -233,51 +233,51 @@ a:active {
 	-webkit-overflow-scrolling: touch;
 }
 
-.mui-bar-nav~ .mui-content {
+.mui-bar-nav~.mui-content {
 	padding-top: 45px;
 }
 
-.mui-bar-nav~ .mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
+.mui-bar-nav~.mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
 	top: 45px;
 }
 
-.mui-bar-header-secondary~ .mui-content {
+.mui-bar-header-secondary~.mui-content {
 	padding-top: 88px;
 }
 
-.mui-bar-header-secondary~ .mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
+.mui-bar-header-secondary~.mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
 	top: 88px;
 }
 
-.mui-bar-footer~ .mui-content {
+.mui-bar-footer~.mui-content {
 	padding-bottom: 44px;
 }
 
-.mui-bar-footer~ .mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
+.mui-bar-footer~.mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
 	bottom: 44px;
 }
 
-.mui-bar-footer-secondary~ .mui-content {
+.mui-bar-footer-secondary~.mui-content {
 	padding-bottom: 88px;
 }
 
-.mui-bar-footer-secondary~ .mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
+.mui-bar-footer-secondary~.mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
 	bottom: 88px;
 }
 
-.mui-bar-tab~ .mui-content {
+.mui-bar-tab~.mui-content {
 	padding-bottom: 50px;
 }
 
-.mui-bar-tab~ .mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
+.mui-bar-tab~.mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
 	bottom: 50px;
 }
 
-.mui-bar-footer-secondary-tab~ .mui-content {
+.mui-bar-footer-secondary-tab~.mui-content {
 	padding-bottom: 94px;
 }
 
-.mui-bar-footer-secondary-tab~ .mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
+.mui-bar-footer-secondary-tab~.mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
 	bottom: 94px;
 }
 
@@ -2549,8 +2549,8 @@ select:focus {
 }
 
 .mui-input-row:last-child,
-.mui-input-row label+ input,
-.mui-input-row .mui-btn+ input {
+.mui-input-row label+input,
+.mui-input-row .mui-btn+input {
 	background: none;
 }
 
@@ -2577,9 +2577,9 @@ select:focus {
 	padding: 11px 10px;
 }
 
-.mui-input-row label~ input,
-.mui-input-row label~ select,
-.mui-input-row label~ textarea {
+.mui-input-row label~input,
+.mui-input-row label~select,
+.mui-input-row label~textarea {
 	float: right;
 	width: 75%;
 	margin-bottom: 0;
@@ -2595,9 +2595,9 @@ select:focus {
 	padding: 10px 15px;
 }
 
-.mui-input-row .mui-btn~ input,
-.mui-input-row .mui-btn~ select,
-.mui-input-row .mui-btn~ textarea {
+.mui-input-row .mui-btn~input,
+.mui-input-row .mui-btn~select,
+.mui-input-row .mui-btn~textarea {
 	float: left;
 	width: 85%;
 	margin-bottom: 0;
@@ -2628,9 +2628,9 @@ select:focus {
 	padding: 8px 0;
 }
 
-.mui-input-row .mui-input-clear~ .mui-icon-clear,
-.mui-input-row .mui-input-speech~ .mui-icon-speech,
-.mui-input-row .mui-input-password~ .mui-icon-eye {
+.mui-input-row .mui-input-clear~.mui-icon-clear,
+.mui-input-row .mui-input-speech~.mui-icon-speech,
+.mui-input-row .mui-input-password~.mui-icon-eye {
 	font-size: 20px;
 	position: absolute;
 	z-index: 1;
@@ -2642,26 +2642,26 @@ select:focus {
 	color: #999;
 }
 
-.mui-input-row .mui-input-clear~ .mui-icon-clear.mui-active,
-.mui-input-row .mui-input-speech~ .mui-icon-speech.mui-active,
-.mui-input-row .mui-input-password~ .mui-icon-eye.mui-active {
+.mui-input-row .mui-input-clear~.mui-icon-clear.mui-active,
+.mui-input-row .mui-input-speech~.mui-icon-speech.mui-active,
+.mui-input-row .mui-input-password~.mui-icon-eye.mui-active {
 	color: #007aff;
 }
 
-.mui-input-row .mui-input-speech~ .mui-icon-speech {
+.mui-input-row .mui-input-speech~.mui-icon-speech {
 	font-size: 24px;
 	top: 8px;
 }
 
-.mui-input-row .mui-input-clear~ .mui-icon-clear~ .mui-icon-speech {
+.mui-input-row .mui-input-clear~.mui-icon-clear~.mui-icon-speech {
 	display: none;
 }
 
-.mui-input-row .mui-input-clear~ .mui-icon-clear.mui-hidden~ .mui-icon-speech {
+.mui-input-row .mui-input-clear~.mui-icon-clear.mui-hidden~.mui-icon-speech {
 	display: inline-block;
 }
 
-.mui-input-row .mui-icon-speech~ .mui-placeholder {
+.mui-input-row .mui-icon-speech~.mui-placeholder {
 	right: 38px;
 }
 
@@ -5323,6 +5323,24 @@ body>.mui-progressbar {
 .waiting div img {
 	width: 1.5rem;
 	margin: 1.25rem 0.75rem 1.25rem 0px;
+}
+
+.mui-popover.mui-popover-action .mui-table-view {
+	margin-left: 0 !important;
+	margin-right: 0px !important;
+	border-radius: 0px !important;
+}
+
+.mui-popover.mui-popover-action .mui-table-view {
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+	margin-bottom: 0px !important;
+	margin-top: 0rem !important;
+	border-radius: 0px !important;
+}
+
+.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
+	background-color: #ddd !important;
 }
 
 

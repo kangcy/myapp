@@ -8,41 +8,14 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/my.min.css">
+		<link rel="stylesheet" href="../mincss/my.min.css">
 	</head>
-
+ 
 	<body>
-		<!--<div class="cover fl" id="cover">
-			<div class="info">
-				<div class="left mb10">
-					<img id="avatar" src="../images/avatar.png" />
-				</div>
-				<div class="right tl mb10">
-					<p class="cfff nickname f15 textshadow mt10 bold" id="nickname"></p>
-					<p class="cfff signature mt5 f12 textshadow" id="signature"></p>
-				</div>
-				<div style="width:90%;margin:0px 5%;height:4rem;" class="fl" id="info">
-					<div class="content1 tc cfff fl fullheight mt0 fl">
-						<div class="items" id="my-articles">
-							<p class="item1 f16 blue" id="articles">0</p>
-							<p class="item2 f12 c999">动态</p>
-						</div>
-						<div class="items" id="my-keeps">
-							<p class="item1 f16 blue" id="keeps">0</p>
-							<p class="item2 f12 c999">收藏</p>
-						</div>
-						<div class="items" id="my-follows">
-							<p class="item1 f16 blue" id="follows">0</p>
-							<p class="item2 f12 c999">关注</p>
-						</div>
-						<div class="items" id="my-fans">
-							<p class="item1 f16 blue" id="fans">0</p>
-							<p class="item2 f12 c999">粉丝</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>-->
+		<header id="header" class="mui-bar" immersed="none">
+			<span class="cfff f13 fl more1 textshadow" id="my-setting">设置</span>
+			<span class="cfff f13 fr more2 textshadow" onclick="closeMenu()">首页></span>
+		</header>
 		<div class="bg" id="cover"></div>
 		<div class="avatar">
 			<img id="avatar" src="../images/avatar.png" />
@@ -51,84 +24,46 @@
 		<div class="signature mt5 tc f12 c666" id="signature"></div>
 		<div class="secret tc mt10 f13 c000">
 			<div id="my-articles">
-				<p class="f20 mb0 blue bold" id="articles">0</p>
-				<p>动态</p>
+				<p class="f25 mb0 blue bold" id="articles">0</p>
+				<p class="f14">动态</p>
 			</div>
 			<div id="my-keeps">
-				<p class="f20 mb0 blue bold" id="keeps">0</p>
-				<p>收藏</p>
+				<p class="f25 mb0 blue bold" id="keeps">0</p>
+				<p class="f14">收藏</p>
 			</div>
 			<div id="my-follows">
-				<p class="f20 mb0 blue bold" id="follows">0</p>
-				<p>关注</p>
+				<p class="f25 mb0 blue bold" id="follows">0</p>
+				<p class="f14">关注</p>
 			</div>
 			<div id="my-fans">
-				<p class="f20 mb0 blue bold" id="fans">0</p>
-				<p>粉丝</p>
-			</div>
-		</div>
-
-		<div class="secret tc mt10 f13 c000">
-			<div id="my-tip">
-				<img src="../images/my/icon_01.png" />
-				<p>好友动态</p>
-			</div>
-			<div id="my-mypic">
-				<img src="../images/my/icon_02.png" />
-				<p>我的相册</p>
-			</div>
-			<div id="my-mypay">
-				<img src="../images/my/icon_03.png" />
-				<p>我的打赏</p>
-			</div>
-			<div id="my-msg">
-				<img src="../images/my/icon_04.png" />
-				<p>消息中心</p>
-			</div>
-			<div id="my-feedback">
-				<img src="../images/my/icon_05.png" />
-				<p>意见反馈</p>
-			</div>
-			<div id="my-good">
-				<img src="../images/my/icon_06.png" />
-				<p>给个好评</p>
-			</div>
-			<div id="my-help">
-				<img src="../images/my/icon_07.png" />
-				<p>帮助中心</p>
-			</div>
-		</div>
-
-		<!--<div class="mui-content-padded">
-			<div class="c333 menu f12" id="my-tip">
-				好友动态
-			</div>
-			<div class="c333 menu f12" id="my-mypic">
-				我的相册
-			</div>
-			<div class="c333 menu f12" id="my-mypay">
-				我的打赏
-			</div>
-			<div class="c333 menu f12" id="my-msg">
-				消息中心
+				<p class="f25 mb0 blue bold" id="fans">0</p>
+				<p class="f14">粉丝</p>
 			</div>
 		</div>
 		<div class="splitline"></div>
-		<div class="mui-content-padded">
-			<div class="c333 menu f12" id="my-feedback">
-				意见反馈
+		<div class="menus tc mt10 f13">
+			<div id="my-tip">
+				<p class="c000">好友动态</p>
 			</div>
-			<div class="c333 menu f12" id="my-good">
-				给个好评
+			<div id="my-mypic">
+				<p class="c000">我的相册</p>
 			</div>
-			<div class="c333 menu f12" id="my-help">
-				帮助中心
+			<div id="my-mypay">
+				<p class="c000">我的打赏</p>
 			</div>
-			<div class="c333 menu f12" id="my-setting">
-				设置
+			<div id="my-msg">
+				<p class="c000">消息中心</p>
 			</div>
-		</div>-->
-
+			<div id="my-feedback">
+				<p class="c000">意见反馈</p>
+			</div>
+			<div id="my-good">
+				<p class="c000">给个好评</p>
+			</div>
+			<div id="my-help">
+				<p class="c000">帮助中心</p>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -151,7 +86,6 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		//base.InitScroll(); 
 
 		$cover.style.minHeight = window.innerWidth * 3 / 4 + "px";
 		$cover.style.background = "#eee";
@@ -233,10 +167,10 @@
 		});
 
 		//系统设置
-		/*base.Get("my-setting").addEventListener('tap', function() {
+		base.Get("my-setting").addEventListener('tap', function() {
 			base.OpenWindow("setting", "setting.html", {})
 			//base.OpenWindowNew("setting.html",'setting');  
-		});*/
+		});
 
 		//好友动态
 		base.Get("my-tip").addEventListener('tap', function() {

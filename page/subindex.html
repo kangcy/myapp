@@ -51,11 +51,8 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-
-<!--<script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../minjs/mui.zoom.min.js"></script>-->
-<script src="../js/mui.previewimage.js"></script>
-<script src="../js/mui.zoom.js"></script>
+<script src="../minjs/mui.previewimage.min.js"></script>
+<script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/update.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script src="../js/addarticle.js"></script>
@@ -215,7 +212,7 @@
 				var id = this.getAttribute("articleId");
 				var usernumber = this.getAttribute("articleUserNumber");
 				ActionTan(true, number, id, usernumber);
-			});
+			}); 
 		});
 
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {

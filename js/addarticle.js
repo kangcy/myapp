@@ -54,7 +54,6 @@ function Pic() {
 		Multiple: 1
 	}
 	base.OpenWindow("mypic", "mypic.html", param);
-	//base.ShowTemplate("mypic", "mypic.html", "我的相册", JSON.stringify(param));
 }
 
 //加载图片
