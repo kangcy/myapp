@@ -705,7 +705,8 @@
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
 			"minjs/group.min.js",
-			"mincss/addarticle.min.css"
+			"mincss/addarticle.min.css",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/edittitle.html",
@@ -824,7 +825,11 @@
 			"js/PullRefresh.min.js",
 			"js/article.min.js",
 			"minjs/refresh.min.js",
-			"images/avatar.png"
+			"images/avatar.png",
+			"images/article/btn_good.png",
+			"images/article/btn_comment.png",
+			"images/article/btn_good2.png",
+			"images/article/btn_pay.png"
 		],
 		"refer": [
 			"page/topic.html",

@@ -78,16 +78,19 @@
 				<li class="mui-table-view-cell hide" style="background:#E8E8E8;">
 					<span class="fl f11">准确设置文章类别，方便以后归纳整理</span>
 				</li>
-				<li class="mui-table-view-cell"> 
-					<p class="f13 c333">投稿<span>每周只有一次投稿机会，被选中的文章会有“精”字标识</span></p>
+
+			</ul>
+			<div class="splitline"></div>
+			<ul class="mui-table-view f13 mt0">
+				<li class="mui-table-view-cell">
+					<p class="f13 c333">投稿<br />
+						<span class="f10" style="width:80%">每周只有一次投稿机会，被选中的文章会有“精”字标识</span>
+					</p>
 					<div class="divSwitch">
 						<div class="my-switch fr" id="switch">
 							<div></div>
 						</div>
 					</div>
-				</li>
-				<li class="mui-table-view-cell" style="background:#E8E8E8;">
-					<span class="fl f11">每周只有一次投稿机会，被选中的文章会有“精”字标识</span>
 				</li>
 			</ul>
 		</div>
@@ -227,7 +230,7 @@
 				return;
 			}
 			isLoading = true;
-			var draw = base.HasClass(this,"active");
+			var draw = base.HasClass(this, "active");
 			base.SwitchChange("switch", !draw);
 			if(!draw) {
 				mask.show();
@@ -295,7 +298,7 @@
 	//操作弹窗
 	function ActionTan(index, text) {
 		if(index == 0) {
-			base.Get("mytanbg").classList.add("hide"); 
+			base.Get("mytanbg").classList.add("hide");
 			base.RemoveClass(["#notice"], "bounceIn");
 			base.AddClass(["#notice"], "bounceOut hide");
 		} else {

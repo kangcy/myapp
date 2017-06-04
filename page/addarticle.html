@@ -39,7 +39,7 @@
 </html>
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/group.min.js"></script>
 <!--<script type="text/javascript" src="http://player.youku.com/jsapi"></script>-->
 <!--<script type="text/javascript" src="../js/video.js"></script>-->
@@ -200,7 +200,8 @@
 					//同步原始段落信息			
 					mui.each(InitParts, function(index, item) {
 						if(item.ID == partid) {
-							InitParts.splice(index, 1, new PartModel(partid, "", 3, 0));
+							//InitParts.splice(index, 1, new PartModel(partid, "", 3, 0));
+							InitParts.splice(index, 1, new PartModel(partid, "", 3, 0, item.Types));
 						}
 					});
 				}
@@ -299,7 +300,6 @@
 
 	//编辑图片
 	function AddPic(partid, url, index) {
-		console.log(partid + "," + url + "," + index);
 		if(index == 0) {
 			var html = appendStr(url, "pic", partid);
 			$("#" + currEditID).parents(".edit-body").after(html);
