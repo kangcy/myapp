@@ -135,84 +135,66 @@
 	margin-left: 1.25rem;
 }
 
-.guanzhu,.guanzhu2 {
+.guanzhu,
+.guanzhu2 {
 	color: #fff;
 	text-align: center;
 	border-radius: 30px;
 	display: inline-block;
 	width: 35%;
-	height:2.5rem;
-	line-height:2.5rem;
+	height: 2.5rem;
+	line-height: 2.5rem;
 }
+
 .dashang {
 	color: #fff;
 	text-align: center;
 	border-radius: 30px;
 	display: inline-block;
 	width: 35%;
-	height:2.5rem;
-	line-height:2.5rem;
-}
-
-#my-mypay {
-	background-image: url(../images/my/menu01.png);
-	background-repeat: no-repeat;
-	background-position: 0.8rem center;
-	background-size: 1.5rem;
-}
-
-#my-comment {
-	background-image: url(../images/my/menu02.png);
-	background-repeat: no-repeat;
-	background-position: 0.8rem center;
-	background-size: 1.5rem;
-}
-
-#my-feedback {
-	background-image: url(../images/my/menu03.png);
-	background-repeat: no-repeat;
-	background-position: 0.8rem center;
-	background-size: 1.5rem;
-}
-
-#my-good {
-	background-image: url(../images/my/menu04.png);
-	background-repeat: no-repeat;
-	background-position: 0.8rem center;
-	background-size: 1.5rem;
-}
-
-#my-help {
-	background-image: url(../images/my/menu05.png);
-	background-repeat: no-repeat;
-	background-position: 0.8rem center;
-	background-size: 1.5rem;
-}
-
-#my-mypic {
-	background-image: url(../images/my/menu06.png);
-	background-repeat: no-repeat;
-	background-position: 0.8rem center;
-	background-size: 1.5rem;
+	height: 2.5rem;
+	line-height: 2.5rem;
 }
 
 
-/**操作**/
+/*头部*/
 
-.mui-popover.mui-popover-action .mui-table-view {
-	margin-left: 0 !important;
-	margin-right: 0px !important;
-	border-radius: 0px !important;
+#article .head {
+	background: #EEEEEE;
+	height: 2.5rem;
+	line-height: 2.5rem;
 }
 
-.mui-popover.mui-popover-action .mui-table-view {
-	margin-left: 0px !important;
-	margin-right: 0px !important;
-	margin-bottom: 0px !important;
-	margin-top: 0.5rem !important;
-	border-radius: 0px !important;
+#article .title {
+	height: 2.5rem;
+	line-height: 2.5rem;
 }
 
-.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
-	background-color: #ddd !important;
+#article .list {
+	display: inline-block;
+	background: #EEEEEE;
+	padding-bottom: 2.2%;
+}
+
+#article .list img {
+	width: 30%;
+	margin-left: 2.2%;
+	margin-top: 2.2%;
+	float: left;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+.more {
+	margin-top: 0.35rem;
+	margin-right: 0.4rem;
+}
+
+.submit {
+	width: 30%;
+	margin: 0px auto;
+	border-radius: 30px;
+	height: 2rem;
+	line-height: 2rem;
+	background: #4087CB;
 }

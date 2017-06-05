@@ -1521,7 +1521,7 @@ input[type=submit]:enabled:active {
 .mui-badge-danger,
 .mui-badge-red {
 	color: #fff;
-	background-color: #dd524d
+	background-color: #e33e3e;
 }
 
 .mui-badge-danger.mui-badge-inverted,
@@ -1551,7 +1551,6 @@ input[type=submit]:enabled:active {
 	margin-left: -10px;
 	padding: 0.0625rem 0.3125rem;
 	color: #fff;
-	background: #e33e3e;
 }
 
 .mui-card {
@@ -5121,6 +5120,8 @@ body>.mui-progressbar {
 	max-width: 100% !important;*/
 	max-width: 100%;
 	max-height: 400px;
+	border-radius:5px;
+	border: 1px solid #ddd;
 }
 
 .secondfloor {
@@ -5136,6 +5137,8 @@ body>.mui-progressbar {
 .secondfloor img {
 	max-width: 100%;
 	max-height: 100%;
+	border-radius:5px;
+	border: 1px solid #ddd;
 }
 
 .thirdfloor {
@@ -5149,9 +5152,11 @@ body>.mui-progressbar {
 }
 
 .thirdfloor img {
-	width: 97% !important;
-	min-width: 97% !important;
+	width: 95% !important;
+	min-width: 95% !important;
 	min-height: 100%;
+	border-radius:5px;
+	border: 1px solid #ddd;
 }
 
 .mui-card-header>img:first-child {

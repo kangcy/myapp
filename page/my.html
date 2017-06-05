@@ -13,15 +13,16 @@
  
 	<body>
 		<header id="header" class="mui-bar" immersed="none">
-			<span class="cfff f13 fl more1 textshadow" id="my-setting">设置</span>
-			<span class="cfff f13 fr more2 textshadow" onclick="closeMenu()">首页></span>
+			<span class="cfff f13 fl more1" id="my-setting">设置</span>
+			<img src="../images/my/arrow_right.png" class="fr more2" style="width:0.5rem;margin-top:0.5rem;" />
+			<span class="cfff f13 fr more2" onclick="closeMenu()">首页</span>
 		</header>
 		<div class="bg" id="cover"></div>
 		<div class="avatar">
 			<img id="avatar" src="../images/avatar.png" />
 		</div>
 		<div class="f15 tc mt10 c000 bold" id="nickname"></div>
-		<div class="signature mt5 tc f12 c666" id="signature"></div>
+		<div class="signature mt5 tc f12 c999" id="signature"></div>
 		<div class="secret tc mt10 f13 c000">
 			<div id="my-articles">
 				<p class="f25 mb0 blue bold" id="articles">0</p>
@@ -220,7 +221,6 @@
 		base.Get("fans").innerHTML = userinfo.Fans;
 		base.Get("articles").innerHTML = userinfo.Articles;
 		base.Get("keeps").innerHTML = userinfo.Keeps;
-		//base.Get("my-wrapper").style.top = base.Get("cover").clientHeight + (base.Get("info").clientHeight / 2) + 20 + "px";
 
 		Cover = userinfo.Cover;
 		Avatar = userinfo.Avatar;

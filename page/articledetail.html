@@ -53,7 +53,7 @@
 			</div>
 			<div id="footer" class="c999">
 				<div>
-					<span id="zan" class="mui-icon fa fa-thumbs-up" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_zan">0</span></span>
+					<span id="zan" class="mui-icon fa fa-thumbs-up" style="font-size:20px;"><span class="mui-badge" style="margin-left:0px;" id="footer_zan">0</span></span>
 				</div>
 				<div>
 					<span id="comment" class="mui-icon fa fa-comments" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_comment">0</span></span>
@@ -179,7 +179,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../js/music.js"></script>
@@ -199,7 +198,8 @@
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
-	var $zan = base.Get('zan');
+	var $zan = base.Get("zan");
+	var $footer_zan = base.Get("footer_zan");
 	var $header = base.Get("header");
 	var $wrapper = base.Get("wrapper");
 	var $wrapper1 = base.Get("wrapper1");
@@ -228,13 +228,6 @@
 		base.ToTop();
 		base.InitScroll();
 
-		/*$("#wrapper2").css({
-			"width": window.innerWidth + "px",
-			"height": (window.innerHeight - 50) + "px",
-			"position": "fixed",
-			"z-index": -1
-		});*/
-
 		$wrapper2.style.width = window.innerWidth + "px";
 		$wrapper2.style.height = (window.innerHeight - 50) + "px";
 		$wrapper2.style.position = "fixed";
@@ -243,7 +236,6 @@
 		base.Get("wrapper1").style.minHeight = (window.innerHeight - 50) + "px";
 		base.Get("detail1").style.marginTop = (window.innerHeight - 50) * 0.3 + "px";
 		$cover.style.minHeight = (window.innerHeight - 50) * 0.526 + "px";
-		//$(".cover").css("min-height", (window.innerHeight - 50) * 0.526 + "px");
 
 		//背景色渐变
 		window.addEventListener('scroll', function(e) {
@@ -253,51 +245,6 @@
 					$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 				}
 			}
-		});
-
-		//模板选择
-		mui('#temps').on('tap', '.temp', function() {
-			//$(".temp").removeClass("hover");
-			base.RemoveClass([".temp"], "hover");
-			var $this = $(this);
-			//$this.addClass("hover");
-			this.classList.add("hover");
-			//CurrTemplate = $this.attr("tid");
-			CurrTemplate = this.getAttribute("tid");
-
-			if(CurrTemplate == 1) {
-				base.OpenWindow("customsetting", "customsetting.html", {
-					ArticleNumber: Article.Number
-				});
-				TempTan(0);
-				return;
-			} else if(CurrTemplate > 1) {
-				//CurrCover = $this.attr("cover");
-				CurrCover = this.getAttribute("cover");
-			} else {
-				CurrCover = "";
-			}
-			$wrapper.style.backgroundColor = this.getAttribute("color");
-			//$("#wrapper").css("background-color", $this.attr("color"));
-			//var templatetype = $this.attr("type");
-			var templatetype = this.getAttribute("type");
-
-			//纯白背景
-			if(templatetype == 0) {
-				base.Get("main1").classList.add("hide");
-				base.Get("main0").classList.remove("hide");
-				//$("#main1").addClass("hide");
-				//$("#main0").removeClass("hide");
-			} else {
-				base.Get("main0").classList.add("hide");
-				base.Get("main1").classList.remove("hide");
-				//$("#main0").addClass("hide");
-				//$("#main1").removeClass("hide");
-			}
-
-			ChangeBg(); //背景切换 
-
-			ChangeMusic(templatetype); //音乐切换
 		});
 
 		//点赞
@@ -317,9 +264,14 @@
 						var already = data.message.split('|');
 						if(already[0] == 1) {
 							$zan.setAttribute("already", "0");
+							$footer_zan.classList.add("c666");
+							$footer_zan.classList.remove("mui-badge-danger");
 							base.RemoveClass(["#zan"], "heartbeat red");
 						} else {
 							$zan.setAttribute("already", "1");
+							$zan.classList.remove("c666");
+							$footer_zan.classList.remove("c666");
+							$footer_zan.classList.add("mui-badge-danger");
 							base.AddClass(["#zan"], "heartbeat red");
 						}
 						base.Get("footer_zan").innerHTML = already[1];
@@ -489,11 +441,10 @@
 					Article = data;
 					MusicUrl = data.MusicUrl;
 					if(audio != null) {
-						$("#bgsound").remove();
+						var item = document.getElementById("bgsound")
+						item.parentNode.removeChild(item);
 						audio = null;
 					}
-
-					//base.Get("payuser").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
 					mui.each(mui(".user"), function(i, item) {
 						item.setAttribute("userid", data.CreateUserNumber);
@@ -520,6 +471,12 @@
 					if(data.IsZan > 0) {
 						$zan.setAttribute("already", "1");
 						$zan.classList.add("red");
+						$footer_zan.classList.remove("c666");
+						$footer_zan.classList.add("mui-badge-danger");
+					} else {
+						$zan.classList.remove("red");
+						$footer_zan.classList.remove("mui-badge-danger");
+						$footer_zan.classList.add("c666");
 					}
 					base.Get("footer_zan").innerHTML = data.Goods;
 					base.Get("footer_comment").innerHTML = data.Comments;
@@ -541,25 +498,15 @@
 						if(data.TemplateJson.ID > 0) {
 							mainIndex = data.TemplateJson.TemplateType;
 							CurrCover = data.TemplateJson.Cover;
-							$("#wrapper").css("background-color", data.TemplateJson.Background);
+							$wrapper.style.backgroundColor = data.TemplateJson.Background;
 						}
 					}
 					CurrBackground = data.BackgroundJson;
 
 					ChangeBg();
 
-					/*$("#musicname0,#musicname1").html(data.MusicName);
-					$("#useravatar0,#useravatar1").attr("src", base.ShowThumb(data.Avatar, 1));
-					$("#title0,#title1,#title").html(base.UnUnicodeText(data.Title));
-					$("#nickname0,#nickname1").html(base.UnUnicodeText(data.NickName));
-					$("#createdate0,#createdate1").html(data.CreateDateText);
-					$("#views0,#views1").html("阅读  " + data.Views);
-					$("#desc").html(base.UnUnicodeText(html.join("")));*/
-
 					base.Get("musicname0").innerHTML = data.MusicName;
-					//base.Get("musicname1").innerHTML = data.MusicName;
 
-					//base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
 					base.Get("title0").innerHTML = base.UnUnicodeText(data.Title);
@@ -578,10 +525,11 @@
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 
 					//实例化播放器
-					$(".youku_player").each(function() {
-						var $this = $(this);
-						ShowVideo($this.attr("id"), $this.attr("sid"));
-					});
+					mui.each(mui(".youku_player"), function() {
+						var $this = this;
+						ShowVideo($this.getAttribute("id"), $this.getAttribute("sid"));
+					})
+
 					mui.each(mui(".video"), function() {
 						var $this = this;
 						//可以播放
@@ -651,7 +599,7 @@
 					plus.webview.currentWebview().close();
 				}
 			}
-			if($.isFunction(callback)) {
+			if(callback) {
 				callback();
 			}
 
@@ -753,9 +701,7 @@
 			base.AddClass(["#agreeTemp", "#temps"], "hide");
 			base.Get("btnTemp").classList.remove("hide");
 		} else {
-			//$(".temp:eq(" + CurrTemplate + ")").addClass("hover");
-
-			$(".temp:eq(" + CurrTemplate + ")").addClass("hover");
+			mui(".temp")[CurrTemplate].classList.add("hover");
 			base.Get("btnTemp").classList.add("hide");
 			base.RemoveClass(["#agreeTemp", "#temps"], "hide");
 		}

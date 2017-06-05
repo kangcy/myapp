@@ -49,12 +49,12 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script> 
+<script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
-<script src="../minjs/update.min.js"></script>  
-<script src="../js/article.min.js"></script>
+<script src="../minjs/update.min.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var isScroll = false; //是否滚动
@@ -71,7 +71,7 @@
 		gestureConfig: {
 			doubletap: true
 		}
-	}); 
+	});
 
 	mui.ready(function() {
 		base.Immersed();
@@ -211,8 +211,12 @@
 				var number = this.getAttribute("articleNumber");
 				var id = this.getAttribute("articleId");
 				var usernumber = this.getAttribute("articleUserNumber");
+				SetPullEnable(false);
 				ActionTan(true, number, id, usernumber);
-			}); 
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				SetPullEnable(true);
+			});
 		});
 
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
@@ -251,9 +255,9 @@
 			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
-					data = data.message; 
-					totalpage = data.totalpage; 
-					base.ShowLoading(false); 
+					data = data.message;
+					totalpage = data.totalpage;
+					base.ShowLoading(false);
 					base.Get("none").classList.add("hide");
 					var table = base.Get('scroll-view');
 					mui.each(data.list, function(i, item) {

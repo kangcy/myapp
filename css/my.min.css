@@ -217,24 +217,3 @@
 #my-help {
 	background-image: url(../images/my/icon_07.png);
 }
-
-
-/**操作**/
-
-.mui-popover.mui-popover-action .mui-table-view {
-	margin-left: 0 !important;
-	margin-right: 0px !important;
-	border-radius: 0px !important;
-}
-
-.mui-popover.mui-popover-action .mui-table-view {
-	margin-left: 0px !important;
-	margin-right: 0px !important;
-	margin-bottom: 0px !important;
-	margin-top: 0.5rem !important;
-	border-radius: 0px !important;
-}
-
-.mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
-	background-color: #ddd !important;
-}

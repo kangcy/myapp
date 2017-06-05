@@ -86,7 +86,7 @@
 				<div class="mui-slider-group" id="sliderGroup" style="top:3.4rem;">
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div id="sliderChild1" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
+							<div id="slider1" class="mui-scroll">
 								<div id="scroll-view1" class="mt5"></div>
 								<div id="none1" class="full tc hide">
 									<img src="../images/my/111.png" class="none" />
@@ -122,7 +122,7 @@
 <script src="../minjs/mui.lazyload.img.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script type="text/javascript">
 	var SearchName = "";
 	var isLoading = false;
@@ -147,29 +147,6 @@
 		base.InitScroll();
 
 		base.InitSlider(false);
-
-		base.ShowUser("#slider");
-
-		base.UserAddFan("#slider", userinfo);
-
-		base.ShowArticle("#slider", "List", userinfo.Number);
-
-		ArticleAction("#slider", userinfo);
-
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#slider2').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber);
-			});
-		});
-
-		//切换
-		mui("#slider").on('tap', '.mui-control-item', function(event) {
-			var index = this.getAttribute("currindex");
-			mui('#slider').slider().gotoItem(index);
-		});
 
 		//监听软键盘搜索键
 		base.Get("search").addEventListener("keydown", function(e) {
@@ -203,6 +180,33 @@
 
 		base.Get("btnSearch").addEventListener('tap', function(e) {
 			Search();
+		});
+
+		base.ShowUser("#slider");
+
+		base.UserAddFan("#slider1", userinfo);
+
+		base.ShowArticle("#slider2", "List", userinfo.Number);
+
+		ArticleAction("#slider2", userinfo);
+
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#slider2').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				SetPullEnable(false);
+				ActionTan(true, number, id, usernumber);
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				SetPullEnable(true);
+			});
+		});
+
+		//切换
+		mui("#slider").on('tap', '.mui-control-item', function(event) {
+			var index = this.getAttribute("currindex");
+			mui('#slider').slider().gotoItem(index);
 		});
 	});
 
@@ -254,19 +258,11 @@
 				if(length > 0) {
 					base.Get("none1").classList.add("hide");
 					var table = base.Get('scroll-view1');
-
-					//使用容器存放临时变更， 最后再一次性更新DOM
 					var fragment = document.createDocumentFragment();
 					mui.each(data.list, function(index, item) {
 						fragment.appendChild(base.AppendUser(item, true, true, false, "", false, true));
 					});
 					table.appendChild(fragment);
-
-					/*for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendUser(data.list[i], true, true, false, "", false, true);
-						table.appendChild(div);
-					}*/
-
 					lazyLoad.refresh(true);
 				} else {
 					base.Get("none1").classList.remove("hide");

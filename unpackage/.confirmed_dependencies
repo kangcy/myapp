@@ -372,7 +372,8 @@
 			"images/my/icon_01.png",
 			"images/my/icon_04.png",
 			"images/my/icon_07.png",
-			"mincss/my.min.css"
+			"mincss/my.min.css",
+			"images/my/arrow_right.png"
 		],
 		"refer": [
 			"page/pay.html",
@@ -462,7 +463,8 @@
 			"minjs/mui.zoom.min.js",
 			"minjs/article.min.js",
 			"js/base.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"js/article.min.js"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -829,7 +831,8 @@
 			"images/article/btn_good.png",
 			"images/article/btn_comment.png",
 			"images/article/btn_good2.png",
-			"images/article/btn_pay.png"
+			"images/article/btn_pay.png",
+			"images/article/btn_more.png"
 		],
 		"refer": [
 			"page/topic.html",
@@ -1032,7 +1035,8 @@
 			"images/share/04.png",
 			"images/avatar.png",
 			"css/my.min.css",
-			"mincss/user.min.css"
+			"mincss/user.min.css",
+			"css/user.min.css"
 		],
 		"refer": [
 			"page/userSub.html",
@@ -1319,7 +1323,8 @@
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/mui.lazyload.img.min.js",
 			"js/base.min.js",
-			"minjs/mui.lazyload.min.js"
+			"minjs/mui.lazyload.min.js",
+			"js/article.min.js"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -2704,7 +2709,9 @@
 			"mincss/img.preview.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"js/base.min.js"
+			"js/base.min.js",
+			"minjs/mui.pullToRefresh.material.min.js",
+			"minjs/mui.pullToRefresh.min.js"
 		],
 		"refer": [
 			"page/user.html",
@@ -2955,7 +2962,8 @@
 			"minjs/mui.zoom.min.js",
 			"minjs/article.min.js",
 			"minjs/refresh.min.js",
-			"js/base.min.js"
+			"js/base.min.js",
+			"js/article.min.js"
 		],
 		"refer": [
 			"page/addfan.html",
