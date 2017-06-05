@@ -44,20 +44,20 @@
 </html>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/comment.min.js"></script>
 <script src="../emotion/js/emojione.min.js"></script>
 <script src="../emotion/js/emojionearea.js"></script>
 <script type="text/javascript">
 	var self = null;
-	mui.init({ 
+	mui.init({
 		gestureConfig: {
 			doubletap: true
 		}
 	});
-	
-	mui.ready(function(){
+
+	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
 	})
@@ -77,12 +77,7 @@
 		}
 
 		//下拉刷新 
-		self.setPullToRefresh({
-			support: true,
-			style: "circle"
-		}, function() {
-			pulldownRefresh();
-		});
+		SetPullEnable(true);
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
