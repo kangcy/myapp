@@ -27,30 +27,12 @@
 		<div id="picupload"></div>
 		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
 			<div class="info-body" style="margin-top:10rem">
+				<!--<div id="title" class="title mb20 f18">点击输入标题</div>-->
 				<div id="music" class="btn fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
 			</div>
 		</div>
 		<div id="edit" class="mb20">
-			<div class="edit-body">
-				<div class="top mb5">
-					<div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div>
-					<div class="icons fl tl"><i class="fa fa-times-circle blue edit-del"></i></div>
-				</div>
-				<div class="edit-content f11"><img src="http://www.ishaoxia.com/Images/Banner/banner.png" /></div>
-				<!--<div class="edit-content f11 tl">文章内容</div>
-				<div class="edit-content edit-content2 f11 tc"><img src="../images/article/video.png" /></div>
-				<div class="edit-content edit-content2 f11 tc"></div>-->
-				<div class="top mt5">
-					<div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>
-					<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>
-						<div class="banner hide">
-							<div class="edit-add-pic"><i class="fa fa-picture-o blue"></i></div>
-							<div class="edit-add-text border"><i class="fa fa-file-text-o blue"></i></div>
-							<div class="edit-add-video"><i class="fa fa-file-video-o blue"></i></div>
-						</div>
-					</div>
-				</div>
-			</div>
+
 		</div>
 	</body>
 
@@ -59,6 +41,8 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script src="../minjs/group.min.js"></script>
+<!--<script type="text/javascript" src="http://player.youku.com/jsapi"></script>-->
+<!--<script type="text/javascript" src="../js/video.js"></script>-->
 <script type="text/javascript" src="../js/addarticlepart.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
@@ -97,8 +81,8 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		/*mask.show();
-		base.ShowWaiting("正在加载");*/
+		mask.show();
+		base.ShowWaiting("正在加载");
 
 		//滚动监听、背景色渐变
 		var num = 0;
