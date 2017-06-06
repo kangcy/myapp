@@ -27,21 +27,21 @@
 		<div id="picupload"></div>
 		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
 			<div class="info-body" style="margin-top:10rem">
-				<div id="music" class="btn fl tl"><i class="fa fa-music f13 fl"></i><span class="ml5 textshadow" id="musicname"></span></div>
-			</div>
+				<div id="music" class="btn fl tl"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
+			</div>  
 		</div>
-		<div id="edit" class="mb20">
-			<div class="edit-body">
-				<img src="../images/addarticle/btn_up.png" class="edit-up" />
-				<img src="../images/addarticle/btn_down.png" class="edit-down" />
+		<div id="edit" class="mt15">
+			<!--<div class="edit-body">
+				<img src="../images/addarticle/btn_up.png" class="edit-up first" />
+				<img src="../images/addarticle/btn_down.png" class="edit-down first" />
 				<img src="../images/addarticle/btn_x.png" class="edit-del" />
 				<div class="edit-content f11">
 					<img src="http://www.ishaoxia.com/Images/Banner/banner.png" /></div>
-				<div class="icons0 mt10 mb10 tc">
-					<div class="icons">
-						<img src="../images/addarticle/btn_add.png" class="edit-add full" />
+				<div class="icons0 mt10 tc">
+					<div class="edit-add">
+						<img src="../images/addarticle/btn_add.png" class="full" />
 					</div>
-					<div class="icons icons2 hide">
+					<div class="icons hide">
 						<img src="../images/addarticle/btn_add2.png" class="edit-add full" />
 						<img src="../images/addarticle/icon_pic.png" class="edit-add-pic" />
 						<img src="../images/addarticle/icon_text.png" class="edit-add-text" />
@@ -54,12 +54,12 @@
 				<img src="../images/addarticle/btn_down.png" class="edit-down" />
 				<img src="../images/addarticle/btn_x.png" class="edit-del" />
 				<div class="edit-content f11 tl" style="padding: 0px 13%;">文章内容</div>
-				<div class="icons0 mt10 mb10 tc">
-					<div class="icons">
-						<img src="../images/addarticle/btn_add.png" class="edit-add full" />
+				<div class="icons0 mt10 tc">
+					<div class="edit-add">
+						<img src="../images/addarticle/btn_add.png" class="full" />
 					</div>
-					<div class="icons icons2 hide">
-						<img src="../images/addarticle/btn_add2.png" class="edit-add full" />
+					<div class="icons hide">
+						<img src="../images/addarticle/btn_add2.png" class="full" />
 						<img src="../images/addarticle/icon_pic.png" class="edit-add-pic" />
 						<img src="../images/addarticle/icon_text.png" class="edit-add-text" />
 						<img src="../images/addarticle/icon_video.png" class="edit-add-video" />
@@ -67,22 +67,22 @@
 				</div>
 			</div>
 			<div class="edit-body">
-				<img src="../images/addarticle/btn_up.png" class="edit-up" />
-				<img src="../images/addarticle/btn_down.png" class="edit-down" />
+				<img src="../images/addarticle/btn_up.png" class="edit-up last" />
+				<img src="../images/addarticle/btn_down.png" class="edit-down last" />
 				<img src="../images/addarticle/btn_x.png" class="edit-del" />
 				<div class="edit-content edit-content2 f11 tc"><img src="../images/article/video.png" /></div>
-				<div class="icons0 mt10 mb10 tc">
-					<div class="icons">
-						<img src="../images/addarticle/btn_add.png" class="edit-add full" />
+				<div class="icons0 mt10 tc">
+					<div class="edit-add">
+						<img src="../images/addarticle/btn_add.png" class="full" />
 					</div>
-					<div class="icons icons2 hide">
+					<div class="icons hide">
 						<img src="../images/addarticle/btn_add2.png" class="edit-add full" />
 						<img src="../images/addarticle/icon_pic.png" class="edit-add-pic" />
 						<img src="../images/addarticle/icon_text.png" class="edit-add-text" />
 						<img src="../images/addarticle/icon_video.png" class="edit-add-video" />
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</div>
 	</body>
 
@@ -90,7 +90,7 @@
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
-<script src="../minjs/group.min.js"></script>
+<script src="../js/group.min.js"></script>
 <script type="text/javascript" src="../js/addarticlepart.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
@@ -128,6 +128,8 @@
 
 	mui.ready(function() {
 		base.Immersed();
+		
+		InitGroup();
 
 		/*mask.show();
 		base.ShowWaiting("正在加载");*/
@@ -167,7 +169,6 @@
 			currEditID = this.id;
 			currEditPartID = this.getAttribute("partid");
 			var type = this.getAttribute("type");
-
 			if(type == "pic") {
 				currEditImg = this.getAttribute("src");
 				base.OpenWindow("editimage", "editimage.html", {
@@ -198,10 +199,10 @@
 		mui('#edit').on('tap', '.edit-add', function() {
 			var $this = $(this);
 			currEditID = $this.parents(".edit-body").find(".edit-content").attr("id");
+			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 			$this.addClass("hide");
-			$("#edit").find(".banner").addClass("hide");
-			$this.parent(".icons").find(".banner").removeClass("hide");
+			$this.parent("div").find(".icons").removeClass("hide");
 		});
 
 		//新增图片
@@ -242,7 +243,7 @@
 				}
 				if(e.index == 0) {
 					var partid = $this.getAttribute("partid");
-					$this.parentNode.parentNode.parentNode.remove();
+					$this.parentNode.remove();
 					InitGroup();
 
 					//同步原始段落信息			
@@ -349,9 +350,9 @@
 	//编辑图片
 	function AddPic(partid, url, index) {
 		if(index == 0) {
-			var html = appendStr(url, "pic", partid);
+			var html = initStr(url, "pic", partid);
 			$("#" + currEditID).parents(".edit-body").after(html);
-			$("#edit").find(".banner").addClass("hide");
+			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 
 			var imgdefereds = [];
@@ -397,9 +398,9 @@
 	//编辑文本
 	function AddText(partid, text, index) {
 		if(index == 0) {
-			var html = appendStr(unescape(text), "text", partid);
+			var html = initStr(unescape(text), "text", partid);
 			$("#" + currEditID).parents(".edit-body").after(html);
-			$("#edit").find(".banner").addClass("hide");
+			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 
 			//同步原始段落信息	
@@ -422,9 +423,9 @@
 
 	//添加视频
 	function AddVideo(partid, url) {
-		var html = appendStr(url, "video", partid);
+		var html = initStr(url, "video", partid);
 		$("#" + currEditID).parents(".edit-body").after(html);
-		$("#edit").find(".banner").addClass("hide");
+		$("#edit").find(".icons").addClass("hide");
 		$("#edit").find(".edit-add").removeClass("hide");
 		InitGroup();
 
@@ -523,40 +524,22 @@
 	}
 
 	//拼接字符串
-	function appendStr(text, type, partid) {
-		var model = [];
-		model.push('<div class="edit-body">');
-		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
-		if(type == "pic") {
-			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
-		} else if(type == "text") {
-			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
-		} else if(type == "video") {
-			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
-			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
-		}
-		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
-		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
-		model.push('<div class="banner hide"><div class="edit-add-pic"><i class="fa fa-picture-o blue"></i></div><div class="edit-add-text border"><i class="fa fa-file-text-o blue"></i></div><div class="edit-add-video"><i class="fa fa-file-video-o blue"></i></div></div></div></div></div>');
-		return model.join('')
-	}
-
-	//拼接字符串
 	function initStr(text, type, partid) {
 		var model = [];
 		model.push('<div class="edit-body">');
-		model.push('<div class="top mb5"><div class="icons fr tr"><i class="fa fa-chevron-up blue edit-up" style="visibility:hidden;"></i></div><div class="icons fl tl"><i class="fa fa-times-circle blue edit-del" partid="' + partid + '"></i></div></div>');
+		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
+			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '" style="padding: 1% 13%;">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
 			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
 		}
-		model.push('<div class="top mt5"><div class="icons fr tr"><i class="fa fa-chevron-down blue edit-down" style="visibility:hidden;"></i></div>');
-		model.push('<div class="icons fr tc"><i class="fa fa-plus-circle blue edit-add"></i>');
-		model.push('<div class="banner hide"><div class="edit-add-pic"><i class="fa fa-picture-o blue"></i></div><div class="edit-add-text border"><i class="fa fa-file-text-o blue"></i></div><div class="edit-add-video"><i class="fa fa-file-video-o blue"></i></div></div></div></div></div>');
+		model.push('<div class="icons0 mt10 mb0 tc">');
+		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" /></div>');
+		model.push('<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" /><img src="../images/addarticle/icon_pic.png" class="edit-add-pic" /><img src="../images/addarticle/icon_text.png" class="edit-add-text" /><img src="../images/addarticle/icon_video.png" class="edit-add-video" /></div>');
+		model.push('</div></div>')
 		return model.join('')
 	}
 

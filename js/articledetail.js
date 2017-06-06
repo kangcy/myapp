@@ -5,7 +5,7 @@ function ChangeMusic(index) {
 		if(Article.AutoMusic == 1) {
 			document.addEventListener('touchstart', startsound);
 		}
-		base.Get("#music" + index).classList.remove("hide");
+		base.Get("music" + index).classList.remove("hide");
 	} else {
 		base.AddClass(["#music0", "#music1"], "hide");
 	}

@@ -717,7 +717,9 @@
 			"css/addarticle.min.css",
 			"images/addarticle/btn_x.png",
 			"images/addarticle/btn_down.png",
-			"images/addarticle/icon_video.png"
+			"images/addarticle/icon_video.png",
+			"js/group.min.js",
+			"images/addarticle/icon_music.png"
 		],
 		"refer": [
 			"page/edittitle.html",

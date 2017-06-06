@@ -78,9 +78,20 @@ function cutImg(callback) {
 
 	//用户封面、用户头像
 	if(Standard == "UserCover" || Standard == "UserAvatar") {
+		var ratio = 1 / 1;
+		switch(Standard) {
+			case "UserCover":
+				ratio = 4 / 3;
+				break;
+			case "UserAvatar":
+				ratio = 1 / 1;
+				break;
+			default:
+				break;
+		}
 		$("#readyimg").cropper({
 			checkImageOrigin: true,
-			aspectRatio: 1 / 1, //裁剪比例
+			aspectRatio: ratio, //裁剪比例
 			autoCropArea: 1, //裁剪框大小
 			toggleDragModeOnDblclick: false,
 			dragCrop: false, //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
@@ -210,14 +221,12 @@ function confirm(callback) {
 
 //请求上传图片
 function Upload(imgurl, callback) {
-	console.log(Standard+","+userinfo.Number+","+imgurl)
 	base.ShowWaiting("正在上传图片");
 	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		standard: Standard,
 		Number: userinfo.Number
 	}, function(data) {
-		console.log(JSON.stringify(data));
 		if(data != null) {
 			if(data.result) {
 				if(callback) {

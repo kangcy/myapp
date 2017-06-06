@@ -150,7 +150,7 @@
 						break;
 						//用户封面
 					case "UserCover":
-						var page = base.GetView("subindex");
+						var page = base.GetView("my");
 						if(page) {
 							page.evalJS("UpdateCover('" + src + "')");
 						}

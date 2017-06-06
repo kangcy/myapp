@@ -1,7 +1,7 @@
 .info-body {
 	width: 90%;
 	display: inline-block;
-	margin: 0rem 5% 1.25rem 5%
+	margin: 0rem 5% 0px 5%
 }
 
 .title {
@@ -15,37 +15,88 @@
 	outline: 0;
 	padding: 0px;
 }
-.edit-up{
-	position:absolute;top:0px;left:0px;width:2rem;
+
+.edit-up {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 2rem;
 }
-.edit-down{
-	position:absolute;top:2.25rem;left:0px;width:2rem;
+
+.edit-down {
+	position: absolute;
+	top: 2.25rem;
+	left: 0px;
+	width: 2rem;
 }
-.edit-del{
-	position:absolute;top:0px;right:0px;width:2rem;
+
+.edit-up.first {
+	display: none;
 }
-.icons{
-	display: inline-block;width: 60%;
+
+.edit-down.first {
+	top: 0px;
 }
-.icons2{
-	position:relative;
+
+.edit-up.last {
+	top: 0px;
 }
-.icons2 .edit-add-pic{
-	width:1.3rem;position:absolute;left:13%;top:15%;
+
+.edit-down.last {
+	display: none;
 }
-.icons2 .edit-add-text{
-	width:1.3rem;position:absolute;left:44%;top:15%;
+
+.edit-del {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 2rem;
 }
-.icons2 .edit-add-video{
-	width:1.3rem;position:absolute;right:13%;top:15%;
+
+.icons,
+.edit-add {
+	display: inline-block;
+	width: 60%;
+	position: relative;
+}
+
+.icons .edit-add-pic {
+	width: 1.3rem;
+	position: absolute;
+	left: 13%;
+	top: 17%;
+}
+
+.icons .edit-add-text {
+	width: 1.3rem;
+	position: absolute;
+	left: 44%;
+	top: 17%;
+}
+
+.icons .edit-add-video {
+	width: 1.3rem;
+	position: absolute;
+	right: 13%;
+	top: 17%;
 }
 
 #music {
-	width: 80%;
+	background: rgba(0, 0, 0, 0.3);
+	border-radius: 15px;
+	min-width: 40%;
+	max-width: 60%
+}
+
+#music img {
+	width: 0.8rem;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	margin-top: 0.3rem;
 }
 
 #musicname {
-	width: 80%;
+	width: 70%;
 	float: left;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -82,42 +133,17 @@
 .edit-body {
 	width: 90%;
 	margin: 0px 5%;
-	position:relative;
+	position: relative;
 }
 
 .edit-body .top {
 	width: 100%;
 	text-align: center;
 }
-.edit-body .top .banner {
-	width: 6.625rem;
-	height: 1.5625rem;
-	line-height: 1.5625rem;
-	display: inline-block;
-	background: #fff;
-	border-radius: 10px;
-	text-align: center;
-	border: 1px solid #ccc;
-}
 
-.edit-body .top .banner div {
-	width: 33%;
-	height: 100%;
-	display: inline-block;
-	float: left;
-}
-
-.edit-body .top .banner a {
-	font-size: 1.2rem !important;
-}
-
-.edit-body .top .banner div.border {
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-}
-
-.edit-body .edit-content,.edit-body .edit-content2 {
-	line-height: 1.25rem;
+.edit-body .edit-content,
+.edit-body .edit-content2 {
+	/*line-height: 1.25rem;*/
 	width: 100%;
 	min-height: 6rem;
 	display: inline-block;
@@ -130,7 +156,7 @@
 
 .edit-body .edit-content img {
 	max-width: 100%;
-	float:left;
+	float: left;
 }
 
 
@@ -141,5 +167,5 @@ video {
 	width: 250px;
 	height: 250px;
 	max-height: 100%;
-	margin:5%;
+	margin: 5%;
 }
