@@ -708,7 +708,16 @@
 			"minjs/base.min.js",
 			"minjs/group.min.js",
 			"mincss/addarticle.min.css",
-			"js/base.min.js"
+			"js/base.min.js",
+			"images/addarticle/btn_add2.png",
+			"images/addarticle/btn_add.png",
+			"images/addarticle/icon_text.png",
+			"images/addarticle/icon_pic.png",
+			"images/addarticle/btn_up.png",
+			"css/addarticle.min.css",
+			"images/addarticle/btn_x.png",
+			"images/addarticle/btn_down.png",
+			"images/addarticle/icon_video.png"
 		],
 		"refer": [
 			"page/edittitle.html",

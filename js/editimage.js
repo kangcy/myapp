@@ -210,15 +210,17 @@ function confirm(callback) {
 
 //请求上传图片
 function Upload(imgurl, callback) {
+	console.log(Standard+","+userinfo.Number+","+imgurl)
 	base.ShowWaiting("正在上传图片");
 	HttpPost(base.RootUrl + "Upload/Upload", {
 		str: imgurl,
 		standard: Standard,
 		Number: userinfo.Number
 	}, function(data) {
+		console.log(JSON.stringify(data));
 		if(data != null) {
 			if(data.result) {
-				if($.isFunction(callback)) {
+				if(callback) {
 					callback(base.RootUrl + data.message);
 				}
 				base.Get("closepop").style.display = "none";
