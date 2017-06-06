@@ -363,11 +363,20 @@
 				if(item == "B") {
 					base.Get("btnBold").classList.add("curr");
 				}
+				else{
+					base.Get("btnBold").classList.remove("curr");
+				}
 				if(item == "I") {
 					base.Get("btnItalic").classList.add("curr");
 				}
+				else{
+					base.Get("btnItalic").classList.remove("curr");
+				}
 				if(item == "U") {
 					base.Get("btnUnderline").classList.add("curr");
+				}
+				else{
+					base.Get("btnUnderline").classList.remove("curr");
 				}
 			})
 			base.AddClass(["#color", "#bgcolor", "#align", "#fs"], "hide");
