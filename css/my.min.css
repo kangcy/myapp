@@ -84,22 +84,6 @@
 	color: #a3a3a3;
 }
 
-.secret {
-	margin: 0px 5%;
-	display: inline-block;
-	width: 90%;
-}
-
-.secret div {
-	width: 25%;
-	display: inline-block;
-	float: left;
-}
-
-.secret img {
-	width: 45%;
-}
-
 .content1 {
 	display: inline-block;
 	width: 100%;

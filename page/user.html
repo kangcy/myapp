@@ -102,18 +102,20 @@
 			<div id="guanzhu" class="guanzhu f14 mr30">关注TA</div>
 			<div id="dashang" class="dashang f14" onclick="Payment()">打赏</div>
 		</div>
-		<div class="secret tc mt10 f13 c000">
-			<div class="hide" id="showFollow" onclick="Follow()">
-				<p class="f25 mb0 blue bold" id="showFollowNum">0</p>
-				<p>关注</p>
-			</div>
-			<div class="hide" id="showFan" onclick="Fan()">
-				<p class="f25 mb0 blue bold" id="showFanNum">0</p>
-				<p>粉丝</p>
-			</div>
-			<div class="hide" id="showArticle" onclick="Keep()">
-				<p class="f25 mb0 blue bold" id="showArticleNum">0</p>
-				<p>收藏</p>
+		<div style="padding:0.3125rem 5%;" class="mt10 f13 c000">
+			<div class="flex-box flex-row f13 tc">
+				<div style="flex:0 0 33.3%;" class="flex-item hide" id="showFollow" onclick="Follow()">
+					<p class="f25 mb0 blue bold" id="showFollowNum">0</p>
+					<p>关注</p>
+				</div>
+				<div style="flex:0 0 33.3%;" class="flex-item hide" id="showFan" onclick="Fan()">
+					<p class="f25 mb0 blue bold" id="showFanNum">0</p>
+					<p>粉丝</p>
+				</div>
+				<div style="flex:0 0 33.3%;" class="flex-item hide" id="showArticle" onclick="Keep()">
+					<p class="f25 mb0 blue bold" id="showArticleNum">0</p>
+					<p>收藏</p>
+				</div>
 			</div>
 		</div>
 		<div id="article" class="hide f13 c999 full">
@@ -146,7 +148,7 @@
 	var Sex = 0;
 	var ShareInfo = {};
 	var $bg = base.Get("bg");
-	var name = base.BrowserName(); 
+	var name = base.BrowserName();
 	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
@@ -245,17 +247,33 @@
 				base.Get("nickname").innerHTML = NickName;
 				base.Get("signature").innerHTML = base.UnUnicodeText(data.Signature);
 
+				var showcount = 0;
 				if(data.ShowArticle == 1) {
 					base.Get("showArticleNum").innerHTML = data.Keeps;
 					base.Get("showArticle").classList.remove("hide");
+					showcount++;
 				}
 				if(data.ShowFollow == 1) {
 					base.Get("showFollowNum").innerHTML = data.Follows;
 					base.Get("showFollow").classList.remove("hide");
+					showcount++;
 				}
 				if(data.ShowFan == 1) {
 					base.Get("showFanNum").innerHTML = data.Fans;
 					base.Get("showFan").classList.remove("hide");
+					showcount++;
+				}
+				switch(showcount) {
+					case 1:
+						base.Get("showArticle").style.flex = "0 0 100%";
+						base.Get("showFollow").style.flex = "0 0 100%";
+						base.Get("showFan").style.flex = "0 0 100%";
+						break;
+					case 2:
+						base.Get("showArticle").style.flex = "0 0 50%";
+						base.Get("showFollow").style.flex = "0 0 50%";
+						base.Get("showFan").style.flex = "0 0 50%";
+						break;
 				}
 
 				//在黑名单

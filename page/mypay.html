@@ -10,10 +10,6 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
-			.mui-bar {
-				background: #fff;
-			}
-			
 			#signature {
 				width: 75%;
 				line-height: 20px;
@@ -74,17 +70,27 @@
 					<div class="splitline"></div>
 					<ul class="mui-table-view f13 mt0">
 						<li class="mui-table-view-cell">
-							<p class="f12 c333">启用打赏</p>
-							<p class="f11 caaa mt5"><span class="fl mt2 mr5">*</span>分享文章，读者即可打赏支持</p>
-							<div class="divSwitch mt5">
-								<div class="my-switch fr" id="autoPaySwitch">
-									<div></div>
+							<div class="flex-box flex-row">
+								<div style="flex:0 0 80%;" class="flex-item">
+									<p class="c000">启用打赏</p>
+									<p class="f10 c999 mt3"><span class="fl mt2 mr5">*</span>分享文章，读者即可打赏支持</p>
+								</div>
+								<div style="flex:0 0 20%;" class="flex-item">
+									<div class="my-switch fr" id="autoPaySwitch">
+										<div></div>
+									</div>
 								</div>
 							</div>
 						</li>
 						<li class="mui-table-view-cell" id="mypay">
-							<span class="f12 c333">打赏记录</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f16"></span>
+							<div class="flex-box flex-row">
+								<div style="flex:0 0 80%;" class="flex-item">
+									<p class="c000">打赏记录</p>
+								</div>
+								<div style="flex:0 0 20%;" class="flex-item tr">
+									<span class="mui-icon mui-icon-arrowright c999 f16"></span>
+								</div>
+							</div>
 						</li>
 					</ul>
 				</div>

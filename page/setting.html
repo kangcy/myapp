@@ -8,14 +8,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
 			body {
 				background: #eee;
-			}
-			
-			.mui-bar {
-				background: #fff;
 			}
 			
 			#muicontent .mui-table-view-cell {
@@ -24,10 +19,6 @@
 			
 			#muicontent .mui-table-view:after {
 				height: 0px;
-			}
-			
-			#muicontent .mui-icon-arrowright {
-				margin-right: -0.3rem;
 			}
 		</style>
 	</head>
@@ -56,47 +47,75 @@
 			</ul>
 		</div>
 		<div id="muicontent">
-			<ul class="mui-table-view f13">
+			<ul class="mui-table-view f13 mt15">
 				<li class="mui-table-view-cell" onclick="Account()">
-					<span class="fl">账号管理</span>
-					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
-					<span class="fr caaa"></span>
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 80%;" class="flex-item">
+							<p class="c000">账号管理</p>
+						</div>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright caaa f16"></span>
+						</div>
+					</div>
 				</li>
-				<li class="mui-table-view-cell" id="secret" onclick="Secret()">
-					<span class="fl">隐私设置</span>
-					<span class="mui-icon mui-icon-arrowright fr caaa f16"></span>
-					<span class="fr caaa"></span>
+				<li class="mui-table-view-cell" onclick="Secret()">
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 80%;" class="flex-item">
+							<p class="c000">隐私设置</p>
+						</div>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright caaa f16"></span>
+						</div>
+					</div>
 				</li>
 			</ul>
 			<ul class="mui-table-view f13 mt15">
 				<li class="mui-table-view-cell">
-					<p class="fl full c000">图片水印</p>
-					<span class="fl caaa f11 mt5">开启后新导入图片自动添加水印</span>
-					<div class="divSwitch2">
-						<div class="my-switch fr" id="drawSwitch">
-							<div></div>
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 80%;" class="flex-item">
+							<p class="full c000">图片水印</p>
+							<span class="c999 f10 mt3">开启后新导入图片自动添加水印</span>
+						</div>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<div class="my-switch" id="drawSwitch">
+								<div></div>
+							</div>
 						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell">
-					<span class="fl">分享带昵称</span>
-					<div class="divSwitch">
-						<div class="my-switch fr" id="shareNickSwitch">
-							<div></div>
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 80%;" class="flex-item">
+							<p class="c000">分享带昵称</p>
+						</div>
+						<div style="flex:0 0 20%;" class="flex-item">
+							<div class="my-switch fr" id="shareNickSwitch">
+								<div></div>
+							</div>
 						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell">
-					<span class="fl">音乐自动播放</span>
-					<div class="divSwitch">
-						<div class="my-switch fr" id="autoMusicSwitch">
-							<div></div>
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 80%;" class="flex-item">
+							<p class="c000">音乐自动播放</p>
+						</div>
+						<div style="flex:0 0 20%;" class="flex-item">
+							<div class="my-switch fr" id="autoMusicSwitch">
+								<div></div>
+							</div>
 						</div>
 					</div>
 				</li>
 				<li class="mui-table-view-cell" id="checkupdate">
-					<span class="fl">检查更新</span>
-					<span class="fr caaa" id="version"></span>
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 50%;" class="flex-item">
+							<p class="c000">检查更新</p>
+						</div>
+						<div style="flex:0 0 50%;" class="flex-item tr">
+							<span class="caaa" id="version"></span>
+						</div>
+					</div>
 				</li>
 			</ul>
 			<ul class="mui-table-view f13 mt15">
@@ -259,6 +278,7 @@
 			mui('#updatewrapper').load("../part/update.html", function(response) {
 				CheckUpdate(function(index) {
 					mask.close();
+					mui.toast("当前已是最新版本");
 				});
 			});
 		});

@@ -5110,53 +5110,45 @@ body>.mui-progressbar {
 
 .onefloor {
 	width: 100%;
-	/*height: 9.375rem;*/
 	overflow: hidden;
 }
 
 .onefloor img {
-	/*width: 100%; 
-	min-width: 100%;
-	max-width: 100% !important;*/
 	max-width: 100%;
 	max-height: 400px;
 	border-radius: 5px;
-	border: 1px solid #ddd;
+	/*border: 1px solid #ddd;*/
 }
 
 .secondfloor {
-	width: 48%;
-	height: 10rem;
+	width: 50%;
 	text-align: center;
 	overflow: hidden;
-	margin: 1%;
 	float: left;
 	display: inline-block;
 }
 
 .secondfloor img {
-	max-width: 100%;
+	max-width: 95%;
 	max-height: 100%;
 	border-radius: 5px;
-	border: 1px solid #ddd;
+	/*border: 1px solid #ddd;*/
 }
 
 .thirdfloor {
 	width: 33.3%;
-	height: 6rem;
 	text-align: center;
 	overflow: hidden;
-	margin-bottom: 1%;
 	float: left;
 	display: inline-block;
 }
 
 .thirdfloor img {
-	width: 95% !important;
-	min-width: 95% !important;
+	width: 94% !important;
+	min-width: 94% !important;
 	min-height: 100%;
 	border-radius: 5px;
-	border: 1px solid #ddd;
+	/*border: 1px solid #ddd;*/
 }
 
 .mui-card-header>img:first-child {
@@ -5167,6 +5159,7 @@ body>.mui-progressbar {
 
 
 /**分享**/
+
 .mytanbg {
 	position: fixed;
 	top: 0px;
@@ -5220,6 +5213,7 @@ body>.mui-progressbar {
 
 
 /**阴影**/
+
 .textshadow {
 	text-shadow: 0px 0px 1px #333 !important;
 	-webkit-text-shadow: 0px 0px 1px #333 !important;
@@ -5238,6 +5232,7 @@ body>.mui-progressbar {
 
 
 /**加载中**/
+
 .mui-loader {
 	position: fixed;
 	top: 40%;
@@ -5250,10 +5245,11 @@ body>.mui-progressbar {
 
 
 /**自定义开关**/
+
 .my-switch {
-	width: 3.525rem;
-	height: 1.38rem;
-	border-radius: 3px;
+	width: 3.5rem;
+	height: 1.5rem;
+	border-radius: 50px;
 	position: relative;
 	display: inline-block;
 	background: #ccc;
@@ -5265,30 +5261,18 @@ body>.mui-progressbar {
 }
 
 .my-switch div {
-	width: 1.5625rem;
-	height: 1.255rem;
-	border-radius: 3px;
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 50px;
 	position: absolute;
 	background: #fff;
-	left: 0.0625rem;
-	top: 0.0625rem;
+	left: 0.15rem;
+	top: 0.15rem;
 	transition: left ease 0.5s;
 }
 
 .my-switch.active div {
-	left: 1.9rem;
-}
-
-.divSwitch {
-	position: absolute;
-	top: 22%;
-	right: 0.9375rem;
-}
-
-.divSwitch2 {
-	position: absolute;
-	top: 35%;
-	right: 0.9375rem;
+	left: 2.15rem;
 }
 
 .none {
@@ -5304,6 +5288,7 @@ body>.mui-progressbar {
 
 
 /**等待框**/
+
 .waiting {
 	position: fixed;
 	top: 42%;
@@ -5378,6 +5363,10 @@ body>.mui-progressbar {
 	-webkit-flex: 1;
 	min-width: 20px;
 	width: 0%;
+}
+
+.inline {
+	display: inline-block;
 }
 
 
