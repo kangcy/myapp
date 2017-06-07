@@ -62,7 +62,8 @@
 	width: 3rem;
 }*/
 
-.none {
+
+/*.none {
 	margin-top: 45% !important;
 }
 
@@ -105,6 +106,42 @@
 .mui-table-view-cell:after {
 	left: 0px;
 	background-color: transparent;
+}
+
+.cover {
+	width: 3.5rem;
+}
+
+.cover img {
+	width: 3rem;
+	float: right;
+}*/
+
+.none {
+	margin-top: 45% !important;
+}
+
+/*.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+	padding: 0 4rem;
+}*/
+
+.mui-table-view-cell {
+	padding: 0.8rem 0.9375rem;
+}
+
+.mui-table-view-cell:last-child:after, {
+	height: 1px
+}
+
+.avatar img {
+	width: 2.5rem !important;
+	height: 2.5rem !important;
+	border-radius: 50px;
+}
+
+.guanzhu img,
+.guanzhu2 img {
+	width: 3rem !important;
 }
 
 .cover {

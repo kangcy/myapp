@@ -365,18 +365,21 @@
 			plus.webview.close(self);
 		}
 
-		//系统定位
-		base.GetCurrentPosition();
+		mui.later(function() {
 
-		//分享设置
-		updateSerivces();
+			//系统定位
+			base.GetCurrentPosition();
 
-		if(plus.os.name == "Android") {
-			Intent = plus.android.importClass("android.content.Intent");
-			File = plus.android.importClass("java.io.File");
-			Uri = plus.android.importClass("android.net.Uri");
-			main = plus.android.runtimeMainActivity();
-		}
+			//分享设置
+			updateSerivces();
+
+			if(plus.os.name == "Android") {
+				Intent = plus.android.importClass("android.content.Intent");
+				File = plus.android.importClass("java.io.File");
+				Uri = plus.android.importClass("android.net.Uri");
+				main = plus.android.runtimeMainActivity();
+			}
+		}, 1000);
 	});
 
 	//验证权限密码

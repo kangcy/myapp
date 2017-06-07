@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/img.preview.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
+			<link rel="stylesheet" href="../mincss/fan.min.css">
 		<style type="text/css">
 			.none {
 				margin-top: 45% !important;
@@ -19,44 +20,7 @@
 			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
 				padding: 0 4rem;
 			}
-			
-			.user1 {
-				background: #fff;
-				padding: 0px 0.9375rem;
-				border-bottom: 1px solid #eee;
-			}
-			
-			.oa-contact-cell.mui-table .mui-table-cell {
-				padding: 0.625rem 0;
-				vertical-align: middle;
-			}
-			
-			.avatar {
-				width: 3.5rem;
-			}
-			
-			.avatar img {
-				width: 2.5rem !important;
-				height: 2.5rem !important;
-				border-radius: 50px;
-			}
-			
-			.guanzhu,
-			.guanzhu2 {
-				width: 3.2rem;
-			}
-			
-			.guanzhu img,
-			.guanzhu2 img {
-				width: 2.8rem;
-				float: right;
-			}
-			
-			.mui-table-view-cell:after {
-				left: 0px;
-				background-color: transparent;
-			}
-			
+
 			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
 				width: 50%;
 			}
@@ -260,7 +224,7 @@
 					var table = base.Get('scroll-view1');
 					var fragment = document.createDocumentFragment();
 					mui.each(data.list, function(index, item) {
-						fragment.appendChild(base.AppendUser(item, true, true, false, "", false, true));
+						fragment.appendChild(base.AppendUser(item, true, true, false, "", false, false));
 					});
 					table.appendChild(fragment);
 					lazyLoad.refresh(true);

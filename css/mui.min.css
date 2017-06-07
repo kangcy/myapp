@@ -1797,34 +1797,6 @@ input[type=submit]:enabled:active {
 	left: 2.5rem
 }
 
-.mui-table-view-chevron .mui-table-view-cell {
-	padding-right: 0.3125rem
-}
-
-.mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn) {
-	margin-right: -60.3125rem
-}
-
-.mui-table-view-radio .mui-table-view-cell {
-	padding-right: 60.3125rem
-}
-
-.mui-table-view-radio .mui-table-view-cell>a:not(.mui-btn) {
-	margin-right: -60.3125rem
-}
-
-.mui-table-view-radio .mui-table-view-cell .mui-navigate-right:after {
-	font-size: 30px;
-	font-weight: 600;
-	right: 9px;
-	content: '';
-	color: #007aff
-}
-
-.mui-table-view-radio .mui-table-view-cell.mui-selected .mui-navigate-right:after {
-	content: '\e472'
-}
-
 .mui-table-view-inverted {
 	color: #fff;
 	background: #333

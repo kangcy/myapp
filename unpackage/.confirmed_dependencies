@@ -1335,7 +1335,8 @@
 			"minjs/mui.lazyload.img.min.js",
 			"js/base.min.js",
 			"minjs/mui.lazyload.min.js",
-			"js/article.min.js"
+			"js/article.min.js",
+			"mincss/fan.min.css"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -2724,7 +2725,9 @@
 			"minjs/base.min.js",
 			"js/base.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
-			"minjs/mui.pullToRefresh.min.js"
+			"minjs/mui.pullToRefresh.min.js",
+			"mincss/fan.min.css",
+			"css/fan.min.css"
 		],
 		"refer": [
 			"page/user.html",

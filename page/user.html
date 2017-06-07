@@ -29,7 +29,7 @@
 		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="pic">
+				<li class="mui-table-view-cell" id="mypic">
 					<a href="#" class="c333 f13" onclick="Pic()">查看相册</a>
 				</li>
 				<li class="mui-table-view-cell" id="share">
@@ -130,7 +130,7 @@
 				<p class="full tc f13 c333 mt50">暂未发表过动态</p>
 			</div>
 		</div>
-		<div id="blacktip" class="hide f13 c999 tc mt50">您已经将Ta拉黑</div>
+		<div id="blacktip" class="hide f13 red tc mt50">您已经将Ta拉黑</div>
 	</body>
 
 </html>
@@ -145,6 +145,7 @@
 	var UserNumber = "";
 	var NickName = "";
 	var Avatar = "";
+	var Cover = "";
 	var Sex = 0;
 	var ShareInfo = {};
 	var $bg = base.Get("bg");
@@ -175,7 +176,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		$bg.style.minHeight = window.innerWidth * 3 / 4 + "px";
-		$bg.style.background = "#eee";
+		//$bg.style.background = "#eee";
 		$bg.style.backgroundSize = "cover";
 
 		base.Get("guanzhu").style.background = name + 'linear-gradient(right,#ff6900 0%,#fb2879 100%)';
@@ -192,19 +193,6 @@
 			}
 		});
 
-		base.ShowArticle("#a_list", "List", userinfo.Number);
-
-		mui('#uploadwrapper').load("../part/pic.html", function(response) {
-			base.Get("add").addEventListener('tap', function() {
-				length = 0;
-				files = [];
-				compressIndex = 0; //当前压缩图片索引
-				compressTotal = 0; //需要压缩图片个数
-				currUploadImg = [];
-				mui('#upload').popover('show');
-			});
-		});
-
 		//返回顶部
 		base.ToTop();
 	});
@@ -213,18 +201,37 @@
 
 		var self = plus.webview.currentWebview();
 		UserNumber = self.UserNumber || "";
+		NickName = self.NickName || "";
+		Avatar = self.Avatar || "";
+		Cover = self.Cover || "";
+
+		if(!base.IsNullOrEmpty(NickName)) {
+
+			base.Get("nickname").innerHTML = NickName;
+		}
+		if(!base.IsNullOrEmpty(Avatar)) {
+			base.Get("avatar").setAttribute("src", base.ShowThumb(Avatar, 2));
+		}
+		if(!base.IsNullOrEmpty(Cover)) {
+			$bg.style.background = "url(" + base.ShowThumb(Cover, 1) + ") center center no-repeat";
+			$bg.style.backgroundSize = "cover";
+		}
 
 		LoadUserInfo();
 
 		//分享设置
-		UpdateSerivces();
+		mui.later(function() {
+			UpdateSerivces();
 
-		if(plus.os.name == "Android") {
-			Intent = plus.android.importClass("android.content.Intent");
-			File = plus.android.importClass("java.io.File");
-			Uri = plus.android.importClass("android.net.Uri");
-			main = plus.android.runtimeMainActivity();
-		}
+			if(plus.os.name == "Android") {
+				Intent = plus.android.importClass("android.content.Intent");
+				File = plus.android.importClass("java.io.File");
+				Uri = plus.android.importClass("android.net.Uri");
+				main = plus.android.runtimeMainActivity();
+			}
+		}, 500);
+		
+		base.ShowArticle("#a_list", "List", userinfo.Number);
 	});
 
 	//获取用户信息
@@ -235,55 +242,59 @@
 		}, function(data) {
 			if(data.result) {
 				data = data.message;
-
 				NickName = base.UnUnicodeText(data.NickName);
 				Avatar = data.Avatar;
 				Sex = data.Sex;
 
-				$bg.style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
-				$bg.style.backgroundSize = "cover";
-
-				base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
-				base.Get("nickname").innerHTML = NickName;
+				if(base.IsNullOrEmpty(Cover)) {
+					$bg.style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
+					$bg.style.backgroundSize = "cover";
+				}
+				if(base.IsNullOrEmpty(Avatar)) {
+					base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
+				}
+				if(base.IsNullOrEmpty(NickName)) {
+					base.Get("nickname").innerHTML = NickName;
+				}
 				base.Get("signature").innerHTML = base.UnUnicodeText(data.Signature);
-
-				var showcount = 0;
-				if(data.ShowArticle == 1) {
-					base.Get("showArticleNum").innerHTML = data.Keeps;
-					base.Get("showArticle").classList.remove("hide");
-					showcount++;
-				}
-				if(data.ShowFollow == 1) {
-					base.Get("showFollowNum").innerHTML = data.Follows;
-					base.Get("showFollow").classList.remove("hide");
-					showcount++;
-				}
-				if(data.ShowFan == 1) {
-					base.Get("showFanNum").innerHTML = data.Fans;
-					base.Get("showFan").classList.remove("hide");
-					showcount++;
-				}
-				switch(showcount) {
-					case 1:
-						base.Get("showArticle").style.flex = "0 0 100%";
-						base.Get("showFollow").style.flex = "0 0 100%";
-						base.Get("showFan").style.flex = "0 0 100%";
-						break;
-					case 2:
-						base.Get("showArticle").style.flex = "0 0 50%";
-						base.Get("showFollow").style.flex = "0 0 50%";
-						base.Get("showFan").style.flex = "0 0 50%";
-						break;
-				}
 
 				//在黑名单
 				if(data.IsBlack == 1) {
-					base.AddClass(["#article", "#pic", "#share", "#copy", "#inblack"], "hide");
+					base.AddClass(["#article", "#mypic", "#share", "#copy", "#inblack"], "hide");
 					base.RemoveClass(["#blacktip", "#outblack"], "hide");
 				} else {
 
 					base.AddClass(["#blacktip", "#outblack"], "hide");
 					base.RemoveClass(["#article", "#inblack"], "hide");
+
+					var showcount = 0;
+					if(data.ShowArticle == 1) {
+						base.Get("showArticleNum").innerHTML = data.Keeps;
+						base.Get("showArticle").classList.remove("hide");
+						showcount++;
+					}
+					if(data.ShowFollow == 1) {
+						base.Get("showFollowNum").innerHTML = data.Follows;
+						base.Get("showFollow").classList.remove("hide");
+						showcount++;
+					}
+					if(data.ShowFan == 1) {
+						base.Get("showFanNum").innerHTML = data.Fans;
+						base.Get("showFan").classList.remove("hide");
+						showcount++;
+					}
+					switch(showcount) {
+						case 1:
+							base.Get("showArticle").style.flex = "0 0 100%";
+							base.Get("showFollow").style.flex = "0 0 100%";
+							base.Get("showFan").style.flex = "0 0 100%";
+							break;
+						case 2:
+							base.Get("showArticle").style.flex = "0 0 50%";
+							base.Get("showFollow").style.flex = "0 0 50%";
+							base.Get("showFan").style.flex = "0 0 50%";
+							break;
+					}
 
 					//加载文章
 					LoadArticle();
@@ -291,6 +302,17 @@
 					//检查关注
 					if(userinfo.Number != UserNumber) {
 						CheckFan(data.IsFan);
+					} else {
+						mui('#uploadwrapper').load("../part/pic.html", function(response) {
+							base.Get("add").addEventListener('tap', function() {
+								length = 0;
+								files = [];
+								compressIndex = 0; //当前压缩图片索引
+								compressTotal = 0; //需要压缩图片个数
+								currUploadImg = [];
+								mui('#upload').popover('show');
+							});
+						});
 					}
 				}
 
