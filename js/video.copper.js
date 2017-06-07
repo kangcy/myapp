@@ -47,7 +47,7 @@ function galleryVideo() {
 						mui.toast("请上传5M内视频文件")
 						return;
 					} else {
-						if(!change) {
+						if(!change) { 
 							change = true;
 							base.RemoveClass(["#myprogressbg", "#myprogress"], "hide");
 						}
@@ -58,7 +58,7 @@ function galleryVideo() {
 							base.Get("persent").innerHTML = parseInt(100 * downloadedSize / totalSize) + "%";
 						}
 					}
-				},
+				}, 
 				100);
 		},
 		function(e) {

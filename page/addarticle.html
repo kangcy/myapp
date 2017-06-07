@@ -27,10 +27,10 @@
 		<div id="picupload"></div>
 		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
 			<div class="info-body" style="margin-top:10rem">
-				<div id="music" class="btn fl tl"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
-			</div>  
+				<div id="music" class="btn fl tl mb15"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
+			</div>
 		</div>
-		<div id="edit" class="mt15">
+		<div id="edit" class="mt20">
 			<!--<div class="edit-body">
 				<img src="../images/addarticle/btn_up.png" class="edit-up first" />
 				<img src="../images/addarticle/btn_down.png" class="edit-down first" />
@@ -128,11 +128,11 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		
+
 		InitGroup();
 
-		/*mask.show();
-		base.ShowWaiting("正在加载");*/
+		mask.show();
+		base.ShowWaiting("正在加载");
 
 		//滚动监听、背景色渐变
 		var num = 0;
@@ -460,12 +460,12 @@
 			Title = "我的小微篇"
 		}
 
-		//刷新缓存列表排序
+		//重置排序（按top属性从小到大排）
 		var ids = [];
 		var length = $(".edit-content").length;
 		for(var i = 0; i < length; i++) {
 			var partid = $(".edit-content").eq(i).attr("partid");
-			var sortid = $(".edit-body").eq(i).attr("index");
+			var sortid = parseInt($(".edit-body").eq(i).css("top").replace("px", ""));
 			//同步原始段落信息			
 			mui.each(InitParts, function(index, item) {
 				if(item.ID == partid) {
@@ -473,6 +473,7 @@
 				}
 			});
 		}
+
 		HttpPost(base.RootUrl + "Article/Edit", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID,
@@ -536,7 +537,7 @@
 			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
 		}
-		model.push('<div class="icons0 mt10 mb0 tc">');
+		model.push('<div class="icons0 mt15 mb0 tc">');
 		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" /></div>');
 		model.push('<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" /><img src="../images/addarticle/icon_pic.png" class="edit-add-pic" /><img src="../images/addarticle/icon_text.png" class="edit-add-text" /><img src="../images/addarticle/icon_video.png" class="edit-add-video" /></div>');
 		model.push('</div></div>')
@@ -566,7 +567,7 @@
 					} else {
 						Cover = data.Cover;
 					}
-					MusicID = data.MusicID;
+					MusicID = data.MusicID; 
 					MusicName = data.MusicName;
 					MusicUrl = data.MusicUrl;
 					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
@@ -575,7 +576,7 @@
 					base.Get("cover").style.backgroundSize = "cover";
 					if(Title != "") {
 						$("#title").html(Title);
-					}
+					} 
 
 					//加载段落
 					var parts = data.ArticlePart;
@@ -616,9 +617,7 @@
 								// dfd.resolve();
 							})
 							if(this.complete) {
-								mui.later(function() {
-									dfd.resolve();
-								}, 1000);
+								dfd.resolve();
 							}
 							imgdefereds.push(dfd);
 						})

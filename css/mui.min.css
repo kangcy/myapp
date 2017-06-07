@@ -5120,7 +5120,7 @@ body>.mui-progressbar {
 	max-width: 100% !important;*/
 	max-width: 100%;
 	max-height: 400px;
-	border-radius:5px;
+	border-radius: 5px;
 	border: 1px solid #ddd;
 }
 
@@ -5137,7 +5137,7 @@ body>.mui-progressbar {
 .secondfloor img {
 	max-width: 100%;
 	max-height: 100%;
-	border-radius:5px;
+	border-radius: 5px;
 	border: 1px solid #ddd;
 }
 
@@ -5155,7 +5155,7 @@ body>.mui-progressbar {
 	width: 95% !important;
 	min-width: 95% !important;
 	min-height: 100%;
-	border-radius:5px;
+	border-radius: 5px;
 	border: 1px solid #ddd;
 }
 
@@ -5167,7 +5167,6 @@ body>.mui-progressbar {
 
 
 /**分享**/
-
 .mytanbg {
 	position: fixed;
 	top: 0px;
@@ -5221,7 +5220,6 @@ body>.mui-progressbar {
 
 
 /**阴影**/
-
 .textshadow {
 	text-shadow: 0px 0px 1px #333 !important;
 	-webkit-text-shadow: 0px 0px 1px #333 !important;
@@ -5240,7 +5238,6 @@ body>.mui-progressbar {
 
 
 /**加载中**/
-
 .mui-loader {
 	position: fixed;
 	top: 40%;
@@ -5253,7 +5250,6 @@ body>.mui-progressbar {
 
 
 /**自定义开关**/
-
 .my-switch {
 	width: 3.525rem;
 	height: 1.38rem;
@@ -5308,7 +5304,6 @@ body>.mui-progressbar {
 
 
 /**等待框**/
-
 .waiting {
 	position: fixed;
 	top: 42%;
@@ -5330,6 +5325,9 @@ body>.mui-progressbar {
 	margin: 1.25rem 0.75rem 1.25rem 0px;
 }
 
+
+/**popover**/
+
 .mui-popover.mui-popover-action .mui-table-view {
 	margin-left: 0 !important;
 	margin-right: 0px !important;
@@ -5346,6 +5344,40 @@ body>.mui-progressbar {
 
 .mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell:after {
 	background-color: #ddd !important;
+}
+
+
+/**flex布局**/
+
+.flex-box {
+	width: 100%;
+	text-align: left;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	display: -webkit-flex;
+	box-align: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.flex-row {
+	box-direction: row;
+	box-orient: horizontal;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+}
+
+.flex-item {
+	-webkit-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	-webkit-flex: 1;
+	min-width: 20px;
+	width: 0%;
 }
 
 
