@@ -29,7 +29,7 @@
 				margin-bottom: 0.2rem;
 			}
 			
-			#scroll {
+			#scroll-view {
 				background: #fff;
 				padding: 5%;
 				display: inline-block;
@@ -62,13 +62,13 @@
 			}
 			
 			.thirdfloor.nocheck .icon {
-				background: url(../images/my/nocheck.png) no-repeat;
+				background: url(../images/addarticle/icon_pic_n.png) no-repeat;
 				background-size: 100% 100%;
 				background-position: center center;
 			}
 			
 			.thirdfloor.check .icon {
-				background: url(../images/my/check.png) no-repeat;
+				background: url(../images/addarticle/icon_pic_y.png) no-repeat;
 				background-size: 100% 100%;
 				background-position: center center;
 			}
@@ -85,7 +85,7 @@
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
-		</div>
+		</div> 
 		<!--图片操作-->
 		<div id="uploadwrapper"></div>
 		<!--删除-->
@@ -107,8 +107,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mui-content">
-			<!--<div class="full tc" id="items"> 
+		<!--<div class="full tc" id="items"> 
 				<div class="item fl">
 					<a onclick="Single()"><img src="../images/background/1.png" />
 						<div class="full f13 c333">单图背景</div>
@@ -120,15 +119,13 @@
 					</a>
 				</div>
 			</div>-->
-			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:0px;">
-				<div class="mui-scroll" id="scroll">
-					<div id="scroll_view"></div>
-					<div id="none" class="full tc hide">
-						<img src="../images/my/666.png" class="none" />
-						<p class="f13 mt10">还未设置背景哦，创建一个吧</p>
-					</div>
-				</div>
+		<div id="muicontent">
+			<div id="scroll-view">
 			</div>
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/666.png" class="none" />
+			<p class="f13 mt10">还未设置背景哦，创建一个吧</p>
 		</div>
 	</body>
 
@@ -148,30 +145,12 @@
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
 
-		mui('#uploadwrapper').load("../part/pic.html", function(response) {
-			base.RemoveClass(["#create"], "hide");
-
-			base.Get("create").addEventListener('tap', function() {
-				url = "";
-				full = 0;
-				high = 0;
-				transparency = 50;
-				mui('#upload').popover('show');
-			});
-		});
-
-		base.InitScroll();
-
-		mui("#scroll").on('tap', '.thirdfloor', function(event) {
+		mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");
 			base.ToggleClass(["#inused"], "hide", isused != 0);
 			id = this.getAttribute("id");
@@ -204,7 +183,7 @@
 		}, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
-				var table = base.Get("scroll_view");
+				var table = base.Get("scroll-view");
 				table.innerHTML = "";
 				totalpage = data.totalpage;
 				var length = data.message.length;
@@ -224,6 +203,18 @@
 			if(callback) {
 				callback();
 			}
+
+			mui('#uploadwrapper').load("../part/pic.html", function(response) {
+				base.RemoveClass(["#create"], "hide");
+
+				base.Get("create").addEventListener('tap', function() {
+					url = "";
+					full = 0;
+					high = 0;
+					transparency = 50;
+					mui('#upload').popover('show');
+				});
+			});
 		});
 	}
 

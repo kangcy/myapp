@@ -2684,7 +2684,9 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/refresh.min.js",
-			"js/refresh.min.js"
+			"js/refresh.min.js",
+			"images/addarticle/icon_pic_y.png",
+			"images/addarticle/icon_pic_n.png"
 		],
 		"refer": []
 	},

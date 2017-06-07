@@ -47,7 +47,7 @@ function ChangeBg() {
 				case 0:
 					//居顶 
 					$wrapper2.style.background = "url(" + url + ") no-repeat top center";
-					$wrapper2.style.backgroundSize = "100% auto";
+					$wrapper2.style.backgroundSize = "100% 15.5rem";
 					break;
 				case 1:
 					//全屏

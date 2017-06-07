@@ -19,7 +19,7 @@
 			<span class="cfff f25 fr more" onclick="More()">•••</span>
 			<h1 class="mui-title cfff">Ta的资料</h1>
 		</header>
-		<div class="loading" id="loader">
+		<div class="loading hide" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
@@ -47,7 +47,7 @@
 			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
-					<a href="#power" class="c333 f13">取消</a>
+					<a href="#power" class="red f13">取消</a>
 				</li>
 			</ul>
 		</div>
@@ -176,7 +176,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		$bg.style.minHeight = window.innerWidth * 3 / 4 + "px";
-		//$bg.style.background = "#eee";
+		$bg.style.background = "#eee";
 		$bg.style.backgroundSize = "cover";
 
 		base.Get("guanzhu").style.background = name + 'linear-gradient(right,#ff6900 0%,#fb2879 100%)';
@@ -206,7 +206,7 @@
 		Cover = self.Cover || "";
 
 		if(!base.IsNullOrEmpty(NickName)) {
-
+			NickName = base.UnUnicodeText(NickName);
 			base.Get("nickname").innerHTML = NickName;
 		}
 		if(!base.IsNullOrEmpty(Avatar)) {
@@ -230,7 +230,7 @@
 				main = plus.android.runtimeMainActivity();
 			}
 		}, 500);
-		
+
 		base.ShowArticle("#a_list", "List", userinfo.Number);
 	});
 

@@ -157,7 +157,7 @@
 				<div id="main1" class="f13 tc hide" style="position:relative;">
 					<div class="detail full fl" id="detail1">
 						<div class="fl" style="width:23%;display:inline-block;">
-							<img id="useravatar1" class="full fl" />
+							<img id="useravatar1" class="full fl article" />
 						</div>
 						<div class="fr tl" style="width:77%;display:inline-block;">
 							<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
@@ -451,6 +451,9 @@
 
 					mui.each(mui(".user"), function(i, item) {
 						item.setAttribute("userid", data.CreateUserNumber);
+						item.setAttribute("nickname", data.NickName);
+						item.setAttribute("avatar", data.Avatar);
+						item.setAttribute("cover", data.Cover);
 					})
 
 					//段落 
