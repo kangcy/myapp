@@ -17,12 +17,32 @@
 				margin-top: 45% !important;
 			}
 			
-			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
-				padding: 0 4rem;
+			.tabs_nav {
+				white-space: nowrap;
+				position: relative;
+				transition: transform .3s;
+				float: left;
 			}
 			
-			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
-				width: 50%;
+			.tabs_item {
+				font-size: 14px;
+				color: #8391a5;
+				position: relative;
+			}
+			
+			.tabs_item.is-active {
+				color: #20a0ff;
+			}
+			
+			.tabs_active {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				height: 3px;
+				background-color: #20a0ff;
+				z-index: 1;
+				transition: transform .25s cubic-bezier(.645, .045, .355, 1);
+				list-style: none;
 			}
 		</style>
 	</head>
@@ -39,15 +59,18 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div class="mui-content">
+		<div class="mui-content" id="muicontent">
 			<div id="slider" class="mui-slider mui-fullscreen">
-				<div id="scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
-					<div class="mui-scroll full" id="sliderTopBody">
-						<a class="mui-control-item f13 topic border mui-active" currindex="0">用户</a>
-						<a class="mui-control-item f13 topic border" currindex="1">文章</a>
+				<div class="mui-segmented-control hide"></div>
+				<div class="full" style="position:absolute;top:0px;border-bottom: 1px solid #d1dbe5;">
+					<div id="tabs_nav" class="tabs_nav flex-box flex-row tc" style="height: 2.5rem;">
+						<div class="tabs_active"></div>
+						<div class="flex-item tabs_item f13" style="flex:0 0 50%;" index="0">用户</div>
+						<div class="flex-item tabs_item f13" style="flex:0 0 50%;" index="1">文章</div>
 					</div>
 				</div>
-				<div class="mui-slider-group" id="sliderGroup" style="top:3.4rem;">
+
+				<div class="mui-slider-group" id="sliderGroup" style="top:2.51rem;">
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div id="sliderChild1" class="mui-scroll-wrapper">
 							<div id="slider1" class="mui-scroll">
@@ -86,7 +109,7 @@
 <script src="../minjs/mui.lazyload.img.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../js/article.min.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var SearchName = "";
 	var isLoading = false;
@@ -108,31 +131,43 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		base.InitScroll();
+		base.Get("slider").style.top = base.Get("header").clientHeight + "px";
 
-		base.InitSlider(false);
+		var slider = mui('#slider').slider({
+			bounce: false
+		});
+
+		//滑动切换
+		document.querySelector('#slider').addEventListener('slide', function(e) {
+			ChangeSlider(mui(".tabs_item")[e.detail.slideNumber]);
+		});
+
+		//点击切换
+		mui("#tabs_nav").on('tap', '.tabs_item', function(event) {
+			var $this = this;
+			slider.gotoItem($this.getAttribute("index"));
+			mui.later(function() {
+				ChangeSlider($this);
+			}, 600);
+		});
 
 		//监听软键盘搜索键
 		base.Get("search").addEventListener("keydown", function(e) {
 			if(13 == e.keyCode) {
-				Search();
 				document.activeElement.blur(); //隐藏软键盘 
+				Search();
 			}
 		}, false);
+
+		//初始化
+		ChangeSlider(mui(".tabs_item")[0]);
 	});
 
 	mui.plusReady(function() {
 
 		InitLoadUser("");
-		//InitLoadArticle("");
 
 		mui(base.Get("slider2")).pullToRefresh({
-			/*down: {
-				callback: function() {
-					var self = this;
-					pulldownRefresh(self);
-				}
-			},*/
 			up: {
 				auto: true,
 				callback: function() {
@@ -166,12 +201,6 @@
 				SetPullEnable(true);
 			});
 		});
-
-		//切换
-		mui("#slider").on('tap', '.mui-control-item', function(event) {
-			var index = this.getAttribute("currindex");
-			mui('#slider').slider().gotoItem(index);
-		});
 	});
 
 	var previewImage = mui.previewImage({
@@ -187,6 +216,15 @@
 		placeholder: '../images/loading.gif',
 		destroy: false
 	});
+
+	//样式切换
+	function ChangeSlider($this) {
+		var item = $this.parentNode.children[0];
+		item.style.width = $this.clientWidth + "px";
+		item.style.transform = "translateX(" + $this.offsetLeft + "px)";
+		base.RemoveClass([".tabs_item"], "is-active");
+		$this.classList.add("is-active");
+	}
 
 	//执行搜索
 	function Search() {
@@ -293,7 +331,7 @@
 		};
 		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
 			data = JSON.parse(data);
-			base.ShowLoading(false); 
+			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
