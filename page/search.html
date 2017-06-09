@@ -16,34 +16,6 @@
 			.none {
 				margin-top: 45% !important;
 			}
-			
-			.tabs_nav {
-				white-space: nowrap;
-				position: relative;
-				transition: transform .3s;
-				float: left;
-			}
-			
-			.tabs_item {
-				font-size: 14px;
-				color: #8391a5;
-				position: relative;
-			}
-			
-			.tabs_item.is-active {
-				color: #20a0ff;
-			}
-			
-			.tabs_active {
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				height: 3px;
-				background-color: #20a0ff;
-				z-index: 1;
-				transition: transform .25s cubic-bezier(.645, .045, .355, 1);
-				list-style: none;
-			}
 		</style>
 	</head>
 
@@ -130,8 +102,10 @@
 
 	mui.ready(function() {
 		base.Immersed();
+		base.InitScroll();
 
 		base.Get("slider").style.top = base.Get("header").clientHeight + "px";
+		ChangeSlider(mui(".tabs_item")[0]);
 
 		var slider = mui('#slider').slider({
 			bounce: false
@@ -158,9 +132,6 @@
 				Search();
 			}
 		}, false);
-
-		//初始化
-		ChangeSlider(mui(".tabs_item")[0]);
 	});
 
 	mui.plusReady(function() {
@@ -216,15 +187,6 @@
 		placeholder: '../images/loading.gif',
 		destroy: false
 	});
-
-	//样式切换
-	function ChangeSlider($this) {
-		var item = $this.parentNode.children[0];
-		item.style.width = $this.clientWidth + "px";
-		item.style.transform = "translateX(" + $this.offsetLeft + "px)";
-		base.RemoveClass([".tabs_item"], "is-active");
-		$this.classList.add("is-active");
-	}
 
 	//执行搜索
 	function Search() {

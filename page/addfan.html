@@ -15,10 +15,6 @@
 				margin-top: 45% !important;
 			}
 			
-			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
-				width: 50%;
-			}
-
 			#divLocation {
 				background: #f5f5f5;
 			}
@@ -29,7 +25,7 @@
 				background: #fff;
 				display: inline-block;
 			}
-
+			
 			#btn {
 				background: #5E92D7;
 				height: 2rem;
@@ -51,15 +47,17 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div class="mui-content"> 
+		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
-				<div id="scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:#fff;">
-					<div class="mui-scroll full" id="sliderTopBody">
-						<a class="mui-control-item f13 border mui-active" currindex="0">猜你喜欢</a>
-						<a class="mui-control-item f13 border" currindex="1">同城热门</a>
+				<div class="mui-segmented-control hide"></div>
+				<div class="full" style="position:absolute;top:0px;border-bottom: 1px solid #d1dbe5;">
+					<div id="tabs_nav" class="tabs_nav flex-box flex-row tc" style="height: 2.5rem;">
+						<div class="tabs_active"></div>
+						<div class="flex-item tabs_item f13" style="flex:0 0 50%;" index="0">猜你喜欢</div>
+						<div class="flex-item tabs_item f13" style="flex:0 0 50%;" index="1">同城热门</div>
 					</div>
 				</div>
-				<div class="mui-slider-group" id="sliderGroup" style="top:3.4rem;">
+				<div class="mui-slider-group" id="sliderGroup" style="top:2.51rem;">
 					<div class="mui-slider-item mui-control-content mui-active">
 						<div id="sliderChild1" class="mui-scroll-wrapper">
 							<div id="slider1" class="mui-scroll">
@@ -129,23 +127,33 @@
 
 	mui.ready(function() {
 		base.Immersed();
-
-		InitPosition();
-
 		base.InitScroll();
 
-		base.InitSlider(false);
+		base.Get("slider").style.top = base.Get("header").clientHeight + "px";
+		ChangeSlider(mui(".tabs_item")[0]);
+
+		InitPosition();
 
 		base.ShowUser("#slider");
 
 		base.UserAddFan("#slider", userinfo);
 
-		//base.ShowArticle("#slider", "List", userinfo.Number);
+		var slider = mui('#slider').slider({
+			bounce: false
+		});
 
-		//切换
-		mui("#slider").on('tap', '.mui-control-item', function(event) {
-			var index = this.getAttribute("currindex");
-			mui('#slider').slider().gotoItem(index);
+		//滑动切换
+		document.querySelector('#slider').addEventListener('slide', function(e) {
+			ChangeSlider(mui(".tabs_item")[e.detail.slideNumber]);
+		});
+
+		//点击切换
+		mui("#tabs_nav").on('tap', '.tabs_item', function(event) {
+			var $this = this;
+			slider.gotoItem($this.getAttribute("index"));
+			mui.later(function() {
+				ChangeSlider($this);
+			}, 600);
 		});
 
 		base.Get("btn").addEventListener("tap", function() {
