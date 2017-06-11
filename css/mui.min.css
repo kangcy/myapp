@@ -5086,8 +5086,8 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-	max-width: 100%;
-	max-height: 400px;
+	max-width: 100% !important;
+	max-height: 400px  !important;
 	border-radius: 5px;
 	/*border: 1px solid #ddd;*/
 }
@@ -5101,8 +5101,8 @@ body>.mui-progressbar {
 }
 
 .secondfloor img {
-	max-width: 95%;
-	max-height: 100%;
+	max-width: 95%  !important;
+	max-height: 100%  !important;
 	border-radius: 5px;
 	/*border: 1px solid #ddd;*/
 }

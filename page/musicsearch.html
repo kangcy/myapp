@@ -61,14 +61,14 @@
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:34px;font-size:15px;">
 			</div>
 		</header>
-		<nav class="mui-bar mui-bar-tab" id="search" style="border-top:1px solid #eee;background:#fff;">
+		<nav class="mui-bar mui-bar-tab hide" id="bottom" style="border-top:1px solid #eee;background:#fff;">
 			<div class="fl blue ml10" id="no">取消</div>
 			<div class="fr blue mr10" id="yes">完成</div>
 		</nav>
-		<div id="muicontent" style="padding-bottom:50px;"> 
+		<div id="muicontent">
 			<ul class="mui-table-view f13 mt0" id="scroll-view">
 			</ul>
-		</div> 
+		</div>
 	</body>
 
 </html>
@@ -141,7 +141,10 @@
 			if(base.IsNullOrEmpty(search.value)) {
 				return mui.toast("请输入搜索内容");
 			}
-			InitMusic(search.value);
+			document.activeElement.blur();
+			mui.later(function() {
+				InitMusic(search.value);
+			}, 250);
 		});
 
 		//监听软键盘搜索键
@@ -150,8 +153,10 @@
 				if(base.IsNullOrEmpty(search.value)) {
 					return mui.toast("请输入搜索内容");
 				}
-				InitMusic(search.value);
-				document.activeElement.blur(); //隐藏软键盘 
+				document.activeElement.blur();
+				mui.later(function() {
+					InitMusic(search.value);
+				}, 250);
 			}
 		}, false);
 
@@ -159,18 +164,20 @@
 			if(base.TriggerMain) {
 				return;
 			}
-			stopsound();
-			resetsound();
+			fileId = this.getAttribute("fileId");
+			fileName = this.getAttribute("fileName");
+			fileUrl = this.getAttribute("fileUrl");
+
 			base.RemoveClass([".mui-icon"], "play stop");
 			base.AddClass([".mui-icon"], "uncheck");
 			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
 				item.classList.remove("uncheck");
 				item.classList.add("play");
 			});
-
-			fileId = this.getAttribute("fileId");
-			fileName = this.getAttribute("fileName");
-			fileUrl = this.getAttribute("fileUrl");
+			base.Get("muicontent").style.paddingBottom = "50px";
+			base.Get("bottom").classList.remove("hide");
+			stopsound();
+			resetsound();
 		});
 
 		//播放
@@ -299,7 +306,7 @@
 		div.setAttribute("fileUrl", item.FileUrl);
 		var model = [];
 		model.push('<img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
-		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt5">' + item.Author + '</span></p>');
+		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt1">' + item.Author + '</span></p>');
 		model.push('<span class="fr csubtitle mui-icon uncheck" style="position:absolute;right:0.5rem;top:1rem;"></span>');
 		div.innerHTML = model.join('');
 		return div;

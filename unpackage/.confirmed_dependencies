@@ -464,7 +464,8 @@
 			"minjs/article.min.js",
 			"js/base.min.js",
 			"minjs/refresh.min.js",
-			"js/article.min.js"
+			"js/article.min.js",
+			"part/action.html"
 		],
 		"refer": [
 			"page/listSub.html",
