@@ -533,10 +533,13 @@
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"mincss/fan.min.css",
+			"images/icon/money.png"
 		],
 		"refer": [
-			"page/paySub.html"
+			"page/paySub.html",
+			"page/user.html"
 		]
 	},
 	"page/feedback.html": {
@@ -1578,7 +1581,9 @@
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"css/fan.min.css",
+			"images/icon/heart.png"
 		],
 		"refer": [
 			"page/fanSub.html",
@@ -2335,7 +2340,9 @@
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"css/fan.min.css",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/followSub.html",

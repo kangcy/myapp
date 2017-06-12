@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/animate.min.css"> 
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/img.preview.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/subindex.min.css">
@@ -183,13 +183,13 @@
 		plus.push.addEventListener("receive", function(msg) {
 			if(!base.IsNullOrEmpty(msg.payload)) {
 				var param = msg.payload.split('|');
-				//打开文章
-				if(param[0] == 0) {
+				//系统推荐文章、好友发布文章
+				if(param[0] == 0 || param[0] == 4) {
 					base.OpenWindow("articledetail", "articledetail.html", {
 						ArticleID: param[1],
 						Source: "",
 						NickName: ""
-					});
+					}, null, "none");
 				}
 				//打开评论
 				if(param[0] == 1) {
@@ -202,6 +202,10 @@
 				//打开打赏
 				if(param[0] == 2) {
 					base.OpenWindow("pay", "pay.html", {});
+				}
+				//打开粉丝
+				if(param[0] == 3) {
+					base.OpenWindow("fan", "fan.html", {});
 				}
 			}
 		}, false);

@@ -8,53 +8,16 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/fan.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
-			.mui-table-view-cell {
-				background: #fff;
-				padding: 0px 0.3rem;
-				border-bottom: 1px solid #eee;
-			}
-			
-			.oa-contact-cell.mui-table .mui-table-cell {
-				padding: 0.625rem 0;
-				vertical-align: middle;
-			}
-			
-			.oa-contact-cell {
-				position: relative;
-			}
-			
-			.avatar {
-				width: 4rem;
-			}
-			
-			.avatar img {
-				width: 2.75rem !important;
-				height: 2.75rem !important;
-				border-radius: 50%;
-			}
-			
-			.home {
-				width: 100%;
-			}
-			
 			.icon {
-				width: 3rem !important;
-			}
-			
-			.icon img {
-				width: 1.25rem !important;
+				width: 1rem !important;
 			}
 			
 			.price {
-				color: #FFAD00;
-			}
-			
-			.mui-table-view-cell:after {
-				left: 0px;
-				background-color: transparent;
+				color: #ff6900;
 			}
 		</style>
 	</head>
@@ -129,13 +92,17 @@
 	//打赏我的-拼接Html 
 	function AppendStr(item) {
 		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell bounceInUp';
+		div.className = 'mui-table-view-cell user bounceInUp';
+		div.setAttribute("userid", item.FromUserNumber);
+		div.setAttribute("nickname", item.FromUserName);
+		div.setAttribute("cover", item.FromUserCover);
+		div.setAttribute("avatar", item.FromUserAvatar);
 		var model = [];
-		model.push('<div class="mui-slider-cell user" userid="' + item.FromUserNumber + '"><div class="oa-contact-cell mui-table">');
-		model.push('<div class="mui-table-cell avatar tc"><img src="' + base.ShowThumb(item.FromUserAvatar, 2) + '" /></div>');
-		model.push('<div class="mui-table-cell name"><p class="f14 c333 mb5">' + item.FromUserName + '</p><p class="f10 c999">' + item.CreateDate + '</p></div>');
-		model.push('<div class="mui-table-cell icon tc"><img src="../images/price.png"/><p class="price f12">' + parseFloat(item.Price / 100).toFixed(2) + '</p></div>');
-		model.push('</div>');
+		model.push('<div class="flex-box flex-row ">');
+		model.push('<div style="flex:0 0 18%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.FromUserAvatar, 1) + '" class="fl"  /></div></div>');
+		model.push('<div style="flex:0 0 62%;" class="flex-item"><p class="f14 c333 mb5">' + base.UnUnicodeText(item.FromUserName) + '</p><img src="../images/icon/money.png" class="icon fl" /><span class="f13 price mt1 ml5 fl">' + parseFloat(item.Price / 100).toFixed(2) + '</span></div>');
+		model.push('<div style="flex:0 0 20%;" class="flex-item"><p class="f11 c999">' + item.CreateDate + '</p></div>');
+		model.push('</div></div>');
 		div.innerHTML = model.join('');
 		return div;
 	}

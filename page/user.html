@@ -258,7 +258,7 @@
 				}
 				base.Get("signature").innerHTML = base.UnUnicodeText(data.Signature);
 
-				//在黑名单
+				//在黑名单 
 				if(data.IsBlack == 1) {
 					base.AddClass(["#article", "#mypic", "#share", "#copy", "#inblack"], "hide");
 					base.RemoveClass(["#blacktip", "#outblack"], "hide");

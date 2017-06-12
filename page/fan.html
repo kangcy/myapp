@@ -11,6 +11,15 @@
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/fan.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<style type="text/css">
+			.icon {
+				width: 1rem !important;
+			}
+			
+			.price {
+				color: #ff6900;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -82,7 +91,30 @@
 			ToUserNumber: UserNumber
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true, function(item) {
-			return base.AppendUser(item, true, true, false, "", false, false, true);
+			return AppendUser(item, true, true, false, "", false, false, true);
 		}, callback);
+	}
+
+	function AppendUser(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell user bounceInUp';
+		div.setAttribute("userid", item.Number);
+		div.setAttribute("nickname", item.NickName);
+		div.setAttribute("cover", item.Cover);
+		div.setAttribute("avatar", item.Avatar);
+		var model = [];
+		model.push('<div class="flex-box flex-row ">');
+		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="fl"  /></div></div>');
+		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f14 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
+		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
+		if(item.IsFollow == 0 && userinfo.Number != item.Number) {
+			model.push('<div class="guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" class="fr" /></div>');
+		} else {
+			model.push('<div class="guanzhu2"><img src="../images/base/follow1.png" class="fr" /></div>');
+		}
+		model.push('</div>');
+		model.push('</div></div>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>

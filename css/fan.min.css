@@ -1,135 +1,16 @@
-/*.mui-table-view-cell {
-	background: #fff;
-	padding: 0px 0.9375rem;
-	border-bottom: 1px solid #eee;
-}
-
-.oa-contact-cell.mui-table .mui-table-cell {
-	padding: 0.625rem 0;
-	vertical-align: middle;
-}
-
-.oa-contact-cell {
-	position: relative;
-}
-
-.oa-contact-avatar {
-	width: 3.5rem;
-}
-
-.oa-contact-avatar img {
-	width: 2.5rem !important;
-	height: 2.5rem !important;
-	border-radius: 50px;
-}
-
-.oa-contact-content {
-	width: 100%;
-}
-
-.oa-contact-icon {
-	width: 3.5rem;
-}
-
-.oa-contact-icon img {
-	width: 2.5rem;
-	float: right;
-}
-
-.cover {
-	width: 3.5rem;
-}
-
-.cover img {
-	width: 3rem;
-	float: right;
-}
-
-.mui-table-view-cell:after {
-	left: 0px;
-	background-color: transparent;
-}
-
-.guanzhu {
-	border: 1px solid #49be38;
-	color: #49be38;
-	text-align: center;
-	border-radius: 15px;
-	padding: 0.2rem 0.5rem;
-	display: inline-block;
-	float: right;
-	margin-top: 0rem;
-	width: 3rem;
-}*/
-
-
-/*.none {
-	margin-top: 45% !important;
-}
-
-.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
-	padding: 0 4rem;
-}
-
-.mui-table-view-cell {
-	background: #fff;
-	padding: 0px 0.9375rem;
-	border-bottom: 1px solid #eee;
-}
-
-.oa-contact-cell.mui-table .mui-table-cell {
-	padding: 0.625rem 0;
-	vertical-align: middle;
-}
-
-.avatar {
-	width: 3.5rem;
-}
-
-.avatar img {
-	width: 2.5rem !important;
-	height: 2.5rem !important;
-	border-radius: 50px;
-}
-
-.guanzhu,
-.guanzhu2 {
-	width: 3.2rem;
-}
-
-.guanzhu img,
-.guanzhu2 img {
-	width: 3rem;
-	float: right;
-}
-
-.mui-table-view-cell:after {
-	left: 0px;
-	background-color: transparent;
-}
-
-.cover {
-	width: 3.5rem;
-}
-
-.cover img {
-	width: 3rem;
-	float: right;
-}*/
-
 .none {
 	margin-top: 45% !important;
 }
 
-/*.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
-	padding: 0 4rem;
-}*/
-
 .mui-table-view-cell {
-	padding: 0.8rem 0.9375rem;
+	padding: 0.625rem;
 }
 
-.mui-table-view-cell:last-child:after, {
+/*.mui-table-view-cell:after {
+	left: 18%;
+}*/
+
+.mui-table-view-cell:last-child:after {
 	height: 1px
 }
 

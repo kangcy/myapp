@@ -55,46 +55,42 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">我的打赏</h1>
 		</header>
-		<div class="mui-content">
-			<div class="mui-scroll-wrapper" style="top:0px;">
-				<div class="mui-scroll">
-					<div id="divmoney" class="full hide tc">
-						<p id="money" class="f50 cfff mb0">0.00</p>
-						<p class="f13 cfff">当前余额(元)</p>
-					</div>
-					<img src="../images/pay/head.png" class="full" id="head" />
-					<div id="apply" class="f13 tc already">
-						马上提现
-					</div>
-					<p class="f11 tl mt5 mb15" style="width:90%;margin:0px auto;"><span class="fl mt2 mr5">*</span>提现最小金额300元，收取10%手续费</p>
-					<div class="splitline"></div>
-					<ul class="mui-table-view f13 mt0">
-						<li class="mui-table-view-cell">
-							<div class="flex-box flex-row">
-								<div style="flex:0 0 80%;" class="flex-item">
-									<p class="c000">启用打赏</p>
-									<p class="f10 c999 mt3"><span class="fl mt2 mr5">*</span>分享文章，读者即可打赏支持</p>
-								</div>
-								<div style="flex:0 0 20%;" class="flex-item">
-									<div class="my-switch fr" id="autoPaySwitch">
-										<div></div>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li class="mui-table-view-cell" id="mypay">
-							<div class="flex-box flex-row">
-								<div style="flex:0 0 80%;" class="flex-item">
-									<p class="c000">打赏记录</p>
-								</div>
-								<div style="flex:0 0 20%;" class="flex-item tr">
-									<span class="mui-icon mui-icon-arrowright c999 f16"></span>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
+		<div class="mui-content" style="padding-top:0px;">
+			<div id="divmoney" class="full hide tc">
+				<p id="money" class="f50 cfff mb0">0.00</p>
+				<p class="f13 cfff">当前余额(元)</p>
 			</div>
+			<img src="../images/pay/head.png" class="full" id="head" />
+			<div id="apply" class="f13 tc already">
+				马上提现
+			</div>
+			<p class="f11 tl mt5 mb15" style="width:90%;margin:0px auto;"><span class="fl mt2 mr5">*</span>提现最小金额300元，收取10%手续费</p>
+			<div class="splitline"></div>
+			<ul class="mui-table-view f13 mt0">
+				<li class="mui-table-view-cell">
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 80%;" class="flex-item">
+							<p class="c000">启用打赏</p>
+							<p class="f10 c999 mt3"><span class="fl mt2 mr5">*</span>分享文章，读者即可打赏支持</p>
+						</div>
+						<div style="flex:0 0 20%;" class="flex-item">
+							<div class="my-switch fr" id="autoPaySwitch">
+								<div></div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell" id="mypay">
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 80%;" class="flex-item">
+							<p class="c000">打赏记录</p>
+						</div>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
 		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
@@ -128,9 +124,7 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		base.InitScroll();
-
-		base.Get("divmoney").style.top = 45 + (base.Get("head").clientHeight * 0.15) + "px";
+		base.Get("divmoney").style.top = base.Get("head").clientHeight * 0.4 + "px";
 		base.Get("divmoney").classList.remove("hide");
 
 		base.UpdateUser(userinfo.Number, function() {
