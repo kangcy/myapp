@@ -160,7 +160,7 @@
 	text-align: left;
 }
 
-body {
+#muicontent {
 	background-color: #BF403A;
 	background: url(../images/pay/bg.png) no-repeat;
 	background-size: 100% 100%;

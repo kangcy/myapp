@@ -26,10 +26,10 @@
 					<span class="hot" id="title1"></span>已经成功收到小主你的红包啦，送你一个超大的么么哒！
 				</p>
 				<p class="fl full tr blue" onclick="Out()">收下TA的么么哒</p>
-			</div>
+			</div> 
 		</div>
 		<div class="tan hide" id="error">
-			<div class="full tc">
+			<div class="full tc" id="avatar">
 				<img src="../images/pay/header2.png" class="full" />
 			</div>
 			<div class="summary f13">
@@ -40,8 +40,8 @@
 				<p class="fl full tr c333"><span class="fr hot" onclick="Again()">再爱TA一回</span><span class="fr mr20" onclick="Out()">残忍走开</span></p>
 			</div>
 		</div>
-		<div id="muicontent" class="mui-content tc caaa full fl" style="position:relative;display:inline-block;">
-			<div class="tc full" style="position:absolute;top:6%;left:0px;">
+		<div id="muicontent" class="tc caaa full fl" style="position:relative;display:inline-block;">
+			<div class="tc full" style="position:absolute;top:12%;left:0px;">
 				<img id="payuser" src="../images/avatar.png" />
 				<div id="price" class="items c999 mt20 f13">
 					<div class="item">
@@ -73,7 +73,7 @@
 					<div id="alipay" class="alipay" onclick="ChangePayWay(0)">支付宝</div>
 					<div id="weixin" class="weixin curr" onclick="ChangePayWay(1)">微信</div>
 				</div>
-			</div>
+			</div> 
 
 			<div class="f16 payment bold" onclick="Payment()">赞&nbsp;赏</div>
 			<div class="f13 anony mt20" onclick="Anony()" id="anony">
@@ -107,8 +107,8 @@
 		var name = base.BrowserName();
 		$header.style.background = name + 'linear-gradient(top,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%)';
 
-		base.Get("muicontent").style.height = window.innerHeight - base.Get("header").clientHeight + "px";
-		base.Get("muicontent").style.marginTop = base.Get("header").clientHeight + "px";
+		base.Get("muicontent").style.height = window.innerHeight + "px";
+		base.Get("avatar").style.marginTop = base.Get("header").clientHeight + "px";
 
 		//金额切换
 		$(".choosemoney").click(function() {

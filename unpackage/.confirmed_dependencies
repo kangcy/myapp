@@ -2517,7 +2517,8 @@
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
 			"mincss/money.min.css",
-			"images/avatar.png"
+			"images/avatar.png",
+			"css/money.min.css"
 		],
 		"refer": []
 	},

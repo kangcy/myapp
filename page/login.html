@@ -113,7 +113,7 @@
 	//跳转首页
 	var toMain = function() {
 		//base.ShowWaiting("登录成功，正在加载");
-		base.OpenWindow("subindex", "subindex.html", {}, "none");
+		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out", "none");
 
 		mui.later(function() {
 			plus.webview.close("adv");
