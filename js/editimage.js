@@ -98,7 +98,7 @@ function cutImg(callback) {
 			zoomable: true, //是否允许放大缩小图片
 			movable: false, //是否允许移动剪裁框
 			resizable: false, //是否允许改变裁剪框大小
-			build: function() {
+			built: function() {
 				callback();
 				iscutimging = true;
 				$("#readyimg").show();
@@ -116,7 +116,7 @@ function cutImg(callback) {
 			zoomable: true, //是否允许放大缩小图片
 			movable: true, //是否允许移动剪裁框
 			resizable: true, //是否允许改变裁剪框大小
-			build: function() {
+			built: function() {
 				callback();
 				iscutimging = true;
 				$("#readyimg").show();

@@ -33,7 +33,9 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<div id="scroll-view">
+			<div id="scroll-view"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5" id="password">正在加载...</span></div>
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
@@ -92,7 +94,16 @@
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true, function(item) {
 			return AppendUser(item, true, true, false, "", false, false, true);
-		}, callback);
+		}, function() {
+			if(currpage == totalpage) {
+				base.Get("scroll-more").classList.add("hide");
+			} else {
+				base.Get("scroll-more").classList.remove("hide");
+			}
+			if(callback) {
+				callback();
+			}
+		});
 	}
 
 	function AppendUser(item) {

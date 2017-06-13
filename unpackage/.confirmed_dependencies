@@ -2147,7 +2147,10 @@
 			"minjs/mui.lazyload.min.js",
 			"minjs/refresh.min.js",
 			"js/refresh.min.js",
-			"js/base.min.js"
+			"js/base.min.js",
+			"images/addarticle/icon_pic_y.png",
+			"images/addarticle/icon_pic_n.png",
+			"images/loadmore.gif"
 		],
 		"refer": []
 	},

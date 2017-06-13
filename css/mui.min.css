@@ -5087,9 +5087,8 @@ body>.mui-progressbar {
 
 .onefloor img {
 	max-width: 100% !important;
-	max-height: 400px  !important;
+	max-height: 400px !important;
 	border-radius: 5px;
-	/*border: 1px solid #ddd;*/
 }
 
 .secondfloor {
@@ -5101,8 +5100,8 @@ body>.mui-progressbar {
 }
 
 .secondfloor img {
-	max-width: 95%  !important;
-	max-height: 100%  !important;
+	max-width: 95% !important;
+	max-height: 100% !important;
 	border-radius: 5px;
 	/*border: 1px solid #ddd;*/
 }
@@ -5371,6 +5370,18 @@ body>.mui-progressbar {
 
 .inline {
 	display: inline-block;
+}
+
+
+/**加载更多**/
+
+#scroll-more {
+	background: #f5f5f5;
+	padding: 0.5rem 35%;
+}
+
+#scroll-more img {
+	width: 1.1rem;
 }
 
 

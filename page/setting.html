@@ -277,8 +277,10 @@
 			//检查更新 
 			mui('#updatewrapper').load("../part/update.html", function(response) {
 				CheckUpdate(function(index) {
-					mask.close();
-					mui.toast("当前已是最新版本");
+					mui.later(function() {
+						mask.close();
+						mui.toast("当前已是最新版本");
+					}, 500);
 				});
 			});
 		});

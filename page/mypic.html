@@ -22,6 +22,20 @@
 				/*background: rgba(0, 0, 0, 0.5);*/
 			}
 			
+			#scroll-view {
+				padding-top: 0.2rem;
+			}
+			
+			.thirdfloor {
+				margin-top: 0rem;
+			}
+			
+			.thirdfloor img {
+				width: 96% !important;
+				min-width: 96% !important;
+				border-radius: 5px;
+			}
+			
 			.thirdfloor .icon {
 				position: absolute;
 				right: 0.5rem;
@@ -56,7 +70,9 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<div id="scroll-view">
+			<div id="scroll-view"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5" id="password">正在加载...</span></div>
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
@@ -74,7 +90,7 @@
 	var Multiple = 0; //是否多选
 	var self = null;
 
-	mui.init({
+	mui.init({ 
 		gestureConfig: {
 			doubletap: true
 		}
@@ -167,7 +183,16 @@
 		};
 		LoadPull(base.RootUrl + "Api/User/Pic", data, true, false, function(item) {
 			return AppendStr(item);
-		}, callback);
+		}, function() {
+			if(currpage == totalpage) {
+				base.Get("scroll-more").classList.add("hide");
+			} else {
+				base.Get("scroll-more").classList.remove("hide");
+			}
+			if(callback) {
+				callback();
+			}
+		});
 	}
 
 	function AppendStr(item) {

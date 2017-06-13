@@ -76,7 +76,7 @@
 
 	//初始化获取参数
 	function Init() {
-		Load();
+		pulldownRefresh();
 
 		base.ShowArticle("#scroll-view", "List", userinfo.Number);
 		mui("#scroll-view").on('tap', '.mui-table-view-cell', function(event) {

@@ -34,7 +34,11 @@
 		<div id="divBanner">
 			<div id="banner"></div>
 		</div>
-		<div id="scroll-view">
+		<div id="muicontent">
+			<div id="scroll-view"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5" id="password">正在加载...</span></div>
+			</div>
 		</div>
 		<div id="none" class="full tc hide">
 			<img src="../images/my/444.png" class="none" id="none_img" />
@@ -76,7 +80,7 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		base.Get("scroll-view").style.paddingTop = base.Get("header").clientHeight + "px";
+		//base.Get("scroll-view").style.paddingTop = base.Get("header").clientHeight + "px";
 
 		var name = base.BrowserName();
 		base.Get("btnAdd").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
@@ -255,36 +259,18 @@
 			page: currpage,
 			rows: pagesize
 		};
-		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
-			data = JSON.parse(data);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					totalpage = data.totalpage;
-					base.ShowLoading(false);
-					base.Get("none").classList.add("hide");
-					var table = base.Get('scroll-view');
-					mui.each(data.list, function(i, item) {
-						var div = AppendArticle(userinfo.Number, item, false, false, false);
-						if(table) {
-							table.appendChild(div);
-						}
-					})
-
-				} else {
-					base.ShowLoading(false);
-					base.Get("none").classList.remove("hide");
-				}
+		LoadPull(base.RootUrl + "Api/Article/All", data, true, false, function(item) {
+			return AppendArticle(userinfo.Number, item, false, false, false);
+		}, function() {
+			if(currpage == totalpage) {
+				base.Get("scroll-more").classList.add("hide");
+			} else {
+				base.Get("scroll-more").classList.remove("hide");
 			}
-			if(data == null && currpage == 1) {
-				base.ShowLoading(false);
-				base.Get("none").classList.remove("hide");
-			}
-
 			if(FirstLoad) {
 				base.Get("bottom").classList.remove("hide");
 				base.Get("bottom").classList.add("zoomIn");
-				base.Get("scroll-view").style.paddingBottom = base.Get("bottom").clientHeight + "px";
+				base.Get("muicontent").style.paddingBottom = base.Get("bottom").clientHeight + "px";
 			}
 			FirstLoad = false;
 			if(callback) {

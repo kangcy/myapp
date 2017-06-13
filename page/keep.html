@@ -24,7 +24,9 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<div id="scroll-view">
+			<div id="scroll-view"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5" id="password">正在加载...</span></div>
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
@@ -68,7 +70,7 @@
 				SetPullEnable(false);
 				ActionTan(true, number, id, usernumber);
 			});
-			
+
 			mui('body').on('hidden', '.mui-popover', function(e) {
 				SetPullEnable(true);
 			});
@@ -117,6 +119,15 @@
 		};
 		LoadPull(base.RootUrl + "Api/Keep/All", data, true, false, function(item) {
 			return AppendArticle(userinfo.Number, item, false, false, false, false);
-		}, callback);
+		}, function() {
+			if(currpage == totalpage) {
+				base.Get("scroll-more").classList.add("hide");
+			} else {
+				base.Get("scroll-more").classList.remove("hide");
+			}
+			if(callback) {
+				callback();
+			}
+		});
 	}
 </script>
