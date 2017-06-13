@@ -47,7 +47,7 @@
 			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
-					<a href="#power" class="red f13">取消</a>
+					<a href="#power" class="c333 f13">取消</a>
 				</li>
 			</ul>
 		</div>
@@ -163,13 +163,6 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
-		},
-		beforeback: function() {
-			var black = base.GetView("black");
-			if(black) {
-				black.evalJS("Load()");
-			}
-			return true;
 		}
 	});
 
@@ -232,6 +225,10 @@
 		}, 500);
 
 		base.ShowArticle("#a_list", "List", userinfo.Number);
+
+		mui.back = function() {
+			plus.webview.close(self);
+		}
 	});
 
 	//获取用户信息
@@ -490,6 +487,10 @@
 				mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
 				if(data.result) {
 					plus.webview.currentWebview().reload();
+					var black = base.GetView("black");
+					if(black) {
+						black.evalJS("Load()");
+					}
 				}
 			}
 			isLoading = false;

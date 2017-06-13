@@ -2346,7 +2346,8 @@
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/refresh.min.js",
 			"css/fan.min.css",
-			"js/base.min.js"
+			"js/base.min.js",
+			"images/icon/heart.png"
 		],
 		"refer": [
 			"page/followSub.html",

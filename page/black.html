@@ -23,7 +23,9 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div id="scroll-view">
+		<div id="muicontent">
+			<div id="scroll-view">
+			</div>
 		</div>
 		<div id="none" class="full tc hide">
 			<img src="../images/my/111.png" class="none" id="none_img" />
@@ -49,7 +51,7 @@
 		base.Immersed();
 		base.ToTop();
 	});
- 
+
 	mui.plusReady(function() {
 		Load();
 
@@ -90,7 +92,7 @@
 		});
 	});
 
-	//我的拉黑
+	//我的拉黑 
 	function Load(callback) {
 		base.Get('scroll-view').innerHTML = "";
 		var data = {
