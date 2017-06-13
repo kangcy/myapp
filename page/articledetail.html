@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/input.min.css">
 		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="../mincss/articledetail.min.css">
+		<link rel="stylesheet" href="../mincss/articledetail.min.css">
 	</head>
 
 	<body id="body">
@@ -48,24 +48,26 @@
 		</div>
 		<!--底部-->
 		<div class="mui-bar mui-bar-tab hide" id="bottomAction" style="background:#fff;">
-			<div id="addcomment">
-				<div class="c666 f12">我来说一句...</div>
-			</div>
-			<div id="footer" class="c999">
-				<div>
-					<span id="zan" class="mui-icon fa fa-thumbs-up" style="font-size:20px;"><span class="mui-badge" style="margin-left:0px;" id="footer_zan">0</span></span>
+			<div class="flex-box flex-row f13 tc" style="padding:5px 5px;">
+				<div style="flex:0 0 50%;" class="flex-item">
+					<div id="addcomment">
+						<div class="c666 f12">我来说一句</div>
+					</div>
 				</div>
-				<div>
-					<span id="comment" class="mui-icon fa fa-comments" style="font-size:20px;"><span class="mui-badge mui-badge-danger" style="margin-left:0px;" id="footer_comment">0</span></span>
+				<div style="flex:0 0 20%;" class="flex-item">
+					<img id="zan" src="../images/article/btn_good2.png" style="width:1rem;" class="mr10 fl" /><span class="f13 fl" id="footer_zan">0</span>
 				</div>
-				<div>
-					<span id="share" class="mui-icon fa fa-share-alt" style="font-size:20px;" onclick="ShareTan(1)"></span>
+				<div style="flex:0 0 20%;" class="flex-item">
+					<img id="comment" src="../images/article/btn_comment.png" style="width:1rem;" class="mr10 fl" /><span class="f13 fl" id="footer_comment">0</span>
+				</div>
+				<div style="flex:0 0 10%;" class="flex-item">
+					<img id="share" src="../images/article/btn_share.png" style="width:1rem;" class="mr10 fr" onclick="ShareTan(1)" />
 				</div>
 			</div>
 		</div>
 		<!--模板选择-->
-		<img class="hide" src="../images/article/skin.png" onclick="TempTan(1)" id="btnTemp"></i>
-		<i class="fa fa-check-circle hide" style="font-size:60px;color:#ed5565;" id="agreeTemp" onclick="ChooseTan()"></i>
+		<img class="hide" src="../images/article/skin.png" onclick="TempTan(1)" id="btnTemp">
+		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
 		<div id="temps" class="hide">
 			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow" style="height:6.25rem;border: 0px;border-radius: 0px;">
 				<div class="mui-scroll" style="height:6.25rem;margin-top:0.625rem;" id="temp">
@@ -264,15 +266,16 @@
 						var already = data.message.split('|');
 						if(already[0] == 1) {
 							$zan.setAttribute("already", "0");
+							$zan.setAttribute("src", "../images/article/btn_good.png");
+							$footer_zan.classList.remove("red");
 							$footer_zan.classList.add("c666");
-							$footer_zan.classList.remove("mui-badge-danger");
-							base.RemoveClass(["#zan"], "heartbeat red");
+							base.RemoveClass(["#zan"], "heartbeat");
 						} else {
 							$zan.setAttribute("already", "1");
-							$zan.classList.remove("c666");
+							$zan.setAttribute("src", "../images/article/btn_good2.png");
 							$footer_zan.classList.remove("c666");
-							$footer_zan.classList.add("mui-badge-danger");
-							base.AddClass(["#zan"], "heartbeat red");
+							$footer_zan.classList.add("red");
+							base.AddClass(["#zan"], "heartbeat");
 						}
 						base.Get("footer_zan").innerHTML = already[1];
 					} else {
@@ -476,12 +479,13 @@
 
 					if(data.IsZan > 0) {
 						$zan.setAttribute("already", "1");
-						$zan.classList.add("red");
+						$zan.setAttribute("src", "../images/article/btn_good2.png");
 						$footer_zan.classList.remove("c666");
-						$footer_zan.classList.add("mui-badge-danger");
+						$footer_zan.classList.add("red");
 					} else {
-						$zan.classList.remove("red");
-						$footer_zan.classList.remove("mui-badge-danger");
+						$zan.setAttribute("already", "0");
+						$zan.setAttribute("src", "../images/article/btn_good.png");
+						$footer_zan.classList.remove("red");
 						$footer_zan.classList.add("c666");
 					}
 					base.Get("footer_zan").innerHTML = data.Goods;

@@ -5253,7 +5253,8 @@ body>.mui-progressbar {
 }
 
 .splitline {
-	background: #edf0f2;
+	/*background: #edf0f2;*/
+	background: #f5f5f5;
 	width: 100%;
 	height: 0.8rem;
 }

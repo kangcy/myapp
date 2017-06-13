@@ -847,7 +847,8 @@
 			"images/article/btn_comment.png",
 			"images/article/btn_good2.png",
 			"images/article/btn_pay.png",
-			"images/article/btn_more.png"
+			"images/article/btn_more.png",
+			"images/article/view.png"
 		],
 		"refer": [
 			"page/topic.html",
@@ -1233,7 +1234,10 @@
 			"images/share/07.png",
 			"images/share/010.png",
 			"images/share/08.png",
-			"images/share/05.png"
+			"images/share/05.png",
+			"images/article/btn_share.png",
+			"css/articledetail.min.css",
+			"images/article/btn_sure.png"
 		],
 		"refer": [
 			"page/user.html",
