@@ -11,7 +11,6 @@
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/input.min.css">
-		<link rel="stylesheet" href="../font-awesome-4.6.3/css/font-awesome.min.css">
 		<link rel="stylesheet" href="../mincss/articledetail.min.css">
 	</head>
 
@@ -54,8 +53,9 @@
 						<div class="c666 f12">我来说一句</div>
 					</div>
 				</div>
+
 				<div style="flex:0 0 20%;" class="flex-item">
-					<img id="zan" src="../images/article/btn_good2.png" style="width:1rem;" class="mr10 fl" /><span class="f13 fl" id="footer_zan">0</span>
+					<div id="divzan" style="display:inline-block;" class="fl"><img id="zan" src="../images/article/btn_good2.png" style="width:1rem;" class="mr10 fl" /><span class="f13 fl" id="footer_zan">0</span></div>
 				</div>
 				<div style="flex:0 0 20%;" class="flex-item">
 					<img id="comment" src="../images/article/btn_comment.png" style="width:1rem;" class="mr10 fl" /><span class="f13 fl" id="footer_comment">0</span>
@@ -136,7 +136,7 @@
 		</div>
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
-		<i id="music1" class="fa fa-music f13 hide" onclick="switchsound()" style="position:fixed;right:10px;top:80px;z-index:999;"></i>
+		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
 		<div id="wrapper2"></div>
 		<div id="wrapper" class="hide" style="margin-bottom:50px;">
 			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
@@ -200,6 +200,8 @@
 	var CurrCover = ""; //当前背景图片
 	var CurrTemplate = 0; //当前选中模板
 	var userinfo = base.GetUserInfo();
+
+	var $divzan = base.Get("divzan");
 	var $zan = base.Get("zan");
 	var $footer_zan = base.Get("footer_zan");
 	var $header = base.Get("header");
@@ -250,7 +252,7 @@
 		});
 
 		//点赞
-		$zan.addEventListener('tap', function(event) {
+		$divzan.addEventListener('tap', function(event) {
 			if(isLoading) {
 				return;
 			}
@@ -269,13 +271,13 @@
 							$zan.setAttribute("src", "../images/article/btn_good.png");
 							$footer_zan.classList.remove("red");
 							$footer_zan.classList.add("c666");
-							base.RemoveClass(["#zan"], "heartbeat");
+							$divzan.classList.remove("heartbeat");
 						} else {
 							$zan.setAttribute("already", "1");
 							$zan.setAttribute("src", "../images/article/btn_good2.png");
 							$footer_zan.classList.remove("c666");
 							$footer_zan.classList.add("red");
-							base.AddClass(["#zan"], "heartbeat");
+							$divzan.classList.add("heartbeat");
 						}
 						base.Get("footer_zan").innerHTML = already[1];
 					} else {

@@ -1237,7 +1237,8 @@
 			"images/share/05.png",
 			"images/article/btn_share.png",
 			"css/articledetail.min.css",
-			"images/article/btn_sure.png"
+			"images/article/btn_sure.png",
+			"images/article/btn_music.png"
 		],
 		"refer": [
 			"page/user.html",

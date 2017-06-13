@@ -10,12 +10,14 @@ function switchsound() {
 		document.body.appendChild(audio);
 	}
 
-	if(audio.paused) {
-		audio.play();
-		base.Get(MusicID).setAttribute("play", "stop");
-	} else if(new Date().getTime() > timestamp + 1000) {
-		audio.pause();
-		base.Get(MusicID).setAttribute("play", "on");
+	if(audio != null) {
+		if(audio.paused) {
+			audio.play();
+			base.Get(MusicID).setAttribute("play", "stop");
+		} else if(new Date().getTime() > timestamp + 1000) {
+			audio.pause();
+			base.Get(MusicID).setAttribute("play", "on");
+		}
 	}
 }
 
@@ -27,11 +29,11 @@ function stopsound() {
 }
 
 function startsound() {
+	console.log('startsound' + MusicID + "," + audio + "," + MusicUrl)
 	document.removeEventListener('touchstart', startsound);
 	if(audio == null) {
 		audio = document.createElement('audio');
 		audio.id = 'bgsound';
-		//audio.src = MusicUrl;
 		audio.loop = 'loop';
 		audio.innerHTML = '<source src="' + MusicUrl + '" type="audio/mpeg">'
 		document.body.appendChild(audio);
@@ -39,4 +41,5 @@ function startsound() {
 	audio.play();
 	base.Get(MusicID).setAttribute('play', 'stop');
 	timestamp = new Date().getTime();
+
 }

@@ -222,12 +222,6 @@
 		audio.loop = 'loop';
 		audio.innerHTML = '<source src="' + fileUrl + '" type="audio/mpeg">';
 		document.body.appendChild(audio);
-
-		/*if(audio.paused) {
-			audio.play();
-		} else if(new Date().getTime() > timestamp + 1000) {
-			audio.pause();
-		}*/
 	}
 
 	function playsound() {
@@ -276,6 +270,7 @@
 			name: SearchName,
 		};
 		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
+			console.log(data)
 			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
