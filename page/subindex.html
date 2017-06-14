@@ -106,7 +106,6 @@
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		mui.later(function() {
-			//侧滑菜单默认隐藏，这样可以节省内存；
 			menu = mui.preload({
 				id: 'my',
 				url: 'my.html',
@@ -183,37 +182,6 @@
 			return false;
 		};
 
-		//监听推送消息		
-		plus.push.addEventListener("receive", function(msg) {
-			if(!base.IsNullOrEmpty(msg.payload)) {
-				var param = msg.payload.split('|');
-				//系统推荐文章、好友发布文章
-				if(param[0] == 0 || param[0] == 4) {
-					base.OpenWindow("articledetail", "articledetail.html", {
-						ArticleID: param[1],
-						Source: "",
-						NickName: ""
-					}, null, "none");
-				}
-				//打开评论
-				if(param[0] == 1) {
-					var param = {
-						ArticleID: param[1],
-						ArticleNumber: param[2]
-					}
-					base.OpenWindow("articleComment", "articleComment.html", param);
-				}
-				//打开打赏
-				if(param[0] == 2) {
-					base.OpenWindow("pay", "pay.html", {});
-				}
-				//打开粉丝
-				if(param[0] == 3) {
-					base.OpenWindow("fan", "fan.html", {});
-				}
-			}
-		}, false);
-
 		mui('#actionwrapper').load("../part/action.html", function(response) {
 			mui('#scroll-view').on('tap', '.tanaction', function() {
 				var number = this.getAttribute("articleNumber");
@@ -237,6 +205,37 @@
 				mui('#upload').popover('show');
 			});
 		});
+
+		//监听推送消息		
+		plus.push.addEventListener("receive", function(msg) {
+			if(!base.IsNullOrEmpty(msg.payload)) {
+				var param = msg.payload.split('|');
+				//系统推荐文章、好友发布文章
+				if(param[0] == PushType.Article || param[0] == PushType.FanArticle) {
+					base.OpenWindow("articledetail", "articledetail.html", {
+						ArticleID: param[1],
+						Source: "",
+						NickName: ""
+					}, null, "none");
+				}
+				//打开评论
+				if(param[0] == PushType.Comment) {
+					var param = {
+						ArticleID: param[1],
+						ArticleNumber: param[2]
+					}
+					base.OpenWindow("articleComment", "articleComment.html", param);
+				}
+				//打开打赏
+				if(param[0] == PushType.Money) {
+					base.OpenWindow("pay", "pay.html", {});
+				}
+				//打开粉丝
+				if(param[0] == PushType.Fan) {
+					base.OpenWindow("fan", "fan.html", {});
+				}
+			}
+		}, false);
 	});
 
 	var previewImage = mui.previewImage({

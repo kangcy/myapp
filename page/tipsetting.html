@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<style type="text/css">
 			.mui-scroll-wrapper {
-				background: #eee;
+				background: #f5f5f5;
 			}
 			
 			.mui-bar {
@@ -21,9 +21,12 @@
 				height: 0px;
 			}
 			
+			.mui-table-view-cell {
+				padding: 0.625rem;
+			}
+			
 			.mui-table-view-cell img {
-				width: 2.3rem;
-				margin-right: 0.5rem;
+				width: 80%;
 			}
 		</style>
 	</head>
@@ -34,64 +37,96 @@
 			<h1 class="mui-title cfff">消息</h1>
 		</header>
 		<div class="mui-content">
-			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:0px;">
-				<div class="mui-scroll">
-					<ul class="mui-table-view f13 mt15">
-						<li class="mui-table-view-cell" onclick="Fan()">
+			<ul class="mui-table-view f13 mt15">
+				<li class="mui-table-view-cell" onclick="Fan()">
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 15%;">
 							<img src="../images/tip/01.png" class="fl" />
-							<span class="fl mt10">新的粉丝</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell" onclick="Zan()">
+						</div>
+						<div style="flex:0 0 65%;" class="flex-item">
+							<span class="c000 fl">新的粉丝</span>
+						</div>
+						<div style="flex:0 0 20%;position:relative;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+							<span class="mui-badge mui-badge-danger hide" id="fan-count" style="position:absolute;top: -1rem;right:-0.3rem;">0</span>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell" onclick="Zan()">
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 15%;" class="flex-item">
 							<img src="../images/tip/03.png" class="fl" />
-							<span class="fl mt10">喜欢</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell" onclick="Comment()">
+						</div>
+						<div style="flex:0 0 65%;" class="flex-item">
+							<span class="c000 fl">喜欢</span>
+						</div>
+						<div style="flex:0 0 20%;position:relative;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+							<span class="mui-badge mui-badge-danger hide" id="zan-count" style="position:absolute;top: -1rem;right:-0.3rem;">0</span>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell" onclick="Comment()">
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 15%;" class="flex-item">
 							<img src="../images/tip/02.png" class="fl" />
-							<span class="fl mt10">评论</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell" onclick="Pay()">
+						</div>
+						<div style="flex:0 0 65%;" class="flex-item">
+							<span class="c000 fl">评论</span>
+						</div>
+						<div style="flex:0 0 20%;position:relative;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+							<span class="mui-badge mui-badge-danger hide" id="comment-count" style="position:absolute;top: -1rem;right:-0.3rem;">0</span>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell" onclick="Pay()">
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 15%;" class="flex-item">
 							<img src="../images/tip/04.png" class="fl" />
-							<span class="fl mt10">赞赏</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell hide" onclick="Update()" id="update">
-							<span class="fl mt10">测试页面</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell hide" onclick="Client()" id="client">
-							<span class="fl mt10">设备信息</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell hide" onclick="Push()" id="push">
-							<span class="fl mt10">推送</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell hide" onclick="Link()" id="article_link">
-							<span class="fl mt10">文章链接</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell hide" onclick="Music()" id="music">
-							<span class="fl mt10">音乐搜索</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell hide" onclick="Adv()" id="adv">
-							<span class="fl mt10">广告</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell hide" onclick="Guide()" id="guide">
-							<span class="fl mt10">首页</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-						<li class="mui-table-view-cell hide" onclick="Pull()" id="pull">
-							<span class="fl mt10">下拉</span>
-							<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-						</li>
-					</ul>
-				</div>
-			</div>
+						</div>
+						<div style="flex:0 0 65%;" class="flex-item">
+							<span class="c000 fl">赞赏</span>
+						</div>
+						<div style="flex:0 0 20%;position:relative;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+							<span class="mui-badge mui-badge-danger hide" id="pay-count" style="position:absolute;top: -1rem;right:-0.3rem;">0</span>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell hide" onclick="Update()" id="update">
+					<span class="fl mt10">测试页面</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell hide" onclick="Client()" id="client">
+					<span class="fl mt10">设备信息</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell hide" onclick="Push()" id="push">
+					<span class="fl mt10">推送</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell hide" onclick="Link()" id="article_link">
+					<span class="fl mt10">文章链接</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell hide" onclick="Music()" id="music">
+					<span class="fl mt10">音乐搜索</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell hide" onclick="Adv()" id="adv">
+					<span class="fl mt10">广告</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell hide" onclick="Guide()" id="guide">
+					<span class="fl mt10">首页</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+				</li>
+				<li class="mui-table-view-cell hide" onclick="Pull()" id="pull">
+					<span class="fl mt10">下拉</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
+				</li>
+			</ul>
 		</div>
 	</body>
 
@@ -114,17 +149,49 @@
 		if(userinfo.UserRole == 2) {
 			base.RemoveClass(["#client", "#push", "#update", "#article_link", "#music", "#adv", "#guide", "#pull"], "hide");
 		}
-		base.InitScroll();
 	});
 
 	mui.plusReady(function() {
 
 		var self = plus.webview.currentWebview();
 		var source = self.Source || "";
+		var push = self.Push || "";
 		if(!base.IsNullOrEmpty(source)) {
 			base.Get("back").classList.remove("hide");
 		}
+		if(!base.IsNullOrEmpty(push)) {
+			var pushInfo = JSON.parse(push);
+			mui.each(pushInfo, function(i, item) {
+				if(item.PushType == PushType.Fan) {
+					base.Get("fan-count").innerHTML = item.PushCount;
+					base.Get("fan-count").classList.remove("hide");
+				}
+				if(item.PushType == PushType.Comment) {
+					base.Get("comment-count").innerHTML = item.PushCount;
+					base.Get("comment-count").classList.remove("hide");
+				}
+				if(item.PushType == PushType.Money) {
+					base.Get("pay-count").innerHTML = item.PushCount;
+					base.Get("pay-count").classList.remove("hide");
+				}
+			})
+		}
 	});
+
+	function PushClear(pushtype) {
+		if(pushtype == PushType.Fan) {
+			base.Get("fan-count").innerHTML = 0;
+			base.Get("fan-count").classList.add("hide");
+		}
+		if(pushtype == PushType.Comment) {
+			base.Get("comment-count").innerHTML = 0;
+			base.Get("comment-count").classList.add("hide");
+		}
+		if(pushtype == PushType.Money) {
+			base.Get("pay-count").innerHTML = 0;
+			base.Get("pay-count").classList.add("hide");
+		}
+	}
 
 	//粉丝
 	function Fan() {

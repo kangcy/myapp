@@ -848,7 +848,8 @@
 			"images/article/btn_good2.png",
 			"images/article/btn_pay.png",
 			"images/article/btn_more.png",
-			"images/article/view.png"
+			"images/article/view.png",
+			"images/loadmore.gif"
 		],
 		"refer": [
 			"page/topic.html",

@@ -77,6 +77,23 @@
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+
+		//重置未读推送信息
+		HttpGet(base.RootUrl + "Push/Clear", {
+			number: userinfo.Number,
+			pushtype: PushType.Money
+		}, function(data) {
+			if(data) {
+				var tipsetting = plus.webview.getWebviewById('tipsetting');
+				if(tipsetting) {
+					tipsetting.evalJS("PushClear('" + PushType.Money + "')");
+				}
+				var my = plus.webview.getWebviewById('my');
+				if(my) {
+					my.evalJS("InitPush()");
+				}
+			}
+		});
 	}
 
 	//加载数据

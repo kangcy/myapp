@@ -41,7 +41,7 @@
 					<p class="f25 mb0 blue bold" id="fans">0</p>
 					<p class="f14">粉丝</p>
 				</div>
-			</div> 
+			</div>
 		</div>
 		<div class="splitline"></div>
 		<div class="menus tc mt10 f13">
@@ -54,8 +54,9 @@
 			<div id="my-mypay">
 				<p class="c000">我的打赏</p>
 			</div>
-			<div id="my-msg">
+			<div id="my-msg" style="position:relative;">
 				<p class="c000">消息中心</p>
+				<span class="mui-badge mui-badge-danger hide" id="my-msg-count" style="position:absolute;top: -0.5rem;right: 0.8rem;"></span>
 			</div>
 			<div id="my-feedback">
 				<p class="c000">意见反馈</p>
@@ -78,6 +79,7 @@
 	var Cover = "";
 	var Avatar = "";
 	var self = null;
+	var pushInfo = "";
 	var userinfo = base.GetUserInfo();
 
 	mui.init({
@@ -165,7 +167,8 @@
 		//消息
 		base.Get("my-msg").addEventListener('tap', function() {
 			base.OpenWindow("tipsetting", "tipsetting.html", {
-				Source: "My"
+				Source: "My",
+				Push: pushInfo
 			});
 		});
 
@@ -179,6 +182,8 @@
 		base.Get("my-tip").addEventListener('tap', function() {
 			base.OpenWindow("tip", "tip.html", {})
 		});
+
+		InitPush();
 	});
 
 	var backButtonPress = 0;
@@ -251,6 +256,26 @@
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			} else {
 				mui.toast(data.message);
+			}
+		});
+	}
+
+	//推送信息
+	function InitPush() {
+		HttpGet(base.RootUrl + "Push/All", {
+			number: userinfo.Number
+		}, function(data) { 
+			if(data.result) {
+				var length = data.message.length;
+				if(length > 0) {
+					var count = 0;
+					mui.each(data.message, function(i, item) {
+						count += item.PushCount;
+					})
+					base.Get("my-msg-count").innerHTML = count;
+					base.Get("my-msg-count").classList.remove("hide");
+					pushInfo = JSON.stringify(data.message);
+				}
 			}
 		});
 	}
