@@ -218,6 +218,7 @@
 	border: 2px solid #fff;
 	border-radius: 5px;
 	display: inline-block;
+	overflow: hidden;
 }
 
 .temp.hover div,
