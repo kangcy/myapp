@@ -373,7 +373,8 @@
 			"images/my/icon_04.png",
 			"images/my/icon_07.png",
 			"mincss/my.min.css",
-			"images/my/arrow_right.png"
+			"images/my/arrow_right.png",
+			"images/my/icon_08.png"
 		],
 		"refer": [
 			"page/pay.html",
