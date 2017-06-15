@@ -29,7 +29,6 @@ function stopsound() {
 }
 
 function startsound() {
-	console.log('startsound' + MusicID + "," + audio + "," + MusicUrl)
 	document.removeEventListener('touchstart', startsound);
 	if(audio == null) {
 		audio = document.createElement('audio');

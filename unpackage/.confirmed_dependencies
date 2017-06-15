@@ -1240,7 +1240,9 @@
 			"images/article/btn_share.png",
 			"css/articledetail.min.css",
 			"images/article/btn_sure.png",
-			"images/article/btn_music.png"
+			"images/article/btn_music.png",
+			"images/article/temp0.jpg",
+			"images/article/temp1.jpg"
 		],
 		"refer": [
 			"page/user.html",
@@ -2831,7 +2833,8 @@
 			"mincss/mui.min.css",
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"images/addarticle/icon_pic_y.png"
 		],
 		"refer": [
 			"page/mypic.html",

@@ -192,9 +192,10 @@
 	height: 5rem !important;
 	line-height: 5rem !important;
 	padding: 0px !important;
-	position: relative;
 	margin-left: 8px !important;
 	background: #fff;
+	border-radius: 5px;
+	overflow:hidden;
 }
 
 .temp:first-child {
@@ -208,20 +209,10 @@
 .temp img {
 	width: 100% !important;
 	height: 100% !important;
-	border: 2px solid #eee;
+	border: 1px solid #efeff4;
 	border-radius: 5px;
 }
 
-.temp div {
-	width: 100% !important;
-	height: 100% !important;
-	border: 2px solid #fff;
-	border-radius: 5px;
-	display: inline-block;
-	overflow: hidden;
-}
-
-.temp.hover div,
 .temp.hover img {
 	border: 1px solid #007aff;
 	color: #007aff;

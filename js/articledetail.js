@@ -293,6 +293,8 @@ function LoadTemplate() {
 
 			ChangeMusic(templatetype); //音乐切换
 		});
+
+		base.RemoveClass(["#action", "#btnTemp"], "hide");
 	});
 }
 
