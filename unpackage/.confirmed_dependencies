@@ -2502,7 +2502,8 @@
 			"page/notice.html",
 			"test/webview_pullhead.html",
 			"page/template.html",
-			"test/main.html"
+			"test/main.html",
+			"page/editcomment.html"
 		]
 	},
 	"page/money.html": {
@@ -3202,6 +3203,17 @@
 	"test/menu.html": {
 		"resources": [
 			"mincss/mui.min.css"
+		]
+	},
+	"page/editcomment.html": {
+		"resources": [
+			"emotion/css/emojione.sprites.png",
+			"images/comment/dingwei.png",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"images/comment/smile.png",
+			"images/comment/dingwei2.png"
 		]
 	}
 }

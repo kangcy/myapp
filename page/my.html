@@ -266,18 +266,20 @@
 	function InitPush() {
 		HttpGet(base.RootUrl + "Push/All", {
 			number: userinfo.Number
-		}, function(data) { 
+		}, function(data) {
 			if(data.result) {
 				var length = data.message.length;
-				if(length > 0) {
-					var count = 0;
-					mui.each(data.message, function(i, item) {
-						count += item.PushCount;
-					})
-					base.Get("my-msg-count").innerHTML = count;
+				var count = 0;
+				mui.each(data.message, function(i, item) {
+					count += item.PushCount;
+				})
+				base.Get("my-msg-count").innerHTML = count;
+				if(count > 0) {
 					base.Get("my-msg-count").classList.remove("hide");
-					pushInfo = JSON.stringify(data.message);
+				} else {
+					base.Get("my-msg-count").classList.add("hide");
 				}
+				pushInfo = JSON.stringify(data.message);
 			}
 		});
 	}

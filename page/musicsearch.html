@@ -277,9 +277,11 @@
 					totalpage = data.totalpage;
 					var length = data.list.length;
 					if(length > 0) {
+						var fragment = document.createDocumentFragment();
 						mui.each(data.list, function(index, item) {
-							table.appendChild(AppendHtml(item));
+							fragment.appendChild(AppendHtml(item));
 						});
+						table.appendChild(fragment);
 
 						lazyLoad.refresh(true);
 					}
@@ -300,7 +302,7 @@
 		div.setAttribute("fileUrl", item.FileUrl);
 		var model = [];
 		model.push('<img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
-		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt1">' + item.Author + '</span></p>');
+		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt1">' + item.Author + "「" + item.Remark + "」" + '</span></p>');
 		model.push('<span class="fr csubtitle mui-icon uncheck" style="position:absolute;right:0.5rem;top:1rem;"></span>');
 		div.innerHTML = model.join('');
 		return div;

@@ -27,7 +27,7 @@
 		<div id="picupload"></div>
 		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
 			<div class="info-body" style="margin-top:10rem">
-				<div id="music" class="btn fl tl mb15"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
+				<div id="music" class="btn fl tl mb15 hide"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
 			</div>
 		</div>
 		<div id="edit" class="mt20">
@@ -567,16 +567,17 @@
 					} else {
 						Cover = data.Cover;
 					}
-					MusicID = data.MusicID; 
+					MusicID = data.MusicID;
 					MusicName = data.MusicName;
 					MusicUrl = data.MusicUrl;
 					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
+					$("#music").removeClass("hide");
 
 					base.Get("cover").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
 					base.Get("cover").style.backgroundSize = "cover";
 					if(Title != "") {
 						$("#title").html(Title);
-					} 
+					}
 
 					//加载段落
 					var parts = data.ArticlePart;
@@ -596,7 +597,7 @@
 								html = initStr(part.Introduction, "video", part.ID);
 							}
 
-							//初始化段落内容(Status:0-未操作，1-新增，2-编辑，3-删除)
+							//初始化段落内容(Status:0-未操作，1-新增，2-编辑，3-删除\n)
 							InitParts.push(new PartModel(part.ID, base.UnUnicodeText(part.Introduction), 0, part.SortID, part.Types));
 
 							$edit.append(html);

@@ -17,10 +17,6 @@
 				background: #fff;
 			}
 			
-			.mui-table-view:after {
-				height: 0px;
-			}
-			
 			.mui-table-view-cell {
 				padding: 0.625rem;
 			}
@@ -43,12 +39,14 @@
 						<div style="flex:0 0 15%;">
 							<img src="../images/tip/01.png" class="fl" />
 						</div>
-						<div style="flex:0 0 65%;" class="flex-item">
+						<div style="flex:0 0 57%;" class="flex-item">
 							<span class="c000 fl">新的粉丝</span>
 						</div>
-						<div style="flex:0 0 20%;position:relative;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-							<span class="mui-badge mui-badge-danger hide" id="fan-count" style="position:absolute;top: -1rem;right:-0.3rem;">0</span>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<span class="mui-badge mui-badge-danger hide fr" id="fan-count">0</span>
+						</div>
+						<div style="flex:0 0 8%;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
 						</div>
 					</div>
 				</li>
@@ -57,12 +55,14 @@
 						<div style="flex:0 0 15%;" class="flex-item">
 							<img src="../images/tip/03.png" class="fl" />
 						</div>
-						<div style="flex:0 0 65%;" class="flex-item">
+						<div style="flex:0 0 57%;" class="flex-item">
 							<span class="c000 fl">喜欢</span>
 						</div>
-						<div style="flex:0 0 20%;position:relative;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-							<span class="mui-badge mui-badge-danger hide" id="zan-count" style="position:absolute;top: -1rem;right:-0.3rem;">0</span>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<span class="mui-badge mui-badge-danger hide fr" id="zan-count">0</span>
+						</div>
+						<div style="flex:0 0 8%;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
 						</div>
 					</div>
 				</li>
@@ -71,12 +71,14 @@
 						<div style="flex:0 0 15%;" class="flex-item">
 							<img src="../images/tip/02.png" class="fl" />
 						</div>
-						<div style="flex:0 0 65%;" class="flex-item">
+						<div style="flex:0 0 57%;" class="flex-item">
 							<span class="c000 fl">评论</span>
 						</div>
-						<div style="flex:0 0 20%;position:relative;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-							<span class="mui-badge mui-badge-danger hide" id="comment-count" style="position:absolute;top: -1rem;right:-0.3rem;">0</span>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<span class="mui-badge mui-badge-danger hide fr" id="comment-count">0</span>
+						</div>
+						<div style="flex:0 0 8%;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
 						</div>
 					</div>
 				</li>
@@ -85,25 +87,19 @@
 						<div style="flex:0 0 15%;" class="flex-item">
 							<img src="../images/tip/04.png" class="fl" />
 						</div>
-						<div style="flex:0 0 65%;" class="flex-item">
+						<div style="flex:0 0 57%;" class="flex-item">
 							<span class="c000 fl">赞赏</span>
 						</div>
-						<div style="flex:0 0 20%;position:relative;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-							<span class="mui-badge mui-badge-danger hide" id="pay-count" style="position:absolute;top: -1rem;right:-0.3rem;">0</span>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<span class="mui-badge mui-badge-danger hide fr" id="pay-count">0</span>
+						</div>
+						<div style="flex:0 0 8%;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
 						</div>
 					</div>
 				</li>
-				<li class="mui-table-view-cell hide" onclick="Update()" id="update">
-					<span class="fl mt10">测试页面</span>
-					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-				</li>
 				<li class="mui-table-view-cell hide" onclick="Client()" id="client">
 					<span class="fl mt10">设备信息</span>
-					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-				</li>
-				<li class="mui-table-view-cell hide" onclick="Push()" id="push">
-					<span class="fl mt10">推送</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 				</li>
 				<li class="mui-table-view-cell hide" onclick="Link()" id="article_link">
@@ -118,12 +114,8 @@
 					<span class="fl mt10">广告</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 				</li>
-				<li class="mui-table-view-cell hide" onclick="Guide()" id="guide">
-					<span class="fl mt10">首页</span>
-					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
-				</li>
-				<li class="mui-table-view-cell hide" onclick="Pull()" id="pull">
-					<span class="fl mt10">下拉</span>
+				<li class="mui-table-view-cell hide" onclick="EditComment()" id="editcomment">
+					<span class="fl mt10">评论</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 				</li>
 			</ul>
@@ -147,7 +139,7 @@
 		base.Immersed();
 
 		if(userinfo.UserRole == 2) {
-			base.RemoveClass(["#client", "#push", "#update", "#article_link", "#music", "#adv", "#guide", "#pull"], "hide");
+			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment"], "hide");
 		}
 	});
 
@@ -257,5 +249,10 @@
 	function Pull() {
 		//base.OpenWindow("pull", "../test/webview_pullhead.html", {});
 		base.OpenWindow("pull", "template.html", {});
+	}
+
+	//评论编辑
+	function EditComment() {
+		base.OpenWindow("editcomment", "editcomment.html", {});
 	}
 </script>
