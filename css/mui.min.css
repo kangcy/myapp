@@ -3796,18 +3796,18 @@ body>.mui-progressbar {
 
 .mui-slider-indicator .mui-indicator {
 	display: inline-block;
-	width: 0.375rem;
-	height: 0.375rem;
-	margin: 0.0625rem 0.375rem;
+	width: .375rem;
+	height: .175rem;
+	margin: .0625rem 0.125rem;
 	cursor: pointer;
-	border-radius: 50%;
+	/* border-radius: 50%; */
 	background: #aaa;
-	-webkit-box-shadow: 0 0 0.0625rem 0.0625rem rgba(130, 130, 130, .7);
-	box-shadow: 0 0 0.0625rem 0.0625rem rgba(130, 130, 130, .7)
+	/* -webkit-box-shadow: 0 0 .0625rem .0625rem rgba(130,130,130,.7); */
+	/* box-shadow: 0 0 .0625rem .0625rem rgba(130,130,130,.7); */
 }
 
 .mui-slider-indicator .mui-active.mui-indicator {
-	background: #fff
+	background: #0080ff
 }
 
 .mui-slider-indicator .mui-icon {

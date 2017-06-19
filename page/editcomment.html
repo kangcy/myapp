@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
 		<style type="text/css">
 			body {
 				background: #fff;
@@ -1290,7 +1290,7 @@
 			<div id='remark' contenteditable="true"></div>
 			<div class="flex-box flex-row" style="padding: 0.5rem 5%;">
 				<div style="flex:0 0 50%;" class="flex-item tl">
-					<img src="../images/comment/smile.png" style="width:1.3rem;" />
+					<img src="../images/comment/smile.png" style="width:1.3rem;" onclick="ShowIcon()" />
 				</div>
 				<div style="flex:0 0 50%;" class="flex-item tr">
 					<div id="addresswrapper1" class="addresswrapper" onclick="ShowPosition(0)">
@@ -1303,8 +1303,37 @@
 					</div>
 				</div>
 			</div>
-			<div style="padding: 2%;" id="icons">
-
+			<div id="slider" class="mui-slider hide" style="padding:0px 2%;">
+				<div class="mui-slider-group" style="margin-bottom:1.5rem;">
+					<div class="mui-slider-item" id="icons1"></div>
+					<div class="mui-slider-item" id="icons2"></div>
+					<div class="mui-slider-item" id="icons3"></div>
+					<div class="mui-slider-item" id="icons4"></div>
+					<div class="mui-slider-item" id="icons7"></div>
+					<div class="mui-slider-item" id="icons8"></div>
+					<div class="mui-slider-item" id="icons9"></div>
+					<div class="mui-slider-item" id="icons10"></div>
+					<div class="mui-slider-item" id="icons11"></div>
+					<div class="mui-slider-item" id="icons12"></div>
+					<div class="mui-slider-item" id="icons13"></div>
+					<div class="mui-slider-item" id="icons14"></div>
+					<div class="mui-slider-item" id="icons15"></div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -1317,33 +1346,117 @@
 	mui.init();
 
 	mui.ready(function() {
+
 		var $edit = base.Get("remark");
 		$edit.ontouchend = function() {
 			$edit.innerHTML = $edit.innerHTML.replace(/(^.{250}).*/g, '$1');
 		}
-
+		$edit.onfocus = function() {
+			base.Get("slider").classList.add("hide");
+		}
+		//人物
 		var fragment = document.createDocumentFragment();
-		/*for(var i = 1; i <= 119; i++) {
+		for(var i = 1; i <= 21; i++) {
 			var el = document.createElement("div");
 			el.className = "icon people_" + i;
 			fragment.appendChild(el);
 		}
-		for(var i = 1; i <= 84; i++) {
+		base.Get("icons1").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 22; i <= 42; i++) {
+			var el = document.createElement("div");
+			el.className = "icon people_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons2").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 43; i <= 63; i++) {
+			var el = document.createElement("div");
+			el.className = "icon people_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons3").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 64; i <= 84; i++) {
+			var el = document.createElement("div");
+			el.className = "icon people_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons4").appendChild(fragment);
+
+		//动植物
+		fragment = document.createDocumentFragment();
+		for(var i = 1; i <= 21; i++) {
 			var el = document.createElement("div");
 			el.className = "icon animal_" + i;
 			fragment.appendChild(el);
 		}
-		for(var i = 1; i <= 50; i++) {
+		base.Get("icons7").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 22; i <= 42; i++) {
+			var el = document.createElement("div");
+			el.className = "icon animal_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons8").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 43; i <= 63; i++) {
+			var el = document.createElement("div");
+			el.className = "icon animal_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons9").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 64; i <= 84; i++) {
+			var el = document.createElement("div");
+			el.className = "icon animal_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons10").appendChild(fragment);
+
+		//食物
+		fragment = document.createDocumentFragment();
+		for(var i = 1; i <= 21; i++) {
 			var el = document.createElement("div");
 			el.className = "icon food_" + i;
 			fragment.appendChild(el);
-		}*/
-		for(var i = 1; i <= 50; i++) {
+		}
+		base.Get("icons11").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 22; i <= 42; i++) {
+			var el = document.createElement("div");
+			el.className = "icon food_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons12").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 43; i <= 50; i++) {
+			var el = document.createElement("div");
+			el.className = "icon food_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons13").appendChild(fragment);
+
+		//心形
+		fragment = document.createDocumentFragment();
+		for(var i = 1; i <= 21; i++) {
 			var el = document.createElement("div");
 			el.className = "icon heard_" + i;
 			fragment.appendChild(el);
 		}
-		base.Get("icons").appendChild(fragment);
+		base.Get("icons14").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 22; i <= 35; i++) {
+			var el = document.createElement("div");
+			el.className = "icon heard_" + i;
+			fragment.appendChild(el);
+		}
+		base.Get("icons15").appendChild(fragment);
+
+		var slider = mui("#slider");
+		slider.slider({
+			interval: 0
+		});
 	})
 
 	mui.plusReady(function() {
@@ -1368,5 +1481,10 @@
 			base.Get("addresswrapper2").classList.add("hide");
 			base.Get("addresswrapper1").classList.remove("hide");
 		}
+	}
+
+	//显示表情
+	function ShowIcon() {
+		base.Get("slider").classList.toggle("hide");
 	}
 </script>

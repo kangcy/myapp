@@ -3213,7 +3213,8 @@
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
 			"images/comment/smile.png",
-			"images/comment/dingwei2.png"
+			"images/comment/dingwei2.png",
+			"css/mui.min.css"
 		]
 	}
 }
