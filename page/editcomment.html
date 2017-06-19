@@ -24,7 +24,7 @@
 			}
 			
 			#remark img {
-				width: 1.5rem;
+				width: 1.25rem;
 			}
 			
 			#commentwrapper {
@@ -71,8 +71,7 @@
 			.icon {
 				width: 1.5rem !important;
 				height: 1.5rem;
-				margin: 0.6rem;
-				margin-bottom: 0px;
+				margin: 0.5rem 0px 0px 1.18rem;
 				display: inline-block;
 			}
 			
@@ -88,6 +87,10 @@
 			
 			#iconTab div:first-child {
 				border-left: 0px;
+			}
+			
+			#iconTab div.curr {
+				background: #fff;
 			}
 			
 			#iconTab div img {
@@ -137,46 +140,90 @@
 					</div>
 				</div>
 			</div>
-			<div id="slider1" class="mui-slider hide" style="padding:0px 2%;">
-				<div class="mui-slider-group">
-					<div class="mui-slider-item" id="icons11"></div>
-					<div class="mui-slider-item" id="icons12"></div>
-					<div class="mui-slider-item" id="icons13"></div>
-					<div class="mui-slider-item" id="icons14"></div>
-				</div>
-				<div class="mui-slider-indicator">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-				</div>
-			</div>
-			<div id="slider2" class="mui-slider hide" style="padding:0px 2%;">
-				<div class="mui-slider-group">
-					<div class="mui-slider-item" id="icons21"></div>
-					<div class="mui-slider-item" id="icons22"></div>
-					<div class="mui-slider-item" id="icons23"></div>
-					<div class="mui-slider-item" id="icons24"></div>
-					<div class="mui-slider-item" id="icons25"></div>
-					<div class="mui-slider-item" id="icons26"></div>
-					<div class="mui-slider-item" id="icons27"></div>
-				</div>
-				<div class="mui-slider-indicator">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
+			<div id="slider" class="mui-slider hide">
+				<div class="mui-slider-group" style="margin-bottom:0px;">
+					<!--人物-->
+					<div class="mui-slider-item">
+						<div id="slider1" class="mui-slider">
+							<div class="mui-slider-group">
+								<div class="mui-slider-item" id="icons11"></div>
+								<div class="mui-slider-item" id="icons12"></div>
+								<div class="mui-slider-item" id="icons13"></div>
+								<div class="mui-slider-item" id="icons14"></div>
+							</div>
+							<div class="mui-slider-indicator">
+								<div class="mui-indicator mui-active"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+							</div>
+						</div>
+					</div>
+					<!--动植物-->
+					<div class="mui-slider-item">
+						<div id="slider2" class="mui-slider">
+							<div class="mui-slider-group">
+								<div class="mui-slider-item" id="icons21"></div>
+								<div class="mui-slider-item" id="icons22"></div>
+								<div class="mui-slider-item" id="icons23"></div>
+								<div class="mui-slider-item" id="icons24"></div>
+								<div class="mui-slider-item" id="icons25"></div>
+								<div class="mui-slider-item" id="icons26"></div>
+								<div class="mui-slider-item" id="icons27"></div>
+							</div>
+							<div class="mui-slider-indicator">
+								<div class="mui-indicator mui-active"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+							</div>
+						</div>
+					</div>
+					<!--食物-->
+					<div class="mui-slider-item">
+						<div id="slider3" class="mui-slider">
+							<div class="mui-slider-group">
+								<div class="mui-slider-item" id="icons31"></div>
+								<div class="mui-slider-item" id="icons32"></div>
+								<div class="mui-slider-item" id="icons33"></div>
+							</div>
+							<div class="mui-slider-indicator">
+								<div class="mui-indicator mui-active"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+							</div>
+						</div>
+					</div>
+					<!--心形-->
+					<div class="mui-slider-item">
+						<div id="slider4" class="mui-slider">
+							<div class="mui-slider-group">
+								<div class="mui-slider-item" id="icons41"></div>
+								<div class="mui-slider-item" id="icons42"></div>
+								<div class="mui-slider-item" id="icons43"></div>
+								<div class="mui-slider-item" id="icons44"></div>
+								<div class="mui-slider-item" id="icons45"></div>
+							</div>
+							<div class="mui-slider-indicator">
+								<div class="mui-indicator mui-active"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div id="iconTab" class="hide">
-				<div class="inline fl tc" onclick="ShowIconTab(1)"><img src="http://www.ishaoxia.com/Images/Icons/face/0.png" /></div>
-				<div class="inline fl tc" onclick="ShowIconTab(2)"><img src="http://www.ishaoxia.com/Images/Icons/animal/49.png" /></div>
-				<div class="inline fl tc" onclick="ShowIconTab(3)"><img src="http://www.ishaoxia.com/Images/Icons/face/0.png" /></div>
-				<div class="inline fl tc" onclick="ShowIconTab(4)"><img src="http://www.ishaoxia.com/Images/Icons/face/0.png" /></div>
-				<div class="inline fl tc" onclick="ShowIconTab(5)"><img src="http://www.ishaoxia.com/Images/Icons/face/0.png" /></div>
+				<div class="inline fl tc curr" onclick="ShowIconTab(0,this)"><img src="http://www.ishaoxia.com/Images/Icons/face/0.png" /></div>
+				<div class="inline fl tc" onclick="ShowIconTab(1,this)"><img src="http://www.ishaoxia.com/Images/Icons/animal/49.png" /></div>
+				<div class="inline fl tc" onclick="ShowIconTab(2,this)"><img src="http://www.ishaoxia.com/Images/Icons/food/0.png" /></div>
+				<div class="inline fl tc" onclick="ShowIconTab(3,this)"><img src="http://www.ishaoxia.com/Images/Icons/heart/0.png" /></div>
+				<div class="inline fl tc" onclick="ShowIconTab(4,this)"><img src="http://www.ishaoxia.com/Images/Icons/face/0.png" /></div>
 			</div>
 		</div>
 	</body>
@@ -187,6 +234,7 @@
 <script type="text/javascript">
 	var saveSelection, restoreSelection;
 	var showIcon = false;
+	var $edit = base.Get("remark");
 	mui.init();
 
 	mui.ready(function() {
@@ -251,7 +299,6 @@
 			};
 		}
 
-		var $edit = base.Get("remark");
 		$edit.ontouchend = function() {
 			$edit.innerHTML = $edit.innerHTML.replace(/(^.{250}).*/g, '$1');
 		}
@@ -350,7 +397,77 @@
 		}
 		base.Get("icons27").appendChild(fragment);
 
-		mui("#slider1,#slider2").slider({
+		//food:58
+		var fragment = document.createDocumentFragment();
+		for(var i = 0; i < 21; i++) {
+			var el = document.createElement("img");
+			el.setAttribute("src", base.RootUrl + "/Images/Icons/food/" + i + ".png");
+			el.className = "icon";
+			fragment.appendChild(el);
+		}
+		base.Get("icons31").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 21; i < 42; i++) {
+			var el = document.createElement("img");
+			el.setAttribute("src", base.RootUrl + "/Images/Icons/food/" + i + ".png");
+			el.className = "icon";
+			fragment.appendChild(el);
+		}
+		base.Get("icons32").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 42; i < 58; i++) {
+			var el = document.createElement("img");
+			el.setAttribute("src", base.RootUrl + "/Images/Icons/food/" + i + ".png");
+			el.className = "icon";
+			fragment.appendChild(el);
+		}
+		base.Get("icons33").appendChild(fragment);
+
+		//heart:147
+		var fragment = document.createDocumentFragment();
+		for(var i = 1; i < 22; i++) {
+			var el = document.createElement("img");
+			el.setAttribute("src", base.RootUrl + "/Images/Icons/heart/" + i + ".png");
+			el.className = "icon";
+			fragment.appendChild(el);
+		}
+		base.Get("icons41").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 22; i < 43; i++) {
+			var el = document.createElement("img");
+			el.setAttribute("src", base.RootUrl + "/Images/Icons/heart/" + i + ".png");
+			el.className = "icon";
+			fragment.appendChild(el);
+		}
+		base.Get("icons42").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 43; i < 64; i++) {
+			var el = document.createElement("img");
+			el.setAttribute("src", base.RootUrl + "/Images/Icons/heart/" + i + ".png");
+			el.className = "icon";
+			fragment.appendChild(el);
+		}
+		base.Get("icons43").appendChild(fragment);
+		fragment = document.createDocumentFragment();
+		for(var i = 64; i < 85; i++) {
+			var el = document.createElement("img");
+			el.setAttribute("src", base.RootUrl + "/Images/Icons/heart/" + i + ".png");
+			el.className = "icon";
+			fragment.appendChild(el);
+		}
+		base.Get("icons44").appendChild(fragment);
+
+		fragment = document.createDocumentFragment();
+		for(var i = 85; i < 97; i++) {
+			var el = document.createElement("img");
+			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
+			el.className = "icon";
+			fragment.appendChild(el);
+		}
+		base.Get("icons45").appendChild(fragment);
+
+		//初始化
+		mui("#slider,#slider1,#slider2,#slider3,#slider4").slider({
 			interval: 0
 		});
 
@@ -416,17 +533,17 @@
 
 	//显示表情
 	function ShowIcon(item, show) {
-		showIcon = !showIcon;
-		base.AddClass(["#slider1", "#slider2", "#iconTab"], "hide")
-		if(showIcon) {
-			base.Get("slider1").classList.remove("hide");
-			base.Get("iconTab").classList.remove("hide");
-		}
+		base.Get("slider").classList.toggle("hide");
+		base.Get("iconTab").classList.toggle("hide");
 	}
 
 	//表情分类切换
-	function ShowIconTab(index) {
-		base.AddClass(["#slider1", "#slider2"], "hide")
-		base.Get("slider" + index).classList.remove("hide");
+	function ShowIconTab(index, item) {
+		$edit.focus();
+		mui("#iconTab>div").each(function(i, model) {
+			model.classList.remove("curr");
+		})
+		mui("#slider").slider().gotoItem(index);
+		item.classList.add("curr");
 	}
 </script>
