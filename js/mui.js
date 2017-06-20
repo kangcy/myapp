@@ -4533,8 +4533,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				scrollTime: 1000,
 				startX: false,
 				slideTime: 0, //滑动动画时间
-				snap: SELECTOR_SLIDER_ITEM,
-				sliderIndex: sliderIndex
+				snap: SELECTOR_SLIDER_ITEM
 			}, options));
 			if(this.options.startX) {
 				//				$.trigger(this.wrapper, 'scrollend', this);
