@@ -1,0 +1,159 @@
+<style type="text/css">
+	#commentwrapper {
+		position: fixed;
+		bottom: 0px;
+		width: 100%;
+		background: #f5f5f5;
+		z-index: 999;
+	}
+	
+	#commentwrapper #remark {
+		line-height: 1.25rem;
+		margin: 0px 5%;
+		width: 90%;
+		min-height: 5rem;
+		background: #fff;
+		padding: 0.3rem 0.5rem;
+		border: 1px solid #eee;
+	}
+	
+	#commentwrapper #remark img {
+		width: 1rem;
+		vertical-align: middle;
+	}
+	
+	#commentwrapper .flex-box {
+		padding: 0.8rem 5%;
+	}
+	
+	#commentwrapper .addresswrapper {
+		border-radius: 30px;
+		display: inline-block;
+		line-height: 1.3rem;
+	}
+	
+	#commentwrapper .addresswrapper img {
+		width: 0.8rem;
+		margin: 0.2rem;
+		margin-left: 0.5rem;
+	}
+	
+	#commentwrapper #addresswrapper1 {
+		border: 1px solid #0080ff;
+	}
+	
+	#commentwrapper #addresswrapper1 span {
+		margin-right: 0.5rem;
+		color: #0080ff;
+	}
+	
+	#commentwrapper #addresswrapper2 {
+		border: 1px solid #999999;
+	}
+	
+	#commentwrapper #addresswrapper2 span {
+		margin-right: 0.5rem;
+		color: #999;
+	}
+	
+	#commentwrapper .commenticon {
+		width: 1.5rem !important;
+		height: 1.5rem;
+		margin: 0.5rem 0px 0px 1.18rem;
+		display: inline-block;
+	}
+	
+	#commentwrapper #iconTab div {
+		display: inline-block;
+		width: 100%;
+		border-top: 1px solid #eee;
+		float: left;
+		padding: 0.5rem 0px;
+		width: 20%;
+		border-left: 1px solid #eee;
+	}
+	
+	#commentwrapper #iconTab div:first-child {
+		border-left: 0px;
+	}
+	
+	#commentwrapper #iconTab div.curr {
+		background: #fff;
+	}
+	
+	#commentwrapper #iconTab div img {
+		width: 1.5rem;
+	}
+	
+	#commentwrapper #divIcon.height {
+		height: 0px;
+	}
+	
+	#commentwrapper .mui-slider-group {
+		margin-bottom: 1.5rem;
+	}
+</style>
+
+<!--操作-->
+<div id="commentwrapper" class="hide">
+	<div class="flex-box flex-row f12">
+		<div style="flex:0 0 25%;" class="flex-item">
+			<span onclick="ShowComment(0)" class="fl">取消</span>
+		</div>
+		<div style="flex:0 0 50%;" class="flex-item tc f14">
+			回复楼主
+		</div>
+		<div style="flex:0 0 25%;" class="flex-item">
+			<span onclick="CommitComment(0)" class="fr">发表</span>
+		</div>
+	</div>
+	<div id='remark' class="emojionearea-editor f12" contenteditable="true" placeholder="250字内" tabindex="0"></div>
+	<div class="flex-box flex-row" style="padding: 0.5rem 5%;">
+		<div style="flex:0 0 50%;" class="flex-item tl">
+			<img src="../images/comment/smile.png" style="width:1.3rem;" onclick="ShowIcon()" />
+		</div>
+		<div style="flex:0 0 50%;" class="flex-item tr">
+			<div id="addresswrapper1" class="addresswrapper" onclick="ShowPosition(0)">
+				<img src="../images/comment/dingwei.png" class="fl" />
+				<span class="f12" id="address">南京市</span>
+			</div>
+			<div id="addresswrapper2" class="addresswrapper hide" onclick="ShowPosition(1)">
+				<img src="../images/comment/dingwei2.png" class="fl" />
+				<span class="f12" id="address">隐藏当前位置</span>
+			</div>
+		</div>
+	</div>
+	<div class="full fl height" id="divIcon">
+		<div id="slider0" class="mui-slider">
+			<div class="mui-slider-group mb0">
+				<!--人物-->
+				<div class="mui-slider-item">
+					<div id="slider1" class="mui-slider"> </div>
+				</div>
+				<!--动植物-->
+				<div class="mui-slider-item">
+					<div id="slider2" class="mui-slider"> </div>
+				</div>
+				<!--食物-->
+				<div class="mui-slider-item">
+					<div id="slider3" class="mui-slider"> </div>
+				</div>
+				<!--心形-->
+				<div class="mui-slider-item">
+					<div id="slider4" class="mui-slider"> </div>
+				</div>
+				<!--交通-->
+				<div class="mui-slider-item">
+					<div id="slider5" class="mui-slider"> </div>
+				</div>
+			</div>
+		</div>
+		<div id="iconTab">
+			<div class="inline fl tc curr" index="0"><img id="tab0" /></div>
+			<div class="inline fl tc" index="1"><img id="tab1" /></div>
+			<div class="inline fl tc" index="2"><img id="tab2" /></div>
+			<div class="inline fl tc" index="3"><img id="tab3" /></div>
+			<div class="inline fl tc" index="4"><img id="tab4" /></div>
+		</div>
+	</div>
+</div>

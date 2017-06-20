@@ -13,7 +13,14 @@
 				background: #fff;
 			}
 			
-			#remark {
+			#commentwrapper {
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				background: #f5f5f5;
+			}
+			
+			#commentwrapper #remark {
 				line-height: 1.25rem;
 				margin: 0px 5%;
 				width: 90%;
@@ -23,60 +30,53 @@
 				border: 1px solid #eee;
 			}
 			
-			#remark img {
+			#commentwrapper #remark img {
 				width: 1rem;
 				vertical-align: middle;
-			}
-			
-			#commentwrapper {
-				position: fixed;
-				bottom: 0px;
-				width: 100%;
-				background: #f5f5f5;
 			}
 			
 			#commentwrapper .flex-box {
 				padding: 0.8rem 5%;
 			}
 			
-			.addresswrapper {
+			#commentwrapper .addresswrapper {
 				border-radius: 30px;
 				display: inline-block;
 				line-height: 1.3rem;
 			}
 			
-			.addresswrapper img {
+			#commentwrapper .addresswrapper img {
 				width: 0.8rem;
 				margin: 0.2rem;
 				margin-left: 0.5rem;
 			}
 			
-			#addresswrapper1 {
+			#commentwrapper #addresswrapper1 {
 				border: 1px solid #0080ff;
 			}
 			
-			#addresswrapper1 span {
+			#commentwrapper #addresswrapper1 span {
 				margin-right: 0.5rem;
 				color: #0080ff;
 			}
 			
-			#addresswrapper2 {
+			#commentwrapper #addresswrapper2 {
 				border: 1px solid #999999;
 			}
 			
-			#addresswrapper2 span {
+			#commentwrapper #addresswrapper2 span {
 				margin-right: 0.5rem;
 				color: #999;
 			}
 			
-			.icon {
+			#commentwrapper .commenticon {
 				width: 1.5rem !important;
 				height: 1.5rem;
 				margin: 0.5rem 0px 0px 1.18rem;
 				display: inline-block;
 			}
 			
-			#iconTab div {
+			#commentwrapper #iconTab div {
 				display: inline-block;
 				width: 100%;
 				border-top: 1px solid #eee;
@@ -86,19 +86,19 @@
 				border-left: 1px solid #eee;
 			}
 			
-			#iconTab div:first-child {
+			#commentwrapper #iconTab div:first-child {
 				border-left: 0px;
 			}
 			
-			#iconTab div.curr {
+			#commentwrapper #iconTab div.curr {
 				background: #fff;
 			}
 			
-			#iconTab div img {
+			#commentwrapper #iconTab div img {
 				width: 1.5rem;
 			}
 			
-			#divIcon.height {
+			#commentwrapper #divIcon.height {
 				height: 0px;
 			}
 			
@@ -117,7 +117,7 @@
 		<div class="mui-content">
 			<input value="提交" onclick="ShowComment(1)" />
 		</div>
-		<div id="commentwrapper" class="">
+		<div id="commentwrapper" class="hide">
 			<div class="flex-box flex-row f12">
 				<div style="flex:0 0 25%;" class="flex-item">
 					<span onclick="ShowComment(0)" class="fl">取消</span>
@@ -126,7 +126,7 @@
 					回复楼主
 				</div>
 				<div style="flex:0 0 25%;" class="flex-item">
-					<span onclick="SubmitComment(0)" class="fr">发表</span>
+					<span onclick="CommitComment(0)" class="fr">发表</span>
 				</div>
 			</div>
 			<div id='remark' class="emojionearea-editor f12" contenteditable="true" placeholder="250字内" tabindex="0"></div>
@@ -146,98 +146,27 @@
 				</div>
 			</div>
 			<div class="full fl height" id="divIcon">
-				<div id="slider" class="mui-slider">
-					<div class="mui-slider-group" style="margin-bottom:0px;">
+				<div id="slider0" class="mui-slider">
+					<div class="mui-slider-group mb0">
 						<!--人物-->
 						<div class="mui-slider-item">
-							<div id="slider1" class="mui-slider">
-								<div class="mui-slider-group">
-									<div class="mui-slider-item" id="icons11"></div>
-									<div class="mui-slider-item" id="icons12"></div>
-									<div class="mui-slider-item" id="icons13"></div>
-									<div class="mui-slider-item" id="icons14"></div>
-								</div>
-								<div class="mui-slider-indicator">
-									<div class="mui-indicator mui-active"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-								</div>
-							</div>
+							<div id="slider1" class="mui-slider"> </div>
 						</div>
 						<!--动植物-->
 						<div class="mui-slider-item">
-							<div id="slider2" class="mui-slider">
-								<div class="mui-slider-group">
-									<div class="mui-slider-item" id="icons21"></div>
-									<div class="mui-slider-item" id="icons22"></div>
-									<div class="mui-slider-item" id="icons23"></div>
-									<div class="mui-slider-item" id="icons24"></div>
-									<div class="mui-slider-item" id="icons25"></div>
-									<div class="mui-slider-item" id="icons26"></div>
-									<div class="mui-slider-item" id="icons27"></div>
-								</div>
-								<div class="mui-slider-indicator">
-									<div class="mui-indicator mui-active"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-								</div>
-							</div>
+							<div id="slider2" class="mui-slider"> </div>
 						</div>
 						<!--食物-->
 						<div class="mui-slider-item">
-							<div id="slider3" class="mui-slider">
-								<div class="mui-slider-group">
-									<div class="mui-slider-item" id="icons31"></div>
-									<div class="mui-slider-item" id="icons32"></div>
-									<div class="mui-slider-item" id="icons33"></div>
-								</div>
-								<div class="mui-slider-indicator">
-									<div class="mui-indicator mui-active"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-								</div>
-							</div>
+							<div id="slider3" class="mui-slider"> </div>
 						</div>
 						<!--心形-->
 						<div class="mui-slider-item">
-							<div id="slider4" class="mui-slider">
-								<div class="mui-slider-group">
-									<div class="mui-slider-item" id="icons41"></div>
-									<div class="mui-slider-item" id="icons42"></div>
-									<div class="mui-slider-item" id="icons43"></div>
-									<div class="mui-slider-item" id="icons44"></div>
-									<div class="mui-slider-item" id="icons45"></div>
-								</div>
-								<div class="mui-slider-indicator">
-									<div class="mui-indicator mui-active"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-								</div>
-							</div>
+							<div id="slider4" class="mui-slider"> </div>
 						</div>
 						<!--交通-->
 						<div class="mui-slider-item">
-							<div id="slider5" class="mui-slider">
-								<div class="mui-slider-group">
-									<div class="mui-slider-item" id="icons51"></div>
-									<div class="mui-slider-item" id="icons52"></div>
-									<div class="mui-slider-item" id="icons53"></div>
-									<div class="mui-slider-item" id="icons54"></div>
-								</div>
-								<div class="mui-slider-indicator">
-									<div class="mui-indicator mui-active"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-									<div class="mui-indicator"></div>
-								</div>
-							</div>
+							<div id="slider5" class="mui-slider"> </div>
 						</div>
 					</div>
 				</div>
@@ -255,355 +184,4 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script type="text/javascript">
-	var saveSelection, restoreSelection;
-	var $edit = base.Get("remark");
-	mui.init();
-
-	mui.ready(function() {
-
-		base.Get("tab0").setAttribute("src", base.RootUrl + "/Images/Icons/face/0.png");
-		base.Get("tab1").setAttribute("src", base.RootUrl + "/Images/Icons/animal/49.png");
-		base.Get("tab2").setAttribute("src", base.RootUrl + "/Images/Icons/food/0.png");
-		base.Get("tab3").setAttribute("src", base.RootUrl + "/Images/Icons/heart/0.png");
-		base.Get("tab4").setAttribute("src", base.RootUrl + "/Images/Icons/travel/0.png");
-
-		if(window.getSelection && document.createRange) {
-			saveSelection = function(el) {
-				var range = window.getSelection().getRangeAt(0);
-				var preSelectionRange = range.cloneRange();
-				preSelectionRange.selectNodeContents(el);
-				preSelectionRange.setEnd(range.startContainer, range.startOffset);
-				return preSelectionRange.toString().length;
-			};
-
-			restoreSelection = function(el, sel) {
-				var charIndex = 0,
-					range = document.createRange();
-				range.setStart(el, 0);
-				range.collapse(true);
-				var nodeStack = [el],
-					node, foundStart = false,
-					stop = false;
-
-				while(!stop && (node = nodeStack.pop())) {
-					if(node.nodeType == 3) {
-						var nextCharIndex = charIndex + node.length;
-						if(!foundStart && sel >= charIndex && sel <= nextCharIndex) {
-							range.setStart(node, sel - charIndex);
-							range.setEnd(node, sel - charIndex);
-							stop = true;
-						}
-						charIndex = nextCharIndex;
-					} else {
-						var i = node.childNodes.length;
-						while(i--) {
-							nodeStack.push(node.childNodes[i]);
-						}
-					}
-				}
-
-				sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-			}
-		} else if(document.selection && document.body.createTextRange) {
-			saveSelection = function(el) {
-				var selectedTextRange = document.selection.createRange(),
-					preSelectionTextRange = document.body.createTextRange();
-				preSelectionTextRange.moveToElementText(el);
-				preSelectionTextRange.setEndPoint("EndToStart", selectedTextRange);
-				var start = preSelectionTextRange.text.length;
-
-				return [start, start + selectedTextRange.text.length];
-			};
-
-			restoreSelection = function(el, sel) {
-				var textRange = document.body.createTextRange();
-				textRange.moveToElementText(el);
-				textRange.collapse(true);
-				textRange.moveEnd("character", sel[1]);
-				textRange.moveStart("character", sel[0]);
-				textRange.select();
-			};
-		}
-
-		$edit.ontouchend = function() {
-			$edit.innerHTML = $edit.innerHTML.replace(/(^.{250}).*/g, '$1');
-		}
-		//face:80
-		var fragment = document.createDocumentFragment();
-		for(var i = 0; i < 21; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/face/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons11").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 21; i < 42; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/face/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons12").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 42; i < 63; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/face/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons13").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 63; i < 80; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/face/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons14").appendChild(fragment);
-
-		//animal:147
-		var fragment = document.createDocumentFragment();
-		for(var i = 1; i < 22; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons21").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 22; i < 43; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons22").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 43; i < 64; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons23").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 64; i < 85; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons24").appendChild(fragment);
-
-		fragment = document.createDocumentFragment();
-		for(var i = 85; i < 106; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons25").appendChild(fragment);
-
-		fragment = document.createDocumentFragment();
-		for(var i = 106; i < 127; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons26").appendChild(fragment);
-
-		fragment = document.createDocumentFragment();
-		for(var i = 127; i < 147; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons27").appendChild(fragment);
-
-		//food:58
-		var fragment = document.createDocumentFragment();
-		for(var i = 0; i < 21; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/food/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons31").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 21; i < 42; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/food/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons32").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 42; i < 58; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/food/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons33").appendChild(fragment);
-
-		//heart:147
-		var fragment = document.createDocumentFragment();
-		for(var i = 1; i < 22; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/heart/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons41").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 22; i < 43; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/heart/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons42").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 43; i < 64; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/heart/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons43").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 64; i < 85; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/heart/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons44").appendChild(fragment);
-
-		fragment = document.createDocumentFragment();
-		for(var i = 85; i < 97; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/animal/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons45").appendChild(fragment);
-
-		//travel:80
-		var fragment = document.createDocumentFragment();
-		for(var i = 0; i < 21; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/travel/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons51").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 21; i < 42; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/travel/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons52").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 42; i < 63; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/travel/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons53").appendChild(fragment);
-		fragment = document.createDocumentFragment();
-		for(var i = 63; i < 70; i++) {
-			var el = document.createElement("img");
-			el.setAttribute("src", base.RootUrl + "/Images/Icons/travel/" + i + ".png");
-			el.className = "icon";
-			fragment.appendChild(el);
-		}
-		base.Get("icons54").appendChild(fragment);
-
-		//初始化
-		mui("#slider1,#slider2,#slider3,#slider4,#slider5").slider({
-			interval: 0
-		});
-		var $slider = mui("#slider").slider({
-			interval: 0
-		});
-		//添加表情
-		mui('#commentwrapper').on('tap', '.icon', function() {
-			$edit.focus();
-			saveSelection($edit);
-			pasteHtmlAtCaret('<img src="' + this.getAttribute("src") + '" />');
-		});
-
-		//表情分类切换
-		mui('#iconTab').on('tap', 'div', function() {
-			$edit.focus();
-			mui("#iconTab>div").each(function(i, model) {
-				model.classList.remove("curr");
-			})
-			$slider.gotoItem(this.getAttribute("index"));
-			this.classList.add("curr");
-		});
-	})
-
-	function pasteHtmlAtCaret(html) {
-		var sel, range;
-		if(window.getSelection) {
-			sel = window.getSelection();
-			if(sel.getRangeAt && sel.rangeCount) {
-				range = sel.getRangeAt(0);
-				range.deleteContents();
-				var el = document.createElement("div");
-				el.innerHTML = html;
-				var frag = document.createDocumentFragment(),
-					node, lastNode;
-				while((node = el.firstChild)) {
-					lastNode = frag.appendChild(node);
-				}
-				range.insertNode(frag);
-				if(lastNode) {
-					range = range.cloneRange();
-					range.setStartAfter(lastNode);
-					range.collapse(true);
-					sel.removeAllRanges();
-					sel.addRange(range);
-				}
-			}
-		} else if(document.selection && document.selection.type != "Control") {
-			document.selection.createRange().pasteHTML(html);
-		}
-	}
-
-	//显示编辑器
-	function ShowComment(show) {
-		if(show == 0) {
-			base.Get("commentwrapper").classList.add("hide");
-		} else {
-			base.Get("commentwrapper").classList.remove("hide");
-		}
-	}
-
-	//显示定位
-	function ShowPosition(show) {
-		if(show == 0) {
-			base.Get("addresswrapper1").classList.add("hide");
-			base.Get("addresswrapper2").classList.remove("hide");
-		} else {
-			base.Get("addresswrapper2").classList.add("hide");
-			base.Get("addresswrapper1").classList.remove("hide");
-		}
-	}
-
-	//显示表情
-	function ShowIcon(item, show) {
-		base.Get("divIcon").classList.toggle("height");
-	}
-</script>
+<script src="../js/comment.js"></script>
