@@ -285,7 +285,9 @@
 					ArticlePowerPwd: ArticlePowerPwd
 				},
 				function(data) {
-					if(!data.result) {
+					if(data.result) {
+						mui.toast("设置成功");
+					} else {
 						mui.toast(data.message);
 					}
 				});
