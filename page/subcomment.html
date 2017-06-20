@@ -8,11 +8,16 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/comment.min.css">
+
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" type="text/css" href="../mincss/animate.min.css">
-		<link rel="stylesheet" type="text/css" href="../emotion/css/emojione.sprites.css">
-		<link rel="stylesheet" type="text/css" href="../emotion/css/emojionearea.min.css">
+		<link rel="stylesheet" href="../mincss/comment.min.css">
+		<style type="text/css">
+			.summary img {
+				width: 1rem !important;
+				vertical-align: middle;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -34,6 +39,7 @@
 			<img src="../images/my/333.png" class="none" id="none_img" />
 			<p class="f13 mt10" id="none_tip">既然还没人,那就先去首页逛会儿</p>
 		</div>
+		<div id="divcomment"></div>
 	</body>
 
 </html>
@@ -41,13 +47,8 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/comment.min.js"></script>
-<script type="text/javascript" src="../emotion/js/emojione.min.js"></script>
-<script type="text/javascript" src="../emotion/js/emojionearea.js"></script>
+<script src="../js/comment.js"></script>
 <script type="text/javascript">
-	var Number = "";
-	var self = null;
-
 	mui.init({
 		gestureConfig: {
 			doubletap: true

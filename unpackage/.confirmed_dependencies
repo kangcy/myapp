@@ -988,7 +988,8 @@
 			"images/comment/dingwei.png",
 			"part/comment.html",
 			"images/comment/smile.png",
-			"images/comment/dingwei2.png"
+			"images/comment/dingwei2.png",
+			"css/comment.min.css"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -1855,7 +1856,8 @@
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/refresh.min.js",
 			"js/comment.min.js",
-			"js/base.min.js"
+			"js/base.min.js",
+			"part/comment.html"
 		],
 		"refer": [
 			"page/articleCommentSub.html",
@@ -3053,7 +3055,8 @@
 			"minjs/comment.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"part/comment.html"
 		],
 		"refer": [
 			"page/user.html"
