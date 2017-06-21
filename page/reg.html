@@ -116,9 +116,6 @@
 	})
 
 	mui.plusReady(function() {
-		//系统定位
-		base.GetCurrentPosition();
-
 		var settings = app.getSettings();
 		var accountBox = base.Get('account'); //手机号码
 		var codeBox = base.Get('code'); //手机号码
@@ -162,19 +159,20 @@
 			}
 			mask.show();
 			base.ShowWaiting("正在注册");
+			var position = base.GetCurrentPosition();
 			mui.later(function() {
 				var regInfo = {
 					Phone: mob,
 					NickName: nickname,
 					Password: password,
-					Province: base.Province,
-					City: base.City,
-					District: base.District,
-					Street: base.Street,
-					DetailName: base.DetailName,
-					CityCode: base.CityCode,
-					Latitude: base.Latitude,
-					Longitude: base.Longitude,
+					Province: position.Province,
+					City: position.City,
+					District: position.District,
+					Street: position.Street,
+					DetailName: position.DetailName,
+					CityCode: position.CityCode,
+					Latitude: position.Latitude,
+					Longitude: position.Longitude,
 					//Code: code,
 					SMS: "regsms",
 					ClientID: plus.push.getClientInfo().clientid

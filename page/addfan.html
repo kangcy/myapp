@@ -118,6 +118,7 @@
 	var totalpage = [2, 2];
 	var pagesize = base.PageSize;
 	var userinfo = base.GetUserInfo();
+	var position = base.GetCurrentPosition();
 	mui.init({
 		beforeback: function() {
 			//base.GetView("tip").reload();
@@ -162,30 +163,26 @@
 	});
 
 	mui.plusReady(function() {
-
-		base.GetCurrentPosition(function() {
-			base.Get("location").innerHTML = base.City + "," + base.District + "," + base.Street;
-
-			if(!base.IsNullOrEmpty(base.CityCode)) {
-				mui(base.Get("slider2")).pullToRefresh({
-					down: {
-						callback: function() {
-							var self = this;
-							PulldownRefresh2(self);
-						}
-					},
-					up: {
-						auto: true,
-						callback: function() {
-							var self = this;
-							PullupRefresh2(self);
-						}
-					}
-				});
-			}
-		}, function() {
+		if(base.IsNullOrEmpty(position.CityCode)) {
 			mui.toast("定位失败,请开启定位权限")
-		});
+		} else {
+			base.Get("location").innerHTML = position.City + "," + position.District + "," + position.Street;
+			mui(base.Get("slider2")).pullToRefresh({
+				down: {
+					callback: function() {
+						var self = this;
+						PulldownRefresh2(self);
+					}
+				},
+				up: {
+					auto: true,
+					callback: function() {
+						var self = this;
+						PullupRefresh2(self);
+					}
+				}
+			});
+		}
 
 		mui(base.Get("slider1")).pullToRefresh({
 			down: {
@@ -269,7 +266,7 @@
 			page: currpage[1],
 			rows: pagesize,
 			Number: userinfo.Number,
-			CityCode: base.CityCode
+			CityCode: position.CityCode
 		}, function(data) {
 			base.ShowLoading(false);
 			base.ShowNone(false);

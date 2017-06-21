@@ -165,18 +165,19 @@ function ConfirmImg(src) {
 
 //创建文章
 function Import(url) {
+	var position = base.GetCurrentPosition();
 	var data = {
 		ID: userinfo.ID,
 		Cover: url,
 		Title: "",
-		Province: base.Province,
-		City: base.City,
-		District: base.District,
-		Street: base.Street,
-		DetailName: base.DetailName,
-		CityCode: base.CityCode,
-		Latitude: base.Latitude,
-		Longitude: base.Longitude
+		Province: position.Province,
+		City: position.City,
+		District: position.District,
+		Street: position.Street,
+		DetailName: position.DetailName,
+		CityCode: position.CityCode,
+		Latitude: position.Latitude,
+		Longitude: position.Longitude
 	}
 	HttpPost(base.RootUrl + "Article/Edit", data, function(data) {
 		if(data != null) {

@@ -40,6 +40,10 @@ function InitComment() {
 		base.Get("tab3").setAttribute("src", base.RootUrl + "/Images/Icons/heart/0.png");
 		base.Get("tab4").setAttribute("src", base.RootUrl + "/Images/Icons/travel/0.png");
 
+		//系统定位
+		var position = base.GetCurrentPosition();
+		base.Get("address").innerHTML = base.IsNullOrEmpty(position.City) ? "未识别" : position.City;
+
 		$edit = base.Get("remark");
 		//document.onkeyup = function() {
 		//$edit.innerHTML = $edit.innerHTML.replace(/(^.{250}).*/g, '$1');
@@ -162,11 +166,6 @@ function InitComment() {
 		} else {
 			Comment();
 		}
-
-		//系统定位
-		base.GetCurrentPosition(function() {
-			base.Get("address").innerHTML = base.IsNullOrEmpty(base.City) ? "未识别" : base.City;
-		});
 	});
 
 	//用户
@@ -318,20 +317,21 @@ function CommitComment() {
 	mask.show();
 	base.ShowWaiting("正在提交");
 	ShowComment(false);
+	var position = base.GetCurrentPosition();
 	HttpGet(base.RootUrl + "Api/Comment/Edit", {
 		ID: userinfo.ID,
 		ArticleNumber: ArticleNumber,
 		ParentCommentNumber: ParentCommentNumber,
 		ParentUserNumber: ParentUserNumber,
 		Summary: escape(val),
-		Province: base.Province,
-		City: base.City,
-		District: base.District,
-		Street: base.Street,
-		DetailName: base.DetailName,
-		CityCode: base.CityCode,
-		Latitude: base.Latitude,
-		Longitude: base.Longitude,
+		Province: position.Province,
+		City: position.City,
+		District: position.District,
+		Street: position.Street,
+		DetailName: position.DetailName,
+		CityCode: position.CityCode,
+		Latitude: position.Latitude,
+		Longitude: position.Longitude,
 		ShowPosition: showPosition
 	}, function(data) {
 		data = JSON.parse(data);

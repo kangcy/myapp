@@ -150,6 +150,19 @@
 			//{"coordsType":"gcj02","address":{"country":"中国","province":"江苏省","city":"南京市","district":"雨花台区","street":"软件大道","poiName":"丰盛·商汇(软件大道)","cityCode":"025"},"addresses":"江苏省南京市雨花台区软件大道靠近丰盛·商汇(软件大道)","coords":{"latitude":31.97603,"longitude":118.761916,"accuracy":25,"altitude":0,"heading":null,"speed":0,"altitudeAccuracy":0},"timestamp":1479280218323}
 			province = p.address.province;
 			city = p.address.city;
+
+			var position = {
+				Province: p.address.province, //省份
+				City: p.address.city, //城市
+				District: p.address.district, //地区
+				Street: p.address.street, //街道
+				DetailName: p.address.poiName, //详细定位
+				CityCode: p.address.cityCode, //城市编码
+				Latitude: p.coords.latitude, //纬度
+				Longitude: p.coords.longitude //经度
+			}
+			localStorage.setItem('$position', JSON.stringify(position));
+
 			mui.later(function() {
 				base.Get("currPosition").innerHTML = city;
 				isLoading = false;

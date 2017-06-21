@@ -146,11 +146,6 @@
 
 		ArticleAction("#scroll-view", userinfo);
 
-		//检查更新
-		mui('#updatewrapper').load("../part/update.html", function(response) {
-			CheckUpdate(function(index) {});
-		});
-
 		mui.back = function() {
 			if(showMenu) {
 				closeMenu();
@@ -206,36 +201,43 @@
 			});
 		});
 
-		//监听推送消息		
-		plus.push.addEventListener("receive", function(msg) {
-			if(!base.IsNullOrEmpty(msg.payload)) {
-				var param = msg.payload.split('|');
-				//系统推荐文章、好友发布文章
-				if(param[0] == PushType.Article || param[0] == PushType.FanArticle) {
-					base.OpenWindow("articledetail", "articledetail.html", {
-						ArticleID: param[1],
-						Source: "",
-						NickName: ""
-					}, null, "none");
-				}
-				//打开评论
-				if(param[0] == PushType.Comment) {
-					var param = {
-						ArticleID: param[1],
-						ArticleNumber: param[2]
+		//检查更新
+		mui.later(function() {
+			mui('#updatewrapper').load("../part/update.html", function(response) {
+				CheckUpdate(function(index) {});
+			});
+
+			//监听推送消息		
+			plus.push.addEventListener("receive", function(msg) {
+				if(!base.IsNullOrEmpty(msg.payload)) {
+					var param = msg.payload.split('|');
+					//系统推荐文章、好友发布文章
+					if(param[0] == PushType.Article || param[0] == PushType.FanArticle) {
+						base.OpenWindow("articledetail", "articledetail.html", {
+							ArticleID: param[1],
+							Source: "",
+							NickName: ""
+						}, null, "none");
 					}
-					base.OpenWindow("articleComment", "articleComment.html", param);
+					//打开评论
+					if(param[0] == PushType.Comment) {
+						var param = {
+							ArticleID: param[1],
+							ArticleNumber: param[2]
+						}
+						base.OpenWindow("articleComment", "articleComment.html", param);
+					}
+					//打开打赏
+					if(param[0] == PushType.Money) {
+						base.OpenWindow("pay", "pay.html", {});
+					}
+					//打开粉丝
+					if(param[0] == PushType.Fan) {
+						base.OpenWindow("fan", "fan.html", {});
+					}
 				}
-				//打开打赏
-				if(param[0] == PushType.Money) {
-					base.OpenWindow("pay", "pay.html", {});
-				}
-				//打开粉丝
-				if(param[0] == PushType.Fan) {
-					base.OpenWindow("fan", "fan.html", {});
-				}
-			}
-		}, false);
+			}, false);
+		}, 1000);
 	});
 
 	var previewImage = mui.previewImage({
@@ -248,7 +250,7 @@
 			SetPullEnable(true);
 		}
 	});
-
+ 
 	/**
 	 * 加载数据
 	 */

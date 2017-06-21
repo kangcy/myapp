@@ -86,7 +86,7 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
-	var userinfo = localStorage.getItem('$userinfo') || "{}";
+	var userinfo = base.GetUserInfo();
 	mui.init({
 		keyEventBind: {
 			backbutton: false,
@@ -122,7 +122,13 @@
 		} else {
 			preload_index();
 		}
-		Time(5);
+
+		//定位
+		base.InitPosition(function() {
+			Time(5);
+		}, function() {
+			Time(5);
+		});
 
 		mui.back = function(event) {
 			return false;

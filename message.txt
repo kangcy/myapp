@@ -1,10 +1,11 @@
-523883324@qq.com  ÃÜÂë£ºxw321123321   Xw321123321
-
+523883324@qq.com  ï¿½ï¿½ï¿½ë£ºxw321123321   Xw321123321
+2432762585@qq.com
+bf1247d67a635d2bfe5822a8c525fb1d
 004451 
 
-Éú³ÉÇ©Ãû£º
-1£ºcd C:\Program Files\Java\jdk1.8.0_25\bin
-2£ºkeytool -genkey -alias go -keyalg RSA -validity 20000 -keystore go.keystore
-Éú³ÉandroidÇ©ÃûµÄÃüÁî
+ï¿½ï¿½ï¿½Ç©ï¿½ï¿½
+1ï¿½ï¿½cd C:\Program Files\Java\jdk1.8.0_25\bin
+2ï¿½ï¿½keytool -genkey -alias go -keyalg RSA -validity 20000 -keystore go.keystore
+ï¿½ï¿½ï¿½androidÇ©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 keytool -list -v -keystore F:\HBuider\MyApp\go.keystore
-ÔÚ±êÌâÀ¸ÓÒ¼üÑ¡Ôñ±ê¼Ç¸´ÖÆÆäÖĞµÄSHA1µÄÖµ£¬¼´ÎªandroidµÄÇ©Ãû
+ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½Ñ¡ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½SHA1ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Îªandroidï¿½ï¿½Ç©ï¿½ï¿½

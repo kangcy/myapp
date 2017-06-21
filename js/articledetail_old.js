@@ -45,7 +45,7 @@ function ChangeBg() {
 			"background-size": "100% auto"
 		});
 		$(".cover").css("background", "RGBA(255, 255, 255, 0.5");
-	} else { 
+	} else {
 		$("#wrapper").css("background-color", "transparent");
 		$("#wrapper1").css("background", "none");
 		if(CurrBackground == null) {
@@ -145,17 +145,18 @@ function Copy() {
 	ActionTan(0);
 	mask.show();
 	base.ShowWaiting("正在复制");
+	var position = base.GetCurrentPosition();
 	HttpGet(base.RootUrl + "Article/Copy", {
 		ID: userinfo.ID,
 		ArticleID: ArticleID,
-		Province: base.Province,
-		City: base.City,
-		District: base.District,
-		Street: base.Street,
-		DetailName: base.DetailName,
-		CityCode: base.CityCode,
-		Latitude: base.Latitude,
-		Longitude: base.Longitude
+		Province: position.Province,
+		City: position.City,
+		District: position.District,
+		Street: position.Street,
+		DetailName: position.DetailName,
+		CityCode: position.CityCode,
+		Latitude: position.Latitude,
+		Longitude: position.Longitude
 	}, function(data) {
 		mui.later(function() {
 			mask.close();

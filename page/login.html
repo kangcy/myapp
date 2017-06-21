@@ -99,6 +99,7 @@
 <script src="../minjs/login.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
+	var position = base.GetCurrentPosition();
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
@@ -163,9 +164,6 @@
 			}
 		}, base.AnimateDuration * 2);
 
-		//系统定位
-		base.GetCurrentPosition();
-
 		var settings = app.getSettings();
 		plus.oauth.getServices(function(services) {
 			auths = services;
@@ -185,14 +183,14 @@
 			var loginInfo = {
 				Phone: accountBox.value,
 				Password: passwordBox.value,
-				Province: base.Province,
-				City: base.City,
-				District: base.District,
-				Street: base.Street,
-				DetailName: base.DetailName,
-				CityCode: base.CityCode,
-				Latitude: base.Latitude,
-				Longitude: base.Longitude,
+				Province: position.Province,
+				City: position.City,
+				District: position.District,
+				Street: position.Street,
+				DetailName: position.DetailName,
+				CityCode: position.CityCode,
+				Latitude: position.Latitude,
+				Longitude: position.Longitude,
 				ClientID: plus.push.getClientInfo().clientid
 			};
 			//登录 
@@ -325,14 +323,14 @@
 	function showData(type, data) {
 
 		var loginInfo = {};
-		loginInfo.Province = base.Province;
-		loginInfo.City = base.City;
-		loginInfo.District = base.District;
-		loginInfo.Street = base.Street;
-		loginInfo.DetailName = base.DetailName;
-		loginInfo.CityCode = base.CityCode;
-		loginInfo.Latitude = base.Latitude;
-		loginInfo.Longitude = base.Longitude;
+		loginInfo.Province = position.Province;
+		loginInfo.City = position.City;
+		loginInfo.District = position.District;
+		loginInfo.Street = position.Street;
+		loginInfo.DetailName = position.DetailName;
+		loginInfo.CityCode = position.CityCode;
+		loginInfo.Latitude = position.Latitude;
+		loginInfo.Longitude = position.Longitude;
 		loginInfo.ClientID = plus.push.getClientInfo().clientid;
 		switch(type) {
 			case 'weixin':
