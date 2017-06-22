@@ -62,10 +62,7 @@
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var isScroll = false; //是否滚动
-	var isSwipeRight = false; //是否右滑
-	var isSwipe = false; //是否侧滑
 	var isPreview = false; //是否图片预览
-	var showMenu = false;
 	var PageName = "subindex";
 	var FirstLoad = true; //首次加载
 	var self = null;
@@ -99,8 +96,8 @@
 		self = plus.webview.currentWebview();
 
 		var menu_style = {
-			left: "-70%",
-			width: '70%',
+			left: "-83%",
+			width: '83%',
 			popGesture: "none",
 			render: "always",
 			scrollIndicator: "none"
@@ -132,7 +129,23 @@
 				view: menu,
 				moveMode: "follow"
 			}, function(e) {
-				//console.log(JSON.stringify(e));
+				if(e.type == "end" && e.result) {
+					if(e.direction == "rtl") {
+						self.setStyle({
+							mask: 'none'
+						});
+					} else {
+						self.setStyle({
+							mask: 'rgba(0,0,0,0.5)'
+						});
+					}
+				}
+				if(e.type == "move" && e.direction == "ltr") {
+					var num = 0.5 * e.progress / 100;
+					self.setStyle({
+						mask: 'rgba(0,0,0,' + num + ')'
+					});
+				}
 			});
 		}, 350);
 
@@ -148,23 +161,6 @@
 			openMenu();
 		});
 
-		window.addEventListener('scroll', function(e) {
-			if(isScroll) {
-				return;
-			}
-			isScroll = true;
-		});
-
-		window.addEventListener('dragend', function(e) {
-			if(isScroll) {
-				isScroll = false;
-				return;
-			}
-			if(isSwipeRight) {
-				openMenu();
-			}
-		});
-
 		base.ShowUser("#scroll-view");
 
 		base.ShowArticle("#scroll-view", "List", userinfo.Number);
@@ -172,7 +168,7 @@
 		ArticleAction("#scroll-view", userinfo);
 
 		mui.back = function() {
-			if(showMenu) {
+			if(parseInt(self.getStyle().left) > 0) {
 				closeMenu();
 				return false;
 			}
@@ -354,24 +350,24 @@
 				'view': self,
 				'styles': {
 					'fromLeft': '0',
-					'toLeft': "70%"
+					'toLeft': "83%"
 				},
-				'action': 'show'
+				'action': 'none'
 			}, {
 				'view': menu,
 				'styles': {
-					'fromLeft': "-70%",
+					'fromLeft': "-83%",
 					'toLeft': '0'
 				},
-				'action': 'show'
+				'action': 'none'
 			},
 			function(e) {
 				if(e.id == menu.id) {
-					//侧滑菜单打开
+					self.setStyle({
+						mask: 'rgba(0,0,0,0.5)'
+					});
 				}
-			}.bind(this)
-		)
-		mask.show();
+			})
 	};
 	/**
 	 * 关闭菜单
@@ -380,23 +376,25 @@
 		plus.webview.startAnimation({
 				'view': self,
 				'styles': {
-					'fromLeft': '70%',
+					'fromLeft': '83%',
 					'toLeft': "0"
 				},
-				'action': 'show'
+				'action': 'none'
 			}, {
 				'view': menu,
 				'styles': {
 					'fromLeft': "0",
-					'toLeft': '-70%'
+					'toLeft': '-83%'
 				},
-				'action': 'show'
+				'action': 'none'
 			},
 			function(e) {
-				console.log(JSON.stringify(e));
-				if(e.id == self.id) {}
-			}.bind(this)
-		)
+				if(e.id == self.id) {
+					self.setStyle({
+						mask: 'none'
+					});
+				}
+			})
 	};
 	window.addEventListener("menu:close", closeMenu);
 
@@ -408,52 +406,4 @@
 			openMenu();
 		}
 	}
-
-	//显示菜单菜单
-	/*function openMenu() {
-		if(isPreview) {
-			return;
-		}
-		if(isSwipe) {
-			return;
-		}
-		isSwipe = true;
-		menu.show('slide-in-left', base.AnimateDuration, function() {
-			showMenu = true;
-			isSwipe = false;
-		});
-	}*/
-
-	//关闭侧滑菜单
-	/*function closeMenu() {
-		if(isSwipe) {
-			return;
-		}
-		isSwipe = true;
-		isScroll = false;
-		isSwipeRight = false;
-
-		menu.hide('auto', base.AnimateDuration);
-		mui.later(function() {
-			showMenu = false;
-			isSwipe = false;
-		}, base.AnimateDuration)
-
-	}*/
-
-	/*window.addEventListener('dragright', function(e) {
-		e.detail.gesture.preventDefault();
-	});
-	window.addEventListener('dragleft', function(e) {
-		e.detail.gesture.preventDefault();
-	});
-	//主界面向右滑动
-	window.addEventListener("swiperight", function() {
-		isSwipeRight = true;
-	});
-
-	window.addEventListener("swipeleft", closeMenu);
-
-	//menu页面向左滑动，关闭菜单
-	window.addEventListener("menu:swipeleft", closeMenu);*/
 </script>
