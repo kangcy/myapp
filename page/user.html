@@ -104,16 +104,20 @@
 		</div>
 		<div style="padding:0.3125rem 5%;" class="mt10 f13 c000">
 			<div class="flex-box flex-row f13 tc">
-				<div style="flex:0 0 33.3%;" class="flex-item hide" id="showFollow" onclick="Follow()">
+				<div style="flex:0 0 25%;" class="flex-item" id="showZan" onclick="Zan()">
+					<p class="f25 mb0 blue bold" id="showZanNum">0</p>
+					<p>喜欢</p>
+				</div>
+				<div style="flex:0 0 25%;" class="flex-item hide" id="showFollow" onclick="Follow()">
 					<p class="f25 mb0 blue bold" id="showFollowNum">0</p>
 					<p>关注</p>
 				</div>
-				<div style="flex:0 0 33.3%;" class="flex-item hide" id="showFan" onclick="Fan()">
+				<div style="flex:0 0 25%;" class="flex-item hide" id="showFan" onclick="Fan()">
 					<p class="f25 mb0 blue bold" id="showFanNum">0</p>
 					<p>粉丝</p>
 				</div>
-				<div style="flex:0 0 33.3%;" class="flex-item hide" id="showArticle" onclick="Keep()">
-					<p class="f25 mb0 blue bold" id="showArticleNum">0</p>
+				<div style="flex:0 0 25%;" class="flex-item hide" id="showKeep" onclick="Keep()">
+					<p class="f25 mb0 blue bold" id="showKeepNum">0</p>
 					<p>收藏</p>
 				</div>
 			</div>
@@ -265,9 +269,14 @@
 					base.RemoveClass(["#article", "#inblack"], "hide");
 
 					var showcount = 0;
-					if(data.ShowArticle == 1) {
-						base.Get("showArticleNum").innerHTML = data.Keeps;
-						base.Get("showArticle").classList.remove("hide");
+					if(data.ShowZan == 1) {
+						base.Get("showZanNum").innerHTML = data.Zans;
+						base.Get("showZan").classList.remove("hide");
+						showcount++;
+					}
+					if(data.ShowKeep == 1) {
+						base.Get("showKeepNum").innerHTML = data.Keeps;
+						base.Get("showKeep").classList.remove("hide");
 						showcount++;
 					}
 					if(data.ShowFollow == 1) {
@@ -282,14 +291,28 @@
 					}
 					switch(showcount) {
 						case 1:
-							base.Get("showArticle").style.flex = "0 0 100%";
+							base.Get("showZan").style.flex = "0 0 100%";
+							base.Get("showKeep").style.flex = "0 0 100%";
 							base.Get("showFollow").style.flex = "0 0 100%";
 							base.Get("showFan").style.flex = "0 0 100%";
 							break;
 						case 2:
-							base.Get("showArticle").style.flex = "0 0 50%";
+							base.Get("showZan").style.flex = "0 0 50%";
+							base.Get("showKeep").style.flex = "0 0 50%";
 							base.Get("showFollow").style.flex = "0 0 50%";
 							base.Get("showFan").style.flex = "0 0 50%";
+							break;
+						case 3:
+							base.Get("showZan").style.flex = "0 0 33.3%";
+							base.Get("showKeep").style.flex = "0 0 33.3%";
+							base.Get("showFollow").style.flex = "0 0 33.3%";
+							base.Get("showFan").style.flex = "0 0 33.3%";
+							break;
+						case 4:
+							base.Get("showZan").style.flex = "0 0 25%";
+							base.Get("showKeep").style.flex = "0 0 25%";
+							base.Get("showFollow").style.flex = "0 0 25%";
+							base.Get("showFan").style.flex = "0 0 25%";
 							break;
 					}
 
@@ -392,6 +415,15 @@
 	//收藏
 	function Keep() {
 		base.OpenWindow("keep", "keep.html", {
+			Name: userinfo.Number == UserNumber ? "我" : NickName,
+			Sex: Sex == 0 ? "他" : "她",
+			UserNumber: UserNumber
+		});
+	}
+
+	//喜欢
+	function Zan() {
+		base.OpenWindow("zan", "zan.html", {
 			Name: userinfo.Number == UserNumber ? "我" : NickName,
 			Sex: Sex == 0 ? "他" : "她",
 			UserNumber: UserNumber

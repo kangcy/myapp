@@ -96,7 +96,8 @@
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
 			"minjs/login.min.js",
-			"mincss/mui.min.css"
+			"mincss/mui.min.css",
+			"js/login.min.js"
 		],
 		"refer": [
 			"index.html",
@@ -1550,7 +1551,8 @@
 			"minjs/PullRefresh.min.js",
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/zanSub.html",

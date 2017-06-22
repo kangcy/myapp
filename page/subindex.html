@@ -37,7 +37,7 @@
 		<div id="muicontent">
 			<div id="scroll-view"></div>
 			<div id="scroll-more" class="full hide">
-				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5" id="password">正在加载...</span></div>
+				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
@@ -66,7 +66,7 @@
 	var isSwipe = false; //是否侧滑
 	var isPreview = false; //是否图片预览
 	var menu;
-	var showMenu = false;
+	var showMenu = false; 
 	var PageName = "subindex";
 	var FirstLoad = true; //首次加载
 	var self = null;
@@ -98,7 +98,8 @@
 		plus.navigator.setFullscreen(false);
 		self = plus.webview.currentWebview();
 
-		Load();
+		//Load();
+		pulldownRefresh();
 
 		SetPullEnable(true);
 
