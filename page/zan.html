@@ -42,6 +42,7 @@
 <script type="text/javascript">
 	var self = null;
 	var UserNumber = "";
+	var ShowMe = 0;
 
 	mui.init({
 		gestureConfig: {
@@ -59,6 +60,7 @@
 		var name = self.Name || "我";
 		name = base.UnUnicodeText(name);
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
+		ShowMe = self.ShowMe || 0;
 		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的赞";
 		if(name == "我") {
 			base.Get("none_tip").innerHTML = "沒人赞你，你可以去赞别人呀";
@@ -90,19 +92,37 @@
 			rows: pagesize,
 			UserNumber: UserNumber
 		}
-		LoadPull(base.RootUrl + "Api/Zan/ToMe", data, true, true, function(item) {
-			return AppendStr(item)
-		}, callback);
+		//我的
+		if(ShowMe == 1) {
+			LoadPull(base.RootUrl + "Api/Zan/ToMe", data, true, true, function(item) {
+				return AppendStr1(item)
+			}, callback);
+		} else {
+			LoadPull(base.RootUrl + "Api/Zan/ToUser", data, true, true, function(item) {
+				return AppendStr2(item)
+			}, callback);
+		}
 	}
 
-	//拼接Html
-	function AppendStr(item) {
+	function AppendStr1(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell bounceInUp';
 		var model = [];
-		model.push('<div class="flex-box flex-row">');
-		model.push('<div style="flex:0 0 18%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" /></div></div>');
-		model.push('<div style="flex:0 0 82%;" class="flex-item"><p class="f14 mb5 c333" style="line-height:1.3rem;">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 f12">喜欢了你的文章<br /><span class="article" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p><p class="f10 c999">' + item.CreateDate + '</p></div>');
+		model.push('<div class="flex-box flex-row flex-top">');
+		model.push('<div style="flex:0 0 16%;" class="flex-item tc"><div class="avatar fl"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" nickname="' + item.NickName + '"avatar="' + item.Avatar + '"cover="' + item.Cover + '" /></div></div>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 f12">喜欢了你的文章<br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p><p class="f10 c999">' + item.CreateDate + '</p></div>');
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
+	function AppendStr2(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell bounceInUp';
+		var model = [];
+		model.push('<div class="flex-box flex-row flex-top">');
+		model.push('<div style="flex:0 0 16%;" class="flex-item tc"><div class="avatar fl"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" nickname="' + item.NickName + '"avatar="' + item.Avatar + '"cover="' + item.Cover + '" /></div></div>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 f12"><br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p><p class="f10 c999">' + item.CreateDate + '</p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

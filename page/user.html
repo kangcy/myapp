@@ -104,7 +104,7 @@
 		</div>
 		<div style="padding:0.3125rem 5%;" class="mt10 f13 c000">
 			<div class="flex-box flex-row f13 tc">
-				<div style="flex:0 0 25%;" class="flex-item" id="showZan" onclick="Zan()">
+				<div style="flex:0 0 25%;" class="flex-item hide" id="showZan" onclick="Zan()">
 					<p class="f25 mb0 blue bold" id="showZanNum">0</p>
 					<p>喜欢</p>
 				</div>
@@ -243,18 +243,18 @@
 		}, function(data) {
 			if(data.result) {
 				data = data.message;
-				NickName = base.UnUnicodeText(data.NickName);
-				Avatar = data.Avatar;
-				Sex = data.Sex;
 
+				Sex = data.Sex;
 				if(base.IsNullOrEmpty(Cover)) {
 					$bg.style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
 					$bg.style.backgroundSize = "cover";
 				}
 				if(base.IsNullOrEmpty(Avatar)) {
+					Avatar = data.Avatar;
 					base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
 				}
 				if(base.IsNullOrEmpty(NickName)) {
+					NickName = base.UnUnicodeText(data.NickName);
 					base.Get("nickname").innerHTML = NickName;
 				}
 				base.Get("signature").innerHTML = base.UnUnicodeText(data.Signature);
@@ -426,7 +426,8 @@
 		base.OpenWindow("zan", "zan.html", {
 			Name: userinfo.Number == UserNumber ? "我" : NickName,
 			Sex: Sex == 0 ? "他" : "她",
-			UserNumber: UserNumber
+			UserNumber: UserNumber,
+			ShowMe: 0
 		});
 	}
 
