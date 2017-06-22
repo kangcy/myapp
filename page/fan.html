@@ -112,11 +112,6 @@
 		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true, function(item) {
 			return AppendUser(item, true, true, false, "", false, false, true);
 		}, function() {
-			if(currpage == totalpage) {
-				base.Get("scroll-more").classList.add("hide");
-			} else {
-				base.Get("scroll-more").classList.remove("hide");
-			}
 			if(callback) {
 				callback();
 			}

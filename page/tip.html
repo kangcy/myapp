@@ -11,6 +11,33 @@
 		<link rel="stylesheet" href="../mincss/img.preview.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<style type="text/css">
+			.flex-top {
+				padding: 0.5rem 0.5rem;
+			}
+			
+			.article,
+			.user {
+				width: 25%;
+				float: left;
+				display: inline-block;
+			}
+			
+			.article img,
+			.user img {
+				width: 95%;
+			}
+			
+			.radius {
+				border-radius: 50px;
+			}
+			
+			.avatar img {
+				width: 2.5rem !important;
+				height: 2.5rem !important;
+				border-radius: 50px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -25,7 +52,8 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<div id="scroll-view"></div>
+			<div id="scroll-view">
+			</div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5" id="password">正在加载...</span></div>
 			</div>
@@ -42,10 +70,11 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/mui.zoom.min.js"></script>
-<script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/article.min.js"></script>
+<script src="../minjs/mui.lazyload.min.js"></script>
+<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script type="text/javascript">
+	var ActionID = 0;
 	var self = null;
 	mui.init({
 		gestureConfig: {
@@ -64,13 +93,9 @@
 		Init();
 	});
 
-	var previewImage = mui.previewImage({
-		callback1: function(img) {
-			SetPullEnable(false);
-		},
-		callback2: function(img) {
-			SetPullEnable(true);
-		}
+	var lazyLoad = mui("#scroll-view").imageLazyload({
+		placeholder: '../images/loading.gif',
+		destroy: false
 	});
 
 	//初始化
@@ -85,41 +110,24 @@
 
 		base.ShowArticle("#scroll-view", "List", userinfo.Number);
 		base.ShowUser("#scroll-view");
-		ArticleAction("#scroll-view", userinfo);
-
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#scroll-view').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				SetPullEnable(false);
-				ActionTan(true, number, id, usernumber);
-			});
-			mui('body').on('hidden', '.mui-popover', function(e) {
-				SetPullEnable(true);
-			});
-		});
 	}
 
-	/**
-	 * 加载数据
-	 */
 	function Load(callback) {
+		if(currpage == 1) {
+			ActionID = 0;
+		}
 		var table = base.Get('scroll-view');
 		var data = {
 			ID: userinfo.ID,
 			page: currpage,
 			rows: pagesize,
-			UserNumber: userinfo.Number
+			UserNumber: userinfo.Number,
+			ActionID: ActionID
 		};
-		LoadPull(base.RootUrl + "Api/Fan/Article", data, true, false, function(item) {
-			return AppendArticle(userinfo.Number, item, false, false, false);
+		LoadPull(base.RootUrl + "Api/UserAction/List", data, true, false, function(item) {
+			return AppendStr(item);
 		}, function() {
-			if(currpage == totalpage) {
-				base.Get("scroll-more").classList.add("hide");
-			} else {
-				base.Get("scroll-more").classList.remove("hide");
-			}
+			lazyLoad.refresh(true);
 			if(callback) {
 				callback();
 			}
@@ -129,5 +137,42 @@
 	//添加关注
 	function AddUser() {
 		base.OpenWindow("addfan", "addfan.html", {});
+	}
+
+	function AppendStr(item) {
+		ActionID = item.ID;
+		var div = document.createElement('div');
+		div.className = "flex-box flex-row flex-top";
+		var model = [];
+
+		var title = "";
+		switch(item.ActionType) {
+			case 0:
+				title = "喜欢了" + item.ArticleInfoJson.length + "篇";
+				break;
+			case 1:
+				title = "关注了" + item.UserInfoJson.length + "人";
+				break;
+			case 2:
+				title = "收藏了" + item.ArticleInfoJson.length + "篇";
+				break;
+			default:
+				break;
+		}
+
+		model.push('<div style="flex:0 0 16%;" class="flex-item tl"><div class="avatar"><img data-lazyload="' + base.ShowThumb(item.Avatar, 2) + '" class="user fl" userid="' + item.Number + '" nickname="' + item.NickName + '" avatar="' + item.Avatar + '" cover="' + item.Cover + '" /></div></div>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '<span class="ml10 c999">' + title + '</span></p><p class="f10 c999">' + item.CreateTime + '</p>');
+
+		mui.each(item.ArticleInfoJson, function(i, article) {
+			model.push('<div class="article" articleid="' + article.ID + '" userid="' + item.Number + '" power="' + article.ArticlePower + '" nickname="' + item.NickName + '"><img data-lazyload="' + base.ShowThumb(article.Cover, 2) + '" /></div>');
+		})
+
+		mui.each(item.UserInfoJson, function(i, user) {
+			model.push('<div class="user" userid="' + user.Number + '" nickname="' + user.NickName + '"avatar="' + user.Avatar + '"cover="' + user.Cover + '"><img data-lazyload="' + base.ShowThumb(user.Avatar, 2) + '" class="radius" /></div>');
+		})
+
+		model.push("</div>");
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>

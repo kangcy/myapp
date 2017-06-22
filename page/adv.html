@@ -110,7 +110,6 @@
 
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
-
 		document.addEventListener("netchange", function() {
 			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 				mui.toast("网络异常，请检查网络设置");
@@ -157,9 +156,15 @@
 					base.GetView("login").show("zoom-fade-out");
 				} else {
 					plus.webview.show("subindex", "zoom-fade-out", base.AnimateDuration, function() {
-						plus.webview.close("adv");
-						plus.webview.close("guide");
-						plus.webview.close("login");
+						//plus.webview.close("adv");
+						//plus.webview.close("guide");
+						//plus.webview.close("login");
+
+						mui.later(function() {
+							plus.webview.close("adv");
+							plus.webview.close("guide");
+							plus.webview.close("login");
+						}, base.AnimateDuration * 2)
 					}, {});
 				}
 			} else {

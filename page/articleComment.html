@@ -79,7 +79,10 @@
 	});
 
 	function Load(callback) {
-		data = {
+		if(currpage == 1) {
+			NewId = 0;
+		}
+		var data = {
 			page: currpage,
 			rows: pagesize,
 			ArticleNumber: ArticleNumber,

@@ -250,7 +250,7 @@
 			SetPullEnable(true);
 		}
 	});
- 
+
 	/**
 	 * 加载数据
 	 */
@@ -263,11 +263,6 @@
 		LoadPull(base.RootUrl + "Api/Article/All", data, true, false, function(item) {
 			return AppendArticle(userinfo.Number, item, false, false, false);
 		}, function() {
-			if(currpage == totalpage) {
-				base.Get("scroll-more").classList.add("hide");
-			} else {
-				base.Get("scroll-more").classList.remove("hide");
-			}
 			if(FirstLoad) {
 				base.Get("bottom").classList.remove("hide");
 				base.Get("bottom").classList.add("zoomIn");

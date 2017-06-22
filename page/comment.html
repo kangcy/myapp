@@ -90,7 +90,10 @@
 
 	//评论我的-加载数据
 	function Load(callback) {
-		data = {
+		if(currpage == 1) {
+			NewId = 0;
+		}
+		var data = {
 			page: currpage,
 			rows: pagesize,
 			ArticleUserNumber: userinfo.Number,
