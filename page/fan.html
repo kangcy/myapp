@@ -128,7 +128,7 @@
 		var model = [];
 		model.push('<div class="flex-box flex-row ">');
 		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="fl"  /></div></div>');
-		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f14 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
+		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
 		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
 		if(item.IsFollow == 0 && userinfo.Number != item.Number) {
 			model.push('<div class="guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" class="fr" /></div>');

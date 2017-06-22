@@ -65,11 +65,11 @@
 	var isSwipeRight = false; //是否右滑
 	var isSwipe = false; //是否侧滑
 	var isPreview = false; //是否图片预览
-	var showMenu = false;
+	var menu;
+	var showMenu = false; 
 	var PageName = "subindex";
 	var FirstLoad = true; //首次加载
 	var self = null;
-	var menu = null;
 
 	mui.init({
 		gestureConfig: {
@@ -98,44 +98,7 @@
 		plus.navigator.setFullscreen(false);
 		self = plus.webview.currentWebview();
 
-		var menu_style = {
-			left: "-70%",
-			width: '70%',
-			popGesture: "none",
-			render: "always",
-			scrollIndicator: "none"
-		};
-
-		if(mui.os.ios) {
-			menu_style.zindex = -1;
-		}
-
-		//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
-		menu = mui.openWindow({
-			id: 'my',
-			url: 'my.html',
-			styles: menu_style,
-			show: {
-				aniShow: 'none'
-			},
-			waiting: {
-				autoShow: false
-			}
-		});
-
-		//启用侧滑拖拽操作，延时的原因是menu页是延时创建的，所以这里需要相应延时
-		setTimeout(function() {
-			self.drag({
-				direction: "right",
-				moveMode: "followFinger"
-			}, {
-				view: menu,
-				moveMode: "follow"
-			}, function(e) {
-				//console.log(JSON.stringify(e));
-			});
-		}, 350);
-
+		//Load();
 		pulldownRefresh();
 
 		SetPullEnable(true);
@@ -143,10 +106,23 @@
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
-		//打开侧滑
-		base.Get("avatar2").addEventListener('tap', function() {
-			openMenu();
-		});
+		mui.later(function() {
+			menu = mui.preload({
+				id: 'my',
+				url: 'my.html',
+				styles: {
+					left: 0,
+					width: '100%',
+					zindex: 10000,
+					scrollIndicator: "none"
+				}
+			});
+
+			//打开侧滑
+			base.Get("avatar2").addEventListener('tap', function() {
+				openMenu();
+			});
+		}, 300)
 
 		window.addEventListener('scroll', function(e) {
 			if(isScroll) {
@@ -346,71 +322,8 @@
 		base.Get("avatar2").setAttribute("src", url);
 	}
 
-	/**
-	 * 显示侧滑菜单
-	 */
-	function openMenu() {
-		plus.webview.startAnimation({
-				'view': self,
-				'styles': {
-					'fromLeft': '0',
-					'toLeft': "70%"
-				},
-				'action': 'show'
-			}, {
-				'view': menu,
-				'styles': {
-					'fromLeft': "-70%",
-					'toLeft': '0'
-				},
-				'action': 'show'
-			},
-			function(e) {
-				if(e.id == menu.id) {
-					//侧滑菜单打开
-				}
-			}.bind(this)
-		)
-		mask.show();
-	};
-	/**
-	 * 关闭菜单
-	 */
-	function closeMenu() {
-		plus.webview.startAnimation({
-				'view': self,
-				'styles': {
-					'fromLeft': '70%',
-					'toLeft': "0"
-				},
-				'action': 'show'
-			}, {
-				'view': menu,
-				'styles': {
-					'fromLeft': "0",
-					'toLeft': '-70%'
-				},
-				'action': 'show'
-			},
-			function(e) {
-				console.log(JSON.stringify(e));
-				if(e.id == self.id) {}
-			}.bind(this)
-		)
-	};
-	window.addEventListener("menu:close", closeMenu);
-
-	//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
-	mui.menu = function() {
-		if(parseInt(self.getStyle().left) > 0) {
-			closeMenu();
-		} else {
-			openMenu();
-		}
-	}
-
 	//显示菜单菜单
-	/*function openMenu() {
+	function openMenu() {
 		if(isPreview) {
 			return;
 		}
@@ -422,10 +335,10 @@
 			showMenu = true;
 			isSwipe = false;
 		});
-	}*/
+	}
 
 	//关闭侧滑菜单
-	/*function closeMenu() {
+	function closeMenu() {
 		if(isSwipe) {
 			return;
 		}
@@ -439,9 +352,9 @@
 			isSwipe = false;
 		}, base.AnimateDuration)
 
-	}*/
+	}
 
-	/*window.addEventListener('dragright', function(e) {
+	window.addEventListener('dragright', function(e) {
 		e.detail.gesture.preventDefault();
 	});
 	window.addEventListener('dragleft', function(e) {
@@ -455,5 +368,14 @@
 	window.addEventListener("swipeleft", closeMenu);
 
 	//menu页面向左滑动，关闭菜单
-	window.addEventListener("menu:swipeleft", closeMenu);*/
+	window.addEventListener("menu:swipeleft", closeMenu);
+
+	//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
+	mui.menu = function() {
+		if(showMenu) {
+			closeMenu();
+		} else {
+			openMenu();
+		}
+	}
 </script>
