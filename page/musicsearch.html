@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
 			.mui-search {
 				width: 90%;
@@ -26,6 +27,15 @@
 				background-size: 100% 100%;
 				width: 1.5rem;
 				height: 1.5rem;
+			}
+			
+			.stopMusic img {
+				border-radius: 50px;
+				animation: rotate 4s linear infinite;
+				-webkit-animation: rotate 4s linear infinite;
+				-ms-animation: rotate 4s linear infinite;
+				-moz-animation: rotate 4s linear infinite;
+				-o-animation: rotate 4s linear infinite;
 			}
 			
 			.mui-table-view-cell {
@@ -54,7 +64,7 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="padding-right:0px;" id="header">
+		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff" style="width:15%;"></a>
 			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:15%;"></a>
 			<div class="mui-input-row mui-search" style="width:77%;">
@@ -171,6 +181,7 @@
 			fileName = this.getAttribute("fileName");
 			fileUrl = this.getAttribute("fileUrl");
 
+			base.RemoveClass([".music"], "stopMusic");
 			base.RemoveClass([".mui-icon"], "play stop");
 			base.AddClass([".mui-icon"], "uncheck");
 			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
@@ -188,6 +199,7 @@
 			base.TriggerMain = true;
 			this.classList.remove("play");
 			this.classList.add("stop");
+			this.parentNode.classList.add("stopMusic");
 			playsound();
 			mui.later(function() {
 				base.TriggerMain = false;
@@ -197,6 +209,7 @@
 		//暂停
 		mui("#scroll-view").on('tap', '.stop', function(event) {
 			base.TriggerMain = true;
+			this.parentNode.classList.remove("stopMusic");
 			this.classList.remove("stop");
 			this.classList.add("play");
 			stopsound();

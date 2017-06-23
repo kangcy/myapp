@@ -107,17 +107,16 @@
 		Multiple = self.Multiple || 0;
 
 		Init();
+	});
+
+	function Init() {
+		pulldownRefresh();
 
 		//下拉刷新 
 		SetPullEnable(true);
 
 		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
-
-	});
-
-	function Init() {
-		pulldownRefresh();
 
 		//选中切换
 		mui("#scroll-view").on('tap', '.thirdfloor', function(event) {

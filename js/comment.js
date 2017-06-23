@@ -245,11 +245,11 @@ function ShowComment(show) {
 		mask.show();
 		SetPullEnable(false);
 		if(base.Get("bottomAction")) {
-			base.Get("bottomAction").classList.remove("bounceIn");
+			base.Get("bottomAction").classList.remove("fadeInUp");
 			base.Get("bottomAction").classList.add("hide");
 		}
 		base.Get("commentwrapper").classList.remove("hide");
-		base.Get("commentwrapper").classList.add("bounceIn");
+		base.Get("commentwrapper").classList.add("fadeInUp");
 
 		if(!showIcon) {
 			showIcon = true;

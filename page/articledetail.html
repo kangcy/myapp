@@ -146,7 +146,7 @@
 								<i></i>
 								<span id="musicname0"></span>
 							</p>
-						</div>
+						</div> 
 					</div>
 				</div>
 				<!--排版1-->
@@ -677,12 +677,12 @@
 	//操作弹窗
 	function ActionTan(index) {
 		if(index == 0) {
-			base.Get("myaction").classList.remove("bounceInDown");
+			base.Get("myaction").classList.remove("fadeInDown");
 			base.Get("myaction").classList.add("hide");
 		} else {
 			mask.show();
 			base.Get("myaction").classList.remove("hide");
-			base.Get("myaction").classList.add("bounceInDown");
+			base.Get("myaction").classList.add("fadeInDown");
 		}
 	}
 

@@ -46,7 +46,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
-			<a id="submit" class="mui-icon mui-text cfff fr" onclick="Submit()">完成</a>
+			<a id="submit" class="mui-icon mui-text cfff fr hide" onclick="Submit()">完成</a>
 			<h1 class="mui-title cfff">选择背景音乐</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab" id="search" style="background:#f8f8f8;border-top:1px solid #eee;">
@@ -85,13 +85,13 @@
 			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
 				item.classList.add("mui-icon-checkmarkempty");
 			});
-
 			MusicID = this.getAttribute("index");
 			MusicName = this.getAttribute("name");
 			MusicUrl = this.getAttribute("url");
+			base.Get("submit").classList.remove("hide");
 		});
 
-		//搜索
+		//搜索 
 		base.Get("search").addEventListener('tap', function(event) {
 			base.OpenWindow("musicsearch", "musicsearch.html", {});
 		});
@@ -103,12 +103,14 @@
 		ArticleID = self.ArticleID || 0;
 		MusicID = self.MusicID || -1;
 		MusicName = self.MusicName || "";
-
-		Load(MusicID);
+		if(MusicID > 0) {
+			base.Get("submit").classList.remove("hide");
+		}
+		Load();
 	});
 
 	//加载音乐
-	function Load(musicid) {
+	function Load() {
 		HttpGet(base.RootUrl + "Api/Music/All", {}, function(data) {
 			var table = base.Get("list");
 			table.innerHTML = "";
@@ -117,16 +119,18 @@
 				data = data.message;
 				var length = data.list.length;
 				if(length > 0) {
+					var fragment = document.createDocumentFragment();
 					mui.each(data.list, function(index, item) {
-						table.appendChild(AppendHtml(index, item));
+						fragment.appendChild(AppendStr(index, item));
 					});
+					table.appendChild(fragment);
 				}
 			}
 			base.ShowLoading(false);
 		});
 	}
 
-	function AppendHtml(index, item) {
+	function AppendStr(index, item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell mui-collapse ' + (index == 0 ? "mui-active" : "");
 		div.style.background = "#eee";
@@ -144,7 +148,7 @@
 		if(base.RepeatAction()) {
 			return;
 		}
-		if(MusicID < 0) {
+		if(MusicID <= 0) {
 			return mui.toast("还未选择音乐");
 		} else {
 			base.GetView('addarticle').evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','" + MusicUrl + "')");

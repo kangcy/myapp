@@ -10,11 +10,6 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
-			.mui-table-view-cell {
-				padding: .8rem 0.9375rem;
-				border-bottom: 1px solid #fff;
-			}
-			
 			.mui-table-view:after {
 				height: 0px;
 			}
@@ -48,7 +43,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
@@ -57,62 +51,60 @@
 	var ArticleTypeName = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	var shareSettingPage = null;
 
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
-		//切换选择
-		mui("#list").on('tap', 'li.music', function(event) {
-			$("#list .mui-icon").removeClass("mui-icon-checkmarkempty");
-			$(this).find(".mui-icon").addClass("mui-icon-checkmarkempty");
-			ArticleType = this.getAttribute("index");
-			ArticleTypeName = this.getAttribute("name");
-		});
 	});
 
 	mui.plusReady(function() {
-
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID || 0;
 		ArticleType = self.ArticleType || 0;
 		ArticleTypeName = self.ArticleTypeName || "";
 
-		Load(ArticleType);
+		Load();
+
+		mui("#list").on('tap', 'li.music', function(event) {
+			base.RemoveClass([".mui-icon"], "mui-icon-checkmarkempty");
+			this.childNodes[1].classList.add("mui-icon-checkmarkempty");
+			ArticleType = this.getAttribute("index");
+			ArticleTypeName = this.getAttribute("name");
+		});
 	});
 
-	//加载
-	function Load(musicid) {
+	function Load() {
 		HttpGet(base.RootUrl + "Api/ArticleType/All2", {}, function(data) {
 			data = JSON.parse(data);
-			var table = $('#list');
-			table.empty();
+			var table = base.Get("list");
+			table.innerHTML = "";
 			if(data != null) {
 				if(data.result) {
-					var list = data.message;
-					var length = list.length;
-					if(length > 0) {
-						$("#loader").addClass("hide");
-						var html = []; 
-						for(var i = 0, len = length; i < len; i++) {
-							var musics = list[i].List;
-							html.push('<ul class="mui-table-view f13 mt0"><li class="mui-table-view-cell music" style="' + (musics.length > 0 ? "background:#E8E8E8;" : "background:#fff;") + '" index="' + list[i].ID + '" name="' + list[i].Name + '"><span class="fl">' + list[i].Name + '</span><span class="fr csubtitle mui-icon ' + (list[i].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
-
-							for(var j = 0, len2 = musics.length; j < len2; j++) {
-								html.push('<li class="mui-table-view-cell music" index="' + musics[j].ID + '" name="' + musics[j].Name + '"><span class="fl">' + musics[j].Name + '</span><span class="fr csubtitle mui-icon ' + (musics[j].ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
-							}
-							html.push('</ul>');
-						}
-						table.append(html.join(""));
-					} else {
-						$("#loader").removeClass("hide");
+					data = data.message;
+					if(data.length > 0) {
+						var fragment = document.createDocumentFragment();
+						mui.each(data, function(index, item) {
+							fragment.appendChild(AppendStr(item));
+						});
+						table.appendChild(fragment);
 					}
 				}
-			} else {
-				$("#loader").removeClass("hide");
 			}
+			base.ShowLoading(false)
 		});
+	}
+
+	function AppendStr(model) {
+		var div = document.createElement('ul');
+		div.className = "mui-table-view f13 mt0";
+		var html = [];
+		html.push('<li class="mui-table-view-cell music" style="' + (model.List.length > 0 ? "background:#E8E8E8;" : "background:#fff;") + '" index="' + model.ID + '" name="' + model.Name + '"><span class="fl">' + model.Name + '</span><span class="fr c999 mui-icon ' + (model.ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+		mui.each(model.List, function(j, item) {
+			html.push('<li class="mui-table-view-cell music" index="' + item.ID + '" name="' + item.Name + '"><span class="fl">' + item.Name + '</span><span class="fr c999 mui-icon ' + (item.ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
+		})
+		div.innerHTML = html.join('');
+		return div;
 	}
 
 	function Submit() {
@@ -128,10 +120,7 @@
 			function(data) {
 				isLoading = false;
 				if(data.result) {
-					if(!shareSettingPage) {
-						shareSettingPage = base.GetView('sharesetting');
-					}
-					shareSettingPage.evalJS("UpdateArticleType('" + ArticleType + "','" + ArticleTypeName + "')")
+					base.GetView('sharesetting').evalJS("UpdateArticleType('" + ArticleType + "','" + ArticleTypeName + "')")
 					mui.back();
 				} else {
 					mui.toast(data.message);

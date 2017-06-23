@@ -468,7 +468,8 @@
 			"minjs/refresh.min.js",
 			"js/article.min.js",
 			"part/action.html",
-			"images/article/btn_good.png"
+			"images/article/btn_good.png",
+			"js/mui.previewimage.min.js"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -1250,7 +1251,8 @@
 			"images/article/btn_sure.png",
 			"images/article/btn_music.png",
 			"images/article/temp0.jpg",
-			"images/article/temp1.jpg"
+			"images/article/temp1.jpg",
+			"images/article/btn_good.png"
 		],
 		"refer": [
 			"page/user.html",
@@ -1861,7 +1863,11 @@
 			"minjs/refresh.min.js",
 			"js/comment.min.js",
 			"js/base.min.js",
-			"part/comment.html"
+			"part/comment.html",
+			"images/comment/dingwei.png",
+			"images/comment/smile.png",
+			"images/comment/dingwei2.png",
+			"css/animate.min.css"
 		],
 		"refer": [
 			"page/articleCommentSub.html",
@@ -2115,7 +2121,8 @@
 			"images/share/02.png",
 			"js/music.js",
 			"images/music/stop.png",
-			"minjs/refresh.min.js"
+			"minjs/refresh.min.js",
+			"mincss/animate.min.css"
 		],
 		"refer": [
 			"page/searchSub.html"
@@ -2719,7 +2726,9 @@
 			"minjs/refresh.min.js",
 			"js/refresh.min.js",
 			"images/addarticle/icon_pic_y.png",
-			"images/addarticle/icon_pic_n.png"
+			"images/addarticle/icon_pic_n.png",
+			"minjs/mui.lazyload.min.js",
+			"minjs/mui.lazyload.img.min.js"
 		],
 		"refer": []
 	},
