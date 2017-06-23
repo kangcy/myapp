@@ -95,59 +95,7 @@
 		plus.navigator.setFullscreen(false);
 		self = plus.webview.currentWebview();
 
-		var menu_style = {
-			left: "-83%",
-			width: '83%',
-			popGesture: "none",
-			render: "always",
-			scrollIndicator: "none"
-		};
-
-		if(mui.os.ios) {
-			menu_style.zindex = -1;
-		}
-
-		//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
-		menu = mui.openWindow({
-			id: 'my',
-			url: 'my.html',
-			styles: menu_style,
-			show: {
-				aniShow: 'none'
-			},
-			waiting: {
-				autoShow: false
-			}
-		});
-
-		//启用侧滑拖拽操作，延时的原因是menu页是延时创建的，所以这里需要相应延时
-		setTimeout(function() {
-			self.drag({
-				direction: "right",
-				moveMode: "followFinger"
-			}, {
-				view: menu,
-				moveMode: "follow"
-			}, function(e) {
-				if(e.type == "end" && e.result) {
-					if(e.direction == "rtl") {
-						self.setStyle({
-							mask: 'none'
-						});
-					} else {
-						self.setStyle({
-							mask: 'rgba(0,0,0,0.5)'
-						});
-					}
-				}
-				if(e.type == "move" && e.direction == "ltr") {
-					var num = 0.5 * e.progress / 100;
-					self.setStyle({
-						mask: 'rgba(0,0,0,' + num + ')'
-					});
-				}
-			});
-		}, 350);
+		preload();
 
 		pulldownRefresh();
 
@@ -272,9 +220,7 @@
 		}
 	});
 
-	/**
-	 * 加载数据
-	 */
+	//加载数据
 	function Load(callback) {
 		var data = {
 			CurrUserNumber: userinfo.Number,
@@ -342,9 +288,67 @@
 		base.Get("avatar2").setAttribute("src", url);
 	}
 
-	/**
-	 * 显示侧滑菜单
-	 */
+	function preload() {
+		var menu_style = {
+			left: "-83%",
+			width: "83%",
+			popGesture: "none",
+			render: "always",
+			scrollIndicator: "none"
+		};
+
+		if(mui.os.ios) {
+			menu_style.zindex = -1;
+		}
+
+		//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
+		menu = mui.openWindow({
+			id: 'my',
+			url: 'my.html',
+			styles: menu_style,
+			show: {
+				aniShow: 'none'
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+
+		//启用侧滑拖拽操作，延时的原因是menu页是延时创建的，所以这里需要相应延时
+		setTimeout(function() {
+			self.drag({
+				direction: "right",
+				moveMode: "followFinger"
+			}, {
+				view: menu,
+				moveMode: "follow"
+			}, function(e) {
+				if(e.type == "end") { 
+					if(e.result) {
+						if(e.direction == "rtl") {
+							self.setStyle({
+								mask: 'none',
+								left: "0px"
+							});
+						} else {
+							self.setStyle({
+								mask: 'rgba(0,0,0,0.5)',
+								left: "83%"
+							});
+						}
+					}
+				}
+				/*if(e.type == "move" && e.direction == "ltr") {
+					var num = 0.5 * e.progress / 100;
+					self.setStyle({
+						mask: 'rgba(0,0,0,' + num + ')'
+					});
+				}*/
+			});
+		}, 350);
+	}
+
+	//显示侧滑菜单
 	function openMenu() {
 		plus.webview.startAnimation({
 				'view': self,
@@ -369,14 +373,13 @@
 				}
 			})
 	};
-	/**
-	 * 关闭菜单
-	 */
+
+	//关闭菜单
 	function closeMenu() {
 		plus.webview.startAnimation({
 				'view': self,
 				'styles': {
-					'fromLeft': '83%',
+					'fromLeft': "83%",
 					'toLeft': "0"
 				},
 				'action': 'none'
@@ -384,7 +387,7 @@
 				'view': menu,
 				'styles': {
 					'fromLeft': "0",
-					'toLeft': '-83%'
+					'toLeft': "-83%"
 				},
 				'action': 'none'
 			},
@@ -398,7 +401,6 @@
 	};
 	window.addEventListener("menu:close", closeMenu);
 
-	//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
 	mui.menu = function() {
 		if(parseInt(self.getStyle().left) > 0) {
 			closeMenu();

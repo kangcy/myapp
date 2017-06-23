@@ -21,6 +21,8 @@
 		plus.navigator.setFullscreen(true); //全屏展示
 		plus.screen.lockOrientation("portrait-primary"); //仅支持竖屏显示
 
+		localStorage.setItem('$screenwidth', window.innerWidth);
+
 		//读取本地存储，检查是否为首次启动
 		showGuide = plus.storage.getItem("lauchFlag");
 		if(showGuide) {

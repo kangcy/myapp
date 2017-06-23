@@ -110,6 +110,10 @@
 
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
+
+		//定位
+		base.InitPosition(function() {}, function() {});
+
 		document.addEventListener("netchange", function() {
 			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
 				mui.toast("网络异常，请检查网络设置");
@@ -122,16 +126,11 @@
 			preload_index();
 		}
 
-		//定位
-		base.InitPosition(function() {
-			Time(5);
-		}, function() {
-			Time(5);
-		});
-
 		mui.back = function(event) {
 			return false;
 		}
+
+		Time(5);
 	});
 
 	var index = 0;
@@ -196,9 +195,10 @@
 			id: 'subindex',
 			url: 'subindex.html',
 			styles: {
-				popGesture: 'hide',
-				//bounce: "vertical",
-				scrollIndicator: "none" //显示滚动条
+				left: "0px",
+				width: '100%',
+				popGesture: 'none',
+				scrollIndicator: "none"
 			},
 			show: {
 				autoShow: false

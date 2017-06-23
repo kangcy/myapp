@@ -21,29 +21,29 @@
 			<img id="avatar" src="../images/avatar.png" />
 		</div>
 		<div class="f15 tc mt10 c000 bold" id="nickname"></div>
-		<div class="signature mt5 tc f12 c999" id="signature"></div>
+		<div class="signature mt5 tc f13 c999" id="signature"></div>
 		<div style="padding:0.3125rem 5%;">
 			<div class="flex-box flex-row f13 tc">
 				<div style="flex:0 0 25%;" class="flex-item" id="my-articles">
 					<p class="f25 mb0 blue bold" id="articles">0</p>
-					<p class="f14">动态</p>
+					<p class="f13">动态</p>
 				</div>
 				<div style="flex:0 0 25%;" class="flex-item" id="my-keeps">
 					<p class="f25 mb0 blue bold" id="keeps">0</p>
-					<p class="f14">收藏</p>
+					<p class="f13">收藏</p>
 				</div>
 				<div style="flex:0 0 25%;" class="flex-item" id="my-follows">
 					<p class="f25 mb0 blue bold" id="follows">0</p>
-					<p class="f14">关注</p>
+					<p class="f13">关注</p>
 				</div>
 				<div style="flex:0 0 25%;" class="flex-item" id="my-fans">
 					<p class="f25 mb0 blue bold" id="fans">0</p>
-					<p class="f14">粉丝</p>
+					<p class="f13">粉丝</p>
 				</div>
 			</div>
 		</div>
 		<div class="splitline"></div>
-		<div class="menus tc mt10 f13">
+		<div class="menus tc mt10 f12">
 			<div id="my-tip">
 				<p class="c000">好友动态</p>
 			</div>
@@ -196,13 +196,27 @@
 
 		LoadUser();
 
-		window.addEventListener("swipeleft", closeMenu);
+		self.drag({
+			direction: "left",
+			moveMode: "followFinger"
+		}, {
+			view: main,
+			moveMode: "follow"
+		}, function(e) {
+			if(e.type == "end") {
+				if(e.result) {
+					main.setStyle({
+						mask: 'none'
+					});
+				}
+			}
+		});
 
 		mui.menu = closeMenu;
 	});
 
 	function closeMenu() {
-		mui.fire(main, "menu:swipeleft");
+		mui.fire(main, "menu:close");
 	}
 
 	//服务器加载用户信息
