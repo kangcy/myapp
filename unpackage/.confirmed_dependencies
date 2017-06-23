@@ -467,7 +467,8 @@
 			"js/base.min.js",
 			"minjs/refresh.min.js",
 			"js/article.min.js",
-			"part/action.html"
+			"part/action.html",
+			"images/article/btn_good.png"
 		],
 		"refer": [
 			"page/listSub.html",

@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/money.min.css">
+		<link rel="stylesheet" href="../css/money.min.css">
 	</head>
 
 	<body id="body">
@@ -26,7 +26,7 @@
 					<span class="hot" id="title1"></span>已经成功收到小主你的红包啦，送你一个超大的么么哒！
 				</p>
 				<p class="fl full tr blue" onclick="Out()">收下TA的么么哒</p>
-			</div> 
+			</div>
 		</div>
 		<div class="tan hide" id="error">
 			<div class="full tc" id="avatar">
@@ -62,18 +62,18 @@
 					<div class="item">
 						<div class="choosemoney" money="88.88">88.88元</div>
 					</div>
-					<div class="item">
-						<div id="otherMoney" onclick="OtherMoney()">其他金额</div>
-					</div>
-					<div class="item2 hide" id="divMoney">
-						<input type="tel" id="txtmoney" class="f30" value="2.33" />
+					<div class="item" style="margin-left:33.3%;">
+						<div id="otherMoney">
+							<span id="txttip" onclick="OtherMoney()">其他金额</span>
+							<input type="tel" id="txtmoney" class="f20 hide" value="2.33" />
+						</div>
 					</div>
 				</div>
 				<div class="payway f13">
 					<div id="alipay" class="alipay" onclick="ChangePayWay(0)">支付宝</div>
 					<div id="weixin" class="weixin curr" onclick="ChangePayWay(1)">微信</div>
 				</div>
-			</div> 
+			</div>
 
 			<div class="f16 payment bold" onclick="Payment()">赞&nbsp;赏</div>
 			<div class="f13 anony mt20" onclick="Anony()" id="anony">
@@ -112,19 +112,20 @@
 
 		//金额切换
 		$(".choosemoney").click(function() {
-			$("#divMoney").addClass("hide");
+			$("#txtmoney").addClass("hide");
+			$("#txttip").removeClass("hide");
 			var $this = $(this);
 			$("#txtmoney").val($this.attr("money"));
 			$(".check").removeClass("check");
 			$this.addClass("check");
 		});
 
-		base.Get("txtmoney").addEventListener("input", function() {
+		/*base.Get("txtmoney").addEventListener("input", function() {
 			var money = $("#txtmoney").val();
 			if(!/^\d+(\.\d{1,2})?$/.test(money)) {
 				mui.toast("红包金额格式错误");
 			}
-		});
+		});*/
 	});
 
 	mui.plusReady(function() {
@@ -158,8 +159,10 @@
 	function OtherMoney() {
 		$(".check").removeClass("check");
 		$("#otherMoney").addClass("check");
-		$("#divMoney").removeClass("hide");
+		$("#txttip").addClass("hide");
+		$("#txtmoney").removeClass("hide");
 		$("#txtmoney").val("");
+		$("#txtmoney").focus();
 	}
 
 	//是否匿名

@@ -7,27 +7,24 @@ function Payment() {
 		return;
 	}
 	isLoading = true;
-	var money = $("#txtmoney").val();
+	var money = $("#txtmoney").val().trim();
 	if(base.IsNullOrEmpty(money) || isNaN(money)) {
 		isLoading = false;
-		plus.nativeUI.alert("红包金额格式错误", null, "");
-		return;
+		return mui.toast("红包金额格式错误");
 	}
-	if(money < 0) {
+	if(money <= 0) {
 		isLoading = false;
-		plus.nativeUI.alert("红包金额格式错误", null, "");
-		return;
+		return mui.toast("红包金额格式错误");
 	}
 	if(/^\d+(\.\d{1,2})?$/.test(money)) {
 		money = money * 100;
 	} else {
 		isLoading = false;
-		plus.nativeUI.alert("红包金额格式错误", null, "");
-		return;
+		return mui.toast("红包金额格式错误");
 	}
 	if(payway == 0) {
 		isLoading = false;
-		plus.nativeUI.alert("暂不支持支付宝，请使用微信支付", null, "");
+		return mui.toast("暂不支持支付宝，请使用微信支付");
 		return;
 	}
 	mask.show();
@@ -51,7 +48,6 @@ function Payment() {
 	}
 	mui.get(PAYSERVER, {}, function(data) {
 		base.CloseWaiting();
-		//console.log(JSON.stringify(data));
 		var model = data;
 		if(base.IsNullOrEmpty(model)) {
 			isLoading = false;
