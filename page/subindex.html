@@ -12,6 +12,15 @@
 		<link rel="stylesheet" href="../mincss/img.preview.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/subindex.min.css">
+		<style type="text/css">
+			.mui-slider-indicator.mui-segmented-control {
+				border-bottom: 1px solid #f5f5f5;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				font-weight: bold;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -26,7 +35,7 @@
 			<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
 			<h1 class="mui-title cfff">发现</h1>
 		</header>
-		<div class="loading" id="loader">
+		<div class="loading hide" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
@@ -35,14 +44,46 @@
 			<div id="banner"></div>
 		</div>
 		<div id="muicontent">
-			<div id="scroll-view"></div>
-			<div id="scroll-more" class="full hide">
-				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item f14 mui-active" href="#articletab0" data-wid="articletab0">
+							推荐
+						</a>
+						<a class="mui-control-item f14" href="#articletab1" data-wid="articletab1">
+							旅游
+						</a>
+						<a class="mui-control-item f14" href="#articletab2" data-wid="articletab2">
+							美食
+						</a>
+						<a class="mui-control-item f14" href="#articletab3" data-wid="articletab3">
+							亲子
+						</a>
+						<a class="mui-control-item f14" href="#articletab4" data-wid="articletab4">
+							美妆
+						</a>
+						<a class="mui-control-item f14" href="#articletab5" data-wid="articletab5">
+							女神
+						</a>
+						<a class="mui-control-item f14" href="#articletab6" data-wid="articletab6">
+							摄影
+						</a>
+						<a class="mui-control-item f14" href="#articletab7" data-wid="articletab7">
+							生活
+						</a>
+						<a class="mui-control-item f14" href="#articletab8" data-wid="articletab8">
+							萌宠
+						</a>
+						<a class="mui-control-item f14" href="#articletab9" data-wid="articletab9">
+							游戏
+						</a>
+						<a class="mui-control-item f14" href="#articletab10" data-wid="articletab10">
+							二次元
+						</a>
+
+					</div>
+				</div>
 			</div>
-		</div>
-		<div id="none" class="full tc hide">
-			<img src="../images/my/444.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip">这里还没有内容</p>
 		</div>
 		<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom" style="background:#fff;">
 			<div id="add">
@@ -53,13 +94,15 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/update.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script src="../js/addarticle.js"></script>
+<script src="../js/webviewGroup.js"></script>
+<script src="../js/nativeview.js"></script>
 <script type="text/javascript">
 	var isScroll = false; //是否滚动
 	var isPreview = false; //是否图片预览
@@ -67,6 +110,7 @@
 	var FirstLoad = true; //首次加载
 	var self = null;
 	var menu = null;
+	var scroll = null;
 
 	mui.init({
 		gestureConfig: {
@@ -77,7 +121,13 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		//base.Get("scroll-view").style.paddingTop = base.Get("header").clientHeight + "px";
+		scroll = mui('.mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control').scroll({
+			scrollY: false,
+			scrollX: true,
+			indicators: false,
+			bounce: true,
+			snap: '.mui-control-item'
+		});
 
 		var name = base.BrowserName();
 		base.Get("btnAdd").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
@@ -95,27 +145,117 @@
 		plus.navigator.setFullscreen(false);
 		self = plus.webview.currentWebview();
 
+		base.Get("bottom").classList.remove("hide");
+		base.Get("bottom").classList.add("zoomIn");
+
+		var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
+		var bottomheight = base.Get("bottom").clientHeight;
+		var group = new webviewGroup("articletabs.html", {
+			items: [{
+				id: "articletab0",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 0
+				}
+			}, {
+				id: "articletab1",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 1
+				}
+			}, {
+				id: "articletab2",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 2
+				}
+			}, {
+				id: "articletab3",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 3
+				}
+			}, {
+				id: "articletab4",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 4
+				}
+			}, {
+				id: "articletab5",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 5
+				}
+			}, {
+				id: "articletab6",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 6
+				}
+			}, {
+				id: "articletab7",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 7
+				}
+			}, {
+				id: "articletab8",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 8
+				}
+			}, {
+				id: "articletab9",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 9
+				}
+			}, {
+				id: "articletab10",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 10
+				}
+			}],
+			onChange: function(obj) {
+				base.RemoveClass([".mui-control-item.mui-active"], "mui-active")
+				mui(".mui-control-item")[parseInt(obj.index)].classList.add("mui-active");
+				scroll.gotoPage(parseInt(obj.index));
+			},
+			styles: {
+				top: headheight + "px",
+				bottom: bottomheight + "px",
+				render: "always",
+				popGesture: "none",
+				scrollIndicator: "none",
+				backgroundColor: "#ffffff"
+			}
+		});
+		mui("#slider").on("tap", ".mui-control-item", function(e) {
+			var wid = this.getAttribute("data-wid");
+			group.switchTab(wid);
+		});
+
 		preload();
 
-		pulldownRefresh();
+		//pulldownRefresh();
 
-		SetPullEnable(true);
+		//SetPullEnable(true);
 
 		//上拉加载
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+		//document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//打开侧滑
 		base.Get("avatar2").addEventListener('tap', function() {
 			openMenu();
 		});
 
-		base.ShowUser("#scroll-view");
-
-		base.ShowArticle("#scroll-view", "List", userinfo.Number);
-
-		ArticleAction("#scroll-view", userinfo);
-
 		mui.back = function() {
+			if(customview.isVisible()) {
+				HideView();
+				return false;
+			}
 			if(parseInt(self.getStyle().left) > 0) {
 				closeMenu();
 				return false;
@@ -166,7 +306,8 @@
 				compressIndex = 0; //当前压缩图片索引 
 				compressTotal = 0; //需要压缩图片个数
 				currUploadImg = [];
-				mui('#upload').popover('show');
+				//mui('#upload').popover('show');
+				ShowView();
 			});
 		});
 
@@ -219,28 +360,6 @@
 			SetPullEnable(true);
 		}
 	});
-
-	//加载数据
-	function Load(callback) {
-		var data = {
-			CurrUserNumber: userinfo.Number,
-			page: currpage,
-			rows: pagesize
-		};
-		LoadPull(base.RootUrl + "Api/Article/All", data, true, false, function(item) {
-			return AppendArticle(userinfo.Number, item, false, false, false);
-		}, function() {
-			if(FirstLoad) {
-				base.Get("bottom").classList.remove("hide");
-				base.Get("bottom").classList.add("zoomIn");
-				base.Get("muicontent").style.paddingBottom = base.Get("bottom").clientHeight + "px";
-			}
-			FirstLoad = false; 
-			if(callback) {
-				callback();
-			}
-		});
-	}
 
 	function LoadBanner() {
 		HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
@@ -315,7 +434,7 @@
 		});
 
 		//启用侧滑拖拽操作，延时的原因是menu页是延时创建的，所以这里需要相应延时
-		setTimeout(function() {
+		/*setTimeout(function() {
 			self.drag({
 				direction: "right",
 				moveMode: "followFinger"
@@ -323,7 +442,7 @@
 				view: menu,
 				moveMode: "follow"
 			}, function(e) {
-				if(e.type == "end") { 
+				if(e.type == "end") {
 					if(e.result) {
 						if(e.direction == "rtl") {
 							self.setStyle({
@@ -338,14 +457,16 @@
 						}
 					}
 				}
-				/*if(e.type == "move" && e.direction == "ltr") {
+				if(e.type == "move" && e.direction == "ltr") {
 					var num = 0.5 * e.progress / 100;
 					self.setStyle({
 						mask: 'rgba(0,0,0,' + num + ')'
 					});
-				}*/
+				}
 			});
-		}, 350);
+		}, 350);*/
+
+		CreateView();
 	}
 
 	//显示侧滑菜单

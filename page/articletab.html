@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../mincss/img.preview.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+	</head>
+
+	<body>
+		<div class="loading hide" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="muicontent">
+			<div id="scroll-view"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+			</div>
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/444.png" class="none" id="none_img" />
+			<p class="f13 mt10" id="none_tip">这里还没有内容</p>
+		</div>
+		<!--操作-->
+		<div id="actionwrapper"></div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
+<script src="../minjs/mui.zoom.min.js"></script>
+<script src="../minjs/mui.previewimage.min.js"></script>
+<script src="../minjs/article.min.js"></script>
+<script type="text/javascript">
+	var ArticleType = 0;
+	var CreateUserNumber = "";
+	var self = null;
+
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
+
+	mui.ready(function() {
+
+	});
+
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+		ArticleType = self.ArticleType || 0;
+		CreateUserNumber = self.CreateUserNumber || "";
+		Source = self.Source || "List";
+
+		Init(ArticleType, CreateUserNumber, Source);
+
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#scroll-view').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				SetPullEnable(false);
+				ActionTan(true, number, id, usernumber);
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				SetPullEnable(true);
+			});
+		});
+	});
+
+	var previewImage = mui.previewImage({
+		callback1: function(img) {
+			SetPullEnable(false);
+		},
+		callback2: function(img) {
+			SetPullEnable(true);
+		}
+	});
+
+	//初始化
+	function Init(articleType, createUserNumber, source) {
+		pulldownRefresh();
+		base.ShowArticle("#scroll-view", source, userinfo.Number);
+		ArticleAction("#scroll-view", userinfo);
+		base.ShowUser("#scroll-view");
+
+		//下拉刷新
+		SetPullEnable(true);
+
+		//上拉加载
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+	}
+
+	//删除  
+	function Delete(id) {
+		base.Get("article" + id).remove();
+	}
+
+	//加载数据
+	function Load(callback) {
+		var table = base.Get('scroll-view');
+		var data = {
+			ID: userinfo.ID,
+			page: currpage,
+			rows: pagesize,
+			TypeID: ArticleType,
+			CreateUserNumber: CreateUserNumber,
+			CurrUserNumber: userinfo.Number
+		};
+		LoadPull(base.RootUrl + "Api/Article/All", data, true, false, function(item) {
+			return AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
+		}, function() {
+			if(callback) {
+				callback();
+			}
+		});
+	}
+</script>

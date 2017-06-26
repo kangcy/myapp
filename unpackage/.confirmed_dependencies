@@ -854,7 +854,11 @@
 			"images/article/btn_more.png",
 			"images/article/view.png",
 			"images/loadmore.gif",
-			"js/refresh.min.js"
+			"js/refresh.min.js",
+			"page/article.html",
+			"js/webviewGroup.js",
+			"page/articletab.html",
+			"js/nativeview.js"
 		],
 		"refer": [
 			"page/topic.html",
@@ -884,7 +888,9 @@
 			"page/fan.html",
 			"page/feedback.html",
 			"page/edittext.html",
-			"page/pay.html"
+			"page/pay.html",
+			"page/articletab.html",
+			"page/articletabs.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -3240,6 +3246,35 @@
 			"images/comment/smile.png",
 			"images/comment/dingwei2.png",
 			"css/mui.min.css"
+		]
+	},
+	"page/articletab.html": {
+		"resources": [
+			"images/base/follow0.png",
+			"images/article/view.png",
+			"mincss/mui.min.css",
+			"images/article/btn_comment.png",
+			"images/article/btn_good2.png",
+			"images/article/btn_pay.png",
+			"images/article/btn_more.png",
+			"mincss/img.preview.min.css",
+			"mincss/animate.min.css",
+			"images/base/follow1.png",
+			"mincss/loading.min.css",
+			"minjs/base.min.js",
+			"minjs/mui.previewimage.min.js",
+			"minjs/mui.min.js",
+			"minjs/mui.zoom.min.js",
+			"minjs/article.min.js",
+			"minjs/refresh.min.js",
+			"part/action.html",
+			"images/my/444.png",
+			"images/loadmore.gif"
+		],
+		"refer": [
+			"page/user.html",
+			"page/articledetail.html",
+			"page/money.html"
 		]
 	}
 }
