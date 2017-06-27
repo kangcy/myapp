@@ -90,7 +90,6 @@ proto._initDrag = function(webview, dir) {
 		} else {
 			webview[flag] = true;
 		}
-		console.log(JSON.stringify(view))
 		webview.drag({
 				'direction': dir,
 				'moveMode': 'followFinger'

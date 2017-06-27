@@ -5377,7 +5377,7 @@ body>.mui-progressbar {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	height: 3px;
+	height: 2px;
 	background-color: #20a0ff;
 	z-index: 1;
 	transition: transform .25s cubic-bezier(.645, .045, .355, 1);

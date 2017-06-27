@@ -1373,7 +1373,8 @@
 			"page/searchSub.html",
 			"page/searchSub2.html",
 			"page/articleComment.html",
-			"page/user.html"
+			"page/user.html",
+			"page/imageview.html"
 		]
 	},
 	"page/searchSub.html": {

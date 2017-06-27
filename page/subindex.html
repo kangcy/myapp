@@ -183,10 +183,6 @@
 			if(check) {
 				return;
 			}
-			if(previewImage && previewImage.isShown()) {
-				previewImage.close();
-				return;
-			}
 			backButtonPress++;
 			if(backButtonPress > 1) {
 				plus.runtime.quit();
