@@ -39,7 +39,7 @@
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
 	var CreateUserNumber = "";
@@ -75,16 +75,20 @@
 				SetPullEnable(true);
 			});
 		});
+
+		mui('body').on('hidden', '.mui-popover', function(e) {
+			SetPullEnable(true);
+		});
 	});
 
-	var previewImage = mui.previewImage({
+	/*var previewImage = mui.previewImage({
 		callback1: function(img) {
 			SetPullEnable(false);
 		},
 		callback2: function(img) {
 			SetPullEnable(true);
 		}
-	});
+	});*/
 
 	//初始化
 	function Init(articleType, createUserNumber, source) {

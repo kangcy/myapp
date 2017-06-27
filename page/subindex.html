@@ -248,7 +248,10 @@
 
 		//打开侧滑
 		base.Get("avatar2").addEventListener('tap', function() {
-			openMenu();
+			//openMenu();
+
+			//图片预览
+			base.OpenWindow("imageview", "imageview.html", {}, "fade-in", false, 'hide');
 		});
 
 		mui.back = function() {

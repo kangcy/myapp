@@ -890,7 +890,8 @@
 			"page/edittext.html",
 			"page/pay.html",
 			"page/articletab.html",
-			"page/articletabs.html"
+			"page/articletabs.html",
+			"page/imageview.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -3269,12 +3270,23 @@
 			"minjs/refresh.min.js",
 			"part/action.html",
 			"images/my/444.png",
-			"images/loadmore.gif"
+			"images/loadmore.gif",
+			"js/article.min.js"
 		],
 		"refer": [
 			"page/user.html",
 			"page/articledetail.html",
-			"page/money.html"
+			"page/money.html",
+			"page/imageview.html"
+		]
+	},
+	"page/imageview.html": {
+		"resources": [
+			"js/base.min.js",
+			"minjs/mui.min.js",
+			"images/avatar.png",
+			"minjs/base.min.js",
+			"mincss/mui.min.css"
 		]
 	}
 }
