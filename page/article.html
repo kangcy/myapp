@@ -27,7 +27,7 @@
 			<div id="scroll-view"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div> 
+			</div>
 		</div>
 		<div id="none" class="full tc hide">
 			<img src="../images/my/444.png" class="none" id="none_img" />
@@ -37,10 +37,8 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script> 
+<script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/mui.zoom.min.js"></script>
-<script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
@@ -58,28 +56,13 @@
 		base.ToTop();
 	});
 
-	mui.plusReady(function() { 
+	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		ArticleType = self.ArticleType || 0;
 		CreateUserNumber = self.CreateUserNumber || "";
 		Source = self.Source || "List";
 
 		Init(ArticleType, CreateUserNumber, Source);
-
-		//下拉刷新
-		SetPullEnable(true);
-
-		//上拉加载
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
-	});
-
-	var previewImage = mui.previewImage({
-		callback1: function(img) {
-			SetPullEnable(false);
-		},
-		callback2: function(img) {
-			SetPullEnable(true);
-		}
 	});
 
 	//初始化
@@ -88,6 +71,10 @@
 		base.ShowArticle("#scroll-view", source, userinfo.Number);
 		ArticleAction("#scroll-view", userinfo);
 		base.ShowUser("#scroll-view");
+
+		SetPullEnable(true);
+
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
 
 	//删除  

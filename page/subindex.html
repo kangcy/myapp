@@ -20,6 +20,17 @@
 			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
 				font-weight: bold;
 			}
+			
+			.tabs_active {
+				position: absolute;
+				bottom: 4px;
+				left: 0;
+				height: 2px;
+				background-color: #20a0ff;
+				z-index: 1;
+				transition: transform .25s cubic-bezier(.645, .045, .355, 1);
+				list-style: none;
+			}
 		</style>
 	</head>
 
@@ -46,46 +57,11 @@
 		<div id="muicontent">
 			<div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<div class="mui-scroll">
-						<a class="mui-control-item f14 mui-active" href="#articletab0" data-wid="articletab0">
-							推荐
-						</a>
-						<a class="mui-control-item f14" href="#articletab1" data-wid="articletab1">
-							旅游
-						</a>
-						<a class="mui-control-item f14" href="#articletab2" data-wid="articletab2">
-							美食
-						</a>
-						<a class="mui-control-item f14" href="#articletab3" data-wid="articletab3">
-							亲子
-						</a>
-						<a class="mui-control-item f14" href="#articletab4" data-wid="articletab4">
-							美妆
-						</a>
-						<a class="mui-control-item f14" href="#articletab5" data-wid="articletab5">
-							女神
-						</a>
-						<a class="mui-control-item f14" href="#articletab6" data-wid="articletab6">
-							摄影
-						</a>
-						<a class="mui-control-item f14" href="#articletab7" data-wid="articletab7">
-							生活
-						</a>
-						<a class="mui-control-item f14" href="#articletab8" data-wid="articletab8">
-							萌宠
-						</a>
-						<a class="mui-control-item f14" href="#articletab9" data-wid="articletab9">
-							游戏
-						</a>
-						<a class="mui-control-item f14" href="#articletab10" data-wid="articletab10">
-							二次元
-						</a>
-
-					</div>
+					<div class="mui-scroll f14" id="mui-scroll"> </div>
 				</div>
 			</div>
 		</div>
-		<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom" style="background:#fff;">
+		<div class="mui-bar mui-bar-tab bottom tc cfff zoomIn" id="bottom" style="background:#fff;">
 			<div id="add">
 				<div class="f13" id="btnAdd">制作我的文章</div>
 			</div>
@@ -94,12 +70,9 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/update.min.js"></script>
-<script src="../minjs/article.min.js"></script>
 <script src="../js/addarticle.js"></script>
 <script src="../js/webviewGroup.js"></script>
 <script src="../js/nativeview.js"></script>
@@ -111,6 +84,21 @@
 	var self = null;
 	var menu = null;
 	var scroll = null;
+	var groupItems = [];
+	var articleType = ["推荐", "旅游", "美食", "亲子", "美妆", "女神", "摄影", "生活", "萌宠", "游戏", "二次元"];
+	var articleTypeHtml = [];
+	articleTypeHtml.push('<div class="tabs_active"></div>');
+	mui.each(articleType, function(i, item) {
+		groupItems.push({
+			id: "articletab" + i,
+			url: "articletab.html",
+			extras: {
+				ArticleType: i
+			}
+		})
+		articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + i + '" data-wid="articletab' + i + '">' + item + '</a>');
+	})
+	base.Get("mui-scroll").innerHTML = articleTypeHtml.join('');
 
 	mui.init({
 		gestureConfig: {
@@ -129,8 +117,9 @@
 			snap: '.mui-control-item'
 		});
 
-		var name = base.BrowserName();
-		base.Get("btnAdd").style.background = name + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+		ChangeItem(mui(".mui-control-item")[0])
+
+		base.Get("btnAdd").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 
 		//搜索 
 		base.Get("search").addEventListener('tap', function() {
@@ -145,83 +134,14 @@
 		plus.navigator.setFullscreen(false);
 		self = plus.webview.currentWebview();
 
-		base.Get("bottom").classList.remove("hide");
-		base.Get("bottom").classList.add("zoomIn");
-
 		var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
 		var bottomheight = base.Get("bottom").clientHeight;
+
 		var group = new webviewGroup("articletabs.html", {
-			items: [{
-				id: "articletab0",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 0
-				}
-			}, {
-				id: "articletab1",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 1
-				}
-			}, {
-				id: "articletab2",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 2
-				}
-			}, {
-				id: "articletab3",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 3
-				}
-			}, {
-				id: "articletab4",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 4
-				}
-			}, {
-				id: "articletab5",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 5
-				}
-			}, {
-				id: "articletab6",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 6
-				}
-			}, {
-				id: "articletab7",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 7
-				}
-			}, {
-				id: "articletab8",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 8
-				}
-			}, {
-				id: "articletab9",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 9
-				}
-			}, {
-				id: "articletab10",
-				url: "articletab.html",
-				extras: {
-					ArticleType: 10
-				}
-			}],
+			items: groupItems,
 			onChange: function(obj) {
-				base.RemoveClass([".mui-control-item.mui-active"], "mui-active")
-				mui(".mui-control-item")[parseInt(obj.index)].classList.add("mui-active");
 				scroll.gotoPage(parseInt(obj.index));
+				ChangeItem(mui(".mui-control-item")[parseInt(obj.index)]);
 			},
 			styles: {
 				top: headheight + "px",
@@ -233,25 +153,15 @@
 			}
 		});
 		mui("#slider").on("tap", ".mui-control-item", function(e) {
-			var wid = this.getAttribute("data-wid");
-			group.switchTab(wid);
+			group.switchTab(this.getAttribute("data-wid"));
 		});
 
+		//预加载
 		preload();
-
-		//pulldownRefresh();
-
-		//SetPullEnable(true);
-
-		//上拉加载
-		//document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//打开侧滑
 		base.Get("avatar2").addEventListener('tap', function() {
-			//openMenu();
-
-			//图片预览
-			base.OpenWindow("imageview", "imageview.html", {}, "fade-in", false, 'hide');
+			openMenu();
 		});
 
 		mui.back = function() {
@@ -288,19 +198,6 @@
 			}, 1000);
 			return false;
 		};
-
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#scroll-view').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				SetPullEnable(false);
-				ActionTan(true, number, id, usernumber);
-			});
-			mui('body').on('hidden', '.mui-popover', function(e) {
-				SetPullEnable(true);
-			});
-		});
 
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.Get("add").addEventListener('tap', function() {
@@ -353,16 +250,14 @@
 		}, 1000);
 	});
 
-	var previewImage = mui.previewImage({
-		callback1: function(img) {
-			isPreview = true;
-			SetPullEnable(false);
-		},
-		callback2: function(img) {
-			isPreview = false;
-			SetPullEnable(true);
-		}
-	});
+	//样式切换
+	function ChangeItem($this) {
+		var item = $this.parentNode.children[0];
+		item.style.width = $this.clientWidth + "px";
+		item.style.transform = "translateX(" + $this.offsetLeft + "px)";
+		base.RemoveClass([".mui-control-item"], "mui-active");
+		$this.classList.add("mui-active");
+	}
 
 	function LoadBanner() {
 		HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
@@ -469,7 +364,7 @@
 			});
 		}, 350);*/
 
-		CreateView();
+		CreatePicView();
 	}
 
 	//显示侧滑菜单

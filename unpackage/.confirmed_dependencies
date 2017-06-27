@@ -476,7 +476,8 @@
 			"page/articleSub.html",
 			"page/articledetail.html",
 			"page/articleComment.html",
-			"page/money.html"
+			"page/money.html",
+			"page/imageview.html"
 		]
 	},
 	"page/articleSub.html": {
@@ -3271,7 +3272,9 @@
 			"part/action.html",
 			"images/my/444.png",
 			"images/loadmore.gif",
-			"js/article.min.js"
+			"js/article.min.js",
+			"js/nativeview.js",
+			"images/banner1.jpg"
 		],
 		"refer": [
 			"page/user.html",

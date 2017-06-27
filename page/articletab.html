@@ -20,6 +20,46 @@
 			</div>
 		</div>
 		<div id="muicontent">
+			<div id="slider" class="mui-slider hide">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+
 			<div id="scroll-view"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
@@ -37,9 +77,8 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/mui.zoom.min.js"></script>
-<script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../js/article.min.js"></script>
+<script src="../minjs/article.min.js"></script>
+<script src="../js/nativeview.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
 	var CreateUserNumber = "";
@@ -52,7 +91,14 @@
 	});
 
 	mui.ready(function() {
-
+		mui('#actionwrapper').load("../part/action.html", function(response) {
+			mui('#scroll-view').on('tap', '.tanaction', function() {
+				var number = this.getAttribute("articleNumber");
+				var id = this.getAttribute("articleId");
+				var usernumber = this.getAttribute("articleUserNumber");
+				ActionTan(true, number, id, usernumber);
+			});
+		});
 	});
 
 	mui.plusReady(function() {
@@ -61,34 +107,39 @@
 		CreateUserNumber = self.CreateUserNumber || "";
 		Source = self.Source || "List";
 
+		if(ArticleType == 0) {
+			/*var url = ["../images/banner1.jpg", "../images/banner1.jpg"];
+			var images = [];
+			mui.each(url, function(i, item) {
+				images.push({
+					src: item,
+					width: '100%'
+				});
+			})
+			var view = new plus.nativeObj.ImageSlider('ImageSlider', {
+				top: '0px',
+				left: '0px',
+				width: '100%',
+				height: window.innerWidth * 320 / 750 + 'px',
+				backgroundColor: '#fff',
+				position: 'static',
+				loop: true,
+				images: images
+			});
+			plus.webview.currentWebview().append(view);
+			base.Get("scroll-view").style.paddingTop = window.innerWidth * 320 / 750 + 'px';*/
+
+			base.Get("slider").classList.remove("hide");
+
+			mui("#slider").slider({
+				interval: 3000
+			});
+		}
+
 		Init(ArticleType, CreateUserNumber, Source);
 
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#scroll-view').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				SetPullEnable(false);
-				ActionTan(true, number, id, usernumber);
-			});
-			mui('body').on('hidden', '.mui-popover', function(e) {
-				SetPullEnable(true);
-			});
-		});
-
-		mui('body').on('hidden', '.mui-popover', function(e) {
-			SetPullEnable(true);
-		});
+		CreateActionView();
 	});
-
-	/*var previewImage = mui.previewImage({
-		callback1: function(img) {
-			SetPullEnable(false);
-		},
-		callback2: function(img) {
-			SetPullEnable(true);
-		}
-	});*/
 
 	//初始化
 	function Init(articleType, createUserNumber, source) {
@@ -97,16 +148,9 @@
 		ArticleAction("#scroll-view", userinfo);
 		base.ShowUser("#scroll-view");
 
-		//下拉刷新
 		SetPullEnable(true);
 
-		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
-	}
-
-	//删除  
-	function Delete(id) {
-		base.Get("article" + id).remove();
 	}
 
 	//加载数据

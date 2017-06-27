@@ -183,11 +183,7 @@
 				var number = this.getAttribute("articleNumber");
 				var id = this.getAttribute("articleId");
 				var usernumber = this.getAttribute("articleUserNumber");
-				SetPullEnable(false);
 				ActionTan(true, number, id, usernumber);
-			});
-			mui('body').on('hidden', '.mui-popover', function(e) {
-				SetPullEnable(true);
 			});
 		});
 

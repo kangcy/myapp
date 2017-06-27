@@ -2,7 +2,7 @@
 var bgview = null;
 var customview = null;
 
-function CreateView() {
+function CreatePicView() {
 	//绘制背景
 	bgview = new plus.nativeObj.View('bgview', {
 		top: '0px',

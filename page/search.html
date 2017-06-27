@@ -79,8 +79,6 @@
 <script src="../minjs/mui.pullToRefresh.material.min.js"></script>
 <script src="../minjs/mui.lazyload.min.js"></script>
 <script src="../minjs/mui.lazyload.img.min.js"></script>
-<script src="../minjs/mui.zoom.min.js"></script>
-<script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var SearchName = "";
@@ -165,22 +163,9 @@
 				var number = this.getAttribute("articleNumber");
 				var id = this.getAttribute("articleId");
 				var usernumber = this.getAttribute("articleUserNumber");
-				SetPullEnable(false);
 				ActionTan(true, number, id, usernumber);
 			});
-			mui('body').on('hidden', '.mui-popover', function(e) {
-				SetPullEnable(true);
-			});
 		});
-	});
-
-	var previewImage = mui.previewImage({
-		callback1: function(img) {
-
-		},
-		callback2: function(img) {
-
-		}
 	});
 
 	var lazyLoad = mui(document).imageLazyload({
@@ -296,7 +281,7 @@
 			base.ShowLoading(false);
 			if(data != null) {
 				if(data.result) {
-					data = data.message; 
+					data = data.message;
 					totalpage = data.totalpage;
 					var length = data.list.length;
 					if(length > 0) {
