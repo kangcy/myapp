@@ -86,20 +86,7 @@
 	var menu = null;
 	var scroll = null;
 	var groupItems = [];
-	var articleType = ["推荐", "旅游", "美食", "亲子", "美妆", "女神", "摄影", "生活", "萌宠", "游戏", "二次元"];
 	var articleTypeHtml = [];
-	articleTypeHtml.push('<div class="tabs_active"></div>');
-	mui.each(articleType, function(i, item) {
-		groupItems.push({
-			id: "articletab" + i,
-			url: "articletab.html",
-			extras: {
-				ArticleType: i
-			}
-		})
-		articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + i + '" data-wid="articletab' + i + '">' + item + '</a>');
-	})
-	base.Get("mui-scroll").innerHTML = articleTypeHtml.join('');
 
 	mui.init({
 		gestureConfig: {
@@ -109,20 +96,7 @@
 
 	mui.ready(function() {
 		base.Immersed();
-
-		scroll = mui('.mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control').scroll({
-			scrollY: false,
-			scrollX: true,
-			indicators: false,
-			bounce: true,
-			snap: '.mui-control-item'
-		});
-
-		ChangeItem(mui(".mui-control-item")[0])
-
 		base.Get("btnAdd").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
-
-		//搜索 
 		base.Get("search").addEventListener('tap', function() {
 			base.OpenWindow("search", "search.html", {});
 		});
@@ -138,23 +112,61 @@
 		var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
 		var bottomheight = base.Get("bottom").clientHeight;
 
-		var group = new webviewGroup("articletabs.html", {
-			items: groupItems,
-			onChange: function(obj) {
-				scroll.gotoPage(parseInt(obj.index));
-				ChangeItem(mui(".mui-control-item")[parseInt(obj.index)]);
-			},
-			styles: {
-				top: headheight + "px",
-				bottom: bottomheight + "px",
-				render: "always",
-				popGesture: "none",
-				scrollIndicator: "none",
-				backgroundColor: "#ffffff"
+		HttpGet(base.RootUrl + "Api/ArticleType/All2", {}, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					articleTypeHtml.push('<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="articletab0">推荐</a>');
+					groupItems.push({
+						id: "articletab0",
+						url: "articletab.html",
+						extras: {
+							ArticleType: 0
+						}
+					})
+					mui.each(data, function(i, item) {
+						groupItems.push({
+							id: "articletab" + item.ID,
+							url: "articletab.html",
+							extras: {
+								ArticleType: item.ID
+							}
+						})
+						articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + item.ID + '" data-wid="articletab' + item.ID + '">' + item.Name + '</a>');
+					})
+					base.Get("mui-scroll").innerHTML = articleTypeHtml.join('');
+
+					scroll = mui('.mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control').scroll({
+						scrollY: false,
+						scrollX: true,
+						indicators: false,
+						bounce: true,
+						snap: '.mui-control-item'
+					});
+
+					ChangeItem(mui(".mui-control-item")[0])
+
+					var group = new webviewGroup("articletabs.html", {
+						items: groupItems,
+						onChange: function(obj) {
+							scroll.gotoPage(parseInt(obj.index));
+							ChangeItem(mui(".mui-control-item")[parseInt(obj.index)]);
+						},
+						styles: {
+							top: headheight + "px",
+							bottom: bottomheight + "px",
+							render: "always",
+							popGesture: "none",
+							scrollIndicator: "none",
+							backgroundColor: "#ffffff"
+						}
+					});
+					mui("#slider").on("tap", ".mui-control-item", function(e) {
+						group.switchTab(this.getAttribute("data-wid"));
+					});
+				}
 			}
-		});
-		mui("#slider").on("tap", ".mui-control-item", function(e) {
-			group.switchTab(this.getAttribute("data-wid"));
 		});
 
 		//预加载
