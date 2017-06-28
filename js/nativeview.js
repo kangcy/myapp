@@ -3,6 +3,7 @@ var bgview = null;
 var customview = null;
 
 function CreatePicView() {
+
 	//绘制背景
 	bgview = new plus.nativeObj.View('bgview', {
 		top: '0px',
@@ -108,6 +109,9 @@ function CreatePicView() {
 			}
 		}
 	]);
+
+	bgview.interceptTouchEvent(true);
+	customview.interceptTouchEvent(true);
 
 	//关闭
 	bgview.addEventListener("click", function(e) {

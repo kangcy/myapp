@@ -120,7 +120,9 @@
 			plus.webview.close("adv");
 			plus.webview.close("guide");
 			plus.webview.close("login");
-		}, 2000);
+
+			base.GetView("subindex").evalJS("InitCheckUpdate()");
+		}, base.AnimateDuration * 2);
 
 		accountBox.value = "";
 		passwordBox.value = "";

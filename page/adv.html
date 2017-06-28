@@ -155,15 +155,10 @@
 					base.GetView("login").show("zoom-fade-out");
 				} else {
 					plus.webview.show("subindex", "zoom-fade-out", base.AnimateDuration, function() {
-						//plus.webview.close("adv");
-						//plus.webview.close("guide");
-						//plus.webview.close("login");
-
-						mui.later(function() {
-							plus.webview.close("adv");
-							plus.webview.close("guide");
-							plus.webview.close("login");
-						}, base.AnimateDuration * 2)
+						plus.webview.close("adv");
+						plus.webview.close("guide");
+						plus.webview.close("login");
+						base.GetView("subindex").evalJS("InitCheckUpdate()");
 					}, {});
 				}
 			} else {

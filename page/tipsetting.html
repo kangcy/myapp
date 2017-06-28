@@ -122,8 +122,8 @@
 					<span class="fl mt10">音乐搜索</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 				</li>
-				<li class="mui-table-view-cell hide" onclick="Adv()" id="adv">
-					<span class="fl mt10">广告</span>
+				<li class="mui-table-view-cell hide" onclick="ImageViewer()" id="adv">
+					<span class="fl mt10">图片预览</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18 mt10"></span>
 				</li>
 				<li class="mui-table-view-cell hide" onclick="EditComment()" id="editcomment">
@@ -151,7 +151,7 @@
 		base.Immersed();
 
 		if(userinfo.UserRole == 2) {
-			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment"], "hide");
+			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment", "#adv"], "hide");
 		}
 	});
 
@@ -250,8 +250,8 @@
 	}
 
 	//广告
-	function Adv() {
-		base.OpenWindow("adv", "adv.html", {});
+	function ImageViewer() {
+		base.OpenWindow("imageviewer", "imageviewer.html", {});
 	}
 
 	//通知

@@ -24,24 +24,6 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">通用设置</h1>
 		</header>
-		<!--更新进度条-->
-		<div id="updatewrapper"></div>
-		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="action_keep">
-					<a href="#" class="c333 f13" onclick="Cancel()">注销当前账号</a>
-				</li>
-				<li class="mui-table-view-cell" id="action_outkeep">
-					<a href="#" class="c333 f13" onclick="Close()">直接关闭应用</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder">
-					<a href="#action" class="red f13">取消</a>
-				</li>
-			</ul>
-		</div>
 		<div id="muicontent">
 			<ul class="mui-table-view f13 mt15">
 				<li class="mui-table-view-cell" onclick="Account()">
@@ -122,11 +104,27 @@
 				</li>
 			</ul>
 		</div>
+		<!--操作-->
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="action_keep">
+					<a href="#" class="c333 f13" onclick="Cancel()">注销当前账号</a>
+				</li>
+				<li class="mui-table-view-cell" id="action_outkeep">
+					<a href="#" class="c333 f13" onclick="Close()">直接关闭应用</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#action" class="red f13">取消</a>
+				</li>
+			</ul>
+		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/login.min.js"></script>
 <script src="../minjs/update.min.js"></script>
 <script type="text/javascript">
@@ -157,9 +155,6 @@
 
 		//是否启用水印
 		base.Get("drawSwitch").addEventListener('tap', function(event) {
-			if(base.RepeatAction()) {
-				return;
-			}
 			if(isLoading) {
 				return false;
 			}
@@ -188,9 +183,6 @@
 
 		//是否分享昵称
 		base.Get("shareNickSwitch").addEventListener('tap', function(event) {
-			if(base.RepeatAction()) {
-				return;
-			}
 			if(isLoading) {
 				return false;
 			}
@@ -219,9 +211,6 @@
 
 		//是否自动播放音乐
 		base.Get("autoMusicSwitch").addEventListener('tap', function(event) {
-			if(base.RepeatAction()) {
-				return;
-			}
 			if(isLoading) {
 				return false;
 			}
@@ -264,20 +253,22 @@
 
 		//检查更新
 		base.Get("checkupdate").addEventListener('tap', function(event) {
-			if(base.RepeatAction()) {
-				return;
-			}
-			mask.show();
-			base.ShowWaiting("检查更新中");
+			//mask.show();
+			//base.ShowWaiting("检查更新中");
 
-			//检查更新 
-			mui('#updatewrapper').load("../part/update.html", function(response) {
-				CheckUpdate(function(index) {
-					mui.later(function() {
-						mask.close();
-						mui.toast("当前已是最新版本");
-					}, 500);
-				});
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			Check_Update(function(data) {
+				if(base.IsNullOrEmpty(data)) {
+					return mui.toast("当前已是最新版本");
+				}
+				base.OpenWindow("update", "update.html", {
+					url: data.url,
+					remark: data.remark
+				}, "fade-in", "none");
+				isLoading = false;
 			});
 		});
 	});

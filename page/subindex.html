@@ -31,16 +31,15 @@
 				transition: transform .25s cubic-bezier(.645, .045, .355, 1);
 				list-style: none;
 			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+				padding: 0 0.8rem;
+			}
 		</style>
 	</head>
 
 	<body>
-		<!--操作-->
-		<div id="actionwrapper"></div>
-		<!--更新进度条-->
-		<div id="updatewrapper"></div>
-		<!--图片操作-->
-		<div id="uploadwrapper"></div>
+
 		<header class="mui-bar mui-bar-nav cfff" id="header">
 			<img id="avatar2" src="../images/avatar.png" style="width:30px;margin-top:5px;border-radius:100%;" />
 			<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
@@ -66,6 +65,8 @@
 				<div class="f13" id="btnAdd">制作我的文章</div>
 			</div>
 		</div>
+		<!--图片操作-->
+		<div id="uploadwrapper"></div>
 	</body>
 
 </html>
@@ -80,7 +81,7 @@
 	var isScroll = false; //是否滚动
 	var isPreview = false; //是否图片预览
 	var PageName = "subindex";
-	var FirstLoad = true; //首次加载
+	var FirstLoad = true; //首次加载  
 	var self = null;
 	var menu = null;
 	var scroll = null;
@@ -209,10 +210,6 @@
 
 		//检查更新
 		mui.later(function() {
-			mui('#updatewrapper').load("../part/update.html", function(response) {
-				CheckUpdate(function(index) {});
-			});
-
 			//监听推送消息		
 			plus.push.addEventListener("receive", function(msg) {
 				if(!base.IsNullOrEmpty(msg.payload)) {
@@ -299,6 +296,20 @@
 
 	function Avartar(url) {
 		base.Get("avatar2").setAttribute("src", url);
+	}
+
+	//开始检测更新
+	function InitCheckUpdate() {
+		mui.later(function() {
+			Check_Update(function(data) {
+				if(!base.IsNullOrEmpty(data)) {
+					base.OpenWindow("update", "update.html", {
+						url: data.url,
+						remark: data.remark
+					}, "fade-in", "none");
+				}
+			});
+		}, 1000);
 	}
 
 	function preload() {

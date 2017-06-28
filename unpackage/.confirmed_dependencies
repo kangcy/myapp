@@ -271,7 +271,8 @@
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
 			"minjs/login.min.js",
-			"minjs/update.min.js"
+			"minjs/update.min.js",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/login.html",
@@ -279,7 +280,8 @@
 			"page/bindemail.html",
 			"page/black.html",
 			"page/accountsetting.html",
-			"page/secretsetting.html"
+			"page/secretsetting.html",
+			"page/update.html"
 		]
 	},
 	"page/reg.html": {
@@ -859,7 +861,8 @@
 			"page/article.html",
 			"js/webviewGroup.js",
 			"page/articletab.html",
-			"js/nativeview.js"
+			"js/nativeview.js",
+			"js/update.min.js"
 		],
 		"refer": [
 			"page/topic.html",
@@ -892,7 +895,8 @@
 			"page/pay.html",
 			"page/articletab.html",
 			"page/articletabs.html",
-			"page/imageview.html"
+			"page/imageview.html",
+			"page/update.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -1511,7 +1515,8 @@
 			"page/money.html",
 			"page/user.html",
 			"page/edittext.html",
-			"page/articledetail.html"
+			"page/articledetail.html",
+			"page/imageview.html"
 		]
 	},
 	"page/keepSub.html": {
@@ -2529,7 +2534,8 @@
 			"test/webview_pullhead.html",
 			"page/template.html",
 			"test/main.html",
-			"page/editcomment.html"
+			"page/editcomment.html",
+			"page/imageviewer.html"
 		]
 	},
 	"page/money.html": {
@@ -3275,13 +3281,23 @@
 			"images/loadmore.gif",
 			"js/article.min.js",
 			"js/nativeview.js",
-			"images/banner1.jpg"
+			"images/banner1.jpg",
+			"page/imageview.html",
+			"part/update.html",
+			"minjs/update.min.js",
+			"images/update.png",
+			"images/loading.gif",
+			"images/tip.png",
+			"images/article/btn_good.png"
 		],
 		"refer": [
 			"page/user.html",
 			"page/articledetail.html",
 			"page/money.html",
-			"page/imageview.html"
+			"page/imageview.html",
+			"page/edittext.html",
+			"page/articleComment.html",
+			"page/imageviewer.html"
 		]
 	},
 	"page/imageview.html": {
@@ -3291,6 +3307,29 @@
 			"images/avatar.png",
 			"minjs/base.min.js",
 			"mincss/mui.min.css"
+		]
+	},
+	"page/update.html": {
+		"resources": [
+			"minjs/base.min.js",
+			"minjs/mui.min.js",
+			"images/tip.png",
+			"js/update.min.js",
+			"mincss/animate.min.css",
+			"images/update.png",
+			"mincss/mui.min.css",
+			"js/base.min.js",
+			"minjs/update.min.js"
+		]
+	},
+	"page/imageviewer.html": {
+		"resources": [
+			"js/mui.zoom.js",
+			"minjs/mui.min.js",
+			"css/mui.min.css",
+			"js/mui.previewimage.js",
+			"minjs/mui.previewimage.min.js",
+			"minjs/mui.zoom.min.js"
 		]
 	}
 }

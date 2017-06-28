@@ -268,7 +268,7 @@
 					"xxhdpi": "unpackage/res/android/1080.png"
 				}
 			},
-			"debug": false
+			"debug": true
 		}
 	},
 	"dependencies": {

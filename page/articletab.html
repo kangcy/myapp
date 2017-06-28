@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<!--<div id="slider" class="mui-slider hide">
+			<div id="slider" class="mui-slider hide">
 				<div class="mui-slider-group mui-slider-loop">
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
@@ -54,7 +54,6 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
--->
 			<div id="scroll-view"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
@@ -66,18 +65,19 @@
 		</div>
 		<!--操作-->
 		<div id="actionwrapper"></div>
+		<div id="updatewrapper"></div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../js/article.min.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script src="../js/nativeview.js"></script>
 <script type="text/javascript">
 	var ArticleType = 0;
 	var CreateUserNumber = "";
-	var self = null;
+	var self = null; 
 
 	mui.init({
 		gestureConfig: {
@@ -103,7 +103,7 @@
 		Source = self.Source || "List";
 
 		if(ArticleType == 0) {
-			var url = ["../images/banner1.jpg"];
+			/*var url = ["../images/banner1.jpg"];
 			var images = [];
 			mui.each(url, function(i, item) {
 				images.push({
@@ -122,12 +122,12 @@
 				images: images
 			});
 			plus.webview.currentWebview().append(view);
-			base.Get("scroll-view").style.paddingTop = window.innerWidth * 320 / 750 + 'px';
+			base.Get("scroll-view").style.paddingTop = window.innerWidth * 320 / 750 + 'px';*/
 
-			/*base.Get("slider").classList.remove("hide");
+			base.Get("slider").classList.remove("hide");
 			mui("#slider").slider({
 				interval: 3000
-			});*/
+			});
 		}
 
 		Init(ArticleType, CreateUserNumber, Source);
