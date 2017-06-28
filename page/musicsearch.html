@@ -76,7 +76,7 @@
 			<div class="fr blue mr10" id="yes">完成</div>
 		</nav>
 		<div id="muicontent">
-			<ul class="mui-table-view f13 mt0" id="scroll-view">
+			<ul class="mui-table-view f13 mt0 inline full" id="scroll-view">
 			</ul>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
@@ -111,6 +111,10 @@
 		}
 	});
 
+	var lazyLoad = mui("#scroll-view").imageLazyload({
+		placeholder: '../images/avatar.png',
+		destroy: false
+	});
 	var search = base.Get("search");
 
 	mui.ready(function() {
@@ -219,11 +223,6 @@
 		});
 	});
 
-	var lazyLoad = mui("#scroll-view").imageLazyload({
-		placeholder: '../images/loading.gif',
-		destroy: false
-	});
-
 	var audio = base.Get('bgsound');
 	var timestamp = 0;
 
@@ -232,7 +231,6 @@
 			document.body.removeChild(audio);
 			audio = null;
 		}
-
 		audio = document.createElement('audio');
 		audio.id = 'bgsound';
 		audio.loop = 'loop';

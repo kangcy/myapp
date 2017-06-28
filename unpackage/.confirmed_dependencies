@@ -2136,7 +2136,8 @@
 			"js/music.js",
 			"images/music/stop.png",
 			"minjs/refresh.min.js",
-			"mincss/animate.min.css"
+			"mincss/animate.min.css",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/searchSub.html"
@@ -2185,7 +2186,9 @@
 			"js/base.min.js",
 			"images/addarticle/icon_pic_y.png",
 			"images/addarticle/icon_pic_n.png",
-			"images/loadmore.gif"
+			"images/loadmore.gif",
+			"js/mui.previewimage.min.js",
+			"images/avatar.png"
 		],
 		"refer": []
 	},
@@ -2743,7 +2746,8 @@
 			"images/addarticle/icon_pic_y.png",
 			"images/addarticle/icon_pic_n.png",
 			"minjs/mui.lazyload.min.js",
-			"minjs/mui.lazyload.img.min.js"
+			"minjs/mui.lazyload.img.min.js",
+			"images/avatar.png"
 		],
 		"refer": []
 	},
