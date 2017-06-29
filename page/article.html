@@ -69,11 +69,9 @@
 	function Init(articleType, createUserNumber, source) {
 		pulldownRefresh();
 		base.ShowArticle("#scroll-view", source, userinfo.Number);
-		ArticleAction("#scroll-view", userinfo);
 		base.ShowUser("#scroll-view");
-
+		ArticleAction("#scroll-view", userinfo);
 		SetPullEnable(true);
-
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
 

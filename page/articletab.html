@@ -63,17 +63,14 @@
 			<img src="../images/my/444.png" class="none" id="none_img" />
 			<p class="f13 mt10" id="none_tip">这里还没有内容</p>
 		</div>
-		<!--操作-->
-		<div id="updatewrapper"></div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../js/article.min.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
-	var isLoading = false;
 	var ArticleType = 0;
 	var CreateUserNumber = "";
 	var self = null;
@@ -94,34 +91,6 @@
 		CreateUserNumber = self.CreateUserNumber || "";
 		Source = self.Source || "List";
 		PageName = self.PageName || "";
-
-		mui('#scroll-view').on('tap', '.tanaction', function() {
-			if(isLoading) {
-				return false;
-			}
-			isLoading = true;
-			ArticleNumber = this.getAttribute("articleNumber");
-			ArticleID = this.getAttribute("articleId");
-			ArticleUserNumber = this.getAttribute("articleUserNumber");
-			//ActionTan(true, number, id, usernumber);
-
-			var item = base.Get("article" + ArticleID);
-			var iskeep = item.getAttribute("iskeep");
-			var isfollow = item.getAttribute("isfollow")
-			var view = base.GetView("action");
-			if(view) {
-				view.evalJS("ResetAction(2,'" + iskeep + "','" + isfollow + "')");
-			} else {
-				base.OpenWindow("action", "action.html", {
-					Type: 2,
-					PageName: PageName,
-					IsKeep: iskeep,
-					IsFollow: isfollow
-				}, "none", false, 'hide');
-			}
-
-			isLoading = false;
-		});
 
 		if(ArticleType == 0) {
 			/*var url = ["../images/banner1.jpg"];
@@ -158,11 +127,9 @@
 	function Init(articleType, createUserNumber, source) {
 		pulldownRefresh();
 		base.ShowArticle("#scroll-view", source, userinfo.Number);
-		ArticleAction("#scroll-view", userinfo);
 		base.ShowUser("#scroll-view");
-
+		ArticleAction("#scroll-view", userinfo);
 		SetPullEnable(true);
-
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
 

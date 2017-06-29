@@ -181,17 +181,13 @@
 			} else {
 				base.OpenWindow("action", "action.html", {
 					Type: 1,
-					PageName: "subindex"
-				}, "none", false, 'hide');
+					PageName: "action"
+				}, "none", false, false, "transparent");
 			}
 			isLoading = false;
 		});
 
 		mui.back = function() {
-			if(customview.isVisible()) {
-				HideView();
-				return false;
-			}
 			if(parseInt(self.getStyle().left) > 0) {
 				closeMenu();
 				return false;

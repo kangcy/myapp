@@ -24,8 +24,6 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<!--图片操作-->
-		<div id="uploadwrapper"></div>
 		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
@@ -92,6 +90,7 @@
 				<div class="c333 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
 			</div>
 		</div>
+
 		<div class="bg" id="bg"></div>
 		<div class="avatar">
 			<img id="avatar" src="../images/avatar.png" />
@@ -124,7 +123,7 @@
 		</div>
 		<div id="article" class="hide f13 c999 full">
 			<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
-			<div id="a_list">
+			<div id="a_list" class="inline full">
 			</div>
 			<div id="mynone" class="mb20 hide">
 				<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
@@ -140,8 +139,11 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
+<script src="../minjs/mui.lazyload.min.js"></script>
+<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
+	var PageName = "";
 	var currpage = 1;
 	var totalpage = 2;
 	var isLoading = false;
@@ -190,13 +192,12 @@
 			}
 		});
 
-		//返回顶部
 		base.ToTop();
 	});
 
 	mui.plusReady(function() {
-
 		var self = plus.webview.currentWebview();
+		PageName = self.PageName || "";
 		UserNumber = self.UserNumber || "";
 		NickName = self.NickName || "";
 		Avatar = self.Avatar || "";
@@ -214,10 +215,31 @@
 			$bg.style.backgroundSize = "cover";
 		}
 
-		LoadUserInfo();
+		LoadUserInfo(function(data) {
 
-		//分享设置
-		mui.later(function() {
+			//检查关注
+			if(userinfo.Number != UserNumber) {
+				CheckFan(data.IsFan);
+			} else {
+				base.Get("add").addEventListener('tap', function() {
+					if(isLoading) {
+						return false;
+					}
+					isLoading = true;
+					var view = base.GetView("action");
+					if(view) {
+						view.evalJS("ResetAction(1)");
+					} else {
+						base.OpenWindow("action", "action.html", {
+							Type: 1,
+							PageName: "subindex"
+						}, "none", false, false, "transparent");
+					}
+					isLoading = false;
+				});
+			}
+
+			//分享设置
 			UpdateSerivces();
 
 			if(plus.os.name == "Android") {
@@ -226,13 +248,49 @@
 				Uri = plus.android.importClass("android.net.Uri");
 				main = plus.android.runtimeMainActivity();
 			}
-		}, 500);
+		});
 
-		base.ShowArticle("#a_list", "List", userinfo.Number);
+		LoadArticle(function() {
+			base.ShowArticle("#a_list", "List", userinfo.Number);
+		});
+
+		mui.back = function() {
+			plus.webview.close(PageName, base.HideAnimate(), base.AnimateDuration);
+		}
 	});
 
+	var lazyLoad = mui(document).imageLazyload({
+		placeholder: '../images/default.png',
+		destroy: false
+	});
+
+	//刷新用户页
+	function ResetUser(pagename, usernumber, nickname, avatar, cover) {
+		PageName = pagename || "";
+		UserNumber = usernumber || "";
+		NickName = nickname || "";
+		Avatar = avatar || "";
+		Cover = cover || "";
+
+		if(!base.IsNullOrEmpty(NickName)) {
+			NickName = base.UnUnicodeText(NickName);
+			base.Get("nickname").innerHTML = NickName;
+		}
+		if(!base.IsNullOrEmpty(Avatar)) {
+			base.Get("avatar").setAttribute("src", base.ShowThumb(Avatar, 2));
+		}
+		if(!base.IsNullOrEmpty(Cover)) {
+			$bg.style.background = "url(" + base.ShowThumb(Cover, 1) + ") center center no-repeat";
+			$bg.style.backgroundSize = "cover";
+		}
+
+		LoadUserInfo();
+
+		plus.webview.show(PageName, base.ShowAnimate(), base.AnimateDuration);
+	};
+
 	//获取用户信息
-	function LoadUserInfo() {
+	function LoadUserInfo(callback) {
 		HttpGet(base.RootUrl + "User/Detail", {
 			Number: UserNumber,
 			CurrNumber: userinfo.Number
@@ -241,7 +299,7 @@
 				data = data.message;
 
 				Sex = data.Sex;
-				if(base.IsNullOrEmpty(Cover)) { 
+				if(base.IsNullOrEmpty(Cover)) {
 					$bg.style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
 					$bg.style.backgroundSize = "cover";
 				}
@@ -311,25 +369,6 @@
 							base.Get("showFan").style.flex = "0 0 25%";
 							break;
 					}
-
-					//加载文章
-					LoadArticle();
-
-					//检查关注
-					if(userinfo.Number != UserNumber) {
-						CheckFan(data.IsFan);
-					} else {
-						mui('#uploadwrapper').load("../part/pic.html", function(response) {
-							base.Get("add").addEventListener('tap', function() {
-								length = 0;
-								files = [];
-								compressIndex = 0; //当前压缩图片索引
-								compressTotal = 0; //需要压缩图片个数
-								currUploadImg = [];
-								mui('#upload').popover('show');
-							});
-						});
-					}
 				}
 
 				//分享信息 
@@ -337,31 +376,34 @@
 				ShareInfo.Cover = Avatar;
 				ShareInfo.Url = data.ShareUrl;
 
+				if(callback) {
+					callback(data);
+				}
 			} else {
 				mui.toast(data.message);
 				plus.webview.currentWebview().close();
 			}
 			base.CloseWaiting();
-
 			base.ShowLoading(false);
 			mask.close();
+
 		});
 	}
 
 	//文章
-	function LoadArticle() {
+	function LoadArticle(callback) {
 		var data = {
 			UserNumber: UserNumber,
 			CurrUserNumber: userinfo.Number
 		}
 		HttpGet(base.RootUrl + "User/Article", data, function(data) {
 			var table = base.Get('a_list');
+			table.innerHTML = "";
 			var length = 0;
 			if(data != null) {
 				length = data.records;
 				if(length > 0) {
 					base.Get("a_title").innerHTML = length + "篇文章";
-
 					for(var i = 0; i < data.list.length; i++) {
 						var html = [];
 						var div = document.createElement('div');
@@ -371,14 +413,24 @@
 
 						var div2 = document.createElement('div');
 						div2.className = 'list full';
-						var html = [];
-						for(var y = 0; y < data.list[i].List.length; y++) {
-							var item = data.list[i].List[y];
-							html.push('<img src="' + base.ShowThumb(item.Cover, 2) + '" class="article" articleid="' + item.ID + '" userid="' + item.CreateUserNumber + '" power="' + item.ArticlePower + '" nickname="' + NickName + '" />');
-						}
-						div2.innerHTML = html.join('');
+
+						var fragment = document.createDocumentFragment();
+						mui.each(data.list[i].List, function(index, item) {
+							var img = document.createElement('img');
+							img.className = 'article';
+							img.setAttribute("data-lazyload", base.ShowThumb(item.Cover, 2));
+							img.setAttribute("articleid", item.ID);
+							img.setAttribute("userid", item.CreateUserNumber);
+							img.setAttribute("power", item.ArticlePower);
+							img.setAttribute("nickname", NickName);
+
+							fragment.appendChild(img);
+						});
+						div2.appendChild(fragment);
 						table.appendChild(div2);
 					}
+
+					lazyLoad.refresh(true);
 				}
 			}
 			if(length == 0) {
@@ -386,6 +438,9 @@
 					base.Get("mynone").classList.remove("hide");
 				else
 					base.Get("none").classList.remove("hide");
+			}
+			if(callback) {
+				callback();
 			}
 		});
 	}

@@ -479,7 +479,8 @@
 			"page/articledetail.html",
 			"page/articleComment.html",
 			"page/money.html",
-			"page/imageview.html"
+			"page/imageview.html",
+			"page/imageviewer.html"
 		]
 	},
 	"page/articleSub.html": {
@@ -1076,7 +1077,10 @@
 			"images/avatar.png",
 			"css/my.min.css",
 			"mincss/user.min.css",
-			"css/user.min.css"
+			"css/user.min.css",
+			"minjs/mui.lazyload.min.js",
+			"minjs/mui.lazyload.img.min.js",
+			"images/default.png"
 		],
 		"refer": [
 			"page/userSub.html",
@@ -1091,7 +1095,8 @@
 			"page/keep.html",
 			"page/addarticle.html",
 			"page/mypic.html",
-			"page/money.html"
+			"page/money.html",
+			"page/action.html"
 		]
 	},
 	"page/userSub.html": {
@@ -1372,7 +1377,8 @@
 			"js/base.min.js",
 			"minjs/mui.lazyload.min.js",
 			"js/article.min.js",
-			"mincss/fan.min.css"
+			"mincss/fan.min.css",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -3294,7 +3300,8 @@
 			"images/update.png",
 			"images/loading.gif",
 			"images/tip.png",
-			"images/article/btn_good.png"
+			"images/article/btn_good.png",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/user.html",
@@ -3349,7 +3356,8 @@
 		],
 		"refer": [
 			"page/mypic.html",
-			"page/edittext.html"
+			"page/edittext.html",
+			"page/addarticle.html"
 		]
 	}
 }

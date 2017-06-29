@@ -65,6 +65,7 @@
 	<script src="../minjs/base.min.js"></script>
 	<script src="../js/addarticle.js"></script>
 	<script type="text/javascript">
+		var userinfo = base.GetUserInfo();
 		var PageName = "";
 		mui.plusReady(function() {
 			self = plus.webview.currentWebview();
@@ -100,7 +101,9 @@
 			}
 
 			mui('body').on('hidden', '.mui-popover', function(e) {
-				plus.webview.hide("action");
+				if(!mask._show) {
+					plus.webview.hide("action");
+				}
 			});
 
 			mui.back = function() {

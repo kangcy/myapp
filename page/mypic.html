@@ -100,7 +100,7 @@
 
 	var lazyLoad = mui("#scroll-view").imageLazyload({
 		placeholder: '../images/default.png',
-		destroy: false  
+		destroy: false
 	});
 
 	mui.ready(function() {
@@ -114,6 +114,11 @@
 		Multiple = self.Multiple || 0;
 
 		Init();
+
+		mui.back = function() {
+			plus.webview.close("mypic");
+			plus.webview.hide("action");
+		}
 	});
 
 	function Init() {
@@ -155,7 +160,7 @@
 		});
 		switch(Source) {
 			//创建文章
-			case "subindex":
+			case "action":
 				base.GetView(Source).evalJS("ConfirmImg('" + url.join(",") + "')");
 				break;
 				//自定义背景
@@ -170,7 +175,7 @@
 				base.GetView("editimage").evalJS("ConfirmImg('" + url.join(",") + "')");
 				break;
 		}
-		mui.back();
+		plus.webview.close("mypic");
 		isLoading = false;
 	}
 

@@ -68,8 +68,6 @@
 				</div>
 			</div>
 		</div>
-		<!--操作-->
-		<div id="actionwrapper"></div>
 	</body>
 
 </html>
@@ -94,9 +92,14 @@
 	//语音识别完成事件
 	search.addEventListener('recognized', function(e) {
 		search.value = e.detail.value.replace(/，/g, '').replace(/,。/g, '');
-	});
+	}); 
 
 	mui.init();
+
+	var lazyLoad = mui(document).imageLazyload({
+		placeholder: '../images/avatar.png',
+		destroy: false
+	});
 
 	mui.ready(function() {
 		base.Immersed();
@@ -157,20 +160,6 @@
 		base.ShowArticle("#slider2", "List", userinfo.Number);
 
 		ArticleAction("#slider2", userinfo);
-
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#slider2').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber);
-			});
-		});
-	});
-
-	var lazyLoad = mui(document).imageLazyload({
-		placeholder: '../images/loading.gif',
-		destroy: false
 	});
 
 	//执行搜索
@@ -209,7 +198,7 @@
 					var table = base.Get('scroll-view1');
 					var fragment = document.createDocumentFragment();
 					mui.each(data.list, function(index, item) {
-						fragment.appendChild(base.AppendUser(item, true, true, false, "", false, false));
+						fragment.appendChild(base.AppendUser(item, true, true, false, "", false, true));
 					});
 					table.appendChild(fragment);
 					lazyLoad.refresh(true);

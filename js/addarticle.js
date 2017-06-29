@@ -4,24 +4,31 @@ var files = [];
 var compressIndex = 0; //当前压缩图片索引
 var compressTotal = 0; //需要压缩图片个数
 var currUploadImg = [];
+var mask = base.CreateMask(false, function() {
+	base.CloseWaiting();
+	plus.webview.hide("action");
+});
 
 //拍照
 function Camera() {
 	mui('#upload').popover('hide');
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
-		plus.io.resolveLocalFileSystemURL(p, function(entry) {
-			var localurl = entry.toLocalURL();
-			compressIndex = 0;
-			compressTotal = 1;
-			length = 1;
+			plus.io.resolveLocalFileSystemURL(p, function(entry) {
+				var localurl = entry.toLocalURL();
+				compressIndex = 0;
+				compressTotal = 1;
+				length = 1;
 
-			mask.show();
-			base.ShowWaiting("正在上传图片");
+				mask.show();
+				base.ShowWaiting("正在上传图片");
 
-			compressImage(localurl);
+				compressImage(localurl);
+			});
+		},
+		function(error) {
+			plus.webview.hide("action");
 		});
-	});
 }
 
 //相册
@@ -37,7 +44,7 @@ function Gallery() {
 
 		compressImage(e.files[0]);
 	}, function(e) {
-
+		plus.webview.hide("action");
 	}, {
 		filter: "image",
 		multiple: true,
@@ -156,6 +163,7 @@ function Upload(imgurl, callback) {
 //我的相册选择图片回调
 function ConfirmImg(src) {
 	if(base.IsNullOrEmpty(src)) {
+		mask.close();
 		return false;
 	}
 	mask.show();
