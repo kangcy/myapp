@@ -117,9 +117,9 @@
 		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out", "none");
 
 		mui.later(function() {
-			plus.webview.close("adv");
-			plus.webview.close("guide");
-			plus.webview.close("login");
+			plus.webview.close("adv", "none");
+			plus.webview.close("guide", "none");
+			plus.webview.close("login", "none");
 
 			base.GetView("subindex").evalJS("InitCheckUpdate()");
 		}, base.AnimateDuration * 2);

@@ -15,7 +15,6 @@
 <script src="minjs/mui.min.js"></script>
 <script src="minjs/base.min.js"></script>
 <script type="text/javascript">
-	var showGuide = "";
 	mui.init();
 	mui.plusReady(function() {
 		plus.navigator.setFullscreen(true); //全屏展示
@@ -24,17 +23,19 @@
 		localStorage.setItem('$screenwidth', window.innerWidth);
 
 		//读取本地存储，检查是否为首次启动
-		showGuide = plus.storage.getItem("lauchFlag");
-		if(showGuide) {
-			preload_adv();
-		} else {
+		var showGuide = plus.storage.getItem("lauchFlag");
+		if(!showGuide) {
 			preload_guide();
 		}
-		if(showGuide) {
-			base.GetView("adv").show("none", base.AnimateDuration);
-		} else {
-			base.GetView("guide").show("zoom-fade-out");
-		}
+
+		//定位
+		base.InitPosition(function() {
+			if(showGuide) {
+				base.OpenWindow("adv", "page/adv.html");
+			} else {
+				base.GetView("guide").show("zoom-fade-out");
+			}
+		});
 	});
 
 	function preload_adv() {

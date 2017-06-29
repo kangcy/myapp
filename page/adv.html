@@ -106,31 +106,22 @@
 		top.style.display = "block";
 		center.style.display = "block";
 		bottom.style.display = "block";
+
+		Time(5);
 	})
 
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
 
-		//定位
-		base.InitPosition(function() {}, function() {});
-
-		document.addEventListener("netchange", function() {
-			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置");
-			}
-		}, false);
-
 		if(userinfo == "{}") {
 			preload_login();
 		} else {
-			preload_index();
+			//preload_index();
 		}
 
 		mui.back = function(event) {
 			return false;
 		}
-
-		Time(5);
 	});
 
 	var index = 0;
@@ -154,12 +145,20 @@
 				if(userinfo == "{}") {
 					base.GetView("login").show("zoom-fade-out");
 				} else {
-					plus.webview.show("subindex", "zoom-fade-out", base.AnimateDuration, function() {
+					/*plus.webview.show("subindex", "zoom-fade-out", base.AnimateDuration, function() {
 						plus.webview.close("adv");
 						plus.webview.close("guide");
 						plus.webview.close("login");
 						base.GetView("subindex").evalJS("InitCheckUpdate()");
-					}, {});
+					}, {});*/
+
+					base.OpenWindow("subindex", "subindex.html", "zoom-fade-out", "");
+					mui.later(function() {
+						plus.webview.close("adv", "none");
+						plus.webview.close("guide", "none");
+						plus.webview.close("login", "none");
+						base.GetView("subindex").evalJS("InitCheckUpdate()");
+					}, base.AnimateDuration * 2)
 				}
 			} else {
 				var e = Math.round((t - 1) / time * perimeter);
