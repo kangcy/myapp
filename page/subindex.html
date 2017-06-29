@@ -72,15 +72,11 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/update.min.js"></script>
-<script src="../js/addarticle.js"></script>
 <script src="../js/webviewGroup.js"></script>
-<script src="../js/nativeview.js"></script>
+<!--<script src="../js/nativeview.js"></script>-->
 <script type="text/javascript">
-	var isScroll = false; //是否滚动
-	var isPreview = false; //是否图片预览
-	var PageName = "subindex";
+	var isLoading = false;
 	var FirstLoad = true; //首次加载  
 	var self = null;
 	var menu = null;
@@ -88,11 +84,7 @@
 	var groupItems = [];
 	var articleTypeHtml = [];
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
@@ -100,8 +92,6 @@
 		base.Get("search").addEventListener('tap', function() {
 			base.OpenWindow("search", "search.html", {});
 		});
-
-		base.ToTop();
 	})
 
 	var backButtonPress = 0;
@@ -122,7 +112,8 @@
 						id: "articletab0",
 						url: "articletab.html",
 						extras: {
-							ArticleType: 0
+							ArticleType: 0,
+							PageName: "articletab0"
 						}
 					})
 					mui.each(data, function(i, item) {
@@ -130,7 +121,8 @@
 							id: "articletab" + item.ID,
 							url: "articletab.html",
 							extras: {
-								ArticleType: item.ID
+								ArticleType: item.ID,
+								PageName: "articletab" + item.ID
 							}
 						})
 						articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + item.ID + '" data-wid="articletab' + item.ID + '">' + item.Name + '</a>');
@@ -177,6 +169,24 @@
 			openMenu();
 		});
 
+		//新增
+		base.Get("add").addEventListener('tap', function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var view = base.GetView("action");
+			if(view) {
+				view.evalJS("ResetAction(1)");
+			} else {
+				base.OpenWindow("action", "action.html", {
+					Type: 1,
+					PageName: "subindex"
+				}, "none", false, 'hide');
+			}
+			isLoading = false;
+		});
+
 		mui.back = function() {
 			if(customview.isVisible()) {
 				HideView();
@@ -207,18 +217,6 @@
 			}, 1000);
 			return false;
 		};
-
-		mui('#uploadwrapper').load("../part/pic.html", function(response) {
-			base.Get("add").addEventListener('tap', function() {
-				length = 0;
-				files = [];
-				compressIndex = 0; //当前压缩图片索引 
-				compressTotal = 0; //需要压缩图片个数
-				currUploadImg = [];
-				//mui('#upload').popover('show');
-				ShowView();
-			});
-		});
 
 		//检查更新
 		mui.later(function() {
@@ -321,7 +319,7 @@
 					}, "fade-in", "none");
 				}
 			});
-		}, 1000);
+		}, 2000);
 	}
 
 	function preload() {
@@ -382,8 +380,6 @@
 				}
 			});
 		}, 350);*/
-
-		CreatePicView();
 	}
 
 	//显示侧滑菜单

@@ -7,7 +7,7 @@ var currUploadImg = [];
 
 //拍照
 function Camera() {
-	//mui('#upload').popover('hide');
+	mui('#upload').popover('hide');
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
@@ -26,7 +26,7 @@ function Camera() {
 
 //相册
 function Gallery() {
-	//mui('#upload').popover('hide');
+	mui('#upload').popover('hide');
 	plus.gallery.pick(function(e) {
 		files = e.files;
 		length = e.files.length;
@@ -48,7 +48,7 @@ function Gallery() {
 
 //微篇相册
 function Pic() {
-	//mui('#upload').popover('hide');
+	mui('#upload').popover('hide');
 	var param = {
 		Source: PageName,
 		Multiple: 1

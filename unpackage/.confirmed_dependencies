@@ -896,7 +896,8 @@
 			"page/articletab.html",
 			"page/articletabs.html",
 			"page/imageview.html",
-			"page/update.html"
+			"page/update.html",
+			"page/action.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -2747,7 +2748,8 @@
 			"images/addarticle/icon_pic_n.png",
 			"minjs/mui.lazyload.min.js",
 			"minjs/mui.lazyload.img.min.js",
-			"images/avatar.png"
+			"images/avatar.png",
+			"images/default.png"
 		],
 		"refer": []
 	},
@@ -3301,7 +3303,8 @@
 			"page/imageview.html",
 			"page/edittext.html",
 			"page/articleComment.html",
-			"page/imageviewer.html"
+			"page/imageviewer.html",
+			"page/action.html"
 		]
 	},
 	"page/imageview.html": {
@@ -3334,6 +3337,19 @@
 			"js/mui.previewimage.js",
 			"minjs/mui.previewimage.min.js",
 			"minjs/mui.zoom.min.js"
+		]
+	},
+	"page/action.html": {
+		"resources": [
+			"css/mui.min.css",
+			"minjs/mui.min.js",
+			"minjs/base.min.js",
+			"js/addarticle.js",
+			"js/article.min.js"
+		],
+		"refer": [
+			"page/mypic.html",
+			"page/edittext.html"
 		]
 	}
 }

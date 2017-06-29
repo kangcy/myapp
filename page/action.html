@@ -1,0 +1,172 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style type="text/css">
+			body {
+				background: transparent;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<!--图片上传-->
+		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="camera">
+					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
+				</li>
+				<li class="mui-table-view-cell" id="gallery">
+					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
+				</li>
+				<li class="mui-table-view-cell" id="pic">
+					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#upload" class="red f13">取消</a>
+				</li>
+			</ul>
+		</div>
+		<!--文章操作-->
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="action_keep">
+					<a href="#" class="c333 f13" onclick="Keep()">添加收藏</a>
+				</li>
+				<li class="mui-table-view-cell hide" id="action_outkeep">
+					<a href="#" class="c333 f13" onclick="OutKeep()">取消收藏</a>
+				</li>
+				<li class="mui-table-view-cell hide" id="action_follow">
+					<a href="#" class="c333 f13" onclick="Follow()">添加关注</a>
+				</li>
+				<li class="mui-table-view-cell hide" id="action_outfollow">
+					<a href="#" class="c333 f13" onclick="OutFollow()">取消关注</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" class="red f13" onclick="Report()">举报</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#action" class="c333 f13">取消</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../minjs/mui.min.js"></script>
+	<script src="../minjs/base.min.js"></script>
+	<script src="../js/addarticle.js"></script>
+	<script type="text/javascript">
+		var PageName = "";
+		mui.plusReady(function() {
+			self = plus.webview.currentWebview();
+			PageName = self.PageName || "";
+			var type = self.Type || -1;
+			var iskeep = self.IsKeep || -1;
+			var isfollow = self.IsFollow || -1;
+
+			if(type == 1) {
+				length = 0;
+				files = [];
+				compressIndex = 0; //当前压缩图片索引 
+				compressTotal = 0; //需要压缩图片个数
+				currUploadImg = [];
+				mui('#upload').popover('show');
+			}
+			if(type == 2) {
+				//判断收藏
+				if(iskeep == 0) {
+					base.Get("action_keep").classList.remove("hide");
+					base.Get("action_outkeep").classList.add("hide");
+				} else {
+					base.Get("action_keep").classList.add("hide");
+					base.Get("action_outkeep").classList.remove("hide");
+				}
+				//判断关注
+				if(isfollow == 0) {
+					base.Get("action_outfollow").classList.add("hide");
+				} else {
+					base.Get("action_outfollow").classList.remove("hide");
+				}
+				mui('#action').popover('show');
+			}
+
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				plus.webview.hide("action");
+			});
+
+			mui.back = function() {
+				if(type == 1) {
+					mui('#upload').popover('hide');
+				}
+				if(type == 2) {
+					mui('#action').popover('hide');
+				}
+			}
+		});
+
+		function ResetAction(type, iskeep, isfollow) {
+			plus.webview.show("action", "none", 0, function() {
+				if(type == 1) {
+					length = 0;
+					files = [];
+					compressIndex = 0; //当前压缩图片索引 
+					compressTotal = 0; //需要压缩图片个数
+					currUploadImg = [];
+					mui('#upload').popover('show');
+				}
+				if(type == 2) {
+					//判断收藏
+					if(iskeep == 0) {
+						base.Get("action_keep").classList.remove("hide");
+						base.Get("action_outkeep").classList.add("hide");
+					} else {
+						base.Get("action_keep").classList.add("hide");
+						base.Get("action_outkeep").classList.remove("hide");
+					}
+					//判断关注
+					if(isfollow == 0) {
+						base.Get("action_outfollow").classList.add("hide");
+					} else {
+						base.Get("action_outfollow").classList.remove("hide");
+					}
+					mui('#action').popover('show');
+				}
+			});
+		}
+
+		function Keep() {
+			mui('#action').popover('hide');
+			base.GetView(PageName).evalJS("Keep()");
+		}
+
+		function OutKeep() {
+			mui('#action').popover('hide');
+			base.GetView(PageName).evalJS("OutKeep()");
+		}
+
+		function Follow() {
+			mui('#action').popover('hide');
+			base.GetView(PageName).evalJS("Follow()");
+		}
+
+		function OutFollow() {
+			mui('#action').popover('hide');
+			base.GetView(PageName).evalJS("OutFollow()");
+		}
+
+		function Report() {
+			mui('#action').popover('hide');
+			base.GetView(PageName).evalJS("Report()");
+		}
+	</script>
+
+</html>

@@ -64,7 +64,6 @@
 			<p class="f13 mt10" id="none_tip">这里还没有内容</p>
 		</div>
 		<!--操作-->
-		<div id="actionwrapper"></div>
 		<div id="updatewrapper"></div>
 	</body>
 
@@ -72,12 +71,12 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/article.min.js"></script>
-<script src="../js/nativeview.js"></script>
+<script src="../js/article.min.js"></script>
 <script type="text/javascript">
+	var isLoading = false;
 	var ArticleType = 0;
 	var CreateUserNumber = "";
-	var self = null; 
+	var self = null;
 
 	mui.init({
 		gestureConfig: {
@@ -86,14 +85,7 @@
 	});
 
 	mui.ready(function() {
-		mui('#actionwrapper').load("../part/action.html", function(response) {
-			mui('#scroll-view').on('tap', '.tanaction', function() {
-				var number = this.getAttribute("articleNumber");
-				var id = this.getAttribute("articleId");
-				var usernumber = this.getAttribute("articleUserNumber");
-				ActionTan(true, number, id, usernumber);
-			});
-		});
+
 	});
 
 	mui.plusReady(function() {
@@ -101,6 +93,35 @@
 		ArticleType = self.ArticleType || 0;
 		CreateUserNumber = self.CreateUserNumber || "";
 		Source = self.Source || "List";
+		PageName = self.PageName || "";
+
+		mui('#scroll-view').on('tap', '.tanaction', function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			ArticleNumber = this.getAttribute("articleNumber");
+			ArticleID = this.getAttribute("articleId");
+			ArticleUserNumber = this.getAttribute("articleUserNumber");
+			//ActionTan(true, number, id, usernumber);
+
+			var item = base.Get("article" + ArticleID);
+			var iskeep = item.getAttribute("iskeep");
+			var isfollow = item.getAttribute("isfollow")
+			var view = base.GetView("action");
+			if(view) {
+				view.evalJS("ResetAction(2,'" + iskeep + "','" + isfollow + "')");
+			} else {
+				base.OpenWindow("action", "action.html", {
+					Type: 2,
+					PageName: PageName,
+					IsKeep: iskeep,
+					IsFollow: isfollow
+				}, "none", false, 'hide');
+			}
+
+			isLoading = false;
+		});
 
 		if(ArticleType == 0) {
 			/*var url = ["../images/banner1.jpg"];
@@ -131,8 +152,6 @@
 		}
 
 		Init(ArticleType, CreateUserNumber, Source);
-
-		CreateActionView();
 	});
 
 	//初始化
