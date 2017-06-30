@@ -60,6 +60,19 @@
 				</li>
 			</ul>
 		</div>
+		<!--定位-->
+		<div id="address" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" class="red f13" onclick="ClearPosition()">清除位置</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#address" class="c333 f13">取消</a>
+				</li>
+			</ul>
+		</div>
 	</body>
 	<script src="../minjs/mui.min.js"></script>
 	<script src="../minjs/base.min.js"></script>
@@ -99,7 +112,10 @@
 				}
 				mui('#action').popover('show');
 			}
-
+			//定位
+			if(type == 3) {
+				mui('#address').popover('show');
+			}
 			mui('body').on('hidden', '.mui-popover', function(e) {
 				if(!mask._show) {
 					plus.webview.hide("action");
@@ -143,6 +159,10 @@
 					}
 					mui('#action').popover('show');
 				}
+				//定位
+				if(type == 3) {
+					mui('#address').popover('show');
+				}
 			});
 		}
 
@@ -169,6 +189,11 @@
 		function Report() {
 			mui('#action').popover('hide');
 			base.GetView(PageName).evalJS("Report()");
+		}
+
+		function ClearPosition() {
+			mui('#address').popover('hide');
+			base.GetView(PageName).evalJS("ClearPosition()");
 		}
 	</script>
 

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>同城热门</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/fan.min.css">
+		<style type="text/css">
+			#divLocation {
+				background: #f5f5f5;
+			}
+			
+			#divLocation div {
+				height: 2rem;
+				line-height: 2rem;
+				background: #fff;
+				display: inline-block;
+			}
+			
+			#btn {
+				background: #5E92D7;
+				height: 2rem;
+				line-height: 2rem;
+				width: 10rem;
+				border-radius: 20px;
+				display: inline-block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="muicontent">
+			<div id="showPosition" class="full tc hide">
+				<img src="../images/my/333.png" style="width:30%;margin-top:25%" />
+				<p class="mt20 f13 c999">看看周围的人都在玩什么</p>
+				<p class="mt10 f13 c999">请确保已经连接网络并打开了定位服务</p>
+				<div id="btn" class="f13 cfff">开启定位服务</div>
+			</div>
+			<div id="divLocation" class="hide" style="position:fixed;top:0px;left:0px;width:100%;z-index:99;">
+				<a href="#" class="c333">
+					<div class="mt10 mb10 full f12">
+						<i class="mui-icon mui-icon-location f14 ml10 mr5 blue bold"></i><span id="location"></span><span class="mui-icon mui-icon-arrowright fr mr10 mt8 blue f16"></span>
+					</div>
+				</a>
+			</div>
+			<div id="scroll-view"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+			</div>
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/111.png" class="none" />
+			<p class="f13 mt10">暂无同城用户</p>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
+<script type="text/javascript">
+	var self = null;
+	var position = base.GetCurrentPosition();
+
+	mui.init({
+		keyEventBind: {
+			backbutton: false //关闭back按键监听
+		}
+	});
+
+	mui.ready(function() {
+		base.Get("btn").addEventListener("tap", function() {
+			OpenPosition();
+		});
+
+		base.ShowUser("#scroll-view");
+		base.UserAddFan("#scroll-view", userinfo);
+	});
+
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+
+		if(base.IsNullOrEmpty(position.CityCode)) {
+			mui.toast("定位失败,请开启定位权限");
+			SetPullEnable(false);
+			base.ShowLoading(false);
+			base.ShowNone(true);
+		} else {
+			base.Get("location").innerHTML = position.City + "," + position.District + "," + position.Street;
+			InitPosition();
+		}
+
+		base.Get("divLocation").addEventListener("tap", function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var view = base.GetView("action");
+			if(view) {
+				view.evalJS("ResetAction(3)");
+			} else {
+				base.OpenWindow("action", "action.html", {
+					Type: 3,
+					PageName: "cityuser"
+				}, "none", false, false, "transparent");
+			}
+			isLoading = false;
+		});
+	});
+
+	//初始化
+	function Init() {
+		pulldownRefresh();
+		base.ShowUser("#scroll-view");
+		SetPullEnable(true);
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+	}
+
+	//加载数据
+	function Load(callback) {
+		var table = base.Get('scroll-view');
+		HttpGet(base.RootUrl + "User/CityAll", {
+			page: currpage,
+			rows: pagesize,
+			Number: userinfo.Number,
+			CityCode: position.CityCode
+		}, function(data) {
+			base.ShowLoading(false);
+			base.ShowNone(false);
+			var records = 0;
+			if(data != null) {
+				if(data.result) {
+					totalpage = data.totalpage;
+					records = data.records;
+					var length = data.list.length;
+					if(length > 0) {
+						var fragment = document.createDocumentFragment();
+						mui.each(data.list, function(index, item) {
+							fragment.appendChild(base.AppendUser(item, false, true, false, "", true));
+						});
+						table.appendChild(fragment);
+					}
+				}
+			}
+			if(records == 0) {
+				base.ShowNone(true);
+			}
+			if(callback) {
+				callback();
+			}
+		});
+	}
+
+	//初始化定位
+	function InitPosition() {
+		if(userinfo.ShowPosition == 0) {
+			base.AddClass(["#divLocation", "#scroll-view"], "hide");
+			base.RemoveClass(["#showPosition"], "hide");
+			SetPullEnable(false);
+			base.ShowLoading(false);
+		} else {
+			base.AddClass(["#showPosition"], "hide");
+			base.RemoveClass(["#divLocation", "#scroll-view"], "hide");
+			base.Get("scroll-view").style.paddingTop = base.Get("divLocation").clientHeight + "px";
+			Init();
+		}
+	}
+
+	//开启定位
+	function OpenPosition() {
+		if(base.IsLoading) {
+			return false;
+		}
+		base.IsLoading = true;
+		HttpGet(base.RootUrl + "User/EditSecret", {
+			ID: userinfo.ID,
+			Name: "ShowPosition",
+			Show: 1
+		}, function(data) {
+			if(data == null) {
+				mui.toast("开启定位服务失败");
+			} else {
+				if(data.result) {
+					userinfo.ShowPosition = 1;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					InitPosition();
+				} else {
+					mui.toast("开启定位服务失败");
+				}
+			}
+			base.IsLoading = false;
+		});
+	}
+
+	//清除定位
+	function ClearPosition() {
+		if(base.IsLoading) {
+			return false;
+		}
+		base.IsLoading = true;
+		HttpGet(base.RootUrl + "User/EditSecret", {
+			ID: userinfo.ID,
+			Name: "ShowPosition",
+			Show: 0
+		}, function(data) {
+			if(data == null) {
+				mui.toast("位置信息清除失败");
+			} else {
+				if(data.result) {
+					userinfo.ShowPosition = 0;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					InitPosition();
+					mui.toast("位置信息已清除");
+				} else {
+					mui.toast("位置信息清除失败");
+				}
+			}
+			base.IsLoading = false;
+		});
+	}
+</script>

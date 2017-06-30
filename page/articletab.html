@@ -21,7 +21,7 @@
 		</div>
 		<div id="muicontent">
 			<div id="slider" class="mui-slider hide">
-				<div class="mui-slider-group mui-slider-loop">
+				<!--<div class="mui-slider-group mui-slider-loop">
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
 							<img src="../images/banner1.jpg">
@@ -52,8 +52,11 @@
 					<div class="mui-indicator mui-active"></div>
 					<div class="mui-indicator"></div>
 					<div class="mui-indicator"></div>
-				</div>
+				</div>-->
+				<img src="../images/banner1.jpg" class="full">
+				<div class="splitline"></div>
 			</div>
+
 			<div id="scroll-view"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
@@ -114,10 +117,10 @@
 			plus.webview.currentWebview().append(view);
 			base.Get("scroll-view").style.paddingTop = window.innerWidth * 320 / 750 + 'px';*/
 
-			base.Get("slider").classList.remove("hide");
+			/*base.Get("slider").classList.remove("hide");
 			mui("#slider").slider({
 				interval: 3000
-			});
+			});*/
 		}
 
 		Init(ArticleType, CreateUserNumber, Source);

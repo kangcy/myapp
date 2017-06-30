@@ -95,12 +95,8 @@
 	var fileName = "";
 	var fileUrl = "";
 	var SearchName = "";
-	var isLoading = false;
-	var currpage = 1;
-	var totalpage = 2;
-	var pagesize = 30;
+	pagesize = 30;
 	var addarticlePage = null;
-	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});

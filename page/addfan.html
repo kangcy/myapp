@@ -9,32 +9,6 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
-		<link rel="stylesheet" href="../mincss/fan.min.css">
-		<style type="text/css">
-			.none {
-				margin-top: 45% !important;
-			}
-			
-			#divLocation {
-				background: #f5f5f5;
-			}
-			
-			#divLocation div {
-				height: 2rem;
-				line-height: 2rem;
-				background: #fff;
-				display: inline-block;
-			}
-			
-			#btn {
-				background: #5E92D7;
-				height: 2rem;
-				line-height: 2rem;
-				width: 10rem;
-				border-radius: 20px;
-				display: inline-block;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -42,83 +16,23 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<div class="mui-title cfff">添加关注</div>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
+		<div id="muicontent" class="mui-content">
+			<div id="tabs_nav" class="tabs_nav flex-box flex-row tc" style="height: 2.5rem;border-bottom: 1px solid #d1dbe5;">
+				<div class="tabs_active"></div>
+				<div class="flex-item tabs_item f14" style="flex:0 0 50%;" index="0">猜你喜欢</div>
+				<div class="flex-item tabs_item f14" style="flex:0 0 50%;" index="1">同城热门</div>
 			</div>
-		</div>
-		<div class="mui-content">
-			<div id="slider" class="mui-slider mui-fullscreen">
-				<div class="mui-segmented-control hide"></div>
-				<div class="full" style="position:absolute;top:0px;border-bottom: 1px solid #d1dbe5;">
-					<div id="tabs_nav" class="tabs_nav flex-box flex-row tc" style="height: 2.5rem;">
-						<div class="tabs_active"></div>
-						<div class="flex-item tabs_item f14" style="flex:0 0 50%;" index="0">猜你喜欢</div>
-						<div class="flex-item tabs_item f14" style="flex:0 0 50%;" index="1">同城热门</div>
-					</div> 
-				</div>
-				<div class="mui-slider-group" id="sliderGroup" style="top:2.51rem;">
-					<div class="mui-slider-item mui-control-content mui-active">
-						<div id="sliderChild1" class="mui-scroll-wrapper">
-							<div id="slider1" class="mui-scroll">
-								<div id="scroll-view1" class="mt5"></div>
-							</div>
-						</div>
-					</div>
-					<div class="mui-slider-item mui-control-content">
-						<div id="sliderChild2" class="mui-scroll-wrapper">
-							<div id="slider2" class="mui-scroll">
-								<div id="showPosition" class="full tc hide">
-									<img src="../images/my/333.png" style="width:30%;margin-top:25%" />
-									<p class="mt20 f13 c999">看看周围的人都在玩什么</p>
-									<p class="mt10 f13 c999">请确保已经连接网络并打开了定位服务</p>
-									<div id="btn" class="f13 cfff">开启定位服务</div>
-								</div>
-								<div id="divLocation" class="hide">
-									<a href="#action" class="c333">
-										<div class="mt10 mb10 full f12">
-											<i class="mui-icon mui-icon-location f14 ml10 mr5 blue bold"></i><span id="location"></span><span class="mui-icon mui-icon-arrowright fr mr10 mt8 blue f16"></span>
-										</div>
-									</a>
-								</div>
-								<div id="scroll-view2" class="mt5"></div>
-								<div id="none" class="full tc hide">
-									<img src="../images/my/111.png" class="none" />
-									<p class="f13 mt10">暂无同城用户</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--操作-->
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a href="#" class="red f13" onclick="ClearPosition()">清除位置</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder">
-					<a href="#action" class="c333 f13">取消</a>
-				</li>
-			</ul>
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
 <script type="text/javascript">
-	var isLoading = [false, false];
-	var currpage = [1, 1];
-	var totalpage = [2, 2];
-	var pagesize = base.PageSize;
+	var recommenduser = null;
+	var cityuser = null;
+	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	var position = base.GetCurrentPosition();
 	mui.init({
 		beforeback: function() {
 			//base.GetView("tip").reload();
@@ -128,276 +42,94 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		base.InitScroll();
 
-		base.Get("slider").style.top = base.Get("header").clientHeight + "px";
-		ChangeSlider(mui(".tabs_item")[0]);
+		ChangeSlider(mui(".flex-item")[0]);
+	});
 
-		InitPosition();
-
-		base.ShowUser("#slider");
-
-		base.UserAddFan("#slider", userinfo);
-
-		var slider = mui('#slider').slider({
-			bounce: false
+	mui.plusReady(function() {
+		var top = base.Get("header").clientHeight + base.Get("tabs_nav").clientHeight + 1 + "px";
+		recommenduser = plus.webview.create('recommenduser.html', 'recommenduser', {
+			top: top,
+			bottom: '0px'
+		}, {
+			top: top
 		});
 
-		//滑动切换
-		document.querySelector('#slider').addEventListener('slide', function(e) {
-			ChangeSlider(mui(".tabs_item")[e.detail.slideNumber]);
-		});
+		plus.webview.currentWebview().append(recommenduser);
 
 		//点击切换
 		mui("#tabs_nav").on('tap', '.tabs_item', function(event) {
 			var $this = this;
-			slider.gotoItem($this.getAttribute("index"));
-			mui.later(function() {
-				ChangeSlider($this);
-			}, 600);
+			if(base.HasClass($this, "is-active")) {
+				return;
+			}
+			var index = $this.getAttribute("index");
+			if(index == 0) {
+				RightAnimation();
+			} else {
+				LeftAnimation();
+			}
+			ChangeSlider($this);
 		});
 
-		base.Get("btn").addEventListener("tap", function() {
-			OpenPosition();
-		});
+		mui.back = function() {
+			base.GetView("addfan").close();
+			base.GetView("recommenduser").close();
+			base.GetView("cityuser").close();
+		}
 	});
 
-	mui.plusReady(function() {
-		if(base.IsNullOrEmpty(position.CityCode)) {
-			mui.toast("定位失败,请开启定位权限")
-		} else {
-			base.Get("location").innerHTML = position.City + "," + position.District + "," + position.Street;
-			mui(base.Get("slider2")).pullToRefresh({
-				down: {
-					callback: function() {
-						var self = this;
-						PulldownRefresh2(self);
-					}
+	function InitView() {
+		cityuser = base.GetView("cityuser");
+	}
+
+	//左滑
+	function LeftAnimation() {
+		if(recommenduser == null || cityuser == null) {
+			return;
+		}
+		plus.webview.startAnimation({
+				view: recommenduser,
+				styles: {
+					fromLeft: '0%',
+					toLeft: '-100%'
 				},
-				up: {
-					auto: true,
-					callback: function() {
-						var self = this;
-						PullupRefresh2(self);
-					}
-				}
-			});
-		}
-
-		mui(base.Get("slider1")).pullToRefresh({
-			down: {
-				callback: function() {
-					var self = this;
-					PulldownRefresh1(self);
-				}
+				action: 'none'
+			}, {
+				view: cityuser,
+				styles: {
+					fromLeft: '100%',
+					toLeft: '0%'
+				},
+				action: 'none'
 			},
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					PullupRefresh1(self);
-				}
-			}
-		});
-	});
-
-	//加载推荐用户
-	function LoadUser(callback) {
-		var table = base.Get('scroll-view1');
-		HttpGet(base.RootUrl + "User/RecommendAll", {
-			page: currpage[0],
-			rows: pagesize,
-			Number: userinfo.Number
-		}, function(data) {
-			base.ShowLoading(false);
-			if(data != null) {
-				totalpage[0] = data.totalpage;
-				var length = data.list.length;
-				if(length > 0) {
-					for(var i = 0, len = data.list.length; i < len; i++) {
-						var div = base.AppendUser(data.list[i], true, true, false, "", false);
-						table.appendChild(div);
-					}
-				}
-			}
-			if(callback) {
-				callback();
-			}
-		});
+			function(e) {
+				//console.log('Animation finished: ' + JSON.stringify(e));
+			});
 	}
 
-	function PulldownRefresh1(self) {
-		if(isLoading[0] == true) {
+	//右滑
+	function RightAnimation() {
+		if(recommenduser == null || cityuser == null) {
 			return;
 		}
-		isLoading[0] = true;
-		currpage[0] = 1;
-		totalpage[0] = 2;
-		base.Get('scroll-view1').innerHTML = "";
-		LoadUser(function() {
-			++currpage[0];
-			self.endPullDownToRefresh();
-			self.refresh(true);
-			isLoading[0] = false;
-		})
-	}
-
-	function PullupRefresh1(self) {
-		if(isLoading[0] == true) {
-			return;
-		}
-		isLoading[0] = true;
-		if(currpage[0] > totalpage[0]) {
-			isLoading[0] = false;
-			self.endPullUpToRefresh(currpage[0] > totalpage[0]);
-			return false;
-		}
-		LoadUser(function() {
-			++currpage[0];
-			self.endPullUpToRefresh(currpage[0] > totalpage[0]);
-			isLoading[0] = false;
-		})
-	}
-
-	//同城热门
-	function LoadCityUser(callback) {
-		var table = base.Get('scroll-view2');
-		HttpGet(base.RootUrl + "User/CityAll", {
-			page: currpage[1],
-			rows: pagesize,
-			Number: userinfo.Number,
-			CityCode: position.CityCode
-		}, function(data) {
-			base.ShowLoading(false);
-			base.ShowNone(false);
-			var records = 0;
-			if(data != null) {
-				if(data.result) {
-					totalpage[1] = data.totalpage;
-					var length = data.list.length;
-					records = data.records;
-					if(length > 0) {
-						for(var i = 0, len = data.list.length; i < len; i++) {
-							var div = base.AppendUser(data.list[i], false, true, false, "", true);
-							table.appendChild(div);
-						}
-					}
-				}
-			}
-			if(records == 0) {
-				base.ShowNone(true);
-			}
-			if(callback) {
-				callback();
-			}
-		});
-	}
-
-	/**
-	 * 下拉刷新
-	 */
-	function PulldownRefresh2(self) {
-		if(isLoading[1] == true) {
-			return;
-		}
-		isLoading[1] = true;
-		mui.later(function() {
-			currpage[1] = 1;
-			totalpage[1] = 2;
-			base.Get('scroll-view2').innerHTML = "";
-			LoadCityUser(function() {
-				++currpage[1];
-				self.endPullDownToRefresh();
-				self.refresh(true);
-				isLoading[1] = false;
-			})
-		}, 500);
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function PullupRefresh2(self) {
-		if(isLoading[1] == true) {
-			return;
-		}
-		isLoading[1] = true;
-		if(currpage[1] > totalpage[1]) {
-			isLoading[1] = false;
-			self.endPullUpToRefresh(currpage[1] > totalpage[1]);
-			return false;
-		}
-		mui.later(function() {
-			LoadCityUser(function() {
-				++currpage[1];
-				self.endPullUpToRefresh(currpage[1] > totalpage[1]);
-				isLoading[1] = false;
-			})
-		}, 500);
-	}
-
-	//初始化定位
-	function InitPosition() {
-		if(userinfo.ShowPosition == 0) {
-			base.AddClass(["#divLocation", "#scroll-view2"], "hide");
-			base.RemoveClass(["#showPosition"], "hide");
-		} else {
-			base.AddClass(["#showPosition"], "hide");
-			base.RemoveClass(["#divLocation", "#scroll-view2"], "hide");
-		}
-	}
-
-	//开启定位
-	function OpenPosition() {
-		if(base.IsLoading) {
-			return false;
-		}
-		base.IsLoading = true;
-		HttpGet(base.RootUrl + "User/EditSecret", {
-			ID: userinfo.ID,
-			Name: "ShowPosition",
-			Show: 1
-		}, function(data) {
-			if(data == null) {
-				mui.toast("开启定位服务失败");
-			} else {
-				if(data.result) {
-					userinfo.ShowPosition = 1;
-					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					InitPosition();
-				} else {
-					mui.toast("开启定位服务失败");
-				}
-			}
-			base.IsLoading = false;
-		});
-	}
-
-	//清除定位
-	function ClearPosition() {
-		if(base.IsLoading) {
-			return false;
-		}
-		base.IsLoading = true;
-		mui('#action').popover('toggle');
-		HttpGet(base.RootUrl + "User/EditSecret", {
-			ID: userinfo.ID,
-			Name: "ShowPosition",
-			Show: 0
-		}, function(data) {
-			if(data == null) {
-				mui.toast("位置信息清除失败");
-			} else {
-				if(data.result) {
-					userinfo.ShowPosition = 0;
-					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					InitPosition();
-					mui.toast("位置信息已清除");
-				} else {
-					mui.toast("位置信息清除失败");
-				}
-			}
-			base.IsLoading = false;
-		});
+		plus.webview.startAnimation({
+				view: cityuser,
+				styles: {
+					fromLeft: '0%',
+					toLeft: '100%'
+				},
+				action: 'none'
+			}, {
+				view: recommenduser,
+				styles: {
+					fromLeft: '-100%',
+					toLeft: '0%'
+				},
+				action: 'none'
+			},
+			function(e) {
+				//console.log('Animation finished: ' + JSON.stringify(e));
+			});
 	}
 </script>

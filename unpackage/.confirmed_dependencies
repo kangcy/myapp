@@ -1385,7 +1385,9 @@
 			"page/searchSub2.html",
 			"page/articleComment.html",
 			"page/user.html",
-			"page/imageview.html"
+			"page/imageview.html",
+			"page/articledetail.html",
+			"page/money.html"
 		]
 	},
 	"page/searchSub.html": {
@@ -2545,7 +2547,10 @@
 			"page/template.html",
 			"test/main.html",
 			"page/editcomment.html",
-			"page/imageviewer.html"
+			"page/imageviewer.html",
+			"page/slider.html",
+			"page/cityuser.html",
+			"page/recommenduser.html"
 		]
 	},
 	"page/money.html": {
@@ -2798,11 +2803,14 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"mincss/fan.min.css",
-			"css/fan.min.css"
+			"css/fan.min.css",
+			"js/webviewGroup.js",
+			"page/recommenduser.html"
 		],
 		"refer": [
 			"page/user.html",
-			"page/addfanSub.html"
+			"page/addfanSub.html",
+			"page/recommenduser.html"
 		]
 	},
 	"page/addfanSub.html": {
@@ -3358,6 +3366,53 @@
 			"page/mypic.html",
 			"page/edittext.html",
 			"page/addarticle.html"
+		]
+	},
+	"page/slider.html": {
+		"resources": [
+			"minjs/base.min.js",
+			"mincss/subindex.min.css",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"images/avatar.png",
+			"mincss/img.preview.min.css",
+			"mincss/animate.min.css",
+			"mincss/loading.min.css",
+			"js/jquery-1.10.2.min.js"
+		]
+	},
+	"page/cityuser.html": {
+		"resources": [
+			"minjs/base.min.js",
+			"images/my/333.png",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"images/my/111.png",
+			"mincss/img.preview.min.css",
+			"mincss/animate.min.css",
+			"minjs/refresh.min.js",
+			"mincss/loading.min.css",
+			"mincss/fan.min.css",
+			"js/refresh.min.js"
+		],
+		"refer": [
+			"page/user.html",
+			"page/action.html"
+		]
+	},
+	"page/recommenduser.html": {
+		"resources": [
+			"mincss/fan.min.css",
+			"mincss/mui.min.css",
+			"images/my/111.png",
+			"minjs/refresh.min.js",
+			"mincss/loading.min.css",
+			"minjs/base.min.js",
+			"minjs/mui.min.js"
+		],
+		"refer": [
+			"page/cityuser.html",
+			"page/user.html"
 		]
 	}
 }
