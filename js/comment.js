@@ -425,7 +425,7 @@ function InsertIcon(html) {
 	}
 }
 
-//拼接Html 
+//拼接Html  
 function AppendStr(item) {
 	var div = document.createElement('div');
 	div.className = 'mui-table-view-cell';
@@ -433,11 +433,12 @@ function AppendStr(item) {
 	var model = [];
 	model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
 	model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-	model.push('<div class="mui-table-cell pb0"><p class="f13 user c333" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '<span class="fr f11 c999">' + item.CreateDateText + '</span></p>');
-	model.push('<p class="f12 c999 mt5 mb10 summary" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</p>');
+	model.push('<div class="mui-table-cell pb0 f13 user c333" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName));
+	model.push('<div class="f10 c999 mt3 mb5 full">' + item.CreateDateText + (item.ShowPosition == 1 ? '<span class="ml5 mr5">来自</span>' + item.City : '') + '</div>');
+	model.push('<div class="f12 c333 mt5 mb5 full summary" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</div>');
 	model.push('<p class="tip tip1 mb0 f12 ' + (item.SubCommentCount > 1 ? "" : "hide") + '"><span class="blue sub" number="' + item.Number + '" id="comment0' + item.Number + '" name="' + item.NickName + '">查看' + item.SubCommentCount + '条回复</span></p>');
 	model.push('<p class="tip tip0 mb0 f12 ' + (item.SubCommentCount == 1 ? "" : "hide") + '"><span class="c999 summary">' + base.UnUnicodeText(item.SubUserName) + ' : ' + base.UnUnicodeText(item.SubSummary) + '</span></p>');
-	model.push('<div class="full tr mt10 mb5 c999" style="display:inline-block;"><img src="../images/article/btn_comment.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articlenumber="' + item.ArticleNumber + '" count="' + item.SubCommentCount + '" id="comment1' + item.Number + '" />');
+	model.push('<div class="full tr mt10 c999" style="display:inline-block;"><img src="../images/article/btn_comment.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articlenumber="' + item.ArticleNumber + '" count="' + item.SubCommentCount + '" id="comment1' + item.Number + '" />');
 	model.push('<div id="goods' + item.Number + '" cid="' + item.Number + '" already="' + (item.IsZan == 0 ? 0 : 1) + '" class="goods fr ' + (item.IsZan == 0 ? "" : "red") + '"><span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/article/' + (item.IsZan == 0 ? "btn_good" : "btn_good2") + '.png" style="width:0.9rem;" class="ml15 fr"  />');
 	model.push('</div></div></div></div>');
 	div.innerHTML = model.join('');
