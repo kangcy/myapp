@@ -1378,7 +1378,8 @@
 			"minjs/mui.lazyload.min.js",
 			"js/article.min.js",
 			"mincss/fan.min.css",
-			"images/avatar.png"
+			"images/avatar.png",
+			"page/searchuser.html"
 		],
 		"refer": [
 			"page/searchSub.html",
@@ -1387,7 +1388,8 @@
 			"page/user.html",
 			"page/imageview.html",
 			"page/articledetail.html",
-			"page/money.html"
+			"page/money.html",
+			"page/searchuser.html"
 		]
 	},
 	"page/searchSub.html": {
@@ -1890,7 +1892,8 @@
 			"images/comment/dingwei.png",
 			"images/comment/smile.png",
 			"images/comment/dingwei2.png",
-			"css/animate.min.css"
+			"css/animate.min.css",
+			"images/article/btn_good.png"
 		],
 		"refer": [
 			"page/articleCommentSub.html",
@@ -3413,6 +3416,48 @@
 		"refer": [
 			"page/cityuser.html",
 			"page/user.html"
+		]
+	},
+	"page/searchuser.html": {
+		"resources": [
+			"mincss/fan.min.css",
+			"mincss/mui.min.css",
+			"images/my/111.png",
+			"minjs/mui.lazyload.min.js",
+			"minjs/refresh.min.js",
+			"minjs/mui.lazyload.img.min.js",
+			"mincss/loading.min.css",
+			"minjs/base.min.js",
+			"minjs/mui.min.js",
+			"images/avatar.png"
+		],
+		"refer": [
+			"page/searcharticle.html",
+			"page/user.html"
+		]
+	},
+	"page/searcharticle.html": {
+		"resources": [
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"minjs/article.min.js",
+			"minjs/mui.lazyload.min.js",
+			"minjs/refresh.min.js",
+			"minjs/mui.lazyload.img.min.js",
+			"mincss/loading.min.css",
+			"images/article/btn_good.png",
+			"mincss/animate.min.css",
+			"js/base.min.js"
+		],
+		"refer": [
+			"page/imageviewer.html",
+			"page/articleComment.html",
+			"page/money.html",
+			"page/user.html",
+			"page/articledetail.html",
+			"page/action.html",
+			"page/edittext.html"
 		]
 	}
 }

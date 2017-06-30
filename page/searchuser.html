@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>猜你喜欢</title>
+		<title>搜索用户</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<div id="scroll-view"></div>
+			<div id="scroll-view" class="inline full"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
@@ -35,6 +35,7 @@
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
+	var nickname = "";
 	var self = null;
 
 	mui.init({
@@ -44,13 +45,13 @@
 	});
 
 	mui.ready(function() {
-		base.ShowUser("#scroll-view");
-		base.UserAddFan("#scroll-view", userinfo);
+
 	});
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		var top = self.top || "0px";
+		nickname = self.nickname || "";
 
 		Init();
 
@@ -61,30 +62,43 @@
 	function Init() {
 		pulldownRefresh();
 		base.ShowUser("#scroll-view");
+		base.UserAddFan("#scroll-view", userinfo);
 		SetPullEnable(true);
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+	}
+
+	function Search(name) {
+		nickname = name
+		pulldownRefresh();
 	}
 
 	//加载数据
 	function Load(callback) {
 		var table = base.Get('scroll-view');
-		HttpGet(base.RootUrl + "User/RecommendAll", {
+		HttpGet(base.RootUrl + "Api/User/Search", {
 			page: currpage,
 			rows: pagesize,
+			NickName: nickname,
 			Number: userinfo.Number
 		}, function(data) {
 			base.ShowLoading(false);
 			base.ShowNone(false);
+			data = JSON.parse(data);
 			if(data != null) {
-				totalpage = data.totalpage;
-				records = data.records;
-				var length = data.list.length;
-				if(length > 0) {
-					var fragment = document.createDocumentFragment();
-					mui.each(data.list, function(index, item) {
-						fragment.appendChild(base.AppendUser(item, true, true, false, "", false));
-					});
-					table.appendChild(fragment);
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					records = data.records;
+					if(records > 0) {
+						var length = data.list.length;
+						if(length > 0) {
+							var fragment = document.createDocumentFragment();
+							mui.each(data.list, function(index, item) {
+								fragment.appendChild(base.AppendUser(item, true, true, false, "", false, false));
+							});
+							table.appendChild(fragment);
+						}
+					}
 				}
 			}
 			if(records == 0) {
@@ -107,10 +121,10 @@
 			scrollIndicator: "none"
 		};
 
-		var menu = plus.webview.create('cityuser.html', 'cityuser', menu_style);
+		var menu = plus.webview.create('searcharticle.html', 'searcharticle', menu_style);
 		menu.show('none');
 
-		base.GetView("addfan").evalJS("InitView()");
+		base.GetView("search").evalJS("InitView()");
 
 		menu.drag({
 			direction: 'right',
@@ -120,7 +134,7 @@
 			moveMode: 'follow'
 		}, function(e) {
 			if(e.type == "end" && e.result) {
-				base.GetView("addfan").evalJS('ChangeSlider(mui(".flex-item")[0])');
+				base.GetView("search").evalJS('ChangeSlider(mui(".flex-item")[0])');
 			}
 		});
 
@@ -132,7 +146,7 @@
 			moveMode: 'follow'
 		}, function(e) {
 			if(e.type == "end" && e.result) {
-				base.GetView("addfan").evalJS('ChangeSlider(mui(".flex-item")[1])');
+				base.GetView("search").evalJS('ChangeSlider(mui(".flex-item")[1])');
 			}
 		});
 	}

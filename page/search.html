@@ -8,15 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/animate.min.css">
-		<link rel="stylesheet" href="../mincss/img.preview.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
-		<link rel="stylesheet" href="../mincss/fan.min.css">
-		<style type="text/css">
-			.none {
-				margin-top: 45% !important;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -26,46 +17,11 @@
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索昵称、标题、支持语音搜索" maxlength="10" style="height:34px;font-size:15px;">
 			</div>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
-		<div class="mui-content" id="muicontent">
-			<div id="slider" class="mui-slider mui-fullscreen">
-				<div class="mui-segmented-control hide"></div>
-				<div class="full" style="position:absolute;top:0px;border-bottom: 1px solid #d1dbe5;">
-					<div id="tabs_nav" class="tabs_nav flex-box flex-row tc" style="height: 2.5rem;">
-						<div class="tabs_active"></div>
-						<div class="flex-item tabs_item f13" style="flex:0 0 50%;" index="0">用户</div>
-						<div class="flex-item tabs_item f13" style="flex:0 0 50%;" index="1">文章</div>
-					</div>
-				</div>
-
-				<div class="mui-slider-group" id="sliderGroup" style="top:2.51rem;">
-					<div class="mui-slider-item mui-control-content mui-active">
-						<div id="sliderChild1" class="mui-scroll-wrapper">
-							<div id="slider1" class="mui-scroll">
-								<div id="scroll-view1" class="mt5 inline full"></div>
-								<div id="none1" class="full tc hide">
-									<img src="../images/my/111.png" class="none" />
-									<p class="f13 mt10">你可能感兴趣的用户</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mui-slider-item mui-control-content">
-						<div id="sliderChild2" class="mui-scroll-wrapper">
-							<div id="slider2" class="mui-scroll">
-								<div id="scroll-view2" class="mt5"></div>
-								<div id="none2" class="full tc hide">
-									<img src="../images/my/444.png" class="none" />
-									<p class="f13 mt10">你可能感兴趣的文章</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+		<div id="muicontent" class="mui-content">
+			<div id="tabs_nav" class="tabs_nav flex-box flex-row tc" style="height: 2.5rem;border-bottom: 1px solid #d1dbe5;">
+				<div class="tabs_active"></div>
+				<div class="flex-item tabs_item f14" style="flex:0 0 50%;" index="0">用户</div>
+				<div class="flex-item tabs_item f14" style="flex:0 0 50%;" index="1">文章</div>
 			</div>
 		</div>
 	</body>
@@ -73,57 +29,55 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.min.js"></script>
-<script src="../minjs/mui.pullToRefresh.material.min.js"></script>
-<script src="../minjs/mui.lazyload.min.js"></script>
-<script src="../minjs/mui.lazyload.img.min.js"></script>
-<script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var SearchName = "";
-	var isLoading = false;
-	var currpage = 1;
-	var totalpage = 2;
-	var pagesize = base.PageSize;
-	var parentPage = null;
-	var userinfo = base.GetUserInfo();
+	var searchuser = null;
+	var searcharticle = null;
 
 	var search = base.Get("search");
 
 	//语音识别完成事件
 	search.addEventListener('recognized', function(e) {
 		search.value = e.detail.value.replace(/，/g, '').replace(/,。/g, '');
-	}); 
+	});
 
 	mui.init();
 
-	var lazyLoad = mui(document).imageLazyload({
-		placeholder: '../images/avatar.png',
-		destroy: false
-	});
-
 	mui.ready(function() {
 		base.Immersed();
-		base.InitScroll();
 
-		base.Get("slider").style.top = base.Get("header").clientHeight + "px";
 		ChangeSlider(mui(".tabs_item")[0]);
+	});
 
-		var slider = mui('#slider').slider({
-			bounce: false
+	mui.plusReady(function() {
+
+		var top = base.Get("header").clientHeight + base.Get("tabs_nav").clientHeight + 1 + "px";
+		searchuser = plus.webview.create('searchuser.html', 'searchuser', {
+			top: top,
+			bottom: '0px'
+		}, {
+			top: top
 		});
 
-		//滑动切换
-		document.querySelector('#slider').addEventListener('slide', function(e) {
-			ChangeSlider(mui(".tabs_item")[e.detail.slideNumber]);
-		});
+		plus.webview.currentWebview().append(searchuser);
 
 		//点击切换
 		mui("#tabs_nav").on('tap', '.tabs_item', function(event) {
 			var $this = this;
-			slider.gotoItem($this.getAttribute("index"));
-			mui.later(function() {
-				ChangeSlider($this);
-			}, 300);
+			if(base.HasClass($this, "is-active")) {
+				return;
+			}
+			var index = $this.getAttribute("index");
+			if(index == 0) {
+				RightAnimation();
+			} else {
+				LeftAnimation();
+			}
+			ChangeSlider($this);
+		});
+
+		base.Get("btnSearch").addEventListener('tap', function(e) {
+			Search();
 		});
 
 		//监听软键盘搜索键
@@ -133,167 +87,75 @@
 				Search();
 			}
 		}, false);
+
+		mui.back = function() {
+			base.GetView("search").close();
+			base.GetView("searchuser").close();
+			base.GetView("searcharticle").close();
+		}
 	});
 
-	mui.plusReady(function() {
+	function InitView() {
+		searcharticle = base.GetView("searcharticle");
+	}
 
-		InitLoadUser("");
+	//左滑
+	function LeftAnimation() {
+		if(searchuser == null || searcharticle == null) {
+			return;
+		}
+		plus.webview.startAnimation({
+				view: searchuser,
+				styles: {
+					fromLeft: '0%',
+					toLeft: '-100%'
+				},
+				action: 'none'
+			}, {
+				view: searcharticle,
+				styles: {
+					fromLeft: '100%',
+					toLeft: '0%'
+				},
+				action: 'none'
+			},
+			function(e) {
 
-		mui(base.Get("slider2")).pullToRefresh({
-			up: {
-				auto: true,
-				callback: function() {
-					var self = this;
-					pullupRefresh(self);
-				}
-			}
-		});
+			});
+	}
 
-		base.Get("btnSearch").addEventListener('tap', function(e) {
-			Search();
-		});
+	//右滑
+	function RightAnimation() {
+		if(searchuser == null || searcharticle == null) {
+			return;
+		}
+		plus.webview.startAnimation({
+				view: searcharticle,
+				styles: {
+					fromLeft: '0%',
+					toLeft: '100%'
+				},
+				action: 'none'
+			}, {
+				view: searchuser,
+				styles: {
+					fromLeft: '-100%',
+					toLeft: '0%'
+				},
+				action: 'none'
+			},
+			function(e) {
 
-		base.ShowUser("#slider");
-
-		base.UserAddFan("#slider1", userinfo);
-
-		base.ShowArticle("#slider2", "List", userinfo.Number);
-
-		ArticleAction("#slider2", userinfo);
-	});
+			});
+	}
 
 	//执行搜索
 	function Search() {
 		var searchval = search.value;
-		InitLoadUser(searchval);
-		InitLoadArticle(searchval);
-	}
-
-	//加载搜索文章 
-	function InitLoadArticle(title) {
-		SearchName = title;
-		currpage = 1;
-		totalpage = 2;
-		base.Get('scroll-view2').innerHTML = "";
-		LoadArticle(function() {
-			++currpage;
-			isLoading = false;
-		})
-	}
-
-	//加载搜索用户
-	function InitLoadUser(nickname) {
-		SearchName = nickname;
-		HttpGet(base.RootUrl + "User/All", {
-			NickName: nickname,
-			Source: SearchName == "" ? "Search" : "",
-			Number: userinfo.Number
-		}, function(data) {
-			base.ShowLoading(false);
-			base.Get('scroll-view1').innerHTML = "";
-			if(data != null) {
-				var length = data.list.length;
-				if(length > 0) {
-					base.Get("none1").classList.add("hide");
-					var table = base.Get('scroll-view1');
-					var fragment = document.createDocumentFragment();
-					mui.each(data.list, function(index, item) {
-						fragment.appendChild(base.AppendUser(item, true, true, false, "", false, true));
-					});
-					table.appendChild(fragment);
-					lazyLoad.refresh(true);
-				} else {
-					base.Get("none1").classList.remove("hide");
-				}
-			} else {
-				base.Get("none1").classList.remove("hide");
-			}
-
-			mui('#sliderChild1').scroll().reLayout();
-
-			base.CloseWaiting()
-		});
-	}
-
-	/**
-	 * 下拉刷新
-	 */
-	function pulldownRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		currpage = 1;
-		totalpage = 2;
-		base.Get('scroll-view2').innerHTML = "";
-		LoadArticle(function() {
-			++currpage;
-			self.endPullDownToRefresh();
-			self.refresh(true);
-			isLoading = false;
-		})
-	}
-
-	/**
-	 * 上拉加载
-	 */
-	function pullupRefresh(self) {
-		if(isLoading == true) {
-			return;
-		}
-		isLoading = true;
-		if(currpage > totalpage) {
-			isLoading = false;
-			self.endPullUpToRefresh(currpage > totalpage);
+		if(searchuser == null || searcharticle == null) {
 			return false;
 		}
-		LoadArticle(function() {
-			++currpage;
-			self.endPullUpToRefresh(currpage > totalpage);
-			isLoading = false;
-		})
-	}
-
-	//搜索文章
-	function LoadArticle(callback) {
-		var table = base.Get('scroll-view2');
-		var data = {
-			ID: userinfo.ID,
-			page: currpage,
-			rows: pagesize,
-			Title: SearchName,
-			Source: "Search",
-			CurrUserNumber: userinfo.Number
-		};
-		HttpGet(base.RootUrl + "Api/Article/All", data, function(data) {
-			data = JSON.parse(data);
-			base.ShowLoading(false);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					totalpage = data.totalpage;
-					var length = data.list.length;
-					if(length > 0) {
-						base.Get("none2").classList.add("hide");
-						var fragment = document.createDocumentFragment();
-						mui.each(data.list, function(index, item) {
-							fragment.appendChild(AppendArticle(userinfo.Number, item, false, false));
-						});
-						table.appendChild(fragment);
-
-					} else {
-						base.Get("none2").classList.remove("hide");
-					}
-				} else {
-					base.Get("none2").classList.remove("hide");
-				}
-			}
-			if(data == null && currpage == 1) {
-				base.Get("none2").classList.remove("hide");
-			}
-			if(callback) {
-				callback();
-			}
-		});
+		base.GetView("searchuser").evalJS("Search('" + searchval + "')");
+		base.GetView("searcharticle").evalJS("Search('" + searchval + "')");
 	}
 </script>

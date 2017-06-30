@@ -3,13 +3,13 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>猜你喜欢</title>
+		<title>搜索文章</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
-		<link rel="stylesheet" href="../mincss/fan.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 	</head>
 
 	<body>
@@ -25,16 +25,21 @@
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/111.png" class="none" />
-			<p class="f13 mt10">暂无推荐用户</p>
+			<img src="../images/my/444.png" class="none" />
+			<p class="f13 mt10">暂无推荐文章</p>
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
+<script src="../minjs/mui.lazyload.min.js"></script>
+<script src="../minjs/mui.lazyload.img.min.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
+	var title = "";
+	var PageName = "searcharticle";
 	var self = null;
 
 	mui.init({
@@ -44,23 +49,36 @@
 	});
 
 	mui.ready(function() {
-		base.ShowUser("#scroll-view");
-		base.UserAddFan("#scroll-view", userinfo);
+
 	});
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		var top = self.top || "0px";
+		title = self.title || "";
 
 		Init();
-
-		preload(top);
 	});
+
+	var lazyLoad = mui(document).imageLazyload({
+		placeholder: '../images/avatar.png',
+		destroy: false
+	});
+
+	function Search(name) {
+		title = name
+		pulldownRefresh();
+	}
 
 	//初始化
 	function Init() {
 		pulldownRefresh();
+
 		base.ShowUser("#scroll-view");
+		base.ShowArticle("#scroll-view", "List", userinfo.Number);
+		//base.UserAddFan("#scroll-view", userinfo);
+		ArticleAction("#scroll-view", userinfo);
+
 		SetPullEnable(true);
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
@@ -68,23 +86,31 @@
 	//加载数据
 	function Load(callback) {
 		var table = base.Get('scroll-view');
-		HttpGet(base.RootUrl + "User/RecommendAll", {
+		HttpGet(base.RootUrl + "Api/Article/Search", {
+			ID: userinfo.ID,
 			page: currpage,
 			rows: pagesize,
-			Number: userinfo.Number
+			Title: title,
+			UserNumber: userinfo.Number
 		}, function(data) {
+			data = JSON.parse(data);
 			base.ShowLoading(false);
 			base.ShowNone(false);
 			if(data != null) {
-				totalpage = data.totalpage;
-				records = data.records;
-				var length = data.list.length;
-				if(length > 0) {
-					var fragment = document.createDocumentFragment();
-					mui.each(data.list, function(index, item) {
-						fragment.appendChild(base.AppendUser(item, true, true, false, "", false));
-					});
-					table.appendChild(fragment);
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					records = data.records;
+					if(records > 0) {
+						var length = data.list.length;
+						if(length > 0) {
+							var fragment = document.createDocumentFragment();
+							mui.each(data.list, function(index, item) {
+								fragment.appendChild(AppendArticle(userinfo.Number, item, false, false));
+							});
+							table.appendChild(fragment);
+						}
+					}
 				}
 			}
 			if(records == 0) {
@@ -92,47 +118,6 @@
 			}
 			if(callback) {
 				callback();
-			}
-		});
-	}
-
-	function preload(top) {
-		var menu_style = {
-			top: top,
-			bottom: "0px",
-			left: "100%",
-			width: "100%",
-			popGesture: "none",
-			render: "always",
-			scrollIndicator: "none"
-		};
-
-		var menu = plus.webview.create('cityuser.html', 'cityuser', menu_style);
-		menu.show('none');
-
-		base.GetView("addfan").evalJS("InitView()");
-
-		menu.drag({
-			direction: 'right',
-			moveMode: 'followFinger'
-		}, {
-			view: self,
-			moveMode: 'follow'
-		}, function(e) {
-			if(e.type == "end" && e.result) {
-				base.GetView("addfan").evalJS('ChangeSlider(mui(".flex-item")[0])');
-			}
-		});
-
-		self.drag({
-			direction: 'left',
-			moveMode: 'followFinger'
-		}, {
-			view: menu,
-			moveMode: 'follow'
-		}, function(e) {
-			if(e.type == "end" && e.result) {
-				base.GetView("addfan").evalJS('ChangeSlider(mui(".flex-item")[1])');
 			}
 		});
 	}
