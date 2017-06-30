@@ -72,8 +72,9 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script type="text/javascript">
+	var PageName = "";
 	var ArticleType = 0;
 	var CreateUserNumber = "";
 	var self = null;
@@ -117,8 +118,8 @@
 			plus.webview.currentWebview().append(view);
 			base.Get("scroll-view").style.paddingTop = window.innerWidth * 320 / 750 + 'px';*/
 
-			/*base.Get("slider").classList.remove("hide");
-			mui("#slider").slider({
+			base.Get("slider").classList.remove("hide");
+			/*mui("#slider").slider({
 				interval: 3000
 			});*/
 		}

@@ -32,10 +32,8 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/mui.lazyload.min.js"></script>
-<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
 	var title = "";
@@ -60,11 +58,6 @@
 		Init();
 	});
 
-	var lazyLoad = mui(document).imageLazyload({
-		placeholder: '../images/avatar.png',
-		destroy: false
-	});
-
 	function Search(name) {
 		title = name
 		pulldownRefresh();
@@ -76,7 +69,6 @@
 
 		base.ShowUser("#scroll-view");
 		base.ShowArticle("#scroll-view", "List", userinfo.Number);
-		//base.UserAddFan("#scroll-view", userinfo);
 		ArticleAction("#scroll-view", userinfo);
 
 		SetPullEnable(true);

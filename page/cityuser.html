@@ -107,7 +107,7 @@
 			isLoading = true;
 			var view = base.GetView("action");
 			if(view) {
-				view.evalJS("ResetAction(3)");
+				view.evalJS("ResetAction(3,'cityuser')");
 			} else {
 				base.OpenWindow("action", "action.html", {
 					Type: 3,

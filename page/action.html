@@ -132,8 +132,9 @@
 			}
 		});
 
-		function ResetAction(type, iskeep, isfollow) {
+		function ResetAction(type, pagename, iskeep, isfollow) {
 			plus.webview.show("action", "none", 0, function() {
+				PageName = pagename;
 				if(type == 1) {
 					length = 0;
 					files = [];

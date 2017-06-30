@@ -228,7 +228,7 @@
 					isLoading = true;
 					var view = base.GetView("action");
 					if(view) {
-						view.evalJS("ResetAction(1)");
+						view.evalJS("ResetAction(1,'subindex')");
 					} else {
 						base.OpenWindow("action", "action.html", {
 							Type: 1,
