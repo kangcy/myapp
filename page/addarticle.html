@@ -88,7 +88,7 @@
 </html>
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script src="../js/group.min.js"></script>
 <script type="text/javascript" src="../js/addarticlepart.js"></script>
 <script type="text/javascript">
@@ -288,6 +288,7 @@
 									if(data.result) {
 										plus.webview.close("articledetail");
 										plus.webview.close("addarticle");
+										plus.webview.close("addimage");
 									}
 								}
 							}, 500);
@@ -308,6 +309,7 @@
 						mui.later(function() {
 							mask.close();
 							plus.webview.close("addarticle");
+							plus.webview.close("addimage");
 						}, 500);
 					} else {
 						Save();

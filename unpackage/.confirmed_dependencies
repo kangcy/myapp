@@ -2553,7 +2553,8 @@
 			"page/imageviewer.html",
 			"page/slider.html",
 			"page/cityuser.html",
-			"page/recommenduser.html"
+			"page/recommenduser.html",
+			"page/addimage.html"
 		]
 	},
 	"page/money.html": {
@@ -3458,6 +3459,20 @@
 			"page/articledetail.html",
 			"page/action.html",
 			"page/edittext.html"
+		]
+	},
+	"page/addimage.html": {
+		"resources": [
+			"js/addimage.js",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"mincss/loading.min.css",
+			"images/share/01.png",
+			"images/addarticle/icon_pic_n.png",
+			"images/loading.gif",
+			"images/background/1.png",
+			"images/addarticle/icon_pic.png"
 		]
 	}
 }

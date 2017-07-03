@@ -1,168 +1,136 @@
-var f1 = null;
-var picarr = new Array();
-var basearr = new Array();
-var files = [];
-// 上传文件  
-function upload() {
+var mask = base.CreateMask(false, function() {
+	base.CloseWaiting();
+});
 
-	var wt = plus.nativeUI.showWaiting();
-	var task = plus.uploader.createUpload(server + "?action=dynamicadd", {
+// 上传文件
+function upload() {
+	plus.uploader.clear();
+	var task = plus.uploader.createUpload(base.RootUrl + "Upload/UploadImage", {
 			method: "POST"
 		},
 		function(t, status) { //上传完成  
 			if(status == 200) {
-				//                      console.log("上传成功：" + t.responseText);  
-				mui.toast("发表成功");
-				//插入本地数据库  
-				wt.close();
-				mui.back();
+				clearInterval(i);
+				var data = JSON.parse(t.responseText);
+				console.log(t.responseText);
+				//t.responseText = {"result":true,"message":["Upload/Images/Article/20170703142059113_0jpg","Upload/Images/Article/201707031420592588_0jpg","Upload/Images/Article/201707031420594747_0jpg"]}
+
+				Init();
+				mask.close();
+				if(base.IsNullOrEmpty(data.message)) {
+					mui.toast("上传失败");
+				} else {
+					Import(data.message);
+				}
 			} else {
-				console.log("上传失败：" + status);
-				wt.close();
+				mui.toast("上传失败");
 			}
 		}
 	);
-	var title = $("#tbxtitle").val();
-	if(title.length < 1) {
-		wt.close();
-		mui.toast("内容不能为空");
-	} else {
-		task.addData("title", title);
-		task.addData("uid", getUid());
-		task.addData("userid", plus.storage.getItem("policeid"));
-		//task.addData("lat", lat.toString());  
-		//task.addData("longt", longt.toString());  
-		//              console.log("准备上传"+files.length+"个图片");  
-		for(var i = 0; i < files.length; i++) {
-			var f = files[i];
-			//                  console.log("准备上传的图片路径："+f.path);  
-			task.addFile(f.path, {
-				key: f.name
-			});
-		}
-		task.start();
-	}
-
-}
-
-// 添加文件  
-var index = 1;
-var newUrlAfterCompress;
-
-function appendFile(p) {
-	files.push({
-		name: "uploadkey" + index, //这个值服务器会用到，作为file的key  
-		path: p
+	task.addData("standard", "Article");
+	task.addData("folder", "Article");
+	task.addData("number", userinfo.Number);
+	mask.show();
+	base.ShowWaiting("准备上传" + mui(".thirdfloor").length + "张图片");
+	mui.each(mui(".thirdfloor"), function(index, item) {
+		task.addFile(item.getAttribute("url"), {
+			key: item.getAttribute("id")
+		});
 	});
-	index++;
-}
-// 产生一个随机数  
-function getUid() {
-	return Math.floor(Math.random() * 100000000 + 10000000).toString();
+
+	task.start();
+	var i = setInterval(function() {
+			var totalSize = task.totalSize;
+			var downloadedSize = task.uploadedSize;
+			if(totalSize > 0) {
+				base.ShowWaiting("上传进度：" + parseFloat(100 * downloadedSize / totalSize).toFixed(2) + "%");
+			}
+		},
+		100);
 }
 
-function galleryImgs() { // 从相册中选择图片  
+//拍照  
+function Camera() {
+	mui('#upload').popover('hide');
+	var cmr = plus.camera.getCamera();
+	cmr.captureImage(function(p) {
+		plus.io.resolveLocalFileSystemURL(p, function(entry) {
+			var localurl = entry.toLocalURL();
+			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
+			compressImage(localurl, dstname);
+		});
+	});
+}
+
+// 从相册中选择图片
+function Gallery() {
+	mui('#upload').popover('hide');
 	plus.gallery.pick(function(e) {
-		$(".dynamic_images ul li").remove(".pickimg");
-		//console.log("选择了"+e.files.length+"个图片");  
 		for(var i = 0; i < e.files.length; i++) {
-			if(i < 9) {
-				picarr[i] = e.files[i];
-				$(".dynamic_images ul").prepend("<li class='pickimg'><img src='" + e.files[i] + "' /></li>");
-				var dstname = "_downloads/" + getUid() + ".jpg"; //设置压缩后图片的路径  
-				newUrlAfterCompress = compressImage(e.files[i], dstname);
-				appendFile(dstname);
-				//console.log(e.files[i]);  
-				//console.log(dstname);  
-			}
+			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
+			compressImage(e.files[i], dstname);
 		}
 	}, function(e) {
 		console.log("取消选择图片");
 	}, {
 		filter: "image",
-		multiple: true
+		multiple: true,
+		maximum: 20,
+		system: false
 	});
 }
 
-//压缩图片，这个比较变态的方法，无法return  
+//压缩图片 
 function compressImage(src, dstname) {
-	//var dstname="_downloads/"+getUid()+".jpg";  
 	plus.zip.compressImage({
 			src: src,
 			dst: dstname,
 			overwrite: true,
-			quality: 20
+			quality: 80
 		},
 		function(event) {
-			//console.log("Compress success:"+event.target);  
-			return event.target;
+			AppendStr(event.target)
 		},
 		function(error) {
 			console.log(error);
-			return src;
-			//alert("Compress error!");  
 		});
 }
 
-//旋转图片，本文没用到  
-function rotateImage() {
-	plus.zip.compressImage({
-			src: "_www/a.jpg",
-			dst: "_doc/a.jpg",
-			rotate: 90 // 旋转90度  
-		},
-		function() {
-			alert("Compress success!");
-		},
-		function(error) {
-			alert("Compress error!");
-		});
-}
-
-function showActionSheet() {
-	var bts = [{
-		title: "拍照"
-	}, {
-		title: "从相册选择"
-	}];
-	plus.nativeUI.actionSheet({
-			cancel: "取消",
-			buttons: bts
-		},
-		function(e) {
-			if(e.index == 1) {
-				getImage();
-			} else if(e.index == 2) {
-				galleryImgs();
+//创建文章
+function Import(url) {
+	base.ShowWaiting("正在同步文章信息");
+	console.log(url);
+	var position = base.GetCurrentPosition();
+	var data = {
+		ID: userinfo.ID,
+		Cover: url,
+		Title: "",
+		Province: position.Province,
+		City: position.City,
+		District: position.District,
+		Street: position.Street,
+		DetailName: position.DetailName,
+		CityCode: position.CityCode,
+		Latitude: position.Latitude,
+		Longitude: position.Longitude
+	}
+	HttpPost(base.RootUrl + "Article/Edit", data, function(data) {
+		if(data != null) {
+			if(data.result) {
+				base.OpenWindow("addarticle", "addarticle.html", {
+					ArticleID: data.message.ID,
+					ArticleNumber: data.message.Number,
+					Source: "Add"
+				});
+				mui.later(function() {
+					mask.close();
+				}, 1000);
+			} else {
+				mask.close();
+				mui.toast(data.message);
 			}
+		} else {
+			mask.close();
 		}
-	);
-}
-//拍照  
-function getImage() {
-	var cmr = plus.camera.getCamera();
-	cmr.captureImage(function(p) {
-		plus.io.resolveLocalFileSystemURL(p, function(entry) {
-			var localurl = entry.toLocalURL(); //  
-			$(".dynamic_images ul li").remove(".pickimg");
-			$(".dynamic_images ul").prepend("<li class='pickimg'><img src='" + localurl + "' /></li>");
-		});
 	});
 }
-
-//服务端
-/*string file = "";
-int count = Request.Files.Count;
-
-for(int i = 0; i < count; i++) {
-	int l = Request.Files["uploadkey" + (i + 1)].ContentLength;
-	byte[] buffer = new byte[l];
-	Stream s = Request.Files["uploadkey" + (i + 1)].InputStream;
-	System.Drawing.Bitmap image = new System.Drawing.Bitmap(s);
-	string imgname = Common.GetGuid() + ".jpg";
-	string path = "Images/" + DateTime.Now.ToString("yyyyMMdd") + "/";
-	if(!Directory.Exists(HttpContext.Current.Server.MapPath(path))) {
-		System.IO.Directory.CreateDirectory(HttpContext.Current.Server.MapPath(path));
-	}
-	image.Save(Server.MapPath(path + "/" + imgname));
-}*/

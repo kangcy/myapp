@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<style type="text/css">
+			.tip {
+				position: fixed;
+				bottom: 2%;
+				text-align: center;
+				width: 100%;
+				z-index: 2;
+			}
+			
+			.tip div {
+				padding: 10px 20px;
+				border-radius: 10px;
+				background: rgba(0, 0, 0, 0.5);
+				color: #fff;
+				display: inline-block;
+			}
+			
+			#scroll-view {
+				padding-top: 0.2rem;
+			}
+			
+			.thirdfloor,
+			.add {
+				width: 30%;
+				height: 6rem;
+				margin-left: 2.5%;
+				margin-top: 2.5%;
+				border-radius: 5px;
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body id="main">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="upload()">开始上传</a>
+			<div class="mui-title cfff">上传图片</div>
+		</header>
+		<div id="muicontent">
+			<div id="scroll-view" class="inline full">
+
+			</div>
+		</div>
+		<div id="tip" class="tip f11">
+			<div>长按删除选中图片</div>
+		</div>
+		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="camera">
+					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
+				</li>
+				<li class="mui-table-view-cell" id="gallery">
+					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
+				</li>
+				<li class="mui-table-view-cell hide" id="pic">
+					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#upload" class="red f13">取消</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../js/addimage.js"></script>
+<script type="text/javascript">
+	var id = 0;
+	var isLoading = false;
+	var self = null;
+	var userinfo = base.GetUserInfo();
+
+	mui.init({
+		gestureConfig: {
+			longtap: true,
+			doubletap: true
+		}
+	});
+
+	mui.ready(function() {
+		base.Immersed();
+		base.ToTop();
+
+		Init();
+	});
+
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+
+		mui("#scroll-view").on('longtap', '.thirdfloor', function(event) {
+			Delete(this.getAttribute("id"));
+		});
+	});
+
+	function Init() {
+		base.Get("scroll-view").innerHTML = '<div class="add" onclick="ShowPover()" style="background:url(../images/addarticle/icon_pic.png) center center no-repeat;background-size:cover;"></div>';
+		base.Get("pic").classList.add("hide");
+	}
+
+	function ShowPover() {
+		mui('#upload').popover('show');
+	}
+
+	function AppendStr(url) {
+		var div = document.createElement('div');
+		div.className = 'thirdfloor';
+		div.setAttribute("id", id++);
+		div.setAttribute("url", url);
+		div.style.background = 'url(' + url + ')';
+		div.style.backgroundPosition = "center center";
+		div.style.backgroundRepeat = "no-repeat";
+		div.style.backgroundSize = "cover";
+		base.Get("scroll-view").appendChild(div);
+		InitAction();
+	}
+
+	function Delete(index) {
+		mui.confirm('确定删除选中图片？', '', ['确定', '取消'], function(e) {
+			if(e.index < 0) {
+				return;
+			}
+			if(e.index == 0) {
+				base.Get("scroll-view").removeChild(mui("#" + index)[0]);
+				InitAction();
+			}
+		});
+	}
+
+	function InitAction() {
+		if(mui(".thirdfloor").length > 0) {
+			base.Get("pic").classList.remove("hide");
+		} else {
+			base.Get("pic").classList.add("hide");
+		}
+	}
+</script>
