@@ -3477,7 +3477,10 @@
 			"images/background/1.png",
 			"images/addarticle/icon_pic.png",
 			"images/add.png",
-			"mincss/animate.min.css"
+			"mincss/animate.min.css",
+			"images/icon/add.png",
+			"images/adv/01.jpg",
+			"images/icon/delete.png"
 		],
 		"refer": [
 			"page/addarticle.html"

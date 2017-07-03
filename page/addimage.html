@@ -32,12 +32,24 @@
 			
 			.thirdfloor,
 			.add {
-				width: 30%;
-				height: 6rem;
-				margin-left: 2.5%;
-				margin-top: 2.5%;
+				width: 40%;
+				height: 8rem;
+				margin-left: 6%;
+				margin-top: 6%;
 				border-radius: 5px;
 				float: left;
+				position: relative;
+				overflow: visible;
+			}
+			
+			.thirdfloor div {
+				position: absolute;
+				right: -0.9rem;
+				top: -0.9rem;
+				width: 1.8rem;
+				height: 1.8rem;
+				background: url(../images/icon/delete.png) center center no-repeat;
+				background-size: cover;
 			}
 			
 			.bottom {
@@ -73,7 +85,44 @@
 			<div class="mui-title cfff">制作我的文章</div>
 		</header>
 		<div id="muicontent">
-			<div id="scroll-view" class="inline full"></div>
+			<div id="scroll-view" class="inline full" style="padding-bottom:5rem;">
+				<!--<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>-->
+			</div>
 		</div>
 		<div id="tip" class="tip f11">
 			<div>长按删除选中图片</div>
@@ -98,7 +147,7 @@
 		</div>
 		<div class="mui-bar mui-bar-tab bottom tc cfff zoomIn" id="bottom" style="background:#fff;">
 			<div id="add">
-				<div class="f13" id="btnAdd" onclick="ShowPover()">制作我的文章</div>
+				<div class="f13" id="btnAdd" onclick="ShowPover()">选择图片</div>
 			</div>
 		</div>
 	</body>
@@ -115,7 +164,7 @@
 
 	mui.init({
 		gestureConfig: {
-			longtap: true,
+			//longtap: true,
 			doubletap: true
 		}
 	});
@@ -139,13 +188,13 @@
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 
-		mui("#scroll-view").on('longtap', '.thirdfloor', function(event) {
+		/*mui("#scroll-view").on('longtap', '.thirdfloor', function(event) {
 			Delete(this.getAttribute("id"));
-		});
+		});*/
 	});
 
 	function Init() {
-		//base.Get("scroll-view").innerHTML = '<div class="add" onclick="ShowPover()" style="background:url(../images/add.png) center center no-repeat;background-size:cover;"></div>';
+		//base.Get("scroll-view").innerHTML = '<div class="add" onclick="ShowPover()" style="background:url(../images/icon/add.png) center center no-repeat;background-size:cover;"></div>';
 		base.Get("scroll-view").innerHTML = "";
 		base.Get("pic").classList.add("hide");
 	}
@@ -157,14 +206,16 @@
 	}
 
 	function AppendStr(url) {
+		id = id++;
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
-		div.setAttribute("id", id++);
+		div.setAttribute("id", id);
 		div.setAttribute("url", url);
 		div.style.background = 'url(' + url + ')';
 		div.style.backgroundPosition = "center center";
 		div.style.backgroundRepeat = "no-repeat";
 		div.style.backgroundSize = "cover";
+		div.innerHTML = '<div onclick="Delete(' + id + ')"></div>'
 		base.Get("scroll-view").appendChild(div);
 		InitAction();
 	}
