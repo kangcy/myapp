@@ -70,7 +70,7 @@ function UpdateComment() {
 //重新加载数据 
 function UpdateDetail() {
 	Load(function() {
-		plus.webview.close("addarticle");
+		plus.webview.close("addarticle", "none");
 	});
 }
 
@@ -78,8 +78,8 @@ function UpdateDetail() {
 function UpdateDetail2() {
 	ChooseTan(function() {
 		Load(function() {
-			plus.webview.close("custom");
-			plus.webview.close("customsetting");
+			plus.webview.close("custom", "none");
+			plus.webview.close("customsetting", "none");
 		});
 	});
 }
@@ -105,7 +105,7 @@ function Delete() {
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							base.RefreshUser();
 
-							plus.webview.close("articledetail");
+							plus.webview.close("articledetail", "none");
 						}
 					}
 				}, 500);

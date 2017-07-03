@@ -898,7 +898,8 @@
 			"page/articletabs.html",
 			"page/imageview.html",
 			"page/update.html",
-			"page/action.html"
+			"page/action.html",
+			"page/addimage.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -2200,7 +2201,9 @@
 			"images/addarticle/icon_pic_n.png",
 			"images/loadmore.gif",
 			"js/mui.previewimage.min.js",
-			"images/avatar.png"
+			"images/avatar.png",
+			"images/default.png",
+			"js/lazyload.js"
 		],
 		"refer": []
 	},
@@ -3472,7 +3475,12 @@
 			"images/addarticle/icon_pic_n.png",
 			"images/loading.gif",
 			"images/background/1.png",
-			"images/addarticle/icon_pic.png"
+			"images/addarticle/icon_pic.png",
+			"images/add.png",
+			"mincss/animate.min.css"
+		],
+		"refer": [
+			"page/addarticle.html"
 		]
 	}
 }

@@ -72,12 +72,6 @@
 
 		Init();
 
-		//下拉刷新
-		SetPullEnable(true);
-
-		//上拉加载
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
-
 		//重置未读推送信息
 		HttpGet(base.RootUrl + "Push/Clear", {
 			number: userinfo.Number,
@@ -100,6 +94,8 @@
 		pulldownRefresh();
 		base.ShowUser("#scroll-view");
 		base.UserAddFan("#scroll-view", userinfo);
+		SetPullEnable(true);
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
 
 	//关注我的-加载数据

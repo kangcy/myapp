@@ -87,7 +87,7 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<div id="scroll-view" class="inline"></div>
+			<div id="scroll-view" class="inline full"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
@@ -114,6 +114,9 @@
 	var UserNumber = 0;
 	var PreviewEnable = true; //是否启用图片预览
 	var self = null;
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	}); 
 
 	var lazyLoad = mui("#scroll-view").imageLazyload({
 		placeholder: '../images/default.png',
@@ -232,7 +235,7 @@
 			div.className = 'thirdfloor';
 		} else {
 			div.className = 'thirdfloor nocheck';
-		}
+		} 
 		div.style.position = "relative";
 		div.setAttribute("pid", item.ID);
 		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" /><div class="cover ' + (PreviewEnable ? "hide" : "") + '"></div><div class="icon"></div>';
@@ -256,7 +259,8 @@
 				return;
 			}
 			if(e.index == 0) {
-				base.Waiting(true, "正在删除");
+				mask.show();
+				base.ShowWaiting("正在删除");
 				var ids = [];
 				mui.each(check, function(i, item) {
 					ids.push(item.getAttribute("pid"));
@@ -267,7 +271,6 @@
 					},
 					function(data) {
 						mui.later(function() {
-							base.Waiting(false);
 							if(data != null) {
 								if(data.result) {
 									PreviewEnable = true;
@@ -279,6 +282,7 @@
 									mui.toast(data.message);
 								}
 							}
+							mask.close();
 							isLoading = false;
 						}, 500);
 					});

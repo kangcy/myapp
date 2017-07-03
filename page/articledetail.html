@@ -20,7 +20,7 @@
 			<span class="cfff f25 fr hide" onclick="ActionTan(1)" id="action" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</span>
 			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
-		<div class="loading" id="loader"> 
+		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
@@ -146,7 +146,7 @@
 								<i></i>
 								<span id="musicname0"></span>
 							</p>
-						</div> 
+						</div>
 					</div>
 				</div>
 				<!--排版1-->
@@ -350,13 +350,14 @@
 		NickName = self.NickName || "";
 
 		Load(function() {
-			plus.webview.close("addarticle");
+			plus.webview.close("addarticle", "none");
+			plus.webview.close("addimage", "none");
 		});
 
 		//返回
 		mui.back = function() {
 			if(Source == "Add") {
-				plus.webview.close("editimage");
+				plus.webview.close("editimage", "none");
 			}
 			plus.webview.close(self);
 		}

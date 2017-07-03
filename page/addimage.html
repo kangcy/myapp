@@ -8,11 +8,11 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
 			.tip {
 				position: fixed;
-				bottom: 2%;
+				bottom: 8%;
 				text-align: center;
 				width: 100%;
 				z-index: 2;
@@ -21,7 +21,7 @@
 			.tip div {
 				padding: 10px 20px;
 				border-radius: 10px;
-				background: rgba(0, 0, 0, 0.5);
+				background: rgba(0, 0, 0, 0.3);
 				color: #fff;
 				display: inline-block;
 			}
@@ -39,19 +39,41 @@
 				border-radius: 5px;
 				float: left;
 			}
+			
+			.bottom {
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+			}
+			
+			#add {
+				width: 100%;
+				float: left;
+				height: 2.8rem;
+				line-height: 2.6rem;
+				text-align: center;
+				background: #fff;
+			}
+			
+			#add div {
+				width: 64%;
+				border-radius: 30px;
+				display: inline-block;
+				margin-top: 0.2rem;
+				height: 2.1875rem;
+				line-height: 2.2rem;
+			}
 		</style>
 	</head>
 
 	<body id="main">
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="upload()">开始上传</a>
-			<div class="mui-title cfff">上传图片</div>
+			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="upload()">上传图片</a>
+			<div class="mui-title cfff">制作我的文章</div>
 		</header>
 		<div id="muicontent">
-			<div id="scroll-view" class="inline full">
-
-			</div>
+			<div id="scroll-view" class="inline full"></div>
 		</div>
 		<div id="tip" class="tip f11">
 			<div>长按删除选中图片</div>
@@ -74,6 +96,11 @@
 				</li>
 			</ul>
 		</div>
+		<div class="mui-bar mui-bar-tab bottom tc cfff zoomIn" id="bottom" style="background:#fff;">
+			<div id="add">
+				<div class="f13" id="btnAdd" onclick="ShowPover()">制作我的文章</div>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -94,10 +121,19 @@
 	});
 
 	mui.ready(function() {
+		base.Get("btnAdd").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+
 		base.Immersed();
 		base.ToTop();
 
 		Init();
+
+		ShowPover();
+
+		mui('body').on('hidden', '.mui-popover', function(e) {
+			base.Get("bottom").classList.remove("hide");
+			base.Get("bottom").classList.add("zoomIn");
+		});
 	});
 
 	mui.plusReady(function() {
@@ -109,11 +145,14 @@
 	});
 
 	function Init() {
-		base.Get("scroll-view").innerHTML = '<div class="add" onclick="ShowPover()" style="background:url(../images/addarticle/icon_pic.png) center center no-repeat;background-size:cover;"></div>';
+		//base.Get("scroll-view").innerHTML = '<div class="add" onclick="ShowPover()" style="background:url(../images/add.png) center center no-repeat;background-size:cover;"></div>';
+		base.Get("scroll-view").innerHTML = "";
 		base.Get("pic").classList.add("hide");
 	}
 
 	function ShowPover() {
+		base.Get("bottom").classList.add("hide");
+		base.Get("bottom").classList.remove("zoomIn");
 		mui('#upload').popover('show');
 	}
 

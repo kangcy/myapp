@@ -12,13 +12,13 @@ function upload() {
 			if(status == 200) {
 				clearInterval(i);
 				var data = JSON.parse(t.responseText);
-				console.log(t.responseText);
+				//console.log(t.responseText);
 				//t.responseText = {"result":true,"message":["Upload/Images/Article/20170703142059113_0jpg","Upload/Images/Article/201707031420592588_0jpg","Upload/Images/Article/201707031420594747_0jpg"]}
 
 				Init();
-				mask.close();
 				if(base.IsNullOrEmpty(data.message)) {
 					mui.toast("上传失败");
+					mask.close();
 				} else {
 					Import(data.message);
 				}
@@ -99,7 +99,6 @@ function compressImage(src, dstname) {
 //创建文章
 function Import(url) {
 	base.ShowWaiting("正在同步文章信息");
-	console.log(url);
 	var position = base.GetCurrentPosition();
 	var data = {
 		ID: userinfo.ID,

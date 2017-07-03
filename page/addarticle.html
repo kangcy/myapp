@@ -286,9 +286,9 @@
 								mask.close();
 								if(data != null) {
 									if(data.result) {
-										plus.webview.close("articledetail");
-										plus.webview.close("addarticle");
-										plus.webview.close("addimage");
+										plus.webview.close("articledetail", "none");
+										plus.webview.close("addarticle", "none");
+										plus.webview.close("addimage", "none");
 									}
 								}
 							}, 500);
@@ -308,8 +308,8 @@
 						base.ShowWaiting("正在撤销");
 						mui.later(function() {
 							mask.close();
-							plus.webview.close("addarticle");
-							plus.webview.close("addimage");
+							plus.webview.close("addarticle", "none");
+							plus.webview.close("addimage", "none");
 						}, 500);
 					} else {
 						Save();
@@ -442,8 +442,8 @@
 		MusicName = musicName;
 		MusicUrl = musicUrl;
 		$("#musicname").html(MusicID == 0 && base.IsNullOrEmpty(MusicName) ? "无背景音乐" : MusicName);
-		plus.webview.close("music");
-		plus.webview.close("musicsearch");
+		plus.webview.close("music", "none");
+		plus.webview.close("musicsearch", "none");
 	}
 
 	//保存
@@ -642,7 +642,7 @@
 		base.Get("cover").style.backgroundImage = "url(" + base.ShowThumb(url, 2) + ")";
 		base.Get("cover").style.backgroundSize = "cover";
 		Cover = url;
-		plus.webview.close("custom");
-		plus.webview.close("customsetting");
+		plus.webview.close("custom", "none");
+		plus.webview.close("customsetting", "none");
 	}
 </script>

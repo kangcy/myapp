@@ -170,6 +170,9 @@
 
 		//新增
 		base.Get("add").addEventListener('tap', function() {
+			base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
+			return;
+
 			if(isLoading) {
 				return false;
 			}
