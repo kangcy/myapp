@@ -21,6 +21,38 @@
 		</div>
 		<div id="muicontent">
 			<div id="slider" class="mui-slider hide">
+				<!--<div class="mui-slider-group mui-slider-loop">
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/banner1.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>-->
 				<img src="../images/banner1.jpg" class="full">
 				<div class="splitline"></div>
 			</div>
@@ -38,9 +70,9 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script type="text/javascript">
 	var PageName = "";
 	var ArticleType = 0;
@@ -59,14 +91,37 @@
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		headheight = self.headheight || "0px";
 		ArticleType = self.ArticleType || 0;
 		CreateUserNumber = self.CreateUserNumber || "";
 		Source = self.Source || "List";
 		PageName = self.PageName || "";
-	
+
 		if(ArticleType == 0) {
+			/*var url = ["../images/banner1.jpg"];
+			var images = [];
+			mui.each(url, function(i, item) {
+				images.push({
+					src: item,
+					width: '100%'
+				});
+			})
+			var view = new plus.nativeObj.ImageSlider('ImageSlider', {
+				top: '0px',
+				left: '0px',
+				width: '100%',
+				height: window.innerWidth * 320 / 750 + 'px',
+				backgroundColor: '#fff',
+				position: 'static',
+				loop: true,
+				images: images
+			});
+			plus.webview.currentWebview().append(view);
+			base.Get("scroll-view").style.paddingTop = window.innerWidth * 320 / 750 + 'px';*/
+
 			base.Get("slider").classList.remove("hide");
+			/*mui("#slider").slider({
+				interval: 3000
+			});*/
 		}
 
 		Init(ArticleType, CreateUserNumber, Source);

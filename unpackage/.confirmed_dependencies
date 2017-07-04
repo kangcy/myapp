@@ -864,7 +864,8 @@
 			"js/webviewGroup.js",
 			"page/articletab.html",
 			"js/nativeview.js",
-			"js/update.min.js"
+			"js/update.min.js",
+			"page/articletabs.html"
 		],
 		"refer": [
 			"page/topic.html",
@@ -3317,7 +3318,8 @@
 			"images/loading.gif",
 			"images/tip.png",
 			"images/article/btn_good.png",
-			"js/base.min.js"
+			"js/base.min.js",
+			"js/refresh.min.js"
 		],
 		"refer": [
 			"page/user.html",
@@ -3485,6 +3487,15 @@
 		],
 		"refer": [
 			"page/addarticle.html"
+		]
+	},
+	"page/articletabs.html": {
+		"refer": [
+			"page/articletab.html"
+		],
+		"resources": [
+			"minjs/base.min.js",
+			"minjs/mui.min.js"
 		]
 	}
 }

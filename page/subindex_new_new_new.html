@@ -98,20 +98,27 @@
 		plus.navigator.setFullscreen(false);
 		self = plus.webview.currentWebview();
 
+		var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
+		var bottomheight = base.Get("bottom").clientHeight;
+
 		Init(function(data) {
 			articleTypeHtml.push('<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="articletab0">推荐</a>');
 			groupItems.push({
 				id: "articletab0",
 				url: "articletab.html",
-				ArticleType: 0,
-				PageName: "articletab0"
+				extras: {
+					ArticleType: 0,
+					PageName: "articletab0"
+				}
 			})
 			mui.each(data, function(i, item) {
 				groupItems.push({
 					id: "articletab" + item.ID,
 					url: "articletab.html",
-					ArticleType: item.ID,
-					PageName: "articletab" + item.ID
+					extras: {
+						ArticleType: item.ID,
+						PageName: "articletab" + item.ID
+					}
 				})
 				articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + item.ID + '" data-wid="articletab' + item.ID + '">' + item.Name + '</a>');
 			})
@@ -127,7 +134,7 @@
 
 			ChangeItem(mui(".mui-control-item")[0])
 
-			/*var group = new webviewGroup("articletabs.html", {
+			var group = new webviewGroup("articletabs.html", {
 				items: groupItems,
 				onChange: function(obj) {
 					scroll.gotoPage(parseInt(obj.index));
@@ -144,7 +151,7 @@
 			});
 			mui("#slider").on("tap", ".mui-control-item", function(e) {
 				group.switchTab(this.getAttribute("data-wid"));
-			});*/
+			});
 		})
 
 		//预加载
@@ -252,6 +259,7 @@
 					mui.toast("网络异常，请检查网络设置");
 				}
 			}, false);
+
 		}, 1000);
 	});
 
@@ -324,18 +332,6 @@
 
 	//开始检测更新
 	function InitCheckUpdate() {
-		var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
-		var bottomheight = base.Get("bottom").clientHeight;
-		var page = plus.webview.create('articletabs.html', 'articletabs', {
-			top: headheight + "px",
-			bottom: bottomheight + "px",
-		}, {
-			headheight: headheight,
-			bottomheight: bottomheight,
-			groupItems: JSON.stringify(groupItems)
-		});
-		plus.webview.currentWebview().append(page);
-
 		mui.later(function() {
 			Check_Update(function(data) {
 				if(!base.IsNullOrEmpty(data)) {

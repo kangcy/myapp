@@ -10,7 +10,106 @@
 	</head>
 
 	<body>
-		
+
 	</body>
 
 </html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script type="text/javascript">
+	var groupItems = "";
+	var headheight = "0px";
+	var bottomheight = "0px";
+	var menu = null;
+	var self = null;
+	var currview = null;
+	var totalview = 0;
+
+	if(window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener('plusready', plusReady, false);
+	}
+
+	function plusReady() {
+		self = plus.webview.currentWebview();
+		headheight = self.headheight || "0px";
+		bottomheight = self.bottomheight || "0px";
+		groupItems = self.groupItems || "";
+		if(!base.IsNullOrEmpty(groupItems)) {
+			groupItems = JSON.parse(groupItems);
+		}
+
+		preload(headheight);
+	}
+
+	function preload(headheight) {
+		var menu_style = {
+			top: headheight,
+			bottom: bottomheight,
+			left: "100%",
+			width: "100%",
+			popGesture: "none",
+			render: "always",
+			scrollIndicator: "none"
+		};
+
+		//创建页面
+		mui.each(groupItems, function(i, view) {
+			menu_style.left = i * 100 + "%";
+			currview = plus.webview.create(view.url, view.id, menu_style, {
+				ArticleType: view.ArticleType,
+				PageName: view.PageName,
+				headheight: headheight
+			});
+			currview.show('fade-in');
+			currview.onloaded = function() {
+				totalview += 1;
+			};
+		});
+		var i = setInterval(function() {
+			if(totalview == groupItems.length) {
+				clearInterval(i);
+				InitDrag();
+			}
+		}, 250);
+	}
+
+	//绑定手指事件
+	function InitDrag() {
+		mui.each(groupItems, function(i, view) {
+			//base.GetView("subindex").evalJS("InitView()");
+			if(i > 0) {
+				menu = base.GetView(view.id);
+				self = base.GetView(groupItems[i - 1].id);
+				menu.drag({
+					direction: 'right',
+					moveMode: 'followFinger'
+				}, {
+					view: self,
+					moveMode: 'follow'
+				}, function(e) {
+					if(e.type == "end" && e.result) {
+						base.GetView("subindex").evalJS('scroll.gotoPage(' + (i - 1) + ');ChangeItem(mui(".mui-control-item")[' + (i - 1) + '])');
+					}
+				});
+			}
+
+			if(i < groupItems.length - 1) {
+				self = base.GetView(view.id);
+				menu = base.GetView(groupItems[i + 1].id);
+				self.drag({
+					direction: 'left',
+					moveMode: 'followFinger'
+				}, {
+					view: menu,
+					moveMode: 'follow'
+				}, function(e) {
+					if(e.type == "end" && e.result) {
+						base.GetView("subindex").evalJS('scroll.gotoPage(' + (i + 1) + ');ChangeItem(mui(".mui-control-item")[' + (i + 1) + '])');
+					}
+				});
+			}
+		})
+	}
+</script>
