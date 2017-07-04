@@ -99,7 +99,7 @@
 		self = plus.webview.currentWebview();
 
 		Init(function(data) {
-			articleTypeHtml.push('<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="articletab0">推荐</a>');
+			articleTypeHtml.push('<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="0">推荐</a>');
 			groupItems.push({
 				id: "articletab0",
 				url: "articletab.html",
@@ -113,7 +113,7 @@
 					ArticleType: item.ID,
 					PageName: "articletab" + item.ID
 				})
-				articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + item.ID + '" data-wid="articletab' + item.ID + '">' + item.Name + '</a>');
+				articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + item.ID + '" data-wid="' + item.ID + '">' + item.Name + '</a>');
 			})
 			base.Get("mui-scroll").innerHTML = articleTypeHtml.join('');
 
@@ -126,25 +126,6 @@
 			});
 
 			ChangeItem(mui(".mui-control-item")[0])
-
-			/*var group = new webviewGroup("articletabs.html", {
-				items: groupItems,
-				onChange: function(obj) {
-					scroll.gotoPage(parseInt(obj.index));
-					ChangeItem(mui(".mui-control-item")[parseInt(obj.index)]);
-				},
-				styles: {
-					top: headheight + "px",
-					bottom: bottomheight + "px",
-					render: "always",
-					popGesture: "none",
-					scrollIndicator: "none",
-					backgroundColor: "#ffffff"
-				}
-			});
-			mui("#slider").on("tap", ".mui-control-item", function(e) {
-				group.switchTab(this.getAttribute("data-wid"));
-			});*/
 		})
 
 		//预加载
@@ -335,6 +316,43 @@
 			groupItems: JSON.stringify(groupItems)
 		});
 		plus.webview.currentWebview().append(page);
+
+		mui("#slider").on("tap", ".mui-control-item", function(e) {
+			var curritem = this.getAttribute("data-wid");
+			var olditem = mui(".mui-active")[0].getAttribute("data-wid");
+			if(curritem == olditem) {
+				return;
+			}
+			var from = "100%";
+			var to = "-100%";
+			if(curritem > olditem) {
+				from = '-100%';
+				to = '100%';
+			}
+			var self = base.GetView("articletab" + olditem);
+			var menu = base.GetView("articletab" + curritem);
+			plus.webview.startAnimation({
+					'view': self,
+					'styles': {
+						'fromLeft': '0',
+						'toLeft': from
+					},
+					'action': 'none'
+				}, {
+					'view': menu,
+					'styles': {
+						'fromLeft': to,
+						'toLeft': '0'
+					},
+					'action': 'none'
+				},
+				function(e) {
+					if(e.id == menu.id) {
+						scroll.gotoPage(curritem);
+						ChangeItem(mui(".mui-control-item")[curritem]);
+					}
+				})
+		});
 
 		mui.later(function() {
 			Check_Update(function(data) {
