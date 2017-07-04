@@ -85,46 +85,13 @@
 			<div class="mui-title cfff">制作我的文章</div>
 		</header>
 		<div id="muicontent">
-			<div id="scroll-view" class="inline full" style="padding-bottom:5rem;">
+			<div id="scroll-view" style="padding-bottom:5rem;">
 				<!--<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
 					<div></div>
 				</div>-->
 			</div>
 		</div>
-		<div id="tip" class="tip f11">
+		<div id="tip" class="tip f11 hide">
 			<div>长按删除选中图片</div>
 		</div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
@@ -145,7 +112,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mui-bar mui-bar-tab bottom tc cfff zoomIn" id="bottom" style="background:#fff;">
+		<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom" style="background:#fff;">
 			<div id="add">
 				<div class="f13" id="btnAdd" onclick="ShowPover()">选择图片</div>
 			</div>
@@ -180,8 +147,13 @@
 		ShowPover();
 
 		mui('body').on('hidden', '.mui-popover', function(e) {
-			base.Get("bottom").classList.remove("hide");
-			base.Get("bottom").classList.add("zoomIn");
+			if(!isSelect) {
+				plus.webview.hide("addimage", "fade-out");
+			} else {
+				base.Get("bottom").classList.remove("hide");
+				base.Get("bottom").classList.add("zoomIn");
+			}
+			isSelect = false;
 		});
 	});
 
@@ -192,6 +164,13 @@
 			Delete(this.getAttribute("id"));
 		});*/
 	});
+
+	function ResetAction() {
+		plus.webview.show("addimage", "fade-in", base.AnimateDuration, function() {
+			Init();
+			ShowPover();
+		});
+	}
 
 	function Init() {
 		//base.Get("scroll-view").innerHTML = '<div class="add" onclick="ShowPover()" style="background:url(../images/icon/add.png) center center no-repeat;background-size:cover;"></div>';
@@ -206,7 +185,7 @@
 	}
 
 	function AppendStr(url) {
-		id = id++;
+		id++;
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
 		div.setAttribute("id", id);

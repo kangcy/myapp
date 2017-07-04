@@ -106,17 +106,25 @@
 		top.style.display = "block";
 		center.style.display = "block";
 		bottom.style.display = "block";
-
-		Time(5);
 	})
 
+	var subindex = null;
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
 
 		if(userinfo == "{}") {
 			preload_login();
+			Time(5);
 		} else {
-			//preload_index();
+			subindex = plus.webview.create("subindex.html", "subindex", {
+				left: "0px",
+				width: '100%',
+				popGesture: 'none',
+				scrollIndicator: "none"
+			})
+			subindex.onloaded = function() {
+				Time(5);
+			};
 		}
 
 		mui.back = function(event) {
@@ -145,20 +153,14 @@
 				if(userinfo == "{}") {
 					base.GetView("login").show("zoom-fade-out");
 				} else {
-					/*plus.webview.show("subindex", "zoom-fade-out", base.AnimateDuration, function() {
-						plus.webview.close("adv");
-						plus.webview.close("guide");
-						plus.webview.close("login");
-						base.GetView("subindex").evalJS("InitCheckUpdate()");
-					}, {});*/
-
-					base.OpenWindow("subindex", "subindex.html", "zoom-fade-out", "");
-					mui.later(function() {
-						plus.webview.close("adv", "none");
-						plus.webview.close("guide", "none");
-						plus.webview.close("login", "none");
-						base.GetView("subindex").evalJS("InitCheckUpdate()");
-					}, base.AnimateDuration * 2)
+					subindex.show("zoom-fade-out", base.AnimateDuration, function() {
+						mui.later(function() {
+							plus.webview.close("adv", "none");
+							plus.webview.close("guide", "none");
+							plus.webview.close("login", "none");
+							base.GetView("subindex").evalJS("InitCheckUpdate()");
+						}, base.AnimateDuration * 2)
+					});
 				}
 			} else {
 				var e = Math.round((t - 1) / time * perimeter);
@@ -176,23 +178,6 @@
 			url: 'login.html',
 			styles: {
 				popGesture: 'hide'
-			},
-			show: {
-				autoShow: false
-			}
-		});
-	}
-
-	//预加载	-首页	
-	function preload_index() {
-		mui.preload({
-			id: 'subindex',
-			url: 'subindex.html',
-			styles: {
-				left: "0px",
-				width: '100%',
-				popGesture: 'none',
-				scrollIndicator: "none"
 			},
 			show: {
 				autoShow: false

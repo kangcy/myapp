@@ -1,22 +1,25 @@
-var isSelect = false;
+var fileIndex = 0;
+var fileTotal = 0;
+var files = [];
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
 });
 
 // 上传文件
 function upload() {
+	base.ShowWaiting("准备上传" + files.length + "张图片");
 	plus.uploader.clear();
+	if(files.length <= 0) {
+		return;
+	}
+
 	var task = plus.uploader.createUpload(base.RootUrl + "Upload/UploadImage", {
 			method: "POST"
 		},
-		function(t, status) { //上传完成  
+		function(t, status) {
 			if(status == 200) {
 				clearInterval(i);
 				var data = JSON.parse(t.responseText);
-				//console.log(t.responseText);
-				//t.responseText = {"result":true,"message":["Upload/Images/Article/20170703142059113_0jpg","Upload/Images/Article/201707031420592588_0jpg","Upload/Images/Article/201707031420594747_0jpg"]}
-
-				Init();
 				if(base.IsNullOrEmpty(data.message)) {
 					mui.toast("上传失败");
 					mask.close();
@@ -31,12 +34,10 @@ function upload() {
 	task.addData("standard", "Article");
 	task.addData("folder", "Article");
 	task.addData("number", userinfo.Number);
-	mask.show();
-	base.ShowWaiting("准备上传" + mui(".thirdfloor").length + "张图片");
 
-	mui.each(mui(".thirdfloor"), function(index, item) {
-		task.addFile(item.getAttribute("url"), {
-			key: item.getAttribute("id")
+	mui.each(files, function(index, item) {
+		task.addFile(item.url, {
+			key: item.id
 		});
 	});
 
@@ -53,11 +54,15 @@ function upload() {
 
 //拍照  
 function Camera() {
+	mui('#upload').popover('hide');
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
-			isSelect = true;
-			mui('#upload').popover('hide');
+			mask.show();
+			base.ShowWaiting("正在压缩图片");
+			fileIndex = 0;
+			fileTotal = 1;
+			files = [];
 			var localurl = entry.toLocalURL();
 			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
 			compressImage(localurl, dstname);
@@ -67,9 +72,13 @@ function Camera() {
 
 // 从相册中选择图片
 function Gallery() {
+	mui('#upload').popover('hide');
 	plus.gallery.pick(function(e) {
-		isSelect = true;
-		mui('#upload').popover('hide');
+		mask.show();
+		base.ShowWaiting("正在压缩图片");
+		fileIndex = 0;
+		fileTotal = e.files.length;
+		files = [];
 		for(var i = 0; i < e.files.length; i++) {
 			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
 			compressImage(e.files[i], dstname);
@@ -93,47 +102,32 @@ function compressImage(src, dstname) {
 			quality: 100
 		},
 		function(event) {
-			AppendStr(event.target)
+			fileIndex++;
+			files.push({
+				id: fileIndex,
+				url: event.target
+			});
+			if(fileIndex >= fileTotal) {
+				upload();
+			}
 		},
 		function(error) {
-			console.log(error);
+			fileIndex++;
+			if(fileIndex >= fileTotal) {
+				upload();
+			}
 		});
 }
 
-//创建文章
+//创建段落 
 function Import(url) {
-	base.ShowWaiting("正在同步文章信息");
-	var position = base.GetCurrentPosition();
-	var data = {
-		ID: userinfo.ID,
-		Cover: url,
-		Title: "",
-		Province: position.Province,
-		City: position.City,
-		District: position.District,
-		Street: position.Street,
-		DetailName: position.DetailName,
-		CityCode: position.CityCode,
-		Latitude: position.Latitude,
-		Longitude: position.Longitude
-	}
-	HttpPost(base.RootUrl + "Article/Edit", data, function(data) {
-		if(data != null) {
-			if(data.result) {
-				base.OpenWindow("addarticle", "addarticle.html", {
-					ArticleID: data.message.ID,
-					ArticleNumber: data.message.Number,
-					Source: "Add"
-				});
-				mui.later(function() {
-					mask.close();
-				}, 1000);
-			} else {
-				mask.close();
-				mui.toast(data.message);
-			}
-		} else {
+	base.ShowWaiting("正在同步段落信息");
+	var urls = url.split(',');
+	var length = urls.length;
+	for(var i = 0; i < length; i++) {
+		AddPic(base.GetUid(), urls[i], 0);
+		if(i >= length - 1) {
 			mask.close();
 		}
-	});
+	}
 }

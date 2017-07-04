@@ -101,64 +101,58 @@
 		var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
 		var bottomheight = base.Get("bottom").clientHeight;
 
-		HttpGet(base.RootUrl + "Api/ArticleType/All2", {}, function(data) {
-			data = JSON.parse(data);
-			if(data != null) {
-				if(data.result) {
-					data = data.message;
-					articleTypeHtml.push('<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="articletab0">推荐</a>');
-					groupItems.push({
-						id: "articletab0",
-						url: "articletab.html",
-						extras: {
-							ArticleType: 0,
-							PageName: "articletab0"
-						}
-					})
-					mui.each(data, function(i, item) {
-						groupItems.push({
-							id: "articletab" + item.ID,
-							url: "articletab.html",
-							extras: {
-								ArticleType: item.ID,
-								PageName: "articletab" + item.ID
-							}
-						})
-						articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + item.ID + '" data-wid="articletab' + item.ID + '">' + item.Name + '</a>');
-					})
-					base.Get("mui-scroll").innerHTML = articleTypeHtml.join('');
-
-					scroll = mui('.mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control').scroll({
-						scrollY: false,
-						scrollX: true,
-						indicators: false,
-						bounce: true,
-						snap: '.mui-control-item'
-					});
-
-					ChangeItem(mui(".mui-control-item")[0])
-
-					var group = new webviewGroup("articletabs.html", {
-						items: groupItems,
-						onChange: function(obj) {
-							scroll.gotoPage(parseInt(obj.index));
-							ChangeItem(mui(".mui-control-item")[parseInt(obj.index)]);
-						},
-						styles: {
-							top: headheight + "px",
-							bottom: bottomheight + "px",
-							render: "always",
-							popGesture: "none",
-							scrollIndicator: "none",
-							backgroundColor: "#ffffff"
-						}
-					});
-					mui("#slider").on("tap", ".mui-control-item", function(e) {
-						group.switchTab(this.getAttribute("data-wid"));
-					});
+		Init(function(data) {
+			articleTypeHtml.push('<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="articletab0">推荐</a>');
+			groupItems.push({
+				id: "articletab0",
+				url: "articletab.html",
+				extras: {
+					ArticleType: 0,
+					PageName: "articletab0"
 				}
-			}
-		});
+			})
+			mui.each(data, function(i, item) {
+				groupItems.push({
+					id: "articletab" + item.ID,
+					url: "articletab.html",
+					extras: {
+						ArticleType: item.ID,
+						PageName: "articletab" + item.ID
+					}
+				})
+				articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + item.ID + '" data-wid="articletab' + item.ID + '">' + item.Name + '</a>');
+			})
+			base.Get("mui-scroll").innerHTML = articleTypeHtml.join('');
+
+			scroll = mui('.mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control').scroll({
+				scrollY: false,
+				scrollX: true,
+				indicators: false,
+				bounce: true,
+				snap: '.mui-control-item'
+			});
+
+			ChangeItem(mui(".mui-control-item")[0])
+
+			var group = new webviewGroup("articletabs.html", {
+				items: groupItems,
+				onChange: function(obj) {
+					scroll.gotoPage(parseInt(obj.index));
+					ChangeItem(mui(".mui-control-item")[parseInt(obj.index)]);
+				},
+				styles: {
+					top: headheight + "px",
+					bottom: bottomheight + "px",
+					render: "always",
+					popGesture: "none",
+					scrollIndicator: "none",
+					backgroundColor: "#ffffff"
+				}
+			});
+			mui("#slider").on("tap", ".mui-control-item", function(e) {
+				group.switchTab(this.getAttribute("data-wid"));
+			});
+		})
 
 		//预加载
 		preload();
@@ -170,10 +164,21 @@
 
 		//新增
 		base.Get("add").addEventListener('tap', function() {
-			base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
-			return;
-
 			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var view = base.GetView("addimage");
+			if(view) {
+				view.evalJS("ResetAction()");
+			} else {
+				base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
+			}
+			isLoading = false;
+
+			//base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
+
+			/*if(isLoading) {
 				return false;
 			}
 			isLoading = true;
@@ -186,7 +191,7 @@
 					PageName: "action"
 				}, "none", false, false, "transparent");
 			}
-			isLoading = false;
+			isLoading = false;*/
 		});
 
 		mui.back = function() {
@@ -257,6 +262,18 @@
 
 		}, 1000);
 	});
+
+	//初始化
+	function Init(callback) {
+		HttpGet(base.RootUrl + "Api/ArticleType/All2", {}, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					callback(data.message);
+				}
+			}
+		});
+	}
 
 	//样式切换
 	function ChangeItem($this) {
