@@ -88,11 +88,23 @@
 			<div id="scroll-view" style="padding-bottom:5rem;">
 				<!--<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
 					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/02.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/03.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
+				</div>
+				<div class="thirdfloor" style="background:url(../images/adv/02.jpg) center center no-repeat;background-size:cover;">
+					<div></div>
 				</div>-->
 			</div>
 		</div>
-		<div id="tip" class="tip f11 hide">
-			<div>长按删除选中图片</div>
+		<div id="tip" class="tip f11">
+			<div>可拖拽图片重新排列</div>
 		</div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
@@ -122,6 +134,7 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
+<script src="../minjs/sortable.min.js"></script>
 <script src="../js/addimage.js"></script>
 <script type="text/javascript">
 	var id = 0;
@@ -131,7 +144,6 @@
 
 	mui.init({
 		gestureConfig: {
-			//longtap: true,
 			doubletap: true
 		}
 	});
@@ -149,6 +161,9 @@
 		mui('body').on('hidden', '.mui-popover', function(e) {
 			if(!isSelect) {
 				plus.webview.hide("addimage", "fade-out");
+				if(sort != null) {
+					sort.destroy();
+				}
 			} else {
 				base.Get("bottom").classList.remove("hide");
 				base.Get("bottom").classList.add("zoomIn");
@@ -184,6 +199,8 @@
 		mui('#upload').popover('show');
 	}
 
+	var sort = null;
+
 	function AppendStr(url) {
 		id++;
 		var div = document.createElement('div');
@@ -197,6 +214,22 @@
 		div.innerHTML = '<div onclick="Delete(' + id + ')"></div>'
 		base.Get("scroll-view").appendChild(div);
 		InitAction();
+
+		if(sort != null) {
+			sort.destroy();
+		}
+		sort = new Sortable(document.getElementById("scroll-view"), {
+			group: "scroll-view",
+			onAdd: function(evt) {
+				//console.log('onAdd.bar:', evt.detail);
+			},
+			onUpdate: function(evt) {
+				//console.log('onUpdate.bar:', evt.detail);
+			},
+			onRemove: function(evt) {
+				//console.log('onRemove.bar:', evt.detail);
+			}
+		});
 	}
 
 	function Delete(index) {

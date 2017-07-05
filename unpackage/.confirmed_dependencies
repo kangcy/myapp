@@ -3486,7 +3486,11 @@
 			"mincss/animate.min.css",
 			"images/icon/add.png",
 			"images/adv/01.jpg",
-			"images/icon/delete.png"
+			"images/icon/delete.png",
+			"js/sortable.js",
+			"images/adv/02.jpg",
+			"images/adv/03.jpg",
+			"minjs/sortable.min.js"
 		],
 		"refer": [
 			"page/addarticle.html"
