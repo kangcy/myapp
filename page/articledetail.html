@@ -350,8 +350,10 @@
 		NickName = self.NickName || "";
 
 		Load(function() {
-			plus.webview.close("addarticle");
-			plus.webview.hide("addimage");
+			mui.later(function() {
+				plus.webview.close("addarticle", "none");
+				plus.webview.hide("addimage");
+			}, 500);
 		});
 
 		//返回
