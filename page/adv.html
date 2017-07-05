@@ -122,6 +122,16 @@
 				popGesture: 'none',
 				scrollIndicator: "none"
 			})
+
+			plus.webview.create("my.html", "my", {
+				top: "0px",
+				bottom: "0px",
+				width: "100%",
+				height: "100%",
+				popGesture: "close",
+				scrollIndicator: "none"
+			});
+
 			subindex.onloaded = function() {
 				Time(5);
 			};
@@ -159,6 +169,7 @@
 						plus.webview.close("login", "none");
 						subindex.evalJS("InitCheckUpdate()");
 					});
+					subindex.evalJS("InitSlider()");
 				}
 			} else {
 				var e = Math.round((t - 1) / time * perimeter);

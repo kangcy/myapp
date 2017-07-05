@@ -124,16 +124,24 @@
 				bounce: true,
 				snap: '.mui-control-item'
 			});
-
-			ChangeItem(mui(".mui-control-item")[0])
 		})
 
 		//预加载
-		preload();
+		//preload();
 
 		//打开侧滑
 		base.Get("avatar2").addEventListener('tap', function() {
-			openMenu();
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var view = base.GetView("my");
+			if(view) {
+				plus.webview.show("my", "slide-in-left", base.AnimateDuration, function() {});
+			} else {
+				base.OpenWindow("my", "my.html", {}, "slide-in-left", false, false, "transparent");
+			}
+			isLoading = false;
 		});
 
 		//新增
@@ -169,10 +177,6 @@
 		});
 
 		mui.back = function() {
-			if(parseInt(self.getStyle().left) > 0) {
-				closeMenu();
-				return false;
-			}
 			var check = false;
 			mui(".mui-popover").each(function() {
 				if(this.classList.contains('mui-active')) {
@@ -248,75 +252,23 @@
 		});
 	}
 
-	//样式切换
-	function ChangeItem($this) {
-		var item = $this.parentNode.children[0];
-		item.style.width = $this.clientWidth + "px";
-		item.style.transform = "translateX(" + $this.offsetLeft + "px)";
-		base.RemoveClass([".mui-control-item"], "mui-active");
-		$this.classList.add("mui-active");
-	}
-
-	function LoadBanner() {
-		HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
-			if(data != null) {
-				var length = data.records;
-				if(length > 0) {
-					$("#divBanner").css("height", "8.8rem");
-					var banner = $("#banner");
-					var bannerHtml = [];
-					bannerHtml.push('<div class="mui-slider-group mui-slider-group2 mui-slider-loop">');
-					for(var j = 0, len = length; j < len; j++) {
-						if(j == 0 || j == length - 1) {
-							bannerHtml.push('<div class="mui-slider-item mui-slider-item-duplicate">');
-						} else {
-							bannerHtml.push('<div class="mui-slider-item">');
-						}
-						bannerHtml.push('<a href="' + data.list[j].Link + '"><img src="' + data.list[j].Cover + '"></a></div>');
-					}
-					bannerHtml.push('</div>');
-					bannerHtml.push('<div class="mui-slider-indicator">');
-					for(var j = 0, len = length - 2; j < len; j++) {
-						if(j == 0) {
-							bannerHtml.push('<div class="mui-indicator mui-active"></div>');
-						} else {
-							bannerHtml.push('<div class="mui-indicator"></div>');
-						}
-					}
-					bannerHtml.push('</div>');
-					banner.append(bannerHtml.join(""));
-					banner.addClass("mui-slider");
-					banner.css({
-						"height": "8rem",
-						"top": "0px"
-					});
-
-					mui("#banner").slider({
-						interval: 5000
-					});
-				}
-			}
-		});
-	}
-
-	function Avartar(url) {
-		base.Get("avatar2").setAttribute("src", url);
-	}
-
-	//开始检测更新
-	function InitCheckUpdate() {
+	function InitSlider() {
 		var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
 		var bottomheight = base.Get("bottom").clientHeight;
 		var page = plus.webview.create('articletabs.html', 'articletabs', {
 			top: headheight + "px",
 			bottom: bottomheight + "px",
+			left: "0px"
 		}, {
 			headheight: headheight,
 			bottomheight: bottomheight,
 			groupItems: JSON.stringify(groupItems)
 		});
+		ChangeItem(mui(".mui-control-item")[0])
 		plus.webview.currentWebview().append(page);
+	}
 
+	function InitChangeItem() {
 		mui("#slider").on("tap", ".mui-control-item", function(e) {
 			var curritem = this.getAttribute("data-wid");
 			var olditem = mui(".mui-active")[0].getAttribute("data-wid");
@@ -350,10 +302,28 @@
 					if(e.id == menu.id) {
 						scroll.gotoPage(curritem);
 						ChangeItem(mui(".mui-control-item")[curritem]);
+						//刷新页面数据
+						menu.evalJS('ResetCache()');
 					}
 				})
 		});
+	}
 
+	//样式切换
+	function ChangeItem($this) {
+		var item = $this.parentNode.children[0];
+		item.style.width = $this.clientWidth + "px";
+		item.style.transform = "translateX(" + $this.offsetLeft + "px)";
+		base.RemoveClass([".mui-control-item"], "mui-active");
+		$this.classList.add("mui-active");
+	}
+
+	function Avartar(url) {
+		base.Get("avatar2").setAttribute("src", url);
+	}
+
+	//开始检测更新
+	function InitCheckUpdate() {
 		mui.later(function() {
 			Check_Update(function(data) {
 				if(!base.IsNullOrEmpty(data)) {
@@ -364,126 +334,5 @@
 				}
 			});
 		}, 2000);
-	}
-
-	function preload() {
-		var menu_style = {
-			left: "-83%",
-			width: "83%",
-			popGesture: "none",
-			render: "always",
-			scrollIndicator: "none"
-		};
-
-		if(mui.os.ios) {
-			menu_style.zindex = -1;
-		}
-
-		//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
-		menu = mui.openWindow({
-			id: 'my',
-			url: 'my.html',
-			styles: menu_style,
-			show: {
-				aniShow: 'none'
-			},
-			waiting: {
-				autoShow: false
-			}
-		});
-
-		//启用侧滑拖拽操作，延时的原因是menu页是延时创建的，所以这里需要相应延时
-		/*setTimeout(function() {
-			self.drag({
-				direction: "right",
-				moveMode: "followFinger"
-			}, {
-				view: menu,
-				moveMode: "follow"
-			}, function(e) {
-				if(e.type == "end") {
-					if(e.result) {
-						if(e.direction == "rtl") {
-							self.setStyle({
-								mask: 'none',
-								left: "0px"
-							});
-						} else {
-							self.setStyle({
-								mask: 'rgba(0,0,0,0.5)',
-								left: "83%"
-							});
-						}
-					}
-				}
-				if(e.type == "move" && e.direction == "ltr") {
-					var num = 0.5 * e.progress / 100;
-					self.setStyle({
-						mask: 'rgba(0,0,0,' + num + ')'
-					});
-				}
-			});
-		}, 350);*/
-	}
-
-	//显示侧滑菜单
-	function openMenu() {
-		plus.webview.startAnimation({
-				'view': self,
-				'styles': {
-					'fromLeft': '0',
-					'toLeft': "83%"
-				},
-				'action': 'none'
-			}, {
-				'view': menu,
-				'styles': {
-					'fromLeft': "-83%",
-					'toLeft': '0'
-				},
-				'action': 'none'
-			},
-			function(e) {
-				if(e.id == menu.id) {
-					self.setStyle({
-						mask: 'rgba(0,0,0,0.5)'
-					});
-				}
-			})
-	};
-
-	//关闭菜单
-	function closeMenu() {
-		plus.webview.startAnimation({
-				'view': self,
-				'styles': {
-					'fromLeft': "83%",
-					'toLeft': "0"
-				},
-				'action': 'none'
-			}, {
-				'view': menu,
-				'styles': {
-					'fromLeft': "0",
-					'toLeft': "-83%"
-				},
-				'action': 'none'
-			},
-			function(e) {
-				if(e.id == self.id) {
-					self.setStyle({
-						mask: 'none'
-					});
-				}
-			})
-	};
-	window.addEventListener("menu:close", closeMenu);
-
-	mui.menu = function() {
-		if(parseInt(self.getStyle().left) > 0) {
-			closeMenu();
-		} else {
-			openMenu();
-		}
 	}
 </script>

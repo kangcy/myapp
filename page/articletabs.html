@@ -7,10 +7,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
 	</head>
 
 	<body>
-
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
 	</body>
 
 </html>
@@ -22,7 +27,6 @@
 	var bottomheight = "0px";
 	var menu = null;
 	var self = null;
-	var currview = null;
 	var totalview = 0;
 
 	if(window.plus) {
@@ -39,7 +43,6 @@
 		if(!base.IsNullOrEmpty(groupItems)) {
 			groupItems = JSON.parse(groupItems);
 		}
-
 		preload(headheight);
 	}
 
@@ -57,12 +60,12 @@
 		//创建页面
 		mui.each(groupItems, function(i, view) {
 			menu_style.left = i * 100 + "%";
-			currview = plus.webview.create(view.url, view.id, menu_style, {
+			var currview = plus.webview.create(view.url, view.id, menu_style, {
 				ArticleType: view.ArticleType,
 				PageName: view.PageName,
 				headheight: headheight
 			});
-			currview.show('fade-in');
+			currview.show('none');
 			currview.onloaded = function() {
 				totalview += 1;
 			};
@@ -70,15 +73,15 @@
 		var i = setInterval(function() {
 			if(totalview == groupItems.length) {
 				clearInterval(i);
+				base.GetView("subindex").evalJS('InitChangeItem()');
 				InitDrag();
 			}
-		}, 250);
+		}, 100);
 	}
 
 	//绑定手指事件
 	function InitDrag() {
 		mui.each(groupItems, function(i, view) {
-			//base.GetView("subindex").evalJS("InitView()");
 			if(i > 0) {
 				menu = base.GetView(view.id);
 				self = base.GetView(groupItems[i - 1].id);
@@ -91,6 +94,8 @@
 				}, function(e) {
 					if(e.type == "end" && e.result) {
 						base.GetView("subindex").evalJS('scroll.gotoPage(' + (i - 1) + ');ChangeItem(mui(".mui-control-item")[' + (i - 1) + '])');
+						//刷新页面数据
+						base.GetView(groupItems[i - 1].id).evalJS('ResetCache()');
 					}
 				});
 			}
@@ -107,6 +112,8 @@
 				}, function(e) {
 					if(e.type == "end" && e.result) {
 						base.GetView("subindex").evalJS('scroll.gotoPage(' + (i + 1) + ');ChangeItem(mui(".mui-control-item")[' + (i + 1) + '])');
+						//刷新页面数据
+						base.GetView(groupItems[i + 1].id).evalJS('ResetCache()');
 					}
 				});
 			}

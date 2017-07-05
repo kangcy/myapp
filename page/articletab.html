@@ -24,7 +24,6 @@
 				<img src="../images/banner1.jpg" class="full">
 				<div class="splitline"></div>
 			</div>
-
 			<div id="scroll-view"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
@@ -42,6 +41,7 @@
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
+	var ReadCache = true; //是否读取缓存
 	var PageName = "";
 	var ArticleType = 0;
 	var CreateUserNumber = "";
@@ -64,7 +64,7 @@
 		CreateUserNumber = self.CreateUserNumber || "";
 		Source = self.Source || "List";
 		PageName = self.PageName || "";
-	
+
 		if(ArticleType == 0) {
 			base.Get("slider").classList.remove("hide");
 		}
@@ -85,6 +85,32 @@
 	//加载数据
 	function Load(callback) {
 		var table = base.Get('scroll-view');
+		if(ArticleType == 0) {
+			LoadApi(callback);
+		} else {
+			if(ReadCache) {
+				var foo = localStorage.getItem(PageName) || "";
+				if(!base.IsNullOrEmpty(foo)) {
+					foo = JSON.parse(foo);
+					var fragment = document.createDocumentFragment();
+					mui.each(foo, function(index, item) {
+						fragment.appendChild(AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false));
+					});
+					table.appendChild(fragment);
+					if(callback) {
+						callback();
+					}
+				} else {
+					LoadApi(callback);
+				}
+			} else {
+				LoadApi(callback);
+			}
+		}
+	}
+
+	function LoadApi(callback) {
+		ReadCache = false;
 		var data = {
 			ID: userinfo.ID,
 			page: currpage,
@@ -95,10 +121,21 @@
 		};
 		LoadPull(base.RootUrl + "Api/Article/All", data, true, false, function(item) {
 			return AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
-		}, function() {
+		}, function(data) {
+			localStorage.setItem(PageName, JSON.stringify(data));
 			if(callback) {
 				callback();
 			}
 		});
+	}
+
+	//刷新页面数据
+	function ResetCache() {
+		if(!ReadCache) {
+			return;
+		}
+		console.log("ref:" + PageName)
+		ReadCache = false;
+		pulldownRefresh();
 	}
 </script>

@@ -12,10 +12,10 @@
 	</head>
 
 	<body>
-		<header id="header" class="mui-bar" immersed="none">
+		<!--<header id="header" class="mui-bar" immersed="none">
 			<img src="../images/my/arrow_right.png" class="fr more2" style="width:0.5rem;margin-top:0.5rem;" />
 			<span class="cfff f13 fr more2" onclick="closeMenu()">首页</span>
-		</header>
+		</header>-->
 		<div class="bg" id="cover"></div>
 		<div class="avatar">
 			<img id="avatar" src="../images/avatar.png" />
@@ -43,7 +43,7 @@
 			</div>
 		</div>
 		<div class="splitline"></div>
-		<div class="menus tc mt10 f12">
+		<div class="menus tc mt10 f13">
 			<div id="my-tip">
 				<p class="c000">好友动态</p>
 			</div>
@@ -86,7 +86,6 @@
 
 	mui.init({
 		keyEventBind: {
-			backbutton: false,
 			menubutton: false
 		}
 	});
@@ -192,27 +191,12 @@
 	var main = null;
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		main = base.GetView("subindex");
 
 		LoadUser();
 
-		self.drag({
-			direction: "left",
-			moveMode: "followFinger"
-		}, {
-			view: main,
-			moveMode: "follow"
-		}, function(e) {
-			if(e.type == "end") {
-				if(e.result) {
-					main.setStyle({
-						mask: 'none'
-					});
-				}
-			}
-		});
-
-		mui.menu = closeMenu;
+		mui.back = function() {
+			self.hide("slide-out-left");
+		}
 	});
 
 	function closeMenu() {
