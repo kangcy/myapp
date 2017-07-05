@@ -124,10 +124,19 @@
 				bounce: true,
 				snap: '.mui-control-item'
 			});
-		})
 
-		//预加载
-		//preload();
+			var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
+			var bottomheight = base.Get("bottom").clientHeight;
+			var page = plus.webview.create('articletabs.html', 'articletabs', {
+				top: headheight + "px",
+				bottom: bottomheight + "px",
+				left: "0px"
+			}, {
+				headheight: headheight,
+				bottomheight: bottomheight,
+				groupItems: JSON.stringify(groupItems)
+			});
+		})
 
 		//打开侧滑
 		base.Get("avatar2").addEventListener('tap', function() {
@@ -264,11 +273,22 @@
 			bottomheight: bottomheight,
 			groupItems: JSON.stringify(groupItems)
 		});
-		ChangeItem(mui(".mui-control-item")[0])
-		plus.webview.currentWebview().append(page);
 	}
 
 	function InitChangeItem() {
+		self.show("zoom-fade-out", base.AnimateDuration, function() {
+			plus.webview.close("adv", "none");
+			plus.webview.close("guide", "none");
+			plus.webview.close("login", "none");
+			mui.each(groupItems, function(i, view) {
+				base.GetView(view.id).show('zoom-fade-out');
+			})
+			self.append(base.GetView("articletabs"));
+			ChangeItem(mui(".mui-control-item")[0])
+
+			InitCheckUpdate()
+		});
+
 		mui("#slider").on("tap", ".mui-control-item", function(e) {
 			var curritem = this.getAttribute("data-wid");
 			var olditem = mui(".mui-active")[0].getAttribute("data-wid");

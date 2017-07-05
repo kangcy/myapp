@@ -14,7 +14,7 @@
 	</head>
 
 	<body>
-		<div class="loading hide" id="loader">
+		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
@@ -85,6 +85,11 @@
 	//加载数据
 	function Load(callback) {
 		var table = base.Get('scroll-view');
+
+		ReadCache = false;
+		LoadApi(callback);
+		return;
+
 		if(ArticleType == 0) {
 			LoadApi(callback);
 		} else {
@@ -134,7 +139,6 @@
 		if(!ReadCache) {
 			return;
 		}
-		console.log("ref:" + PageName)
 		ReadCache = false;
 		pulldownRefresh();
 	}
