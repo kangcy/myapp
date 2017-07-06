@@ -596,7 +596,7 @@
 
 					//分享信息
 					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);
-					ShareInfo.Cover = data.Cover;
+					ShareInfo.Cover = base.ShowThumb(data.Cover, 2);
 					ShareInfo.Url = data.ShareUrl;
 				} else {
 					mui.toast(data.message);

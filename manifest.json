@@ -163,7 +163,7 @@
 						"redirect_uri": "http://www.sharesdk.cn"
 					},
 					"weixin": {
-						"appid": "wxbf415b2a2d7f5af2",
+						"appid": "wxbf415b2a2d7f5af2",//[wxbf415b2a2d7f5af2]  
 						"appsecret": "03cdde17b14e84a45fbe666cb2428492"
 					}
 				}

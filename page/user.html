@@ -373,7 +373,7 @@
 
 				//分享信息 
 				ShareInfo.Title = base.UnUnicodeText(NickName) + "的专栏";
-				ShareInfo.Cover = Avatar;
+				ShareInfo.Cover = base.ShowThumb(Avatar, 2);
 				ShareInfo.Url = data.ShareUrl;
 
 				if(callback) {
