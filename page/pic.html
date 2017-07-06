@@ -107,8 +107,6 @@
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
-<script src="../minjs/mui.lazyload.min.js"></script>
-<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script type="text/javascript">
 	pagesize = 30;
 	var UserNumber = 0;
@@ -117,11 +115,6 @@
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	}); 
-
-	var lazyLoad = mui("#scroll-view").imageLazyload({
-		placeholder: '../images/default.png',
-		destroy: false
-	});
 
 	mui.init({
 		gestureConfig: {
@@ -191,7 +184,6 @@
 			mui("#scroll-view").on('longtap', '.thirdfloor', function(event) {
 				PreviewEnable = false;
 				Preview(PreviewEnable, this);
-
 			});
 		}
 	}
@@ -225,7 +217,6 @@
 			if(callback) {
 				callback();
 			}
-			lazyLoad.refresh(true);
 		});
 	}
 
@@ -238,7 +229,7 @@
 		} 
 		div.style.position = "relative";
 		div.setAttribute("pid", item.ID);
-		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" /><div class="cover ' + (PreviewEnable ? "hide" : "") + '"></div><div class="icon"></div>';
+		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" /><div class="cover ' + (PreviewEnable ? "hide" : "") + '"></div><div class="icon"></div>';
 		return div;
 	}
 

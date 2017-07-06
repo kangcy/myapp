@@ -67,8 +67,6 @@
 			<div style="width:50%;display:inline-block;margin-top:10%;" class="fl tc">
 				<img src="../images/login/wx_login.png" style="width:80%;float: left;margin-left: 6%;" id="weixin" />
 			</div>
-			<!--音乐播放-->
-			<!--<iframe style="display:none;" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=5282665&auto=1&height=66"></iframe>-->
 			<p class="tc f11 c000 fl full mt20" id='notice'>登录即代表您同意<span class="blue" style="text-decoration:underline;">《小微篇服务协议》</span></p>
 			<p class="f11 c999 tc copyright full" id="copyright"></p>
 		</div>
@@ -113,20 +111,26 @@
 
 	//跳转首页
 	var toMain = function() {
-		//base.ShowWaiting("登录成功，正在加载");
-		base.OpenWindow("subindex", "subindex.html", {}, "zoom-fade-out", "none");
+		plus.webview.create("subindex.html", "subindex", {
+			left: "0px",
+			width: '100%',
+			popGesture: 'none',
+			scrollIndicator: "none"
+		})
 
-		mui.later(function() {
-			plus.webview.close("adv", "none");
-			plus.webview.close("guide", "none");
-			plus.webview.close("login", "none");
-
-			base.GetView("subindex").evalJS("InitCheckUpdate()");
-		}, base.AnimateDuration * 2);
+		if(base.GetView("my") == null) {
+			plus.webview.create("my.html", "my", {
+				top: "0px",
+				bottom: "0px",
+				width: "100%",
+				height: "100%",
+				popGesture: "close",
+				scrollIndicator: "none"
+			});
+		}
 
 		accountBox.value = "";
 		passwordBox.value = "";
-		mask.close();
 		isLoading = false;
 	};
 
@@ -154,17 +158,19 @@
 
 	var auths = {};
 	mui.plusReady(function() {
+		plus.navigator.closeSplashscreen();
+
 		mui.later(function() {
 			var all = plus.webview.all();
 			var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
 			for(var i = 0; i < all.length; i++) {
-				if(all[i] === launch || all[i].id === "login" || all[i].id === "adv" || all[i].id === "template")
+				if(all[i] === launch || all[i].id === "login" || all[i].id === "my")
 					continue;
 				all[i].hide();
 				all[i].close();
 				all[i].clear();
 			}
-		}, base.AnimateDuration * 2);
+		}, base.AnimateDuration);
 
 		var settings = app.getSettings();
 		plus.oauth.getServices(function(services) {

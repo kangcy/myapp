@@ -80,7 +80,6 @@
 
 	<body id="main">
 		<header id="header" class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="upload()">上传图片</a>
 			<div class="mui-title cfff">制作我的文章</div>
 		</header>
@@ -168,20 +167,33 @@
 				base.Get("bottom").classList.remove("hide");
 				base.Get("bottom").classList.add("zoomIn");
 			}
-			isSelect = false;
+		});
+
+		mui('#scroll-view').on('tap', '.delicon', function(e) {
+			var index = this.getAttribute("tid");
+			mui.confirm('确定删除选中图片？', '', ['确定', '取消'], function(e) {
+				if(e.index < 0) {
+					return;
+				}
+				if(e.index == 0) {
+					base.Get("scroll-view").removeChild(mui("#" + index)[0]);
+					InitAction();
+				}
+			});
 		});
 	});
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 
-		/*mui("#scroll-view").on('longtap', '.thirdfloor', function(event) {
-			Delete(this.getAttribute("id"));
-		});*/
+		mui.back = function() {
+			self.hide("fade-out");
+		}
 	});
 
 	function ResetAction() {
 		plus.webview.show("addimage", "fade-in", base.AnimateDuration, function() {
+			isSelect = false;
 			Init();
 			ShowPover();
 		});
@@ -211,7 +223,7 @@
 		div.style.backgroundPosition = "center center";
 		div.style.backgroundRepeat = "no-repeat";
 		div.style.backgroundSize = "cover";
-		div.innerHTML = '<div onclick="Delete(' + id + ')"></div>'
+		div.innerHTML = '<div class="delicon" tid="' + id + '"></div>'
 		base.Get("scroll-view").appendChild(div);
 		InitAction();
 
@@ -228,18 +240,6 @@
 			},
 			onRemove: function(evt) {
 				//console.log('onRemove.bar:', evt.detail);
-			}
-		});
-	}
-
-	function Delete(index) {
-		mui.confirm('确定删除选中图片？', '', ['确定', '取消'], function(e) {
-			if(e.index < 0) {
-				return;
-			}
-			if(e.index == 0) {
-				base.Get("scroll-view").removeChild(mui("#" + index)[0]);
-				InitAction();
 			}
 		});
 	}

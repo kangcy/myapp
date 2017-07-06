@@ -75,11 +75,17 @@ function UpdateDetail() {
 }
 
 //重新加载数据 
-function UpdateDetail2() {
+function UpdateDetail2(source) {
+	console.log(source)
 	ChooseTan(function() {
 		Load(function() {
-			plus.webview.close("custom", "none");
-			plus.webview.close("customsetting", "none");
+			if(source == "custom") {
+				plus.webview.close("customsetting", "none");
+				plus.webview.close("custom");
+			} else {
+				plus.webview.close("custom", "none");
+				plus.webview.close("customsetting");
+			}
 		});
 	});
 }

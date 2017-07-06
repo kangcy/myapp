@@ -15,6 +15,7 @@
 <script src="minjs/mui.min.js"></script>
 <script src="minjs/base.min.js"></script>
 <script type="text/javascript">
+	var userinfo = base.GetUserInfo();
 	mui.init();
 	mui.plusReady(function() {
 		plus.navigator.setFullscreen(true); //全屏展示
@@ -24,45 +25,20 @@
 
 		//读取本地存储，检查是否为首次启动
 		var showGuide = plus.storage.getItem("lauchFlag");
-		if(!showGuide) {
-			preload_guide();
-		}
 
 		//定位
 		base.InitPosition(function() {
-			if(showGuide) {
-				base.OpenWindow("adv", "page/adv.html");
+			if(!showGuide) {
+				base.OpenWindow("guide", "page/guide.html");
+				return;
+			}
+			if(userinfo == "") {
+				base.OpenWindow("login", "page/login.html");
 			} else {
-				base.GetView("guide").show("zoom-fade-out");
+				base.OpenWindow("adv", "page/adv.html");
 			}
 		});
 	});
-
-	function preload_adv() {
-		mui.preload({
-			id: 'adv',
-			url: 'page/adv.html',
-			styles: {
-				popGesture: 'hide'
-			},
-			show: {
-				autoShow: false
-			}
-		});
-	}
-
-	function preload_guide() {
-		mui.preload({
-			id: 'guide',
-			url: 'page/guide.html',
-			styles: {
-				popGesture: 'hide'
-			},
-			show: {
-				autoShow: false
-			}
-		});
-	}
 
 	//预加载	-模板页	
 	function preload_template() {

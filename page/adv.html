@@ -112,7 +112,7 @@
 	mui.plusReady(function() {
 		plus.navigator.closeSplashscreen();
 
-		if(userinfo == "{}") {
+		if(userinfo == "") {
 			preload_login();
 			Time(5);
 		} else {
@@ -131,11 +131,6 @@
 				popGesture: "close",
 				scrollIndicator: "none"
 			});
-
-			subindex.onloaded = function() {
-				//subindex.evalJS("InitSlider()");
-				//Time(5);
-			};
 		}
 
 		mui.back = function(event) {
@@ -161,7 +156,7 @@
 		index = setInterval(function() {
 			if(0 == t) {
 				clearInterval(index);
-				if(userinfo == "{}") {
+				if(userinfo == "") {
 					base.GetView("login").show("zoom-fade-out");
 				} else {
 					subindex.show("zoom-fade-out", base.AnimateDuration, function() {

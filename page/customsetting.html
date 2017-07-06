@@ -85,7 +85,7 @@
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
-		</div> 
+		</div>
 		<!--图片操作-->
 		<div id="uploadwrapper"></div>
 		<!--删除-->
@@ -107,20 +107,8 @@
 				</li>
 			</ul>
 		</div>
-		<!--<div class="full tc" id="items"> 
-				<div class="item fl">
-					<a onclick="Single()"><img src="../images/background/1.png" />
-						<div class="full f13 c333">单图背景</div>
-					</a>
-				</div>
-				<div class="item fl">
-					<a onclick="Figure()"><img src="../images/background/2.png" />
-						<div class="full f13 c333">多图背景</div>
-					</a>
-				</div>
-			</div>-->
 		<div id="muicontent">
-			<div id="scroll-view">
+			<div id="scroll-view" class="inline full">
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
@@ -132,7 +120,8 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../js/addbackground.js"></script>
+<script src="../js/addcustom.js"></script>
+<!--<script src="../js/addbackground.js"></script>-->
 <script type="text/javascript">
 	var id = 0;
 	var articleNumber = "";
@@ -149,6 +138,18 @@
 
 	mui.ready(function() {
 		base.Immersed();
+
+		mui('#uploadwrapper').load("../part/pic.html", function(response) {
+			base.RemoveClass(["#create"], "hide");
+
+			base.Get("create").addEventListener('tap', function() {
+				url = "";
+				full = 0;
+				high = 0;
+				transparency = 50;
+				mui('#upload').popover('show');
+			});
+		});
 
 		mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
 			var isused = this.getAttribute("isused");
@@ -185,7 +186,6 @@
 			if(data != null) {
 				var table = base.Get("scroll-view");
 				table.innerHTML = "";
-				totalpage = data.totalpage;
 				var length = data.message.length;
 				if(length > 0) {
 					var fragment = document.createDocumentFragment();
@@ -203,18 +203,6 @@
 			if(callback) {
 				callback();
 			}
-
-			mui('#uploadwrapper').load("../part/pic.html", function(response) {
-				base.RemoveClass(["#create"], "hide");
-
-				base.Get("create").addEventListener('tap', function() {
-					url = "";
-					full = 0;
-					high = 0;
-					transparency = 50;
-					mui('#upload').popover('show');
-				});
-			});
 		});
 	}
 
@@ -257,7 +245,7 @@
 				if(data.result) {
 					var page = base.GetView('articledetail');
 					if(page) {
-						page.evalJS("UpdateDetail2()");
+						page.evalJS("UpdateDetail2('customsetting')");
 					}
 				} else {
 					mui.toast(data.message);
@@ -289,7 +277,7 @@
 				mui.toast("系统异常,请稍后再试");
 			} else {
 				if(data.result) {
-					var item = mui("#" + number)[0];
+					var item = mui("#" + id)[0];
 					item.parentNode.removeChild(item);
 				} else {
 					mui.toast(data.message);
@@ -310,11 +298,18 @@
 			isLoading = false;
 			return mui.toast("参数异常");
 		}
-		ConfirmImg(url);
+		base.OpenWindow("custom", "custom.html", {
+			ArticleNumber: articleNumber,
+			Url: url,
+			ID: id,
+			full: full,
+			high: high,
+			transparency: transparency
+		});
 	}
 
 	//重新加载数据 
-	function UpdateDetail2() {
+	function UpdateCustom() {
 		Load(function() {
 			plus.webview.close("custom");
 		});

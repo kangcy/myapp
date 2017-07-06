@@ -105,7 +105,8 @@
 			"page/register.html",
 			"page/subindex.html",
 			"page/forget_password.html",
-			"page/notice.html"
+			"page/notice.html",
+			"page/my.html"
 		]
 	},
 	"page/guide.html": {
@@ -272,7 +273,8 @@
 			"minjs/base.min.js",
 			"minjs/login.min.js",
 			"minjs/update.min.js",
-			"js/base.min.js"
+			"js/base.min.js",
+			"js/login.min.js"
 		],
 		"refer": [
 			"page/login.html",
@@ -2898,7 +2900,8 @@
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"images/addarticle/icon_pic_y.png"
+			"images/addarticle/icon_pic_y.png",
+			"js/addcustom.js"
 		],
 		"refer": [
 			"page/mypic.html",

@@ -46,7 +46,7 @@
 				line-height: 2.6rem;
 				text-align: center;
 				position: fixed;
-				bottom: 1rem;
+				bottom: 0.5rem;
 			}
 			
 			#addcomment div {
@@ -103,12 +103,12 @@
 					</div>
 				</li>
 			</ul>
-			<span class="fl f11 blue ml15 mt20">说明:该透明度将会运用到文章详情展示</span>
-			<div class="fl f11 full mt20"><span class="fl ml15 mt10 c333">透明度:</span>
+			<div class="fl f11 full mt20 opacity hide"><span class="fl ml15 mt10 c333">透明度:</span>
 				<div class="mui-input-row mui-input-range fl ml10" style="clear:none;width: 80%;">
 					<input type="range" id='range' value="50" min="0" max="100">
 				</div>
 			</div>
+			<span class="fl f11 blue ml15 mt20 opacity hide">说明:该透明度将会运用到文章详情展示</span>
 			<div id="addcomment">
 				<div class="f12 cfff" onclick="Save()">使用</div>
 			</div>
@@ -162,46 +162,50 @@
 			base.SwitchChange("fullSwitch", !active);
 			if(!active) {
 				full = 1;
+				base.RemoveClass([".opacity"], "hide");
 			} else {
 				full = 0;
-			}
-			if(full == 0) {
-				windowHeight = windowHeight * 0.4;
-			} else {
-				windowHeight = window.innerHeight;
-			}
-			var initWidth = windowWidth;
-			var initHeight = windowHeight;
-
-			//计算长宽比
-			if((imgWidth / imgHeight) >= (windowWidth / windowHeight)) {
-				initWidth = 0;
+				base.AddClass([".opacity"], "hide");
 			}
 
-			$readyimg.cropper('destroy');
-			$readyimg.cropper.setDefaults({
-				minCanvasWidth: initWidth,
-				minCanvasHeight: initHeight,
-				minContainerWidth: windowWidth,
-				minContainerHeight: windowHeight,
-				minCropBoxWidth: windowWidth,
-				minCropBoxHeight: windowHeight,
-				viewMode: 3,
-				background: false,
-				checkImageOrigin: true,
-				modal: false,
-				autoCrop: true,
-				dragCrop: false,
-				zoomable: false,
-				movable: true,
-				built: function() {
-					$readyimg.show();
-					mask.close();
-					isLoading = false;
+			mui.later(function() {
+				if(full == 0) {
+					windowHeight = windowHeight * 0.4;
+				} else {
+					windowHeight = window.innerHeight;
 				}
-			});
-			$readyimg.hide();
-			$readyimg.cropper('reset');
+				var initWidth = windowWidth;
+				var initHeight = windowHeight;
+
+				//计算长宽比
+				if((imgWidth / imgHeight) >= (windowWidth / windowHeight)) {
+					initWidth = 0;
+				}
+				$readyimg.cropper('destroy');
+				$readyimg.cropper.setDefaults({
+					minCanvasWidth: initWidth,
+					minCanvasHeight: initHeight,
+					minContainerWidth: windowWidth,
+					minContainerHeight: windowHeight,
+					minCropBoxWidth: windowWidth,
+					minCropBoxHeight: windowHeight,
+					viewMode: 3,
+					background: false,
+					checkImageOrigin: true,
+					modal: false,
+					autoCrop: true,
+					dragCrop: false,
+					zoomable: false,
+					movable: true,
+					built: function() {
+						$readyimg.show();
+						mask.close();
+						isLoading = false;
+					}
+				});
+				$readyimg.hide();
+				$readyimg.cropper('reset');
+			}, 500);
 		});
 
 		//开启高清背景
@@ -320,8 +324,8 @@
 		Upload(imgurl, function(data) {
 			var url = data;
 			//保存设置
-			HttpPost(base.RootUrl + "Api/Background/Edit", {
-				ID: userinfo.ID,
+			HttpGet(base.RootUrl + "Api/Background/Edit", {
+				ID: userinfo.ID, 
 				ArticleNumber: articleNumber,
 				Full: full,
 				High: high,
@@ -338,12 +342,12 @@
 						if(id == 0) {
 							var page = base.GetView('articledetail');
 							if(page) {
-								page.evalJS("UpdateDetail2()");
+								page.evalJS("UpdateDetail2('custom')");
 							}
 						} else {
 							var page = base.GetView('customsetting');
 							if(page) {
-								page.evalJS("UpdateDetail2()");
+								page.evalJS("UpdateCustom()");
 							}
 						}
 					} else {

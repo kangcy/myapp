@@ -85,8 +85,6 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/mui.lazyload.min.js"></script>
-<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script type="text/javascript">
 	var Source = "";
 	var Multiple = 0; //是否多选
@@ -96,11 +94,6 @@
 		gestureConfig: {
 			doubletap: true
 		}
-	});
-
-	var lazyLoad = mui("#scroll-view").imageLazyload({
-		placeholder: '../images/default.png',
-		destroy: false
 	});
 
 	mui.ready(function() {
@@ -193,7 +186,6 @@
 			if(callback) {
 				callback();
 			}
-			lazyLoad.refresh(true);
 		});
 	}
 
@@ -202,7 +194,7 @@
 		div.className = 'thirdfloor nocheck';
 		div.style.position = "relative";
 		div.setAttribute("url", item.Introduction);
-		div.innerHTML = '<img data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" /><div class="cover"></div><div class="icon"></div>';
+		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" /><div class="cover"></div><div class="icon"></div>';
 		return div;
 	}
 </script>
