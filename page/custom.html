@@ -166,6 +166,9 @@
 			} else {
 				full = 0;
 				base.AddClass([".opacity"], "hide");
+				transparency = 50;
+				base.Get("range").value = transparency;
+				$cover.style.background = "rgba(255, 255, 255, " + ((100 - transparency) / 100) + ")";
 			}
 
 			mui.later(function() {
@@ -224,7 +227,6 @@
 	})
 
 	mui.plusReady(function() {
-
 		self = plus.webview.currentWebview();
 		articleNumber = self.ArticleNumber || "";
 		url = self.Url || "";
@@ -249,6 +251,8 @@
 		mui.back = function() {
 			plus.webview.close(self);
 		}
+
+		base.GetView("customsetting").evalJS("mask.close()");
 	});
 
 	//照片裁剪类(0:不全屏,1:全屏)  
@@ -325,7 +329,7 @@
 			var url = data;
 			//保存设置
 			HttpGet(base.RootUrl + "Api/Background/Edit", {
-				ID: userinfo.ID, 
+				ID: userinfo.ID,
 				ArticleNumber: articleNumber,
 				Full: full,
 				High: high,

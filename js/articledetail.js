@@ -76,7 +76,6 @@ function UpdateDetail() {
 
 //重新加载数据 
 function UpdateDetail2(source) {
-	console.log(source)
 	ChooseTan(function() {
 		Load(function() {
 			if(source == "custom") {

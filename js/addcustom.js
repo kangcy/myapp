@@ -58,7 +58,6 @@ function compressImage(src, dstname) {
 			fileIndex++;
 			files.push(event.target);
 			if(fileIndex >= fileTotal) {
-				mask.close();
 				base.OpenWindow("custom", "custom.html", {
 					ArticleNumber: articleNumber,
 					Url: files.join(',')
@@ -72,7 +71,6 @@ function compressImage(src, dstname) {
 			}
 			fileIndex++;
 			if(fileIndex >= fileTotal) {
-				mask.close();
 				base.OpenWindow("custom", "custom.html", {
 					ArticleNumber: articleNumber,
 					Url: files.join(',')
