@@ -73,17 +73,15 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/update.min.js"></script>
-<script src="../js/subindex.js"></script>
+<script src="../js/webviewGroup.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
+	var FirstLoad = true; //首次加载  
 	var self = null;
 	var menu = null;
 	var scroll = null;
 	var groupItems = [];
 	var articleTypeHtml = [];
-	var headheight = "";
-	var bottomheight = "";
-	var menu_style = {};
 
 	mui.init();
 
@@ -105,7 +103,6 @@
 			groupItems.push({
 				id: "articletab0",
 				url: "articletab.html",
-				index: 0,
 				ArticleType: 0,
 				PageName: "articletab0"
 			})
@@ -113,7 +110,6 @@
 				groupItems.push({
 					id: "articletab" + item.ID,
 					url: "articletab.html",
-					index: i + 1,
 					ArticleType: item.ID,
 					PageName: "articletab" + item.ID
 				})
@@ -128,20 +124,17 @@
 				bounce: true,
 				snap: '.mui-control-item'
 			});
-			headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
-			bottomheight = base.Get("bottom").clientHeight;
-			menu_style = {
-				top: headheight,
-				bottom: bottomheight,
-				left: "100%",
-				width: "100%",
-				popGesture: "none",
-				render: "always",
-				scrollIndicator: "none"
-			};
-			InitViewAfter(0, function() {
-				ChangeItem(mui(".mui-control-item")[0]);
-				InitChangeItem();
+
+			var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
+			var bottomheight = base.Get("bottom").clientHeight;
+			var page = plus.webview.create('articletabs.html', 'articletabs', {
+				top: headheight + "px",
+				bottom: bottomheight + "px",
+				left: "0px"
+			}, {
+				headheight: headheight,
+				bottomheight: bottomheight,
+				groupItems: JSON.stringify(groupItems)
 			});
 		})
 
@@ -173,6 +166,23 @@
 				base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
 			}
 			isLoading = false;
+
+			//base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
+
+			/*if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var view = base.GetView("action");
+			if(view) {
+				view.evalJS("ResetAction(1,'action')");
+			} else {
+				base.OpenWindow("action", "action.html", {
+					Type: 1,
+					PageName: "action"
+				}, "none", false, false, "transparent");
+			}
+			isLoading = false;*/
 		});
 
 		mui.back = function() {
@@ -266,7 +276,7 @@
 	}
 
 	function InitChangeItem() {
-		/*self.show("zoom-fade-out", base.AnimateDuration, function() {
+		self.show("zoom-fade-out", base.AnimateDuration, function() {
 			plus.webview.close("adv", "none");
 			plus.webview.close("guide", "none");
 			plus.webview.close("login", "none");
@@ -277,15 +287,11 @@
 			ChangeItem(mui(".mui-control-item")[0])
 
 			InitCheckUpdate()
-		});*/
+		});
 
 		mui("#slider").on("tap", ".mui-control-item", function(e) {
-			if(isLoading) {
-				return;
-			}
-			isLoading = true;
-			var curritem = parseInt(this.getAttribute("data-wid"));
-			var olditem = parseInt(mui(".mui-active")[0].getAttribute("data-wid"));
+			var curritem = this.getAttribute("data-wid");
+			var olditem = mui(".mui-active")[0].getAttribute("data-wid");
 			if(curritem == olditem) {
 				return;
 			}
@@ -297,19 +303,6 @@
 			}
 			var self = base.GetView("articletab" + olditem);
 			var menu = base.GetView("articletab" + curritem);
-			if(menu == null) {
-				var view = groupItems[curritem];
-				menu = plus.webview.create(view.url, view.id, menu_style, {
-					ArticleType: view.ArticleType,
-					PageName: view.PageName,
-					headheight: headheight
-				});
-				menu.show("fade-in");
-				menu.onloaded = function() {
-					InitViewBefore(curritem);
-					InitViewAfter(curritem);
-				};
-			}
 			plus.webview.startAnimation({
 					'view': self,
 					'styles': {
@@ -330,9 +323,7 @@
 						scroll.gotoPage(curritem);
 						ChangeItem(mui(".mui-control-item")[curritem]);
 						//刷新页面数据
-						//menu.evalJS('ResetCache()');
-
-						isLoading = false;
+						menu.evalJS('ResetCache()');
 					}
 				})
 		});

@@ -131,6 +131,21 @@
 				popGesture: "close",
 				scrollIndicator: "none"
 			});
+
+			subindex.onloaded = function() {
+				subindex.show("zoom-fade-out", base.AnimateDuration, function() {
+					plus.webview.close("adv", "none");
+					plus.webview.close("guide", "none");
+					plus.webview.close("login", "none");
+					/*mui.each(groupItems, function(i, view) {
+						base.GetView(view.id).show('zoom-fade-out');
+					})
+					self.append(base.GetView("articletabs"));*/
+					//ChangeItem(mui(".mui-control-item")[0])
+
+					subindex.evalJS("InitCheckUpdate()");
+				});
+			}
 		}
 
 		mui.back = function(event) {
