@@ -8,15 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<style type="text/css">
-			body {
-				background: #f5f5f5;
-			}
-			
-			#muicontent .mui-table-view:after {
-				height: 0px;
-			}
-		</style>
+		<link rel="stylesheet" href="../mincss/setting.min.css">
 	</head>
 
 	<body>
@@ -25,78 +17,62 @@
 			<h1 class="mui-title cfff">通用设置</h1>
 		</header>
 		<div id="muicontent">
-			<ul class="mui-table-view f13 mt15">
-				<li class="mui-table-view-cell" onclick="Account()">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="c000">账号管理</p>
-						</div>
-						<div style="flex:0 0 20%;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright caaa f16"></span>
-						</div>
+			<div class="flex-box flex-row f13 mt15" onclick="Account()">
+				<div class="flex-item c000">
+					账号管理
+				</div>
+				<div class="flex-item tr">
+					<span class="mui-icon mui-icon-arrowright c999 f16"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13" onclick="Secret()">
+				<div class="flex-item c000">
+					隐私设置
+				</div>
+				<div class="flex-item tr">
+					<span class="mui-icon mui-icon-arrowright c999 f16"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt15">
+				<div class="flex-item">
+					<p class="mt0 mb0 c000">图片水印</p>
+					<span class="c999 f10">开启后新导入图片自动添加水印</span>
+				</div>
+				<div class="flex-item tr">
+					<div class="my-switch" id="drawSwitch">
+						<div></div>
 					</div>
-				</li>
-				<li class="mui-table-view-cell" onclick="Secret()">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="c000">隐私设置</p>
-						</div>
-						<div style="flex:0 0 20%;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright caaa f16"></span>
-						</div>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13">
+				<div class="flex-item c000">
+					分享带昵称
+				</div>
+				<div class="flex-item">
+					<div class="my-switch fr" id="shareNickSwitch">
+						<div></div>
 					</div>
-				</li>
-			</ul>
-			<ul class="mui-table-view f13 mt15">
-				<li class="mui-table-view-cell">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="full c000">图片水印</p>
-							<span class="c999 f10 mt3">开启后新导入图片自动添加水印</span>
-						</div>
-						<div style="flex:0 0 20%;" class="flex-item tr">
-							<div class="my-switch" id="drawSwitch">
-								<div></div>
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13">
+				<div class="flex-item c000">
+					音乐自动播放
+				</div>
+				<div class="flex-item">
+					<div class="my-switch fr" id="autoMusicSwitch">
+						<div></div>
 					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="c000">分享带昵称</p>
-						</div>
-						<div style="flex:0 0 20%;" class="flex-item">
-							<div class="my-switch fr" id="shareNickSwitch">
-								<div></div>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="c000">音乐自动播放</p>
-						</div>
-						<div style="flex:0 0 20%;" class="flex-item">
-							<div class="my-switch fr" id="autoMusicSwitch">
-								<div></div>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell" id="checkupdate">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 50%;" class="flex-item">
-							<p class="c000">检查更新</p>
-						</div>
-						<div style="flex:0 0 50%;" class="flex-item tr">
-							<span class="caaa" id="version"></span>
-						</div>
-					</div>
-				</li>
-			</ul>
-			<ul class="mui-table-view f13 mt15">
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13" id="checkupdate">
+				<div class="flex-item c000">
+					检查更新
+				</div>
+				<div class="flex-item tr">
+					<span class="c999" id="version"></span>
+				</div>
+			</div>
+			<ul class="mui-table-view f15 mt15">
 				<li class="mui-table-view-cell tc red">
 					<div id="exit">
 						退出登录
