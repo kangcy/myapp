@@ -111,7 +111,7 @@
 
 	//跳转首页
 	var toMain = function() {
-		plus.webview.create("subindex.html", "subindex", {
+		var subindex = plus.webview.create("subindex.html", "subindex", {
 			left: "0px",
 			width: '100%',
 			popGesture: 'none',
@@ -126,6 +126,15 @@
 				height: "100%",
 				popGesture: "close",
 				scrollIndicator: "none"
+			});
+		}
+
+		subindex.onloaded = function() {
+			subindex.show("zoom-fade-out", base.AnimateDuration, function() {
+				plus.webview.close("adv", "none");
+				plus.webview.close("guide", "none");
+				plus.webview.close("login", "none");
+				subindex.evalJS("InitCheckUpdate()");
 			});
 		}
 

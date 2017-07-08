@@ -139,10 +139,6 @@
 				render: "always",
 				scrollIndicator: "none"
 			};
-			InitViewAfter(0, function() {
-				ChangeItem(mui(".mui-control-item")[0]);
-				InitChangeItem();
-			});
 		})
 
 		//打开侧滑
@@ -266,19 +262,6 @@
 	}
 
 	function InitChangeItem() {
-		/*self.show("zoom-fade-out", base.AnimateDuration, function() {
-			plus.webview.close("adv", "none");
-			plus.webview.close("guide", "none");
-			plus.webview.close("login", "none");
-			mui.each(groupItems, function(i, view) {
-				base.GetView(view.id).show('zoom-fade-out');
-			})
-			self.append(base.GetView("articletabs"));
-			ChangeItem(mui(".mui-control-item")[0])
-
-			InitCheckUpdate()
-		});*/
-
 		mui("#slider").on("tap", ".mui-control-item", function(e) {
 			if(isLoading) {
 				return;
@@ -295,46 +278,39 @@
 				from = '-100%';
 				to = '100%';
 			}
-			var self = base.GetView("articletab" + olditem);
-			var menu = base.GetView("articletab" + curritem);
-			if(menu == null) {
-				var view = groupItems[curritem];
-				menu = plus.webview.create(view.url, view.id, menu_style, {
-					ArticleType: view.ArticleType,
-					PageName: view.PageName,
-					headheight: headheight
-				});
-				menu.show("fade-in");
-				menu.onloaded = function() {
-					InitViewBefore(curritem);
-					InitViewAfter(curritem);
-				};
-			}
-			plus.webview.startAnimation({
-					'view': self,
-					'styles': {
-						'fromLeft': '0',
-						'toLeft': from
+			InitView(curritem, function() {
+				var self = base.GetView("articletab" + olditem);
+				var menu = base.GetView("articletab" + curritem);
+				plus.webview.startAnimation({
+						'view': self,
+						'styles': {
+							'fromLeft': '0',
+							'toLeft': from
+						},
+						'action': 'none'
+					}, {
+						'view': menu,
+						'styles': {
+							'fromLeft': to,
+							'toLeft': '0'
+						},
+						'action': 'none'
 					},
-					'action': 'none'
-				}, {
-					'view': menu,
-					'styles': {
-						'fromLeft': to,
-						'toLeft': '0'
-					},
-					'action': 'none'
-				},
-				function(e) {
-					if(e.id == menu.id) {
-						scroll.gotoPage(curritem);
-						ChangeItem(mui(".mui-control-item")[curritem]);
-						//刷新页面数据
-						//menu.evalJS('ResetCache()');
+					function(e) {
+						if(e.id == menu.id) {
+							scroll.gotoPage(curritem);
+							ChangeItem(mui(".mui-control-item")[curritem]);
+							isLoading = false;
+						}
+					})
+			})
+		});
+	}
 
-						isLoading = false;
-					}
-				})
+	function InitChild() {
+		InitView(0, function() {
+			ChangeItem(mui(".mui-control-item")[0]);
+			InitChangeItem();
 		});
 	}
 
@@ -353,6 +329,7 @@
 
 	//开始检测更新
 	function InitCheckUpdate() {
+		InitChild();
 		mui.later(function() {
 			Check_Update(function(data) {
 				if(!base.IsNullOrEmpty(data)) {

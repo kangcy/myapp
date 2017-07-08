@@ -274,7 +274,8 @@
 			"minjs/login.min.js",
 			"minjs/update.min.js",
 			"js/base.min.js",
-			"js/login.min.js"
+			"js/login.min.js",
+			"mincss/setting.min.css"
 		],
 		"refer": [
 			"page/login.html",

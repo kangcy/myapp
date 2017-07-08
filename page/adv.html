@@ -133,18 +133,7 @@
 			});
 
 			subindex.onloaded = function() {
-				subindex.show("zoom-fade-out", base.AnimateDuration, function() {
-					plus.webview.close("adv", "none");
-					plus.webview.close("guide", "none");
-					plus.webview.close("login", "none");
-					/*mui.each(groupItems, function(i, view) {
-						base.GetView(view.id).show('zoom-fade-out');
-					})
-					self.append(base.GetView("articletabs"));*/
-					//ChangeItem(mui(".mui-control-item")[0])
-
-					subindex.evalJS("InitCheckUpdate()");
-				});
+				Time(5);
 			}
 		}
 
@@ -180,7 +169,6 @@
 						plus.webview.close("login", "none");
 						subindex.evalJS("InitCheckUpdate()");
 					});
-					subindex.evalJS("InitSlider()");
 				}
 			} else {
 				var e = Math.round((t - 1) / time * perimeter);
