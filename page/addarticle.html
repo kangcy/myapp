@@ -30,7 +30,28 @@
 			</div>
 		</div>
 		<div id="edit" class="mt20">
-
+			<!--<div class="edit-body fl" top="0"><img src="../images/addarticle/btn_up.png" class="edit-up first"><img src="../images/addarticle/btn_down.png" class="edit-down first"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="490">
+				<div class="edit-content f11" type="pic" partid="490" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616541823_0.jpg" id="edit-content0"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616541823_1.jpg"></div>
+				<div class="icons0 mt15 mb15 tc">
+					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
+					<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;"><img src="../images/addarticle/icon_pic.png" class="edit-add-pic"><img src="../images/addarticle/icon_text.png" class="edit-add-text"><img src="../images/addarticle/icon_video.png" class="edit-add-video"></div>
+				</div>
+			</div>
+			<div class="edit-body fl" top="0"><img src="../images/addarticle/btn_up.png" class="edit-up"><img src="../images/addarticle/btn_down.png" class="edit-down"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="491">
+				<div class="edit-content f11" type="pic" partid="491" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616545935_0.jpg" id="edit-content1"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616545935_1.jpg"></div>
+				<div class="icons0 mt15 mb15 tc">
+					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
+					<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;"><img src="../images/addarticle/icon_pic.png" class="edit-add-pic"><img src="../images/addarticle/icon_text.png" class="edit-add-text"><img src="../images/addarticle/icon_video.png" class="edit-add-video"></div>
+				</div>
+			</div>
+			<div class="edit-body fl" top="0"><img src="../images/addarticle/btn_up.png" class="edit-up last"><img src="../images/addarticle/btn_down.png" class="edit-down last"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="492">
+				<div class="edit-content f11" type="pic" partid="492" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616542870_0.jpg" id="edit-content2"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616542870_1.jpg"></div>
+				<div class="icons0 mt15 mb15 tc">
+					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
+					<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;"><img src="../images/addarticle/icon_pic.png" class="edit-add-pic"><img src="../images/addarticle/icon_text.png" class="edit-add-text"><img src="../images/addarticle/icon_video.png" class="edit-add-video"></div>
+				</div>
+			</div>
+-->
 		</div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
@@ -62,10 +83,10 @@
 	var isLoading = false;
 	var ArticleID = 0; //文章ID
 	var ArticleNumber = ""; //文章编号
-	var MusicID = 0; //音乐
-	var MusicName = ""; //音乐名称
-	var MusicUrl = ""; //音乐地址
-	var Title = ""; //标题
+	var MusicID = 0; //音乐 
+	var MusicName = ""; //音乐名称 
+	var MusicUrl = ""; //音乐地址 
+	var Title = ""; //标题 
 	var Cover = ""; //封面
 	var Source = ""; //来源
 	var currEditID = 0; //当前编辑对象ID
@@ -74,7 +95,7 @@
 	var userinfo = base.GetUserInfo();
 	var $header = base.Get("header");
 	var InitParts = []; //段落
-	//声明对象（编号，内容，状态，排序，类型，是否临时）
+	//声明对象（编号，内容，状态，排序，类型，是否临时） 
 	function PartModel(id, introduction, status, sortid, parttype, temporary) {
 		this.ID = id;
 		this.Introduction = introduction;
@@ -93,10 +114,8 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		InitGroup();
-
-		mask.show();
-		base.ShowWaiting("正在加载");
+		//mask.show();
+		//base.ShowWaiting("正在加载");
 
 		//滚动监听、背景色渐变
 		var num = 0;
@@ -490,10 +509,10 @@
 			});
 	}
 
-	//拼接字符串
+	//拼接字符串  
 	function initStr(text, type, partid) {
 		var model = [];
-		model.push('<div class="edit-body">');
+		model.push('<div class="edit-body fl">');
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
@@ -503,15 +522,15 @@
 			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
 		}
-		model.push('<div class="icons0 mt15 mb0 tc">');
-		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" /></div>');
-		model.push('<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" /><img src="../images/addarticle/icon_pic.png" class="edit-add-pic" /><img src="../images/addarticle/icon_text.png" class="edit-add-text" /><img src="../images/addarticle/icon_video.png" class="edit-add-video" /></div>');
+		model.push('<div class="icons0 mt15 mb15 tc">');
+		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;" /></div>');
+		model.push('<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;" /><img src="../images/addarticle/icon_pic.png" class="edit-add-pic" /><img src="../images/addarticle/icon_text.png" class="edit-add-text" /><img src="../images/addarticle/icon_video.png" class="edit-add-video" /></div>');
 		model.push('</div></div>')
 		return model.join('')
 	}
 
-	//加载文章
-	function Load(callback) {
+	//加载文章 
+	function Load(callback) { 
 		//编辑文章
 		var data = {
 			Number: userinfo.Number,
@@ -600,9 +619,10 @@
 		});
 	}
 
-	//更新布局
+	//更新布局 
 	function InitGroup() {
-		Group(base.Get("edit"), window.innerWidth * 0.05);
+		//Group(base.Get("edit"), window.innerWidth * 0.05);
+		Group(base.Get("edit"), 0);
 	}
 
 	//刷新封面

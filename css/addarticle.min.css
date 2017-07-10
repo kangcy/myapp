@@ -61,24 +61,24 @@
 }
 
 .icons .edit-add-pic {
-	width: 1.3rem;
+	width: 1.1rem;
 	position: absolute;
 	left: 13%;
-	top: 17%;
+	top: 19%;
 }
 
 .icons .edit-add-text {
-	width: 1.3rem;
+	width: 1.1rem;
 	position: absolute;
 	left: 44%;
-	top: 17%;
+	top: 19%;
 }
 
 .icons .edit-add-video {
-	width: 1.3rem;
+	width: 1.1rem;
 	position: absolute;
 	right: 13%;
-	top: 17%;
+	top: 19%;
 }
 
 #music {
