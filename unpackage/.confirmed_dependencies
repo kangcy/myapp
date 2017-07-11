@@ -1535,7 +1535,8 @@
 			"page/user.html",
 			"page/edittext.html",
 			"page/articledetail.html",
-			"page/imageview.html"
+			"page/imageview.html",
+			"page/action.html"
 		]
 	},
 	"page/keepSub.html": {

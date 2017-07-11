@@ -102,7 +102,7 @@
 				</div>-->
 			</div>
 		</div>
-		<div id="tip" class="tip f11">
+		<div id="tip" class="tip f11 hide">
 			<div>可拖拽图片重新排列</div>
 		</div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
@@ -246,9 +246,9 @@
 
 	function InitAction() {
 		if(mui(".thirdfloor").length > 0) {
-			base.Get("pic").classList.remove("hide");
+			base.RemoveClass(["#pic", "#tip"], "hide");
 		} else {
-			base.Get("pic").classList.add("hide");
+			base.AddClass(["#pic", "#tip"], "hide");
 		}
 	}
 </script>

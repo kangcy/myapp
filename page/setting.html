@@ -101,8 +101,8 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../js/login.min.js"></script>
 <script src="../minjs/update.min.js"></script>
+<script src="../js/login.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
@@ -114,7 +114,7 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		//启用水印
+		//启用水印 
 		if(userinfo.UseDraw == 1) {
 			base.SwitchChange("drawSwitch", true)
 		}
@@ -216,7 +216,6 @@
 
 	var version = "";
 	mui.plusReady(function() {
-
 		plus.runtime.getProperty(plus.runtime.appid, function(inf) {
 			version = inf.version;
 			base.Get("version").innerText = "v" + inf.version;
@@ -229,14 +228,12 @@
 
 		//检查更新
 		base.Get("checkupdate").addEventListener('tap', function(event) {
-			//mask.show();
-			//base.ShowWaiting("检查更新中");
-
 			if(isLoading) {
 				return false;
 			}
 			isLoading = true;
 			Check_Update(function(data) {
+				isLoading = false;
 				if(base.IsNullOrEmpty(data)) {
 					return mui.toast("当前已是最新版本");
 				}
@@ -244,7 +241,6 @@
 					url: data.url,
 					remark: data.remark
 				}, "fade-in", "none");
-				isLoading = false;
 			});
 		});
 	});

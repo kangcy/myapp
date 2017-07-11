@@ -96,9 +96,15 @@
 	var mask = base.CreateMask(false, function() {
 		$("#success,#error").addClass("hide");
 		$(".choosemoney:first").trigger("click");
+		
 	});
 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			plus.navigator.setStatusBarStyle('light');
+			return true;
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
@@ -129,6 +135,8 @@
 	});
 
 	mui.plusReady(function() {
+		plus.navigator.setStatusBarStyle('dark');
+
 		var self = plus.webview.currentWebview();
 		ArticleNumber = self.ArticleNumber || "";
 		ArticleUserNumber = self.ArticleUserNumber || "";

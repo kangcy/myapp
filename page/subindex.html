@@ -38,7 +38,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav cfff" id="header">
-			<img id="avatar2" src="../images/avatar.png" style="width:30px;margin-top:5px;border-radius:100%;" />
+			<img id="avatar" src="../images/avatar.png" style="width:30px;margin-top:5px;border-radius:100%;" />
 			<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
 			<h1 class="mui-title cfff">发现</h1>
 		</header>
@@ -54,8 +54,6 @@
 				<div class="f13" id="btnAdd">制作我的文章</div>
 			</div>
 		</div>
-		<!--图片操作-->
-		<div id="uploadwrapper"></div>
 	</body>
 
 </html>
@@ -68,8 +66,14 @@
 	var self = null;
 	var menu = null;
 	var scroll = null;
-	var groupItems = [];
-	var articleTypeHtml = [];
+	var groupItems = [{
+		id: "articletab0",
+		url: "articletab.html",
+		index: 0,
+		ArticleType: 0,
+		PageName: "articletab0"
+	}];
+	var articleTypeHtml = ['<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="0">推荐</a>'];
 	var headheight = "";
 	var bottomheight = "";
 	var menu_style = {};
@@ -90,14 +94,6 @@
 		self = plus.webview.currentWebview();
 
 		Init(function(data) {
-			articleTypeHtml.push('<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="0">推荐</a>');
-			groupItems.push({
-				id: "articletab0",
-				url: "articletab.html",
-				index: 0,
-				ArticleType: 0,
-				PageName: "articletab0"
-			})
 			mui.each(data, function(i, item) {
 				groupItems.push({
 					id: "articletab" + item.ID,
@@ -106,7 +102,7 @@
 					ArticleType: item.ID,
 					PageName: "articletab" + item.ID
 				})
-				articleTypeHtml.push('<a class="mui-control-item" href="#articletab' + item.ID + '" data-wid="' + item.ID + '">' + item.Name + '</a>');
+				articleTypeHtml.push('<a class="mui-control-item" data-wid="' + item.ID + '">' + item.Name + '</a>');
 			})
 			base.Get("mui-scroll").innerHTML = articleTypeHtml.join('');
 
@@ -131,7 +127,7 @@
 		})
 
 		//打开侧滑
-		base.Get("avatar2").addEventListener('tap', function() {
+		base.Get("avatar").addEventListener('tap', function() {
 			if(isLoading) {
 				return false;
 			}
@@ -173,45 +169,11 @@
 			return false;
 		};
 
-		//检查更新
-		mui.later(function() {
-			//监听推送消息		
-			plus.push.addEventListener("receive", function(msg) {
-				if(!base.IsNullOrEmpty(msg.payload)) {
-					var param = msg.payload.split('|');
-					//系统推荐文章、好友发布文章
-					if(param[0] == PushType.Article || param[0] == PushType.FanArticle) {
-						base.OpenWindow("articledetail", "articledetail.html", {
-							ArticleID: param[1],
-							Source: "",
-							NickName: ""
-						}, null, "none");
-					}
-					//打开评论
-					if(param[0] == PushType.Comment) {
-						var param = {
-							ArticleID: param[1],
-							ArticleNumber: param[2]
-						}
-						base.OpenWindow("articleComment", "articleComment.html", param);
-					}
-					//打开打赏
-					if(param[0] == PushType.Money) {
-						base.OpenWindow("pay", "pay.html", {});
-					}
-					//打开粉丝
-					if(param[0] == PushType.Fan) {
-						base.OpenWindow("fan", "fan.html", {});
-					}
-				}
-			}, false);
-
-			document.addEventListener("netchange", function() {
-				if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-					mui.toast("网络异常，请检查网络设置");
-				}
-			}, false);
-		}, 1000);
+		document.addEventListener("netchange", function() {
+			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+				mui.toast("网络异常，请检查网络设置");
+			}
+		}, false);
 	});
 
 	//初始化
@@ -226,20 +188,6 @@
 		});
 	}
 
-	function InitSlider() {
-		var headheight = base.Get("header").clientHeight + base.Get("slider").clientHeight;
-		var bottomheight = base.Get("bottom").clientHeight;
-		var page = plus.webview.create('articletabs.html', 'articletabs', {
-			top: headheight + "px",
-			bottom: bottomheight + "px",
-			left: "0px"
-		}, {
-			headheight: headheight,
-			bottomheight: bottomheight,
-			groupItems: JSON.stringify(groupItems)
-		});
-	}
-
 	function InitChangeItem() {
 		mui("#slider").on("tap", ".mui-control-item", function(e) {
 			if(isLoading) {
@@ -249,6 +197,7 @@
 			var curritem = parseInt(this.getAttribute("data-wid"));
 			var olditem = parseInt(mui(".mui-active")[0].getAttribute("data-wid"));
 			if(curritem == olditem) {
+				isLoading = false;
 				return;
 			}
 			var from = "100%";
@@ -286,13 +235,6 @@
 		});
 	}
 
-	function InitChild() {
-		InitView(0, function() {
-			ChangeItem(mui(".mui-control-item")[0]);
-			InitChangeItem();
-		});
-	}
-
 	//样式切换
 	function ChangeItem($this) {
 		var item = $this.parentNode.children[0];
@@ -303,12 +245,20 @@
 	}
 
 	function Avartar(url) {
-		base.Get("avatar2").setAttribute("src", url);
+		base.Get("avatar").setAttribute("src", url);
 	}
 
-	//开始检测更新
-	function InitCheckUpdate() {
-		InitChild();
+	function InitChild() {
+		var i = setInterval(function() {
+			if(groupItems.length > 1) {
+				clearInterval(i);
+				InitView(0, function() {
+					ChangeItem(mui(".mui-control-item")[0]);
+					InitChangeItem();
+				});
+			}
+		}, 100);
+
 		mui.later(function() {
 			Check_Update(function(data) {
 				if(!base.IsNullOrEmpty(data)) {
@@ -318,6 +268,37 @@
 					}, "fade-in", "none");
 				}
 			});
+
+			//监听推送消息		
+			plus.push.addEventListener("receive", function(msg) {
+				if(!base.IsNullOrEmpty(msg.payload)) {
+					var param = msg.payload.split('|');
+					//系统推荐文章、好友发布文章
+					if(param[0] == PushType.Article || param[0] == PushType.FanArticle) {
+						base.OpenWindow("articledetail", "articledetail.html", {
+							ArticleID: param[1],
+							Source: "",
+							NickName: ""
+						}, null, "none");
+					}
+					//打开评论
+					if(param[0] == PushType.Comment) {
+						var param = {
+							ArticleID: param[1],
+							ArticleNumber: param[2]
+						}
+						base.OpenWindow("articleComment", "articleComment.html", param);
+					}
+					//打开打赏
+					if(param[0] == PushType.Money) {
+						base.OpenWindow("pay", "pay.html", {});
+					}
+					//打开粉丝
+					if(param[0] == PushType.Fan) {
+						base.OpenWindow("fan", "fan.html", {});
+					}
+				}
+			}, false);
 		}, 2000);
 	}
 </script>

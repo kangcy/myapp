@@ -78,11 +78,11 @@
 			pushtype: PushType.Fan
 		}, function(data) {
 			if(data) {
-				var tipsetting = plus.webview.getWebviewById('tipsetting');
+				var tipsetting = base.GetView('tipsetting');
 				if(tipsetting) {
 					tipsetting.evalJS("PushClear('" + PushType.Fan + "')");
 				}
-				var my = plus.webview.getWebviewById('my');
+				var my = base.GetView('my');
 				if(my) {
 					my.evalJS("InitPush()");
 				}
@@ -98,7 +98,6 @@
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
 
-	//关注我的-加载数据
 	function Load(callback) {
 		var data = {
 			page: currpage,
