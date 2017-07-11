@@ -1,13 +1,13 @@
 //切换音乐
 function ChangeMusic(index) {
 	MusicID = "music" + index;
+	base.AddClass(["#music0", "#music1"], "hide");
+
 	if(!base.IsNullOrEmpty(MusicUrl)) {
 		if(Article.AutoMusic == 1) {
 			document.addEventListener('touchstart', startsound);
 		}
 		base.Get("music" + index).classList.remove("hide");
-	} else {
-		base.AddClass(["#music0", "#music1"], "hide");
 	}
 }
 
@@ -258,6 +258,7 @@ function LoadTemplate() {
 			var length = data.records;
 			if(length > 0) {
 				var table = base.Get('temp');
+				table.innerHTML = "";
 				var fragment = document.createDocumentFragment();
 				mui.each(data.list, function(i, item) {
 					fragment.appendChild(AppendTemplate(item));

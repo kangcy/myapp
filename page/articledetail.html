@@ -349,11 +349,19 @@
 		ArticleID = self.ArticleID || 0;
 		NickName = self.NickName || "";
 
-		Load(function() {
+		Load(function(data) {
 			mui.later(function() {
 				plus.webview.close("addarticle", "none");
 				plus.webview.hide("addimage");
 			}, 500);
+
+			//显示操作
+			if(userinfo.ID == data.UserID) {
+				//加载模板
+				LoadTemplate();
+			} else {
+				base.ShowUser("#body");
+			}
 		});
 
 		//返回
@@ -486,11 +494,6 @@
 
 					var mainIndex = 0;
 					CurrTemplate = data.Template;
-					/*if(CurrTemplate == 0) {
-						$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
-						$header.setAttribute("immersed", "");
-						base.Immersed();
-					}*/
 
 					InitHeader();
 
@@ -564,14 +567,6 @@
 					base.AddClass(["#main0", "#main1"], "hide");
 					base.Get("main" + mainIndex).classList.remove("hide");
 
-					//显示操作
-					if(userinfo.ID == data.UserID) {
-						//加载模板
-						LoadTemplate();
-					} else {
-						base.ShowUser("#body");
-					}
-
 					base.Get("bottomAction").classList.remove("hide");
 					base.Get("bottomAction").classList.add("bounceIn");
 
@@ -604,7 +599,7 @@
 				}
 			}
 			if(callback) {
-				callback();
+				callback(data);
 			}
 			base.ShowLoading(false);
 			mask.close();

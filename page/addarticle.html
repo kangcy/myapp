@@ -14,7 +14,7 @@
 	<body style="background: #E8E8E8;">
 		<header class="mui-bar" id="header" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
-			<span class="mui-icon fr mui-text cfff" id="submit">保存</span>
+			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">保存</span>
 			<h1 class="mui-title cfff" id="title">点击输入标题</h1>
 		</header>
 		<div class="loading" id="loader">
@@ -30,21 +30,24 @@
 			</div>
 		</div>
 		<div id="edit" class="mt20">
-			<!--<div class="edit-body fl" top="0"><img src="../images/addarticle/btn_up.png" class="edit-up first"><img src="../images/addarticle/btn_down.png" class="edit-down first"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="490">
+			<!--<div class="edit-body fl">
+				<img src="../images/addarticle/btn_up.png" class="edit-up first"><img src="../images/addarticle/btn_down.png" class="edit-down first"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="490">
 				<div class="edit-content f11" type="pic" partid="490" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616541823_0.jpg" id="edit-content0"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616541823_1.jpg"></div>
 				<div class="icons0 mt15 mb15 tc">
 					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
 					<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;"><img src="../images/addarticle/icon_pic.png" class="edit-add-pic"><img src="../images/addarticle/icon_text.png" class="edit-add-text"><img src="../images/addarticle/icon_video.png" class="edit-add-video"></div>
 				</div>
 			</div>
-			<div class="edit-body fl" top="0"><img src="../images/addarticle/btn_up.png" class="edit-up"><img src="../images/addarticle/btn_down.png" class="edit-down"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="491">
+			<div class="edit-body fl">
+				<img src="../images/addarticle/btn_up.png" class="edit-up"><img src="../images/addarticle/btn_down.png" class="edit-down"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="491">
 				<div class="edit-content f11" type="pic" partid="491" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616545935_0.jpg" id="edit-content1"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616545935_1.jpg"></div>
 				<div class="icons0 mt15 mb15 tc">
 					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
 					<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;"><img src="../images/addarticle/icon_pic.png" class="edit-add-pic"><img src="../images/addarticle/icon_text.png" class="edit-add-text"><img src="../images/addarticle/icon_video.png" class="edit-add-video"></div>
 				</div>
 			</div>
-			<div class="edit-body fl" top="0"><img src="../images/addarticle/btn_up.png" class="edit-up last"><img src="../images/addarticle/btn_down.png" class="edit-down last"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="492">
+			<div class="edit-body fl">
+				<img src="../images/addarticle/btn_up.png" class="edit-up last"><img src="../images/addarticle/btn_down.png" class="edit-down last"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="492">
 				<div class="edit-content f11" type="pic" partid="492" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616542870_0.jpg" id="edit-content2"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616542870_1.jpg"></div>
 				<div class="icons0 mt15 mb15 tc">
 					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
@@ -93,6 +96,7 @@
 	var currEditImg = ""; //当前编辑图片
 	var userinfo = base.GetUserInfo();
 	var $header = base.Get("header");
+	var $edit = base.Get("edit");
 	var InitParts = []; //段落
 	//声明对象（编号，内容，状态，排序，类型，是否临时） 
 	function PartModel(id, introduction, status, sortid, parttype, temporary) {
@@ -302,11 +306,6 @@
 				});
 			}
 		}
-
-		//保存
-		base.Get('submit').addEventListener('tap', function(event) {
-			Save();
-		});
 	});
 
 	//修改图片
@@ -333,8 +332,8 @@
 	//编辑图片
 	function AddPic(partid, url, index) {
 		if(index == 0) {
-			var html = initStr(url, "pic", partid);
-			$("#" + currEditID).parents(".edit-body").after(html);
+			InsertAfter(initStr(url, "pic", partid), base.Get(currEditID).parentNode);
+
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 
@@ -361,8 +360,8 @@
 	//编辑文本
 	function AddText(partid, text, index) {
 		if(index == 0) {
-			var html = initStr(unescape(text), "text", partid);
-			$("#" + currEditID).parents(".edit-body").after(html);
+			InsertAfter(initStr(unescape(text), "text", partid), base.Get(currEditID).parentNode);
+
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 
@@ -387,8 +386,8 @@
 
 	//添加视频
 	function AddVideo(partid, url) {
-		var html = initStr(url, "video", partid);
-		$("#" + currEditID).parents(".edit-body").after(html);
+		InsertAfter(initStr(url, "video", partid), base.Get(currEditID).parentNode);
+
 		$("#edit").find(".icons").addClass("hide");
 		$("#edit").find(".edit-add").removeClass("hide");
 		InitGroup();
@@ -496,8 +495,9 @@
 
 	//拼接字符串  
 	function initStr(text, type, partid) {
+		var div = document.createElement('div');
+		div.className = 'edit-body fl';
 		var model = [];
-		model.push('<div class="edit-body fl">');
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
@@ -510,8 +510,9 @@
 		model.push('<div class="icons0 mt15 mb15 tc">');
 		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;" /></div>');
 		model.push('<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;" /><img src="../images/addarticle/icon_pic.png" class="edit-add-pic" /><img src="../images/addarticle/icon_text.png" class="edit-add-text" /><img src="../images/addarticle/icon_video.png" class="edit-add-video" /></div>');
-		model.push('</div></div>')
-		return model.join('')
+		model.push('</div>');
+		div.innerHTML = model.join('');
+		return div;
 	}
 
 	//加载文章 
@@ -552,10 +553,8 @@
 					//加载段落
 					var parts = data.ArticlePart;
 					if(parts.length > 0) {
-						var $edit = $("#edit");
-						for(var i = 0; i < parts.length; i++) {
-							var part = parts[i];
-							var html = "";
+						mui.each(parts, function(i, part) {
+							var html = null;
 							if(part.Types == 1) {
 								//图片段落
 								html = initStr(part.Introduction, "pic", part.ID);
@@ -570,8 +569,8 @@
 							//初始化段落内容(Status:0-未操作，1-新增，2-编辑，3-删除)
 							InitParts.push(new PartModel(part.ID, base.UnUnicodeText(part.Introduction), 0, part.SortID, part.Types, 0));
 
-							$edit.append(html);
-						}
+							$edit.appendChild(html);
+						})
 
 						/*$(".youku_player").each(function() {
 							var $this = $(this);
@@ -600,5 +599,14 @@
 		Cover = url;
 		plus.webview.close("custom", "none");
 		plus.webview.close("customsetting", "none");
+	}
+
+	function InsertAfter(newElement, targetElement) {
+		var parent = targetElement.parentNode;
+		if(parent.lastChild == targetElement) {
+			parent.appendChild(newElement);
+		} else {
+			parent.insertBefore(newElement, targetElement.nextSibling);
+		}
 	}
 </script>

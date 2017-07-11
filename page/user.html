@@ -139,8 +139,6 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../minjs/mui.lazyload.min.js"></script>
-<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var PageName = "";
@@ -257,11 +255,6 @@
 		/*mui.back = function() {
 			plus.webview.close(PageName, base.HideAnimate(), base.AnimateDuration);
 		}*/
-	});
-
-	var lazyLoad = mui(document).imageLazyload({
-		placeholder: '../images/default.png',
-		destroy: false
 	});
 
 	//刷新用户页
@@ -418,7 +411,7 @@
 						mui.each(data.list[i].List, function(index, item) {
 							var img = document.createElement('img');
 							img.className = 'article';
-							img.setAttribute("data-lazyload", base.ShowThumb(item.Cover, 2));
+							img.setAttribute("src", base.ShowThumb(item.Cover, 2));
 							img.setAttribute("articleid", item.ID);
 							img.setAttribute("userid", item.CreateUserNumber);
 							img.setAttribute("power", item.ArticlePower);
@@ -429,8 +422,6 @@
 						div2.appendChild(fragment);
 						table.appendChild(div2);
 					}
-
-					lazyLoad.refresh(true);
 				}
 			}
 			if(length == 0) {
