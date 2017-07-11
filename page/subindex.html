@@ -9,8 +9,6 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
-		<link rel="stylesheet" href="../mincss/img.preview.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/subindex.min.css">
 		<style type="text/css">
 			.mui-slider-indicator.mui-segmented-control {
@@ -39,20 +37,11 @@
 	</head>
 
 	<body>
-
 		<header class="mui-bar mui-bar-nav cfff" id="header">
 			<img id="avatar2" src="../images/avatar.png" style="width:30px;margin-top:5px;border-radius:100%;" />
 			<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
 			<h1 class="mui-title cfff">发现</h1>
 		</header>
-		<div class="loading hide" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
-		<div id="divBanner">
-			<div id="banner"></div>
-		</div>
 		<div id="muicontent">
 			<div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
@@ -172,16 +161,6 @@
 		});
 
 		mui.back = function() {
-			var check = false;
-			mui(".mui-popover").each(function() {
-				if(this.classList.contains('mui-active')) {
-					mui('#' + this.getAttribute("id")).popover('hide');
-					check = true;
-				}
-			});
-			if(check) {
-				return;
-			}
 			backButtonPress++;
 			if(backButtonPress > 1) {
 				plus.runtime.quit();

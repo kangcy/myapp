@@ -70,6 +70,10 @@
 		}
 
 		Init(ArticleType, CreateUserNumber, Source);
+
+		mui.back = function() {
+			base.GetView("subindex").evalJS("mui.back()");
+		}
 	});
 
 	//初始化
