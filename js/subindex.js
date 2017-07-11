@@ -38,10 +38,9 @@ function InitView(currview, callback) {
 		});
 		if(!result) {
 			InitDrag(currview);
-		} else {
-			if(callback) {
-				callback();
-			}
+		}
+		if(callback) {
+			callback();
 		}
 		return;
 	}
