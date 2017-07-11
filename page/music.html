@@ -151,7 +151,7 @@
 		if(MusicID <= 0) {
 			return mui.toast("还未选择音乐");
 		} else {
-			base.GetView('addarticle').evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','" + MusicUrl + "')");
+			base.GetView('addarticle').evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','" + MusicUrl + "','music')");
 		}
 	}
 </script>

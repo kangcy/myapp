@@ -735,7 +735,8 @@
 			"images/addarticle/icon_video.png",
 			"js/group.min.js",
 			"images/addarticle/icon_music.png",
-			"js/addpart.js"
+			"js/addpart.js",
+			"minjs/sortable.min.js"
 		],
 		"refer": [
 			"page/edittitle.html",

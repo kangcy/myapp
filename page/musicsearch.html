@@ -146,7 +146,7 @@
 			if(!addarticlePage) {
 				addarticlePage = base.GetView('addarticle');
 			}
-			addarticlePage.evalJS("UpdateMusic('" + fileId + "','" + fileName + "','" + fileUrl + "')");
+			addarticlePage.evalJS("UpdateMusic('" + fileId + "','" + fileName + "','" + fileUrl + "','musicsearch')");
 		});
 
 		//搜索
@@ -308,7 +308,7 @@
 		var div = document.createElement('li');
 		div.className = 'mui-table-view-cell music';
 		div.setAttribute("fileId", item.ID);
-		div.setAttribute("fileName", item.Name);
+		div.setAttribute("fileName", item.Author + "「" + item.Name + "」");
 		div.setAttribute("fileUrl", item.FileUrl);
 		var model = [];
 		model.push('<img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
