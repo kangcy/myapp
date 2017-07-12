@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="../mincss/user.min.css">
 	</head>
 
-	<body id="body">
+	<body>
 		<header id="header" class="mui-bar" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<span class="cfff f25 fr more" onclick="More()">•••</span>
@@ -98,10 +98,10 @@
 		<div class="f15 tc mt10 c000 bold" id="nickname"></div>
 		<div class="signature mt5 tc f12 c999" id="signature"></div>
 		<div class="full tc mt10 mb5 hide" id="action">
-			<div id="guanzhu" class="guanzhu f14 mr30">关注TA</div>
-			<div id="dashang" class="dashang f14" onclick="Payment()">打赏</div>
+			<div id="guanzhu" class="guanzhu f15 mr30">关注TA</div>
+			<div id="dashang" class="dashang f15" onclick="Payment()">打赏</div>
 		</div>
-		<div style="padding:0.3125rem 5%;" class="mt10 f13 c000">
+		<div style="padding:0.3125rem 5%;" class="mt5 f13 c000">
 			<div class="flex-box flex-row f13 tc">
 				<div style="flex:0 0 25%;" class="flex-item hide" id="showZan" onclick="Zan()">
 					<p class="f25 mb0 blue bold" id="showZanNum">0</p>
@@ -139,7 +139,6 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../js/addarticle.js"></script>
 <script type="text/javascript">
 	var PageName = "";
 	var currpage = 1;
@@ -155,6 +154,7 @@
 	var $bg = base.Get("bg");
 	var name = base.BrowserName();
 	var userinfo = base.GetUserInfo();
+	var self = null;
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
@@ -194,7 +194,7 @@
 	});
 
 	mui.plusReady(function() {
-		var self = plus.webview.currentWebview();
+		self = plus.webview.currentWebview();
 		PageName = self.PageName || "";
 		UserNumber = self.UserNumber || "";
 		NickName = self.NickName || "";
@@ -212,7 +212,6 @@
 			$bg.style.background = "url(" + base.ShowThumb(Cover, 1) + ") center center no-repeat";
 			$bg.style.backgroundSize = "cover";
 		}
-
 		LoadUserInfo(function(data) {
 
 			//检查关注
@@ -224,20 +223,24 @@
 						return false;
 					}
 					isLoading = true;
-					var view = base.GetView("action");
+					var view = base.GetView("addimage");
 					if(view) {
-						view.evalJS("ResetAction(1,'subindex')");
+						view.evalJS("ResetAction()");
 					} else {
-						base.OpenWindow("action", "action.html", {
-							Type: 1,
-							PageName: "subindex"
-						}, "none", false, false, "transparent");
+						base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
 					}
 					isLoading = false;
 				});
 			}
 
-			//分享设置
+		});
+
+		LoadArticle(function() {
+			base.ShowArticle("#a_list", "List", userinfo.Number);
+		});
+
+		//分享设置
+		mui.later(function() {
 			UpdateSerivces();
 
 			if(plus.os.name == "Android") {
@@ -246,15 +249,7 @@
 				Uri = plus.android.importClass("android.net.Uri");
 				main = plus.android.runtimeMainActivity();
 			}
-		});
-
-		LoadArticle(function() {
-			base.ShowArticle("#a_list", "List", userinfo.Number);
-		});
-
-		/*mui.back = function() {
-			plus.webview.close(PageName, base.HideAnimate(), base.AnimateDuration);
-		}*/
+		}, 2000);
 	});
 
 	//刷新用户页
@@ -374,7 +369,7 @@
 				}
 			} else {
 				mui.toast(data.message);
-				plus.webview.currentWebview().close();
+				self.close();
 			}
 			base.CloseWaiting();
 			base.ShowLoading(false);
@@ -411,12 +406,13 @@
 						mui.each(data.list[i].List, function(index, item) {
 							var img = document.createElement('img');
 							img.className = 'article';
-							img.setAttribute("src", base.ShowThumb(item.Cover, 2));
+							img.setAttribute("onload", "LazyImg(this)");
+							img.setAttribute("src", "../images/default.png");
+							img.setAttribute("data-lazyload", base.ShowThumb(item.Cover, 2));
 							img.setAttribute("articleid", item.ID);
 							img.setAttribute("userid", item.CreateUserNumber);
 							img.setAttribute("power", item.ArticlePower);
 							img.setAttribute("nickname", NickName);
-
 							fragment.appendChild(img);
 						});
 						div2.appendChild(fragment);
@@ -536,7 +532,7 @@
 				mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
 				if(data.result) {
 					base.UpdateFan(userinfo, data.message);
-					plus.webview.currentWebview().reload();
+					self.reload();
 				}
 			}
 			isLoading = false;
@@ -561,7 +557,7 @@
 			if(data != null) {
 				mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
 				if(data.result) {
-					plus.webview.currentWebview().reload();
+					self.reload();
 					var black = base.GetView("black");
 					if(black) {
 						black.evalJS("Load()");
@@ -640,17 +636,18 @@
 		if(index == 0) {
 			base.Get("mysharebg").classList.add("hide");
 			myshare.classList.remove("bounceInUp");
-			myshare.classList.add("hide");
+			myshare.classList.add("bounceOutUp");
 		} else {
 			base.Get("mysharebg").classList.remove("hide");
 			myshare.classList.remove("hide");
+			myshare.classList.remove("bounceOutUp");
 			myshare.classList.add("bounceInUp");
 		}
 	}
 
 	//分享信息 
 	function ShareAction(index) {
-		ShareTan(0); //关闭分享弹窗
+		ShareTan(0);
 
 		//系统分享
 		if(index == 6) {

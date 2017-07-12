@@ -61,7 +61,7 @@
 		name = base.UnUnicodeText(name);
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		ShowMe = self.ShowMe || 0;
-		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的赞";
+		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的喜欢";
 		if(name == "我") {
 			base.Get("none_tip").innerHTML = "沒人赞你，你可以去赞别人呀";
 		} else {

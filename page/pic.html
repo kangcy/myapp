@@ -114,7 +114,7 @@
 	var self = null;
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
-	}); 
+	});
 
 	mui.init({
 		gestureConfig: {
@@ -126,6 +126,8 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+
+		base.Get("muicontent").style.height = window.innerHeight - base.Get("header") + "px";
 	});
 
 	mui.plusReady(function() {
@@ -226,10 +228,10 @@
 			div.className = 'thirdfloor';
 		} else {
 			div.className = 'thirdfloor nocheck';
-		} 
+		}
 		div.style.position = "relative";
 		div.setAttribute("pid", item.ID);
-		div.innerHTML = '<img src="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" /><div class="cover ' + (PreviewEnable ? "hide" : "") + '"></div><div class="icon"></div>';
+		div.innerHTML = '<img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(item.Introduction, 2) + '" href="' + base.ShowThumb(item.Introduction, 1) + '" data-preview-src="" data-preview-group="0" /><div class="cover ' + (PreviewEnable ? "hide" : "") + '"></div><div class="icon"></div>';
 		return div;
 	}
 

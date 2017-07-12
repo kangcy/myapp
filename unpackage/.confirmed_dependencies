@@ -1104,7 +1104,8 @@
 			"page/addarticle.html",
 			"page/mypic.html",
 			"page/money.html",
-			"page/action.html"
+			"page/action.html",
+			"page/addimage.html"
 		]
 	},
 	"page/userSub.html": {
