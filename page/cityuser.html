@@ -146,7 +146,7 @@
 					if(length > 0) {
 						var fragment = document.createDocumentFragment();
 						mui.each(data.list, function(index, item) {
-							fragment.appendChild(base.AppendUser(item, false, true, false, "", true));
+							fragment.appendChild(base.AppendUser(item, false, true, false, "", true, true));
 						});
 						table.appendChild(fragment);
 					}

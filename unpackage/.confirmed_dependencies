@@ -2413,7 +2413,8 @@
 			"minjs/refresh.min.js",
 			"css/fan.min.css",
 			"js/base.min.js",
-			"images/icon/heart.png"
+			"images/icon/heart.png",
+			"images/default.png"
 		],
 		"refer": [
 			"page/followSub.html",
@@ -3080,7 +3081,8 @@
 			"mincss/fan.min.css",
 			"images/avatar.png",
 			"minjs/mui.lazyload.min.js",
-			"minjs/mui.lazyload.img.min.js"
+			"minjs/mui.lazyload.img.min.js",
+			"images/default.png"
 		],
 		"refer": [
 			"page/addfan.html",
@@ -3430,7 +3432,8 @@
 			"minjs/refresh.min.js",
 			"mincss/loading.min.css",
 			"minjs/base.min.js",
-			"minjs/mui.min.js"
+			"minjs/mui.min.js",
+			"images/base/follow0.png"
 		],
 		"refer": [
 			"page/cityuser.html",
@@ -3448,7 +3451,9 @@
 			"mincss/loading.min.css",
 			"minjs/base.min.js",
 			"minjs/mui.min.js",
-			"images/avatar.png"
+			"images/avatar.png",
+			"js/base.min.js",
+			"images/base/follow0.png"
 		],
 		"refer": [
 			"page/searcharticle.html",
