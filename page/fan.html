@@ -92,10 +92,43 @@
 
 	function Init() {
 		pulldownRefresh();
-		base.ShowUser("#scroll-view");
-		base.UserAddFan("#scroll-view", userinfo);
+
 		SetPullEnable(true);
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+
+		base.ShowUser("#scroll-view");
+		base.UserAddFan("#scroll-view", userinfo);
+
+		//取消关注
+		mui("#scroll-view").on('tap', '.guanzhu2', function(event) {
+			if(base.RepeatAction()) {
+				return;
+			}
+			var $this = this;
+			var li = this.parentNode.parentNode.parentNode;
+			mui.confirm('确认取消关注？', '', ['确认', '取消'], function(e) {
+				if(e.index < 0) {
+					return;
+				}
+				if(e.index == 0) {
+					HttpGet(base.RootUrl + "Api/Fan/Delete", {
+						ID: userinfo.ID,
+						ToUserNumber: li.getAttribute("userid")
+					}, function(data) {
+						data = JSON.parse(data);
+						base.CheckLogin(userinfo, data.code);
+						if(data.result) {
+							$this.classList.remove("guanzhu2");
+							$this.classList.add("guanzhu");
+							$this.childNodes[0].setAttribute("src", "../images/base/follow0.png");
+							base.UpdateFan(userinfo, records);
+						} else {
+							mui.toast(data.message);
+						}
+					});
+				}
+			});
+		});
 	}
 
 	function Load(callback) {
@@ -129,7 +162,7 @@
 		if(item.IsFollow == 0 && userinfo.Number != item.Number) {
 			model.push('<div class="guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" class="fr" /></div>');
 		} else {
-			model.push('<div class="guanzhu2"><img src="../images/base/follow1.png" class="fr" /></div>');
+			model.push('<div class="guanzhu2"userid="' + item.Number + '"><img src="../images/base/follow1.png" class="fr" /></div>');
 		}
 		model.push('</div>');
 		model.push('</div></div>');

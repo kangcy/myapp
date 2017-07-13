@@ -57,7 +57,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
-	});
+	}); 
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
@@ -81,7 +81,8 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			CreateUserNumber: UserNumber
+			CreateUserNumber: UserNumber,
+			CurrUserNumber: userinfo.Number
 		};
 		LoadPull(base.RootUrl + "Api/Keep/All", data, true, false, function(item) {
 			return AppendArticle(userinfo.Number, item, false, false, true, false);

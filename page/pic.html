@@ -283,7 +283,7 @@
 		}
 		var $this = this;
 		var btnArray = ['确定', '取消'];
-		mui.confirm('删除后不可恢复,确定删除选中图片？', '', btnArray, function(e) {
+		mui.confirm('删除后图片不可恢复,但文章中的图片不受印象,确定删除选中图片？', '', btnArray, function(e) {
 			if(e.index < 0) {
 				return;
 			}

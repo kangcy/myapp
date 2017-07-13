@@ -275,7 +275,8 @@
 			"minjs/update.min.js",
 			"js/base.min.js",
 			"js/login.min.js",
-			"mincss/setting.min.css"
+			"mincss/setting.min.css",
+			"js/update.min.js"
 		],
 		"refer": [
 			"page/login.html",
@@ -1530,7 +1531,8 @@
 			"js/article.min.js",
 			"js/base.min.js",
 			"mincss/subindex.min.css",
-			"images/default.png"
+			"images/default.png",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -2420,7 +2422,9 @@
 			"js/base.min.js",
 			"images/icon/heart.png",
 			"images/default.png",
-			"images/avatar.png"
+			"images/avatar.png",
+			"images/loadmore.gif",
+			"images/base/follow1.png"
 		],
 		"refer": [
 			"page/followSub.html",

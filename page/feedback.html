@@ -21,20 +21,45 @@
 				padding: 25px 10px;
 				height: 1.25rem;
 			}
+			
+			.bottom {
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+			}
+			
+			#add {
+				width: 100%;
+				float: left;
+				height: 2.8rem;
+				line-height: 2.6rem;
+				text-align: center;
+			}
+			
+			#add div {
+				width: 64%;
+				border-radius: 30px;
+				display: inline-block;
+				margin-top: 0.2rem;
+				height: 2.1875rem;
+				line-height: 2.2rem;
+			}
 		</style>
 	</head>
 
-	<body style="background:#F4F5F5;">
+	<body style="background:#f5f5f5;">
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
-			<a id="submit" class="mui-icon mui-text cfff fr">保存</a>
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">意见反馈</h1>
 		</header>
 		<div class="mui-content" id="muicontent">
 			<div class="f13 mt10 mb10" style="text-indent:10px;">反馈内容：</div>
-			<textarea id='question' class="mui-input-clear f12 mb0" placeholder="欢迎留下您的宝贵意见" maxlength="150"></textarea>
+			<textarea id='question' class="mui-input-clear f12 mb0" placeholder="聊聊您的看法，欢迎您参与到我们的产品建设中，说不定您的一句吐槽就成为我们产品更新的关键方向(限500字)" maxlength="500"></textarea>
 			<div class="f13 mt10 mb10" style="text-indent:10px;">联系方式：</div>
-			<input id='qq' type="tel" class="mui-input-clear f12" placeholder="请输入您的QQ号" maxlength="15" />
+			<input id='qq' type="tel" class="mui-input-clear f12" placeholder="手机号/邮箱(选项，方便我们联系您)" maxlength="250" />
+		</div>
+		<div id="add">
+			<div class="f15 cfff" id="submit">提交</div>
 		</div>
 	</body>
 
@@ -47,6 +72,7 @@
 
 	mui.ready(function() {
 		base.Immersed();
+		base.Get("submit").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 	})
 
 	mui.plusReady(function() {
@@ -63,9 +89,6 @@
 			}
 			if(base.IsNullOrEmpty(qq.value)) {
 				return mui.toast('请填写联系方式');
-			}
-			if(isNaN(qq.value)) {
-				return mui.toast('请填写正确的联系方式');
 			}
 			HttpGet(base.RootUrl + "FeedBack/Edit", {
 				ID: userinfo.ID,

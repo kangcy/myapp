@@ -86,19 +86,19 @@
 		SetPullEnable(true);
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 		base.ShowUser("#scroll-view");
+		base.UserAddFan("#scroll-view", userinfo);
 
 		//取消关注
-		mui("#scroll-view").on('tap', '.mui-btn', function(event) {
+		mui("#scroll-view").on('tap', '.guanzhu2', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
-			var li = this.parentNode.parentNode;
+			var li = this.parentNode.parentNode.parentNode;
 			mui.confirm('确认取消关注？', '', ['确认', '取消'], function(e) {
 				if(e.index < 0) {
 					return;
 				}
 				if(e.index == 0) {
-					mui.swipeoutClose(li);
 					HttpGet(base.RootUrl + "Api/Fan/Delete", {
 						ID: userinfo.ID,
 						ToUserNumber: li.getAttribute("userid")
@@ -119,8 +119,6 @@
 							mui.toast(data.message);
 						}
 					});
-				} else {
-					mui.swipeoutClose(li);
 				}
 			});
 		});
@@ -130,7 +128,8 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			CreateUserNumber: UserNumber
+			CreateUserNumber: UserNumber,
+			CurrUserNumber: userinfo.Number
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true, true, function(item) {
 			return AppendUser(item, true, false, true, "取消关注", false, false, true);
@@ -151,9 +150,13 @@
 		var model = [];
 		model.push('<div class="flex-box flex-row ">');
 		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="fl"  /></div></div>');
-		//model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
-		model.push('<div style="flex:0 0 58%;" class="flex-item"><p class="f13 c333 mt3">' + base.UnUnicodeText(item.NickName) + '</p><p class="f10 c999 mt3 mb5">' + base.UnUnicodeText(item.Signature) + '</p></div>');
-		model.push('<div style="flex:0 0 26%;" class="flex-item"><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
+		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
+		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
+		if(item.IsFollow == 0 && userinfo.Number != item.Number) {
+			model.push('<div class="guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" class="fr" /></div>');
+		} else {
+			model.push('<div class="guanzhu2"userid="' + item.Number + '"><img src="../images/base/follow1.png" class="fr" /></div>');
+		}
 		model.push('</div>');
 		model.push('</div></div>');
 		div.innerHTML = model.join('');
