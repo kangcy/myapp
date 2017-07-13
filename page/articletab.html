@@ -99,7 +99,7 @@
 					foo = JSON.parse(foo);
 					var fragment = document.createDocumentFragment();
 					mui.each(foo, function(index, item) {
-						fragment.appendChild(AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false));
+						fragment.appendChild(AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, true));
 					});
 					table.appendChild(fragment);
 					if(callback) {

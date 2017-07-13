@@ -2414,7 +2414,8 @@
 			"css/fan.min.css",
 			"js/base.min.js",
 			"images/icon/heart.png",
-			"images/default.png"
+			"images/default.png",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/followSub.html",
@@ -3417,7 +3418,8 @@
 			"minjs/refresh.min.js",
 			"mincss/loading.min.css",
 			"mincss/fan.min.css",
-			"js/refresh.min.js"
+			"js/refresh.min.js",
+			"images/base/follow0.png"
 		],
 		"refer": [
 			"page/user.html",

@@ -121,7 +121,6 @@
 				left: "100%",
 				width: "100%",
 				popGesture: "none",
-				render: "always",
 				scrollIndicator: "none"
 			};
 		})
@@ -209,6 +208,9 @@
 			InitView(curritem, function() {
 				var self = base.GetView("articletab" + olditem);
 				var menu = base.GetView("articletab" + curritem);
+
+				menu.show("none");
+
 				plus.webview.startAnimation({
 						'view': self,
 						'styles': {
@@ -229,6 +231,20 @@
 							scroll.gotoPage(curritem);
 							ChangeItem(mui(".mui-control-item")[curritem]);
 							isLoading = false;
+
+							mui.each(groupItems, function(i, view) {
+								if(i < curritem - 2 || i > curritem + 2) {
+									var page = base.GetView(view.id);
+									if(page != null) {
+										page.hide("none");
+									}
+								} else {
+									var page = base.GetView(view.id);
+									if(page != null) {
+										page.show("none");
+									}
+								}
+							})
 						}
 					})
 			})

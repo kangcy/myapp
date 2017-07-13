@@ -52,7 +52,7 @@ function InitView(currview, callback) {
 			headheight: headheight,
 			index: view.index
 		});
-		currview.show("fade-in");
+		currview.show("none");
 		currview.onloaded = function() {
 			totalview += 1;
 		};
@@ -86,6 +86,24 @@ function InitDrag(index) {
 			if(e.type == "end" && e.result) {
 				base.GetView("subindex").evalJS('scroll.gotoPage(' + (index + 1) + ');ChangeItem(mui(".mui-control-item")[' + (index + 1) + '])');
 				InitView(index + 1);
+
+				//隐藏左右多余页面
+				mui.each(groupItems, function(i, view) {
+					if(i == index) {
+						return;
+					}
+					if(i < index - 2 || i > index + 2) {
+						var page = base.GetView(view.id);
+						if(page != null) {
+							page.hide("none");
+						}
+					} else {
+						var page = base.GetView(view.id);
+						if(page != null) {
+							page.show("none");
+						}
+					}
+				})
 			}
 		});
 	}
@@ -103,7 +121,25 @@ function InitDrag(index) {
 		}, function(e) {
 			if(e.type == "end" && e.result) {
 				base.GetView("subindex").evalJS('scroll.gotoPage(' + (index - 1) + ');ChangeItem(mui(".mui-control-item")[' + (index - 1) + '])');
-				InitView(index - 1)
+				InitView(index - 1);
+
+				//隐藏左右多余页面
+				mui.each(groupItems, function(i, view) {
+					if(i == index) {
+						return;
+					}
+					if(i < index - 2 || i > index + 2) {
+						var page = base.GetView(view.id);
+						if(page != null) {
+							page.hide("none");
+						}
+					} else {
+						var page = base.GetView(view.id);
+						if(page != null) {
+							page.show("none");
+						}
+					}
+				})
 			}
 		});
 	}
@@ -122,6 +158,24 @@ function InitDrag(index) {
 			if(e.type == "end" && e.result) {
 				base.GetView("subindex").evalJS('scroll.gotoPage(' + index + ');ChangeItem(mui(".mui-control-item")[' + index + '])');
 				InitView(index)
+
+				//隐藏左右多余页面
+				mui.each(groupItems, function(i, view) {
+					if(i == index) {
+						return;
+					}
+					if(i < index - 2 || i > index + 2) {
+						var page = base.GetView(view.id);
+						if(page != null) {
+							page.hide("none");
+						}
+					} else {
+						var page = base.GetView(view.id);
+						if(page != null) {
+							page.show("none");
+						}
+					}
+				})
 			}
 		});
 	}

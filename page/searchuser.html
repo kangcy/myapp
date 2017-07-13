@@ -84,7 +84,7 @@
 			base.ShowLoading(false);
 			base.ShowNone(false);
 			data = JSON.parse(data);
-			if(data != null) {
+			if(data != null) { 
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;
@@ -117,7 +117,6 @@
 			left: "100%",
 			width: "100%",
 			popGesture: "none",
-			render: "always",
 			scrollIndicator: "none"
 		};
 
