@@ -362,20 +362,17 @@
 			mui.each(node, function(i, item) {
 				if(item == "B") {
 					base.Get("btnBold").classList.add("curr");
-				}
-				else{
+				} else {
 					base.Get("btnBold").classList.remove("curr");
 				}
 				if(item == "I") {
 					base.Get("btnItalic").classList.add("curr");
-				}
-				else{
+				} else {
 					base.Get("btnItalic").classList.remove("curr");
 				}
 				if(item == "U") {
 					base.Get("btnUnderline").classList.add("curr");
-				}
-				else{
+				} else {
 					base.Get("btnUnderline").classList.remove("curr");
 				}
 			})
@@ -505,18 +502,34 @@
 				return;
 			}
 			isLoading = true;
-			if(base.IsNullOrEmpty($("#edit").html())) {
+			var val = $("#edit").html()
+			if(base.IsNullOrEmpty(val)) {
 				isLoading = false;
 				return mui.toast("请编辑文字");
 			}
-			if(!addarticlePage) {
-				addarticlePage = base.GetView('addarticle');
-			}
-			$edit.removeAttribute("id");
-			$edit.removeAttribute("contenteditable");
-			$edit.style.height = "auto";
-			addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($edit.outerHTML) + "','" + PartID + "')");
-			plus.webview.close("editdesc");
+
+			//过滤敏感词
+			HttpGet(base.RootUrl + "Api/System/CheckDirtyword", {
+				Title: val
+			}, function(data) {
+				data = JSON.parse(data);
+				if(data != null) {
+					if(data.result) {
+						if(!addarticlePage) {
+							addarticlePage = base.GetView('addarticle');
+						}
+						$edit.removeAttribute("id");
+						$edit.removeAttribute("contenteditable");
+						$edit.style.height = "auto";
+						addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($edit.outerHTML) + "','" + PartID + "')");
+						plus.webview.close("editdesc");
+					} else {
+						mui.toast(data.message);
+					}
+				}
+				isLoading = false;
+			});
+
 		}, false);
 	});
 

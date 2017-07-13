@@ -548,7 +548,8 @@
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/refresh.min.js",
 			"mincss/fan.min.css",
-			"images/icon/money.png"
+			"images/icon/money.png",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/paySub.html",

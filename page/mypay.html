@@ -20,10 +20,6 @@
 				padding: .8rem 0.9375rem;
 			}
 			
-			.mui-table-view:after {
-				height: 0px;
-			}
-			
 			#apply {
 				width: 92%;
 				border-radius: 10px;
@@ -83,7 +79,17 @@
 				<li class="mui-table-view-cell" id="mypay">
 					<div class="flex-box flex-row">
 						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="c000">打赏记录</p>
+							<p class="c000">我打赏的</p>
+						</div>
+						<div style="flex:0 0 20%;" class="flex-item tr">
+							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell" id="paymy">
+					<div class="flex-box flex-row">
+						<div style="flex:0 0 80%;" class="flex-item">
+							<p class="c000">打赏我的</p>
 						</div>
 						<div style="flex:0 0 20%;" class="flex-item tr">
 							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
@@ -179,9 +185,18 @@
 			}
 		});
 
-		//我的打赏
+		//我打赏的
 		base.Get('mypay').addEventListener('tap', function(event) {
-			base.OpenWindow("pay", "pay.html", {});
+			base.OpenWindow("pay", "pay.html", {
+				Source: 0
+			});
+		});
+
+		//打赏我的
+		base.Get('paymy').addEventListener('tap', function(event) {
+			base.OpenWindow("pay", "pay.html", {
+				Source: 1
+			});
 		});
 
 		//申请提现
