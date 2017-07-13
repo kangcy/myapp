@@ -123,14 +123,17 @@
 		</div>
 		<div id="article" class="hide f13 c999 full">
 			<div class="head tl"><span class="ml15" id="a_title">0篇文章</span></div>
-			<div id="a_list" class="inline full">
+			<div id="scroll-view" class="inline full">
+			</div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
 			<div id="mynone" class="mb20 hide">
 				<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
 				<div class="tc cfff mt20 submit" id="add">去发布</div>
 			</div>
 			<div id="none" class="mb20 hide">
-				<p class="full tc f13 c333 mt50">暂未发表过动态</p>
+				<p class="full tc f13 c333 mt20">暂未发表过动态</p>
 			</div>
 		</div>
 		<div id="blacktip" class="hide f13 red tc mt50">您已经将Ta拉黑</div>
@@ -139,12 +142,10 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
 	var PageName = "";
-	var currpage = 1;
-	var totalpage = 2;
-	var isLoading = false;
-	var pagesize = base.PageSize;
+	var pagesize = 3;
 	var UserNumber = "";
 	var NickName = "";
 	var Avatar = "";
@@ -153,7 +154,6 @@
 	var ShareInfo = {};
 	var $bg = base.Get("bg");
 	var name = base.BrowserName();
-	var userinfo = base.GetUserInfo();
 	var self = null;
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
@@ -189,6 +189,8 @@
 				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 			}
 		});
+
+		base.ShowArticle("#scroll-view", "List", userinfo.Number);
 
 		base.ToTop();
 	});
@@ -235,9 +237,9 @@
 
 		});
 
-		LoadArticle(function() {
-			base.ShowArticle("#a_list", "List", userinfo.Number);
-		});
+		pulldownRefresh();
+
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//分享设置
 		mui.later(function() {
@@ -374,53 +376,48 @@
 			base.CloseWaiting();
 			base.ShowLoading(false);
 			mask.close();
-
 		});
 	}
 
 	//文章
-	function LoadArticle(callback) {
+	function Load(callback) {
+		var table = base.Get('scroll-view');
 		var data = {
+			page: currpage,
+			rows: pagesize,
 			UserNumber: UserNumber,
 			CurrUserNumber: userinfo.Number
 		}
-		HttpGet(base.RootUrl + "User/Article", data, function(data) {
-			var table = base.Get('a_list');
-			table.innerHTML = "";
-			var length = 0;
+		HttpGet(base.RootUrl + "Api/User/Article_1_3", data, function(data) {
+			data = JSON.parse(data);
 			if(data != null) {
-				length = data.records;
-				if(length > 0) {
-					base.Get("a_title").innerHTML = length + "篇文章";
-					for(var i = 0; i < data.list.length; i++) {
-						var html = [];
-						var div = document.createElement('div');
-						div.className = 'title tc mt15 mb15 f14';
-						div.innerHTML = '<div style="border:1px solid #0080ff;color:#0080ff;border-radius:30px;display:inline-block;width:60%;"><span>' + data.list[i].CreateDate + '</span><span class="ml15" id="a_num">' + data.list[i].Count + '篇文章</span></div>';
-						table.appendChild(div);
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					records = data.records;
+					if(records > 0) {
+						base.Get("a_title").innerHTML = records + "篇文章";
+						for(var i = 0; i < data.list.length; i++) {
+							var html = [];
+							var div = document.createElement('div');
+							div.className = 'title tc mt15 mb15 f14';
+							div.innerHTML = '<div style="border:1px solid #0080ff;color:#0080ff;border-radius:30px;display:inline-block;width:60%;"><span>' + data.list[i].CreateDate + '</span><span class="ml15" id="a_num">' + data.list[i].Count + '篇文章</span></div>';
+							table.appendChild(div);
 
-						var div2 = document.createElement('div');
-						div2.className = 'list full';
+							var div2 = document.createElement('div');
+							div2.className = 'list full';
 
-						var fragment = document.createDocumentFragment();
-						mui.each(data.list[i].List, function(index, item) {
-							var img = document.createElement('img');
-							img.className = 'article';
-							img.setAttribute("onload", "LazyImg(this)");
-							img.setAttribute("src", "../images/default.png");
-							img.setAttribute("data-lazyload", base.ShowThumb(item.Cover, 2));
-							img.setAttribute("articleid", item.ID);
-							img.setAttribute("userid", item.CreateUserNumber);
-							img.setAttribute("power", item.ArticlePower);
-							img.setAttribute("nickname", NickName);
-							fragment.appendChild(img);
-						});
-						div2.appendChild(fragment);
-						table.appendChild(div2);
+							var fragment = document.createDocumentFragment();
+							mui.each(data.list[i].List, function(index, item) {
+								fragment.appendChild(AppendArticle(item));
+							});
+							div2.appendChild(fragment);
+							table.appendChild(div2);
+						}
 					}
 				}
 			}
-			if(length == 0) {
+			if(records == 0) {
 				if(userinfo.Number == UserNumber)
 					base.Get("mynone").classList.remove("hide");
 				else
@@ -430,6 +427,19 @@
 				callback();
 			}
 		});
+	}
+
+	function AppendArticle(item) {
+		var img = document.createElement('img');
+		img.className = 'article';
+		img.setAttribute("onload", "LazyImg(this)");
+		img.setAttribute("src", "../images/default.png");
+		img.setAttribute("data-lazyload", base.ShowThumb(item.Cover, 2));
+		img.setAttribute("articleid", item.ID);
+		img.setAttribute("userid", item.CreateUserNumber);
+		img.setAttribute("power", item.ArticlePower);
+		img.setAttribute("nickname", NickName);
+		return img;
 	}
 
 	//关注

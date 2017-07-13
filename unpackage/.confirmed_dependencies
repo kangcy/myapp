@@ -474,7 +474,8 @@
 			"js/article.min.js",
 			"part/action.html",
 			"images/article/btn_good.png",
-			"js/mui.previewimage.min.js"
+			"js/mui.previewimage.min.js",
+			"images/default.png"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -1088,7 +1089,9 @@
 			"css/user.min.css",
 			"minjs/mui.lazyload.min.js",
 			"minjs/mui.lazyload.img.min.js",
-			"images/default.png"
+			"images/default.png",
+			"minjs/refresh.min.js",
+			"js/refresh.min.js"
 		],
 		"refer": [
 			"page/userSub.html",
@@ -1526,7 +1529,8 @@
 			"minjs/refresh.min.js",
 			"js/article.min.js",
 			"js/base.min.js",
-			"mincss/subindex.min.css"
+			"mincss/subindex.min.css",
+			"images/default.png"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -1638,7 +1642,8 @@
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/refresh.min.js",
 			"css/fan.min.css",
-			"images/icon/heart.png"
+			"images/icon/heart.png",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/fanSub.html",

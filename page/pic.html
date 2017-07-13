@@ -31,6 +31,11 @@
 				padding-top: 0.2rem;
 			}
 			
+			.title {
+				height: 2.5rem;
+				line-height: 2.5rem;
+			}
+			
 			.thirdfloor {
 				margin-top: 0rem;
 			}
@@ -108,7 +113,7 @@
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script type="text/javascript">
-	pagesize = 30;
+	pagesize = 5;
 	var UserNumber = 0;
 	var PreviewEnable = true; //是否启用图片预览
 	var self = null;
@@ -207,27 +212,58 @@
 
 	//加载数据
 	function Load(callback) {
-		var data = {
+		var table = base.Get('scroll-view');
+		HttpGet(base.RootUrl + "Api/User/Pic_1_3", {
 			page: currpage,
 			rows: pagesize,
-			Number: userinfo.Number,
-			UserNumber: UserNumber
-		};
-		LoadPull(base.RootUrl + "Api/User/Pic", data, true, false, function(item) {
-			return AppendStr(item);
-		}, function() {
+			UserNumber: UserNumber,
+			Number: userinfo.Number
+		}, function(data) {
+			base.ShowNone(false);
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					records = data.records;
+					if(records > 0) {
+						var length = data.list.length;
+						if(length > 0) {
+							var fragment = document.createDocumentFragment();
+							mui.each(data.list, function(index, item) {
+								fragment.appendChild(AppendStr1(item));
+								mui.each(item.List, function(index2, item2) {
+									fragment.appendChild(AppendStr2(item2));
+								});
+							});
+							table.appendChild(fragment);
+						}
+					}
+				}
+			}
+			base.ShowLoading(false);
+			if(records == 0) {
+				base.ShowNone(true);
+			}
 			if(callback) {
 				callback();
 			}
 		});
 	}
 
-	function AppendStr(item) {
+	function AppendStr1(item) {
+		var div = document.createElement('div');
+		div.className = 'title tc mt15 mb20 f14 fl full';
+		div.innerHTML = '<div style="border:1px solid #0080ff;color:#0080ff;border-radius:30px;display:inline-block;width:60%;"><span>' + item.CreateDate + '</span><span class="ml15" id="a_num">' + item.List.length + '张图片</span></div>';
+		return div;
+	}
+
+	function AppendStr2(item) {
 		var div = document.createElement('div');
 		if(PreviewEnable) {
-			div.className = 'thirdfloor';
+			div.className = 'thirdfloor fl';
 		} else {
-			div.className = 'thirdfloor nocheck';
+			div.className = 'thirdfloor fl nocheck';
 		}
 		div.style.position = "relative";
 		div.setAttribute("pid", item.ID);
