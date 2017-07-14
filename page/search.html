@@ -45,8 +45,6 @@
 
 	mui.ready(function() {
 		base.Immersed();
-
-		ChangeSlider(mui(".tabs_item")[0]);
 	});
 
 	mui.plusReady(function() {
@@ -60,6 +58,8 @@
 		});
 
 		plus.webview.currentWebview().append(searchuser);
+
+		ChangeSlider(mui(".tabs_item")[0]);
 
 		//点击切换
 		mui("#tabs_nav").on('tap', '.tabs_item', function(event) {

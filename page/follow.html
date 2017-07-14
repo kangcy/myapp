@@ -87,9 +87,10 @@
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 		base.ShowUser("#scroll-view");
 		base.UserAddFan("#scroll-view", userinfo);
+		base.UserOutFan("#scroll-view", userinfo);
 
 		//取消关注
-		mui("#scroll-view").on('tap', '.guanzhu2', function(event) {
+		/*mui("#scroll-view").on('tap', '.guanzhu2', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
@@ -121,7 +122,7 @@
 					});
 				}
 			});
-		});
+		});*/
 	}
 
 	function Load(callback) {
@@ -145,7 +146,7 @@
 		div.className = 'mui-table-view-cell user bounceInUp';
 		div.setAttribute("userid", item.Number);
 		div.setAttribute("nickname", item.NickName);
-		div.setAttribute("cover", item.Cover); 
+		div.setAttribute("cover", item.Cover);
 		div.setAttribute("avatar", item.Avatar);
 		var model = [];
 		model.push('<div class="flex-box flex-row ">');
@@ -155,7 +156,7 @@
 		if(item.IsFollow == 0 && userinfo.Number != item.Number) {
 			model.push('<div class="guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" class="fr" /></div>');
 		} else {
-			model.push('<div class="guanzhu2"userid="' + item.Number + '"><img src="../images/base/follow1.png" class="fr" /></div>');
+			model.push('<div class="guanzhu2" userid="' + item.Number + '"><img src="../images/base/follow1.png" class="fr" /></div>');
 		}
 		model.push('</div>');
 		model.push('</div></div>');

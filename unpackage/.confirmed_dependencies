@@ -381,7 +381,9 @@
 			"images/my/icon_07.png",
 			"mincss/my.min.css",
 			"images/my/arrow_right.png",
-			"images/my/icon_08.png"
+			"images/my/icon_08.png",
+			"images/my/boy.png",
+			"images/my/girl.png"
 		],
 		"refer": [
 			"page/pay.html",
@@ -1018,7 +1020,8 @@
 			"part/comment.html",
 			"images/comment/smile.png",
 			"images/comment/dingwei2.png",
-			"css/comment.min.css"
+			"css/comment.min.css",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -3432,7 +3435,8 @@
 			"mincss/loading.min.css",
 			"mincss/fan.min.css",
 			"js/refresh.min.js",
-			"images/base/follow0.png"
+			"images/base/follow0.png",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/user.html",
@@ -3448,7 +3452,8 @@
 			"mincss/loading.min.css",
 			"minjs/base.min.js",
 			"minjs/mui.min.js",
-			"images/base/follow0.png"
+			"images/base/follow0.png",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/cityuser.html",

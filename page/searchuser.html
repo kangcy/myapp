@@ -63,6 +63,7 @@
 		pulldownRefresh();
 		base.ShowUser("#scroll-view");
 		base.UserAddFan("#scroll-view", userinfo);
+		base.UserOutFan("#scroll-view", userinfo);
 		SetPullEnable(true);
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
@@ -84,7 +85,7 @@
 			base.ShowLoading(false);
 			base.ShowNone(false);
 			data = JSON.parse(data);
-			if(data != null) { 
+			if(data != null) {
 				if(data.result) {
 					data = data.message;
 					totalpage = data.totalpage;

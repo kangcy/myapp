@@ -167,11 +167,14 @@
 					base.GetView("login").show("zoom-fade-out");
 				} else {
 					subindex.show("zoom-fade-out", base.AnimateDuration, function() {
+
+					});
+					mui.later(function() {
 						plus.webview.close("adv", "none");
 						plus.webview.close("guide", "none");
 						plus.webview.close("login", "none");
-						subindex.evalJS("InitChild()");
-					});
+					}, base.AnimateDuration)
+					subindex.evalJS("InitChild()");
 				}
 			} else {
 				var e = Math.round((t - 1) / time * perimeter);
