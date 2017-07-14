@@ -12,11 +12,24 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/input.min.css">
 		<link rel="stylesheet" href="../mincss/articledetail.min.css">
+		<style type="text/css">
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+		</style>
 	</head>
 
 	<body id="body">
 		<header id="header" class="mui-bar" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
+			<!--<a id="action" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>-->
 			<span class="cfff f25 fr hide" onclick="ActionTan(1)" id="action" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</span>
 			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
@@ -25,6 +38,43 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
+
+		<!--右上角弹出菜单-->
+		<!--<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#">Item1</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">Item2</a>
+				</li> 
+				<li class="mui-table-view-cell">
+					<a href="#">Item3</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">Item4</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">Item5</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">Item6</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">Item7</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">Item8</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">Item9</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">Item10</a>
+				</li>
+			</ul>
+		</div>-->
 
 		<!--漂浮特效-->
 		<div id="snowwrapper" class="hide"></div>
