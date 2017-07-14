@@ -26,6 +26,16 @@
 		//读取本地存储，检查是否为首次启动
 		var showGuide = plus.storage.getItem("lauchFlag");
 
+		var all = plus.webview.all();
+		var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
+		for(var i = 0; i < all.length; i++) {
+			if(all[i] === launch)
+				continue;
+			all[i].hide();
+			all[i].close();
+			all[i].clear();
+		}
+
 		//定位
 		base.InitPosition(function() {
 			if(!showGuide) {
@@ -39,28 +49,4 @@
 			}
 		});
 	});
-
-	//预加载	-模板页	
-	function preload_template() {
-		/*var temp = plus.webview.create("page/template.html", "template", {
-			top: "0px",
-			bottom: "0px",
-			scrollIndicator: "none",
-			zindex: 10000
-		}, {});*/
-
-		/*mui.preload({
-			id: 'template',
-			url: 'page/template.html',
-			styles: {
-				popGesture: 'hide',
-				zindex: 10000
-			},
-			show: {
-				autoShow: false,
-				duration: base.AnimateDuration,
-				aniShow: base.ShowAnimate()
-			}
-		});*/
-	}
 </script>

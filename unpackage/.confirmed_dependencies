@@ -1911,7 +1911,9 @@
 			"images/comment/smile.png",
 			"images/comment/dingwei2.png",
 			"css/animate.min.css",
-			"images/article/btn_good.png"
+			"images/article/btn_good.png",
+			"images/avatar.png",
+			"images/icon/heart.png"
 		],
 		"refer": [
 			"page/articleCommentSub.html",
@@ -2425,7 +2427,8 @@
 			"images/default.png",
 			"images/avatar.png",
 			"images/loadmore.gif",
-			"images/base/follow1.png"
+			"images/base/follow1.png",
+			"images/base/follow2.png"
 		],
 		"refer": [
 			"page/followSub.html",
