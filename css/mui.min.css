@@ -5082,12 +5082,12 @@ body>.mui-progressbar {
 
 .onefloor {
 	width: 100%;
-	overflow: hidden;
+	text-align: center;
 }
 
 .onefloor img {
-	max-width: 100% !important;
-	max-height: 400px !important;
+    width: 18.5rem !important;
+	height: 18.5rem !important;
 	border-radius: 5px;
 }
 
@@ -5100,10 +5100,9 @@ body>.mui-progressbar {
 }
 
 .secondfloor img {
-	max-width: 95% !important;
-	max-height: 100% !important;
+	width: 9rem !important;
+	height: 9rem !important;
 	border-radius: 5px;
-	/*border: 1px solid #ddd;*/
 }
 
 .thirdfloor {
@@ -5115,11 +5114,9 @@ body>.mui-progressbar {
 }
 
 .thirdfloor img {
-	width: 94% !important;
-	min-width: 94% !important;
-	min-height: 100%;
+	width: 5.9rem !important;
+	height: 5.9rem !important;
 	border-radius: 5px;
-	/*border: 1px solid #ddd;*/
 }
 
 .mui-card-header>img:first-child {
