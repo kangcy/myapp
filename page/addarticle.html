@@ -14,7 +14,7 @@
 	<body style="background: #E8E8E8;">
 		<header class="mui-bar" id="header" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
-			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">保存</span>
+			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">下一步</span>
 			<h1 class="mui-title cfff" id="title">点击输入标题</h1>
 		</header>
 		<div class="loading" id="loader">
@@ -468,7 +468,7 @@
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							base.RefreshUser();
 						}
-						var articleDetailPage = base.GetView('articledetail');
+						/*var articleDetailPage = base.GetView('articledetail');
 						if(articleDetailPage == null) {
 							base.OpenWindow("articledetail", "articledetail.html", {
 								ArticleID: ArticleID,
@@ -476,10 +476,23 @@
 							}, false, "none");
 						} else {
 							articleDetailPage.evalJS("UpdateDetail()");
-						}
+						}*/
+
+						console.log(JSON.stringify(data.message))
+						var result = data.message;
+						base.OpenWindow("sharesetting", "sharesetting.html", {
+							ArticleID: result.ID,
+							ArticleNumber: result.Number,
+							ArticlePower: result.ArticlePower,
+							ArticlePowerPwd: result.ArticlePowerPwd,
+							ArticleType: result.TypeID,
+							ArticleTypeName: result.TypeName,
+							Source: Source
+						});
+
 						mui.later(function() {
 							mask.close();
-						}, 1500);
+						}, base.AnimateDuration);
 					} else {
 						isLoading = false;
 						mask.close();

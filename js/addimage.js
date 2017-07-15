@@ -90,7 +90,7 @@ function compressImage(src, dstname) {
 			src: src,
 			dst: dstname,
 			overwrite: true,
-			quality: 100
+			quality: 90
 		},
 		function(event) {
 			AppendStr(event.target)

@@ -724,7 +724,7 @@
 		intent.putExtra(Intent.EXTRA_TEXT, "分享自「小微篇」" + ShareInfo.Title + " " + ShareInfo.Url);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
-		base.ShareLog(userinfo.ID, "", "system");
+		base.ShareLog(userinfo.Number, UserNumber, "system", 1);
 	}
 
 	//发送分享信息 
@@ -741,7 +741,7 @@
 		};
 		s.send(msg, function() {
 			mui.toast("分享成功");
-			base.ShareLog(userinfo.ID, "", id);
+			base.ShareLog(userinfo.Number, UserNumber, id, 1);
 		}, function(e) {
 			mui.toast("分享失败");
 		});

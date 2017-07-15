@@ -77,6 +77,7 @@
 	var headheight = "";
 	var bottomheight = "";
 	var menu_style = {};
+	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
@@ -86,6 +87,8 @@
 		base.Get("search").addEventListener('tap', function() {
 			base.OpenWindow("search", "search.html", {});
 		});
+
+		Avartar(base.ShowThumb(userinfo.Avatar, 2));
 	})
 
 	var backButtonPress = 0;
@@ -121,7 +124,8 @@
 				left: "100%",
 				width: "100%",
 				popGesture: "none",
-				scrollIndicator: "none"
+				scrollIndicator: "none",
+				hardwareAccelerated: false //开启硬件加速
 			};
 		})
 

@@ -401,6 +401,7 @@
 
 		Load(function(data) {
 			mui.later(function() {
+				plus.webview.close("sharesetting", "none");
 				plus.webview.close("addarticle", "none");
 				plus.webview.hide("addimage");
 			}, 500);
@@ -867,7 +868,7 @@
 		intent.putExtra(Intent.EXTRA_TEXT, "分享自「小微篇」" + ShareInfo.Title + " " + ShareInfo.Url);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
-		base.ShareLog(userinfo.ID, Article.Number, "system");
+		base.ShareLog(userinfo.Number, Article.Number, "system", 0);
 	}
 
 	//发送分享信息
@@ -884,7 +885,7 @@
 		};
 		s.send(msg, function() {
 			mui.toast("分享成功");
-			base.ShareLog(userinfo.ID, Article.Number, id);
+			base.ShareLog(userinfo.Number, Article.Number, id, 0);
 		}, function(e) {
 			mui.toast("分享失败");
 		});

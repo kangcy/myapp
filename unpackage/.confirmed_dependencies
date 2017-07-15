@@ -753,7 +753,8 @@
 			"page/edittext.html",
 			"page/customsetting.html",
 			"page/mypic.html",
-			"page/videoreview.html"
+			"page/videoreview.html",
+			"page/sharesetting.html"
 		]
 	},
 	"page/subindex.html": {
@@ -1330,7 +1331,8 @@
 			"page/articleType.html",
 			"page/payment.html",
 			"page/articletype2.html",
-			"page/articletype.html"
+			"page/articletype.html",
+			"page/articledetail.html"
 		]
 	},
 	"page/articleType.html": {

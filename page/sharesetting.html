@@ -153,6 +153,7 @@
 	var ArticlePowerPwd = "";
 	var ArticleType = 0;
 	var ArticleTypeName = "";
+	var Source = "";
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {
@@ -240,6 +241,7 @@
 		ArticlePowerPwd = self.ArticlePowerPwd;
 		ArticleType = self.ArticleType;
 		ArticleTypeName = self.ArticleTypeName;
+		Source = self.Source || "";
 
 		if(ArticleType == 0) {
 			ArticleTypeName = "请选择"
@@ -251,11 +253,23 @@
 
 		//返回
 		mui.back = function() {
-			var page = base.GetView("articledetail");
+			/*var page = base.GetView("articledetail");
 			if(page) {
 				page.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
 			}
-			plus.webview.close(self);
+			plus.webview.close(self);*/
+
+			var articleDetailPage = base.GetView('articledetail');
+			if(articleDetailPage == null) {
+				base.OpenWindow("articledetail", "articledetail.html", {
+					ArticleID: ArticleID,
+					Source: Source
+				}, false, "none");
+			} else {
+				articleDetailPage.evalJS("UpdateDetail()");
+				articleDetailPage.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
+				plus.webview.close(self);
+			}
 		}
 
 		//投稿
@@ -291,6 +305,10 @@
 				isLoading = false;
 			}
 		});
+
+		mui.later(function() {
+			plus.webview.close("addarticle", "none");
+		}, 500)
 	});
 
 	//校验权限密码
