@@ -60,7 +60,7 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/update.min.js"></script>
-<!--<script src="../js/subindex.js"></script>-->
+<script src="../js/subindex.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var self = null;
@@ -95,8 +95,6 @@
 	mui.plusReady(function() {
 		plus.navigator.setFullscreen(false);
 		self = plus.webview.currentWebview();
-
-		CreatWaiting();
 
 		Init(function(data) {
 			mui.each(data, function(i, item) {
@@ -271,7 +269,7 @@
 	}
 
 	function InitChild() {
-		/*var i = setInterval(function() {
+		var i = setInterval(function() {
 			if(groupItems.length > 1) {
 				clearInterval(i);
 				InitView(0, function() {
@@ -279,11 +277,7 @@
 					InitChangeItem();
 				});
 			}
-		}, 100);*/
-
-		ShowWithWaiting(groupItems[0]);
-		ChangeItem(mui(".mui-control-item")[0]);
-		InitChangeItem();
+		}, 100);
 
 		mui.later(function() {
 			Check_Update(function(data) {
@@ -326,126 +320,5 @@
 				}
 			}, false);
 		}, 2000);
-	}
-
-	// 创建原生View控件
-	var nWaiting = null;
-
-	function CreatWaiting() {
-		var topoffset = base.Get("header").clientHeight;
-		nWaiting = plus.nativeObj.View.getViewById('nWaiting');
-		if(nWaiting) {
-			return;
-		}
-		nWaiting = new plus.nativeObj.View('nWaiting', {
-			//top: headheight + "px",
-			//bottom: bottomheight + "px",
-			top: "0px",
-			bottom: "0px",
-			left: "100%",
-			width: "100%"
-		});
-		nWaiting.interceptTouchEvent(true);
-
-		//绘制等待内容区背景色
-		nWaiting.drawText('加 载 中 ...', {
-			top: topoffset + 'px',
-			left: '0px',
-			width: '100%',
-			height: '80%'
-		}, {
-			size: '13px',
-			color: 'rgb(100,100,100)'
-		});
-	}
-
-	// 使用原生View控件作为动画模板显示窗口 
-	function ShowWithWaiting(view) {
-		var bUpdate = false;
-		var contentWebview = base.GetView(view.id);
-		if(contentWebview == null) {
-			menu_style.left = "0%";
-			contentWebview = plus.webview.create(view.url, view.id, menu_style, {
-				ArticleType: view.ArticleType,
-				PageName: view.PageName,
-				headheight: headheight,
-				index: view.index
-			});
-			contentWebview.addEventListener('titleUpdate', function() {
-				if(!bUpdate) {
-					bUpdate = true;
-					nWaiting.hide()
-					InitDrag(view)
-				}
-			}, false);
-			contentWebview.addEventListener('loaded', function() {
-				if(!bUpdate) {
-					bUpdate = true;
-					nWaiting.hide()
-					InitDrag(view)
-				}
-			}, false);
-			contentWebview.show('none', null, function() {
-
-			}, {
-				capture: nWaiting
-			});
-		} else {
-			contentWebview.show('none');
-			InitDrag(view)
-		}
-	}
-
-	//当前页面手势事件（已加载前一个页面+下一个页面）
-	function InitDrag(view) {
-		//左滑 
-		if(view.index < groupItems.length - 1) {
-			var self = base.GetView(view.id);
-			var menu = base.GetView("articletab" + (view.index + 1));
-			if(!menu) {
-				nWaiting.show();
-				nWaiting.setStyle({
-					left: "100%"
-				});
-				menu = nWaiting;
-			}
-			self.drag({
-				direction: 'left',
-				moveMode: 'followFinger'
-			}, {
-				view: menu,
-				moveMode: 'follow'
-			}, function(e) {
-				if(e.type == "end" && e.result) {
-					base.GetView("subindex").evalJS('scroll.gotoPage(' + (view.index + 1) + ');ChangeItem(mui(".mui-control-item")[' + (view.index + 1) + '])');
-					ShowWithWaiting(groupItems[view.index + 1])
-				}
-			});
-		}
-
-		//右滑
-		if(view.index > 0) {
-			var self = base.GetView(view.id);
-			var menu = base.GetView("articletab" + (view.index - 1));
-			if(!menu) {
-				nWaiting.show();
-				nWaiting.setStyle({
-					left: "-100%"
-				});
-				menu = nWaiting;
-			}
-			self.drag({
-				direction: 'right',
-				moveMode: 'followFinger'
-			}, {
-				view: menu,
-				moveMode: 'follow'
-			}, function(e) {
-				if(e.type == "end" && e.result) {
-					base.GetView("subindex").evalJS('scroll.gotoPage(' + (view.index - 1) + ');ChangeItem(mui(".mui-control-item")[' + (view.index - 1) + '])');
-					ShowWithWaiting(groupItems[view.index - 1])
-				}
-			});
-		}
 	}
 </script>
