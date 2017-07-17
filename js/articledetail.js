@@ -110,7 +110,7 @@ function Delete() {
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							base.RefreshUser();
 
-							plus.webview.close("articledetail", "none");
+							plus.webview.close("articledetail");
 						}
 					}
 				}, 500);

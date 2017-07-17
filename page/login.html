@@ -121,7 +121,7 @@
 			scrollIndicator: "none"
 		})
 
-		/*if(base.GetView("my") == null) {
+		if(base.GetView("my") == null) {
 			plus.webview.create("my.html", "my", {
 				top: "0px",
 				bottom: "0px",
@@ -130,7 +130,7 @@
 				popGesture: "close",
 				scrollIndicator: "none"
 			});
-		}*/
+		}
 
 		subindex.onloaded = function() {
 			/*subindex.show("zoom-fade-out", base.AnimateDuration, function() {
@@ -147,9 +147,8 @@
 				plus.webview.close("adv", "none");
 				plus.webview.close("guide", "none");
 				plus.webview.close("login", "none");
-
+				subindex.evalJS("InitChild()");
 			}, base.AnimateDuration)
-			subindex.evalJS("InitChild()");
 		}
 		isLoading = false;
 	};
