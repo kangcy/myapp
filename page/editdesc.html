@@ -510,7 +510,7 @@
 
 			//过滤敏感词
 			HttpGet(base.RootUrl + "Api/System/CheckDirtyword", {
-				Title: val
+				Title: escape(val)
 			}, function(data) {
 				data = JSON.parse(data);
 				if(data != null) {

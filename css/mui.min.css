@@ -3035,7 +3035,7 @@ select:focus {
 .mui-popover .mui-popover-arrow {
 	position: absolute;
 	z-index: 1000;
-	top: -20.3125rem;
+	top: -25px;
 	left: 0;
 	overflow: hidden;
 	width: 26px;
@@ -3052,7 +3052,7 @@ select:focus {
 	-webkit-transform: rotate(45deg);
 	transform: rotate(45deg);
 	border-radius: 0.1875rem;
-	background: #f7f7f7
+	background: #fff;
 }
 
 .mui-popover .mui-popover-arrow.mui-bottom {
@@ -5086,7 +5086,7 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-    width: 18.5rem !important;
+	width: 18.5rem !important;
 	height: 18.5rem !important;
 	border-radius: 5px;
 }

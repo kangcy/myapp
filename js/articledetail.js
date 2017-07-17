@@ -125,7 +125,7 @@ function Copy() {
 		return;
 	}
 	isLoading = true;
-	ActionTan(0);
+	mui('#topPopover').popover('hide');
 	mask.show();
 	base.ShowWaiting("正在复制");
 	var position = base.GetCurrentPosition();
@@ -163,7 +163,7 @@ function Copy() {
 //编辑 
 function Edit() {
 	stopsound();
-	ActionTan(0);
+	mui('#topPopover').popover('hide');
 	mask.show();
 	base.ShowWaiting("正在同步文章内容");
 	base.OpenWindow("addarticle", "addarticle.html", {
@@ -178,6 +178,7 @@ function Edit() {
 
 //权限
 function Power() {
+	stopsound();
 	mask.close();
 	base.OpenWindow("sharesetting", "sharesetting.html", {
 		ArticleID: ArticleID,

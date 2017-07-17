@@ -237,10 +237,10 @@
 		var self = plus.webview.currentWebview();
 		ArticleID = self.ArticleID;
 		ArticleNumber = self.ArticleNumber;
-		ArticlePower = self.ArticlePower;
-		ArticlePowerPwd = self.ArticlePowerPwd;
-		ArticleType = self.ArticleType;
-		ArticleTypeName = self.ArticleTypeName;
+		ArticlePower = self.ArticlePower || 0;
+		ArticlePowerPwd = self.ArticlePowerPwd || "";
+		ArticleType = self.ArticleType || 0;
+		ArticleTypeName = self.ArticleTypeName || "";
 		Source = self.Source || "";
 
 		if(ArticleType == 0) {

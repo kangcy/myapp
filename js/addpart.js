@@ -99,7 +99,7 @@ function compressImage(src, dstname) {
 			src: src,
 			dst: dstname,
 			overwrite: true,
-			quality: 100
+			quality: 90
 		},
 		function(event) {
 			fileIndex++;
@@ -116,7 +116,7 @@ function compressImage(src, dstname) {
 			if(fileIndex >= fileTotal) {
 				upload();
 			}
-		});
+		}); 
 }
 
 //创建段落 

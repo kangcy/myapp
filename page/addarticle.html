@@ -468,17 +468,6 @@
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							base.RefreshUser();
 						}
-						/*var articleDetailPage = base.GetView('articledetail');
-						if(articleDetailPage == null) {
-							base.OpenWindow("articledetail", "articledetail.html", {
-								ArticleID: ArticleID,
-								Source: Source
-							}, false, "none");
-						} else {
-							articleDetailPage.evalJS("UpdateDetail()");
-						}*/
-
-						console.log(JSON.stringify(data.message))
 						var result = data.message;
 						base.OpenWindow("sharesetting", "sharesetting.html", {
 							ArticleID: result.ID,

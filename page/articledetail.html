@@ -18,7 +18,7 @@
 				top: 16px;
 				right: 6px;
 			}
-			
+			 
 			#topPopover .mui-popover-arrow {
 				left: auto;
 				right: 6px;
@@ -29,8 +29,7 @@
 	<body id="body">
 		<header id="header" class="mui-bar" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
-			<!--<a id="action" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>-->
-			<span class="cfff f25 fr hide" onclick="ActionTan(1)" id="action" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</span>
+			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</a>
 			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
 		<div class="loading" id="loader">
@@ -39,42 +38,24 @@
 			</div>
 		</div>
 
-		<!--右上角弹出菜单-->
-		<!--<div id="topPopover" class="mui-popover">
+		<!--操作-->
+		<div id="topPopover" class="mui-popover">
 			<div class="mui-popover-arrow"></div>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a href="#">Item1</a>
+			<ul class="mui-table-view tc f12" style="background:#fff;">
+				<li onclick="Delete()" class="mui-table-view-cell" style="background:url(../images/article/1.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+					删除
 				</li>
-				<li class="mui-table-view-cell">
-					<a href="#">Item2</a>
-				</li> 
-				<li class="mui-table-view-cell">
-					<a href="#">Item3</a>
+				<li onclick="Copy()" class="mui-table-view-cell" style="background:url(../images/article/2.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+					复制
 				</li>
-				<li class="mui-table-view-cell">
-					<a href="#">Item4</a>
+				<li onclick="Edit()" class="mui-table-view-cell" style="background:url(../images/article/3.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+					编辑
 				</li>
-				<li class="mui-table-view-cell">
-					<a href="#">Item5</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="#">Item6</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="#">Item7</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="#">Item8</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="#">Item9</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="#">Item10</a>
+				<li onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+					权限
 				</li>
 			</ul>
-		</div>-->
+		</div>
 
 		<!--漂浮特效-->
 		<div id="snowwrapper" class="hide"></div>
@@ -161,23 +142,6 @@
 				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(2)">取消</div>
 			</div>
 		</div>
-		<!--操作-->
-		<div class="myaction boxshadow hide" id="myaction">
-			<div class="tc c000 myaction_body">
-				<div class="myaction_items" onclick="Delete()"><img src="../images/article/1.png" />
-					<p class="f13 red">删除</p>
-				</div>
-				<div class="myaction_items" onclick="Copy()"><img src="../images/article/2.png" />
-					<p class="f13 c000">复制</p>
-				</div>
-				<div class="myaction_items" onclick="Edit()"><img src="../images/article/3.png" />
-					<p class="f13 c000">编辑</p>
-				</div>
-				<div class="myaction_items" onclick="Power()"><img src="../images/article/4.png" />
-					<p class="f13 c000">权限</p>
-				</div>
-			</div>
-		</div>
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
@@ -260,7 +224,7 @@
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
 		ShareTan(0);
-		ActionTan(0);
+		mui('#topPopover').popover('hide');
 		base.CloseWaiting();
 	});
 
@@ -718,18 +682,6 @@
 			}
 		} else {
 			mask.close();
-		}
-	}
-
-	//操作弹窗
-	function ActionTan(index) {
-		if(index == 0) {
-			base.Get("myaction").classList.remove("fadeInDown");
-			base.Get("myaction").classList.add("hide");
-		} else {
-			mask.show();
-			base.Get("myaction").classList.remove("hide");
-			base.Get("myaction").classList.add("fadeInDown");
 		}
 	}
 
