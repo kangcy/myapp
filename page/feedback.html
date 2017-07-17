@@ -90,7 +90,7 @@
 			if(base.IsNullOrEmpty(qq.value)) {
 				return mui.toast('请填写联系方式');
 			}
-			HttpGet(base.RootUrl + "FeedBack/Edit", {
+			HttpPost(base.RootUrl + "FeedBack/Edit", {
 				ID: userinfo.ID,
 				Summary: escape(question.value),
 				QQ: qq.value
