@@ -264,6 +264,9 @@
 	var SelectAll = false; //是否全选
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
 
 	//编辑变动缓存
 	var ActionCache = [];
@@ -507,12 +510,12 @@
 				isLoading = false;
 				return mui.toast("请编辑文字");
 			}
-
+			mask.show();
+			base.ShowWaiting("正在保存设置");
 			//过滤敏感词
-			HttpGet(base.RootUrl + "Api/System/CheckDirtyword", {
+			HttpPost(base.RootUrl + "System/CheckDirty", {
 				Title: escape(val)
 			}, function(data) {
-				data = JSON.parse(data);
 				if(data != null) {
 					if(data.result) {
 						if(!addarticlePage) {
@@ -528,8 +531,8 @@
 					}
 				}
 				isLoading = false;
+				mask.close();
 			});
-
 		}, false);
 	});
 

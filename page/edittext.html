@@ -91,10 +91,9 @@
 			var val = question.value;
 
 			//过滤敏感词
-			HttpGet(base.RootUrl + "Api/System/CheckDirtyword", {
+			HttpPost(base.RootUrl + "System/CheckDirty", {
 				Title: val
 			}, function(data) {
-				data = JSON.parse(data);
 				if(data != null) {
 					if(data.result) {
 						switch(source) {
