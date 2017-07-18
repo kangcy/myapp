@@ -318,7 +318,7 @@ function CommitComment() {
 	base.ShowWaiting("正在提交");
 	ShowComment(false);
 	var position = base.GetCurrentPosition();
-	HttpPost(base.RootUrl + "Api/Comment/Edit_1_3", {
+	HttpPost(base.RootUrl + "Comment/Edit_1_3", {
 		ID: userinfo.ID,
 		ArticleNumber: ArticleNumber,
 		ParentCommentNumber: ParentCommentNumber,
@@ -328,13 +328,12 @@ function CommitComment() {
 		City: position.City,
 		District: position.District,
 		Street: position.Street,
-		DetailName: position.DetailName, 
+		DetailName: position.DetailName,
 		CityCode: position.CityCode,
 		Latitude: position.Latitude,
 		Longitude: position.Longitude,
-		ShowPosition: showPosition 
+		ShowPosition: showPosition
 	}, function(data) {
-		data = JSON.parse(data);
 		base.CheckLogin(userinfo, data.code);
 		mui.later(function() {
 			mask.close();

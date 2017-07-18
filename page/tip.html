@@ -36,6 +36,11 @@
 				height: 2.5rem !important;
 				border-radius: 50px;
 			}
+			
+			.avatar2 img {
+				width: 3.5rem !important;
+				height: 3.5rem !important;
+			}
 		</style>
 	</head>
 
@@ -67,7 +72,7 @@
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
-	var ActionID = 0; 
+	var ActionID = 0;
 	var self = null;
 	mui.init({
 		gestureConfig: {
@@ -76,7 +81,7 @@
 	});
 
 	mui.ready(function() {
-		base.Immersed(); 
+		base.Immersed();
 		base.ToTop();
 	})
 
@@ -104,7 +109,7 @@
 			ID: userinfo.ID,
 			page: currpage,
 			rows: pagesize,
-			UserNumber: userinfo.Number, 
+			UserNumber: userinfo.Number,
 			ActionID: ActionID
 		};
 		LoadPull(base.RootUrl + "Api/UserAction/List", data, true, false, function(item) {
@@ -136,7 +141,7 @@
 				title = "关注了" + item.UserInfoJson.length + "人";
 				break;
 			case 2:
-				title = "收藏了" + item.ArticleInfoJson.length + "篇"; 
+				title = "收藏了" + item.ArticleInfoJson.length + "篇";
 				break;
 			default:
 				break;
@@ -146,11 +151,11 @@
 		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '<span class="ml10 c999">' + title + '</span></p><p class="f10 c999">' + item.CreateTime + '</p>');
 
 		mui.each(item.ArticleInfoJson, function(i, article) {
-			model.push('<div class="article" articleid="' + article.ID + '" userid="' + item.Number + '" power="' + article.ArticlePower + '" nickname="' + item.NickName + '"><img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(article.Cover, 2) + '" /></div>');
+			model.push('<div class="article fl" articleid="' + article.ID + '" userid="' + item.Number + '" power="' + article.ArticlePower + '" nickname="' + item.NickName + '"><img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(article.Cover, 2) + '" /></div>');
 		})
 
 		mui.each(item.UserInfoJson, function(i, user) {
-			model.push('<div class="user" userid="' + user.Number + '" nickname="' + user.NickName + '"avatar="' + user.Avatar + '"cover="' + user.Cover + '"><img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(user.Avatar, 2) + '" class="radius" /></div>');
+			model.push('<div class="user avatar2 fl" userid="' + user.Number + '" nickname="' + user.NickName + '"avatar="' + user.Avatar + '"cover="' + user.Cover + '"><img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(user.Avatar, 2) + '" class="radius" /></div>');
 		})
 
 		model.push("</div>");

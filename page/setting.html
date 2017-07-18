@@ -222,11 +222,6 @@
 			base.Get("version").innerText = "v" + inf.version;
 		});
 
-		//退出操作
-		base.Get('exit').addEventListener('tap', function() {
-			mui('#action').popover('show');
-		}, false);
-
 		//检查更新
 		base.Get("checkupdate").addEventListener('tap', function(event) {
 			if(isLoading) {
@@ -247,8 +242,19 @@
 
 		plus.oauth.getServices(function(services) {
 			auths = services;
+
+			//退出操作
+			base.Get('exit').addEventListener('tap', function() {
+				mui('#action').popover('show');
+			}, false);
+
 		}, function(e) {
 			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
+
+			//退出操作
+			base.Get('exit').addEventListener('tap', function() {
+				mui('#action').popover('show');
+			}, false);
 		});
 	});
 
@@ -296,9 +302,11 @@
 
 	//注销 
 	function authLogout(callback) {
+		var result = true;
 		for(var i in auths) {
 			var s = auths[i];
 			if(s.authResult) {
+				result = false;
 				s.logout(function(e) {
 					console.log("注销成功");
 					callback();
@@ -307,6 +315,9 @@
 					callback();
 				});
 			}
+		}
+		if(result) {
+			callback();
 		}
 	}
 </script>
