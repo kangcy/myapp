@@ -120,7 +120,7 @@
 					<div class="flex-box flex-row">
 						<div style="flex:0 0 80%;" class="flex-item">
 							<p class="c000 full">投稿</p>
-							<span class="f10 c999 mt3">每周只有一次投稿机会，被选中的文章会有“精”字标识</span>
+							<span class="f10 c999 mt3">每周只有一次投稿机会，被选中的文章会有“精”字标识，投稿审核期内暂时不可编辑文章</span>
 						</div>
 						<div style="flex:0 0 20%;" class="flex-item tr">
 							<div class="my-switch" id="switch">
@@ -132,7 +132,7 @@
 			</ul>
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
-		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
+		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:40%;left:5%;width:90%;z-index:99999;background:#fff;">
 			<div style="padding:30px;padding-bottom:15px;">
 				<p class="blue f15 bold">投稿失败</p>
 				<p class="c333 f12 mt5" id="error"></p>
@@ -253,12 +253,6 @@
 
 		//返回
 		mui.back = function() {
-			/*var page = base.GetView("articledetail");
-			if(page) {
-				page.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
-			}
-			plus.webview.close(self);*/
-
 			var articleDetailPage = base.GetView('articledetail');
 			if(articleDetailPage == null) {
 				base.OpenWindow("articledetail", "articledetail.html", {
@@ -287,12 +281,24 @@
 						ID: userinfo.ID,
 						UserNumber: userinfo.Number,
 						ArticleID: ArticleID,
-						ArticleNumber: ArticleNumber
+						ArticleNumber: ArticleNumber,
+						ArticlePower: ArticlePower
 					},
 					function(data) {
 						mui.later(function() {
 							mask.close();
 							if(data.result) {
+
+								//刷新文章，关闭当前页面
+								var page = base.GetView("articledetail");
+								if(page) {
+									page.evalJS("UpdateAction()");
+								} else {
+									base.OpenWindow("articledetail", "articledetail.html", {
+										ArticleID: ArticleID,
+										Source: Source
+									}, false, "none");
+								}
 								mui.toast("投稿成功");
 							} else {
 								base.SwitchChange("switch", draw);

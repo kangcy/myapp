@@ -324,3 +324,9 @@ function UpdatePower(ArticlePower, ArticlePowerPwd, ArticleType, ArticleTypeName
 	Article.TypeID = ArticleType;
 	Article.TypeName = ArticleTypeName;
 }
+
+//投稿审核操作
+function UpdateAction() {
+	base.AddClass(["#popover_delete", "#popover_edit", "#popover_power"], "hide");
+	plus.webview.close("sharesetting");
+}

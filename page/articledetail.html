@@ -42,16 +42,16 @@
 		<div id="topPopover" class="mui-popover">
 			<div class="mui-popover-arrow"></div>
 			<ul class="mui-table-view tc f12" style="background:#fff;">
-				<li onclick="Delete()" class="mui-table-view-cell" style="background:url(../images/article/1.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_delete" onclick="Delete()" class="mui-table-view-cell" style="background:url(../images/article/1.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
 					删除
 				</li>
-				<li onclick="Copy()" class="mui-table-view-cell" style="background:url(../images/article/2.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_copy" onclick="Copy()" class="mui-table-view-cell" style="background:url(../images/article/2.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
 					复制
 				</li>
-				<li onclick="Edit()" class="mui-table-view-cell" style="background:url(../images/article/3.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_edit" onclick="Edit()" class="mui-table-view-cell" style="background:url(../images/article/3.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
 					编辑
 				</li>
-				<li onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_power" onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
 					权限
 				</li>
 			</ul>
@@ -398,7 +398,7 @@
 				Uri = plus.android.importClass("android.net.Uri");
 				main = plus.android.runtimeMainActivity();
 			}
-		}, 1000);
+		}, 2000);
 	});
 
 	//验证权限密码
@@ -589,27 +589,33 @@
 					if(data.IsPay == 1) {
 						base.Get("btnPay").classList.remove("hide");
 					}
-					//收藏状态
+					//收藏状态 
 					if(data.IsKeep == 1) {
 						base.Get("isnotkeep").classList.add("hide");
 						base.Get("iskeep").classList.remove("hide");
 					} else {
 						base.Get("iskeep").classList.add("hide");
 						base.Get("isnotkeep").classList.remove("hide");
-					}
+					} 
 
 					/*mui('#snowwrapper').load("../part/snow/snow.html", function(response) {
 						LoadScript("../part/snow/snow.js", function() {
 							$(".snow-canvas").snow();
 						});
-					});*/
+					});*/  
 
 					//分享信息
 					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);
 					ShareInfo.Cover = base.ShowThumb(data.Cover, 2);
 					ShareInfo.Url = data.ShareUrl;
+
+					//投稿限制操作
+					if(data.Submission > 0 && data.Submission != 100) {
+						base.AddClass(["#popover_delete", "#popover_edit", "#popover_power"], "hide");
+					}
 				} else {
 					mui.toast(data.message);
+					plus.webview.currentWebview().hide();
 					plus.webview.currentWebview().close();
 				}
 			}

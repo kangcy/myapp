@@ -133,13 +133,6 @@
 		}
 
 		subindex.onloaded = function() {
-			/*subindex.show("zoom-fade-out", base.AnimateDuration, function() {
-				plus.webview.close("adv", "none");
-				plus.webview.close("guide", "none");
-				plus.webview.close("login", "none");
-				subindex.evalJS("InitChild()");
-			});*/
-
 			subindex.show("zoom-fade-out", base.AnimateDuration, function() {
 
 			});
@@ -147,8 +140,8 @@
 				plus.webview.close("adv", "none");
 				plus.webview.close("guide", "none");
 				plus.webview.close("login", "none");
-				subindex.evalJS("InitChild()");
 			}, base.AnimateDuration)
+			subindex.evalJS("InitChild()");
 		}
 		isLoading = false;
 	};
