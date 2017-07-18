@@ -106,6 +106,7 @@
 <script type="text/javascript">
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
+	var auths = {};
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
 	});
@@ -243,6 +244,12 @@
 				}, "fade-in", "none", false, "transparent");
 			});
 		});
+
+		plus.oauth.getServices(function(services) {
+			auths = services;
+		}, function(e) {
+			console.log("获取登录服务列表失败：" + e.message + " - " + e.code);
+		});
 	});
 
 	//账号管理
@@ -265,16 +272,18 @@
 			if(e.index == 0) {
 				app.loginOut();
 
-				var all = plus.webview.all();
-				var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
-				for(var i = 0; i < all.length; i++) {
-					if(all[i] === launch || all[i].id === "setting" || all[i].id === "template")
-						continue;
-					all[i].hide();
-					all[i].close();
-					all[i].clear();
-				}
-				base.OpenWindow("login", "login.html", {}, "zoom-fade-out");
+				authLogout(function() {
+					var all = plus.webview.all();
+					var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
+					for(var i = 0; i < all.length; i++) {
+						if(all[i] === launch || all[i].id === "setting" || all[i].id === "template")
+							continue;
+						all[i].hide();
+						all[i].close();
+						all[i].clear();
+					}
+					base.OpenWindow("login", "login.html", {}, "zoom-fade-out");
+				});
 			}
 		});
 	}
@@ -283,5 +292,21 @@
 	function Close() {
 		mui('#action').popover('hide');
 		plus.runtime.quit();
+	}
+
+	//注销 
+	function authLogout(callback) {
+		for(var i in auths) {
+			var s = auths[i];
+			if(s.authResult) {
+				s.logout(function(e) {
+					console.log("注销成功");
+					callback();
+				}, function(e) {
+					console.log("失败成功");
+					callback();
+				});
+			}
+		}
 	}
 </script>

@@ -291,9 +291,14 @@
 	}
 
 	function InitChild() {
-		ChangeItem(mui(".mui-control-item")[0]);
-		InitChangeItem();
-		ShowWithWaiting(groupItems[0]);
+		var i = setInterval(function() {
+			if(groupItems.length > 1) {
+				clearInterval(i);
+				ChangeItem(mui(".mui-control-item")[0]);
+				InitChangeItem();
+				ShowWithWaiting(groupItems[0]);
+			}
+		}, 100);
 
 		mui.later(function() {
 			Check_Update(function(data) {
