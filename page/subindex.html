@@ -60,7 +60,6 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/update.min.js"></script>
-<!--<script src="../js/subindex.js"></script>-->
 <script type="text/javascript">
 	var isLoading = false;
 	var self = null;
@@ -404,6 +403,7 @@
 			});
 		} else {
 			base.GetView("subindex").evalJS('scroll.gotoPage(' + view.index + ');ChangeItem(mui(".mui-control-item")[' + view.index + '])');
+			nWaiting.hide();
 			InitDrag(view)
 			mui.each(groupItems, function(i, item) {
 				if(i == view.index) {

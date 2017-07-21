@@ -18,6 +18,7 @@
 	var userinfo = base.GetUserInfo();
 	mui.init();
 	mui.plusReady(function() {
+
 		plus.navigator.setFullscreen(true); //全屏展示
 		plus.screen.lockOrientation("portrait-primary"); //仅支持竖屏显示
 
@@ -38,6 +39,16 @@
 
 		//定位
 		base.InitPosition(function() {
+			if(!showGuide) {
+				base.OpenWindow("guide", "page/guide.html");
+				return;
+			}
+			if(userinfo == "") {
+				base.OpenWindow("login", "page/login.html");
+			} else {
+				base.OpenWindow("adv", "page/adv.html");
+			}
+		}, function() {
 			if(!showGuide) {
 				base.OpenWindow("guide", "page/guide.html");
 				return;
