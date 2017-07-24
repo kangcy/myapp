@@ -11,6 +11,25 @@
 			body {
 				background: transparent;
 			}
+			
+			#upload,
+			#action {
+				bottom: 35%;
+				width: 80%;
+				left: 10%;
+				border-radius: 5px;
+			}
+			
+			.cancel {
+				width: 70%;
+				display: inline-block !important;
+				border-radius: 30px;
+				padding: 0.525rem 0.9375rem;
+			}
+			
+			.mui-table-view-cell {
+				padding: 0.525rem 0.9375rem;
+			}
 		</style>
 
 	</head>
@@ -18,7 +37,7 @@
 	<body>
 		<!--图片上传-->
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
+			<ul class="mui-table-view" style="border-radius: 5px !important;">
 				<li class="mui-table-view-cell" id="camera">
 					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
 				</li>
@@ -28,35 +47,31 @@
 				<li class="mui-table-view-cell" id="pic">
 					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
 				</li>
-			</ul>
-			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
-					<a href="#upload" class="red f13">取消</a>
+					<a href="#upload" class="cfff f14 cancel">取消</a>
 				</li>
-			</ul>
+			</ul> 
 		</div>
 		<!--文章操作-->
 		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="action_keep">
+			<ul class="mui-table-view" style="border-radius: 5px !important;">
+				<li class="mui-table-view-cell noborder" id="action_keep">
 					<a href="#" class="c333 f13" onclick="Keep()">添加收藏</a>
 				</li>
-				<li class="mui-table-view-cell hide" id="action_outkeep">
+				<li class="mui-table-view-cell hide noborder" id="action_outkeep">
 					<a href="#" class="c333 f13" onclick="OutKeep()">取消收藏</a>
 				</li>
-				<li class="mui-table-view-cell hide" id="action_follow">
+				<li class="mui-table-view-cell hide noborder" id="action_follow">
 					<a href="#" class="c333 f13" onclick="Follow()">添加关注</a>
 				</li>
-				<li class="mui-table-view-cell hide" id="action_outfollow">
+				<li class="mui-table-view-cell hide noborder" id="action_outfollow">
 					<a href="#" class="c333 f13" onclick="OutFollow()">取消关注</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell noborder">
 					<a href="#" class="red f13" onclick="Report()">举报</a>
 				</li>
-			</ul>
-			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
-					<a href="#action" class="c333 f13">取消</a>
+					<a href="#action" class="cfff f14 cancel mt2 mb0">取消</a>
 				</li>
 			</ul>
 		</div>
@@ -66,8 +81,6 @@
 				<li class="mui-table-view-cell">
 					<a href="#" class="red f13" onclick="ClearPosition()">清除位置</a>
 				</li>
-			</ul>
-			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
 					<a href="#address" class="c333 f13">取消</a>
 				</li>
@@ -80,6 +93,11 @@
 	<script type="text/javascript">
 		var userinfo = base.GetUserInfo();
 		var PageName = "";
+
+		mui.each(base.Get(".cancel"), function() {
+			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
+		})
+
 		mui.plusReady(function() {
 			self = plus.webview.currentWebview();
 			PageName = self.PageName || "";

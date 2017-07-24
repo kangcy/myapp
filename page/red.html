@@ -1,0 +1,114 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/animate.min.css">
+		<style type="text/css">
+			body {
+				background: transparent;
+				background-color: rgba(0, 0, 0, 0.6);
+			}
+			
+			#wrapper {
+				position: relative;
+				background: url(../images/red/bg.png) center center no-repeat;
+				background-size: 100% 100%;
+			}
+			
+			#btnopen {
+				width: 35%;
+				bottom: 13%;
+				position: absolute;
+				left: 32.5%;
+			}
+			
+			@keyframes flipInY {
+				0% {
+					transform: perspective(400px) rotateY(0deg);
+				}
+				to {
+					transform: perspective(400px) rotateY(-360deg);
+				}
+			}
+			
+			.flipInY {
+				-webkit-animation: flipInY 2s ease;
+				-moz-animation: flipInY 2s ease;
+				-ms-animation: flipInY 2s ease;
+				animation: flipInY 2s ease;
+				animation-fill-mode: forwards;
+				-webkit-animation-fill-mode: forwards;
+				-moz-animation-fill-mode: forwards;
+				-ms-animation-fill-mode: forwards
+			}
+		</style>
+
+	</head>
+
+	<body class="tc">
+		<div class="inline hide" id="wrapper">
+			<img src="../images/red/img_text.png" style="width:70%;margin-top:20%;" />
+			<p class="cfff f14 mt15" id="time"></p>
+			<img src="../images/red/open.png" class="hide" id="btnopen" />
+		</div>
+	</body>
+	<script src="../minjs/mui.min.js"></script>
+	<script src="../minjs/base.min.js"></script>
+	<script type="text/javascript">
+		var isLoading = false;
+		var userinfo = base.GetUserInfo();
+		var wrapper = base.Get("wrapper");
+		var shareUrl = "";
+		var shareIcon = "";
+
+		mui.ready(function() {
+
+			wrapper.classList.remove("hide");
+			wrapper.classList.add("zoomIn");
+
+			HttpGet(base.RootUrlTest + "ShareLog/RedInfo", function(data) {
+				base.Get("time").innerText = data.During;
+				shareUrl = data.ShareUrl;
+				shareIcon = data.ShareIcon;
+				base.Get("btnopen").classList.remove("hide");
+			})
+
+			wrapper.style.width = window.innerWidth * 0.8 + "px";
+			wrapper.style.height = window.innerHeight * 0.7 + "px";
+			wrapper.style.marginTop = window.innerHeight * 0.15 + "px";
+
+			base.Get("btnopen").addEventListener('tap', function() {
+				if(isLoading) {
+					return false;
+				}
+				isLoading = true;
+				this.classList.add("flipInY");
+				mui.later(function() {
+					base.OpenWindow("reddetail", "reddetail.html", {
+						ShareUrl: shareUrl,
+						ShareIcon: shareIcon
+					}, "fade-in", false, false, "transparent");
+				}, 1800);
+				isLoading = false;
+			});
+		})
+
+		mui.plusReady(function() {
+			self = plus.webview.currentWebview();
+			PageName = self.PageName || "";
+			var type = self.Type || -1;
+			var iskeep = self.IsKeep || -1;
+			var isfollow = self.IsFollow || -1;
+
+			mui.back = function() {
+				self.close("red")
+			}
+		});
+	</script>
+
+</html>

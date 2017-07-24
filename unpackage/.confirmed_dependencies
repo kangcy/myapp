@@ -914,7 +914,8 @@
 			"page/imageview.html",
 			"page/update.html",
 			"page/action.html",
-			"page/addimage.html"
+			"page/addimage.html",
+			"page/red.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -3542,6 +3543,39 @@
 			"minjs/base.min.js",
 			"minjs/mui.min.js",
 			"mincss/loading.min.css"
+		]
+	},
+	"page/red.html": {
+		"resources": [
+			"minjs/base.min.js",
+			"minjs/mui.min.js",
+			"css/mui.min.css",
+			"images/red/bg.png",
+			"images/red/img_text.png",
+			"images/red/open.png",
+			"css/animate.min.css"
+		],
+		"refer": [
+			"page/reddetail.html"
+		]
+	},
+	"page/reddetail.html": {
+		"resources": [
+			"images/red/img_logo.png",
+			"minjs/base.min.js",
+			"minjs/mui.min.js",
+			"images/red/bg2.png",
+			"css/mui.min.css",
+			"images/share/01.png",
+			"images/share/02.png",
+			"images/share/03.png",
+			"images/share/06.png",
+			"images/share/05.png",
+			"images/share/04.png",
+			"css/animate.min.css"
+		],
+		"refer": [
+			"page/mypay.html"
 		]
 	}
 }

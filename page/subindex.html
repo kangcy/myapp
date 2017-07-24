@@ -124,7 +124,6 @@
 				width: "100%",
 				popGesture: "none",
 				scrollIndicator: "none"
-				//hardwareAccelerated: false //开启硬件加速
 			};
 
 			CreatWaiting();
@@ -147,7 +146,7 @@
 
 		//新增
 		base.Get("add").addEventListener('tap', function() {
-			if(isLoading) {
+			/*if(isLoading) {
 				return false;
 			}
 			isLoading = true;
@@ -157,7 +156,9 @@
 			} else {
 				base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
 			}
-			isLoading = false;
+			isLoading = false;*/
+
+			base.OpenWindow("red", "red.html", {}, "none", false, false, "transparent");
 		});
 
 		mui.back = function() {
@@ -212,6 +213,7 @@
 			}
 			var self = base.GetView("articletab" + olditem);
 			var menu = base.GetView("articletab" + curritem);
+			var exist = false;
 			if(!menu) {
 				if(curritem > olditem) {
 					nWaiting.setStyle({
@@ -224,6 +226,7 @@
 				}
 				menu = nWaiting;
 			} else {
+				exist = true;
 				menu.show('none');
 			}
 			plus.webview.startAnimation({
@@ -244,10 +247,12 @@
 				function(e) {
 					if(e.id == self.id) {
 						mui.later(function() {
-							nWaiting.setStyle({
-								left: "0%"
-							});
-							nWaiting.show();
+							if(!exist) {
+								nWaiting.setStyle({
+									left: "0%"
+								});
+								nWaiting.show();
+							}
 							scroll.gotoPage(curritem);
 							ChangeItem(mui(".mui-control-item")[curritem]);
 
