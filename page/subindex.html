@@ -146,7 +146,7 @@
 
 		//新增
 		base.Get("add").addEventListener('tap', function() {
-			/*if(isLoading) {
+			if(isLoading) {
 				return false;
 			}
 			isLoading = true;
@@ -156,9 +156,7 @@
 			} else {
 				base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
 			}
-			isLoading = false;*/
-
-			base.OpenWindow("red", "red.html", {}, "none", false, false, "transparent");
+			isLoading = false;
 		});
 
 		mui.back = function() {
@@ -294,7 +292,7 @@
 		base.Get("avatar").setAttribute("src", url);
 	}
 
-	function InitChild() {
+	function InitChild(first) {
 		var i = setInterval(function() {
 			if(groupItems.length > 1) {
 				clearInterval(i);
@@ -305,14 +303,26 @@
 		}, 100);
 
 		mui.later(function() {
-			Check_Update(function(data) {
-				if(!base.IsNullOrEmpty(data)) {
-					base.OpenWindow("update", "update.html", {
-						url: data.url,
-						remark: data.remark
-					}, "fade-in", "none", false, "transparent");
+			if(first == 1) {
+				//新用户专享红包
+				if(isLoading) {
+					return false;
 				}
-			});
+				isLoading = true;
+				HttpGet(base.RootUrl + "Red/RedInfo", {}, function(data) {
+					base.OpenWindow("red", "red.html", data, "none", false, false, "transparent");
+					isLoading = false;
+				})
+			} else {
+				Check_Update(function(data) {
+					if(!base.IsNullOrEmpty(data)) {
+						base.OpenWindow("update", "update.html", {
+							url: data.url,
+							remark: data.remark
+						}, "fade-in", "none", false, "transparent");
+					}
+				});
+			}
 
 			//监听推送消息		
 			plus.push.addEventListener("receive", function(msg) {

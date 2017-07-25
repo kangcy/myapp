@@ -3553,10 +3553,19 @@
 			"images/red/bg.png",
 			"images/red/img_text.png",
 			"images/red/open.png",
-			"css/animate.min.css"
+			"css/animate.min.css",
+			"images/red/img_logo.png",
+			"images/share/01.png",
+			"images/share/02.png",
+			"images/share/03.png",
+			"images/share/06.png",
+			"images/share/05.png",
+			"images/share/04.png",
+			"images/red/bg2.png"
 		],
 		"refer": [
-			"page/reddetail.html"
+			"page/reddetail.html",
+			"page/mypay.html"
 		]
 	},
 	"page/reddetail.html": {

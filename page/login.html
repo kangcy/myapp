@@ -110,7 +110,9 @@
 	var passwordBox = base.Get('password');
 
 	//跳转首页
-	var toMain = function() {
+	var toMain = function(first) {
+		console.log(first);
+		first = 1
 		var subindex = plus.webview.create("subindex.html", "subindex", {
 			left: "0px",
 			top: "0px",
@@ -141,7 +143,7 @@
 				plus.webview.close("guide", "none");
 				plus.webview.close("login", "none");
 			}, base.AnimateDuration)
-			subindex.evalJS("InitChild()");
+			subindex.evalJS("InitChild(" + first + ")");
 		}
 		isLoading = false;
 	};
@@ -213,14 +215,15 @@
 				ClientID: plus.push.getClientInfo().clientid
 			};
 			//登录 
-			app.login(loginInfo, function(err) {
-				if(err) {
+			app.login(loginInfo, function(data) {
+				if(data.result) {
+					toMain(data.first);
+				} else {
 					isLoading = false;
 					mask.close();
-					plus.nativeUI.alert(err, null, "");
+					plus.nativeUI.alert(data.message, null, "");
 					return;
 				}
-				toMain();
 			});
 		});
 
@@ -316,14 +319,15 @@
 					var loginInfo = showData(type, s.userInfo);
 					loginInfo.OpenID = s.authResult.openid;
 					//console.log(JSON.stringify(loginInfo));
-					app.loginThird(loginInfo, function(err) {
-						if(err) {
+					app.loginThird(loginInfo, function(data) {
+						if(data.result) {
+							toMain(data.first);
+						} else {
 							isLoading = false;
 							mask.close();
-							plus.nativeUI.alert(err, null, "");
+							plus.nativeUI.alert(data.message, null, "");
 							return;
 						}
-						toMain();
 					});
 
 					//注销认证
@@ -389,11 +393,11 @@
 				break;
 		}
 		//访问日志
-		HttpGet(base.RootUrl + "Api/UserLog/Edit", {
+		/*HttpGet(base.RootUrl + "Api/UserLog/Edit", {
 			info: JSON.stringify(data)
 		}, function(data) {
 
-		});
+		});*/
 
 		return loginInfo;
 	}
