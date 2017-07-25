@@ -32,10 +32,10 @@
 			
 			.thirdfloor,
 			.add {
-				width: 40%;
-				height: 8rem;
-				margin-left: 6%;
-				margin-top: 6%;
+				width: 30%;
+				height: 6rem;
+				margin-left: 12%;
+				margin-top: 10%;
 				border-radius: 5px;
 				float: left;
 				position: relative;
@@ -75,31 +75,28 @@
 				height: 2.1875rem;
 				line-height: 2.2rem;
 			}
+			
+			.cancel {
+				width: 70%;
+				display: inline-block !important;
+				border-radius: 30px;
+				padding: 0.525rem 0.9375rem;
+			}
+			
+			.mui-table-view-cell {
+				padding: 0.525rem 0.9375rem;
+			}
 		</style>
 	</head>
 
 	<body id="main">
 		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="upload()">上传图片</a>
 			<div class="mui-title cfff">制作我的文章</div>
 		</header>
 		<div id="muicontent">
 			<div id="scroll-view" style="padding-bottom:5rem;">
-				<!--<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/02.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/03.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/01.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>
-				<div class="thirdfloor" style="background:url(../images/adv/02.jpg) center center no-repeat;background-size:cover;">
-					<div></div>
-				</div>-->
 			</div>
 		</div>
 		<div id="tip" class="tip f11 hide">
@@ -107,19 +104,17 @@
 		</div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="camera">
+				<li class="mui-table-view-cell noborder" id="camera">
 					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
 				</li>
-				<li class="mui-table-view-cell" id="gallery">
+				<li class="mui-table-view-cell noborder" id="gallery">
 					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
 				</li>
-				<li class="mui-table-view-cell hide" id="pic">
+				<li class="mui-table-view-cell hide noborder" id="pic">
 					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
 				</li>
-			</ul>
-			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
-					<a href="#upload" class="red f13">取消</a>
+					<a href="#upload" class="cfff f14 cancel mt2 mb0">取消</a>
 				</li>
 			</ul>
 		</div>
@@ -141,17 +136,17 @@
 	var self = null;
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
+
+		mui.each(base.Get(".cancel"), function() {
+			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
+		})
+
 		base.Get("btnAdd").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 
 		base.Immersed();
-		base.ToTop();
 
 		Init();
 
@@ -200,7 +195,6 @@
 	}
 
 	function Init() {
-		//base.Get("scroll-view").innerHTML = '<div class="add" onclick="ShowPover()" style="background:url(../images/icon/add.png) center center no-repeat;background-size:cover;"></div>';
 		base.Get("scroll-view").innerHTML = "";
 		base.Get("pic").classList.add("hide");
 	}
@@ -214,6 +208,8 @@
 	var sort = null;
 
 	function AppendStr(url) {
+		base.Get("header").classList.remove("hide");
+
 		id++;
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
@@ -245,6 +241,7 @@
 	}
 
 	function InitAction() {
+		console.log(mui(".thirdfloor").length)
 		if(mui(".thirdfloor").length > 0) {
 			base.RemoveClass(["#pic", "#tip"], "hide");
 		} else {

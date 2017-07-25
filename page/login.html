@@ -111,7 +111,6 @@
 
 	//跳转首页
 	var toMain = function(first) {
-		console.log(first);
 		first = 1
 		var subindex = plus.webview.create("subindex.html", "subindex", {
 			left: "0px",
@@ -164,7 +163,6 @@
 		bottom.style.display = "block";
 
 		base.Get('notice').addEventListener('tap', function(event) {
-			console.log('aaa')
 			base.OpenWindow("notice", "notice.html", {}, "zoom-fade-out");
 		});
 	})
@@ -212,7 +210,8 @@
 				CityCode: position.CityCode,
 				Latitude: position.Latitude,
 				Longitude: position.Longitude,
-				ClientID: plus.push.getClientInfo().clientid
+				ClientID: plus.push.getClientInfo().clientid,
+				PhoneModel: plus.device.model
 			};
 			//登录 
 			app.login(loginInfo, function(data) {
@@ -352,6 +351,7 @@
 		loginInfo.Latitude = position.Latitude;
 		loginInfo.Longitude = position.Longitude;
 		loginInfo.ClientID = plus.push.getClientInfo().clientid;
+		loginInfo.PhoneModel = plus.device.model;
 		switch(type) {
 			case 'weixin':
 				//{"openid":"oRrdQt8RTwroyZTnROSsJKHRM1Yw","nickname":"一个傻瓜","sex":1,"language":"zh_CN","city":"Changzhou","province":"Jiangsu","country":"CN","headimgurl":"http://wx.qlogo.cn/mmopen/eytJa9K5jkpPNvxRBGM4nIVq8iaaAH7Al37gxgs7t3TomcxByyFmYcvxhmBPRRFwrtKHapYGs8OSTticyOWLhbanpmrgMQiabsR/0","privilege":[],"unionid":"oU5Yyt4lcveMTHQvHHnE_kymcuDQ"}
