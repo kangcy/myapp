@@ -21,53 +21,97 @@
 			}
 			
 			#apply {
-				width: 92%;
-				border-radius: 10px;
+				width: 60%;
+				border-radius: 30px;
 				display: inline-block;
-				margin: 0.5rem 4%;
 				height: 2.5rem;
 				line-height: 2.5rem;
-				background: #ef4e3c;
 				color: #fff;
-			}
-			
-			#apply.already {
-				background: #edf0f2;
-				color: #999;
+				bottom: 25%;
+				position: absolute;
+				left: 20%;
 			}
 			
 			#divmoney {
 				position: fixed;
+				top: 18%;
+				left: 10%;
+				background: url(../images/pay/1.png) no-repeat;
+				background-size: 100% 100%;
 			}
 			
 			.my-switch.active {
 				background: #ef4e3c;
 			}
+			
+			.more {
+				width: 0.9rem;
+				margin-top: 0.6rem;
+				margin-right: 0.4rem;
+			}
+			
+			.wave {
+				bottom: 0px;
+				left: 0px;
+				position: fixed;
+				width: 100%;
+				height: 8rem;
+				background: url(../images/pay/wave.png) no-repeat;
+				background-size: 100% 100%;
+			}
+			
+			#notice {
+				position: fixed;
+				bottom: 30%;
+				left: 5%;
+				width: 90%;
+				z-index: 99999;
+				background: #fff;
+			}
+			
+			#notice .nwrapper {
+				padding: 30px;
+				padding-bottom: 15px;
+			}
+			
+			#notice .btns {
+				height: 2.5rem;
+				line-height: 2.5rem;
+				position: relative;
+				border-top: 1px solid #eee;
+			}
+			
+			#notice .btns .split {
+				width: 1px;
+				height: 100%;
+				border-left: 1px solid #eee;
+				position: absolute;
+				left: 50%;
+				bottom: 0px;
+			}
 		</style>
 	</head>
 
 	<body>
+		<div id="main" style="position:fixed;z-index:-1;left:0px;top:0px;width:100%;height: 100%;"></div>
 		<header class="mui-bar mui-bar-nav" id="header" immersed="none">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<img src="../images/pay/menu.png" class="fr more" onclick="Action()" />
 			<h1 class="mui-title cfff">我的打赏</h1>
 		</header>
 		<div class="mui-content" style="padding-top:0px;">
-			<div id="divmoney" class="full hide tc">
+			<div class="tc hide" id="divmoney">
+				<p class="f13 cfff mb0" style="margin-top:25%;">当前余额(元)</p>
 				<p id="money" class="f50 cfff mb0">0.00</p>
-				<p class="f13 cfff">当前余额(元)</p>
+				<div id="apply" class="f14 tc cfff">马上提现</div>
 			</div>
-			<img src="../images/pay/head.png" class="full" id="head" />
-			<div id="apply" class="f14 tc already">
-				马上提现
-			</div>
-			<p class="f11 tl mt5 mb15" style="width:90%;margin:0px auto;"><span class="fl mt2 mr5">*</span>提现最小金额300元，收取10%手续费</p>
-			<div class="splitline"></div>
-			<ul class="mui-table-view f13 mt0">
+			<div class="wave"></div>
+			<ul class="mui-table-view f13 full" style="bottom:0px;left:0px;position:fixed;background-color:transparent;">
 				<li class="mui-table-view-cell">
 					<div class="flex-box flex-row">
 						<div style="flex:0 0 80%;" class="flex-item">
 							<p class="c000">启用打赏</p>
-							<p class="f10 c999 mt3"><span class="fl mt2 mr5">*</span>分享文章，读者即可打赏支持</p>
+							<p class="f10 c999 mt3">分享文章，读者即可打赏支持</p>
 						</div>
 						<div style="flex:0 0 20%;" class="flex-item">
 							<div class="my-switch fr" id="autoPaySwitch">
@@ -76,42 +120,32 @@
 						</div>
 					</div>
 				</li>
-				<li class="mui-table-view-cell" id="mypay">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="c000">我打赏的</p>
-						</div>
-						<div style="flex:0 0 20%;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell" id="paymy">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="c000">打赏我的</p>
-						</div>
-						<div style="flex:0 0 20%;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
-						</div>
-					</div>
-				</li>
 			</ul>
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
-		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:30%;left:5%;width:90%;z-index:99999;background:#fff;">
-			<div style="padding:30px;padding-bottom:15px;">
+		<div class="boxshadow hide" id="notice">
+			<div class="nwrapper">
 				<p class="blue f15 bold">打赏功能使用协议</p>
 				<p class="c333 f12 mt5">打赏金额满300元方可提现，目前仅支持提现到支付宝账户，申请后5个工作日内发放完毕。</p>
 				<p class="c333 f12 mt5">提现收取10%手续费，主要用户支付微信、支付宝相关费用。</p>
 				<p class="c333 f12 mt5">打赏功能不可用于募捐，以及各类违法行为，一经发现取消提现资格。</p>
 				<p class="c333 f12 mt5">同意本协议方可启用打赏功能。</p>
 			</div>
-			<div class="full" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;">
+			<div class="btns full">
 				<div style="width:50%;" class="tc fl f13" onclick="NotAgree(0)">取消</div>
 				<div style="width:50%;" class="tc fl f13" onclick="Agree(0)">同意</div>
-				<div style="width:1px;height:100%;border-left:1px solid #eee;position:absolute;left:50%;bottom:0px;"></div>
+				<div class="split"></div>
 			</div>
+		</div>
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="mypay">
+					<a href="#" class="c333 f13">我打赏的</a>
+				</li>
+				<li class="mui-table-view-cell" id="paymy">
+					<a href="#" class="c333 f13">打赏我的</a>
+				</li>
+			</ul>
 		</div>
 	</body>
 
@@ -120,17 +154,19 @@
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var ispay = 0; 
+	var ispay = 0;
 	var userinfo = base.GetUserInfo();
 	var $money = base.Get("money");
-	var $apply = base.Get('apply');  
+	var $apply = base.Get('apply');
 
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
-
-		base.Get("divmoney").style.top = base.Get("head").clientHeight * 0.4 + "px";
+		base.Get("main").style.background = base.BrowserName() + 'linear-gradient(top,#ff4980 0%,#ff9a64 100%)';
+		base.Get("apply").style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
+		base.Get("divmoney").style.width = window.innerWidth * 0.8 + "px";
+		base.Get("divmoney").style.height = window.innerWidth * 0.8 + "px";
 		base.Get("divmoney").classList.remove("hide");
 
 		base.UpdateUser(userinfo.Number, function() {
@@ -187,6 +223,7 @@
 
 		//我打赏的
 		base.Get('mypay').addEventListener('tap', function(event) {
+			mui('#action').popover('hide');
 			base.OpenWindow("pay", "pay.html", {
 				Source: 0
 			});
@@ -194,6 +231,7 @@
 
 		//打赏我的
 		base.Get('paymy').addEventListener('tap', function(event) {
+			mui('#action').popover('hide');
 			base.OpenWindow("pay", "pay.html", {
 				Source: 1
 			});
@@ -206,6 +244,7 @@
 			}
 			isLoading = true;
 			if($apply.classList.contains("already")) {
+				mui.toast(data.message);
 				isLoading = false;
 				return;
 			}
@@ -260,12 +299,16 @@
 		var notice = base.Get("notice");
 		if(index == 0) {
 			base.AddClass(["#mytanbg", "#notice"], "hide");
-			notice.classList.remove("bounceIn");
-			notice.classList.add("bounceOut");
+			notice.classList.remove("fadeIn");
+			notice.classList.add("fadeOut");
 		} else {
 			base.RemoveClass(["#mytanbg", "#notice"], "hide");
-			notice.classList.remove("bounceOut");
-			notice.classList.add("bounceIn");
+			notice.classList.remove("fadeOut");
+			notice.classList.add("fadeIn");
 		}
+	}
+
+	function Action() {
+		mui('#action').popover('show');
 	}
 </script>

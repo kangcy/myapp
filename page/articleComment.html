@@ -44,7 +44,7 @@
 		<textarea id="textarea" class="hide"></textarea>
 		<div id="none" class="full tc hide">
 			<img src="../images/my/333.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip">既然还没人,那就先去首页逛会儿</p>
+			<p class="f13 mt10" id="none_tip">浏览精彩内容，别忘评论哦</p>
 		</div>
 		<div id="divcomment"></div>
 	</body>
@@ -57,7 +57,7 @@
 <script src="../js/comment.js"></script>
 <script type="text/javascript">
 	mui.init({
-		gestureConfig: { 
+		gestureConfig: {
 			doubletap: true
 		}
 	});
@@ -70,7 +70,7 @@
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		ArticleNumber = self.ArticleNumber || 0;
-		action = self.Action || null; 
+		action = self.Action || null;
 		InitComment();
 
 		SetPullEnable(true);

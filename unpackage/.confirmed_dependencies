@@ -2313,7 +2313,8 @@
 			"mincss/mui.min.css",
 			"mincss/animate.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"images/pay/1.png"
 		],
 		"refer": [
 			"page/pay.html",
@@ -3354,7 +3355,8 @@
 			"js/base.min.js",
 			"js/refresh.min.js",
 			"page/pic.html",
-			"css/animate.min.css"
+			"css/animate.min.css",
+			"images/banner.jpg"
 		],
 		"refer": [
 			"page/user.html",
