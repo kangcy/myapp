@@ -2314,11 +2314,14 @@
 			"mincss/animate.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"images/pay/1.png"
+			"images/pay/1.png",
+			"images/pay/wave.png",
+			"images/pay/menu.png"
 		],
 		"refer": [
 			"page/pay.html",
-			"page/payapply.html"
+			"page/payapply.html",
+			"page/mypayinfo.html"
 		]
 	},
 	"page/payapply.html": {
@@ -3587,6 +3590,21 @@
 		],
 		"refer": [
 			"page/mypay.html"
+		]
+	},
+	"page/mypayinfo.html": {
+		"resources": [
+			"swipe/swiper.min.css",
+			"swipe/swiper.min.js",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"mincss/animate.min.css",
+			"swipe/iscroll.js",
+			"js/jquery-1.10.2.min.js",
+			"images/logo_default.png",
+			"images/icon/money.png",
+			"mincss/fan.min.css"
 		]
 	}
 }

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/fan.min.css">
+		<link rel="stylesheet" href="../swipe/swiper.min.css">
+		<style type="text/css">
+			.my-pagination {
+				transition: transform .3s;
+				position: relative;
+			}
+			
+			.my-pagination ul {
+				display: -webkit-box;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.my-pagination li {
+				display: block;
+				background: #fff;
+				overflow: hidden;
+				box-flex: 1;
+				-moz-box-flex: 1;
+				-webkit-box-flex: 1;
+				height: 40px;
+				line-height: 40px;
+				position: relative;
+				font-size: 15px;
+				transition: transform .25s;
+			}
+			
+			.my-pagination .swiper-pagination-bullet {
+				text-align: center;
+				border-radius: 0;
+				opacity: 1;
+			}
+			
+			.my-pagination .swiper-pagination-bullet-active {
+				color: #20a0ff;
+			}
+			
+			.scroll-wrapper {
+				position: absolute;
+				z-index: 1;
+				top: 0px;
+				bottom: 0px;
+				left: 0;
+				width: 100%;
+				background: #f5f5f5;
+				overflow: hidden;
+			}
+			
+			.scroll-wrapper .scroller {
+				background: #fff;
+				position: absolute;
+				z-index: 1;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				width: 100%;
+				-webkit-transform: translateZ(0);
+				-moz-transform: translateZ(0);
+				-ms-transform: translateZ(0);
+				-o-transform: translateZ(0);
+				transform: translateZ(0);
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				-webkit-text-size-adjust: none;
+				-moz-text-size-adjust: none;
+				-ms-text-size-adjust: none;
+				-o-text-size-adjust: none;
+				text-size-adjust: none;
+			}
+			
+			.icon {
+				width: 1rem !important;
+			}
+			
+			.price {
+				color: #ff6900;
+			}
+			
+			.mui-table-view-cell:after {
+				height: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">打赏明细</h1>
+		</header>
+		<div class="mui-content" id="muicontent">
+			<div class="my-pagination" id="pagination">
+				<ul class="my-pagination-ul swiper-pagination-clickable"> </ul>
+				<div class="tabs_active" id="pagination_border"></div>
+			</div>
+			<div class="swiper-container swiper-container-horizontal" id="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div id="wrapper1" class="scroll-wrapper">
+							<div id="scroll1" class="scroller">
+								<div id="scroll-view1"></div>
+								<div id="scroll-more1" class="full">
+									<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+								</div>
+							</div>
+						</div>
+						<div id="none1" class="full tc hide">
+							<img src="../images/my/555.png" class="none" />
+							<p class="f13 mt10">分享出去才有被赞赏的机会</p>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+
+					</div>
+					<div class="swiper-slide">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../swipe/swiper.min.js"></script>
+<script src="../swipe/iscroll.js"></script>
+<script type="text/javascript">
+	var isLoading = false;
+	var userinfo = base.GetUserInfo();
+	var $border = base.Get("pagination_border");
+	var scroll1, scroll2, scroll3 = null;
+	var currpage = 1;
+	var totalpage = 2;
+	var records = 0;
+	var pagesize = base.PageSize;
+	mui.init();
+
+	mui.ready(function() {
+		base.Immersed();
+
+		var mySwiper = new Swiper('#swiper-container', {
+			pagination: '.my-pagination-ul',
+			paginationClickable: true,
+			paginationBulletRender: function(swiper, index, className) {
+				switch(index) {
+					case 0:
+						name = '打赏我的';
+						break;
+					case 1:
+						name = '我打赏的';
+						break;
+					case 2:
+						name = '提现记录';
+						break;
+					default:
+						name = '';
+				}
+				return '<li class="' + className + '"><span class="f14">' + name + '</span></li>';
+			},
+			onTransitionStart: function(swiper) {
+				var $this = mui("#pagination li")[swiper.activeIndex]
+				$border.style.width = $this.clientWidth + "px";
+				$border.style.transform = "translateX(" + $this.offsetLeft + "px)";
+			},
+			onInit: function(swiper) {
+				base.Get("swiper-container").style.height = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
+
+				var $this = mui("#pagination li")[0];
+				$border.style.width = $this.clientWidth + "px";
+				$border.style.transform = "translateX(" + $this.offsetLeft + "px)";
+			}
+		})
+
+		for(var i = 0; i < 10; i++) {
+			base.Get('scroll-view1').appendChild(AppendStr(item));
+		}
+
+		scroll1 = new iScroll("wrapper1", {
+			hScroll: false,
+			onScrollEnd: function() {
+				if(this.y >= this.maxScrollY) {
+					base.Get("scroll-more1").classList.remove("hide");
+					pullUpAction();
+				}
+			}
+		});
+
+		base.ShowUser("#swiper-container");
+	});
+
+	var item = {
+		UserNumber: "1",
+		UserName: "用户",
+		UserCover: "",
+		UserAvatar: "http://wx.qlogo.cn/mmopen/ajNVdqHZLLBMw2ZTR72miadxWVDGeniaXjkMJ18Jib2ZsEsFtqFDmclwmAic8eM3e8rF9gk3zmvQsx3CFI5uib7hvKQ/0",
+		CreateDate: "07-26",
+		Price: 1234
+	}
+
+	//加载数据
+	function LoadScroll1() {
+		var data = {
+			page: currpage,
+			rows: pagesize,
+			UserNumber: userinfo.Number
+		}
+		var url = source == 0 ? "Api/Order/ToUser_1_3" : "Api/Order/ToMe_1_3";
+		LoadPull(base.RootUrl + url, data, true, false, function(item) {
+			return AppendStr(item);
+		}, function() {
+			scroll1.refresh();
+			if(base.Get("scroll1").clientHeight < base.Get("wrapper1").clientHeight) {
+				base.Get("scroll-more1").classList.add("hide");
+				scroll1.destroy();
+			}
+		});
+	}
+
+	//打赏我的-拼接Html 
+	function AppendStr(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell user bounceInUp';
+		div.setAttribute("userid", item.UserNumber);
+		div.setAttribute("nickname", item.UserName);
+		div.setAttribute("cover", item.UserCover);
+		div.setAttribute("avatar", item.UserAvatar);
+		var model = [];
+		model.push('<div class="flex-box flex-row ">');
+		model.push('<div style="flex:0 0 18%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.UserAvatar, 1) + '" class="fl"  /></div></div>');
+		model.push('<div style="flex:0 0 62%;" class="flex-item"><p class="f13 c333">' + base.UnUnicodeText(item.UserName) + '</p><span class="f10 fl c999">' + item.CreateDate + '</span></div>');
+		model.push('<div style="flex:0 0 20%;" class="flex-item tr"><p class="f11 price">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p></div>');
+		model.push('</div></div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
+	mui.plusReady(function() {
+
+	});
+</script>
