@@ -3604,7 +3604,12 @@
 			"js/jquery-1.10.2.min.js",
 			"images/logo_default.png",
 			"images/icon/money.png",
-			"mincss/fan.min.css"
+			"mincss/fan.min.css",
+			"images/my/555.png",
+			"images/loading2.gif"
+		],
+		"refer": [
+			"page/user.html"
 		]
 	}
 }

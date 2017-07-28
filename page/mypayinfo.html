@@ -29,8 +29,8 @@
 				box-flex: 1;
 				-moz-box-flex: 1;
 				-webkit-box-flex: 1;
-				height: 40px;
-				line-height: 40px;
+				height: 2.5rem;
+				line-height: 2.5rem;
 				position: relative;
 				font-size: 15px;
 				transition: transform .25s;
@@ -53,7 +53,7 @@
 				bottom: 0px;
 				left: 0;
 				width: 100%;
-				background: #f5f5f5;
+				background: #fff;
 				overflow: hidden;
 			}
 			
@@ -84,12 +84,16 @@
 				width: 1rem !important;
 			}
 			
-			.price {
-				color: #ff6900;
+			.green {
+				color: #24b224;
+			}
+			
+			.red {
+				color: #e33e3e;
 			}
 			
 			.mui-table-view-cell:after {
-				height: 0px;
+				height: 0px !important;
 			}
 		</style>
 	</head>
@@ -107,25 +111,48 @@
 			<div class="swiper-container swiper-container-horizontal" id="swiper-container">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
+						<div id="wrapper0" class="scroll-wrapper">
+							<div id="scroll0" class="scroller">
+								<div id="scroll-view0">
+									<div id="scroll-view0"></div>
+								</div>
+								<div id="scroll-more0" class="full tc">
+									<div class="inline"><img src="../images/loading2.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
+								</div>
+							</div>
+						</div>
+						<div id="none0" class="full tc hide">
+							<img src="../images/my/555.png" class="none" />
+							<p class="f13 mt10">暂无打赏记录</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
 						<div id="wrapper1" class="scroll-wrapper">
 							<div id="scroll1" class="scroller">
 								<div id="scroll-view1"></div>
-								<div id="scroll-more1" class="full">
-									<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+								<div id="scroll-more1" class="full tc">
+									<div class="inline"><img src="../images/loading2.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
 								</div>
 							</div>
 						</div>
 						<div id="none1" class="full tc hide">
 							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">分享出去才有被赞赏的机会</p>
+							<p class="f13 mt10">暂无打赏记录</p>
 						</div>
 					</div>
-
 					<div class="swiper-slide">
-
-					</div>
-					<div class="swiper-slide">
-
+						<div id="wrapper2" class="scroll-wrapper">
+							<div id="scroll2" class="scroller">
+								<div id="scroll-view2"></div>
+								<div id="scroll-more2" class="full tc">
+									<div class="inline"><img src="../images/loading2.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
+								</div>
+							</div>
+						</div>
+						<div id="none2" class="full tc hide">
+							<img src="../images/my/555.png" class="none" />
+							<p class="f13 mt10">暂无提现记录</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -133,19 +160,18 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script src="../swipe/iscroll.js"></script>
 <script type="text/javascript">
-	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 	var $border = base.Get("pagination_border");
-	var scroll1, scroll2, scroll3 = null;
-	var currpage = 1;
-	var totalpage = 2;
-	var records = 0;
+	var scroll0, scroll1, scroll2 = null;
+	var currpage = [1, 1, 1];
+	var totalpage = [2, 2, 2];
+	var records = [0, 0, 0];
+	var isLoading = [false, false, false];
 	var pagesize = base.PageSize;
 	mui.init();
 
@@ -175,74 +201,212 @@
 				var $this = mui("#pagination li")[swiper.activeIndex]
 				$border.style.width = $this.clientWidth + "px";
 				$border.style.transform = "translateX(" + $this.offsetLeft + "px)";
+
+				if(swiper.activeIndex == 1 && scroll1 == null) {
+					scroll1 = new iScroll("wrapper1", {
+						hScroll: false,
+						onScrollEnd: function() {
+							if(this.y >= this.maxScrollY) {
+								LoadScroll1();
+							}
+						}
+					});
+					LoadScroll1();
+				}
+
+				if(swiper.activeIndex == 2 && scroll2 == null) {
+					scroll2 = new iScroll("wrapper2", {
+						hScroll: false,
+						onScrollEnd: function() {
+							if(this.y >= this.maxScrollY) {
+								LoadScroll2();
+							}
+						}
+					});
+					LoadScroll2()
+				}
 			},
 			onInit: function(swiper) {
-				base.Get("swiper-container").style.height = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
+				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
+				base.Get("swiper-container").style.height = swiperheight;
+				mui.each(mui(".scroller"), function() {
+					this.style.minHeight = swiperheight;
+				})
 
 				var $this = mui("#pagination li")[0];
 				$border.style.width = $this.clientWidth + "px";
 				$border.style.transform = "translateX(" + $this.offsetLeft + "px)";
+
+				scroll0 = new iScroll("wrapper0", {
+					hScroll: false,
+					onScrollEnd: function() {
+						if(this.y >= this.maxScrollY) {
+							LoadScroll0();
+						}
+					}
+				});
+
+				LoadScroll0();
 			}
 		})
-
-		for(var i = 0; i < 10; i++) {
-			base.Get('scroll-view1').appendChild(AppendStr(item));
-		}
-
-		scroll1 = new iScroll("wrapper1", {
-			hScroll: false,
-			onScrollEnd: function() {
-				if(this.y >= this.maxScrollY) {
-					base.Get("scroll-more1").classList.remove("hide");
-					pullUpAction();
-				}
-			}
-		});
 
 		base.ShowUser("#swiper-container");
 	});
 
-	var item = {
-		UserNumber: "1",
-		UserName: "用户",
-		UserCover: "",
-		UserAvatar: "http://wx.qlogo.cn/mmopen/ajNVdqHZLLBMw2ZTR72miadxWVDGeniaXjkMJ18Jib2ZsEsFtqFDmclwmAic8eM3e8rF9gk3zmvQsx3CFI5uib7hvKQ/0",
-		CreateDate: "07-26",
-		Price: 1234
-	}
-
-	//加载数据
-	function LoadScroll1() {
+	//打赏我的
+	function LoadScroll0() {
+		if(isLoading[0]) {
+			return;
+		}
+		isLoading[0] = true;
+		if(currpage[0] > totalpage[0]) {
+			isLoading[0] = false;
+			return false;
+		}
 		var data = {
-			page: currpage,
+			page: currpage[0],
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		var url = source == 0 ? "Api/Order/ToUser_1_3" : "Api/Order/ToMe_1_3";
-		LoadPull(base.RootUrl + url, data, true, false, function(item) {
-			return AppendStr(item);
+		LoadPullList(base.RootUrlTest + "Api/Order/ToMe_1_3", data, true, 0, function(item) {
+			return AppendStr(item, 0);
+		}, function() {
+			scroll0.refresh();
+			if(base.Get("scroll0").clientHeight < base.Get("wrapper0").clientHeight) {
+				scroll0.destroy();
+			}
+			currpage[0]++;
+			isLoading[0] = false;
+		});
+	}
+
+	//我打赏的
+	function LoadScroll1() {
+		if(isLoading[1]) {
+			return;
+		}
+		isLoading[1] = true;
+		if(currpage[1] > totalpage[1]) {
+			isLoading[1] = false;
+			return false;
+		}
+		var data = {
+			page: currpage[1],
+			rows: pagesize,
+			UserNumber: userinfo.Number
+		}
+		LoadPullList(base.RootUrlTest + "Api/Order/ToUser_1_3", data, true, 1, function(item) {
+			return AppendStr(item, 1);
 		}, function() {
 			scroll1.refresh();
 			if(base.Get("scroll1").clientHeight < base.Get("wrapper1").clientHeight) {
-				base.Get("scroll-more1").classList.add("hide");
 				scroll1.destroy();
+			}
+			currpage[1]++;
+			isLoading[1] = false;
+		});
+	}
+
+	//提现记录
+	function LoadScroll2() {
+		if(isLoading[2]) {
+			return;
+		}
+		isLoading[2] = true;
+		if(currpage[2] > totalpage[2]) {
+			isLoading[2] = false;
+			return false;
+		}
+		var data = {
+			page: currpage[2],
+			rows: pagesize,
+			UserNumber: userinfo.Number
+		}
+		LoadPullList(base.RootUrlTest + "Api/Order/Apply_1_3", data, true, 2, function(item) {
+			return AppendStr(item, 2);
+		}, function() {
+			scroll2.refresh();
+			if(base.Get("scroll2").clientHeight < base.Get("wrapper2").clientHeight) {
+				scroll2.destroy();
+			}
+			currpage[2]++;
+			isLoading[2] = false;
+		});
+	}
+
+	/**
+	 * 加载封装 
+	 * url：接口请求地址
+	 * data：接口请求参数
+	 * showNone：是否显示空提示
+	 * showNone：是否显示加载动画
+	 * appendCallback：拼接方法
+	 * endCallback：回调方法
+	 */
+	function LoadPullList(url, data, showNone, index, appendCallback, endCallback) {
+		base.Get("scroll-more" + index).classList.remove("hide");
+		base.Get("wrapper" + index).classList.remove("hide");
+		HttpGet(url, data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage[index] = data.totalpage;
+					records[index] = data.records;
+					if(showNone) {
+						base.Get("none" + index).classList.add("hide");
+					}
+					var table = base.Get('scroll-view' + index);
+					if(records[index] > 0) {
+						var fragment = document.createDocumentFragment();
+						mui.each(data.list, function(index, item) {
+							fragment.appendChild(appendCallback(item));
+						});
+						table.appendChild(fragment);
+					}
+				} else {
+					totalpage[index] = 1;
+					records[index] = 0;
+				}
+			}
+			if(records[index] == 0 && showNone) {
+				base.Get("wrapper" + index).classList.add("hide");
+				base.Get("none" + index).classList.remove("hide");
+			}
+			base.Get("scroll-more" + index).classList.add("hide");
+			if(endCallback) {
+				endCallback();
 			}
 		});
 	}
 
-	//打赏我的-拼接Html 
-	function AppendStr(item) {
+	//拼接Html 
+	function AppendStr(item, type) {
+		if(type == 2) {
+			item.UserNumber = userinfo.Number;
+			item.UserName = userinfo.NickName;
+			item.UserCover = userinfo.Cover;
+			item.UserAvatar = userinfo.Avatar;
+		}
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell user bounceInUp';
 		div.setAttribute("userid", item.UserNumber);
 		div.setAttribute("nickname", item.UserName);
 		div.setAttribute("cover", item.UserCover);
 		div.setAttribute("avatar", item.UserAvatar);
-		var model = [];
-		model.push('<div class="flex-box flex-row ">');
+		var model = []; 
+		model.push('<div class="flex-box flex-row">');
 		model.push('<div style="flex:0 0 18%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.UserAvatar, 1) + '" class="fl"  /></div></div>');
 		model.push('<div style="flex:0 0 62%;" class="flex-item"><p class="f13 c333">' + base.UnUnicodeText(item.UserName) + '</p><span class="f10 fl c999">' + item.CreateDate + '</span></div>');
-		model.push('<div style="flex:0 0 20%;" class="flex-item tr"><p class="f11 price">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p></div>');
+		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
+		if(type == 0) {
+			model.push('<p class="f11 green">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
+		} else if(type == 1) {
+			model.push('<p class="f11 red">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
+		} else if(type == 2) {
+			model.push('<p class="f11 red">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
+		}
+		model.push('</div>');
 		model.push('</div></div>');
 		div.innerHTML = model.join('');
 		return div;

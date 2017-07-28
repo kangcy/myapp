@@ -956,7 +956,7 @@ iScroll.prototype = {
 
 			pos = 0;
 			page = 0;
-			that.pagesY = [];
+			that.pagesY = []; 
 			while (pos >= that.maxScrollY) {
 				that.pagesY[page] = pos;
 				pos = pos - that.wrapperH;
