@@ -1541,7 +1541,8 @@
 			"js/base.min.js",
 			"mincss/subindex.min.css",
 			"images/default.png",
-			"images/avatar.png"
+			"images/avatar.png",
+			"images/article/btn_good.png"
 		],
 		"refer": [
 			"page/keepSub.html",

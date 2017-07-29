@@ -95,6 +95,16 @@
 			.mui-table-view-cell:after {
 				height: 0px !important;
 			}
+			
+			#scroll-more0,
+			#scroll-more1,
+			#scroll-more2,
+			#scroll-none0,
+			#scroll-none1,
+			#scroll-none2 {
+				background: #f5f5f5;
+				padding:1rem 0px;
+			}
 		</style>
 	</head>
 
@@ -119,6 +129,9 @@
 								<div id="scroll-more0" class="full tc">
 									<div class="inline"><img src="../images/loading2.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
 								</div>
+								<div id="scroll-none0" class="full tc hide">
+									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
+								</div>
 							</div>
 						</div>
 						<div id="none0" class="full tc hide">
@@ -133,6 +146,9 @@
 								<div id="scroll-more1" class="full tc">
 									<div class="inline"><img src="../images/loading2.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
 								</div>
+								<div id="scroll-none1" class="full tc hide">
+									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
+								</div>
 							</div>
 						</div>
 						<div id="none1" class="full tc hide">
@@ -146,6 +162,9 @@
 								<div id="scroll-view2"></div>
 								<div id="scroll-more2" class="full tc">
 									<div class="inline"><img src="../images/loading2.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
+								</div>
+								<div id="scroll-none2" class="full tc hide">
+									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
 								</div>
 							</div>
 						</div>
@@ -172,7 +191,7 @@
 	var totalpage = [2, 2, 2];
 	var records = [0, 0, 0];
 	var isLoading = [false, false, false];
-	var pagesize = base.PageSize;
+	var pagesize = 10;
 	mui.init();
 
 	mui.ready(function() {
@@ -229,9 +248,6 @@
 			onInit: function(swiper) {
 				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
 				base.Get("swiper-container").style.height = swiperheight;
-				mui.each(mui(".scroller"), function() {
-					this.style.minHeight = swiperheight;
-				})
 
 				var $this = mui("#pagination li")[0];
 				$border.style.width = $this.clientWidth + "px";
@@ -245,11 +261,13 @@
 						}
 					}
 				});
-
 				LoadScroll0();
 			}
 		})
 
+	});
+
+	mui.plusReady(function() {
 		base.ShowUser("#swiper-container");
 	});
 
@@ -272,9 +290,15 @@
 			return AppendStr(item, 0);
 		}, function() {
 			scroll0.refresh();
-			if(base.Get("scroll0").clientHeight < base.Get("wrapper0").clientHeight) {
-				scroll0.destroy();
+			if(currpage[0] >= totalpage[0]) {
+				base.Get("scroll-more0").classList.add("hide");
+				if(base.Get("scroll0").clientHeight > base.Get("wrapper0").clientHeight) {
+					base.Get("scroll-none0").classList.remove("hide");
+				}
 			}
+			//			if(base.Get("scroll0").clientHeight < base.Get("wrapper0").clientHeight) {
+			//				scroll0.destroy();
+			//			}
 			currpage[0]++;
 			isLoading[0] = false;
 		});
@@ -299,9 +323,15 @@
 			return AppendStr(item, 1);
 		}, function() {
 			scroll1.refresh();
-			if(base.Get("scroll1").clientHeight < base.Get("wrapper1").clientHeight) {
-				scroll1.destroy();
+			if(currpage[1] >= totalpage[1]) {
+				base.Get("scroll-more1").classList.add("hide");
+				if(base.Get("scroll1").clientHeight > base.Get("wrapper1").clientHeight) {
+					base.Get("scroll-none1").classList.remove("hide");
+				}
 			}
+			/*if(base.Get("scroll1").clientHeight < base.Get("wrapper1").clientHeight) {
+				scroll1.destroy();
+			}*/
 			currpage[1]++;
 			isLoading[1] = false;
 		});
@@ -326,9 +356,16 @@
 			return AppendStr(item, 2);
 		}, function() {
 			scroll2.refresh();
-			if(base.Get("scroll2").clientHeight < base.Get("wrapper2").clientHeight) {
-				scroll2.destroy();
+			if(currpage[2] >= totalpage[2]) {
+				base.Get("scroll-more2").classList.add("hide");
+				if(base.Get("scroll2").clientHeight > base.Get("wrapper2").clientHeight) {
+					base.Get("scroll-none2").classList.remove("hide");
+				}
 			}
+
+			/*if(base.Get("scroll2").clientHeight < base.Get("wrapper2").clientHeight) {
+				scroll2.destroy();
+			}*/
 			currpage[2]++;
 			isLoading[2] = false;
 		});
@@ -344,7 +381,6 @@
 	 * endCallback：回调方法
 	 */
 	function LoadPullList(url, data, showNone, index, appendCallback, endCallback) {
-		base.Get("scroll-more" + index).classList.remove("hide");
 		base.Get("wrapper" + index).classList.remove("hide");
 		HttpGet(url, data, function(data) {
 			data = JSON.parse(data);
@@ -373,7 +409,6 @@
 				base.Get("wrapper" + index).classList.add("hide");
 				base.Get("none" + index).classList.remove("hide");
 			}
-			base.Get("scroll-more" + index).classList.add("hide");
 			if(endCallback) {
 				endCallback();
 			}
@@ -394,10 +429,10 @@
 		div.setAttribute("nickname", item.UserName);
 		div.setAttribute("cover", item.UserCover);
 		div.setAttribute("avatar", item.UserAvatar);
-		var model = []; 
+		var model = [];
 		model.push('<div class="flex-box flex-row">');
 		model.push('<div style="flex:0 0 18%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.UserAvatar, 1) + '" class="fl"  /></div></div>');
-		model.push('<div style="flex:0 0 62%;" class="flex-item"><p class="f13 c333">' + base.UnUnicodeText(item.UserName) + '</p><span class="f10 fl c999">' + item.CreateDate + '</span></div>');
+		model.push('<div style="flex:0 0 62%;" class="flex-item"><p class="f13 c333">' + base.UnUnicodeText(item.UserName) + '</p><span class="f10 fl c999 mt3">' + item.CreateDate + '</span></div>');
 		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
 		if(type == 0) {
 			model.push('<p class="f11 green">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
@@ -411,8 +446,4 @@
 		div.innerHTML = model.join('');
 		return div;
 	}
-
-	mui.plusReady(function() {
-
-	});
 </script>
