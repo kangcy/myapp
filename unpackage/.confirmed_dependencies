@@ -2317,7 +2317,8 @@
 			"minjs/base.min.js",
 			"images/pay/1.png",
 			"images/pay/wave.png",
-			"images/pay/menu.png"
+			"images/pay/menu.png",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/pay.html",
@@ -3607,7 +3608,8 @@
 			"images/icon/money.png",
 			"mincss/fan.min.css",
 			"images/my/555.png",
-			"images/loading2.gif"
+			"images/loading2.gif",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/user.html"

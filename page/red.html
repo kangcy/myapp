@@ -242,6 +242,13 @@
 							$main.classList.add("bg2");
 							wrapper2.classList.remove("hide");
 							wrapper2.classList.add("fadeIn");
+
+							//拆红包
+							HttpGet(base.RootUrl + "Red/OpenLoginRed", {
+								number: userinfo.Number
+							}, function(data) {
+								console.log(JSON.stringify(data))
+							});
 						}, 1700);
 					});
 				} else {
