@@ -480,7 +480,7 @@
 		$edit.ontouchend = function() {
 			base.AddClass(["#color", "#bgcolor", "#bold", "#fs", "#align"], "hide");
 			base.RemoveClass([".curr"], "curr");
-			base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
+			//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
 		}
 
 		$edit.onkeyup = function() {

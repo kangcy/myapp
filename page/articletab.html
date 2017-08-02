@@ -7,8 +7,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<style type="text/css">
+			body {
+				background: #f5f5f5;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -20,11 +25,10 @@
 		<div id="muicontent">
 			<div id="slider" class="mui-slider hide">
 				<img src="../images/banner.jpg" class="full fl">
-				<div class="splitline fl"></div>
 			</div>
 			<div id="scroll-view"></div>
 			<div id="scroll-more" class="full hide">
-				<div class="inline"><img src="../images/loadmore.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
@@ -37,7 +41,7 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script type="text/javascript">
 	var ReadCache = true; //是否读取缓存
 	var PageName = "";

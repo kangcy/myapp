@@ -1291,7 +1291,9 @@
 			"images/article/btn_music.png",
 			"images/article/temp0.jpg",
 			"images/article/temp1.jpg",
-			"images/article/btn_good.png"
+			"images/article/btn_good.png",
+			"part/snow/img/fly1.png",
+			"part/snow/img/fly2.png"
 		],
 		"refer": [
 			"page/user.html",
@@ -3361,7 +3363,8 @@
 			"js/refresh.min.js",
 			"page/pic.html",
 			"css/animate.min.css",
-			"images/banner.jpg"
+			"images/banner.jpg",
+			"css/mui.min.css"
 		],
 		"refer": [
 			"page/user.html",
@@ -3404,7 +3407,9 @@
 			"css/mui.min.css",
 			"js/mui.previewimage.js",
 			"minjs/mui.previewimage.min.js",
-			"minjs/mui.zoom.min.js"
+			"minjs/mui.zoom.min.js",
+			"swipe/swiper.min.js",
+			"swipe/swiper.min.css"
 		]
 	},
 	"page/action.html": {

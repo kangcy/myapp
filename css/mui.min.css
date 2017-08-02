@@ -1557,29 +1557,13 @@ input[type=submit]:enabled:active {
 	font-size: 0.875rem;
 	position: relative;
 	overflow: hidden;
-	/*margin: 0rem 0px 0.625rem 0px;*/
 	margin: 0px;
 	background-color: #fff;
 	background-clip: padding-box;
-	/*
-	border-radius: 0.125rem;
-	border: 1px solid #eee;
-	border-left: 0px;
-	border-right: 0px;*/
-}
-
-.mui-card:after {
-	position: absolute;
-	bottom: 0;
-	right: 0px;
-	left: 0px;
-	height: 0.8rem;
-	content: '';
-	background-color: #f5f5f5;
-}
-
-.mui-card:last-child {
-	margin: 0px !important;
+	width: 94%;
+	margin: 3%;
+	border-radius: 10px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 12px 0 rgba(0, 0, 0, 0.05);
 }
 
 .mui-card:last-child:after {
@@ -5086,8 +5070,9 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-	width: 18.5rem !important;
-	height: 18.5rem !important;
+	width: 100% !important;
+	/*width: 18.5rem !important;
+	height: 18.5rem !important;*/
 	border-radius: 5px;
 }
 
@@ -5100,8 +5085,8 @@ body>.mui-progressbar {
 }
 
 .secondfloor img {
-	width: 9rem !important;
-	height: 9rem !important;
+	width: 8.5rem !important;
+	height: 8.5rem !important;
 	border-radius: 5px;
 }
 
@@ -5114,8 +5099,8 @@ body>.mui-progressbar {
 }
 
 .thirdfloor img {
-	width: 5.9rem !important;
-	height: 5.9rem !important;
+	width: 5.5rem !important;
+	height: 5.5rem !important;
 	border-radius: 5px;
 }
 

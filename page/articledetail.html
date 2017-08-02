@@ -23,6 +23,17 @@
 				left: auto;
 				right: 6px;
 			}
+			
+			.snow-canvas {
+				display: block;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				position: fixed;
+				pointer-events: none;
+				z-index: 99999;
+			}
 		</style>
 	</head>
 
@@ -58,7 +69,10 @@
 		</div>
 
 		<!--漂浮特效-->
-		<div id="snowwrapper" class="hide"></div>
+		<div id="snowwrapper" class="hide">
+			<canvas class="snow-canvas" speed="5" interaction="true" size="15" count="6" wind-power="2" image="../part/snow/img/fly1.png"></canvas>
+			<canvas class="snow-canvas" speed="5" interaction="true" size="15" count="6" wind-power="-2" image="../part/snow/img/fly1.png"></canvas>
+		</div>
 		<div id="self" class="full tc hide">
 			<img src="../images/article/stop.png" class="none" />
 			<p class="mt20 f16 c333">私密文章</p>
@@ -84,7 +98,6 @@
 						<div class="c666 f12">我来说一句</div>
 					</div>
 				</div>
-
 				<div style="flex:0 0 20%;" class="flex-item">
 					<div id="divzan" style="display:inline-block;" class="fl"><img id="zan" src="../images/article/btn_good2.png" style="width:1rem;" class="mr10 fl" /><span class="f13 fl" id="footer_zan">0</span></div>
 				</div>
@@ -189,6 +202,7 @@
 	</body>
 
 </html>
+<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../js/music.js"></script>
@@ -398,6 +412,10 @@
 				Uri = plus.android.importClass("android.net.Uri");
 				main = plus.android.runtimeMainActivity();
 			}
+
+			/*LoadScript("../part/snow/snow.js", function() {
+				$(".snow-canvas").snow();
+			});*/
 		}, 2000);
 	});
 
