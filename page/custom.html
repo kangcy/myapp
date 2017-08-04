@@ -163,10 +163,13 @@
 			if(!active) {
 				full = 1;
 				base.RemoveClass([".opacity"], "hide");
+				transparency = 50;
+				base.Get("range").value = transparency;
+				$cover.style.background = "rgba(255, 255, 255, " + ((100 - transparency) / 100) + ")";
 			} else {
 				full = 0;
 				base.AddClass([".opacity"], "hide");
-				transparency = 50;
+				transparency = 0;
 				base.Get("range").value = transparency;
 				$cover.style.background = "rgba(255, 255, 255, " + ((100 - transparency) / 100) + ")";
 			}
@@ -333,7 +336,7 @@
 				ArticleNumber: articleNumber,
 				Full: full,
 				High: high,
-				Transparency: transparency,
+				Transparency: full == 0 ? 0 : transparency,
 				Url: url,
 				EditID: id
 			}, function(data) {

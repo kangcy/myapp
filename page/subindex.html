@@ -32,6 +32,19 @@
 			
 			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
 				padding: 0 0.8rem;
+				margin: 0.4rem 0.4rem 0;
+				border-radius: 5px;
+				height: auto !important;
+				line-height: 1.6rem !important;
+			}
+			
+			.mui-active {
+				color: #fff !important;
+				background: linear-gradient(left, #4e8cfb 0%, #24c3fb 75%, #39b8fd 100%) !important;
+				background: -webkit-linear-gradient(left, #4e8cfb 0%, #24c3fb 75%, #39b8fd 100%) !important;
+				background: -ms-linear-gradient(left, #4e8cfb 0%, #24c3fb 75%, #39b8fd 100%) !important;
+				background: -moz-linear-gradient(left, #4e8cfb 0%, #24c3fb 75%, #39b8fd 100%) !important;
+				background: -o-linear-gradient(left, #4e8cfb 0%, #24c3fb 75%, #39b8fd 100%) !important;
 			}
 		</style>
 	</head>
@@ -45,7 +58,7 @@
 		<div id="muicontent">
 			<div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<div class="mui-scroll f14" id="mui-scroll"> </div>
+					<div class="mui-scroll f13" id="mui-scroll"></div>
 				</div>
 			</div>
 		</div>
@@ -72,7 +85,7 @@
 		ArticleType: 0,
 		PageName: "articletab0"
 	}];
-	var articleTypeHtml = ['<div class="tabs_active"></div><a class="mui-control-item" href="#articletab0" data-wid="0">推荐</a>'];
+	var articleTypeHtml = ['<a class="mui-control-item mui-active" href="#articletab0" data-wid="0">推荐</a>'];
 	var headheight = "";
 	var bottomheight = "";
 	var menu_style = {};
@@ -172,9 +185,14 @@
 			return false;
 		};
 
+		var netindex = 0;
 		document.addEventListener("netchange", function() {
 			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-				mui.toast("网络异常，请检查网络设置");
+				netindex = setInterval(function() {
+					mui.toast("网络异常，请检查网络设置");
+				}, 2500);
+			} else {
+				clearInterval(netindex);
 			}
 		}, false);
 	});
@@ -282,8 +300,6 @@
 	//样式切换
 	function ChangeItem($this) {
 		var item = $this.parentNode.children[0];
-		item.style.width = $this.clientWidth + "px";
-		item.style.transform = "translateX(" + $this.offsetLeft + "px)";
 		base.RemoveClass([".mui-control-item"], "mui-active");
 		$this.classList.add("mui-active");
 	}

@@ -439,6 +439,7 @@
 		base.RemoveClass(["#edit"], "tl tc tr");
 	}
 
+	var time = 0;
 	var addarticlePage = null;
 	mui.plusReady(function() {
 
@@ -482,6 +483,52 @@
 			base.RemoveClass([".curr"], "curr");
 			//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
 		}
+
+		//监听剪贴板
+		/*time = setInterval(function() {
+
+		}, 1000);*/
+
+		document.getElementById('edit').addEventListener('beforepaste', function(e) {
+			console.log("bbb");
+			if(!(e.clipboardData && e.clipboardData.items)) {
+				return;
+			}
+			e.clipboardData.setData("Text", e.clipboardData.getData("Text") + "\r\n本资源来自:" + window.location.href);
+			console.log("bbb");
+		});
+
+		//判断数据格式，屏蔽粘贴事件
+		document.getElementById('edit').onpaste = function(e) {
+			e = e || event;
+			var clipboardData = e.clipboardData || window.clipboardData;
+			if(!/^\d+$/.test(clipboardData.getData('text')))
+				return false;
+		}
+
+		//方案1： 定时器监听剪贴板内容
+		//方案2： 页面屏蔽粘贴事件，自定义粘贴按钮，过滤样式
+		document.getElementById('edit').addEventListener('paste', function(e) {
+			console.log('aaaa');
+
+			//e.clipboardData.setData("Text", e.clipboardData.getData("Text") + "\r\n本资源来自:" + window.location.href);
+
+			/*if(!(e.clipboardData && e.clipboardData.items)) {
+				return;
+			}
+			console.log(e.clipboardData.items.length)
+			for(var i = 0, len = e.clipboardData.items.length; i < len; i++) {
+				var item = e.clipboardData.items[i];
+				if(item.kind === "string") {
+					item.getAsString(function(str) {
+						console.log(str);
+					})
+				} else if(item.kind === "file") {
+					var f = item.getAsFile();
+					console.log(f);
+				}
+			}*/
+		})
 
 		$edit.onkeyup = function() {
 			InsertPush();

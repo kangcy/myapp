@@ -36,8 +36,9 @@
 			}
 		</style>
 	</head>
+	<!--禁止复制-->
 
-	<body id="body">
+	<body id="body" oncontextmenu="return false" onselectstart="return false">
 		<header id="header" class="mui-bar" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</a>
@@ -444,6 +445,17 @@
 		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
 		plus.android.invoke(clip, "setText", ShareInfo.Url);
 		mui.toast("分享链接已复制到剪贴板");
+
+		/*clip.addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
+			public void onPrimaryClipChanged() {
+				if(clip.hasPrimaryClip() && clip.getPrimaryClip().getItemCount() > 0) {
+					CharSequence addedText = clip.getPrimaryClip().getItemAt(0).getText();
+					if(addedText != null) {
+						console.log('正在复制')
+					}
+				}
+			}
+		});*/
 	}
 
 	//加载文章
