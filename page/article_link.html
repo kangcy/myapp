@@ -131,7 +131,7 @@
 		div.className = 'mui-table-view-cell';
 		div.setAttribute("number", item.Number);
 		var model = [];
-		model.push('<img src="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
+		model.push('<img src="' + base.ShowThumb(item.Cover, 2) + '" style="width:2rem;height:2rem;" class="fl mr10" />');
 		model.push('<p class="fl c333 f13 mb0" style="width:80%;display:inline-block;"><span class="article" articleid="' + item.ID + '" userid="' + userinfo.Number + '" power="' + item.ArticlePower + '" nickname="' + userinfo.NickName + '">' + item.Title + '</psan><br /><span class="fl c999 f11 mt5">' + item.CreateDate + '</span></p>');
 		model.push('<span class="fr csubtitle mui-icon" style="position:absolute;right:0.5rem;top:1rem;"></span>');
 		div.innerHTML = model.join('');

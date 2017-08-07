@@ -29,32 +29,7 @@
 				<div id="music" class="btn fl tl mb15 hide"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
 			</div>
 		</div>
-		<div id="edit" class="mt20">
-			<!--<div class="edit-body fl">
-				<img src="../images/addarticle/btn_up.png" class="edit-up first"><img src="../images/addarticle/btn_down.png" class="edit-down first"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="490">
-				<div class="edit-content f11" type="pic" partid="490" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616541823_0.jpg" id="edit-content0"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616541823_1.jpg"></div>
-				<div class="icons0 mt15 mb15 tc">
-					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
-					<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;"><img src="../images/addarticle/icon_pic.png" class="edit-add-pic"><img src="../images/addarticle/icon_text.png" class="edit-add-text"><img src="../images/addarticle/icon_video.png" class="edit-add-video"></div>
-				</div>
-			</div>
-			<div class="edit-body fl">
-				<img src="../images/addarticle/btn_up.png" class="edit-up"><img src="../images/addarticle/btn_down.png" class="edit-down"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="491">
-				<div class="edit-content f11" type="pic" partid="491" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616545935_0.jpg" id="edit-content1"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616545935_1.jpg"></div>
-				<div class="icons0 mt15 mb15 tc">
-					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
-					<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;"><img src="../images/addarticle/icon_pic.png" class="edit-add-pic"><img src="../images/addarticle/icon_text.png" class="edit-add-text"><img src="../images/addarticle/icon_video.png" class="edit-add-video"></div>
-				</div>
-			</div>
-			<div class="edit-body fl">
-				<img src="../images/addarticle/btn_up.png" class="edit-up last"><img src="../images/addarticle/btn_down.png" class="edit-down last"><img src="../images/addarticle/btn_x.png" class="edit-del" partid="492">
-				<div class="edit-content f11" type="pic" partid="492" src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616542870_0.jpg" id="edit-content2"><img src="http://www.xiaoweipian.com/Upload/Images/Article/20170705/149509293893532/201707051616542870_1.jpg"></div>
-				<div class="icons0 mt15 mb15 tc">
-					<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;"></div>
-					<div class="icons hide"><img src="../images/addarticle/btn_add2.png" class="edit-add full" style="height:2rem;"><img src="../images/addarticle/icon_pic.png" class="edit-add-pic"><img src="../images/addarticle/icon_text.png" class="edit-add-text"><img src="../images/addarticle/icon_video.png" class="edit-add-video"></div>
-				</div>
-			</div>-->
-		</div>
+		<div id="edit" class="mt20"></div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="camera">
@@ -504,7 +479,7 @@
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '" style="padding: 1% 13%;">' + base.UnUnicodeText(text) + '</div>');
+			model.push('<div class="edit-content f11 tl" type="' + type + '" partid="' + partid + '" style="padding:5%;">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
 			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');

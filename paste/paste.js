@@ -7,9 +7,9 @@ function initEditor(html) {
 	ifrm.contentWindow.document.designMode = "On";
 
 	if(base.IsNullOrEmpty(html)) {
-		ifrm.contentWindow.document.write("<style type=\"text/css\">.edit{width:100%;height:100%;display:inline-block;overflow-x:auto;overflow-y:auto;outline:none;}</style><body style=\"" + bodyStyle + "\"><div tabindex=\"-1\" class=\"edit f12 tl\"></div></body>");
+		ifrm.contentWindow.document.write("<link rel=\"stylesheet\" href=\"../css/mui.min.css\"><body style=\"" + bodyStyle + "\"><div tabindex=\"-1\" class=\"edit f12 tl\"></div><script src=\"../minjs/base.min.js\"></script></body>");
 	} else {
-		ifrm.contentWindow.document.write("<style type=\"text/css\">.edit{width:100%;height:100%;display:inline-block;overflow-x:auto;overflow-y:auto;outline:none;}</style><body style=\"" + bodyStyle + "\">" + html + "</body>");
+		ifrm.contentWindow.document.write("<link rel=\"stylesheet\" href=\"../css/mui.min.css\"><body style=\"" + bodyStyle + "\">" + html + "<script src=\"../minjs/base.min.js\"></script></body>");
 	}
 	ifrm.contentWindow.document.close();
 
@@ -186,7 +186,7 @@ function pasteClipboardData(editorId, e) {
 			document.body.appendChild(ifmTemp);
 			ifmTemp.contentWindow.document.designMode = "On";
 			ifmTemp.contentWindow.document.open();
-			ifmTemp.contentWindow.document.write("<body style=\"" + bodyStyle + "\"><div tabindex=\"-1\" class=\"edit f12 tl\"></div></body>");
+			ifmTemp.contentWindow.document.write("<link rel=\"stylesheet\" href=\"../css/mui.min.css\"><body style=\"" + bodyStyle + "\"><div tabindex=\"-1\" class=\"edit f12 tl\"></div><script src=\"../minjs/base.min.js\"></script></body>");
 			ifmTemp.contentWindow.document.close();
 		} else {
 			ifmTemp.contentWindow.document.body.firstChild.innerHTML = "";

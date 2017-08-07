@@ -1762,7 +1762,10 @@
 			"images/edittxt/063.png",
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"paste/paste.js",
+			"paste/iframeblankpage.html",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/edithref.html",
@@ -2598,7 +2601,8 @@
 			"page/cityuser.html",
 			"page/recommenduser.html",
 			"page/addimage.html",
-			"page/editdesc2.html"
+			"page/editdesc2.html",
+			"page/showy.html"
 		]
 	},
 	"page/money.html": {
@@ -3648,6 +3652,21 @@
 			"images/edittxt/073.png",
 			"images/edittxt/083.png",
 			"images/edittxt/063.png"
+		],
+		"refer": [
+			"page/edithref.html"
+		]
+	},
+	"page/showy.html": {
+		"resources": [
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"minjs/refresh.min.js",
+			"images/my/666.png",
+			"mincss/loading.min.css",
+			"images/addarticle/icon_pic_n.png",
+			"images/default.png"
 		]
 	}
 }

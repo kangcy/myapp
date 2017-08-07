@@ -23,12 +23,10 @@
 			}
 			
 			.edit {
-				width: 100%;
-				height: 100%;
+				outline: 0px;
 				display: inline-block;
-				overflow-x: auto;
-				overflow-y: auto;
-				outline: none;
+				width: 100%;
+				padding: 5%;
 			}
 			
 			.menu {
@@ -166,10 +164,6 @@
 				display: inline-block;
 				border-radius: 10px;
 			}
-			
-			.editor {
-				border: 1px solid #f5f5f5;
-			}
 		</style>
 	</head>
 
@@ -253,15 +247,16 @@
 			<div class="menu" id="menuBold"> </div>
 		</nav>
 		<div id="muicontent" style="padding-bottom:100px;">
-			<iframe src="../paste/iframeblankpage.html" id="editor" class="editor" frameborder="0" width="100%"></iframe>
+			<div id="divedit">
+				<div id="edit" contenteditable="true"></div>
+			</div>
 		</div>
 	</body>
 
 </html>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
-<script src="../paste/paste.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
 	var ArticleNumber = ""; //文章编号
@@ -277,13 +272,10 @@
 	var ActionCache = [];
 	var CurrActionCache = -1;
 
-	var $edit = base.Get("editor");
+	var $edit = base.Get("edit");
 
-	window.onload = function() {
-		$edit.style.height = window.innerHeight - 170 + "px";
-	};
 	window.onresize = function() {
-		$edit.style.height = window.innerHeight - 170 + "px";
+		$edit.style.height = window.innerHeight - 180 + "px";
 	};
 
 	mui.init({
@@ -305,15 +297,15 @@
 
 		//全选 
 		base.Get("all").addEventListener('tap', function(event) {
-			objEditorBody.focus();
+			base.Get("edit").focus();
 			if(this.classList.contains("select")) {
 				SelectAll = false;
 				this.classList.remove("select");
-				edDoc.execCommand("Unselect");
+				document.execCommand("Unselect");
 			} else {
 				SelectAll = true;
 				this.classList.add("select");
-				edDoc.execCommand("SelectAll");
+				document.execCommand("SelectAll");
 			}
 		}, false);
 
@@ -325,7 +317,8 @@
 			isLoading = true;
 			if(CurrActionCache > 0) {
 				CurrActionCache -= 1;
-				objEditorBody.innerHTML = ActionCache[CurrActionCache];
+				base.Get("divedit").innerHTML = ActionCache[CurrActionCache];
+				$edit = base.Get("edit");
 			} else {
 				CurrActionCache = 0;
 			}
@@ -340,7 +333,8 @@
 			isLoading = true;
 			if(CurrActionCache < ActionCache.length - 1) {
 				CurrActionCache += 1;
-				objEditorBody.innerHTML = ActionCache[CurrActionCache];
+				base.Get("divedit").innerHTML = ActionCache[CurrActionCache];
+				$edit = base.Get("edit");
 			} else {
 				CurrActionCache = ActionCache.length - 1;
 			}
@@ -367,7 +361,6 @@
 
 		//加粗
 		base.Get("menuBold").addEventListener('tap', function(event) {
-			objEditorBody.focus();
 			var node = ShowParentNode();
 			mui.each(node, function(i, item) {
 				if(item == "B") {
@@ -388,7 +381,6 @@
 			})
 			base.AddClass(["#color", "#bgcolor", "#align", "#fs"], "hide");
 			base.Get("bold").classList.toggle("hide");
-
 		}, false);
 
 		//颜色切换
@@ -417,20 +409,23 @@
 
 		//居左
 		base.Get("btnLeft").addEventListener('tap', function() {
-			edDoc.execCommand("justifyLeft");
-			InitAlign(this, "tl");
+			InitAlign(this);
+			$edit.classList.add("tl");
+			InsertPush();
 		}, false);
 
 		//居中
 		base.Get("btnCenter").addEventListener('tap', function() {
-			edDoc.execCommand("justifyCenter");
-			InitAlign(this, "tc");
+			InitAlign(this);
+			$edit.classList.add("tc");
+			InsertPush();
 		}, false);
 
 		//居右
 		base.Get("btnRight").addEventListener('tap', function() {
-			edDoc.execCommand("justifyRight");
-			InitAlign(this, "tr");
+			InitAlign(this);
+			$edit.classList.add("tr");
+			InsertPush();
 		}, false);
 
 		//超链接
@@ -438,15 +433,10 @@
 	})
 
 	//初始化对齐
-	function InitAlign(item, name) {
+	function InitAlign(item) {
 		base.RemoveClass(["#btnLeft", "#btnCenter", "#btnRight"], "curr");
 		item.classList.add("curr");
-		objEditorBody.classList.remove("tl");
-		objEditorBody.classList.remove("tc");
-		objEditorBody.classList.remove("tr");
-
-		objEditorBody.classList.add(name);
-		InsertPush();
+		base.RemoveClass(["#edit"], "tl tc tr");
 	}
 
 	var time = 0;
@@ -459,53 +449,101 @@
 		PartID = self.PartID || 0;
 
 		var html = self.title;
-		html = "<div tabindex=\"-1\" class=\"edit f12 tl\">测试</div>";
-		if(base.IsNullOrEmpty(html)) {
-			initEditor('');
-		} else {
-			initEditor(html)
-		}
 
+		if(base.IsNullOrEmpty(html)) {
+			base.AddClass(["#edit"], "edit f12 tl");
+		} else {
+			base.Get("divedit").innerHTML = html;
+			$("#divedit").find("div:eq(0)").attr({
+				"id": "edit",
+				"contenteditable": "true"
+			});
+			$edit = base.Get("edit");
+		}
 		InsertPush();
 
-		objEditorBody.focus();
+		$edit.style.height = window.innerHeight - 180 + "px";
 
-		if(objEditorBody.classList.contains("tl")) {
-			base.Get("menuAlign").classList.add("menuLeft");
-		} else if(objEditorBody.classList.contains("tc")) {
-			base.Get("menuAlign").classList.add("menuCenter");
-		} else if(objEditorBody.classList.contains("tr")) {
-			base.Get("menuAlign").classList.add("menuRight");
-		} else {
+		$edit.focus();
+
+		if($edit.classList.contains("tl")) {
 			base.Get("menuAlign").classList.add("menuLeft");
 		}
-
+		if($edit.classList.contains("tc")) {
+			base.Get("menuAlign").classList.add("menuCenter");
+		}
+		if($edit.classList.contains("tr")) {
+			base.Get("menuAlign").classList.add("menuRight");
+		}
 		base.Get("menuAlign").classList.remove("hide");
 
 		//字数限制
-		edDoc.getElementsByClassName("edit")[0].ontouchend = function() {
+		$edit.ontouchend = function() {
 			base.AddClass(["#color", "#bgcolor", "#bold", "#fs", "#align"], "hide");
 			base.RemoveClass([".curr"], "curr");
-			console.log("bbbbb")
+			//base.Get("edit").innerHTML = base.Get("edit").innerHTML.replace(/(^.{5000}).*/g, '$1');
 		}
 
-		edDoc.getElementsByClassName("edit")[0].ontouch
+		//监听剪贴板
+		/*time = setInterval(function() {
 
-		edDoc.onkeyup = function() {
-			console.log("aaaa")
+		}, 1000);*/
+
+		document.getElementById('edit').addEventListener('beforepaste', function(e) {
+			console.log("bbb");
+			if(!(e.clipboardData && e.clipboardData.items)) {
+				return;
+			}
+			e.clipboardData.setData("Text", e.clipboardData.getData("Text") + "\r\n本资源来自:" + window.location.href);
+			console.log("bbb");
+		});
+
+		//判断数据格式，屏蔽粘贴事件
+		document.getElementById('edit').onpaste = function(e) {
+			e = e || event;
+			var clipboardData = e.clipboardData || window.clipboardData;
+			if(!/^\d+$/.test(clipboardData.getData('text')))
+				return false;
+		}
+
+		//方案1： 定时器监听剪贴板内容
+		//方案2： 页面屏蔽粘贴事件，自定义粘贴按钮，过滤样式
+		document.getElementById('edit').addEventListener('paste', function(e) {
+			console.log('aaaa');
+
+			//e.clipboardData.setData("Text", e.clipboardData.getData("Text") + "\r\n本资源来自:" + window.location.href);
+
+			/*if(!(e.clipboardData && e.clipboardData.items)) {
+				return;
+			}
+			console.log(e.clipboardData.items.length)
+			for(var i = 0, len = e.clipboardData.items.length; i < len; i++) {
+				var item = e.clipboardData.items[i];
+				if(item.kind === "string") {
+					item.getAsString(function(str) {
+						console.log(str);
+					})
+				} else if(item.kind === "file") {
+					var f = item.getAsFile();
+					console.log(f);
+				}
+			}*/
+		})
+
+		$edit.onkeyup = function() {
 			InsertPush();
 		}
 
 		base.Get('muicontent').addEventListener('tap', function(event) {
 			SelectAll = false;
 			base.Get("all").classList.remove("select");
-			edDoc.execCommand("Unselect");
+			document.execCommand("Unselect");
 		});
 
 		base.Get('muicontent').addEventListener('longtap', function(event) {
 			SelectAll = false;
 			base.Get("all").classList.remove("select");
-			edDoc.execCommand("Unselect");
+			document.execCommand("Unselect");
 		});
 
 		//提交
@@ -514,7 +552,7 @@
 				return;
 			}
 			isLoading = true;
-			var val = objEditorBody.innerHTML
+			var val = $("#edit").html()
 			if(base.IsNullOrEmpty(val)) {
 				isLoading = false;
 				return mui.toast("请编辑文字");
@@ -530,7 +568,10 @@
 						if(!addarticlePage) {
 							addarticlePage = base.GetView('addarticle');
 						}
-						addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape(objEditorBody.outerHTML) + "','" + PartID + "')");
+						$edit.removeAttribute("id");
+						$edit.removeAttribute("contenteditable");
+						$edit.style.height = "auto";
+						addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape($edit.outerHTML) + "','" + PartID + "')");
 						plus.webview.close("editdesc");
 					} else {
 						mui.toast(data.message);
@@ -559,7 +600,7 @@
 
 	//撤销链接
 	function Undo() {
-		edDoc.execCommand('undo');
+		document.execCommand('undo');
 	}
 
 	//改变样式 
@@ -573,7 +614,7 @@
 			valueTxt = "placeholder";
 			ShowLink();
 		};
-		edDoc.execCommand(type, false, valueTxt);
+		document.execCommand(type, false, valueTxt);
 		if(this.classList.contains("fs")) {
 			base.RemoveClass([".fs"], "curr");
 			ChangeFontSize();
@@ -644,8 +685,18 @@
 
 	//添加缓存
 	function InsertPush() {
-		console.log(objEditorBody.outerHTML)
-		ActionCache.push(objEditorBody.outerHTML);
+		ActionCache.push($edit.outerHTML);
 		CurrActionCache = ActionCache.length - 1;
+	}
+
+	//选中文字父节点
+	function ShowParentNode() {
+		var tbl = [];
+		var direct = (document.selection && document.selection.createRange) ? document.selection.createRange().parentElement() : window.getSelection().focusNode.parentNode;
+		do {
+			tbl.push(direct.tagName);
+		}
+		while ((direct = direct.parentNode) && (direct !== document.documentElement));
+		return tbl.reverse();
 	}
 </script>
