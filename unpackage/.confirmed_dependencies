@@ -2597,7 +2597,8 @@
 			"page/slider.html",
 			"page/cityuser.html",
 			"page/recommenduser.html",
-			"page/addimage.html"
+			"page/addimage.html",
+			"page/editdesc2.html"
 		]
 	},
 	"page/money.html": {
@@ -3618,6 +3619,35 @@
 		],
 		"refer": [
 			"page/user.html"
+		]
+	},
+	"page/editdesc2.html": {
+		"resources": [
+			"images/edittxt/012.png",
+			"images/edittxt/052.png",
+			"paste/iframeblankpage.html",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"images/edittxt/09.png",
+			"images/edittxt/0112.png",
+			"minjs/mui.min.js",
+			"images/edittxt/prev.png",
+			"images/edittxt/010.png",
+			"js/jquery-1.10.2.min.js",
+			"images/edittxt/042.png",
+			"images/edittxt/next.png",
+			"paste/paste.js",
+			"images/edittxt/022.png",
+			"js/base.min.js",
+			"images/edittxt/062.png",
+			"images/edittxt/072.png",
+			"images/edittxt/082.png",
+			"images/edittxt/023.png",
+			"images/edittxt/053.png",
+			"images/edittxt/043.png",
+			"images/edittxt/073.png",
+			"images/edittxt/083.png",
+			"images/edittxt/063.png"
 		]
 	}
 }
