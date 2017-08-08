@@ -3666,7 +3666,26 @@
 			"images/my/666.png",
 			"mincss/loading.min.css",
 			"images/addarticle/icon_pic_n.png",
-			"images/default.png"
+			"images/default.png",
+			"images/addarticle/icon_pic_y.png"
+		],
+		"refer": [
+			"page/showypreview.html"
+		]
+	},
+	"page/showypreview.html": {
+		"resources": [
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"cropper/cropper.css",
+			"mincss/loading.min.css",
+			"images/adv/001.png",
+			"part/snow/snow.js",
+			"part/snow/snow.html",
+			"part/snow/img/snow.png",
+			"js/jquery-1.10.2.min.js",
+			"part/snow/img/snow2.js"
 		]
 	}
 }

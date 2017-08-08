@@ -10,6 +10,10 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
+			body {
+				background: #f5f5f5;
+			}
+			
 			.thirdfloor .cover {
 				position: absolute;
 				left: 0px;
@@ -18,18 +22,16 @@
 				height: 100%;
 			}
 			
-			#scroll-view {
-				padding-top: 0.2rem;
-			}
-			
 			.thirdfloor {
-				margin-top: 0rem;
-			}
-			
-			.thirdfloor img {
-				width: 96% !important;
-				min-width: 96% !important;
+				width: 5.5rem;
+				margin: 0.4rem;
+				height: 5.5rem;
+				background-color: #DEC9BE;
+				background-size: 70%;
+				background-repeat: no-repeat;
+				background-position: center center;
 				border-radius: 5px;
+				position: relative;
 			}
 			
 			.thirdfloor .icon {
@@ -57,7 +59,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-text cfff fr hide" id="mypic" onclick="Confirm()">完成</a>
+			<a class="mui-icon mui-text cfff fr hide" id="mypic" onclick="Confirm()">预览</a>
 			<h1 class="mui-title cfff">漂浮装扮</h1>
 		</header>
 		<div class="loading" id="loader">
@@ -82,8 +84,7 @@
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
-	var Source = "";
-	var Multiple = 0; //是否多选
+	pagesize = 5;
 	var self = null;
 
 	mui.init({
@@ -99,31 +100,19 @@
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		Source = self.Source || "";
-		Multiple = self.Multiple || 0;
 
 		Init();
-
-		mui.back = function() {
-			plus.webview.close("mypic");
-			plus.webview.hide("action");
-		}
 	});
 
 	function Init() {
 		pulldownRefresh();
 
-		//下拉刷新 
 		SetPullEnable(true);
 
-		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
-		//选中切换
 		mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
-			if(Multiple == 0) {
-				base.RemoveClass([".yescheck"], "yescheck");
-			}
+			base.RemoveClass([".yescheck"], "yescheck");
 			this.classList.toggle("yescheck");
 			if(mui(".yescheck").length > 0) {
 				base.Get("mypic").classList.remove("hide");
@@ -138,14 +127,10 @@
 			return false;
 		}
 		isLoading = true;
-		var check = mui(".yescheck");
-		if(check.length == 0) {
-			isLoading = false;
-			return mui.toast("请选择图片");
-		}
-		var url = [];
-		mui.each(check, function(i, item) {
-			url.push(item.getAttribute("url"));
+		var src = mui(".yescheck")[0].getAttribute("src");
+		base.OpenWindow("showypreview", "showypreview.html", {
+			Src: src,
+			ArticleID: 0
 		});
 		isLoading = false;
 	}
@@ -153,24 +138,26 @@
 	//加载数据
 	function Load(callback) {
 		var table = base.Get('scroll-view');
-		HttpGet(base.RootUrlTest + "System/Showy", {
+		HttpGet(base.RootUrl + "System/Showy", {
 			page: currpage,
 			rows: pagesize
 		}, function(data) {
-			console.log(JSON.stringify(data))
 			base.ShowNone(false);
 			if(data.records > 0) {
 				records = data.records;
+				totalpage = data.totalpage;
 				var fragment = document.createDocumentFragment();
 				mui.each(data.list, function(index, item) {
-					fragment.appendChild(AppendStr1(item));
+					var wrapper = AppendStr0();
+					wrapper.appendChild(AppendStr1(item));
 					mui.each(item.Cover, function(index2, item2) {
-						fragment.appendChild(AppendStr2(item2));
+						wrapper.appendChild(AppendStr2(item2));
 					});
+					fragment.appendChild(wrapper);
+					fragment.appendChild(AppendStr3());
 				});
 				table.appendChild(fragment);
 			}
-
 			base.ShowLoading(false);
 			if(records == 0) {
 				base.ShowNone(true);
@@ -180,19 +167,34 @@
 			}
 		});
 	}
- 
+
+	function AppendStr0() {
+		var div = document.createElement('div');
+		div.className = 'full inline fl';
+		div.style.padding = "0.5rem";
+		div.style.background = "#fff";
+		return div;
+	}
+
 	function AppendStr1(item) {
 		var div = document.createElement('div');
-		div.className = 'title tc mt15 mb20 f14 fl full';
-		div.innerHTML = '<div style="border:1px solid #0080ff;color:#0080ff;border-radius:30px;display:inline-block;width:60%;"><span>' + item.Name + '</span><span class="ml15" id="a_num">' + item.Cover.length + '张图片</span></div>';
+		div.className = 'title tl mt10 mb10 f14 fl full';
+		div.innerHTML = '<span style="margin-left:0.3rem;">' + item.Name + '</span>';
 		return div;
 	}
 
 	function AppendStr2(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor fl nocheck';
-		div.style.position = "relative";
-		div.innerHTML = '<img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + item + '" href="' + item + '" data-preview-src="" data-preview-group="0" /><div class="cover hide"></div><div class="icon"></div>';
+		div.style.backgroundImage = "url(" + item + ")";
+		div.setAttribute("src", item);
+		div.innerHTML = '<div class="cover hide"></div><div class="icon"></div>';
+		return div;
+	}
+
+	function AppendStr3() {
+		var div = document.createElement('div');
+		div.className = 'splitline fl';
 		return div;
 	}
 </script>

@@ -290,7 +290,7 @@
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrlTest + "Api/Order/ToMe_1_3", data, true, 0, function(item) {
+		LoadPullList(base.RootUrl + "Api/Order/ToMe_1_3", data, true, 0, function(item) {
 			return AppendStr(item, 0);
 		}, function() {
 			scroll0.refresh();
@@ -323,7 +323,7 @@
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrlTest + "Api/Order/ToUser_1_3", data, true, 1, function(item) {
+		LoadPullList(base.RootUrl + "Api/Order/ToUser_1_3", data, true, 1, function(item) {
 			return AppendStr(item, 1);
 		}, function() {
 			scroll1.refresh();
@@ -356,7 +356,7 @@
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrlTest + "Api/Order/Apply_1_3", data, true, 2, function(item) {
+		LoadPullList(base.RootUrl + "Api/Order/Apply_1_3", data, true, 2, function(item) {
 			return AppendStr(item, 2);
 		}, function() {
 			scroll2.refresh();

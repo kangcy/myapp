@@ -432,12 +432,12 @@
 			CityCode: position.CityCode,
 			Latitude: position.Latitude,
 			Longitude: position.Longitude,
-			Part: escape(JSON.stringify(InitParts))
+			Part: escape(JSON.stringify(InitParts)) 
 		}
 		HttpPost(base.RootUrl + "Article/Edit", param,
 			function(data) {
 				if(data != null) {
-					if(data.result) {
+					if(data.result) { 
 						if(Source == "Add") {
 							userinfo.Articles += 1;
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
