@@ -66,14 +66,14 @@
 				<li id="popover_power" onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
 					权限
 				</li>
+				<li id="popover_showy" onclick="Showy()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
+					自定义装扮
+				</li>
 			</ul>
 		</div>
 
 		<!--漂浮特效-->
-		<div id="snowwrapper" class="hide">
-			<canvas class="snow-canvas" speed="5" interaction="true" size="15" count="6" wind-power="2" image="../part/snow/img/fly1.png"></canvas>
-			<canvas class="snow-canvas" speed="5" interaction="true" size="15" count="6" wind-power="-2" image="../part/snow/img/fly1.png"></canvas>
-		</div>
+		<div id="snowwrapper" class="hide"> </div>
 		<div id="self" class="full tc hide">
 			<img src="../images/article/stop.png" class="none" />
 			<p class="mt20 f16 c333">私密文章</p>
@@ -749,6 +749,24 @@
 			if(callback) {
 				callback();
 			}
+		});
+	}
+
+	//自定义装扮
+	function Showy() {
+		base.OpenWindow("showy", "showy.html", {
+			ArticleNumber: Article.Number
+		});
+	}
+
+	//更新自定义装扮
+	function UpdateShowy(src) {
+		$.fn.snow.clear("#snowwrapper");
+		$.fn.snow.init({
+			wrapper: '#snowwrapper',
+			size: 1,
+			newOn: 1200,
+			src: src
 		});
 	}
 
