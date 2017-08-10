@@ -777,12 +777,12 @@
 
 	//更新自定义装扮
 	function UpdateShowy(src) {
+		plus.webview.close("showy", "none");
+		plus.webview.close("showypreview");
+		Article.Showy = src;
 		if(base.IsNullOrEmpty(Article.Showy)) {
 			InitShowy(src)
 		} else {
-			plus.webview.close("showy", "none");
-			plus.webview.close("showypreview");
-
 			$.fn.snow.clear("#snowwrapper");
 			$.fn.snow.init({
 				wrapper: '#snowwrapper',

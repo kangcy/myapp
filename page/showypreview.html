@@ -9,7 +9,6 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
-		<link rel="stylesheet" href="../cropper/cropper.css">
 		<style type="text/css">
 			body {
 				background: #f5f5f5;
@@ -40,7 +39,7 @@
 			}
 		</style>
 	</head>
- 
+
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
@@ -49,7 +48,7 @@
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
-			</div> 
+			</div>
 		</div>
 		<div class="mui-content" id="muicontent">
 			<div id="wrapper"></div>
@@ -98,14 +97,10 @@
 		articleNumber = self.ArticleNumber || "";
 
 		mui.back = function() {
-			plus.webview.close(self);
+			self.close()
 		}
 
 		base.ShowLoading(false);
-
-		mui.each(mui("canvas"), function(i, item) {
-			item.setAttribute("image", src);
-		})
 
 		$.fn.snow.init({
 			wrapper: '#snowwrapper',
@@ -117,7 +112,7 @@
 		if(isLoading) {
 			return;
 		}
-		isLoading = true; 
+		isLoading = true;
 		if(base.IsNullOrEmpty(src) || base.IsNullOrEmpty(articleNumber)) {
 			isLoading = false;
 			return mui.toast("参数异常");
@@ -125,8 +120,7 @@
 		HttpGet(base.RootUrl + "Api/ArticleCustom/Edit", {
 			ID: userinfo.ID,
 			ArticleNumber: articleNumber,
-			ShowyUrl: src,
-			EditID: 0
+			ShowyUrl: src
 		}, function(data) {
 			data = JSON.parse(data);
 			base.CheckLogin(userinfo, data.code);
