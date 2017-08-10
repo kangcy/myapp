@@ -49,13 +49,14 @@
 				documentWidth = window.innerWidth,
 				defaults = {
 					wrapper: "body",
-					size: 1, //图片大小尺寸
-					newOn: 1000, //
+					size: 1,
+					newOn: 1200,
 					src: "http://www.xiaoweipian.com/Images/Showy/01/01.png" //图片链接
 				},
 				options = $.extend({}, defaults, options);
 			var $flake = $('<div />').css({
 				'position': 'fixed',
+				'z-index': '999',
 				'top': -options.size * 2 + 'rem'
 			}).html('<img src="' + options.src + '" style="width:100%;" />')
 			snowinterval = setInterval(function() {
@@ -63,7 +64,7 @@
 					startOpacity = 0.5 + Math.random(),
 					sizeFlake = (1 + Math.random()) * options.size,
 					endPositionTop = documentHeight,
-					endPositionLeft = documentWidth * Math.random(),
+					endPositionLeft = documentWidth * (Math.random()),
 					durationFall = documentHeight * 10 + Math.random() * 8000;
 				$flake.clone().appendTo(options.wrapper).css({
 					left: startPositionLeft,

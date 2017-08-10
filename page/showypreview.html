@@ -40,7 +40,7 @@
 			}
 		</style>
 	</head>
-
+ 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
@@ -49,7 +49,7 @@
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
-			</div>
+			</div> 
 		</div>
 		<div class="mui-content" id="muicontent">
 			<div id="wrapper"></div>
@@ -107,10 +107,8 @@
 			item.setAttribute("image", src);
 		})
 
-		$.fn.snow({
-			wrapper: 'body',
-			size: 1,
-			newOn: 1200,
+		$.fn.snow.init({
+			wrapper: '#snowwrapper',
 			src: src
 		});
 	});
@@ -119,7 +117,7 @@
 		if(isLoading) {
 			return;
 		}
-		isLoading = true;
+		isLoading = true; 
 		if(base.IsNullOrEmpty(src) || base.IsNullOrEmpty(articleNumber)) {
 			isLoading = false;
 			return mui.toast("参数异常");
@@ -138,7 +136,7 @@
 				if(data.result) {
 					var page = base.GetView('articledetail');
 					if(page) {
-						page.evalJS("UpdateShowy(" + src + ")");
+						page.evalJS("UpdateShowy('" + src + "')");
 					}
 				} else {
 					mui.toast(data.message);

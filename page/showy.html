@@ -103,6 +103,10 @@
 		self = plus.webview.currentWebview();
 		ArticleNumber = self.ArticleNumber || ""
 		Init();
+
+		mui.back = function() {
+			plus.webview.close("showypreview", "none");
+		}
 	});
 
 	function Init() {

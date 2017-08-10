@@ -1293,7 +1293,8 @@
 			"images/article/temp1.jpg",
 			"images/article/btn_good.png",
 			"part/snow/img/fly1.png",
-			"part/snow/img/fly2.png"
+			"part/snow/img/fly2.png",
+			"js/snow.js"
 		],
 		"refer": [
 			"page/user.html",
@@ -1312,7 +1313,8 @@
 			"page/edittitle.html",
 			"page/edittext.html",
 			"page/customsetting.html",
-			"page/article.html"
+			"page/article.html",
+			"page/showy.html"
 		]
 	},
 	"page/sharesetting.html": {
@@ -3685,7 +3687,8 @@
 			"part/snow/snow.html",
 			"part/snow/img/snow.png",
 			"js/jquery-1.10.2.min.js",
-			"part/snow/img/snow2.js"
+			"part/snow/img/snow2.js",
+			"js/snow.js"
 		]
 	}
 }

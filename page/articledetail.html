@@ -67,7 +67,7 @@
 					权限
 				</li>
 				<li id="popover_showy" onclick="Showy()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.5rem;background-position: 40%;text-indent: 10%;">
-					自定义装扮
+					漂浮
 				</li>
 			</ul>
 		</div>
@@ -203,7 +203,6 @@
 	</body>
 
 </html>
-<script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../js/music.js"></script>
@@ -413,10 +412,6 @@
 				Uri = plus.android.importClass("android.net.Uri");
 				main = plus.android.runtimeMainActivity();
 			}
-
-			/*LoadScript("../part/snow/snow.js", function() {
-				$(".snow-canvas").snow();
-			});*/
 		}, 2000);
 	});
 
@@ -472,11 +467,17 @@
 						} else {
 							$wrapper.classList.remove("hide");
 							base.Get("snowwrapper").classList.remove("hide");
+							mui.later(function() {
+								InitShowy(data.Showy);
+							}, 1000)
 						}
 					} else {
 						$wrapper.classList.remove("hide");
 						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
 						base.Get("snowwrapper").classList.remove("hide");
+						mui.later(function() {
+							InitShowy(data.Showy);
+						}, 1000)
 					}
 
 					Article = data;
@@ -617,12 +618,6 @@
 						base.Get("isnotkeep").classList.remove("hide");
 					}
 
-					/*mui('#snowwrapper').load("../part/snow/snow.html", function(response) {
-						LoadScript("../part/snow/snow.js", function() {
-							$(".snow-canvas").snow();
-						});
-					});*/
-
 					//分享信息
 					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);
 					ShareInfo.Cover = base.ShowThumb(data.Cover, 2);
@@ -754,20 +749,46 @@
 
 	//自定义装扮
 	function Showy() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		mui('#topPopover').popover('hide');
 		base.OpenWindow("showy", "showy.html", {
 			ArticleNumber: Article.Number
+		});
+		isLoading = false;
+	}
+
+	//初始化装扮 
+	function InitShowy(src) {
+		if(base.IsNullOrEmpty(src)) {
+			return
+		}
+		LoadScript("../js/jquery-1.10.2.min.js", function() {
+			LoadScript("../js/snow.js", function() {
+				$.fn.snow.init({
+					wrapper: '#snowwrapper',
+					src: src
+				});
+			});
 		});
 	}
 
 	//更新自定义装扮
 	function UpdateShowy(src) {
-		$.fn.snow.clear("#snowwrapper");
-		$.fn.snow.init({
-			wrapper: '#snowwrapper',
-			size: 1,
-			newOn: 1200,
-			src: src
-		});
+		if(base.IsNullOrEmpty(Article.Showy)) {
+			InitShowy(src)
+		} else {
+			plus.webview.close("showy", "none");
+			plus.webview.close("showypreview");
+
+			$.fn.snow.clear("#snowwrapper");
+			$.fn.snow.init({
+				wrapper: '#snowwrapper',
+				src: src
+			});
+		}
 	}
 
 	//分享信息
