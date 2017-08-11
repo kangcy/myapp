@@ -480,7 +480,8 @@
 			"part/action.html",
 			"images/article/btn_good.png",
 			"js/mui.previewimage.min.js",
-			"images/default.png"
+			"images/default.png",
+			"js/imageCache.js"
 		],
 		"refer": [
 			"page/listSub.html",

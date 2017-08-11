@@ -36,7 +36,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
@@ -64,10 +64,12 @@
 		Init(ArticleType, CreateUserNumber, Source);
 
 		//console.log(GetTotalRamSize());
+
+		MobileFrame.ImageUtil.ImageLoaderFactory.setAllNetImgsWithLocalCache()
 	});
 
 	/*获取系统内存信息*/
-	function GetTotalRamSize() { 
+	function GetTotalRamSize() {
 		var memInfo = '/proc/meminfo';
 		var temp = '',
 			ramSize = '',
