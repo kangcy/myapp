@@ -36,7 +36,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script type="text/javascript">
@@ -53,6 +53,20 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+
+		var loadUrl = "http://www.xiaoweipian.com/Images/Showy/01/05.png";
+		/*var regIllegal = /[&\|\\\*^%$#@\-:.?\/=!]/g;
+		var imgName = loadUrl.replace(regIllegal, ''); //获取图片名字
+		console.log(imgName)*/
+
+		/*var finalKey = loadUrl.replace(/[&\|\\\*^%$#@\-]/g, "");
+		console.log('finalKey:' + loadUrl + ',' + finalKey)*/
+
+		//遍历
+		var manager = ["aa", "bb", "cc"];
+		manager.forEach(x => {
+			console.log(x)
+		});
 	});
 
 	mui.plusReady(function() {
@@ -64,8 +78,6 @@
 		Init(ArticleType, CreateUserNumber, Source);
 
 		//console.log(GetTotalRamSize());
-
-		MobileFrame.ImageUtil.ImageLoaderFactory.setAllNetImgsWithLocalCache()
 	});
 
 	/*获取系统内存信息*/
