@@ -71,6 +71,7 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
+<script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	var ActionID = 0;
 	var self = null;
@@ -147,15 +148,15 @@
 				break;
 		}
 
-		model.push('<div style="flex:0 0 16%;" class="flex-item tl"><div class="avatar"><img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 2) + '" class="user fl" userid="' + item.Number + '" nickname="' + item.NickName + '" avatar="' + item.Avatar + '" cover="' + item.Cover + '" /></div></div>');
+		model.push('<div style="flex:0 0 16%;" class="flex-item tl"><div class="avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 2) + '" class="user fl" userid="' + item.Number + '" nickname="' + item.NickName + '" avatar="' + item.Avatar + '" cover="' + item.Cover + '" /></div></div>');
 		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '<span class="ml10 c999">' + title + '</span></p><p class="f10 c999">' + item.CreateTime + '</p>');
 
 		mui.each(item.ArticleInfoJson, function(i, article) {
-			model.push('<div class="article fl" articleid="' + article.ID + '" userid="' + item.Number + '" power="' + article.ArticlePower + '" nickname="' + item.NickName + '"><img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(article.Cover, 2) + '" /></div>');
+			model.push('<div class="article fl" articleid="' + article.ID + '" userid="' + item.Number + '" power="' + article.ArticlePower + '" nickname="' + item.NickName + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(article.Cover, 2) + '" /></div>');
 		})
 
 		mui.each(item.UserInfoJson, function(i, user) {
-			model.push('<div class="user avatar2 fl" userid="' + user.Number + '" nickname="' + user.NickName + '"avatar="' + user.Avatar + '"cover="' + user.Cover + '"><img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(user.Avatar, 2) + '" class="radius" /></div>');
+			model.push('<div class="user avatar2 fl" userid="' + user.Number + '" nickname="' + user.NickName + '"avatar="' + user.Avatar + '"cover="' + user.Cover + '"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(user.Avatar, 2) + '" class="radius" /></div>');
 		})
 
 		model.push("</div>");

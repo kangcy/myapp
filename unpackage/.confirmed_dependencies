@@ -1663,7 +1663,8 @@
 			"minjs/refresh.min.js",
 			"css/fan.min.css",
 			"images/icon/heart.png",
-			"images/avatar.png"
+			"images/avatar.png",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/fanSub.html",
@@ -2242,7 +2243,8 @@
 			"js/mui.previewimage.min.js",
 			"images/avatar.png",
 			"images/default.png",
-			"js/lazyload.js"
+			"js/lazyload.js",
+			"js/imgcache.js"
 		],
 		"refer": []
 	},
@@ -2453,7 +2455,8 @@
 			"images/avatar.png",
 			"images/loadmore.gif",
 			"images/base/follow1.png",
-			"images/base/follow2.png"
+			"images/base/follow2.png",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/followSub.html",
@@ -3123,7 +3126,8 @@
 			"images/avatar.png",
 			"minjs/mui.lazyload.min.js",
 			"minjs/mui.lazyload.img.min.js",
-			"images/default.png"
+			"images/default.png",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/addfan.html",

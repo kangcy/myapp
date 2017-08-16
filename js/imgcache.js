@@ -166,7 +166,7 @@ function setImgSrc($img, srcUrl, relativePath) {
 	if(!srcUrl) {
 		return;
 	}
-	setImgSrcByDom($img, srcUrl);
+	setImgSrcByDom($img, srcUrl); 
 	if(!relativePath) {
 		return;
 	}
@@ -174,7 +174,7 @@ function setImgSrc($img, srcUrl, relativePath) {
 	if(requestImgsPool && requestImgsPool[relativePathKey]) {
 		var imgsData = requestImgsPool[relativePathKey];
 		if(Array.isArray(imgsData)) {
-			mui.each(imgsData, function(i, item) {
+			mui.each(imgsData, function(i, item) { 
 				setImgSrcByDom(item, srcUrl);
 			})
 		} else {
@@ -259,7 +259,7 @@ ImgLoaderFactory.getRelativePathFromLoadUrl = function(loadUrl) {
 	}
 	var imgSuffix = loadUrl.substring(loadUrl.lastIndexOf(".") + 1, loadUrl.length).toLowerCase(); //获取图片后缀,如果没有获取到后缀,默认是jpg
 	if(imgSuffix != "jpg" && imgSuffix != "jpeg" && imgSuffix != "png" && imgSuffix != "bmp" && imgSuffix != "svg" && imgSuffix != "gif") {
-		return '';
+		imgSuffix = "jpg";
 	}
 	//替换前：http://www.xiaoweipian.com/Images/Showy/01/05.png
 	//替换后：httpwwwxiaoweipiancomImagesShowy0105png
