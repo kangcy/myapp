@@ -278,7 +278,8 @@
 			"js/base.min.js",
 			"js/login.min.js",
 			"mincss/setting.min.css",
-			"js/update.min.js"
+			"js/update.min.js",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/login.html",
@@ -481,7 +482,8 @@
 			"images/article/btn_good.png",
 			"js/mui.previewimage.min.js",
 			"images/default.png",
-			"js/imageCache.js"
+			"js/imageCache.js",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -1547,7 +1549,8 @@
 			"mincss/subindex.min.css",
 			"images/default.png",
 			"images/avatar.png",
-			"images/article/btn_good.png"
+			"images/article/btn_good.png",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -3372,7 +3375,10 @@
 			"page/pic.html",
 			"css/animate.min.css",
 			"images/banner.jpg",
-			"css/mui.min.css"
+			"css/mui.min.css",
+			"js/imgcache.js",
+			"images/avatar.png",
+			"images/default.png"
 		],
 		"refer": [
 			"page/user.html",

@@ -17,23 +17,18 @@ Date.prototype.format = function(n) {
 
 var defaultSettingOptions = {
 	imgStoragePath: "_downloads/imgs/", //默认的图片缓存目录-存到应用的downloads/imgs下
-	defaultImgBase: "../images/", //默认图片的基座路径
-	loadingImgName: "default.png", //loading图片的名称
-	errorImgName: "default.png", //error图片名称
 	imgsTimeStamp: 1000 * 60 * 60 * 24 * 1, //图片缓存的时间戳,毫秒单位,默认为1天
-	concurrentDownloadCount: 3, //同时最多的downloader 并发下载数目,默认为3个
+	concurrentDownloadCount: 5, //同时最多的downloader 并发下载数目,默认为3个
 	maxTimeSingleDownloadTaskSpend: 1000 * 10 //单个下载任务最大的请求时间,单位毫秒,默认10秒
 };
 
-//图片缓存的session的管理者
-var imageSessionManagerKey = 'imageSessionKey_util_Manager';
 /**
  * 存img dom
- * 图片缓存池,用来解决多张图片并发请求问题
+ * 图片缓存池,用来解决多张图片并发请求问题 
  * 默认是空的,当有多张图片是同一个请求时,缓存池子中会有数据
  * 格式  {'url1':[dom1,dom2]}
  */
-var requestImgsPool = [];
+var requestImgsPool = {};
 var currentDownloadTasks = []; //下载文件网络地址
 //并发下载任务,包括下载队列,处理最大并发数下载
 var concurrentDownloadTask = {
@@ -55,36 +50,27 @@ function setImgFromNet($img, loadUrl, relativePath) {
 
 	//创建下载任务
 	var dtask = plus.downloader.createDownload(loadUrl, {
-		filename: loadUrl,
-		timeout: 3,
+		filename: relativePath,
+		timeout: 5,
 		retryInterval: 3
 	}, function(d, status) {
 		if(status == 200) {
-			console.log("下载成功=" + relativePath);
-
-			//缓存图片地址
-			setImgFromLocalCache($img, relativePath);
+			calStorageSize(dtask.downloadedSize);
+			setImgFromLocalCache($img, relativePath); //缓存图片地址
 		} else {
-
-			//下载失败，删除临时文件
-			MobileFrame.delFile(relativePath);
+			MobileFrame.delFile(loadUrl, relativePath); //下载失败，删除临时文件
 		}
-		//下载完成,从当前下载队列中去除
-		currentDownloadTasks[dtask.url] = null;
+		concurrentDownloadTask.CurrentTaskCount--; //下载完成,当前任务数-1,并重新检查下载队列
+		currentDownloadTasks[dtask.url] = null; //下载完成,从当前下载队列中去除
 		executeDownloadTasks();
 	});
-
-	//启动下载任务,添加进入下载队列中
-	concurrentDownloadTask.Queue.push(dtask);
-
-	//执行并发下载队列
-	executeDownloadTasks();
+	concurrentDownloadTask.Queue.push(dtask); //启动下载任务,添加进入下载队列中
+	executeDownloadTasks(); //执行并发下载队列
 }
 
-//执行下载任务,通过队列中一个一个的进行
+//执行下载任务,通过队列中一个一个的进行 
 function executeDownloadTasks() {
-	console.log('检查下载队列');
-
+	//执行下载
 	mui.each(currentDownloadTasks, function(index, taskItem) {
 		if(taskItem == null) {
 			currentDownloadTasks.splice(index, 1);
@@ -121,6 +107,16 @@ function executeDownloadTasks() {
 	}
 };
 
+//计算缓存大小
+function calStorageSize(size) {
+	var item = plus.storage.getItem("storagesize");
+	if(item == null) {
+		plus.storage.setItem("storagesize", size.toString());
+	} else {
+		plus.storage.setItem("storagesize", (parseInt(item) + parseInt(size)).toString());
+	}
+}
+
 /**
  * @description 给指定的图片dom 设置本地图片属性
  * @param {HTMLElement} $img 目标图片dom,这里为原生的dom对象
@@ -144,7 +140,6 @@ function setImgFromLocalCache($img, relativePath) {
  * @param {String} relativePath 本地相对路径
  */
 function readyToGetNetImg($img, loadUrl, relativePath) {
-	//如果文件不存在,上网下载
 	if(MobileFrame.IsNetWorkCanUse()) {
 		//添加进入图片缓存池中
 		var relativePathKey = MobileFrame.getRelativePathKey(relativePath);
@@ -178,19 +173,14 @@ function setImgSrc($img, srcUrl, relativePath) {
 	var relativePathKey = MobileFrame.getRelativePathKey(relativePath);
 	if(requestImgsPool && requestImgsPool[relativePathKey]) {
 		var imgsData = requestImgsPool[relativePathKey];
-		//如果是数组
 		if(Array.isArray(imgsData)) {
 			mui.each(imgsData, function(i, item) {
 				setImgSrcByDom(item, srcUrl);
 			})
 		} else {
-			//单条数据--单个dom对象
-			setImgSrcByDom(imgsData, srcUrl);
+			setImgSrcByDom(imgsData, srcUrl); //单条数据--单个dom对象
 		}
-		if(srcUrl != defaultLoadingImg) {
-			//如果不是loading图片就清空,清空图片池子中的该条键值
-			requestImgsPool[relativePathKey] = null;
-		}
+		requestImgsPool[relativePathKey] = null; //清空图片池子中的该条键值
 	}
 };
 
@@ -201,11 +191,9 @@ function setImgSrc($img, srcUrl, relativePath) {
  */
 function setImgSrcByDom($img, srcUrl) {
 	if(!$img || !($img instanceof HTMLElement)) {
-		console.log('该dom不是原生对象,url:' + srcUrl);
 		return;
 	}
 	srcUrl = MobileFrame.changImgUrlTypeNoCache(srcUrl);
-	console.log("srcUrl:" + srcUrl)
 	$img.setAttribute('src', srcUrl);
 };
 
@@ -218,7 +206,7 @@ var ImgLoaderFactory = {};
  * @param {String} loadUrl 网络图片路径
  */
 ImgLoaderFactory.setImgWidthLocalCache = function(img, loadUrl) {
-	if(img == null || bsae.IsNullOrEmpty(loadUrl)) return;
+	if(img == null || base.IsNullOrEmpty(loadUrl)) return;
 
 	//判断需不需要将路径进行编码,如果是中文路径,需要编码后才能下载
 	var tmpLoadUrl = loadUrl.replace(/[\u4E00-\u9FA5]/g, 'chineseRemoveAfter');
@@ -243,19 +231,35 @@ ImgLoaderFactory.setImgWidthLocalCache = function(img, loadUrl) {
 };
 
 /**
+ * @description 获取图片本地缓存路径
+ * @param {String} loadUrl 网络图片路径
+ */
+ImgLoaderFactory.getImgRelativePath = function(loadUrl) {
+	if(base.IsNullOrEmpty(loadUrl)) return;
+
+	//判断需不需要将路径进行编码,如果是中文路径,需要编码后才能下载
+	var tmpLoadUrl = loadUrl.replace(/[\u4E00-\u9FA5]/g, 'chineseRemoveAfter');
+	if(tmpLoadUrl.indexOf('chineseRemoveAfter') != -1) {
+		loadUrl = encodeURI(loadUrl);
+	}
+	//获取图片本地缓存路径
+	var relativePath = ImgLoaderFactory.getRelativePathFromLoadUrl(loadUrl);
+	return relativePath;
+};
+
+/**
  * @description 从一个网络URL中,获取本地图片缓存相对路径
  * @param {String} loadUrl 图片的网络路径,如果为null,则返回一个null
  * @example 获取相对路径可以有很多种方法
  */
 ImgLoaderFactory.getRelativePathFromLoadUrl = function(loadUrl) {
-	if(loadUrl == null) return [false, loadUrl];
 	var local = getImageSessionItem(loadUrl); //如果存在本地缓存,并且没有过期,采用本地缓存中的图片
 	if(local != null) {
 		return local;
 	}
 	var imgSuffix = loadUrl.substring(loadUrl.lastIndexOf(".") + 1, loadUrl.length).toLowerCase(); //获取图片后缀,如果没有获取到后缀,默认是jpg
 	if(imgSuffix != "jpg" && imgSuffix != "jpeg" && imgSuffix != "png" && imgSuffix != "bmp" && imgSuffix != "svg" && imgSuffix != "gif") {
-		return [false, loadUrl];
+		return '';
 	}
 	//替换前：http://www.xiaoweipian.com/Images/Showy/01/05.png
 	//替换后：httpwwwxiaoweipiancomImagesShowy0105png
@@ -263,9 +267,8 @@ ImgLoaderFactory.getRelativePathFromLoadUrl = function(loadUrl) {
 	var imgName = loadUrl.replace(/[&\|\\\*^%$#@\-:.?\/=!]/g, ''); //获取图片名字
 	var filename = imgName + '.' + imgSuffix; //最终的名字
 	var relativePath = defaultSettingOptions.imgStoragePath + filename;
-	console.log('relativePath:' + relativePath + 'loadurl:' + loadUrl + ',fileName:' + filename);
 	setImageSessionItem(loadUrl, relativePath);
-	return [true, relativePath];
+	return relativePath;
 };
 
 /**
@@ -293,28 +296,15 @@ function getImageSessionItem(url) {
  * @param {String} url
  * @param {JSON} value 存进去的是图片相关的所有属性,包括时间戳,本地路径等
  */
-function setImageSessionItem(url, value) {
-	if(url == null) {
+function setImageSessionItem(loadUrl, relativePath) {
+	if(loadUrl == null || relativePath == null) {
 		return;
 	}
-	addImageToGroup(url); //加入缓存组中
-	url = MobileFrame.getRelativePathKey(url);
-	value = (value != null) ? value : '';
-	value = (typeof(value) == 'string') ? value : JSON.stringify(value);
-	plus.storage.setItem(url, value);
-};
-
-/**
- * 移除图片缓存key
- * @param {String} url
- */
-function removeImageSessionItem(url) {
-	if(url == null) {
-		return null;
-	}
-	removeImageFromGroup(url);
-	url = MobileFrame.getRelativePathKey(url);
-	var items = plus.storage.removeItem(url);
+	addImageToGroup(loadUrl);
+	loadUrl = MobileFrame.getRelativePathKey(loadUrl);
+	relativePath = (relativePath != null) ? relativePath : '';
+	relativePath = (typeof(value) == 'string') ? relativePath : JSON.stringify(relativePath);
+	plus.storage.setItem(loadUrl, relativePath);
 };
 
 /**
@@ -325,14 +315,53 @@ function deleteGroup(key) {
 	if(manager == null) {
 		return;
 	}
+	console.log(JSON.stringify(manager))
 	try {
 		manager = JSON.parse(manager);
 	} catch(e) {}
 	if(Array.isArray(manager)) {
-		mui.each(manager, function(i, item) {
-			removeImageSessionItem(item);
-		})
+		mui.each(manager, function(i, url) {
+
+			//删除文件
+			var relativePath = ImgLoaderFactory.getImgRelativePath(url);
+			MobileFrame.delFile(url, relativePath, function() {
+				//删除图片缓存
+				url = MobileFrame.getRelativePathKey(url);
+				plus.storage.removeItem(url);
+			});
+		});
+		plus.storage.removeItem(key);
 	}
+};
+
+/**
+ * @description 清除图片加载工厂的所有图片缓存
+ * @param {Function} successCallback 成功回调
+ * @param {Function} errorCallback 失败回调
+ */
+ImgLoaderFactory.clearAll = function(successCallback, errorCallback) {
+	//遍历目录文件夹下的所有文件，然后删除
+	var tmpUrl = 'file://' + plus.io.convertLocalFileSystemURL(defaultSettingOptions.imgStoragePath);
+	console.log(tmpUrl)
+	plus.storage.clear(); //同时清除所有的缓存键值
+	plus.io.resolveLocalFileSystemURL(tmpUrl, function(entry) {
+		entry.removeRecursively(function() {
+			console.log('清除图片缓存成功!');
+			if(successCallback && typeof(successCallback) == 'function') {
+				successCallback('清除图片缓存成功!');
+			}
+		}, function() {
+			console.log('清除图片缓存失败!');
+			if(errorCallback && typeof(errorCallback) == 'function') {
+				errorCallback('清除图片缓存失败!');
+			}
+		});
+	}, function(e) {
+		console.log('打开图片缓存目录失败!');
+		if(errorCallback && typeof(errorCallback) == 'function') {
+			errorCallback('打开图片缓存目录失败!');
+		}
+	});
 };
 
 /**
@@ -358,36 +387,11 @@ function addImageToGroup(url) {
 	plus.storage.setItem(key, JSON.stringify(manager));
 };
 
-/**
- * @description 从缓存管理中移除相应的图片缓存
- * @param {String} key 图片路径对应的key
- */
-function removeImageFromGroup(url) {
-	var key = new Date().format('yyyyMMdd');
-	var manager = plus.storage.getItem(imageSessionManagerKey);
-	if(manager == null) {
-		return;
-	}
-	try {
-		manager = JSON.parse(manager);
-	} catch(e) {}
-	var index = -1;
-	mui.each(manager, function(i, item) {
-		if(item == url) {
-			index = i;
-		}
-	})
-	if(index != -1) {
-		manager.splice(index, 1);
-		plus.storage.setItem(key, JSON.stringify(manager));
-	}
-};
-
 //初始化
-MobileFrame.init(img) {
+MobileFrame.init = function(img) {
 	img.removeAttribute("onload");
 	var src = img.getAttribute('data-lazyload');
-	if(!bsae.IsNullOrEmpty(src)) {
+	if(!base.IsNullOrEmpty(src)) {
 		if(src.toString().toLowerCase().indexOf("http://") < 0) {
 			src = base.RootUrl + src;
 		}
@@ -398,24 +402,25 @@ MobileFrame.init(img) {
 /**
  * @description 删除指定路径的文件
  * @param {String} relativePath  绝对路径或相对路径例如:  _downloads/imgs/test.jpg
- * @param {Function} successCallback  删除成功回调
- * @param {Function} errorCallback  失败回调
  */
-MobileFrame.delFile = function(relativePath, successCallback, errorCallback) {
+MobileFrame.delFile = function(loadUrl, relativePath, successCallback, errorCallback) {
 	if(!relativePath) {
 		return;
 	}
 	plus.io.resolveLocalFileSystemURL(relativePath, function(entry) {
 		entry.remove(function(entry) {
+			console.log('删除文件成功：' + relativePath);
 			if(successCallback && typeof(successCallback) == 'function') {
 				successCallback(true);
 			}
 		}, function(e) {
+			console.log('删除文件失败：' + relativePath);
 			if(errorCallback && typeof(errorCallback) == 'function') {
 				errorCallback('删除文件失败!');
 			}
 		});
 	}, function() {
+		console.log('打开文件路径失败：' + relativePath);
 		if(errorCallback && typeof(errorCallback) == 'function') {
 			errorCallback('打开文件路径失败!');
 		}
@@ -429,7 +434,6 @@ MobileFrame.delFile = function(relativePath, successCallback, errorCallback) {
  */
 MobileFrame.getRelativePathKey = function(relativePath) {
 	var finalKey = relativePath.replace(/[&\|\\\*^%$#@\-]/g, "");
-	console.log('finalKey:' + relativePath + ',' + finalKey)
 	return finalKey;
 };
 

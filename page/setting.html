@@ -64,6 +64,14 @@
 					</div>
 				</div>
 			</div>
+			<div class="flex-box flex-row f13" id="clearcache">
+				<div class="flex-item c000">
+					清除缓存
+				</div>
+				<div class="flex-item tr">
+					<span class="c999" id="cachesize">0M</span>
+				</div>
+			</div>
 			<div class="flex-box flex-row noborder f13" id="checkupdate">
 				<div class="flex-item c000">
 					检查更新
@@ -96,11 +104,24 @@
 				</li>
 			</ul>
 		</div>
+		<div id="cacheaction" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" class="red f13" onclick="ClearCache()">清除</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#cacheaction" class="c333 f13">取消</a>
+				</li>
+			</ul>
+		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
+<script src="../js/imgcache.js"></script>
 <script src="../minjs/update.min.js"></script>
 <script src="../js/login.min.js"></script>
 <script type="text/javascript">
@@ -217,10 +238,19 @@
 
 	var version = "";
 	mui.plusReady(function() {
+		var storagesize = plus.storage.getItem("storagesize");
+		if(storagesize != null) {
+			base.Get("cachesize").innerHTML = parseFloat(parseInt(storagesize) / 1024 / 1024).toFixed(2) + "M";
+		}
 		plus.runtime.getProperty(plus.runtime.appid, function(inf) {
 			version = inf.version;
 			base.Get("version").innerText = "v" + inf.version;
 		});
+
+		//清除缓存
+		base.Get('clearcache').addEventListener('tap', function() {
+			mui('#cacheaction').popover('show');
+		}, false);
 
 		//检查更新
 		base.Get("checkupdate").addEventListener('tap', function(event) {
@@ -292,6 +322,13 @@
 				});
 			}
 		});
+	}
+
+	//清除缓存
+	function ClearCache() {
+		mui('#cacheaction').popover('hide');
+		base.Get("cachesize").innerHTML = "0M";
+		ImgLoaderFactory.clearAll();
 	}
 
 	//关闭 
