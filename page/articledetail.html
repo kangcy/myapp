@@ -776,7 +776,6 @@
 	function UpdateShowy(src) {
 		plus.webview.close("showy", "none");
 		plus.webview.close("showypreview");
-		Article.Showy = src;
 		if(base.IsNullOrEmpty(Article.Showy)) {
 			InitShowy(src)
 		} else {
@@ -786,6 +785,7 @@
 				src: src
 			});
 		}
+		Article.Showy = src;
 	}
 
 	//分享信息

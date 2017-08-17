@@ -1615,7 +1615,9 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/refresh.min.js",
-			"js/base.min.js"
+			"js/base.min.js",
+			"js/imgcache.js",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/zanSub.html",
