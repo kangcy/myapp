@@ -49,6 +49,7 @@
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script src="../js/comment.js"></script>
+<script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	mui.init({
 		gestureConfig: {
@@ -63,13 +64,8 @@
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-
 		InitComment();
-
-		//下拉刷新 
 		SetPullEnable(true)
-
-		//上拉加载
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//重置未读推送信息
@@ -78,11 +74,11 @@
 			pushtype: PushType.Comment
 		}, function(data) {
 			if(data) {
-				var tipsetting = plus.webview.getWebviewById('tipsetting');
+				var tipsetting = base.GetView('tipsetting');
 				if(tipsetting) {
 					tipsetting.evalJS("PushClear('" + PushType.Comment + "')");
 				}
-				var my = plus.webview.getWebviewById('my');
+				var my = base.GetView('my');
 				if(my) {
 					my.evalJS("InitPush()");
 				}
@@ -105,4 +101,4 @@
 			return AppendStr(item);
 		}, callback);
 	}
-</script> 
+</script>

@@ -1029,7 +1029,8 @@
 			"images/comment/smile.png",
 			"images/comment/dingwei2.png",
 			"css/comment.min.css",
-			"js/base.min.js"
+			"js/base.min.js",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -1176,7 +1177,9 @@
 			"mincss/mui.picker.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"images/avatar.png"
+			"images/avatar.png",
+			"css/setting.min.css",
+			"mincss/setting.min.css"
 		],
 		"refer": [
 			"page/editsignature.html",
@@ -2584,7 +2587,8 @@
 			"css/my.css",
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"mincss/setting.min.css"
 		],
 		"refer": [
 			"page/fan.html",
@@ -2614,7 +2618,8 @@
 			"page/recommenduser.html",
 			"page/addimage.html",
 			"page/editdesc2.html",
-			"page/showy.html"
+			"page/showy.html",
+			"page/mypayinfo.html"
 		]
 	},
 	"page/money.html": {
@@ -3474,7 +3479,8 @@
 			"mincss/fan.min.css",
 			"js/refresh.min.js",
 			"images/base/follow0.png",
-			"images/avatar.png"
+			"images/avatar.png",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/user.html",
@@ -3491,7 +3497,8 @@
 			"minjs/base.min.js",
 			"minjs/mui.min.js",
 			"images/base/follow0.png",
-			"images/avatar.png"
+			"images/avatar.png",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/cityuser.html",

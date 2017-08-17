@@ -64,8 +64,8 @@
 					startOpacity = 0.5 + Math.random(),
 					sizeFlake = (1 + Math.random()) * options.size,
 					endPositionTop = documentHeight,
-					endPositionLeft = documentWidth * (Math.random()),
-					durationFall = documentHeight * 10 + Math.random() * 8000;
+					endPositionLeft = Math.random() > 0.5 ? documentWidth * (Math.random() + 0.5) : documentWidth * (Math.random() - 0.5),
+					durationFall = documentHeight * 10 + Math.random() * 10000;
 				$flake.clone().appendTo(options.wrapper).css({
 					left: startPositionLeft,
 					width: sizeFlake + "rem"

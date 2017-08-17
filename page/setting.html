@@ -9,6 +9,14 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/setting.min.css">
+		<style type="text/css">
+			.cancel {
+				width: 70%;
+				display: inline-block !important;
+				border-radius: 30px;
+				padding: 0.525rem 0.9375rem;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -17,7 +25,7 @@
 			<h1 class="mui-title cfff">通用设置</h1>
 		</header>
 		<div id="muicontent">
-			<div class="flex-box flex-row f13 mt15" onclick="Account()">
+			<div class="flex-box flex-row f13 mt8" onclick="Account()">
 				<div class="flex-item c000">
 					账号管理
 				</div>
@@ -33,7 +41,7 @@
 					<span class="mui-icon mui-icon-arrowright c999 f16"></span>
 				</div>
 			</div>
-			<div class="flex-box flex-row f13 mt15">
+			<div class="flex-box flex-row f13 mt8">
 				<div class="flex-item">
 					<p class="mt0 mb0 c000">图片水印</p>
 					<span class="c999 f10">开启后新导入图片自动添加水印</span>
@@ -80,41 +88,40 @@
 					<span class="c999" id="version"></span>
 				</div>
 			</div>
-			<ul class="mui-table-view f13 mt15">
-				<li class="mui-table-view-cell tc red">
-					<div id="exit">
-						退出登录
-					</div>
-				</li>
-			</ul>
+			<div class="flex-box flex-row noborder f14 mt8" id="exit">
+				<div class="flex-item red full tc" style="flex: 0 0 100%;">
+					退出登录
+				</div>
+			</div>
 		</div>
-		<!--操作-->
 		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="action_keep">
-					<a href="#" class="c333 f13" onclick="Cancel()">注销当前账号</a>
-				</li>
-				<li class="mui-table-view-cell" id="action_outkeep">
-					<a href="#" class="c333 f13" onclick="Close()">直接关闭应用</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder">
-					<a href="#action" class="red f13">取消</a>
-				</li>
-			</ul>
+			<div class="flex-box flex-row noborder f13" onclick="Cancel()">
+				<div class="flex-item full tc" style="flex: 0 0 100%;">
+					注销当前账号
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13" onclick="Close()">
+				<div class="flex-item full tc" style="flex: 0 0 100%;">
+					直接关闭应用
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13">
+				<div class="flex-item red full tc" style="flex: 0 0 100%;">
+					<a href="#action" class="red">取消</a>
+				</div>
+			</div>
 		</div>
 		<div id="cacheaction" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a href="#" class="red f13" onclick="ClearCache()">清除</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder">
-					<a href="#cacheaction" class="c333 f13">取消</a>
-				</li>
-			</ul>
+			<div class="flex-box flex-row noborder f13">
+				<div class="flex-item full tc" style="flex: 0 0 100%;">
+					<span class="cfff f14 cancel" onclick="ClearCache()">清除缓存</span>
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13">
+				<div class="flex-item red full tc" style="flex: 0 0 100%;">
+					<a href="#cacheaction" class="red">取消</a>
+				</div>
+			</div>
 		</div>
 	</body>
 
@@ -135,6 +142,10 @@
 	mui.init();
 	mui.ready(function() {
 		base.Immersed();
+
+		mui.each(base.Get(".cancel"), function() {
+			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
+		})
 
 		//启用水印 
 		if(userinfo.UseDraw == 1) {
@@ -328,7 +339,9 @@
 	function ClearCache() {
 		mui('#cacheaction').popover('hide');
 		base.Get("cachesize").innerHTML = "0M";
-		ImgLoaderFactory.clearAll();
+		mui.later(function() {
+			ImgLoaderFactory.clearAll();
+		}, 500)
 	}
 
 	//关闭 

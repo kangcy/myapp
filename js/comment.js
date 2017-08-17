@@ -431,7 +431,7 @@ function AppendStr(item) {
 	div.setAttribute("id", "article" + item.Number)
 	var model = [];
 	model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
-	model.push('<div class="mui-table-cell oa-contact-avatar"><img src="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
+	model.push('<div class="mui-table-cell oa-contact-avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
 
 	model.push('<div class="flex-box flex-row full">');
 	model.push('<div style="flex:0 0 65%;" class="flex-item"><p class="c333 f13 user" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '</p><p class="f11 c999 mt3 full">' + item.CreateDateText + (item.ShowPosition == 1 ? '<span class="ml5 mr5">来自</span>' + item.City : '') + '</p></div>');

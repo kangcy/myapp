@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/setting.min.css">
 		<link rel="stylesheet" href="../mincss/mui.picker.min.css">
 		<link rel="stylesheet" href="../mincss/mui.poppicker.min.css">
 		<style type="text/css">
@@ -43,100 +44,88 @@
 			<h1 class="mui-title cfff">编辑个人资料</h1>
 		</header>
 		<div class="mui-content" id="muicontent">
-			<ul class="mui-table-view f13 mt0">
-				<li class="mui-table-view-cell" id="divavatar">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 25%;" class="flex-item">
-							<span class="c000">头像</span>
-						</div>
-						<div style="flex:0 0 75%;" class="flex-item tr">
-							<img class="head-img mui-action-preview fr" id="avatar" src="../images/avatar.png" style="width:4rem;height:4rem;border-radius:50%;" />
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell" id="editnickname">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 25%;" class="flex-item">
-							<span class="c000">昵称</span>
-						</div>
-						<div style="flex:0 0 70%;" class="flex-item">
-							<span class="fr c999" id="nickname"></span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tc">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-							<span class="mui-badge mui-badge-danger hide"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell hide">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 25%;" class="flex-item">
-							<span class="c000">ID</span>
-						</div>
-						<div style="flex:0 0 70%;" class="flex-item">
-							<span class="fr c999" id="userid"></span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tc">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell" id="sexPicker">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 25%;" class="flex-item">
-							<span class="c000">性别</span>
-						</div>
-						<div style="flex:0 0 70%;" class="flex-item">
-							<span class="fr c999" id="sex"></span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tc">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell" id="cityPicker">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 25%;" class="flex-item">
-							<span class="c000">地区</span>
-						</div>
-						<div style="flex:0 0 70%;" class="flex-item">
-							<span class="fr c999" id="city"></span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tc">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-							<span class="mui-badge mui-badge-danger hide"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker" style="position:relative;">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 25%;" class="flex-item">
-							<span class="c000">生日</span>
-						</div>
-						<div style="flex:0 0 70%;" class="flex-item">
-							<span class="fr c999" id="time"></span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tc">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-							<span class="mui-badge mui-badge-danger hide"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell" id="editsignature">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 25%;" class="flex-item">
-							<span class="c000">个性签名</span>
-						</div>
-						<div style="flex:0 0 70%;" class="flex-item tr">
-							<span class="fr c999" id="signature"></span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tc">
-							<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-							<span class="mui-badge mui-badge-danger hide"></span>
-						</div>
-					</div>
-				</li>
-			</ul>
+			<div class="flex-box flex-row f13 mt0" id="divavatar">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">头像</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item tr">
+					<img class="head-img mui-action-preview fr" id="avatar" src="../images/avatar.png" style="width:4rem;height:4rem;border-radius:50%;" />
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt0" id="editnickname">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">昵称</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item">
+					<span class="fr c999" id="nickname"></span>
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt0 hide">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">ID</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item">
+					<span class="fr c999" id="userid"></span>
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt0" id="sexPicker">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">性别</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item">
+					<span class="fr c999" id="sex"></span>
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt0" id="cityPicker">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">地区</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item">
+					<span class="fr c999" id="city"></span>
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt0" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker" style="position:relative;">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">生日</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item">
+					<span class="fr c999" id="time"></span>
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt0" id="editsignature">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">个性签名</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item tr">
+					<span class="fr c999" id="signature"></span>
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
+				</div>
+			</div>
 		</div>
 	</body>
 

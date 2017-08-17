@@ -16,52 +16,50 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">账号管理</h1>
 		</header>
-		<div class="mui-content" id="muicontent">
-			<div class="mui-table-view f13">
-				<div class="flex-box flex-row" onclick="BindPwd()">
-					<div class="flex-item c000">
-						密码
-					</div>
-					<div class="flex-item tr c999">
-						<span id="password"></span><span class="mui-icon mui-icon-arrowright f16 ml5"></span>
+		<div class="mui-content f13" id="muicontent">
+			<div class="flex-box flex-row mt8" onclick="BindPwd()">
+				<div class="flex-item c000">
+					密码
+				</div>
+				<div class="flex-item tr c999">
+					<span id="password"></span><span class="mui-icon mui-icon-arrowright f16 ml5"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row" onclick="BindPhone()">
+				<div class="flex-item c000">
+					绑定手机号
+				</div>
+				<div class="flex-item tr c999">
+					<span id="phone"></span><span class="mui-icon mui-icon-arrowright f16 ml5"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row">
+				<div class="flex-item c000">
+					绑定微信账号
+				</div>
+				<div class="flex-item">
+					<div class="my-switch fr" id="weixinSwitch">
+						<div></div>
 					</div>
 				</div>
-				<div class="flex-box flex-row" onclick="BindPhone()">
-					<div class="flex-item c000">
-						绑定手机号
-					</div>
-					<div class="flex-item tr c999">
-						<span id="phone"></span><span class="mui-icon mui-icon-arrowright f16 ml5"></span>
+			</div>
+			<div class="flex-box flex-row noborder">
+				<div class="flex-item c000">
+					绑定QQ账号
+				</div>
+				<div class="flex-item">
+					<div class="my-switch fr" id="qqSwitch">
+						<div></div>
 					</div>
 				</div>
-				<div class="flex-box flex-row">
-					<div class="flex-item c000">
-						绑定微信账号
-					</div>
-					<div class="flex-item">
-						<div class="my-switch fr" id="weixinSwitch">
-							<div></div>
-						</div>
-					</div>
+			</div>
+			<div class="flex-box flex-row noborder hide">
+				<div class="flex-item c000">
+					绑定微博账号
 				</div>
-				<div class="flex-box flex-row noborder">
-					<div class="flex-item c000">
-						绑定QQ账号
-					</div>
-					<div class="flex-item">
-						<div class="my-switch fr" id="qqSwitch">
-							<div></div>
-						</div>
-					</div>
-				</div>
-				<div class="flex-box flex-row noborder hide">
-					<div class="flex-item c000">
-						绑定微博账号
-					</div>
-					<div class="flex-item">
-						<div class="my-switch fr" id="weiboSwitch">
-							<div></div>
-						</div>
+				<div class="flex-item">
+					<div class="my-switch fr" id="weiboSwitch">
+						<div></div>
 					</div>
 				</div>
 			</div>

@@ -54,9 +54,16 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div class="mui-card" id="muicontent">
-			<ul class="mui-table-view" id="list">
-			</ul>
+		<div id="muicontent">
+			<div id="scroll-view" style="padding:5%;">
+				<p class="c000 f12 bold">问：？</p>
+				<p class="c999 f12">答：</p>
+				<p class="c000 f12 bold">问：一点阿斯顿发啥阿达一点阿斯顿发啥阿达一点阿斯顿发啥阿达一点阿斯顿发啥阿达？</p>
+				<p class="c999 f12">答：一点阿斯顿发啥阿达一点阿斯顿发啥阿达一点阿斯顿发啥阿达一点阿斯顿发啥阿达一点阿斯顿发啥阿达一点阿斯顿发啥阿达一点阿斯顿发啥阿达</p>
+			</div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+			</div>
 		</div>
 		<div id="none" class="full tc hide">
 			<img src="../images/my/333.png" class="none" />
@@ -93,7 +100,7 @@
 		var data = {
 			type: type
 		};
-		var table = base.Get('list');
+		var table = base.Get('scroll-view');
 		table.innerHTML = "";
 		HttpGet(base.RootUrl + "Api/Help/All", data, function(data) {
 			data = JSON.parse(data);
@@ -103,11 +110,12 @@
 					var length = data.length;
 					if(length > 0) {
 						base.ShowNone(false);
-						var fragment = document.createDocumentFragment();
+						var html = [];
 						mui.each(data, function(i, item) {
-							fragment.appendChild(AppendStr(item));
+							html.push('<p class="c333 f11 bold mb5">问：' + item.Name + '</p>');
+							html.push('<p class="c666 f11">答：' + item.Summary + '</p>');
 						})
-						table.appendChild(fragment);
+						table.innerHTML = html.join('');
 					} else {
 						base.ShowNone(true);
 					}
@@ -117,15 +125,5 @@
 			}
 			base.ShowLoading(false);
 		});
-	}
-
-	/**
-	 * 拼接Html
-	 */
-	function AppendStr(item) {
-		var div = document.createElement('li');
-		div.className = 'mui-table-view-cell mui-collapse';
-		div.innerHTML = '<a class="mui-navigate-right f12 c333" href="#">' + item.Name + '</a><div class="mui-collapse-content"><p class="f11 c999 mt5 mb5">' + item.Summary + '</p></div>';
-		return div;
 	}
 </script>

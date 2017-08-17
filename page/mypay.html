@@ -137,16 +137,6 @@
 				<div class="split"></div>
 			</div>
 		</div>
-		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="mypay">
-					<a href="#" class="c333 f13">我打赏的</a>
-				</li>
-				<li class="mui-table-view-cell" id="paymy">
-					<a href="#" class="c333 f13">打赏我的</a>
-				</li>
-			</ul>
-		</div>
 	</body>
 
 </html>
@@ -154,7 +144,7 @@
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var ispay = 0; 
+	var ispay = 0;
 	var userinfo = base.GetUserInfo();
 	var $money = base.Get("money");
 	var $apply = base.Get('apply');
@@ -169,7 +159,7 @@
 		base.Get("divmoney").style.height = window.innerWidth * 0.8 + "px";
 		base.Get("divmoney").classList.remove("hide");
 
-		base.UpdateUser(userinfo.Number, function() {			
+		base.UpdateUser(userinfo.Number, function() {
 			userinfo = base.GetUserInfo();
 
 			var currScore = 0;
@@ -220,22 +210,6 @@
 			} else {
 				Agree();
 			}
-		});
-
-		//我打赏的
-		base.Get('mypay').addEventListener('tap', function(event) {
-			mui('#action').popover('hide');
-			base.OpenWindow("pay", "pay.html", {
-				Source: 0
-			});
-		});
-
-		//打赏我的
-		base.Get('paymy').addEventListener('tap', function(event) {
-			mui('#action').popover('hide');
-			base.OpenWindow("pay", "pay.html", {
-				Source: 1
-			});
 		});
 
 		//申请提现
@@ -310,7 +284,6 @@
 	}
 
 	function Action() {
-		//mui('#action').popover('show');
 		base.OpenWindow("mypayinfo", "mypayinfo.html", {});
 	}
 </script>

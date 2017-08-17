@@ -115,9 +115,7 @@
 			#scroll-more0,
 			#scroll-more1,
 			#scroll-more2,
-			#scroll-none0,
-			#scroll-none1,
-			#scroll-none2 {
+			#scroll-none0 {
 				background: #f5f5f5;
 				padding: 1rem 0px 0.7rem;
 			}
@@ -126,8 +124,10 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">打赏明细</h1>
+			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:15%;" id="btnSearch"></a>
+			<div class="mui-input-row mui-search" style="width:87%;	display: inline-block;">
+				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索昵称、标题、支持语音搜索" maxlength="10" style="height:34px;font-size:15px;">
+			</div>
 		</header>
 		<div class="mui-content" id="muicontent">
 			<div class="my-pagination" id="pagination">
@@ -153,7 +153,7 @@
 						</div>
 						<div id="none0" class="full tc hide">
 							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无打赏记录</p>
+							<p class="f13 mt10">大波内容正在赶来，敬请期待~</p>
 						</div>
 					</div>
 					<div class="swiper-slide">
@@ -170,24 +170,7 @@
 						</div>
 						<div id="none1" class="full tc hide">
 							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无打赏记录</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div id="wrapper2" class="scroll-wrapper">
-							<div id="scroll2" class="scroller">
-								<div id="scroll-view2"></div>
-								<div id="scroll-more2" class="full tc">
-									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
-								</div>
-								<div id="scroll-none2" class="full tc hide">
-									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
-								</div>
-							</div>
-						</div>
-						<div id="none2" class="full tc hide">
-							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无提现记录</p>
+							<p class="f13 mt10">大波内容正在赶来，敬请期待~</p>
 						</div>
 					</div>
 				</div>
@@ -203,12 +186,13 @@
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 	var $border = base.Get("pagination_border");
-	var scroll0, scroll1, scroll2 = null;
-	var currpage = [1, 1, 1];
-	var totalpage = [2, 2, 2];
-	var records = [0, 0, 0];
-	var isLoading = [false, false, false];
+	var scroll0, scroll1 = null;
+	var currpage = [1, 1];
+	var totalpage = [2, 2];
+	var records = [0, 0];
+	var isLoading = [false, false];
 	var pagesize = 10;
+	var search = base.Get("search");
 	mui.init();
 
 	mui.ready(function() {
@@ -220,13 +204,10 @@
 			paginationBulletRender: function(swiper, index, className) {
 				switch(index) {
 					case 0:
-						name = '打赏我的';
+						name = '用户';
 						break;
 					case 1:
-						name = '我打赏的';
-						break;
-					case 2:
-						name = '提现记录';
+						name = '文章';
 						break;
 					default:
 						name = '';
@@ -282,31 +263,39 @@
 			}
 		})
 
+		base.Get("btnSearch").addEventListener('tap', function(e) {
+			Search();
+		});
+
+		//监听软键盘搜索键
+		base.Get("search").addEventListener("keydown", function(e) {
+			if(13 == e.keyCode) {
+				document.activeElement.blur(); //隐藏软键盘 
+				Search();
+			}
+		}, false);
 	});
 
 	mui.plusReady(function() {
 		base.ShowUser("#swiper-container");
-
-		//重置未读推送信息
-		HttpGet(base.RootUrl + "Push/Clear", {
-			number: userinfo.Number,
-			pushtype: PushType.Money
-		}, function(data) {
-			if(data) {
-				var tipsetting = base.GetView("tipsetting")
-				if(tipsetting) {
-					tipsetting.evalJS("PushClear('" + PushType.Money + "')");
-				}
-				var my = base.GetView("my")
-				if(my) {
-					my.evalJS("InitPush()");
-				}
-			}
-		});
+		base.ShowArticle("#swiper-container", "List", userinfo.Number);
+		ArticleAction("#swiper-container", userinfo);
 	});
 
-	//打赏我的
-	function LoadScroll0() {
+	//执行搜索
+	function Search() {
+		var searchval = search.value;
+		if(base.IsNullOrEmpty(searchval)) {
+			currpage = [1, 1];
+			totalpage = [2, 2];
+			records = [0, 0];
+		}
+		LoadScroll0(searchval)
+		LoadScroll1(searchval)
+	}
+
+	//用户
+	function LoadScroll0(searchval) {
 		if(isLoading[0]) {
 			return;
 		}
@@ -318,10 +307,11 @@
 		var data = {
 			page: currpage[0],
 			rows: pagesize,
-			UserNumber: userinfo.Number
+			UserNumber: userinfo.Number,
+			NickName: searchval
 		}
-		LoadPullList(base.RootUrl + "Api/Order/ToMe_1_3", data, true, 0, function(item) {
-			return AppendStr(item, 0);
+		LoadPullList(base.RootUrl + "Api/User/Search", data, true, 0, function(item) {
+			return base.AppendUser(item, true, true, false, "", false, true);
 		}, function() {
 			scroll0.refresh();
 			if(currpage[0] >= totalpage[0]) {
@@ -338,8 +328,8 @@
 		});
 	}
 
-	//我打赏的
-	function LoadScroll1() {
+	//文章
+	function LoadScroll1(searchval) {
 		if(isLoading[1]) {
 			return;
 		}
@@ -351,10 +341,12 @@
 		var data = {
 			page: currpage[1],
 			rows: pagesize,
-			UserNumber: userinfo.Number
+			UserNumber: userinfo.Number,
+			ID: userinfo.ID,
+			Title: searchval
 		}
-		LoadPullList(base.RootUrl + "Api/Order/ToUser_1_3", data, true, 1, function(item) {
-			return AppendStr(item, 1);
+		LoadPullList(base.RootUrl + "Api/Article/Search", data, true, 1, function(item) {
+			return AppendArticle(userinfo.Number, item, false, false, true)
 		}, function() {
 			scroll1.refresh();
 			if(currpage[1] >= totalpage[1]) {
@@ -368,39 +360,6 @@
 			}
 			currpage[1]++;
 			isLoading[1] = false;
-		});
-	}
-
-	//提现记录
-	function LoadScroll2() {
-		if(isLoading[2]) {
-			return;
-		}
-		isLoading[2] = true;
-		if(currpage[2] > totalpage[2]) {
-			isLoading[2] = false;
-			return false;
-		}
-		var data = {
-			page: currpage[2],
-			rows: pagesize,
-			UserNumber: userinfo.Number
-		}
-		LoadPullList(base.RootUrl + "Api/Order/Apply_1_3", data, true, 2, function(item) {
-			return AppendStr(item, 2);
-		}, function() {
-			scroll2.refresh();
-			if(currpage[2] >= totalpage[2]) {
-				base.Get("scroll-more2").classList.add("hide");
-				if(base.Get("scroll2").clientHeight > base.Get("wrapper2").clientHeight) {
-					base.Get("scroll-none2").classList.remove("hide");
-				}
-			}
-			if(base.Get("scroll2").clientHeight < base.Get("wrapper2").clientHeight) {
-				scroll2.destroy();
-			}
-			currpage[2]++;
-			isLoading[2] = false;
 		});
 	}
 
@@ -446,36 +405,5 @@
 				endCallback();
 			}
 		});
-	}
-
-	function AppendStr(item, type) {
-		if(type == 2) {
-			item.UserNumber = userinfo.Number;
-			item.UserName = userinfo.NickName;
-			item.UserCover = userinfo.Cover;
-			item.UserAvatar = userinfo.Avatar;
-		}
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user';
-		div.setAttribute("userid", item.UserNumber);
-		div.setAttribute("nickname", item.UserName);
-		div.setAttribute("cover", item.UserCover);
-		div.setAttribute("avatar", item.UserAvatar);
-		var model = [];
-		model.push('<div class="flex-box flex-row">');
-		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.UserAvatar, 1) + '" class="fl"  /></div></div>');
-		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f13 c333">' + base.UnUnicodeText(item.UserName) + '</p><span class="f10 fl c999 mt3">' + item.CreateDate + '</span></div>');
-		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
-		if(type == 0) {
-			model.push('<p class="f11 green">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
-		} else if(type == 1) {
-			model.push('<p class="f11 red">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
-		} else if(type == 2) {
-			model.push('<p class="f11 red">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
-		}
-		model.push('</div>');
-		model.push('</div></div>');
-		div.innerHTML = model.join('');
-		return div;
 	}
 </script>
