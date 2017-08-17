@@ -276,11 +276,7 @@
 		$edit.style.height = window.innerHeight - 170 + "px";
 	};
 
-	mui.init({
-		gestureConfig: {
-			longtap: true
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
@@ -476,9 +472,9 @@
 			base.AddClass(["#color", "#bgcolor", "#bold", "#fs", "#align"], "hide");
 			base.RemoveClass([".curr"], "curr");
 
-			SelectAll = false;
+			/*SelectAll = false;
 			base.Get("all").classList.remove("select");
-			edDoc.execCommand("Unselect");
+			edDoc.execCommand("Unselect");*/
 		}
 
 		edDoc.onkeyup = function() {

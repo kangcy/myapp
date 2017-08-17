@@ -377,6 +377,16 @@
 		ArticleID = self.ArticleID || 0;
 		NickName = self.NickName || "";
 
+		//分享设置
+		updateSerivces();
+
+		if(plus.os.name == "Android") {
+			Intent = plus.android.importClass("android.content.Intent");
+			File = plus.android.importClass("java.io.File");
+			Uri = plus.android.importClass("android.net.Uri");
+			main = plus.android.runtimeMainActivity();
+		}
+
 		Load(function(data) {
 			mui.later(function() {
 				plus.webview.close("sharesetting", "none");
@@ -400,19 +410,6 @@
 			}
 			plus.webview.close(self);
 		}
-
-		mui.later(function() {
-
-			//分享设置
-			updateSerivces();
-
-			if(plus.os.name == "Android") {
-				Intent = plus.android.importClass("android.content.Intent");
-				File = plus.android.importClass("java.io.File");
-				Uri = plus.android.importClass("android.net.Uri");
-				main = plus.android.runtimeMainActivity();
-			}
-		}, 2000);
 	});
 
 	//验证权限密码

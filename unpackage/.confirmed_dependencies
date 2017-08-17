@@ -483,7 +483,8 @@
 			"js/mui.previewimage.min.js",
 			"images/default.png",
 			"js/imageCache.js",
-			"js/imgcache.js"
+			"js/imgcache.js",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/listSub.html",
@@ -3508,7 +3509,8 @@
 			"minjs/mui.min.js",
 			"images/avatar.png",
 			"js/base.min.js",
-			"images/base/follow0.png"
+			"images/base/follow0.png",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/searcharticle.html",
@@ -3527,7 +3529,10 @@
 			"mincss/loading.min.css",
 			"images/article/btn_good.png",
 			"mincss/animate.min.css",
-			"js/base.min.js"
+			"js/base.min.js",
+			"js/imgcache.js",
+			"images/default.png",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/imageviewer.html",
@@ -3591,7 +3596,8 @@
 			"images/share/06.png",
 			"images/share/05.png",
 			"images/share/04.png",
-			"images/red/bg2.png"
+			"images/red/bg2.png",
+			"mincss/mui.min.css"
 		],
 		"refer": [
 			"page/reddetail.html",

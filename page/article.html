@@ -10,9 +10,14 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<style type="text/css">
+			body {
+				background: #f5f5f5;
+			}
+		</style>
 	</head>
 
-	<body>
+	<body oncontextmenu="return false" onselectstart="return false">
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<div class="mui-title cfff" id="title">我的动态</div>
@@ -65,7 +70,7 @@
 		Init(ArticleType, CreateUserNumber, Source);
 
 		//deleteGroup('20170816') 
-
+ 
 		//plus.storage.clear();  
 
 		//ImgLoaderFactory.clearAll();  
