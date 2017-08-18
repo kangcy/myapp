@@ -140,6 +140,43 @@
 				/*background: #f5f5f5;*/
 				padding: 1rem 0px 0.7rem;
 			}
+			
+			#address .flex-row {
+				padding: 0.825rem 0.9375rem;
+				position: relative;
+				background: #fff;
+			}
+			
+			#address .flex-row:after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #ddd;
+			}
+			
+			#address .flex-row.noborder:after {
+				height: 0px;
+			}
+			
+			#address .flex-row :first-child {
+				flex: 0 0 50%;
+			}
+			
+			#address .flex-row :last-child {
+				flex: 0 0 50%;
+			}
+			
+			.cancel {
+				width: 70%;
+				display: inline-block !important;
+				border-radius: 30px;
+				padding: 0.525rem 0.9375rem;
+			}
 		</style>
 	</head>
 
@@ -176,12 +213,6 @@
 					<div class="swiper-slide">
 						<div id="wrapper1" class="scroll-wrapper">
 							<div id="scroll1" class="scroller">
-								<div id="showPosition" class="full tc hide">
-									<img src="../images/my/333.png" style="width:30%;margin-top:25%" />
-									<p class="mt20 f13 c999">看看周围的人都在玩什么</p>
-									<p class="mt10 f13 c999">请确保已经连接网络并打开了定位服务</p>
-									<div id="btn" class="f13 cfff">开启定位服务</div>
-								</div>
 								<div id="divLocation" class="hide" style="position:fixed;top:0px;left:0px;width:100%;z-index:99;">
 									<a href="#" class="c333">
 										<div class="mt10 mb10 full f12">
@@ -197,6 +228,12 @@
 									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
 								</div>
 							</div>
+							<div id="showPosition" class="full tc hide" style="height:100%;background:#fff;">
+								<img src="../images/my/333.png" style="width:30%;margin-top:25%" />
+								<p class="mt20 f13 c999">看看周围的人都在玩什么</p>
+								<p class="mt10 f13 c999">请确保已经连接网络并打开了定位服务</p>
+								<div id="btn" class="f13 cfff">开启定位服务</div>
+							</div>
 						</div>
 						<div id="none1" class="full tc hide">
 							<img src="../images/my/555.png" class="none" />
@@ -206,11 +243,23 @@
 				</div>
 			</div>
 		</div>
+		<div id="address" class="mui-popover mui-popover-action mui-popover-bottom">
+			<div class="flex-box flex-row noborder f13">
+				<div class="flex-item full tc" style="flex: 0 0 100%;">
+					<span class="cfff f14 cancel" onclick="ClearPosition()">清除缓存</span>
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13">
+				<div class="flex-item red full tc" style="flex: 0 0 100%;">
+					<a href="#address" class="red">取消</a>
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script src="../swipe/iscroll.js"></script>
 <script src="../js/imgcache.js"></script>
@@ -231,8 +280,21 @@
 	mui.ready(function() {
 		base.Immersed();
 
+		mui.each(base.Get(".cancel"), function() {
+			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
+		})
+
 		base.Get("btn").addEventListener("tap", function() {
 			OpenPosition();
+		});
+
+		base.Get("divLocation").addEventListener("tap", function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			mui('#address').popover('show');
+			isLoading = false;
 		});
 	});
 
@@ -296,23 +358,6 @@
 			base.Get("location").innerHTML = position.City + "," + position.District + "," + position.Street;
 			InitPosition();
 		}
-
-		base.Get("divLocation").addEventListener("tap", function() {
-			if(isLoading) {
-				return false;
-			}
-			isLoading = true;
-			var view = base.GetView("action");
-			if(view) {
-				view.evalJS("ResetAction(3,'cityuser')");
-			} else {
-				base.OpenWindow("action", "action.html", {
-					Type: 3,
-					PageName: "cityuser"
-				}, "none", false, false, "transparent");
-			}
-			isLoading = false;
-		});
 
 		base.ShowUser("#swiper-container");
 		base.UserAddFan("#swiper-container", userinfo);
@@ -394,7 +439,6 @@
 	function LoadPullList(url, data, showNone, index, appendCallback, endCallback) {
 		base.Get("wrapper" + index).classList.remove("hide");
 		HttpGet(url, data, function(data) {
-			console.log(JSON.stringify(data))
 			if(data != null) {
 				if(data.result) {
 					totalpage[index] = data.totalpage;
@@ -407,7 +451,7 @@
 						var fragment = document.createDocumentFragment();
 						mui.each(data.list, function(index, item) {
 							fragment.appendChild(appendCallback(item));
-						}); 
+						});
 						table.appendChild(fragment);
 					}
 				} else {
@@ -428,24 +472,28 @@
 	//初始化定位
 	function InitPosition() {
 		if(userinfo.ShowPosition == 0) {
-			base.AddClass(["#divLocation", "#scroll-view"], "hide");
+			base.AddClass(["#divLocation", "#scroll1"], "hide");
 			base.RemoveClass(["#showPosition"], "hide");
-			SetPullEnable(false);
-			base.ShowLoading(false);
 		} else {
 			base.AddClass(["#showPosition"], "hide");
-			base.RemoveClass(["#divLocation", "#scroll-view"], "hide");
-			base.Get("scroll-view").style.paddingTop = base.Get("divLocation").clientHeight + "px";
-			Init();
+			base.RemoveClass(["#divLocation", "#scroll1"], "hide");
+			base.Get("scroll-view1").style.paddingTop = base.Get("divLocation").clientHeight + "px";
+			if(scroll1 != null) {
+				currpage[1] = 1;
+				totalpage[1] = 2;
+				records[1] = 0;
+				base.Get("scroll-view1").innerHTML = "";
+				LoadScroll1();
+			}
 		}
 	}
 
 	//开启定位
 	function OpenPosition() {
-		if(base.IsLoading) {
+		if(isLoading) {
 			return false;
 		}
-		base.IsLoading = true;
+		isLoading = true;
 		HttpGet(base.RootUrl + "User/EditSecret", {
 			ID: userinfo.ID,
 			Name: "ShowPosition",
@@ -462,16 +510,17 @@
 					mui.toast("开启定位服务失败");
 				}
 			}
-			base.IsLoading = false;
+			isLoading = false;
 		});
 	}
 
 	//清除定位
 	function ClearPosition() {
-		if(base.IsLoading) {
+		if(isLoading) {
 			return false;
 		}
-		base.IsLoading = true;
+		isLoading = true;
+		mui('#address').popover('hide');
 		HttpGet(base.RootUrl + "User/EditSecret", {
 			ID: userinfo.ID,
 			Name: "ShowPosition",
@@ -489,7 +538,7 @@
 					mui.toast("位置信息清除失败");
 				}
 			}
-			base.IsLoading = false;
+			isLoading = false;
 		});
 	}
 </script>

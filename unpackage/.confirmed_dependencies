@@ -3763,7 +3763,14 @@
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
 			"swipe/iscroll.js",
-			"mincss/animate.min.css"
+			"mincss/animate.min.css",
+			"images/my/333.png",
+			"js/base.min.js",
+			"mincss/setting.min.css"
+		],
+		"refer": [
+			"page/user.html",
+			"page/action.html"
 		]
 	}
 }
