@@ -9,8 +9,29 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/fan.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../swipe/swiper.min.css">
 		<style type="text/css">
+			#divLocation {
+				background: #f5f5f5;
+			}
+			
+			#divLocation div {
+				height: 2rem;
+				line-height: 2rem;
+				background: #fff;
+				display: inline-block;
+			}
+			
+			#btn {
+				background: #5E92D7;
+				height: 2rem;
+				line-height: 2rem;
+				width: 10rem;
+				border-radius: 20px;
+				display: inline-block;
+			}
+			
 			.my-pagination {
 				transition: transform .3s;
 				position: relative;
@@ -114,10 +135,8 @@
 			
 			#scroll-more0,
 			#scroll-more1,
-			#scroll-more2,
 			#scroll-none0,
-			#scroll-none1,
-			#scroll-none2 {
+			#scroll-none1 {
 				/*background: #f5f5f5;*/
 				padding: 1rem 0px 0.7rem;
 			}
@@ -127,7 +146,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">打赏明细</h1>
+			<h1 class="mui-title cfff">添加关注</h1>
 		</header>
 		<div class="mui-content" id="muicontent">
 			<div class="my-pagination" id="pagination">
@@ -140,9 +159,7 @@
 					<div class="swiper-slide">
 						<div id="wrapper0" class="scroll-wrapper">
 							<div id="scroll0" class="scroller">
-								<div id="scroll-view0">
-									<div id="scroll-view0"></div>
-								</div>
+								<div id="scroll-view0"></div>
 								<div id="scroll-more0" class="full tc">
 									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
 								</div>
@@ -153,12 +170,25 @@
 						</div>
 						<div id="none0" class="full tc hide">
 							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无打赏记录</p>
+							<p class="f13 mt10">大波内容正在赶来，敬请期待~</p>
 						</div>
 					</div>
 					<div class="swiper-slide">
 						<div id="wrapper1" class="scroll-wrapper">
 							<div id="scroll1" class="scroller">
+								<div id="showPosition" class="full tc hide">
+									<img src="../images/my/333.png" style="width:30%;margin-top:25%" />
+									<p class="mt20 f13 c999">看看周围的人都在玩什么</p>
+									<p class="mt10 f13 c999">请确保已经连接网络并打开了定位服务</p>
+									<div id="btn" class="f13 cfff">开启定位服务</div>
+								</div>
+								<div id="divLocation" class="hide" style="position:fixed;top:0px;left:0px;width:100%;z-index:99;">
+									<a href="#" class="c333">
+										<div class="mt10 mb10 full f12">
+											<i class="mui-icon mui-icon-location f14 ml10 mr5 blue bold"></i><span id="location"></span><span class="mui-icon mui-icon-arrowright fr mr10 mt8 blue f16"></span>
+										</div>
+									</a>
+								</div>
 								<div id="scroll-view1"></div>
 								<div id="scroll-more1" class="full tc">
 									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
@@ -170,24 +200,7 @@
 						</div>
 						<div id="none1" class="full tc hide">
 							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无打赏记录</p>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div id="wrapper2" class="scroll-wrapper">
-							<div id="scroll2" class="scroller">
-								<div id="scroll-view2"></div>
-								<div id="scroll-more2" class="full tc">
-									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
-								</div>
-								<div id="scroll-none2" class="full tc hide">
-									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
-								</div>
-							</div>
-						</div>
-						<div id="none2" class="full tc hide">
-							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无提现记录</p>
+							<p class="f13 mt10">大波内容正在赶来，敬请期待~</p>
 						</div>
 					</div>
 				</div>
@@ -200,33 +213,40 @@
 <script src="../minjs/base.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script src="../swipe/iscroll.js"></script>
+<script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 	var $border = base.Get("pagination_border");
-	var scroll0, scroll1, scroll2 = null;
-	var currpage = [1, 1, 1];
-	var totalpage = [2, 2, 2];
-	var records = [0, 0, 0];
-	var isLoading = [false, false, false];
+	var scroll0, scroll1 = null;
+	var currpage = [1, 1];
+	var totalpage = [2, 2];
+	var records = [0, 0];
+	var pageLoading = [false, false];
+	var isLoading = false;
 	var pagesize = 10;
+	var PageName = "addfaninfo";
+	var position = base.GetCurrentPosition();
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
 
+		base.Get("btn").addEventListener("tap", function() {
+			OpenPosition();
+		});
+	});
+
+	mui.plusReady(function() {
 		var mySwiper = new Swiper('#swiper-container', {
 			pagination: '.my-pagination-ul',
 			paginationClickable: true,
 			paginationBulletRender: function(swiper, index, className) {
 				switch(index) {
 					case 0:
-						name = '打赏我的';
+						name = '猜你喜欢';
 						break;
 					case 1:
-						name = '我打赏的';
-						break;
-					case 2:
-						name = '提现记录';
+						name = '同城热门';
 						break;
 					default:
 						name = '';
@@ -249,18 +269,6 @@
 					});
 					LoadScroll1();
 				}
-
-				if(swiper.activeIndex == 2 && scroll2 == null) {
-					scroll2 = new iScroll("wrapper2", {
-						hScroll: false,
-						onScrollEnd: function() {
-							if(this.y >= this.maxScrollY) {
-								LoadScroll2();
-							}
-						}
-					});
-					LoadScroll2()
-				}
 			},
 			onInit: function(swiper) {
 				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
@@ -282,46 +290,52 @@
 			}
 		})
 
-	});
+		if(base.IsNullOrEmpty(position.CityCode)) {
+			mui.toast("定位失败,请开启定位权限");
+		} else {
+			base.Get("location").innerHTML = position.City + "," + position.District + "," + position.Street;
+			InitPosition();
+		}
 
-	mui.plusReady(function() {
-		base.ShowUser("#swiper-container");
-
-		//重置未读推送信息
-		HttpGet(base.RootUrl + "Push/Clear", {
-			number: userinfo.Number,
-			pushtype: PushType.Money
-		}, function(data) {
-			if(data) {
-				var tipsetting = base.GetView("tipsetting")
-				if(tipsetting) {
-					tipsetting.evalJS("PushClear('" + PushType.Money + "')");
-				}
-				var my = base.GetView("my")
-				if(my) {
-					my.evalJS("InitPush()");
-				}
+		base.Get("divLocation").addEventListener("tap", function() {
+			if(isLoading) {
+				return false;
 			}
+			isLoading = true;
+			var view = base.GetView("action");
+			if(view) {
+				view.evalJS("ResetAction(3,'cityuser')");
+			} else {
+				base.OpenWindow("action", "action.html", {
+					Type: 3,
+					PageName: "cityuser"
+				}, "none", false, false, "transparent");
+			}
+			isLoading = false;
 		});
+
+		base.ShowUser("#swiper-container");
+		base.UserAddFan("#swiper-container", userinfo);
+		base.UserOutFan("#swiper-container", userinfo);
 	});
 
-	//打赏我的
+	//用户
 	function LoadScroll0() {
-		if(isLoading[0]) {
+		if(pageLoading[0]) {
 			return;
 		}
-		isLoading[0] = true;
+		pageLoading[0] = true;
 		if(currpage[0] > totalpage[0]) {
-			isLoading[0] = false;
+			pageLoading[0] = false;
 			return false;
 		}
 		var data = {
 			page: currpage[0],
 			rows: pagesize,
-			UserNumber: userinfo.Number
+			Number: userinfo.Number
 		}
-		LoadPullList(base.RootUrl + "Api/Order/ToMe_1_3", data, true, 0, function(item) {
-			return AppendStr(item, 0);
+		LoadPullList(base.RootUrl + "User/RecommendAll", data, true, 0, function(item) {
+			return base.AppendUser(item, true, true, false, "", false, true);
 		}, function() {
 			scroll0.refresh();
 			if(currpage[0] >= totalpage[0]) {
@@ -329,32 +343,32 @@
 				if(base.Get("scroll0").clientHeight > base.Get("wrapper0").clientHeight) {
 					base.Get("scroll-none0").classList.remove("hide");
 				}
-			}
-			if(base.Get("scroll0").clientHeight < base.Get("wrapper0").clientHeight) {
-				scroll0.destroy();
+			} else {
+				base.Get("scroll-more0").classList.remove("hide");
 			}
 			currpage[0]++;
-			isLoading[0] = false;
+			pageLoading[0] = false;
 		});
 	}
 
-	//我打赏的
+	//同城
 	function LoadScroll1() {
-		if(isLoading[1]) {
+		if(pageLoading[1]) {
 			return;
 		}
-		isLoading[1] = true;
+		pageLoading[1] = true;
 		if(currpage[1] > totalpage[1]) {
-			isLoading[1] = false;
+			pageLoading[1] = false;
 			return false;
 		}
 		var data = {
 			page: currpage[1],
 			rows: pagesize,
-			UserNumber: userinfo.Number
+			Number: userinfo.Number,
+			CityCode: position.CityCode
 		}
-		LoadPullList(base.RootUrl + "Api/Order/ToUser_1_3", data, true, 1, function(item) {
-			return AppendStr(item, 1);
+		LoadPullList(base.RootUrl + "User/CityAll", data, true, 1, function(item) {
+			return base.AppendUser(item, false, true, false, "", true, true)
 		}, function() {
 			scroll1.refresh();
 			if(currpage[1] >= totalpage[1]) {
@@ -363,44 +377,8 @@
 					base.Get("scroll-none1").classList.remove("hide");
 				}
 			}
-			if(base.Get("scroll1").clientHeight < base.Get("wrapper1").clientHeight) {
-				scroll1.destroy();
-			}
 			currpage[1]++;
-			isLoading[1] = false;
-		});
-	}
-
-	//提现记录
-	function LoadScroll2() {
-		if(isLoading[2]) {
-			return;
-		}
-		isLoading[2] = true;
-		if(currpage[2] > totalpage[2]) {
-			isLoading[2] = false;
-			return false;
-		}
-		var data = {
-			page: currpage[2],
-			rows: pagesize,
-			UserNumber: userinfo.Number
-		}
-		LoadPullList(base.RootUrl + "Api/Order/Apply_1_3", data, true, 2, function(item) {
-			return AppendStr(item, 2);
-		}, function() {
-			scroll2.refresh();
-			if(currpage[2] >= totalpage[2]) {
-				base.Get("scroll-more2").classList.add("hide");
-				if(base.Get("scroll2").clientHeight > base.Get("wrapper2").clientHeight) {
-					base.Get("scroll-none2").classList.remove("hide");
-				}
-			}
-			if(base.Get("scroll2").clientHeight < base.Get("wrapper2").clientHeight) {
-				scroll2.destroy();
-			}
-			currpage[2]++;
-			isLoading[2] = false;
+			pageLoading[1] = false;
 		});
 	}
 
@@ -416,10 +394,9 @@
 	function LoadPullList(url, data, showNone, index, appendCallback, endCallback) {
 		base.Get("wrapper" + index).classList.remove("hide");
 		HttpGet(url, data, function(data) {
-			data = JSON.parse(data);
+			console.log(JSON.stringify(data))
 			if(data != null) {
 				if(data.result) {
-					data = data.message;
 					totalpage[index] = data.totalpage;
 					records[index] = data.records;
 					if(showNone) {
@@ -430,7 +407,7 @@
 						var fragment = document.createDocumentFragment();
 						mui.each(data.list, function(index, item) {
 							fragment.appendChild(appendCallback(item));
-						});
+						}); 
 						table.appendChild(fragment);
 					}
 				} else {
@@ -448,34 +425,71 @@
 		});
 	}
 
-	function AppendStr(item, type) {
-		if(type == 2) {
-			item.UserNumber = userinfo.Number;
-			item.UserName = userinfo.NickName;
-			item.UserCover = userinfo.Cover;
-			item.UserAvatar = userinfo.Avatar;
+	//初始化定位
+	function InitPosition() {
+		if(userinfo.ShowPosition == 0) {
+			base.AddClass(["#divLocation", "#scroll-view"], "hide");
+			base.RemoveClass(["#showPosition"], "hide");
+			SetPullEnable(false);
+			base.ShowLoading(false);
+		} else {
+			base.AddClass(["#showPosition"], "hide");
+			base.RemoveClass(["#divLocation", "#scroll-view"], "hide");
+			base.Get("scroll-view").style.paddingTop = base.Get("divLocation").clientHeight + "px";
+			Init();
 		}
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user';
-		div.setAttribute("userid", item.UserNumber);
-		div.setAttribute("nickname", item.UserName);
-		div.setAttribute("cover", item.UserCover);
-		div.setAttribute("avatar", item.UserAvatar);
-		var model = [];
-		model.push('<div class="flex-box flex-row">');
-		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.UserAvatar, 1) + '" class="fl"  /></div></div>');
-		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f13 c333">' + base.UnUnicodeText(item.UserName) + '</p><span class="f10 fl c999 mt3">' + item.CreateDate + '</span></div>');
-		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
-		if(type == 0) {
-			model.push('<p class="f11 green">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
-		} else if(type == 1) {
-			model.push('<p class="f11 red">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
-		} else if(type == 2) {
-			model.push('<p class="f11 red">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
+	}
+
+	//开启定位
+	function OpenPosition() {
+		if(base.IsLoading) {
+			return false;
 		}
-		model.push('</div>');
-		model.push('</div></div>');
-		div.innerHTML = model.join('');
-		return div;
+		base.IsLoading = true;
+		HttpGet(base.RootUrl + "User/EditSecret", {
+			ID: userinfo.ID,
+			Name: "ShowPosition",
+			Show: 1
+		}, function(data) {
+			if(data == null) {
+				mui.toast("开启定位服务失败");
+			} else {
+				if(data.result) {
+					userinfo.ShowPosition = 1;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					InitPosition();
+				} else {
+					mui.toast("开启定位服务失败");
+				}
+			}
+			base.IsLoading = false;
+		});
+	}
+
+	//清除定位
+	function ClearPosition() {
+		if(base.IsLoading) {
+			return false;
+		}
+		base.IsLoading = true;
+		HttpGet(base.RootUrl + "User/EditSecret", {
+			ID: userinfo.ID,
+			Name: "ShowPosition",
+			Show: 0
+		}, function(data) {
+			if(data == null) {
+				mui.toast("位置信息清除失败");
+			} else {
+				if(data.result) {
+					userinfo.ShowPosition = 0;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					InitPosition();
+					mui.toast("位置信息已清除");
+				} else {
+					mui.toast("位置信息清除失败");
+				}
+			}
+			base.IsLoading = false;
+		});
 	}
 </script>

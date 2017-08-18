@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/fan.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../swipe/swiper.min.css">
 		<style type="text/css">
 			.my-pagination {
@@ -114,9 +115,9 @@
 			
 			#scroll-more0,
 			#scroll-more1,
-			#scroll-more2,
-			#scroll-none0 {
-				background: #f5f5f5;
+			#scroll-none0,
+			#scroll-none1 {
+				/*background: #f5f5f5;*/
 				padding: 1rem 0px 0.7rem;
 			}
 		</style>
@@ -140,9 +141,7 @@
 					<div class="swiper-slide">
 						<div id="wrapper0" class="scroll-wrapper">
 							<div id="scroll0" class="scroller">
-								<div id="scroll-view0">
-									<div id="scroll-view0"></div>
-								</div>
+								<div id="scroll-view0"></div>
 								<div id="scroll-more0" class="full tc">
 									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
 								</div>
@@ -181,8 +180,10 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
+<script src="../minjs/article.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script src="../swipe/iscroll.js"></script>
+<script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 	var $border = base.Get("pagination_border");
@@ -190,14 +191,31 @@
 	var currpage = [1, 1];
 	var totalpage = [2, 2];
 	var records = [0, 0];
-	var isLoading = [false, false];
+	var pageLoading = [false, false];
+	var isLoading = false;
 	var pagesize = 10;
+	var PageName = "searchinfo";
 	var search = base.Get("search");
+	var searchval = "";
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
 
+		base.Get("btnSearch").addEventListener('tap', function(e) {
+			Search();
+		});
+
+		//监听软键盘搜索键
+		base.Get("search").addEventListener("keydown", function(e) {
+			if(13 == e.keyCode) {
+				document.activeElement.blur(); //隐藏软键盘 
+				Search();
+			}
+		}, false);
+	});
+
+	mui.plusReady(function() {
 		var mySwiper = new Swiper('#swiper-container', {
 			pagination: '.my-pagination-ul',
 			paginationClickable: true,
@@ -224,23 +242,11 @@
 						hScroll: false,
 						onScrollEnd: function() {
 							if(this.y >= this.maxScrollY) {
-								LoadScroll1();
+								LoadScroll1(searchval);
 							}
 						}
 					});
-					LoadScroll1();
-				}
-
-				if(swiper.activeIndex == 2 && scroll2 == null) {
-					scroll2 = new iScroll("wrapper2", {
-						hScroll: false,
-						onScrollEnd: function() {
-							if(this.y >= this.maxScrollY) {
-								LoadScroll2();
-							}
-						}
-					});
-					LoadScroll2()
+					LoadScroll1(searchval);
 				}
 			},
 			onInit: function(swiper) {
@@ -255,53 +261,45 @@
 					hScroll: false,
 					onScrollEnd: function() {
 						if(this.y >= this.maxScrollY) {
-							LoadScroll0();
+							LoadScroll0(searchval);
 						}
 					}
 				});
-				LoadScroll0();
+				LoadScroll0(searchval);
 			}
 		})
 
-		base.Get("btnSearch").addEventListener('tap', function(e) {
-			Search();
-		});
-
-		//监听软键盘搜索键
-		base.Get("search").addEventListener("keydown", function(e) {
-			if(13 == e.keyCode) {
-				document.activeElement.blur(); //隐藏软键盘 
-				Search();
-			}
-		}, false);
-	});
-
-	mui.plusReady(function() {
 		base.ShowUser("#swiper-container");
-		base.ShowArticle("#swiper-container", "List", userinfo.Number);
-		ArticleAction("#swiper-container", userinfo);
+		base.UserAddFan("#scroll-view0", userinfo);
+		base.UserOutFan("#scroll-view0", userinfo);
+		base.ShowArticle("#scroll-view1", "List", userinfo.Number);
+		ArticleAction("#scroll-view1", userinfo);
 	});
 
 	//执行搜索
 	function Search() {
-		var searchval = search.value;
-		if(base.IsNullOrEmpty(searchval)) {
-			currpage = [1, 1];
-			totalpage = [2, 2];
-			records = [0, 0];
+		searchval = search.value;
+		currpage = [1, 1];
+		totalpage = [2, 2];
+		records = [0, 0];
+		if(scroll0 != null) {
+			base.Get("scroll-view0").innerHTML = "";
+			LoadScroll0(searchval)
 		}
-		LoadScroll0(searchval)
-		LoadScroll1(searchval)
+		if(scroll1 != null) {
+			base.Get("scroll-view1").innerHTML = "";
+			LoadScroll1(searchval)
+		}
 	}
 
 	//用户
 	function LoadScroll0(searchval) {
-		if(isLoading[0]) {
+		if(pageLoading[0]) {
 			return;
 		}
-		isLoading[0] = true;
+		pageLoading[0] = true;
 		if(currpage[0] > totalpage[0]) {
-			isLoading[0] = false;
+			pageLoading[0] = false;
 			return false;
 		}
 		var data = {
@@ -319,23 +317,22 @@
 				if(base.Get("scroll0").clientHeight > base.Get("wrapper0").clientHeight) {
 					base.Get("scroll-none0").classList.remove("hide");
 				}
-			}
-			if(base.Get("scroll0").clientHeight < base.Get("wrapper0").clientHeight) {
-				scroll0.destroy();
+			} else {
+				base.Get("scroll-more0").classList.remove("hide");
 			}
 			currpage[0]++;
-			isLoading[0] = false;
+			pageLoading[0] = false;
 		});
 	}
 
 	//文章
 	function LoadScroll1(searchval) {
-		if(isLoading[1]) {
+		if(pageLoading[1]) {
 			return;
 		}
-		isLoading[1] = true;
+		pageLoading[1] = true;
 		if(currpage[1] > totalpage[1]) {
-			isLoading[1] = false;
+			pageLoading[1] = false;
 			return false;
 		}
 		var data = {
@@ -355,11 +352,8 @@
 					base.Get("scroll-none1").classList.remove("hide");
 				}
 			}
-			if(base.Get("scroll1").clientHeight < base.Get("wrapper1").clientHeight) {
-				scroll1.destroy();
-			}
 			currpage[1]++;
-			isLoading[1] = false;
+			pageLoading[1] = false;
 		});
 	}
 

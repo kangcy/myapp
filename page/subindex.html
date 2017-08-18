@@ -97,7 +97,7 @@
 		base.Immersed();
 		base.Get("btnAdd").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 		base.Get("search").addEventListener('tap', function() {
-			base.OpenWindow("search", "search.html", {});
+			base.OpenWindow("searchinfo", "searchinfo.html", {});
 		});
 
 		Avartar(base.ShowThumb(userinfo.Avatar, 2));
@@ -107,7 +107,6 @@
 	mui.plusReady(function() {
 		plus.navigator.setFullscreen(false);
 		self = plus.webview.currentWebview();
-
 		Init(function(data) {
 			mui.each(data, function(i, item) {
 				groupItems.push({

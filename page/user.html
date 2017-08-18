@@ -12,16 +12,16 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/user.min.css">
 	</head>
- 
+
 	<body>
 		<header id="header" class="mui-bar" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<span class="cfff f25 fr more" onclick="More()">•••</span>
 			<h1 class="mui-title cfff">Ta的资料</h1>
-		</header> 
-		<div class="loading" id="loader" style="top:70%;"> 
+		</header>
+		<div class="loading" id="loader" style="top:70%;">
 			<div class="card">
-				<span class="circles-loader"></span> 
+				<span class="circles-loader"></span>
 			</div>
 		</div>
 		<!--操作-->
@@ -196,6 +196,15 @@
 	});
 
 	mui.plusReady(function() {
+		//分享设置
+		UpdateSerivces();
+		if(plus.os.name == "Android") {
+			Intent = plus.android.importClass("android.content.Intent");
+			File = plus.android.importClass("java.io.File");
+			Uri = plus.android.importClass("android.net.Uri");
+			main = plus.android.runtimeMainActivity();
+		}
+
 		self = plus.webview.currentWebview();
 		PageName = self.PageName || "";
 		UserNumber = self.UserNumber || "";
@@ -240,18 +249,6 @@
 		pulldownRefresh();
 
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
-
-		//分享设置
-		mui.later(function() {
-			UpdateSerivces();
-
-			if(plus.os.name == "Android") {
-				Intent = plus.android.importClass("android.content.Intent");
-				File = plus.android.importClass("java.io.File");
-				Uri = plus.android.importClass("android.net.Uri");
-				main = plus.android.runtimeMainActivity();
-			}
-		}, 2000);
 	});
 
 	//刷新用户页

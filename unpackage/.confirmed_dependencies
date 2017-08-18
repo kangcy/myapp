@@ -919,7 +919,8 @@
 			"page/update.html",
 			"page/action.html",
 			"page/addimage.html",
-			"page/red.html"
+			"page/red.html",
+			"page/searchinfo.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -1301,7 +1302,8 @@
 			"images/article/btn_good.png",
 			"part/snow/img/fly1.png",
 			"part/snow/img/fly2.png",
-			"js/snow.js"
+			"js/snow.js",
+			"images/article/6.png"
 		],
 		"refer": [
 			"page/user.html",
@@ -1940,7 +1942,8 @@
 			"css/animate.min.css",
 			"images/article/btn_good.png",
 			"images/avatar.png",
-			"images/icon/heart.png"
+			"images/icon/heart.png",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/articleCommentSub.html",
@@ -3141,7 +3144,8 @@
 			"page/addfan.html",
 			"page/user.html",
 			"page/articleComment.html",
-			"page/articledetail.html"
+			"page/articledetail.html",
+			"page/addfaninfo.html"
 		]
 	},
 	"page/subcomment.html": {
@@ -3715,6 +3719,51 @@
 			"js/jquery-1.10.2.min.js",
 			"part/snow/img/snow2.js",
 			"js/snow.js"
+		]
+	},
+	"page/searchinfo.html": {
+		"resources": [
+			"swipe/swiper.min.css",
+			"mincss/fan.min.css",
+			"swipe/swiper.min.js",
+			"js/imgcache.js",
+			"images/my/555.png",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"images/avatar.png",
+			"minjs/article.min.js",
+			"swipe/iscroll.js",
+			"mincss/loading.min.css",
+			"images/default.png",
+			"mincss/animate.min.css",
+			"images/pull.png",
+			"css/fan.min.css",
+			"images/loading.png",
+			"js/article.min.js"
+		],
+		"refer": [
+			"page/articleComment.html",
+			"page/money.html",
+			"page/user.html",
+			"page/imageviewer.html",
+			"page/action.html",
+			"page/edittext.html",
+			"page/articledetail.html"
+		]
+	},
+	"page/addfaninfo.html": {
+		"resources": [
+			"swipe/swiper.min.css",
+			"mincss/fan.min.css",
+			"swipe/swiper.min.js",
+			"js/imgcache.js",
+			"images/my/555.png",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"swipe/iscroll.js",
+			"mincss/animate.min.css"
 		]
 	}
 }
