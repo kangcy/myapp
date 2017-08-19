@@ -120,14 +120,26 @@
 				/*background: #f5f5f5;*/
 				padding: 1rem 0px 0.7rem;
 			}
+			
+			#scroll-view0 .flex-row:after {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #ddd;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:15%;" id="btnSearch"></a>
-			<div class="mui-input-row mui-search" style="width:87%;	display: inline-block;">
-				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索昵称、标题、支持语音搜索" maxlength="10" style="height:34px;font-size:15px;">
+			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:12%;" id="btnSearch"></a>
+			<div class="mui-input-row mui-search" style="width:90%;	display: inline-block;">
+				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索用户和文章" maxlength="10" style="height:34px;font-size:15px;">
 			</div>
 		</header>
 		<div class="mui-content" id="muicontent">
@@ -157,7 +169,7 @@
 					</div>
 					<div class="swiper-slide">
 						<div id="wrapper1" class="scroll-wrapper">
-							<div id="scroll1" class="scroller">
+							<div id="scroll1" class="scroller" style="background:#f5f5f5;">
 								<div id="scroll-view1"></div>
 								<div id="scroll-more1" class="full tc">
 									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
@@ -222,10 +234,10 @@
 			paginationBulletRender: function(swiper, index, className) {
 				switch(index) {
 					case 0:
-						name = '用户';
+						name = '相关用户';
 						break;
 					case 1:
-						name = '文章';
+						name = '相关文章';
 						break;
 					default:
 						name = '';
@@ -253,13 +265,17 @@
 				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
 				base.Get("swiper-container").style.height = swiperheight;
 
+				mui.each(base.Get(".scroller"), function() { 
+					this.style.minHeight = swiperheight;
+				})
+
 				var $this = mui("#pagination li")[0];
 				$border.style.width = $this.clientWidth * 0.4 + "px";
 				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
 
 				scroll0 = new iScroll("wrapper0", {
 					hScroll: false,
-					onScrollEnd: function() {
+					onScrollEnd: function() { 
 						if(this.y >= this.maxScrollY) {
 							LoadScroll0(searchval);
 						}

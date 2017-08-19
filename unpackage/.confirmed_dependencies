@@ -1567,7 +1567,8 @@
 			"page/edittext.html",
 			"page/articledetail.html",
 			"page/imageview.html",
-			"page/action.html"
+			"page/action.html",
+			"page/imageviewer.html"
 		]
 	},
 	"page/keepSub.html": {

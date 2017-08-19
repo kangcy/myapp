@@ -177,6 +177,18 @@
 				border-radius: 30px;
 				padding: 0.525rem 0.9375rem;
 			}
+			
+			.flex-row:after {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #ddd;
+			}
 		</style>
 	</head>
 
@@ -335,6 +347,10 @@
 			onInit: function(swiper) {
 				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
 				base.Get("swiper-container").style.height = swiperheight;
+
+				mui.each(base.Get(".scroller"), function() {
+					this.style.minHeight = swiperheight;
+				})
 
 				var $this = mui("#pagination li")[0];
 				$border.style.width = $this.clientWidth * 0.4 + "px";
