@@ -88,8 +88,6 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/mui.lazyload.min.js"></script>
-<script src="../minjs/mui.lazyload.img.min.js"></script>
 <script type="text/javascript">
 	var fileId = 0;
 	var fileName = "";
@@ -107,10 +105,6 @@
 		}
 	});
 
-	var lazyLoad = mui("#scroll-view").imageLazyload({
-		placeholder: '../images/avatar.png',
-		destroy: false
-	});
 	var search = base.Get("search");
 
 	mui.ready(function() {
@@ -292,8 +286,6 @@
 							fragment.appendChild(AppendHtml(item));
 						});
 						table.appendChild(fragment);
-
-						lazyLoad.refresh(true);
 					}
 				}
 			}
@@ -311,7 +303,7 @@
 		div.setAttribute("fileName", item.Author + "「" + item.Name + "」");
 		div.setAttribute("fileUrl", item.FileUrl);
 		var model = [];
-		model.push('<img data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
+		model.push('<img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
 		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt1">' + item.Author + "「" + item.Remark + "」" + '</span></p>');
 		model.push('<span class="fr csubtitle mui-icon uncheck" style="position:absolute;right:0.5rem;top:1rem;"></span>');
 		div.innerHTML = model.join('');

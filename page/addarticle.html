@@ -9,6 +9,11 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../css/addarticle.min.css">
+		<style type="text/css">
+			.mui-table-view-cell {
+				padding: .625rem .9375rem;
+			}
+		</style>
 	</head>
 
 	<body style="background: #E8E8E8;">
@@ -168,11 +173,15 @@
 
 		//新增图片
 		mui('#edit').on('tap', '.edit-add-pic', function() {
+			$("#edit").find(".icons").addClass("hide");
+			$("#edit").find(".edit-add").removeClass("hide");
 			mui('#upload').popover('show');
 		});
 
 		//新增文本
 		mui('#edit').on('tap', '.edit-add-text', function() {
+			$("#edit").find(".icons").addClass("hide");
+			$("#edit").find(".edit-add").removeClass("hide");
 			base.OpenWindow("editdesc", "editdesc.html", {
 				ArticleNumber: ArticleNumber,
 				PartID: 0
@@ -181,6 +190,8 @@
 
 		//新增视频
 		mui('#edit').on('tap', '.edit-add-video', function() {
+			$("#edit").find(".icons").addClass("hide");
+			$("#edit").find(".edit-add").removeClass("hide");
 			base.OpenWindow("editvideo", "editvideo.html", {
 				ArticleNumber: ArticleNumber
 			});
@@ -432,12 +443,12 @@
 			CityCode: position.CityCode,
 			Latitude: position.Latitude,
 			Longitude: position.Longitude,
-			Part: escape(JSON.stringify(InitParts)) 
+			Part: escape(JSON.stringify(InitParts))
 		}
 		HttpPost(base.RootUrl + "Article/Edit", param,
 			function(data) {
 				if(data != null) {
-					if(data.result) { 
+					if(data.result) {
 						if(Source == "Add") {
 							userinfo.Articles += 1;
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
