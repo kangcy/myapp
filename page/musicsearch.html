@@ -148,7 +148,7 @@
 			if(base.IsNullOrEmpty(search.value)) {
 				return mui.toast("请输入搜索内容");
 			}
-			document.activeElement.blur();
+			//document.activeElement.blur();
 			mui.later(function() {
 				InitMusic(search.value);
 			}, 250);
@@ -160,9 +160,9 @@
 				if(base.IsNullOrEmpty(search.value)) {
 					return mui.toast("请输入搜索内容");
 				}
-				document.activeElement.blur();
 				mui.later(function() {
-					InitMusic(search.value);
+					base.Get("search").blur();
+					mui.trigger(base.Get("btnSearch"), "tap")
 				}, 250);
 			}
 		}, false);

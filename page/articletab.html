@@ -95,7 +95,7 @@
 				if(length > 0) {
 					var html = [];
 					data.list.forEach(x => {
-						html.push('<img src="' + x.Cover + '" number="' + x.Link + '" class="full fl">');
+						html.push('<img src="' + x.Cover + '" number="' + x.Link + '" type="' + x.Type + '" sharetitle="' + x.ShareTitle + '" shareicon="' + x.ShareIcon + '" class="full fl">');
 					})
 					base.Get("slider").innerHTML = html.join('');
 					base.Get("slider").classList.remove("hide");
@@ -104,14 +104,27 @@
 					mui("#slider").on('tap', 'img', function() {
 						if(isLoading) {
 							return false;
-						}
+						} 
 						isLoading = true;
 						var number = this.getAttribute('number');
-						console.log(number);
 						if(!base.IsNullOrEmpty(number)) {
-							base.OpenWindow("bannerdetail", "bannerdetail.html", {
-								ArticleID: number
-							}, null, "none");
+							var shareTitle = this.getAttribute('ShareTitle');
+							var shareIcon = this.getAttribute('ShareIcon');
+							if(number.toString().toLowerCase().indexOf("http://") < 0) {
+								base.OpenWindow("articledetail", "articledetail.html", {
+									ArticleID: number,
+									Source: "Banner",
+									ArticlePower: 3, 
+									NickName: ""
+								}, null, "none");
+
+							} else {
+								base.OpenWindow("bannerdetail", "bannerdetail.html", {
+									Url: number,
+									ShareTitle: shareTitle,
+									ShareIcon: shareIcon
+								}, null, "none");
+							}
 						}
 						isLoading = false;
 					});

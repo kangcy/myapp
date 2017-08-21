@@ -2623,7 +2623,8 @@
 			"page/addimage.html",
 			"page/editdesc2.html",
 			"page/showy.html",
-			"page/mypayinfo.html"
+			"page/mypayinfo.html",
+			"page/bannerdetail.html"
 		]
 	},
 	"page/money.html": {
@@ -3406,7 +3407,8 @@
 			"page/articleComment.html",
 			"page/imageviewer.html",
 			"page/action.html",
-			"page/pic.html"
+			"page/pic.html",
+			"page/bannerdetail.html"
 		]
 	},
 	"page/imageview.html": {
@@ -3772,6 +3774,19 @@
 		"refer": [
 			"page/user.html",
 			"page/action.html"
+		]
+	},
+	"page/bannerdetail.html": {
+		"resources": [
+			"minjs/base.min.js",
+			"mincss/articledetail.min.css",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"js/music.js",
+			"js/video.js",
+			"mincss/animate.min.css",
+			"mincss/loading.min.css",
+			"images/article/pen.png"
 		]
 	}
 }

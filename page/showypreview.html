@@ -78,6 +78,10 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.Get("wrapper").style.height = (window.innerHeight - base.Get("header").clientHeight - base.Get("addcomment").clientHeight) + "px";
+		
+		$.fn.snow.init({
+			wrapper: '#snowwrapper'
+		});
 	})
 
 	mui.plusReady(function() {

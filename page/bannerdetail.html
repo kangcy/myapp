@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../mincss/articledetail.min.css">
+	</head>
+	<!--禁止复制-->
+
+	<body id="body" oncontextmenu="return false" onselectstart="return false">
+		<header id="header" class="mui-bar">
+			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
+			<span class="cfff f25 fr more" onclick="ShareTan(1)">•••</span>
+			<h1 class="mui-title cfff" id="title">专属红包活动</h1>
+		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<!--分享-->
+		<div class="myshare hide" id="myshare">
+			<p class="f16 c000 tc mt10 mb0">分享到</p>
+			<div class="tc c000 myshare_body">
+				<div class="myshare_items" onclick="ShareAction(1)"><img src="../images/share/01.png" />
+					<p class="f11 mb0 c000">朋友圈</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(2)"><img src="../images/share/02.png" />
+					<p class="f11 mb0 c000">微信</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(3)"><img src="../images/share/03.png" />
+					<p class="f11 mb0 c000">新浪微博</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(4)"><img src="../images/share/04.png" />
+					<p class="f11 mb0 c000">QQ</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(5)"><img src="../images/share/05.png" />
+					<p class="f11 mb0 c000">QQ空间</p>
+				</div>
+				<div class="myshare_items" onclick="ShareAction(6)"><img src="../images/share/06.png" />
+					<p class="f11 mb0 c000">其他</p>
+				</div>
+				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(2)">取消</div>
+			</div>
+		</div>
+		<!--打赏-->
+		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
+		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
+		<div id="muicontent" class="">
+			<iframe id="iframe" style="width:100%;border:0px;"></iframe>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../js/music.js"></script>
+<script src="http://player.youku.com/jsapi"></script>
+<script src="../js/video.js"></script>
+<script type="text/javascript">
+	var Article = {};
+	var ShareInfo = {
+		Url: "",
+		Title: "",
+		Cover: ""
+	}; //分享信息
+	var isLoading = false;
+	var MusicID = ""; //音乐控件ID
+	var MusicUrl = "";
+	var userinfo = base.GetUserInfo();
+
+	//显示遮罩
+	var mask = base.CreateMask(true, function() {
+		ShareTan(0);
+		mui('#topPopover').popover('hide');
+		base.CloseWaiting();
+	});
+
+	//启用双击监听 
+	mui.init();
+
+	mui.ready(function() {
+		base.Immersed();
+		base.Get("iframe").style.height = (window.innerHeight - base.Get("header").clientHeight) + "px";
+
+		base.ShowUser("#body");
+	});
+
+	var Intent = null,
+		File = null,
+		Uri = null,
+		main = null;
+	var self = null,
+		wc = null;
+
+	mui.plusReady(function() {
+
+		self = plus.webview.currentWebview();
+		MusicUrl = self.MusicUrl || "";
+		ShareInfo.Title = self.ShareTitle || "";
+		ShareInfo.Cover = self.ShareIcon || "";
+		ShareInfo.Url = self.Url || "";
+
+		if(base.IsNullOrEmpty(ShareInfo.Url)) {
+			mui.toast("文章暂时关闭访问");
+			plus.webview.currentWebview().hide();
+			plus.webview.currentWebview().close();
+			return
+		}
+
+		//分享设置
+		updateSerivces();
+
+		if(plus.os.name == "Android") {
+			Intent = plus.android.importClass("android.content.Intent");
+			File = plus.android.importClass("java.io.File");
+			Uri = plus.android.importClass("android.net.Uri");
+			main = plus.android.runtimeMainActivity();
+		}
+
+		Load();
+	});
+
+	//复制到剪贴板
+	function CopyToClip() {
+		var Context = plus.android.importClass("android.content.Context");
+		var main = plus.android.runtimeMainActivity();
+		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+		plus.android.invoke(clip, "setText", ShareInfo.Url);
+		mui.toast("分享链接已复制到剪贴板");
+	}
+
+	//加载文章
+	function Load(callback) {
+		if(audio != null) {
+			var item = document.getElementById("bgsound")
+			item.parentNode.removeChild(item);
+			audio = null;
+		}
+
+		//实例化播放器
+		mui.each(mui(".youku_player"), function() {
+			var $this = this;
+			ShowVideo($this.getAttribute("id"), $this.getAttribute("sid"));
+		})
+
+		mui.each(mui(".video"), function() {
+			var $this = this;
+			//可以播放
+			$this.addEventListener('canplay', function() {
+				$this.parentNode.classList.remove("hide");
+			});
+		});
+
+		base.Get("iframe").setAttribute("src", ShareInfo.Url);
+		base.ShowLoading(false);
+
+		//启用打赏
+		base.Get("btnPay").classList.remove("hide");
+	}
+
+	//打开支付
+	function PaymentTan() {
+		base.OpenWindow("money", "money.html", {
+			ArticleNumber: Article.Number,
+			ArticleUserNumber: Article.UserNumber,
+			Name: Article.NickName,
+			Avatar: Article.Avatar
+		});
+	}
+
+	function Video(video) {
+		document.removeEventListener('touchstart', Video(video));
+		if(!video) {
+			return;
+		}
+		if(video.paused) {
+			video.play();
+		} else {
+			video.pause();
+		}
+	}
+
+	//分享
+	var shares = null; //分享服务
+	var shareImageUrl = ''; //分享图片地址
+
+	//更新分享服务
+	function updateSerivces() {
+		plus.share.getServices(function(s) {
+			shares = {};
+			for(var i in s) {
+				var t = s[i];
+				shares[t.id] = t;
+			}
+		}, function(e) {
+			console.log("获取分享服务列表失败：" + e.message);
+		});
+	}
+
+	//分享弹窗
+	function ShareTan(index) {
+		if(index == 0) {
+			base.Get("myshare").classList.remove("zoomIn");
+			base.Get("myshare").classList.add("hide");
+		} else if(index == 1) {
+			mask.show();
+			base.Get("myshare").classList.remove("hide");
+			base.Get("myshare").classList.add("zoomIn");
+		} else {
+			mask.close();
+		}
+	}
+
+	//分享信息
+	function ShareAction(index) {
+		ShareTan(2);
+
+		//系统分享
+		if(index == 6) {
+			ShareSystem();
+			return;
+		}
+		//复制链接
+		if(index == 7) {
+			CopyToClip();
+			return;
+		}
+		//收藏
+		if(index == 8) {
+			Keep();
+			return;
+		}
+		//举报
+		if(index == 9) {
+			base.OpenWindow("edittext", "edittext.html", {
+				source: "report",
+				ArticleNumber: Article.Number
+			});
+			return;
+		}
+		//取消收藏
+		if(index == 10) {
+			OutKeep();
+			return;
+		}
+
+		var id = "";
+		var ex = "";
+		switch(index) {
+			//朋友圈
+			case 1:
+				id = "weixin";
+				ex = "WXSceneTimeline";
+				break;
+				//微信
+			case 2:
+				id = "weixin";
+				ex = "WXSceneSession";
+				break;
+				//新浪微博
+			case 3:
+				id = "sinaweibo";
+				ex = "";
+				break;
+				//qq
+			case 4:
+				id = "qq";
+				ex = "";
+				break;
+				//qq空间
+			case 5:
+				id = "qq";
+				ex = "";
+				break;
+			default:
+				break;
+		}
+		var s = null;
+		if(!id || !(s = shares[id])) {
+			console.log("无效的分享服务！");
+			return;
+		}
+		if(s.authenticated) {
+			shareMessage(s, ex, id);
+		} else {
+			mui.toast("授权中");
+			s.authorize(function() {
+				shareMessage(s, ex, id);
+			}, function(e) {
+				mui.toast("认证授权失败");
+			});
+		}
+	}
+
+	//系统分享
+	function ShareSystem() {
+		if(plus.os.name !== "Android") {
+			plus.nativeUI.alert("此平台暂不支持系统分享功能");
+			return;
+		}
+		var intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_SUBJECT, "");
+		intent.putExtra(Intent.EXTRA_TEXT, "分享自「小微篇」" + ShareInfo.Title + " " + ShareInfo.Url);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		main.startActivity(Intent.createChooser(intent, "系统分享"));
+		base.ShareLog(userinfo.Number, Article.Number, "system", 0);
+	}
+
+	//发送分享信息
+	function shareMessage(s, ex, id) {
+		var msg = {
+			href: ShareInfo.Url,
+			title: ShareInfo.Title,
+			content: "分享自「小微篇」",
+			thumbs: [ShareInfo.Cover],
+			pictures: [ShareInfo.Cover],
+			extra: {
+				scene: ex
+			}
+		};
+		s.send(msg, function() {
+			mui.toast("分享成功");
+			base.ShareLog(userinfo.Number, Article.Number, id, 0);
+		}, function(e) {
+			mui.toast("分享失败");
+		});
+	}
+</script>
