@@ -3721,7 +3721,9 @@
 			"part/snow/img/snow.png",
 			"js/jquery-1.10.2.min.js",
 			"part/snow/img/snow2.js",
-			"js/snow.js"
+			"js/snow.js",
+			"images/avatar.png",
+			"images/check.png"
 		]
 	},
 	"page/searchinfo.html": {

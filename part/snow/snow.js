@@ -20,14 +20,6 @@
 
 			if(!window.requestAnimationFrame) {
 				window.requestAnimationFrame = function(callback, element) {
-					/*
-					var currTime = new Date().getTime();
-					var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
-					var id = window.setTimeout(function () {
-					    callback(currTime + timeToCall);
-					}, timeToCall);
-					lastTime = currTime + timeToCall;
-					 */
 					var timeToCall = 14; //freezes in safari for windows ,and mac to , so i change time to call with 14;
 					var id = window.setTimeout(function() {
 						callback(timeToCall);
@@ -54,7 +46,7 @@
 		for(var i = 0; i < this.flakeCount; i++) {
 			var x = Math.floor(Math.random() * this.canvas.width),
 				y = Math.floor(Math.random() * this.canvas.height),
-				size = Math.floor(100 * Math.random()) % this.settings.size + 2,
+				size = Math.floor((Math.random() - 0.5) * this.settings.size),
 				speed = Math.floor(100 * Math.random()) % this.settings.speed + Math.random() * size / 10 + .5,
 				opacity = .5 * Math.random() + this.settings.opacity;
 			this.flakes.push({

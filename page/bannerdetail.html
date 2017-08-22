@@ -50,9 +50,6 @@
 				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(2)">取消</div>
 			</div>
 		</div>
-		<!--打赏-->
-		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
-		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
 		<div id="muicontent" class="">
 			<iframe id="iframe" style="width:100%;border:0px;"></iframe>
 		</div>
@@ -62,8 +59,6 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../js/music.js"></script>
-<script src="http://player.youku.com/jsapi"></script>
-<script src="../js/video.js"></script>
 <script type="text/javascript">
 	var Article = {};
 	var ShareInfo = {
@@ -79,7 +74,6 @@
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
 		ShareTan(0);
-		mui('#topPopover').popover('hide');
 		base.CloseWaiting();
 	});
 
@@ -166,16 +160,6 @@
 		base.Get("btnPay").classList.remove("hide");
 	}
 
-	//打开支付
-	function PaymentTan() {
-		base.OpenWindow("money", "money.html", {
-			ArticleNumber: Article.Number,
-			ArticleUserNumber: Article.UserNumber,
-			Name: Article.NickName,
-			Avatar: Article.Avatar
-		});
-	}
-
 	function Video(video) {
 		document.removeEventListener('touchstart', Video(video));
 		if(!video) {
@@ -228,30 +212,6 @@
 			ShareSystem();
 			return;
 		}
-		//复制链接
-		if(index == 7) {
-			CopyToClip();
-			return;
-		}
-		//收藏
-		if(index == 8) {
-			Keep();
-			return;
-		}
-		//举报
-		if(index == 9) {
-			base.OpenWindow("edittext", "edittext.html", {
-				source: "report",
-				ArticleNumber: Article.Number
-			});
-			return;
-		}
-		//取消收藏
-		if(index == 10) {
-			OutKeep();
-			return;
-		}
-
 		var id = "";
 		var ex = "";
 		switch(index) {

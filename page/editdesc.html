@@ -170,7 +170,7 @@
 			<a id="submit" class="mui-icon  mui-text cfff fr">保存</a>
 			<h1 class="mui-title cfff">编辑文字</h1>
 		</header>
-		<nav id="color" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
+		<nav id="color" class="mui-bar mui-bar-tab hide" style="background:#ddd;bottom:50px;">
 			<div class="color fr" style="background:#000;" data-type="ForeColor" data="#000"></div>
 			<div class="color fr" style="background:#808080;" data-type="ForeColor" data="#808080"></div>
 			<div class="color fr" style="background:#ED2308;" data-type="ForeColor" data="#ED2308"></div>
@@ -179,7 +179,8 @@
 			<div class="color fr" style="background:#167EFB;" data-type="ForeColor" data="#167EFB"></div>
 			<div class="color fr" style="background:#B04FBB;" data-type="ForeColor" data="#B04FBB"></div>
 		</nav>
-		<nav id="bgcolor" class="mui-bar mui-bar-tab hide" style="background:#fff;bottom:50px;">
+		<nav id="bgcolor" class="mui-bar mui-bar-tab hide" style="background:#ddd;bottom:50px;">
+			<div class="color fr" style="background:#fff;" data-type="BackColor" data="transparent"></div>
 			<div class="color fr" style="background:#808080;" data-type="BackColor" data="#808080"></div>
 			<div class="color fr" style="background:#ED2308;" data-type="BackColor" data="#ED2308"></div>
 			<div class="color fr" style="background:#FF8A00;" data-type="BackColor" data="#FF8A00"></div>
@@ -188,7 +189,7 @@
 			<div class="color fr" style="background:#B04FBB;" data-type="BackColor" data="#B04FBB"></div>
 		</nav>
 		<nav id="align" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
-			<div class="menus" id="align_first">
+			<div class="menus" id="align_first"> 
 				<div class="menu format" id="btnRight"> </div>
 				<div class="menu format" id="btnCenter"> </div>
 				<div class="menu format" id="btnLeft"> </div>
@@ -270,10 +271,10 @@
 	var $edit = base.Get("editor");
 
 	window.onload = function() {
-		$edit.style.height = window.innerHeight - 170 + "px";
+		$edit.style.height = window.innerHeight - 165 + "px";
 	};
 	window.onresize = function() {
-		$edit.style.height = window.innerHeight - 170 + "px";
+		$edit.style.height = window.innerHeight - 165 + "px";
 	};
 
 	mui.init();
