@@ -279,7 +279,9 @@
 			"js/login.min.js",
 			"mincss/setting.min.css",
 			"js/update.min.js",
-			"js/imgcache.js"
+			"js/imgcache.js",
+			"images/red/img_logo.png",
+			"images/login/logo.png"
 		],
 		"refer": [
 			"page/login.html",
@@ -3396,7 +3398,9 @@
 			"css/mui.min.css",
 			"js/imgcache.js",
 			"images/avatar.png",
-			"images/default.png"
+			"images/default.png",
+			"images/adv/01_text.png",
+			"images/adv/02_text.png"
 		],
 		"refer": [
 			"page/user.html",
@@ -3723,7 +3727,8 @@
 			"part/snow/img/snow2.js",
 			"js/snow.js",
 			"images/avatar.png",
-			"images/check.png"
+			"images/check.png",
+			"images/article/music.png"
 		]
 	},
 	"page/searchinfo.html": {
@@ -3788,7 +3793,13 @@
 			"js/video.js",
 			"mincss/animate.min.css",
 			"mincss/loading.min.css",
-			"images/article/pen.png"
+			"images/article/pen.png",
+			"images/share/01.png",
+			"images/share/02.png",
+			"images/share/03.png",
+			"images/share/06.png",
+			"images/share/05.png",
+			"images/share/04.png"
 		]
 	}
 }

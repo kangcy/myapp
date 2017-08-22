@@ -23,8 +23,28 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<div id="slider" class="mui-slider hide">
-				<!--<img src="../images/banner.jpg" class="full fl">-->
+			<!--<div id="slider" class="mui-slider hide">
+				<img src="../images/banner.jpg" class="full fl">
+				<img src="../images/banner.jpg" class="full fl">
+			</div>-->
+			<div id="slider" class="mui-slider hide" style="height:8.5rem;">
+				<!--<div class="mui-slider-group mui-slider-loop">
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<img src="http://www.xiaoweipian.com/Images/Banner/banner.jpg" />
+					</div>
+					<div class="mui-slider-item">
+						<img src="http://www.xiaoweipian.com/Images/Banner/banner.jpg" />
+					</div>
+					<div class="mui-slider-item">
+						<img src="http://www.xiaoweipian.com/Images/Banner/banner.jpg" />
+					</div>
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<img src="http://www.xiaoweipian.com/Images/Banner/banner.jpg" />
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+				</div>-->
 			</div>
 			<div id="scroll-view"></div>
 			<div id="scroll-more" class="full hide">
@@ -94,17 +114,49 @@
 				var length = data.records;
 				if(length > 0) {
 					var html = [];
-					data.list.forEach(x => {
-						html.push('<img src="' + x.Cover + '" number="' + x.Link + '" type="' + x.Type + '" sharetitle="' + x.ShareTitle + '" shareicon="' + x.ShareIcon + '" class="full fl">');
-					})
+					if(length == 1) {
+						html.push('<div class="mui-slider-group">');
+						data.list.forEach(x => {
+							html.push('<div class="mui-slider-item"><img src="' + x.Cover + '" number="' + x.Link + '" type="' + x.Type + '" sharetitle="' + x.ShareTitle + '" shareicon="' + x.ShareIcon + '" class="full"></div>');
+						})
+						html.push('</div>');
+					} else {
+						html.push('<div class="mui-slider-group mui-slider-loop">');
+						var first = data.list[0];
+						var last = data.list[length - 1];
+						html.push('<div class="mui-slider-item mui-slider-item-duplicate"><img src="' + first.Cover + '" number="' + first.Link + '" type="' + first.Type + '" sharetitle="' + first.ShareTitle + '" shareicon="' + first.ShareIcon + '" class="full"></div>');
+						data.list.forEach(x => {
+							html.push('<div class="mui-slider-item"><img src="' + x.Cover + '" number="' + x.Link + '" type="' + x.Type + '" sharetitle="' + x.ShareTitle + '" shareicon="' + x.ShareIcon + '" class="full"></div>');
+						})
+						html.push('<div class="mui-slider-item mui-slider-item-duplicate"><img src="' + last.Cover + '" number="' + last.Link + '" type="' + last.Type + '" sharetitle="' + last.ShareTitle + '" shareicon="' + last.ShareIcon + '" class="full"></div>');
+						html.push('</div>');
+
+						html.push('<div class="mui-slider-indicator">');
+						var index = 0;
+						data.list.forEach(x => {
+							if(index == 0) {
+								html.push('<div class="mui-indicator mui-active"></div>');
+							} else {
+								html.push('<div class="mui-indicator"></div>');
+							}
+							index++;
+						})
+						html.push('</div>');
+					}
+
 					base.Get("slider").innerHTML = html.join('');
 					base.Get("slider").classList.remove("hide");
+					if(length > 1) {
+						mui('.mui-slider').slider({
+							interval: 3000
+						});
+					}
 
 					//图片预览
 					mui("#slider").on('tap', 'img', function() {
 						if(isLoading) {
 							return false;
-						} 
+						}
 						isLoading = true;
 						var number = this.getAttribute('number');
 						if(!base.IsNullOrEmpty(number)) {
@@ -114,7 +166,7 @@
 								base.OpenWindow("articledetail", "articledetail.html", {
 									ArticleID: number,
 									Source: "Banner",
-									ArticlePower: 3, 
+									ArticlePower: 3,
 									NickName: ""
 								}, null, "none");
 

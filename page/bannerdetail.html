@@ -10,8 +10,13 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
-		<link rel="stylesheet" href="../mincss/articledetail.min.css">
-	</head>
+		<style type="text/css">
+			.more {
+				margin-top: 0.35rem;
+				margin-right: 0.4rem;
+			}
+		</style>
+	</head> 
 	<!--禁止复制-->
 
 	<body id="body" oncontextmenu="return false" onselectstart="return false">
@@ -122,15 +127,6 @@
 		Load();
 	});
 
-	//复制到剪贴板
-	function CopyToClip() {
-		var Context = plus.android.importClass("android.content.Context");
-		var main = plus.android.runtimeMainActivity();
-		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
-		plus.android.invoke(clip, "setText", ShareInfo.Url);
-		mui.toast("分享链接已复制到剪贴板");
-	}
-
 	//加载文章
 	function Load(callback) {
 		if(audio != null) {
@@ -139,37 +135,8 @@
 			audio = null;
 		}
 
-		//实例化播放器
-		mui.each(mui(".youku_player"), function() {
-			var $this = this;
-			ShowVideo($this.getAttribute("id"), $this.getAttribute("sid"));
-		})
-
-		mui.each(mui(".video"), function() {
-			var $this = this;
-			//可以播放
-			$this.addEventListener('canplay', function() {
-				$this.parentNode.classList.remove("hide");
-			});
-		});
-
 		base.Get("iframe").setAttribute("src", ShareInfo.Url);
 		base.ShowLoading(false);
-
-		//启用打赏
-		base.Get("btnPay").classList.remove("hide");
-	}
-
-	function Video(video) {
-		document.removeEventListener('touchstart', Video(video));
-		if(!video) {
-			return;
-		}
-		if(video.paused) {
-			video.play();
-		} else {
-			video.pause();
-		}
 	}
 
 	//分享

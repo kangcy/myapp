@@ -196,15 +196,6 @@
 	});
 
 	mui.plusReady(function() {
-		//分享设置
-		UpdateSerivces();
-		if(plus.os.name == "Android") {
-			Intent = plus.android.importClass("android.content.Intent");
-			File = plus.android.importClass("java.io.File");
-			Uri = plus.android.importClass("android.net.Uri");
-			main = plus.android.runtimeMainActivity();
-		}
-
 		self = plus.webview.currentWebview();
 		PageName = self.PageName || "";
 		UserNumber = self.UserNumber || "";
@@ -223,6 +214,16 @@
 			$bg.style.background = "url(" + base.ShowThumb(Cover, 1) + ") center center no-repeat";
 			$bg.style.backgroundSize = "cover";
 		}
+
+		//分享设置
+		UpdateSerivces();
+		if(plus.os.name == "Android") {
+			Intent = plus.android.importClass("android.content.Intent");
+			File = plus.android.importClass("java.io.File");
+			Uri = plus.android.importClass("android.net.Uri");
+			main = plus.android.runtimeMainActivity();
+		}
+
 		LoadUserInfo(function(data) {
 
 			//检查关注
@@ -286,15 +287,15 @@
 				data = data.message;
 
 				Sex = data.Sex;
-				if(base.IsNullOrEmpty(Cover)) {
+				if(base.IsNullOrEmpty(Cover) || Cover != data.Cover) {
 					$bg.style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
 					$bg.style.backgroundSize = "cover";
 				}
-				if(base.IsNullOrEmpty(Avatar)) {
+				if(base.IsNullOrEmpty(Avatar) || Avatar != data.Avatar) {
 					Avatar = data.Avatar;
 					base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
 				}
-				if(base.IsNullOrEmpty(NickName)) {
+				if(base.IsNullOrEmpty(NickName) || NickName != data.NickName) {
 					NickName = base.UnUnicodeText(data.NickName);
 					base.Get("nickname").innerHTML = NickName;
 				}

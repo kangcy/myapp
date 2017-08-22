@@ -18,21 +18,20 @@
 				top: 80px !important;
 				right: 6px;
 			}
-			
+			 
 			#topPopover .mui-popover-arrow {
 				left: auto;
 				right: 6px;
 			}
 			
-			.snow-canvas {
-				display: block;
+			#snowwrapper {
+				pointer-events: none;
+				position: fixed;
+				z-index: 99999;
 				width: 100%;
 				height: 100%;
-				top: 0;
 				left: 0;
-				position: fixed;
-				pointer-events: none;
-				z-index: 99999;
+				top: 0;
 			}
 		</style>
 	</head>
@@ -50,9 +49,9 @@
 			</div>
 		</div>
 
-		<!--操作--> 
-		<div id="topPopover" class="mui-popover"> 
-			<div class="mui-popover-arrow"></div> 
+		<!--操作-->
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
 			<ul class="mui-table-view tc f12" style="background:#fff;">
 				<li id="popover_delete" onclick="Delete()" class="mui-table-view-cell" style="background:url(../images/article/1.png) no-repeat;background-size: 1.3rem;background-position: 40%;text-indent: 10%;">
 					删除
@@ -73,7 +72,7 @@
 		</div>
 
 		<!--漂浮特效-->
-		<div id="snowwrapper" class="hide"> </div>
+		<canvas id="snowwrapper"></canvas>
 		<div id="self" class="full tc hide">
 			<img src="../images/article/stop.png" class="none" />
 			<p class="mt20 f16 c333">私密文章</p>
@@ -193,7 +192,7 @@
 					</div>
 				</div>
 				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 c333 tc hide" id="title1"></p>
+					<p class="f16 c333 tc hide mb10" id="title1"></p>
 					<div class="c333 full" id="desc">
 
 					</div>
@@ -463,7 +462,6 @@
 							base.Get("password").classList.remove("hide");
 						} else {
 							$wrapper.classList.remove("hide");
-							base.Get("snowwrapper").classList.remove("hide");
 							mui.later(function() {
 								InitShowy(data.Showy);
 							}, 1000)
@@ -471,7 +469,6 @@
 					} else {
 						$wrapper.classList.remove("hide");
 						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
-						base.Get("snowwrapper").classList.remove("hide");
 						mui.later(function() {
 							InitShowy(data.Showy);
 						}, 1000)
@@ -499,13 +496,13 @@
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 mt5"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full" /></div>');
+							html.push('<div class="full f13 fl mb10"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
 						} else if(part.Types == 2) {
 							//文本
-							html.push('<div class="full f13 mt5">' + base.UnUnicodeText(part.Introduction) + '</div>');
+							html.push('<div class="full f13 fl mb10">' + base.UnUnicodeText(part.Introduction) + '</div>');
 						} else if(part.Types == 3) {
 							//视频
-							html.push('<div class="full f13 mt5 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
+							html.push('<div class="full f13 fl mb10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
 							//html.push('<div class="full f13 mt5" style="display:inline-block;position:relative;">' + AppendVideo(part.Introduction) + '<img src="../images/article/bg.png" style="width:3.5rem;position:absolute;top:40%;left:40%;" /></div>');
 						}
 					}
@@ -762,13 +759,8 @@
 		if(base.IsNullOrEmpty(src)) {
 			return
 		}
-		LoadScript("../js/jquery-1.10.2.min.js", function() {
-			LoadScript("../js/snow.js", function() {
-				$.fn.snow.init({
-					wrapper: '#snowwrapper',
-					src: src
-				});
-			});
+		LoadScript("../js/snow.js", function() {
+			snow.init("snowwrapper", 10, src)
 		});
 	}
 
@@ -779,11 +771,8 @@
 		if(base.IsNullOrEmpty(Article.Showy)) {
 			InitShowy(src)
 		} else {
-			$.fn.snow.clear("#snowwrapper");
-			$.fn.snow.init({
-				wrapper: '#snowwrapper',
-				src: src
-			});
+			snow.clear();
+			snow.init("snowwrapper", 10, src)
 		}
 		Article.Showy = src;
 	}
