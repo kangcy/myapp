@@ -54,19 +54,21 @@ var snow = new function() {
 
 		img = new Image();
 		img.src = src;
-		imgwidth = img.width > 30 ? 25 : img.width;
-		imgheight = img.height > 30 ? 25 : img.height;
-		c = document.getElementById(id);
-		if(c) {
-			d = c.getContext("2d")
-			c.width = e, c.height = f;
-			for(g = count, h = [], i = 0; g > i; i++) h.push({
-				x: Math.random() * e,
-				y: Math.random() * f,
-				r: 4 * Math.random() + 1,
-				d: Math.random() * g
-			});
-			snowinterval = setInterval(a, 30)
+		img.onload = function() {
+			imgwidth = img.width > 30 ? 25 : img.width;
+			imgheight = img.height > 30 ? 25 : img.height;
+			c = document.getElementById(id);
+			if(c) {
+				d = c.getContext("2d")
+				c.width = e, c.height = f;
+				for(g = count, h = [], i = 0; g > i; i++) h.push({
+					x: Math.random() * e,
+					y: Math.random() * f,
+					r: 4 * Math.random() + 1,
+					d: Math.random() * g
+				});
+				snowinterval = setInterval(a, 33)
+			}
 		}
 	}
 

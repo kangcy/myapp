@@ -154,10 +154,10 @@
 				totalpage = data.totalpage;
 				var fragment = document.createDocumentFragment();
 				mui.each(data.list, function(index, item) {
-					var wrapper = AppendStr0();
+					var wrapper = AppendStr0(); 
 					wrapper.appendChild(AppendStr1(item));
-					mui.each(item.Cover, function(index2, item2) {
-						wrapper.appendChild(AppendStr2(item.Icon[index2], item2));
+					mui.each(item.Icon, function(index2, item2) {
+						wrapper.appendChild(AppendStr2(item.Cover[index2], item2));
 					});
 					fragment.appendChild(wrapper);
 					fragment.appendChild(AppendStr3());

@@ -300,6 +300,23 @@
 						}
 					});
 					LoadScroll0(0);
+
+					//重置未读推送信息
+					HttpGet(base.RootUrl + "Push/Clear", {
+						number: userinfo.Number,
+						pushtype: PushType.Red
+					}, function(data) {
+						if(data) {
+							var tipsetting = base.GetView("tipsetting")
+							if(tipsetting) {
+								tipsetting.evalJS("PushClear('" + PushType.Red + "')");
+							}
+							var my = base.GetView("my")
+							if(my) {
+								my.evalJS("InitPush()");
+							}
+						}
+					});
 				}
 
 				if(swiper.activeIndex == 1 && scroll1 == null) {
@@ -312,6 +329,23 @@
 						}
 					});
 					LoadScroll1(1);
+
+					//重置未读推送信息
+					HttpGet(base.RootUrl + "Push/Clear", {
+						number: userinfo.Number,
+						pushtype: PushType.Money
+					}, function(data) {
+						if(data) {
+							var tipsetting = base.GetView("tipsetting")
+							if(tipsetting) {
+								tipsetting.evalJS("PushClear('" + PushType.Money + "')");
+							}
+							var my = base.GetView("my")
+							if(my) {
+								my.evalJS("InitPush()");
+							}
+						}
+					});
 				}
 
 				if(swiper.activeIndex == 2 && scroll2 == null) {
@@ -360,6 +394,23 @@
 						}
 					});
 					LoadScroll0(0);
+
+					//重置未读推送信息
+					HttpGet(base.RootUrl + "Push/Clear", {
+						number: userinfo.Number,
+						pushtype: PushType.Red
+					}, function(data) {
+						if(data) {
+							var tipsetting = base.GetView("tipsetting")
+							if(tipsetting) {
+								tipsetting.evalJS("PushClear('" + PushType.Red + "')");
+							}
+							var my = base.GetView("my")
+							if(my) {
+								my.evalJS("InitPush()");
+							}
+						}
+					});
 				}
 			}
 		})
@@ -390,23 +441,6 @@
 			} else {
 				mui.toast("参数异常");
 				isLoading[0] = false;
-			}
-		});
-
-		//重置未读推送信息
-		HttpGet(base.RootUrl + "Push/Clear", {
-			number: userinfo.Number,
-			pushtype: PushType.Money
-		}, function(data) {
-			if(data) {
-				var tipsetting = base.GetView("tipsetting")
-				if(tipsetting) {
-					tipsetting.evalJS("PushClear('" + PushType.Money + "')");
-				}
-				var my = base.GetView("my")
-				if(my) {
-					my.evalJS("InitPush()");
-				}
 			}
 		});
 	});
