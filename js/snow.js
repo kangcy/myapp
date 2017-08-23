@@ -43,15 +43,6 @@ var snow = new function() {
 	}
 
 	this.init = function(id, count, src) {
-		/*img = document.getElementById("snowimg");
-		if(img == null) {
-			img = document.createElement("img");
-			img.classList.add("hide");
-			img.setAttribute("src", src)
-			img.setAttribute("id", "snowimg");
-			document.body.appendChild(img);
-		}*/
-
 		img = new Image();
 		img.src = src;
 		img.onload = function() {

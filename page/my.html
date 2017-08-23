@@ -9,13 +9,94 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/my.min.css">
+		<style type="text/css">
+			@-webkit-keyframes dandelion_i {
+				0% {
+					transform: translate3d(0, 24.44px, 0) rotate3d(0, 0, 1, -100deg)
+				}
+				35% {
+					transform: translate3d(0, -21.39px, 0) rotate3d(0, 0, 1, 50deg)
+				}
+				60% {
+					transform: translate3d(0, -27.5px, 0) rotate3d(0, 0, 1, 10deg)
+				}
+				75% {
+					transform: translate3d(0, -33.61px, 0) rotate3d(0, 0, 1, 100deg)
+				}
+				100% {
+					transform: translate3d(0, -51.94px, 0) rotate3d(0, 0, 1, 180deg)
+				}
+			}
+			
+			@keyframes dandelion_i {
+				0% {
+					transform: translate3d(0, 24.44px, 0) rotate3d(0, 0, 1, -100deg)
+				}
+				35% {
+					transform: translate3d(0, -21.39px, 0) rotate3d(0, 0, 1, 50deg)
+				}
+				60% {
+					transform: translate3d(0, -27.5px, 0) rotate3d(0, 0, 1, 10deg)
+				}
+				75% {
+					transform: translate3d(0, -33.61px, 0) rotate3d(0, 0, 1, 100deg)
+				}
+				100% {
+					transform: translate3d(0, -51.94px, 0) rotate3d(0, 0, 1, 180deg)
+				}
+			}
+			
+			@-webkit-keyframes dandelion_d {
+				100% {
+					transform: translate3d(120vw, -40vh, 0)
+				}
+			}
+			
+			@keyframes dandelion_d {
+				100% {
+					transform: translate3d(120vw, -40vh, 0)
+				}
+			}
+			
+			@-webkit-keyframes ballon_d {
+				100% {
+					transform: translate3d(0, -140vh, 0)
+				}
+			}
+			
+			@keyframes ballon_d {
+				100% {
+					transform: translate3d(0, -140vh, 0)
+				}
+			}
+			
+			@-webkit-keyframes ballon_i {
+				0% {
+					transform: translate3d(-20vw, 0, 0)
+				}
+				50% {
+					transform: translate3d(80vw, 0, 0)
+				}
+				100% {
+					transform: translate3d(20vw, 0, 0)
+				}
+			}
+			
+			@keyframes ballon_i {
+				0% {
+					transform: translate3d(-20vw, 0, 0)
+				}
+				50% {
+					transform: translate3d(80vw, 0, 0)
+				}
+				100% {
+					transform: translate3d(20vw, 0, 0)
+				}
+			}
+		</style>
 	</head>
 
 	<body>
-		<!--<header id="header" class="mui-bar" immersed="none">
-			<img src="../images/my/arrow_right.png" class="fr more2" style="width:0.5rem;margin-top:0.5rem;" />
-			<span class="cfff f13 fr more2" onclick="javascript:mui.back()">首页</span>
-		</header>-->
 		<div class="bg" id="cover"></div>
 		<div class="avatar">
 			<img id="avatar" src="../images/avatar.png" />
@@ -70,12 +151,56 @@
 				<p class="c000">设置</p>
 			</div>
 		</div>
+		<div id="snowwrapper"></div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
+	window.onload = function() {
+		function a(a) {
+			var b = "https://tpcdn.semedia.cn/v2/components/motions/motion_dandelion/dandelion.png";
+			//var b = "http://www.xiaoweipian.com/Images/Showy/03/010.png";
+			var f = 40 * Math.random() + 10,
+				g = 120 * Math.random() + -60,
+				h = document.createElement("div"),
+				j = document.createElement("img");
+			j.src = b;
+			j.style.width = "100%";
+			j.style.opacity = 1;
+			j.style.transform = "rotate(" + g + "deg)";
+			j.style.webkitAnimationDuration = a + "s";
+			j.style.animationDuration = a + "s";
+			j.style.webkitAnimationIterationCount = "infinite";
+			j.style.animationIterationCount = "infinite";
+			j.style.webkitAnimationTimingFunction = "cubic-bezier(0.69, 0.10, 0.61, 0.92)";
+			j.style.animationTimingFunction = "cubic-bezier(0.69, 0.10, 0.61, 0.92)";
+			j.style.animationName = "dandelion_i", j.style.webkitAnimationName = "dandelion_i";
+			h.style.width = f + "px", h.style.height = 1 * f + "px";
+			h.style.position = "absolute", h.style.left = "-20vw", h.appendChild(j)
+			return h;
+		}
+		var c = document.getElementById("snowwrapper");
+
+		var d = setInterval(function() {
+			var b = 5 + 15 * Math.random();
+			var e = a(b);
+			e.style.left = "-20px";
+			e.style.top = 700 * Math.random() + 100 + "px";
+			e.style.webkitAnimationDuration = b + "s";
+			e.style.animationDuration = b + "s";
+			e.style.webkitAnimationIterationCount = "infinite";
+			e.style.animationIterationCount = "infinite";
+			e.style.webkitAnimationTimingFunction = "linear";
+			e.style.animationTimingFunction = "linear", e.style.zIndex = 300;
+			e.style.position = "fixed", e.style.animationName = "dandelion_d";
+			e.style.webkitAnimationName = "dandelion_d";
+			c.appendChild(e);
+			c.children.length > 10 && clearInterval(d)
+		}, 200)
+	};
+
 	var $cover = base.Get("cover");
 	var PageName = "subindex";
 	var Cover = "";

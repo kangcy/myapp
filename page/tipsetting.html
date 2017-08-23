@@ -131,6 +131,10 @@
 					<span class="fl">Banner文章</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18"></span>
 				</li>
+				<li class="mui-table-view-cell hide" onclick="Back()" id="backstage">
+					<span class="fl">后台</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18"></span>
+				</li>
 			</ul>
 		</div>
 	</body>
@@ -152,12 +156,11 @@
 		base.Immersed();
 
 		if(userinfo.UserRole == 2) {
-			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment", "#adv", "#index", "#banner"], "hide");
+			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment", "#adv", "#index", "#banner", "#backstage"], "hide");
 		}
 	});
 
 	mui.plusReady(function() {
-
 		var self = plus.webview.currentWebview();
 		var source = self.Source || "";
 		var push = self.Push || "";
@@ -166,6 +169,7 @@
 		}
 		if(!base.IsNullOrEmpty(push)) {
 			var pushInfo = JSON.parse(push);
+			var moneycount = 0;
 			mui.each(pushInfo, function(i, item) {
 				if(item.PushType == PushType.Fan) {
 					base.Get("fan-count").innerHTML = item.PushCount;
@@ -175,11 +179,14 @@
 					base.Get("comment-count").innerHTML = item.PushCount;
 					base.Get("comment-count").classList.remove("hide");
 				}
-				if(item.PushType == PushType.Money) {
-					base.Get("pay-count").innerHTML = item.PushCount;
-					base.Get("pay-count").classList.remove("hide");
+				if(item.PushType == PushType.Money || item.PushType == PushType.Red) {
+					moneycount += parseInt(item.PushCount);
 				}
 			})
+			if(moneycount > 0) {
+				base.Get("pay-count").innerHTML = moneycount;
+				base.Get("pay-count").classList.remove("hide");
+			}
 		}
 	});
 
@@ -287,5 +294,10 @@
 		base.OpenWindow("bannerdetail", "bannerdetail.html", {
 			ArticleID: 0
 		});
+	}
+
+	//后台
+	function Back() {
+		base.OpenWindow("back", "back.html", {});
 	}
 </script>

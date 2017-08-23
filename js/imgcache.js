@@ -98,12 +98,12 @@ function executeDownloadTasks() {
 				taskObj: nowTask,
 				timeBegin: (new Date()).valueOf()
 			}
-			console.log('添加一个下载任务');
+			//console.log('添加一个下载任务');
 		} else {
-			console.log('已经没有了下载任务');
+			//console.log('已经没有了下载任务');
 		}
 	} else {
-		console.log('已经达到最大下载数量,延迟下载');
+		//console.log('已经达到最大下载数量,延迟下载');
 	}
 };
 
