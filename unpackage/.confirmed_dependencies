@@ -922,7 +922,8 @@
 			"page/action.html",
 			"page/addimage.html",
 			"page/red.html",
-			"page/searchinfo.html"
+			"page/searchinfo.html",
+			"page/mypayinfo.html"
 		]
 	},
 	"page/topicSub.html": {

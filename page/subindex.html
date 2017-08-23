@@ -134,14 +134,14 @@
 				bottom: bottomheight,
 				left: "100%",
 				width: "100%",
-				popGesture: "none",
+				popGesture: "none", 
 				scrollIndicator: "none"
 			};
 
 			CreatWaiting();
 		})
 
-		//打开侧滑
+		//打开侧滑 
 		base.Get("avatar").addEventListener('tap', function() {
 			if(isLoading) {
 				return false;
@@ -361,7 +361,15 @@
 					}
 					//打开打赏
 					if(param[0] == PushType.Money) {
-						base.OpenWindow("mypayinfo", "mypayinfo.html", {});
+						base.OpenWindow("mypayinfo", "mypayinfo.html", {
+							number: 1
+						});
+					}
+					//打开红包
+					if(param[0] == PushType.Red) {
+						base.OpenWindow("mypayinfo", "mypayinfo.html", {
+							number: 0
+						});
 					}
 					//打开粉丝
 					if(param[0] == PushType.Fan) {

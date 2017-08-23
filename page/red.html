@@ -229,6 +229,7 @@
 				number: userinfo.Number
 			}, function(data) {
 				if(data.result) {
+					var rednumber = data.number;
 					base.Get("price").innerText = parseFloat(parseInt(data.message) / 100).toFixed(2);
 					base.Get("btnopen").addEventListener('tap', function() {
 						if(isopen) {
@@ -244,8 +245,9 @@
 							wrapper2.classList.add("fadeIn");
 
 							//拆红包
-							HttpGet(base.RootUrl + "Red/OpenLoginRed", {
-								number: userinfo.Number
+							HttpGet(base.RootUrl + "Red/OpenRed", {
+								number: rednumber,
+								usernumber: userinfo.Number
 							}, function(data) {
 								console.log(JSON.stringify(data))
 							});

@@ -115,11 +115,26 @@
 			#scroll-more0,
 			#scroll-more1,
 			#scroll-more2,
+			#scroll-more3,
 			#scroll-none0,
 			#scroll-none1,
-			#scroll-none2 {
+			#scroll-none2,
+			#scroll-none3 {
 				/*background: #f5f5f5;*/
 				padding: 1rem 0px 0.7rem;
+			}
+			
+			#none0,
+			#none1,
+			#none2,
+			#none3 {
+				height: 100%;
+				background: #fff;
+				position: absolute;
+				z-index: 999;
+				top: 0px;
+				bottom: 0px;
+				left: 0;
 			}
 			
 			.flex-row:after {
@@ -152,9 +167,7 @@
 					<div class="swiper-slide">
 						<div id="wrapper0" class="scroll-wrapper">
 							<div id="scroll0" class="scroller">
-								<div id="scroll-view0">
-									<div id="scroll-view0"></div>
-								</div>
+								<div id="scroll-view0"></div>
 								<div id="scroll-more0" class="full tc">
 									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
 								</div>
@@ -165,13 +178,15 @@
 						</div>
 						<div id="none0" class="full tc hide">
 							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无打赏记录</p>
+							<p class="f13 mt10">暂无红包记录</p>
 						</div>
 					</div>
 					<div class="swiper-slide">
 						<div id="wrapper1" class="scroll-wrapper">
 							<div id="scroll1" class="scroller">
-								<div id="scroll-view1"></div>
+								<div id="scroll-view1">
+									<div id="scroll-view1"></div>
+								</div>
 								<div id="scroll-more1" class="full tc">
 									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
 								</div>
@@ -199,6 +214,23 @@
 						</div>
 						<div id="none2" class="full tc hide">
 							<img src="../images/my/555.png" class="none" />
+							<p class="f13 mt10">暂无打赏记录</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div id="wrapper3" class="scroll-wrapper">
+							<div id="scroll3" class="scroller">
+								<div id="scroll-view3"></div>
+								<div id="scroll-more3" class="full tc">
+									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
+								</div>
+								<div id="scroll-none3" class="full tc hide">
+									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
+								</div>
+							</div>
+						</div>
+						<div id="none3" class="full tc hide">
+							<img src="../images/my/555.png" class="none" />
 							<p class="f13 mt10">暂无提现记录</p>
 						</div>
 					</div>
@@ -215,29 +247,37 @@
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 	var $border = base.Get("pagination_border");
-	var scroll0, scroll1, scroll2 = null;
-	var currpage = [1, 1, 1];
-	var totalpage = [2, 2, 2];
-	var records = [0, 0, 0];
-	var isLoading = [false, false, false];
+	var scroll0, scroll1, scroll2, scroll3 = null;
+	var currpage = [1, 1, 1, 1];
+	var totalpage = [2, 2, 2, 2];
+	var records = [0, 0, 0, 0];
+	var isLoading = [false, false, false, false];
 	var pagesize = 10;
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
+	});
 
+	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		var initialSlide = self.number || 0;
 		var mySwiper = new Swiper('#swiper-container', {
+			initialSlide: initialSlide,
 			pagination: '.my-pagination-ul',
 			paginationClickable: true,
 			paginationBulletRender: function(swiper, index, className) {
 				switch(index) {
 					case 0:
-						name = '打赏我的';
+						name = '我的红包';
 						break;
 					case 1:
-						name = '我打赏的';
+						name = '打赏我的';
 						break;
 					case 2:
+						name = '我打赏的';
+						break;
+					case 3:
 						name = '提现记录';
 						break;
 					default:
@@ -250,16 +290,28 @@
 				$border.style.width = $this.clientWidth * 0.4 + "px";
 				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
 
+				if(swiper.activeIndex == 0 && scroll0 == null) {
+					scroll0 = new iScroll("wrapper1", {
+						hScroll: false,
+						onScrollEnd: function() {
+							if(this.y >= this.maxScrollY) {
+								LoadScroll0(0);
+							}
+						}
+					});
+					LoadScroll0(0);
+				}
+
 				if(swiper.activeIndex == 1 && scroll1 == null) {
 					scroll1 = new iScroll("wrapper1", {
 						hScroll: false,
 						onScrollEnd: function() {
 							if(this.y >= this.maxScrollY) {
-								LoadScroll1();
+								LoadScroll1(1);
 							}
 						}
 					});
-					LoadScroll1();
+					LoadScroll1(1);
 				}
 
 				if(swiper.activeIndex == 2 && scroll2 == null) {
@@ -267,41 +319,79 @@
 						hScroll: false,
 						onScrollEnd: function() {
 							if(this.y >= this.maxScrollY) {
-								LoadScroll2();
+								LoadScroll2(2);
 							}
 						}
 					});
-					LoadScroll2()
+					LoadScroll2(2)
+				}
+
+				if(swiper.activeIndex == 3 && scroll3 == null) {
+					scroll3 = new iScroll("wrapper3", {
+						hScroll: false,
+						onScrollEnd: function() {
+							if(this.y >= this.maxScrollY) {
+								LoadScroll3(3);
+							}
+						}
+					});
+					LoadScroll3(3)
 				}
 			},
 			onInit: function(swiper) {
 				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
 				base.Get("swiper-container").style.height = swiperheight;
 
-				mui.each(base.Get(".scroller"), function() { 
+				mui.each(base.Get(".scroller"), function() {
 					this.style.minHeight = swiperheight;
 				})
 
-				var $this = mui("#pagination li")[0];
+				var $this = mui("#pagination li")[swiper.activeIndex];
 				$border.style.width = $this.clientWidth * 0.4 + "px";
 				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
 
-				scroll0 = new iScroll("wrapper0", {
-					hScroll: false,
-					onScrollEnd: function() {
-						if(this.y >= this.maxScrollY) {
-							LoadScroll0();
+				if(swiper.activeIndex == 0) {
+					scroll0 = new iScroll("wrapper0", {
+						hScroll: false,
+						onScrollEnd: function() {
+							if(this.y >= this.maxScrollY) {
+								LoadScroll0(0);
+							}
 						}
-					}
-				});
-				LoadScroll0();
+					});
+					LoadScroll0(0);
+				}
 			}
 		})
-
-	});
-
-	mui.plusReady(function() {
 		base.ShowUser("#swiper-container");
+
+		//红包领取
+		mui("#scroll-view0").on('tap', '.pick', function() {
+			if(isLoading[0]) {
+				return false;
+			}
+			isLoading[0] = true;
+			var $this = this;
+			var rednumber = this.getAttribute('number');
+			if(!base.IsNullOrEmpty(rednumber)) {
+				HttpGet(base.RootUrl + "Red/OpenRed", {
+					number: rednumber,
+					usernumber: userinfo.Number
+				}, function(data) {
+					if(data.result) {
+						$this.classList.add("hide");
+						$this.parentNode.firstChild.classList.remove("hide");
+						mui.toast("红包领取成功");
+					} else {
+						mui.toast(data.message);
+					}
+					isLoading[0] = false;
+				});
+			} else {
+				mui.toast("参数异常");
+				isLoading[0] = false;
+			}
+		});
 
 		//重置未读推送信息
 		HttpGet(base.RootUrl + "Push/Clear", {
@@ -321,103 +411,175 @@
 		});
 	});
 
-	//打赏我的
-	function LoadScroll0() {
-		if(isLoading[0]) {
+	//我的红包
+	function LoadScroll0(index) {
+		if(isLoading[index]) {
 			return;
 		}
-		isLoading[0] = true;
-		if(currpage[0] > totalpage[0]) {
-			isLoading[0] = false;
+		isLoading[index] = true;
+		if(currpage[index] > totalpage[index]) {
+			isLoading[index] = false;
 			return false;
 		}
 		var data = {
-			page: currpage[0],
+			page: currpage[index],
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrl + "Api/Order/ToMe_1_3", data, true, 0, function(item) {
-			return AppendStr(item, 0);
+		LoadPullList(base.RootUrl + "Api/Red/ToMe_1_3", data, true, 0, function(item) {
+			return AppendRed(item);
 		}, function() {
-			scroll0.refresh();
-			if(currpage[0] >= totalpage[0]) {
-				base.Get("scroll-more0").classList.add("hide");
-				if(base.Get("scroll0").clientHeight > base.Get("wrapper0").clientHeight) {
-					base.Get("scroll-none0").classList.remove("hide");
+			ScrollAction(index, "refresh");
+			if(currpage[0] >= totalpage[index]) {
+				base.Get("scroll-more" + index).classList.add("hide");
+				if(base.Get("scroll" + index).clientHeight > base.Get("wrapper" + index).clientHeight) {
+					base.Get("scroll-none" + index).classList.remove("hide");
 				}
 			}
-			if(base.Get("scroll0").clientHeight < base.Get("wrapper0").clientHeight) {
-				scroll0.destroy();
+			if(base.Get("scroll" + index).clientHeight < base.Get("wrapper" + index).clientHeight) {
+				ScrollAction(index, "destroy");
 			}
-			currpage[0]++;
-			isLoading[0] = false;
+			currpage[index]++;
+			isLoading[index] = false;
+		});
+	}
+
+	//打赏我的
+	function LoadScroll1(index) {
+		if(isLoading[index]) {
+			return;
+		}
+		isLoading[index] = true;
+		if(currpage[index] > totalpage[index]) {
+			isLoading[index] = false;
+			return false;
+		}
+		var data = {
+			page: currpage[index],
+			rows: pagesize,
+			UserNumber: userinfo.Number
+		}
+		LoadPullList(base.RootUrl + "Api/Order/ToMe_1_3", data, true, 1, function(item) {
+			return AppendStr(item, 0);
+		}, function() {
+			ScrollAction(index, "refresh");
+			if(currpage[index] >= totalpage[index]) {
+				base.Get("scroll-more" + index).classList.add("hide");
+				if(base.Get("scroll" + index).clientHeight > base.Get("wrapper" + index).clientHeight) {
+					base.Get("scroll-none" + index).classList.remove("hide");
+				}
+			}
+			if(base.Get("scroll" + index).clientHeight < base.Get("wrapper" + index).clientHeight) {
+				ScrollAction(index, "destroy");
+			}
+			currpage[index]++;
+			isLoading[index] = false;
 		});
 	}
 
 	//我打赏的
-	function LoadScroll1() {
-		if(isLoading[1]) {
+	function LoadScroll2(index) {
+		if(isLoading[index]) {
 			return;
 		}
-		isLoading[1] = true;
-		if(currpage[1] > totalpage[1]) {
-			isLoading[1] = false;
+		isLoading[index] = true;
+		if(currpage[index] > totalpage[index]) {
+			isLoading[index] = false;
 			return false;
 		}
 		var data = {
-			page: currpage[1],
+			page: currpage[index],
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrl + "Api/Order/ToUser_1_3", data, true, 1, function(item) {
+		LoadPullList(base.RootUrl + "Api/Order/ToUser_1_3", data, true, 2, function(item) {
 			return AppendStr(item, 1);
 		}, function() {
-			scroll1.refresh();
-			if(currpage[1] >= totalpage[1]) {
-				base.Get("scroll-more1").classList.add("hide");
-				if(base.Get("scroll1").clientHeight > base.Get("wrapper1").clientHeight) {
-					base.Get("scroll-none1").classList.remove("hide");
+			ScrollAction(index, "refresh");
+			if(currpage[index] >= totalpage[index]) {
+				base.Get("scroll-more" + index).classList.add("hide");
+				if(base.Get("scroll" + index).clientHeight > base.Get("wrapper" + index).clientHeight) {
+					base.Get("scroll-none" + index).classList.remove("hide");
 				}
 			}
-			if(base.Get("scroll1").clientHeight < base.Get("wrapper1").clientHeight) {
-				scroll1.destroy();
+			if(base.Get("scroll" + index).clientHeight < base.Get("wrapper" + index).clientHeight) {
+				ScrollAction(index, "destroy");
 			}
-			currpage[1]++;
-			isLoading[1] = false;
+			currpage[index]++;
+			isLoading[index] = false;
 		});
 	}
 
 	//提现记录
-	function LoadScroll2() {
-		if(isLoading[2]) {
+	function LoadScroll3(index) {
+		if(isLoading[index]) {
 			return;
 		}
-		isLoading[2] = true;
-		if(currpage[2] > totalpage[2]) {
-			isLoading[2] = false;
+		isLoading[index] = true;
+		if(currpage[index] > totalpage[index]) {
+			isLoading[index] = false;
 			return false;
 		}
 		var data = {
-			page: currpage[2],
+			page: currpage[index],
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrl + "Api/Order/Apply_1_3", data, true, 2, function(item) {
+		LoadPullList(base.RootUrl + "Api/Order/Apply_1_3", data, true, 3, function(item) {
 			return AppendStr(item, 2);
 		}, function() {
-			scroll2.refresh();
-			if(currpage[2] >= totalpage[2]) {
-				base.Get("scroll-more2").classList.add("hide");
-				if(base.Get("scroll2").clientHeight > base.Get("wrapper2").clientHeight) {
-					base.Get("scroll-none2").classList.remove("hide");
+			ScrollAction(index, "refresh");
+			if(currpage[index] >= totalpage[index]) {
+				base.Get("scroll-more" + index).classList.add("hide");
+				if(base.Get("scroll" + index).clientHeight > base.Get("wrapper" + index).clientHeight) {
+					base.Get("scroll-none" + index).classList.remove("hide");
 				}
 			}
-			if(base.Get("scroll2").clientHeight < base.Get("wrapper2").clientHeight) {
-				scroll2.destroy();
+			if(base.Get("scroll" + index).clientHeight < base.Get("wrapper" + index).clientHeight) {
+				ScrollAction(index, "destroy");
 			}
-			currpage[2]++;
-			isLoading[2] = false;
+			currpage[index]++;
+			isLoading[index] = false;
 		});
+	}
+
+	function ScrollAction(index, type) {
+		if(type == "refresh") {
+			switch(index) {
+				case 0:
+					scroll0.refresh();
+					break;
+				case 1:
+					scroll1.refresh();
+					break;
+				case 2:
+					scroll2.refresh();
+					break;
+				case 3:
+					scroll3.refresh();
+					break;
+				default:
+					break;
+			}
+		}
+		if(type == "destroy") {
+			switch(index) {
+				case 0:
+					scroll0.destroy();
+					break;
+				case 1:
+					scroll1.destroy();
+					break;
+				case 2:
+					scroll2.destroy();
+					break;
+				case 3:
+					scroll3.destroy();
+					break;
+				default:
+					break;
+			}
+		}
 	}
 
 	/**
@@ -488,6 +650,26 @@
 			model.push('<p class="f11 red">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
 		} else if(type == 2) {
 			model.push('<p class="f11 red">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
+		}
+		model.push('</div>');
+		model.push('</div></div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+
+	function AppendRed(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell';
+		var model = [];
+		model.push('<div class="flex-box flex-row">');
+		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(userinfo.Avatar, 1) + '" class="fl"  /></div></div>');
+		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f13 c333">' + base.UnUnicodeText(item.RedTypeText) + '</p><span class="f10 fl c999 mt3">' + item.CreateDateText + '</span></div>');
+		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
+		if(item.Status == 0) {
+			model.push('<p class="f11 green price hide">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
+			model.push('<p class="f11 green pick" number="' + item.Number + '">领取</p>');
+		} else {
+			model.push('<p class="f11 green">+' + parseFloat(item.Price / 100).toFixed(2) + '元</p>');
 		}
 		model.push('</div>');
 		model.push('</div></div>');

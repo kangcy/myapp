@@ -157,7 +157,7 @@
 					var wrapper = AppendStr0();
 					wrapper.appendChild(AppendStr1(item));
 					mui.each(item.Cover, function(index2, item2) {
-						wrapper.appendChild(AppendStr2(item2));
+						wrapper.appendChild(AppendStr2(item.Icon[index2], item2));
 					});
 					fragment.appendChild(wrapper);
 					fragment.appendChild(AppendStr3());
@@ -189,11 +189,11 @@
 		return div;
 	}
 
-	function AppendStr2(item) {
+	function AppendStr2(icon, cover) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor fl nocheck';
-		div.style.backgroundImage = "url(" + item + ")";
-		div.setAttribute("src", item);
+		div.style.backgroundImage = "url(" + cover + ")";
+		div.setAttribute("src", icon);
 		div.innerHTML = '<div class="cover hide"></div><div class="icon"></div>';
 		return div;
 	}
