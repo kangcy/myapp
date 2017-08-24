@@ -91,8 +91,18 @@
 				height: 1rem;
 			}
 			
-			.border_bottomshadow {
+			.imgborder {
 				width: 55%;
+			}
+			
+			#snowcanvas {
+				pointer-events: none;
+				position: fixed;
+				z-index: 20;
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
 			}
 		</style>
 		<link rel="stylesheet" href="../css/demo.css">
@@ -150,14 +160,21 @@
 			<hr class="hrgif hrgif042 mt20 mb20">
 			<hr class="hrgif hrgif044 mt20 mb20">-->
 
-			<div class="border_bottomshadow mt20 mb20">
+			<div class="imgborder border_bottomshadow mt20 mb20">
 				<img src="http://www.xiaoweipian.com/Images/articledetail.jpg" class="full" />
 			</div>
-			<div class="border_bottomshadow mt20 mb20">
+			<div class="imgborder border_shadow1 mt20 mb20">
+				<img src="http://www.xiaoweipian.com/Images/articledetail.jpg" class="full" />
+			</div>
+			<div class="imgborder border_shadow2 mt20 mb20">
+				<img src="http://www.xiaoweipian.com/Images/articledetail.jpg" class="full" />
+			</div>
+			<div class="imgborder border_shadow3 mt20 mb20">
 				<img src="http://www.xiaoweipian.com/Images/articledetail.jpg" class="full" />
 			</div>
 		</div>
 		<div id="snowwrapper"></div>
+		<canvas id="snowcanvas"></canvas>
 		<!--<div class="wemedia_background"></div>-->
 
 		<div class="mui-backdrop hide" id="mybackgroundbg" onclick="BackgroundTan(0)"></div>
@@ -171,16 +188,16 @@
 						<div class="f10">默认</div>
 					</div>
 					<div class="background background_chruch_img">
-						<div class="f10">默认</div>
+						<div class="f10">纸纹</div>
 					</div>
 					<div class="background background_egg_shell_img">
-						<div class="f10">默认</div>
+						<div class="f10">质感</div>
 					</div>
 					<div class="background background_cross_scratches_img">
-						<div class="f10">默认</div>
+						<div class="f10">笔痕</div>
 					</div>
 					<div class="background background_grey_brick_img">
-						<div class="f10">默认</div>
+						<div class="f10">马赛克</div>
 					</div>
 					<div class="background background_light_wool_img">
 						<div class="f10">印痕</div>
@@ -189,7 +206,7 @@
 						<div class="f10">默认</div>
 					</div>
 					<div class="background background_brushed_img">
-						<div class="f10">默认</div>
+						<div class="f10">浅纹</div>
 					</div>
 					<div class="background background_green_img">
 						<div class="f10">绿色花纹</div>
@@ -385,7 +402,7 @@
 		base.ShowLoading(false);
 
 		window.onload = function() {
-			//snow.snow4();
+			snow.snow10();
 		};
 	});
 
@@ -585,7 +602,7 @@
 				return h;
 			}
 			var c = document.getElementById("snowwrapper");
-			var d = (window.innerWidth, window.innerHeight, setInterval(function() {
+			var d = setInterval(function() {
 				var b = 5 + 15 * Math.random(),
 					e = a(b);
 				e.style.left = "-20vw";
@@ -601,7 +618,7 @@
 				e.style.webkitAnimationName = "dandelion_d";
 				c.appendChild(e);
 				c.children.length > 20 && clearInterval(d)
-			}, 200))
+			}, 200)
 		}
 
 		//小雪
@@ -637,7 +654,7 @@
 					})
 				}
 			}
-			var c = document.getElementById("snowwrapper");
+			var c = document.getElementById("snowcanvas");
 			if(c) {
 				var d = c.getContext("2d"),
 					e = window.innerWidth,
@@ -652,6 +669,206 @@
 				var j = 0;
 				setInterval(a, 33)
 			}
+		}
+		//小雨
+		this.snow6 = function() {
+			function a() {
+				d.clearRect(0, 0, e, f), d.fillStyle = "rgba(255, 255, 255, .5)", d.beginPath();
+				for(var a = 0; g > a; a++) {
+					var c = h[a];
+					d.moveTo(c.x, c.y), d.rect(c.x, c.y, .5, c.r)
+				}
+				d.fill(), b()
+			}
+
+			function b() {
+				j += .01;
+				for(var a = 0; g > a; a++) {
+					var b = h[a];
+					b.y += Math.cos(j + b.d) + 1 + b.r / 2, b.x += 2 * Math.sin(j), (b.x > e + 5 || b.x < -5 || b.y > f) && (a % 3 > 0 ? h[a] = {
+						x: Math.random() * e,
+						y: -10,
+						r: b.r,
+						d: b.d
+					} : Math.sin(j) > 0 ? h[a] = {
+						x: -5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					} : h[a] = {
+						x: e + 5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					})
+				}
+			}
+			var c = document.getElementById("snowcanvas");
+			if(c) {
+				var d = c.getContext("2d"),
+					e = window.innerWidth,
+					f = window.innerHeight;
+				c.width = e, c.height = f;
+				for(var g = 55, h = [], i = 0; g > i; i++) h.push({
+					x: Math.random() * e,
+					y: Math.random() * f,
+					r: 25 * Math.random() + 10,
+					d: Math.random() * g
+				});
+				var j = 0;
+				setInterval(a, 25)
+			}
+		}
+		//暴雨
+		this.snow7 = function() {
+			function a() {
+				d.clearRect(0, 0, e, f), d.fillStyle = "rgba(255, 255, 255, .6)", d.beginPath();
+				for(var a = 0; g > a; a++) {
+					var c = h[a];
+					d.moveTo(c.x, c.y), d.rect(c.x, c.y, .5, c.r)
+				}
+				d.fill(), b()
+			}
+
+			function b() {
+				j += 0;
+				for(var a = 0; g > a; a++) {
+					var b = h[a];
+					b.y += Math.cos(j + b.d) + 1 + b.r / 2, b.x += 2 * Math.sin(j), (b.x > e + 5 || b.x < -5 || b.y > f) && (a % 3 > 0 ? h[a] = {
+						x: Math.random() * e,
+						y: -10,
+						r: b.r,
+						d: b.d
+					} : Math.sin(j) > 0 ? h[a] = {
+						x: -5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					} : h[a] = {
+						x: e + 5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					})
+				}
+			}
+			var c = document.getElementById("snowcanvas");
+			if(c) {
+				var d = c.getContext("2d"),
+					e = window.innerWidth,
+					f = window.innerHeight;
+				c.width = e, c.height = f;
+				for(var g = 95, h = [], i = 0; g > i; i++) h.push({
+					x: Math.random() * e,
+					y: Math.random() * f,
+					r: 20 * Math.random() + 30,
+					d: Math.random() * g
+				});
+				var j = 0;
+				setInterval(a, 10)
+			}
+		}
+		//暴雪
+		this.snow8 = function() {
+			function a() {
+				d.clearRect(0, 0, e, f), d.fillStyle = "rgba(255, 255, 255, .8)", d.beginPath();
+				for(var a = 0; g > a; a++) {
+					var c = h[a];
+					d.moveTo(c.x, c.y), d.arc(c.x, c.y, c.r, 0, 2 * Math.PI, !0), d.shadowOffsetX = e, d.shadowOffsetY = 0, d.shadowColor = "#000", d.shadowBlur = 100
+				}
+				d.fill(), b()
+			}
+
+			function b() {
+				j += .001;
+				for(var a = 0; g > a; a++) {
+					var b = h[a];
+					b.y += Math.cos(j + b.d) + 1 + b.r / 2, b.x += 2 * Math.sin(j), (b.x > e + 5 || b.x < -5 || b.y > f) && (a % 3 > 0 ? h[a] = {
+						x: Math.random() * e,
+						y: -10,
+						r: b.r,
+						d: b.d
+					} : Math.sin(j) > 0 ? h[a] = {
+						x: -5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					} : h[a] = {
+						x: e + 5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					})
+				}
+			}
+			var c = document.getElementById("snowcanvas");
+			if(c) {
+				var d = c.getContext("2d"),
+					e = window.innerWidth,
+					f = window.innerHeight;
+				c.width = e, c.height = f;
+				for(var g = 65, h = [], i = 0; g > i; i++) h.push({
+					x: Math.random() * e,
+					y: Math.random() * f,
+					r: 6 * Math.random() + 1,
+					d: Math.random() * g
+				});
+				var j = 0;
+				setInterval(a, 6)
+			}
+		}
+		//红包
+		this.snow9 = function() {
+			function a() {
+				var a = "https://tpcdn.semedia.cn/v2/components/motions/motion_money/money.png";
+				var f = 30 * Math.random() + 30,
+					g = 720 * Math.random() + -360,
+					h = document.createElement("div"),
+					j = document.createElement("img");
+				j.src = a;
+				j.style.width = "100%";
+				j.style.height = "100%";
+				j.style.transform = "rotate(" + g + "deg)";
+				j.style.opacity = 1;
+				h.style.width = f + "px";
+				h.style.height = 1.19 * f + "px";
+				h.style.position = "absolute";
+				h.style.left = Math.random() * (d - f) + "px";
+				h.appendChild(j);
+				return h;
+			}
+			var d = window.innerWidth;
+			var c = document.getElementById("snowwrapper");
+			var e = (window.innerHeight, setInterval(function() {
+				var b = a();
+				b.style.top = "-" + 30 * Math.random() + "px";
+				b.style.webkitAnimationDuration = 2 + 1 * Math.random() + "s";
+				b.style.animationDuration = 2 + 1 * Math.random() + "s";
+				b.style.webkitAnimationIterationCount = "infinite";
+				b.style.animationIterationCount = "infinite";
+				b.style.webkitAnimationTimingFunction = "linear";
+				b.style.animationTimingFunction = "linear", b.style.zIndex = 300;
+				b.style.position = "fixed";
+				b.classList.add("particles_class"), c.appendChild(b);
+				c.children.length > 15 && clearInterval(e)
+			}, 200));
+		}
+		//爆竹
+		this.snow10 = function() {
+			function a() {
+				var a = "https://tpcdn.semedia.cn/v2/components/motions/motion_fire/fire.png";
+				var f = 10 * Math.random() + 10,
+					g = 120 * Math.random() + -60,
+					h = document.createElement("div"),
+					j = document.createElement("img");
+				return j.src = a, j.style.width = "100%", j.style.height = "100%", j.style.transform = "rotate(" + g + "deg)", j.style.opacity = 1, h.style.width = f + "px", h.style.height = 2.46 * f + "px", h.style.position = "absolute", h.style.left = Math.random() * (d - f) + "px", h.appendChild(j), h
+			}
+			var d = window.innerWidth;
+			var c = document.getElementById("snowwrapper");
+			var e = setInterval(function() {
+				var b = a();
+				b.style.top = "-20vh", b.style.webkitAnimationDuration = 2 + 1 * Math.random() + "s", b.style.animationDuration = 2 + 1 * Math.random() + "s", b.style.webkitAnimationIterationCount = "infinite", b.style.animationIterationCount = "infinite", b.style.webkitAnimationTimingFunction = "ease-in", b.style.animationTimingFunction = "ease-in", b.style.zIndex = 300, b.style.position = "fixed", b.classList.add("particles_class"), c.appendChild(b), c.children.length > 30 && clearInterval(e)
+			}, 200);
 		}
 	}
 </script>

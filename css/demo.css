@@ -848,17 +848,18 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	background-clip: padding-box
 }
 
-.group.border_shadow1 {
+.border_shadow1 {
 	padding: 50px 10px;
 	margin-bottom: 25px;
 	-webkit-box-shadow: 0 10px 6px -6px #777;
 	-moz-box-shadow: 0 10px 6px -6px #777;
 	box-shadow: 0 10px 6px -6px #777;
 	background: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_shadow2 {
+.border_shadow2 {
 	position: relative;
 	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .3), 0 0 40px rgba(0, 0, 0, .1) inset;
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .3), 0 0 40px rgba(0, 0, 0, .1) inset;
@@ -866,11 +867,12 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	padding: 10px;
 	margin-bottom: 20px;
 	background: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_shadow2:after,
-.group.border_shadow2:before {
+.border_shadow2:after,
+.border_shadow2:before {
 	content: "";
 	position: absolute;
 	z-index: -1;
@@ -885,7 +887,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-radius: 100px/10px
 }
 
-.group.border_shadow2:after {
+.border_shadow2:after {
 	right: 10px;
 	left: auto;
 	-webkit-transform: skew(8deg) rotate(3deg);
@@ -895,7 +897,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	transform: skew(8deg) rotate(3deg)
 }
 
-.group.border_shadow3 {
+.border_shadow3 {
 	position: relative;
 	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .3), 0 0 40px rgba(0, 0, 0, .1) inset;
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .3), 0 0 40px rgba(0, 0, 0, .1) inset;
@@ -903,11 +905,12 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	padding: 10px;
 	margin-bottom: 20px;
 	background: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_shadow3:after,
-.group.border_shadow3:before {
+.border_shadow3:after,
+.border_shadow3:before {
 	content: "";
 	position: absolute;
 	z-index: -1;
@@ -922,7 +925,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-radius: 100px/10px
 }
 
-.group.border_shadow3:after {
+.border_shadow3:after {
 	right: 10px;
 	left: auto;
 	-webkit-transform: skew(8deg) rotate(3deg);
@@ -2602,5 +2605,44 @@ body.mask21_style .wemedia_background {
 	}
 	100% {
 		transform: translate3d(20vw, 0, 0)
+	}
+}
+
+.particles_class {
+	animation-name: particles_fall;
+	-webkit-animation-name: particles_fall
+}
+
+@-webkit-keyframes particles_fall {
+	0% {
+		transform: translate(0, -20vh);
+		-ms-transform: translate(0, -20vh);
+		-moz-transform: translate(0, -20vh);
+		-webkit-transform: translate(0, -20vh);
+		-o-transform: translate(0, -20vh)
+	}
+	100% {
+		transform: translate(0, 130vh);
+		-ms-transform: translate(0, 130vh);
+		-moz-transform: translate(0, 130vh);
+		-webkit-transform: translate(0, 130vh);
+		-o-transform: translate(0, 130vh)
+	}
+}
+
+@keyframes particles_fall {
+	0% {
+		transform: translate(0, -20vh);
+		-ms-transform: translate(0, -20vh);
+		-moz-transform: translate(0, -20vh);
+		-webkit-transform: translate(0, -20vh);
+		-o-transform: translate(0, -20vh)
+	}
+	100% {
+		transform: translate(0, 130vh);
+		-ms-transform: translate(0, 130vh);
+		-moz-transform: translate(0, 130vh);
+		-webkit-transform: translate(0, 130vh);
+		-o-transform: translate(0, 130vh)
 	}
 }
