@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../css/snow.css">
+		<style type="text/css">
+
+		</style>
+		<style type="text/css">
+			.wemedia_background {
+				position: fixed;
+				margin: 0 auto;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				z-index: -2;
+				background-position: initial initial;
+			}
+			
+			.wemedia_background.background_chruch_img {
+				background-image: url(https://tpcdn.semedia.cn/v2/components/backgrounds/background_chruch_img/background_chruch_img.png);
+				background-repeat: repeat;
+			}
+		</style>
+		<link rel="stylesheet" href="../swipe/swiper.min.css">
+		<style type="text/css">
+			html,
+			body {
+				position: relative;
+				height: 100%;
+			}
+			
+			body {
+				font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				color: #000;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.swiper-container {
+				padding: 0.5rem 0;
+				background: rgba(0, 0, 0, .5);
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				z-index: 1000;
+			}
+			
+			.swiper-slide {
+				height: auto;
+				width: auto;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+				font-size: 13px;
+				font-family: microsoft yahei;
+			}
+			
+			.swiper-slide div.background {
+				width: 3rem;
+				height: 5rem;
+				margin-right: 0.5rem;
+				float: left;
+				display: inline-block;
+				position: relative;
+				background-size: 150%;
+				background-position: center center;
+			}
+			
+			.swiper-slide div.background:first-child {
+				margin-left: 0.5rem;
+			}
+			
+			.swiper-slide div.background div {
+				position: absolute;
+				bottom: 0px;
+				font-size: 11px;
+				text-align: center;
+				width: 100%;
+				background: rgba(0, 0, 0, 0.2);
+				color: #fff;
+				height: 1rem;
+			}
+			
+			.border_bottomshadow {
+				width: 55%;
+			}
+		</style>
+		<link rel="stylesheet" href="../css/demo.css">
+	</head>
+	<!--禁止复制-->
+
+	<body id="body" oncontextmenu="return false" onselectstart="return false" class="mask3_style">
+		<header id="header" class="mui-bar">
+			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
+			<h1 class="mui-title cfff" id="title"></h1>
+		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div id="muicontent" class="tc" style="padding-bottom: 150px;">
+			<!--<hr class="default_dashed mt20 mb20">
+			<hr class="snow_dashed mt20 mb20">
+			<hr class="scissors_dashed mt20 mb20">
+			<hr class="hrgif hrgif001 mt20 mb20">
+			<hr class="hrgif hrgif002 mt20 mb20">
+			<hr class="hrgif hrgif003 mt20 mb20">
+			<hr class="hrgif hrgif004 mt20 mb20">
+			<hr class="hrgif hrgif005 mt20 mb20">
+			<hr class="hrgif hrgif006 mt20 mb20">
+			<hr class="hrgif hrgif007 mt20 mb20">
+			<hr class="hrgif hrgif009 mt20 mb20">
+			<hr class="hrgif hrgif011 mt20 mb20">
+			<hr class="hrgif hrgif012 mt20 mb20">
+			<hr class="hrgif hrgif013 mt20 mb20">
+			<hr class="hrgif hrgif014 mt20 mb20">
+			<hr class="hrgif hrgif015 mt20 mb20">
+			<hr class="hrgif hrgif016 mt20 mb20">
+			<hr class="hrgif hrgif017 mt20 mb20">
+			<hr class="hrgif hrgif018 mt20 mb20">
+			<hr class="hrgif hrgif019 mt20 mb20">
+			<hr class="hrgif hrgif020 mt20 mb20">
+			<hr class="hrgif hrgif021 mt20 mb20">
+			<hr class="hrgif hrgif022 mt20 mb20">
+			<hr class="hrgif hrgif024 mt20 mb20">
+			<hr class="hrgif hrgif025 mt20 mb20">
+			<hr class="hrgif hrgif026 mt20 mb20">
+			<hr class="hrgif hrgif027 mt20 mb20">
+			<hr class="hrgif hrgif028 mt20 mb20">
+			<hr class="hrgif hrgif030 mt20 mb20">
+			<hr class="hrgif hrgif031 mt20 mb20">
+			<hr class="hrgif hrgif033 mt20 mb20">
+			<hr class="hrgif hrgif034 mt20 mb20">
+			<hr class="hrgif hrgif035 mt20 mb20">
+			<hr class="hrgif hrgif036 mt20 mb20">
+			<hr class="hrgif hrgif037 mt20 mb20">
+			<hr class="hrgif hrgif038 mt20 mb20">
+			<hr class="hrgif hrgif041 mt20 mb20">
+			<hr class="hrgif hrgif042 mt20 mb20">
+			<hr class="hrgif hrgif044 mt20 mb20">-->
+
+			<div class="border_bottomshadow mt20 mb20">
+				<img src="http://www.xiaoweipian.com/Images/articledetail.jpg" class="full" />
+			</div>
+			<div class="border_bottomshadow mt20 mb20">
+				<img src="http://www.xiaoweipian.com/Images/articledetail.jpg" class="full" />
+			</div>
+		</div>
+		<div id="snowwrapper"></div>
+		<!--<div class="wemedia_background"></div>-->
+
+		<div class="mui-backdrop hide" id="mybackgroundbg" onclick="BackgroundTan(0)"></div>
+		<div class="swiper-container" id="mybackground">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="background background_white">
+						<div class="f10">默认</div>
+					</div>
+					<div class="background background_linear1">
+						<div class="f10">默认</div>
+					</div>
+					<div class="background background_chruch_img">
+						<div class="f10">默认</div>
+					</div>
+					<div class="background background_egg_shell_img">
+						<div class="f10">默认</div>
+					</div>
+					<div class="background background_cross_scratches_img">
+						<div class="f10">默认</div>
+					</div>
+					<div class="background background_grey_brick_img">
+						<div class="f10">默认</div>
+					</div>
+					<div class="background background_light_wool_img">
+						<div class="f10">印痕</div>
+					</div>
+					<div class="background background_ravenna_img">
+						<div class="f10">默认</div>
+					</div>
+					<div class="background background_brushed_img">
+						<div class="f10">默认</div>
+					</div>
+					<div class="background background_green_img">
+						<div class="f10">绿色花纹</div>
+					</div>
+					<div class="background background_blue_img">
+						<div class="f10">梦幻蓝色</div>
+					</div>
+					<div class="background background_pink_img">
+						<div class="f10">粉色浪漫</div>
+					</div>
+					<div class="background background_pinkbottle_img">
+						<div class="f10">爱心瓶</div>
+					</div>
+					<div class="background background_pinklying_img">
+						<div class="f10">粉红梦</div>
+					</div>
+					<div class="background background_pinkwall_img">
+						<div class="f10">爱心墙</div>
+					</div>
+					<div class="background background_pink_rice_img">
+						<div class="f10">粉红日记</div>
+					</div>
+					<div class="background background_congruent_pentagon_img">
+						<div class="f10">动感方块</div>
+					</div>
+					<div class="background background_cream_pixels_img">
+						<div class="f10">方格</div>
+					</div>
+					<div class="background background_sos_img">
+						<div class="f10">编织</div>
+					</div>
+					<div class="background background_light_blue_img">
+						<div class="f10">淡蓝</div>
+					</div>
+					<div class="background background_cyan">
+						<div class="f10">淡黄</div>
+					</div>
+					<div class="background background_green">
+						<div class="f10">青绿</div>
+					</div>
+					<div class="background background_dot_img">
+						<div class="f10">花纹</div>
+					</div>
+					<div class="background background_colorful1">
+						<div class="f10">粉点</div>
+					</div>
+					<div class="background background_colorful2">
+						<div class="f10">蓝点</div>
+					</div>
+					<div class="background background_colorful3">
+						<div class="f10">黄点</div>
+					</div>
+					<div class="background background_colorful4">
+						<div class="f10">茶点</div>
+					</div>
+					<div class="background background_colorful5">
+						<div class="f10">绿点</div>
+					</div>
+					<div class="background background_colorful01">
+						<div class="f10">彩块</div>
+					</div>
+					<div class="background background_colorful02">
+						<div class="f10">甜品</div>
+					</div>
+					<div class="background background_colorful03">
+						<div class="f10">萌物</div>
+					</div>
+					<div class="background background_colorful04">
+						<div class="f10">粉色甜品</div>
+					</div>
+					<div class="background background_colorful05"></div>
+					<div class="background background_colorful06">
+						<div class="f10">蓝色线条</div>
+					</div>
+					<div class="background background_colorful07">
+						<div class="f10">叶片</div>
+					</div>
+					<div class="background background_black_img">
+						<div class="f10">土地</div>
+					</div>
+					<div class="background background_dark_embroidery_img">
+						<div class="f10">刺绣</div>
+					</div>
+					<div class="background background_congruent_outline_img">
+						<div class="f10">纹路</div>
+					</div>
+					<div class="background background_woven_img">
+						<div class="f10">编织</div>
+					</div>
+					<div class="background background_retro">
+						<div class="f10">复古纸</div>
+					</div>
+					<div class="background background_retro02">
+						<div class="f10">羊皮卷</div>
+					</div>
+					<div class="background background_wooddesk_img">
+						<div class="f10">木纹</div>
+					</div>
+					<div class="background background_blackboard">
+						<div class="f10">黑板</div>
+					</div>
+					<div class="background background_greenboard">
+						<div class="f10">绿黑板</div>
+					</div>
+					<div class="background background_greenboard2">
+						<div class="f10">墨绿黑板</div>
+					</div>
+					<div class="background background_red_dotted_img">
+						<div class="f10">红点</div>
+					</div>
+					<div class="background background_carbonfibre_img">
+						<div class="f10">炭纤维</div>
+					</div>
+					<div class="background background_darkbrickwall_img">
+						<div class="f10">黑砖墙</div>
+					</div>
+					<div class="background background_darktire_img">
+						<div class="f10">轮胎印</div>
+					</div>
+					<div class="background background_darkdenim_img">
+						<div class="f10">灰单宁</div>
+					</div>
+					<div class="background background_irongrip_img">
+						<div class="f10">铁屑</div>
+					</div>
+					<div class="background background_tweed_img">
+						<div class="f10">灰呢</div>
+					</div>
+					<div class="background background_wildoliva_img">
+						<div class="f10">棉绒</div>
+					</div>
+					<div class="background background_bgnoise_img">
+						<div class="f10">白麻</div>
+					</div>
+					<div class="background background_dimension_img">
+						<div class="f10">圈圈</div>
+					</div>
+					<div class="background background_freshsnow_img">
+						<div class="f10">大理石</div>
+					</div>
+					<div class="background background_geometry_img">
+						<div class="f10">几何</div>
+					</div>
+					<div class="background background_greencup_img">
+						<div class="f10">萤石</div>
+					</div>
+					<div class="background background_nastyfabric_img">
+						<div class="f10">化纤</div>
+					</div>
+					<div class="background background_whiteleather_img">
+						<div class="f10">白革</div>
+					</div>
+					<div class="background background_newyear_star_img"></div>
+					<div class="background background_newyear_fu_img"></div>
+					<div class="background background_newyear_snow01_img"></div>
+					<div class="background background_newyear_snow02_img"></div>
+					<div class="background background_red_linear1"></div>
+					<div class="background background_big_fu_img"></div>
+					<div class="background background_white_fu_img"></div>
+					<div class="background background_black_gradient_img"></div>
+				</div>
+			</div>
+			<div class="swiper-scrollbar"></div>
+
+		</div>
+
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script src="../swipe/swiper.min.js"></script>
+<script type="text/javascript">
+	var mask = base.CreateMask(true, function() {
+		BackgroundTan(0);
+		base.CloseWaiting();
+	});
+
+	var swiper = new Swiper('.swiper-container', {
+		scrollbar: '.swiper-scrollbar',
+		direction: 'horizontal',
+		slidesPerView: 'auto',
+		mousewheelControl: true,
+		freeMode: true,
+		roundLengths: true,
+		spaceBetween: 10
+	});
+
+	mui.init();
+
+	mui.ready(function() {
+		base.Immersed();
+		base.ShowLoading(false);
+
+		window.onload = function() {
+			//snow.snow4();
+		};
+	});
+
+	//背景弹窗
+	function BackgroundTan(index) {
+		var mybackground = base.Get("mybackground");
+		if(index == 0) {
+			mybackground.classList.remove("bounceInUp");
+			mybackground.classList.add("bounceOutUp");
+		} else {
+			mask.show();
+			mybackground.classList.remove("hide");
+			var swiper = new Swiper('.swiper-container', {
+				scrollbar: '.swiper-scrollbar',
+				direction: 'horizontal',
+				slidesPerView: 'auto',
+				mousewheelControl: true,
+				freeMode: true,
+				roundLengths: true,
+				spaceBetween: 10
+			});
+			mybackground.classList.remove("bounceOutUp");
+			mybackground.classList.add("bounceInUp");
+		}
+	}
+
+	var snow = new function() {
+		//气球
+		this.snow1 = function() {
+			function a(a) {
+				var b = "https://tpcdn.semedia.cn/v2/components/motions/motion_ballon/ballon" + (d > 6 ? d = 1 : d++) + ".png";
+				var g = 30 * Math.random() + 40,
+					h = 0,
+					j = document.createElement("div"),
+					k = document.createElement("img");
+				k.src = b;
+				k.style.width = "100%";
+				k.style.height = "100%";
+				k.style.opacity = 1;
+				k.style.transform = "rotate(" + h + "deg)";
+				k.style.webkitAnimationDuration = a + "s";
+				k.style.animationDuration = a + "s";
+				k.style.webkitAnimationIterationCount = "infinite";
+				k.style.animationIterationCount = "infinite"
+				k.style.webkitAnimationTimingFunction = "ease-in-out";
+				k.style.animationTimingFunction = "ease-in-out";
+				k.style.animationName = "ballon_i";
+				k.style.webkitAnimationName = "ballon_i";
+				j.style.width = g + "px";
+				j.style.height = 1 * g + "px";
+				j.style.position = "absolute";
+				j.style.left = -0 + "vw";
+				j.appendChild(k);
+				return j;
+			}
+			var d = 1;
+			var c = document.getElementById("snowwrapper");
+			var e = setInterval(function() {
+				var b = 15 + 25 * Math.random()
+				var d = a(b);
+				d.style.left = 90 * Math.random() - 10 + "px";
+				d.style.top = -40 * Math.random() + 140 + "vh";
+				d.style.webkitAnimationDuration = b + "s";
+				d.style.animationDuration = b + "s";
+				d.style.webkitAnimationIterationCount = "infinite";
+				d.style.animationIterationCount = "infinite";
+				d.style.webkitAnimationTimingFunction = "linear";
+				d.style.animationTimingFunction = "linear";
+				d.style.zIndex = 300;
+				d.style.position = "fixed";
+				d.style.animationName = "ballon_d";
+				d.style.webkitAnimationName = "ballon_d";
+				c.appendChild(d);
+				c.children.length > 10 && clearInterval(e)
+			}, 200)
+		}
+		//心形
+		this.snow2 = function() {
+			function a(a) {
+				var b = "https://tpcdn.semedia.cn/v2/components/motions/motion_heart/heart" + (d > 4 ? d = 1 : d++) + ".png";
+				var g = 30 * Math.random() + 20,
+					h = 240 * Math.random() + -120,
+					j = document.createElement("div"),
+					k = document.createElement("img");
+				k.src = b;
+				k.style.width = "100%";
+				k.style.height = "100%";
+				k.style.opacity = 1;
+				k.style.transform = "rotate(" + h + "deg)";
+				k.style.webkitAnimationDuration = a + "s";
+				k.style.animationDuration = a + "s";
+				k.style.webkitAnimationIterationCount = "infinite";
+				k.style.animationIterationCount = "infinite";
+				k.style.webkitAnimationTimingFunction = "cubic-bezier(0.69, 0.10, 0.61, 0.92)";
+				k.style.animationTimingFunction = "cubic-bezier(0.69, 0.10, 0.61, 0.92)";
+				k.style.animationName = "dandelion_i";
+				k.style.webkitAnimationName = "dandelion_i";
+				j.style.width = g + "px";
+				j.style.height = 1 * g + "px";
+				j.style.position = "absolute";
+				j.style.left = "-20vw";
+				j.appendChild(k)
+				return j;
+			}
+			var d = 1;
+			var c = document.getElementById("snowwrapper");
+			var e = setInterval(function() {
+				var b = 5 + 15 * Math.random()
+				var d = a(b);
+				d.style.left = "-20px";
+				d.style.top = 700 * Math.random() + 100 + "px";
+				d.style.webkitAnimationDuration = b + "s";
+				d.style.animationDuration = b + "s";
+				d.style.webkitAnimationIterationCount = "infinite";
+				d.style.animationIterationCount = "infinite";
+				d.style.webkitAnimationTimingFunction = "linear";
+				d.style.animationTimingFunction = "linear";
+				d.style.zIndex = 300;
+				d.style.position = "fixed";
+				d.style.animationName = "dandelion_d";
+				d.style.webkitAnimationName = "dandelion_d";
+				c.appendChild(d);
+				c.children.length > 20 && clearInterval(e)
+			}, 200)
+		}
+		//泡泡
+		this.snow3 = function() {
+			function a(a) {
+				var b = "https://tpcdn.semedia.cn/v2/components/motions/motion_dandelion/dandelion.png";
+				var f = 40 * Math.random() + 10,
+					g = 120 * Math.random() + -60,
+					h = document.createElement("div"),
+					j = document.createElement("img");
+				j.src = b;
+				j.style.width = "100%";
+				j.style.opacity = 1;
+				j.style.transform = "rotate(" + g + "deg)";
+				j.style.webkitAnimationDuration = a + "s";
+				j.style.animationDuration = a + "s";
+				j.style.webkitAnimationIterationCount = "infinite";
+				j.style.animationIterationCount = "infinite";
+				j.style.webkitAnimationTimingFunction = "cubic-bezier(0.69, 0.10, 0.61, 0.92)";
+				j.style.animationTimingFunction = "cubic-bezier(0.69, 0.10, 0.61, 0.92)";
+				j.style.animationName = "dandelion_i";
+				j.style.webkitAnimationName = "dandelion_i";
+				h.style.width = f + "px";
+				h.style.height = 1 * f + "px";
+				h.style.position = "absolute";
+				h.style.left = "-20vw";
+				h.appendChild(j)
+				return h;
+			}
+			var c = document.getElementById("snowwrapper");
+			var d = setInterval(function() {
+				var b = 5 + 15 * Math.random();
+				var e = a(b);
+				e.style.left = "-20px";
+				e.style.top = 700 * Math.random() + 100 + "px";
+				e.style.webkitAnimationDuration = b + "s";
+				e.style.animationDuration = b + "s";
+				e.style.webkitAnimationIterationCount = "infinite";
+				e.style.animationIterationCount = "infinite";
+				e.style.webkitAnimationTimingFunction = "linear";
+				e.style.animationTimingFunction = "linear", e.style.zIndex = 300;
+				e.style.position = "fixed", e.style.animationName = "dandelion_d";
+				e.style.webkitAnimationName = "dandelion_d";
+				c.appendChild(e);
+				c.children.length > 10 && clearInterval(d)
+			}, 200)
+		}
+		//黑泡泡
+		this.snow4 = function() {
+			function a(a) {
+				var b = "https://tpcdn.semedia.cn/v2/components/motions/motion_dandelion_black/motion_dandelion_black.png";
+				var f = 40 * Math.random() + 10,
+					g = 120 * Math.random() + -60,
+					h = document.createElement("div"),
+					j = document.createElement("img");
+				j.src = b;
+				j.style.width = "100%";
+				j.style.height = "100%";
+				j.style.opacity = 1;
+				j.style.transform = "rotate(" + g + "deg)";
+				j.style.webkitAnimationDuration = a + "s";
+				j.style.animationDuration = a + "s";
+				j.style.webkitAnimationIterationCount = "infinite";
+				j.style.animationIterationCount = "infinite";
+				j.style.webkitAnimationTimingFunction = "cubic-bezier(0.69, 0.10, 0.61, 0.92)";
+				j.style.animationTimingFunction = "cubic-bezier(0.69, 0.10, 0.61, 0.92)";
+				j.style.animationName = "dandelion_i";
+				j.style.webkitAnimationName = "dandelion_i";
+				h.style.width = f + "px";
+				h.style.height = 1 * f + "px";
+				h.style.position = "absolute";
+				h.style.left = 0;
+				h.appendChild(j);
+				return h;
+			}
+			var c = document.getElementById("snowwrapper");
+			var d = (window.innerWidth, window.innerHeight, setInterval(function() {
+				var b = 5 + 15 * Math.random(),
+					e = a(b);
+				e.style.left = "-20vw";
+				e.style.top = 700 * Math.random() + 100 + "px";
+				e.style.webkitAnimationDuration = b + "s";
+				e.style.animationDuration = b + "s";
+				e.style.webkitAnimationIterationCount = "infinite";
+				e.style.animationIterationCount = "infinite";
+				e.style.webkitAnimationTimingFunction = "linear";
+				e.style.animationTimingFunction = "linear";
+				e.style.zIndex = 300, e.style.position = "fixed";
+				e.style.animationName = "dandelion_d";
+				e.style.webkitAnimationName = "dandelion_d";
+				c.appendChild(e);
+				c.children.length > 20 && clearInterval(d)
+			}, 200))
+		}
+
+		//小雪
+		this.snow5 = function() {
+			function a() {
+				d.clearRect(0, 0, e, f), d.fillStyle = "rgba(255, 255, 255, .7)", d.beginPath();
+				for(var a = 0; g > a; a++) {
+					var c = h[a];
+					d.moveTo(c.x, c.y), d.arc(c.x, c.y, c.r, 0, 2 * Math.PI, !0), d.shadowOffsetX = e, d.shadowOffsetY = 0, d.shadowColor = "#000", d.shadowBlur = 100
+				}
+				d.fill(), b()
+			}
+
+			function b() {
+				j += .01;
+				for(var a = 0; g > a; a++) {
+					var b = h[a];
+					b.y += Math.cos(j + b.d) + 1 + b.r / 2, b.x += 2 * Math.sin(j), (b.x > e + 5 || b.x < -5 || b.y > f) && (a % 3 > 0 ? h[a] = {
+						x: Math.random() * e,
+						y: -10,
+						r: b.r,
+						d: b.d
+					} : Math.sin(j) > 0 ? h[a] = {
+						x: -5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					} : h[a] = {
+						x: e + 5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					})
+				}
+			}
+			var c = document.getElementById("snowwrapper");
+			if(c) {
+				var d = c.getContext("2d"),
+					e = window.innerWidth,
+					f = window.innerHeight;
+				c.width = e, c.height = f;
+				for(var g = 55, h = [], i = 0; g > i; i++) h.push({
+					x: Math.random() * e,
+					y: Math.random() * f,
+					r: 4 * Math.random() + 1,
+					d: Math.random() * g
+				});
+				var j = 0;
+				setInterval(a, 33)
+			}
+		}
+	}
+</script>
