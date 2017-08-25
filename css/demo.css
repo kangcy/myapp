@@ -4,22 +4,39 @@ hr {
 	display: block
 }
 
-.group.border_layer01 img,
-.group.border_layer02 img,
-.group.border_layer03 img {
+.border_layer01,
+.border_layer02,
+.border_layer03,
+.border_layer04,
+.border_layer05,
+.border_layer06,
+.border_layer07,
+.border_layer08,
+.border_layer09,
+.border_layer10,
+.border_layer11,
+.border_layer12,
+.border_layer13,
+.border_layer14 {
+	display: inline-block;
+}
+
+.border_layer01 img,
+.border_layer02 img,
+.border_layer03 img {
 	-webkit-mask-position: 50% 50%;
 	-webkit-mask-size: 100%
 }
 
-.group.border_stamp_green,
-.group.border_stamp_white {
+.border_stamp_green,
+.border_stamp_white {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box
 }
 
-.group.border,
-.group.border_white_square {
+.border,
+.border_white_square {
 	border: 1px solid #ccc;
 	padding: 0
 }
@@ -198,12 +215,6 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 .background_colorful04 {
 	background-image: url(https://tpcdn.semedia.cn/v2/components/backgrounds/background_colorful04/background_colorful04.jpg);
 	background-size: 150px 120px;
-	background-repeat: repeat
-}
-
-.background_colorful05 {
-	background-image: url(https://tpcdn.semedia.cn/v2/components/backgrounds/background_colorful05/background_colorful05.jpg);
-	background-size: 60px 50px;
 	background-repeat: repeat
 }
 
@@ -392,13 +403,13 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	margin: 15px
 }
 
-.group.border,
-.group.border_pink_dotted,
-.group.border_stamp_white,
-.group.border_white,
-.group.border_white_square {
+.border,
+.border_pink_dotted,
+.border_stamp_white,
+.border_white,
+.border_white_square {
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
 }
 
 .group img {
@@ -416,19 +427,19 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	margin-right: -10px
 }
 
-.group.border_layer01 img {
+.border_layer01 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer01/border_layer01.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer02 img {
+.border_layer02 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer02/border_layer02.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer03 img {
+.border_layer03 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer03/border_layer03.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer04 img {
+.border_layer04 img {
 	-webkit-mask-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer04/border_layer04.png);
 	width: 100%;
 	height: 100%;
@@ -436,103 +447,109 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	mask-size: cover
 }
 
-.group.border_layer05 img,
-.group.border_layer06 img,
-.group.border_layer07 img,
-.group.border_layer08 img,
-.group.border_layer10 img,
-.group.border_layer11 img,
-.group.border_layer12 img,
-.group.border_layer13 img,
-.group.border_layer14 img {
+.border_layer05 img,
+.border_layer06 img,
+.border_layer07 img,
+.border_layer08 img,
+.border_layer10 img,
+.border_layer11 img,
+.border_layer12 img,
+.border_layer13 img,
+.border_layer14 img {
 	-webkit-mask-position: 50% 50%;
 	-webkit-mask-size: 100%
 }
 
-.group.border_layer05 img {
+.border_layer05 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer05/border_layer05.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer06 img {
+.border_layer06 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer06/border_layer06.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer07 img {
+.border_layer07 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer07/border_layer07.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer08 img {
+.border_layer08 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer08/border_layer08.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer09 img {
+.border_layer09 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer09/border_layer09.png) 0 0 0 0 stretch stretch;
 	-webkit-mask-position: 50% 50%;
 	-webkit-mask-size: 100%
 }
 
-.group.border_layer10 img {
+.border_layer10 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer10/border_layer10.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer11 img {
+.border_layer11 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer11/border_layer11.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer12 img {
+.border_layer12 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer12/border_layer12.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer13 img {
+.border_layer13 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer13/border_layer13.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_layer14 img {
+.border_layer14 img {
 	-webkit-mask-box-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_layer14/border_layer14.png) 0 0 0 0 stretch stretch
 }
 
-.group.border_white_square {
-	box-shadow: #aaa 0 0 .6em
+.border_white_square {
+	box-shadow: #aaa 0 0 .6em;
+	display: inline-block;
 }
 
-.group.border_white {
+.border_white {
 	padding: 0;
 	border: 3px solid #fff;
-	border-radius: 5px
+	border-radius: 5px;
+	display: inline-block;
 }
 
-.group.border_pink_dotted {
+.border_pink_dotted {
 	padding: 10px;
 	border: 2px dotted #D17F96;
-	border-radius: 20px
+	border-radius: 20px;
+	display: inline-block;
 }
 
-.group.border_pink_dotted .text.bottom {
+.border_pink_dotted .text.bottom {
 	color: #920258
 }
 
-.group.border_stamp_white {
+.border_stamp_white {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_stamp_white/border_stamp_white.png) 7 repeat;
 	border-width: 7px;
 	border-style: solid;
-	box-sizing: border-box
+	box-sizing: border-box;
+	display: inline-block;
 }
 
-.group.border_round_corner {
+.border_round_corner {
 	background-color: transparent;
-	margin: 20px 15px
+	margin: 20px 15px;
+	display: inline-block;
 }
 
-.group.border_round_corner img {
+.border_round_corner img {
 	border-radius: 10px;
 	box-shadow: 1px 1px 2px rgba(255, 255, 255, .7)
 }
 
-.group.border_round img {
+.border_round img {
 	border-radius: 10px
 }
 
-.group.border_blur {
+.border_blur {
+	display: inline-block;
 	border-style: solid;
 	border-width: 12px 13px 14px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_blur/border_blur.png) 12 13 14 13 round;
@@ -541,55 +558,58 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_blur/border_blur.png) 12 13 14 13 fill round
 }
 
-.group.border_gold {
+.border_gold {
+	display: inline-block;
 	padding: 0;
 	border: 4px solid #f2e191;
 	background-color: #f2e191
 }
 
-.group.border_gold>.text.bottom {
+.border_gold>.text.bottom {
 	color: #D01320
 }
 
-.group.border_purple {
+.border_purple {
 	-webkit-box-shadow: inset 0 0 9px rgba(133, 80, 133, .5);
 	-moz-box-shadow: inset 0 0 9px rgba(133, 80, 133, .5);
 	box-shadow: inset 0 0 5px rgba(133, 80, 133, .5);
 	padding: 6px;
-	border-radius: 5px
+	border-radius: 5px;
+	display: inline-block;
 }
 
-.group.border_white_wide {
+.border_white_wide {
 	background: #fff;
 	-webkit-box-shadow: 0 10px 6px -6px #777;
 	-moz-box-shadow: 0 10px 6px -6px #777;
 	box-shadow: 0 10px 6px -6px #777;
 	padding: 15px;
-	margin-bottom: 20px;
-	border-radius: 2px
+	border-radius: 2px;
+	display: inline-block;
 }
 
 .blockquote_stick1,
-.group.border_stick1,
-.group.border_stick1:before {
+.border_stick1,
+.border_stick1:before {
 	-webkit-box-shadow: 0 0 12px rgba(0, 0, 0, .2)
 }
 
-.group.border_stamp_green,
-.group.border_stamp_pink {
+.border_stamp_green,
+.border_stamp_pink {
 	border-width: 7px;
 	border-style: solid;
 	padding: 3px;
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_stamp_green {
+.border_stamp_green {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_stamp_green/border_stamp_green.png) 7 repeat;
 	box-sizing: border-box
 }
 
-.group.border_stamp_pink {
+.border_stamp_pink {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_stamp_pink/border_stamp_pink.png) 7 repeat;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -597,7 +617,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	box-sizing: border-box
 }
 
-.group.border_wood1 {
+.border_wood1 {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	border-style: solid;
@@ -607,20 +627,22 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-o-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood1/border_wood1.png) 9 stretch;
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood1/border_wood1.png) 9 fill stretch;
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_wood2,
-.group.border_wood3,
-.group.border_wood4 {
+.border_wood2,
+.border_wood3,
+.border_wood4 {
 	margin-top: 15px;
 	margin-bottom: 15px;
 	border-style: solid;
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_wood2 {
+.border_wood2 {
 	border-width: 28px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood2/border_wood2.png) 28 stretch;
 	-webkit-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood2/border_wood2.png) 28 stretch;
@@ -628,7 +650,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood2/border_wood2.png) 28 fill stretch
 }
 
-.group.border_wood3 {
+.border_wood3 {
 	border-width: 7px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood3/border_wood3.png) 7 stretch;
 	-webkit-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood3/border_wood3.png) 7 stretch;
@@ -636,7 +658,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood3/border_wood3.png) 7 stretch
 }
 
-.group.border_wood4 {
+.border_wood4 {
 	border-width: 28px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood4/border_wood4.jpg) 28 stretch stretch;
 	-webkit-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood4/border_wood4.jpg) 28 stretch stretch;
@@ -644,7 +666,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_wood4/border_wood4.jpg) 28 fill stretch stretch
 }
 
-.group.border_retro {
+.border_retro {
 	border-style: solid;
 	border-width: 10px 11px 12px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_retro/border_retro.png) 10 11 12 11 repeat;
@@ -652,10 +674,11 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-o-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_retro/border_retro.png) 10 11 12 11 repeat;
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_retro/border_retro.png) 10 11 12 11 fill repeat;
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_flower {
+.border_flower {
 	border-style: solid;
 	border-width: 19px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_flower/border_flower.jpg) 19 repeat;
@@ -663,10 +686,11 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-o-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_flower/border_flower.jpg) 19 repeat;
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_flower/border_flower.jpg) 19 fill repeat;
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_gold1 {
+.border_gold1 {
 	margin: 10px 15px;
 	border-style: solid;
 	border-width: 39px 37px 37px 39px;
@@ -675,12 +699,11 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-o-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_gold1/border_gold1.png) 39 37 37 39 stretch;
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_gold1/border_gold1.png) 39 37 37 39 stretch;
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_gold2 {
-	margin-top: 15px;
-	margin-bottom: 15px;
+.border_gold2 {
 	border-style: solid;
 	border-width: 13px 14px 14px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_gold2/border_gold2.png) 13 14 14 round;
@@ -688,17 +711,19 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-o-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_gold2/border_gold2.png) 13 14 14 round;
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_gold2/border_gold2.png) 13 14 14 fill round;
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
+	display: inline-block;
 }
 
-.group.border_stick1 {
+.border_stick1 {
 	margin: 20px auto;
 	padding: 10px;
 	position: relative;
-	background: -webkit-gradient(linear, 0 20%, 0 92%, from(#fff), to(#f3f3f3), color-stop(.1, #fff))
+	background: -webkit-gradient(linear, 0 20%, 0 92%, from(#fff), to(#f3f3f3), color-stop(.1, #fff));
+	display: inline-block;
 }
 
-.group.border_stick1:before {
+.border_stick1:before {
 	content: '';
 	position: absolute;
 	width: 130px;
@@ -711,22 +736,21 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-webkit-transform: translate(-40px, 20px) skew(10deg, 10deg) rotate(-50deg)
 }
 
-.group.border_rightshadow,
-.group.border_yellowshadow {
+.border_rightshadow,
+.border_yellowshadow {
 	min-height: 150px;
 	background: -webkit-gradient(linear, 0 20%, 0 92%, from(#f3f3f3), to(#fff), color-stop(.1, #f3f3f3));
 	border-top: 1px solid #ccc;
 	border-right: 1px solid #ccc
 }
 
-.group.border_stick1 img {
+.border_stick1 img {
 	width: 100%
 }
 
 .border_bottomshadow {
 	display: inline-block;
 	padding: 10px;
-	margin-bottom: 40px;
 	position: relative;
 	background: -webkit-gradient(linear, 0 20%, 0 1000%, from(#fff), to(#fff), color-stop(.1, #f3f3f3));
 	-webkit-box-shadow: 0 3px 30px rgba(0, 0, 0, .1) inset
@@ -763,15 +787,15 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	padding: 0
 }
 
-.group.border_rightshadow {
+.border_rightshadow {
 	padding: 10px;
-	margin-bottom: 20px;
 	position: relative;
 	-webkit-border-bottom-right-radius: 40px 30px;
-	-webkit-box-shadow: -1px 2px 2px rgba(0, 0, 0, .2)
+	-webkit-box-shadow: -1px 2px 2px rgba(0, 0, 0, .2);
+	display: inline-block;
 }
 
-.group.border_rightshadow:before {
+.border_rightshadow:before {
 	content: url(https://tpcdn.semedia.cn/v2/components/borders/border_rightshadow/border_rightshadow.png);
 	width: 25px;
 	height: 20px;
@@ -781,43 +805,44 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-webkit-transform: rotate(0) skew(0deg, 0deg) translate(-11px, -7px)
 }
 
-.group.border_rightshadow img {
+.border_rightshadow img {
 	width: 100%;
 	margin-bottom: 25px
 }
 
-.group.border_rightshadow .text.bottom {
+.border_rightshadow .text.bottom {
 	padding: 0
 }
 
-.group.border_yellowshadow {
+.border_yellowshadow {
 	color: #8e8e8e;
 	padding: 10px;
-	margin-bottom: 20px;
 	position: relative;
 	-webkit-box-shadow: 0 1px 6px, 0 0 40px rgba(212, 212, 145, .9) inset;
 	-moz-box-shadow: 0 1px 6px, 0 0 40px rgba(212, 212, 145, .9) inset;
-	box-shadow: 0 1px 6px, 0 0 40px rgba(212, 212, 145, .9) inset
+	box-shadow: 0 1px 6px, 0 0 40px rgba(212, 212, 145, .9) inset;
+	display: inline-block;
 }
 
-.group.border_blackwood,
-.group.border_diamond,
-.group.border_roll {
+.border_blackwood,
+.border_diamond,
+.border_roll {
 	border-style: solid;
 	background-color: #fff;
 	background-clip: padding-box
 }
 
-.group.border_yellowshadow img {
+.border_yellowshadow img {
 	width: 100%;
 	margin-top: 0
 }
 
-.group.border_yellowshadow .text.bottom {
+.border_yellowshadow .text.bottom {
 	padding: 0
 }
 
-.group.border_roll {
+.border_roll {
+	display: inline-block;
 	border-width: 5px 26px;
 	margin-bottom: 20px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_roll/border_roll.png) 5 26 round;
@@ -826,7 +851,8 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_roll/border_roll.png) 5 26 round
 }
 
-.group.border_blackwood {
+.border_blackwood {
+	display: inline-block;
 	border-width: 22px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_blackwood/border_blackwood.png) 22 repeat;
 	-webkit-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_blackwood/border_blackwood.png) 22 repeat;
@@ -834,7 +860,8 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_blackwood/border_blackwood.png) 22 fill repeat
 }
 
-.group.border_diamond {
+.border_diamond {
+	display: inline-block;
 	border-width: 25px;
 	-moz-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_diamond/border_diamond.png) 25 repeat;
 	-webkit-border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_diamond/border_diamond.png) 25 repeat;
@@ -842,15 +869,15 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_diamond/border_diamond.png) 25 fill repeat
 }
 
-.group.border_translucent {
+.border_translucent {
+	display: inline-block;
 	border: 10px solid hsla(0, 0%, 100%, .5);
 	background: hsla(0, 0%, 100%, .5);
 	background-clip: padding-box
 }
 
 .border_shadow1 {
-	padding: 50px 10px;
-	margin-bottom: 25px;
+	padding: 20px 10px;
 	-webkit-box-shadow: 0 10px 6px -6px #777;
 	-moz-box-shadow: 0 10px 6px -6px #777;
 	box-shadow: 0 10px 6px -6px #777;
@@ -865,7 +892,6 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .3), 0 0 40px rgba(0, 0, 0, .1) inset;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, .3), 0 0 40px rgba(0, 0, 0, .1) inset;
 	padding: 10px;
-	margin-bottom: 20px;
 	background: #fff;
 	background-clip: padding-box;
 	display: inline-block;
@@ -935,7 +961,8 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	transform: skew(8deg) rotate(3deg)
 }
 
-.group.border_oldstylepink {
+.border_oldstylepink {
+	display: inline-block;
 	background-clip: padding-box;
 	border-style: solid;
 	border-width: 20px 23px 22px 22px;
@@ -945,7 +972,8 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_oldstylepink/border_oldstylepink.png) 20 23 22 22 fill round
 }
 
-.group.border_oldstylewhite {
+.border_oldstylewhite {
+	display: inline-block;
 	background: #fff;
 	background-clip: padding-box;
 	border-style: solid;
@@ -956,7 +984,8 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_oldstylewhite/border_oldstylewhite.png) 17 fill round
 }
 
-.group.border_whitecookie {
+.border_whitecookie {
+	display: inline-block;
 	background: #fff;
 	background-clip: padding-box;
 	border-style: solid;
@@ -967,7 +996,8 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-image: url(https://tpcdn.semedia.cn/v2/components/borders/border_whitecookie/border_whitecookie.png) 14 14 15 fill round
 }
 
-.group.border_whitesharp {
+.border_whitesharp {
+	display: inline-block;
 	background: #fff;
 	background-clip: padding-box;
 	border-style: solid;
