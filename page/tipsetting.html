@@ -135,6 +135,10 @@
 					<span class="fl">后台</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18"></span>
 				</li>
+				<li class="mui-table-view-cell hide" onclick="Line()" id="line">
+					<span class="fl">效果</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18"></span>
+				</li>
 			</ul>
 		</div>
 	</body>
@@ -156,7 +160,7 @@
 		base.Immersed();
 
 		if(userinfo.UserRole == 2) {
-			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment", "#adv", "#index", "#banner", "#backstage"], "hide");
+			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment", "#adv", "#index", "#banner", "#backstage", "#line"], "hide");
 		}
 	});
 
@@ -294,6 +298,11 @@
 		base.OpenWindow("bannerdetail", "bannerdetail.html", {
 			ArticleID: 0
 		});
+	}
+
+	//效果
+	function Line() {
+		base.OpenWindow("line", "line.html", {});
 	}
 
 	//后台

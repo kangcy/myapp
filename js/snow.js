@@ -6,15 +6,13 @@ var snow = new function() {
 		e = window.innerWidth,
 		f = window.innerHeight,
 		g = 0,
-		j = 0,
-		imgwidth = 0,
-		imgheight = 0;
+		j = 0;
 
 	function a() {
-		d.clearRect(0, 0, e, f);
 		for(var a = 0; g > a; a++) {
 			var c = h[a];
-			d.drawImage(img, c.x, c.y, imgwidth, imgheight);
+			c.img.style.left = c.x;
+			c.img.style.top = c.y;
 		}
 		b()
 	}
@@ -45,19 +43,20 @@ var snow = new function() {
 	this.init = function(id, count, src) {
 		img = new Image();
 		img.src = src;
+		img.style.width = "25px";
 		img.onload = function() {
-			imgwidth = img.width > 30 ? 25 : img.width;
-			imgheight = img.height > 30 ? 25 : img.height;
 			c = document.getElementById(id);
 			if(c) {
-				d = c.getContext("2d")
 				c.width = e, c.height = f;
-				for(g = count, h = [], i = 0; g > i; i++) h.push({
-					x: Math.random() * e,
-					y: Math.random() * f,
-					r: 4 * Math.random() + 1,
-					d: Math.random() * g
-				});
+				for(g = count, h = [], i = 0; g > i; i++) {
+					h.push({
+						x: Math.random() * e,
+						y: Math.random() * f,
+						r: 4 * Math.random() + 1,
+						d: Math.random() * g,
+						img: img
+					});
+				}
 				snowinterval = setInterval(a, 33)
 			}
 		}

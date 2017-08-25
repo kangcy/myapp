@@ -536,25 +536,29 @@
 		base.CloseWaiting();
 	});
 
-	var swiper = new Swiper('.swiper-container', {
-		scrollbar: '.swiper-scrollbar',
-		direction: 'horizontal',
-		slidesPerView: 'auto',
-		mousewheelControl: true,
-		freeMode: true,
-		roundLengths: true,
-		spaceBetween: 10
-	});
-
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
 		base.ShowLoading(false);
 
-		window.onload = function() {
-			//snow.snow11();
-		};
+		//snow.snow0();
+
+		var swiper = new Swiper('.swiper-container', {
+			scrollbar: '.swiper-scrollbar',
+			direction: 'horizontal',
+			slidesPerView: 'auto',
+			mousewheelControl: true,
+			freeMode: true,
+			roundLengths: true,
+			spaceBetween: 10
+		});
+
+		//snow.snow0("http://www.xiaoweipian.com/Images/Showy/03/003.png")
+		snow.snow9();
+		mui.later(function() {
+			snow.clear();
+		}, 5000)
 	});
 
 	//背景弹窗
@@ -581,6 +585,84 @@
 	}
 
 	var snow = new function() {
+		var snowinterval = 0;
+
+		//清除
+		this.clear = function() {
+			clearInterval(snowinterval);
+			document.getElementById("snowwrapper").innerHTML = "";
+			var canvas = document.getElementById("snowcanvas");
+			var cxt = canvas.getContext("2d");
+			cxt.clearRect(0, 0, canvas.width, canvas.height);
+		}
+		//通用
+		this.snow0 = function(src) {
+			var c = null,
+				d = null,
+				img = null,
+				e = window.innerWidth,
+				f = window.innerHeight,
+				g = 0,
+				j = 0;
+
+			function a() {
+				for(var a = 0; g > a; a++) {
+					var c = h[a];
+					var img = mui(".flowimg")[a];
+					if(img) {
+						img.style.left = c.x + "px";
+						img.style.top = c.y + "px";
+					}
+				}
+				b()
+			}
+
+			function b() {
+				j += .01;
+				for(var a = 0; g > a; a++) {
+					var b = h[a];
+					b.y += Math.cos(j + b.d) + 1 + b.r / 2, b.x += 2 * Math.sin(j), (b.x > e + 5 || b.x < -100 || b.y > f) && (a % 3 > 0 ? h[a] = {
+						x: Math.random() * e,
+						y: -10,
+						r: b.r,
+						d: b.d
+					} : Math.sin(j) > 0 ? h[a] = {
+						x: -5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					} : h[a] = {
+						x: e + 5,
+						y: Math.random() * f,
+						r: b.r,
+						d: b.d
+					})
+				}
+			}
+			img = new Image();
+			img.src = src;
+			img.style.position = "fixed";
+			img.classList.add("flowimg")
+			img.onload = function() {
+				c = document.getElementById("snowwrapper");
+				if(c) {
+					c.width = e, c.height = f;
+					for(g = 6, h = [], i = 0; g > i; i++) {
+						var imgclone = img.cloneNode()
+						imgclone.style.width = (Math.random() * 10 + 25) + "px";
+						c.appendChild(imgclone);
+						h.push({
+							x: Math.random() * e,
+							y: Math.random() * f,
+							r: 4 * Math.random() + 1,
+							d: Math.random() * g,
+							img: imgclone
+						});
+					}
+					snowinterval = setInterval(a, 35)
+				}
+			}
+		}
 		//气球
 		this.snow1 = function() {
 			function a(a) {
@@ -611,7 +693,7 @@
 			}
 			var d = 1;
 			var c = document.getElementById("snowwrapper");
-			var e = setInterval(function() {
+			snowinterval = setInterval(function() {
 				var b = 15 + 25 * Math.random()
 				var d = a(b);
 				d.style.left = 90 * Math.random() - 10 + "px";
@@ -627,7 +709,7 @@
 				d.style.animationName = "ballon_d";
 				d.style.webkitAnimationName = "ballon_d";
 				c.appendChild(d);
-				c.children.length > 10 && clearInterval(e)
+				c.children.length > 10 && clearInterval(snowinterval)
 			}, 200)
 		}
 		//心形
@@ -660,10 +742,10 @@
 			}
 			var d = 1;
 			var c = document.getElementById("snowwrapper");
-			var e = setInterval(function() {
+			snowinterval = setInterval(function() {
 				var b = 5 + 15 * Math.random()
 				var d = a(b);
-				d.style.left = "-20px";
+				d.style.left = "-50px";
 				d.style.top = 700 * Math.random() + 100 + "px";
 				d.style.webkitAnimationDuration = b + "s";
 				d.style.animationDuration = b + "s";
@@ -676,7 +758,7 @@
 				d.style.animationName = "dandelion_d";
 				d.style.webkitAnimationName = "dandelion_d";
 				c.appendChild(d);
-				c.children.length > 20 && clearInterval(e)
+				c.children.length > 20 && clearInterval(snowinterval)
 			}, 200)
 		}
 		//泡泡
@@ -707,7 +789,7 @@
 				return h;
 			}
 			var c = document.getElementById("snowwrapper");
-			var d = setInterval(function() {
+			snowinterval = setInterval(function() {
 				var b = 5 + 15 * Math.random();
 				var e = a(b);
 				e.style.left = "-20px";
@@ -721,7 +803,7 @@
 				e.style.position = "fixed", e.style.animationName = "dandelion_d";
 				e.style.webkitAnimationName = "dandelion_d";
 				c.appendChild(e);
-				c.children.length > 10 && clearInterval(d)
+				c.children.length > 10 && clearInterval(snowinterval)
 			}, 200)
 		}
 		//黑泡泡
@@ -753,7 +835,7 @@
 				return h;
 			}
 			var c = document.getElementById("snowwrapper");
-			var d = setInterval(function() {
+			snowinterval = setInterval(function() {
 				var b = 5 + 15 * Math.random(),
 					e = a(b);
 				e.style.left = "-20vw";
@@ -768,7 +850,7 @@
 				e.style.animationName = "dandelion_d";
 				e.style.webkitAnimationName = "dandelion_d";
 				c.appendChild(e);
-				c.children.length > 20 && clearInterval(d)
+				c.children.length > 20 && clearInterval(snowinterval)
 			}, 200)
 		}
 
@@ -818,7 +900,7 @@
 					d: Math.random() * g
 				});
 				var j = 0;
-				setInterval(a, 33)
+				snowinterval = setInterval(a, 33)
 			}
 		}
 		//小雨
@@ -867,7 +949,7 @@
 					d: Math.random() * g
 				});
 				var j = 0;
-				setInterval(a, 25)
+				snowinterval = setInterval(a, 25)
 			}
 		}
 		//暴雨
@@ -916,7 +998,7 @@
 					d: Math.random() * g
 				});
 				var j = 0;
-				setInterval(a, 10)
+				snowinterval = setInterval(a, 10)
 			}
 		}
 		//暴雪
@@ -965,7 +1047,7 @@
 					d: Math.random() * g
 				});
 				var j = 0;
-				setInterval(a, 6)
+				snowinterval = setInterval(a, 6)
 			}
 		}
 		//红包
@@ -990,7 +1072,7 @@
 			}
 			var d = window.innerWidth;
 			var c = document.getElementById("snowwrapper");
-			var e = (window.innerHeight, setInterval(function() {
+			snowinterval = setInterval(function() {
 				var b = a();
 				b.style.top = "-" + 30 * Math.random() + "px";
 				b.style.webkitAnimationDuration = 2 + 1 * Math.random() + "s";
@@ -1001,8 +1083,8 @@
 				b.style.animationTimingFunction = "linear", b.style.zIndex = 300;
 				b.style.position = "fixed";
 				b.classList.add("particles_class"), c.appendChild(b);
-				c.children.length > 15 && clearInterval(e)
-			}, 200));
+				c.children.length > 15 && clearInterval(snowinterval)
+			}, 200);
 		}
 		//爆竹
 		this.snow10 = function() {
@@ -1016,9 +1098,20 @@
 			}
 			var d = window.innerWidth;
 			var c = document.getElementById("snowwrapper");
-			var e = setInterval(function() {
+			snowinterval = setInterval(function() {
 				var b = a();
-				b.style.top = "-20vh", b.style.webkitAnimationDuration = 2 + 1 * Math.random() + "s", b.style.animationDuration = 2 + 1 * Math.random() + "s", b.style.webkitAnimationIterationCount = "infinite", b.style.animationIterationCount = "infinite", b.style.webkitAnimationTimingFunction = "ease-in", b.style.animationTimingFunction = "ease-in", b.style.zIndex = 300, b.style.position = "fixed", b.classList.add("particles_class"), c.appendChild(b), c.children.length > 30 && clearInterval(e)
+				b.style.top = "-20vh";
+				b.style.webkitAnimationDuration = 2 + 1 * Math.random() + "s";
+				b.style.animationDuration = 2 + 1 * Math.random() + "s";
+				b.style.webkitAnimationIterationCount = "infinite";
+				b.style.animationIterationCount = "infinite";
+				b.style.webkitAnimationTimingFunction = "ease-in";
+				b.style.animationTimingFunction = "ease-in";
+				b.style.zIndex = 300;
+				b.style.position = "fixed";
+				b.classList.add("particles_class");
+				c.appendChild(b);
+				c.children.length > 30 && clearInterval(snowinterval)
 			}, 200);
 		}
 		//元宝
@@ -1032,11 +1125,22 @@
 				return j.src = a, j.style.width = "100%", j.style.height = "100%", j.style.transform = "rotate(" + g + "deg)", j.style.opacity = 1, h.style.width = f + "px", h.style.height = .77 * f + "px", h.style.position = "absolute", h.style.left = Math.random() * (d - f) + "px", h.appendChild(j), h
 			}
 			var c = document.getElementById("snowwrapper");
-			var d = window.innerWidth,
-				e = setInterval(function() {
-					var b = a();
-					b.style.top = "-" + 30 * Math.random() + "px", b.style.webkitAnimationDuration = 1 + 1 * Math.random() + "s", b.style.animationDuration = 1 + 1 * Math.random() + "s", b.style.webkitAnimationIterationCount = "infinite", b.style.animationIterationCount = "infinite", b.style.webkitAnimationTimingFunction = "linear", b.style.animationTimingFunction = "linear", b.style.zIndex = 300, b.style.position = "fixed", b.classList.add("particles_class"), c.appendChild(b), c.children.length > 15 && clearInterval(e)
-				}, 200);
+			var d = window.innerWidth;
+			snowinterval = setInterval(function() {
+				var b = a();
+				b.style.top = "-" + 30 * Math.random() + "px";
+				b.style.webkitAnimationDuration = 1 + 1 * Math.random() + "s";
+				b.style.animationDuration = 1 + 1 * Math.random() + "s";
+				b.style.webkitAnimationIterationCount = "infinite";
+				b.style.animationIterationCount = "infinite";
+				b.style.webkitAnimationTimingFunction = "linear";
+				b.style.animationTimingFunction = "linear";
+				b.style.zIndex = 300;
+				b.style.position = "fixed";
+				b.classList.add("particles_class");
+				c.appendChild(b);
+				c.children.length > 15 && clearInterval(snowinterval)
+			}, 200);
 		};
 	}
 </script>

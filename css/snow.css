@@ -34,6 +34,18 @@
 	}
 }
 
+@-webkit-keyframes dandelion_d2 {
+	100% {
+		transform: translate3d(40vh, -120vw, 0)
+	}
+}
+
+@keyframes dandelion_d2 {
+	100% {
+		transform: translate3d(40vh, -120vw, 0)
+	}
+}
+
 @-webkit-keyframes dandelion_d {
 	100% {
 		transform: translate3d(120vw, -40vh, 0)
