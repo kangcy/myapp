@@ -4,10 +4,10 @@ var or, divTemp, originText, newData, objEditor, objEditorBody, edDoc, w;
 
 function initEditor(html) {
 	var ifrm = document.getElementById("editor")
-	ifrm.contentWindow.document.designMode = "On";
+	//ifrm.contentWindow.document.designMode = "On";
 
 	if(base.IsNullOrEmpty(html)) {
-		ifrm.contentWindow.document.write("<link rel=\"stylesheet\" href=\"../css/mui.min.css\"><body style=\"" + bodyStyle + "\"><div tabindex=\"-1\" class=\"edit f12 tl\"></div><script src=\"../minjs/base.min.js\"></script></body>");
+		ifrm.contentWindow.document.write("<link rel=\"stylesheet\" href=\"../css/mui.min.css\"><body style=\"" + bodyStyle + "\"><div class=\"edit f12 tl\" contenteditable=\"true\"></div><script src=\"../minjs/base.min.js\"></script></body>");
 	} else {
 		ifrm.contentWindow.document.write("<link rel=\"stylesheet\" href=\"../css/mui.min.css\"><body style=\"" + bodyStyle + "\">" + html + "<script src=\"../minjs/base.min.js\"></script></body>");
 	}

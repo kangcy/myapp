@@ -189,7 +189,7 @@
 			<div class="color fr" style="background:#B04FBB;" data-type="BackColor" data="#B04FBB"></div>
 		</nav>
 		<nav id="align" class="mui-bar mui-bar-tab tc hide" style="background:#fff;bottom:50px;">
-			<div class="menus" id="align_first"> 
+			<div class="menus" id="align_first">
 				<div class="menu format" id="btnRight"> </div>
 				<div class="menu format" id="btnCenter"> </div>
 				<div class="menu format" id="btnLeft"> </div>
@@ -435,7 +435,6 @@
 		objEditorBody.classList.add(name);
 		InsertPush();
 	}
-
 	var time = 0;
 	var addarticlePage = null;
 	mui.plusReady(function() {
@@ -449,7 +448,10 @@
 		if(base.IsNullOrEmpty(html)) {
 			initEditor('');
 		} else {
-			initEditor(html)
+			var div = document.createElement("div");
+			div.innerHTML = html;
+			div.childNodes[0].setAttribute("contenteditable", true);
+			initEditor(div.innerHTML)
 		}
 
 		InsertPush();
@@ -470,12 +472,14 @@
 
 		//字数限制
 		edDoc.getElementsByClassName("edit")[0].ontouchend = function() {
+			return
 			base.AddClass(["#color", "#bgcolor", "#bold", "#fs", "#align"], "hide");
 			base.RemoveClass([".curr"], "curr");
 
 			/*SelectAll = false;
 			base.Get("all").classList.remove("select");
 			edDoc.execCommand("Unselect");*/
+
 		}
 
 		edDoc.onkeyup = function() {
@@ -488,7 +492,8 @@
 				return;
 			}
 			isLoading = true;
-			var val = objEditorBody.innerHTML
+
+			var val = objEditorBody.innerHTML;
 			if(base.IsNullOrEmpty(val)) {
 				isLoading = false;
 				return mui.toast("请编辑文字");
@@ -505,6 +510,7 @@
 						if(!addarticlePage) {
 							addarticlePage = base.GetView('addarticle');
 						}
+						objEditorBody.removeAttribute("contenteditable");
 						addarticlePage.evalJS("AddText('" + (PartID == 0 ? base.GetUid() : PartID) + "','" + escape(objEditorBody.outerHTML) + "','" + PartID + "')");
 						plus.webview.close("editdesc");
 					} else {
