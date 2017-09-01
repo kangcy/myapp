@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/input.min.css">
 		<link rel="stylesheet" href="../mincss/articledetail.min.css">
+		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
 			#topPopover {
 				position: fixed;
@@ -763,7 +764,12 @@
 			return
 		}
 		LoadScript("../js/snow.js", function() {
-			snow.init("snowwrapper", 8, src)
+			var srcs = src.split("|");
+			if(srcs.length >= 2) {
+				snow.init(srcs[0], srcs[1], srcs[2])
+			} else {
+				snow.init(src, 1, 0)
+			}
 		});
 	}
 
@@ -775,7 +781,12 @@
 			InitShowy(src)
 		} else {
 			snow.clear();
-			snow.init("snowwrapper", 8, src)
+			var srcs = src.split("|");
+			if(srcs.length >= 2) {
+				snow.init(srcs[0], srcs[1], srcs[2])
+			} else {
+				snow.init(src, 1, 0)
+			}
 		}
 		Article.Showy = src;
 	}

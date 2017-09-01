@@ -133,9 +133,14 @@
 			return false;
 		}
 		isLoading = true;
-		var src = mui(".yescheck")[0].getAttribute("src");
+		var item = mui(".yescheck")[0];
+		var src = item.getAttribute("src");
+		var count = item.getAttribute("count");
+		var snowtype = item.getAttribute("snowtype");
 		base.OpenWindow("showypreview", "showypreview.html", {
 			Src: src,
+			Count: count,
+			SnowType: snowtype,
 			ArticleNumber: ArticleNumber
 		});
 		isLoading = false;
@@ -154,10 +159,10 @@
 				totalpage = data.totalpage;
 				var fragment = document.createDocumentFragment();
 				mui.each(data.list, function(index, item) {
-					var wrapper = AppendStr0(); 
+					var wrapper = AppendStr0();
 					wrapper.appendChild(AppendStr1(item));
-					mui.each(item.Icon, function(index2, item2) {
-						wrapper.appendChild(AppendStr2(item.Cover[index2], item2));
+					mui.each(item.ShowyCover, function(index2, item2) {
+						wrapper.appendChild(AppendStr2(item2));
 					});
 					fragment.appendChild(wrapper);
 					fragment.appendChild(AppendStr3());
@@ -187,13 +192,16 @@
 		div.className = 'title tl mt10 mb10 f14 fl full';
 		div.innerHTML = '<span style="margin-left:0.3rem;">' + item.Name + '</span>';
 		return div;
-	}
+	} 
 
-	function AppendStr2(icon, cover) {
+	function AppendStr2(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor fl nocheck';
-		div.style.backgroundImage = "url(" + cover + ")";
-		div.setAttribute("src", icon);
+		div.style.backgroundImage = "url(" + item.Cover + "?random=" + base.GetUid() + ")";
+		//div.style.backgroundImage = "url(" + item.Cover + ")";
+		div.setAttribute("src", item.Cover);
+		div.setAttribute("count", item.Count);
+		div.setAttribute("snowtype", item.ShowType);
 		div.innerHTML = '<div class="cover hide"></div><div class="icon"></div>';
 		return div;
 	}

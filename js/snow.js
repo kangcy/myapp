@@ -1,32 +1,58 @@
 var snow = new function() {
 	var snowinterval = 0;
-	this.showimg = [];
-
-	this.init = function(type, src) {
-		switch(type) {
+	this.snowimg = "";
+	this.snowcount = 1;
+	this.init = function(src, count, type) {
+		this.snowimg = src;
+		this.snowcount = parseInt(count);
+		switch(parseInt(type)) {
+			//通用
 			case 0:
+				this.snow0();
 				break;
+				//气球
 			case 1:
+				this.snow1();
 				break;
+				//心形
 			case 2:
+				this.snow2();
 				break;
+				//泡泡 
 			case 3:
+				this.snow3();
 				break;
+				//黑泡泡
 			case 4:
+				this.snow4();
 				break;
+				//小雪
 			case 5:
+				this.snow5();
 				break;
+				//小雨
 			case 6:
+				this.snow6();
 				break;
+				//暴雨
 			case 7:
+				this.snow7();
 				break;
+				//暴雪
 			case 8:
+				this.snow8();
 				break;
+				//红包
 			case 9:
+				this.snow9();
 				break;
+				//爆竹
 			case 10:
+				this.snow10();
 				break;
+				//元宝
 			case 11:
+				this.snow11();
 				break;
 			default:
 				break;
@@ -42,7 +68,7 @@ var snow = new function() {
 		cxt.clearRect(0, 0, canvas.width, canvas.height);
 	}
 	//通用
-	this.snow0 = function(src) {
+	this.snow0 = function() {
 		var c = null,
 			d = null,
 			img = null,
@@ -86,14 +112,14 @@ var snow = new function() {
 			}
 		}
 		img = new Image();
-		img.src = src;
+		img.src = this.snowimg;
 		img.style.position = "fixed";
 		img.classList.add("flowimg")
 		img.onload = function() {
 			c = document.getElementById("snowwrapper");
 			if(c) {
 				c.width = e, c.height = f;
-				for(g = 6, h = [], i = 0; g > i; i++) {
+				for(g = 8, h = [], i = 0; g > i; i++) {
 					var imgclone = img.cloneNode()
 					imgclone.style.width = (Math.random() * 5 + 20) + "px";
 					c.appendChild(imgclone);
@@ -111,8 +137,14 @@ var snow = new function() {
 	}
 	//气球
 	this.snow1 = function() {
+		var snowimg = this.snowimg;
+		var snowcount = this.snowcount;
+
 		function a(a) {
-			var b = "http://www.xiaoweipian.com/Images/Showy/00/ballon" + (d > 6 ? d = 1 : d++) + ".png";
+			var b = snowimg;
+			if(snowcount > 1) {
+				b = b.replace(".png", (d > snowcount ? d = 1 : d++) + ".png");
+			}
 			var g = 30 * Math.random() + 40,
 				h = 0,
 				j = document.createElement("div"),
@@ -160,8 +192,14 @@ var snow = new function() {
 	}
 	//心形
 	this.snow2 = function() {
+		var snowimg = this.snowimg;
+		var snowcount = this.snowcount;
+
 		function a(a) {
-			var b = "http://www.xiaoweipian.com/Images/Showy/00/heart" + (d > 4 ? d = 1 : d++) + ".png";
+			var b = snowimg;
+			if(snowcount > 1) { 
+				b = b.replace(".png", (d > snowcount ? d = 1 : d++) + ".png");
+			}
 			var g = 30 * Math.random() + 20,
 				h = 240 * Math.random() + -120,
 				j = document.createElement("div"),
@@ -204,14 +242,20 @@ var snow = new function() {
 			d.style.animationName = "dandelion_d";
 			d.style.webkitAnimationName = "dandelion_d";
 			c.appendChild(d);
-			c.children.length > 20 && clearInterval(snowinterval)
+			c.children.length > 15 && clearInterval(snowinterval)
 		}, 200)
 	}
 	//泡泡
 	this.snow3 = function() {
+		var snowimg = this.snowimg;
+		var snowcount = this.snowcount;
+
 		function a(a) {
-			var b = "http://www.xiaoweipian.com/Images/Showy/00/bubble.png";
-			var f = 40 * Math.random() + 10,
+			var b = snowimg;
+			if(snowcount > 1) {
+				b = b.replace(".png", (d > snowcount ? d = 1 : d++) + ".png");
+			}
+			var f = 40 * Math.random() + 10, 
 				g = 120 * Math.random() + -60,
 				h = document.createElement("div"),
 				j = document.createElement("img");
@@ -254,8 +298,14 @@ var snow = new function() {
 	}
 	//黑泡泡
 	this.snow4 = function() {
+		var snowimg = this.snowimg;
+		var snowcount = this.snowcount;
+
 		function a(a) {
-			var b = "http://www.xiaoweipian.com/Images/Showy/00/blackbubble.png";
+			var b = snowimg;
+			if(snowcount > 1) {
+				b = b.replace(".png", (d > snowcount ? d = 1 : d++) + ".png");
+			}
 			var f = 40 * Math.random() + 10,
 				g = 120 * Math.random() + -60,
 				h = document.createElement("div"),
@@ -296,10 +346,9 @@ var snow = new function() {
 			e.style.animationName = "dandelion_d";
 			e.style.webkitAnimationName = "dandelion_d";
 			c.appendChild(e);
-			c.children.length > 20 && clearInterval(snowinterval)
+			c.children.length > 15 && clearInterval(snowinterval)
 		}, 200)
 	}
-
 	//小雪
 	this.snow5 = function() {
 		function a() {
@@ -498,8 +547,10 @@ var snow = new function() {
 	}
 	//红包
 	this.snow9 = function() {
+		var snowimg = this.snowimg;
+
 		function a() {
-			var a = "http://www.xiaoweipian.com/Images/Showy/00/money.png";
+			var a = snowimg;
 			var f = 30 * Math.random() + 30,
 				g = 720 * Math.random() + -360,
 				h = document.createElement("div"),
@@ -534,8 +585,10 @@ var snow = new function() {
 	}
 	//爆竹
 	this.snow10 = function() {
+		var snowimg = this.snowimg;
+
 		function a() {
-			var a = "http://www.xiaoweipian.com/Images/Showy/00/fire.png";
+			var a = snowimg;
 			var f = 10 * Math.random() + 10,
 				g = 120 * Math.random() + -60,
 				h = document.createElement("div"),
@@ -562,8 +615,10 @@ var snow = new function() {
 	}
 	//元宝
 	this.snow11 = function() {
+		var snowimg = this.snowimg;
+
 		function a() {
-			var a = "http://www.xiaoweipian.com/Images/Showy/00/gold.png";
+			var a = snowimg;
 			var f = 20 * Math.random() + 30,
 				g = Math.random(),
 				h = document.createElement("div"),

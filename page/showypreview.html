@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
 			body {
 				background: #f5f5f5;
@@ -113,6 +114,8 @@
 <script type="text/javascript">
 	var articleNumber = 0;
 	var src = "";
+	var count = "";
+	var snowtype = "";
 	var isLoading = false;
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
@@ -132,6 +135,8 @@
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		src = self.Src || "";
+		count = self.Count || "";
+		snowtype = self.SnowType || "";
 		articleNumber = self.ArticleNumber || "";
 
 		mui.back = function() {
@@ -140,7 +145,7 @@
 
 		base.ShowLoading(false);
 
-		snow.init("snowwrapper", 8, src)
+		snow.init(src, count, snowtype)
 	});
 
 	function Save() {
@@ -155,7 +160,7 @@
 		HttpGet(base.RootUrl + "Api/ArticleCustom/Edit", {
 			ID: userinfo.ID,
 			ArticleNumber: articleNumber,
-			ShowyUrl: src
+			ShowyUrl: src + "|" + count + "|" + snowtype
 		}, function(data) {
 			data = JSON.parse(data);
 			base.CheckLogin(userinfo, data.code);
@@ -165,7 +170,7 @@
 				if(data.result) {
 					var page = base.GetView('articledetail');
 					if(page) {
-						page.evalJS("UpdateShowy('" + src + "')");
+						page.evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
 					}
 				} else {
 					mui.toast(data.message);
