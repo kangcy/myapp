@@ -2313,7 +2313,7 @@ hr.default_dashed {
 
 hr.hrgif {
 	border: 0;
-	height: 24px;
+	height: 1.5rem;
 	background-repeat: no-repeat;
 	background-size: auto 100%;
 	background-position: center;

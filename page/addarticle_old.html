@@ -8,53 +8,10 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../css/addarticle.min.css">
-		<link rel="stylesheet" href="../swipe/swiper.min.css">
-		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
 			.mui-table-view-cell {
 				padding: .625rem .9375rem;
-			}
-			
-			.swiper-cover {
-				background: rgba(0, 0, 0, .5);
-				position: fixed;
-				left: 0;
-				bottom: 0;
-				width: 100%;
-				height: 100%;
-				z-index: 999;
-			}
-			
-			.swiper-container {
-				width: 100%;
-				height: 50%;
-				background: rgba(255, 255, 255, 1) !important;
-				position: fixed;
-				left: 0;
-				bottom: 0;
-				width: 100%;
-				z-index: 1000;
-			}
-			
-			.swiper-slide {
-				font-size: 18px;
-				height: auto;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-				padding: 0px 0;
-				font-size: 13px;
-				font-family: microsoft yahei;
-				line-height: 1.8;
-			}
-			
-			#myline .hrgif {
-				margin: 1rem 0;
-			}
-			
-			#myline .hrgif0 {
-				margin: 2rem 0;
 			}
 		</style>
 	</head>
@@ -70,6 +27,8 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
+		<!--图片操作-->
+		<div id="picupload"></div>
 		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
 			<div class="info-body" style="margin-top:10rem">
 				<div id="music" class="btn fl tl mb15 hide"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
@@ -94,92 +53,6 @@
 				</li>
 			</ul>
 		</div>
-		<!--分隔-->
-		<div class="swiper-container hide" id="myline" style="bottom:0px;">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide">
-					<hr class="hrgif0 default_dashed">
-					<div class="splitline"></div>
-					<hr class="hrgif0 snow_dashed">
-					<div class="splitline"></div>
-					<hr class="hrgif0 scissors_dashed">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif001">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif002">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif003">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif004">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif005">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif006">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif007">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif009">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif011">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif012">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif013">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif014">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif015">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif016">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif017">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif018">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif019">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif020">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif021">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif022">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif024">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif025">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif026">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif027">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif028">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif030">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif031">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif033">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif034">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif035">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif036">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif037">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif038">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif041">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif042">
-					<div class="splitline"></div>
-					<hr class="hrgif hrgif044">
-				</div>
-			</div>
-			<div class="swiper-scrollbar" id="myline-scrollbar"></div>
-		</div>
-		<div class="swiper-cover hide" id="swiper-cover"></div>
 	</body>
 
 </html>
@@ -188,7 +61,6 @@
 <script src="../minjs/base.min.js"></script>
 <script src="../js/group.min.js"></script>
 <script src="../js/addpart.js"></script>
-<script src="../swipe/swiper.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var ArticleID = 0; //文章ID
@@ -206,7 +78,6 @@
 	var $header = base.Get("header");
 	var $edit = base.Get("edit");
 	var InitParts = []; //段落
-	var lineSwiper = null;
 	//声明对象（编号，内容，状态，排序，类型，是否临时） 
 	function PartModel(id, introduction, status, sortid, parttype, temporary) {
 		this.ID = id;
@@ -238,6 +109,8 @@
 				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 			}
 		});
+
+		//mui('#picupload').load("../part/pic.html", function(response) {});
 
 		//音乐
 		base.Get('music').addEventListener('tap', function(event) {
@@ -322,45 +195,6 @@
 			base.OpenWindow("editvideo", "editvideo.html", {
 				ArticleNumber: ArticleNumber
 			});
-		});
-
-		//新增分隔
-		mui('#edit').on('tap', '.edit-add-line', function() {
-			$("#edit").find(".icons").addClass("hide");
-			$("#edit").find(".edit-add").removeClass("hide");
-			var swipercover = base.Get("swiper-cover");
-			swipercover.classList.remove("hide");
-			var myline = base.Get("myline");
-			myline.classList.remove("hide");
-			if(lineSwiper == null) {
-				lineSwiper = new Swiper('#myline', {
-					scrollbar: '#myline-scrollbar',
-					direction: 'vertical',
-					slidesPerView: 'auto',
-					mousewheelControl: true,
-					freeMode: true,
-					roundLengths: true,
-					spaceBetween: 10,
-					onInit: function(swiper) {
-						myline.classList.remove("bounceOutUp");
-						myline.classList.add("bounceInUp");
-					}
-				})
-			} else {
-				var myline = base.Get("myline");
-				myline.classList.remove("hide");
-				myline.classList.remove("bounceOutUp");
-				myline.classList.add("bounceInUp");
-			}
-		});
-
-		//关闭分隔
-		base.Get('swiper-cover').addEventListener('tap', function() {
-			var swipercover = base.Get("swiper-cover");
-			var myline = base.Get("myline");
-			myline.classList.remove("bounceInUp");
-			myline.classList.add("bounceOutUp");
-			swipercover.classList.add("hide");
 		});
 
 		//删除
@@ -652,7 +486,6 @@
 		var div = document.createElement('div');
 		div.className = 'edit-body fl';
 		var model = [];
-		model.push('<img src="../images/addarticle/btn_up.png" class="edit-add-line" style="position:absolute;top:0px;left:8rem;width: 2rem;" />');
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
 			model.push('<div class="edit-content f11" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');

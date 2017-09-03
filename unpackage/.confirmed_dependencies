@@ -753,7 +753,11 @@
 			"js/group.min.js",
 			"images/addarticle/icon_music.png",
 			"js/addpart.js",
-			"minjs/sortable.min.js"
+			"minjs/sortable.min.js",
+			"css/demo.css",
+			"swipe/swiper.min.js",
+			"swipe/swiper.min.css",
+			"mincss/animate.min.css"
 		],
 		"refer": [
 			"page/edittitle.html",
