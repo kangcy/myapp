@@ -115,6 +115,7 @@ var snow = new function() {
 		img.src = this.snowimg;
 		img.style.position = "fixed";
 		img.classList.add("flowimg")
+		img.style.zIndex = 300;
 		img.onload = function() {
 			c = document.getElementById("snowwrapper");
 			if(c) {
@@ -131,7 +132,7 @@ var snow = new function() {
 						img: imgclone
 					});
 				}
-				snowinterval = setInterval(a, 35)
+				snowinterval = setInterval(a, 25)
 			}
 		}
 	}
@@ -197,7 +198,7 @@ var snow = new function() {
 
 		function a(a) {
 			var b = snowimg;
-			if(snowcount > 1) { 
+			if(snowcount > 1) {
 				b = b.replace(".png", (d > snowcount ? d = 1 : d++) + ".png");
 			}
 			var g = 30 * Math.random() + 20,
@@ -255,7 +256,7 @@ var snow = new function() {
 			if(snowcount > 1) {
 				b = b.replace(".png", (d > snowcount ? d = 1 : d++) + ".png");
 			}
-			var f = 40 * Math.random() + 10, 
+			var f = 40 * Math.random() + 10,
 				g = 120 * Math.random() + -60,
 				h = document.createElement("div"),
 				j = document.createElement("img");

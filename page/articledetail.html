@@ -498,7 +498,7 @@
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 fl mb10"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
+							html.push('<div class="full f13 fl mb10 ' + part.IntroExpand + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
 						} else if(part.Types == 2) {
 							//文本
 							html.push('<div class="full f13 fl mb10">' + base.UnUnicodeText(part.Introduction) + '</div>');
@@ -765,7 +765,7 @@
 	function InitShowy(src) {
 		if(base.IsNullOrEmpty(src)) {
 			return
-		}
+		} 
 		LoadScript("../js/snow.js", function() {
 			var srcs = src.split("|");
 			if(srcs.length >= 2) {
@@ -777,13 +777,13 @@
 	}
 
 	//更新自定义装扮
-	function UpdateShowy(src) {
+	function UpdateShowy(src) { 
 		plus.webview.close("showy", "none");
 		plus.webview.close("showypreview");
 		if(base.IsNullOrEmpty(Article.Showy)) {
 			InitShowy(src)
 		} else {
-			snow.clear();
+			snow.clear(); 
 			var srcs = src.split("|");
 			if(srcs.length >= 2) {
 				snow.init(srcs[0], srcs[1], srcs[2])

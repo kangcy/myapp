@@ -535,7 +535,6 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 
 .border_round_corner {
 	background-color: transparent;
-	margin: 20px 15px;
 	display: inline-block;
 }
 
@@ -634,8 +633,6 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 .border_wood2,
 .border_wood3,
 .border_wood4 {
-	margin-top: 15px;
-	margin-bottom: 15px;
 	border-style: solid;
 	background-color: #fff;
 	background-clip: padding-box;
@@ -691,7 +688,6 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 }
 
 .border_gold1 {
-	margin: 10px 15px;
 	border-style: solid;
 	border-width: 39px 37px 37px 39px;
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_gold1.png) 39 37 37 39 stretch;
