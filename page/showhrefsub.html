@@ -29,7 +29,6 @@
 
 	window.addEventListener("Init", function(e) {
 		var link = e.detail.Link;
-		console.log(link)
 		if(!link.toLowerCase().indexOf("http://") < 0) {
 			link = "http://" + link;
 		}

@@ -56,32 +56,28 @@
 	z-index: 1;
 }
 
-.icons,
 .edit-add {
 	display: inline-block;
 	width: 60%;
 	position: relative;
 }
 
-.icons .edit-add-pic {
-	width: 1.1rem;
-	position: absolute;
-	left: 13%;
-	top: 19%;
+.icons {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
 }
 
-.icons .edit-add-text {
-	width: 1.1rem;
-	position: absolute;
-	left: 44%;
-	top: 19%;
-}
-
-.icons .edit-add-video {
-	width: 1.1rem;
-	position: absolute;
-	right: 13%;
-	top: 19%;
+.icons div {
+	width: 4rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	display: inline-block;
+	border: 1px solid #20a0ff;
+	border-radius: 20px;
+	text-align: center;
+	color: #20a0ff;
+	margin: 0.35rem 0.2rem;
 }
 
 #music {
@@ -157,7 +153,7 @@
 }
 
 .edit-body .edit-content2 {
-	background: #fff;
+	background: #fff !important;
 }
 
 .edit-body .edit-content img {
