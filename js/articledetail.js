@@ -11,10 +11,41 @@ function ChangeMusic(index) {
 	}
 }
 
+//模板选择弹窗
+function TempTan(index) {
+	if(index == 0) {
+		base.AddClass(["#agreeTemp", "#temps"], "hide");
+		base.Get("btnTemp").classList.remove("hide");
+	} else {
+		mui(".temp")[CurrTemplate].classList.add("hover");
+		base.Get("btnTemp").classList.add("hide");
+		base.RemoveClass(["#agreeTemp", "#temps"], "hide");
+	}
+}
+
+//确认模板
+function ChooseTan(callback) {
+	if(isLoading) {
+		return;
+	}
+	isLoading = true;
+	TempTan(0);
+	HttpGet(base.RootUrl + "Article/EditArticleTemp", {
+		ID: userinfo.ID,
+		ArticleID: ArticleID,
+		ArticleNumber: Article.Number,
+		Template: CurrTemplate
+	}, function(data) {
+		isLoading = false;
+		if(callback) {
+			callback();
+		}
+	});
+}
+
 function ShowBackground() {
 	//关闭
-	TempTan(0);
-	base.Get("background-cover").classList.remove("hide");
+	base.AddClass(["#btnTemp", "#temps"], "hide");
 	var mybackground = base.Get("mybackground");
 	mybackground.classList.remove("hide");
 	if(backgroundSwiper == null) {
@@ -51,19 +82,21 @@ function CloseBackground() {
 	var mybackground = base.Get("mybackground");
 	mybackground.classList.remove("bounceInUp");
 	mybackground.classList.add("bounceOutUp");
-	base.Get("background-cover").classList.add("hide");
 }
 
 //背景状态切换
 function ChangeBg() {
 	InitHeader();
 
+	console.log(CurrTemplate + ',' + CurrBackground)
+
 	//纯白背景
 	if(CurrTemplate == 0) {
-		$wrapper.style.backgroundColor = "transparent";
+		/*$wrapper.style.backgroundColor = "transparent";
 		$wrapper1.style.background = "none";
 		$wrapper2.style.background = "#fff";
-		$cover.style.backgroundColor = "RGBA(255, 255, 255, 1)";
+		$cover.style.backgroundColor = "RGBA(255, 255, 255, 1)";*/
+		$wrapper2.classList.add("background_pinkbottle_img");
 	} else if(CurrTemplate > 1) {
 		$wrapper2.style.background = "none";
 		$wrapper1.style.background = "url(" + CurrCover + ") top center no-repeat";

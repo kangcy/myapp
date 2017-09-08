@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/input.min.css">
-		<link rel="stylesheet" href="../mincss/articledetail.min.css">
+		<link rel="stylesheet" href="../css/articledetail.min.css">
 		<link rel="stylesheet" href="../swipe/swiper.min.css">
 		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
@@ -65,14 +65,15 @@
 			}
 			
 			#mybackground div.background {
-				width: 3rem;
-				height: 5rem;
+				width: 4rem;
+				height: 5.25rem;
 				margin-right: 0.5rem;
 				float: left;
 				display: inline-block;
 				position: relative;
 				background-size: 150%;
 				background-position: center center;
+				border-radius: 5px;
 			}
 			
 			#mybackground div.background:first-child {
@@ -88,12 +89,13 @@
 				background: rgba(0, 0, 0, 0.2);
 				color: #fff;
 				height: 1rem;
+				border-radius:0px 0px 5px 5px;
 			}
 		</style>
 	</head>
 	<!--禁止复制-->
 
-	<body id="body" oncontextmenu="return false" onselectstart="return false">
+	<body id="body" oncontextmenu="return false" onselectstart="return false" class="">
 		<header id="header" class="mui-bar" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</a>
@@ -103,7 +105,7 @@
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
-		</div>
+		</div> 
 
 		<!--操作-->
 		<div id="topPopover" class="mui-popover">
@@ -175,6 +177,12 @@
 				</div>
 			</div>
 		</div>
+		<div class="swiper-container boxshadow hide" id="mybackground" style="bottom:0px; padding:0.5rem 0;background:rgba(255,255,255,.25);">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" id="background-slide"></div>
+			</div>
+			<div class="swiper-scrollbar" id="mybackground-scrollbar"></div>
+		</div>
 		<!--分享-->
 		<div class="myshare hide" id="myshare">
 			<p class="f16 c000 tc mt10 mb0">分享到</p>
@@ -212,13 +220,6 @@
 				<div class="c000 mt10 f11 fl btnExit" onclick="ShareTan(2)">取消</div>
 			</div>
 		</div>
-		<div class="swiper-container hide" id="mybackground" style="padding:0.5rem 0;background:rgba(255,255,255,.25);">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" id="background-slide"></div>
-			</div>
-			<div class="swiper-scrollbar" id="mybackground-scrollbar"></div>
-		</div>
-		<div class="swiper-cover hide" id="background-cover"></div>
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
@@ -298,6 +299,7 @@
 	var scrolly = 0;
 	var browserName = base.BrowserName();
 	var num = 0;
+	var backgroundSwiper = null;
 
 	var backgrounds = [{
 		tip: "默认",
@@ -534,18 +536,9 @@
 			}
 		});
 
-		//选择纯色背景
-		base.Get('background').addEventListener('tap', function(event) {
-			ShowBackground();
-		});
-
-		//关闭背景
-		base.Get('background-cover').addEventListener('tap', function() {
-			CloseBackground();
-		});
-
 		//选中背景
 		mui('#mybackground').on('tap', '.background', function() {
+			console.log(this.getAttribute("name"))
 			document.getElementsByTagName("body")[0].className = this.getAttribute("name")
 			var currBackground = this.getAttribute("name");
 		});
@@ -989,38 +982,6 @@
 			ArticleUserNumber: Article.UserNumber,
 			Name: Article.NickName,
 			Avatar: Article.Avatar
-		});
-	}
-
-	//模板选择弹窗
-	function TempTan(index) {
-		if(index == 0) {
-			base.AddClass(["#agreeTemp", "#temps"], "hide");
-			base.Get("btnTemp").classList.remove("hide");
-		} else {
-			mui(".temp")[CurrTemplate].classList.add("hover");
-			base.Get("btnTemp").classList.add("hide");
-			base.RemoveClass(["#agreeTemp", "#temps"], "hide");
-		}
-	}
-
-	//确认模板
-	function ChooseTan(callback) {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		TempTan(0);
-		HttpGet(base.RootUrl + "Article/EditArticleTemp", {
-			ID: userinfo.ID,
-			ArticleID: ArticleID,
-			ArticleNumber: Article.Number,
-			Template: CurrTemplate
-		}, function(data) {
-			isLoading = false;
-			if(callback) {
-				callback();
-			}
 		});
 	}
 

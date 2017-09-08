@@ -1317,7 +1317,9 @@
 			"images/article/6.png",
 			"images/article/btn_comment.png",
 			"images/article/btn_good2.png",
-			"css/demo.css"
+			"css/demo.css",
+			"swipe/swiper.min.css",
+			"swipe/swiper.min.js"
 		],
 		"refer": [
 			"page/user.html",
