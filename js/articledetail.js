@@ -11,6 +11,49 @@ function ChangeMusic(index) {
 	}
 }
 
+function ShowBackground() {
+	//关闭
+	TempTan(0);
+	base.Get("background-cover").classList.remove("hide");
+	var mybackground = base.Get("mybackground");
+	mybackground.classList.remove("hide");
+	if(backgroundSwiper == null) {
+		var fragment = document.createDocumentFragment();
+		backgrounds.forEach(x => {
+			var div = document.createElement('div');
+			div.className = "background " + x.name;
+			div.setAttribute("name", x.name);
+			div.innerHTML = '<div class="' + x.name + '"><div class="f10">' + x.tip + '</div></div>';
+			fragment.appendChild(div);
+		})
+		base.Get("background-slide").innerHTML = "";
+		base.Get("background-slide").appendChild(fragment);
+		backgroundSwiper = new Swiper('#mybackground', {
+			scrollbar: '#mybackground-scrollbar',
+			direction: 'horizontal',
+			slidesPerView: 'auto',
+			mousewheelControl: true,
+			freeMode: true,
+			roundLengths: true,
+			spaceBetween: 10,
+			onInit: function(swiper) {
+				mybackground.classList.remove("bounceOutUp");
+				mybackground.classList.add("bounceInUp");
+			}
+		});
+	} else {
+		mybackground.classList.remove("bounceOutUp");
+		mybackground.classList.add("bounceInUp");
+	}
+}
+
+function CloseBackground() {
+	var mybackground = base.Get("mybackground");
+	mybackground.classList.remove("bounceInUp");
+	mybackground.classList.add("bounceOutUp");
+	base.Get("background-cover").classList.add("hide");
+}
+
 //背景状态切换
 function ChangeBg() {
 	InitHeader();
@@ -274,7 +317,10 @@ function LoadTemplate() {
 			this.classList.add("hover");
 			CurrTemplate = this.getAttribute("tid");
 
-			if(CurrTemplate == 1) {
+			if(CurrTemplate == 0) {
+				//选择纯色背景
+				ShowBackground();
+			} else if(CurrTemplate == 1) {
 				base.OpenWindow("customsetting", "customsetting.html", {
 					ArticleNumber: Article.Number
 				});
