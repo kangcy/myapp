@@ -64,10 +64,11 @@
 				font-family: microsoft yahei;
 			}
 			
-			#mybackground div.background {
+			div.background {
 				width: 4rem;
 				height: 5.25rem;
 				margin-right: 0.5rem;
+				margin-bottom: 0.2rem;
 				float: left;
 				display: inline-block;
 				position: relative;
@@ -76,11 +77,17 @@
 				border-radius: 5px;
 			}
 			
-			#mybackground div.background:first-child {
+			div.background.hover {
+				border: 2px solid #007aff;
+				color: #007aff;
+				border-radius: 8px;
+			}
+			
+			div.background:first-child {
 				margin-left: 0.5rem;
 			}
 			
-			#mybackground div.background div {
+			div.background div {
 				position: absolute;
 				bottom: 0px;
 				font-size: 11px;
@@ -88,8 +95,15 @@
 				width: 100%;
 				background: rgba(0, 0, 0, 0.2);
 				color: #fff;
-				height: 1rem;
-				border-radius:0px 0px 5px 5px;
+				height: 1.2rem;
+				line-height: 1.2rem;
+				border-radius: 0px 0px 5px 5px;
+			}
+			
+			div.background img {
+				width: 100% !important;
+				height: 100% !important;
+				border-radius: 6px;
 			}
 		</style>
 	</head>
@@ -105,7 +119,7 @@
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
-		</div> 
+		</div>
 
 		<!--操作-->
 		<div id="topPopover" class="mui-popover">
@@ -171,11 +185,17 @@
 		<!--模板选择-->
 		<img class="hide" src="../images/article/skin.png" onclick="TempTan(1)" id="btnTemp">
 		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
-		<div id="temps" class="hide">
+		<!--<div id="temps" class="hide">
 			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow" style="height:6.25rem;border: 0px;border-radius: 0px;">
 				<div class="mui-scroll" style="height:6.25rem;margin-top:0.625rem;" id="temp">
 				</div>
 			</div>
+		</div>-->
+		<div class="swiper-container boxshadow hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(255,255,255,.25);">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" id="temp-slide"></div>
+			</div>
+			<div class="swiper-scrollbar" id="temp-scrollbar"></div>
 		</div>
 		<div class="swiper-container boxshadow hide" id="mybackground" style="bottom:0px; padding:0.5rem 0;background:rgba(255,255,255,.25);">
 			<div class="swiper-wrapper">
@@ -223,6 +243,7 @@
 		<!--打赏-->
 		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
+		<!--背景-->
 		<div id="wrapper2"></div>
 		<div id="wrapper" class="hide" style="margin-bottom:50px;">
 			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
@@ -285,21 +306,25 @@
 	var MusicUrl = "";
 	var CurrBackground = null; //背景设置
 	var CurrCover = ""; //当前背景图片
+	var CurrColor = ""; //模板背景色
 	var CurrTemplate = 0; //当前选中模板
+	var CurrBackgroundName = ""; //当前纯色背景样式
+	var CurrTemplateType = 0; //当前模板类型
 	var userinfo = base.GetUserInfo();
 
 	var $divzan = base.Get("divzan");
 	var $zan = base.Get("zan");
 	var $footer_zan = base.Get("footer_zan");
 	var $header = base.Get("header");
-	var $wrapper = base.Get("wrapper");
-	var $wrapper1 = base.Get("wrapper1");
-	var $wrapper2 = base.Get("wrapper2");
-	var $cover = base.Get("cover");
+	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
+	var $wrapper1 = base.Get("wrapper1"); //内容子背景（放背景图片）
+	var $wrapper2 = base.Get("wrapper2"); //纯色背景
+	var $cover = base.Get("cover"); //非纯色内容透明度底
 	var scrolly = 0;
 	var browserName = base.BrowserName();
 	var num = 0;
 	var backgroundSwiper = null;
+	var tempSwiper = null;
 
 	var backgrounds = [{
 		tip: "默认",
@@ -518,7 +543,8 @@
 		base.InitScroll();
 
 		$wrapper2.style.width = window.innerWidth + "px";
-		$wrapper2.style.height = (window.innerHeight - 50) + "px";
+		$wrapper2.style.height = window.innerHeight + "px";
+		//$wrapper2.style.height = (window.innerHeight - 50) + "px";
 		$wrapper2.style.position = "fixed";
 		$wrapper2.style.zIndex = "-1";
 
@@ -538,9 +564,16 @@
 
 		//选中背景
 		mui('#mybackground').on('tap', '.background', function() {
-			console.log(this.getAttribute("name"))
-			document.getElementsByTagName("body")[0].className = this.getAttribute("name")
-			var currBackground = this.getAttribute("name");
+			var name = this.getAttribute("name");
+			if(name == "back") {
+				CloseBackground();
+				TempTan(1);
+				return;
+			}
+			CurrBackgroundName = name;
+			base.RemoveClass([".background"], "hover");
+			this.classList.add("hover");
+			ChangeBg();
 		});
 
 		//点赞
@@ -795,19 +828,18 @@
 					base.Get("footer_zan").innerHTML = data.Goods;
 					base.Get("footer_comment").innerHTML = data.Comments;
 
-					var mainIndex = 0;
 					CurrTemplate = data.Template;
 
 					InitHeader();
 
 					if(CurrTemplate == 1) {
-						mainIndex = 1;
+						CurrTemplateType = 1;
 					}
 					if(data.TemplateJson != null) {
 						if(data.TemplateJson.ID > 0) {
-							mainIndex = data.TemplateJson.TemplateType;
+							CurrTemplateType = data.TemplateJson.TemplateType;
 							CurrCover = data.TemplateJson.Cover;
-							$wrapper.style.backgroundColor = data.TemplateJson.Background;
+							CurrColor = data.TemplateJson.Background;
 						}
 					}
 					CurrBackground = data.BackgroundJson;
@@ -865,10 +897,10 @@
 					});
 
 					//音乐 
-					ChangeMusic(mainIndex);
+					ChangeMusic();
 
 					base.AddClass(["#main0", "#main1"], "hide");
-					base.Get("main" + mainIndex).classList.remove("hide");
+					base.Get("main" + CurrTemplateType).classList.remove("hide");
 
 					base.Get("bottomAction").classList.remove("hide");
 					base.Get("bottomAction").classList.add("bounceIn");
@@ -911,11 +943,13 @@
 
 	function InitHeader() {
 		if(CurrTemplate == 0) {
-			$header.setAttribute("immersed", "");
-			base.Immersed();
-			base.Get("title1").classList.add("hide");
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
-			base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
+			if(!base.IsNullOrEmpty(CurrBackgroundName)) {
+				$header.setAttribute("immersed", "");
+				base.Immersed();
+				base.Get("title1").classList.add("hide");
+				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
+				base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
+			}
 		} else {
 			$header.setAttribute("immersed", "none");
 			base.Immersed();

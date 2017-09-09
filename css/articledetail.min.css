@@ -176,48 +176,6 @@
 	z-index: 999;
 }
 
-#temps {
-	background: #eee;
-	height: 6.25rem;
-	position: fixed;
-	bottom: 0px;
-	top: auto;
-	z-index: 99999;
-	border: 0px;
-}
-
-.temp {
-	width: 3.75rem !important;
-	height: 5rem !important;
-	line-height: 5rem !important;
-	padding: 0px !important;
-	margin-left: 8px !important;
-	background: #fff;
-	border-radius: 5px;
-	overflow:hidden;
-}
-
-.temp:first-child {
-	margin-left: 10px !important;
-}
-
-.temp:last-child {
-	margin-right: 10px !important;
-}
-
-.temp img {
-	width: 100% !important;
-	height: 100% !important;
-	border: 1px solid #efeff4;
-	border-radius: 5px;
-}
-
-.temp.hover img {
-	border: 1px solid #007aff;
-	color: #007aff;
-}
-
-
 /**背景设置**/
 
 .mui-input-group .mui-input-row:after {

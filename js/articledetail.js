@@ -1,25 +1,47 @@
 //切换音乐
-function ChangeMusic(index) {
-	MusicID = "music" + index;
+function ChangeMusic() {
+	MusicID = "music" + CurrTemplateType;
 	base.AddClass(["#music0", "#music1"], "hide");
 
 	if(!base.IsNullOrEmpty(MusicUrl)) {
 		if(Article.AutoMusic == 1) {
 			document.addEventListener('touchstart', startsound);
 		}
-		base.Get("music" + index).classList.remove("hide");
+		base.Get("music" + CurrTemplateType).classList.remove("hide");
 	}
 }
 
 //模板选择弹窗
 function TempTan(index) {
 	if(index == 0) {
+		CloseBackground();
 		base.AddClass(["#agreeTemp", "#temps"], "hide");
 		base.Get("btnTemp").classList.remove("hide");
 	} else {
-		mui(".temp")[CurrTemplate].classList.add("hover");
+		var temps = base.Get("temps");
+		temps.classList.remove("hide");
+		if(tempSwiper == null) {
+			tempSwiper = new Swiper('#temps', {
+				scrollbar: '#temp-scrollbar',
+				direction: 'horizontal',
+				slidesPerView: 'auto',
+				mousewheelControl: true,
+				freeMode: true,
+				roundLengths: true,
+				spaceBetween: 10,
+				onInit: function(swiper) {
+					temps.classList.remove("bounceOutUp");
+					temps.classList.add("bounceInUp");
+				}
+			});
+		} else {
+			temps.classList.remove("bounceOutUp");
+			temps.classList.add("bounceInUp");
+		}
+		base.RemoveClass([".background"], "hover");
+		mui(".background")[CurrTemplate + 1].classList.add("hover");
 		base.Get("btnTemp").classList.add("hide");
-		base.RemoveClass(["#agreeTemp", "#temps"], "hide");
+		base.RemoveClass(["#agreeTemp"], "hide");
 	}
 }
 
@@ -37,6 +59,10 @@ function ChooseTan(callback) {
 		Template: CurrTemplate
 	}, function(data) {
 		isLoading = false;
+
+		base.RemoveClass([".background"], "hover");
+		mui(".background")[CurrTemplate + 1].classList.add("hover");
+
 		if(callback) {
 			callback();
 		}
@@ -50,8 +76,15 @@ function ShowBackground() {
 	mybackground.classList.remove("hide");
 	if(backgroundSwiper == null) {
 		var fragment = document.createDocumentFragment();
+
+		var div = document.createElement('div');
+		div.className = "background background_white";
+		div.setAttribute("name", "back");
+		div.innerHTML = '<div class="background_white"><div class="f10">关闭</div></div>';
+		fragment.appendChild(div);
+
 		backgrounds.forEach(x => {
-			var div = document.createElement('div');
+			div = document.createElement('div');
 			div.className = "background " + x.name;
 			div.setAttribute("name", x.name);
 			div.innerHTML = '<div class="' + x.name + '"><div class="f10">' + x.tip + '</div></div>';
@@ -86,39 +119,54 @@ function CloseBackground() {
 
 //背景状态切换
 function ChangeBg() {
-	InitHeader();
+	//纯白背景
+	if(CurrTemplateType == 0) {
+		if(!base.IsNullOrEmpty(CurrBackgroundName)) {
+			base.Get("main1").classList.add("hide");
+			base.Get("main0").classList.remove("hide");
+		}
+	} else {
+		base.Get("main0").classList.add("hide");
+		base.Get("main1").classList.remove("hide");
+	}
 
-	console.log(CurrTemplate + ',' + CurrBackground)
+	InitHeader();
 
 	//纯白背景
 	if(CurrTemplate == 0) {
-		/*$wrapper.style.backgroundColor = "transparent";
-		$wrapper1.style.background = "none";
-		$wrapper2.style.background = "#fff";
-		$cover.style.backgroundColor = "RGBA(255, 255, 255, 1)";*/
-		$wrapper2.classList.add("background_pinkbottle_img");
+		if(!base.IsNullOrEmpty(CurrBackgroundName)) {
+			$wrapper.style.backgroundColor = "transparent";
+			$wrapper1.style.background = "";
+			$cover.style.backgroundColor = "transparent";
+			$wrapper2.style.background = "";
+			$wrapper2.className = CurrBackgroundName;
+		}
 	} else if(CurrTemplate > 1) {
-		$wrapper2.style.background = "none";
+		//模板
+		$wrapper2.style.background = "";
+		$wrapper2.className = "";
+		$wrapper.style.backgroundColor = CurrColor;
 		$wrapper1.style.background = "url(" + CurrCover + ") top center no-repeat";
 		$wrapper1.style.backgroundSize = "100% auto";
 		$cover.style.backgroundColor = "RGBA(255, 255, 255, 0.5)";
 	} else {
+		//自定义
 		$wrapper.style.backgroundColor = "transparent";
-		$wrapper1.style.background = "none";
-
+		$wrapper1.style.background = "";
 		if(CurrBackground == null) {
 			//全屏
-			$wrapper2.style.background = "#fff";
+			$wrapper2.style.background = "";
+			$wrapper2.className = "";
 		} else {
 			//背景透明度
 			$cover.style.background = "RGBA(255, 255, 255, " + (100 - CurrBackground.Transparency) / 100 + ")";
-
 			var url = CurrBackground.Url;
 			if(CurrBackground.High == 0) {
 				url = base.ShowThumb(url, 1);
 			} else {
 				url = base.ShowThumb(url, 0);
 			}
+			$wrapper2.className = "";
 			switch(CurrBackground.Full) {
 				case 0:
 					//居顶 
@@ -334,24 +382,47 @@ function LoadTemplate() {
 		if(data != null) {
 			var length = data.records;
 			if(length > 0) {
-				var table = base.Get('temp');
-				table.innerHTML = "";
 				var fragment = document.createDocumentFragment();
-				mui.each(data.list, function(i, item) {
-					fragment.appendChild(AppendTemplate(item));
+
+				var div = document.createElement('div');
+				div.className = "background background_white";
+				div.setAttribute("name", "back");
+				div.innerHTML = '<div class="background_white"><div class="f10">关闭</div></div>';
+				fragment.appendChild(div);
+
+				data.list.forEach(x => {
+					var div = document.createElement('div');
+					div.className = "background " + x.name;
+					div.setAttribute("name", x.name);
+					div.setAttribute("tid", x.ID);
+					div.setAttribute("color", x.Background);
+					div.setAttribute("cover", x.Cover);
+					div.setAttribute("type", x.TemplateType);
+					div.innerHTML = '<img src="' + x.ThumbUrl + '" />';
+					fragment.appendChild(div);
 				})
-				table.appendChild(fragment);
+				base.Get("temp-slide").innerHTML = "";
+				base.Get("temp-slide").appendChild(fragment);
 			}
 		}
 
 		//模板选择
-		mui('#temps').on('tap', '.temp', function() {
-			base.RemoveClass([".temp"], "hover");
-			this.classList.add("hover");
-			CurrTemplate = this.getAttribute("tid");
+		mui('#temps').on('tap', '.background', function() {
+			var name = this.getAttribute("name");
+			if(name == "back") {
+				TempTan(0);
+				return;
+			}
 
+			base.RemoveClass([".background"], "hover");
+			this.classList.add("hover");
+			CurrTemplate = parseInt(this.getAttribute("tid"));
+
+			CurrCover = "";
+			CurrColor = "";
 			if(CurrTemplate == 0) {
 				//选择纯色背景
+				CurrBackgroundName = "";
 				ShowBackground();
 			} else if(CurrTemplate == 1) {
 				base.OpenWindow("customsetting", "customsetting.html", {
@@ -361,39 +432,18 @@ function LoadTemplate() {
 				return;
 			} else if(CurrTemplate > 1) {
 				CurrCover = this.getAttribute("cover");
-			} else {
-				CurrCover = "";
+				CurrColor = this.getAttribute("color");
 			}
-			$wrapper.style.backgroundColor = this.getAttribute("color");
-			var templatetype = this.getAttribute("type");
 
-			//纯白背景
-			if(templatetype == 0) {
-				base.Get("main1").classList.add("hide");
-				base.Get("main0").classList.remove("hide");
-			} else {
-				base.Get("main0").classList.add("hide");
-				base.Get("main1").classList.remove("hide");
-			}
+			CurrTemplateType = this.getAttribute("type");
 
 			ChangeBg(); //背景切换 
 
-			ChangeMusic(templatetype); //音乐切换
+			ChangeMusic(); //音乐切换
 		});
 
 		base.RemoveClass(["#action", "#btnTemp"], "hide");
 	});
-}
-
-function AppendTemplate(item) {
-	var div = document.createElement('div');
-	div.className = 'mui-control-item temp';
-	div.setAttribute("tid", item.ID);
-	div.setAttribute("color", item.Background);
-	div.setAttribute("cover", item.Cover);
-	div.setAttribute("type", item.TemplateType);
-	div.innerHTML = '<img src="' + item.ThumbUrl + '" />';
-	return div;
 }
 
 //重新加载数据

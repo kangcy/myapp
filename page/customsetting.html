@@ -91,7 +91,7 @@
 		<!--删除-->
 		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell hide" id="inused">
+				<li class="mui-table-view-cell" id="inused">
 					<a href="#" class="c333 f13" onclick="Used()">使用</a>
 				</li>
 				<li class="mui-table-view-cell hide">
@@ -151,8 +151,8 @@
 		});
 
 		mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
-			var isused = this.getAttribute("isused");
-			base.ToggleClass(["#inused"], "hide", isused != 0);
+			//var isused = this.getAttribute("isused");
+			//base.ToggleClass(["#inused"], "hide", isused != 0);
 			id = this.getAttribute("id");
 			number = this.getAttribute("number");
 			url = this.getAttribute("url");
