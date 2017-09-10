@@ -770,7 +770,8 @@
 			"page/customsetting.html",
 			"page/mypic.html",
 			"page/videoreview.html",
-			"page/sharesetting.html"
+			"page/sharesetting.html",
+			"page/articlepreview.html"
 		]
 	},
 	"page/subindex.html": {
@@ -3825,6 +3826,21 @@
 			"minjs/base.min.js",
 			"fonts/mui.ttf",
 			"mincss/loading.min.css"
+		]
+	},
+	"page/articlepreview.html": {
+		"resources": [
+			"css/articledetail.min.css",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"js/snow.js",
+			"minjs/mui.min.js",
+			"js/music.js",
+			"js/video.js",
+			"css/demo.css",
+			"mincss/animate.min.css",
+			"mincss/loading.min.css",
+			"images/article/on.png"
 		]
 	}
 }

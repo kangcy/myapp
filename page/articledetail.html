@@ -185,12 +185,6 @@
 		<!--模板选择-->
 		<img class="hide" src="../images/article/skin.png" onclick="TempTan(1)" id="btnTemp">
 		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
-		<!--<div id="temps" class="hide">
-			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control boxshadow" style="height:6.25rem;border: 0px;border-radius: 0px;">
-				<div class="mui-scroll" style="height:6.25rem;margin-top:0.625rem;" id="temp">
-				</div>
-			</div>
-		</div>-->
 		<div class="swiper-container boxshadow hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(255,255,255,.25);">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" id="temp-slide"></div>
@@ -540,11 +534,9 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
-		base.InitScroll();
 
 		$wrapper2.style.width = window.innerWidth + "px";
 		$wrapper2.style.height = window.innerHeight + "px";
-		//$wrapper2.style.height = (window.innerHeight - 50) + "px";
 		$wrapper2.style.position = "fixed";
 		$wrapper2.style.zIndex = "-1";
 
@@ -779,6 +771,9 @@
 					}
 
 					Article = data;
+					Article.Title = base.UnUnicodeText(data.Title);
+					Article.NickName = base.UnUnicodeText(data.NickName);
+
 					MusicUrl = data.MusicUrl;
 					if(audio != null) {
 						var item = document.getElementById("bgsound")
@@ -830,7 +825,7 @@
 
 					CurrTemplate = data.Template;
 
-					InitHeader();
+					InitHeader(true);
 
 					if(CurrTemplate == 1) {
 						CurrTemplateType = 1;
@@ -850,18 +845,13 @@
 
 					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
-					base.Get("title0").innerHTML = base.UnUnicodeText(data.Title);
-					base.Get("title1").innerHTML = base.UnUnicodeText(data.Title);
-					base.Get("title").innerHTML = base.UnUnicodeText(data.Title);
+					base.InnerHtml(["title0", "title1", "title"], Article.Title);
 
-					base.Get("nickname0").innerHTML = base.UnUnicodeText(data.NickName);
-					base.Get("nickname1").innerHTML = base.UnUnicodeText(data.NickName);
+					base.InnerHtml(["nickname0", "nickname1"], Article.NickName);
 
-					base.Get("createdate0").innerHTML = data.CreateDateText;
-					base.Get("createdate1").innerHTML = data.CreateDateText;
+					base.InnerHtml(["createdate0", "createdate1"], data.CreateDateText);
 
-					base.Get("views0").innerHTML = "阅读  " + data.Views;
-					base.Get("views1").innerHTML = "阅读  " + data.Views;
+					base.InnerHtml(["views0", "views1"], "阅读  " + data.Views);
 
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 
@@ -919,7 +909,7 @@
 					}
 
 					//分享信息
-					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);
+					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + Article.NickName + "]" : "") + Article.Title;
 					ShareInfo.Cover = base.ShowThumb(data.Cover, 2);
 					ShareInfo.Url = data.ShareUrl;
 
@@ -941,9 +931,9 @@
 		});
 	}
 
-	function InitHeader() {
+	function InitHeader(initload) {
 		if(CurrTemplate == 0) {
-			if(!base.IsNullOrEmpty(CurrBackgroundName)) {
+			if(initload || !base.IsNullOrEmpty(CurrBackgroundName)) {
 				$header.setAttribute("immersed", "");
 				base.Immersed();
 				base.Get("title1").classList.add("hide");

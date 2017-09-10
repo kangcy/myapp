@@ -130,7 +130,7 @@ function ChangeBg() {
 		base.Get("main1").classList.remove("hide");
 	}
 
-	InitHeader();
+	InitHeader(false);
 
 	//纯白背景
 	if(CurrTemplate == 0) {

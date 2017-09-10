@@ -11,20 +11,8 @@
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../css/articledetail.min.css">
-		<link rel="stylesheet" href="../swipe/swiper.min.css">
 		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
-			#topPopover {
-				position: fixed;
-				top: 80px !important;
-				right: 6px;
-			}
-			
-			#topPopover .mui-popover-arrow {
-				left: auto;
-				right: 6px;
-			}
-			
 			#snowcanvas {
 				pointer-events: none;
 				position: fixed;
@@ -34,85 +22,15 @@
 				left: 0;
 				top: 0;
 			}
-			
-			.swiper-cover {
-				background: rgba(0, 0, 0, .5);
-				position: fixed;
-				left: 0;
-				bottom: 0;
-				width: 100%;
-				height: 100%;
-				z-index: 999;
-			}
-			
-			.swiper-container {
-				position: fixed;
-				left: 0;
-				bottom: 0;
-				z-index: 1000;
-			}
-			
-			.swiper-slide {
-				font-size: 18px;
-				width: auto;
-				height: auto;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-				padding: 0px 0;
-				font-size: 13px;
-				font-family: microsoft yahei;
-			}
-			
-			div.background {
-				width: 4rem;
-				height: 5.25rem;
-				margin-right: 0.5rem;
-				margin-bottom: 0.2rem;
-				float: left;
-				display: inline-block;
-				position: relative;
-				background-size: 150%;
-				background-position: center center;
-				border-radius: 5px;
-			}
-			
-			div.background.hover {
-				border: 2px solid #007aff;
-				color: #007aff;
-				border-radius: 8px;
-			}
-			
-			div.background:first-child {
-				margin-left: 0.5rem;
-			}
-			
-			div.background div {
-				position: absolute;
-				bottom: 0px;
-				font-size: 11px;
-				text-align: center;
-				width: 100%;
-				background: rgba(0, 0, 0, 0.2);
-				color: #fff;
-				height: 1.2rem;
-				line-height: 1.2rem;
-				border-radius: 0px 0px 5px 5px;
-			}
-			
-			div.background img {
-				width: 100% !important;
-				height: 100% !important;
-				border-radius: 6px;
-			}
 		</style>
 	</head>
 	<!--禁止复制-->
 
-	<body id="body" oncontextmenu="return false" onselectstart="return false" class="">
-		<header id="header" class="mui-bar" immersed="none">
-			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
-			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</a>
-			<h1 class="mui-title cfff" id="title"></h1>
+	<body id="body" oncontextmenu="return false" onselectstart="return false">
+		<header class="mui-bar" id="header" immersed="none">
+			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
+			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">下一步</span>
+			<h1 class="mui-title cfff">预览</h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -125,16 +43,16 @@
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
 		<!--背景-->
 		<div id="wrapper2"></div>
-		<div id="wrapper" class="hide" style="margin-bottom:50px;">
+		<div id="wrapper" class="hide">
 			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
 				<!--通用样式-->
 				<div id="main0" class="f13 tl mt10 hide">
 					<div class="detail">
 						<div class="full tl mb5">
-							<p class="f16 c000 mb10" id="title0"></p>
-							<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
+							<p class="f16 mb10" id="title0"></p>
+							<span class="mt0 mb0 f13" id="createdate0"></span>
 							<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
-							<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
+							<span class="mt0 mb0 ml10 f13" id="views0"></span>
 							<p id="music0" play="on" class="music mt10" onclick="switchsound()">
 								<i></i>
 								<span id="musicname0"></span>
@@ -158,7 +76,7 @@
 					</div>
 				</div>
 				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 c333 tc hide mb10" id="title1"></p>
+					<p class="f16 tc hide mb10" id="title1"></p>
 					<div class="c333 full" id="desc">
 
 					</div>
@@ -176,10 +94,14 @@
 <script type="text/javascript">
 	var Article = {};
 	var ArticleID = 0; //文章ID
-	var Source = ""; //来源
 	var isLoading = false;
+	var Title = "";
 	var MusicID = ""; //音乐控件ID
+	var MusicName = "";
 	var MusicUrl = "";
+	var ThemeColor = "";
+	var ThemeBackground = "";
+	var Part = [];
 	var CurrBackground = null; //背景设置
 	var CurrCover = ""; //当前背景图片
 	var CurrColor = ""; //模板背景色
@@ -187,7 +109,7 @@
 	var CurrBackgroundName = ""; //当前纯色背景样式
 	var CurrTemplateType = 0; //当前模板类型
 	var userinfo = base.GetUserInfo();
-	
+
 	var $header = base.Get("header");
 	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
 	var $wrapper1 = base.Get("wrapper1"); //内容子背景（放背景图片）
@@ -203,12 +125,15 @@
 	});
 
 	//启用双击监听 
-	mui.init();
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
-		base.InitScroll();
 
 		$wrapper2.style.width = window.innerWidth + "px";
 		$wrapper2.style.height = window.innerHeight + "px";
@@ -239,19 +164,20 @@
 				Link: link
 			});
 		});
-
-		base.ShowUser("#body");
 	});
 
-	var self = null,
-		wc = null;
+	var self = null;
 
 	mui.plusReady(function() {
-
 		self = plus.webview.currentWebview();
-		Source = self.Source || "Add";
 		ArticleID = self.ArticleID || 0;
-		NickName = self.NickName || "";
+		Title = self.Title || "";
+		MusicID = self.MusicID || "";
+		MusicName = self.MusicName || "";
+		MusicUrl = self.MusicUrl || "";
+		CurrColor = self.ThemeColor || "";
+		CurrBackgroundName = self.ThemeBackground || "";
+		Part = self.Part || [];
 
 		Load(function(data) {
 
@@ -259,9 +185,6 @@
 
 		//返回
 		mui.back = function() {
-			if(Source == "Add") {
-				plus.webview.close("editimage", "none");
-			}
 			plus.webview.close(self);
 		}
 	});
@@ -278,13 +201,12 @@
 					data = data.message;
 
 					$wrapper.classList.remove("hide");
-					base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
-					mui.later(function() {
-						InitShowy(data.Showy);
-					}, 1000)
+
+					InitShowy(data.Showy);
 
 					Article = data;
-					MusicUrl = data.MusicUrl;
+					Article.NickName = base.UnUnicodeText(data.NickName);
+
 					if(audio != null) {
 						var item = document.getElementById("bgsound")
 						item.parentNode.removeChild(item);
@@ -293,39 +215,28 @@
 
 					//段落 
 					var html = [];
-					var parts = data.ArticlePart;
-					for(var i = 0; i < parts.length; i++) {
-						var part = parts[i];
-						if(part.Types == 1) {
+
+					//过滤删除项
+					var parts = Part.filter(x => {
+						return x.Status != 3
+					});
+
+					parts.forEach(part => {
+						if(part.PartType == 1) {
 							//图片
 							html.push('<div class="full f13 fl mb10 ' + part.IntroExpand + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
-						} else if(part.Types == 2) {
+						} else if(part.PartType == 2) {
 							//文本
 							html.push('<div class="full f13 fl mb10">' + base.UnUnicodeText(part.Introduction) + '</div>');
-						} else if(part.Types == 3) {
+						} else if(part.PartType == 3) {
 							//视频
 							html.push('<div class="full f13 fl mb10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
 							//html.push('<div class="full f13 mt5" style="display:inline-block;position:relative;">' + AppendVideo(part.Introduction) + '<img src="../images/article/bg.png" style="width:3.5rem;position:absolute;top:40%;left:40%;" /></div>');
-						} else if(part.Types == 4) {
+						} else if(part.PartType == 4) {
 							//分隔
 							html.push('<div class="full f13 fl mb10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
-					}
-
-					if(data.IsZan > 0) {
-						$zan.setAttribute("already", "1");
-						$zan.setAttribute("src", "../images/article/btn_good2.png");
-						$footer_zan.classList.remove("c666");
-						$footer_zan.classList.add("red");
-					} else {
-						$zan.setAttribute("already", "0");
-						$zan.setAttribute("src", "../images/article/btn_good.png");
-						$footer_zan.classList.remove("red");
-						$footer_zan.classList.add("c666");
-					}
-					base.Get("footer_zan").innerHTML = data.Goods;
-					base.Get("footer_comment").innerHTML = data.Comments;
-
+					})
 					CurrTemplate = data.Template;
 
 					InitHeader();
@@ -344,24 +255,26 @@
 
 					ChangeBg();
 
-					base.Get("musicname0").innerHTML = data.MusicName;
+					base.Get("musicname0").innerHTML = MusicName;
 
 					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
-					base.Get("title0").innerHTML = base.UnUnicodeText(data.Title);
-					base.Get("title1").innerHTML = base.UnUnicodeText(data.Title);
-					base.Get("title").innerHTML = base.UnUnicodeText(data.Title);
+					base.InnerHtml(["title0", "title1", "title"], Title);
 
-					base.Get("nickname0").innerHTML = base.UnUnicodeText(data.NickName);
-					base.Get("nickname1").innerHTML = base.UnUnicodeText(data.NickName);
+					base.InnerHtml(["nickname0", "nickname1"], Article.NickName);
 
-					base.Get("createdate0").innerHTML = data.CreateDateText;
-					base.Get("createdate1").innerHTML = data.CreateDateText;
+					base.InnerHtml(["createdate0", "createdate1"], data.CreateDateText);
 
-					base.Get("views0").innerHTML = "阅读  " + data.Views;
-					base.Get("views1").innerHTML = "阅读  " + data.Views;
+					base.InnerHtml(["views0", "views1"], "阅读  " + data.Views);
 
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
+					
+					base.Get("title0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
+					base.Get("title1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
+					base.Get("createdate0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
+					base.Get("createdate1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
+					base.Get("views0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
+					base.Get("views1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
 
 					//实例化播放器
 					mui.each(mui(".youku_player"), function() {
@@ -399,32 +312,6 @@
 
 					base.AddClass(["#main0", "#main1"], "hide");
 					base.Get("main" + CurrTemplateType).classList.remove("hide");
-
-					base.Get("bottomAction").classList.remove("hide");
-					base.Get("bottomAction").classList.add("bounceIn");
-
-					//启用打赏
-					if(data.IsPay == 1) {
-						base.Get("btnPay").classList.remove("hide");
-					}
-					//收藏状态 
-					if(data.IsKeep == 1) {
-						base.Get("isnotkeep").classList.add("hide");
-						base.Get("iskeep").classList.remove("hide");
-					} else {
-						base.Get("iskeep").classList.add("hide");
-						base.Get("isnotkeep").classList.remove("hide");
-					}
-
-					//分享信息
-					ShareInfo.Title = (userinfo.ShareNick == 1 ? "[" + base.UnUnicodeText(userinfo.NickName) + "]" : "") + base.UnUnicodeText(data.Title);
-					ShareInfo.Cover = base.ShowThumb(data.Cover, 2);
-					ShareInfo.Url = data.ShareUrl;
-
-					//投稿限制操作
-					if(data.Submission > 0 && data.Submission != 100) {
-						base.AddClass(["#popover_delete", "#popover_edit", "#popover_power"], "hide");
-					}
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().hide();
@@ -441,13 +328,11 @@
 
 	function InitHeader() {
 		if(CurrTemplate == 0) {
-			if(!base.IsNullOrEmpty(CurrBackgroundName)) {
-				$header.setAttribute("immersed", "");
-				base.Immersed();
-				base.Get("title1").classList.add("hide");
-				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
-				base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
-			}
+			$header.setAttribute("immersed", "");
+			base.Immersed();
+			base.Get("title1").classList.add("hide");
+			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
+			base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
 		} else {
 			$header.setAttribute("immersed", "none");
 			base.Immersed();
@@ -470,19 +355,6 @@
 		}
 	}
 
-	//自定义装扮
-	function Showy() {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		mui('#topPopover').popover('hide');
-		base.OpenWindow("showy", "showy.html", {
-			ArticleNumber: Article.Number
-		});
-		isLoading = false;
-	}
-
 	//初始化装扮 
 	function InitShowy(src) {
 		if(base.IsNullOrEmpty(src)) {
@@ -496,24 +368,6 @@
 				snow.init(src, 1, 0)
 			}
 		});
-	}
-
-	//更新自定义装扮
-	function UpdateShowy(src) {
-		plus.webview.close("showy", "none");
-		plus.webview.close("showypreview");
-		if(base.IsNullOrEmpty(Article.Showy)) {
-			InitShowy(src)
-		} else {
-			snow.clear();
-			var srcs = src.split("|");
-			if(srcs.length >= 2) {
-				snow.init(srcs[0], srcs[1], srcs[2])
-			} else {
-				snow.init(src, 1, 0)
-			}
-		}
-		Article.Showy = src;
 	}
 
 	//切换音乐

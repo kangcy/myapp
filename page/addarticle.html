@@ -126,7 +126,8 @@
 	<body>
 		<header class="mui-bar" id="header" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
-			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">下一步</span>
+			<!--<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">下一步</span>-->
+			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Preview()">预览</span>
 			<h1 class="mui-title cfff" id="background">编辑文章</h1>
 		</header>
 		<div class="loading" id="loader">
@@ -1288,6 +1289,42 @@
 					mui.toast("保存失败");
 				}
 			});
+	}
+
+	//预览
+	function Preview() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		mask.show();
+		base.ShowWaiting("正在同步文章内容");
+		if(base.IsNullOrEmpty(Title)) {
+			Title = "我的小微篇"
+		}
+		//重置排序（按top属性从小到大排）
+		mui.each(mui(".edit-content"), function(i, item) {
+			var partid = item.getAttribute("partid");
+			var sortid = i;
+			//同步原始段落信息			
+			mui.each(InitParts, function(index, item) {
+				if(item.ID == partid) {
+					InitParts[index].SortID = sortid;
+				}
+			});
+		})
+		base.OpenWindow("articlepreview", "articlepreview.html", {
+			ID: userinfo.ID,
+			ArticleID: ArticleID,
+			Title: Title,
+			MusicID: MusicID,
+			MusicName: MusicName,
+			MusicUrl: MusicUrl,
+			ThemeColor: "#e7a3cb",
+			ThemeBackground: "background_pink_rice_img",
+			Part: InitParts
+		});
+		isLoading = false;
 	}
 
 	//拼接字符串  
