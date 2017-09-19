@@ -639,14 +639,15 @@
 
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 
-					base.Get("title0").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
-					base.Get("title1").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
-					base.Get("createdate0").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
-					base.Get("createdate1").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
-					base.Get("nickname0").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
-					base.Get("nickname1").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
-					base.Get("views0").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
-					base.Get("views1").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					var color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					base.Get("title0").style.color = color;
+					base.Get("title1").style.color = color;
+					base.Get("createdate0").style.color = color;
+					base.Get("createdate1").style.color = color;
+					base.Get("nickname0").style.color = color;
+					base.Get("nickname1").style.color = color;
+					base.Get("views0").style.color = color;
+					base.Get("views1").style.color = color;
 
 					//实例化播放器
 					mui.each(mui(".youku_player"), function() {
