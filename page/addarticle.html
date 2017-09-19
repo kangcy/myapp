@@ -128,7 +128,7 @@
 			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
 			<!--<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">下一步</span>-->
 			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Preview()">预览</span>
-			<h1 class="mui-title cfff" id="background">编辑文章</h1>
+			<h1 class="mui-title cfff" id="title">点击输入文章标题</h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -140,8 +140,8 @@
 				<div id="music" class="btn fl tl mb15 hide"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
 			</div>
 		</div>
-		<div id="title" class="f15" style="color:#333;line-height:1.5rem;padding:1rem;text-align:center;margin:0.5rem 0;">点击输入文章标题</div>
-		<div id="edit"></div>
+		<!--<div id="title" class="f15" style="color:#333;line-height:1.5rem;padding:1rem;text-align:center;margin:0.5rem 0;">点击输入文章标题</div>-->
+		<div id="edit" class="mt20"></div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="camera">
@@ -656,11 +656,6 @@
 				source: "title",
 				title: html == "点击输入文章标题" ? "" : html
 			});
-		});
-
-		//背景
-		base.Get('background').addEventListener('tap', function(event) {
-			ShowBackground();
 		});
 
 		//点击编辑
@@ -1320,11 +1315,20 @@
 			MusicID: MusicID,
 			MusicName: MusicName,
 			MusicUrl: MusicUrl,
-			ThemeColor: "#e7a3cb",
-			ThemeBackground: "background_pink_rice_img",
+			ThemeColor: currColor,
+			ThemeCover: currBackground,
 			Part: InitParts
 		});
 		isLoading = false;
+		base.CloseWaiting("正在同步文章内容");
+	}
+
+	function changeColor(color) {
+		currColor = color;
+	}
+
+	function changeCover(cover) {
+		currBackground = cover;
 	}
 
 	//拼接字符串  
@@ -1332,7 +1336,8 @@
 		var div = document.createElement('div');
 		div.className = 'edit-body fl';
 		var model = [];
-		model.push('<img src="../images/addarticle/btn_up.png" class="edit-add-color" style="position:absolute;top:0px;left:6rem;width:2rem;z-index:1;" /><img src="../images/addarticle/btn_down.png" class="edit-add-border" style="position:absolute;top:0px;left:10rem;width:2rem;z-index:1;" />');
+		//model.push('<img src="../images/addarticle/btn_up.png" class="edit-add-color" style="position:absolute;top:0px;left:6rem;width:2rem;z-index:1;" /><img src="../images/addarticle/btn_down.png" class="edit-add-border" style="position:absolute;top:0px;left:10rem;width:2rem;z-index:1;" />');
+		model.push('<img src="../images/addarticle/btn_down.png" class="edit-add-border" style="position:absolute;top:0px;left:10rem;width:2rem;z-index:1;" />');
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
 			model.push('<div class="edit-content f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');

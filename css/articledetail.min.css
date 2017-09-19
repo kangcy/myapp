@@ -173,8 +173,17 @@
 	right: 1rem;
 	bottom: 6.875rem;
 	width: 3.5rem;
-	z-index: 999;
+	z-index: 9999;
 }
+
+#agreeColor {
+	position: fixed;
+	right: 1rem;
+	bottom: 3rem;
+	width: 3.5rem;
+	z-index: 9999;
+}
+
 
 /**背景设置**/
 
@@ -202,7 +211,8 @@
 	padding: 3px;
 }
 
-#btnPay {
+#btnPay,
+#btnColor {
 	position: fixed;
 	left: 1rem;
 	bottom: 4rem;
@@ -280,7 +290,8 @@ video {
 	background-size: auto 20px;
 }*/
 
-#btnTemp {
+#btnTemp,
+#btnColor {
 	position: fixed;
 	right: 1rem;
 	bottom: 4rem;

@@ -3840,7 +3840,9 @@
 			"css/demo.css",
 			"mincss/animate.min.css",
 			"mincss/loading.min.css",
-			"images/article/on.png"
+			"images/article/on.png",
+			"swipe/swiper.min.css",
+			"swipe/swiper.min.js"
 		]
 	}
 }
