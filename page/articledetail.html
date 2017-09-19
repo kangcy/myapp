@@ -182,21 +182,6 @@
 				</div>
 			</div>
 		</div>
-		<!--模板选择-->
-		<img class="hide" src="../images/article/skin.png" onclick="TempTan(1)" id="btnTemp">
-		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
-		<div class="swiper-container boxshadow hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(255,255,255,.25);">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" id="temp-slide"></div>
-			</div>
-			<div class="swiper-scrollbar" id="temp-scrollbar"></div>
-		</div>
-		<div class="swiper-container boxshadow hide" id="mybackground" style="bottom:0px; padding:0.5rem 0;background:rgba(255,255,255,.25);">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" id="background-slide"></div>
-			</div>
-			<div class="swiper-scrollbar" id="mybackground-scrollbar"></div>
-		</div>
 		<!--分享-->
 		<div class="myshare hide" id="myshare">
 			<p class="f16 c000 tc mt10 mb0">分享到</p>
@@ -245,10 +230,10 @@
 				<div id="main0" class="f13 tl mt10 hide">
 					<div class="detail">
 						<div class="full tl mb5">
-							<p class="f16 c000 mb10" id="title0"></p>
-							<span class="mt0 mb0 csubtitle f13" id="createdate0"></span>
-							<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
-							<span class="mt0 mb0 ml10 csubtitle f13" id="views0"></span>
+							<p class="f16 mb10" id="title0"></p>
+							<span class="mt0 mb0 f13" id="createdate0"></span>
+							<span class="mb0 ml10 user mt5" userid="0" id="nickname0"></span>
+							<span class="mt0 mb0 ml10 f13" id="views0"></span>
 							<p id="music0" play="on" class="music mt10" onclick="switchsound()">
 								<i></i>
 								<span id="musicname0"></span>
@@ -263,8 +248,8 @@
 							<img id="useravatar1" class="full fl article" />
 						</div>
 						<div class="fr tl" style="width:77%;display:inline-block;">
-							<p class="user ml10 mt10 mb0 textshadow f15 cfff fl full bold" userid="0" id="nickname1"></p>
-							<p class="ml10 mb0 mt10 cfff textshadow f13 full">
+							<p class="user ml10 mt15 mb5 f15 fl full bold" userid="0" id="nickname1"></p>
+							<p class="ml10 mb0 mt20 f13 full">
 								<span id="createdate1" class="mr10"></span>
 								<span class="ml15" id="views1"></span>
 							</p>
@@ -272,7 +257,7 @@
 					</div>
 				</div>
 				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 c333 tc hide mb10" id="title1"></p>
+					<p class="f16 tc hide mb10" id="title1"></p>
 					<div class="c333 full" id="desc">
 
 					</div>
@@ -554,20 +539,6 @@
 			}
 		});
 
-		//选中背景
-		mui('#mybackground').on('tap', '.background', function() {
-			var name = this.getAttribute("name");
-			if(name == "back") {
-				CloseBackground();
-				TempTan(1);
-				return;
-			}
-			CurrBackgroundName = name;
-			base.RemoveClass([".background"], "hover");
-			this.classList.add("hover");
-			ChangeBg();
-		});
-
 		//点赞
 		$divzan.addEventListener('tap', function(event) {
 			if(isLoading) {
@@ -685,16 +656,16 @@
 		Load(function(data) {
 			mui.later(function() {
 				plus.webview.close("sharesetting", "none");
+				plus.webview.close("articlepreview", "none");
 				plus.webview.close("addarticle", "none");
 				plus.webview.hide("addimage");
 			}, 500);
 
 			//显示操作
-			if(userinfo.ID == data.UserID) {
-				//加载模板
-				LoadTemplate();
-			} else {
+			if(userinfo.ID != data.UserID) {
 				base.ShowUser("#body");
+			} else {
+				base.RemoveClass(["#action"], "hide");
 			}
 		});
 
@@ -822,6 +793,18 @@
 					}
 					base.Get("footer_zan").innerHTML = data.Goods;
 					base.Get("footer_comment").innerHTML = data.Comments;
+
+					var themeColor = base.IsNullOrEmpty(data.ThemeColor) ? "#333" : data.ThemeColor;
+					base.Get("title0").style.color = themeColor;
+					base.Get("title1").style.color = themeColor;
+					base.Get("nickname0").style.color = themeColor;
+					base.Get("nickname1").style.color = themeColor;
+					base.Get("createdate0").style.color = themeColor;
+					base.Get("createdate1").style.color = themeColor;
+					base.Get("views0").style.color = themeColor;
+					base.Get("views1").style.color = themeColor;
+
+					CurrBackgroundName = data.ThemeCover;
 
 					CurrTemplate = data.Template;
 

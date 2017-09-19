@@ -3842,7 +3842,10 @@
 			"mincss/loading.min.css",
 			"images/article/on.png",
 			"swipe/swiper.min.css",
-			"swipe/swiper.min.js"
+			"swipe/swiper.min.js",
+			"images/article/skin.png",
+			"images/article/btn_sure.png",
+			"images/article/off.png"
 		]
 	}
 }

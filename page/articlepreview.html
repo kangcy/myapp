@@ -25,7 +25,8 @@
 			}
 			
 			.swiper-cover {
-				background: rgba(0, 0, 0, .5);
+				/*background: rgba(0, 0, 0, .5);*/
+				background: transparent;
 				position: fixed;
 				left: 0;
 				bottom: 0;
@@ -133,7 +134,7 @@
 		<!--主题色-->
 		<img class="hide" src="../images/article/money.png" onclick="ColorTan(1)" style="width:4rem;z-index:99;" id="btnColor"></i>
 		<img class="hide" src="../images/article/btn_sure.png" onclick="ColorTan(0)" id="agreeColor">
-		<div class="swiper-container hide" id="mycolor" style="bottom:0px;background:rgba(255,255,255,.25);height:auto;width:auto;">
+		<div class="swiper-container hide" id="mycolor" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide tc" id="mycolor-slide">
 				</div>
@@ -144,13 +145,13 @@
 		<!--模板选择-->
 		<img class="hide" src="../images/article/skin.png" onclick="TempTan()" id="btnTemp">
 		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan(1)" id="agreeTemp">
-		<div class="swiper-container boxshadow hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(255,255,255,.25);">
+		<div class="swiper-container hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" id="temp-slide"></div>
 			</div>
 			<div class="swiper-scrollbar" id="temp-scrollbar"></div>
 		</div>
-		<div class="swiper-container boxshadow hide" id="mybackground" style="bottom:0px; padding:0.5rem 0;background:rgba(255,255,255,.25);">
+		<div class="swiper-container hide" id="mybackground" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" id="background-slide"></div>
 			</div>
@@ -172,7 +173,7 @@
 						<div class="full tl mb5">
 							<p class="f16 mb10" id="title0"></p>
 							<span class="mt0 mb0 f13" id="createdate0"></span>
-							<span class="mb0 ml10 user mt5 blue" userid="0" id="nickname0"></span>
+							<span class="mb0 ml10 user mt5" userid="0" id="nickname0"></span>
 							<span class="mt0 mb0 ml10 f13" id="views0"></span>
 							<p id="music0" play="on" class="music mt10" onclick="switchsound()">
 								<i></i>
@@ -188,8 +189,8 @@
 							<img id="useravatar1" class="full fl article" />
 						</div>
 						<div class="fr tl" style="width:77%;display:inline-block;">
-							<p class="user ml10 mt10 mb0 f15 cfff fl full bold" userid="0" id="nickname1"></p>
-							<p class="ml10 mb0 mt10 cfff f13 full">
+							<p class="user ml10 mt15 mb5 f15 fl full bold" userid="0" id="nickname1"></p>
+							<p class="ml10 mb0 mt20 cfff f13 full">
 								<span id="createdate1" class="mr10"></span>
 								<span class="ml15" id="views1"></span>
 							</p>
@@ -532,6 +533,8 @@
 		MusicUrl = self.MusicUrl || "";
 		CurrColor = self.ThemeColor || "";
 		CurrBackgroundName = self.ThemeCover || "";
+		CurrTemplate = self.ThemeTemplate || "";
+
 		Part = self.Part || [];
 
 		Load(function(data) {
@@ -601,7 +604,7 @@
 							html.push('<div class="full f13 fl mb10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
 					})
-					CurrTemplate = data.Template;
+					//CurrTemplate = data.Template;
 
 					InitHeader();
 
@@ -637,6 +640,8 @@
 					base.Get("title1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
 					base.Get("createdate0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
 					base.Get("createdate1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
+					base.Get("nickname0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
+					base.Get("nickname1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
 					base.Get("views0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
 					base.Get("views1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
 
@@ -800,8 +805,8 @@
 			CloseBackground();
 			base.AddClass(["#agreeTemp", "#temps"], "hide");
 			base.Get("btnTemp").classList.remove("hide");
-			base.GetView("addarticle").evalJS("changeCover('" + CurrCover + "')");
 		} else {
+			base.Get("background-cover").classList.remove("hide");
 			var temps = base.Get("temps");
 			temps.classList.remove("hide");
 			if(tempSwiper == null) {
@@ -831,26 +836,15 @@
 
 	//确认模板
 	function ChooseTan() {
-		TempTan(0);
-		base.RemoveClass([".background"], "hover");
-		mui(".background")[CurrTemplate + 1].classList.add("hover");
-		return;
 		if(isLoading) {
 			return;
 		}
-		isLoading = true;
 		TempTan(0);
-		HttpGet(base.RootUrl + "Article/EditArticleTemp", {
-			ID: userinfo.ID,
-			ArticleID: ArticleID,
-			ArticleNumber: Article.Number,
-			Template: CurrTemplate
-		}, function(data) {
-			isLoading = false;
-
-			base.RemoveClass([".background"], "hover");
-			mui(".background")[CurrTemplate + 1].classList.add("hover");
-		});
+		base.RemoveClass([".background"], "hover");
+		mui(".background")[CurrTemplate + 1].classList.add("hover");
+		base.GetView("addarticle").evalJS("changeCover('" + CurrBackgroundName + "')");
+		base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
+		isLoading = true;
 	}
 
 	function ShowBackground() {
@@ -899,6 +893,7 @@
 		var mybackground = base.Get("mybackground");
 		mybackground.classList.remove("bounceInUp");
 		mybackground.classList.add("bounceOutUp");
+		base.Get("background-cover").classList.add("hide");
 	}
 
 	//背景状态切换
@@ -1015,7 +1010,9 @@
 				CurrColor = "";
 				if(CurrTemplate == 0) {
 					//选择纯色背景
-					CurrBackgroundName = "background_white";
+					if(base.IsNullOrEmpty(CurrBackgroundName)) {
+						CurrBackgroundName = "background_white";
+					}
 					ShowBackground();
 				} else if(CurrTemplate == 1) {
 					base.OpenWindow("customsetting", "customsetting.html", {
@@ -1044,5 +1041,9 @@
 		mycolor.classList.remove("bounceInUp");
 		mycolor.classList.add("bounceOutUp");
 		base.Get("color-cover").classList.add("hide");
+	}
+
+	function Save() {
+		base.GetView("addarticle").evalJS("Save()");
 	}
 </script>
