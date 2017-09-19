@@ -132,7 +132,7 @@
 			</div>
 		</div>
 		<!--主题色-->
-		<img class="hide" src="../images/article/money.png" onclick="ColorTan(1)" style="width:4rem;z-index:99;" id="btnColor"></i>
+		<img class="hide" src="../images/article/money.png" onclick="ColorTan(1)" style="bottom:1rem;" id="btnColor"></i>
 		<img class="hide" src="../images/article/btn_sure.png" onclick="ColorTan(0)" id="agreeColor">
 		<div class="swiper-container hide" id="mycolor" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
 			<div class="swiper-wrapper">
@@ -143,8 +143,8 @@
 		</div>
 		<div class="swiper-cover hide" id="color-cover"></div>
 		<!--模板选择-->
-		<img class="hide" src="../images/article/skin.png" onclick="TempTan()" id="btnTemp">
-		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan(1)" id="agreeTemp">
+		<img class="hide" src="../images/article/skin.png" onclick="TempTan()" id="btnTemp" style="bottom:1rem;">
+		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
 		<div class="swiper-container hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" id="temp-slide"></div>
@@ -157,7 +157,6 @@
 			</div>
 			<div class="swiper-scrollbar" id="mybackground-scrollbar"></div>
 		</div>
-		<!--主题色-->
 		<div class="swiper-cover hide" id="background-cover"></div>
 		<!--漂浮特效-->
 		<div id="snowwrapper"></div>
@@ -198,7 +197,7 @@
 					</div>
 				</div>
 				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 tc hide mb10" id="title1"></p>
+					<p class="f16 tc hide mt10 mb20" id="title1"></p>
 					<div class="c333 full" id="desc">
 
 					</div>
@@ -235,7 +234,7 @@
 
 	var $header = base.Get("header");
 	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
-	var $wrapper1 = base.Get("wrapper1"); //内容子背景（放背景图片）
+	var $wrapper1 = base.Get("wrapper1"); //内容子背景（放背景图片） 
 	var $wrapper2 = base.Get("wrapper2"); //纯色背景
 	var $cover = base.Get("cover"); //非纯色内容透明度底
 	var scrolly = 0;
@@ -490,15 +489,15 @@
 
 		//选中主题色
 		mui('#mycolor-slide').on('tap', 'div', function() {
-			CurrColor = this.getAttribute("name");
-			base.Get("title0").style.color = CurrColor;
-			base.Get("title1").style.color = CurrColor;
-			base.Get("nickname0").style.color = CurrColor;
-			base.Get("nickname1").style.color = CurrColor;
-			base.Get("createdate0").style.color = CurrColor;
-			base.Get("createdate1").style.color = CurrColor;
-			base.Get("views0").style.color = CurrColor;
-			base.Get("views1").style.color = CurrColor;
+			ThemeColor = this.getAttribute("name");
+			base.Get("title0").style.color = ThemeColor;
+			base.Get("title1").style.color = ThemeColor;
+			base.Get("nickname0").style.color = ThemeColor;
+			base.Get("nickname1").style.color = ThemeColor;
+			base.Get("createdate0").style.color = ThemeColor;
+			base.Get("createdate1").style.color = ThemeColor;
+			base.Get("views0").style.color = ThemeColor;
+			base.Get("views1").style.color = ThemeColor;
 
 			base.RemoveClass([".color"], "hover");
 			this.classList.add("hover");
@@ -531,7 +530,7 @@
 		MusicID = self.MusicID || "";
 		MusicName = self.MusicName || "";
 		MusicUrl = self.MusicUrl || "";
-		CurrColor = self.ThemeColor || "";
+		ThemeColor = self.ThemeColor || "#333";
 		CurrBackgroundName = self.ThemeCover || "";
 		CurrTemplate = self.ThemeTemplate || "";
 
@@ -565,14 +564,14 @@
 					Article = data;
 					Article.NickName = base.UnUnicodeText(data.NickName);
 
-					base.Get("title0").style.color = CurrColor;
-					base.Get("title1").style.color = CurrColor;
-					base.Get("nickname0").style.color = CurrColor;
-					base.Get("nickname1").style.color = CurrColor;
-					base.Get("createdate0").style.color = CurrColor;
-					base.Get("createdate1").style.color = CurrColor;
-					base.Get("views0").style.color = CurrColor;
-					base.Get("views1").style.color = CurrColor;
+					base.Get("title0").style.color = ThemeColor;
+					base.Get("title1").style.color = ThemeColor;
+					base.Get("nickname0").style.color = ThemeColor;
+					base.Get("nickname1").style.color = ThemeColor;
+					base.Get("createdate0").style.color = ThemeColor;
+					base.Get("createdate1").style.color = ThemeColor;
+					base.Get("views0").style.color = ThemeColor;
+					base.Get("views1").style.color = ThemeColor;
 
 					if(audio != null) {
 						var item = document.getElementById("bgsound")
@@ -586,6 +585,10 @@
 					//过滤删除项
 					var parts = Part.filter(x => {
 						return x.Status != 3
+					});
+
+					parts.sort(function(a, b) {
+						return a.SortID - b.SortID;
 					});
 
 					parts.forEach(part => {
@@ -636,14 +639,14 @@
 
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 
-					base.Get("title0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
-					base.Get("title1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
-					base.Get("createdate0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
-					base.Get("createdate1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
-					base.Get("nickname0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
-					base.Get("nickname1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
-					base.Get("views0").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
-					base.Get("views1").style.color = base.IsNullOrEmpty(CurrColor) ? "#333" : CurrColor;
+					base.Get("title0").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					base.Get("title1").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					base.Get("createdate0").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					base.Get("createdate1").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					base.Get("nickname0").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					base.Get("nickname1").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					base.Get("views0").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					base.Get("views1").style.color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
 
 					//实例化播放器
 					mui.each(mui(".youku_player"), function() {
@@ -758,7 +761,7 @@
 			CloseColor();
 			base.AddClass(["#agreeColor", "#mycolor"], "hide");
 			base.Get("btnColor").classList.remove("hide");
-			base.GetView("addarticle").evalJS("changeColor('" + CurrColor + "')");
+			base.GetView("addarticle").evalJS("changeColor('" + ThemeColor + "')");
 		} else {
 			base.Get("color-cover").classList.remove("hide");
 			var mycolor = base.Get("mycolor");
@@ -835,7 +838,7 @@
 	}
 
 	//确认模板
-	function ChooseTan() {
+	function ChooseTan(callback) {
 		if(isLoading) {
 			return;
 		}
@@ -844,6 +847,9 @@
 		mui(".background")[CurrTemplate + 1].classList.add("hover");
 		base.GetView("addarticle").evalJS("changeCover('" + CurrBackgroundName + "')");
 		base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
+		if(callback) {
+			callback();
+		}
 		isLoading = true;
 	}
 
@@ -1041,6 +1047,21 @@
 		mycolor.classList.remove("bounceInUp");
 		mycolor.classList.add("bounceOutUp");
 		base.Get("color-cover").classList.add("hide");
+	}
+
+	//重新加载数据 
+	function Reload(source) {
+		ChooseTan(function() {
+			Load(function() {
+				if(source == "custom") {
+					plus.webview.close("customsetting", "none");
+					plus.webview.close("custom");
+				} else {
+					plus.webview.close("custom", "none");
+					plus.webview.close("customsetting");
+				}
+			});
+		});
 	}
 
 	function Save() {

@@ -242,9 +242,9 @@
 				mui.toast("系统异常,请稍后再试");
 			} else {
 				if(data.result) {
-					var page = base.GetView('articledetail');
+					var page = base.GetView('articlepreview');
 					if(page) {
-						page.evalJS("UpdateDetail2('customsetting')");
+						page.evalJS("Reload('customsetting')");
 					}
 				} else {
 					mui.toast(data.message);

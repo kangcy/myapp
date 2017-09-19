@@ -347,9 +347,9 @@
 				} else {
 					if(data.result) {
 						if(id == 0) {
-							var page = base.GetView('articledetail');
+							var page = base.GetView('articlepreview');
 							if(page) {
-								page.evalJS("UpdateDetail2('custom')");
+								page.evalJS("Reload('custom')");
 							}
 						} else {
 							var page = base.GetView('customsetting');

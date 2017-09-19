@@ -3846,6 +3846,9 @@
 			"images/article/skin.png",
 			"images/article/btn_sure.png",
 			"images/article/off.png"
+		],
+		"refer": [
+			"page/customsetting.html"
 		]
 	}
 }

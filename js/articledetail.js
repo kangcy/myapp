@@ -92,21 +92,6 @@ function UpdateDetail() {
 	});
 }
 
-//重新加载数据 
-function UpdateDetail2(source) {
-	ChooseTan(function() {
-		Load(function() {
-			if(source == "custom") {
-				plus.webview.close("customsetting", "none");
-				plus.webview.close("custom");
-			} else {
-				plus.webview.close("custom", "none");
-				plus.webview.close("customsetting");
-			}
-		});
-	});
-}
-
 //删除
 function Delete() {
 	mask.close();
@@ -123,7 +108,6 @@ function Delete() {
 				setTimeout(function() {
 					if(data != null) {
 						if(data.result) {
-
 							userinfo.Articles -= 1;
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							base.RefreshUser();

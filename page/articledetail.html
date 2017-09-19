@@ -12,7 +12,6 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/input.min.css">
 		<link rel="stylesheet" href="../css/articledetail.min.css">
-		<link rel="stylesheet" href="../swipe/swiper.min.css">
 		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
 			#topPopover {
@@ -34,76 +33,6 @@
 				height: 100%;
 				left: 0;
 				top: 0;
-			}
-			
-			.swiper-cover {
-				background: rgba(0, 0, 0, .5);
-				position: fixed;
-				left: 0;
-				bottom: 0;
-				width: 100%;
-				height: 100%;
-				z-index: 999;
-			}
-			
-			.swiper-container {
-				position: fixed;
-				left: 0;
-				bottom: 0;
-				z-index: 1000;
-			}
-			
-			.swiper-slide {
-				font-size: 18px;
-				width: auto;
-				height: auto;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-				padding: 0px 0;
-				font-size: 13px;
-				font-family: microsoft yahei;
-			}
-			
-			div.background {
-				width: 4rem;
-				height: 5.25rem;
-				margin-right: 0.5rem;
-				margin-bottom: 0.2rem;
-				float: left;
-				display: inline-block;
-				position: relative;
-				background-size: 150%;
-				background-position: center center;
-				border-radius: 5px;
-			}
-			
-			div.background.hover {
-				border: 2px solid #007aff;
-				color: #007aff;
-				border-radius: 8px;
-			}
-			
-			div.background:first-child {
-				margin-left: 0.5rem;
-			}
-			
-			div.background div {
-				position: absolute;
-				bottom: 0px;
-				font-size: 11px;
-				text-align: center;
-				width: 100%;
-				background: rgba(0, 0, 0, 0.2);
-				color: #fff;
-				height: 1.2rem;
-				line-height: 1.2rem;
-				border-radius: 0px 0px 5px 5px;
-			}
-			
-			div.background img {
-				width: 100% !important;
-				height: 100% !important;
-				border-radius: 6px;
 			}
 		</style>
 	</head>
@@ -257,7 +186,7 @@
 					</div>
 				</div>
 				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 tc hide mb10" id="title1"></p>
+					<p class="f16 tc hide mt10 mb20" id="title1"></p>
 					<div class="c333 full" id="desc">
 
 					</div>
@@ -273,7 +202,6 @@
 <script src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
 <script src="../js/articledetail.js"></script>
-<script src="../swipe/swiper.min.js"></script>
 <script type="text/javascript">
 	var Article = {};
 	var ArticleID = 0; //文章ID
@@ -302,205 +230,6 @@
 	var scrolly = 0;
 	var browserName = base.BrowserName();
 	var num = 0;
-	var backgroundSwiper = null;
-	var tempSwiper = null;
-
-	var backgrounds = [{
-		tip: "默认",
-		name: "background_white"
-	}, {
-		tip: "梦幻渐变",
-		name: "background_linear1"
-	}, {
-		tip: "纸纹",
-		name: "background_chruch_img"
-	}, {
-		tip: "质感",
-		name: "background_egg_shell_img"
-	}, {
-		tip: "笔痕",
-		name: "background_cross_scratches_img"
-	}, {
-		tip: "马赛克",
-		name: "background_grey_brick_img"
-	}, {
-		tip: "印痕",
-		name: "background_light_wool_img"
-	}, {
-		tip: "砖墙",
-		name: "background_ravenna_img"
-	}, {
-		tip: "浅纹",
-		name: "background_brushed_img"
-	}, {
-		tip: "绿色花纹",
-		name: "background_green_img"
-	}, {
-		tip: "梦幻蓝色",
-		name: "background_blue_img"
-	}, {
-		tip: "粉色浪漫",
-		name: "background_pink_img"
-	}, {
-		tip: "爱心瓶",
-		name: "background_pinkbottle_img"
-	}, {
-		tip: "粉红梦",
-		name: "background_pinklying_img"
-	}, {
-		tip: "爱心墙",
-		name: "background_pinkwall_img"
-	}, {
-		tip: "粉红日记",
-		name: "background_pink_rice_img"
-	}, {
-		tip: "动感方块",
-		name: "background_congruent_pentagon_img"
-	}, {
-		tip: "方格",
-		name: "background_cream_pixels_img"
-	}, {
-		tip: "编织",
-		name: "background_sos_img"
-	}, {
-		tip: "淡蓝",
-		name: "background_light_blue_img"
-	}, {
-		tip: "淡黄",
-		name: "background_cyan"
-	}, {
-		tip: "青绿",
-		name: "background_green"
-	}, {
-		tip: "花纹",
-		name: "background_dot_img"
-	}, {
-		tip: "粉点",
-		name: "background_colorful1"
-	}, {
-		tip: "蓝点",
-		name: "background_colorful2"
-	}, {
-		tip: "黄点",
-		name: "background_colorful3"
-	}, {
-		tip: "茶点",
-		name: "background_colorful4"
-	}, {
-		tip: "绿点",
-		name: "background_colorful5"
-	}, {
-		tip: "彩块",
-		name: "background_colorful01"
-	}, {
-		tip: "甜品",
-		name: "background_colorful02"
-	}, {
-		tip: "萌物",
-		name: "background_colorful03"
-	}, {
-		tip: "粉色甜品",
-		name: "background_colorful04"
-	}, {
-		tip: "蓝色线条",
-		name: "background_colorful06"
-	}, {
-		tip: "叶片",
-		name: "background_colorful07"
-	}, {
-		tip: "土地",
-		name: "background_black_img"
-	}, {
-		tip: "刺绣",
-		name: "background_dark_embroidery_img"
-	}, {
-		tip: "纹路",
-		name: "background_congruent_outline_img"
-	}, {
-		tip: "编织",
-		name: "background_woven_img"
-	}, {
-		tip: "复古纸",
-		name: "background_retro"
-	}, {
-		tip: "羊皮卷",
-		name: "background_retro02"
-	}, {
-		tip: "木纹",
-		name: "background_wooddesk_img"
-	}, {
-		tip: "黑板",
-		name: "background_blackboard"
-	}, {
-		tip: "绿黑板",
-		name: "background_greenboard"
-	}, {
-		tip: "墨绿黑板",
-		name: "background_greenboard2"
-	}, {
-		tip: "红点",
-		name: "background_red_dotted_img"
-	}, {
-		tip: "碳纤维",
-		name: "background_carbonfibre_img"
-	}, {
-		tip: "黑砖墙",
-		name: "background_darkbrickwall_img"
-	}, {
-		tip: "轮胎印",
-		name: "background_darktire_img"
-	}, {
-		tip: "灰单宁",
-		name: "background_darkdenim_img"
-	}, {
-		tip: "灰呢",
-		name: "background_tweed_img"
-	}, {
-		tip: "棉绒",
-		name: "background_wildoliva_img"
-	}, {
-		tip: "白麻",
-		name: "background_bgnoise_img"
-	}, {
-		tip: "圈圈",
-		name: "background_dimension_img"
-	}, {
-		tip: "大理石",
-		name: "background_freshsnow_img"
-	}, {
-		tip: "几何",
-		name: "background_geometry_img"
-	}, {
-		tip: "萤石",
-		name: "background_greencup_img"
-	}, {
-		tip: "化纤",
-		name: "background_nastyfabric_img"
-	}, {
-		tip: "白革",
-		name: "background_whiteleather_img"
-	}, {
-		tip: "金星",
-		name: "background_newyear_star_img"
-	}, {
-		tip: "福团",
-		name: "background_newyear_fu_img"
-	}, {
-		tip: "飘雪",
-		name: "background_newyear_snow01_img"
-	}, {
-		tip: "雪花",
-		name: "background_newyear_snow02_img"
-	}, {
-		tip: "喜庆红",
-		name: "background_red_linear1"
-	}, {
-		tip: "百福",
-		name: "background_big_fu_img"
-	}, {
-		tip: "白福",
-		name: "background_white_fu_img"
-	}]
 
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
