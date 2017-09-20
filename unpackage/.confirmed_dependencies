@@ -757,7 +757,8 @@
 			"css/demo.css",
 			"swipe/swiper.min.js",
 			"swipe/swiper.min.css",
-			"mincss/animate.min.css"
+			"mincss/animate.min.css",
+			"images/addarticle/btn_pic.png"
 		],
 		"refer": [
 			"page/edittitle.html",
@@ -1320,7 +1321,8 @@
 			"images/article/btn_good2.png",
 			"css/demo.css",
 			"swipe/swiper.min.css",
-			"swipe/swiper.min.js"
+			"swipe/swiper.min.js",
+			"images/preview/btn_money.png"
 		],
 		"refer": [
 			"page/user.html",
@@ -3845,7 +3847,10 @@
 			"swipe/swiper.min.js",
 			"images/article/skin.png",
 			"images/article/btn_sure.png",
-			"images/article/off.png"
+			"images/article/off.png",
+			"images/addarticle/icon_pic_y.png",
+			"images/preview/btn_back_bottom.png",
+			"images/preview/btn_cancel.png"
 		],
 		"refer": [
 			"page/customsetting.html"

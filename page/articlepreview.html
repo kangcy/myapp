@@ -96,25 +96,75 @@
 			}
 			
 			#mycolor .color {
-				width: 50px;
-				height: 50px;
-				margin: 15px 7.5px;
+				width: 3rem;
+				height: 3rem;
+				margin: 0.8rem 0.4rem;
 				display: inline-block;
 				float: left;
 			}
 			
-			#mycolor .color.check {
-				background: url(../images/addarticle/icon_pic_y.png) no-repeat;
-				background-size: 100% 100%;
+			#mycool .cool {
+				width: 6rem;
+				height: 3rem;
+				line-height: 3rem;
+				margin: 0.8rem 0.4rem;
+				display: inline-block;
+				float: left;
+			}
+			
+			#mycolor .color.hover {
+				background-image: url(../images/addarticle/icon_pic_y.png);
+				background-size: 50% 50%;
 				background-position: center center;
+				background-repeat: no-repeat;
 			}
 			
-			#mycolor .color:first-child {
-				margin-left: 15px;
+			#mycolor .color:first-child,
+			#mycool .cool:first-child {
+				margin-left: 0.8rem;
 			}
 			
-			#mycolor .color:last-child {
-				margin-right: 15px;
+			#mycolor .color:last-child,
+			#mycool .cool:last-child {
+				margin-right: 0.4rem;
+			}
+			
+			.icons {
+				display: inline-block;
+				width: 100%;
+				text-align: center;
+				position: fixed;
+				bottom: 1rem;
+				z-index: 99999;
+			}
+			
+			.icons div {
+				width: 4rem;
+				height: 2rem;
+				line-height: 2rem;
+				display: inline-block;
+				border: 1px solid #20a0ff;
+				border-radius: 20px;
+				text-align: center;
+				color: #20a0ff;
+				margin: 0.35rem 0.2rem;
+				background: #fff;
+			}
+			
+			.background_back {
+				background-color: #fff;
+				background-image: url(../images/preview/btn_back_bottom.png);
+				background-repeat: no-repeat;
+				background-size: 80% !important;
+				background-position: center 0.5rem !important;
+			}
+			
+			.background_close {
+				background-color: #fff;
+				background-image: url(../images/preview/btn_cancel.png);
+				background-repeat: no-repeat;
+				background-size: 80% !important;
+				background-position: center 0.5rem !important;
 			}
 		</style>
 	</head>
@@ -131,8 +181,8 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
+		<img class="hide" src="../images/article/skin.png" onclick="IconTan(1)" id="btnTemp" style="bottom:1rem;">
 		<!--主题色-->
-		<img class="hide" src="../images/article/money.png" onclick="ColorTan(1)" style="bottom:1rem;" id="btnColor"></i>
 		<img class="hide" src="../images/article/btn_sure.png" onclick="ColorTan(0)" id="agreeColor">
 		<div class="swiper-container hide" id="mycolor" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
 			<div class="swiper-wrapper">
@@ -142,8 +192,17 @@
 			<div class="swiper-scrollbar" id="mycolor-scrollbar"></div>
 		</div>
 		<div class="swiper-cover hide" id="color-cover"></div>
+		<!--炫标题-->
+		<img class="hide" src="../images/article/btn_sure.png" onclick="CoolTan(0)" id="agreeCool">
+		<div class="swiper-container hide" id="mycool" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide tc" id="mycool-slide">
+				</div>
+			</div>
+			<div class="swiper-scrollbar" id="mycool-scrollbar"></div>
+		</div>
+		<div class="swiper-cover hide" id="cool-cover"></div>
 		<!--模板选择-->
-		<img class="hide" src="../images/article/skin.png" onclick="TempTan()" id="btnTemp" style="bottom:1rem;">
 		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
 		<div class="swiper-container hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
 			<div class="swiper-wrapper">
@@ -162,6 +221,12 @@
 		<div id="snowwrapper"></div>
 		<canvas id="snowcanvas"></canvas>
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
+		<div id="btnIcon" class="icons f15 hide">
+			<div onclick="ColorTan(1)">主题色</div>
+			<div onclick="CoolTan(1)">炫标题</div>
+			<div onclick="TempTan()">背景</div>
+			<div>飘落</div>
+		</div>
 		<!--背景-->
 		<div id="wrapper2"></div>
 		<div id="wrapper" class="hide">
@@ -240,7 +305,7 @@
 	var scrolly = 0;
 	var browserName = base.BrowserName();
 	var num = 0;
-	var colorSwiper, backgroundSwiper, tempSwiper = null;
+	var colorSwiper, backgroundSwiper, tempSwiper, coolSwiper = null;
 
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
@@ -444,7 +509,41 @@
 		name: "background_white_fu_img"
 	}]
 
+	//主题色
 	var colors = ["#fff", "#000", "#242424", "#545454", "#848484", "#C93756", "#F05654", "#F35336", "#C32136", "#FF8936", "#FFA400", "#EE8FB7", "#ff84a2", "#fba4c2", "#e7a3cb", "#F0C239", "#C89B40", "#60281E", "#B25D25", "#AE7000", "#7C4B00", "#6E511E", "#955539", "#789262", "#0C8918", "#0EB83A", "#057748", "#9ED048", "#177CB0", "#44CEF6", "#0cd3fa", "#42b3d5", "#1880c5", "#8D4BBB", "#815476", "#952eb6", "#72528a", "#920783"]
+
+	//炫标题
+	var cools = [{
+		id: 1,
+		color: ["rgba(0, 0, 0, 0.6)", "#aff0ff", "rgba(0, 0, 0, 0.6)"]
+	}, {
+		id: 2,
+		color: ["rgba(0, 0, 0, 0.5)", "#aff0ff", "rgba(0, 0, 0, 0.5)"]
+	}, {
+		id: 3,
+		color: ["rgba(0, 0, 0, 0.4)", "#aff0ff", "rgba(0, 0, 0, 0.4)"]
+	}, {
+		id: 4,
+		color: ["rgba(0, 0, 0, 0.3)", "#aff0ff", "rgba(0, 0, 0, 0.3)"]
+	}, {
+		id: 5,
+		color: ["rgba(0, 0, 0, 0.2)", "#aff0ff", "rgba(0, 0, 0, 0.2)"]
+	}, {
+		id: 6,
+		color: ["rgba(0, 0, 0, 0.1)", "#aff0ff", "rgba(0, 0, 0, 0.1)"]
+	}, {
+		id: 7,
+		color: ["rgba(0, 0, 0, 0.6)", "#aff0ff", "rgba(0, 0, 0, 0.6)"]
+	}, {
+		id: 8,
+		color: ["#A9A9A9", "#aff0ff", "#A9A9A9"]
+	}, {
+		id: 9,
+		color: ["#00FF7F", "#aff0ff", "#00FF7F"]
+	}, {
+		id: 10,
+		color: ["#FF00FF", "#aff0ff", "#FF00FF"]
+	}]
 
 	//启用双击监听 
 	mui.init({
@@ -456,6 +555,8 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+
+		//CoolTan(1)
 
 		$wrapper2.style.width = window.innerWidth + "px";
 		$wrapper2.style.height = window.innerHeight + "px";
@@ -503,12 +604,23 @@
 			this.classList.add("hover");
 		});
 
+		//选中炫标题
+		mui('#mycool-slide').on('tap', 'div', function() {
+			/*ThemeColor = this.getAttribute("name");
+			base.Get("title0").style.color = ThemeColor;
+			base.Get("title1").style.color = ThemeColor;*/
+
+			base.RemoveClass([".cool"], "hover");
+			this.classList.add("hover");
+		});
+
 		//选中背景
 		mui('#mybackground').on('tap', '.background', function() {
 			var name = this.getAttribute("name");
 			if(name == "back") {
 				CloseBackground();
 				TempTan(1);
+				base.Get("btnTemp").classList.remove("hide");
 				return;
 			}
 			CurrBackgroundName = name;
@@ -516,9 +628,6 @@
 			this.classList.add("hover");
 			ChangeBg();
 		});
-
-		//加载模板
-		LoadTemplate();
 	});
 
 	var self = null;
@@ -539,6 +648,9 @@
 		Load(function(data) {
 
 		});
+
+		//加载模板
+		LoadTemplate();
 
 		//返回
 		mui.back = function() {
@@ -607,8 +719,6 @@
 							html.push('<div class="full f13 fl mb10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
 					})
-					//CurrTemplate = data.Template;
-
 					InitHeader();
 
 					if(CurrTemplate == 1) {
@@ -758,11 +868,12 @@
 
 	//主题色选择弹窗
 	function ColorTan(index) {
+		IconTan(0);
 		if(index == 0) {
 			CloseColor();
 			base.AddClass(["#agreeColor", "#mycolor"], "hide");
-			base.Get("btnColor").classList.remove("hide");
 			base.GetView("addarticle").evalJS("changeColor('" + ThemeColor + "')");
+			base.Get("btnTemp").classList.remove("hide");
 		} else {
 			base.Get("color-cover").classList.remove("hide");
 			var mycolor = base.Get("mycolor");
@@ -771,8 +882,8 @@
 				var fragment = document.createDocumentFragment();
 				colors.forEach(x => {
 					var div = document.createElement('div');
-					div.className = "color check";
-					div.style.background = x;
+					div.className = "color";
+					div.style.backgroundColor = x;
 					div.setAttribute("name", x);
 					div.innerHTML = "<div></div>";
 					fragment.appendChild(div);
@@ -797,18 +908,103 @@
 				mycolor.classList.add("bounceInUp");
 			}
 			base.RemoveClass([".color"], "hover");
-			//mui(".color")[CurrTemplate + 1].classList.add("hover");
-			base.Get("btnColor").classList.add("hide");
+
+			mui.each(mui("#mycolor .color"), function(index, item) {
+				if(item.getAttribute("name") == ThemeColor) {
+					item.classList.add("hover");
+				}
+			});
 			base.RemoveClass(["#agreeColor"], "hide");
 		}
 	}
 
+	function CloseColor() {
+		var mycolor = base.Get("mycolor");
+		mycolor.classList.remove("bounceInUp");
+		mycolor.classList.add("bounceOutUp");
+		base.Get("color-cover").classList.add("hide");
+	}
+
+	//炫标题选择弹窗
+	function CoolTan(index) {
+		IconTan(0);
+		if(index == 0) {
+			CloseCool();
+			base.AddClass(["#agreeCool", "#mycool"], "hide");
+			base.GetView("addarticle").evalJS("changeColor('" + ThemeColor + "')");
+			base.Get("btnTemp").classList.remove("hide");
+		} else {
+			base.Get("cool-cover").classList.remove("hide");
+			var mycool = base.Get("mycool");
+			mycool.classList.remove("hide");
+			if(coolSwiper == null) {
+				var fragment = document.createDocumentFragment();
+				cools.forEach(x => {
+					console.log(x.color.length);
+					var div = document.createElement('div');
+					div.className = "cool";
+					//div.style.backgroundColor = x;
+
+					div.setAttribute("name", x.id);
+
+					var child = document.createElement('div');
+					child.className = "inline wave";
+
+					ThemeColor = "#ff6900"
+					child.style.backgroundColor = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
+					/*if(x.color.length == 2) {
+						child.style.backgroundImage = browserName + 'linear-gradient(-45deg,' + x.color[0] + ' 30%,' + x.color[1] + ' 70%)';
+					} else if(x.color.length == 3) {
+						child.style.backgroundImage = browserName + 'linear-gradient(-45deg,' + x.color[0] + ' 30%,' + x.color[1] + ' 50%,' + x.color[2] + ' 70%)';
+					}*/
+
+					child.innerHTML = "我的小微篇";
+					div.appendChild(child);
+					//div.innerHTML = "<div></div>";
+					fragment.appendChild(div);
+				})
+				base.Get("mycool-slide").innerHTML = "";
+				base.Get("mycool-slide").appendChild(fragment);
+				coolSwiper = new Swiper('#mycool', {
+					scrollbar: '#mycool-scrollbar',
+					direction: 'horizontal',
+					slidesPerView: 'auto',
+					mousewheelControl: true,
+					freeMode: true,
+					roundLengths: true,
+					spaceBetween: 10,
+					onInit: function(swiper) {
+						mycool.classList.remove("bounceOutUp");
+						mycool.classList.add("bounceInUp");
+					}
+				});
+			} else {
+				mycool.classList.remove("bounceOutUp");
+				mycool.classList.add("bounceInUp");
+			}
+			base.RemoveClass([".cool"], "hover");
+			mui.each(mui("#mycool .cool"), function(index, item) {
+				if(item.getAttribute("name") == ThemeColor) {
+					item.classList.add("hover");
+				}
+			});
+			base.RemoveClass(["#agreeCool"], "hide");
+		}
+	}
+
+	function CloseCool() {
+		var mycolor = base.Get("mycool");
+		mycolor.classList.remove("bounceInUp");
+		mycolor.classList.add("bounceOutUp");
+		base.Get("cool-cover").classList.add("hide");
+	}
+
 	//模板选择弹窗
 	function TempTan(index) {
+		IconTan(0);
 		if(index == 0) {
 			CloseBackground();
 			base.AddClass(["#agreeTemp", "#temps"], "hide");
-			base.Get("btnTemp").classList.remove("hide");
 		} else {
 			base.Get("background-cover").classList.remove("hide");
 			var temps = base.Get("temps");
@@ -833,7 +1029,6 @@
 			}
 			base.RemoveClass([".background"], "hover");
 			mui(".background")[CurrTemplate + 1].classList.add("hover");
-			base.Get("btnTemp").classList.add("hide");
 			base.RemoveClass(["#agreeTemp"], "hide");
 		}
 	}
@@ -843,29 +1038,31 @@
 		if(isLoading) {
 			return;
 		}
+		isLoading = true;
 		TempTan(0);
 		base.RemoveClass([".background"], "hover");
 		mui(".background")[CurrTemplate + 1].classList.add("hover");
 		base.GetView("addarticle").evalJS("changeCover('" + CurrBackgroundName + "')");
 		base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
+		base.Get("btnTemp").classList.remove("hide");
 		if(callback) {
 			callback();
 		}
-		isLoading = true;
+		isLoading = false;
 	}
 
 	function ShowBackground() {
 		//关闭
-		base.AddClass(["#btnTemp", "#temps"], "hide");
+		base.AddClass(["#temps"], "hide");
 		var mybackground = base.Get("mybackground");
 		mybackground.classList.remove("hide");
 		if(backgroundSwiper == null) {
 			var fragment = document.createDocumentFragment();
 
 			var div = document.createElement('div');
-			div.className = "background background_white";
+			div.className = "background background_back";
 			div.setAttribute("name", "back");
-			div.innerHTML = '<div class="background_white"><div class="f10">关闭</div></div>';
+			div.innerHTML = '<div class="f10">返回</div>';
 			fragment.appendChild(div);
 
 			backgrounds.forEach(x => {
@@ -916,7 +1113,7 @@
 			base.Get("main1").classList.remove("hide");
 		}
 
-		InitHeader(false);
+		InitHeader();
 
 		//纯白背景
 		if(CurrTemplate == 0) {
@@ -980,12 +1177,17 @@
 					var fragment = document.createDocumentFragment();
 
 					var div = document.createElement('div');
-					div.className = "background background_white";
+					div.className = "background background_close";
 					div.setAttribute("name", "back");
-					div.innerHTML = '<div class="background_white"><div class="f10">关闭</div></div>';
+					div.innerHTML = '<div class="f10">关闭</div>';
 					fragment.appendChild(div);
 
 					data.list.forEach(x => {
+						if(x.ID == CurrTemplate) {
+							CurrColor = x.Background;
+							CurrCover = x.Cover;
+							CurrTemplateType = x.TemplateType;
+						}
 						var div = document.createElement('div');
 						div.className = "background " + x.name;
 						div.setAttribute("name", x.name);
@@ -1006,6 +1208,7 @@
 				var name = this.getAttribute("name");
 				if(name == "back") {
 					TempTan(0);
+					base.Get("btnTemp").classList.remove("hide");
 					return;
 				}
 
@@ -1039,15 +1242,8 @@
 				ChangeMusic(); //音乐切换
 			});
 
-			base.RemoveClass(["#btnColor", "#btnTemp"], "hide");
+			base.RemoveClass(["#btnTemp"], "hide");
 		});
-	}
-
-	function CloseColor() {
-		var mycolor = base.Get("mycolor");
-		mycolor.classList.remove("bounceInUp");
-		mycolor.classList.add("bounceOutUp");
-		base.Get("color-cover").classList.add("hide");
 	}
 
 	//重新加载数据 
@@ -1063,6 +1259,20 @@
 				}
 			});
 		});
+	}
+
+	function IconTan(index) {
+		var btnIcon = base.Get("btnIcon");
+		if(index == 0) {
+			btnIcon.classList.add("hide");
+			btnIcon.classList.remove("bounceInUp");
+			btnIcon.classList.add("bounceOutUp");
+		} else {
+			base.Get("btnTemp").classList.add("hide");
+			btnIcon.classList.remove("hide");
+			btnIcon.classList.remove("bounceOutUp");
+			btnIcon.classList.add("bounceInUp");
+		}
 	}
 
 	function Save() {
