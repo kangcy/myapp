@@ -736,15 +736,14 @@
 
 	//初始化装扮 
 	function InitShowy(src) {
-		if(base.IsNullOrEmpty(src)) {
-			return
-		}
 		snow.clear();
-		var srcs = src.split("|");
-		if(srcs.length >= 2) {
-			snow.init(srcs[0], srcs[1], srcs[2])
-		} else {
-			snow.init(src, 1, 0)
+		if(!base.IsNullOrEmpty(src)) {
+			var srcs = src.split("|");
+			if(srcs.length >= 2) {
+				snow.init(srcs[0], srcs[1], srcs[2])
+			} else {
+				snow.init(src, 1, 0)
+			}
 		}
 	}
 

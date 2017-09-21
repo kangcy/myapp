@@ -53,6 +53,24 @@
 				background-size: 100% 100%;
 				background-position: center center;
 			}
+			
+			#addcomment {
+				width: 100%;
+				text-align: center;
+				position: fixed;
+				bottom: 0px;
+				background: rgba(255, 255, 255, 0.5)
+			}
+			
+			#addcomment div {
+				width: 90%;
+				border-radius: 5px;
+				background: #4087cb;
+				display: inline-block;
+				height: 2.1875rem;
+				line-height: 2.1875rem;
+				margin: 1rem 0;
+			}
 		</style>
 	</head>
 
@@ -76,6 +94,9 @@
 		<div id="none" class="full tc hide">
 			<img src="../images/my/666.png" class="none" id="none_img" />
 			<p class="f13 mt10" id="none_tip">大波内容正在赶来，敬请期待~</p>
+		</div>
+		<div id="addcomment">
+			<div class="f13 cfff" onclick="Save()">取消漂浮</div>
 		</div>
 	</body>
 
@@ -192,7 +213,7 @@
 		div.className = 'title tl mt10 mb10 f14 fl full';
 		div.innerHTML = '<span style="margin-left:0.3rem;">' + item.Name + '</span>';
 		return div;
-	} 
+	}
 
 	function AppendStr2(item) {
 		var div = document.createElement('div');
@@ -210,5 +231,17 @@
 		var div = document.createElement('div');
 		div.className = 'splitline fl';
 		return div;
+	}
+
+	function Save() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		var page = base.GetView('articlepreview');
+		if(page) {
+			page.evalJS("UpdateShowy('')");
+		}
+		isLoading = false;
 	}
 </script>

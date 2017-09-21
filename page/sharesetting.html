@@ -255,7 +255,6 @@
 		mui.back = function() {
 			var articleDetailPage = base.GetView('articledetail');
 			if(articleDetailPage == null) {
-				console.log('aa')
 				base.OpenWindow("articledetail", "articledetail.html", {
 					ArticleID: ArticleID,
 					Source: Source
@@ -263,7 +262,6 @@
 			} else {
 				articleDetailPage.evalJS("UpdateDetail()");
 				articleDetailPage.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
-				plus.webview.close(self);
 			}
 		}
 
