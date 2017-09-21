@@ -53,7 +53,7 @@ function ChangeBg() {
 			$wrapper2.className = "";
 		} else {
 			//背景透明度
-			$cover.style.background = "RGBA(255, 255, 255, " + (100 - CurrBackground.Transparency) / 100 + ")";
+			$cover.style.backgroundColor = "RGBA(255, 255, 255, " + (100 - CurrBackground.Transparency) / 100 + ")";
 			var url = CurrBackground.Url;
 			if(CurrBackground.High == 0) {
 				url = base.ShowThumb(url, 1);
