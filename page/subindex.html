@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/subindex.min.css">
 		<style type="text/css">
@@ -51,9 +51,14 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav cfff" id="header">
-			<img id="avatar" src="../images/avatar.png" style="width:30px;margin-top:5px;border-radius:100%;" />
-			<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
-			<h1 class="mui-title cfff">发现</h1>
+			<!--<a class="mui-icon mui-icon-search fr cfff" id="search"></a>
+			<h1 class="mui-title cfff">发现</h1>-->
+			<div style="width:11%;text-align:left;display:inline-block;float:left;">
+				<img id="avatar" src="../images/avatar.png" style="width:30px;margin-top:8px;border-radius:100%;" />
+			</div>
+			<div class="mui-input-row mui-search" style="width:89%;display:inline-block;overflow:hidden;" id="btnsearch" onclick="Search()">
+				<input type="search" placeholder="搜索用户和文章" disabled="disabled" style="height:34px;">
+			</div>
 		</header>
 		<div id="muicontent">
 			<div id="slider" class="mui-slider">
@@ -96,9 +101,6 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.Get("btnAdd").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
-		base.Get("search").addEventListener('tap', function() {
-			base.OpenWindow("searchinfo", "searchinfo.html", {});
-		});
 
 		Avartar(base.ShowThumb(userinfo.Avatar, 2));
 	})
@@ -134,7 +136,7 @@
 				bottom: bottomheight,
 				left: "100%",
 				width: "100%",
-				popGesture: "none", 
+				popGesture: "none",
 				scrollIndicator: "none"
 			};
 
@@ -294,6 +296,10 @@
 					}
 				});
 		});
+	}
+
+	function Search() {
+		base.OpenWindow("searchinfo", "searchinfo.html", {});
 	}
 
 	//样式切换

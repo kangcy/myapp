@@ -3771,7 +3771,9 @@
 			"images/pull.png",
 			"css/fan.min.css",
 			"images/loading.png",
-			"js/article.min.js"
+			"js/article.min.js",
+			"minjs/jroll-infinite.min.js",
+			"minjs/jroll.min.js"
 		],
 		"refer": [
 			"page/articleComment.html",

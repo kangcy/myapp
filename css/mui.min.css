@@ -1404,7 +1404,7 @@ input[type=submit]:enabled:active {
 }
 
 .mui-bar .mui-icon {
-	font-size: 23px;
+	font-size: 20px;
 	position: relative;
 	z-index: 20;
 	padding-top: 10px;
@@ -2788,7 +2788,7 @@ select:focus {
 	line-height: 34px;
 	position: absolute;
 	z-index: 1;
-	top: 0px;
+	top: 3px;
 	right: 0;
 	bottom: 0;
 	left: 0;

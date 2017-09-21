@@ -42,7 +42,7 @@
 		<header id="header" class="mui-bar" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="margin-top:0.35rem;margin-right: 0.4rem;">•••</a>
-			<h1 class="mui-title cfff" id="title"></h1>
+			<h1 class="mui-title cfff user" id="nickname"></h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -159,7 +159,7 @@
 				<div id="main0" class="f13 tl mt10 hide">
 					<div class="detail">
 						<div class="full tl mb5">
-							<p class="f16 mb10" id="title0"></p> 
+							<p class="f16 mb10" id="title0"></p>
 							<span class="mt0 mb0 f13" id="createdate0"></span>
 							<span class="mb0 ml10 user mt5" userid="0" id="nickname0"></span>
 							<span class="mt0 mb0 ml10 f13" id="views0"></span>
@@ -558,7 +558,7 @@
 
 					base.InnerHtml(["title0", "title1", "title"], Article.Title);
 
-					base.InnerHtml(["nickname0", "nickname1"], Article.NickName);
+					base.InnerHtml(["nickname", "nickname0", "nickname1"], Article.NickName);
 
 					base.InnerHtml(["createdate0", "createdate1"], data.CreateDateText);
 
