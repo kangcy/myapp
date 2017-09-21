@@ -274,6 +274,7 @@
 	var currColor = ""; //当前主题色
 	var currBackground = ""; //当前背景色
 	var currTemplate = ""; //当前模板
+	var showy = "";
 	var userinfo = base.GetUserInfo();
 	var $header = base.Get("header");
 	var $edit = base.Get("edit");
@@ -920,6 +921,7 @@
 			ThemeColor: currColor,
 			ThemeCover: currBackground,
 			Template: currTemplate,
+			ShowyUrl: showy,
 			Part: escape(JSON.stringify(InitParts))
 		}
 
@@ -991,6 +993,7 @@
 			ThemeColor: currColor,
 			ThemeCover: currBackground,
 			ThemeTemplate: currTemplate,
+			Showy: showy,
 			Part: InitParts
 		});
 		isLoading = false;
@@ -1008,6 +1011,10 @@
 
 	function changeTemp(temp) {
 		currTemplate = temp;
+	}
+
+	function changeShowy(src) {
+		showy = src;
 	}
 
 	//拼接字符串  

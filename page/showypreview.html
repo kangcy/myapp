@@ -86,7 +86,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">预览</h1>
+			<h1 class="mui-title cfff">漂浮预览</h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -153,6 +153,22 @@
 			return;
 		}
 		isLoading = true;
+		if(base.IsNullOrEmpty(src)) {
+			isLoading = false;
+			return mui.toast("参数异常");
+		}
+		var page = base.GetView('articlepreview');
+		if(page) {
+			page.evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
+		}
+		isLoading = false;
+	}
+
+	/*function Save() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
 		if(base.IsNullOrEmpty(src) || base.IsNullOrEmpty(articleNumber)) {
 			isLoading = false;
 			return mui.toast("参数异常");
@@ -178,5 +194,5 @@
 			}
 			isLoading = false;
 		});
-	}
+	}*/
 </script>

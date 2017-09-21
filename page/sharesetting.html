@@ -255,6 +255,7 @@
 		mui.back = function() {
 			var articleDetailPage = base.GetView('articledetail');
 			if(articleDetailPage == null) {
+				console.log('aa')
 				base.OpenWindow("articledetail", "articledetail.html", {
 					ArticleID: ArticleID,
 					Source: Source
@@ -312,10 +313,10 @@
 			}
 		});
 
-		mui.later(function() {
+		/*mui.later(function() {
 			plus.webview.close("articlepreview", "none");
 			plus.webview.close("addarticle", "none");
-		}, 500)
+		}, 500)*/
 	});
 
 	//校验权限密码

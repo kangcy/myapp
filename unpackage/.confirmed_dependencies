@@ -3850,10 +3850,13 @@
 			"images/article/off.png",
 			"images/addarticle/icon_pic_y.png",
 			"images/preview/btn_back_bottom.png",
-			"images/preview/btn_cancel.png"
+			"images/preview/btn_cancel.png",
+			"images/preview/btn_sure.png",
+			"images/preview/icon_theme.png"
 		],
 		"refer": [
-			"page/customsetting.html"
+			"page/customsetting.html",
+			"page/showy.html"
 		]
 	}
 }

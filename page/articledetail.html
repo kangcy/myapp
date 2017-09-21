@@ -66,9 +66,9 @@
 				<li id="popover_power" onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.3rem;background-position: 40%;text-indent: 10%;">
 					权限
 				</li>
-				<li id="popover_showy" onclick="Showy()" class="mui-table-view-cell" style="background:url(../images/article/6.png) no-repeat;background-size: 1.3rem;background-position: 40%;text-indent: 10%;">
+				<!--<li id="popover_showy" onclick="Showy()" class="mui-table-view-cell" style="background:url(../images/article/6.png) no-repeat;background-size: 1.3rem;background-position: 40%;text-indent: 10%;">
 					漂浮
-				</li>
+				</li>-->
 			</ul>
 		</div>
 
@@ -202,6 +202,7 @@
 <script src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
 <script src="../js/articledetail.js"></script>
+<script src="../js/snow.js"></script>
 <script type="text/javascript">
 	var Article = {};
 	var ArticleID = 0; //文章ID
@@ -389,7 +390,6 @@
 				plus.webview.close("addarticle", "none");
 				plus.webview.hide("addimage");
 			}, 500);
-
 			//显示操作
 			if(userinfo.ID != data.UserID) {
 				base.ShowUser("#body");
@@ -608,7 +608,7 @@
 					base.Get("bottomAction").classList.add("bounceIn");
 
 					//启用打赏
-					if(data.IsPay == 1) {
+					if(data.IsPay == 1 && userinfo.Number != data.CreateUserNumber) {
 						base.Get("btnPay").classList.remove("hide");
 					}
 					//收藏状态 
@@ -739,32 +739,13 @@
 		if(base.IsNullOrEmpty(src)) {
 			return
 		}
-		LoadScript("../js/snow.js", function() {
-			var srcs = src.split("|");
-			if(srcs.length >= 2) {
-				snow.init(srcs[0], srcs[1], srcs[2])
-			} else {
-				snow.init(src, 1, 0)
-			}
-		});
-	}
-
-	//更新自定义装扮
-	function UpdateShowy(src) {
-		plus.webview.close("showy", "none");
-		plus.webview.close("showypreview");
-		if(base.IsNullOrEmpty(Article.Showy)) {
-			InitShowy(src)
+		snow.clear();
+		var srcs = src.split("|");
+		if(srcs.length >= 2) {
+			snow.init(srcs[0], srcs[1], srcs[2])
 		} else {
-			snow.clear();
-			var srcs = src.split("|");
-			if(srcs.length >= 2) {
-				snow.init(srcs[0], srcs[1], srcs[2])
-			} else {
-				snow.init(src, 1, 0)
-			}
+			snow.init(src, 1, 0)
 		}
-		Article.Showy = src;
 	}
 
 	//分享信息

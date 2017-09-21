@@ -88,7 +88,11 @@ function UpdateComment() {
 //重新加载数据 
 function UpdateDetail() {
 	Load(function() {
-		plus.webview.close("addarticle");
+		mui.later(function() {
+			plus.webview.close("articlepreview", "none");
+			plus.webview.close("addarticle", "none");
+			plus.webview.close("sharesetting");
+		}, 500);
 	});
 }
 

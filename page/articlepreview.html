@@ -174,16 +174,16 @@
 		<header class="mui-bar" id="header" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
 			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">发布</span>
-			<h1 class="mui-title cfff">预览</h1>
+			<h1 class="mui-title cfff">文章预览</h1>
 		</header>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<img class="hide" src="../images/article/skin.png" onclick="IconTan(1)" id="btnTemp" style="bottom:1rem;">
+		<img class="hide" src="../images/preview/icon_theme.png" onclick="IconTan(1)" id="btnTemp" style="bottom:1rem;">
 		<!--主题色-->
-		<img class="hide" src="../images/article/btn_sure.png" onclick="ColorTan(0)" id="agreeColor">
+		<img class="hide" src="../images/preview/btn_sure.png" onclick="ColorTan(0)" id="agreeColor">
 		<div class="swiper-container hide" id="mycolor" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide tc" id="mycolor-slide">
@@ -193,7 +193,7 @@
 		</div>
 		<div class="swiper-cover hide" id="color-cover"></div>
 		<!--炫标题-->
-		<img class="hide" src="../images/article/btn_sure.png" onclick="CoolTan(0)" id="agreeCool">
+		<img class="hide" src="../images/preview/btn_sure.png" onclick="CoolTan(0)" id="agreeCool">
 		<div class="swiper-container hide" id="mycool" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide tc" id="mycool-slide">
@@ -203,7 +203,7 @@
 		</div>
 		<div class="swiper-cover hide" id="cool-cover"></div>
 		<!--模板选择-->
-		<img class="hide" src="../images/article/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
+		<img class="hide" src="../images/preview/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
 		<div class="swiper-container hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" id="temp-slide"></div>
@@ -223,9 +223,9 @@
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
 		<div id="btnIcon" class="icons f15 hide">
 			<div onclick="ColorTan(1)">主题色</div>
-			<div onclick="CoolTan(1)">炫标题</div>
+			<!--<div onclick="CoolTan(1)">炫标题</div>-->
 			<div onclick="TempTan()">背景</div>
-			<div>飘落</div>
+			<div onclick="ShowShowy()">漂浮</div>
 		</div>
 		<!--背景-->
 		<div id="wrapper2"></div>
@@ -295,6 +295,7 @@
 	var CurrTemplate = 0; //当前选中模板
 	var CurrBackgroundName = ""; //当前纯色背景样式
 	var CurrTemplateType = 0; //当前模板类型
+	var Showy = "";
 	var userinfo = base.GetUserInfo();
 
 	var $header = base.Get("header");
@@ -642,6 +643,7 @@
 		ThemeColor = self.ThemeColor || "#333";
 		CurrBackgroundName = self.ThemeCover || "";
 		CurrTemplate = self.ThemeTemplate || "";
+		Showy = self.Showy || "";
 
 		Part = self.Part || [];
 
@@ -670,8 +672,6 @@
 					data = data.message;
 
 					$wrapper.classList.remove("hide");
-
-					InitShowy(data.Showy);
 
 					Article = data;
 					Article.NickName = base.UnUnicodeText(data.NickName);
@@ -759,6 +759,11 @@
 					base.Get("views0").style.color = color;
 					base.Get("views1").style.color = color;
 
+					if(base.IsNullOrEmpty(Showy)) {
+						Showy = data.Showy;
+					}
+					InitShowy(Showy);
+
 					//实例化播放器
 					mui.each(mui(".youku_player"), function() {
 						var $this = this;
@@ -838,6 +843,20 @@
 		}
 	}
 
+	//自定义装扮
+	function ShowShowy() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		IconTan(0);
+		base.OpenWindow("showy", "showy.html", {
+			ArticleNumber: Article.Number
+		});
+		base.Get("btnTemp").classList.remove("hide");
+		isLoading = false;
+	}
+
 	//初始化装扮 
 	function InitShowy(src) {
 		if(base.IsNullOrEmpty(src)) {
@@ -851,6 +870,25 @@
 				snow.init(src, 1, 0)
 			}
 		});
+	}
+
+	//更新自定义装扮
+	function UpdateShowy(src) {
+		plus.webview.close("showy", "none");
+		plus.webview.close("showypreview");
+		if(base.IsNullOrEmpty(Showy)) {
+			InitShowy(src)
+		} else {
+			snow.clear();
+			var srcs = src.split("|");
+			if(srcs.length >= 2) {
+				snow.init(srcs[0], srcs[1], srcs[2])
+			} else {
+				snow.init(src, 1, 0)
+			}
+		}
+		Showy = src;
+		base.GetView("addarticle").evalJS("changeShowy('" + Showy + "')");
 	}
 
 	//切换音乐
@@ -940,7 +978,6 @@
 			if(coolSwiper == null) {
 				var fragment = document.createDocumentFragment();
 				cools.forEach(x => {
-					console.log(x.color.length);
 					var div = document.createElement('div');
 					div.className = "cool";
 					//div.style.backgroundColor = x;
