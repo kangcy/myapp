@@ -3773,7 +3773,15 @@
 			"images/loading.png",
 			"js/article.min.js",
 			"minjs/jroll-infinite.min.js",
-			"minjs/jroll.min.js"
+			"minjs/jroll.min.js",
+			"minjs/jroll-infinite.js",
+			"minjs/jroll-pulldown.js",
+			"jroll/jroll.min.js",
+			"jroll/jroll-infinite.js",
+			"jroll/jroll-pulldown.js",
+			"jroll/1.png",
+			"jroll/2.png",
+			"jroll/3.png"
 		],
 		"refer": [
 			"page/articleComment.html",

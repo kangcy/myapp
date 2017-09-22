@@ -74,29 +74,6 @@
 				overflow: hidden;
 			}
 			
-			.scroll-wrapper .scroller {
-				background: #fff;
-				position: absolute;
-				z-index: 1;
-				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-				width: 100%;
-				-webkit-transform: translateZ(0);
-				-moz-transform: translateZ(0);
-				-ms-transform: translateZ(0);
-				-o-transform: translateZ(0);
-				transform: translateZ(0);
-				-webkit-touch-callout: none;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-				-webkit-text-size-adjust: none;
-				-moz-text-size-adjust: none;
-				-ms-text-size-adjust: none;
-				-o-text-size-adjust: none;
-				text-size-adjust: none;
-			}
-			
 			.icon {
 				width: 1rem !important;
 			}
@@ -132,12 +109,23 @@
 				transform: scaleY(.5);
 				background-color: #ddd;
 			}
+			
+			.jroll-infinite-tip {
+				padding: 0.5rem 0 1rem 0;
+			}
+			
+			#wrapper0 {
+				position: absolute;
+				top: 0px;
+				bottom: 0;
+				width: 100%;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:12%;" id="btnSearch"></a>
+			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:12%;font-size:25px;" id="btnSearch"></a>
 			<div class="mui-input-row mui-search" style="width:90%;	display: inline-block;">
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索用户和文章" maxlength="10" style="height:34px;font-size:15px;">
 			</div>
@@ -152,36 +140,13 @@
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<div id="wrapper0" class="scroll-wrapper">
-							<div id="scroll0" class="scroller">
-								<div id="scroll-view0"></div>
-								<div id="scroll-more0" class="full tc">
-									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
-								</div>
-								<div id="scroll-none0" class="full tc hide">
-									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
-								</div>
-							</div>
-						</div>
-						<div id="none0" class="full tc hide">
-							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">大波内容正在赶来，敬请期待~</p>
+							<div id="scroll0" class="scroller" style="background:#fff;"></div>
 						</div>
 					</div>
 					<div class="swiper-slide">
 						<div id="wrapper1" class="scroll-wrapper">
 							<div id="scroll1" class="scroller" style="background:#f5f5f5;">
-								<div id="scroll-view1"></div>
-								<div id="scroll-more1" class="full tc">
-									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
-								</div>
-								<div id="scroll-none1" class="full tc hide">
-									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
-								</div>
 							</div>
-						</div>
-						<div id="none1" class="full tc hide">
-							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">大波内容正在赶来，敬请期待~</p>
 						</div>
 					</div>
 				</div>
@@ -194,15 +159,16 @@
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/article.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
-<script src="../swipe/iscroll.js"></script>
+<script src="../jroll/jroll.min.js"></script>
+<script src="../jroll/jroll-pulldown.js"></script>
+<script src="../jroll/jroll-infinite.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 	var $border = base.Get("pagination_border");
 	var scroll0, scroll1 = null;
 	var currpage = [1, 1];
-	var totalpage = [2, 2];
-	var records = [0, 0];
+	var totalpage = [1, 1];
 	var pageLoading = [false, false];
 	var isLoading = false;
 	var pagesize = 10;
@@ -250,66 +216,135 @@
 				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
 
 				if(swiper.activeIndex == 1 && scroll1 == null) {
-					scroll1 = new iScroll("wrapper1", {
-						hScroll: false,
-						onScrollEnd: function() {
-							if(this.y >= this.maxScrollY) {
-								LoadScroll1(searchval);
-							}
+					scroll1 = new JRoll("#wrapper1", {
+						scrollBarY: true
+					});
+					//下拉刷新
+					scroll1.pulldown({
+						refresh: function(complete) {
+							currpage[1] = 1;
+							scroll1.options.page = 1;
+							scroll1.scrollTo(0, 44, 0, true); //滚回顶部
+							LoadScroll1(searchval, {
+								success: function(data) {
+									complete();
+									scroll1.scroller.innerHTML = "";
+									scroll1.infinite_callback(data);
+								}
+							});
 						}
 					});
-					LoadScroll1(searchval);
+					//滚动加载
+					scroll1.infinite({
+						getData: function(page, callback, errorCallback) {
+							currpage[1] = page;
+							LoadScroll1(searchval, {
+								success: function(data) {
+									scroll1.options.total = totalpage[1];
+									callback(data);
+								},
+								error: function() {
+									errorCallback()
+								}
+							});
+						},
+						render: function(data) {
+							var div = AppendArticle(userinfo.Number, data, false, false, true)
+							return div.outerHTML;
+						}
+					});
 				}
 			},
 			onInit: function(swiper) {
 				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
 				base.Get("swiper-container").style.height = swiperheight;
 
-				mui.each(base.Get(".scroller"), function() { 
+				/*mui.each(base.Get(".scroller"), function() {
 					this.style.minHeight = swiperheight;
-				})
+				})*/
 
 				var $this = mui("#pagination li")[0];
 				$border.style.width = $this.clientWidth * 0.4 + "px";
 				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
 
-				scroll0 = new iScroll("wrapper0", {
-					hScroll: false,
-					onScrollEnd: function() { 
-						if(this.y >= this.maxScrollY) {
-							LoadScroll0(searchval);
-						}
+				scroll0 = new JRoll("#wrapper0", {
+					scrollBarY: true
+				});
+				//下拉刷新
+				scroll0.pulldown({
+					refresh: function(complete) {
+						currpage[0] = 1;
+						scroll0.options.page = 1;
+						scroll0.scrollTo(0, 44, 0, true); //滚回顶部
+						LoadScroll0(searchval, {
+							success: function(data) {
+								complete();
+								scroll0.scroller.innerHTML = "";
+								scroll0.options.total = totalpage[0];
+								scroll0.infinite_callback(data);
+							}
+						});
 					}
 				});
-				LoadScroll0(searchval);
+				//滚动加载
+				scroll0.infinite({
+					getData: function(page, callback, errorCallback) {
+						currpage[0] = page;
+						LoadScroll0(searchval, {
+							success: function(data) {
+								scroll0.options.total = totalpage[0];
+								callback(data);
+							},
+							error: function() {
+								errorCallback()
+							}
+						});
+					},
+					render: function(data) {
+						var div = base.AppendUser(data, true, true, false, "", false, true)
+						return div.outerHTML;
+					}
+				});
 			}
 		})
 
 		base.ShowUser("#swiper-container");
-		base.UserAddFan("#scroll-view0", userinfo);
-		base.UserOutFan("#scroll-view0", userinfo);
-		base.ShowArticle("#scroll-view1", "List", userinfo.Number);
-		ArticleAction("#scroll-view1", userinfo);
+		base.UserAddFan("#scroll0", userinfo);
+		base.UserOutFan("#scroll0", userinfo);
+		base.ShowArticle("#scroll1", "List", userinfo.Number);
+		ArticleAction("#scroll1", userinfo);
 	});
 
 	//执行搜索
 	function Search() {
 		searchval = search.value;
 		currpage = [1, 1];
-		totalpage = [2, 2];
-		records = [0, 0];
+		totalpage = [1, 1];
+
 		if(scroll0 != null) {
-			base.Get("scroll-view0").innerHTML = "";
-			LoadScroll0(searchval)
+			scroll0.options.page = 1;
+			LoadScroll0(searchval, {
+				success: function(data) {
+					scroll0.options.total = totalpage[0];
+					scroll0.scroller.innerHTML = "";
+					scroll0.infinite_callback(data);
+				}
+			});
 		}
 		if(scroll1 != null) {
-			base.Get("scroll-view1").innerHTML = "";
-			LoadScroll1(searchval)
+			scroll1.options.page = 1;
+			LoadScroll1(searchval, {
+				success: function(data) {
+					scroll1.options.total = totalpage[1];
+					scroll1.scroller.innerHTML = "";
+					scroll1.infinite_callback(data);
+				}
+			});
 		}
 	}
 
 	//用户
-	function LoadScroll0(searchval) {
+	function LoadScroll0(searchval, parms) {
 		if(pageLoading[0]) {
 			return;
 		}
@@ -324,25 +359,16 @@
 			UserNumber: userinfo.Number,
 			NickName: searchval
 		}
-		LoadPullList(base.RootUrl + "Api/User/Search", data, true, 0, function(item) {
-			return base.AppendUser(item, true, true, false, "", false, true);
-		}, function() {
-			scroll0.refresh();
-			if(currpage[0] >= totalpage[0]) {
-				base.Get("scroll-more0").classList.add("hide");
-				if(base.Get("scroll0").clientHeight > base.Get("wrapper0").clientHeight) {
-					base.Get("scroll-none0").classList.remove("hide");
-				}
-			} else {
-				base.Get("scroll-more0").classList.remove("hide");
-			}
-			currpage[0]++;
-			pageLoading[0] = false;
+		LoadPullList(base.RootUrl + "Api/User/Search", data, true, 0, parms, function(a) {
+			mui.later(function() {
+				parms.success(a);
+				pageLoading[0] = false;
+			}, 200)
 		});
 	}
 
 	//文章
-	function LoadScroll1(searchval) {
+	function LoadScroll1(searchval, parms) {
 		if(pageLoading[1]) {
 			return;
 		}
@@ -358,62 +384,32 @@
 			ID: userinfo.ID,
 			Title: searchval
 		}
-		LoadPullList(base.RootUrl + "Api/Article/Search", data, true, 1, function(item) {
-			return AppendArticle(userinfo.Number, item, false, false, true)
-		}, function() {
-			scroll1.refresh();
-			if(currpage[1] >= totalpage[1]) {
-				base.Get("scroll-more1").classList.add("hide");
-				if(base.Get("scroll1").clientHeight > base.Get("wrapper1").clientHeight) {
-					base.Get("scroll-none1").classList.remove("hide");
-				}
-			}
-			currpage[1]++;
-			pageLoading[1] = false;
+
+		LoadPullList(base.RootUrl + "Api/Article/Search", data, true, 1, parms, function(a) {
+			mui.later(function() {
+				parms.success(a);
+				pageLoading[1] = false;
+			}, 200)
 		});
 	}
 
-	/**
-	 * 加载封装 
-	 * url：接口请求地址
-	 * data：接口请求参数
-	 * showNone：是否显示空提示
-	 * showNone：是否显示加载动画
-	 * appendCallback：拼接方法
-	 * endCallback：回调方法
-	 */
-	function LoadPullList(url, data, showNone, index, appendCallback, endCallback) {
-		base.Get("wrapper" + index).classList.remove("hide");
+	function LoadPullList(url, data, showNone, index, parms, callback) {
 		HttpGet(url, data, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
 					totalpage[index] = data.totalpage;
-					records[index] = data.records;
-					if(showNone) {
-						base.Get("none" + index).classList.add("hide");
+					if(data.list) {
+						callback(data.list);
+					} else {
+						callback([]);
 					}
-					var table = base.Get('scroll-view' + index);
-					if(records[index] > 0) {
-						var fragment = document.createDocumentFragment();
-						mui.each(data.list, function(index, item) {
-							fragment.appendChild(appendCallback(item));
-						});
-						table.appendChild(fragment);
-					}
-				} else {
-					totalpage[index] = 1;
-					records[index] = 0;
+					return;
 				}
 			}
-			if(records[index] == 0 && showNone) {
-				base.Get("wrapper" + index).classList.add("hide");
-				base.Get("none" + index).classList.remove("hide");
-			}
-			if(endCallback) {
-				endCallback();
-			}
+			totalpage[index] = 1;
+			callback([]);
 		});
 	}
 </script>
