@@ -58,12 +58,18 @@
 		// 滑动结束，加载下一页
 		me.on('scrollEnd', function() {
 			var tip = me.scroller.querySelector('.jroll-infinite-tip')
-			if(me.y < me.maxScrollY + tip.offsetHeight && me.options.page !== me.options.total && !lock) {
-				lock = true // 防止数据加载完成前触发加载下一页
-				tip.innerHTML = options.loadingTip
-				options.getData(++me.options.page, callback, errorCallback)
+			if(tip) {
+				if(me.y < me.maxScrollY + tip.offsetHeight && me.options.page !== me.options.total && !lock) {
+					lock = true // 防止数据加载完成前触发加载下一页
+					tip.innerHTML = options.loadingTip
+					options.getData(++me.options.page, callback, errorCallback)
+				}
+			} else {
+				if(me.y < me.maxScrollY && me.options.page !== me.options.total && !lock) {
+					lock = true // 防止数据加载完成前触发加载下一页
+					options.getData(++me.options.page, callback, errorCallback)
+				}
 			}
-
 			lightenPage()
 		})
 
@@ -76,15 +82,14 @@
 
 		// 渲染视图
 		function callback(data) {
-			var html
+			var html = "";
 			lock = false
-			if(!data)
+			if(!data) {
 				return
-			html = "<section class='jroll-infinite-page'>"
+			}
 			for(var i = 0, l = data.length; i < l; i++) {
 				html += options.render(data[i])
 			}
-			html += '</section>'
 			if(me.options.total === 1) {
 				if(data.length == 0) {
 					html += options.noneTip

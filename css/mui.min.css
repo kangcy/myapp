@@ -5069,9 +5069,8 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-	width: 100% !important;
-	/*width: 18.5rem !important;
-	height: 18.5rem !important;*/
+	width: 16rem !important;
+	height: 16rem !important;
 	border-radius: 5px;
 }
 

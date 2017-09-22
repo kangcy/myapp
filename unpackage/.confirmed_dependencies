@@ -3781,7 +3781,8 @@
 			"jroll/jroll-pulldown.js",
 			"jroll/1.png",
 			"jroll/2.png",
-			"jroll/3.png"
+			"jroll/3.png",
+			"css/mui.min.css"
 		],
 		"refer": [
 			"page/articleComment.html",
@@ -3807,7 +3808,13 @@
 			"mincss/animate.min.css",
 			"images/my/333.png",
 			"js/base.min.js",
-			"mincss/setting.min.css"
+			"mincss/setting.min.css",
+			"jroll/jroll.min.js",
+			"jroll/1.png",
+			"jroll/2.png",
+			"jroll/3.png",
+			"jroll/jroll-infinite.js",
+			"jroll/jroll-pulldown.js"
 		],
 		"refer": [
 			"page/user.html",

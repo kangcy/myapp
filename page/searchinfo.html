@@ -74,6 +74,11 @@
 				overflow: hidden;
 			}
 			
+			.scroller {
+				margin: 0;
+				padding: 0;
+			}
+			
 			.icon {
 				width: 1rem !important;
 			}
@@ -90,15 +95,7 @@
 				height: 0px !important;
 			}
 			
-			#scroll-more0,
-			#scroll-more1,
-			#scroll-none0,
-			#scroll-none1 {
-				/*background: #f5f5f5;*/
-				padding: 1rem 0px 0.7rem;
-			}
-			
-			#scroll-view0 .flex-row:after {
+			#scroll0 .flex-row:after {
 				position: absolute;
 				bottom: 0;
 				right: 0;
@@ -112,13 +109,6 @@
 			
 			.jroll-infinite-tip {
 				padding: 0.5rem 0 1rem 0;
-			}
-			
-			#wrapper0 {
-				position: absolute;
-				top: 0px;
-				bottom: 0;
-				width: 100%;
 			}
 		</style>
 	</head>
@@ -222,6 +212,7 @@
 					//下拉刷新
 					scroll1.pulldown({
 						refresh: function(complete) {
+							cosnole.log('pulldown')
 							currpage[1] = 1;
 							scroll1.options.page = 1;
 							scroll1.scrollTo(0, 44, 0, true); //滚回顶部
@@ -258,10 +249,6 @@
 			onInit: function(swiper) {
 				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
 				base.Get("swiper-container").style.height = swiperheight;
-
-				/*mui.each(base.Get(".scroller"), function() {
-					this.style.minHeight = swiperheight;
-				})*/
 
 				var $this = mui("#pagination li")[0];
 				$border.style.width = $this.clientWidth * 0.4 + "px";
@@ -323,21 +310,29 @@
 
 		if(scroll0 != null) {
 			scroll0.options.page = 1;
+			scroll0.scroller.innerHTML = ""; //清空内容
+			scroll0.scrollTo(0, 0); //滚回顶部
 			LoadScroll0(searchval, {
 				success: function(data) {
 					scroll0.options.total = totalpage[0];
-					scroll0.scroller.innerHTML = "";
 					scroll0.infinite_callback(data);
+				},
+				error: function() {
+					scroll0.infinite_error_callback()
 				}
 			});
 		}
 		if(scroll1 != null) {
 			scroll1.options.page = 1;
+			scroll1.scroller.innerHTML = ""; //清空内容
+			scroll1.scrollTo(0, 0); //滚回顶部
 			LoadScroll1(searchval, {
 				success: function(data) {
 					scroll1.options.total = totalpage[1];
-					scroll1.scroller.innerHTML = "";
 					scroll1.infinite_callback(data);
+				},
+				error: function() {
+					scroll1.infinite_error_callback()
 				}
 			});
 		}
