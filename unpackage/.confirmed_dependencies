@@ -3677,7 +3677,13 @@
 			"mincss/fan.min.css",
 			"images/my/555.png",
 			"images/loading2.gif",
-			"images/loading.gif"
+			"images/loading.gif",
+			"jroll/jroll.min.js",
+			"jroll/1.png",
+			"jroll/2.png",
+			"jroll/3.png",
+			"jroll/jroll-infinite.js",
+			"jroll/jroll-pulldown.js"
 		],
 		"refer": [
 			"page/user.html"

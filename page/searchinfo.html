@@ -207,7 +207,7 @@
 
 				if(swiper.activeIndex == 1 && scroll1 == null) {
 					scroll1 = new JRoll("#wrapper1", {
-						scrollBarY: true
+						scrollBarY: false
 					});
 					//下拉刷新
 					scroll1.pulldown({
@@ -255,7 +255,7 @@
 				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
 
 				scroll0 = new JRoll("#wrapper0", {
-					scrollBarY: true
+					scrollBarY: false
 				});
 				//下拉刷新
 				scroll0.pulldown({

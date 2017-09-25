@@ -73,27 +73,10 @@
 				overflow: hidden;
 			}
 			
-			.scroll-wrapper .scroller {
+			.scroller {
+				margin: 0;
+				padding: 0;
 				background: #fff;
-				position: absolute;
-				z-index: 1;
-				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-				width: 100%;
-				-webkit-transform: translateZ(0);
-				-moz-transform: translateZ(0);
-				-ms-transform: translateZ(0);
-				-o-transform: translateZ(0);
-				transform: translateZ(0);
-				-webkit-touch-callout: none;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-				-webkit-text-size-adjust: none;
-				-moz-text-size-adjust: none;
-				-ms-text-size-adjust: none;
-				-o-text-size-adjust: none;
-				text-size-adjust: none;
 			}
 			
 			.icon {
@@ -112,31 +95,6 @@
 				height: 0px !important;
 			}
 			
-			#scroll-more0,
-			#scroll-more1,
-			#scroll-more2,
-			#scroll-more3,
-			#scroll-none0,
-			#scroll-none1,
-			#scroll-none2,
-			#scroll-none3 {
-				/*background: #f5f5f5;*/
-				padding: 1rem 0px 0.7rem;
-			}
-			
-			#none0,
-			#none1,
-			#none2,
-			#none3 {
-				height: 100%;
-				background: #fff;
-				position: absolute;
-				z-index: 999;
-				top: 0px;
-				bottom: 0px;
-				left: 0;
-			}
-			
 			.flex-row:after {
 				position: absolute;
 				bottom: 0;
@@ -147,6 +105,10 @@
 				-webkit-transform: scaleY(.5);
 				transform: scaleY(.5);
 				background-color: #ddd;
+			}
+			
+			.jroll-infinite-tip {
+				padding: 0.5rem 0 1rem 0;
 			}
 		</style>
 	</head>
@@ -166,72 +128,22 @@
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<div id="wrapper0" class="scroll-wrapper">
-							<div id="scroll0" class="scroller">
-								<div id="scroll-view0"></div>
-								<div id="scroll-more0" class="full tc">
-									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
-								</div>
-								<div id="scroll-none0" class="full tc hide">
-									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
-								</div>
-							</div>
-						</div>
-						<div id="none0" class="full tc hide">
-							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无红包记录</p>
+							<div id="scroll0" class="scroller"></div>
 						</div>
 					</div>
 					<div class="swiper-slide">
 						<div id="wrapper1" class="scroll-wrapper">
-							<div id="scroll1" class="scroller">
-								<div id="scroll-view1">
-									<div id="scroll-view1"></div>
-								</div>
-								<div id="scroll-more1" class="full tc">
-									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
-								</div>
-								<div id="scroll-none1" class="full tc hide">
-									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
-								</div>
-							</div>
-						</div>
-						<div id="none1" class="full tc hide">
-							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无打赏记录</p>
+							<div id="scroll1" class="scroller"></div>
 						</div>
 					</div>
 					<div class="swiper-slide">
 						<div id="wrapper2" class="scroll-wrapper">
-							<div id="scroll2" class="scroller">
-								<div id="scroll-view2"></div>
-								<div id="scroll-more2" class="full tc">
-									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
-								</div>
-								<div id="scroll-none2" class="full tc hide">
-									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
-								</div>
-							</div>
-						</div>
-						<div id="none2" class="full tc hide">
-							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无打赏记录</p>
+							<div id="scroll2" class="scroller"></div>
 						</div>
 					</div>
 					<div class="swiper-slide">
 						<div id="wrapper3" class="scroll-wrapper">
-							<div id="scroll3" class="scroller">
-								<div id="scroll-view3"></div>
-								<div id="scroll-more3" class="full tc">
-									<div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div>
-								</div>
-								<div id="scroll-none3" class="full tc hide">
-									<div class="inline"><span class="c999 f12 fl ml5">暂无更多数据</span></div>
-								</div>
-							</div>
-						</div>
-						<div id="none3" class="full tc hide">
-							<img src="../images/my/555.png" class="none" />
-							<p class="f13 mt10">暂无提现记录</p>
+							<div id="scroll3" class="scroller"></div>
 						</div>
 					</div>
 				</div>
@@ -243,14 +155,15 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
-<script src="../swipe/iscroll.js"></script>
+<script src="../jroll/jroll.min.js"></script>
+<script src="../jroll/jroll-pulldown.js"></script>
+<script src="../jroll/jroll-infinite.js"></script>
 <script type="text/javascript">
 	var userinfo = base.GetUserInfo();
 	var $border = base.Get("pagination_border");
 	var scroll0, scroll1, scroll2, scroll3 = null;
 	var currpage = [1, 1, 1, 1];
-	var totalpage = [2, 2, 2, 2];
-	var records = [0, 0, 0, 0];
+	var totalpage = [1, 1, 1, 1];
 	var isLoading = [false, false, false, false];
 	var pagesize = 10;
 	mui.init();
@@ -291,15 +204,45 @@
 				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
 
 				if(swiper.activeIndex == 0 && scroll0 == null) {
-					scroll0 = new iScroll("wrapper1", {
-						hScroll: false,
-						onScrollEnd: function() {
-							if(this.y >= this.maxScrollY) {
-								LoadScroll0(0);
-							}
+					scroll0 = new JRoll("#wrapper0", {
+						scrollBarY: false
+					});
+					//下拉刷新
+					scroll0.pulldown({
+						refresh: function(complete) {
+							currpage[0] = 1;
+							scroll0.options.page = 1;
+							scroll0.scrollTo(0, 44, 0, true); //滚回顶部
+							LoadScroll0({
+								success: function(data) {
+									complete();
+									scroll0.scroller.innerHTML = "";
+									scroll0.options.total = totalpage[0];
+									scroll0.infinite_callback(data);
+								}
+							});
 						}
 					});
-					LoadScroll0(0);
+					//滚动加载
+					scroll0.infinite({
+						noneTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c999 f12 fl ml5 mt30">暂无红包记录</span></div></div>',
+						getData: function(page, callback, errorCallback) {
+							currpage[0] = page;
+							LoadScroll0({
+								success: function(data) {
+									scroll0.options.total = totalpage[0];
+									callback(data);
+								},
+								error: function() {
+									errorCallback()
+								}
+							});
+						},
+						render: function(data) {
+							var div = AppendRed(data)
+							return div.outerHTML;
+						}
+					});
 
 					//重置未读推送信息
 					HttpGet(base.RootUrl + "Push/Clear", {
@@ -320,15 +263,45 @@
 				}
 
 				if(swiper.activeIndex == 1 && scroll1 == null) {
-					scroll1 = new iScroll("wrapper1", {
-						hScroll: false,
-						onScrollEnd: function() {
-							if(this.y >= this.maxScrollY) {
-								LoadScroll1(1);
-							}
+					scroll1 = new JRoll("#wrapper1", {
+						scrollBarY: false
+					});
+					//下拉刷新
+					scroll1.pulldown({
+						refresh: function(complete) {
+							currpage[1] = 1;
+							scroll1.options.page = 1;
+							scroll1.scrollTo(0, 44, 0, true); //滚回顶部
+							LoadScroll1({
+								success: function(data) {
+									complete();
+									scroll1.scroller.innerHTML = "";
+									scroll1.options.total = totalpage[1];
+									scroll1.infinite_callback(data);
+								}
+							});
 						}
 					});
-					LoadScroll1(1);
+					//滚动加载
+					scroll1.infinite({
+						noneTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c999 f12 fl ml5 mt30">暂无打赏记录</span></div></div>',
+						getData: function(page, callback, errorCallback) {
+							currpage[1] = page;
+							LoadScroll1({
+								success: function(data) {
+									scroll1.options.total = totalpage[1];
+									callback(data);
+								},
+								error: function() {
+									errorCallback()
+								}
+							});
+						},
+						render: function(data) {
+							var div = AppendStr(data, 0)
+							return div.outerHTML;
+						}
+					});
 
 					//重置未读推送信息
 					HttpGet(base.RootUrl + "Push/Clear", {
@@ -349,27 +322,87 @@
 				}
 
 				if(swiper.activeIndex == 2 && scroll2 == null) {
-					scroll2 = new iScroll("wrapper2", {
-						hScroll: false,
-						onScrollEnd: function() {
-							if(this.y >= this.maxScrollY) {
-								LoadScroll2(2);
-							}
+					scroll2 = new JRoll("#wrapper2", {
+						scrollBarY: false
+					});
+					//下拉刷新
+					scroll2.pulldown({
+						refresh: function(complete) {
+							currpage[2] = 1;
+							scroll2.options.page = 1;
+							scroll2.scrollTo(0, 44, 0, true); //滚回顶部
+							LoadScroll2({
+								success: function(data) {
+									complete();
+									scroll2.scroller.innerHTML = "";
+									scroll2.options.total = totalpage[2];
+									scroll2.infinite_callback(data);
+								}
+							});
 						}
 					});
-					LoadScroll2(2)
+					//滚动加载
+					scroll2.infinite({
+						noneTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c999 f12 fl ml5 mt30">暂无打赏记录</span></div></div>',
+						getData: function(page, callback, errorCallback) {
+							currpage[2] = page;
+							LoadScroll2({
+								success: function(data) {
+									scroll2.options.total = totalpage[2];
+									callback(data);
+								},
+								error: function() {
+									errorCallback()
+								}
+							});
+						},
+						render: function(data) {
+							var div = AppendStr(data, 1)
+							return div.outerHTML;
+						}
+					});
 				}
 
 				if(swiper.activeIndex == 3 && scroll3 == null) {
-					scroll3 = new iScroll("wrapper3", {
-						hScroll: false,
-						onScrollEnd: function() {
-							if(this.y >= this.maxScrollY) {
-								LoadScroll3(3);
-							}
+					scroll3 = new JRoll("#wrapper3", {
+						scrollBarY: false
+					});
+					//下拉刷新
+					scroll3.pulldown({
+						refresh: function(complete) {
+							currpage[3] = 1;
+							scroll3.options.page = 1;
+							scroll3.scrollTo(0, 44, 0, true); //滚回顶部
+							LoadScroll3({
+								success: function(data) {
+									complete();
+									scroll3.scroller.innerHTML = "";
+									scroll3.options.total = totalpage[3];
+									scroll3.infinite_callback(data);
+								}
+							});
 						}
 					});
-					LoadScroll3(3)
+					//滚动加载
+					scroll3.infinite({
+						noneTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c999 f12 fl ml5 mt30">暂无提现记录</span></div></div>',
+						getData: function(page, callback, errorCallback) {
+							currpage[3] = page;
+							LoadScroll3({
+								success: function(data) {
+									scroll3.options.total = totalpage[3];
+									callback(data);
+								},
+								error: function() {
+									errorCallback()
+								}
+							});
+						},
+						render: function(data) {
+							var div = AppendStr(data, 2)
+							return div.outerHTML;
+						}
+					});
 				}
 			},
 			onInit: function(swiper) {
@@ -385,15 +418,45 @@
 				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
 
 				if(swiper.activeIndex == 0) {
-					scroll0 = new iScroll("wrapper0", {
-						hScroll: false,
-						onScrollEnd: function() {
-							if(this.y >= this.maxScrollY) {
-								LoadScroll0(0);
-							}
+					scroll0 = new JRoll("#wrapper0", {
+						scrollBarY: false
+					});
+					//下拉刷新
+					scroll0.pulldown({
+						refresh: function(complete) {
+							currpage[0] = 1;
+							scroll0.options.page = 1;
+							scroll0.scrollTo(0, 44, 0, true); //滚回顶部
+							LoadScroll0({
+								success: function(data) {
+									complete();
+									scroll0.scroller.innerHTML = "";
+									scroll0.options.total = totalpage[0];
+									scroll0.infinite_callback(data);
+								}
+							});
 						}
 					});
-					LoadScroll0(0);
+					//滚动加载
+					scroll0.infinite({
+						completeTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c999 f12 fl ml5 mt30">暂无红包记录</span></div></div>',
+						getData: function(page, callback, errorCallback) {
+							currpage[0] = page;
+							LoadScroll0({
+								success: function(data) {
+									scroll0.options.total = totalpage[0];
+									callback(data);
+								},
+								error: function() {
+									errorCallback()
+								}
+							});
+						},
+						render: function(data) {
+							var div = AppendRed(data)
+							return div.outerHTML;
+						}
+					});
 
 					//重置未读推送信息
 					HttpGet(base.RootUrl + "Push/Clear", {
@@ -446,134 +509,97 @@
 	});
 
 	//我的红包
-	function LoadScroll0(index) {
-		if(isLoading[index]) {
+	function LoadScroll0(parms) {
+		if(isLoading[0]) {
 			return;
 		}
-		isLoading[index] = true;
-		if(currpage[index] > totalpage[index]) {
-			isLoading[index] = false;
+		isLoading[0] = true;
+		if(currpage[0] > totalpage[0]) {
+			isLoading[0] = false;
 			return false;
 		}
 		var data = {
-			page: currpage[index],
+			page: currpage[0],
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrl + "Api/Red/ToMe_1_3", data, true, 0, function(item) {
-			return AppendRed(item);
-		}, function() {
-			ScrollAction(index, "refresh");
-			if(currpage[0] >= totalpage[index]) {
-				base.Get("scroll-more" + index).classList.add("hide");
-				if(base.Get("scroll" + index).clientHeight > base.Get("wrapper" + index).clientHeight) {
-					base.Get("scroll-none" + index).classList.remove("hide");
-				}
-			}
-			if(base.Get("scroll" + index).clientHeight < base.Get("wrapper" + index).clientHeight) {
-				ScrollAction(index, "destroy");
-			}
-			currpage[index]++;
-			isLoading[index] = false;
+
+		LoadPullList(base.RootUrl + "Api/Red/ToMe_1_3", data, true, 0, parms, function(a) {
+			mui.later(function() {
+				parms.success(a);
+				isLoading[0] = false;
+			}, 200)
 		});
 	}
 
 	//打赏我的
-	function LoadScroll1(index) {
-		if(isLoading[index]) {
+	function LoadScroll1(parms) {
+		if(isLoading[1]) {
 			return;
 		}
-		isLoading[index] = true;
-		if(currpage[index] > totalpage[index]) {
-			isLoading[index] = false;
+		isLoading[1] = true;
+		if(currpage[1] > totalpage[1]) {
+			isLoading[1] = false;
 			return false;
 		}
 		var data = {
-			page: currpage[index],
+			page: currpage[1],
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrl + "Api/Order/ToMe_1_3", data, true, 1, function(item) {
-			return AppendStr(item, 0);
-		}, function() {
-			ScrollAction(index, "refresh");
-			if(currpage[index] >= totalpage[index]) {
-				base.Get("scroll-more" + index).classList.add("hide");
-				if(base.Get("scroll" + index).clientHeight > base.Get("wrapper" + index).clientHeight) {
-					base.Get("scroll-none" + index).classList.remove("hide");
-				}
-			}
-			if(base.Get("scroll" + index).clientHeight < base.Get("wrapper" + index).clientHeight) {
-				ScrollAction(index, "destroy");
-			}
-			currpage[index]++;
-			isLoading[index] = false;
+		LoadPullList(base.RootUrl + "Api/Order/ToMe_1_3", data, true, 1, parms, function(a) {
+			mui.later(function() {
+				parms.success(a);
+				isLoading[1] = false;
+			}, 200)
 		});
 	}
 
 	//我打赏的
-	function LoadScroll2(index) {
-		if(isLoading[index]) {
+	function LoadScroll2(parms) {
+		if(isLoading[2]) {
 			return;
 		}
-		isLoading[index] = true;
-		if(currpage[index] > totalpage[index]) {
-			isLoading[index] = false;
+		isLoading[2] = true;
+		if(currpage[2] > totalpage[2]) {
+			isLoading[2] = false;
 			return false;
 		}
 		var data = {
-			page: currpage[index],
+			page: currpage[2],
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrl + "Api/Order/ToUser_1_3", data, true, 2, function(item) {
-			return AppendStr(item, 1);
-		}, function() {
-			ScrollAction(index, "refresh");
-			if(currpage[index] >= totalpage[index]) {
-				base.Get("scroll-more" + index).classList.add("hide");
-				if(base.Get("scroll" + index).clientHeight > base.Get("wrapper" + index).clientHeight) {
-					base.Get("scroll-none" + index).classList.remove("hide");
-				}
-			}
-			if(base.Get("scroll" + index).clientHeight < base.Get("wrapper" + index).clientHeight) {
-				ScrollAction(index, "destroy");
-			}
-			currpage[index]++;
-			isLoading[index] = false;
+
+		LoadPullList(base.RootUrl + "Api/Order/ToUser_1_3", data, true, 2, parms, function(a) {
+			mui.later(function() {
+				parms.success(a);
+				isLoading[2] = false;
+			}, 200)
 		});
 	}
 
 	//提现记录
-	function LoadScroll3(index) {
-		if(isLoading[index]) {
+	function LoadScroll3(parms) {
+		if(isLoading[3]) {
 			return;
 		}
-		isLoading[index] = true;
-		if(currpage[index] > totalpage[index]) {
-			isLoading[index] = false;
+		isLoading[3] = true;
+		if(currpage[3] > totalpage[3]) {
+			isLoading[3] = false;
 			return false;
 		}
 		var data = {
-			page: currpage[index],
+			page: currpage[3],
 			rows: pagesize,
 			UserNumber: userinfo.Number
 		}
-		LoadPullList(base.RootUrl + "Api/Order/Apply_1_3", data, true, 3, function(item) {
-			return AppendStr(item, 2);
-		}, function() {
-			ScrollAction(index, "refresh");
-			if(currpage[index] >= totalpage[index]) {
-				base.Get("scroll-more" + index).classList.add("hide");
-				if(base.Get("scroll" + index).clientHeight > base.Get("wrapper" + index).clientHeight) {
-					base.Get("scroll-none" + index).classList.remove("hide");
-				}
-			}
-			if(base.Get("scroll" + index).clientHeight < base.Get("wrapper" + index).clientHeight) {
-				ScrollAction(index, "destroy");
-			}
-			currpage[index]++;
-			isLoading[index] = false;
+
+		LoadPullList(base.RootUrl + "Api/Order/Apply_1_3", data, true, 3, parms, function(a) {
+			mui.later(function() {
+				parms.success(a);
+				isLoading[3] = false;
+			}, 200)
 		});
 	}
 
@@ -616,47 +642,23 @@
 		}
 	}
 
-	/**
-	 * 加载封装 
-	 * url：接口请求地址
-	 * data：接口请求参数
-	 * showNone：是否显示空提示
-	 * showNone：是否显示加载动画
-	 * appendCallback：拼接方法
-	 * endCallback：回调方法
-	 */
-	function LoadPullList(url, data, showNone, index, appendCallback, endCallback) {
-		base.Get("wrapper" + index).classList.remove("hide");
+	function LoadPullList(url, data, showNone, index, parms, callback) {
 		HttpGet(url, data, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
 					totalpage[index] = data.totalpage;
-					records[index] = data.records;
-					if(showNone) {
-						base.Get("none" + index).classList.add("hide");
+					if(data.list) {
+						callback(data.list);
+					} else {
+						callback([]);
 					}
-					var table = base.Get('scroll-view' + index);
-					if(records[index] > 0) {
-						var fragment = document.createDocumentFragment();
-						mui.each(data.list, function(index, item) {
-							fragment.appendChild(appendCallback(item));
-						});
-						table.appendChild(fragment);
-					}
-				} else {
-					totalpage[index] = 1;
-					records[index] = 0;
+					return;
 				}
 			}
-			if(records[index] == 0 && showNone) {
-				base.Get("wrapper" + index).classList.add("hide");
-				base.Get("none" + index).classList.remove("hide");
-			}
-			if(endCallback) {
-				endCallback();
-			}
+			totalpage[index] = 1;
+			callback([]);
 		});
 	}
 
