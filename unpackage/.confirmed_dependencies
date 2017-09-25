@@ -1194,7 +1194,8 @@
 			"minjs/base.min.js",
 			"images/avatar.png",
 			"css/setting.min.css",
-			"mincss/setting.min.css"
+			"mincss/setting.min.css",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/editsignature.html",
@@ -2570,7 +2571,8 @@
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"minjs/login.min.js"
+			"minjs/login.min.js",
+			"mincss/setting.min.css"
 		],
 		"refer": [
 			"page/bindpassword.html",

@@ -342,11 +342,10 @@ function deleteGroup(key) {
 ImgLoaderFactory.clearAll = function(successCallback, errorCallback) {
 	//遍历目录文件夹下的所有文件，然后删除
 	var tmpUrl = 'file://' + plus.io.convertLocalFileSystemURL(defaultSettingOptions.imgStoragePath);
-	console.log(tmpUrl)
 	plus.storage.clear(); //同时清除所有的缓存键值
 	plus.io.resolveLocalFileSystemURL(tmpUrl, function(entry) {
 		entry.removeRecursively(function() {
-			console.log('清除图片缓存成功!');
+			mui.toast('缓存已清空');
 			if(successCallback && typeof(successCallback) == 'function') {
 				successCallback('清除图片缓存成功!');
 			}

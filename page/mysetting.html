@@ -79,6 +79,17 @@
 					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
 				</div>
 			</div>
+			<div class="flex-box flex-row f13 mt0" id="age">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">微龄</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item">
+					<span class="fr c999" id="userage">0天</span>
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+				</div>
+			</div>
 			<div class="flex-box flex-row f13 mt0" id="sexPicker">
 				<div style="flex:0 0 25%;" class="flex-item">
 					<span class="c000">性别</span>
@@ -90,24 +101,24 @@
 					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
 				</div>
 			</div>
-			<div class="flex-box flex-row f13 mt0" id="cityPicker">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">地区</span>
-				</div>
-				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999" id="city"></span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-					<span class="mui-badge mui-badge-danger hide"></span>
-				</div>
-			</div>
 			<div class="flex-box flex-row f13 mt0" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker" style="position:relative;">
 				<div style="flex:0 0 25%;" class="flex-item">
 					<span class="c000">生日</span>
 				</div>
 				<div style="flex:0 0 70%;" class="flex-item">
 					<span class="fr c999" id="time"></span>
+				</div>
+				<div style="flex:0 0 5%;" class="flex-item tc">
+					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+					<span class="mui-badge mui-badge-danger hide"></span>
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt0" id="cityPicker">
+				<div style="flex:0 0 25%;" class="flex-item">
+					<span class="c000">所在地</span>
+				</div>
+				<div style="flex:0 0 70%;" class="flex-item">
+					<span class="fr c999" id="city"></span>
 				</div>
 				<div style="flex:0 0 5%;" class="flex-item tc">
 					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
@@ -131,7 +142,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../js/mui.picker.min.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script type="text/javascript">
@@ -173,6 +184,15 @@
 		}
 		if(base.Get("signature").innerHTML == "请填写") {
 			mui("#editsignature .mui-badge")[0].classList.remove("hide");
+		}
+
+		if(userinfo.CreateDate) {
+			InitDay();
+		} else {
+			base.UpdateUser(userinfo.Number, function() {
+				userinfo = base.GetUserInfo();
+				InitDay();
+			})
 		}
 
 		base.Get('cityPicker').addEventListener('tap', function(event) {
@@ -261,6 +281,21 @@
 			});
 		});
 	})
+
+	function InitDay() {
+		try {
+			if(userinfo.CreateDate) {
+				var timestamp = Date.parse(new Date(userinfo.CreateDate));
+				var num = (((new Date()).valueOf() - parseInt(timestamp)) / 1000);
+				if(num > 0) {
+					base.Get("userage").innerHTML = parseInt(num / 3600 / 24) + "天";
+					base.Get("age").classList.remove("hide");
+				}
+			}
+		} catch(error) {
+
+		}
+	}
 
 	var editnickname = base.Get("editnickname");
 	var editsignature = base.Get("editsignature");

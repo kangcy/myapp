@@ -54,7 +54,8 @@
 			</div>
 			<div class="flex-box flex-row f13">
 				<div class="flex-item c000">
-					分享带昵称
+					<p class="mt0 mb0 c000">分享带昵称</p>
+					<span class="c999 f10">分享后文章标题自动加上作者名</span>
 				</div>
 				<div class="flex-item">
 					<div class="my-switch fr" id="shareNickSwitch">
@@ -64,7 +65,8 @@
 			</div>
 			<div class="flex-box flex-row f13">
 				<div class="flex-item c000">
-					音乐自动播放
+					<p class="mt0 mb0 c000">音乐自动播放</p>
+					<span class="c999 f10">滑动文章即可自动播放背景音乐</span>
 				</div>
 				<div class="flex-item">
 					<div class="my-switch fr" id="autoMusicSwitch">
@@ -122,18 +124,18 @@
 					<a href="#cacheaction" class="red">取消</a>
 				</div>
 			</div>
-		</div> 
+		</div>
 	</body>
- 
+
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
-<script src="../js/imgcache.js"></script> 
-<script src="../js/update.min.js"></script>
+<script src="../js/imgcache.js"></script>
+<script src="../js/update.min.js"></script> 
 <script src="../js/login.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var userinfo = base.GetUserInfo(); 
+	var userinfo = base.GetUserInfo();
 	var auths = {};
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
