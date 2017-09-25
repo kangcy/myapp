@@ -126,8 +126,8 @@
 	mui.ready(function() {
 		base.Immersed();
 		var totalheight = window.innerHeight - base.Get("header").clientHeight - base.Get("addcomment").clientHeight;
-		base.Get("bottomshadow").style.height = totalheight * 0.85 + "px";
-		base.Get("bottomshadow").style.marginTop = totalheight * 0.05 + "px";
+		base.Get("bottomshadow").style.height = totalheight * 0.88 + "px";
+		base.Get("bottomshadow").style.marginTop = totalheight * 0.05 + "px"; 
 		base.Get("bottomshadow").classList.remove("hide");
 	})
 
@@ -144,7 +144,7 @@
 
 		base.ShowLoading(false);
 
-		snow.init(src, count, snowtype)
+		snow.init(src, count, snowtype);
 	});
 
 	function Save() {
@@ -162,36 +162,4 @@
 		}
 		isLoading = false;
 	}
-
-	/*function Save() {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		if(base.IsNullOrEmpty(src) || base.IsNullOrEmpty(articleNumber)) {
-			isLoading = false;
-			return mui.toast("参数异常");
-		}
-		HttpGet(base.RootUrl + "Api/ArticleCustom/Edit", {
-			ID: userinfo.ID,
-			ArticleNumber: articleNumber,
-			ShowyUrl: src + "|" + count + "|" + snowtype
-		}, function(data) {
-			data = JSON.parse(data);
-			base.CheckLogin(userinfo, data.code);
-			if(data == null) {
-				mui.toast("系统异常,请稍后再试");
-			} else {
-				if(data.result) {
-					var page = base.GetView('articledetail');
-					if(page) {
-						page.evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
-					}
-				} else {
-					mui.toast(data.message);
-				}
-			}
-			isLoading = false;
-		});
-	}*/
 </script>

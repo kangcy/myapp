@@ -62,10 +62,12 @@ var snow = new function() {
 	//清除
 	this.clear = function() {
 		clearInterval(snowinterval);
-		document.getElementById("snowwrapper").innerHTML = "";
-		var canvas = document.getElementById("snowcanvas");
-		var cxt = canvas.getContext("2d");
-		cxt.clearRect(0, 0, canvas.width, canvas.height);
+		setTimeout(function() {
+			document.getElementById("snowwrapper").innerHTML = "";
+			var canvas = document.getElementById("snowcanvas");
+			var cxt = canvas.getContext("2d");
+			cxt.clearRect(0, 0, canvas.width, canvas.height);
+		}, 500);
 	}
 	//通用
 	this.snow0 = function() {
@@ -389,7 +391,7 @@ var snow = new function() {
 				e = window.innerWidth,
 				f = window.innerHeight;
 			c.width = e, c.height = f;
-			for(var g = 55, h = [], i = 0; g > i; i++) h.push({
+			for(var g = 25, h = [], i = 0; g > i; i++) h.push({
 				x: Math.random() * e,
 				y: Math.random() * f,
 				r: 4 * Math.random() + 1,
@@ -438,7 +440,7 @@ var snow = new function() {
 				e = window.innerWidth,
 				f = window.innerHeight;
 			c.width = e, c.height = f;
-			for(var g = 55, h = [], i = 0; g > i; i++) h.push({
+			for(var g = 25, h = [], i = 0; g > i; i++) h.push({
 				x: Math.random() * e,
 				y: Math.random() * f,
 				r: 25 * Math.random() + 10,
@@ -487,7 +489,7 @@ var snow = new function() {
 				e = window.innerWidth,
 				f = window.innerHeight;
 			c.width = e, c.height = f;
-			for(var g = 95, h = [], i = 0; g > i; i++) h.push({
+			for(var g = 55, h = [], i = 0; g > i; i++) h.push({
 				x: Math.random() * e,
 				y: Math.random() * f,
 				r: 20 * Math.random() + 30,
@@ -536,7 +538,7 @@ var snow = new function() {
 				e = window.innerWidth,
 				f = window.innerHeight;
 			c.width = e, c.height = f;
-			for(var g = 65, h = [], i = 0; g > i; i++) h.push({
+			for(var g = 55, h = [], i = 0; g > i; i++) h.push({
 				x: Math.random() * e,
 				y: Math.random() * f,
 				r: 6 * Math.random() + 1,
