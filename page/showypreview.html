@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
 			body {
@@ -38,38 +37,6 @@
 				background-size: auto 90%;
 			}
 			
-			.border_bottomshadow {
-				height: auto;
-				display: inline-block;
-				position: relative;
-				box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 30px inset;
-				padding: 10px;
-				background: -webkit-gradient(linear, 0 20%, 0 1000%, from(rgb(255, 255, 255)), color-stop(0.1, rgb(243, 243, 243)), to(rgb(255, 255, 255)));
-			}
-			
-			.border_bottomshadow:after,
-			.border_bottomshadow:before {
-				content: '';
-				width: 50%;
-				height: 50px;
-				position: absolute;
-				bottom: 0;
-				z-index: -1;
-			}
-			
-			.border_bottomshadow:before {
-				right: 0;
-				-webkit-box-shadow: 20px 20px 10px rgba(0, 0, 0, .5);
-				-webkit-transform: translate(-25px, -17px) skew(5deg, 5deg) rotate(0);
-			}
-			
-			.border_bottomshadow:after {
-				left: 0;
-				display: inline-block;
-				-webkit-box-shadow: -20px 20px 10px rgba(0, 0, 0, .5);
-				-webkit-transform: translate(25px, -17px) skew(-5deg, 175deg) rotate(0);
-			}
-			
 			#snowcanvas {
 				pointer-events: none;
 				position: fixed;
@@ -87,11 +54,6 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">漂浮预览</h1>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
 		<div class="mui-content" id="muicontent">
 			<div id="wrapper" class="tc">
 				<div id="bottomshadow" class="border_bottomshadow hide">
@@ -116,19 +78,16 @@
 	var count = "";
 	var snowtype = "";
 	var isLoading = false;
-	var mask = base.CreateMask(false, function() {
-		base.CloseWaiting();
-	});
-	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
 		var totalheight = window.innerHeight - base.Get("header").clientHeight - base.Get("addcomment").clientHeight;
-		base.Get("bottomshadow").style.height = totalheight * 0.88 + "px";
-		base.Get("bottomshadow").style.marginTop = totalheight * 0.05 + "px"; 
-		base.Get("bottomshadow").classList.remove("hide");
+		var bottomshadow = base.Get("bottomshadow");
+		bottomshadow.style.height = totalheight * 0.88 + "px";
+		bottomshadow.style.marginTop = totalheight * 0.05 + "px";
+		bottomshadow.classList.remove("hide");
 	})
 
 	mui.plusReady(function() {
@@ -137,13 +96,7 @@
 		count = self.Count || "";
 		snowtype = self.SnowType || "";
 		articleNumber = self.ArticleNumber || "";
-
-		mui.back = function() {
-			self.close()
-		}
-
-		base.ShowLoading(false);
-
+		
 		snow.init(src, count, snowtype);
 	});
 
@@ -156,10 +109,7 @@
 			isLoading = false;
 			return mui.toast("参数异常");
 		}
-		var page = base.GetView('articlepreview');
-		if(page) {
-			page.evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
-		}
+		base.GetView('articlepreview').evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
 		isLoading = false;
 	}
 </script>

@@ -10,6 +10,10 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
+			body.hover {
+				background: transparent;
+			}
+			
 			.tip {
 				position: fixed;
 				bottom: 8%;
@@ -89,8 +93,8 @@
 		</style>
 	</head>
 
-	<body id="main">
-		<header id="header" class="mui-bar mui-bar-nav">
+	<body id="main" class="hover">
+		<header id="header" class="mui-bar mui-bar-nav hide">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="upload()">上传图片</a>
 			<div class="mui-title cfff">制作我的文章</div>
@@ -146,8 +150,6 @@
 
 		base.Get("btnAdd").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 
-		base.Immersed();
-
 		Init();
 
 		ShowPover();
@@ -159,6 +161,10 @@
 					sort.destroy();
 				}
 			} else {
+				base.Get("main").classList.remove("hover");
+				base.Get("header").classList.remove("hide");
+				base.Immersed();
+
 				base.Get("bottom").classList.remove("hide");
 				base.Get("bottom").classList.add("zoomIn");
 			}
@@ -183,6 +189,10 @@
 
 		mui.back = function() {
 			self.hide("fade-out");
+
+			base.Get('scroll-view').innerHTML = "";
+			base.Get("main").classList.add("hover");
+			base.Get("header").classList.add("hide");
 		}
 	});
 
@@ -200,6 +210,10 @@
 	}
 
 	function ShowPover() {
+		if(mui(".thirdfloor").length == 0) {
+			base.Get("main").classList.add("hover");
+			base.Get("header").classList.add("hide");
+		}
 		base.Get("bottom").classList.add("hide");
 		base.Get("bottom").classList.remove("zoomIn");
 		mui('#upload').popover('show');
@@ -229,13 +243,13 @@
 		sort = new Sortable(document.getElementById("scroll-view"), {
 			group: "scroll-view",
 			onAdd: function(evt) {
-				//console.log('onAdd.bar:', evt.detail);
+
 			},
 			onUpdate: function(evt) {
-				//console.log('onUpdate.bar:', evt.detail);
+
 			},
 			onRemove: function(evt) {
-				//console.log('onRemove.bar:', evt.detail);
+
 			}
 		});
 	}

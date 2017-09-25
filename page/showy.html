@@ -238,10 +238,7 @@
 			return;
 		}
 		isLoading = true;
-		var page = base.GetView('articlepreview');
-		if(page) {
-			page.evalJS("UpdateShowy('')");
-		}
+		base.GetView('articlepreview').evalJS("UpdateShowy('')");
 		isLoading = false;
 	}
 </script>

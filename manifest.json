@@ -88,7 +88,8 @@
 			"description": "管理支付插件"
 		},
 		"Push": {},
-		"Maps": {}
+		"Maps": {},
+		"Statistic": {}
 	},
 	"plus": {
 		"splashscreen": {
@@ -105,7 +106,18 @@
 		//"SHA1":"14:19:A1:71:13:75:31:38:E0:FF:1C:58:CA:13:BC:54:A9:F4:1D:81",
 		"signature": "6e38929cef403c839fc0c2987164e208",
 		"distribute": {
+			//523883324@qq.com
+			//xw321123321
+			//应用宝 华为 VIVO OPPO 魅族,不同渠道发布不同包
 			"plugins": {
+				"statics": {
+					"umeng": {
+						"appkey_ios": "59c8a78c9f06fd7fe70000b0",
+						"channelid_ios": "应用宝",
+						"appkey_android": "59c8a78c9f06fd7fe70000b0",
+						"channelid_android": "应用宝"
+					}
+				},
 				"maps": {
 					"amap": {
 						"appkey_ios": "a45d0a806ebc9903646e88de82fc0b06",
@@ -163,7 +175,7 @@
 						"redirect_uri": "http://www.sharesdk.cn"
 					},
 					"weixin": {
-						"appid": "wxbf415b2a2d7f5af2",//[wxbf415b2a2d7f5af2]  
+						"appid": "wxbf415b2a2d7f5af2",//[wxbf415b2a2d7f5af2]
 						"appsecret": "03cdde17b14e84a45fbe666cb2428492"
 					}
 				}
@@ -268,7 +280,7 @@
 					"xxhdpi": "unpackage/res/android/1080.png"
 				}
 			},
-			"debug": true
+			"debug": false
 		}
 	},
 	"dependencies": {
