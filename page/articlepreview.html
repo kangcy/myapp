@@ -863,6 +863,7 @@
 			return
 		}
 		LoadScript("../js/snow.js", function() {
+			base.GetView("addarticle").evalJS("changeShowy('" + Showy + "')");
 			var srcs = src.split("|");
 			if(srcs.length > 2) {
 				snow.init(srcs[0], srcs[1], srcs[2])
@@ -1295,6 +1296,7 @@
 	//重新加载数据 
 	function Reload(source) {
 		ChooseTan(function() {
+			CurrTemplateType = 1;
 			Load(function() {
 				if(source == "custom") {
 					plus.webview.close("customsetting", "none");

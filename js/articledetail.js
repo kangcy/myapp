@@ -33,7 +33,7 @@ function ChangeBg() {
 			$wrapper1.style.background = "";
 			$cover.style.backgroundColor = "transparent";
 			$wrapper2.style.background = "";
-			$wrapper2.className = CurrBackgroundName;
+			$wrapper2.className = CurrBackgroundName; 
 		}
 	} else if(CurrTemplate > 1) {
 		//模板
