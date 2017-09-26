@@ -17,7 +17,7 @@
 			#topPopover {
 				position: fixed;
 				top: 80px !important;
-				right: 6px; 
+				right: 6px;
 			}
 			
 			#topPopover .mui-popover-arrow {
@@ -366,11 +366,10 @@
 		wc = null;
 
 	mui.plusReady(function() {
-
 		self = plus.webview.currentWebview();
 		Source = self.Source || "Add";
 		ArticleID = self.ArticleID || 0;
-		NickName = self.NickName || "";
+		NickName = self.NickName || ""; 
 
 		//分享设置
 		updateSerivces();

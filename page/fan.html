@@ -16,8 +16,8 @@
 				width: 1rem !important;
 			}
 			
-			.price {
-				color: #ff6900;
+			.mui-table-view-cell:after {
+				left: 3.5rem;
 			}
 		</style>
 	</head>
@@ -74,25 +74,7 @@
 		Init();
 
 		//重置未读推送信息
-		HttpGet(base.RootUrl + "Push/Clear", {
-			number: userinfo.Number,
-			pushtype: PushType.Fan
-		}, function(data) {
-			if(data) {
-				var tipsetting = base.GetView('tipsetting');
-				if(tipsetting) {
-					tipsetting.evalJS("PushClear('" + PushType.Fan + "')");
-				}
-				var my = base.GetView('my');
-				if(my) {
-					my.evalJS("InitPush()");
-				}
-				var subindex = base.GetView('subindex');
-				if(subindex) {
-					subindex.evalJS("InitPush()");
-				}
-			}
-		});
+		ClearPush(userinfo.Number, PushType.Fan);
 	});
 
 	function Init() {
@@ -102,8 +84,7 @@
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		base.ShowUser("#scroll-view");
-		base.UserAddFan("#scroll-view", userinfo);
-		base.UserOutFan("#scroll-view", userinfo);
+		base.UserFan("#scroll-view", userinfo);
 	}
 
 	function Load(callback) {
@@ -114,7 +95,7 @@
 			CurrUserNumber: userinfo.Number
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true, function(item) {
-			return AppendUser(item, true, true, false, "", false, false, true);
+			return base.AppendUser(item, true, true, false, "", false, true, false);
 		}, function() {
 			if(callback) {
 				callback();

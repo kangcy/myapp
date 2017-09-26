@@ -1577,7 +1577,12 @@
 			"images/default.png",
 			"images/avatar.png",
 			"images/article/btn_good.png",
-			"js/imgcache.js"
+			"js/imgcache.js",
+			"images/article/btn_comment.png",
+			"images/article/btn_good2.png",
+			"images/article/btn_pay.png",
+			"images/article/view.png",
+			"images/article/btn_more.png"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -1694,7 +1699,9 @@
 			"css/fan.min.css",
 			"images/icon/heart.png",
 			"images/avatar.png",
-			"js/imgcache.js"
+			"js/imgcache.js",
+			"js/base.min.js",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/fanSub.html",
@@ -2487,7 +2494,9 @@
 			"images/loadmore.gif",
 			"images/base/follow1.png",
 			"images/base/follow2.png",
-			"js/imgcache.js"
+			"js/imgcache.js",
+			"images/loading.gif",
+			"images/base/follow0.png"
 		],
 		"refer": [
 			"page/followSub.html",
@@ -3163,7 +3172,8 @@
 			"minjs/mui.lazyload.min.js",
 			"minjs/mui.lazyload.img.min.js",
 			"images/default.png",
-			"js/imgcache.js"
+			"js/imgcache.js",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/addfan.html",
@@ -3823,7 +3833,12 @@
 			"jroll/2.png",
 			"jroll/3.png",
 			"jroll/jroll-infinite.js",
-			"jroll/jroll-pulldown.js"
+			"jroll/jroll-pulldown.js",
+			"images/base/follow0.png",
+			"fonts/mui.ttf",
+			"images/avatar.png",
+			"images/base/follow1.png",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/user.html",
@@ -3878,7 +3893,8 @@
 			"images/preview/btn_back_bottom.png",
 			"images/preview/btn_cancel.png",
 			"images/preview/btn_sure.png",
-			"images/preview/icon_theme.png"
+			"images/preview/icon_theme.png",
+			"images/article/pic.png"
 		],
 		"refer": [
 			"page/customsetting.html",

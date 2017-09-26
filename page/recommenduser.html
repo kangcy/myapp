@@ -45,9 +45,7 @@
 	});
 
 	mui.ready(function() {
-		base.ShowUser("#scroll-view");
-		base.UserAddFan("#scroll-view", userinfo);
-		base.UserOutFan("#scroll-view", userinfo);
+
 	});
 
 	mui.plusReady(function() {
@@ -57,12 +55,14 @@
 		Init();
 
 		preload(top);
+
+		base.ShowUser("#scroll-view");
+		base.UserFan("#scroll-view", userinfo);
 	});
 
 	//初始化
 	function Init() {
 		pulldownRefresh();
-		base.ShowUser("#scroll-view");
 		SetPullEnable(true);
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
@@ -88,7 +88,7 @@
 					});
 					table.appendChild(fragment);
 				}
-			} 
+			}
 			if(records == 0) {
 				base.ShowNone(true);
 			}

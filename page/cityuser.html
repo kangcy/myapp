@@ -83,10 +83,6 @@
 		base.Get("btn").addEventListener("tap", function() {
 			OpenPosition();
 		});
-
-		base.ShowUser("#scroll-view");
-		base.UserAddFan("#scroll-view", userinfo);
-		base.UserOutFan("#scroll-view", userinfo);
 	});
 
 	mui.plusReady(function() {
@@ -118,12 +114,14 @@
 			}
 			isLoading = false;
 		});
+		
+		base.ShowUser("#scroll-view");
+		base.UserFan("#scroll-view", userinfo);
 	});
 
 	//初始化
 	function Init() {
 		pulldownRefresh();
-		base.ShowUser("#scroll-view");
 		SetPullEnable(true);
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}

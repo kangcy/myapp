@@ -16,8 +16,8 @@
 				width: 1rem !important;
 			}
 			
-			.price {
-				color: #ff6900;
+			.mui-table-view-cell:after {
+				left: 3.5rem;
 			}
 		</style>
 	</head>
@@ -87,8 +87,7 @@
 		SetPullEnable(true);
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 		base.ShowUser("#scroll-view");
-		base.UserAddFan("#scroll-view", userinfo);
-		base.UserOutFan("#scroll-view", userinfo);
+		base.UserFan("#scroll-view", userinfo);
 	}
 
 	function Load(callback) {
@@ -99,7 +98,7 @@
 			CurrUserNumber: userinfo.Number
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true, false, function(item) {
-			return AppendUser(item, true, false, true, "取消关注", false, false, true);
+			return base.AppendUser(item, true, true, false, "", false, true, false);
 		}, function() {
 			if(callback) {
 				callback();

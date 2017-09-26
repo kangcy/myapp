@@ -69,25 +69,7 @@
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//重置未读推送信息
-		HttpGet(base.RootUrl + "Push/Clear", {
-			number: userinfo.Number,
-			pushtype: PushType.Comment
-		}, function(data) {
-			if(data) {
-				var tipsetting = base.GetView('tipsetting');
-				if(tipsetting) {
-					tipsetting.evalJS("PushClear('" + PushType.Comment + "')");
-				}
-				var my = base.GetView('my');
-				if(my) {
-					my.evalJS("InitPush()");
-				}
-				var subindex = base.GetView('subindex');
-				if(subindex) {
-					subindex.evalJS("InitPush()");
-				}
-			}
-		});
+		ClearPush(userinfo.Number, PushType.Comment);
 	})
 
 	//评论我的-加载数据

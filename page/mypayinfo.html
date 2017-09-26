@@ -245,25 +245,7 @@
 					});
 
 					//重置未读推送信息
-					HttpGet(base.RootUrl + "Push/Clear", {
-						number: userinfo.Number,
-						pushtype: PushType.Red
-					}, function(data) {
-						if(data) {
-							var tipsetting = base.GetView("tipsetting")
-							if(tipsetting) {
-								tipsetting.evalJS("PushClear('" + PushType.Red + "')");
-							}
-							var my = base.GetView("my")
-							if(my) {
-								my.evalJS("InitPush()");
-							}
-							var subindex = base.GetView('subindex');
-							if(subindex) {
-								subindex.evalJS("InitPush()");
-							}
-						}
-					});
+					ClearPush(userinfo.Number, PushType.Red);
 				}
 
 				if(swiper.activeIndex == 1 && scroll1 == null) {
@@ -308,25 +290,7 @@
 					});
 
 					//重置未读推送信息
-					HttpGet(base.RootUrl + "Push/Clear", {
-						number: userinfo.Number,
-						pushtype: PushType.Money
-					}, function(data) {
-						if(data) {
-							var tipsetting = base.GetView("tipsetting")
-							if(tipsetting) {
-								tipsetting.evalJS("PushClear('" + PushType.Money + "')");
-							}
-							var my = base.GetView("my")
-							if(my) {
-								my.evalJS("InitPush()");
-							}
-							var subindex = base.GetView('subindex');
-							if(subindex) {
-								subindex.evalJS("InitPush()");
-							}
-						}
-					});
+					ClearPush(userinfo.Number, PushType.Money);
 				}
 
 				if(swiper.activeIndex == 2 && scroll2 == null) {
@@ -467,25 +431,7 @@
 					});
 
 					//重置未读推送信息
-					HttpGet(base.RootUrl + "Push/Clear", {
-						number: userinfo.Number,
-						pushtype: PushType.Red
-					}, function(data) {
-						if(data) {
-							var tipsetting = base.GetView("tipsetting")
-							if(tipsetting) {
-								tipsetting.evalJS("PushClear('" + PushType.Red + "')");
-							}
-							var my = base.GetView("my")
-							if(my) {
-								my.evalJS("InitPush()");
-							}
-							var subindex = base.GetView('subindex');
-							if(subindex) {
-								subindex.evalJS("InitPush()");
-							}
-						}
-					});
+					ClearPush(userinfo.Number, PushType.Red);
 				}
 			}
 		})

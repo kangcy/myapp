@@ -76,11 +76,12 @@
 
 	function Init() {
 		pulldownRefresh();
+		SetPullEnable(true);
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+
 		base.ShowArticle("#scroll-view", "List", UserNumber);
 		base.ShowUser("#scroll-view");
 		ArticleAction("#scroll-view", userinfo);
-		SetPullEnable(true);
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
 
 	function Load(callback) {
