@@ -130,26 +130,50 @@
 			
 			.icons {
 				display: inline-block;
-				width: 100%;
+				width: 80%;
 				text-align: center;
 				position: fixed;
 				bottom: 1rem;
+				left: 10%;
 				z-index: 99999;
 			}
 			
-			.icons div {
-				width: 5rem;
-				height: 5rem;
-				line-height: 7.5rem;
+			.icons .items {
+				width: 33.3%;
+				display: inline;
+				float: left;
+				text-align: center;
+			}
+			
+			.icons .items div {
+				width: 4rem;
+				height: 4rem;
 				display: inline-block;
 				border-radius: 100%;
-				text-align: center;
 				color: #fff;
-				margin: 0.35rem 0.5rem;
-				background-image: url(../images/article/pic.png);
 				background-repeat: no-repeat;
-				background-size: 50%;
-				background-position: center 30%;
+				background-size: 55%;
+				background-position: center center;
+				margin-bottom: 0.5rem;
+			}
+			
+			.icons div span {
+				background: rgba(0, 0, 0, 0.3);
+				padding: 0.3rem 1rem;
+				border-radius: 30px;
+				color: #fff;
+			}
+			
+			.icons div.div1 {
+				background-image: url(../images/preview/5.png);
+			}
+			
+			.icons div.div2 {
+				background-image: url(../images/preview/6.png);
+			}
+			
+			.icons div.div3 {
+				background-image: url(../images/preview/9.png);
 			}
 			
 			.background_back {
@@ -224,10 +248,16 @@
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
 		<div class="swiper-cover hide" id="icon-cover"></div>
 		<div id="btnIcon" class="icons f13 hide">
-			<div onclick="ColorTan(1)" style="background-color:#9BC402;">主题色</div>
-			<!--<div onclick="CoolTan(1)">炫标题</div>-->
-			<div onclick="TempTan()" style="background-color:#457ED8;">背景</div>
-			<div onclick="ShowShowy()" style="background-color:#D147EA;">漂浮</div>
+			<div class="items">
+				<div class="div1" onclick="ColorTan(1)" style="background-color:#9BC402;"></div><span class="f12">主题色</span>
+			</div>
+			<!--<div><div onclick="CoolTan(1)">炫标题</div></div>-->
+			<div class="items">
+				<div class="div2" onclick="TempTan()" style="background-color:#457ED8;"></div><span class="f12">背景</span>
+			</div>
+			<div class="items">
+				<div class="div3" onclick="ShowShowy()" style="background-color:#D147EA;"></div><span class="f12">漂浮</span>
+			</div>
 		</div>
 		<!--背景-->
 		<div id="wrapper2"></div>
@@ -1315,7 +1345,6 @@
 		var btnIcon = base.Get("btnIcon");
 		if(index == 0) {
 			base.Get("icon-cover").classList.add("hide");
-			btnIcon.classList.add("hide");
 			btnIcon.classList.remove("bounceInUp");
 			btnIcon.classList.add("bounceOutUp");
 		} else {

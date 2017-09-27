@@ -3768,7 +3768,8 @@
 			"images/avatar.png",
 			"images/check.png",
 			"images/article/music.png",
-			"css/demo.css"
+			"css/demo.css",
+			"fonts/mui.ttf"
 		]
 	},
 	"page/searchinfo.html": {
@@ -3894,7 +3895,13 @@
 			"images/preview/btn_cancel.png",
 			"images/preview/btn_sure.png",
 			"images/preview/icon_theme.png",
-			"images/article/pic.png"
+			"images/article/pic.png",
+			"images/preview/9.png",
+			"images/preview/5.png",
+			"images/preview/6.png",
+			"images/article/btn_music.png",
+			"fonts/mui.ttf",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/customsetting.html",

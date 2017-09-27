@@ -15,12 +15,25 @@
 			}
 			
 			.mui-table-view-cell:after {
-				background-color: #fff;
+				height: 0.5rem;
+				background-color: #f5f5f5;
+			}
+			
+			.mui-collapse-content:before {
+				position: absolute;
+				right: .9375rem;
+				top: 0;
+				left: .9375rem;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #ddd;
 			}
 			
 			.mui-table-view-cell:last-child:after,
 			.mui-table-view-cell:last-child:before {
-				height: 0px;
+				height: 0.5rem !important;
 			}
 			
 			.mui-popup-title+.mui-popup-text {
@@ -38,7 +51,7 @@
 			}
 			
 			.mui-table-view-cell.mui-collapse .mui-collapse-content {
-				padding: 0rem 0.9375rem;
+				padding: 0rem 0.9375rem 0.25rem;
 			}
 		</style>
 	</head>
@@ -47,10 +60,10 @@
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
 			<a id="submit" class="mui-icon mui-text cfff fr hide" onclick="Submit()">完成</a>
-			<h1 class="mui-title cfff">选择背景音乐</h1>
+			<h1 class="mui-title cfff">音乐库</h1>
 		</header>
-		<nav class="mui-bar mui-bar-tab" id="search" style="background:#f8f8f8;border-top:1px solid #eee;">
-			<div class="mui-tab-item blue" style="font-size:16px;">
+		<nav class="mui-bar mui-bar-tab" id="search" style="background:#fff;border-top:1px solid #eee;">
+			<div class="mui-tab-item c333" style="font-size:16px;">
 				<span class="mui-icon mui-icon-search" style="top:0px;font-size:20px;margin-right:5px;"></span>搜索在线音乐
 			</div>
 		</nav>
@@ -133,11 +146,10 @@
 	function AppendStr(index, item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell mui-collapse ' + (index == 0 ? "mui-active" : "");
-		div.style.background = "#eee";
 		var model = [];
-		model.push('<a class="mui-navigate-right f13 c333" href="#">' + item.Name + '</a><div class="mui-collapse-content">');
+		model.push('<a class="mui-navigate-right f13 c333" href="#">' + item.Name + '(' + item.Music.length + '首)' + '</a><div class="mui-collapse-content">');
 		mui.each(item.Music, function(i, music) {
-			model.push('<div class="music" index="' + music.ID + '" name="' + music.Name + '" url="' + music.FileUrl + '"><p class="f12 c999 mt5 mb5">' + music.Name + '<span class="fr c999 mui-icon ' + (music.ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0rem;top:0.5rem;"></span></p></div>');
+			model.push('<div class="music" index="' + music.ID + '" name="' + music.Name + '" url="' + music.FileUrl + '"><p class="f12 c333 mt5 mb5">' + music.Name + '<span class="fr c999 mui-icon ' + (music.ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0rem;top:0.5rem;"></span></p></div>');
 		})
 		model.push("</div>");
 		div.innerHTML = model.join('');

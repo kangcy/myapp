@@ -107,7 +107,7 @@
 			}
 			
 			.mui-table-view-cell:after {
-				height: 0px !important;
+				left: 3.5rem !important;
 			}
 			
 			#address .flex-row {
@@ -147,20 +147,8 @@
 				padding: 0.525rem 0.9375rem;
 			}
 			
-			.flex-row:after {
-				position: absolute;
-				bottom: 0;
-				right: 0;
-				left: 0;
-				height: 1px;
-				content: '';
-				-webkit-transform: scaleY(.5);
-				transform: scaleY(.5);
-				background-color: #ddd;
-			}
-			
-			.jroll-infinite-tip {
-				padding: 0.5rem 0 1rem 0;
+			.jroll-infinite-tip { 
+				padding: 1rem 0 1rem 0;
 			}
 		</style>
 	</head>
@@ -180,20 +168,19 @@
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<div id="wrapper0" class="scroll-wrapper">
-							<div id="scroll0" class="scroller" style="background:#fff;"> </div>
+							<div id="scroll0" class="scroller" style="background:#fff;"></div>
 						</div>
 					</div>
 					<div class="swiper-slide">
 						<div id="divLocation" class="hide" style="position:fixed;top:0px;left:0px;width:100%;z-index:99;">
 							<a href="#" class="c333">
-								<div class="mt10 full f12">
+								<div class="mt10 mb10 full f12">
 									<i class="mui-icon mui-icon-location f14 ml10 mr5 blue bold"></i><span id="location"></span><span class="mui-icon mui-icon-arrowright fr mr10 mt8 blue f16"></span>
 								</div>
 							</a>
 						</div>
 						<div id="wrapper1" class="scroll-wrapper">
-							<div id="scroll1" class="scroller">
-							</div>
+							<div id="scroll1" class="scroller" style="background:#fff;"></div>
 						</div>
 						<div id="showPosition" class="full tc hide" style="height:100%;background:#fff;">
 							<img src="../images/my/333.png" style="width:30%;margin-top:25%" />
