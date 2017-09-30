@@ -86,7 +86,7 @@
 			</div>
 		</div>
 		<div id="muicontent">
-			<div id="scroll-view" class="inline full"></div>
+			<div id="scroll-view" class="inline full" style="padding-bottom:3rem;"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
@@ -218,8 +218,8 @@
 	function AppendStr2(item) {
 		var div = document.createElement('div');
 		div.className = 'thirdfloor fl nocheck';
-		div.style.backgroundImage = "url(" + item.Cover + "?random=" + base.GetUid() + ")";
-		//div.style.backgroundImage = "url(" + item.Cover + ")";
+		//div.style.backgroundImage = "url(" + item.Cover + "?random=" + base.GetUid() + ")";
+		div.style.backgroundImage = "url(" + item.Cover + ")";
 		div.setAttribute("src", item.Cover);
 		div.setAttribute("count", item.Count);
 		div.setAttribute("snowtype", item.ShowType);

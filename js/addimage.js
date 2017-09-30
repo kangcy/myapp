@@ -1,3 +1,4 @@
+var files = [];
 var isSelect = false;
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
@@ -58,9 +59,8 @@ function Camera() {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
 			isSelect = true;
 			mui('#upload').popover('hide');
-			var localurl = entry.toLocalURL();
-			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
-			compressImage(localurl, dstname);
+			files = [entry.toLocalURL()]
+			compressImage(0, files[0]);
 		});
 	});
 }
@@ -70,10 +70,15 @@ function Gallery() {
 	plus.gallery.pick(function(e) {
 		isSelect = true;
 		mui('#upload').popover('hide');
-		for(var i = 0; i < e.files.length; i++) {
+
+		files = e.files;
+		compressImage(0, files[0]);
+
+		/*for(var i = 0; i < e.files.length; i++) {
 			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
+			console.log(e.files[i] + "," + dstname)
 			compressImage(e.files[i], dstname);
-		}
+		}*/
 	}, function(e) {
 		console.log("取消选择图片");
 	}, {
@@ -85,7 +90,9 @@ function Gallery() {
 }
 
 //压缩图片 
-function compressImage(src, dstname) {
+function compressImage(i, src) {
+	var newi = i + 1;
+	var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
 	plus.zip.compressImage({
 			src: src,
 			dst: dstname,
@@ -94,9 +101,14 @@ function compressImage(src, dstname) {
 		},
 		function(event) {
 			AppendStr(event.target)
+			if(newi < files.length) {
+				compressImage(newi, files[newi]);
+			}
 		},
 		function(error) {
-			console.log(error);
+			if(newi < files.length) {
+				compressImage(newi, files[newi]);
+			}
 		});
 }
 
