@@ -2008,7 +2008,11 @@
 			"mincss/mui.min.css",
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"images/loading.gif",
+			"minjs/refresh.min.js",
+			"js/base.min.js",
+			"images/my/111.png"
 		],
 		"refer": [
 			"page/musicSub.html",
@@ -2656,7 +2660,8 @@
 			"page/showy.html",
 			"page/mypayinfo.html",
 			"page/bannerdetail.html",
-			"page/back.html"
+			"page/back.html",
+			"page/music.html"
 		]
 	},
 	"page/money.html": {

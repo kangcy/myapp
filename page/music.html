@@ -10,56 +10,55 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
-			.mui-table-view-cell {
-				padding: .625rem .9375rem;
+			#scroll-view {
+				width: 100%;
+				margin-top: 0rem;
+				display: inline-block;
 			}
 			
-			.mui-table-view-cell:after {
-				height: 0.5rem;
-				background-color: #f5f5f5;
+			#scroll-view .items {
+				display: inline-block;
+				width: 90%;
+				margin: 0 5% 0.5rem;
 			}
 			
-			.mui-collapse-content:before {
-				position: absolute;
-				right: .9375rem;
-				top: 0;
-				left: .9375rem;
-				height: 1px;
-				content: '';
-				-webkit-transform: scaleY(.5);
-				transform: scaleY(.5);
-				background-color: #ddd;
+			#scroll-view .items img {
+				width: 5rem;
+				height: 5rem;
 			}
 			
-			.mui-table-view-cell:last-child:after,
-			.mui-table-view-cell:last-child:before {
-				height: 0.5rem !important;
+			.play_name {
+				display: block;
+				height: 3rem;
+				overflow: hidden;
+				font-family: arial, 'pingfang sc', stheiti, 'microsoft yahei', sans-serif;
+				line-height: 3rem;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				color: #333 !important;
+				margin-bottom: 0px;
 			}
 			
-			.mui-popup-title+.mui-popup-text {
-				display: none;
+			.play_info {
+				float: right;
+				width: 12rem;
 			}
 			
-			.music {
-				padding: .5rem 0rem;
-				border-bottom: 1px solid #eee;
-				position: relative;
-			}
-			
-			.music:last-child {
-				border: 0px;
-			}
-			
-			.mui-table-view-cell.mui-collapse .mui-collapse-content {
-				padding: 0rem 0.9375rem 0.25rem;
+			.play_info .song_name {
+				display: block;
+				height: 1.8rem;
+				overflow: hidden;
+				line-height: 1.8rem;
+				color: #888;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
-			<a id="submit" class="mui-icon mui-text cfff fr hide" onclick="Submit()">完成</a>
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">音乐库</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab" id="search" style="background:#fff;border-top:1px solid #eee;">
@@ -72,98 +71,71 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div class="mui-content" id="muicontent">
-			<div id="list">
-
+		<div id="muicontent">
+			<div id="scroll-view"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
+		</div>
+		<div id="none" class="full tc hide">
+			<img src="../images/my/111.png" class="none" id="none_img" />
+			<p class="f13 mt10" id="none_tip"></p>
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
-	var ArticleID = 0;
-	var MusicID = -1;
-	var MusicName = "";
-	var MusicUrl = "";
-
+	var name = '全部';
+	var self = null;
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
 
-		mui("#list").on('tap', 'div.music', function(event) {
-			base.RemoveClass([".mui-icon"], "mui-icon-checkmarkempty");
-			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
-				item.classList.add("mui-icon-checkmarkempty");
+		mui("#scroll-view").on('tap', '.music', function(event) {
+			base.OpenWindow("musicsearch", "musicsearch.html", {
+				name: this.getAttribute("name")
 			});
-			MusicID = this.getAttribute("index");
-			MusicName = this.getAttribute("name");
-			MusicUrl = this.getAttribute("url");
-			base.Get("submit").classList.remove("hide");
 		});
 
-		//搜索 
+		//搜索  
 		base.Get("search").addEventListener('tap', function(event) {
 			base.OpenWindow("musicsearch", "musicsearch.html", {});
 		});
 	});
-
+ 
 	mui.plusReady(function() {
-
-		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID || 0;
-		MusicID = self.MusicID || -1;
-		MusicName = self.MusicName || "";
-		if(MusicID > 0) {
-			base.Get("submit").classList.remove("hide");
-		}
-		Load();
+		self = plus.webview.currentWebview();
+		pulldownRefresh();
+		SetPullEnable(true);
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	});
 
-	//加载音乐
-	function Load() {
-		HttpGet(base.RootUrl + "Api/Music/All", {}, function(data) {
-			var table = base.Get("list");
-			table.innerHTML = "";
-			data = JSON.parse(data);
-			if(data != null) {
-				data = data.message;
-				var length = data.list.length;
-				if(length > 0) {
-					var fragment = document.createDocumentFragment();
-					mui.each(data.list, function(index, item) {
-						fragment.appendChild(AppendStr(index, item));
-					});
-					table.appendChild(fragment);
-				}
-			}
-			base.ShowLoading(false);
-		});
+	function Load(callback) {
+		var data = {
+			page: currpage,
+			rows: pagesize,
+			name: name
+		}
+		LoadPull(base.RootUrlTest + "Api/Music/SearchMenu", data, true, false, function(item) {
+			return AppendMenuHtml(item)
+		}, callback);
 	}
 
-	function AppendStr(index, item) {
+	function AppendMenuHtml(item) {
 		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell mui-collapse ' + (index == 0 ? "mui-active" : "");
 		var model = [];
-		model.push('<a class="mui-navigate-right f13 c333" href="#">' + item.Name + '(' + item.Music.length + '首)' + '</a><div class="mui-collapse-content">');
-		mui.each(item.Music, function(i, music) {
-			model.push('<div class="music" index="' + music.ID + '" name="' + music.Name + '" url="' + music.FileUrl + '"><p class="f12 c333 mt5 mb5">' + music.Name + '<span class="fr c999 mui-icon ' + (music.ID == MusicID ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0rem;top:0.5rem;"></span></p></div>');
+		model.push('<div class="items"><p class="play_name f13"><span class="music" name="' + item.Name + '">' + item.Name + '</span></p>');
+		model.push('<img src="' + item.Cover + '">');
+		model.push('<div class="play_info">');
+		mui.each(item.Child, function(i, x) {
+			model.push('<span class="song_name f11"><span class="music" name="' + x.Name + '">' + x.Name + '</span> - <span class="music" name="' + x.Author + '">' + x.Author + '</span></span>');
 		})
-		model.push("</div>");
+		model.push('</div></div><div class="splitline"></div>');
 		div.innerHTML = model.join('');
 		return div;
-	}
-
-	function Submit() {
-		if(base.RepeatAction()) {
-			return;
-		}
-		if(MusicID <= 0) {
-			return mui.toast("还未选择音乐");
-		} else {
-			base.GetView('addarticle').evalJS("UpdateMusic('" + MusicID + "','" + MusicName + "','" + MusicUrl + "','music')");
-		}
 	}
 </script>
