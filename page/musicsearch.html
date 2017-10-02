@@ -166,7 +166,7 @@
 		});
 
 		//监听软键盘搜索键
-		base.Get("search").addEventListener("keydown", function(e) {
+		/*base.Get("search").addEventListener("keydown", function(e) {
 			if(13 == e.keyCode) {
 				if(base.IsNullOrEmpty(search.value)) {
 					return mui.toast("请输入搜索内容");
@@ -176,7 +176,7 @@
 					mui.trigger(base.Get("btnSearch"), "tap")
 				}, 250);
 			}
-		}, false);
+		}, false);*/
 
 		mui("#scroll-view").on('tap', 'li.music', function(event) {
 			if(base.TriggerMain) {
