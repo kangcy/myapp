@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
 			#scroll-view {
 				width: 100%;
@@ -53,13 +54,79 @@
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
+			
+			#menus,
+			.tit_sub_nav {
+				width: 100%;
+				text-align: center;
+				display: inline-block;
+			}
+			
+			#menus {
+				position: fixed;
+				top: 0px;
+				left: 0;
+				width: 100%;
+				background: #fff;
+				z-index: 9999;
+				padding-top: 0.5rem;
+			}
+			
+			#menus img {
+				width: 4rem;
+				margin: 0.8rem;
+				margin-top: 0px;
+			}
+			
+			.tit_sub_nav div {
+				width: 25%;
+				float: left;
+				display: inline-block;
+				line-height: 2.5rem;
+				color: #999;
+			}
+			
+			.tanclose {
+				position: relative;
+				display: inline-block;
+				vertical-align: middle;
+				color: #999;
+				width: 2rem;
+				height: 2rem;
+				margin: 2rem 0 0;
+			}
+			
+			.tanclose:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0px;
+				width: 1.8rem;
+				height: 0.08rem;
+				background-color: currentColor;
+				-webkit-transform: rotate(-45deg);
+				transform: rotate(-45deg);
+			}
+			
+			.tanclose:after {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0px;
+				width: 1.8rem;
+				height: 0.08rem;
+				background-color: currentColor;
+				-webkit-transform: rotate(45deg);
+				transform: rotate(45deg);
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">音乐库</h1>
+			<a class="mui-icon mui-text cfff fr" onclick="Choose(1)">分类</a>
+			<h1 class="mui-title cfff" id="title">音乐库</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab" id="search" style="background:#fff;border-top:1px solid #eee;">
 			<div class="mui-tab-item c333" style="font-size:16px;">
@@ -81,6 +148,163 @@
 			<img src="../images/my/111.png" class="none" id="none_img" />
 			<p class="f13 mt10" id="none_tip"></p>
 		</div>
+		<div class="mytanbg hide" id="mytanbg"></div>
+		<div id="menus" class="hide">
+			<img src="../images/music/sort_01.png" onclick="ChangeType(0)" />
+			<img src="../images/music/sort_02.png" onclick="ChangeType(1)" />
+			<img src="../images/music/sort_03.png" onclick="ChangeType(2)" />
+			<img src="../images/music/sort_04.png" onclick="ChangeType(3)" />
+			<img src="../images/music/sort_05.png" onclick="ChangeType(4)" />
+			<img src="../images/music/sort_06.png" onclick="ChangeType(5)" />
+			<div class="splitline"></div>
+			<div class="tit_sub_nav f11">
+				<div>英语</div>
+				<div>华语</div>
+				<div>网络</div>
+				<div>影视热歌</div>
+				<div>韩语</div>
+				<div>日语</div>
+				<div>小语种</div>
+				<div>情歌</div>
+				<div>粤语</div>
+				<div>毕业季</div>
+				<div>K歌金曲</div>
+				<div>情人节</div>
+				<div>节日</div>
+				<div>红歌</div>
+				<div>我是歌手</div>
+				<div>浪漫</div>
+				<div>广场舞</div>
+				<div>圣诞节</div>
+				<div>中国好歌曲</div>
+				<div>格莱美</div>
+				<div>异域风情</div>
+				<div>音乐节</div>
+				<div>母亲节</div>
+				<div>生日</div>
+				<div>电视剧</div>
+				<div>电影</div>
+			</div>
+			<div class="tit_sub_nav f11 hide">
+				<div>伤感</div>
+				<div>安静</div>
+				<div>欢快</div>
+				<div>甜蜜</div>
+				<div>孤单</div>
+				<div>感性</div>
+				<div>思念</div>
+				<div>心痛</div>
+				<div>治愈</div>
+				<div>叛逆</div>
+				<div>期待</div>
+				<div>宣泄</div>
+				<div>失落</div>
+				<div>励志</div>
+				<div>平静</div>
+				<div>轻松</div>
+				<div>软弱时</div>
+				<div>兴奋</div>
+				<div>幸福</div>
+				<div>悲痛</div>
+				<div>珍惜</div>
+				<div>开心</div>
+				<div>疲惫时</div>
+				<div>难过</div>
+				<div>失望</div>
+			</div>
+			<div class="tit_sub_nav f11 hide">
+				<div>流行</div>
+				<div>摇滚</div>
+				<div>R&amp;B</div>
+				<div>轻音乐</div>
+				<div>舞曲</div>
+				<div>电子</div>
+				<div>嘻哈</div>
+				<div>古典</div>
+				<div>蓝调</div>
+				<div>乡村</div>
+				<div>民谣</div>
+				<div>DJ</div>
+				<div>爵士</div>
+				<div>慢摇</div>
+				<div>新世纪</div>
+				<div>拉丁</div>
+				<div>HIP-HOP</div>
+				<div>英伦</div>
+				<div>歌剧</div>
+				<div>说唱</div>
+				<div>金属</div>
+				<div>朋克</div>
+				<div>童谣</div>
+				<div>布鲁斯</div>
+			</div>
+			<div class="tit_sub_nav f11 hide">
+				<div>休闲</div>
+				<div>睡前</div>
+				<div>减压</div>
+				<div>旅行</div>
+				<div>开车</div>
+				<div>下午茶</div>
+				<div>散步</div>
+				<div>聚会</div>
+				<div>运动</div>
+				<div>约会</div>
+				<div>写作业</div>
+				<div>工作</div>
+				<div>烛光</div>
+				<div>做家务</div>
+				<div>休闲时光</div>
+				<div>校园</div>
+				<div>离别</div>
+				<div>失眠</div>
+				<div>结婚</div>
+				<div>跑步</div>
+				<div>工作中</div>
+				<div>阅读</div>
+				<div>午休</div>
+				<div>学习</div>
+				<div>派对</div>
+				<div>进餐</div>
+			</div>
+			<div class="tit_sub_nav f11 hide">
+				<div>90后</div>
+				<div>致青春</div>
+				<div>经典好歌</div>
+				<div>小清新</div>
+				<div>动漫</div>
+				<div>80后</div>
+				<div>夜店嗨歌</div>
+				<div>网络热歌</div>
+				<div>中国风</div>
+				<div>DJ慢摇</div>
+				<div>神曲</div>
+				<div>70后</div>
+				<div>综艺热歌</div>
+				<div>游戏</div>
+				<div>儿歌童谣</div>
+				<div>胎教</div>
+				<div>巅峰榜</div>
+			</div>
+			<div class="tit_sub_nav f11 hide">
+				<div>音乐达人</div>
+				<div>华语男歌手</div>
+				<div>华语女歌手</div>
+				<div>韩日组合</div>
+				<div>韩日女歌手</div>
+				<div>音乐DJ</div>
+				<div>华语组合</div>
+				<div>韩日男歌手</div>
+				<div>乐评人</div>
+				<div>艺人</div>
+				<div>欧美女歌手</div>
+				<div>欧美男歌手</div>
+				<div>音乐人</div>
+				<div>音乐机构</div>
+				<div>欧美组合</div>
+			</div>
+			<div class="splitline"></div>
+			<span class="tanclose" onclick="Choose(0)"></span>
+		</div>
 	</body>
 
 </html>
@@ -88,7 +312,7 @@
 <script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
-	var name = '全部';
+	var name = "";
 	var self = null;
 	mui.init();
 
@@ -97,8 +321,22 @@
 
 		mui("#scroll-view").on('tap', '.music', function(event) {
 			base.OpenWindow("musicsearch", "musicsearch.html", {
-				name: this.getAttribute("name")
+				name: this.getAttribute("name"),
+				searchtype: this.getAttribute("type")
 			});
+		});
+
+		mui(".tit_sub_nav").on('tap', 'div', function(event) {
+			name = this.innerHTML;
+			base.Get("title").innerHTML = name;
+			currpage = 1;
+			totalpage = 2;
+			base.Get('scroll-view').innerHTML = "";
+			Choose(0);
+			Load(function() {
+				++currpage;
+				isLoading = false;
+			})
 		});
 
 		//搜索  
@@ -106,7 +344,7 @@
 			base.OpenWindow("musicsearch", "musicsearch.html", {});
 		});
 	});
- 
+
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		pulldownRefresh();
@@ -118,9 +356,9 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			name: name
+			name: base.IsNullOrEmpty(name) ? "全部" : name
 		}
-		LoadPull(base.RootUrlTest + "Api/Music/SearchMenu", data, true, false, function(item) {
+		LoadPull(base.RootUrl + "Api/Music/SearchMenu", data, true, false, function(item) {
 			return AppendMenuHtml(item)
 		}, callback);
 	}
@@ -128,14 +366,36 @@
 	function AppendMenuHtml(item) {
 		var div = document.createElement('div');
 		var model = [];
-		model.push('<div class="items"><p class="play_name f13"><span class="music" name="' + item.Name + '">' + item.Name + '</span></p>');
+		model.push('<div class="items"><p class="play_name f13"><span class="music" name="' + item.Link + '" type="1">' + item.Name + '</span></p>');
 		model.push('<img src="' + item.Cover + '">');
 		model.push('<div class="play_info">');
 		mui.each(item.Child, function(i, x) {
-			model.push('<span class="song_name f11"><span class="music" name="' + x.Name + '">' + x.Name + '</span> - <span class="music" name="' + x.Author + '">' + x.Author + '</span></span>');
+			model.push('<span class="song_name f11"><span class="music" name="' + x.Name + '" type="0">' + x.Name + '</span> - <span class="music" name="' + x.Author + '" type="0">' + x.Author + '</span></span>');
 		})
 		model.push('</div></div><div class="splitline"></div>');
 		div.innerHTML = model.join('');
 		return div;
+	}
+
+	function Choose(index) {
+		var menus = base.Get("menus");
+		if(index == 0) {
+			base.Get("mytanbg").classList.add("hide");
+			menus.classList.remove("bounceInUp");
+			menus.classList.add("bounceOutUp");
+			mui.later(function() {
+				base.AddClass(["#mytanbg", "#menus"], "hide");
+			}, 250);
+		} else {
+			base.RemoveClass(["#mytanbg", "#menus"], "hide");
+			menus.classList.remove("bounceOutUp");
+			menus.classList.add("bounceInUp");
+		}
+	}
+
+	function ChangeType(index) {
+		base.AddClass([".tit_sub_nav"], "hide");
+		mui(".tit_sub_nav")[index].classList.remove("hide")
+
 	}
 </script>

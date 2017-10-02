@@ -2012,7 +2012,14 @@
 			"images/loading.gif",
 			"minjs/refresh.min.js",
 			"js/base.min.js",
-			"images/my/111.png"
+			"images/my/111.png",
+			"images/music/sort_05.png",
+			"images/music/sort_03.png",
+			"images/music/sort_02.png",
+			"images/music/sort_06.png",
+			"images/music/sort_01.png",
+			"mincss/animate.min.css",
+			"images/music/sort_04.png"
 		],
 		"refer": [
 			"page/musicSub.html",

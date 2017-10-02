@@ -30,7 +30,7 @@
 			}
 			
 			.stopMusic img {
-				border-radius: 50px;
+				border-radius: 100%;
 				animation: rotate 4s linear infinite;
 				-webkit-animation: rotate 4s linear infinite;
 				-ms-animation: rotate 4s linear infinite;
@@ -52,7 +52,7 @@
 			
 			.mui-table-view-cell:last-child:after,
 			.mui-table-view-cell:last-child:before {
-				height: 1px;
+				height: 0px !important;
 			}
 			
 			.mui-popup-title+.mui-popup-text {
@@ -96,7 +96,8 @@
 	var fileId = 0;
 	var fileName = "";
 	var fileUrl = "";
-	var SearchName = "";
+	var searchName = "";
+	var searchType = 0; //0：普通搜索,1：集合
 	pagesize = 30;
 	var addarticlePage = null;
 	var mask = base.CreateMask(false, function() {
@@ -123,18 +124,19 @@
 
 	var contentWebview = null;
 	mui.plusReady(function() {
-
 		base.TriggerMain = false;
-
 		var self = plus.webview.currentWebview();
-		SearchName = self.name || "";
-		if(!base.IsNullOrEmpty(SearchName)) {
-			search.focus();
-			search.value = SearchName
-			InitMusic(SearchName);
+		searchName = self.name || "";
+		searchType = self.searchtype || 0;
+		if(searchType == 0) {
+			if(!base.IsNullOrEmpty(searchName)) {
+				search.focus();
+				search.value = searchName
+				InitMusic(searchName);
+			}
+		} else {
+			InitMusicMenu(searchName);
 		}
-
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//取消
 		base.Get('no').addEventListener('tap', function(e) {
@@ -196,7 +198,7 @@
 			stopsound();
 			resetsound();
 		});
- 
+
 		//播放
 		mui("#scroll-view").on('tap', '.play', function(event) {
 			base.TriggerMain = true;
@@ -255,15 +257,17 @@
 
 	//加载
 	function InitMusic(title) {
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+
 		mask.show();
 		base.ShowWaiting("正在搜索");
 
-		SearchName = title;
+		searchName = title;
 		currpage = 1;
 		totalpage = 2;
 		base.Get('scroll-view').innerHTML = "";
 		Load(function() {
-			++currpage;
+			++currpage; 
 			isLoading = false;
 		})
 	}
@@ -280,7 +284,7 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			name: SearchName,
+			name: searchName,
 		};
 		HttpGet(base.RootUrl + "Api/Music/Search", data, function(data) {
 			data = JSON.parse(data);
@@ -302,6 +306,36 @@
 			if(callback) {
 				callback();
 			}
+		});
+	}
+
+	//搜索音乐集合
+	function InitMusicMenu() {
+		base.Get('scroll-view').innerHTML = "";
+		if(base.IsNullOrEmpty(searchName)) {
+			return;
+		}
+		var table = base.Get("scroll-view");
+		var data = {
+			url: searchName,
+		};
+		HttpGet(base.RootUrl + "Api/Music/SearchMenuList", data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					var length = data.list.length;
+					if(length > 0) {
+						var fragment = document.createDocumentFragment();
+						mui.each(data.list, function(index, item) {
+							fragment.appendChild(AppendHtml(item));
+						});
+						table.appendChild(fragment);
+					}
+				}
+			}
+			mask.close();
 		});
 	}
 
