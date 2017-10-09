@@ -341,7 +341,10 @@
 
 		//搜索  
 		base.Get("search").addEventListener('tap', function(event) {
-			base.OpenWindow("musicsearch", "musicsearch.html", {});
+			base.OpenWindow("musicsearch", "musicsearch.html", {
+				name: "",
+				searchtype: 0
+			});
 		});
 	});
 

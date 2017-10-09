@@ -131,7 +131,8 @@
 		if(searchType == 0) {
 			if(!base.IsNullOrEmpty(searchName)) {
 				search.focus();
-				search.value = searchName
+				search.value = searchName;
+				search.blur();
 				InitMusic(searchName);
 			}
 		} else {
@@ -159,24 +160,19 @@
 			if(base.IsNullOrEmpty(search.value)) {
 				return mui.toast("请输入搜索内容");
 			}
-			//document.activeElement.blur();
-			mui.later(function() {
-				InitMusic(search.value);
-			}, 250);
+			InitMusic(search.value);
 		});
 
 		//监听软键盘搜索键
-		/*base.Get("search").addEventListener("keydown", function(e) {
+		base.Get("search").addEventListener("keydown", function(e) {
 			if(13 == e.keyCode) {
 				if(base.IsNullOrEmpty(search.value)) {
 					return mui.toast("请输入搜索内容");
 				}
-				mui.later(function() {
-					base.Get("search").blur();
-					mui.trigger(base.Get("btnSearch"), "tap")
-				}, 250);
+				search.blur();
+				mui.trigger(base.Get("btnSearch"), "tap")
 			}
-		}, false);*/
+		}, false);
 
 		mui("#scroll-view").on('tap', 'li.music', function(event) {
 			if(base.TriggerMain) {
@@ -267,7 +263,7 @@
 		totalpage = 2;
 		base.Get('scroll-view').innerHTML = "";
 		Load(function() {
-			++currpage; 
+			++currpage;
 			isLoading = false;
 		})
 	}
