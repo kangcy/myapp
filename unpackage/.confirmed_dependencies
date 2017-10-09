@@ -2239,7 +2239,8 @@
       "images/music/stop.png",
       "minjs/refresh.min.js",
       "mincss/animate.min.css",
-      "images/avatar.png"
+      "images/avatar.png",
+      "images/music/top_bg.png"
     ],
     "refer": [
       "page/searchSub.html"

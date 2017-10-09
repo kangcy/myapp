@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
 			.mui-search {
@@ -64,6 +65,69 @@
 				height: 50px;
 				line-height: 50px;
 			}
+			
+			.musichead {
+				position: relative;
+				height: 2rem;
+				line-height: 2.2rem;
+				padding-left: 2.5rem;
+				background: url(../images/music/top_bg.png) 0.5rem 0.4rem no-repeat;
+				background-size: 2.2rem;
+			}
+			
+			.head1 {
+				border-bottom: 1px solid #b38ad0;
+				color: #b38ad0;
+				background-position: 0.5rem 0.5rem;
+			}
+			
+			.head2 {
+				border-bottom: 1px solid #ff6a3c;
+				color: #ff6a3c;
+				background-position: 0.5rem -1rem;
+			}
+			
+			.head3 {
+				border-bottom: 1px solid #4393fa;
+				color: #4393fa;
+				background-position: 0.5rem -2.5rem;
+			}
+			
+			.head4 {
+				border-bottom: 1px solid #79c152;
+				color: #79c152;
+				background-position: 0.5rem -4rem;
+			}
+			
+			.head5 {
+				border-bottom: 1px solid #7f82de;
+				color: #7f82de;
+				background-position: 0.5rem -5.5rem;
+			}
+			
+			.head6 {
+				border-bottom: 1px solid #c1a852;
+				color: #c1a852;
+				background-position: 0.5rem -7rem;
+			}
+			
+			.head7 {
+				border-bottom: 1px solid #6a94c9;
+				color: #6a94c9;
+				background-position: 0.5rem -8.5rem;
+			}
+			
+			.head8 {
+				border-bottom: 1px solid #ef5dae;
+				color: #ef5dae;
+				background-position: 0.5rem -10rem;
+			}
+			
+			.head9 {
+				border-bottom: 1px solid #e9b34b;
+				color: #e9b34b;
+				background-position: 0.5rem -11.5rem;
+			}
 		</style>
 	</head>
 
@@ -75,13 +139,17 @@
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:32px;font-size:15px;">
 			</div>
 		</header>
+		<div class="loading" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
 		<nav class="mui-bar mui-bar-tab hide" id="bottom" style="border-top:1px solid #eee;background:#fff;">
 			<div class="fl blue ml10" id="no">取消</div>
 			<div class="fr blue mr10" id="yes">完成</div>
 		</nav>
 		<div id="muicontent">
-			<ul class="mui-table-view f13 mt0 inline full" id="scroll-view">
-			</ul>
+			<ul class="mui-table-view f13 mt0 inline full" id="scroll-view"></ul>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
@@ -102,6 +170,7 @@
 	var addarticlePage = null;
 	var mask = base.CreateMask(false, function() {
 		base.CloseWaiting();
+		base.ShowLoading(false);
 	});
 
 	mui.init({
@@ -134,6 +203,8 @@
 				search.value = searchName;
 				search.blur();
 				InitMusic(searchName);
+			} else {
+				InitMusicTop();
 			}
 		} else {
 			InitMusicMenu(searchName);
@@ -333,6 +404,43 @@
 			}
 			mask.close();
 		});
+	}
+
+	//排行榜
+	function InitMusicTop() {
+		var table = base.Get("scroll-view");
+		table.innerHTML = "";
+		var data = {
+			url: searchName,
+		};
+		HttpGet(base.RootUrl + "Api/Music/SearchTop", data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage = data.totalpage;
+					var length = data.list.length;
+					if(length > 0) {
+						var fragment = document.createDocumentFragment();
+						mui.each(data.list, function(index, item) {
+							fragment.appendChild(AppendHeadHtml(index, item));
+							mui.each(item.Child, function(index2, item2) {
+								fragment.appendChild(AppendHtml(item2));
+							});
+						});
+						table.appendChild(fragment);
+					}
+				}
+			}
+			mask.close();
+		});
+	}
+
+	function AppendHeadHtml(i, item) {
+		var div = document.createElement('h2');
+		div.className = 'musichead f14 head' + (i + 1);
+		div.innerHTML = item.Name;
+		return div;
 	}
 
 	function AppendHtml(item) {
