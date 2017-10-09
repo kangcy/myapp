@@ -34,7 +34,7 @@
 				padding: 0 0.62rem;
 				margin: 0.4rem 0rem 0;
 				border-radius: 5px;
-				height: auto !important; 
+				height: auto !important;
 				line-height: 1.6rem !important;
 			}
 			
@@ -340,10 +340,6 @@
 		mui.later(function() {
 			if(first == 1) {
 				//新用户专享红包
-				if(isLoading) {
-					return false;
-				}
-				isLoading = true;
 				HttpGet(base.RootUrl + "Red/RedInfo", {}, function(data) {
 					base.OpenWindow("red", "red.html", data, "none", false, false, "transparent");
 					isLoading = false;
