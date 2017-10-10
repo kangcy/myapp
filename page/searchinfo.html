@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="../mincss/fan.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../swipe/swiper.min.css">
+		<link rel="stylesheet" href="../css/buttons.css">
 		<style type="text/css">
 			.my-pagination {
 				transition: transform .3s;
@@ -115,9 +116,9 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:12%;font-size:25px;" id="btnSearch"></a>
-			<div class="mui-input-row mui-search" style="width:90%;	display: inline-block;">
-				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索用户和文章" maxlength="10" style="height:32px;font-size:15px;">
+			<div class="mui-input-row mui-search" style="width:100%;display:inline-block;">
+				<input id="search" type="search" class="c999" placeholder="搜索用户和文章" maxlength="10" style="height:32px;font-size:15px;width:100%;">
+				<div id="btnSearch" class="button button-glow button-rounded button-raised button-primary button-small" style="position:absolute;right:1px;top:6px;padding:0 10px;font-size:13px;"><span class="mui-icon mui-icon-search" style="font-size:18px;padding-top:5px;"></span> 搜索</div>
 			</div>
 		</header>
 		<div class="mui-content" id="muicontent">
@@ -127,17 +128,17 @@
 				<div class="tabs_border"></div>
 			</div>
 			<div class="swiper-container swiper-container-horizontal" id="swiper-container">
-				<div class="swiper-wrapper"> 
+				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<div id="wrapper0" class="scroll-wrapper">
 							<div id="scroll0" class="scroller" style="background:#fff;"></div>
 						</div>
 					</div>
-					<div class="swiper-slide">
+					<div class="swiper-slide"> 
 						<div id="wrapper1" class="scroll-wrapper">
 							<div id="scroll1" class="scroller" style="background:#f5f5f5;">
 							</div>
-						</div>
+						</div> 
 					</div>
 				</div>
 			</div>

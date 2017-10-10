@@ -3837,7 +3837,8 @@
 			"images/article/btn_comment.png",
 			"images/article/btn_good2.png",
 			"images/article/btn_pay.png",
-			"images/article/btn_more.png"
+			"images/article/btn_more.png",
+			"css/buttons.css"
 		],
 		"refer": [
 			"page/articleComment.html",

@@ -41,6 +41,22 @@
 				width: 3.5rem !important;
 				height: 3.5rem !important;
 			}
+			
+			.flex-box {
+				position: relative;
+			}
+			
+			.flex-box:after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 3.5rem;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #ddd;
+			}
 		</style>
 	</head>
 
@@ -55,11 +71,9 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div id="muicontent">
-			<div id="scroll-view" class="inline full"></div>
-			<div id="scroll-more" class="full hide">
-				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div>
+		<div id="scroll-view" class="inline full"></div>
+		<div id="scroll-more" class="full hide">
+			<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 		</div>
 		<div id="none" class="full tc hide">
 			<p class="f12" id="none_tip">关注别人,第一时间得到他们的动态</p>
@@ -84,6 +98,7 @@
 		base.Immersed();
 		base.ToTop();
 		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("scroll-view").style.marginTop = base.Get("header").clientHeight + "px";
 	})
 
 	mui.plusReady(function() {
@@ -149,7 +164,7 @@
 		}
 
 		model.push('<div style="flex:0 0 16%;" class="flex-item tl"><div class="avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 2) + '" class="user fl" userid="' + item.Number + '" nickname="' + item.NickName + '" avatar="' + item.Avatar + '" cover="' + item.Cover + '" /></div></div>');
-		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '<span class="ml10 c999">' + title + '</span></p><p class="f10 c999">' + item.CreateTime + '</p>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '<span class="ml10 c999 f12">' + title + '</span></p><p class="f11 c999">' + item.CreateTime + '</p>');
 
 		mui.each(item.ArticleInfoJson, function(i, article) {
 			model.push('<div class="article fl" articleid="' + article.ID + '" userid="' + item.Number + '" power="' + article.ArticlePower + '" nickname="' + item.NickName + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(article.Cover, 2) + '" /></div>');
