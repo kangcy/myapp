@@ -52,7 +52,8 @@
 		var top = base.Get("header").clientHeight + base.Get("tabs_nav").clientHeight + 1 + "px";
 		searchuser = plus.webview.create('searchuser.html', 'searchuser', {
 			top: top,
-			bottom: '0px'
+			bottom: '0px',
+			userSelect: false
 		}, {
 			top: top
 		});

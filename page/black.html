@@ -28,8 +28,7 @@
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/111.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip">加入黑名单的用户将无法浏览你的专栏</p>
+			<p class="f12" id="none_tip">加入黑名单的用户将无法浏览你的专栏</p>
 		</div>
 	</body>
 
@@ -50,6 +49,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	});
 
 	mui.plusReady(function() {
@@ -98,7 +98,7 @@
 		var data = {
 			CreateUserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Black/All", data, true, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Black/All", data, true, false, function(item) {
 			return base.AppendUser(item, true, false, true, "移除黑名单");
 		}, callback);
 	}

@@ -61,7 +61,8 @@
 
 		//立即体验按钮点击事件 
 		base.Get("close").addEventListener('tap', function(event) {
-			plus.storage.setItem("lauchFlag", "true");
+			localStorage.setItem('lauchFlag', "true");
+
 			base.OpenWindow("login", "./login.html", {}, "fade-in");
 		}, false);
 

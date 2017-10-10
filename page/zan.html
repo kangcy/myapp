@@ -30,8 +30,7 @@
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/222.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip">大波内容正在赶来，敬请期待</p>
+			<p class="f12" id="none_tip">大波内容正在赶来，敬请期待</p>
 		</div>
 	</body>
 
@@ -54,6 +53,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	})
 
 	mui.plusReady(function() {
@@ -107,7 +107,7 @@
 		var model = [];
 		model.push('<div class="flex-box flex-row flex-top">');
 		model.push('<div style="flex:0 0 16%;" class="flex-item tc"><div class="avatar fl"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" nickname="' + item.NickName + '"avatar="' + item.Avatar + '"cover="' + item.Cover + '" /></div></div>');
-		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 f12">喜欢了你的文章<br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p><p class="f10 c999">' + item.CreateDate + '</p></div>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mt8 mb0 c333">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 mt3 f11">喜欢了你的文章<br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
@@ -119,7 +119,7 @@
 		var model = [];
 		model.push('<div class="flex-box flex-row flex-top">');
 		model.push('<div style="flex:0 0 16%;" class="flex-item tc"><div class="avatar fl"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" nickname="' + item.NickName + '"avatar="' + item.Avatar + '"cover="' + item.Cover + '" /></div></div>');
-		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mb5 c333" style="line-height:1.3rem;">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 f12"><br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p><p class="f10 c999">' + item.CreateDate + '</p></div>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mt8 mb0 c333">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 mt3 f11"><br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">' + base.UnUnicodeText(item.Title) + '</span></span></p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

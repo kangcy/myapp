@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../css/buttons.css">
 		<style type="text/css">
 			#scroll-view {
 				width: 100%;
@@ -128,10 +129,8 @@
 			<a class="mui-icon mui-text cfff fr" onclick="Choose(1)">分类</a>
 			<h1 class="mui-title cfff" id="title">音乐库</h1>
 		</header>
-		<nav class="mui-bar mui-bar-tab" id="search" style="background:#fff;border-top:1px solid #eee;">
-			<div class="mui-tab-item c333" style="font-size:16px;">
-				<span class="mui-icon mui-icon-search" style="top:0px;font-size:20px;margin-right:5px;"></span>搜索在线音乐
-			</div>
+		<nav class="mui-bar mui-bar-tab tc" id="search" style="bottom:0.5rem;">
+			<div class="button button-3d button-primary button-rounded" style="width:90%;"><span class="mui-icon mui-icon-search" style="font-size:20px;margin-right:5px;"></span>搜索在线音乐</div>
 		</nav>
 		<div class="loading" id="loader">
 			<div class="card">
@@ -145,8 +144,7 @@
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/111.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip"></p>
+			<p class="f12" id="none_tip"></p>
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
 		<div id="menus" class="hide">
@@ -177,8 +175,6 @@
 				<div>广场舞</div>
 				<div>圣诞节</div>
 				<div>中国好歌曲</div>
-				<div>格莱美</div>
-				<div>异域风情</div>
 				<div>音乐节</div>
 				<div>母亲节</div>
 				<div>生日</div>
@@ -196,7 +192,6 @@
 				<div>心痛</div>
 				<div>治愈</div>
 				<div>叛逆</div>
-				<div>期待</div>
 				<div>宣泄</div>
 				<div>失落</div>
 				<div>励志</div>
@@ -251,9 +246,7 @@
 				<div>约会</div>
 				<div>写作业</div>
 				<div>工作</div>
-				<div>烛光</div>
 				<div>做家务</div>
-				<div>休闲时光</div>
 				<div>校园</div>
 				<div>离别</div>
 				<div>失眠</div>
@@ -318,6 +311,7 @@
 
 	mui.ready(function() {
 		base.Immersed();
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 
 		mui("#scroll-view").on('tap', '.music', function(event) {
 			base.OpenWindow("musicsearch", "musicsearch.html", {
@@ -341,10 +335,12 @@
 
 		//搜索  
 		base.Get("search").addEventListener('tap', function(event) {
-			base.OpenWindow("musicsearch", "musicsearch.html", {
-				name: "",
-				searchtype: 0
-			});
+			mui.later(function() {
+				base.OpenWindow("musicsearch", "musicsearch.html", {
+					name: "",
+					searchtype: 0
+				});
+			}, 150)
 		});
 	});
 

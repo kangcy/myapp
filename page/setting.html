@@ -9,13 +9,14 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/setting.min.css">
+		<link rel="stylesheet" href="../css/buttons.css">
 		<style type="text/css">
 			.cancel {
 				width: 70%;
 				display: inline-block !important;
 				border-radius: 30px;
 				padding: 0.525rem 0.9375rem;
-			}
+			} 
 		</style>
 	</head>
 
@@ -90,11 +91,7 @@
 					<span class="c999" id="version"></span>
 				</div>
 			</div>
-			<div class="flex-box flex-row noborder f14 mt8" id="exit">
-				<div class="flex-item red full tc" style="flex: 0 0 100%;">
-					退出登录
-				</div>
-			</div>
+			<div class="button button-3d button-primary button-rounded tc" id="exit" style="width:90%;margin:5%;">退出登录</div>
 		</div>
 		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
 			<div class="flex-box flex-row noborder f13" onclick="Cancel()">
@@ -288,7 +285,9 @@
 
 			//退出操作
 			base.Get('exit').addEventListener('tap', function() {
-				mui('#action').popover('show');
+				mui.later(function() {
+					mui('#action').popover('show');
+				}, 250);
 			}, false);
 
 		}, function(e) {

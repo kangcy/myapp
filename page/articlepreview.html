@@ -690,6 +690,18 @@
 
 		//加载模板
 		LoadTemplate();
+
+		mui.back = function() {
+			//关闭弹层
+			if(base.HasClass(base.Get("btnTemp"), "hide")) {
+				TempTan(0);
+				ColorTan(0);
+				IconTan(0);
+				base.Get("btnTemp").classList.remove("hide");
+				return;
+			}
+			self.close();
+		}
 	});
 
 	//加载文章

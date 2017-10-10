@@ -15,8 +15,8 @@ var editor = null;
 
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
-	base.Get("commentwrapper").classList.remove("bounceIn");
-	base.Get("commentwrapper").classList.add("hide");
+	base.Get("commentwrapper").classList.remove("bounceInUp");
+	base.Get("commentwrapper").classList.add("bounceOutUp");
 
 	if(base.Get("bottomAction")) {
 		base.Get("bottomAction").classList.remove("hide");
@@ -244,12 +244,16 @@ function ShowComment(show) {
 
 		mask.show();
 		SetPullEnable(false);
+
 		if(base.Get("bottomAction")) {
 			base.Get("bottomAction").classList.remove("fadeInUp");
 			base.Get("bottomAction").classList.add("hide");
 		}
 		base.Get("commentwrapper").classList.remove("hide");
-		base.Get("commentwrapper").classList.add("fadeInUp");
+		base.Get("commentwrapper").classList.remove("bounceOutUp");
+		base.Get("commentwrapper").classList.add("bounceInUp");
+
+		base.ShowLoading(false);
 
 		if(!showIcon) {
 			showIcon = true;

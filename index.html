@@ -25,7 +25,7 @@
 		localStorage.setItem('$screenwidth', window.innerWidth);
 
 		//读取本地存储，检查是否为首次启动
-		var showGuide = plus.storage.getItem("lauchFlag");
+		var showGuide = localStorage.getItem('lauchFlag');
 
 		var all = plus.webview.all();
 		var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
@@ -40,23 +40,23 @@
 		//定位
 		base.InitPosition(function() {
 			if(!showGuide) {
-				base.OpenWindow("guide", "page/guide.html");
+				base.OpenWindow("guide", "page/guide.html", {}, "fade-in");
 				return;
 			}
 			if(userinfo == "") {
-				base.OpenWindow("login", "page/login.html");
+				base.OpenWindow("login", "page/login.html", {}, "fade-in");
 			} else {
-				base.OpenWindow("adv", "page/adv.html");
+				base.OpenWindow("adv", "page/adv.html", {}, "fade-in");
 			}
 		}, function() {
 			if(!showGuide) {
-				base.OpenWindow("guide", "page/guide.html");
+				base.OpenWindow("guide", "page/guide.html", {}, "fade-in");
 				return;
 			}
 			if(userinfo == "") {
-				base.OpenWindow("login", "page/login.html");
+				base.OpenWindow("login", "page/login.html", {}, "fade-in");
 			} else {
-				base.OpenWindow("adv", "page/adv.html");
+				base.OpenWindow("adv", "page/adv.html", {}, "fade-in");
 			}
 		});
 	});

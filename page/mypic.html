@@ -77,8 +77,7 @@
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/666.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip">大波内容正在赶来，敬请期待~</p>
+			<p class="f12" id="none_tip">大波内容正在赶来，敬请期待~</p>
 		</div>
 	</body>
 
@@ -100,6 +99,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	})
 
 	mui.plusReady(function() {

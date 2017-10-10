@@ -281,7 +281,8 @@
 			"js/update.min.js",
 			"js/imgcache.js",
 			"images/red/img_logo.png",
-			"images/login/logo.png"
+			"images/login/logo.png",
+			"css/buttons.css"
 		],
 		"refer": [
 			"page/login.html",
@@ -758,7 +759,8 @@
 			"swipe/swiper.min.js",
 			"swipe/swiper.min.css",
 			"mincss/animate.min.css",
-			"images/addarticle/btn_pic.png"
+			"images/addarticle/btn_pic.png",
+			"css/animate.min.css"
 		],
 		"refer": [
 			"page/edittitle.html",
@@ -1045,7 +1047,10 @@
 			"images/comment/dingwei2.png",
 			"css/comment.min.css",
 			"js/base.min.js",
-			"js/imgcache.js"
+			"js/imgcache.js",
+			"images/article/btn_good.png",
+			"images/article/btn_comment.png",
+			"images/article/btn_good2.png"
 		],
 		"refer": [
 			"page/commentSub.html",
@@ -1649,7 +1654,8 @@
 			"minjs/refresh.min.js",
 			"js/base.min.js",
 			"js/imgcache.js",
-			"images/avatar.png"
+			"images/avatar.png",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/zanSub.html",
@@ -2019,7 +2025,8 @@
 			"images/music/sort_06.png",
 			"images/music/sort_01.png",
 			"mincss/animate.min.css",
-			"images/music/sort_04.png"
+			"images/music/sort_04.png",
+			"css/buttons.css"
 		],
 		"refer": [
 			"page/musicSub.html",
@@ -2143,7 +2150,8 @@
 			"mincss/mui.min.css",
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"images/loading.gif"
 		],
 		"refer": []
 	},
@@ -2593,7 +2601,8 @@
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
 			"minjs/login.min.js",
-			"mincss/setting.min.css"
+			"mincss/setting.min.css",
+			"js/login.min.js"
 		],
 		"refer": [
 			"page/bindpassword.html",
@@ -3758,7 +3767,10 @@
 			"images/addarticle/icon_pic_n.png",
 			"images/default.png",
 			"images/addarticle/icon_pic_y.png",
-			"page/showy.html"
+			"page/showy.html",
+			"css/buttons.css",
+			"images/loading.gif",
+			"fonts/mui.ttf"
 		],
 		"refer": [
 			"page/showypreview.html"

@@ -102,8 +102,7 @@
 			<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>
 		</div>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/666.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip">大波内容正在赶来，敬请期待~</p>
+			<p class="f12" id="none_tip">大波内容正在赶来，敬请期待~</p>
 		</div>
 	</body>
 
@@ -134,6 +133,7 @@
 		base.Immersed();
 		base.ToTop();
 
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 		base.Get("muicontent").style.height = window.innerHeight - base.Get("header") + "px";
 	});
 
@@ -146,7 +146,7 @@
 			Init();
 
 			//下拉刷新 
-			SetPullEnable(true, function() {
+			SetPullEnable(true, null, function() {
 				PreviewEnable = true;
 				base.Get("pic").classList.add("hide");
 				pulldownRefresh();
@@ -163,7 +163,7 @@
 			SetPullEnable(false);
 		},
 		callback2: function(img) {
-			SetPullEnable(true, function() {
+			SetPullEnable(true, null, function() {
 				PreviewEnable = true;
 				base.Get("pic").classList.add("hide");
 				pulldownRefresh();

@@ -38,8 +38,7 @@
 		</div>
 		<textarea id="textarea" class="hide"></textarea>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/333.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip">既然还没人,那就先去首页逛会儿</p>
+			<p class="f12" id="none_tip">既然还没人,那就先去首页逛会儿</p>
 		</div>
 		<div id="divcomment"></div>
 	</body>
@@ -60,6 +59,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	});
 
 	mui.plusReady(function() {

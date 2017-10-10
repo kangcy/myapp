@@ -117,7 +117,7 @@
 			</ul>
 		</div>
 		<!--分隔-->
-		<div class="swiper-container hide" id="myline" style="bottom:0px;height:50%;width:100%;background: rgba(255, 255, 255, 1);">
+		<div class="swiper-container hide" id="myline" style="bottom:0px;width:100%;background: rgba(255, 255, 255, 1);">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
 					<div class="inline full split">
@@ -280,6 +280,8 @@
 	var $edit = base.Get("edit");
 	var InitParts = []; //段落
 	var lineSwiper, borderSwiper = null;
+	var lineCover = base.Get("line-cover");
+	var borderCover = base.Get("border-cover");
 	var borders = [{
 		tip: "拍立得(一)",
 		name: "border_bottomshadow"
@@ -415,6 +417,8 @@
 
 		mask.show();
 		base.ShowWaiting("正在加载");
+
+		base.Get("myline").style.height = window.innerHeight * 0.6 + "px";
 
 		//滚动监听、背景色渐变
 		var num = 0;
@@ -608,6 +612,16 @@
 		mui.back = function() {
 			var $this = this;
 
+			//关闭弹层
+			if(!base.HasClass(lineCover, "hide")) {
+				CloseLine();
+				return;
+			}
+			if(!base.HasClass(borderCover, "hide")) {
+				CloseBorder();
+				return;
+			}
+
 			//首次创建
 			if(Source == "Add") {
 				var btnArray = ['删除草稿', '存草稿'];
@@ -659,7 +673,7 @@
 	});
 
 	function ShowLine() {
-		base.Get("line-cover").classList.remove("hide");
+		lineCover.classList.remove("hide");
 		var myline = base.Get("myline");
 		myline.classList.remove("hide");
 		if(lineSwiper == null) {
@@ -687,11 +701,11 @@
 		var myline = base.Get("myline");
 		myline.classList.remove("bounceInUp");
 		myline.classList.add("bounceOutUp");
-		base.Get("line-cover").classList.add("hide");
+		lineCover.classList.add("hide");
 	}
 
 	function ShowBorder(src) {
-		base.Get("border-cover").classList.remove("hide");
+		borderCover.classList.remove("hide");
 		var myborder = base.Get("myborder");
 		myborder.classList.remove("hide");
 		var fragment = document.createDocumentFragment();
@@ -723,7 +737,7 @@
 		var myborder = base.Get("myborder");
 		myborder.classList.remove("bounceInUp");
 		myborder.classList.add("bounceOutUp");
-		base.Get("border-cover").classList.add("hide");
+		borderCover.classList.add("hide");
 	}
 
 	//修改图片

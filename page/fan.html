@@ -39,8 +39,7 @@
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/111.png" class="none" id="none_img" />
-			<p class="f13 mt10" id="none_tip"></p>
+			<p class="f12" id="none_tip"></p>
 		</div>
 	</body>
 
@@ -70,6 +69,7 @@
 		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的粉丝";
 		base.Get("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 
 		Init();
 
@@ -94,7 +94,7 @@
 			ToUserNumber: UserNumber,
 			CurrUserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, true, function(item) {
+		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, false, function(item) {
 			return base.AppendUser(item, true, true, false, "", false, true, false);
 		}, function() {
 			if(callback) {
@@ -105,7 +105,7 @@
 
 	function AppendUser(item) {
 		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user';
+		div.className = 'mui-table-view-cell user bounceInUp';
 		div.setAttribute("userid", item.Number);
 		div.setAttribute("nickname", item.NickName);
 		div.setAttribute("cover", item.Cover);
