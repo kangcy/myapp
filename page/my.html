@@ -125,12 +125,18 @@
 
 		//我的关注
 		base.Get("my-follows").addEventListener('tap', function() {
-			base.OpenWindow("follow", "follow.html", {});
+			var param = {
+				UserNumber: userinfo.Number
+			}
+			base.ShowTemplate("follow", "follow.html", "我的关注", JSON.stringify(param));
 		});
 
 		//我的粉丝
 		base.Get("my-fans").addEventListener('tap', function() {
-			base.OpenWindow("fan", "fan.html", {});
+			var param = {
+				UserNumber: userinfo.Number
+			}
+			base.ShowTemplate("fan", "fan.html", "我的粉丝", JSON.stringify(param));
 		});
 
 		//我的相册

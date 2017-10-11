@@ -44,12 +44,46 @@
 				height: 2.1875rem;
 				line-height: 2.2rem;
 			}
+			
+			.thirdfloor,
+			.add {
+				width: 30%;
+				height: 6rem;
+				margin-left: 12%;
+				margin-top: 10%;
+				border-radius: 5px;
+				float: left;
+				position: relative;
+				overflow: visible;
+			}
+			
+			.thirdfloor div {
+				position: absolute;
+				right: -0.9rem;
+				top: -0.9rem;
+				width: 1.8rem;
+				height: 1.8rem;
+				background: url(../images/icon/delete.png) center center no-repeat;
+				background-size: cover;
+			}
+			
+			.cancel {
+				width: 70%;
+				display: inline-block !important;
+				border-radius: 30px;
+				padding: 0.525rem 0.9375rem;
+			}
+			
+			.mui-table-view-cell {
+				padding: 0.525rem 0.9375rem;
+			}
 		</style>
 	</head>
 
 	<body style="background:#f5f5f5;">
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<a class="mui-icon mui-icon-image cfff fr" style="font-size:25px;" onclick="ShowPic()"></a>
 			<h1 class="mui-title cfff">意见反馈</h1>
 		</header>
 		<div class="mui-content" id="muicontent">
@@ -57,22 +91,58 @@
 			<textarea id='question' class="mui-input-clear f12 mb0" placeholder="聊聊您的看法，欢迎您参与到我们的产品建设中，说不定您的一句吐槽就成为我们产品更新的关键方向(限500字)" maxlength="500"></textarea>
 			<div class="f13 mt10 mb10" style="text-indent:10px;">联系方式：</div>
 			<input id='qq' type="tel" class="mui-input-clear f12" placeholder="手机号/邮箱(选项，方便我们联系您)" maxlength="250" />
+			<div id="scroll-view">
+			</div>
 		</div>
-		<div id="add">
+		<div id="add" class="mt20">
 			<div class="f15 cfff" id="submit">提交</div>
+		</div>
+		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder" id="camera">
+					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
+				</li>
+				<li class="mui-table-view-cell noborder" id="gallery">
+					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
+				</li>
+				<li class="mui-table-view-cell hide noborder" id="pic">
+					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
+				</li>
+				<li class="mui-table-view-cell noborder">
+					<a href="#upload" class="cfff f14 cancel mt2 mb0">取消</a>
+				</li>
+			</ul>
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
+<script src="../js/feedback_addimage.js"></script>
 <script type="text/javascript">
+	var id = 0;
 	var userinfo = base.GetUserInfo();
 	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
 		base.Get("submit").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+
+		mui.each(base.Get(".cancel"), function() {
+			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
+		})
+
+		mui('#scroll-view').on('tap', '.delicon', function(e) {
+			var index = this.getAttribute("tid");
+			mui.confirm('确定删除选中图片？', '', ['确定', '取消'], function(e) {
+				if(e.index < 0) {
+					return;
+				}
+				if(e.index == 0) {
+					base.Get("scroll-view").removeChild(mui("#" + index)[0]);
+				}
+			});
+		});
 	})
 
 	mui.plusReady(function() {
@@ -90,16 +160,43 @@
 			if(base.IsNullOrEmpty(qq.value)) {
 				return mui.toast('请填写联系方式');
 			}
-			HttpPost(base.RootUrl + "FeedBack/Edit", {
-				ID: userinfo.ID,
-				Summary: escape(question.value),
-				QQ: qq.value
-			}, function(data) {
-				mui.toast(data.result ? "感谢您的建议" : data.message);
-				if(data.result) {
-					plus.webview.close("feedback");
-				}
-			});
+			if(mui(".thirdfloor").length == 0) {
+				Submit("");
+			} else {
+				upload();
+			}
 		}, false);
 	})
+
+	function ShowPic() {
+		mui('#upload').popover('show');
+	}
+
+	function Submit(url) {
+		HttpPost(base.RootUrl + "FeedBack/Edit", {
+			ID: userinfo.ID,
+			Summary: escape(question.value),
+			QQ: qq.value,
+			Cover: url 
+		}, function(data) {
+			mui.toast(data.result ? "感谢您的建议" : data.message);
+			if(data.result) {
+				plus.webview.close("feedback");
+			}
+		});
+	}
+
+	function AppendStr(url) {
+		id++;
+		var div = document.createElement('div');
+		div.className = 'thirdfloor';
+		div.setAttribute("id", id);
+		div.setAttribute("url", url);
+		div.style.background = 'url(' + url + ')';
+		div.style.backgroundPosition = "center center";
+		div.style.backgroundRepeat = "no-repeat";
+		div.style.backgroundSize = "cover";
+		div.innerHTML = '<div class="delicon" tid="' + id + '"></div>'
+		base.Get("scroll-view").appendChild(div);
+	}
 </script>

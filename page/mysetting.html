@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/setting.min.css">
+		<link rel="stylesheet" href="../css/setting.min.css">
 		<link rel="stylesheet" href="../mincss/mui.picker.min.css">
 		<link rel="stylesheet" href="../mincss/mui.poppicker.min.css">
 		<style type="text/css">
@@ -35,13 +35,19 @@
 				position: absolute;
 				background: red;
 			}
+			
+			.flex-img {
+				width: 1rem;
+				float: left;
+				margin-right: 0.5rem;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">编辑个人资料</h1>
+			<h1 class="mui-title cfff">个人信息</h1>
 		</header>
 		<div class="mui-content" id="muicontent">
 			<div class="flex-box flex-row f13 mt0" id="divavatar">
@@ -125,11 +131,12 @@
 					<span class="mui-badge mui-badge-danger hide"></span>
 				</div>
 			</div>
+			<div class="splitline"></div>
 			<div class="flex-box flex-row f13 mt0" id="editsignature">
-				<div style="flex:0 0 25%;" class="flex-item">
+				<div style="flex:0 0 30%;" class="flex-item">
 					<span class="c000">个性签名</span>
 				</div>
-				<div style="flex:0 0 70%;" class="flex-item tr">
+				<div style="flex:0 0 65%;" class="flex-item tr">
 					<span class="fr c999 f12" id="signature"></span>
 				</div>
 				<div style="flex:0 0 5%;" class="flex-item tc">
@@ -167,22 +174,22 @@
 
 		base.Get("userid").innerHTML = userinfo.ID;
 		base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 1));
-		base.Get("nickname").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.NickName), "请填写");
+		base.Get("nickname").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.NickName), "点击设置昵称");
 		base.Get("sex").innerHTML = userinfo.Sex;
-		base.Get("city").innerHTML = base.FormatStr(userinfo.Address, "请填写");
-		base.Get("time").innerHTML = userinfo.Birthday == "0001-01-01" ? "请设置" : userinfo.Birthday;
-		base.Get("signature").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.Signature), "请填写");
+		base.Get("city").innerHTML = base.FormatStr(userinfo.Address, "点击设置位置");
+		base.Get("time").innerHTML = userinfo.Birthday == "0001-01-01" ? "点击设置生日" : userinfo.Birthday;
+		base.Get("signature").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.Signature), "点击设置签名");
 
-		if(base.Get("nickname").innerHTML == "请填写") {
+		if(base.Get("nickname").innerHTML == "点击设置昵称") {
 			mui("#editnickname .mui-badge")[0].classList.remove("hide");
 		}
-		if(base.Get("city").innerHTML == "请填写") {
+		if(base.Get("city").innerHTML == "点击设置位置") {
 			mui("#cityPicker .mui-badge")[0].classList.remove("hide");
 		}
-		if(base.Get("time").innerHTML == "请设置") {
+		if(base.Get("time").innerHTML == "点击设置生日") {
 			mui("#timePicker .mui-badge")[0].classList.remove("hide");
 		}
-		if(base.Get("signature").innerHTML == "请填写") {
+		if(base.Get("signature").innerHTML == "点击设置签名") {
 			mui("#editsignature .mui-badge")[0].classList.remove("hide");
 		}
 
@@ -373,7 +380,7 @@
 		var text = nickname.innerHTML.trim();
 		base.OpenWindow("edittext", "edittext.html", {
 			source: "nickname",
-			title: text == "请填写" ? "" : text
+			title: text == "点击设置昵称" ? "" : text
 		});
 	});
 
@@ -382,7 +389,7 @@
 		var text = signature.innerHTML.trim();
 		base.OpenWindow("edittext", "edittext.html", {
 			source: "signature",
-			title: text == "请填写" ? "" : text
+			title: text == "点击设置签名" ? "" : text
 		});
 	});
 

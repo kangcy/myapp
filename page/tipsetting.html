@@ -220,9 +220,10 @@
 
 	//喜欢
 	function Zan() {
-		base.OpenWindow("zan", "zan.html", {
+		var param = {
 			ShowMe: 1
-		});
+		}
+		base.ShowTemplate("zan", "zan.html", "我的喜欢", JSON.stringify(param));
 	}
 
 	//评论

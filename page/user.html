@@ -17,7 +17,7 @@
 		<header id="header" class="mui-bar" immersed="none">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<span class="cfff f25 fr more" onclick="More()">•••</span>
-			<h1 class="mui-title cfff">Ta的资料</h1>
+			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
 		<div class="loading" id="loader" style="top:20%;">
 			<div class="card">
@@ -206,6 +206,7 @@
 		if(!base.IsNullOrEmpty(NickName)) {
 			NickName = base.UnUnicodeText(NickName);
 			base.Get("nickname").innerHTML = NickName;
+			base.Get("title").innerHTML = NickName + "的专栏";
 		}
 		if(!base.IsNullOrEmpty(Avatar)) {
 			base.Get("avatar").setAttribute("src", base.ShowThumb(Avatar, 2));
@@ -263,6 +264,7 @@
 		if(!base.IsNullOrEmpty(NickName)) {
 			NickName = base.UnUnicodeText(NickName);
 			base.Get("nickname").innerHTML = NickName;
+			base.Get("title").innerHTML = NickName + "的专栏";
 		}
 		if(!base.IsNullOrEmpty(Avatar)) {
 			base.Get("avatar").setAttribute("src", base.ShowThumb(Avatar, 2));
@@ -298,6 +300,7 @@
 				if(base.IsNullOrEmpty(NickName) || NickName != data.NickName) {
 					NickName = base.UnUnicodeText(data.NickName);
 					base.Get("nickname").innerHTML = NickName;
+					base.Get("title").innerHTML = NickName + "的专栏";
 				}
 				base.Get("signature").innerHTML = base.UnUnicodeText(data.Signature);
 
@@ -308,7 +311,12 @@
 				} else {
 
 					base.AddClass(["#blacktip", "#outblack"], "hide");
-					base.RemoveClass(["#article", "#inblack"], "hide");
+
+					if(userinfo.Number === UserNumber) {
+						base.RemoveClass(["#article"], "hide");
+					} else {
+						base.RemoveClass(["#article", "#inblack"], "hide");
+					}
 
 					var showcount = 0;
 					if(data.ShowZan == 1) {
@@ -442,20 +450,18 @@
 
 	//关注
 	function Follow() {
-		base.OpenWindow("follow", "follow.html", {
-			Name: userinfo.Number == UserNumber ? "我" : NickName,
-			Sex: Sex == 0 ? "他" : "她",
+		var param = {
 			UserNumber: UserNumber
-		});
+		}
+		base.ShowTemplate("follow", "follow.html", userinfo.Number == UserNumber ? "我" : base.UnUnicodeText(NickName) + "的关注", JSON.stringify(param));
 	}
 
 	//粉丝
 	function Fan() {
-		base.OpenWindow("fan", "fan.html", {
-			Name: userinfo.Number == UserNumber ? "我" : NickName,
-			Sex: Sex == 0 ? "他" : "她",
+		var param = {
 			UserNumber: UserNumber
-		});
+		}
+		base.ShowTemplate("fan", "fan.html", userinfo.Number == UserNumber ? "我" : base.UnUnicodeText(NickName) + "的粉丝", JSON.stringify(param));
 	}
 
 	//收藏
@@ -469,12 +475,11 @@
 
 	//喜欢
 	function Zan() {
-		base.OpenWindow("zan", "zan.html", {
-			Name: userinfo.Number == UserNumber ? "我" : NickName,
-			Sex: Sex == 0 ? "他" : "她",
+		var param = {
 			UserNumber: UserNumber,
 			ShowMe: 0
-		});
+		}
+		base.ShowTemplate("zan", "zan.html", userinfo.Number == UserNumber ? "我" : base.UnUnicodeText(NickName) + "的喜欢", JSON.stringify(param));
 	}
 
 	//判断是否关注

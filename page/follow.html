@@ -19,28 +19,23 @@
 			.mui-table-view-cell:after {
 				left: 3.5rem;
 			}
+			
+			.mui-table-view-cell:last-child:after {
+				height: 0 !important;
+			}
 		</style>
 	</head>
 
 	<body>
-		<header id="header" class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<div class="mui-title cfff" id="title"></div>
-		</header>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div id="muicontent">
-			<div id="scroll-view"></div>
-			<div id="scroll-more" class="full hide">
-				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div>
-		</div>
 		<div id="none" class="full tc hide">
 			<p class="f12" id="none_tip"></p>
 		</div>
+		<div id="scroll-view" class="inline full"></div>
 	</body>
 
 </html>
@@ -49,13 +44,11 @@
 <script src="../minjs/refresh.min.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
+	var userinfo = base.GetUserInfo();
 	var UserNumber = "";
 	var self = null;
 
 	mui.init({
-		gestureConfig: {
-			doubletap: true
-		},
 		beforeback: function() {
 			base.RefreshUser();
 			return true;
@@ -63,17 +56,13 @@
 	});
 
 	mui.ready(function() {
-		base.Immersed();
-		base.ToTop();
 		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	})
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		var name = self.Name || "我";
-		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
-		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的关注";
-		if(name == "我") {
+		UserNumber = self.UserNumber;
+		if(userinfo.Number == UserNumber) {
 			base.Get("none_tip").innerHTML = "关注别人,第一时间得到他们的动态";
 		} else {
 			base.Get("none_tip").innerHTML = "关注了,才能看到第一时间动态呀";
@@ -84,7 +73,7 @@
 
 	function Init() {
 		pulldownRefresh();
-		SetPullEnable(true);
+		SetPullEnable(true, "0px");
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 		base.ShowUser("#scroll-view");
 		base.UserFan("#scroll-view", userinfo);
@@ -98,7 +87,7 @@
 			CurrUserNumber: userinfo.Number
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FollowsAll", data, true, false, function(item) {
-			return base.AppendUser(item, true, true, false, "", false, true, false);
+			return base.AppendUser(item, true, true, false, "", false, true, true);
 		}, function() {
 			if(callback) {
 				callback();
@@ -106,7 +95,7 @@
 		});
 	}
 
-	function AppendUser(item) {  
+	function AppendUser(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell user bounceInUp';
 		div.setAttribute("userid", item.Number);

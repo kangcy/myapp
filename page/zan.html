@@ -14,24 +14,15 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff" id="title"></h1>
-		</header>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div id="muicontent">
-			<div id="scroll-view"></div>
-			<div id="scroll-more" class="full hide">
-				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div>
-		</div>
 		<div id="none" class="full tc hide">
 			<p class="f12" id="none_tip">大波内容正在赶来，敬请期待</p>
 		</div>
+		<div id="scroll-view" class="inline full"></div>
 	</body>
 
 </html>
@@ -44,26 +35,17 @@
 	var UserNumber = "";
 	var ShowMe = 0;
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		}
-	});
+	mui.init({});
 
 	mui.ready(function() {
-		base.Immersed();
-		base.ToTop();
 		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	})
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		var name = self.Name || "我";
-		name = base.UnUnicodeText(name);
-		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
 		ShowMe = self.ShowMe || 0;
-		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的喜欢";
-		if(name == "我") {
+		UserNumber = self.UserNumber;
+		if(ShowMe == 1) {
 			base.Get("none_tip").innerHTML = "沒人赞你，你可以去赞别人呀";
 		} else {
 			base.Get("none_tip").innerHTML = name + "喜欢的文章，会在这里显示";
@@ -75,7 +57,7 @@
 	//初始化
 	function Init() {
 		pulldownRefresh();
-		SetPullEnable(true);
+		SetPullEnable(true, "0px");
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		base.ShowArticle("#scroll-view", "List", UserNumber);
@@ -107,7 +89,7 @@
 		var model = [];
 		model.push('<div class="flex-box flex-row flex-top">');
 		model.push('<div style="flex:0 0 16%;" class="flex-item tc"><div class="avatar fl"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" nickname="' + item.NickName + '"avatar="' + item.Avatar + '"cover="' + item.Cover + '" /></div></div>');
-		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mt8 mb0 c333">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 mt3 f11">喜欢了你的文章<br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p></div>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mt8 mb0 c333">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 mt5 f11">喜欢了你的文章<br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">「' + base.UnUnicodeText(item.Title) + '」</span></span></p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;
@@ -119,7 +101,7 @@
 		var model = [];
 		model.push('<div class="flex-box flex-row flex-top">');
 		model.push('<div style="flex:0 0 16%;" class="flex-item tc"><div class="avatar fl"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="user mt5" userid="' + item.UserNumber + '" nickname="' + item.NickName + '"avatar="' + item.Avatar + '"cover="' + item.Cover + '" /></div></div>');
-		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mt8 mb0 c333">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 mt3 f11"><br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">' + base.UnUnicodeText(item.Title) + '</span></span></p></div>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 mt8 mb0 c333">' + base.UnUnicodeText(item.NickName) + '<span class="ml5 c999 mt5 f11"><br /><span class="article blue" articleid="' + item.ArticleID + '" userid="' + item.UserNumber + '" power="' + item.ArticlePower + '" nickname="">' + base.UnUnicodeText(item.Title) + '</span></span></p></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
 		return div;

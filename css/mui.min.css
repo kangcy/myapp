@@ -4418,6 +4418,10 @@ body>.mui-progressbar {
 	content: '\e470'
 }
 
+.mui-icon-back {
+	font-size: 25px !important;
+}
+
 .mui-icon-back:before,
 .mui-icon-left-nav:before {
 	content: '\e471'

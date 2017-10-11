@@ -22,7 +22,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
 	var tempview = null;
 	var currview = null;
@@ -40,6 +40,10 @@
 
 	mui.plusReady(function() {
 		tempview = plus.webview.currentWebview();
+		InitPage(tempview.subid, tempview.suburl, tempview.subtitle, tempview.subparam, tempview.subtop);
+
+		tempview.show(base.IsNullOrEmpty(tempview.subanimate) ? base.ShowAnimate() : tempview.subanimate, base.AnimateDuration);
+
 		mui.back = function() {
 			var list = tempview.children();
 			if(list.length > 1) {
@@ -47,8 +51,11 @@
 				if(currview)
 					currview.close();
 			}
-			if(list.length == 1) {
-				tempview.hide("auto", base.AnimateDuration);
+			if(list.length == 0) {
+				tempview.close("auto", base.AnimateDuration);
+				appendview = [];
+			} else if(list.length == 1) {
+				tempview.close("auto", base.AnimateDuration);
 				appendview = [];
 				mui.later(function() {
 					base.Get("title").innerHTML = "";
@@ -58,6 +65,7 @@
 						currview.close();
 				}, base.AnimateDuration)
 			} else {
+				tempview.close("auto", base.AnimateDuration);
 				currview = base.GetView(appendview[list.length - 2].id);
 			}
 		}
@@ -71,18 +79,16 @@
 			title: title
 		});
 		var inittop = base.Get("header").clientHeight + "px";
-		if(top == "undefined") {
+		if(top == undefined) {
 			base.Get("title").innerHTML = title;
 		} else {
 			inittop = top;
 		}
-
 		if(base.IsNullOrEmpty(param)) {
 			param = {};
 		} else {
 			param = JSON.parse(param);
 		}
-
 		currview = plus.webview.create(url, id, {
 			top: inittop,
 			bottom: "0px",
@@ -90,13 +96,6 @@
 			scrollIndicator: "none"
 		}, param);
 		tempview.append(currview);
-
-		//点击关闭遮罩层
-		tempview.addEventListener("maskClick", function() {
-			tempview.setStyle({
-				mask: "none"
-			});
-		}, false);
 
 		//事件监听
 		if(id == "pic") {
@@ -137,23 +136,5 @@
 		} else {
 			base.Get(id).classList.add("hide");
 		}
-	}
-
-	//遮罩层
-	function Mask(show) {
-		if(show) {
-			tempview.setStyle({
-				mask: "rgba(0,0,0,0.6)"
-			});
-		} else {
-			tempview.setStyle({
-				mask: "none"
-			});
-		}
-	}
-
-	//添加关注
-	function AddUser() {
-		base.OpenWindow("addfan", "addfan.html", {});
 	}
 </script>

@@ -19,25 +19,20 @@
 			.mui-table-view-cell:after {
 				left: 3.5rem;
 			}
+			
+			.mui-table-view-cell:last-child:after {
+				height: 0 !important;
+			}
 		</style>
 	</head>
 
 	<body>
-		<header id="header" class="mui-bar mui-bar-nav">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<div class="mui-title cfff" id="title"></div>
-		</header>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div id="muicontent">
-			<div id="scroll-view"></div>
-			<div id="scroll-more" class="full hide">
-				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div>
-		</div>
+		<div id="scroll-view" class="inline full"></div>
 		<div id="none" class="full tc hide">
 			<p class="f12" id="none_tip"></p>
 		</div>
@@ -52,22 +47,15 @@
 	var UserNumber = "";
 	var self = null;
 
-	mui.init({
-		gestureConfig: {
-			doubletap: true
-		}
-	});
+	mui.init({});
 
 	mui.ready(function() {
-		base.Immersed();
-		base.ToTop();
+
 	})
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		var name = self.Name || "我";
-		UserNumber = name == "我" ? userinfo.Number : self.UserNumber;
-		base.Get("title").innerHTML = base.UnUnicodeText(name) + "的粉丝";
+		UserNumber = self.UserNumber;
 		base.Get("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
 		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 
@@ -80,7 +68,7 @@
 	function Init() {
 		pulldownRefresh();
 
-		SetPullEnable(true);
+		SetPullEnable(true, "0px");
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		base.ShowUser("#scroll-view");
@@ -95,7 +83,7 @@
 			CurrUserNumber: userinfo.Number
 		}
 		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, false, function(item) {
-			return base.AppendUser(item, true, true, false, "", false, true, false);
+			return base.AppendUser(item, true, true, false, "", false, true, true);
 		}, function() {
 			if(callback) {
 				callback();

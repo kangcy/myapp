@@ -71,12 +71,14 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<div id="scroll-view" class="inline full"></div>
-		<div id="scroll-more" class="full hide">
-			<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-		</div>
 		<div id="none" class="full tc hide">
 			<p class="f12" id="none_tip">关注别人,第一时间得到他们的动态</p>
+		</div>
+		<div id="muicontent" class="inline full">
+			<div id="scroll-view" class="inline full"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+			</div>
 		</div>
 	</body>
 
@@ -98,7 +100,6 @@
 		base.Immersed();
 		base.ToTop();
 		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("scroll-view").style.marginTop = base.Get("header").clientHeight + "px";
 	})
 
 	mui.plusReady(function() {

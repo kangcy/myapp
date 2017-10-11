@@ -220,7 +220,10 @@
 			"page/article.html",
 			"page/notice.html",
 			"page/user.html",
-			"page/subindex.html"
+			"page/subindex.html",
+			"mincss/loading.min.css",
+			"page/fan.html",
+			"page/zan.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
@@ -418,7 +421,8 @@
 			"page/pic.html",
 			"page/mypic.html",
 			"page/addarticle.html",
-			"page/tip.html"
+			"page/tip.html",
+			"page/template.html"
 		]
 	},
 	"page/article.html": {
@@ -585,7 +589,8 @@
 			"images/header.png",
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"js/feedback_addimage.js"
 		],
 		"refer": []
 	},
@@ -936,7 +941,8 @@
 			"page/addimage.html",
 			"page/red.html",
 			"page/searchinfo.html",
-			"page/mypayinfo.html"
+			"page/mypayinfo.html",
+			"page/template.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -1142,7 +1148,8 @@
 			"page/mypic.html",
 			"page/money.html",
 			"page/action.html",
-			"page/addimage.html"
+			"page/addimage.html",
+			"page/template.html"
 		]
 	},
 	"page/userSub.html": {
@@ -1200,7 +1207,8 @@
 			"images/avatar.png",
 			"css/setting.min.css",
 			"mincss/setting.min.css",
-			"js/base.min.js"
+			"js/base.min.js",
+			"images/music/sort_01.png"
 		],
 		"refer": [
 			"page/editsignature.html",
@@ -2621,7 +2629,8 @@
 			"js/default.js",
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"mincss/setting.min.css"
 		],
 		"refer": [
 			"page/black.html"
