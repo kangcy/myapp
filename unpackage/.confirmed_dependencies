@@ -1220,7 +1220,8 @@
 			"page/login.html",
 			"page/my.html",
 			"page/edittitle.html",
-			"page/edittext.html"
+			"page/edittext.html",
+			"page/star.html"
 		]
 	},
 	"page/articledetail.html": {
@@ -3951,6 +3952,28 @@
 		"refer": [
 			"page/customsetting.html",
 			"page/showy.html"
+		]
+	},
+	"page/star.html": {
+		"resources": [
+			"images/my/1-06.png",
+			"images/my/1-01.png",
+			"mincss/mui.min.css",
+			"images/my/1-07.png",
+			"minjs/mui.min.js",
+			"images/my/1-12.png",
+			"images/my/1-10.png",
+			"images/my/1-13.png",
+			"images/my/1-08.png",
+			"images/my/1-02.png",
+			"images/my/1-05.png",
+			"images/my/1-11.png",
+			"minjs/base.min.js",
+			"images/my/1-09.png",
+			"images/my/1-04.png",
+			"images/my/1-03.png",
+			"images/my/check.png",
+			"fonts/mui.ttf"
 		]
 	}
 }

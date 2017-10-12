@@ -15,7 +15,7 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<a class="mui-icon mui-text cfff fr hide" id="pic">删除</a>
 			<a class="mui-icon mui-text cfff fr hide" id="mypic">完成</a>
-			<a class="mui-icon mui-icon-plus fr cfff hide" id="addfan" onclick="AddUser()"></a>
+			<a class="mui-icon mui-text cfff fr hide" id="star">保存</a>
 			<div class="mui-title cfff" id="title"></div>
 		</header>
 	</body>
@@ -59,7 +59,7 @@
 				appendview = [];
 				mui.later(function() {
 					base.Get("title").innerHTML = "";
-					base.AddClass(["#pic", "#mypic", "#addfan"], "hide");
+					base.AddClass(["#pic", "#mypic", "#star"], "hide");
 					tempview.remove(currview);
 					if(currview)
 						currview.close();
@@ -98,22 +98,12 @@
 		tempview.append(currview);
 
 		//事件监听
-		if(id == "pic") {
-			base.Get("pic").addEventListener("tap", function() {
-				if(base.RepeatAction()) {
-					return;
-				}
-				currview.evalJS("Confirm()");
-			}, false);
-		}
-		if(id == "mypic") {
-			base.Get("mypic").addEventListener("tap", function() {
-				if(base.RepeatAction()) {
-					return;
-				}
-				currview.evalJS("Confirm()");
-			}, false);
-		}
+		base.Get(id).addEventListener("tap", function() {
+			if(base.RepeatAction()) {
+				return;
+			}
+			currview.evalJS("Confirm()");
+		}, false);
 
 		//返回顶部
 		base.Get("header").addEventListener("doubletap", function() {
