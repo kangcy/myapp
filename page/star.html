@@ -160,9 +160,6 @@
 	var currStar = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	var mask = base.CreateMask(false, function() {
-		base.CloseWaiting();
-	});
 
 	mui.init();
 
@@ -185,26 +182,19 @@
 			return false;
 		}
 		isLoading = true;
-		mask.show();
-		base.ShowWaiting("正在保存");
 		HttpGet(base.RootUrl + "User/EditStar", {
 			ID: userinfo.ID,
 			Star: currStar
 		}, function(data) {
-			mui.later(function() {
-				mask.close();
-				if(data.result) {
-					userinfo.Star = currStar;
-					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					console.log(JSON.stringify(base.GetUserInfo()))
-					base.GetView("mysetting").evalJS("UpdateStar(" + currStar + ")");
-					mui.back();
-					//plus.webview.currentWebview().parent().close();
-				} else {
-					mui.toast(data.message);
-				}
-				isLoading = false;
-			}, 500);
+			if(data.result) {
+				userinfo.Star = currStar;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				base.GetView("mysetting").evalJS("InitStar(" + currStar + ")");
+				mui.back();
+			} else {
+				mui.toast(data.message);
+			}
+			isLoading = false;
 		});
 	}
 </script>

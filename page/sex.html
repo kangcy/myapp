@@ -57,7 +57,7 @@
 		</div>
 		<div class="flex-box flex-row f13" index="1">
 			<div class="flex-item">
-				<img src="../images/my/1-01.png" class="fl" /><span class="c000 ml5">男</span><span class="c999 ml10 f10">3.21-4.19</span>
+				<img src="../images/my/1-01.png" class="fl" /><span class="c000 ml5">男</span>
 			</div>
 			<div class="flex-item">
 				<img src="../images/my/check.png" class="fr" />
@@ -65,7 +65,7 @@
 		</div>
 		<div class="flex-box flex-row f13" index="2">
 			<div class="flex-item">
-				<img src="../images/my/1-02.png" class="fl" /><span class="c000 ml5">女</span><span class="c999 ml10 f10">4.20-5.20</span>
+				<img src="../images/my/1-02.png" class="fl" /><span class="c000 ml5">女</span>
 			</div>
 			<div class="flex-item">
 				<img src="../images/my/check.png" class="fr" />
@@ -80,10 +80,6 @@
 	var currSex = 0;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	var mask = base.CreateMask(false, function() {
-		base.CloseWaiting();
-	});
-
 	mui.init();
 
 	mui.ready(function() {
@@ -91,7 +87,7 @@
 
 		currSex = userinfo.Sex || 0;
 
-		mui(".flex-box[index='" + currStar + "']")[0].classList.add("curr");
+		mui(".flex-box[index='" + currSex + "']")[0].classList.add("curr");
 
 		mui("body").on('tap', '.flex-box', function() {
 			currSex = this.getAttribute("index");
@@ -105,25 +101,20 @@
 			return false;
 		}
 		isLoading = true;
-		mask.show();
-		base.ShowWaiting("正在保存");
 		HttpGet(base.RootUrl + "User/EditSex", {
 			ID: userinfo.ID,
 			Sex: currSex
 		}, function(data) {
-			mui.later(function() {
-				mask.close();
-				if(data.result) {
-					userinfo.Sex = currSex;
-					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					base.GetView("mysetting").evalJS("UpdateSex(" + currSex + ")");
-					mui.back();
-					//plus.webview.currentWebview().parent().close();
-				} else {
-					mui.toast(data.message);
-				}
-				isLoading = false;
-			}, 500);
+			if(data.result) {
+				userinfo.Sex = currSex;
+				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				console.log(currSex)
+				base.GetView("mysetting").evalJS("InitSex(" + currSex + ")");
+				mui.back();
+			} else {
+				mui.toast(data.message);
+			}
+			isLoading = false;
 		});
 	}
 </script>

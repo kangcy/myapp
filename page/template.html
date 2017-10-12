@@ -16,6 +16,7 @@
 			<a class="mui-icon mui-text cfff fr hide" id="pic">删除</a>
 			<a class="mui-icon mui-text cfff fr hide" id="mypic">完成</a>
 			<a class="mui-icon mui-text cfff fr hide" id="star">保存</a>
+			<a class="mui-icon mui-text cfff fr hide" id="sex">保存</a>
 			<div class="mui-title cfff" id="title"></div>
 		</header>
 	</body>
@@ -97,13 +98,18 @@
 		}, param);
 		tempview.append(currview);
 
-		//事件监听
-		base.Get(id).addEventListener("tap", function() {
-			if(base.RepeatAction()) {
-				return;
-			}
-			currview.evalJS("Confirm()");
-		}, false);
+		var item = base.Get(id);
+		if(item) {
+			item.classList.remove("hide");
+
+			//事件监听
+			item.addEventListener("tap", function() {
+				if(base.RepeatAction()) {
+					return;
+				}
+				currview.evalJS("Confirm()");
+			}, false);
+		}
 
 		//返回顶部
 		base.Get("header").addEventListener("doubletap", function() {

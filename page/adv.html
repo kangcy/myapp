@@ -30,7 +30,7 @@
 			
 			#text {
 				position: fixed;
-				top: 28px;
+				top: 25px;
 				right: 0px;
 				color: #fff;
 				font-size: 13px;
@@ -40,7 +40,7 @@
 			}
 			
 			#sec-text {
-				font-size: 20px;
+				font-size: 12px;
 			}
 			
 			#top {
@@ -79,13 +79,15 @@
 			<circle cx="40" cy="40" r="20" fill="rgba(0, 0, 0, 0.5)" stroke="#43AEFA" stroke-width="0"></circle>
 			<circle id="sec-circle" class="sec-circle" cx="40" cy="40" r="20" stroke-width="3" fill="transparent" stroke="#F4F1F1" transform="rotate(-90 40 40)"></circle>
 		</svg>
-		<div id="text"><span id="sec-text">5</span><span>s</span></div>
+		<div id="text">
+			<p style="font-size:12px;margin:0px;">跳过</p><span id="sec-text">5</span><span>s</span></div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
+	var isready = false;
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		keyEventBind: {
@@ -106,6 +108,10 @@
 		top.style.display = "block";
 		center.style.display = "block";
 		bottom.style.display = "block";
+
+		base.Get('text').addEventListener('tap', function(e) {
+			Skip();
+		});
 	})
 
 	var subindex = null;
@@ -115,6 +121,7 @@
 		if(userinfo == "") {
 			preload_login();
 			Time(5);
+			isready = true;
 		} else {
 			subindex = plus.webview.create("subindex.html", "subindex", {
 				left: "0px",
@@ -139,6 +146,7 @@
 
 			subindex.onloaded = function() {
 				Time(5);
+				isready = true;
 			}
 		}
 
@@ -164,20 +172,7 @@
 		var t = time;
 		index = setInterval(function() {
 			if(0 == t) {
-				clearInterval(index);
-				if(userinfo == "") {
-					base.GetView("login").show("zoom-fade-out");
-				} else {
-					subindex.show("zoom-fade-out", base.AnimateDuration, function() {
-
-					});
-					mui.later(function() {
-						plus.webview.close("adv", "none");
-						plus.webview.close("guide", "none");
-						plus.webview.close("login", "none");
-					}, base.AnimateDuration)
-					subindex.evalJS("InitChild(0)");
-				}
+				Skip();
 			} else {
 				var e = Math.round((t - 1) / time * perimeter);
 				n.style.strokeDashoffset = e - perimeter;
@@ -185,6 +180,25 @@
 				t -= 1;
 			}
 		}, 1000);
+	}
+
+	function Skip() {
+		if(isready) {
+			clearInterval(index);
+			if(userinfo == "") {
+				base.GetView("login").show("zoom-fade-out");
+			} else {
+				subindex.show("zoom-fade-out", base.AnimateDuration, function() {
+
+				});
+				mui.later(function() {
+					plus.webview.close("adv", "none");
+					plus.webview.close("guide", "none");
+					plus.webview.close("login", "none");
+				}, base.AnimateDuration)
+				subindex.evalJS("InitChild(0)");
+			}
+		}
 	}
 
 	//预加载-登录页			

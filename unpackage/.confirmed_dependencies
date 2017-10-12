@@ -223,7 +223,8 @@
 			"page/subindex.html",
 			"mincss/loading.min.css",
 			"page/fan.html",
-			"page/zan.html"
+			"page/zan.html",
+			"page/star.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
@@ -244,7 +245,9 @@
 			"page/user.html",
 			"page/setting.html",
 			"page/accountsetting.html",
-			"page/subindex.html"
+			"page/subindex.html",
+			"page/star.html",
+			"page/sex.html"
 		]
 	},
 	"page/setting.html": {
@@ -1208,7 +1211,17 @@
 			"css/setting.min.css",
 			"mincss/setting.min.css",
 			"js/base.min.js",
-			"images/music/sort_01.png"
+			"images/music/sort_01.png",
+			"images/my/2-01.png",
+			"images/my/2-05.png",
+			"images/my/2-03.png",
+			"images/my/2-06.png",
+			"images/my/2-07.png",
+			"images/my/2-02.png",
+			"images/my/sex1.png",
+			"images/my/1-13.png",
+			"images/my/sex2.png",
+			"images/my/1-08.png"
 		],
 		"refer": [
 			"page/editsignature.html",
@@ -1221,7 +1234,8 @@
 			"page/my.html",
 			"page/edittitle.html",
 			"page/edittext.html",
-			"page/star.html"
+			"page/star.html",
+			"page/template.html"
 		]
 	},
 	"page/articledetail.html": {
@@ -3973,7 +3987,19 @@
 			"images/my/1-04.png",
 			"images/my/1-03.png",
 			"images/my/check.png",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"images/loading.gif"
+		]
+	},
+	"page/sex.html": {
+		"resources": [
+			"images/my/1-01.png",
+			"images/my/check.png",
+			"images/my/1-13.png",
+			"images/my/1-02.png",
+			"mincss/mui.min.css",
+			"minjs/base.min.js",
+			"minjs/mui.min.js"
 		]
 	}
 }

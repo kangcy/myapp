@@ -8,38 +8,83 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../css/setting.min.css">
 		<link rel="stylesheet" href="../mincss/mui.picker.min.css">
 		<link rel="stylesheet" href="../mincss/mui.poppicker.min.css">
-		<style type="text/css">.mui-bar {
-	background: #fff;
-}
-
-#signature {
-	width: 12rem;
-	line-height: 20px;
-	white-space: normal;
-}
-
-.mui-icon-arrowright {
-	margin-right: -0.3rem;
-}
-
-.mui-badge-danger {
-	width: 10px;
-	height: 10px;
-	padding: 0px;
-	top: 0.3rem !important;
-	right: 0.5rem !important;
-	position: absolute;
-	background: red;
-}
-
-.flex-img {
-	width: 1rem;
-	float: left;
-	margin-right: 0.5rem;
-}</style>
+		<style type="text/css">
+			body {
+				background: #fff;
+			}
+			
+			.mui-table-view:after {
+				height: 0px;
+			}
+			
+			.flex-row {
+				padding: 0.825rem 0.9375rem;
+				position: relative;
+				background: #fff;
+			}
+			
+			.flex-row:after {
+				position: absolute;
+				right: 0.8rem;
+				bottom: 0;
+				left: 0.8rem;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #eee;
+			}
+			
+			.flex-row.noborder:after {
+				height: 0px;
+			}
+			
+			.flex-row :first-child {
+				flex: 0 0 50%;
+			}
+			
+			.flex-row :last-child {
+				flex: 0 0 50%;
+			}
+			
+			.mui-bar {
+				background: #fff;
+			}
+			
+			#signature {
+				width: 12rem;
+				line-height: 20px;
+				white-space: normal;
+			}
+			
+			.mui-icon-arrowright {
+				margin-right: -0.3rem;
+			}
+			
+			.mui-badge-danger {
+				width: 10px;
+				height: 10px;
+				padding: 0px;
+				top: 0.3rem !important;
+				right: 0.5rem !important;
+				position: absolute;
+				background: red;
+			}
+			
+			.flex-img {
+				width: 1.2rem;
+				float: left;
+				margin-right: 0.5rem;
+			}
+			
+			.flex-img2 {
+				width: 1rem;
+				float: right;
+				margin-right: 0.2rem;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -50,19 +95,15 @@
 		<div class="mui-content" id="muicontent">
 			<div class="flex-box flex-row f13 mt0" id="divavatar">
 				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">头像</span>
+					<img src="../images/my/2-01.png" class="flex-img" /><span class="c000 mt2">头像</span>
 				</div>
-				<div style="flex:0 0 70%;" class="flex-item tr">
+				<div style="flex:0 0 75%;" class="flex-item tr">
 					<img class="head-img mui-action-preview fr" id="avatar" src="../images/avatar.png" style="width:4rem;height:4rem;border-radius:50%;" />
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-					<span class="mui-badge mui-badge-danger hide"></span>
 				</div>
 			</div>
 			<div class="flex-box flex-row f13 mt0" id="editnickname">
 				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">昵称</span>
+					<img src="../images/my/2-01.png" class="flex-img" /><span class="c000 fl">昵称</span>
 				</div>
 				<div style="flex:0 0 70%;" class="flex-item">
 					<span class="fr c999 f12" id="nickname"></span>
@@ -83,9 +124,9 @@
 					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
 				</div>
 			</div>
-			<div class="flex-box flex-row f13 mt0" id="age">
+			<div class="flex-box flex-row f13 mt0 hide" id="age">
 				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">微龄</span>
+					<img src="../images/my/2-07.png" class="flex-img" /><span class="c000">微龄</span>
 				</div>
 				<div style="flex:0 0 70%;" class="flex-item">
 					<span class="fr c999 f12" id="userage">0天</span>
@@ -96,7 +137,7 @@
 			</div>
 			<div class="flex-box flex-row f13 mt0" id="sexPicker">
 				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">性别</span>
+					<img src="../images/my/2-02.png" class="flex-img" /><span class="c000">性别</span>
 				</div>
 				<div style="flex:0 0 70%;" class="flex-item">
 					<span class="fr c999 f12" id="sex"></span>
@@ -107,7 +148,7 @@
 			</div>
 			<div class="flex-box flex-row f13 mt0" id="starPicker">
 				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">星座</span>
+					<img src="../images/my/2-03.png" class="flex-img" /><span class="c000">星座</span>
 				</div>
 				<div style="flex:0 0 70%;" class="flex-item">
 					<span class="fr c999 f12" id="star"></span>
@@ -118,7 +159,7 @@
 			</div>
 			<div class="flex-box flex-row f13 mt0" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker" style="position:relative;">
 				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">生日</span>
+					<img src="../images/my/2-07.png" class="flex-img" /><span class="c000">生日</span>
 				</div>
 				<div style="flex:0 0 70%;" class="flex-item">
 					<span class="fr c999 f12" id="time"></span>
@@ -128,12 +169,12 @@
 					<span class="mui-badge mui-badge-danger hide"></span>
 				</div>
 			</div>
-			<div class="flex-box flex-row f13 mt0" id="cityPicker">
+			<div class="flex-box flex-row noborder f13 mt0" id="cityPicker">
 				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">所在地</span>
+					<img src="../images/my/2-06.png" class="flex-img" /><span class="c000">所在地</span>
 				</div>
 				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999 f12" id="city"></span>
+					<span class="fr c999 f11" id="city"></span>
 				</div>
 				<div style="flex:0 0 5%;" class="flex-item tc">
 					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
@@ -141,9 +182,9 @@
 				</div>
 			</div>
 			<div class="splitline"></div>
-			<div class="flex-box flex-row f13 mt0" id="editsignature">
+			<div class="flex-box flex-row noborder f13 mt0" id="editsignature">
 				<div style="flex:0 0 30%;" class="flex-item">
-					<span class="c000">个性签名</span>
+					<img src="../images/my/2-05.png" class="flex-img" /><span class="c000 fl">个性签名</span>
 				</div>
 				<div style="flex:0 0 65%;" class="flex-item tr">
 					<span class="fr c999 f12" id="signature"></span>
@@ -161,335 +202,323 @@
 <script src="../js/base.min.js"></script>
 <script src="../js/mui.picker.min.js"></script>
 <script src="../js/mui.poppicker.js"></script>
-<script type="text/javascript">var auths = {};
-var isLoading = false;
-var userinfo = base.GetUserInfo();
-var mask = base.CreateMask(false, function() {
-	base.CloseWaiting();
-});
-
-mui.init({
-	beforeback: function() {
-		base.RefreshUser();
-		return true;
-	}
-});
-
-mui.ready(function() {
-	base.Immersed();
-
-	base.InitScroll();
-
-	base.Get("userid").innerHTML = userinfo.ID;
-	base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 1));
-	base.Get("nickname").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.NickName), "点击设置昵称");
-	base.Get("sex").innerHTML = userinfo.Sex == 0 ? "保密" : userinfo.Sex == 1 ? "男" : "女";
-	base.Get("city").innerHTML = base.FormatStr(userinfo.Address, "点击设置位置");
-	base.Get("time").innerHTML = userinfo.Birthday == "0001-01-01" ? "点击设置生日" : userinfo.Birthday;
-	base.Get("signature").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.Signature), "点击设置签名");
-
-	var star = userinfo.Star || 0;
-	InitStar(star);
-
-	if(base.Get("nickname").innerHTML == "点击设置昵称") {
-		mui("#editnickname .mui-badge")[0].classList.remove("hide");
-	}
-	if(base.Get("city").innerHTML == "点击设置位置") {
-		mui("#cityPicker .mui-badge")[0].classList.remove("hide");
-	}
-	if(base.Get("time").innerHTML == "点击设置生日") {
-		mui("#timePicker .mui-badge")[0].classList.remove("hide");
-	}
-	if(base.Get("signature").innerHTML == "点击设置签名") {
-		mui("#editsignature .mui-badge")[0].classList.remove("hide");
-	}
-
-	if(userinfo.CreateDate) {
-		InitDay();
-	} else {
-		base.UpdateUser(userinfo.Number, function() {
-			userinfo = base.GetUserInfo();
-			InitDay();
-		})
-	}
-
-	base.Get('cityPicker').addEventListener('tap', function(event) {
-		base.OpenWindow("province", "province.html", {});
+<script type="text/javascript">
+	var auths = {};
+	var isLoading = false;
+	var userinfo = base.GetUserInfo();
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
 	});
 
-	base.Get('sexPicker').addEventListener('tap', function(event) {
-		//base.OpenWindow("star", "star.html", {});
-		var param = {}
-		base.ShowTemplate("sex", "sex.html", "性别", JSON.stringify(param));
+	mui.init({
+		beforeback: function() {
+			base.RefreshUser();
+			return true;
+		}
 	});
 
-	base.Get('starPicker').addEventListener('tap', function(event) {
-		//base.OpenWindow("star", "star.html", {});
-		var param = {}
-		base.ShowTemplate("star", "star.html", "星座", JSON.stringify(param));
-	});
+	mui.ready(function() {
+		base.Immersed();
 
-	//性别选择
-	/*var sexResult = base.Get('sexResult');
-	base.Get('sexPicker').addEventListener('tap', function(event) {
-		var sexPicker = new mui.PopPicker();
-		sexPicker.setData([{
-			value: '0',
-			text: "男"
-		}, {
-			value: '1',
-			text: "女"
-		}]);
-		sexPicker.show(function(items) {
-			if(isLoading) {
-				return false;
-			}
-			isLoading = true;
-			mask.show();
-			base.ShowWaiting("正在编辑性别");
-			base.Get("sex").innerHTML = items[0].text;
+		base.InitScroll();
 
-			HttpGet(base.RootUrl + "User/EditSex", {
-				ID: userinfo.ID,
-				Sex: items[0].value
-			}, function(data) {
-				mui.later(function() {
-					mask.close();
-					if(data.result) {
-						userinfo.Sex = items[0].value == "0" ? "男" : "女";
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					} else {
-						mui.toast(data.message);
-					}
-					isLoading = false;
-				}, 500);
-			});
-			sexPicker.dispose();
-		});
-	}, false);*/
+		base.Get("userid").innerHTML = userinfo.ID;
+		base.Get("avatar").setAttribute("src", base.ShowThumb(userinfo.Avatar, 1));
+		base.Get("nickname").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.NickName), "点击设置昵称");
 
-	//日期
-	base.Get('timePicker').addEventListener('tap', function() {
-		var optionsJson = this.getAttribute('data-options') || '{}';
-		var options = JSON.parse(optionsJson);
-		var id = this.getAttribute('id');
-		var picker = new mui.DtPicker(options);
-		picker.show(function(rs) {
-			if(isLoading) {
-				return false;
-			}
-			isLoading = true;
-			mask.show();
-			base.ShowWaiting("正在编辑生日");
-			base.Get("time").innerHTML = rs.text;
+		base.Get("city").innerHTML = base.FormatStr(userinfo.Address, "点击设置位置");
+		base.Get("time").innerHTML = userinfo.Birthday == "0001-01-01" ? "点击设置生日" : userinfo.Birthday;
+		base.Get("signature").innerHTML = base.FormatStr(base.UnUnicodeText(userinfo.Signature), "点击设置签名");
 
-			HttpGet(base.RootUrl + "User/EditBirthday", {
-				ID: userinfo.ID,
-				Birthday: rs.text
-			}, function(data) {
-				mui.later(function() {
-					mask.close();
-					if(data.result) {
-						userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					} else {
-						mui.toast(data.message);
-					}
-					isLoading = false;
-				}, 500);
-			});
-			picker.dispose();
-		});
-	}, false);
+		var sex = userinfo.Sex || 0;
+		InitSex(sex);
 
-	//头像
-	base.Get('divavatar').addEventListener('tap', function(event) {
-		base.OpenWindow("editimage", "editimage.html", {
-			Url: userinfo.Avatar,
-			Source: "UserAvatar",
-			Standard: "UserAvatar"
-		});
-	});
-})
+		var star = userinfo.Star || 0;
+		InitStar(star);
 
-function InitDay() {
-	try {
+		if(base.Get("nickname").innerHTML == "点击设置昵称") {
+			mui("#editnickname .mui-badge")[0].classList.remove("hide");
+		}
+		if(base.Get("city").innerHTML == "点击设置位置") {
+			mui("#cityPicker .mui-badge")[0].classList.remove("hide");
+		}
+		if(base.Get("time").innerHTML == "点击设置生日") {
+			mui("#timePicker .mui-badge")[0].classList.remove("hide");
+		}
+		if(base.Get("signature").innerHTML == "点击设置签名") {
+			mui("#editsignature .mui-badge")[0].classList.remove("hide");
+		}
+
 		if(userinfo.CreateDate) {
-			var timestamp = Date.parse(new Date(userinfo.CreateDate));
-			var num = (((new Date()).valueOf() - parseInt(timestamp)) / 1000);
-			if(num > 0) {
-				base.Get("userage").innerHTML = parseInt(num / 3600 / 24) + "天";
-				base.Get("age").classList.remove("hide");
-			}
-		}
-	} catch(error) {
-
-	}
-}
-
-function InitStar(star) {
-	var starname = "保密";
-	switch(star) {
-		case 1:
-			starname = "白羊座";
-			break;
-		case 2:
-			starname = "金牛座";
-			break;
-		case 3:
-			starname = "双子座";
-			break;
-		case 4:
-			starname = "巨蟹座";
-			break;
-		case 5:
-			starname = "狮子座";
-			break;
-		case 6:
-			starname = "处女座";
-			break;
-		case 7:
-			starname = "天秤座";
-			break;
-		case 8:
-			starname = "天蝎座";
-			break;
-		case 9:
-			starname = "射手座";
-			break;
-		case 10:
-			starname = "摩羯座";
-			break;
-		case 11:
-			starname = "水瓶座";
-			break;
-		case 12:
-			starname = "双鱼座";
-			break;
-		default:
-			break;
-	}
-	base.Get("star").innerHTML = starname;
-}
-
-var editnickname = base.Get("editnickname");
-var editsignature = base.Get("editsignature");
-var nickname = base.Get("nickname");
-var signature = base.Get("signature");
-
-//修改头像
-function UpdateAvatar(url) {
-	if(userinfo.Avatar == url) {
-		return;
-	}
-	HttpGet(base.RootUrl + "User/EditAvatar", {
-		ID: userinfo.ID,
-		Avatar: url
-	}, function(data) {
-		if(data.result) {
-			base.Get("avatar").setAttribute("src", base.ShowThumb(url, 1));
-			userinfo.Avatar = url;
-			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+			InitDay();
 		} else {
-			mui.toast(data.message);
+			base.UpdateUser(userinfo.Number, function() {
+				userinfo = base.GetUserInfo();
+				InitDay();
+			})
 		}
-	});
-}
 
-//修改昵称
-function UpdateNickName(t) {
-	nickname.innerHTML = t;
-	mask.show();
-	base.ShowWaiting("正在编辑昵称");
-	HttpGet(base.RootUrl + "User/EditNickName", {
-		ID: userinfo.ID,
-		NickName: t
-	}, function(data) {
-		mui.later(function() {
-			mask.close();
-			if(data.result) {
-				userinfo.NickName = t;
-				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			} else {
-				plus.nativeUI.alert(data.message, null, "");
+		base.Get('cityPicker').addEventListener('tap', function(event) {
+			base.OpenWindow("province", "province.html", {});
+		});
+
+		base.Get('sexPicker').addEventListener('tap', function(event) {
+			//base.OpenWindow("star", "star.html", {});
+			var param = {}
+			base.ShowTemplate("sex", "sex.html", "性别", JSON.stringify(param));
+		});
+
+		base.Get('starPicker').addEventListener('tap', function(event) {
+			//base.OpenWindow("star", "star.html", {});
+			var param = {}
+			base.ShowTemplate("star", "star.html", "星座", JSON.stringify(param));
+		});
+
+		//日期
+		base.Get('timePicker').addEventListener('tap', function() {
+			var optionsJson = this.getAttribute('data-options') || '{}';
+			var options = JSON.parse(optionsJson);
+			var id = this.getAttribute('id');
+			var picker = new mui.DtPicker(options);
+			picker.show(function(rs) {
+				if(isLoading) {
+					return false;
+				}
+				isLoading = true;
+				mask.show();
+				base.ShowWaiting("正在编辑生日");
+				base.Get("time").innerHTML = rs.text;
+
+				HttpGet(base.RootUrl + "User/EditBirthday", {
+					ID: userinfo.ID,
+					Birthday: rs.text
+				}, function(data) {
+					mui.later(function() {
+						mask.close();
+						if(data.result) {
+							userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
+							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+						} else {
+							mui.toast(data.message);
+						}
+						isLoading = false;
+					}, 500);
+				});
+				picker.dispose();
+			});
+		}, false);
+
+		//头像
+		base.Get('divavatar').addEventListener('tap', function(event) {
+			base.OpenWindow("editimage", "editimage.html", {
+				Url: userinfo.Avatar,
+				Source: "UserAvatar",
+				Standard: "UserAvatar"
+			});
+		});
+	})
+
+	function InitDay() {
+		try {
+			if(userinfo.CreateDate) {
+				var timestamp = Date.parse(new Date(userinfo.CreateDate));
+				var num = (((new Date()).valueOf() - parseInt(timestamp)) / 1000);
+				if(num > 0) {
+					base.Get("userage").innerHTML = parseInt(num / 3600 / 24) + "天";
+					base.Get("age").classList.remove("hide");
+				}
 			}
-		}, 500);
-	});
-}
+		} catch(error) {
 
-//修改签名
-function UpdateSignature(t) {
-	signature.innerHTML = t;
-	if(base.IsNullOrEmpty(t)) {
-		mui("#editsignature .mui-badge")[0].classList.remove("hide");
-	} else {
-		mui("#editsignature .mui-badge")[0].classList.add("hide");
+		}
 	}
-	mask.show();
-	base.ShowWaiting("正在编辑签名");
-	HttpGet(base.RootUrl + "User/EditSignature", {
-		ID: userinfo.ID,
-		Signature: t
-	}, function(data) {
-		mui.later(function() {
-			mask.close();
+
+	function InitSex(sex) {
+		if(sex == "男") {
+			sex = 1;
+			userinfo.Sex = 1;
+			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+		}
+		if(sex == "女") {
+			sex = 2;
+			userinfo.Sex = 2;
+			localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+		}
+		switch(parseInt(sex)) {
+			case 0:
+				base.Get("sex").innerHTML = '<span class="fr" style="line-height:1.1rem;">保密</span><img src="../images/my/1-13.png" class="flex-img2" />';
+				break;
+			case 1:
+				base.Get("sex").innerHTML = '<span class="fr" style="line-height:1.1rem;">男</span><img src="../images/my/sex1.png" class="flex-img2" />';
+				break;
+			case 2:
+				base.Get("sex").innerHTML = '<span class="fr" style="line-height:1.1rem;">女</span><img src="../images/my/sex2.png" class="flex-img2" />';
+				break;
+			default:
+				base.Get("sex").innerHTML = '<span class="fr" style="line-height:1.1rem;">保密</span><img src="../images/my/1-13.png" class="flex-img2" />';
+				break;
+		}
+	}
+
+	function InitStar(star) {
+		var starname = '保密';
+		switch(parseInt(star)) {
+			case 1:
+				starname = "白羊座";
+				break;
+			case 2:
+				starname = "金牛座";
+				break;
+			case 3:
+				starname = "双子座";
+				break;
+			case 4:
+				starname = "巨蟹座";
+				break;
+			case 5:
+				starname = "狮子座";
+				break;
+			case 6:
+				starname = "处女座";
+				break;
+			case 7:
+				starname = "天秤座";
+				break;
+			case 8:
+				starname = "天蝎座";
+				break;
+			case 9:
+				starname = "射手座";
+				break;
+			case 10:
+				starname = "摩羯座";
+				break;
+			case 11:
+				starname = "水瓶座";
+				break;
+			case 12:
+				starname = "双鱼座";
+				break;
+			default:
+				break;
+		}
+		if(starname == "保密") {
+			base.Get("star").innerHTML = '<span class="fr" style="line-height:1.1rem;">保密</span><img src="../images/my/1-13.png" class="flex-img2" />';
+		} else {
+			base.Get("star").innerHTML = '<span class="fr" style="line-height:1.1rem;">' + starname + '</span><img src="../images/my/1-0' + star + '.png" class="flex-img2" />';
+		}
+	}
+
+	var editnickname = base.Get("editnickname");
+	var editsignature = base.Get("editsignature");
+	var nickname = base.Get("nickname");
+	var signature = base.Get("signature");
+
+	//修改头像
+	function UpdateAvatar(url) {
+		if(userinfo.Avatar == url) {
+			return;
+		}
+		HttpGet(base.RootUrl + "User/EditAvatar", {
+			ID: userinfo.ID,
+			Avatar: url
+		}, function(data) {
 			if(data.result) {
-				userinfo.Signature = t;
+				base.Get("avatar").setAttribute("src", base.ShowThumb(url, 1));
+				userinfo.Avatar = url;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 			} else {
-				plus.nativeUI.alert(data.message, null, "");
+				mui.toast(data.message);
 			}
-		}, 500);
+		});
+	}
+
+	//修改昵称
+	function UpdateNickName(t) {
+		nickname.innerHTML = t;
+		mask.show();
+		base.ShowWaiting("正在编辑昵称");
+		HttpGet(base.RootUrl + "User/EditNickName", {
+			ID: userinfo.ID,
+			NickName: t
+		}, function(data) {
+			mui.later(function() {
+				mask.close();
+				if(data.result) {
+					userinfo.NickName = t;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				} else {
+					plus.nativeUI.alert(data.message, null, "");
+				}
+			}, 500);
+		});
+	}
+
+	//修改签名
+	function UpdateSignature(t) {
+		signature.innerHTML = t;
+		if(base.IsNullOrEmpty(t)) {
+			mui("#editsignature .mui-badge")[0].classList.remove("hide");
+		} else {
+			mui("#editsignature .mui-badge")[0].classList.add("hide");
+		}
+		mask.show();
+		base.ShowWaiting("正在编辑签名");
+		HttpGet(base.RootUrl + "User/EditSignature", {
+			ID: userinfo.ID,
+			Signature: t
+		}, function(data) {
+			mui.later(function() {
+				mask.close();
+				if(data.result) {
+					userinfo.Signature = t;
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				} else {
+					plus.nativeUI.alert(data.message, null, "");
+				}
+			}, 500);
+		});
+	}
+
+	//编辑昵称
+	editnickname.addEventListener('tap', function(event) {
+		var text = nickname.innerHTML.trim();
+		base.OpenWindow("edittext", "edittext.html", {
+			source: "nickname",
+			title: text == "点击设置昵称" ? "" : text
+		});
 	});
-}
 
-function UpdateStar(star) {
-	console.log(star);
-}
-
-function UpdateSex(sex) {
-	console.log(sex);
-	base.Get("sex").innerHTML = sex == 0 ? "保密" : sex == 1 ? "男" : "女";
-}
-
-//编辑昵称
-editnickname.addEventListener('tap', function(event) {
-	var text = nickname.innerHTML.trim();
-	base.OpenWindow("edittext", "edittext.html", {
-		source: "nickname",
-		title: text == "点击设置昵称" ? "" : text
+	//编辑个性签名
+	editsignature.addEventListener('tap', function(event) {
+		var text = signature.innerHTML.trim();
+		base.OpenWindow("edittext", "edittext.html", {
+			source: "signature",
+			title: text == "点击设置签名" ? "" : text
+		});
 	});
-});
 
-//编辑个性签名
-editsignature.addEventListener('tap', function(event) {
-	var text = signature.innerHTML.trim();
-	base.OpenWindow("edittext", "edittext.html", {
-		source: "signature",
-		title: text == "点击设置签名" ? "" : text
-	});
-});
-
-//修改地址 
-function UpdateAddress(province, city) {
-	mask.show();
-	base.ShowWaiting("正在编辑地区");
-	base.Get("city").innerHTML = province + " " + city;
-	HttpGet(base.RootUrl + "User/EditAddress", {
-		ID: userinfo.ID,
-		Province: province,
-		City: city
-	}, function(data) {
-		mui.later(function() {
-			mask.close();
-			if(data.result) {
-				userinfo.Address = province + " " + city
-				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-			} else {
-				plus.nativeUI.alert(data.message, null, "");
-			}
-			plus.webview.close("province");
-			plus.webview.close("city");
-		}, 500);
-	});
-}</script>
+	//修改地址 
+	function UpdateAddress(province, city) {
+		mask.show();
+		base.ShowWaiting("正在编辑地区");
+		base.Get("city").innerHTML = province + " " + city;
+		HttpGet(base.RootUrl + "User/EditAddress", {
+			ID: userinfo.ID,
+			Province: province,
+			City: city
+		}, function(data) {
+			mui.later(function() {
+				mask.close();
+				if(data.result) {
+					userinfo.Address = province + " " + city
+					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+				} else {
+					plus.nativeUI.alert(data.message, null, "");
+				}
+				plus.webview.close("province");
+				plus.webview.close("city");
+			}, 500);
+		});
+	}
+</script>
