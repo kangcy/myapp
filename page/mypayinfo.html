@@ -200,8 +200,8 @@
 			},
 			onTransitionStart: function(swiper) {
 				var $this = mui("#pagination li")[swiper.activeIndex]
-				$border.style.width = $this.clientWidth * 0.4 + "px";
-				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
+				$border.style.width = $this.clientWidth * 0.6 + "px";
+				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.6) / 2) + "px)";
 
 				if(swiper.activeIndex == 0 && scroll0 == null) {
 					scroll0 = new JRoll("#wrapper0", {
@@ -386,8 +386,8 @@
 				})
 
 				var $this = mui("#pagination li")[swiper.activeIndex];
-				$border.style.width = $this.clientWidth * 0.4 + "px";
-				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
+				$border.style.width = $this.clientWidth * 0.6 + "px";
+				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.6) / 2) + "px)";
 
 				if(swiper.activeIndex == 0) {
 					scroll0 = new JRoll("#wrapper0", {

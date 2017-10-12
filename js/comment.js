@@ -431,7 +431,7 @@ function InsertIcon(html) {
 //拼接Html  
 function AppendStr(item) {
 	var div = document.createElement('div');
-	div.className = 'mui-table-view-cell';
+	div.className = 'mui-table-view-cell bounceInUp';
 	div.setAttribute("id", "article" + item.Number)
 	var model = [];
 	model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
@@ -443,8 +443,8 @@ function AppendStr(item) {
 	model.push('<img src="../images/article/btn_comment.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articlenumber="' + item.ArticleNumber + '" count="' + item.SubCommentCount + '" id="comment1' + item.Number + '" /><div id="goods' + item.Number + '" cid="' + item.Number + '" already="' + (item.IsZan == 0 ? 0 : 1) + '" class="goods fr ' + (item.IsZan == 0 ? "" : "red") + '"><span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/article/' + (item.IsZan == 0 ? "btn_good" : "btn_good2") + '.png" style="width:0.9rem;" class="fr"  /></div>');
 	model.push('</div></div>');
 	model.push('<div class="f12 c333 mt5 full summary" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</div>');
-	model.push('<p class="tip tip1 mb0 f12 ' + (item.SubCommentCount > 1 ? "" : "hide") + '"><span class="blue sub" number="' + item.Number + '" id="comment0' + item.Number + '" name="' + item.NickName + '">查看' + item.SubCommentCount + '条回复</span></p>');
-	model.push('<p class="tip tip0 mb0 f12 ' + (item.SubCommentCount == 1 ? "" : "hide") + '"><span class="c999 summary">' + base.UnUnicodeText(item.SubUserName) + ' : ' + base.UnUnicodeText(item.SubSummary) + '</span></p>');
+	model.push('<p class="tip tip1 mb0 f12 mt5 ' + (item.SubCommentCount > 1 ? "" : "hide") + '"><span class="blue sub" number="' + item.Number + '" id="comment0' + item.Number + '" name="' + item.NickName + '">查看' + item.SubCommentCount + '条回复</span></p>');
+	model.push('<p class="tip tip0 mb0 f12 mt5 ' + (item.SubCommentCount == 1 ? "" : "hide") + '"><span class="blue summary">' + base.UnUnicodeText(item.SubUserName) + '<span class="c999"> : ' + base.UnUnicodeText(item.SubSummary) + '</span></span></p>');
 	model.push('</div>');
 	div.innerHTML = model.join('');
 	return div;

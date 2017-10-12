@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/comment.min.css">
 		<style type="text/css">
@@ -24,17 +23,13 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">评论</h1>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inline full"> </div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div>
+			</div> 
 		</div>
+		<p class="tc c666 f12" id="loader">正在加载中...</p>
 		<textarea id="textarea" class="hide"></textarea>
 		<div id="none" class="full tc hide">
 			<p class="f12" id="none_tip">既然还没人,那就先去首页逛会儿</p>
@@ -59,6 +54,7 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
 		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	})
 

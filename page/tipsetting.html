@@ -79,7 +79,7 @@
 					<img src="../images/tip/02.png" class="fl" />
 				</div>
 				<div class="flex-item item2">
-					<span class="c000 fl">点评</span>
+					<span class="c000 fl">评论</span>
 				</div>
 				<div class="flex-item item3 tr">
 					<span class="mui-badge mui-badge-danger hide fr" id="comment-count">0</span>
@@ -159,6 +159,9 @@
 	mui.ready(function() {
 		base.Immersed();
 
+		if(userinfo.UserRole == 1) {
+			base.RemoveClass(["#backstage"], "hide");
+		}
 		if(userinfo.UserRole == 2) {
 			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment", "#adv", "#index", "#banner", "#backstage", "#line"], "hide");
 		}
@@ -215,7 +218,10 @@
 
 	//粉丝
 	function Fan() {
-		base.OpenWindow("fan", "fan.html", {});
+		var param = {
+			UserNumber: userinfo.Number
+		}
+		base.ShowTemplate("fan", "fan.html", "我的粉丝", JSON.stringify(param));
 	}
 
 	//喜欢

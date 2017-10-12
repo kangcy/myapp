@@ -78,7 +78,7 @@
 		<svg id="circle" width="80" height="80">
 			<circle cx="40" cy="40" r="20" fill="rgba(0, 0, 0, 0.5)" stroke="#43AEFA" stroke-width="0"></circle>
 			<circle id="sec-circle" class="sec-circle" cx="40" cy="40" r="20" stroke-width="3" fill="transparent" stroke="#F4F1F1" transform="rotate(-90 40 40)"></circle>
-		</svg>
+		</svg> 
 		<div id="text">
 			<p style="font-size:12px;margin:0px;">跳过</p><span id="sec-text">5</span><span>s</span></div>
 	</body>
@@ -185,6 +185,8 @@
 	function Skip() {
 		if(isready) {
 			clearInterval(index);
+
+			plus.navigator.setFullscreen(false);
 			if(userinfo == "") {
 				base.GetView("login").show("zoom-fade-out");
 			} else {

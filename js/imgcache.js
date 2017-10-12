@@ -315,7 +315,6 @@ function deleteGroup(key) {
 	if(manager == null) {
 		return;
 	}
-	console.log(JSON.stringify(manager))
 	try {
 		manager = JSON.parse(manager);
 	} catch(e) {}

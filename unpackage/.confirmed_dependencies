@@ -1224,7 +1224,9 @@
 			"images/my/1-13.png",
 			"images/my/sex2.png",
 			"images/my/1-08.png",
-			"images/my/1-03.png"
+			"images/my/1-03.png",
+			"images/my/2-08.png",
+			"images/my/2-09.png"
 		],
 		"refer": [
 			"page/editsignature.html",
@@ -3269,7 +3271,8 @@
 			"minjs/mui.pullToRefresh.material.min.js",
 			"minjs/mui.pullToRefresh.min.js",
 			"minjs/refresh.min.js",
-			"part/comment.html"
+			"part/comment.html",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/user.html"
@@ -3745,7 +3748,8 @@
 			"jroll/2.png",
 			"jroll/3.png",
 			"jroll/jroll-infinite.js",
-			"jroll/jroll-pulldown.js"
+			"jroll/jroll-pulldown.js",
+			"fonts/mui.ttf"
 		],
 		"refer": [
 			"page/user.html"
@@ -3934,7 +3938,9 @@
 		"resources": [
 			"minjs/base.min.js",
 			"fonts/mui.ttf",
-			"mincss/loading.min.css"
+			"mincss/loading.min.css",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js"
 		]
 	},
 	"page/articlepreview.html": {

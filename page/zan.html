@@ -9,16 +9,11 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/fan.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 	</head>
 
 	<body>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
+		<p class="tc c666 f12" id="loader">正在加载中...</p>
 		<div id="none" class="full tc hide">
 			<p class="f12" id="none_tip">大波内容正在赶来，敬请期待</p>
 		</div>
@@ -38,6 +33,7 @@
 	mui.init({});
 
 	mui.ready(function() {
+		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
 		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	})
 
@@ -45,7 +41,7 @@
 		self = plus.webview.currentWebview();
 		ShowMe = self.ShowMe || 0;
 		UserNumber = self.UserNumber;
-		if(ShowMe == 1) {
+		if(ShowMe == 1) { 
 			base.Get("none_tip").innerHTML = "沒人赞你，你可以去赞别人呀";
 		} else {
 			base.Get("none_tip").innerHTML = name + "喜欢的文章，会在这里显示";
