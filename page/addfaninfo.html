@@ -41,6 +41,8 @@
 				display: -webkit-box;
 				margin: 0px;
 				padding: 0px;
+				width: 60%;
+				margin: 0 20%;
 			}
 			
 			.my-pagination li {
@@ -147,7 +149,7 @@
 				padding: 0.525rem 0.9375rem;
 			}
 			
-			.jroll-infinite-tip { 
+			.jroll-infinite-tip {
 				padding: 1rem 0 1rem 0;
 			}
 		</style>
@@ -266,8 +268,8 @@
 			},
 			onTransitionStart: function(swiper) {
 				var $this = mui("#pagination li")[swiper.activeIndex]
-				$border.style.width = $this.clientWidth * 0.4 + "px";
-				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
+				$border.style.width = $this.clientWidth * 0.5 + "px";
+				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.5) / 2) + "px)";
 
 				if(swiper.activeIndex == 1 && scroll1 == null) {
 					scroll1 = new JRoll("#wrapper1", {
@@ -299,8 +301,8 @@
 				base.Get("swiper-container").style.height = swiperheight;
 
 				var $this = mui("#pagination li")[0];
-				$border.style.width = $this.clientWidth * 0.4 + "px";
-				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
+				$border.style.width = $this.clientWidth * 0.5 + "px";
+				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.5) / 2) + "px)";
 
 				scroll0 = new JRoll("#wrapper0", {
 					scrollBarY: false

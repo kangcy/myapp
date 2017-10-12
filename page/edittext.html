@@ -11,20 +11,22 @@
 		<style type="text/css">
 			#question {
 				border: 0px;
-				padding: 0px;
+				padding: 5%;
+				margin: 0px;
 				line-height: 1.25rem;
+				min-height: 5rem;
 			}
 		</style>
 	</head>
 
 	<body oncontextmenu="return false" onselectstart="return false">
 		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
-			<a id="submit" class="mui-icon mui-text cfff fr">完成</a>
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<a id="submit" class="mui-icon mui-text cfff fr">保存</a>
 			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
 		<div class="mui-content" id="muicontent">
-			<div style="padding:5%;">
+			<div style="background: #fff;">
 				<textarea id='question' class="mui-input-clear f13"></textarea>
 			</div>
 		</div>
@@ -43,7 +45,7 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		question.style.height = (window.innerHeight - 50 - window.innerHeight * 0.1) + "px";
+		question.style.height = (window.innerHeight - base.Get("header").clientHeight - window.innerWidth * 0.1) + "px";
 	})
 
 	mui.plusReady(function() {

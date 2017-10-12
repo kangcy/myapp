@@ -22,6 +22,8 @@
 				display: -webkit-box;
 				margin: 0px;
 				padding: 0px;
+				width: 60%;
+				margin: 0 20%;
 			}
 			
 			.my-pagination li {
@@ -100,7 +102,7 @@
 				position: absolute;
 				bottom: 0;
 				right: 0;
-				left: 0;
+				left: 3.5rem;
 				height: 1px;
 				content: '';
 				-webkit-transform: scaleY(.5);
@@ -134,11 +136,11 @@
 							<div id="scroll0" class="scroller" style="background:#fff;"></div>
 						</div>
 					</div>
-					<div class="swiper-slide"> 
+					<div class="swiper-slide">
 						<div id="wrapper1" class="scroll-wrapper">
 							<div id="scroll1" class="scroller" style="background:#f5f5f5;">
 							</div>
-						</div> 
+						</div>
 					</div>
 				</div>
 			</div>
@@ -203,8 +205,8 @@
 			},
 			onTransitionStart: function(swiper) {
 				var $this = mui("#pagination li")[swiper.activeIndex]
-				$border.style.width = $this.clientWidth * 0.4 + "px";
-				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
+				$border.style.width = $this.clientWidth * 0.5 + "px";
+				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.5) / 2) + "px)";
 
 				if(swiper.activeIndex == 1 && scroll1 == null) {
 					scroll1 = new JRoll("#wrapper1", {
@@ -252,8 +254,8 @@
 				base.Get("swiper-container").style.height = swiperheight;
 
 				var $this = mui("#pagination li")[0];
-				$border.style.width = $this.clientWidth * 0.4 + "px";
-				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.4) / 2) + "px)";
+				$border.style.width = $this.clientWidth * 0.5 + "px";
+				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.5) / 2) + "px)";
 
 				scroll0 = new JRoll("#wrapper0", {
 					scrollBarY: false

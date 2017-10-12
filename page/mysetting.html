@@ -199,7 +199,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script src="../js/mui.picker.min.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script type="text/javascript">
@@ -285,8 +285,6 @@
 					return false;
 				}
 				isLoading = true;
-				mask.show();
-				base.ShowWaiting("正在编辑生日");
 				base.Get("time").innerHTML = rs.text;
 
 				HttpGet(base.RootUrl + "User/EditBirthday", {
@@ -294,7 +292,6 @@
 					Birthday: rs.text
 				}, function(data) {
 					mui.later(function() {
-						mask.close();
 						if(data.result) {
 							userinfo.Birthday = rs.y.text + "-" + rs.m.text + "-" + rs.d.text;
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -436,14 +433,11 @@
 	//修改昵称
 	function UpdateNickName(t) {
 		nickname.innerHTML = t;
-		mask.show();
-		base.ShowWaiting("正在编辑昵称");
 		HttpGet(base.RootUrl + "User/EditNickName", {
 			ID: userinfo.ID,
 			NickName: t
 		}, function(data) {
 			mui.later(function() {
-				mask.close();
 				if(data.result) {
 					userinfo.NickName = t;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -462,14 +456,11 @@
 		} else {
 			mui("#editsignature .mui-badge")[0].classList.add("hide");
 		}
-		mask.show();
-		base.ShowWaiting("正在编辑签名");
 		HttpGet(base.RootUrl + "User/EditSignature", {
 			ID: userinfo.ID,
 			Signature: t
 		}, function(data) {
 			mui.later(function() {
-				mask.close();
 				if(data.result) {
 					userinfo.Signature = t;
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));
@@ -500,8 +491,6 @@
 
 	//修改地址 
 	function UpdateAddress(province, city) {
-		mask.show();
-		base.ShowWaiting("正在编辑地区");
 		base.Get("city").innerHTML = province + " " + city;
 		HttpGet(base.RootUrl + "User/EditAddress", {
 			ID: userinfo.ID,
@@ -509,7 +498,6 @@
 			City: city
 		}, function(data) {
 			mui.later(function() {
-				mask.close();
 				if(data.result) {
 					userinfo.Address = province + " " + city
 					localStorage.setItem('$userinfo', JSON.stringify(userinfo));

@@ -159,12 +159,13 @@
 	//分享弹窗
 	function ShareTan(index) {
 		if(index == 0) {
-			base.Get("myshare").classList.remove("zoomIn");
-			base.Get("myshare").classList.add("hide");
+			base.Get("myshare").classList.remove("bounceInUp");
+			base.Get("myshare").classList.add("bounceOutUp");
 		} else if(index == 1) {
 			mask.show();
 			base.Get("myshare").classList.remove("hide");
-			base.Get("myshare").classList.add("zoomIn");
+			base.Get("myshare").classList.remove("bounceOutUp");
+			base.Get("myshare").classList.add("bounceInUp");
 		} else {
 			mask.close();
 		}

@@ -224,7 +224,8 @@
 			"mincss/loading.min.css",
 			"page/fan.html",
 			"page/zan.html",
-			"page/star.html"
+			"page/star.html",
+			"page/sex.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
@@ -1134,7 +1135,8 @@
 			"minjs/mui.lazyload.img.min.js",
 			"images/default.png",
 			"minjs/refresh.min.js",
-			"js/refresh.min.js"
+			"js/refresh.min.js",
+			"images/logo_default.png"
 		],
 		"refer": [
 			"page/userSub.html",
@@ -1221,7 +1223,8 @@
 			"images/my/sex1.png",
 			"images/my/1-13.png",
 			"images/my/sex2.png",
-			"images/my/1-08.png"
+			"images/my/1-08.png",
+			"images/my/1-03.png"
 		],
 		"refer": [
 			"page/editsignature.html",
@@ -3922,7 +3925,9 @@
 			"images/share/03.png",
 			"images/share/06.png",
 			"images/share/05.png",
-			"images/share/04.png"
+			"images/share/04.png",
+			"fonts/mui.ttf",
+			"images/loading.gif"
 		]
 	},
 	"page/back.html": {

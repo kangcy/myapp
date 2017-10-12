@@ -193,7 +193,6 @@
 
 	var contentWebview = null;
 	mui.plusReady(function() {
-		base.TriggerMain = false;
 		var self = plus.webview.currentWebview();
 		searchName = self.name || "";
 		searchType = self.searchtype || 0;
@@ -269,25 +268,25 @@
 		//播放
 		mui("#scroll-view").on('tap', '.play', function(event) {
 			base.TriggerMain = true;
+			mui.later(function() {
+				base.TriggerMain = false;
+			}, 500)
 			this.classList.remove("play");
 			this.classList.add("stop");
 			this.parentNode.classList.add("stopMusic");
 			playsound();
-			mui.later(function() {
-				base.TriggerMain = false;
-			}, 500)
 		});
 
 		//暂停
 		mui("#scroll-view").on('tap', '.stop', function(event) {
 			base.TriggerMain = true;
+			mui.later(function() {
+				base.TriggerMain = false;
+			}, 500)
 			this.parentNode.classList.remove("stopMusic");
 			this.classList.remove("stop");
 			this.classList.add("play");
 			stopsound();
-			mui.later(function() {
-				base.TriggerMain = false;
-			}, 500)
 		});
 	});
 
