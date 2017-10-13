@@ -917,10 +917,6 @@
 		}
 	}
 
-	function CloseTip() {
-		base.Get("tip").classList.add("hide");
-	}
-
 	//保存
 	function Save() {
 		if(isLoading) {
@@ -1004,6 +1000,14 @@
 			});
 	}
 
+	function CloseTip() {
+		base.Get("tip").classList.remove("fadeIn");
+		base.Get("tip").classList.add("fadeOut");
+		mui.later(function() {
+			base.Get("tip").classList.add("hide");
+		}, 750);
+	}
+
 	//预览
 	function Preview() {
 		if(isLoading) {
@@ -1012,10 +1016,11 @@
 		isLoading = true;
 		if(base.IsNullOrEmpty(Title) || Title == "我的小微篇") {
 			base.Get("tip").classList.remove("hide");
+			base.Get("tip").classList.remove("fadeOut");
+			base.Get("tip").classList.add("fadeIn");
 			isLoading = false;
 			return;
 		}
-
 		mask.show();
 		base.ShowWaiting("正在同步文章内容");
 		if(base.IsNullOrEmpty(Title)) {
