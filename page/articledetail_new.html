@@ -87,7 +87,6 @@
 			
 			.root .article-meta {
 				overflow: hidden;
-				text-align: center;
 				padding-top: 32px;
 				word-wrap: break-word;
 			}
@@ -106,7 +105,7 @@
 			}
 			
 			.root .article-meta p.time-read>span {
-				margin-left: 10px;
+				margin-right: 10px;
 			}
 			
 			.root .article-meta p.nickname {
@@ -286,88 +285,48 @@
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
 
 		<!--固定背景-->
-		<div id="x-bg"></div>
+		<div id="x-bg" class="hide"></div>
 		<!--内容-->
-		<div id="root">
+		<div id="wrapper" class="hide" style="margin-bottom:50px;">
 			<!--x-cover:滚动背景-->
-			<div class="root x-cover">
+			<div class="root" id="x-cover">
 				<!--头部-->
-				<div class="x-head">
-					<div class="img-container">
+				<div class="x-head mb20 hide" id="x-head">
+					<div class="img-container" id="x-avatar">
 						<div class="avatar">
-							<img src="http://static2.ivwen.com/users/19717149/4c100df219344c9986ab80e81cf4d171.jpg" alt="">
+							<img id="useravatar0" src="../images/avatar.png">
 						</div>
 					</div>
-					<div class="article-meta">
-						<div class="well">
-							<h1 class="title">您好！可以续杯吗？</h1>
-							<p class="time-read">
-								<span>2017.10.11</span>
-								<span>阅读 <span class="read-count">223</span></span>
-							</p>
-							<p class="nickname" data-author-id="19717149" data-author-url="https://www.meipian.cn/c/19717149">经事</p>
-						</div>
+					<div class="article-meta well tc">
+						<h1 class="title" id="title0"></h1>
+						<p class="time-read">
+							<span id="createdate0"></span>
+							<span class="read-count" id="views0"></span>
+						</p>
+						<p class="nickname" id="nickname0"></p>
 					</div>
 				</div>
 				<!--内容-->
-				<div class="x-content well mt20">
-					<div class="section">
-						<div class="text fl tl mt10">之前看过一部电影《七月与安生》，里面的两位主人公林七月和李安生感情深如亲生姐妹，却因为喜欢同一个人，感情中途破裂，闹得不可开交。她们相爱相杀，心里记挂彼此嘴上却说不出来。好在最终冰释前嫌，两人重归于好。可令人想不到的是，两个人并没有能够相守在一起，只留下安生一个人照顾着七月的小姑娘😔。 我们还能在一起的时候，因为很多事情可以争吵，一旦到真正永远分别的时候，才发现，越回忆越模糊，还没有好好珍惜就已经来不及。 我们总会因为一点小的可怜的自尊而错过了最美好的感情，因为没人愿意先低头。并不是因为感情不好、不和谐，反而正是彼此了解，以为足够在意，所以不会轻易离开。可不言不语越加深了误会，最后落了个曲终人散的结局。</div>
+				<div class="x-content well mb10">
+					<div class="section" id="desc">
+						<div class="text fl tl">之前看过一部电影《七月与安生》，里面的两位主人公林七月和李安生感情深如亲生姐妹，却因为喜欢同一个人，感情中途破裂，闹得不可开交。她们相爱相杀，心里记挂彼此嘴上却说不出来。好在最终冰释前嫌，两人重归于好。可令人想不到的是，两个人并没有能够相守在一起，只留下安生一个人照顾着七月的小姑娘😔。 我们还能在一起的时候，因为很多事情可以争吵，一旦到真正永远分别的时候，才发现，越回忆越模糊，还没有好好珍惜就已经来不及。 我们总会因为一点小的可怜的自尊而错过了最美好的感情，因为没人愿意先低头。并不是因为感情不好、不和谐，反而正是彼此了解，以为足够在意，所以不会轻易离开。可不言不语越加深了误会，最后落了个曲终人散的结局。</div>
 						<img class="fl mt10" src="http://static2.ivwen.com/users/19717149/36a44de8016d4f6eaa4e62b37bd47f5b.jpg-mobile">
 					</div>
 					<!--半透明蒙层-->
-					<div class="x-bg-blur"></div>
+					<div class="x-bg-blur" id="x-bg-blur"></div>
 				</div>
 			</div>
 		</div>
-		<div id="wrapper" class="hide" style="margin-bottom:50px;">
-			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
-				<!--通用样式-->
-				<div id="main0" class="f13 tl mt10 hide">
-					<div class="detail">
-						<div class="full tl mb5">
-							<p class="f16 mb10" id="title0"></p>
-							<span class="mt0 mb0 f13" id="createdate0"></span>
-							<span class="mb0 ml10 user mt5" userid="0" id="nickname0"></span>
-							<span class="mt0 mb0 ml10 f13" id="views0"></span>
-							<p id="music0" play="on" class="music mt10" onclick="switchsound()">
-								<span id="musicname0"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<!--排版1-->
-				<div id="main1" class="f13 tc hide" style="position:relative;">
-					<div class="detail full fl" id="detail1">
-						<div class="fl" style="width:23%;display:inline-block;">
-							<img id="useravatar1" class="full fl article" />
-						</div>
-						<div class="fr tl" style="width:77%;display:inline-block;">
-							<p class="user ml10 mt15 mb5 f15 fl full bold" userid="0" id="nickname1"></p>
-							<p class="ml10 mb0 mt20 f13 full">
-								<span id="createdate1" class="mr10"></span>
-								<span class="ml15" id="views1"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 tc hide mt10 mb20" id="title1"></p>
-					<div class="c333 full" id="desc">
 
-					</div>
-				</div>
-			</div>
-		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../js/music.js"></script>
 <script src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
-<script src="../js/articledetail.js"></script>
+<script src="../js/articledetail_new.js"></script>
 <script src="../js/snow.js"></script>
 <script type="text/javascript">
 	var Article = {};
@@ -391,9 +350,9 @@
 	var $footer_zan = base.Get("footer_zan");
 	var $header = base.Get("header");
 	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
-	var $wrapper1 = base.Get("wrapper1"); //内容子背景（放背景图片）
-	var $wrapper2 = base.Get("wrapper2"); //纯色背景
-	var $cover = base.Get("cover"); //非纯色内容透明度底
+	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
+	var $wrapper2 = base.Get("x-bg"); //纯色背景
+	var $cover = base.Get("x-bg-blur"); //非纯色内容透明度底
 	var scrolly = 0;
 	var browserName = base.BrowserName();
 	var num = 0;
@@ -415,15 +374,6 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
-
-		$wrapper2.style.width = window.innerWidth + "px";
-		$wrapper2.style.height = window.innerHeight + "px";
-		$wrapper2.style.position = "fixed";
-		$wrapper2.style.zIndex = "-1";
-
-		//base.Get("wrapper1").style.minHeight = (window.innerHeight - 50) + "px";
-		base.Get("detail1").style.marginTop = (window.innerHeight - 50) * 0.3 + "px";
-		$cover.style.minHeight = (window.innerHeight - 50) * 0.526 + "px";
 
 		//背景色渐变
 		window.addEventListener('scroll', function(e) {
@@ -660,17 +610,17 @@
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 fl mb10 ' + part.IntroExpand + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
+							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
 						} else if(part.Types == 2) {
 							//文本
-							html.push('<div class="full f13 fl mb10">' + base.UnUnicodeText(part.Introduction) + '</div>');
+							html.push('<div class="full f13 fl mt10">' + base.UnUnicodeText(part.Introduction) + '</div>');
 						} else if(part.Types == 3) {
 							//视频
-							html.push('<div class="full f13 fl mb10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
+							html.push('<div class="full f13 fl mt10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
 							//html.push('<div class="full f13 mt5" style="display:inline-block;position:relative;">' + AppendVideo(part.Introduction) + '<img src="../images/article/bg.png" style="width:3.5rem;position:absolute;top:40%;left:40%;" /></div>');
 						} else if(part.Types == 4) {
 							//分隔
-							html.push('<div class="full f13 fl mb10" style="display:inline-block;">' + part.Introduction + '</div>');
+							html.push('<div class="full f13 fl mt10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
 					}
 
@@ -690,13 +640,9 @@
 
 					var themeColor = base.IsNullOrEmpty(data.ThemeColor) ? "#333" : data.ThemeColor;
 					base.Get("title0").style.color = themeColor;
-					base.Get("title1").style.color = themeColor;
 					base.Get("nickname0").style.color = themeColor;
-					base.Get("nickname1").style.color = themeColor;
 					base.Get("createdate0").style.color = themeColor;
-					base.Get("createdate1").style.color = themeColor;
 					base.Get("views0").style.color = themeColor;
-					base.Get("views1").style.color = themeColor;
 
 					CurrBackgroundName = data.ThemeCover;
 
@@ -718,17 +664,19 @@
 
 					ChangeBg();
 
-					base.Get("musicname0").innerHTML = data.MusicName;
+					//base.Get("musicname0").innerHTML = data.MusicName;
 
-					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
+					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
-					base.InnerHtml(["title0", "title1", "title"], Article.Title);
+					base.InnerHtml(["title", "title0"], Article.Title);
 
-					base.InnerHtml(["nickname", "nickname0", "nickname1"], Article.NickName);
+					base.InnerHtml(["nickname", "nickname0"], Article.NickName);
 
-					base.InnerHtml(["createdate0", "createdate1"], data.CreateDateText);
+					base.InnerHtml(["createdate0"], data.CreateDateText);
 
-					base.InnerHtml(["views0", "views1"], "阅读  " + data.Views);
+					base.InnerHtml(["views0"], "阅读  " + data.Views);
+
+					base.Get("x-head").classList.remove("hide");
 
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 
@@ -765,9 +713,6 @@
 
 					//音乐 
 					ChangeMusic();
-
-					base.AddClass(["#main0", "#main1"], "hide");
-					base.Get("main" + CurrTemplateType).classList.remove("hide");
 
 					base.Get("bottomAction").classList.remove("hide");
 					base.Get("bottomAction").classList.add("bounceIn");
@@ -810,20 +755,24 @@
 
 	function InitHeader(initload) {
 		if(CurrTemplate == 0) {
+			base.Get("x-avatar").classList.add("hide");
+			base.Get("nickname0").classList.add("hide");
 			if(initload || !base.IsNullOrEmpty(CurrBackgroundName)) {
 				$header.setAttribute("immersed", "");
 				base.Immersed();
-				base.Get("title1").classList.add("hide");
 				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
 				base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
 			}
 		} else {
 			$header.setAttribute("immersed", "none");
 			base.Immersed();
+
+			base.Get("x-avatar").classList.remove("hide");
+			base.Get("nickname0").classList.remove("hide");
+
 			var num = window.pageYOffset / 200;
 			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 			base.Get("wrapper").style.paddingTop = "0px";
-			base.Get("title1").classList.remove("hide");
 		}
 	}
 

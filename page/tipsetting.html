@@ -115,8 +115,8 @@
 					<span class="fl">音乐搜索</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18"></span>
 				</li>
-				<li class="mui-table-view-cell hide" onclick="ImageViewer()" id="adv">
-					<span class="fl">图片预览</span>
+				<li class="mui-table-view-cell hide" onclick="ArticleDetail()" id="adv">
+					<span class="fl">文章详细</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18"></span>
 				</li>
 				<li class="mui-table-view-cell hide" onclick="EditComment()" id="editcomment">
@@ -316,5 +316,15 @@
 	//后台
 	function Back() {
 		base.OpenWindow("back", "back.html", {});
+	}
+
+	//文章详细
+	function ArticleDetail() {
+		base.OpenWindow("articledetail_new", "articledetail_new.html", {
+			ArticleID: 551,
+			Source: "",
+			ArticlePower: 3,
+			NickName: ""
+		}, null, "none");
 	}
 </script>

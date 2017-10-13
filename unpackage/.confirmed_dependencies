@@ -2709,7 +2709,8 @@
 			"page/mypayinfo.html",
 			"page/bannerdetail.html",
 			"page/back.html",
-			"page/music.html"
+			"page/music.html",
+			"page/articledetail_new.html"
 		]
 	},
 	"page/money.html": {
@@ -4015,6 +4016,44 @@
 			"mincss/mui.min.css",
 			"minjs/base.min.js",
 			"minjs/mui.min.js"
+		]
+	},
+	"page/articledetail_new.html": {
+		"resources": [
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"images/article/stop.png",
+			"js/music.js",
+			"images/share/03.png",
+			"images/share/06.png",
+			"mincss/loading.min.css",
+			"css/articledetail.min.css",
+			"images/article/btn_music.png",
+			"minjs/base.min.js",
+			"js/articledetail.js",
+			"mincss/input.min.css",
+			"css/demo.css",
+			"mincss/animate.min.css",
+			"images/share/04.png",
+			"images/share/01.png",
+			"images/share/02.png",
+			"images/article/btn_share.png",
+			"images/article/money.png",
+			"images/share/09.png",
+			"images/share/07.png",
+			"images/share/010.png",
+			"js/snow.js",
+			"images/share/08.png",
+			"js/video.js",
+			"images/share/05.png",
+			"images/article/on.png",
+			"images/article/btn_comment.png",
+			"images/article/btn_good2.png",
+			"images/loading.gif",
+			"images/article/pen.png",
+			"images/avatar.png",
+			"js/base.min.js",
+			"js/articledetail_new.js"
 		]
 	}
 }
