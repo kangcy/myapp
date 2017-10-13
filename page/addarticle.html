@@ -77,6 +77,30 @@
 				height: inherit !important;
 				float: left;
 			}
+			
+			#tip {
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.6);
+				z-index: 999;
+			}
+			
+			#tip .tip1 {
+				width: 60%;
+				top: 60px;
+				position: absolute;
+				left: 20%;
+			}
+			
+			#tip .tip2 {
+				width: 40%;
+				top: 60%;
+				position: absolute;
+				left: 30%;
+			}
 		</style>
 	</head>
 
@@ -91,6 +115,7 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
+		<div id="tip" class="hide"><img src="../images/tip/title.png" class="tip1" /><img src="../images/tip/know.png" class="tip2" onclick="CloseTip()" /></div>
 		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
 			<div class="info-body" style="margin-top:10rem">
 				<div id="music" class="btn fl tl mb15 hide"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
@@ -892,6 +917,10 @@
 		}
 	}
 
+	function CloseTip() {
+		base.Get("tip").classList.add("hide");
+	}
+
 	//保存
 	function Save() {
 		if(isLoading) {
@@ -981,6 +1010,12 @@
 			return;
 		}
 		isLoading = true;
+		if(base.IsNullOrEmpty(Title) || Title == "我的小微篇") {
+			base.Get("tip").classList.remove("hide");
+			isLoading = false;
+			return;
+		}
+
 		mask.show();
 		base.ShowWaiting("正在同步文章内容");
 		if(base.IsNullOrEmpty(Title)) {

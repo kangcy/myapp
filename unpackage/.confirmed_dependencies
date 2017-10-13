@@ -769,7 +769,9 @@
 			"swipe/swiper.min.css",
 			"mincss/animate.min.css",
 			"images/addarticle/btn_pic.png",
-			"css/animate.min.css"
+			"css/animate.min.css",
+			"images/tip/know.png",
+			"images/tip/title.png"
 		],
 		"refer": [
 			"page/edittitle.html",
