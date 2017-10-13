@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../css/buttons.css">
 		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
 			body {
@@ -62,7 +63,7 @@
 			</div>
 		</div>
 		<div id="addcomment">
-			<div class="f13 cfff" onclick="Save()">使用</div>
+			<div class="button button-rounded button-primary button-large" style="width:90%;font-size:18px;" onclick="Save()">使用</div>
 		</div>
 		<div id="snowwrapper"></div>
 		<canvas id="snowcanvas"></canvas>
@@ -96,7 +97,7 @@
 		count = self.Count || "";
 		snowtype = self.SnowType || "";
 		articleNumber = self.ArticleNumber || "";
-		
+
 		snow.init(src, count, snowtype);
 	});
 
@@ -109,7 +110,9 @@
 			isLoading = false;
 			return mui.toast("参数异常");
 		}
-		base.GetView('articlepreview').evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
+		mui.later(function() {
+			base.GetView('articlepreview').evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
+		}, 250);
 		isLoading = false;
 	}
 </script>

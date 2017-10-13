@@ -3825,7 +3825,8 @@
 			"images/check.png",
 			"images/article/music.png",
 			"css/demo.css",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"css/buttons.css"
 		]
 	},
 	"page/searchinfo.html": {
@@ -3906,7 +3907,8 @@
 			"fonts/mui.ttf",
 			"images/avatar.png",
 			"images/base/follow1.png",
-			"images/loading.gif"
+			"images/loading.gif",
+			"css/mui.min.css"
 		],
 		"refer": [
 			"page/user.html",

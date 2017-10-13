@@ -62,7 +62,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-icon-plus fr cfff" id="addfan" style="font-size:25px;" onclick="AddUser()"></a>
+			<a class="mui-icon mui-icon-plus fr cfff hide" id="addfan" style="font-size:25px;" onclick="AddUser()"></a>
 			<div class="mui-title cfff" id="title">好友动态</div>
 		</header>
 		<p class="tc c666 f12" id="loader">正在加载中...</p>
@@ -83,6 +83,7 @@
 <script src="../minjs/refresh.min.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
+	var isLoading = false;
 	var ActionID = 0;
 	var self = null;
 	mui.init({
@@ -102,6 +103,8 @@
 		self = plus.webview.currentWebview();
 
 		Init();
+
+		base.Get("addfan").classList.remove("hide");
 	});
 
 	function Init() {
@@ -136,6 +139,13 @@
 
 	//添加关注
 	function AddUser() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		mui.later(function() {
+			isLoading = false;
+		}, 500);
 		base.OpenWindow("addfaninfo", "addfaninfo.html", {});
 	}
 

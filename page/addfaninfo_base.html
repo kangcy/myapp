@@ -152,49 +152,21 @@
 			.jroll-infinite-tip {
 				padding: 1rem 0 1rem 0;
 			}
-			
-			#tabs {
-				width: 200px;
-				height: 33px;
-				line-height: 33px;
-				overflow: hidden;
-				display: inline-block;
-				font-size: 15px;
-				border: 1px solid #20a0ff;
-				text-align: center;
-				border-radius: 5px;
-				margin-top: 5px;
-				box-sizing: inherit;
-				-webkit-box-sizing: inherit;
-				background: #20a0ff;
-			}
-			
-			#tabs .tab {
-				width: 50%;
-				height: 100%;
-				display: inline-block;
-				color: #20a0ff;
-				float: left;
-				background: #fff;
-			}
-			
-			#tabs .tab.curr {
-				color: #fff;
-				background: #20a0ff;
-			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav tc" id="header" style="border-bottom:1px solid #eee;">
-			<a class="mui-icon mui-icon-back mui-action-back fl c000"></a>
-			<div id="tabs">
-				<div class="tab curr" index="0">猜你喜欢</div>
-				<div class="tab" index="1">同城热门</div>
-			</div>
+		<header class="mui-bar mui-bar-nav tc" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">添加关注</h1>
 		</header>
 
 		<div class="mui-content" id="muicontent">
+			<div class="my-pagination" id="pagination">
+				<ul class="my-pagination-ul swiper-pagination-clickable"> </ul>
+				<div class="tabs_active" id="pagination_border"></div>
+				<div class="tabs_border"></div>
+			</div>
 			<div class="swiper-container swiper-container-horizontal" id="swiper-container">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
@@ -238,7 +210,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script src="../jroll/jroll.min.js"></script>
 <script src="../jroll/jroll-pulldown.js"></script>
@@ -255,17 +227,9 @@
 	var pagesize = 10;
 	var PageName = "addfaninfo";
 	var position = base.GetCurrentPosition();
-	var mySwiper = null;
-
-	mui.init({
-		beforeback: function() {
-			plus.navigator.setStatusBarStyle('light');
-			return true;
-		}
-	});
-
+	mui.init();
 	mui.ready(function() {
-		base.Immersed_White();
+		base.Immersed();
 
 		mui.each(base.Get(".cancel"), function() {
 			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
@@ -286,16 +250,27 @@
 	});
 
 	mui.plusReady(function() {
-		plus.navigator.setStatusBarStyle('dark');
-		mySwiper = new Swiper('#swiper-container', {
-			onTransitionStart: function(swiper) {
-				if(swiper.activeIndex == 0) {
-					mui("#tabs .tab")[0].classList.add("curr");
-					mui("#tabs .tab")[1].classList.remove("curr");
-				} else {
-					mui("#tabs .tab")[0].classList.remove("curr");
-					mui("#tabs .tab")[1].classList.add("curr");
+		var mySwiper = new Swiper('#swiper-container', {
+			pagination: '.my-pagination-ul',
+			paginationClickable: true,
+			paginationBulletRender: function(swiper, index, className) {
+				switch(index) {
+					case 0:
+						name = '猜你喜欢';
+						break;
+					case 1:
+						name = '同城热门';
+						break;
+					default:
+						name = '';
 				}
+				return '<li class="' + className + '"><span class="f14">' + name + '</span></li>';
+			},
+			onTransitionStart: function(swiper) {
+				var $this = mui("#pagination li")[swiper.activeIndex]
+				$border.style.width = $this.clientWidth * 0.5 + "px";
+				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.5) / 2) + "px)";
+
 				if(swiper.activeIndex == 1 && scroll1 == null) {
 					scroll1 = new JRoll("#wrapper1", {
 						scrollBarY: false
@@ -322,8 +297,12 @@
 				}
 			},
 			onInit: function(swiper) {
-				var swiperheight = (window.innerHeight - base.Get("header").clientHeight) + "px";
+				var swiperheight = (window.innerHeight - base.Get("header").clientHeight - base.Get("pagination").clientHeight) + "px";
 				base.Get("swiper-container").style.height = swiperheight;
+
+				var $this = mui("#pagination li")[0];
+				$border.style.width = $this.clientWidth * 0.5 + "px";
+				$border.style.transform = "translateX(" + ($this.offsetLeft + $this.clientWidth * (1 - 0.5) / 2) + "px)";
 
 				scroll0 = new JRoll("#wrapper0", {
 					scrollBarY: false
@@ -365,10 +344,6 @@
 				});
 			}
 		})
-
-		mui("#tabs").on('tap', '.tab', function() {
-			mySwiper.slideTo(this.getAttribute("index"), 300, true);
-		});
 
 		if(base.IsNullOrEmpty(position.CityCode)) {
 			mui.toast("定位失败,请开启定位权限");
