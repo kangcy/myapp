@@ -40,7 +40,7 @@
 				position: fixed;
 				height: 100%;
 				width: 100%;
-				background: url(https://ss2.meipian.me/theme/v2/img/77/77bg_750_1.jpg) center 0 no-repeat;
+				/*background: url(https://ss2.meipian.me/theme/v2/img/77/77bg_750_1.jpg) center 0 no-repeat;*/
 				background-size: cover;
 			}
 			
@@ -66,7 +66,7 @@
 			}
 			
 			.x-head .img-container {
-				padding-top: 10%;
+				padding-top: 6rem;
 			}
 			
 			.x-head .img-container .avatar {
@@ -140,7 +140,7 @@
 			}
 			
 			.x-content .x-bg-blur {
-				background: rgba(27, 62, 85, 0.6);
+				/*background: rgba(27, 62, 85, 0.6);*/
 				width: 94%;
 				height: 100%;
 				z-index: -1;
@@ -148,15 +148,6 @@
 				-webkit-backdrop-filter: blur(12px);
 				position: absolute;
 				border-radius: 8px;
-			}
-			
-			h1 {
-				font-size: 24px;
-				font-weight: normal;
-				color: #CDCDCD;
-				letter-spacing: 0;
-				line-height: 36px;
-				margin: 0;
 			}
 			
 			html,
@@ -179,7 +170,7 @@
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="padding-top:0.35rem;padding-right: 0.4rem;">•••</a>
 			<h1 class="mui-title cfff user" id="nickname"></h1>
 		</header>
-		<div class="loading hide" id="loader">
+		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
 			</div>
@@ -308,10 +299,7 @@
 				</div>
 				<!--内容-->
 				<div class="x-content well mb10">
-					<div class="section" id="desc">
-						<div class="text fl tl">之前看过一部电影《七月与安生》，里面的两位主人公林七月和李安生感情深如亲生姐妹，却因为喜欢同一个人，感情中途破裂，闹得不可开交。她们相爱相杀，心里记挂彼此嘴上却说不出来。好在最终冰释前嫌，两人重归于好。可令人想不到的是，两个人并没有能够相守在一起，只留下安生一个人照顾着七月的小姑娘😔。 我们还能在一起的时候，因为很多事情可以争吵，一旦到真正永远分别的时候，才发现，越回忆越模糊，还没有好好珍惜就已经来不及。 我们总会因为一点小的可怜的自尊而错过了最美好的感情，因为没人愿意先低头。并不是因为感情不好、不和谐，反而正是彼此了解，以为足够在意，所以不会轻易离开。可不言不语越加深了误会，最后落了个曲终人散的结局。</div>
-						<img class="fl mt10" src="http://static2.ivwen.com/users/19717149/36a44de8016d4f6eaa4e62b37bd47f5b.jpg-mobile">
-					</div>
+					<div class="section" id="desc"></div>
 					<!--半透明蒙层-->
 					<div class="x-bg-blur" id="x-bg-blur"></div>
 				</div>
@@ -756,7 +744,6 @@
 	function InitHeader(initload) {
 		if(CurrTemplate == 0) {
 			base.Get("x-avatar").classList.add("hide");
-			base.Get("nickname0").classList.add("hide");
 			if(initload || !base.IsNullOrEmpty(CurrBackgroundName)) {
 				$header.setAttribute("immersed", "");
 				base.Immersed();
@@ -768,7 +755,6 @@
 			base.Immersed();
 
 			base.Get("x-avatar").classList.remove("hide");
-			base.Get("nickname0").classList.remove("hide");
 
 			var num = window.pageYOffset / 200;
 			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';

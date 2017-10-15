@@ -3499,7 +3499,8 @@
 			"page/imageviewer.html",
 			"page/action.html",
 			"page/pic.html",
-			"page/bannerdetail.html"
+			"page/bannerdetail.html",
+			"page/articledetail_new.html"
 		]
 	},
 	"page/imageview.html": {
@@ -4053,7 +4054,8 @@
 			"images/article/pen.png",
 			"images/avatar.png",
 			"js/base.min.js",
-			"js/articledetail_new.js"
+			"js/articledetail_new.js",
+			"fonts/mui.ttf"
 		]
 	}
 }
