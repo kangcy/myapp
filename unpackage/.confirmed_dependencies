@@ -508,7 +508,8 @@
 			"page/articleComment.html",
 			"page/money.html",
 			"page/imageview.html",
-			"page/imageviewer.html"
+			"page/imageviewer.html",
+			"page/articledetail_new.html"
 		]
 	},
 	"page/articleSub.html": {
@@ -3978,7 +3979,8 @@
 			"images/preview/6.png",
 			"images/article/btn_music.png",
 			"fonts/mui.ttf",
-			"images/loading.gif"
+			"images/loading.gif",
+			"images/avatar.png"
 		],
 		"refer": [
 			"page/customsetting.html",
@@ -4055,7 +4057,16 @@
 			"images/avatar.png",
 			"js/base.min.js",
 			"js/articledetail_new.js",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"images/article/btn_good.png",
+			"images/article/3.png",
+			"images/article/4.png",
+			"images/article/1.png",
+			"images/article/2.png",
+			"images/article/off.png"
+		],
+		"refer": [
+			"page/addarticle.html"
 		]
 	}
 }

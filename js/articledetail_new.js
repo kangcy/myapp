@@ -1,46 +1,42 @@
 //切换音乐
 function ChangeMusic() {
-	/*MusicID = "music" + CurrTemplateType;
 	base.AddClass(["#music0", "#music1"], "hide");
-
+	MusicID = "music" + (CurrTemplate == 0 ? 0 : 1);
 	if(!base.IsNullOrEmpty(MusicUrl)) {
 		if(Article.AutoMusic == 1) {
 			document.addEventListener('touchstart', startsound);
 		}
-		base.Get("music" + CurrTemplateType).classList.remove("hide");
-	}*/
+		base.Get("music" + (CurrTemplate == 0 ? 0 : 1)).classList.remove("hide");
+	}
 }
 
 //背景状态切换
 function ChangeBg() {
-	//纯白背景
-	if(CurrTemplateType == 0) {
-		if(!base.IsNullOrEmpty(CurrBackgroundName)) {
-
-		}
-	} else {
-
-	}
-
-	InitHeader(false);
+	InitHeader();
 
 	//纯白背景
 	if(CurrTemplate == 0) {
-		if(!base.IsNullOrEmpty(CurrBackgroundName)) {
-			$wrapper.style.backgroundColor = "transparent";
-			$wrapper1.style.background = "";
-			$cover.style.backgroundColor = "transparent";
-			$wrapper2.style.background = "";
-			$wrapper2.className = CurrBackgroundName;
-		}
-	} else if(CurrTemplate > 1) {
-		//模板
+		$wrapper.style.backgroundColor = "transparent";
+		$wrapper1.style.background = "";
+		$cover.style.backgroundColor = "transparent";
 		$wrapper2.style.background = "";
-		$wrapper2.className = "";
-		$wrapper.style.backgroundColor = CurrColor;
-		$wrapper1.style.background = "url(" + CurrCover + ") top center no-repeat";
-		$wrapper1.style.backgroundSize = "100% auto";
-		$cover.style.backgroundColor = "RGBA(255, 255, 255, 0.5)";
+	} else if(CurrTemplate > 1) {
+		//模板 
+		base.Get("x-avatar").style.paddingTop = CurrTemplateJson.MarginTop + "rem";
+		if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
+			$wrapper1.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
+			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
+				$wrapper1.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+			}
+
+			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
+				$wrapper1.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+			}
+		}
+		if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
+			$wrapper.style.backgroundColor = CurrTemplateJson.Background;
+		}
+		$cover.style.backgroundColor = CurrTemplateJson.Transparency
 	} else {
 		//自定义
 		$wrapper.style.backgroundColor = "transparent";

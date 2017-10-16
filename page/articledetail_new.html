@@ -66,12 +66,12 @@
 			}
 			
 			.x-head .img-container {
-				padding-top: 6rem;
+				padding-top: 2rem;
 			}
 			
 			.x-head .img-container .avatar {
-				width: 75px;
-				height: 75px;
+				width: 5rem;
+				height: 5rem;
 				margin: 0 auto;
 				background-size: 100% 100%;
 				overflow: hidden;
@@ -87,19 +87,13 @@
 			
 			.root .article-meta {
 				overflow: hidden;
-				padding-top: 32px;
 				word-wrap: break-word;
-			}
-			
-			.root .article-meta .title {
-				color: #FFFFFF;
 			}
 			
 			.root .article-meta p.time-read {
 				font-family: PingFangSC-Regular;
 				margin-top: 10px;
 				font-size: 14px;
-				color: #9F9F9F;
 				letter-spacing: 0;
 				line-height: 20px;
 			}
@@ -111,9 +105,8 @@
 			.root .article-meta p.nickname {
 				font-family: PingFangSC-Medium;
 				font-size: 15px;
-				color: #7BCEFF;
 				letter-spacing: 0;
-				margin: 10px 0;
+				margin: 0;
 				line-height: 20px;
 			}
 			
@@ -150,15 +143,12 @@
 				border-radius: 8px;
 			}
 			
-			html,
-			body {
-				color: #CDCDCD;
-				font-family: PingFangSC-Regular;
-				font-size: 16px;
-			}
-			
 			.well {
 				padding: 0 3%;
+			}
+			
+			.well2 {
+				padding: 0 6%;
 			}
 		</style>
 	</head>
@@ -288,13 +278,16 @@
 							<img id="useravatar0" src="../images/avatar.png">
 						</div>
 					</div>
-					<div class="article-meta well tc">
-						<h1 class="title" id="title0"></h1>
+					<div class="article-meta well2 mt10 tc" id="x-article">
+						<h3 class="title" id="title0"></h3>
 						<p class="time-read">
 							<span id="createdate0"></span>
 							<span class="read-count" id="views0"></span>
 						</p>
-						<p class="nickname" id="nickname0"></p>
+						<p class="nickname hide" id="nickname0"></p>
+						<p id="music0" play="on" class="music mt10 mb0 hide" onclick="switchsound()">
+							<span id="musicname0" class="f11"></span>
+						</p>
 					</div>
 				</div>
 				<!--内容-->
@@ -325,12 +318,10 @@
 	var currEditID = 0; //当前操作对象ID
 	var MusicID = ""; //音乐控件ID
 	var MusicUrl = "";
-	var CurrBackground = null; //背景设置
-	var CurrCover = ""; //当前背景图片
-	var CurrColor = ""; //模板背景色
 	var CurrTemplate = 0; //当前选中模板
+	var CurrBackground = null; //背景设置
 	var CurrBackgroundName = ""; //当前纯色背景样式
-	var CurrTemplateType = 0; //当前模板类型
+	var CurrTemplateJson = null; // 当前模板设置
 	var userinfo = base.GetUserInfo();
 
 	var $divzan = base.Get("divzan");
@@ -539,6 +530,7 @@
 
 	//加载文章
 	function Load(callback) {
+		console.log(ArticleID);
 		HttpGet(base.RootUrl + "Api/Article/Detail", {
 			Number: userinfo.Number,
 			ArticleID: ArticleID
@@ -555,7 +547,7 @@
 							$wrapper.classList.add("hide");
 							base.Get("self").classList.remove("hide");
 						}
-						//密码可见 
+						//密码可见  
 						else if(data.ArticlePower == 1) {
 							$wrapper.classList.add("hide");
 							base.Get("password").classList.remove("hide");
@@ -626,33 +618,25 @@
 					base.Get("footer_zan").innerHTML = data.Goods;
 					base.Get("footer_comment").innerHTML = data.Comments;
 
-					var themeColor = base.IsNullOrEmpty(data.ThemeColor) ? "#333" : data.ThemeColor;
-					base.Get("title0").style.color = themeColor;
-					base.Get("nickname0").style.color = themeColor;
-					base.Get("createdate0").style.color = themeColor;
-					base.Get("views0").style.color = themeColor;
-
 					CurrBackgroundName = data.ThemeCover;
 
 					CurrTemplate = data.Template;
 
-					InitHeader(true);
-
-					if(CurrTemplate == 1) {
-						CurrTemplateType = 1;
-					}
 					if(data.TemplateJson != null) {
-						if(data.TemplateJson.ID > 0) {
-							CurrTemplateType = data.TemplateJson.TemplateType;
-							CurrCover = data.TemplateJson.Cover;
-							CurrColor = data.TemplateJson.Background;
+						if(data.TemplateJson.ID != 1) {
+							CurrTemplateJson = data.TemplateJson;
+
+							base.Get("title0").style.color = CurrTemplateJson.TitleColor;
+							base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+							base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
+							base.Get("views0").style.color = CurrTemplateJson.ViewColor;
 						}
 					}
 					CurrBackground = data.BackgroundJson;
 
 					ChangeBg();
 
-					//base.Get("musicname0").innerHTML = data.MusicName;
+					base.Get("musicname0").innerHTML = data.MusicName;
 
 					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
@@ -741,20 +725,24 @@
 		});
 	}
 
-	function InitHeader(initload) {
+	function InitHeader() {
 		if(CurrTemplate == 0) {
+			$header.setAttribute("immersed", "");
+			base.Immersed();
+
 			base.Get("x-avatar").classList.add("hide");
-			if(initload || !base.IsNullOrEmpty(CurrBackgroundName)) {
-				$header.setAttribute("immersed", "");
-				base.Immersed();
-				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
-				base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
-			}
+			base.Get("x-article").classList.remove("tc");
+			base.Get("x-article").classList.add("tl");
+
+			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
+			base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
 		} else {
 			$header.setAttribute("immersed", "none");
 			base.Immersed();
 
 			base.Get("x-avatar").classList.remove("hide");
+			base.Get("x-article").classList.remove("tl");
+			base.Get("x-article").classList.add("tc");
 
 			var num = window.pageYOffset / 200;
 			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';

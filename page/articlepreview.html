@@ -191,6 +191,122 @@
 				background-size: 80% !important;
 				background-position: center 0.5rem !important;
 			}
+			/**新版**/
+			
+			#x-bg {
+				position: fixed;
+				height: 100%;
+				width: 100%;
+				/*background: url(https://ss2.meipian.me/theme/v2/img/77/77bg_750_1.jpg) center 0 no-repeat;*/
+				background-size: cover;
+			}
+			
+			.root {
+				height: 100%;
+				position: relative;
+				z-index: 0;
+			}
+			
+			.root.x-cover {
+				width: 100%;
+				position: relative;
+				z-index: 1;
+				background-image: url(https://ss2.meipian.me/theme/v2/img/059/bg.jpg?1);
+				background-size: 100% auto;
+				background-repeat: no-repeat;
+				min-height: 100%;
+				background-color: #426a76;
+			}
+			
+			.x-head {
+				position: relative;
+			}
+			
+			.x-head .img-container {
+				padding-top: 2rem;
+			}
+			
+			.x-head .img-container .avatar {
+				width: 5rem;
+				height: 5rem;
+				margin: 0 auto;
+				background-size: 100% 100%;
+				overflow: hidden;
+				border-radius: 50%;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 2px solid #fff;
+			}
+			
+			.x-head .img-container .avatar img {
+				width: 100%;
+			}
+			
+			.root .article-meta {
+				overflow: hidden;
+				word-wrap: break-word;
+			}
+			
+			.root .article-meta p.time-read {
+				font-family: PingFangSC-Regular;
+				margin-top: 10px;
+				font-size: 14px;
+				letter-spacing: 0;
+				line-height: 20px;
+			}
+			
+			.root .article-meta p.time-read>span {
+				margin-right: 10px;
+			}
+			
+			.root .article-meta p.nickname {
+				font-family: PingFangSC-Medium;
+				font-size: 15px;
+				letter-spacing: 0;
+				margin: 0;
+				line-height: 20px;
+			}
+			
+			.x-content {
+				position: relative;
+			}
+			
+			.x-content .section {
+				display: inline-block;
+				padding: 3%;
+			}
+			
+			.x-content .section .text {
+				line-height: 1.8 !important;
+				word-wrap: break-word;
+				font-weight: normal;
+				white-space: pre-wrap;
+				font-family: PingFangSC-Light;
+			}
+			
+			.x-content .section img {
+				width: 100%;
+				vertical-align: bottom;
+			}
+			
+			.x-content .x-bg-blur {
+				/*background: rgba(27, 62, 85, 0.6);*/
+				width: 94%;
+				height: 100%;
+				z-index: -1;
+				top: 0;
+				-webkit-backdrop-filter: blur(12px);
+				position: absolute;
+				border-radius: 8px;
+			}
+			
+			.well {
+				padding: 0 3%;
+			}
+			
+			.well2 {
+				padding: 0 6%;
+			}
 		</style>
 	</head>
 	<!--禁止复制-->
@@ -259,45 +375,36 @@
 				<div class="div3" onclick="ShowShowy()" style="background-color:#D147EA;"></div><span class="f12">漂浮</span>
 			</div>
 		</div>
-		<!--背景-->
-		<div id="wrapper2"></div>
-		<div id="wrapper" class="hide">
-			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
-				<!--通用样式-->
-				<div id="main0" class="f13 tl mt10 hide">
-					<div class="detail">
-						<div class="full tl mb5">
-							<p class="f16 mb10" id="title0"></p>
-							<span class="mt0 mb0 f13" id="createdate0"></span>
-							<span class="mb0 ml10 user mt5" userid="0" id="nickname0"></span>
-							<span class="mt0 mb0 ml10 f13" id="views0"></span>
-							<p id="music0" play="on" class="music mt10" onclick="switchsound()">
-								<i></i>
-								<span id="musicname0"></span>
-							</p>
+		<!--固定背景-->
+		<div id="x-bg" class="hide"></div>
+		<!--内容-->
+		<div id="wrapper" class="hide" style="margin-bottom:50px;">
+			<!--x-cover:滚动背景-->
+			<div class="root" id="x-cover">
+				<!--头部-->
+				<div class="x-head mb20 hide" id="x-head">
+					<div class="img-container" id="x-avatar">
+						<div class="avatar">
+							<img id="useravatar0" src="../images/avatar.png">
 						</div>
+					</div>
+					<div class="article-meta well2 mt10 tc" id="x-article">
+						<h3 class="title" id="title0"></h3>
+						<p class="time-read">
+							<span id="createdate0"></span>
+							<span class="read-count" id="views0"></span>
+						</p>
+						<p class="nickname hide" id="nickname0"></p>
+						<p id="music0" play="on" class="music mt10 mb0 hide" onclick="switchsound()">
+							<span id="musicname0" class="f11"></span>
+						</p>
 					</div>
 				</div>
-				<!--排版1-->
-				<div id="main1" class="f13 tc hide" style="position:relative;">
-					<div class="detail full fl" id="detail1">
-						<div class="fl" style="width:23%;display:inline-block;">
-							<img id="useravatar1" class="full fl article" />
-						</div>
-						<div class="fr tl" style="width:77%;display:inline-block;">
-							<p class="user ml10 mt15 mb5 f15 fl full bold" userid="0" id="nickname1"></p>
-							<p class="ml10 mb0 mt20 cfff f13 full">
-								<span id="createdate1" class="mr10"></span>
-								<span class="ml15" id="views1"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 tc hide mt10 mb20" id="title1"></p>
-					<div class="c333 full" id="desc">
-
-					</div>
+				<!--内容-->
+				<div class="x-content well mb10">
+					<div class="section" id="desc"></div>
+					<!--半透明蒙层-->
+					<div class="x-bg-blur" id="x-bg-blur"></div>
 				</div>
 			</div>
 		</div>
@@ -310,7 +417,7 @@
 <script src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
 <script src="../swipe/swiper.min.js"></script>
-<script type="text/javascript"> 
+<script type="text/javascript">
 	var Article = {};
 	var ArticleID = 0; //文章ID
 	var isLoading = false;
@@ -324,17 +431,19 @@
 	var CurrBackground = null; //背景设置
 	var CurrCover = ""; //当前背景图片
 	var CurrColor = ""; //模板背景色
+
 	var CurrTemplate = 0; //当前选中模板
+	var CurrBackground = null; //背景设置
 	var CurrBackgroundName = ""; //当前纯色背景样式
-	var CurrTemplateType = 0; //当前模板类型
+	var CurrTemplateJson = null; // 当前模板设置
 	var Showy = "";
 	var userinfo = base.GetUserInfo();
 
 	var $header = base.Get("header");
 	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
-	var $wrapper1 = base.Get("wrapper1"); //内容子背景（放背景图片） 
-	var $wrapper2 = base.Get("wrapper2"); //纯色背景
-	var $cover = base.Get("cover"); //非纯色内容透明度底
+	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
+	var $wrapper2 = base.Get("x-bg"); //纯色背景
+	var $cover = base.Get("x-bg-blur"); //非纯色内容透明度底
 	var scrolly = 0;
 	var browserName = base.BrowserName();
 	var num = 0;
@@ -591,15 +700,6 @@
 
 		//CoolTan(1)
 
-		$wrapper2.style.width = window.innerWidth + "px";
-		$wrapper2.style.height = window.innerHeight + "px";
-		$wrapper2.style.position = "fixed";
-		$wrapper2.style.zIndex = "-1";
-
-		//base.Get("wrapper1").style.minHeight = (window.innerHeight - 50) + "px";
-		base.Get("detail1").style.marginTop = (window.innerHeight - 50) * 0.3 + "px";
-		$cover.style.minHeight = (window.innerHeight - 50) * 0.526 + "px";
-
 		//背景色渐变
 		window.addEventListener('scroll', function(e) {
 			num = window.pageYOffset / 200;
@@ -720,15 +820,6 @@
 					Article = data;
 					Article.NickName = base.UnUnicodeText(data.NickName);
 
-					base.Get("title0").style.color = ThemeColor;
-					base.Get("title1").style.color = ThemeColor;
-					base.Get("nickname0").style.color = ThemeColor;
-					base.Get("nickname1").style.color = ThemeColor;
-					base.Get("createdate0").style.color = ThemeColor;
-					base.Get("createdate1").style.color = ThemeColor;
-					base.Get("views0").style.color = ThemeColor;
-					base.Get("views1").style.color = ThemeColor;
-
 					if(audio != null) {
 						var item = document.getElementById("bgsound")
 						item.parentNode.removeChild(item);
@@ -765,43 +856,35 @@
 					})
 					InitHeader();
 
-					if(CurrTemplate == 1) {
-						CurrTemplateType = 1;
-					}
 					if(data.TemplateJson != null) {
-						if(data.TemplateJson.ID > 0) {
-							CurrTemplateType = data.TemplateJson.TemplateType;
-							CurrCover = data.TemplateJson.Cover;
-							CurrColor = data.TemplateJson.Background;
+						if(data.TemplateJson.ID != 1) {
+							CurrTemplateJson = data.TemplateJson;
+
+							base.Get("title0").style.color = CurrTemplateJson.TitleColor;
+							base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+							base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
+							base.Get("views0").style.color = CurrTemplateJson.ViewColor;
 						}
 					}
 					CurrBackground = data.BackgroundJson;
 
 					ChangeBg();
 
-					base.Get("musicname0").innerHTML = MusicName;
+					base.Get("musicname0").innerHTML = data.MusicName;
 
-					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
+					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
-					base.InnerHtml(["title0", "title1", "title"], Title);
+					base.InnerHtml(["title", "title0"], Article.Title);
 
-					base.InnerHtml(["nickname0", "nickname1"], Article.NickName);
+					base.InnerHtml(["nickname", "nickname0"], Article.NickName);
 
-					base.InnerHtml(["createdate0", "createdate1"], data.CreateDateText);
+					base.InnerHtml(["createdate0"], data.CreateDateText);
 
-					base.InnerHtml(["views0", "views1"], "阅读  " + data.Views);
+					base.InnerHtml(["views0"], "阅读  " + data.Views);
+
+					base.Get("x-head").classList.remove("hide");
 
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
-
-					var color = base.IsNullOrEmpty(ThemeColor) ? "#333" : ThemeColor;
-					base.Get("title0").style.color = color;
-					base.Get("title1").style.color = color;
-					base.Get("createdate0").style.color = color;
-					base.Get("createdate1").style.color = color;
-					base.Get("nickname0").style.color = color;
-					base.Get("nickname1").style.color = color;
-					base.Get("views0").style.color = color;
-					base.Get("views1").style.color = color;
 
 					if(base.IsNullOrEmpty(Showy)) {
 						Showy = data.Showy;
@@ -841,9 +924,6 @@
 
 					//音乐 
 					ChangeMusic();
-
-					base.AddClass(["#main0", "#main1"], "hide");
-					base.Get("main" + CurrTemplateType).classList.remove("hide");
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().hide();
@@ -862,16 +942,24 @@
 		if(CurrTemplate == 0) {
 			$header.setAttribute("immersed", "");
 			base.Immersed();
-			base.Get("title1").classList.add("hide");
+
+			base.Get("x-avatar").classList.add("hide");
+			base.Get("x-article").classList.remove("tc");
+			base.Get("x-article").classList.add("tl");
+
 			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
 			base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
 		} else {
 			$header.setAttribute("immersed", "none");
 			base.Immersed();
+
+			base.Get("x-avatar").classList.remove("hide");
+			base.Get("x-article").classList.remove("tl");
+			base.Get("x-article").classList.add("tc");
+
 			var num = window.pageYOffset / 200;
 			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
 			base.Get("wrapper").style.paddingTop = "0px";
-			base.Get("title1").classList.remove("hide");
 		}
 	}
 
@@ -947,14 +1035,13 @@
 
 	//切换音乐
 	function ChangeMusic() {
-		MusicID = "music" + CurrTemplateType;
 		base.AddClass(["#music0", "#music1"], "hide");
-
+		MusicID = "music" + (CurrTemplate == 0 ? 0 : 1);
 		if(!base.IsNullOrEmpty(MusicUrl)) {
 			if(Article.AutoMusic == 1) {
 				document.addEventListener('touchstart', startsound);
 			}
-			base.Get("music" + CurrTemplateType).classList.remove("hide");
+			base.Get("music" + (CurrTemplate == 0 ? 0 : 1)).classList.remove("hide");
 		}
 	}
 
@@ -1193,16 +1280,6 @@
 
 	//背景状态切换
 	function ChangeBg() {
-		//纯白背景
-		if(CurrTemplateType == 0) {
-			if(!base.IsNullOrEmpty(CurrBackgroundName)) {
-				base.Get("main1").classList.add("hide");
-				base.Get("main0").classList.remove("hide");
-			}
-		} else {
-			base.Get("main0").classList.add("hide");
-			base.Get("main1").classList.remove("hide");
-		}
 
 		InitHeader();
 
@@ -1274,19 +1351,22 @@
 					fragment.appendChild(div);
 
 					data.list.forEach(x => {
-						if(x.ID == CurrTemplate) {
-							CurrColor = x.Background;
-							CurrCover = x.Cover;
-							CurrTemplateType = x.TemplateType;
-						}
-						var div = document.createElement('div');
+
+						div = document.createElement('div');
 						div.className = "background " + x.name;
 						div.setAttribute("name", x.name);
+						div.innerHTML = '<div class="' + x.name + '"><div class="f10">' + x.tip + '</div></div>';
+						fragment.appendChild(div);
+						if(x.ID == CurrTemplate) {
+							CurrColor = x.Background;
+							//CurrCover = x.Cover;
+						}
+						var div = document.createElement('div');
+						div.className = "background " + x.Name;
+						div.setAttribute("name", x.Name);
 						div.setAttribute("tid", x.ID);
-						div.setAttribute("color", x.Background);
-						div.setAttribute("cover", x.Cover);
-						div.setAttribute("type", x.TemplateType);
-						div.innerHTML = '<img src="' + x.ThumbUrl + '" />';
+						div.innerHTML = '<div class="' + x.Name + '"><div class="f10">' + x.tip + '</div></div>';
+						/*div.innerHTML = '<img src="' + x.ThumbUrl + '" />';*/
 						fragment.appendChild(div);
 					})
 					base.Get("temp-slide").innerHTML = "";
@@ -1326,8 +1406,6 @@
 					CurrColor = this.getAttribute("color");
 				}
 
-				CurrTemplateType = this.getAttribute("type");
-
 				ChangeBg(); //背景切换 
 
 				ChangeMusic(); //音乐切换
@@ -1340,7 +1418,6 @@
 	//重新加载数据 
 	function Reload(source) {
 		ChooseTan(function() {
-			CurrTemplateType = 1;
 			Load(function() {
 				if(source == "custom") {
 					plus.webview.close("customsetting", "none");
