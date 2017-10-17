@@ -296,8 +296,6 @@
 	var currEditID = 0; //当前编辑对象ID
 	var currEditPartID = 0; //当前编辑段落ID
 	var currEditImg = ""; //当前编辑图片
-	var currColor = ""; //当前主题色
-	var currBackground = ""; //当前背景色
 	var currTemplate = ""; //当前模板
 	var showy = "";
 	var userinfo = base.GetUserInfo();
@@ -957,8 +955,6 @@
 			CityCode: position.CityCode,
 			Latitude: position.Latitude,
 			Longitude: position.Longitude,
-			ThemeColor: currColor,
-			ThemeCover: currBackground,
 			Template: currTemplate,
 			ShowyUrl: showy,
 			Part: escape(JSON.stringify(InitParts))
@@ -1044,8 +1040,6 @@
 			MusicID: MusicID,
 			MusicName: MusicName,
 			MusicUrl: MusicUrl,
-			ThemeColor: currColor,
-			ThemeCover: currBackground,
 			ThemeTemplate: currTemplate,
 			Showy: showy,
 			Part: InitParts
@@ -1053,14 +1047,6 @@
 		isLoading = false;
 		mask.close();
 		base.CloseWaiting();
-	}
-
-	function changeColor(color) {
-		currColor = color;
-	}
-
-	function changeCover(cover) {
-		currBackground = cover;
 	}
 
 	function changeTemp(temp) {
@@ -1134,8 +1120,6 @@
 						$("#title").html(Title == "我的小微篇" ? "点击输入文章标题" : Title);
 					}
 
-					currColor = base.IsNullOrEmpty(data.ThemeColor) ? "" : data.ThemeColor;
-					currBackground = base.IsNullOrEmpty(data.ThemeCover) ? "" : data.ThemeCover;
 					currTemplate = data.Template;
 
 					//加载段落

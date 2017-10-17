@@ -351,22 +351,15 @@
 			</div>
 			<div class="swiper-scrollbar" id="temp-scrollbar"></div>
 		</div>
-		<div class="swiper-container hide" id="mybackground" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" id="background-slide"></div>
-			</div>
-			<div class="swiper-scrollbar" id="mybackground-scrollbar"></div>
-		</div>
-		<div class="swiper-cover hide" id="background-cover"></div>
 		<!--漂浮特效-->
 		<div id="snowwrapper"></div>
 		<canvas id="snowcanvas"></canvas>
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
 		<div class="swiper-cover hide" id="icon-cover"></div>
 		<div id="btnIcon" class="icons f13 hide">
-			<div class="items">
+			<!--<div class="items">
 				<div class="div1" onclick="ColorTan(1)" style="background-color:#9BC402;"></div><span class="f12">主题色</span>
-			</div>
+			</div>-->
 			<!--<div><div onclick="CoolTan(1)">炫标题</div></div>-->
 			<div class="items">
 				<div class="div2" onclick="TempTan()" style="background-color:#457ED8;"></div><span class="f12">背景</span>
@@ -426,15 +419,10 @@
 	var MusicName = "";
 	var MusicUrl = "";
 	var ThemeColor = "";
-	var ThemeBackground = "";
 	var Part = [];
-	var CurrBackground = null; //背景设置
-	var CurrCover = ""; //当前背景图片
-	var CurrColor = ""; //模板背景色
 
 	var CurrTemplate = 0; //当前选中模板
 	var CurrBackground = null; //背景设置
-	var CurrBackgroundName = ""; //当前纯色背景样式
 	var CurrTemplateJson = null; // 当前模板设置
 	var Showy = "";
 	var userinfo = base.GetUserInfo();
@@ -447,209 +435,12 @@
 	var scrolly = 0;
 	var browserName = base.BrowserName();
 	var num = 0;
-	var colorSwiper, backgroundSwiper, tempSwiper, coolSwiper = null;
+	var colorSwiper, tempSwiper, coolSwiper = null;
 
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
 		base.CloseWaiting();
 	});
-
-	var backgrounds = [{
-		tip: "默认",
-		name: "background_white"
-	}, {
-		tip: "梦幻渐变",
-		name: "background_linear1"
-	}, {
-		tip: "纸纹",
-		name: "background_chruch_img"
-	}, {
-		tip: "质感",
-		name: "background_egg_shell_img"
-	}, {
-		tip: "笔痕",
-		name: "background_cross_scratches_img"
-	}, {
-		tip: "马赛克",
-		name: "background_grey_brick_img"
-	}, {
-		tip: "印痕",
-		name: "background_light_wool_img"
-	}, {
-		tip: "砖墙",
-		name: "background_ravenna_img"
-	}, {
-		tip: "浅纹",
-		name: "background_brushed_img"
-	}, {
-		tip: "绿色花纹",
-		name: "background_green_img"
-	}, {
-		tip: "梦幻蓝色",
-		name: "background_blue_img"
-	}, {
-		tip: "粉色浪漫",
-		name: "background_pink_img"
-	}, {
-		tip: "爱心瓶",
-		name: "background_pinkbottle_img"
-	}, {
-		tip: "粉红梦",
-		name: "background_pinklying_img"
-	}, {
-		tip: "爱心墙",
-		name: "background_pinkwall_img"
-	}, {
-		tip: "粉红日记",
-		name: "background_pink_rice_img"
-	}, {
-		tip: "动感方块",
-		name: "background_congruent_pentagon_img"
-	}, {
-		tip: "方格",
-		name: "background_cream_pixels_img"
-	}, {
-		tip: "编织",
-		name: "background_sos_img"
-	}, {
-		tip: "淡蓝",
-		name: "background_light_blue_img"
-	}, {
-		tip: "淡黄",
-		name: "background_cyan"
-	}, {
-		tip: "青绿",
-		name: "background_green"
-	}, {
-		tip: "花纹",
-		name: "background_dot_img"
-	}, {
-		tip: "黄点",
-		name: "background_colorful1"
-	}, {
-		tip: "紫点",
-		name: "background_colorful2"
-	}, {
-		tip: "绿点",
-		name: "background_colorful3"
-	}, {
-		tip: "茶点",
-		name: "background_colorful4"
-	}, {
-		tip: "蓝点",
-		name: "background_colorful5"
-	}, {
-		tip: "彩块",
-		name: "background_colorful01"
-	}, {
-		tip: "甜品",
-		name: "background_colorful02"
-	}, {
-		tip: "萌物",
-		name: "background_colorful03"
-	}, {
-		tip: "粉色甜品",
-		name: "background_colorful04"
-	}, {
-		tip: "红色线条",
-		name: "background_colorful06"
-	}, {
-		tip: "叶片",
-		name: "background_colorful07"
-	}, {
-		tip: "土地",
-		name: "background_black_img"
-	}, {
-		tip: "刺绣",
-		name: "background_dark_embroidery_img"
-	}, {
-		tip: "纹路",
-		name: "background_congruent_outline_img"
-	}, {
-		tip: "编织",
-		name: "background_woven_img"
-	}, {
-		tip: "复古纸",
-		name: "background_retro"
-	}, {
-		tip: "羊皮卷",
-		name: "background_retro02"
-	}, {
-		tip: "木纹",
-		name: "background_wooddesk_img"
-	}, {
-		tip: "黑板",
-		name: "background_blackboard"
-	}, {
-		tip: "绿黑板",
-		name: "background_greenboard"
-	}, {
-		tip: "墨绿黑板",
-		name: "background_greenboard2"
-	}, {
-		tip: "黄点",
-		name: "background_red_dotted_img"
-	}, {
-		tip: "碳纤维",
-		name: "background_carbonfibre_img"
-	}, {
-		tip: "黑砖墙",
-		name: "background_darkbrickwall_img"
-	}, {
-		tip: "轮胎印",
-		name: "background_darktire_img"
-	}, {
-		tip: "灰单宁",
-		name: "background_darkdenim_img"
-	}, {
-		tip: "灰呢",
-		name: "background_tweed_img"
-	}, {
-		tip: "棉绒",
-		name: "background_wildoliva_img"
-	}, {
-		tip: "白麻",
-		name: "background_bgnoise_img"
-	}, {
-		tip: "圈圈",
-		name: "background_dimension_img"
-	}, {
-		tip: "大理石",
-		name: "background_freshsnow_img"
-	}, {
-		tip: "几何",
-		name: "background_geometry_img"
-	}, {
-		tip: "萤石",
-		name: "background_greencup_img"
-	}, {
-		tip: "化纤",
-		name: "background_nastyfabric_img"
-	}, {
-		tip: "白革",
-		name: "background_whiteleather_img"
-	}, {
-		tip: "金星",
-		name: "background_newyear_star_img"
-	}, {
-		tip: "福团",
-		name: "background_newyear_fu_img"
-	}, {
-		tip: "飘雪",
-		name: "background_newyear_snow01_img"
-	}, {
-		tip: "雪花",
-		name: "background_newyear_snow02_img"
-	}, {
-		tip: "喜庆红",
-		name: "background_red_linear1"
-	}, {
-		tip: "百福",
-		name: "background_big_fu_img"
-	}, {
-		tip: "白福",
-		name: "background_white_fu_img"
-	}]
 
 	//主题色
 	var colors = ["#fff", "#000", "#242424", "#545454", "#848484", "#C93756", "#F05654", "#F35336", "#C32136", "#FF8936", "#FFA400", "#EE8FB7", "#ff84a2", "#fba4c2", "#e7a3cb", "#F0C239", "#C89B40", "#60281E", "#B25D25", "#AE7000", "#7C4B00", "#6E511E", "#955539", "#789262", "#0C8918", "#0EB83A", "#057748", "#9ED048", "#177CB0", "#44CEF6", "#0cd3fa", "#42b3d5", "#1880c5", "#8D4BBB", "#815476", "#952eb6", "#72528a", "#920783"]
@@ -722,7 +513,7 @@
 		});
 
 		//选中主题色
-		mui('#mycolor-slide').on('tap', 'div', function() {
+		/*mui('#mycolor-slide').on('tap', 'div', function() {
 			ThemeColor = this.getAttribute("name");
 			base.Get("title0").style.color = ThemeColor;
 			base.Get("title1").style.color = ThemeColor;
@@ -735,7 +526,7 @@
 
 			base.RemoveClass([".color"], "hover");
 			this.classList.add("hover");
-		});
+		});*/
 
 		//选中炫标题
 		mui('#mycool-slide').on('tap', 'div', function() {
@@ -745,21 +536,6 @@
 
 			base.RemoveClass([".cool"], "hover");
 			this.classList.add("hover");
-		});
-
-		//选中背景
-		mui('#mybackground').on('tap', '.background', function() {
-			var name = this.getAttribute("name");
-			if(name == "back") {
-				CloseBackground();
-				TempTan(1);
-				base.Get("btnTemp").classList.remove("hide");
-				return;
-			}
-			CurrBackgroundName = name;
-			base.RemoveClass([".background"], "hover");
-			this.classList.add("hover");
-			ChangeBg();
 		});
 
 		base.Get("icon-cover").addEventListener("tap", function() {
@@ -777,8 +553,6 @@
 		MusicID = self.MusicID || "";
 		MusicName = self.MusicName || "";
 		MusicUrl = self.MusicUrl || "";
-		ThemeColor = self.ThemeColor || "#333";
-		CurrBackgroundName = self.ThemeCover || "";
 		CurrTemplate = self.ThemeTemplate || "";
 		Showy = self.Showy || "";
 
@@ -808,7 +582,8 @@
 	function Load(callback) {
 		HttpGet(base.RootUrl + "Api/Article/Detail", {
 			Number: userinfo.Number,
-			ArticleID: ArticleID
+			ArticleID: ArticleID,
+			Template: CurrTemplate
 		}, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
@@ -841,17 +616,17 @@
 					parts.forEach(part => {
 						if(part.PartType == 1) {
 							//图片
-							html.push('<div class="full f13 fl mb10 ' + part.IntroExpand + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
+							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
 						} else if(part.PartType == 2) {
 							//文本
-							html.push('<div class="full f13 fl mb10">' + base.UnUnicodeText(part.Introduction) + '</div>');
+							html.push('<div class="full f13 fl mt10">' + base.UnUnicodeText(part.Introduction) + '</div>');
 						} else if(part.PartType == 3) {
 							//视频
-							html.push('<div class="full f13 fl mb10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
-							//html.push('<div class="full f13 mt5" style="display:inline-block;position:relative;">' + AppendVideo(part.Introduction) + '<img src="../images/article/bg.png" style="width:3.5rem;position:absolute;top:40%;left:40%;" /></div>');
+							html.push('<div class="full f13 fl mt10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
+							//html.push('<div class="full f13 mt10" style="display:inline-block;position:relative;">' + AppendVideo(part.Introduction) + '<img src="../images/article/bg.png" style="width:3.5rem;position:absolute;top:40%;left:40%;" /></div>');
 						} else if(part.PartType == 4) {
 							//分隔
-							html.push('<div class="full f13 fl mb10" style="display:inline-block;">' + part.Introduction + '</div>');
+							html.push('<div class="full f13 fl mt10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
 					})
 					InitHeader();
@@ -1051,7 +826,7 @@
 		if(index == 0) {
 			CloseColor();
 			base.AddClass(["#agreeColor", "#mycolor"], "hide");
-			base.GetView("addarticle").evalJS("changeColor('" + ThemeColor + "')");
+			//base.GetView("addarticle").evalJS("changeColor('" + ThemeColor + "')");
 			base.Get("btnTemp").classList.remove("hide");
 		} else {
 			base.Get("color-cover").classList.remove("hide");
@@ -1220,7 +995,6 @@
 		TempTan(0);
 		base.RemoveClass([".background"], "hover");
 		mui(".background")[CurrTemplate + 1].classList.add("hover");
-		base.GetView("addarticle").evalJS("changeCover('" + CurrBackgroundName + "')");
 		base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
 		base.Get("btnTemp").classList.remove("hide");
 		if(callback) {
@@ -1229,77 +1003,33 @@
 		isLoading = false;
 	}
 
-	function ShowBackground() {
-		//关闭
-		base.AddClass(["#temps"], "hide");
-		var mybackground = base.Get("mybackground");
-		mybackground.classList.remove("hide");
-		if(backgroundSwiper == null) {
-			var fragment = document.createDocumentFragment();
-
-			var div = document.createElement('div');
-			div.className = "background background_back";
-			div.setAttribute("name", "back");
-			div.innerHTML = '<div class="f10">返回</div>';
-			fragment.appendChild(div);
-
-			backgrounds.forEach(x => {
-				div = document.createElement('div');
-				div.className = "background " + x.name;
-				div.setAttribute("name", x.name);
-				div.innerHTML = '<div class="' + x.name + '"><div class="f10">' + x.tip + '</div></div>';
-				fragment.appendChild(div);
-			})
-			base.Get("background-slide").innerHTML = "";
-			base.Get("background-slide").appendChild(fragment);
-			backgroundSwiper = new Swiper('#mybackground', {
-				scrollbar: '#mybackground-scrollbar',
-				direction: 'horizontal',
-				slidesPerView: 'auto',
-				mousewheelControl: true,
-				freeMode: true,
-				roundLengths: true,
-				spaceBetween: 10,
-				onInit: function(swiper) {
-					mybackground.classList.remove("bounceOutUp");
-					mybackground.classList.add("bounceInUp");
-				}
-			});
-		} else {
-			mybackground.classList.remove("bounceOutUp");
-			mybackground.classList.add("bounceInUp");
-		}
-	}
-
-	function CloseBackground() {
-		var mybackground = base.Get("mybackground");
-		mybackground.classList.remove("bounceInUp");
-		mybackground.classList.add("bounceOutUp");
-		base.Get("background-cover").classList.add("hide");
-	}
-
 	//背景状态切换
 	function ChangeBg() {
-
 		InitHeader();
 
 		//纯白背景
 		if(CurrTemplate == 0) {
-			if(!base.IsNullOrEmpty(CurrBackgroundName)) {
-				$wrapper.style.backgroundColor = "transparent";
-				$wrapper1.style.background = "";
-				$cover.style.backgroundColor = "transparent";
-				$wrapper2.style.background = "";
-				$wrapper2.className = CurrBackgroundName;
-			}
-		} else if(CurrTemplate > 1) {
-			//模板
+			$wrapper.style.backgroundColor = "transparent";
+			$wrapper1.style.background = "";
+			$cover.style.backgroundColor = "transparent";
 			$wrapper2.style.background = "";
-			$wrapper2.className = "";
-			$wrapper.style.backgroundColor = CurrColor;
-			$wrapper1.style.background = "url(" + CurrCover + ") top center no-repeat";
-			$wrapper1.style.backgroundSize = "100% auto";
-			$cover.style.backgroundColor = "RGBA(255, 255, 255, 0.5)";
+		} else if(CurrTemplate > 1) {
+			//模板 
+			base.Get("x-avatar").style.paddingTop = CurrTemplateJson.MarginTop + "rem";
+			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
+				$wrapper1.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
+					$wrapper1.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+				}
+
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
+					$wrapper1.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+				}
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
+				$wrapper.style.backgroundColor = CurrTemplateJson.Background;
+			}
+			$cover.style.backgroundColor = CurrTemplateJson.Transparency
 		} else {
 			//自定义
 			$wrapper.style.backgroundColor = "transparent";
@@ -1351,22 +1081,15 @@
 					fragment.appendChild(div);
 
 					data.list.forEach(x => {
-
-						div = document.createElement('div');
-						div.className = "background " + x.name;
-						div.setAttribute("name", x.name);
-						div.innerHTML = '<div class="' + x.name + '"><div class="f10">' + x.tip + '</div></div>';
-						fragment.appendChild(div);
-						if(x.ID == CurrTemplate) {
-							CurrColor = x.Background;
-							//CurrCover = x.Cover;
-						}
 						var div = document.createElement('div');
-						div.className = "background " + x.Name;
-						div.setAttribute("name", x.Name);
+						div.className = "background " + x.Cover;
+						div.setAttribute("name", x.Cover);
 						div.setAttribute("tid", x.ID);
-						div.innerHTML = '<div class="' + x.Name + '"><div class="f10">' + x.tip + '</div></div>';
-						/*div.innerHTML = '<img src="' + x.ThumbUrl + '" />';*/
+						if(base.IsNullOrEmpty(x.Cover)) {
+							div.innerHTML = '<img src="' + x.ThumbImage + '" />';
+						} else {
+							div.innerHTML = '<div class="' + x.Cover + '"><div class="f10">' + x.Name + '</div></div>';
+						}
 						fragment.appendChild(div);
 					})
 					base.Get("temp-slide").innerHTML = "";
@@ -1387,14 +1110,8 @@
 				this.classList.add("hover");
 				CurrTemplate = parseInt(this.getAttribute("tid"));
 
-				CurrCover = "";
-				CurrColor = "";
 				if(CurrTemplate == 0) {
-					//选择纯色背景
-					if(base.IsNullOrEmpty(CurrBackgroundName)) {
-						CurrBackgroundName = "background_white";
-					}
-					ShowBackground();
+
 				} else if(CurrTemplate == 1) {
 					base.OpenWindow("customsetting", "customsetting.html", {
 						ArticleNumber: Article.Number
@@ -1403,7 +1120,6 @@
 					return;
 				} else if(CurrTemplate > 1) {
 					CurrCover = this.getAttribute("cover");
-					CurrColor = this.getAttribute("color");
 				}
 
 				ChangeBg(); //背景切换 
