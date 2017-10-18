@@ -22,7 +22,7 @@
 			
 			#topPopover .mui-popover-arrow {
 				left: auto;
-				right: 6px;
+				right: 6px; 
 			}
 			
 			#snowcanvas {
@@ -40,8 +40,6 @@
 				position: fixed;
 				height: 100%;
 				width: 100%;
-				/*background: url(https://ss2.meipian.me/theme/v2/img/77/77bg_750_1.jpg) center 0 no-repeat;*/
-				background-size: cover;
 			}
 			
 			.root {
@@ -155,7 +153,7 @@
 	<!--禁止复制-->
 
 	<body id="body" oncontextmenu="return false" onselectstart="return false" class="">
-		<header id="header" class="mui-bar" immersed="none">
+		<header id="header" class="mui-bar">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="padding-top:0.35rem;padding-right: 0.4rem;">•••</a>
 			<h1 class="mui-title cfff user" id="nickname"></h1>
@@ -274,13 +272,13 @@
 				<!--头部-->
 				<div class="x-head mb20 hide" id="x-head">
 					<div class="img-container" id="x-avatar">
-						<div class="avatar">
+						<div class="avatar" id="x-avatar-sub">
 							<img id="useravatar0" src="../images/avatar.png">
 						</div>
 					</div>
-					<div class="article-meta well2 mt10 tc" id="x-article">
-						<h3 class="title" id="title0"></h3>
-						<p class="time-read">
+					<div class="article-meta well2 mt20 tc" id="x-article">
+						<h3 class="title" id="title0"></h3> 
+						<p class="time-read"> 
 							<span id="createdate0"></span>
 							<span class="read-count" id="views0"></span>
 						</p>
@@ -289,7 +287,7 @@
 							<span id="musicname0" class="f11"></span>
 						</p>
 					</div>
-				</div>
+				</div>  
 				<!--内容-->
 				<div class="x-content well mb10">
 					<div class="section" id="desc"></div>
@@ -326,7 +324,7 @@
 
 	var $divzan = base.Get("divzan");
 	var $zan = base.Get("zan");
-	var $footer_zan = base.Get("footer_zan");
+	var $footer_zan = base.Get("footer_zan"); 
 	var $header = base.Get("header");
 	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
 	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
@@ -353,16 +351,6 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
-
-		//背景色渐变
-		window.addEventListener('scroll', function(e) {
-			num = window.pageYOffset / 200;
-			if(CurrTemplate > 0) {
-				if(num <= 1) {
-					$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-				}
-			}
-		});
 
 		//点赞
 		$divzan.addEventListener('tap', function(event) {
@@ -630,6 +618,7 @@
 							base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
 							base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
 							base.Get("views0").style.color = CurrTemplateJson.ViewColor;
+							base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
 						}
 					}
 					CurrBackground = data.BackgroundJson;

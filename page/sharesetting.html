@@ -255,7 +255,7 @@
 		mui.back = function() {
 			var articleDetailPage = base.GetView('articledetail');
 			if(articleDetailPage == null) {
-				base.OpenWindow("articledetail", "articledetail.html", {
+				base.OpenWindow("articledetail_new", "articledetail_new.html", {
 					ArticleID: ArticleID,
 					Source: Source
 				}, false, "none");
@@ -293,7 +293,7 @@
 								if(page) {
 									page.evalJS("UpdateAction()");
 								} else {
-									base.OpenWindow("articledetail", "articledetail.html", {
+									base.OpenWindow("articledetail_new", "articledetail_new.html", {
 										ArticleID: ArticleID,
 										Source: Source
 									}, false, "none");

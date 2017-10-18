@@ -12,31 +12,64 @@ function ChangeMusic() {
 
 //背景状态切换
 function ChangeBg() {
-	InitHeader();
+	if(CurrTemplate == 0) {
+		base.Get("x-avatar").classList.add("hide");
+		base.Get("x-article").classList.remove("tc");
+		base.Get("x-article").classList.add("tl");
+	} else {
+		base.Get("x-avatar").classList.remove("hide");
+		base.Get("x-article").classList.remove("tl");
+		base.Get("x-article").classList.add("tc");
+	}
 
 	//纯白背景
 	if(CurrTemplate == 0) {
-		$wrapper.style.backgroundColor = "transparent";
+		$wrapper.style.backgroundColor = "";
 		$wrapper1.style.background = "";
-		$cover.style.backgroundColor = "transparent";
+		$cover.style.backgroundColor = "";
 		$wrapper2.style.background = "";
 	} else if(CurrTemplate > 1) {
 		//模板 
 		base.Get("x-avatar").style.paddingTop = CurrTemplateJson.MarginTop + "rem";
-		if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
-			$wrapper1.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
-			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
-				$wrapper1.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
-			}
+		$cover.style.backgroundColor = CurrTemplateJson.Transparency;
 
-			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
-				$wrapper1.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+		if(CurrTemplateJson.CoverFixed == 0) {
+			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
+				$wrapper1.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
+					$wrapper1.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+				}
+
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
+					$wrapper1.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+				}
 			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
+				$wrapper.style.background = CurrTemplateJson.Background;
+				if(!CurrTemplateJson.Background.startWith("#") && !CurrTemplateJson.Background.startWith("rgba")) {
+					$wrapper.style.background = base.BrowserName() + CurrTemplateJson.Background;
+				}
+			}
+		} else {
+			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
+				$wrapper2.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
+					$wrapper2.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+				}
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
+					$wrapper2.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+				}
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
+				if(CurrTemplateJson.Background.startWith("#") || CurrTemplateJson.Background.startWith("rgba")) {
+					$wrapper2.style.backgroundColor = CurrTemplateJson.Background;
+				} else {
+					$wrapper2.style.background = CurrTemplateJson.Background;
+					$wrapper2.style.background = base.BrowserName() + CurrTemplateJson.Background;
+				}
+			}
+			$wrapper2.classList.remove("hide");
 		}
-		if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
-			$wrapper.style.backgroundColor = CurrTemplateJson.Background;
-		}
-		$cover.style.backgroundColor = CurrTemplateJson.Transparency
 	} else {
 		//自定义
 		$wrapper.style.backgroundColor = "transparent";

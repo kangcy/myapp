@@ -1405,7 +1405,8 @@
 			"page/payment.html",
 			"page/articletype2.html",
 			"page/articletype.html",
-			"page/articledetail.html"
+			"page/articledetail.html",
+			"page/articledetail_new.html"
 		]
 	},
 	"page/articleType.html": {

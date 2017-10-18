@@ -361,7 +361,7 @@
 					var param = msg.payload.split('|');
 					//系统推荐文章、好友发布文章
 					if(param[0] == PushType.Article || param[0] == PushType.FanArticle) {
-						base.OpenWindow("articledetail", "articledetail.html", {
+						base.OpenWindow("articledetail_new", "articledetail_new.html", {
 							ArticleID: param[1],
 							Source: "",
 							NickName: ""

@@ -53,8 +53,8 @@
 			}
 			
 			div.background {
-				width: 4rem;
-				height: 5.25rem;
+				width: 5rem;
+				height: 6.25rem;
 				margin-right: 0.5rem;
 				margin-bottom: 0.2rem;
 				float: left;
@@ -130,16 +130,16 @@
 			
 			.icons {
 				display: inline-block;
-				width: 80%;
+				width: 60%;
 				text-align: center;
 				position: fixed;
 				bottom: 1rem;
-				left: 10%;
+				left: 20%;
 				z-index: 99999;
 			}
 			
 			.icons .items {
-				width: 33.3%;
+				width: 50%;
 				display: inline;
 				float: left;
 				text-align: center;
@@ -186,7 +186,7 @@
 			
 			.background_close {
 				background-color: #fff;
-				background-image: url(../images/preview/btn_cancel.png);
+				background-image: url(../images/preview/btn_cancel1.png);
 				background-repeat: no-repeat;
 				background-size: 80% !important;
 				background-position: center 0.5rem !important;
@@ -197,8 +197,6 @@
 				position: fixed;
 				height: 100%;
 				width: 100%;
-				/*background: url(https://ss2.meipian.me/theme/v2/img/77/77bg_750_1.jpg) center 0 no-repeat;*/
-				background-size: cover;
 			}
 			
 			.root {
@@ -312,7 +310,7 @@
 	<!--禁止复制-->
 
 	<body id="body" oncontextmenu="return false" onselectstart="return false">
-		<header class="mui-bar" id="header" immersed="none">
+		<header class="mui-bar" id="header">
 			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
 			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">发布</span>
 			<h1 class="mui-title cfff">文章预览</h1>
@@ -351,6 +349,7 @@
 			</div>
 			<div class="swiper-scrollbar" id="temp-scrollbar"></div>
 		</div>
+		<div class="swiper-cover hide" id="background-cover"></div>
 		<!--漂浮特效-->
 		<div id="snowwrapper"></div>
 		<canvas id="snowcanvas"></canvas>
@@ -362,22 +361,24 @@
 			</div>-->
 			<!--<div><div onclick="CoolTan(1)">炫标题</div></div>-->
 			<div class="items">
-				<div class="div2" onclick="TempTan()" style="background-color:#457ED8;"></div><span class="f12">背景</span>
+				<div class="div2" onclick="TempTan()" style="background-color:#457ED8;"></div>
+				<p><span class="f12">背景</span></p>
 			</div>
 			<div class="items">
-				<div class="div3" onclick="ShowShowy()" style="background-color:#D147EA;"></div><span class="f12">漂浮</span>
+				<div class="div3" onclick="ShowShowy()" style="background-color:#D147EA;"></div>
+				<p><span class="f12">漂浮</span></p>
 			</div>
 		</div>
 		<!--固定背景-->
 		<div id="x-bg" class="hide"></div>
 		<!--内容-->
-		<div id="wrapper" class="hide" style="margin-bottom:50px;">
+		<div id="wrapper" class="hide">
 			<!--x-cover:滚动背景-->
 			<div class="root" id="x-cover">
 				<!--头部-->
 				<div class="x-head mb20 hide" id="x-head">
 					<div class="img-container" id="x-avatar">
-						<div class="avatar">
+						<div class="avatar" id="x-avatar-sub">
 							<img id="useravatar0" src="../images/avatar.png">
 						</div>
 					</div>
@@ -422,6 +423,7 @@
 	var Part = [];
 
 	var CurrTemplate = 0; //当前选中模板
+	var CurrTemplateSortID = 0; //当前选中模板
 	var CurrBackground = null; //背景设置
 	var CurrTemplateJson = null; // 当前模板设置
 	var Showy = "";
@@ -491,16 +493,6 @@
 
 		//CoolTan(1)
 
-		//背景色渐变
-		window.addEventListener('scroll', function(e) {
-			num = window.pageYOffset / 200;
-			if(CurrTemplate > 0) {
-				if(num <= 1) {
-					$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-				}
-			}
-		});
-
 		//打开外链
 		mui('#wrapper').on('tap', 'a.link', function() {
 			var link = this.getAttribute("link");
@@ -553,7 +545,7 @@
 		MusicID = self.MusicID || "";
 		MusicName = self.MusicName || "";
 		MusicUrl = self.MusicUrl || "";
-		CurrTemplate = self.ThemeTemplate || "";
+		CurrTemplate = self.ThemeTemplate || 0;
 		Showy = self.Showy || "";
 
 		Part = self.Part || [];
@@ -629,8 +621,6 @@
 							html.push('<div class="full f13 fl mt10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
 					})
-					InitHeader();
-
 					if(data.TemplateJson != null) {
 						if(data.TemplateJson.ID != 1) {
 							CurrTemplateJson = data.TemplateJson;
@@ -639,6 +629,7 @@
 							base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
 							base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
 							base.Get("views0").style.color = CurrTemplateJson.ViewColor;
+							base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
 						}
 					}
 					CurrBackground = data.BackgroundJson;
@@ -711,31 +702,6 @@
 			base.ShowLoading(false);
 			mask.close();
 		});
-	}
-
-	function InitHeader() {
-		if(CurrTemplate == 0) {
-			$header.setAttribute("immersed", "");
-			base.Immersed();
-
-			base.Get("x-avatar").classList.add("hide");
-			base.Get("x-article").classList.remove("tc");
-			base.Get("x-article").classList.add("tl");
-
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
-			base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
-		} else {
-			$header.setAttribute("immersed", "none");
-			base.Immersed();
-
-			base.Get("x-avatar").classList.remove("hide");
-			base.Get("x-article").classList.remove("tl");
-			base.Get("x-article").classList.add("tc");
-
-			var num = window.pageYOffset / 200;
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-			base.Get("wrapper").style.paddingTop = "0px";
-		}
 	}
 
 	function Video(video) {
@@ -956,8 +922,7 @@
 	function TempTan(index) {
 		IconTan(0);
 		if(index == 0) {
-			CloseBackground();
-			base.AddClass(["#agreeTemp", "#temps"], "hide");
+			base.AddClass(["#agreeTemp", "#temps", "#background-cover"], "hide");
 		} else {
 			base.Get("background-cover").classList.remove("hide");
 			var temps = base.Get("temps");
@@ -981,7 +946,7 @@
 				temps.classList.add("bounceInUp");
 			}
 			base.RemoveClass([".background"], "hover");
-			mui(".background")[CurrTemplate + 1].classList.add("hover");
+			mui(".background")[CurrTemplateSortID + 1].classList.add("hover");
 			base.RemoveClass(["#agreeTemp"], "hide");
 		}
 	}
@@ -994,7 +959,7 @@
 		isLoading = true;
 		TempTan(0);
 		base.RemoveClass([".background"], "hover");
-		mui(".background")[CurrTemplate + 1].classList.add("hover");
+		mui(".background")[CurrTemplateSortID + 1].classList.add("hover");
 		base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
 		base.Get("btnTemp").classList.remove("hide");
 		if(callback) {
@@ -1005,34 +970,71 @@
 
 	//背景状态切换
 	function ChangeBg() {
-		InitHeader();
+		if(CurrTemplate == 0) {
+			base.Get("x-avatar").classList.add("hide");
+			base.Get("x-article").classList.remove("tc");
+			base.Get("x-article").classList.add("tl");
+		} else {
+			base.Get("x-avatar").classList.remove("hide");
+			base.Get("x-article").classList.remove("tl");
+			base.Get("x-article").classList.add("tc");
+		}
+
+		$wrapper.style.backgroundColor = "";
+		$wrapper1.style.background = "";
+		$cover.style.backgroundColor = "";
+		$wrapper2.style.background = "";
 
 		//纯白背景
 		if(CurrTemplate == 0) {
-			$wrapper.style.backgroundColor = "transparent";
+			$wrapper.style.backgroundColor = "";
 			$wrapper1.style.background = "";
-			$cover.style.backgroundColor = "transparent";
+			$cover.style.backgroundColor = "";
 			$wrapper2.style.background = "";
 		} else if(CurrTemplate > 1) {
 			//模板 
 			base.Get("x-avatar").style.paddingTop = CurrTemplateJson.MarginTop + "rem";
-			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
-				$wrapper1.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
-				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
-					$wrapper1.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
-				}
+			$cover.style.backgroundColor = CurrTemplateJson.Transparency;
+			if(CurrTemplateJson.CoverFixed == 0) {
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
+					$wrapper1.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
+					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
+						$wrapper1.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+					}
 
-				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
-					$wrapper1.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
+						$wrapper1.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+					}
 				}
+				if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
+					$wrapper.style.background = CurrTemplateJson.Background;
+					if(!CurrTemplateJson.Background.startWith("#") && !CurrTemplateJson.Background.startWith("rgba")) {
+						$wrapper.style.background = base.BrowserName() + CurrTemplateJson.Background;
+					}
+				}
+			} else {
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
+					$wrapper2.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
+					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
+						$wrapper2.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+					}
+					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
+						$wrapper2.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+					}
+				}
+				if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
+					if(CurrTemplateJson.Background.startWith("#") || CurrTemplateJson.Background.startWith("rgba")) {
+						$wrapper2.style.backgroundColor = CurrTemplateJson.Background;
+					} else {
+						$wrapper2.style.background = CurrTemplateJson.Background;
+						$wrapper2.style.background = base.BrowserName() + CurrTemplateJson.Background;
+					}
+				}
+				$wrapper2.classList.remove("hide");
 			}
-			if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
-				$wrapper.style.backgroundColor = CurrTemplateJson.Background;
-			}
-			$cover.style.backgroundColor = CurrTemplateJson.Transparency
 		} else {
 			//自定义
-			$wrapper.style.backgroundColor = "transparent";
+			$wrapper.style.backgroundColor = "";
 			$wrapper1.style.background = "";
 			if(CurrBackground == null) {
 				//全屏
@@ -1073,23 +1075,31 @@
 				var length = data.records;
 				if(length > 0) {
 					var fragment = document.createDocumentFragment();
-
 					var div = document.createElement('div');
-					div.className = "background background_close";
+					div.className = "background";
 					div.setAttribute("name", "back");
-					div.innerHTML = '<div class="f10">关闭</div>';
+					div.innerHTML = '<img src="../images/preview/btn_cancel1.png" />';
 					fragment.appendChild(div);
 
 					data.list.forEach(x => {
 						var div = document.createElement('div');
-						div.className = "background " + x.Cover;
+						//div.className = "background " + x.Cover;
+						div.className = "background";
 						div.setAttribute("name", x.Cover);
 						div.setAttribute("tid", x.ID);
-						if(base.IsNullOrEmpty(x.Cover)) {
+						div.setAttribute("sortid", x.SortID);
+						div.setAttribute("model", JSON.stringify(x));
+						if(x.ID > 1) {
+							div.innerHTML = '<img src="' + x.ThumbImage + '" /><div class="f10">' + x.Name + '</div>';
+						} else {
+							div.innerHTML = '<img src="' + x.ThumbImage + '" />';
+						}
+
+						/*if(base.IsNullOrEmpty(x.Cover)) {
 							div.innerHTML = '<img src="' + x.ThumbImage + '" />';
 						} else {
 							div.innerHTML = '<div class="' + x.Cover + '"><div class="f10">' + x.Name + '</div></div>';
-						}
+						}*/
 						fragment.appendChild(div);
 					})
 					base.Get("temp-slide").innerHTML = "";
@@ -1108,19 +1118,25 @@
 
 				base.RemoveClass([".background"], "hover");
 				this.classList.add("hover");
-				CurrTemplate = parseInt(this.getAttribute("tid"));
 
-				if(CurrTemplate == 0) {
-
-				} else if(CurrTemplate == 1) {
+				if(parseInt(this.getAttribute("tid")) == 1) {
 					base.OpenWindow("customsetting", "customsetting.html", {
 						ArticleNumber: Article.Number
 					});
 					TempTan(0);
+					base.Get("btnTemp").classList.remove("hide");
 					return;
-				} else if(CurrTemplate > 1) {
-					CurrCover = this.getAttribute("cover");
 				}
+
+				CurrTemplate = parseInt(this.getAttribute("tid"));
+				CurrTemplateSortID = parseInt(this.getAttribute("sortid"));
+				CurrTemplateJson = JSON.parse(this.getAttribute("model"));
+
+				base.Get("title0").style.color = CurrTemplateJson.TitleColor;
+				base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+				base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
+				base.Get("views0").style.color = CurrTemplateJson.ViewColor;
+				base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
 
 				ChangeBg(); //背景切换 
 
