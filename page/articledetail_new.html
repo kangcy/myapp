@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/input.min.css">
 		<link rel="stylesheet" href="../css/articledetail.min.css">
@@ -22,7 +21,7 @@
 			
 			#topPopover .mui-popover-arrow {
 				left: auto;
-				right: 6px; 
+				right: 6px;
 			}
 			
 			#snowcanvas {
@@ -158,11 +157,7 @@
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="padding-top:0.35rem;padding-right: 0.4rem;">•••</a>
 			<h1 class="mui-title cfff user" id="nickname"></h1>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
+		<p class="tc c666 f12" id="loader">正在加载中...</p>
 
 		<!--操作-->
 		<div id="topPopover" class="mui-popover">
@@ -270,15 +265,15 @@
 			<!--x-cover:滚动背景-->
 			<div class="root" id="x-cover">
 				<!--头部-->
-				<div class="x-head mb20 hide" id="x-head">
+				<div class="x-head mb15 hide" id="x-head">
 					<div class="img-container" id="x-avatar">
 						<div class="avatar" id="x-avatar-sub">
 							<img id="useravatar0" src="../images/avatar.png">
 						</div>
 					</div>
-					<div class="article-meta well2 mt20 tc" id="x-article">
-						<h3 class="title" id="title0"></h3> 
-						<p class="time-read"> 
+					<div class="article-meta well2 mt10 tc" id="x-article">
+						<h4 class="title" id="title0"></h4>
+						<p class="time-read">
 							<span id="createdate0"></span>
 							<span class="read-count" id="views0"></span>
 						</p>
@@ -287,7 +282,7 @@
 							<span id="musicname0" class="f11"></span>
 						</p>
 					</div>
-				</div>  
+				</div>
 				<!--内容-->
 				<div class="x-content well mb10">
 					<div class="section" id="desc"></div>
@@ -324,7 +319,7 @@
 
 	var $divzan = base.Get("divzan");
 	var $zan = base.Get("zan");
-	var $footer_zan = base.Get("footer_zan"); 
+	var $footer_zan = base.Get("footer_zan");
 	var $header = base.Get("header");
 	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
 	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
@@ -351,6 +346,10 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
+
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		$wrapper.style.paddingTop = base.Get("header").clientHeight + "px";
+		$wrapper2.style.top = base.Get("header").clientHeight + "px";
 
 		//点赞
 		$divzan.addEventListener('tap', function(event) {
@@ -465,7 +464,7 @@
 			main = plus.android.runtimeMainActivity();
 		}
 
-		Load(function(data) {
+		Load(function(data) { 
 			mui.later(function() {
 				plus.webview.close("sharesetting", "none");
 				plus.webview.close("articlepreview", "none");
@@ -545,12 +544,6 @@
 								InitShowy(data.Showy);
 							}, 1000)
 						}
-					} else {
-						$wrapper.classList.remove("hide");
-						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
-						mui.later(function() {
-							InitShowy(data.Showy);
-						}, 1000)
 					}
 
 					Article = data;
@@ -700,6 +693,14 @@
 					if(data.Submission > 0 && data.Submission != 100) {
 						base.AddClass(["#popover_delete", "#popover_edit", "#popover_power"], "hide");
 					}
+
+					if(userinfo.Number == data.CreateUserNumber) {
+						$wrapper.classList.remove("hide");
+						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
+						mui.later(function() {
+							InitShowy(data.Showy);
+						}, 1000)
+					}
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().hide();
@@ -716,26 +717,13 @@
 
 	function InitHeader() {
 		if(CurrTemplate == 0) {
-			$header.setAttribute("immersed", "");
-			base.Immersed();
-
 			base.Get("x-avatar").classList.add("hide");
 			base.Get("x-article").classList.remove("tc");
 			base.Get("x-article").classList.add("tl");
-
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
-			base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
 		} else {
-			$header.setAttribute("immersed", "none");
-			base.Immersed();
-
 			base.Get("x-avatar").classList.remove("hide");
 			base.Get("x-article").classList.remove("tl");
 			base.Get("x-article").classList.add("tc");
-
-			var num = window.pageYOffset / 200;
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-			base.Get("wrapper").style.paddingTop = "0px";
 		}
 	}
 

@@ -16,7 +16,7 @@
 				border-bottom: 1px solid #eee;
 			}
 			
-			#items .item { 
+			#items .item {
 				width: 50%;
 				display: inline-block;
 				margin-top: 1rem;
@@ -112,8 +112,7 @@
 			</div>
 		</div>
 		<div id="none" class="full tc hide">
-			<img src="../images/my/666.png" class="none" />
-			<p class="f13 mt10">还未设置背景哦，创建一个吧</p>
+			<p class="f12" id="none_tip">还未设置背景哦，创建一个吧</p>
 		</div>
 	</body>
 
@@ -137,6 +136,8 @@
 
 	mui.ready(function() {
 		base.Immersed();
+
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.RemoveClass(["#create"], "hide");
@@ -242,10 +243,14 @@
 				mui.toast("系统异常,请稍后再试");
 			} else {
 				if(data.result) {
-					var page = base.GetView('articlepreview');
-					if(page) {
-						page.evalJS("Reload('customsetting')");
+					var model = {
+						Full: full,
+						High: high,
+						Transparency: transparency,
+						Url: url
 					}
+					console.log(JSON.stringify(model))
+					base.GetView('articlepreview').evalJS("Reload('customsetting','" + JSON.stringify(model) + "')");
 				} else {
 					mui.toast(data.message);
 				}

@@ -330,8 +330,7 @@
 		imgurl = dataURL.toDataURL("image/jpeg", 1);
 		Upload(imgurl, function(data) {
 			var url = data;
-			//保存设置
-			HttpGet(base.RootUrl + "Api/Background/Edit", {
+			var model = {
 				ID: userinfo.ID,
 				ArticleNumber: articleNumber,
 				Full: full,
@@ -339,7 +338,9 @@
 				Transparency: full == 0 ? 0 : transparency,
 				Url: url,
 				EditID: id
-			}, function(data) {
+			}
+			//保存设置
+			HttpGet(base.RootUrl + "Api/Background/Edit", model, function(data) {
 				data = JSON.parse(data);
 				base.CheckLogin(userinfo, data.code);
 				if(data == null) {
@@ -347,10 +348,11 @@
 				} else {
 					if(data.result) {
 						if(id == 0) {
-							var page = base.GetView('articlepreview');
+							/*var page = base.GetView('articlepreview');
 							if(page) {
 								page.evalJS("Reload('custom')");
-							}
+							}*/
+							base.GetView('articlepreview').evalJS("Reload('custom','" + JSON.stringify(model) + "')");
 						} else {
 							var page = base.GetView('customsetting');
 							if(page) {

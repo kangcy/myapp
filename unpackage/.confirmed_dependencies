@@ -3981,7 +3981,8 @@
 			"images/article/btn_music.png",
 			"fonts/mui.ttf",
 			"images/loading.gif",
-			"images/avatar.png"
+			"images/avatar.png",
+			"images/preview/btn_cancel1.png"
 		],
 		"refer": [
 			"page/customsetting.html",

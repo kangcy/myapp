@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../css/articledetail.min.css">
 		<link rel="stylesheet" href="../swipe/swiper.min.css">
@@ -54,7 +53,7 @@
 			
 			div.background {
 				width: 5rem;
-				height: 6.25rem;
+				height: 7.25rem;
 				margin-right: 0.5rem;
 				margin-bottom: 0.2rem;
 				float: left;
@@ -81,10 +80,10 @@
 				font-size: 11px;
 				text-align: center;
 				width: 100%;
-				background: rgba(0, 0, 0, 0.2);
+				background: rgba(0, 0, 0, 0.5);
 				color: #fff;
-				height: 1.2rem;
-				line-height: 1.2rem;
+				height: 1.6rem;
+				line-height: 1.6rem;
 				border-radius: 0px 0px 5px 5px;
 			}
 			
@@ -174,22 +173,6 @@
 			
 			.icons div.div3 {
 				background-image: url(../images/preview/9.png);
-			}
-			
-			.background_back {
-				background-color: #fff;
-				background-image: url(../images/preview/btn_back_bottom.png);
-				background-repeat: no-repeat;
-				background-size: 80% !important;
-				background-position: center 0.5rem !important;
-			}
-			
-			.background_close {
-				background-color: #fff;
-				background-image: url(../images/preview/btn_cancel1.png);
-				background-repeat: no-repeat;
-				background-size: 80% !important;
-				background-position: center 0.5rem !important;
 			}
 			/**新版**/
 			
@@ -315,11 +298,7 @@
 			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">发布</span>
 			<h1 class="mui-title cfff">文章预览</h1>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
+		<p class="tc c666 f12" id="loader">正在加载中...</p>
 		<img class="hide" src="../images/preview/icon_theme.png" onclick="IconTan(1)" id="btnTemp" style="bottom:1rem;">
 		<!--主题色-->
 		<img class="hide" src="../images/preview/btn_sure.png" onclick="ColorTan(0)" id="agreeColor">
@@ -342,7 +321,7 @@
 		</div>
 		<div class="swiper-cover hide" id="cool-cover"></div>
 		<!--模板选择-->
-		<img class="hide" src="../images/preview/btn_sure.png" onclick="ChooseTan()" id="agreeTemp">
+		<img class="hide" src="../images/preview/btn_sure.png" onclick="ChooseTan()" id="agreeTemp" style="bottom:10rem;">
 		<div class="swiper-container hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" id="temp-slide"></div>
@@ -376,14 +355,14 @@
 			<!--x-cover:滚动背景-->
 			<div class="root" id="x-cover">
 				<!--头部-->
-				<div class="x-head mb20 hide" id="x-head">
+				<div class="x-head mb15 hide" id="x-head">
 					<div class="img-container" id="x-avatar">
 						<div class="avatar" id="x-avatar-sub">
 							<img id="useravatar0" src="../images/avatar.png">
 						</div>
 					</div>
 					<div class="article-meta well2 mt10 tc" id="x-article">
-						<h3 class="title" id="title0"></h3>
+						<h4 class="title" id="title0"></h4>
 						<p class="time-read">
 							<span id="createdate0"></span>
 							<span class="read-count" id="views0"></span>
@@ -491,6 +470,10 @@
 		base.Immersed();
 		base.ToTop();
 
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		$wrapper.style.paddingTop = base.Get("header").clientHeight + "px";
+		$wrapper2.style.top = base.Get("header").clientHeight + "px";
+
 		//CoolTan(1)
 
 		//打开外链
@@ -581,8 +564,6 @@
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
-
-					$wrapper.classList.remove("hide");
 
 					Article = data;
 					Article.NickName = base.UnUnicodeText(data.NickName);
@@ -690,6 +671,8 @@
 
 					//音乐 
 					ChangeMusic();
+
+					$wrapper.classList.remove("hide");
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().hide();
@@ -970,6 +953,7 @@
 
 	//背景状态切换
 	function ChangeBg() {
+		console.log(CurrTemplate);
 		if(CurrTemplate == 0) {
 			base.Get("x-avatar").classList.add("hide");
 			base.Get("x-article").classList.remove("tc");
@@ -985,13 +969,7 @@
 		$cover.style.backgroundColor = "";
 		$wrapper2.style.background = "";
 
-		//纯白背景
-		if(CurrTemplate == 0) {
-			$wrapper.style.backgroundColor = "";
-			$wrapper1.style.background = "";
-			$cover.style.backgroundColor = "";
-			$wrapper2.style.background = "";
-		} else if(CurrTemplate > 1) {
+		if(CurrTemplate > 1) {
 			//模板 
 			base.Get("x-avatar").style.paddingTop = CurrTemplateJson.MarginTop + "rem";
 			$cover.style.backgroundColor = CurrTemplateJson.Transparency;
@@ -1032,7 +1010,8 @@
 				}
 				$wrapper2.classList.remove("hide");
 			}
-		} else {
+		} else if(CurrTemplate == 1) {
+			console.log(JSON.stringify(CurrBackground));
 			//自定义
 			$wrapper.style.backgroundColor = "";
 			$wrapper1.style.background = "";
@@ -1056,7 +1035,7 @@
 						$wrapper2.style.background = "url(" + url + ") no-repeat top center";
 						$wrapper2.style.backgroundSize = "100% 15.5rem";
 						break;
-					case 1:
+					case 1: 
 						//全屏
 						$wrapper2.style.background = "url(" + url + ") center center no-repeat";
 						$wrapper2.style.backgroundSize = "100% auto";
@@ -1083,23 +1062,16 @@
 
 					data.list.forEach(x => {
 						var div = document.createElement('div');
-						//div.className = "background " + x.Cover;
 						div.className = "background";
 						div.setAttribute("name", x.Cover);
 						div.setAttribute("tid", x.ID);
 						div.setAttribute("sortid", x.SortID);
 						div.setAttribute("model", JSON.stringify(x));
 						if(x.ID > 1) {
-							div.innerHTML = '<img src="' + x.ThumbImage + '" /><div class="f10">' + x.Name + '</div>';
+							div.innerHTML = '<img src="' + x.ThumbImage + '" /><div class="f15">' + x.Name + '</div>';
 						} else {
 							div.innerHTML = '<img src="' + x.ThumbImage + '" />';
 						}
-
-						/*if(base.IsNullOrEmpty(x.Cover)) {
-							div.innerHTML = '<img src="' + x.ThumbImage + '" />';
-						} else {
-							div.innerHTML = '<div class="' + x.Cover + '"><div class="f10">' + x.Name + '</div></div>';
-						}*/
 						fragment.appendChild(div);
 					})
 					base.Get("temp-slide").innerHTML = "";
@@ -1148,9 +1120,24 @@
 	}
 
 	//重新加载数据 
-	function Reload(source) {
+	function Reload(source, model) {
+		console.log(model);
+		CurrTemplate = 1;
+		CurrBackground = JSON.parse(model);
+		if(source == "custom") {
+			plus.webview.close("customsetting", "none");
+			plus.webview.close("custom");
+		} else {
+			plus.webview.close("custom", "none");
+			plus.webview.close("customsetting");
+		}
+		console.log("bbbbb");
 		ChooseTan(function() {
-			Load(function() {
+
+			console.log('aaaa');
+
+			ChangeBg();
+			/*Load(function() {
 				if(source == "custom") {
 					plus.webview.close("customsetting", "none");
 					plus.webview.close("custom");
@@ -1158,7 +1145,7 @@
 					plus.webview.close("custom", "none");
 					plus.webview.close("customsetting");
 				}
-			});
+			});*/
 		});
 	}
 
