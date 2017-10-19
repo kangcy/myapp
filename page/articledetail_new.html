@@ -464,7 +464,7 @@
 			main = plus.android.runtimeMainActivity();
 		}
 
-		Load(function(data) { 
+		Load(function(data) {
 			mui.later(function() {
 				plus.webview.close("sharesetting", "none");
 				plus.webview.close("articlepreview", "none");
@@ -606,14 +606,23 @@
 					if(data.TemplateJson != null) {
 						if(data.TemplateJson.ID != 1) {
 							CurrTemplateJson = data.TemplateJson;
-
-							base.Get("title0").style.color = CurrTemplateJson.TitleColor;
-							base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
-							base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
-							base.Get("views0").style.color = CurrTemplateJson.ViewColor;
-							base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
+							if(data.ColorTemplateJson == null) {
+								base.Get("title0").style.color = CurrTemplateJson.TitleColor;
+								base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+								base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
+								base.Get("views0").style.color = CurrTemplateJson.ViewColor;
+								base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
+							}
 						}
 					}
+					if(data.ColorTemplateJson != null) {
+						base.Get("title0").style.color = data.ColorTemplateJson.TitleColor;
+						base.Get("nickname0").style.color = data.ColorTemplateJson.UserColor;
+						base.Get("createdate0").style.color = data.ColorTemplateJson.TimeColor;
+						base.Get("views0").style.color = data.ColorTemplateJson.ViewColor;
+						base.Get("x-avatar-sub").style.border = "2px solid " + data.ColorTemplateJson.TitleColor;
+					}
+
 					CurrBackground = data.BackgroundJson;
 
 					ChangeBg();

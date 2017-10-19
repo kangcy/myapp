@@ -105,23 +105,18 @@
 	</head>
 
 	<body>
-		<header class="mui-bar" id="header" immersed="none">
+		<header class="mui-bar" id="header">
 			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
-			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Preview()">预览</span>
-			<h1 class="mui-title cfff" id="title">点击输入文章标题</h1>
+			<span class="mui-icon fr mui-text cfff hide" id="submit" onclick="Preview()">预览</span>
+			<h1 class="mui-title cfff" id="title"></h1>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
+		<p class="tc c666 f12" id="loader">正在加载中...</p>
 		<div id="tip" class="hide"><img src="../images/tip/title.png" class="tip1" /><img src="../images/tip/know.png" class="tip2" onclick="CloseTip()" /></div>
 		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
-			<div class="info-body" style="margin-top:10rem">
+			<div class="info-body" style="margin-top:12rem">
 				<div id="music" class="btn fl tl mb15 hide"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
 			</div>
 		</div>
-		<!--<div id="title" class="f15" style="color:#333;line-height:1.5rem;padding:1rem;text-align:center;margin:0.5rem 0;">点击输入文章标题</div>-->
 		<div id="edit" class="mt20"></div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
@@ -296,7 +291,8 @@
 	var currEditID = 0; //当前编辑对象ID
 	var currEditPartID = 0; //当前编辑段落ID
 	var currEditImg = ""; //当前编辑图片
-	var currTemplate = ""; //当前模板
+	var CurrTemplate = 0; //当前模板
+	var CurrColorTemplate = 0; //当前主题色模板
 	var showy = "";
 	var userinfo = base.GetUserInfo();
 	var $header = base.Get("header");
@@ -438,20 +434,10 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		mask.show();
-		base.ShowWaiting("正在加载");
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		base.Get("cover").style.top = base.Get("header").clientHeight + "px";
 
 		base.Get("myline").style.height = window.innerHeight * 0.6 + "px";
-
-		//滚动监听、背景色渐变
-		var num = 0;
-		var browserName = base.BrowserName();
-		window.addEventListener('scroll', function(e) {
-			num = window.pageYOffset / 200;
-			if(num <= 1) {
-				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-			}
-		});
 
 		//音乐
 		base.Get('music').addEventListener('tap', function(event) {
@@ -955,7 +941,8 @@
 			CityCode: position.CityCode,
 			Latitude: position.Latitude,
 			Longitude: position.Longitude,
-			Template: currTemplate,
+			Template: CurrTemplate,
+			ColorTemplate: CurrColorTemplate,
 			ShowyUrl: showy,
 			Part: escape(JSON.stringify(InitParts))
 		}
@@ -1040,7 +1027,8 @@
 			MusicID: MusicID,
 			MusicName: MusicName,
 			MusicUrl: MusicUrl,
-			ThemeTemplate: currTemplate,
+			ThemeTemplate: CurrTemplate,
+			ColorTemplate: CurrColorTemplate,
 			Showy: showy,
 			Part: InitParts
 		});
@@ -1050,7 +1038,11 @@
 	}
 
 	function changeTemp(temp) {
-		currTemplate = temp;
+		CurrTemplate = temp;
+	}
+
+	function changeColorTemp(temp) {
+		CurrColorTemplate = temp;
 	}
 
 	function changeShowy(src) {
@@ -1120,7 +1112,8 @@
 						$("#title").html(Title == "我的小微篇" ? "点击输入文章标题" : Title);
 					}
 
-					currTemplate = data.Template;
+					CurrTemplate = data.Template;
+					CurrColorTemplate = data.ColorTemplate;
 
 					//加载段落
 					var parts = data.ArticlePart;
@@ -1153,6 +1146,8 @@
 						});*/
 
 						InitGroup();
+
+						base.Get("submit").classList.remove("hide");
 					}
 				}
 			}

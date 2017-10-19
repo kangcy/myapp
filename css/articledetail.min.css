@@ -169,6 +169,14 @@
 	z-index: 9999;
 }
 
+#cancelTemp {
+	position: fixed;
+	left: 1rem;
+	bottom: 6.875rem;
+	width: 3.5rem;
+	z-index: 9999;
+}
+
 #agreeColor,
 #agreeCool {
 	position: fixed;

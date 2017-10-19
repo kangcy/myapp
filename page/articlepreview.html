@@ -129,16 +129,16 @@
 			
 			.icons {
 				display: inline-block;
-				width: 60%;
+				width: 80%;
 				text-align: center;
 				position: fixed;
 				bottom: 1rem;
-				left: 20%;
+				left: 10%;
 				z-index: 99999;
 			}
 			
 			.icons .items {
-				width: 50%;
+				width: 33.3%;
 				display: inline;
 				float: left;
 				text-align: center;
@@ -153,14 +153,17 @@
 				background-repeat: no-repeat;
 				background-size: 55%;
 				background-position: center center;
-				margin-bottom: 0.5rem;
+				margin-bottom: 0.25rem;
 			}
 			
-			.icons div span {
+			.icons div p {
 				background: rgba(0, 0, 0, 0.3);
-				padding: 0.3rem 1rem;
+				padding: 0.1rem 0;
 				border-radius: 30px;
 				color: #fff;
+				width: 80%;
+				display: inline-block;
+				margin-top: 4.5rem;
 			}
 			
 			.icons div.div1 {
@@ -288,6 +291,53 @@
 			.well2 {
 				padding: 0 6%;
 			}
+			/*.swiper-container {
+				width: 100%;
+				-webkit-perspective: 1200px;
+				-moz-perspective: 1200px;
+				-ms-perspective: 1200px;
+				perspective: 1200px
+			}
+			
+			.swiper-slide {
+				width: 50%;
+				-webkit-transform-style: preserve-3d;
+				-moz-transform-style: preserve-3d;
+				-ms-transform-style: preserve-3d;
+				transform-style: preserve-3d
+			}
+			
+			.swiper-slide .main-img {
+				width: 90%;
+				margin: 0 auto;
+				padding: 0px;
+				-webkit-box-shadow: 0 6px 6px -6px #ccc;
+				-moz-box-shadow: 0 6px 6px -6px #ccc;
+				box-shadow: 0 6px 6px -6px #ccc;
+				background: #fff;
+				background-clip: padding-box;
+				display: inline-block;
+				border-radius: 5px;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.swiper-slide .main-img div {
+				height: 2rem;
+				line-height: 2rem;
+				float: left;
+				width: 100%;
+				color: #664C65;
+				font-family: 楷体; 
+				position: absolute;
+				bottom: 0px;
+				left: 0px;
+				background: linear-gradient(top, #fff 0%, #e7e7e7 100%);
+				background: -webkit-linear-gradient(top, #fff 0%, #e7e7e7 100%);
+				background: -ms-linear-gradient(top, #fff 0%, #e7e7e7 100%);
+				background: -moz-linear-gradient(top, #fff 0%, #e7e7e7 100%);
+				background: -o-linear-gradient(top, #fff 0%, #e7e7e7 100%);
+			}*/
 		</style>
 	</head>
 	<!--禁止复制-->
@@ -295,13 +345,12 @@
 	<body id="body" oncontextmenu="return false" onselectstart="return false">
 		<header class="mui-bar" id="header">
 			<span class="mui-action-back mui-icon mui-icon-back fl cfff"></span>
-			<span class="mui-icon fr mui-text cfff" id="submit" onclick="Save()">发布</span>
+			<span class="mui-icon fr mui-text cfff hide" id="submit" onclick="Save()">发布</span>
 			<h1 class="mui-title cfff">文章预览</h1>
 		</header>
 		<p class="tc c666 f12" id="loader">正在加载中...</p>
-		<img class="hide" src="../images/preview/icon_theme.png" onclick="IconTan(1)" id="btnTemp" style="bottom:1rem;">
 		<!--主题色-->
-		<img class="hide" src="../images/preview/btn_sure.png" onclick="ColorTan(0)" id="agreeColor">
+		<img class="hide" src="../images/preview/btn_sure.png" onclick="IconTan(1,false)" id="agreeColor" style="bottom:6rem;">
 		<div class="swiper-container hide" id="mycolor" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide tc" id="mycolor-slide">
@@ -309,9 +358,8 @@
 			</div>
 			<div class="swiper-scrollbar" id="mycolor-scrollbar"></div>
 		</div>
-		<div class="swiper-cover hide" id="color-cover"></div>
 		<!--炫标题-->
-		<img class="hide" src="../images/preview/btn_sure.png" onclick="CoolTan(0)" id="agreeCool">
+		<img class="hide" src="../images/preview/btn_sure.png" onclick="IconTan(1,false)" id="agreeCool">
 		<div class="swiper-container hide" id="mycool" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide tc" id="mycool-slide">
@@ -319,33 +367,36 @@
 			</div>
 			<div class="swiper-scrollbar" id="mycool-scrollbar"></div>
 		</div>
-		<div class="swiper-cover hide" id="cool-cover"></div>
 		<!--模板选择-->
-		<img class="hide" src="../images/preview/btn_sure.png" onclick="ChooseTan()" id="agreeTemp" style="bottom:10rem;">
+		<img class="hide" src="../images/preview/btn_sure.png" onclick="ChooseTan()" id="agreeTemp" style="bottom:9rem;">
 		<div class="swiper-container hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" id="temp-slide"></div>
 			</div>
 			<div class="swiper-scrollbar" id="temp-scrollbar"></div>
 		</div>
-		<div class="swiper-cover hide" id="background-cover"></div>
+
 		<!--漂浮特效-->
 		<div id="snowwrapper"></div>
 		<canvas id="snowcanvas"></canvas>
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
-		<div class="swiper-cover hide" id="icon-cover"></div>
+		<div class="swiper-cover hide" id="icon-cover" onclick="IconTan(1,false)"></div>
 		<div id="btnIcon" class="icons f13 hide">
-			<!--<div class="items">
-				<div class="div1" onclick="ColorTan(1)" style="background-color:#9BC402;"></div><span class="f12">主题色</span>
-			</div>-->
+			<div class="items">
+				<div class="div1" onclick="ColorTan(1)" style="background-color:#9BC402;">
+					<p class="f12">主题色</p>
+				</div>
+			</div>
 			<!--<div><div onclick="CoolTan(1)">炫标题</div></div>-->
 			<div class="items">
-				<div class="div2" onclick="TempTan()" style="background-color:#457ED8;"></div>
-				<p><span class="f12">背景</span></p>
+				<div class="div2" onclick="TempTan(1)" style="background-color:#457ED8;">
+					<p class="f12">背景</p>
+				</div>
 			</div>
 			<div class="items">
-				<div class="div3" onclick="ShowShowy()" style="background-color:#D147EA;"></div>
-				<p><span class="f12">漂浮</span></p>
+				<div class="div3" onclick="ShowShowy()" style="background-color:#D147EA;">
+					<p class="f12">漂浮</p>
+				</div>
 			</div>
 		</div>
 		<!--固定背景-->
@@ -402,7 +453,7 @@
 	var Part = [];
 
 	var CurrTemplate = 0; //当前选中模板
-	var CurrTemplateSortID = 0; //当前选中模板
+	var CurrColorTemplate = 0;
 	var CurrBackground = null; //背景设置
 	var CurrTemplateJson = null; // 当前模板设置
 	var Showy = "";
@@ -422,9 +473,6 @@
 	var mask = base.CreateMask(true, function() {
 		base.CloseWaiting();
 	});
-
-	//主题色
-	var colors = ["#fff", "#000", "#242424", "#545454", "#848484", "#C93756", "#F05654", "#F35336", "#C32136", "#FF8936", "#FFA400", "#EE8FB7", "#ff84a2", "#fba4c2", "#e7a3cb", "#F0C239", "#C89B40", "#60281E", "#B25D25", "#AE7000", "#7C4B00", "#6E511E", "#955539", "#789262", "#0C8918", "#0EB83A", "#057748", "#9ED048", "#177CB0", "#44CEF6", "#0cd3fa", "#42b3d5", "#1880c5", "#8D4BBB", "#815476", "#952eb6", "#72528a", "#920783"]
 
 	//炫标题
 	var cools = [{
@@ -474,8 +522,6 @@
 		$wrapper.style.paddingTop = base.Get("header").clientHeight + "px";
 		$wrapper2.style.top = base.Get("header").clientHeight + "px";
 
-		//CoolTan(1)
-
 		//打开外链
 		mui('#wrapper').on('tap', 'a.link', function() {
 			var link = this.getAttribute("link");
@@ -486,37 +532,6 @@
 				Link: link
 			});
 		});
-
-		//选中主题色
-		/*mui('#mycolor-slide').on('tap', 'div', function() {
-			ThemeColor = this.getAttribute("name");
-			base.Get("title0").style.color = ThemeColor;
-			base.Get("title1").style.color = ThemeColor;
-			base.Get("nickname0").style.color = ThemeColor;
-			base.Get("nickname1").style.color = ThemeColor;
-			base.Get("createdate0").style.color = ThemeColor;
-			base.Get("createdate1").style.color = ThemeColor;
-			base.Get("views0").style.color = ThemeColor;
-			base.Get("views1").style.color = ThemeColor;
-
-			base.RemoveClass([".color"], "hover");
-			this.classList.add("hover");
-		});*/
-
-		//选中炫标题
-		mui('#mycool-slide').on('tap', 'div', function() {
-			/*ThemeColor = this.getAttribute("name");
-			base.Get("title0").style.color = ThemeColor;
-			base.Get("title1").style.color = ThemeColor;*/
-
-			base.RemoveClass([".cool"], "hover");
-			this.classList.add("hover");
-		});
-
-		base.Get("icon-cover").addEventListener("tap", function() {
-			IconTan(0);
-			base.Get("btnTemp").classList.remove("hide");
-		})
 	});
 
 	var self = null;
@@ -529,24 +544,21 @@
 		MusicName = self.MusicName || "";
 		MusicUrl = self.MusicUrl || "";
 		CurrTemplate = self.ThemeTemplate || 0;
+		CurrColorTemplate = self.ColorTemplate || 0;
 		Showy = self.Showy || "";
 
 		Part = self.Part || [];
 
-		Load(function(data) {
+		Load(function(data) {});
 
-		});
-
-		//加载模板
 		LoadTemplate();
+
+		LoadColorTemplate();
 
 		mui.back = function() {
 			//关闭弹层
-			if(base.HasClass(base.Get("btnTemp"), "hide")) {
-				TempTan(0);
-				ColorTan(0);
-				IconTan(0);
-				base.Get("btnTemp").classList.remove("hide");
+			if(!base.HasClass(base.Get("icon-cover"), "hide")) {
+				IconTan(1, false);
 				return;
 			}
 			self.close();
@@ -605,14 +617,24 @@
 					if(data.TemplateJson != null) {
 						if(data.TemplateJson.ID != 1) {
 							CurrTemplateJson = data.TemplateJson;
-
-							base.Get("title0").style.color = CurrTemplateJson.TitleColor;
-							base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
-							base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
-							base.Get("views0").style.color = CurrTemplateJson.ViewColor;
-							base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
+							if(data.ColorTemplateJson == null) {
+								base.Get("title0").style.color = CurrTemplateJson.TitleColor;
+								base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+								base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
+								base.Get("views0").style.color = CurrTemplateJson.ViewColor;
+								base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
+							}
 						}
 					}
+
+					if(data.ColorTemplateJson != null) {
+						base.Get("title0").style.color = data.ColorTemplateJson.TitleColor;
+						base.Get("nickname0").style.color = data.ColorTemplateJson.UserColor;
+						base.Get("createdate0").style.color = data.ColorTemplateJson.TimeColor;
+						base.Get("views0").style.color = data.ColorTemplateJson.ViewColor;
+						base.Get("x-avatar-sub").style.border = "2px solid " + data.ColorTemplateJson.TitleColor;
+					}
+
 					CurrBackground = data.BackgroundJson;
 
 					ChangeBg();
@@ -668,11 +690,8 @@
 							item.classList.remove("hide");
 						});*/
 					});
-
-					//音乐 
-					ChangeMusic();
-
 					$wrapper.classList.remove("hide");
+					base.Get("submit").classList.remove("hide");
 				} else {
 					mui.toast(data.message);
 					plus.webview.currentWebview().hide();
@@ -705,12 +724,11 @@
 			return;
 		}
 		isLoading = true;
-		IconTan(0);
 		base.OpenWindow("showy", "showy.html", {
 			ArticleNumber: Article.Number
 		});
-		base.Get("btnTemp").classList.remove("hide");
 		isLoading = false;
+		IconTan(1, false);
 	}
 
 	//初始化装扮 
@@ -731,6 +749,7 @@
 
 	//更新自定义装扮
 	function UpdateShowy(src) {
+		console.log(Showy + "," + src);
 		var page = base.GetView("showypreview");
 		if(page) {
 			plus.webview.close("showy", "none");
@@ -739,18 +758,20 @@
 			plus.webview.close("showypreview", "none");
 			plus.webview.close("showy");
 		}
-
+		plus.webview.show("articlepreview", "fade-in");
 		if(base.IsNullOrEmpty(Showy)) {
 			InitShowy(src)
 		} else {
 			snow.clear();
 			if(!base.IsNullOrEmpty(src)) {
-				var srcs = src.split("|");
-				if(srcs.length >= 2) {
-					snow.init(srcs[0], srcs[1], srcs[2])
-				} else {
-					snow.init(src, 1, 0)
-				}
+				mui.later(function() {
+					var srcs = src.split("|");
+					if(srcs.length >= 2) {
+						snow.init(srcs[0], srcs[1], srcs[2])
+					} else {
+						snow.init(src, 1, 0)
+					}
+				}, 750);
 			}
 		}
 		Showy = src;
@@ -771,28 +792,16 @@
 
 	//主题色选择弹窗
 	function ColorTan(index) {
-		IconTan(0);
+		var mycolor = base.Get("mycolor");
 		if(index == 0) {
-			CloseColor();
+			mycolor.classList.remove("bounceInUp");
+			mycolor.classList.add("bounceOutUp");
 			base.AddClass(["#agreeColor", "#mycolor"], "hide");
-			//base.GetView("addarticle").evalJS("changeColor('" + ThemeColor + "')");
-			base.Get("btnTemp").classList.remove("hide");
+			base.GetView("addarticle").evalJS("changeColorTemp('" + CurrColorTemplate + "')");
 		} else {
-			base.Get("color-cover").classList.remove("hide");
-			var mycolor = base.Get("mycolor");
+			IconTan(0, true);
 			mycolor.classList.remove("hide");
 			if(colorSwiper == null) {
-				var fragment = document.createDocumentFragment();
-				colors.forEach(x => {
-					var div = document.createElement('div');
-					div.className = "color";
-					div.style.backgroundColor = x;
-					div.setAttribute("name", x);
-					div.innerHTML = "<div></div>";
-					fragment.appendChild(div);
-				})
-				base.Get("mycolor-slide").innerHTML = "";
-				base.Get("mycolor-slide").appendChild(fragment);
 				colorSwiper = new Swiper('#mycolor', {
 					scrollbar: '#mycolor-scrollbar',
 					direction: 'horizontal',
@@ -811,34 +820,23 @@
 				mycolor.classList.add("bounceInUp");
 			}
 			base.RemoveClass([".color"], "hover");
-
-			mui.each(mui("#mycolor .color"), function(index, item) {
-				if(item.getAttribute("name") == ThemeColor) {
-					item.classList.add("hover");
-				}
-			});
+			if(mui(".color[tid='" + CurrColorTemplate + "']").length > 0) {
+				mui(".color[tid='" + CurrColorTemplate + "']")[0].classList.add("hover");
+			}
 			base.RemoveClass(["#agreeColor"], "hide");
 		}
 	}
 
-	function CloseColor() {
-		var mycolor = base.Get("mycolor");
-		mycolor.classList.remove("bounceInUp");
-		mycolor.classList.add("bounceOutUp");
-		base.Get("color-cover").classList.add("hide");
-	}
-
 	//炫标题选择弹窗
 	function CoolTan(index) {
-		IconTan(0);
+		var mycool = base.Get("mycool");
 		if(index == 0) {
-			CloseCool();
+			mycool.classList.remove("bounceInUp");
+			mycool.classList.add("bounceOutUp");
 			base.AddClass(["#agreeCool", "#mycool"], "hide");
-			base.GetView("addarticle").evalJS("changeColor('" + ThemeColor + "')");
-			base.Get("btnTemp").classList.remove("hide");
+			//base.GetView("addarticle").evalJS("changeColor('" + ThemeColor + "')");
 		} else {
-			base.Get("cool-cover").classList.remove("hide");
-			var mycool = base.Get("mycool");
+			IconTan(0, true);
 			mycool.classList.remove("hide");
 			if(coolSwiper == null) {
 				var fragment = document.createDocumentFragment();
@@ -894,20 +892,12 @@
 		}
 	}
 
-	function CloseCool() {
-		var mycolor = base.Get("mycool");
-		mycolor.classList.remove("bounceInUp");
-		mycolor.classList.add("bounceOutUp");
-		base.Get("cool-cover").classList.add("hide");
-	}
-
 	//模板选择弹窗
 	function TempTan(index) {
-		IconTan(0);
 		if(index == 0) {
-			base.AddClass(["#agreeTemp", "#temps", "#background-cover"], "hide");
+			base.AddClass(["#agreeTemp", "#temps"], "hide");
 		} else {
-			base.Get("background-cover").classList.remove("hide");
+			IconTan(0, true);
 			var temps = base.Get("temps");
 			temps.classList.remove("hide");
 			if(tempSwiper == null) {
@@ -915,7 +905,7 @@
 					scrollbar: '#temp-scrollbar',
 					direction: 'horizontal',
 					slidesPerView: 'auto',
-					mousewheelControl: true,
+					mousewheelControl: false,
 					freeMode: true,
 					roundLengths: true,
 					spaceBetween: 10,
@@ -924,12 +914,38 @@
 						temps.classList.add("bounceInUp");
 					}
 				});
+
+				/*tempSwiper = new Swiper("#temps", {
+					slidesPerView: "auto",
+					centeredSlides: !0,
+					watchSlidesProgress: !0,
+					onProgress: function(a) {
+						var b, c, d;
+						for(b = 0; b < a.slides.length; b++) {
+							c = a.slides[b],
+								d = c.progress,
+								scale = 1 - Math.min(Math.abs(.2 * d), 1),
+								es = c.style,
+								es.opacity = 1 - Math.min(Math.abs(d / 2), 1),
+								es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = "translate3d(0px,0," + -Math.abs(150 * d) + "px) scale(" + scale + ")"
+						}
+					},
+					onSetTransition: function(a, b) {
+						for(var c = 0; c < a.slides.length; c++) es = a.slides[c].style, es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = b + "ms"
+					},
+					onInit: function(swiper) {
+						temps.classList.remove("bounceOutUp");
+						temps.classList.add("bounceInUp");
+					}
+				});*/
 			} else {
 				temps.classList.remove("bounceOutUp");
 				temps.classList.add("bounceInUp");
 			}
 			base.RemoveClass([".background"], "hover");
-			mui(".background")[CurrTemplateSortID + 1].classList.add("hover");
+			if(mui(".background[tid='" + CurrTemplate + "']").length > 0) {
+				mui(".background[tid='" + CurrTemplate + "']")[0].classList.add("hover");
+			}
 			base.RemoveClass(["#agreeTemp"], "hide");
 		}
 	}
@@ -940,11 +956,12 @@
 			return;
 		}
 		isLoading = true;
-		TempTan(0);
+		IconTan(1, false);
 		base.RemoveClass([".background"], "hover");
-		mui(".background")[CurrTemplateSortID + 1].classList.add("hover");
+		if(mui(".background[tid='" + CurrTemplate + "']").length > 0) {
+			mui(".background[tid='" + CurrTemplate + "']")[0].classList.add("hover");
+		}
 		base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
-		base.Get("btnTemp").classList.remove("hide");
 		if(callback) {
 			callback();
 		}
@@ -953,7 +970,6 @@
 
 	//背景状态切换
 	function ChangeBg() {
-		console.log(CurrTemplate);
 		if(CurrTemplate == 0) {
 			base.Get("x-avatar").classList.add("hide");
 			base.Get("x-article").classList.remove("tc");
@@ -963,6 +979,8 @@
 			base.Get("x-article").classList.remove("tl");
 			base.Get("x-article").classList.add("tc");
 		}
+
+		ChangeMusic();
 
 		$wrapper.style.backgroundColor = "";
 		$wrapper1.style.background = "";
@@ -1011,7 +1029,6 @@
 				$wrapper2.classList.remove("hide");
 			}
 		} else if(CurrTemplate == 1) {
-			console.log(JSON.stringify(CurrBackground));
 			//自定义
 			$wrapper.style.backgroundColor = "";
 			$wrapper1.style.background = "";
@@ -1035,7 +1052,7 @@
 						$wrapper2.style.background = "url(" + url + ") no-repeat top center";
 						$wrapper2.style.backgroundSize = "100% 15.5rem";
 						break;
-					case 1: 
+					case 1:
 						//全屏
 						$wrapper2.style.background = "url(" + url + ") center center no-repeat";
 						$wrapper2.style.backgroundSize = "100% auto";
@@ -1054,12 +1071,6 @@
 				var length = data.records;
 				if(length > 0) {
 					var fragment = document.createDocumentFragment();
-					var div = document.createElement('div');
-					div.className = "background";
-					div.setAttribute("name", "back");
-					div.innerHTML = '<img src="../images/preview/btn_cancel1.png" />';
-					fragment.appendChild(div);
-
 					data.list.forEach(x => {
 						var div = document.createElement('div');
 						div.className = "background";
@@ -1067,61 +1078,78 @@
 						div.setAttribute("tid", x.ID);
 						div.setAttribute("sortid", x.SortID);
 						div.setAttribute("model", JSON.stringify(x));
-						if(x.ID > 1) {
-							div.innerHTML = '<img src="' + x.ThumbImage + '" /><div class="f15">' + x.Name + '</div>';
-						} else {
-							div.innerHTML = '<img src="' + x.ThumbImage + '" />';
-						}
+						div.innerHTML = '<img src="' + x.ThumbImage + '" /><div class="f15">' + x.Name + '</div>';
 						fragment.appendChild(div);
 					})
 					base.Get("temp-slide").innerHTML = "";
 					base.Get("temp-slide").appendChild(fragment);
+
+					//模板选择
+					mui('#temps').on('tap', '.background', function() {
+						var name = this.getAttribute("name");
+						base.RemoveClass([".background"], "hover");
+						this.classList.add("hover");
+						if(parseInt(this.getAttribute("tid")) == 1) {
+							base.OpenWindow("customsetting", "customsetting.html", {
+								ArticleNumber: Article.Number
+							});
+							IconTan(1, false);
+							return;
+						}
+						CurrTemplate = parseInt(this.getAttribute("tid"));
+						CurrTemplateJson = JSON.parse(this.getAttribute("model"));
+
+						base.Get("title0").style.color = CurrTemplateJson.TitleColor;
+						base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+						base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
+						base.Get("views0").style.color = CurrTemplateJson.ViewColor;
+						base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
+
+						ChangeBg();
+					});
 				}
 			}
+			IconTan(1, false);
+		});
+	}
 
-			//模板选择
-			mui('#temps').on('tap', '.background', function() {
-				var name = this.getAttribute("name");
-				if(name == "back") {
-					TempTan(0);
-					base.Get("btnTemp").classList.remove("hide");
-					return;
-				}
+	//加载主题色
+	function LoadColorTemplate() {
+		HttpGet(base.RootUrl + "Article/ColorTemplate", {}, function(data) {
+			if(data != null) {
+				var length = data.records;
+				if(length > 0) {
+					var fragment = document.createDocumentFragment();
+					data.list.forEach(x => {
+						var div = document.createElement('div');
+						div.className = "color";
+						div.style.backgroundColor = x.TitleColor;
+						div.setAttribute("tid", x.ID);
+						div.setAttribute("model", JSON.stringify(x));
+						div.innerHTML = "<div></div>";
+						fragment.appendChild(div);
+					})
+					base.Get("mycolor-slide").innerHTML = "";
+					base.Get("mycolor-slide").appendChild(fragment);
 
-				base.RemoveClass([".background"], "hover");
-				this.classList.add("hover");
-
-				if(parseInt(this.getAttribute("tid")) == 1) {
-					base.OpenWindow("customsetting", "customsetting.html", {
-						ArticleNumber: Article.Number
+					mui('#mycolor-slide').on('tap', 'div', function() {
+						base.RemoveClass([".color"], "hover");
+						this.classList.add("hover");
+						CurrColorTemplate = this.getAttribute("tid");
+						var model = JSON.parse(this.getAttribute("model"));
+						base.Get("title0").style.color = model.TitleColor;
+						base.Get("nickname0").style.color = model.UserColor;
+						base.Get("createdate0").style.color = model.TimeColor;
+						base.Get("views0").style.color = model.ViewColor;
+						base.Get("x-avatar-sub").style.border = "2px solid " + model.TitleColor;
 					});
-					TempTan(0);
-					base.Get("btnTemp").classList.remove("hide");
-					return;
 				}
-
-				CurrTemplate = parseInt(this.getAttribute("tid"));
-				CurrTemplateSortID = parseInt(this.getAttribute("sortid"));
-				CurrTemplateJson = JSON.parse(this.getAttribute("model"));
-
-				base.Get("title0").style.color = CurrTemplateJson.TitleColor;
-				base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
-				base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
-				base.Get("views0").style.color = CurrTemplateJson.ViewColor;
-				base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
-
-				ChangeBg(); //背景切换 
-
-				ChangeMusic(); //音乐切换
-			});
-
-			base.RemoveClass(["#btnTemp"], "hide");
+			}
 		});
 	}
 
 	//重新加载数据 
 	function Reload(source, model) {
-		console.log(model);
 		CurrTemplate = 1;
 		CurrBackground = JSON.parse(model);
 		if(source == "custom") {
@@ -1131,36 +1159,34 @@
 			plus.webview.close("custom", "none");
 			plus.webview.close("customsetting");
 		}
-		console.log("bbbbb");
 		ChooseTan(function() {
-
-			console.log('aaaa');
-
 			ChangeBg();
-			/*Load(function() {
-				if(source == "custom") {
-					plus.webview.close("customsetting", "none");
-					plus.webview.close("custom");
-				} else {
-					plus.webview.close("custom", "none");
-					plus.webview.close("customsetting");
-				}
-			});*/
 		});
+
+		base.Get("title0").style.color = "#333";
+		base.Get("nickname0").style.color = "#333";
+		base.Get("createdate0").style.color = "#333";
+		base.Get("views0").style.color = "#333";
+		base.Get("x-avatar-sub").style.border = "2px solid #333";
 	}
 
-	function IconTan(index) {
+	function IconTan(index, showcover) {
 		var btnIcon = base.Get("btnIcon");
 		if(index == 0) {
-			base.Get("icon-cover").classList.add("hide");
 			btnIcon.classList.remove("bounceInUp");
 			btnIcon.classList.add("bounceOutUp");
 		} else {
-			base.Get("icon-cover").classList.remove("hide");
-			base.Get("btnTemp").classList.add("hide");
+			TempTan(0);
+			ColorTan(0);
+			CoolTan(0);
 			btnIcon.classList.remove("hide");
 			btnIcon.classList.remove("bounceOutUp");
 			btnIcon.classList.add("bounceInUp");
+		}
+		if(showcover) {
+			base.Get("icon-cover").classList.remove("hide");
+		} else {
+			base.Get("icon-cover").classList.add("hide");
 		}
 	}
 

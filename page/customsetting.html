@@ -244,12 +244,11 @@
 			} else {
 				if(data.result) {
 					var model = {
-						Full: full,
-						High: high,
-						Transparency: transparency,
+						Full: parseInt(full),
+						High: parseInt(high),
+						Transparency: parseInt(transparency),
 						Url: url
 					}
-					console.log(JSON.stringify(model))
 					base.GetView('articlepreview').evalJS("Reload('customsetting','" + JSON.stringify(model) + "')");
 				} else {
 					mui.toast(data.message);
