@@ -16,14 +16,17 @@ function ChangeBg() {
 		base.Get("x-avatar").classList.add("hide");
 		base.Get("x-article").classList.remove("tc");
 		base.Get("x-article").classList.add("tl");
+		base.Get("desc").classList.remove("temp");
 	} else {
 		base.Get("x-avatar").classList.remove("hide");
 		base.Get("x-article").classList.remove("tl");
 		base.Get("x-article").classList.add("tc");
+		base.Get("desc").classList.add("temp");
 	}
 
 	//纯白背景
 	if(CurrTemplate == 0) {
+
 		$wrapper.style.backgroundColor = "";
 		$wrapper1.style.background = "";
 		$cover.style.backgroundColor = "";
