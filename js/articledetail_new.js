@@ -16,13 +16,17 @@ function ChangeBg() {
 		base.Get("x-avatar").classList.add("hide");
 		base.Get("x-article").classList.remove("tc");
 		base.Get("x-article").classList.add("tl");
+		base.Get("nickname0").classList.remove("hide");
 		base.Get("desc").classList.remove("temp");
 	} else {
 		base.Get("x-avatar").classList.remove("hide");
 		base.Get("x-article").classList.remove("tl");
 		base.Get("x-article").classList.add("tc");
+		base.Get("nickname1").classList.remove("hide");
 		base.Get("desc").classList.add("temp");
 	}
+
+	ChangeMusic();
 
 	//纯白背景
 	if(CurrTemplate == 0) {

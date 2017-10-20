@@ -353,3 +353,117 @@ video {
 	background: #4087cb;
 	color: #fff;
 }
+
+
+/**新版**/
+
+#x-bg {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+}
+
+.root {
+	height: 100%;
+	position: relative;
+	z-index: 0;
+}
+
+.root.x-cover {
+	width: 100%;
+	position: relative;
+	z-index: 1;
+	background-image: url(https://ss2.meipian.me/theme/v2/img/059/bg.jpg?1);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	min-height: 100%;
+	background-color: #426a76;
+}
+
+.x-head {
+	position: relative;
+}
+
+.x-head .img-container {
+	padding-top: 2rem;
+}
+
+.x-head .img-container .avatar {
+	width: 5rem;
+	height: 5rem;
+	margin: 0 auto;
+	background-size: 100% 100%;
+	overflow: hidden;
+	border-radius: 50%;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 2px solid #fff;
+}
+
+.x-head .img-container .avatar img {
+	width: 100%;
+}
+
+.root .article-meta {
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
+.root .article-meta p.time-read {
+	font-family: PingFangSC-Regular;
+	letter-spacing: 0;
+}
+
+.root .article-meta p.time-read>span {
+	margin-right: 10px;
+}
+
+.root .article-meta p.nickname {
+	font-family: PingFangSC-Medium;
+	letter-spacing: 0;
+	margin: 0;
+}
+
+.x-content {
+	position: relative;
+}
+
+.x-content .section {
+	display: inline-block;
+}
+
+.x-content .section.temp {
+	padding: 0px 3% 3% 3%;
+}
+
+.x-content .section .text {
+	line-height: 1.8 !important;
+	word-wrap: break-word;
+	font-weight: normal;
+	white-space: pre-wrap;
+	font-family: PingFangSC-Light;
+}
+
+.x-content .section img {
+	width: 100%;
+	vertical-align: bottom;
+}
+
+.x-content .x-bg-blur {
+	/*background: rgba(27, 62, 85, 0.6);*/
+	width: 94%;
+	height: 100%;
+	z-index: -1;
+	top: 0;
+	-webkit-backdrop-filter: blur(12px);
+	position: absolute;
+	border-radius: 8px;
+}
+
+.well {
+	padding: 0 3%;
+}
+
+.well2 {
+	padding: 0 6%;
+}

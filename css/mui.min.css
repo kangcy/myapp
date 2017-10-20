@@ -4922,11 +4922,15 @@ body>.mui-progressbar {
 }
 
 .bold {
-	font-weight: bold;
+	font-weight: bold !important;
 }
 
 .normal {
-	font-weight: normal;
+	font-weight: normal !important;
+}
+
+.thicker {
+	font-weight: 400 !important;
 }
 
 .full {

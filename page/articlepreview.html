@@ -177,118 +177,6 @@
 			.icons div.div3 {
 				background-image: url(../images/preview/9.png);
 			}
-			/**新版**/
-			
-			#x-bg {
-				position: fixed;
-				height: 100%;
-				width: 100%;
-			}
-			
-			.root {
-				height: 100%;
-				position: relative;
-				z-index: 0;
-			}
-			
-			.root.x-cover {
-				width: 100%;
-				position: relative;
-				z-index: 1;
-				background-image: url(https://ss2.meipian.me/theme/v2/img/059/bg.jpg?1);
-				background-size: 100% auto;
-				background-repeat: no-repeat;
-				min-height: 100%;
-				background-color: #426a76;
-			}
-			
-			.x-head {
-				position: relative;
-			}
-			
-			.x-head .img-container {
-				padding-top: 2rem;
-			}
-			
-			.x-head .img-container .avatar {
-				width: 5rem;
-				height: 5rem;
-				margin: 0 auto;
-				background-size: 100% 100%;
-				overflow: hidden;
-				border-radius: 50%;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-				border: 2px solid #fff;
-			}
-			
-			.x-head .img-container .avatar img {
-				width: 100%;
-			}
-			
-			.root .article-meta {
-				overflow: hidden;
-				word-wrap: break-word;
-			}
-			
-			.root .article-meta p.time-read {
-				font-family: PingFangSC-Regular;
-				margin-top: 10px;
-				font-size: 14px;
-				letter-spacing: 0;
-				line-height: 20px;
-			}
-			
-			.root .article-meta p.time-read>span {
-				margin-right: 10px;
-			}
-			
-			.root .article-meta p.nickname {
-				font-family: PingFangSC-Medium;
-				font-size: 15px;
-				letter-spacing: 0;
-				margin: 0;
-				line-height: 20px;
-			}
-			
-			.x-content {
-				position: relative;
-			}
-			
-			.x-content .section {
-				display: inline-block;
-			}
-			
-			.x-content .section.temp {
-				padding: 0px 3% 3% 3%;
-			}
-			
-			.x-content .section .text {
-				line-height: 1.8 !important;
-				word-wrap: break-word;
-				font-weight: normal;
-				white-space: pre-wrap;
-				font-family: PingFangSC-Light;
-			}
-			
-			.x-content .section img {
-				width: 100%;
-				vertical-align: bottom;
-			}
-			
-			.x-content .x-bg-blur {
-				width: 94%;
-				height: 100%;
-				z-index: -1;
-				top: 0;
-				-webkit-backdrop-filter: blur(12px);
-				position: absolute;
-				border-radius: 8px;
-			}
-			
-			.well {
-				padding: 0 3%;
-			}
 			/*.swiper-container {
 				width: 100%;
 				-webkit-perspective: 1200px;
@@ -385,7 +273,6 @@
 					<p class="f12">主题色</p>
 				</div>
 			</div>
-			<!--<div><div onclick="CoolTan(1)">炫标题</div></div>-->
 			<div class="items">
 				<div class="div2" onclick="TempTan(1)" style="background-color:#457ED8;">
 					<p class="f12">背景</p>
@@ -411,19 +298,20 @@
 						</div>
 					</div>
 					<div class="article-meta well mt10 tc" id="x-article">
-						<h4 class="title" id="title0"></h4>
-						<p class="time-read">
+						<p class="title thicker f20" id="title0"></p>
+						<p class="time-read mt10 f13">
 							<span id="createdate0"></span>
+							<span id="nickname0" class="user hide"></span>
 							<span class="read-count" id="views0"></span>
 						</p>
-						<p class="nickname hide" id="nickname0"></p>
+						<p class="nickname mt10 f13 hide" id="nickname1"></p>
 						<p id="music0" play="on" class="music mt10 mb0 hide" onclick="switchsound()">
 							<span id="musicname0" class="f11"></span>
 						</p>
 					</div>
 				</div>
 				<!--内容-->
-				<div class="x-content well mb10 mt10">
+				<div class="x-content well mb10 mt20">
 					<div class="section" id="desc"></div>
 					<!--半透明蒙层-->
 					<div class="x-bg-blur" id="x-bg-blur"></div>
@@ -463,9 +351,7 @@
 	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
 	var $wrapper2 = base.Get("x-bg"); //纯色背景
 	var $cover = base.Get("x-bg-blur"); //非纯色内容透明度底
-	var scrolly = 0;
 	var browserName = base.BrowserName();
-	var num = 0;
 	var colorSwiper, tempSwiper, coolSwiper = null;
 
 	//显示遮罩
@@ -569,7 +455,8 @@
 		HttpGet(base.RootUrl + "Api/Article/Detail", {
 			Number: userinfo.Number,
 			ArticleID: ArticleID,
-			Template: CurrTemplate
+			Template: CurrTemplate,
+			ColorTemplate: CurrColorTemplate
 		}, function(data) {
 			data = JSON.parse(data);
 			if(data != null) {
@@ -619,6 +506,7 @@
 							if(data.ColorTemplateJson == null) {
 								base.Get("title0").style.color = CurrTemplateJson.TitleColor;
 								base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+								base.Get("nickname1").style.color = CurrTemplateJson.UserColor;
 								base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
 								base.Get("views0").style.color = CurrTemplateJson.ViewColor;
 								base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
@@ -630,6 +518,7 @@
 						CurrColorTemplateJson = data.ColorTemplateJson;
 						base.Get("title0").style.color = CurrColorTemplateJson.TitleColor;
 						base.Get("nickname0").style.color = CurrColorTemplateJson.UserColor;
+						base.Get("nickname1").style.color = CurrColorTemplateJson.UserColor;
 						base.Get("createdate0").style.color = CurrColorTemplateJson.TimeColor;
 						base.Get("views0").style.color = CurrColorTemplateJson.ViewColor;
 						base.Get("x-avatar-sub").style.border = "2px solid " + CurrColorTemplateJson.TitleColor;
@@ -645,7 +534,7 @@
 
 					base.InnerHtml(["title", "title0"], Article.Title);
 
-					base.InnerHtml(["nickname", "nickname0"], Article.NickName);
+					base.InnerHtml(["nickname", "nickname0", "nickname1"], Article.NickName);
 
 					base.InnerHtml(["createdate0"], data.CreateDateText);
 
@@ -976,11 +865,15 @@
 			base.Get("x-avatar").classList.add("hide");
 			base.Get("x-article").classList.remove("tc");
 			base.Get("x-article").classList.add("tl");
+			base.Get("nickname1").classList.add("hide");
+			base.Get("nickname0").classList.remove("hide");
 			base.Get("desc").classList.remove("temp");
 		} else {
 			base.Get("x-avatar").classList.remove("hide");
 			base.Get("x-article").classList.remove("tl");
 			base.Get("x-article").classList.add("tc");
+			base.Get("nickname0").classList.add("hide");
+			base.Get("nickname1").classList.remove("hide");
 			base.Get("desc").classList.add("temp");
 		}
 
@@ -1009,7 +902,7 @@
 				if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
 					$wrapper.style.background = CurrTemplateJson.Background;
 					if(!CurrTemplateJson.Background.startWith("#") && !CurrTemplateJson.Background.startWith("rgba")) {
-						$wrapper.style.background = base.BrowserName() + CurrTemplateJson.Background;
+						$wrapper.style.background = browserName + CurrTemplateJson.Background;
 					}
 				}
 			} else {
@@ -1027,7 +920,7 @@
 						$wrapper2.style.backgroundColor = CurrTemplateJson.Background;
 					} else {
 						$wrapper2.style.background = CurrTemplateJson.Background;
-						$wrapper2.style.background = base.BrowserName() + CurrTemplateJson.Background;
+						$wrapper2.style.background = browserName + CurrTemplateJson.Background;
 					}
 				}
 				$wrapper2.classList.remove("hide");
@@ -1109,6 +1002,7 @@
 
 						base.Get("title0").style.color = CurrTemplateJson.TitleColor;
 						base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+						base.Get("nickname1").style.color = CurrTemplateJson.UserColor;
 						base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
 						base.Get("views0").style.color = CurrTemplateJson.ViewColor;
 						base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
@@ -1146,6 +1040,7 @@
 						CurrColorTemplateJson = JSON.parse(this.getAttribute("model"));
 						base.Get("title0").style.color = CurrColorTemplateJson.TitleColor;
 						base.Get("nickname0").style.color = CurrColorTemplateJson.UserColor;
+						base.Get("nickname1").style.color = CurrColorTemplateJson.UserColor;
 						base.Get("createdate0").style.color = CurrColorTemplateJson.TimeColor;
 						base.Get("views0").style.color = CurrColorTemplateJson.ViewColor;
 						base.Get("x-avatar-sub").style.border = "2px solid " + CurrColorTemplateJson.TitleColor;
@@ -1171,9 +1066,10 @@
 		});
 
 		base.Get("title0").style.color = "#333";
-		base.Get("nickname0").style.color = "#333";
-		base.Get("createdate0").style.color = "#333";
-		base.Get("views0").style.color = "#333";
+		base.Get("nickname0").style.color = "#20a0ff";
+		base.Get("nickname1").style.color = "#20a0ff";
+		base.Get("createdate0").style.color = "#8C8C8C";
+		base.Get("views0").style.color = "#8C8C8C";
 		base.Get("x-avatar-sub").style.border = "2px solid #333";
 	}
 
@@ -1185,7 +1081,6 @@
 		} else {
 			TempTan(0);
 			ColorTan(0);
-			CoolTan(0);
 			btnIcon.classList.remove("hide");
 			btnIcon.classList.remove("bounceOutUp");
 			btnIcon.classList.add("bounceInUp");

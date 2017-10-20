@@ -13,48 +13,8 @@
 		<link rel="stylesheet" href="../swipe/swiper.min.css">
 		<link rel="stylesheet" href="../css/demo.css">
 		<style type="text/css">
-			#snowcanvas {
-				pointer-events: none;
-				position: fixed;
-				z-index: 20;
-				width: 100%;
-				height: 100%;
-				left: 0;
-				top: 0;
-			}
-			
-			#agreeTemp {
-				position: fixed;
-				right: 1rem;
-				bottom: 6.875rem;
-				width: 3.5rem;
-				z-index: 9999;
-			}
-			
-			#cancelTemp {
-				position: fixed;
-				left: 1rem;
-				bottom: 6.875rem;
-				width: 3.5rem;
-				z-index: 9999;
-			}
-			
-			#agreeColor,
-			#agreeCool {
-				position: fixed;
-				right: 1rem;
-				bottom: 5rem;
-				width: 3.5rem;
-				z-index: 9999;
-			}
-			
-			#btnTemp,
-			#btnColor {
-				position: fixed;
-				right: 1rem;
-				bottom: 4rem;
-				width: 4rem;
-				z-index: 99;
+			body {
+				background: #E8E8E8;
 			}
 			
 			.mui-table-view-cell {
@@ -141,243 +101,6 @@
 				position: absolute;
 				left: 30%;
 			}
-			
-			div.background {
-				width: 5rem;
-				height: 7.25rem;
-				margin-right: 0.5rem;
-				margin-bottom: 0.2rem;
-				float: left;
-				display: inline-block;
-				position: relative;
-				background-size: 150%;
-				background-position: center center;
-				border-radius: 5px;
-			}
-			
-			div.background.hover {
-				border: 2px solid #007aff;
-				color: #007aff;
-				border-radius: 8px;
-			}
-			
-			div.background:first-child {
-				margin-left: 0.5rem;
-			}
-			
-			div.background div {
-				position: absolute;
-				bottom: 0px;
-				font-size: 11px;
-				text-align: center;
-				width: 100%;
-				background: rgba(0, 0, 0, 0.5);
-				color: #fff;
-				height: 1.6rem;
-				line-height: 1.6rem;
-				border-radius: 0px 0px 5px 5px;
-			}
-			
-			div.background img {
-				width: 100% !important;
-				height: 100% !important;
-				border-radius: 6px;
-			}
-			
-			#mycolor .color {
-				width: 3rem;
-				height: 3rem;
-				margin: 0.8rem 0.4rem;
-				display: inline-block;
-				float: left;
-			}
-			
-			#mycool .cool {
-				width: 6rem;
-				height: 3rem;
-				line-height: 3rem;
-				margin: 0.8rem 0.4rem;
-				display: inline-block;
-				float: left;
-			}
-			
-			#mycolor .color.hover {
-				background-image: url(../images/addarticle/icon_pic_y.png);
-				background-size: 50% 50%;
-				background-position: center center;
-				background-repeat: no-repeat;
-			}
-			
-			#mycolor .color:first-child,
-			#mycool .cool:first-child {
-				margin-left: 0.8rem;
-			}
-			
-			#mycolor .color:last-child,
-			#mycool .cool:last-child {
-				margin-right: 0.4rem;
-			}
-			
-			.themeIcons {
-				display: inline-block;
-				width: 80%;
-				text-align: center;
-				position: fixed;
-				bottom: 1rem;
-				left: 10%;
-				z-index: 99999;
-			}
-			
-			.themeIcons .items {
-				width: 33.3%;
-				display: inline;
-				float: left;
-				text-align: center;
-			}
-			
-			.themeIcons .items div {
-				width: 4rem;
-				height: 4rem;
-				display: inline-block;
-				border-radius: 100%;
-				color: #fff;
-				background-repeat: no-repeat;
-				background-size: 55%;
-				background-position: center center;
-				margin-bottom: 0.25rem;
-			}
-			
-			.themeIcons div p {
-				background: rgba(0, 0, 0, 0.3);
-				padding: 0.1rem 0;
-				border-radius: 30px;
-				color: #fff;
-				width: 80%;
-				display: inline-block;
-				margin-top: 4.5rem;
-			}
-			
-			.themeIcons div.div1 {
-				background-image: url(../images/preview/5.png);
-			}
-			
-			.themeIcons div.div2 {
-				background-image: url(../images/preview/6.png);
-			}
-			
-			.themeIcons div.div3 {
-				background-image: url(../images/preview/9.png);
-			}
-			/**新版**/
-			
-			#x-bg {
-				position: fixed;
-				height: 100%;
-				width: 100%;
-			}
-			
-			.root {
-				height: 100%;
-				position: relative;
-				z-index: 0;
-			}
-			
-			.root.x-cover {
-				width: 100%;
-				position: relative;
-				z-index: 1;
-				background-image: url(https://ss2.meipian.me/theme/v2/img/059/bg.jpg?1);
-				background-size: 100% auto;
-				background-repeat: no-repeat;
-				min-height: 100%;
-				background-color: #426a76;
-			}
-			
-			.x-head {
-				position: relative;
-			}
-			
-			.x-head .img-container {
-				padding-top: 2rem;
-			}
-			
-			.x-head .img-container .avatar {
-				width: 5rem;
-				height: 5rem;
-				margin: 0 auto;
-				background-size: 100% 100%;
-				overflow: hidden;
-				border-radius: 50%;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-				border: 2px solid #fff;
-			}
-			
-			.x-head .img-container .avatar img {
-				width: 100%;
-			}
-			
-			.root .article-meta {
-				overflow: hidden;
-				word-wrap: break-word;
-			}
-			
-			.root .article-meta p.time-read {
-				font-family: PingFangSC-Regular;
-				letter-spacing: 0;
-			}
-			
-			.root .article-meta p.time-read>span {
-				margin-right: 10px;
-			}
-			
-			.root .article-meta p.nickname {
-				font-family: PingFangSC-Medium;
-				letter-spacing: 0;
-				margin: 0;
-			}
-			
-			.x-content {
-				position: relative;
-			}
-			
-			.x-content .section {
-				display: inline-block;
-			}
-			
-			.x-content .section.temp {
-				padding: 0px 3% 3% 3%;
-			}
-			/*.x-content .section .text {
-				line-height: 1.8 !important;
-				word-wrap: break-word;
-				font-weight: normal;
-				white-space: pre-wrap;
-				font-family: PingFangSC-Light;
-			}*/
-			/*.x-content .section img {
-				width: 100%;
-				vertical-align: bottom;
-			}*/
-			
-			.x-content .x-bg-blur {
-				/*background: rgba(27, 62, 85, 0.6);*/
-				width: 94%;
-				height: 100%;
-				z-index: -1;
-				top: 0;
-				-webkit-backdrop-filter: blur(12px);
-				position: absolute;
-				border-radius: 8px;
-			}
-			
-			.well {
-				padding: 0 3%;
-			}
-			
-			.well2 {
-				padding: 0 6%;
-			}
 		</style>
 	</head>
 
@@ -389,95 +112,12 @@
 		</header>
 		<p class="tc c666 f12" id="loader">正在加载中...</p>
 		<div id="tip" class="hide"><img src="../images/tip/title.png" class="tip1" /><img src="../images/tip/know.png" class="tip2" onclick="CloseTip()" /></div>
-		<div class="mui-bar mui-bar-nav initial f11 cfff full hide" id="cover" style="height:auto;">
+		<div class="mui-bar mui-bar-nav initial f11 cfff full" id="cover" style="height:auto;">
 			<div class="info-body" style="margin-top:12rem">
 				<div id="music" class="btn fl tl mb15 hide"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
 			</div>
 		</div>
-		<!--主题色-->
-		<img class="hide" src="../images/preview/btn_sure.png" onclick="IconTan(1,false)" id="agreeColor" style="bottom:6rem;">
-		<div class="swiper-container hide" id="mycolor" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide tc" id="mycolor-slide">
-				</div>
-			</div>
-			<div class="swiper-scrollbar" id="mycolor-scrollbar"></div>
-		</div>
-		<!--炫标题-->
-		<img class="hide" src="../images/preview/btn_sure.png" onclick="IconTan(1,false)" id="agreeCool">
-		<div class="swiper-container hide" id="mycool" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide tc" id="mycool-slide">
-				</div>
-			</div>
-			<div class="swiper-scrollbar" id="mycool-scrollbar"></div>
-		</div>
-		<!--模板选择-->
-		<img class="hide" src="../images/preview/btn_sure.png" onclick="ChooseTan()" id="agreeTemp" style="bottom:9rem;">
-		<div class="swiper-container hide" id="temps" style="bottom:0px; padding:0.5rem 0;background:rgba(0, 0, 0, .5);">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" id="temp-slide"></div>
-			</div>
-			<div class="swiper-scrollbar" id="temp-scrollbar"></div>
-		</div>
-		<!--漂浮特效-->
-		<div id="snowwrapper"></div>
-		<canvas id="snowcanvas"></canvas>
-		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
-		<div class="swiper-cover hide" id="icon-cover" onclick="IconTan(1,false)"></div>
-		<div id="btnIcon" class="themeIcons f13 hide">
-			<div class="items">
-				<div class="div1" onclick="ColorTan(1)" style="background-color:#9BC402;">
-					<p class="f12">主题色</p>
-				</div>
-			</div>
-			<!--<div><div onclick="CoolTan(1)">炫标题</div></div>-->
-			<div class="items">
-				<div class="div2" onclick="TempTan(1)" style="background-color:#457ED8;">
-					<p class="f12">背景</p>
-				</div>
-			</div>
-			<div class="items">
-				<div class="div3" onclick="ShowShowy()" style="background-color:#D147EA;">
-					<p class="f12">漂浮</p>
-				</div>
-			</div>
-		</div>
-		<!--固定背景-->
-		<div id="x-bg" class="hide"></div>
-		<!--内容-->
-		<div id="wrapper" class="hide" style="margin-bottom:7rem;">
-			<!--x-cover:滚动背景-->
-			<div class="root" id="x-cover">
-				<!--头部-->
-				<div class="x-head mb10 hide" id="x-head">
-					<div class="img-container" id="x-avatar">
-						<div class="avatar" id="x-avatar-sub">
-							<img id="useravatar0" src="../images/avatar.png" class="user">
-						</div>
-					</div>
-					<div class="article-meta well mt10 tc" id="x-article">
-						<p class="article-title thicker f20" id="title0"></p>
-						<p class="time-read mt10 f13">
-							<span id="createdate0"></span>
-							<span id="nickname0" class="user hide"></span>
-							<span class="read-count" id="views0"></span>
-						</p>
-						<p class="nickname mt10 f13 hide" id="nickname1"></p>
-						<p id="music0" play="on" class="music mt10 mb0 hide" onclick="switchsound()">
-							<span id="musicname0" class="f11"></span>
-						</p>
-					</div>
-				</div>
-				<!--内容-->
-				<div class="x-content well mb10 mt20">
-					<div class="section" id="edit">
-					</div>
-					<!--半透明蒙层-->
-					<div class="x-bg-blur" id="x-bg-blur"></div>
-				</div>
-			</div>
-		</div>
+		<div id="edit" class="mt20"></div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="camera">
@@ -634,13 +274,12 @@
 </html>
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script>
+<script src="../minjs/base.min.js"></script>
 <script src="../js/group.min.js"></script>
 <script src="../js/addpart.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	var Article = {};
 	var ArticleID = 0; //文章ID
 	var ArticleNumber = ""; //文章编号
 	var MusicID = 0; //音乐 
@@ -652,26 +291,16 @@
 	var currEditID = 0; //当前编辑对象ID
 	var currEditPartID = 0; //当前编辑段落ID
 	var currEditImg = ""; //当前编辑图片
-	var CurrTemplate = -1; //当前模板
+	var CurrTemplate = 0; //当前模板
 	var CurrColorTemplate = 0; //当前主题色模板
-	var CurrTemplateJson = null; // 当前模板设置
-	var CurrColorTemplateJson = null; // 当前模板设置
-
-	var $header = base.Get("header");
-	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
-	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
-	var $wrapper2 = base.Get("x-bg"); //纯色背景
-	var $cover = base.Get("x-bg-blur"); //非纯色内容透明度底
-	var Showy = "";
+	var showy = "";
 	var userinfo = base.GetUserInfo();
 	var $header = base.Get("header");
 	var $edit = base.Get("edit");
 	var InitParts = []; //段落
-	var lineSwiper, borderSwiper, colorSwiper, tempSwiper, coolSwiper = null;
+	var lineSwiper, borderSwiper = null;
 	var lineCover = base.Get("line-cover");
 	var borderCover = base.Get("border-cover");
-	var browserName = base.BrowserName();
-
 	var borders = [{
 		tip: "拍立得(一)",
 		name: "border_bottomshadow"
@@ -807,9 +436,6 @@
 
 		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
 		base.Get("cover").style.top = base.Get("header").clientHeight + "px";
-
-		$wrapper.style.paddingTop = base.Get("header").clientHeight + "px";
-		$wrapper2.style.top = base.Get("header").clientHeight + "px";
 
 		base.Get("myline").style.height = window.innerHeight * 0.6 + "px";
 
@@ -985,25 +611,15 @@
 		ArticleID = self.ArticleID || 0;
 		ArticleNumber = self.ArticleNumber || "";
 		Source = self.Source || "Add";
+		Load();
 
 		mui.later(function() {
 			plus.webview.hide("addimage");
 		}, 250)
 
-		Load();
-
-		LoadTemplate();
-
-		LoadColorTemplate();
-
 		//返回
 		mui.back = function() {
 			var $this = this;
-
-			if(!base.HasClass(base.Get("icon-cover"), "hide")) {
-				IconTan(1, false);
-				return;
-			}
 
 			//关闭弹层
 			if(!base.HasClass(lineCover, "hide")) {
@@ -1327,7 +943,7 @@
 			Longitude: position.Longitude,
 			Template: CurrTemplate,
 			ColorTemplate: CurrColorTemplate,
-			ShowyUrl: Showy,
+			ShowyUrl: showy,
 			Part: escape(JSON.stringify(InitParts))
 		}
 
@@ -1413,7 +1029,7 @@
 			MusicUrl: MusicUrl,
 			ThemeTemplate: CurrTemplate,
 			ColorTemplate: CurrColorTemplate,
-			Showy: Showy,
+			Showy: showy,
 			Part: InitParts
 		});
 		isLoading = false;
@@ -1430,7 +1046,7 @@
 	}
 
 	function changeShowy(src) {
-		Showy = src;
+		showy = src;
 	}
 
 	//拼接字符串  
@@ -1439,20 +1055,20 @@
 		div.className = 'edit-body fl';
 		var model = [];
 		if(type == "pic") {
-			model.push('<img src="../images/addarticle/btn_pic.png" class="edit-add-border" style="position:absolute;top:0.625rem;left:8rem;width:2rem;z-index:1;" />');
+			model.push('<img src="../images/addarticle/btn_pic.png" class="edit-add-border" style="position:absolute;top:0px;left:8rem;width:2rem;z-index:1;" />');
 		}
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
-			model.push('<div class="edit-content mt10 f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
+			model.push('<div class="edit-content f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content edit-content2 mt10 f11 tl" type="' + type + '" partid="' + partid + '" style="padding:5%;">' + base.UnUnicodeText(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 f11 tl" type="' + type + '" partid="' + partid + '" style="padding:5%;">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="edit-content edit-content2 mt10 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
+			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
 		} else if(type == "line") {
-			model.push('<div class="edit-content edit-content2 mt10 f11" type="' + type + '" partid="' + partid + '">' + text + '</div>');
+			model.push('<div class="edit-content edit-content2 f11" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		}
-		model.push('<div class="icons0 mt15 mb5 tc">');
+		model.push('<div class="icons0 mt15 mb15 tc">');
 		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;" /></div>');
 		model.push('<div class="icons hide f12"><div class="edit-add-pic">图片</div><div class="edit-add-text">文字</div><div class="edit-add-video">视频</div><div class="edit-add-line">分割线</div></div>');
 		model.push('</div>');
@@ -1465,18 +1081,14 @@
 		//编辑文章
 		var data = {
 			Number: userinfo.Number,
-			ArticleID: ArticleID,
-			Template: CurrTemplate,
-			ColorTemplate: CurrColorTemplate
+			ArticleID: ArticleID
 		}
 		HttpGet(base.RootUrl + "Api/Article/Detail", data, function(data) {
 			data = JSON.parse(data);
 			base.CheckLogin(userinfo, data.code);
 			if(data != null) {
 				if(data.result) {
-					data = data.message;
-					Article = data;
-					Article.NickName = base.UnUnicodeText(data.NickName);
+					data = data.message
 					ArticlePower = data.ArticlePower;
 					ArticleType = data.TypeID;
 					ArticleTypeName = data.TypeName;
@@ -1499,6 +1111,9 @@
 					if(Title != "") {
 						$("#title").html(Title == "我的小微篇" ? "点击输入文章标题" : Title);
 					}
+
+					CurrTemplate = data.Template;
+					CurrColorTemplate = data.ColorTemplate;
 
 					//加载段落
 					var parts = data.ArticlePart;
@@ -1531,60 +1146,9 @@
 						});*/
 
 						InitGroup();
+
+						base.Get("submit").classList.remove("hide");
 					}
-
-					if(data.TemplateJson != null) {
-						if(data.TemplateJson.ID != 1) {
-							CurrTemplateJson = data.TemplateJson;
-							if(data.ColorTemplateJson == null) {
-								base.Get("title0").style.color = CurrTemplateJson.TitleColor;
-								base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
-								base.Get("nickname1").style.color = CurrTemplateJson.UserColor;
-								base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
-								base.Get("views0").style.color = CurrTemplateJson.ViewColor;
-								base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
-							}
-						}
-					}
-					if(data.ColorTemplateJson != null) {
-						CurrColorTemplateJson = data.ColorTemplateJson;
-						base.Get("title0").style.color = CurrColorTemplateJson.TitleColor;
-						base.Get("nickname0").style.color = CurrColorTemplateJson.UserColor;
-						base.Get("nickname1").style.color = CurrColorTemplateJson.UserColor;
-						base.Get("createdate0").style.color = CurrColorTemplateJson.TimeColor;
-						base.Get("views0").style.color = CurrColorTemplateJson.ViewColor;
-						base.Get("x-avatar-sub").style.border = "2px solid " + CurrColorTemplateJson.TitleColor;
-					}
-
-					CurrTemplate = data.Template;
-
-					CurrColorTemplate = data.ColorTemplate;
-					CurrBackground = data.BackgroundJson;
-
-					ChangeBg();
-
-					base.Get("musicname0").innerHTML = data.MusicName;
-
-					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
-
-					base.InnerHtml(["title", "title0"], Article.Title);
-
-					base.InnerHtml(["nickname", "nickname0", "nickname1"], Article.NickName);
-
-					base.InnerHtml(["createdate0"], data.CreateDateText);
-
-					base.InnerHtml(["views0"], "阅读  " + data.Views);
-
-					base.Get("x-head").classList.remove("hide");
-
-					$wrapper.classList.remove("hide");
-
-					base.Get("submit").classList.remove("hide");
-
-					if(base.IsNullOrEmpty(Showy)) {
-						Showy = data.Showy;
-					}
-					InitShowy(Showy);
 				}
 			}
 			base.ShowLoading(false);
@@ -1614,423 +1178,5 @@
 		} else {
 			parent.insertBefore(newElement, targetElement.nextSibling);
 		}
-	}
-
-	//背景状态切换
-	function ChangeBg() {
-		if(CurrTemplate == 0) {
-			base.Get("x-avatar").classList.add("hide");
-			base.Get("x-article").classList.remove("tc");
-			base.Get("x-article").classList.add("tl");
-			base.Get("nickname1").classList.add("hide");
-			base.Get("nickname0").classList.remove("hide");
-			base.Get("edit").classList.remove("temp");
-		} else {
-			base.Get("x-avatar").classList.remove("hide");
-			base.Get("x-article").classList.remove("tl");
-			base.Get("x-article").classList.add("tc");
-			base.Get("nickname0").classList.add("hide");
-			base.Get("nickname1").classList.remove("hide");
-			base.Get("edit").classList.add("temp");
-		}
-
-		ChangeMusic();
-
-		$wrapper.style.backgroundColor = "";
-		$wrapper1.style.background = "";
-		$cover.style.backgroundColor = "";
-		$wrapper2.style.background = "";
-		if(CurrTemplate > 1) {
-			//模板 
-			base.Get("x-avatar").style.paddingTop = CurrTemplateJson.MarginTop + "rem";
-			$cover.style.backgroundColor = CurrTemplateJson.Transparency;
-			if(CurrTemplateJson.CoverFixed == 0) {
-				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
-					$wrapper1.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
-					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
-						$wrapper1.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
-					}
-
-					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
-						$wrapper1.style.backgroundSize = CurrTemplateJson.BackgroundSize;
-					}
-				}
-				if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
-					$wrapper.style.background = CurrTemplateJson.Background;
-					if(!CurrTemplateJson.Background.startWith("#") && !CurrTemplateJson.Background.startWith("rgba")) {
-						$wrapper.style.background = base.BrowserName() + CurrTemplateJson.Background;
-					}
-				}
-			} else {
-				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
-					$wrapper2.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
-					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
-						$wrapper2.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
-					}
-					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
-						$wrapper2.style.backgroundSize = CurrTemplateJson.BackgroundSize;
-					}
-				}
-				if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
-					if(CurrTemplateJson.Background.startWith("#") || CurrTemplateJson.Background.startWith("rgba")) {
-						$wrapper2.style.backgroundColor = CurrTemplateJson.Background;
-					} else {
-						$wrapper2.style.background = CurrTemplateJson.Background;
-						$wrapper2.style.background = base.BrowserName() + CurrTemplateJson.Background;
-					}
-				}
-				$wrapper2.classList.remove("hide");
-			}
-		} else if(CurrTemplate == 1) {
-			//自定义
-			$wrapper.style.backgroundColor = "";
-			$wrapper1.style.background = "";
-			if(CurrBackground == null) {
-				//全屏
-				$wrapper2.style.background = "";
-				$wrapper2.className = "";
-			} else {
-				//背景透明度
-				$cover.style.backgroundColor = "RGBA(255, 255, 255, " + (100 - CurrBackground.Transparency) / 100 + ")";
-				var url = CurrBackground.Url;
-				if(CurrBackground.High == 0) {
-					url = base.ShowThumb(url, 1);
-				} else {
-					url = base.ShowThumb(url, 0);
-				}
-				$wrapper2.className = "";
-				switch(CurrBackground.Full) {
-					case 0:
-						//居顶 
-						$wrapper2.style.background = "url(" + url + ") no-repeat top center";
-						$wrapper2.style.backgroundSize = "100% 15.5rem";
-						break;
-					case 1:
-						//全屏
-						$wrapper2.style.background = "url(" + url + ") center center no-repeat";
-						$wrapper2.style.backgroundSize = "100% auto";
-						break;
-					default:
-						break;
-				}
-			}
-		}
-	}
-
-	//切换音乐
-	function ChangeMusic() {
-		/*base.AddClass(["#music0", "#music1"], "hide");
-		MusicID = "music" + (CurrTemplate == 0 ? 0 : 1);
-		if(!base.IsNullOrEmpty(MusicUrl)) {
-			if(Article.AutoMusic == 1) {
-				document.addEventListener('touchstart', startsound);
-			}
-			base.Get("music" + (CurrTemplate == 0 ? 0 : 1)).classList.remove("hide");
-		}*/
-	}
-
-	//自定义装扮
-	function ShowShowy() {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		base.OpenWindow("showy", "showy.html", {
-			ArticleNumber: Article.Number
-		});
-		isLoading = false;
-		IconTan(1, false);
-	}
-
-	//初始化装扮 
-	function InitShowy(src) {
-		if(base.IsNullOrEmpty(src)) {
-			return
-		}
-		LoadScript("../js/snow.js", function() {
-			base.GetView("addarticle").evalJS("changeShowy('" + Showy + "')");
-			var srcs = src.split("|");
-			if(srcs.length > 2) {
-				snow.init(srcs[0], srcs[1], srcs[2])
-			} else {
-				snow.init(src, 1, 0)
-			}
-		});
-	}
-
-	//更新自定义装扮
-	function UpdateShowy(src) {
-		var page = base.GetView("showypreview");
-		if(page) {
-			plus.webview.close("showy", "none");
-			plus.webview.close("showypreview");
-		} else {
-			plus.webview.close("showypreview", "none");
-			plus.webview.close("showy");
-		}
-		plus.webview.show("articlepreview", "fade-in");
-		if(base.IsNullOrEmpty(Showy)) {
-			InitShowy(src)
-		} else {
-			snow.clear();
-			if(!base.IsNullOrEmpty(src)) {
-				mui.later(function() {
-					var srcs = src.split("|");
-					if(srcs.length >= 2) {
-						snow.init(srcs[0], srcs[1], srcs[2])
-					} else {
-						snow.init(src, 1, 0)
-					}
-				}, 750);
-			}
-		}
-		Showy = src;
-		base.GetView("addarticle").evalJS("changeShowy('" + Showy + "')");
-	}
-
-	//主题色选择弹窗
-	function ColorTan(index) {
-		var mycolor = base.Get("mycolor");
-		if(index == 0) {
-			mycolor.classList.remove("bounceInUp");
-			mycolor.classList.add("bounceOutUp");
-			base.AddClass(["#agreeColor", "#mycolor"], "hide");
-			base.GetView("addarticle").evalJS("changeColorTemp('" + CurrColorTemplate + "')");
-		} else {
-			IconTan(0, true);
-			mycolor.classList.remove("hide");
-			if(colorSwiper == null) {
-				colorSwiper = new Swiper('#mycolor', {
-					scrollbar: '#mycolor-scrollbar',
-					direction: 'horizontal',
-					slidesPerView: 'auto',
-					mousewheelControl: true,
-					freeMode: true,
-					roundLengths: true,
-					spaceBetween: 10,
-					onInit: function(swiper) {
-						mycolor.classList.remove("bounceOutUp");
-						mycolor.classList.add("bounceInUp");
-					}
-				});
-			} else {
-				mycolor.classList.remove("bounceOutUp");
-				mycolor.classList.add("bounceInUp");
-			}
-			base.RemoveClass([".color"], "hover");
-			if(CurrColorTemplate > 0) {
-				if(mui(".color[tid='" + CurrColorTemplate + "']").length > 0) {
-					mui(".color[tid='" + CurrColorTemplate + "']")[0].classList.add("hover");
-				}
-			}
-			base.RemoveClass(["#agreeColor"], "hide");
-		}
-	}
-
-	//模板选择弹窗
-	function TempTan(index) {
-		if(index == 0) {
-			base.AddClass(["#agreeTemp", "#temps"], "hide");
-		} else {
-			IconTan(0, true);
-			var temps = base.Get("temps");
-			temps.classList.remove("hide");
-			if(tempSwiper == null) {
-				tempSwiper = new Swiper('#temps', {
-					scrollbar: '#temp-scrollbar',
-					direction: 'horizontal',
-					slidesPerView: 'auto',
-					mousewheelControl: false,
-					freeMode: true,
-					roundLengths: true,
-					spaceBetween: 10,
-					onInit: function(swiper) {
-						temps.classList.remove("bounceOutUp");
-						temps.classList.add("bounceInUp");
-					}
-				});
-
-				/*tempSwiper = new Swiper("#temps", {
-					slidesPerView: "auto",
-					centeredSlides: !0,
-					watchSlidesProgress: !0,
-					onProgress: function(a) {
-						var b, c, d;
-						for(b = 0; b < a.slides.length; b++) {
-							c = a.slides[b],
-								d = c.progress,
-								scale = 1 - Math.min(Math.abs(.2 * d), 1),
-								es = c.style,
-								es.opacity = 1 - Math.min(Math.abs(d / 2), 1),
-								es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = "translate3d(0px,0," + -Math.abs(150 * d) + "px) scale(" + scale + ")"
-						}
-					},
-					onSetTransition: function(a, b) {
-						for(var c = 0; c < a.slides.length; c++) es = a.slides[c].style, es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = b + "ms"
-					},
-					onInit: function(swiper) {
-						temps.classList.remove("bounceOutUp");
-						temps.classList.add("bounceInUp");
-					}
-				});*/
-			} else {
-				temps.classList.remove("bounceOutUp");
-				temps.classList.add("bounceInUp");
-			}
-			base.RemoveClass([".background"], "hover");
-			if(mui(".background[tid='" + CurrTemplate + "']").length > 0) {
-				mui(".background[tid='" + CurrTemplate + "']")[0].classList.add("hover");
-			}
-			base.RemoveClass(["#agreeTemp"], "hide");
-		}
-	}
-
-	//确认模板
-	function ChooseTan(callback) {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		IconTan(1, false);
-		base.RemoveClass([".background"], "hover");
-		if(mui(".background[tid='" + CurrTemplate + "']").length > 0) {
-			mui(".background[tid='" + CurrTemplate + "']")[0].classList.add("hover");
-		}
-		base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
-		if(callback) {
-			callback();
-		}
-		isLoading = false;
-	}
-
-	//重新加载数据 
-	function Reload(source, model) {
-		CurrTemplate = 1;
-		CurrBackground = JSON.parse(model);
-		if(source == "custom") {
-			plus.webview.close("customsetting", "none");
-			plus.webview.close("custom");
-		} else {
-			plus.webview.close("custom", "none");
-			plus.webview.close("customsetting");
-		}
-		ChooseTan(function() {
-			ChangeBg();
-		});
-
-		base.Get("title0").style.color = "#333";
-		base.Get("nickname0").style.color = "#20a0ff";
-		base.Get("nickname1").style.color = "#20a0ff";
-		base.Get("createdate0").style.color = "#8C8C8C";
-		base.Get("views0").style.color = "#8C8C8C";
-		base.Get("x-avatar-sub").style.border = "2px solid #333";
-	}
-
-	function IconTan(index, showcover) {
-		var btnIcon = base.Get("btnIcon");
-		if(index == 0) {
-			btnIcon.classList.remove("bounceInUp");
-			btnIcon.classList.add("bounceOutUp");
-		} else {
-			TempTan(0);
-			ColorTan(0);
-			btnIcon.classList.remove("hide");
-			btnIcon.classList.remove("bounceOutUp");
-			btnIcon.classList.add("bounceInUp");
-		}
-		if(showcover) {
-			base.Get("icon-cover").classList.remove("hide");
-		} else {
-			base.Get("icon-cover").classList.add("hide");
-		}
-	}
-
-	//加载模板
-	function LoadTemplate() {
-		HttpGet(base.RootUrl + "Article/Template", {}, function(data) {
-			if(data != null) {
-				var length = data.records;
-				if(length > 0) {
-					var fragment = document.createDocumentFragment();
-					data.list.forEach(x => {
-						var div = document.createElement('div');
-						div.className = "background";
-						div.setAttribute("name", x.Cover);
-						div.setAttribute("tid", x.ID);
-						div.setAttribute("sortid", x.SortID);
-						div.setAttribute("model", JSON.stringify(x));
-						div.innerHTML = '<img src="' + x.ThumbImage + '" /><div class="f15">' + x.Name + '</div>';
-						fragment.appendChild(div);
-					})
-					base.Get("temp-slide").innerHTML = "";
-					base.Get("temp-slide").appendChild(fragment);
-
-					//模板选择
-					mui('#temps').on('tap', '.background', function() {
-						var name = this.getAttribute("name");
-						base.RemoveClass([".background"], "hover");
-						this.classList.add("hover");
-						if(parseInt(this.getAttribute("tid")) == 1) {
-							base.OpenWindow("customsetting", "customsetting.html", {
-								ArticleNumber: Article.Number
-							});
-							IconTan(1, false);
-							return;
-						}
-						CurrTemplate = parseInt(this.getAttribute("tid"));
-						CurrTemplateJson = JSON.parse(this.getAttribute("model"));
-
-						CurrColorTemplateJson = null;
-						CurrColorTemplate = 0;
-						base.GetView("addarticle").evalJS("changeColorTemp('" + CurrColorTemplate + "')");
-
-						base.Get("title0").style.color = CurrTemplateJson.TitleColor;
-						base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
-						base.Get("nickname1").style.color = CurrTemplateJson.UserColor;
-						base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
-						base.Get("views0").style.color = CurrTemplateJson.ViewColor;
-						base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
-						ChangeBg();
-					});
-				}
-			}
-			IconTan(1, false);
-		});
-	}
-
-	//加载主题色
-	function LoadColorTemplate() {
-		HttpGet(base.RootUrl + "Article/ColorTemplate", {}, function(data) {
-			if(data != null) {
-				var length = data.records;
-				if(length > 0) {
-					var fragment = document.createDocumentFragment();
-					data.list.forEach(x => {
-						var div = document.createElement('div');
-						div.className = "color";
-						div.style.backgroundColor = x.TitleColor;
-						div.setAttribute("tid", x.ID);
-						div.setAttribute("model", JSON.stringify(x));
-						div.innerHTML = "<div></div>";
-						fragment.appendChild(div);
-					})
-					base.Get("mycolor-slide").innerHTML = "";
-					base.Get("mycolor-slide").appendChild(fragment);
-
-					mui('#mycolor-slide').on('tap', 'div', function() {
-						base.RemoveClass([".color"], "hover");
-						this.classList.add("hover");
-						CurrColorTemplate = this.getAttribute("tid");
-						CurrColorTemplateJson = JSON.parse(this.getAttribute("model"));
-						base.Get("title0").style.color = CurrColorTemplateJson.TitleColor;
-						base.Get("nickname0").style.color = CurrColorTemplateJson.UserColor;
-						base.Get("nickname1").style.color = CurrColorTemplateJson.UserColor;
-						base.Get("createdate0").style.color = CurrColorTemplateJson.TimeColor;
-						base.Get("views0").style.color = CurrColorTemplateJson.ViewColor;
-						base.Get("x-avatar-sub").style.border = "2px solid " + CurrColorTemplateJson.TitleColor;
-					});
-				}
-			}
-		});
 	}
 </script>

@@ -33,123 +33,8 @@
 				left: 0;
 				top: 0;
 			}
-			/**新版**/
 			
-			#x-bg {
-				position: fixed;
-				height: 100%;
-				width: 100%;
-			}
-			
-			.root {
-				height: 100%;
-				position: relative;
-				z-index: 0;
-			}
-			
-			.root.x-cover {
-				width: 100%;
-				position: relative;
-				z-index: 1;
-				background-image: url(https://ss2.meipian.me/theme/v2/img/059/bg.jpg?1);
-				background-size: 100% auto;
-				background-repeat: no-repeat;
-				min-height: 100%;
-				background-color: #426a76;
-			}
-			
-			.x-head {
-				position: relative;
-			}
-			
-			.x-head .img-container {
-				padding-top: 2rem;
-			}
-			
-			.x-head .img-container .avatar {
-				width: 5rem;
-				height: 5rem;
-				margin: 0 auto;
-				background-size: 100% 100%;
-				overflow: hidden;
-				border-radius: 50%;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-				border: 2px solid #fff;
-			}
-			
-			.x-head .img-container .avatar img {
-				width: 100%;
-			}
-			
-			.root .article-meta {
-				overflow: hidden;
-				word-wrap: break-word;
-			}
-			
-			.root .article-meta p.time-read {
-				font-family: PingFangSC-Regular;
-				margin-top: 10px;
-				font-size: 14px;
-				letter-spacing: 0;
-				line-height: 20px;
-			}
-			
-			.root .article-meta p.time-read>span {
-				margin-right: 10px;
-			}
-			
-			.root .article-meta p.nickname {
-				font-family: PingFangSC-Medium;
-				font-size: 15px;
-				letter-spacing: 0;
-				margin: 0;
-				line-height: 20px;
-			}
-			
-			.x-content {
-				position: relative;
-			}
-			
-			.x-content .section {
-				display: inline-block;
-			}
-			
-			.x-content .section.temp {
-				padding: 0px 3% 3% 3%;
-			}
-			
-			.x-content .section .text {
-				line-height: 1.8 !important;
-				word-wrap: break-word;
-				font-weight: normal;
-				white-space: pre-wrap;
-				font-family: PingFangSC-Light;
-			}
-			
-			.x-content .section img {
-				width: 100%;
-				vertical-align: bottom;
-			}
-			
-			.x-content .x-bg-blur {
-				/*background: rgba(27, 62, 85, 0.6);*/
-				width: 94%;
-				height: 100%;
-				z-index: -1;
-				top: 0;
-				-webkit-backdrop-filter: blur(12px);
-				position: absolute;
-				border-radius: 8px;
-			}
-			
-			.well {
-				padding: 0 3%;
-			}
-			
-			.well2 {
-				padding: 0 6%;
-			}
+
 		</style>
 	</head>
 	<!--禁止复制-->
@@ -271,23 +156,24 @@
 				<div class="x-head mb10 hide" id="x-head">
 					<div class="img-container" id="x-avatar">
 						<div class="avatar" id="x-avatar-sub">
-							<img id="useravatar0" src="../images/avatar.png">
+							<img id="useravatar0" src="../images/avatar.png" class="user">
 						</div>
 					</div>
 					<div class="article-meta well mt10 tc" id="x-article">
-						<h4 class="title" id="title0"></h4>
-						<p class="time-read">
-							<span id="createdate0"></span>
+						<p class="title thicker f20" id="title0"></p>
+						<p class="time-read mt10 f13"> 
+							<span id="createdate0"></span> 
+							<span id="nickname0" class="user hide"></span>
 							<span class="read-count" id="views0"></span>
 						</p>
-						<p class="nickname hide" id="nickname0"></p>
+						<p class="nickname user mt10 f13 hide" id="nickname1"></p>
 						<p id="music0" play="on" class="music mt10 mb0 hide" onclick="switchsound()">
 							<span id="musicname0" class="f11"></span>
 						</p>
 					</div>
-				</div>
+				</div> 
 				<!--内容-->
-				<div class="x-content well mb10 mt10">
+				<div class="x-content well mb10 mt20">
 					<div class="section" id="desc"></div>
 					<!--半透明蒙层-->
 					<div class="x-bg-blur" id="x-bg-blur"></div>
@@ -612,6 +498,7 @@
 							if(data.ColorTemplateJson == null) {
 								base.Get("title0").style.color = CurrTemplateJson.TitleColor;
 								base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+								base.Get("nickname1").style.color = CurrTemplateJson.UserColor;
 								base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
 								base.Get("views0").style.color = CurrTemplateJson.ViewColor;
 								base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
@@ -621,6 +508,7 @@
 					if(data.ColorTemplateJson != null) {
 						base.Get("title0").style.color = data.ColorTemplateJson.TitleColor;
 						base.Get("nickname0").style.color = data.ColorTemplateJson.UserColor;
+						base.Get("nickname1").style.color = data.ColorTemplateJson.UserColor;
 						base.Get("createdate0").style.color = data.ColorTemplateJson.TimeColor;
 						base.Get("views0").style.color = data.ColorTemplateJson.ViewColor;
 						base.Get("x-avatar-sub").style.border = "2px solid " + data.ColorTemplateJson.TitleColor;
@@ -636,7 +524,7 @@
 
 					base.InnerHtml(["title", "title0"], Article.Title);
 
-					base.InnerHtml(["nickname", "nickname0"], Article.NickName);
+					base.InnerHtml(["nickname", "nickname0", "nickname1"], Article.NickName);
 
 					base.InnerHtml(["createdate0"], data.CreateDateText);
 
@@ -676,9 +564,6 @@
 							item.classList.remove("hide");
 						});*/
 					});
-
-					//音乐 
-					ChangeMusic();
 
 					base.Get("bottomAction").classList.remove("hide");
 					base.Get("bottomAction").classList.add("bounceIn");

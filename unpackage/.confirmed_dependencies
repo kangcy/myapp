@@ -772,7 +772,15 @@
 			"images/addarticle/btn_pic.png",
 			"css/animate.min.css",
 			"images/tip/know.png",
-			"images/tip/title.png"
+			"images/tip/title.png",
+			"images/avatar.png",
+			"css/articledetail.min.css",
+			"images/preview/btn_sure.png",
+			"js/snow.js",
+			"images/preview/9.png",
+			"images/preview/5.png",
+			"images/preview/6.png",
+			"images/addarticle/icon_pic_y.png"
 		],
 		"refer": [
 			"page/edittitle.html",
@@ -786,7 +794,8 @@
 			"page/mypic.html",
 			"page/videoreview.html",
 			"page/sharesetting.html",
-			"page/articlepreview.html"
+			"page/articlepreview.html",
+			"page/showy.html"
 		]
 	},
 	"page/subindex.html": {
