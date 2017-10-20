@@ -780,7 +780,10 @@
 			"images/preview/9.png",
 			"images/preview/5.png",
 			"images/preview/6.png",
-			"images/addarticle/icon_pic_y.png"
+			"images/addarticle/icon_pic_y.png",
+			"images/article/btn_music.png",
+			"js/music.js",
+			"images/article/on.png"
 		],
 		"refer": [
 			"page/edittitle.html",
@@ -1166,7 +1169,8 @@
 			"page/money.html",
 			"page/action.html",
 			"page/addimage.html",
-			"page/template.html"
+			"page/template.html",
+			"page/articledetail_new.html"
 		]
 	},
 	"page/userSub.html": {
@@ -1701,7 +1705,8 @@
 		"refer": [
 			"page/zanSub.html",
 			"page/articledetail.html",
-			"page/user.html"
+			"page/user.html",
+			"page/articledetail_new.html"
 		]
 	},
 	"page/fan.html": {
@@ -4077,7 +4082,8 @@
 			"images/article/off.png"
 		],
 		"refer": [
-			"page/addarticle.html"
+			"page/addarticle.html",
+			"page/user.html"
 		]
 	}
 }

@@ -219,7 +219,8 @@
 		}
 		isLoading = true;
 		mui.later(function() {
-			base.GetView('articlepreview').evalJS("UpdateShowy('')");
+			//base.GetView('articlepreview').evalJS("UpdateShowy('')");
+			base.GetView('addarticle').evalJS("UpdateShowy('')");
 		}, 250);
 		isLoading = false;
 	}

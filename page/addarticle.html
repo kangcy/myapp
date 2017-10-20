@@ -268,6 +268,56 @@
 			.themeIcons div.div3 {
 				background-image: url(../images/preview/9.png);
 			}
+			
+			#music1 {
+				width: 1.8rem;
+				height: 1.8rem;
+				position: fixed;
+				right: 10px;
+				top: 80px;
+				z-index: 999;
+			}
+			
+			#music1[play=stop] {
+				animation: rotate 4s linear infinite;
+				-webkit-animation: rotate 4s linear infinite;
+				-ms-animation: rotate 4s linear infinite;
+				-moz-animation: rotate 4s linear infinite;
+				-o-animation: rotate 4s linear infinite;
+			}
+			
+			.music {
+				width: 100%;
+				height: 2rem;
+				border-radius: 5px;
+				background: #f6f6f6;
+				padding: 0;
+				line-height: 2rem;
+				cursor: pointer;
+				text-indent: 2.5rem;
+			}
+			
+			.music[play=on] {
+				background-image: url("../images/article/on.png");
+				background-repeat: no-repeat;
+				background-size: 1.5rem;
+				background-position: 0.5rem center;
+			}
+			
+			.music[play=stop] {
+				background-image: url("../images/article/off.png");
+				background-repeat: no-repeat;
+				background-size: 1.5rem;
+				background-position: 0.5rem center;
+			}
+			
+			.music span {
+				margin: 0;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				text-align: left;
+			}
 			/**新版**/
 			
 			#x-bg {
@@ -470,7 +520,7 @@
 					</div>
 				</div>
 				<!--内容-->
-				<div class="x-content well mb10 mt20">
+				<div class="x-content well mb10 mt20" id="x-content">
 					<div class="section" id="edit">
 					</div>
 					<!--半透明蒙层-->
@@ -499,124 +549,8 @@
 		<!--分隔-->
 		<div class="swiper-container hide" id="myline" style="bottom:0px;width:100%;background: rgba(255, 255, 255, 1);">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide">
-					<div class="inline full split">
-						<hr class="hrgif0 default_dashed">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif0 snow_dashed">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif0 scissors_dashed">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif001">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif002">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif003">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif004">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif005">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif006">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif007">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif009">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif011">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif012">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif013">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif014">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif015">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif016">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif017">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif018">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif019">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif020">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif021">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif022">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif024">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif025">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif026">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif027">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif028">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif030">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif031">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif033">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif034">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif035">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif036">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif037">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif038">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif041">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif042">
-					</div>
-					<div class="inline full split">
-						<hr class="hrgif hrgif044">
-					</div>
+				<div class="swiper-slide" id="line-slide">
+
 				</div>
 			</div>
 			<div class="swiper-scrollbar" id="myline-scrollbar"></div>
@@ -627,8 +561,6 @@
 			</div>
 			<div class="swiper-scrollbar" id="myborder-scrollbar"></div>
 		</div>
-		<div class="swiper-cover hide" id="line-cover"></div>
-		<div class="swiper-cover hide" id="border-cover"></div>
 	</body>
 
 </html>
@@ -637,6 +569,7 @@
 <script src="../js/base.min.js"></script>
 <script src="../js/group.min.js"></script>
 <script src="../js/addpart.js"></script>
+<script src="../js/music.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
@@ -668,9 +601,162 @@
 	var $edit = base.Get("edit");
 	var InitParts = []; //段落
 	var lineSwiper, borderSwiper, colorSwiper, tempSwiper, coolSwiper = null;
-	var lineCover = base.Get("line-cover");
-	var borderCover = base.Get("border-cover");
 	var browserName = base.BrowserName();
+
+	var lines = [{
+			type: 1,
+			name: "default_dashed"
+		}, {
+			type: 1,
+			name: "snow_dashed"
+		}, {
+			type: 1,
+			name: "scissors_dashed"
+		},
+		{
+			type: 0,
+			name: "hrgif001"
+		},
+		{
+			type: 0,
+			name: "hrgif002"
+		},
+		{
+			type: 0,
+			name: "hrgif003"
+		}, {
+			type: 0,
+			name: "hrgif004"
+		},
+		{
+			type: 0,
+			name: "hrgif005"
+		},
+		{
+			type: 0,
+			name: "hrgif006"
+		},
+		{
+			type: 0,
+			name: "hrgif007"
+		},
+		{
+			type: 0,
+			name: "hrgif009"
+		},
+		{
+			type: 0,
+			name: "hrgif0011"
+		},
+		{
+			type: 0,
+			name: "hrgif0012"
+		},
+		{
+			type: 0,
+			name: "hrgif0013"
+		},
+		{
+			type: 0,
+			name: "hrgif0014"
+		},
+		{
+			type: 0,
+			name: "hrgif0015"
+		},
+		{
+			type: 0,
+			name: "hrgif0016"
+		},
+		{
+			type: 0,
+			name: "hrgif0017"
+		},
+		{
+			type: 0,
+			name: "hrgif0018"
+		},
+		{
+			type: 0,
+			name: "hrgif0019"
+		},
+		{
+			type: 0,
+			name: "hrgif0020"
+		},
+		{
+			type: 0,
+			name: "hrgif0021"
+		},
+		{
+			type: 0,
+			name: "hrgif0022"
+		},
+		{
+			type: 0,
+			name: "hrgif0024"
+		},
+		{
+			type: 0,
+			name: "hrgif0025"
+		},
+		{
+			type: 0,
+			name: "hrgif0026"
+		},
+		{
+			type: 0,
+			name: "hrgif0027"
+		},
+		{
+			type: 0,
+			name: "hrgif0028"
+		},
+		{
+			type: 0,
+			name: "hrgif0030"
+		},
+		{
+			type: 0,
+			name: "hrgif0031"
+		},
+		{
+			type: 0,
+			name: "hrgif0033"
+		},
+		{
+			type: 0,
+			name: "hrgif0034"
+		},
+		{
+			type: 0,
+			name: "hrgif0035"
+		},
+		{
+			type: 0,
+			name: "hrgif0036"
+		},
+		{
+			type: 0,
+			name: "hrgif0037"
+		},
+		{
+			type: 0,
+			name: "hrgif0038"
+		},
+		{
+			type: 0,
+			name: "hrgif0041"
+		},
+		{
+			type: 0,
+			name: "hrgif0042"
+		},
+		{
+			type: 0,
+			name: "hrgif0044"
+		}
+	]
 
 	var borders = [{
 		tip: "拍立得(一)",
@@ -921,30 +1007,19 @@
 			ShowBorder(src);
 		});
 
-		//关闭分隔
-		base.Get('line-cover').addEventListener('tap', function() {
-			CloseLine();
-		});
-
-		//关闭边框
-		base.Get('border-cover').addEventListener('tap', function() {
-			CloseBorder();
-		});
-
 		//选中分隔
 		mui('#myline').on('tap', '.split', function() {
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
-			CloseLine();
+			IconTan(1, false);
 			AddLine(this);
-
 		});
 
 		//选中边框
 		mui('#myborder').on('tap', '.img_border', function() {
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
-			CloseBorder();
+			IconTan(1, false);
 			AddBorder(this)
 		});
 
@@ -1005,16 +1080,6 @@
 				return;
 			}
 
-			//关闭弹层
-			if(!base.HasClass(lineCover, "hide")) {
-				CloseLine();
-				return;
-			}
-			if(!base.HasClass(borderCover, "hide")) {
-				CloseBorder();
-				return;
-			}
-
 			//首次创建
 			if(Source == "Add") {
 				var btnArray = ['删除草稿', '存草稿'];
@@ -1066,10 +1131,23 @@
 	});
 
 	function ShowLine() {
-		lineCover.classList.remove("hide");
+		IconTan(0, true);
 		var myline = base.Get("myline");
 		myline.classList.remove("hide");
 		if(lineSwiper == null) {
+			var fragment = document.createDocumentFragment();
+			lines.forEach(x => {
+				var div = document.createElement('div');
+				div.className = "inline full split";
+				if(x.type == 1) {
+					div.innerHTML = '<hr class="hrgif0 ' + x.name + '">';
+				} else {
+					div.innerHTML = '<hr class="hrgif ' + x.name + '">';
+				}
+				fragment.appendChild(div);
+			})
+			base.Get("line-slide").innerHTML = "";
+			base.Get("line-slide").appendChild(fragment);
 			lineSwiper = new Swiper('#myline', {
 				scrollbar: '#myline-scrollbar',
 				direction: 'vertical',
@@ -1084,7 +1162,6 @@
 				}
 			})
 		} else {
-			myline.classList.remove("hide");
 			myline.classList.remove("bounceOutUp");
 			myline.classList.add("bounceInUp");
 		}
@@ -1094,43 +1171,46 @@
 		var myline = base.Get("myline");
 		myline.classList.remove("bounceInUp");
 		myline.classList.add("bounceOutUp");
-		lineCover.classList.add("hide");
 	}
 
 	function ShowBorder(src) {
-		borderCover.classList.remove("hide");
+		IconTan(0, true);
 		var myborder = base.Get("myborder");
 		myborder.classList.remove("hide");
-		var fragment = document.createDocumentFragment();
-		borders.forEach(x => {
-			var div = document.createElement('div');
-			div.className = "img_border";
-			div.setAttribute("name", x.name);
-			div.innerHTML = '<p class="cfff">' + x.tip + '</p><div class="' + x.name + '"><img src="' + src + '" /></div>';
-			fragment.appendChild(div);
-		})
-		base.Get("myborder-slide").innerHTML = "";
-		base.Get("myborder-slide").appendChild(fragment);
-		borderSwiper = new Swiper('#myborder', {
-			scrollbar: '#myborder-scrollbar',
-			direction: 'horizontal',
-			slidesPerView: 'auto',
-			mousewheelControl: true,
-			freeMode: true,
-			roundLengths: true,
-			spaceBetween: 10,
-			onInit: function(swiper) {
-				myborder.classList.remove("bounceOutUp");
-				myborder.classList.add("bounceInUp");
-			}
-		});
+		if(borderSwiper == null) {
+			var fragment = document.createDocumentFragment();
+			borders.forEach(x => {
+				var div = document.createElement('div');
+				div.className = "img_border";
+				div.setAttribute("name", x.name);
+				div.innerHTML = '<p class="cfff">' + x.tip + '</p><div class="' + x.name + '"><img src="' + src + '" /></div>';
+				fragment.appendChild(div);
+			})
+			base.Get("myborder-slide").innerHTML = "";
+			base.Get("myborder-slide").appendChild(fragment);
+			borderSwiper = new Swiper('#myborder', {
+				scrollbar: '#myborder-scrollbar',
+				direction: 'horizontal',
+				slidesPerView: 'auto',
+				mousewheelControl: true,
+				freeMode: true,
+				roundLengths: true,
+				spaceBetween: 10,
+				onInit: function(swiper) {
+					myborder.classList.remove("bounceOutUp");
+					myborder.classList.add("bounceInUp");
+				}
+			});
+		} else {
+			myborder.classList.remove("bounceOutUp");
+			myborder.classList.add("bounceInUp");
+		}
 	}
 
 	function CloseBorder() {
 		var myborder = base.Get("myborder");
 		myborder.classList.remove("bounceInUp");
 		myborder.classList.add("bounceOutUp");
-		borderCover.classList.add("hide");
 	}
 
 	//修改图片
@@ -1436,21 +1516,21 @@
 	//拼接字符串  
 	function initStr(text, type, partid, expand) {
 		var div = document.createElement('div');
-		div.className = 'edit-body fl';
+		div.className = 'edit-body fl mt10';
 		var model = [];
 		if(type == "pic") {
-			model.push('<img src="../images/addarticle/btn_pic.png" class="edit-add-border" style="position:absolute;top:0.625rem;left:8rem;width:2rem;z-index:1;" />');
+			model.push('<img src="../images/addarticle/btn_pic.png" class="edit-add-border" style="position:absolute;top:0;left:8rem;width:2rem;z-index:1;" />');
 		}
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
-			model.push('<div class="edit-content mt10 f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
+			model.push('<div class="edit-content f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content edit-content2 mt10 f11 tl" type="' + type + '" partid="' + partid + '" style="padding:5%;">' + base.UnUnicodeText(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 f11 tl" type="' + type + '" partid="' + partid + '" style="padding:5%;">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="edit-content edit-content2 mt10 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
+			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
 		} else if(type == "line") {
-			model.push('<div class="edit-content edit-content2 mt10 f11" type="' + type + '" partid="' + partid + '">' + text + '</div>');
+			model.push('<div class="edit-content edit-content2 f11" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		}
 		model.push('<div class="icons0 mt15 mb5 tc">');
 		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;" /></div>');
@@ -1616,7 +1696,7 @@
 		}
 	}
 
-	//背景状态切换
+	//背景状态切换 
 	function ChangeBg() {
 		if(CurrTemplate == 0) {
 			base.Get("x-avatar").classList.add("hide");
@@ -1625,6 +1705,8 @@
 			base.Get("nickname1").classList.add("hide");
 			base.Get("nickname0").classList.remove("hide");
 			base.Get("edit").classList.remove("temp");
+			base.Get("x-content").classList.remove("mt20");
+			base.Get("x-content").classList.add("mt10");
 		} else {
 			base.Get("x-avatar").classList.remove("hide");
 			base.Get("x-article").classList.remove("tl");
@@ -1632,6 +1714,8 @@
 			base.Get("nickname0").classList.add("hide");
 			base.Get("nickname1").classList.remove("hide");
 			base.Get("edit").classList.add("temp");
+			base.Get("x-content").classList.remove("mt10");
+			base.Get("x-content").classList.add("mt20");
 		}
 
 		ChangeMusic();
@@ -1719,14 +1803,14 @@
 
 	//切换音乐
 	function ChangeMusic() {
-		/*base.AddClass(["#music0", "#music1"], "hide");
+		base.AddClass(["#music0", "#music1"], "hide");
 		MusicID = "music" + (CurrTemplate == 0 ? 0 : 1);
 		if(!base.IsNullOrEmpty(MusicUrl)) {
 			if(Article.AutoMusic == 1) {
 				document.addEventListener('touchstart', startsound);
 			}
 			base.Get("music" + (CurrTemplate == 0 ? 0 : 1)).classList.remove("hide");
-		}*/
+		}
 	}
 
 	//自定义装扮
@@ -1748,7 +1832,8 @@
 			return
 		}
 		LoadScript("../js/snow.js", function() {
-			base.GetView("addarticle").evalJS("changeShowy('" + Showy + "')");
+			//base.GetView("addarticle").evalJS("changeShowy('" + Showy + "')");
+			changeShowy(Showy);
 			var srcs = src.split("|");
 			if(srcs.length > 2) {
 				snow.init(srcs[0], srcs[1], srcs[2])
@@ -1768,7 +1853,7 @@
 			plus.webview.close("showypreview", "none");
 			plus.webview.close("showy");
 		}
-		plus.webview.show("articlepreview", "fade-in");
+		plus.webview.show("addarticle", "fade-in");
 		if(base.IsNullOrEmpty(Showy)) {
 			InitShowy(src)
 		} else {
@@ -1785,7 +1870,8 @@
 			}
 		}
 		Showy = src;
-		base.GetView("addarticle").evalJS("changeShowy('" + Showy + "')");
+		//base.GetView("addarticle").evalJS("changeShowy('" + Showy + "')");
+		changeShowy(Showy)
 	}
 
 	//主题色选择弹窗
@@ -1795,7 +1881,8 @@
 			mycolor.classList.remove("bounceInUp");
 			mycolor.classList.add("bounceOutUp");
 			base.AddClass(["#agreeColor", "#mycolor"], "hide");
-			base.GetView("addarticle").evalJS("changeColorTemp('" + CurrColorTemplate + "')");
+			changeColorTemp(CurrColorTemplate)
+			//base.GetView("addarticle").evalJS("changeColorTemp('" + CurrColorTemplate + "')");
 		} else {
 			IconTan(0, true);
 			mycolor.classList.remove("hide");
@@ -1896,7 +1983,8 @@
 		if(mui(".background[tid='" + CurrTemplate + "']").length > 0) {
 			mui(".background[tid='" + CurrTemplate + "']")[0].classList.add("hover");
 		}
-		base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
+		changeTemp(CurrTemplate);
+		//base.GetView("addarticle").evalJS("changeTemp(" + CurrTemplate + ")");
 		if(callback) {
 			callback();
 		}
@@ -1934,6 +2022,8 @@
 		} else {
 			TempTan(0);
 			ColorTan(0);
+			CloseLine();
+			CloseBorder();
 			btnIcon.classList.remove("hide");
 			btnIcon.classList.remove("bounceOutUp");
 			btnIcon.classList.add("bounceInUp");
@@ -1982,7 +2072,7 @@
 
 						CurrColorTemplateJson = null;
 						CurrColorTemplate = 0;
-						base.GetView("addarticle").evalJS("changeColorTemp('" + CurrColorTemplate + "')");
+						//base.GetView("addarticle").evalJS("changeColorTemp('" + CurrColorTemplate + "')");
 
 						base.Get("title0").style.color = CurrTemplateJson.TitleColor;
 						base.Get("nickname0").style.color = CurrTemplateJson.UserColor;

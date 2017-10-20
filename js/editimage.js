@@ -222,7 +222,7 @@ function confirm(callback) {
 //请求上传图片
 function Upload(imgurl, callback) {
 	base.ShowWaiting("正在上传图片");
-	HttpPost(base.RootUrl + "Upload/Upload", {
+	HttpPost(base.UploadUrl + "Upload/Upload", {
 		str: imgurl,
 		standard: Standard,
 		Number: userinfo.Number
@@ -230,7 +230,7 @@ function Upload(imgurl, callback) {
 		if(data != null) {
 			if(data.result) {
 				if(callback) {
-					callback(base.RootUrl + data.message);
+					callback(base.UploadUrl + data.message);
 				}
 				base.Get("closepop").style.display = "none";
 				base.Get("openpop").style.display = "inline-block";

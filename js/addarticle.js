@@ -129,7 +129,7 @@ function getBase64Image(img) {
 
 //上传图片到服务器  
 function Upload(imgurl, callback) {
-	HttpPost(base.RootUrl + "Upload/Upload", {
+	HttpPost(base.UploadUrl + "Upload/Upload", {
 		str: imgurl,
 		Standard: "Article",
 		Number: userinfo.Number
@@ -140,7 +140,7 @@ function Upload(imgurl, callback) {
 				if(base.IsNullOrEmpty(data.message)) {
 					length = length - 1;
 				} else {
-					currUploadImg.push(base.RootUrl + data.message);
+					currUploadImg.push(base.UploadUrl + data.message);
 				}
 
 				if(length <= 0) {

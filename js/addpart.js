@@ -13,7 +13,7 @@ function upload() {
 		return;
 	}
 
-	var task = plus.uploader.createUpload(base.RootUrl + "Upload/UploadImage", {
+	var task = plus.uploader.createUpload(base.UploadUrl + "Upload/UploadImage", {
 			method: "POST"
 		},
 		function(t, status) {

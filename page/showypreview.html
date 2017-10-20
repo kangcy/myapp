@@ -111,7 +111,8 @@
 			return mui.toast("参数异常");
 		}
 		mui.later(function() {
-			base.GetView('articlepreview').evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
+			//base.GetView('articlepreview').evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
+			base.GetView('addarticle').evalJS("UpdateShowy('" + src + "|" + count + "|" + snowtype + "')");
 		}, 250);
 		isLoading = false;
 	}

@@ -436,9 +436,9 @@
 
 		Load(function(data) {});
 
-		LoadTemplate();
+		//LoadTemplate();
 
-		LoadColorTemplate();
+		//LoadColorTemplate();
 
 		mui.back = function() {
 			//关闭弹层
@@ -513,7 +513,6 @@
 							}
 						}
 					}
-
 					if(data.ColorTemplateJson != null) {
 						CurrColorTemplateJson = data.ColorTemplateJson;
 						base.Get("title0").style.color = CurrColorTemplateJson.TitleColor;

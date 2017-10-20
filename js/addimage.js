@@ -7,7 +7,7 @@ var mask = base.CreateMask(false, function() {
 // 上传文件
 function upload() {
 	plus.uploader.clear();
-	var task = plus.uploader.createUpload(base.RootUrl + "Upload/UploadImage", {
+	var task = plus.uploader.createUpload(base.UploadUrl + "Upload/UploadImage", {
 			method: "POST"
 		},
 		function(t, status) { //上传完成  
@@ -67,6 +67,7 @@ function Camera() {
 
 // 从相册中选择图片
 function Gallery() {
+	
 	plus.gallery.pick(function(e) {
 		isSelect = true;
 		mui('#upload').popover('hide');

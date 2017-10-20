@@ -19,14 +19,14 @@ function getVideo() {
 function galleryVideo() {
 	plus.gallery.pick(function(path) {
 			//创建上传任务
-			var task = plus.uploader.createUpload(base.RootUrl + "Upload/UploadFile", {}, function(t, status) {
+			var task = plus.uploader.createUpload(base.UploadUrl + "Upload/UploadFile", {}, function(t, status) {
 				var data = JSON.parse(t.responseText);
 				//上传完成 
 				if(status == 200) {
 					clearInterval(i);
 					base.ShowWaiting("正在同步视频")
 					if(data.result) {
-						AddVideo(base.RootUrl + data.message, 1)
+						AddVideo(base.UploadUrl + data.message, 1)
 					}
 				} else {
 					mui.toast("上传失败");

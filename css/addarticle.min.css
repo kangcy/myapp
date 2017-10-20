@@ -18,7 +18,7 @@
 
 .edit-up {
 	position: absolute;
-	top: 0.625rem;
+	top: 0px;
 	left: 0px;
 	width: 2rem;
 	z-index: 1;
@@ -26,7 +26,7 @@
 
 .edit-down {
 	position: absolute;
-	top: 2.875rem;
+	top: 2.25rem;
 	left: 0px;
 	width: 2rem;
 	z-index: 1;
@@ -37,11 +37,11 @@
 }
 
 .edit-down.first {
-	top: 0.625rem;
+	top: 0;
 }
 
 .edit-up.last {
-	top: 0.625rem;
+	top: 0;
 }
 
 .edit-down.last {
@@ -50,7 +50,7 @@
 
 .edit-del {
 	position: absolute;
-	top: 0.625rem;
+	top: 0;
 	right: 0px;
 	width: 2rem;
 	z-index: 1;

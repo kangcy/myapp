@@ -249,7 +249,8 @@
 						Transparency: parseInt(transparency),
 						Url: url
 					}
-					base.GetView('articlepreview').evalJS("Reload('customsetting','" + JSON.stringify(model) + "')");
+					//base.GetView('articlepreview').evalJS("Reload('customsetting','" + JSON.stringify(model) + "')");
+					base.GetView('addarticle').evalJS("Reload('customsetting','" + JSON.stringify(model) + "')");
 				} else {
 					mui.toast(data.message);
 				}

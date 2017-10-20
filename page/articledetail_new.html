@@ -171,7 +171,7 @@
 							<span id="musicname0" class="f11"></span>
 						</p>
 					</div>
-				</div> 
+				</div>  
 				<!--内容-->
 				<div class="x-content well mb10 mt20">
 					<div class="section" id="desc"></div>
@@ -406,7 +406,6 @@
 
 	//加载文章
 	function Load(callback) {
-		console.log(ArticleID);
 		HttpGet(base.RootUrl + "Api/Article/Detail", {
 			Number: userinfo.Number,
 			ArticleID: ArticleID

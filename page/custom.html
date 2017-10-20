@@ -352,7 +352,8 @@
 							if(page) {
 								page.evalJS("Reload('custom')");
 							}*/
-							base.GetView('articlepreview').evalJS("Reload('custom','" + JSON.stringify(model) + "')");
+							//base.GetView('articlepreview').evalJS("Reload('custom','" + JSON.stringify(model) + "')");
+							base.GetView('addarticle').evalJS("Reload('custom','" + JSON.stringify(model) + "')");
 						} else {
 							var page = base.GetView('customsetting');
 							if(page) {
