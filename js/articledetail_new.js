@@ -18,12 +18,16 @@ function ChangeBg() {
 		base.Get("x-article").classList.add("tl");
 		base.Get("nickname0").classList.remove("hide");
 		base.Get("desc").classList.remove("temp");
+		base.Get("x-content").classList.remove("mt20");
+		base.Get("x-content").classList.add("mt10");
 	} else {
 		base.Get("x-avatar").classList.remove("hide");
 		base.Get("x-article").classList.remove("tl");
 		base.Get("x-article").classList.add("tc");
 		base.Get("nickname1").classList.remove("hide");
 		base.Get("desc").classList.add("temp");
+		base.Get("x-content").classList.remove("mt10");
+		base.Get("x-content").classList.add("mt20");
 	}
 
 	ChangeMusic();
@@ -76,6 +80,39 @@ function ChangeBg() {
 				}
 			}
 			$wrapper2.classList.remove("hide");
+		} else if(CurrTemplateJson.CoverFixed == 2) {
+			if(!base.IsNullOrEmpty(CurrTemplateJson.TopImage)) {
+				var top = CurrTemplateJson.TopImage.split('|')
+				if(top.length == 1) {
+					$top.innerHTML = '<img src="' + top[0].split('^')[0] + '" class="fl" style="width:' + top[0].split('^')[1] + '" />';
+				} else if(top.length == 2) {
+					$top.innerHTML = '<img src="' + top[0].split('^')[0] + '" class="fl" style="width:' + top[0].split('^')[1] + '" /><img src="' + top[1].split('^')[0] + '" class="fr" style="width:' + top[1].split('^')[1] + '" />';
+				}
+				$top.classList.remove("hide");
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.BottomImage)) {
+				$bottom.setAttribute("src", CurrTemplateJson.BottomImage);
+				$bottom.classList.remove("hide");
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
+				$wrapper2.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
+					$wrapper2.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+				}
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
+					$wrapper2.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+				}
+				$wrapper2.classList.remove("hide");
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
+				if(CurrTemplateJson.Background.startWith("#") || CurrTemplateJson.Background.startWith("rgba")) {
+					$wrapper2.style.backgroundColor = CurrTemplateJson.Background;
+				} else {
+					$wrapper2.style.background = CurrTemplateJson.Background;
+					$wrapper2.style.background = base.BrowserName() + CurrTemplateJson.Background;
+				}
+				$wrapper2.classList.remove("hide");
+			}
 		}
 	} else {
 		//自定义
