@@ -57,7 +57,7 @@ function ChangeBg() {
 					$wrapper.style.background = base.BrowserName() + CurrTemplateJson.Background;
 				}
 			}
-		} else {
+		} else if(CurrTemplateJson.CoverFixed == 1) {
 			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
 				$wrapper2.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
 				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
@@ -104,7 +104,8 @@ function ChangeBg() {
 				case 1:
 					//全屏
 					$wrapper2.style.background = "url(" + url + ") center center no-repeat";
-					$wrapper2.style.backgroundSize = "100% auto";
+					$wrapper2.style.backgroundSize = "cover";
+					//$wrapper2.style.backgroundSize = "100% auto";
 					break;
 				default:
 					break;
