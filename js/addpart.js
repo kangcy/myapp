@@ -1,18 +1,16 @@
-var fileIndex = 0;
-var fileTotal = 0;
 var files = [];
+var uploadFiles = [];
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
 });
 
 // 上传文件
 function upload() {
-	base.ShowWaiting("准备上传" + files.length + "张图片");
-	plus.uploader.clear();
 	if(files.length <= 0) {
 		return;
 	}
-
+	base.ShowWaiting("准备上传" + files.length + "张图片");
+	plus.uploader.clear();
 	var task = plus.uploader.createUpload(base.UploadUrl + "Upload/UploadImage", {
 			method: "POST"
 		},
@@ -35,10 +33,12 @@ function upload() {
 	task.addData("folder", "Article");
 	task.addData("number", userinfo.Number);
 
-	mui.each(files, function(index, item) {
-		task.addFile(item.url, {
-			key: item.id
-		});
+	mui.each(uploadFiles, function(index, item) {
+		if(!base.IsNullOrEmpty(item.url)) {
+			task.addFile(item.url, {
+				key: item.id
+			});
+		}
 	});
 
 	task.start();
@@ -55,17 +55,14 @@ function upload() {
 //拍照  
 function Camera() {
 	mui('#upload').popover('hide');
+	uploadFiles = [];
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
 			mask.show();
 			base.ShowWaiting("正在压缩图片");
-			fileIndex = 0;
-			fileTotal = 1;
-			files = [];
-			var localurl = entry.toLocalURL();
-			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
-			compressImage(localurl, dstname);
+			files = [entry.toLocalURL()]
+			compressImage(files[0]);
 		});
 	});
 }
@@ -73,16 +70,12 @@ function Camera() {
 // 从相册中选择图片
 function Gallery() {
 	mui('#upload').popover('hide');
+	uploadFiles = [];
 	plus.gallery.pick(function(e) {
 		mask.show();
 		base.ShowWaiting("正在压缩图片");
-		fileIndex = 0;
-		fileTotal = e.files.length;
-		files = [];
-		for(var i = 0; i < e.files.length; i++) {
-			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
-			compressImage(e.files[i], dstname);
-		}
+		files = e.files;
+		compressImage(files[0]);
 	}, function(e) {
 		console.log("取消选择图片");
 	}, {
@@ -94,7 +87,8 @@ function Gallery() {
 }
 
 //压缩图片 
-function compressImage(src, dstname) {
+function compressImage(src) {
+	var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
 	plus.zip.compressImage({
 			src: src,
 			dst: dstname,
@@ -102,21 +96,27 @@ function compressImage(src, dstname) {
 			quality: 90
 		},
 		function(event) {
-			fileIndex++;
-			files.push({
-				id: fileIndex,
+			uploadFiles.push({
+				id: base.GetUid(),
 				url: event.target
-			});
-			if(fileIndex >= fileTotal) {
+			})
+			if(uploadFiles.length < files.length) {
+				compressImage(files[uploadFiles.length]);
+			} else {
 				upload();
 			}
 		},
 		function(error) {
-			fileIndex++;
-			if(fileIndex >= fileTotal) {
+			uploadFiles.push({
+				id: 0,
+				url: ""
+			})
+			if(uploadFiles.length < files.length) {
+				compressImage(files[uploadFiles.length]);
+			} else {
 				upload();
 			}
-		}); 
+		});
 }
 
 //创建段落 

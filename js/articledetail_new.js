@@ -18,12 +18,14 @@ function ChangeBg() {
 		base.Get("x-article").classList.add("tl");
 		base.Get("nickname0").classList.remove("hide");
 		base.Get("desc").classList.remove("temp");
+		base.Get("x-content").classList.remove("mt10");
 	} else {
 		base.Get("x-avatar").classList.remove("hide");
 		base.Get("x-article").classList.remove("tl");
 		base.Get("x-article").classList.add("tc");
 		base.Get("nickname1").classList.remove("hide");
 		base.Get("desc").classList.add("temp");
+		base.Get("x-content").classList.add("mt10");
 	}
 
 	ChangeMusic();

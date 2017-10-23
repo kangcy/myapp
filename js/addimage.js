@@ -67,19 +67,11 @@ function Camera() {
 
 // 从相册中选择图片
 function Gallery() {
-	
 	plus.gallery.pick(function(e) {
 		isSelect = true;
 		mui('#upload').popover('hide');
-
 		files = e.files;
 		compressImage(0, files[0]);
-
-		/*for(var i = 0; i < e.files.length; i++) {
-			var dstname = "_downloads/" + base.GetUid() + ".jpg"; //设置压缩后图片的路径  
-			console.log(e.files[i] + "," + dstname)
-			compressImage(e.files[i], dstname);
-		}*/
 	}, function(e) {
 		console.log("取消选择图片");
 	}, {

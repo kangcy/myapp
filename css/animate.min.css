@@ -1541,6 +1541,63 @@
 	-ms-animation-fill-mode: forwards
 }
 
+@keyframes flipInX {
+	0% {
+		transform: perspective(400px) rotateX(90deg);
+		animation-timing-function: ease-in;
+		opacity: 0
+	}
+	40% {
+		transform: perspective(400px) rotateX(-20deg);
+		animation-timing-function: ease-in
+	}
+	60% {
+		transform: perspective(400px) rotateX(10deg);
+		opacity: 1
+	}
+	80% {
+		transform: perspective(400px) rotateX(-5deg)
+	}
+	to {
+		transform: perspective(400px)
+	}
+}
+
+@-webkit-keyframes flipInX {
+	0% {
+		-webkit-transform: perspective(400px) rotateX(90deg);
+		-webkit-animation-timing-function: ease-in;
+		opacity: 0
+	}
+	40% {
+		-webkit-transform: perspective(400px) rotateX(-20deg);
+		-webkit-animation-timing-function: ease-in
+	}
+	60% {
+		-webkit-transform: perspective(400px) rotateX(10deg);
+		opacity: 1
+	}
+	80% {
+		-webkit-transform: perspective(400px) rotateX(-5deg)
+	}
+	to {
+		-webkit-transform: perspective(400px)
+	}
+}
+
+.flipInX {
+	-webkit-backface-visibility: visible!important;
+	backface-visibility: visible!important;
+	-webkit-animation: flipInX 1s ease;
+	-moz-animation: flipInX 1s ease;
+	-ms-animation: flipInX 1s ease;
+	animation: flipInX 1s ease;
+	animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	-ms-animation-fill-mode: forwards
+}
+
 
 /**文字水纹特效**/
 
