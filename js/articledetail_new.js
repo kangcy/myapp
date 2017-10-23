@@ -18,16 +18,12 @@ function ChangeBg() {
 		base.Get("x-article").classList.add("tl");
 		base.Get("nickname0").classList.remove("hide");
 		base.Get("desc").classList.remove("temp");
-		base.Get("x-content").classList.remove("mt20");
-		base.Get("x-content").classList.add("mt10");
 	} else {
 		base.Get("x-avatar").classList.remove("hide");
 		base.Get("x-article").classList.remove("tl");
 		base.Get("x-article").classList.add("tc");
 		base.Get("nickname1").classList.remove("hide");
 		base.Get("desc").classList.add("temp");
-		base.Get("x-content").classList.remove("mt10");
-		base.Get("x-content").classList.add("mt20");
 	}
 
 	ChangeMusic();
@@ -82,12 +78,12 @@ function ChangeBg() {
 			$wrapper2.classList.remove("hide");
 		} else if(CurrTemplateJson.CoverFixed == 2) {
 			if(!base.IsNullOrEmpty(CurrTemplateJson.TopImage)) {
-				var top = CurrTemplateJson.TopImage
-				if(top.length == 1) {
-					$top.innerHTML = '<img src="' + top[0].Url + '" class="fl" style="width:' + top[0].Width + '" />';
-				} else if(top.length == 2) {
-					$top.innerHTML = '<img src="' + top[0].Url + '" class="fl" style="width:' + top[0].Width + '" /><img src="' + top[1].Url + '" class="fr" style="width:' + top[1].Width + '" />';
+				var tophtml = [];
+				for(var i = 0; i < CurrTemplateJson.TopImage.length; i++) {
+					var top = CurrTemplateJson.TopImage[i];
+					tophtml.push('<img src="' + top.Url + '" class="' + top.Align + '" style="width:' + top.Width + '" />');
 				}
+				$top.innerHTML = tophtml.join('');
 				$top.classList.remove("hide");
 			}
 			if(!base.IsNullOrEmpty(CurrTemplateJson.BottomImage)) {
