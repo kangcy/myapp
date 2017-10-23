@@ -55,7 +55,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="flex-box flex-row f13">
+			<div class="flex-box flex-row noborder f13 hide" id="drawText">
+				<div class="flex-item" style="flex:0 0 28%">
+					<p class="mt0 mb0 c000">水印文字</p>
+					<!--<span class="c999 f10">开启后新导入图片自动添加水印</span>-->
+				</div>
+				<div class="flex-item tr" style="flex:0 0 72%">
+					<input id="txtDrawText" type="text" placeholder="自定义水印文字" maxlength="20" class="f10 tr" style="margin:0;padding:0;border:0">
+				</div>
+			</div>
+			<div class="flex-box flex-row f13 mt8">
 				<div class="flex-item c000">
 					<p class="mt0 mb0 c000">分享带昵称</p>
 					<span class="c999 f10">分享后文章标题自动加上作者名</span>
@@ -93,19 +102,19 @@
 					<span class="c999" id="version"></span>
 				</div>
 			</div>
-			<div class="button button-3d button-primary button-rounded tc" id="exit" style="width:90%;margin:5%;">退出登录</div>
+			<div class="button button-glow button-rounded button-raised button-primary" id="exit" style="width:90%;margin:5%;">退出登录</div>
 		</div>
 		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
 			<div class="flex-box flex-row noborder f13" onclick="Cancel()">
 				<div class="flex-item full tc" style="flex: 0 0 100%;">
-					注销当前账号
+					注销当前账号 
 				</div>
 			</div>
 			<div class="flex-box flex-row noborder f13" onclick="Close()">
 				<div class="flex-item full tc" style="flex: 0 0 100%;">
 					直接关闭应用
 				</div>
-			</div>
+			</div> 
 			<div class="flex-box flex-row noborder f13">
 				<div class="flex-item red full tc" style="flex: 0 0 100%;">
 					<a href="#action" class="red">取消</a>
@@ -160,18 +169,39 @@
 
 		//启用水印 
 		if(userinfo.UseDraw == 1) {
-			base.SwitchChange("drawSwitch", true)
+			base.SwitchChange("drawSwitch", true);
+			base.Get("drawText").classList.remove("hide");
+			base.Get("txtDrawText").value = userinfo.DrawText;
 		}
 
 		//分享带昵称
 		if(userinfo.ShareNick == 1) {
-			base.SwitchChange("shareNickSwitch", true)
+			base.SwitchChange("shareNickSwitch", true);
 		}
 
 		//自动播放音乐
 		if(userinfo.AutoMusic == 1) {
-			base.SwitchChange("autoMusicSwitch", true)
+			base.SwitchChange("autoMusicSwitch", true);
 		}
+
+		//修改水印
+		base.Get("txtDrawText").addEventListener('blur', function(event) {
+			HttpGet(base.RootUrl + "User/EditUseDrawText", {
+				ID: userinfo.ID,
+				DrawText: base.Get("txtDrawText").value.trim()
+			}, function(data) {
+				if(data == null) {
+					mui.toast("修改失败");
+				} else {
+					if(data.result) {
+						userinfo.DrawText = base.Get("txtDrawText").value.trim();
+						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+					} else {
+						mui.toast("修改失败");
+					}
+				}
+			});
+		});
 
 		//是否启用水印
 		base.Get("drawSwitch").addEventListener('tap', function(event) {
@@ -184,8 +214,12 @@
 			if(!draw) {
 				ActionTan(1);
 			}
-			isLoading = false;
-			/*HttpGet(base.RootUrl + "User/EditUseDraw", {
+			if(draw) {
+				base.Get("drawText").classList.add("hide");
+			} else {
+				base.Get("drawText").classList.remove("hide");
+			}
+			HttpGet(base.RootUrl + "User/EditUseDraw", {
 				ID: userinfo.ID,
 				UseDraw: draw ? 0 : 1
 			}, function(data) {
@@ -202,7 +236,7 @@
 					}
 				}
 				isLoading = false;
-			});*/
+			});
 		});
 
 		//是否分享昵称
@@ -219,14 +253,14 @@
 			}, function(data) {
 				if(data == null) {
 					mui.toast("修改失败");
-					base.SwitchChange("shareNickSwitch", autoMusic);
+					base.SwitchChange("shareNickSwitch", shareNick);
 				} else {
 					if(data.result) {
 						userinfo.ShareNick = shareNick ? 0 : 1
 						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 					} else {
 						mui.toast("修改失败");
-						base.SwitchChange("shareNickSwitch", autoMusic);
+						base.SwitchChange("shareNickSwitch", shareNick);
 					}
 				}
 				isLoading = false;
@@ -394,6 +428,7 @@
 			base.Get("mytanbg").classList.add("hide");
 			base.RemoveClass(["#notice"], "bounceIn");
 			base.AddClass(["#notice"], "bounceOut hide");
+			base.Get("txtDrawText").focus();
 		} else {
 			base.Get("mytanbg").classList.remove("hide");
 			base.RemoveClass(["#notice"], "hide bounceOut");

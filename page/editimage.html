@@ -19,7 +19,7 @@
 		</header>
 		<!--图片操作-->
 		<div id="picupload"></div>
-		<div id="scroll-wrapper" class="mui-iframe-wrapper full tc" style="top:45px;botom:50px;">
+		<div id="wrapper" class="mui-iframe-wrapper full tc" style="bottom:50px;">
 			<img id="readyimg" style="display:none;max-width:100%;max-height:100%;" class="fl" />
 		</div>
 		<footer class="mui-bar mui-bar-tab" style="background:#F4F4F4;">
@@ -43,7 +43,7 @@
 <script src="../cropper/cropper.min.js"></script>
 <script src="../js/editimage.js"></script>
 <script type="text/javascript">
-	var totalheight = window.innerHeight - 95;
+	var totalheight = 0;
 	var totalwidth = window.innerWidth;
 	var Url = "";
 	var Source = "";
@@ -59,12 +59,17 @@
 
 	mui.init();
 
-	mui.ready(function() {
+	mui.ready(function() { 
 		base.Immersed();
 
 		mask.show();
-		base.ShowWaiting("正在加载")
-		$("#scroll-wrapper").css("height", (totalheight) + "px");
+		base.ShowWaiting("正在载入图片");
+
+		totalheight = window.innerHeight - base.Get("header").clientHeight - 50;
+		$("#wrapper").css({
+			"top": base.Get("header").clientHeight + "px",
+			"height": totalheight + "px"
+		});
 
 		mui('#picupload').load("../part/pic.html", function(response) {
 
@@ -90,7 +95,6 @@
 			$("#readyimg").attr("src", Url).load(function() {
 				var imagewidth = $("#readyimg").width();
 				var imageheight = $("#readyimg").height();
-
 				if(totalheight > imageheight) {
 					$("#readyimg").css("margin-top", (totalheight - imageheight) / 2 + "px");
 				} else if(totalwidth > imagewidth) {

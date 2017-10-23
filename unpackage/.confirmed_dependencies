@@ -1411,7 +1411,8 @@
 			"font-awesome-4.6.3/fonts/fontawesome-webfont.woff2",
 			"mincss/mui.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"images/loading.gif"
 		],
 		"refer": [
 			"page/articleType.html",
@@ -4083,7 +4084,8 @@
 		],
 		"refer": [
 			"page/addarticle.html",
-			"page/user.html"
+			"page/user.html",
+			"page/sharesetting.html"
 		]
 	}
 }
