@@ -12,7 +12,7 @@
 		var options = {
 			total: 99,
 			getData: null,
-			hideImg: false, // 开启之后，不在屏幕上的图片会display:none，可降低内存的使用
+			hideImg: true, // 开启之后，不在屏幕上的图片会display:none，可降低内存的使用
 			blank: false, // 开启之后，不在屏幕上的页面会display:none，可降低内存的使用
 			template: '', // 每条数据模板
 			loadingTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div></div>', // 正在加载提示信息

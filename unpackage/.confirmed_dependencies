@@ -3891,7 +3891,8 @@
 			"images/article/btn_good2.png",
 			"images/article/btn_pay.png",
 			"images/article/btn_more.png",
-			"css/buttons.css"
+			"css/buttons.css",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/articleComment.html",

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="swiper.min.css">
+		<link rel="stylesheet" href="animate.min.css">
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			/**头部**/
+			
+			#topNav {
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 2rem;
+				line-height: 2rem;
+				z-index: 1000;
+				border-bottom: 1px solid #f8f8f8;
+			}
+			
+			#topNav .swiper-slide {
+				padding: 0 0.25rem;
+				letter-spacing: 2px;
+				width: 3rem;
+				text-align: center;
+			}
+			
+			#topNav .swiper-slide span {
+				transition: all .3s ease;
+				display: block;
+			}
+			
+			#topNav .active span {
+				transform: scale(1.1);
+				color: #FF2D2D;
+			}
+			/**中部**/
+			
+			#centerNav {
+				position: fixed;
+				left: 0;
+				top: 2.2rem;
+				width: 100%;
+				bottom: 2rem;
+				z-index: 1000;
+				border-bottom: 1px solid #f8f8f8;
+			}
+			/**banner**/
+			
+			#banner {
+				width: 100%;
+				-webkit-perspective: 1200px;
+				-moz-perspective: 1200px;
+				-ms-perspective: 1200px;
+				perspective: 1200px
+			}
+			
+			#banner .swiper-slide {
+				width: 80%;
+				-webkit-transform-style: preserve-3d;
+				-moz-transform-style: preserve-3d;
+				-ms-transform-style: preserve-3d;
+				transform-style: preserve-3d
+			}
+			
+			#banner .swiper-slide .main-img {
+				width: 100%;
+				margin: 0 auto;
+				padding: 0px;
+				/*-webkit-box-shadow: 0 6px 6px -6px #ccc;
+				-moz-box-shadow: 0 6px 6px -6px #ccc;
+				box-shadow: 0 6px 6px -6px #ccc;*/
+				background: #fff;
+				background-clip: padding-box;
+				display: inline-block;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			#slide0 {
+				width: 100%;
+				height: 100%;
+				z-index: 1000;
+			}
+			
+			.pulldown-tip {
+				line-height: 2.75rem;
+				height: 2.75rem;
+			}
+			
+			.pulldown {
+				margin-top: -2.75rem;
+				width: 100%;
+				height: 2.75rem;
+				line-height: 2.75rem;
+				font-size: 16px;
+				text-align: center;
+				transform: translate(0px, 0px) translateZ(0px) scale(1);
+			}
+			
+			.pulldown.out {
+				margin-top: -2.75rem !important;
+				transition: all .3s ease;
+			}
+			
+			.pulldown-icon {
+				display: inline-block;
+				width: 0.9375rem;
+				height: 0.9375rem;
+				position: absolute;
+				top: 0.85rem;
+				left: 38%;
+				transform: rotateZ(0deg);
+			}
+			
+			.pulldown-icon img {
+				width: 0.9375rem;
+				height: 0.9375rem;
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="topNav" class="swiper-container" style="animation:fadeInDown 1s ease;-webkit-animation:fadeInDown 1s ease;">
+			<div class="swiper-wrapper f13">
+				<div class="swiper-slide active"><span>旅游</span></div>
+				<div class="swiper-slide"><span>美食</span></div>
+				<div class="swiper-slide"><span>亲子</span></div>
+				<div class="swiper-slide"><span>美妆</span></div>
+				<div class="swiper-slide"><span>女神</span></div>
+				<div class="swiper-slide"><span>摄影</span></div>
+				<div class="swiper-slide"><span>生活</span></div>
+				<div class="swiper-slide"><span>萌宠</span></div>
+				<div class="swiper-slide"><span>游戏</span></div>
+				<div class="swiper-slide"><span>二次元</span></div>
+				<div class="swiper-slide"><span>其他</span></div>
+			</div>
+		</div>
+		<div id="centerNav" class="swiper-container">
+			<div class="swiper-wrapper f13">
+				<div class="swiper-slide">
+					<div class="swiper-container" id="slide0" style="animation:fadeInUp 0.75s ease;-webkit-animation:fadeInUp 0.75s ease;">
+						<div class="swiper-wrapper" id="slide-wrapper0">
+							<div class="swiper-slide" style="height:auto;" id="slide-slide0">
+								<div class="pulldown" id="pulldown0"><span class="pulldown-icon"><img id="pulldownImg0" src="../jroll/2.png"></span><span class="c666 f12 ml15" id="pulldownText0">下拉刷新</span></div>
+								<div id="banner" class="swiper-container">
+									<div class="swiper-wrapper">
+										<div class="swiper-slide"><img src="../images/banner.jpg" class="main-img"></div>
+										<div class="swiper-slide"><img src="../images/banner.jpg" class="main-img"></div>
+										<div class="swiper-slide"><img src="../images/banner.jpg" class="main-img"></div>
+									</div>
+								</div>
+								<div id="scroll-view0" class="inline full fl">
+									<img src="../images/banner.jpg" class="full" />
+									<img src="../images/banner.jpg" class="full" />
+									<img src="../images/banner.jpg" class="full" />
+									<img src="../images/banner.jpg" class="full" />
+									<img src="../images/banner.jpg" class="full" />
+								</div>
+								<div id="pullend0" class="pulldown-tip full tc fl hide">
+									<div class="inline"><span class="c999 f12 fl ml5">已加载全部内容</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-scrollbar" id="slide0-scrollbar"></div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+				<div class="swiper-slide">
+					<img src="../images/adv/001.png" class="full" />
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="swiper.min.js"></script>
+<script type="text/javascript">
+	var topSwiper, centerSwiper, bannerSwiper = null;
+	var swiperWidth, maxTranslate, maxWidth = 0;
+	var pulldownMargin0 = 0;
+	var pulldownHeight = 0;
+	var pulldown0 = base.Get("pulldown0");
+	var pulldownImg0 = base.Get("pulldownImg0");
+	var pulldownText0 = base.Get("pulldownText0");
+	mui.ready(function() {
+		pulldownHeight = base.Get("pulldown0").clientHeight;
+		console.log(pulldownHeight);
+		topSwiper = new Swiper('#topNav', {
+			freeMode: true,
+			freeModeMomentumRatio: 0.5,
+			slidesPerView: 'auto',
+			direction: 'horizontal',
+			onInit: function(swiper) {
+				swiperWidth = swiper.container[0].clientWidth;
+				maxTranslate = swiper.maxTranslate();
+				maxWidth = -maxTranslate + swiperWidth / 2;
+			}
+		});
+
+		var slide0 = new Swiper('#slide0', {
+			scrollbar: '#slide0-scrollbar',
+			direction: 'vertical',
+			slidesPerView: 'auto',
+			mousewheelControl: true,
+			freeMode: true,
+			roundLengths: true,
+			onTouchMove: function(swiper) {
+				pulldownMargin0 = parseInt(swiper.translate) - pulldownHeight;
+				if(pulldownMargin0 < -pulldownHeight) {
+					pulldownMargin0 = -pulldownHeight;
+				}
+				if(pulldownMargin0 > 0) {
+					pulldownMargin0 = 0;
+				}
+				pulldown0.classList.remove("out");
+				pulldown0.style.marginTop = pulldownMargin0 + "px";
+				pulldownImg0.classList.remove("rotate");
+				if(swiper.translate < 50 && swiper.translate > 0) {
+					pulldownImg0.setAttribute("src", "../jroll/2.png");
+					pulldownImg0.style.transform = "rotateZ(0deg)";
+					pulldownText0.innerHTML = "下拉刷新";
+				} else if(swiper.translate > 50) {
+					pulldownImg0.style.transform = "rotateZ(180deg)";
+					pulldownText0.innerHTML = "释放刷新";
+				}
+			},
+			onTransitionEnd: function(swiper) {
+				var _viewHeight = document.getElementById('slide-wrapper0').offsetHeight;
+				var _contentHeight = document.getElementById('slide-slide0').offsetHeight;
+				if(swiper.translate <= _viewHeight - _contentHeight && swiper.translate < 0) {
+					console.log("已经到达底部！");
+					slide0.update();
+				}
+			},
+			onTouchEnd: function(swiper) {
+				pulldownImg0.style.transform = "rotateZ(0deg)";
+				pulldownImg0.setAttribute("src", "../jroll/1.png");
+				pulldownImg0.classList.add("rotate");
+				pulldownText0.innerHTML = "正在加载";
+				mui.later(function() {
+					pulldownImg0.classList.remove("rotate");
+					pulldownImg0.setAttribute("src", "../jroll/3.png");
+					pulldownText0.innerHTML = "刷新完成";
+
+					mui.later(function() {
+						pulldown0.classList.add("out");
+					}, 200);
+				}, 2000);
+			},
+			//切换栏目
+			onSlideChangeEnd: function(swiper) {
+
+			}
+		});
+
+		centerSwiper = new Swiper('#centerNav', {
+			slidesPerView: 'auto',
+			direction: 'horizontal',
+			onInit: function(swiper) {
+
+			},
+			onTransitionStart: function(swiper) {
+				topSwiperTap(swiper.activeIndex)
+			}
+		});
+
+		bannerSwiper = new Swiper("#banner", {
+			direction: 'horizontal',
+			slidesPerView: "auto",
+			centeredSlides: !0,
+			loop: true,
+			watchSlidesProgress: !0,
+			onProgress: function(a) {
+				var b, c, d;
+				for(b = 0; b < a.slides.length; b++) {
+					c = a.slides[b],
+						d = c.progress,
+						scale = 1 - Math.min(Math.abs(.14 * d), 1),
+						es = c.style,
+						es.opacity = 1 - Math.min(Math.abs(d / 2), 1),
+						es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = "translate3d(0px,0," + -Math.abs(50 * d) + "px) scale(" + scale + ")"
+				}
+			},
+			onSetTransition: function(a, b) {
+				for(var c = 0; c < a.slides.length; c++) es = a.slides[c].style, es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = b + "ms"
+			},
+			onInit: function(swiper) {
+				//temps.classList.remove("bounceOutUp");
+				//temps.classList.add("bounceInUp");
+			}
+		});
+
+		topSwiper.on('tap', function(swiper, e) {
+			topSwiperTap(swiper.clickedIndex);
+			centerSwiper.slideTo(swiper.clickedIndex, 250, false);
+		})
+	})
+
+	function topSwiperTap(index) {
+		slide = topSwiper.slides[index]
+		slideLeft = slide.offsetLeft
+		slideWidth = slide.clientWidth
+		slideCenter = slideLeft + slideWidth / 2
+		topSwiper.setWrapperTransition(300); //被点击slide的中心点
+		if(slideCenter < swiperWidth / 2) {
+			topSwiper.setWrapperTranslate(0)
+		} else if(slideCenter > maxWidth) {
+			topSwiper.setWrapperTranslate(maxTranslate)
+		} else {
+			nowTlanslate = slideCenter - swiperWidth / 2
+			topSwiper.setWrapperTranslate(-nowTlanslate)
+		}
+		base.RemoveClass([".active"], "active");
+		topSwiper.slides.eq(index).addClass('active');
+	}
+</script>
