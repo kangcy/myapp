@@ -961,7 +961,10 @@
 			"page/red.html",
 			"page/searchinfo.html",
 			"page/mypayinfo.html",
-			"page/template.html"
+			"page/template.html",
+			"swipe/demo.html",
+			"swipe/demo1.html",
+			"swipe/subindex.html"
 		]
 	},
 	"page/topicSub.html": {
@@ -4087,6 +4090,99 @@
 			"page/addarticle.html",
 			"page/user.html",
 			"page/sharesetting.html"
+		]
+	},
+	"swipe/demo.html": {
+		"resources": [
+			"swipe/swiper.min.css",
+			"swipe/swiper.min.js",
+			"images/adv/001.png",
+			"images/banner.jpg",
+			"minjs/base.min.js",
+			"swipe/animate.min.css",
+			"minjs/mui.min.js",
+			"css/mui.min.css",
+			"minjs/article.min.js",
+			"jroll/2.png",
+			"minjs/refresh.min.js",
+			"images/avatar.png",
+			"images/default.png",
+			"js/imgcache.js",
+			"js/base.min.js",
+			"jroll/3.png",
+			"jroll/1.png",
+			"mincss/subindex.min.css",
+			"fonts/mui.ttf",
+			"images/news.png",
+			"images/base/follow0.png",
+			"images/article/view.png",
+			"images/article/btn_comment.png",
+			"images/article/btn_good2.png",
+			"images/article/btn_more.png",
+			"images/base/follow1.png",
+			"images/article/btn_good.png"
+		]
+	},
+	"swipe/demo1.html": {
+		"resources": [
+			"images/article/btn_good.png",
+			"images/base/follow0.png",
+			"js/imgcache.js",
+			"mincss/subindex.min.css",
+			"minjs/mui.min.js",
+			"images/article/btn_comment.png",
+			"fonts/mui.ttf",
+			"images/news.png",
+			"images/avatar.png",
+			"minjs/article.min.js",
+			"images/article/btn_good2.png",
+			"images/default.png",
+			"jroll/2.png",
+			"images/base/follow1.png",
+			"swipe/swiper.min.css",
+			"images/article/view.png",
+			"swipe/swiper.min.js",
+			"images/banner.jpg",
+			"images/adv/001.png",
+			"swipe/animate.min.css",
+			"js/base.min.js",
+			"css/mui.min.css",
+			"images/article/btn_more.png",
+			"js/article.min.js"
+		]
+	},
+	"swipe/subindex.html": {
+		"resources": [
+			"jroll/jroll.min.js",
+			"js/imgcache.js",
+			"mincss/subindex.min.css",
+			"minjs/mui.min.js",
+			"jroll/1.png",
+			"fonts/mui.ttf",
+			"images/news.png",
+			"images/avatar.png",
+			"minjs/article.min.js",
+			"jroll/2.png",
+			"jroll/3.png",
+			"jroll/jroll-infinite.js",
+			"swipe/swiper.min.css",
+			"swipe/swiper.min.js",
+			"images/banner.jpg",
+			"swipe/animate.min.css",
+			"js/base.min.js",
+			"css/mui.min.css",
+			"jroll/jroll-pulldown.js",
+			"images/default.png",
+			"images/base/follow0.png",
+			"images/article/btn_comment.png",
+			"images/article/btn_good2.png",
+			"images/base/follow1.png",
+			"images/article/view.png",
+			"images/loading.gif",
+			"images/article/btn_more.png",
+			"images/article/btn_good.png",
+			"js/article.min.js",
+			"js/update.min.js"
 		]
 	}
 }

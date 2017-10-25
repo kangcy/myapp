@@ -161,12 +161,14 @@
 				return false;
 			}
 			isLoading = true;
-			var view = base.GetView("my");
+			/*var view = base.GetView("my");
 			if(view) {
 				plus.webview.show("my", "slide-in-left", base.AnimateDuration, function() {});
 			} else {
 				base.OpenWindow("my", "my.html", {}, "slide-in-left", false, false, "transparent");
-			}
+			}*/
+
+			base.OpenWindow("demo1", "../swipe/subindex.html");
 			isLoading = false;
 		});
 

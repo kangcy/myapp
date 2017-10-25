@@ -15,10 +15,10 @@
 			hideImg: true, // 开启之后，不在屏幕上的图片会display:none，可降低内存的使用
 			blank: false, // 开启之后，不在屏幕上的页面会display:none，可降低内存的使用
 			template: '', // 每条数据模板
-			loadingTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><img src="../images/loading.gif" class="fl" style="width:0.9rem" /><span class="c999 f12 fl ml5">正在加载...</span></div></div>', // 正在加载提示信息
-			completeTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c999 f12 fl ml5">已加载全部内容</span></div></div>', // 加载完成提示信息
-			noneTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c999 f12 fl ml5 mt30">大波内容正在赶来，敬请期待</span></div></div>', // 加载完成提示信息
-			errorTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c999 f12 fl ml5">加载失败，上拉重试</span></div></div>', // 加载失败提示信息
+			loadingTip: '<div class="jroll-infinite-tip full tc" style="height:2.75rem;line-height:2.75rem;"><div class="inline"><img src="../images/loading.gif" class="fl mt15" style="width:0.9rem" /><span class="c666 f12 fl ml5">正在加载...</span></div></div>', // 正在加载提示信息
+			completeTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c666 f12 fl ml5">已加载全部内容</span></div></div>', // 加载完成提示信息
+			noneTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c666 f12 fl ml5 mt30">大波内容正在赶来，敬请期待</span></div></div>', // 加载完成提示信息
+			errorTip: '<div class="jroll-infinite-tip full tc"><div class="inline"><span class="c666 f12 fl ml5">加载失败，上拉重试</span></div></div>', // 加载失败提示信息
 			root: '_obj', // 给内置模板引擎指定根数据变量
 			render: null // 渲染方法
 		}
@@ -92,7 +92,9 @@
 			}
 			if(me.options.total === 1) {
 				if(data.length == 0) {
-					html += options.noneTip
+					html += options.noneTip;
+				} else {
+					html += options.completeTip;
 				}
 			} else {
 				html += me.options.total === me.options.page ? options.completeTip : options.loadingTip
@@ -105,8 +107,6 @@
 			if(me.scroller.lastElementChild) me.scroller.removeChild(me.scroller.lastElementChild)
 			me.scroller.insertAdjacentHTML('beforeend', html)
 
-			me.refresh()
-
 			if(options.hideImg || options.blank) {
 				setTimeout(function() {
 					var pages = me.scroller.querySelectorAll('.jroll-infinite-page')
@@ -115,7 +115,11 @@
 						last.style.height = last.offsetHeight + 'px'
 					}
 					lightenPage(pages)
+
+					me.refresh()
 				}, 10)
+			} else {
+				me.refresh()
 			}
 		}
 

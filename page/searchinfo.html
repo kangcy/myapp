@@ -111,7 +111,8 @@
 			}
 			
 			.jroll-infinite-tip {
-				padding: 0.5rem 0 1rem 0;
+				line-height: 2.75rem;
+				height: 2.75rem;
 			}
 		</style>
 	</head>
@@ -149,7 +150,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../js/base.min.js"></script> 
+<script src="../js/base.min.js"></script>
 <script src="../js/article.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script src="../jroll/jroll.min.js"></script>
@@ -215,7 +216,6 @@
 					//下拉刷新
 					scroll1.pulldown({
 						refresh: function(complete) {
-							cosnole.log('pulldown')
 							currpage[1] = 1;
 							scroll1.options.page = 1;
 							scroll1.scrollTo(0, 44, 0, true); //滚回顶部
@@ -265,7 +265,7 @@
 					refresh: function(complete) {
 						currpage[0] = 1;
 						scroll0.options.page = 1;
-						scroll0.scrollTo(0, 44, 0, true); //滚回顶部
+						scroll0.scrollTo(0, 44, 0, true);
 						LoadScroll0(searchval, {
 							success: function(data) {
 								complete();
@@ -360,7 +360,7 @@
 			mui.later(function() {
 				parms.success(a);
 				pageLoading[0] = false;
-			}, 200)
+			}, 800)
 		});
 	}
 
@@ -386,7 +386,7 @@
 			mui.later(function() {
 				parms.success(a);
 				pageLoading[1] = false;
-			}, 200)
+			}, 800)
 		});
 	}
 

@@ -168,7 +168,8 @@
 		<div id="centerNav" class="swiper-container">
 			<div class="swiper-wrapper f13">
 				<div class="swiper-slide">
-					<div class="swiper-container" id="slide0" style="animation:fadeInUp 0.5s ease;-webkit-animation:fadeInUp 0.5s ease;-webkit-animation-delay:1s;animation-delay:1s;">
+					<!--style="animation:fadeInUp 0.5s ease;-webkit-animation:fadeInUp 0.5s ease;-webkit-animation-delay:1s;animation-delay:1s;"-->
+					<div class="swiper-container" id="slide0">
 						<div class="swiper-wrapper" id="slide-wrapper0">
 							<div class="swiper-slide" style="height:auto;" id="slide-slide0">
 								<div class="pulldown" id="pulldown0"><span class="pulldown-icon"><img id="pulldownImg0" src="../jroll/2.png"></span><span class="c666 f12 ml15" id="pulldownText0">下拉刷新</span></div>
@@ -180,14 +181,6 @@
 									</div>
 								</div>
 								<div id="scroll-view0" class="inline full fl">
-									<!--<img src="../images/banner.jpg" class="full" />
-									<img src="../images/banner.jpg" class="full" />
-									<img src="../images/banner.jpg" class="full" />
-									<img src="../images/banner.jpg" class="full" />
-									<img src="../images/banner.jpg" class="full" />-->
-								</div>
-								<div id="pullend0" class="pulldown-tip full tc fl hide">
-									<div class="inline"><span class="c999 f12 fl ml5">已加载全部内容</span></div>
 								</div>
 							</div>
 						</div>
@@ -231,7 +224,7 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script src="swiper.min.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
@@ -279,8 +272,8 @@
 			freeMode: true,
 			freeModeMomentumRatio: 0.8, //free模式动量值（移动惯量）。设置的值越大，当释放slide时的滑动距离越大
 			freeModeMomentumVelocityRatio: 0.5, //free模式惯性速度，设置越大，释放后滑得越快
-			touchRatio: 0.5, //触摸距离与slide滑动距离的比率
-			//shortSwipes: false, //设置为false时，进行快速短距离的拖动无法触发Swiper
+			touchRatio: 1, //触摸距离与slide滑动距离的比率
+			shortSwipes: false, //设置为false时，进行快速短距离的拖动无法触发Swiper
 			roundLengths: true,
 			onTouchMove: function(swiper) {
 				if(isLoading) {
@@ -335,7 +328,7 @@
 			},
 			onTouchStart: function(swiper) {
 				if(isScroll) {
-					return;
+					swiper.lockSwipes(); 
 				}
 			},
 			onTouchEnd: function(swiper) {
@@ -445,7 +438,7 @@
 	}
 
 	function Load(callback) {
-		base.Get("pullend0").classList.add("hide");
+
 		var data = {
 			ID: userinfo.ID,
 			page: currpage,
@@ -458,9 +451,6 @@
 		}, function(data) {
 			if(callback) {
 				callback();
-			}
-			if(currpage >= totalpage) {
-				base.Get("pullend0").classList.remove("hide");
 			}
 			slide0.update();
 		});
@@ -492,7 +482,11 @@
 							table.appendChild(fragment);*/
 
 							mui.each(data.list, function(index, item) {
-								table.appendChild(appendCallback(item));
+								var model = appendCallback(item);
+
+								slide0.appendSlide('<div class="swiper-slide" style="height:auto;">' + model.outerHTML + '</div>');
+
+								//table.appendChild(appendCallback(item));
 							});
 						}
 					}
