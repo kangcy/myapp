@@ -23,14 +23,6 @@
 				top: 0;
 			}
 			
-			#cancelTemp {
-				position: fixed;
-				left: 1rem;
-				bottom: 6.875rem;
-				width: 3.5rem;
-				z-index: 9999;
-			}
-			
 			#btnTemp,
 			#btnColor {
 				position: fixed;
@@ -108,7 +100,7 @@
 				width: 100%;
 				height: 100%;
 				background: rgba(0, 0, 0, 0.6);
-				z-index: 999;
+				z-index: 2005;
 			}
 			
 			#tip .tip1 {
@@ -215,7 +207,7 @@
 				position: fixed;
 				bottom: 1rem;
 				left: 10%;
-				z-index: 99999;
+				z-index: 2000;
 			}
 			
 			.themeIcons .items {
@@ -512,14 +504,14 @@
 				<div class="x-content well mb10 mt10 full fl" id="x-content">
 					<div class="section full" id="edit">
 					</div>
-					<!--半透明蒙层-->
+					<!--半透明蒙层--> 
 					<div class="x-bg-blur" id="x-bg-blur"></div>
 				</div>
 				<!--尾-->
 				<img id="x-bottom" class="full fl hide" />
 			</div>
 		</div>
-		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
+		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom" style="z-index:2001">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="camera">
 					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
@@ -530,12 +522,12 @@
 				<li class="mui-table-view-cell hide" id="pic">
 					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
 				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell noborder">
-					<a href="#upload" class="red f13">取消</a>
+			</ul> 
+			<ul class="mui-table-view">  
+				<li class="mui-table-view-cell noborder"> 
+					<a href="#upload" class="red f13">取消</a> 
 				</li>
-			</ul>
+			</ul>   
 		</div>
 		<!--分隔-->
 		<div class="swiper-container hide" id="myline" style="bottom:0px;width:100%;background: rgba(255, 255, 255, 1);">

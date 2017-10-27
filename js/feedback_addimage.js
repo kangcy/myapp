@@ -89,7 +89,7 @@ function compressImage(i, src) {
 			src: src,
 			dst: dstname,
 			overwrite: true,
-			quality: 100, 
+			quality: 90, 
 			width: "500px", 
 			format: "jpg"
 		},
