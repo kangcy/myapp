@@ -55,13 +55,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="flex-box flex-row noborder f13 hide" id="drawText">
+			<div class="flex-box flex-row f13 hide" id="drawText">
 				<div class="flex-item" style="flex:0 0 28%">
 					<p class="mt0 mb0 c000">水印文字</p>
-					<!--<span class="c999 f10">开启后新导入图片自动添加水印</span>-->
 				</div>
 				<div class="flex-item tr" style="flex:0 0 72%">
 					<input id="txtDrawText" type="text" placeholder="自定义水印文字" maxlength="20" class="f10 tr" style="margin:0;padding:0;border:0">
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13 hide" id="drawImg">
+				<div class="flex-item tl" style="flex:0 0 100%">
+					<p class="mt0 c000">水印样式</p>
+					<img id="imgDrawImg" style="background: rgba(0,0,0,0.7);width:100%;border-radius:5px;" />
 				</div>
 			</div>
 			<div class="flex-box flex-row f13 mt8">
@@ -107,14 +112,14 @@
 		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
 			<div class="flex-box flex-row noborder f13" onclick="Cancel()">
 				<div class="flex-item full tc" style="flex: 0 0 100%;">
-					注销当前账号 
+					注销当前账号
 				</div>
 			</div>
 			<div class="flex-box flex-row noborder f13" onclick="Close()">
 				<div class="flex-item full tc" style="flex: 0 0 100%;">
 					直接关闭应用
 				</div>
-			</div> 
+			</div>
 			<div class="flex-box flex-row noborder f13">
 				<div class="flex-item red full tc" style="flex: 0 0 100%;">
 					<a href="#action" class="red">取消</a>
@@ -172,6 +177,8 @@
 			base.SwitchChange("drawSwitch", true);
 			base.Get("drawText").classList.remove("hide");
 			base.Get("txtDrawText").value = userinfo.DrawText;
+			base.Get("drawImg").classList.remove("hide");
+			base.Get("imgDrawImg").setAttribute("src", base.RootUrl + "Images/draw.png");
 		}
 
 		//分享带昵称

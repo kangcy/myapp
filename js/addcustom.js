@@ -52,7 +52,9 @@ function compressImage(src, dstname) {
 			src: src,
 			dst: dstname,
 			overwrite: true,
-			quality: 100
+			quality: 100, 
+			width: "500px", 
+			format: "jpg"
 		},
 		function(event) {
 			fileIndex++;

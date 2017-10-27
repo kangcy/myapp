@@ -290,7 +290,8 @@
 			"js/imgcache.js",
 			"images/red/img_logo.png",
 			"images/login/logo.png",
-			"css/buttons.css"
+			"css/buttons.css",
+			"images/draw.png"
 		],
 		"refer": [
 			"page/login.html",

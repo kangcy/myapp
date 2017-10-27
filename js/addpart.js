@@ -26,6 +26,7 @@ function upload() {
 				}
 			} else {
 				mui.toast("上传失败");
+				mask.close();
 			}
 		}
 	);
@@ -92,15 +93,17 @@ function compressImage(src) {
 	plus.zip.compressImage({
 			src: src,
 			dst: dstname,
-			overwrite: true,
-			quality: 90
+			overwrite: true, 
+			quality: 100, 
+			width: "500px", 
+			format: "jpg" 
 		},
 		function(event) {
 			uploadFiles.push({
 				id: base.GetUid(),
 				url: event.target
 			})
-			if(uploadFiles.length < files.length) {
+			if(uploadFiles.length < files.length) { 
 				compressImage(files[uploadFiles.length]);
 			} else {
 				upload();

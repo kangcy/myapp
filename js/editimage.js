@@ -250,8 +250,9 @@ function compressImage(src, newsrc, callback) {
 			src: src,
 			dst: newsrc,
 			overwrite: true,
-			width: "500px",
-			quality: 90
+			quality: 100, 
+			width: "500px", 
+			format: "jpg"
 		},
 		function(event) {
 			if($.isFunction(callback)) {

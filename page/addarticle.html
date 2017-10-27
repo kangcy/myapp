@@ -510,7 +510,7 @@
 				</div>
 				<!--内容-->
 				<div class="x-content well mb10 mt10 full fl" id="x-content">
-					<div class="section" id="edit">
+					<div class="section full" id="edit">
 					</div>
 					<!--半透明蒙层-->
 					<div class="x-bg-blur" id="x-bg-blur"></div>
@@ -913,7 +913,7 @@
 		window.addEventListener('scroll', function(e) {
 			if(IsIconShow && !IsIconScroll) {
 				IsIconScroll = true;
-				if(num > window.pageYOffset) {
+				if(num > window.pageYOffset + 10) {
 					btnIcon.classList.remove("hide");
 					btnIcon.classList.remove("bounceOutUp");
 					btnIcon.classList.add("bounceInUp");
@@ -923,7 +923,7 @@
 				}
 				num = window.pageYOffset;
 				IsIconShow = true;
-				IsIconScroll = false;
+				IsIconScroll = false; 
 			}
 		});
 
@@ -1106,6 +1106,11 @@
 			}
 
 			var $this = this;
+
+			if(base.HasClass(base.Get("upload"), "mui-active")) {
+				mui('#upload').popover('hide');
+				return;
+			}
 
 			if(!base.HasClass(base.Get("icon-cover"), "hide")) {
 				IconTan(1, false);
@@ -1555,17 +1560,17 @@
 		}
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
-			model.push('<div class="edit-content f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" /></div>');
+			model.push('<div class="edit-content full f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" class="full" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content edit-content2 f11 tl" type="' + type + '" partid="' + partid + '" style="padding:5%;">' + base.UnUnicodeText(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 full f11 tl" type="' + type + '" partid="' + partid + '" style="padding:5%;">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
-			model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
+			model.push('<div class="edit-content edit-content2 f11 full tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
 		} else if(type == "line") {
-			model.push('<div class="edit-content edit-content2 f11" type="' + type + '" partid="' + partid + '">' + text + '</div>');
+			model.push('<div class="edit-content edit-content2 full f11" type="' + type + '" partid="' + partid + '">' + text + '</div>');
 		}
 		model.push('<div class="icons0 mt15 mb5 tc">');
-		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full" style="height:2rem;" /></div>');
+		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full fl" style="height:2rem;" /></div>');
 		model.push('<div class="icons hide f12"><div class="edit-add-pic">图片</div><div class="edit-add-text">文字</div><div class="edit-add-video">视频</div><div class="edit-add-line">分割线</div></div>');
 		model.push('</div>');
 		div.innerHTML = model.join('');
