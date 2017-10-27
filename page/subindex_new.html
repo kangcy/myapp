@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../mincss/subindex.min.css">
+		<link rel="stylesheet" href="../swipe/swiper.min.css">
+		<link rel="stylesheet" href="../swipe/animate.min.css">
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				background: #f5f5f5;
+			}
+			/**头部**/
+			
+			#topNav {
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				z-index: 1000;
+				border-bottom: 1px solid #f8f8f8;
+			}
+			
+			#topNav .swiper-slide {
+				padding: 0 0.25rem;
+				letter-spacing: 2px;
+				width: 3.5rem;
+				text-align: center;
+			}
+			
+			#topNav .swiper-slide span {
+				transition: all .3s ease;
+				display: block;
+			}
+			
+			#topNav .active span {
+				transform: scale(1.1);
+				color: #20a0ff;
+				font-weight: bold;
+			}
+			/**中部**/
+			
+			#centerNav {
+				position: fixed;
+				left: 0;
+				top: 2.5rem;
+				width: 100%;
+				bottom: 2.8rem;
+				z-index: 1000;
+				border-bottom: 1px solid #f8f8f8;
+			}
+			/**banner**/
+			
+			#banner {
+				width: 100%;
+				-webkit-perspective: 1200px;
+				-moz-perspective: 1200px;
+				-ms-perspective: 1200px;
+				perspective: 1200px
+			}
+			
+			#banner .swiper-slide {
+				width: 80%;
+				-webkit-transform-style: preserve-3d;
+				-moz-transform-style: preserve-3d;
+				-ms-transform-style: preserve-3d;
+				transform-style: preserve-3d
+			}
+			
+			#banner .swiper-slide .main-img {
+				width: 100%;
+				margin: 0 auto;
+				padding: 0px;
+				/*-webkit-box-shadow: 0 6px 6px -6px #ccc;
+				-moz-box-shadow: 0 6px 6px -6px #ccc;
+				box-shadow: 0 6px 6px -6px #ccc;*/
+				background: #fff;
+				background-clip: padding-box;
+				display: inline-block;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.swiper-container {
+				background: #f5f5f5;
+			}
+			
+			.scroll-wrapper {
+				position: absolute;
+				z-index: 0;
+				top: 0px;
+				bottom: 0px;
+				left: 0;
+				width: 100%;
+				background: #f5f5f5;
+				overflow: hidden;
+			}
+			
+			.scroller {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.icon {
+				width: 1rem !important;
+			}
+			
+			.green {
+				color: #24b224;
+			}
+			
+			.red {
+				color: #e33e3e;
+			}
+			
+			.mui-table-view-cell:after {
+				height: 0px !important;
+			}
+			
+			#scroll0 .flex-row:after {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				left: 3.5rem;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #ddd;
+			}
+			
+			.jroll-infinite-tip {
+				line-height: 2.75rem;
+				height: 2.75rem;
+			}
+		</style>
+	</head>
+
+	<body oncontextmenu="return false" onselectstart="return false">
+		<header class="mui-bar mui-bar-nav cfff" id="header">
+			<div style="width:11%;text-align:left;display:inline-block;float:left;">
+				<img id="avatar" src="../images/avatar.png" style="width:30px;margin-top:7px;border-radius:100%;" />
+			</div>
+			<div class="mui-input-row mui-search" style="width:80%;display:inline-block;overflow:hidden;" id="btnsearch" onclick="Search()">
+				<input type="search" placeholder="搜索用户和文章" disabled="disabled" style="height:32px;">
+			</div>
+			<div id="my-msg" style="width:9%;text-align:right;display:inline-block;float:right;position:relative;">
+				<img src="../images/news.png" style="width:22px;margin-top:10px;" />
+				<span class="mui-badge mui-badge-danger hide" id="my-msg-count" style="position:absolute;top:0px;right:0px;"></span>
+			</div>
+		</header>
+		<div id="topNav" class="swiper-container" style="background:#fff;">
+			<div class="swiper-wrapper f13" id="top-wrapper"></div>
+		</div>
+		<div id="centerNav" class="swiper-container">
+			<div class="swiper-wrapper f13"></div>
+		</div>
+		<div class="mui-bar mui-bar-tab bottom tc cfff" id="bottom" style="z-index:1001;animation:fadeInUpBig 0.8s ease;-webkit-animation:fadeInUpBig 0.8s ease;-webkit-animation-delay:1s;animation-delay:1s;">
+			<div id="add">
+				<div class="f13" id="btnAdd">制作我的文章</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="../js/article.min.js"></script>
+<script src="../swipe/swiper.min.js"></script>
+<script src="../jroll/jroll.min.js"></script>
+<script src="../jroll/jroll-pulldown.js"></script>
+<script src="../jroll/jroll-infinite.js"></script>
+<script src="../js/imgcache.js"></script>
+<script src="../js/update.min.js"></script>
+<script type="text/javascript">
+	var menus = [0];
+	var topSwiper, centerSwiper, bannerSwiper = null;
+	var swiperWidth, maxTranslate, maxWidth = 0;
+	var currpage = [1];
+	var totalpage = [1];
+	var pageLoading = [false];
+	var scrolls = [null]
+	var isLoading = false;
+	var pagesize = 10;
+	var PageName = "subindex";
+	var userinfo = base.GetUserInfo();
+	var self = null;
+	var backButtonPress = 0;
+
+	mui.init();
+	mui.ready(function() {
+		base.Immersed();
+		base.Get("topNav").style.top = base.Get("header").clientHeight + "px";
+		base.Get("centerNav").style.top = (base.Get("header").clientHeight + base.Get("topNav").clientHeight) + "px";
+		base.Get("btnAdd").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+
+		Avartar(base.ShowThumb(userinfo.Avatar, 2));
+
+		//消息
+		base.Get("my-msg").addEventListener('tap', function() {
+			base.OpenWindow("tipsetting", "tipsetting.html", {
+				Source: "My",
+				Push: pushInfo
+			});
+		});
+	});
+
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+
+		InitType();
+
+		centerSwiper = new Swiper('#centerNav', {
+			slidesPerView: 'auto',
+			direction: 'horizontal',
+			resistanceRatio: 0,
+			preventClicks: false,
+			onTransitionStart: function(swiper) {
+				if(topSwiper != null) {
+					TopSwiperTap(swiper.activeIndex);
+				}
+				InitScroll(swiper.activeIndex);
+			}
+		});
+
+		//打开侧滑 
+		base.Get("avatar").addEventListener('tap', function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var view = base.GetView("my");
+			if(view) {
+				plus.webview.show("my", "slide-in-left", base.AnimateDuration, function() {});
+			} else {
+				base.OpenWindow("my", "my.html", {}, "slide-in-left", false, false, "transparent");
+			}
+			isLoading = false;
+		});
+
+		//新增
+		base.Get("add").addEventListener('tap', function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var view = base.GetView("addimage");
+			if(view) {
+				view.evalJS("ResetAction()");
+			} else {
+				base.OpenWindow("addimage", "addimage.html", {}, "fade-in", false, false, "transparent");
+			}
+			isLoading = false;
+		});
+
+		mui.back = function() {
+			backButtonPress++;
+			if(backButtonPress > 1) {
+				plus.runtime.quit();
+			} else {
+				plus.nativeUI.toast('再按一次退出应用');
+			}
+			mui.later(function() {
+				backButtonPress = 0;
+			}, 1000);
+			return false;
+		};
+
+		var netindex = 0;
+		document.addEventListener("netchange", function() {
+			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+				netindex = setInterval(function() {
+					mui.toast("网络异常，请检查网络设置");
+				}, 2500);
+			} else {
+				clearInterval(netindex);
+			}
+		}, false);
+
+		InitPush();
+
+		base.ShowArticle("#centerNav", "List", userinfo.Number);
+		base.ShowUser("#centerNav");
+		ArticleAction("#centerNav", userinfo);
+	})
+
+	//初始化
+	function InitType(callback) {
+		HttpGet(base.RootUrl + "Api/ArticleType/All2", {}, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					var html = [];
+					html.push('<div class="swiper-slide active"><span>推荐</span></div>');
+					centerSwiper.appendSlide('<div class="swiper-slide"><div id="wrapper0" class="scroll-wrapper"><div id="scroll0" class="scroller" style="background:#f5f5f5;"></div></div></div>');
+					mui.each(data.message, function(i, item) {
+						menus.push(item.ID);
+						currpage.push(1);
+						totalpage.push(1);
+						pageLoading.push(false);
+						scrolls.push(null);
+						html.push('<div class="swiper-slide"><span>' + item.Name + '</span></div>');
+						centerSwiper.appendSlide('<div class="swiper-slide"><div id="wrapper' + (i + 1) + '" class="scroll-wrapper"><div id="scroll' + (i + 1) + '" class="scroller" style="background:#f5f5f5;"></div></div></div>');
+					})
+					base.Get("top-wrapper").innerHTML = html.join('');
+
+					topSwiper = new Swiper('#topNav', {
+						freeMode: true,
+						freeModeMomentumRatio: 0.5,
+						slidesPerView: 'auto',
+						direction: 'horizontal',
+						onInit: function(swiper) {
+							swiperWidth = swiper.container[0].clientWidth;
+							maxTranslate = swiper.maxTranslate();
+							maxWidth = -maxTranslate + swiperWidth / 2;
+
+							InitScroll(0);
+						}
+					});
+					topSwiper.on('tap', function(swiper, e) {
+						TopSwiperTap(swiper.clickedIndex);
+						centerSwiper.slideTo(swiper.clickedIndex, 300, false);
+						InitScroll(swiper.clickedIndex);
+					});
+				}
+			}
+		});
+	}
+
+	function Search() {
+		base.OpenWindow("searchinfo", "searchinfo.html", {});
+	}
+
+	function Avartar(url) {
+		base.Get("avatar").setAttribute("src", url);
+	}
+
+	function InitChild(first) {
+		mui.later(function() {
+			if(first == 1) {
+				//新用户专享红包
+				HttpGet(base.RootUrl + "Red/RedInfo", {}, function(data) {
+					base.OpenWindow("red", "red.html", data, "none", false, false, "transparent");
+					isLoading = false;
+				})
+			} else {
+				Check_Update(function(data) {
+					if(!base.IsNullOrEmpty(data)) {
+						base.OpenWindow("update", "update.html", {
+							url: data.url,
+							remark: data.remark
+						}, "fade-in", "none", false, "transparent");
+					}
+				});
+			}
+
+			//监听推送消息		
+			plus.push.addEventListener("receive", function(msg) {
+				if(!base.IsNullOrEmpty(msg.payload)) {
+					var param = msg.payload.split('|');
+					//系统推荐文章、好友发布文章
+					if(param[0] == PushType.Article || param[0] == PushType.FanArticle) {
+						base.OpenWindow("articledetail_new", "articledetail_new.html", {
+							ArticleID: param[1],
+							Source: "",
+							NickName: ""
+						}, null, "none");
+					}
+					//打开评论
+					if(param[0] == PushType.Comment) {
+						var param = {
+							ArticleID: param[1],
+							ArticleNumber: param[2]
+						}
+						base.OpenWindow("articleComment", "articleComment.html", param);
+					}
+					//打开打赏
+					if(param[0] == PushType.Money) {
+						base.OpenWindow("mypayinfo", "mypayinfo.html", {
+							number: 1
+						});
+					}
+					//打开红包
+					if(param[0] == PushType.Red) {
+						base.OpenWindow("mypayinfo", "mypayinfo.html", {
+							number: 0
+						});
+					}
+					//打开粉丝
+					if(param[0] == PushType.Fan) {
+						base.OpenWindow("fan", "fan.html", {});
+					}
+				}
+			}, false);
+		}, 2000);
+	}
+
+	//推送信息
+	function InitPush() {
+		HttpGet(base.RootUrl + "Push/All", {
+			number: userinfo.Number
+		}, function(data) {
+			if(data.result) {
+				var length = data.message.length;
+				var count = 0;
+				mui.each(data.message, function(i, item) {
+					count += item.PushCount;
+				})
+				base.Get("my-msg-count").innerHTML = count;
+				if(count > 0) {
+					base.Get("my-msg-count").classList.remove("hide");
+				} else {
+					base.Get("my-msg-count").classList.add("hide");
+				}
+				pushInfo = JSON.stringify(data.message);
+			}
+		});
+	}
+
+	function InitScroll(index) {
+		if(scrolls[index] == null) {
+			scrolls[index] = new JRoll("#wrapper" + index, {
+				scrollBarY: true,
+				scrollBarFade: true
+			});
+			//下拉刷新
+			scrolls[index].pulldown({
+				refresh: function(complete) {
+					currpage[index] = 1;
+					scrolls[index].options.page = 1;
+					scrolls[index].scrollTo(0, 44, 0, true);
+					LoadScroll(index, {
+						success: function(data) {
+							complete();
+							scrolls[index].scroller.innerHTML = "";
+							scrolls[index].options.total = totalpage[index];
+							if(index == 0) {
+								InitBanner(function() {
+									scrolls[index].infinite_callback(data);
+									scrolls[index].refresh();
+								});
+							} else {
+								scrolls[index].infinite_callback(data);
+								scrolls[index].refresh();
+							}
+						}
+					});
+				}
+			});
+			//滚动加载
+			scrolls[index].infinite({
+				getData: function(page, callback, errorCallback) {
+					currpage[index] = page;
+					LoadScroll(index, {
+						success: function(data) {
+							scrolls[index].options.total = totalpage[index];
+							if(page == 1 && index == 0) {
+								InitBanner(function() {
+									callback(data);
+									scrolls[index].refresh();
+								})
+							} else {
+								callback(data);
+								scrolls[index].refresh();
+							}
+						},
+						error: function() {
+							errorCallback()
+						}
+					});
+				},
+				render: function(data) {
+					var div = AppendArticle(userinfo.Number, data, false, false, true)
+					return div.outerHTML;
+				}
+			});
+		}
+	}
+
+	function InitBanner(callback) {
+		HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
+			if(data != null) {
+				var length = data.records;
+				if(length > 0) {
+					var html = [];
+					html.push('<div id="banner" class="swiper-container" style="background:#fff;">');
+					html.push('<div class="swiper-wrapper">');
+					data.list.forEach(x => {
+						html.push('<div class="swiper-slide"><img src="' + x.Cover + '" class="main-img fl" number="' + x.Link + '" type="' + x.Type + '" sharetitle="' + x.ShareTitle + '" shareicon="' + x.ShareIcon + '"></div>');
+					})
+					html.push('</div></div><div></div>');
+					base.Get("scroll0").innerHTML = html.join('');
+					InitBannerSwiper();
+				}
+			}
+			if(callback) {
+				callback();
+			}
+		});
+	}
+
+	function InitBannerSwiper() {
+		bannerSwiper = new Swiper("#banner", {
+			direction: 'horizontal',
+			slidesPerView: "auto",
+			centeredSlides: true,
+			preventClicks: false,
+			loop: true,
+			autoplay: 2500,
+			watchSlidesProgress: !0,
+			onProgress: function(a) {
+				var b, c, d;
+				for(b = 0; b < a.slides.length; b++) {
+					c = a.slides[b],
+						d = c.progress,
+						scale = 1 - Math.min(Math.abs(.14 * d), 1),
+						es = c.style,
+						es.opacity = 1 - Math.min(Math.abs(d / 2), 1),
+						es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = "translate3d(0px,0," + -Math.abs(50 * d) + "px) scale(" + scale + ")"
+				}
+			},
+			onSetTransition: function(a, b) {
+				for(var c = 0; c < a.slides.length; c++) es = a.slides[c].style, es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = b + "ms"
+			},
+			onTouchEnd: function(swiper) {
+				swiper.startAutoplay();
+			},
+			onInit: function(swiper) {
+				mui("#banner").on('tap', '.main-img', function() {
+					if(isLoading) {
+						return false;
+					}
+					isLoading = true;
+					var number = this.getAttribute('number');
+					if(!base.IsNullOrEmpty(number)) {
+						var shareTitle = this.getAttribute('ShareTitle');
+						var shareIcon = this.getAttribute('ShareIcon');
+						if(number.toString().toLowerCase().indexOf("http://") < 0) {
+							base.OpenWindow("articledetail_new", "articledetail_new.html", {
+								ArticleID: number,
+								Source: "Banner",
+								ArticlePower: 3,
+								NickName: ""
+							}, null, "none");
+
+						} else {
+							base.OpenWindow("bannerdetail", "bannerdetail.html", {
+								Url: number,
+								ShareTitle: shareTitle,
+								ShareIcon: shareIcon
+							}, null, "none");
+						}
+					}
+					isLoading = false;
+				});
+			}
+		});
+	}
+
+	//头部Menu点击
+	function TopSwiperTap(index) {
+		slide = topSwiper.slides[index];
+		slideLeft = slide.offsetLeft;
+		slideWidth = slide.clientWidth;
+		slideCenter = slideLeft + slideWidth / 2;
+		topSwiper.setWrapperTransition(300); //被点击slide的中心点
+		if(slideCenter < swiperWidth / 2) {
+			topSwiper.setWrapperTranslate(0)
+		} else if(slideCenter > maxWidth) {
+			topSwiper.setWrapperTranslate(maxTranslate)
+		} else {
+			nowTlanslate = slideCenter - swiperWidth / 2
+			topSwiper.setWrapperTranslate(-nowTlanslate)
+		}
+		base.RemoveClass([".active"], "active");
+		topSwiper.slides.eq(index).addClass('active');
+	}
+
+	//文章
+	function LoadScroll(index, parms) {
+		if(pageLoading[index]) {
+			return;
+		}
+		pageLoading[index] = true;
+		if(currpage[index] > totalpage[index]) {
+			pageLoading[index] = false;
+			return false;
+		}
+		var data = {
+			ID: userinfo.ID,
+			page: currpage[index],
+			rows: pagesize,
+			TypeID: menus[index],
+			CurrUserNumber: userinfo.Number
+		}
+
+		LoadPullList(base.RootUrl + "Api/Article/All", data, true, index, parms, function(a) {
+			mui.later(function() {
+				parms.success(a);
+				pageLoading[index] = false;
+			}, 250)
+		});
+	}
+
+	function LoadPullList(url, data, showNone, index, parms, callback) {
+		HttpGet(url, data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					totalpage[index] = data.totalpage;
+					if(data.list) {
+						callback(data.list);
+					} else {
+						callback([]);
+					}
+					return;
+				}
+			}
+			totalpage[index] = 1;
+			callback([]);
+		});
+	}
+</script>

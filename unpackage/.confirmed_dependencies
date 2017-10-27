@@ -108,7 +108,8 @@
 			"page/subindex.html",
 			"page/forget_password.html",
 			"page/notice.html",
-			"page/my.html"
+			"page/my.html",
+			"page/subindex_new.html"
 		]
 	},
 	"page/guide.html": {
@@ -3330,7 +3331,8 @@
 			"page/articleComment.html",
 			"page/user.html",
 			"test/main.html",
-			"page/my.html"
+			"page/my.html",
+			"page/subindex_new.html"
 		]
 	},
 	"page/article_link.html": {
@@ -4183,6 +4185,51 @@
 			"images/article/btn_good.png",
 			"js/article.min.js",
 			"js/update.min.js"
+		]
+	},
+	"page/subindex_new.html": {
+		"resources": [
+			"images/base/follow0.png",
+			"jroll/jroll.min.js",
+			"mincss/subindex.min.css",
+			"images/news.png",
+			"js/update.min.js",
+			"images/avatar.png",
+			"jroll/jroll-infinite.js",
+			"swipe/swiper.min.css",
+			"jroll/3.png",
+			"swipe/swiper.min.js",
+			"jroll/jroll-pulldown.js",
+			"js/imgcache.js",
+			"images/article/btn_comment.png",
+			"jroll/1.png",
+			"fonts/mui.ttf",
+			"images/article/btn_good2.png",
+			"jroll/2.png",
+			"images/default.png",
+			"images/base/follow1.png",
+			"js/article.min.js",
+			"images/article/view.png",
+			"images/banner.jpg",
+			"swipe/animate.min.css",
+			"js/base.min.js",
+			"images/loading.gif",
+			"css/mui.min.css",
+			"images/article/btn_more.png",
+			"images/article/btn_good.png",
+			"minjs/mui.min.js"
+		],
+		"refer": [
+			"page/searchinfo.html",
+			"page/tipsetting.html",
+			"page/imageviewer.html",
+			"page/user.html",
+			"page/articledetail_new.html",
+			"page/bannerdetail.html",
+			"page/addimage.html",
+			"page/action.html",
+			"page/edittext.html",
+			"page/red.html"
 		]
 	}
 }

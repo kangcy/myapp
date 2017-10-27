@@ -148,7 +148,7 @@
 		</style>
 	</head>
 
-	<body>
+	<body oncontextmenu="return false" onselectstart="return false">
 		<header class="mui-bar mui-bar-nav cfff" id="header">
 			<div style="width:11%;text-align:left;display:inline-block;float:left;">
 				<img id="avatar" src="../images/avatar.png" style="width:30px;margin-top:7px;border-radius:100%;" />
@@ -165,67 +165,7 @@
 			<div class="swiper-wrapper f13" id="top-wrapper"></div>
 		</div>
 		<div id="centerNav" class="swiper-container">
-			<div class="swiper-wrapper f13">
-				<div class="swiper-slide">
-					<div id="wrapper0" class="scroll-wrapper">
-						<div id="scroll0" class="scroller" style="background:#fff;"></div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper1" class="scroll-wrapper">
-						<div id="scroll1" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper2" class="scroll-wrapper">
-						<div id="scroll2" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper3" class="scroll-wrapper">
-						<div id="scroll3" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper4" class="scroll-wrapper">
-						<div id="scroll4" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper5" class="scroll-wrapper">
-						<div id="scroll5" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper6" class="scroll-wrapper">
-						<div id="scroll6" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper7" class="scroll-wrapper">
-						<div id="scroll7" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper8" class="scroll-wrapper">
-						<div id="scroll8" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div id="wrapper9" class="scroll-wrapper">
-						<div id="scroll9" class="scroller" style="background:#f5f5f5;">
-						</div>
-					</div>
-				</div>
-			</div>
+			<div class="swiper-wrapper f13"></div>
 		</div>
 		<div class="mui-bar mui-bar-tab bottom tc cfff" id="bottom" style="z-index:1001;animation:fadeInUpBig 0.8s ease;-webkit-animation:fadeInUpBig 0.8s ease;-webkit-animation-delay:1s;animation-delay:1s;">
 			<div id="add">
@@ -255,6 +195,7 @@
 	var isLoading = false;
 	var pagesize = 10;
 	var PageName = "searchinfo";
+	var banners = [];
 	var userinfo = base.GetUserInfo();
 	var self = null;
 	var backButtonPress = 0;
@@ -286,18 +227,16 @@
 			slidesPerView: 'auto',
 			direction: 'horizontal',
 			resistanceRatio: 0,
-			onInit: function(swiper) {
-
-			},
+			preventClicks: false,
 			onTransitionStart: function(swiper) {
 				if(topSwiper != null) {
 					TopSwiperTap(swiper.activeIndex);
 				}
 				InitScroll(swiper.activeIndex);
 			},
-			onInit: function(swiper) {
-				InitScroll(0);
-			}
+			onTouchStart: function(swiper) {
+				console.log('aa');
+			} 
 		});
 
 		//打开侧滑 
@@ -355,6 +294,10 @@
 		}, false);
 
 		InitPush();
+
+		base.ShowArticle("#centerNav", "List", userinfo.Number);
+		base.ShowUser("#centerNav");
+		ArticleAction("#centerNav", userinfo);
 	})
 
 	//初始化
@@ -364,14 +307,16 @@
 			if(data != null) {
 				if(data.result) {
 					var html = [];
-					html.push('<div class="swiper-slide active"><span>推荐</span></div>')
+					html.push('<div class="swiper-slide active"><span>推荐</span></div>');
+					centerSwiper.appendSlide('<div class="swiper-slide"><div id="wrapper0" class="scroll-wrapper"><div id="scroll0" class="scroller" style="background:#f5f5f5;"></div></div></div>');
 					mui.each(data.message, function(i, item) {
 						menus.push(item.ID);
 						currpage.push(1);
 						totalpage.push(1);
 						pageLoading.push(false);
 						scrolls.push(null);
-						html.push('<div class="swiper-slide"><span>' + item.Name + '</span></div>')
+						html.push('<div class="swiper-slide"><span>' + item.Name + '</span></div>');
+						centerSwiper.appendSlide('<div class="swiper-slide"><div id="wrapper' + (i + 1) + '" class="scroll-wrapper"><div id="scroll' + (i + 1) + '" class="scroller" style="background:#f5f5f5;"></div></div></div>');
 					})
 					base.Get("top-wrapper").innerHTML = html.join('');
 
@@ -384,6 +329,8 @@
 							swiperWidth = swiper.container[0].clientWidth;
 							maxTranslate = swiper.maxTranslate();
 							maxWidth = -maxTranslate + swiperWidth / 2;
+
+							InitScroll(0);
 						}
 					});
 					topSwiper.on('tap', function(swiper, e) {
@@ -489,7 +436,8 @@
 	function InitScroll(index) {
 		if(scrolls[index] == null) {
 			scrolls[index] = new JRoll("#wrapper" + index, {
-				scrollBarY: true
+				scrollBarY: true,
+				scrollBarFade: true
 			});
 			//下拉刷新
 			scrolls[index].pulldown({
@@ -503,11 +451,14 @@
 							scrolls[index].scroller.innerHTML = "";
 							scrolls[index].options.total = totalpage[index];
 							if(index == 0) {
-								base.Get("scroll" + index).innerHTML = InitBanner();
-								InitBannerSwiper();
+								InitBanner(function() {
+									scrolls[index].infinite_callback(data);
+									scrolls[index].refresh();
+								});
+							} else {
+								scrolls[index].infinite_callback(data);
+								scrolls[index].refresh();
 							}
-							scrolls[index].infinite_callback(data);
-							scrolls[index].refresh();
 						}
 					});
 				}
@@ -520,11 +471,14 @@
 						success: function(data) {
 							scrolls[index].options.total = totalpage[index];
 							if(page == 1 && index == 0) {
-								base.Get("scroll" + index).innerHTML = InitBanner();
-								InitBannerSwiper();
+								InitBanner(function() {
+									callback(data);
+									scrolls[index].refresh();
+								})
+							} else {
+								callback(data);
+								scrolls[index].refresh();
 							}
-							callback(data);
-							scrolls[index].refresh();
 						},
 						error: function() {
 							errorCallback()
@@ -539,26 +493,44 @@
 		}
 	}
 
-	function InitBanner() {
-		var html = [];
-		html.push('<div id="banner" class="swiper-container" style="background:#fff;">');
-		html.push('<div class="swiper-wrapper">');
-		for(var i = 0; i < 3; i++) {
-			html.push('<div class="swiper-slide"><img src="../images/banner.jpg" class="main-img"></div>');
-		}
-		html.push('</div></div>');
-		html.push('<div></div>');
-		return html.join('');
+	function InitBanner(callback) {
+		HttpGet(base.RootUrl + "System/Banner", {}, function(data) {
+			if(data != null) {
+				var length = data.records;
+				if(length > 0) {
+					var html = [];
+					banners = [];
+					html.push('<div id="banner" class="swiper-container" style="background:#fff;">');
+					html.push('<div class="swiper-wrapper">');
+					data.list.forEach(x => {
+						banners.push({
+							number: x.Link,
+							type: x.Type,
+							sharetitle: x.ShareTitle,
+							shareicon: x.ShareIcon
+						});
+						html.push('<div class="swiper-slide"><img src="' + x.Cover + '" class="main-img"></div>');
+					})
+					html.push('</div></div>');
+
+					base.Get("scroll0").innerHTML = html.join('');
+					InitBannerSwiper();
+				}
+			}
+			if(callback) {
+				callback();
+			}
+		});
 	}
 
 	function InitBannerSwiper() {
 		bannerSwiper = new Swiper("#banner", {
 			direction: 'horizontal',
 			slidesPerView: "auto",
-			centeredSlides: !0,
+			//centeredSlides: true,
+			preventClicks: false,
 			loop: true,
 			autoplay: 2000,
-			watchSlidesProgress: !0,
 			onProgress: function(a) {
 				var b, c, d;
 				for(b = 0; b < a.slides.length; b++) {
@@ -572,6 +544,38 @@
 			},
 			onSetTransition: function(a, b) {
 				for(var c = 0; c < a.slides.length; c++) es = a.slides[c].style, es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = b + "ms"
+			},
+			onTouchStart: function(swiper) {
+				console.log('aa');
+			},
+			onTap: function(swiper) {
+				//banner详情
+				console.log('asdfasdasd');
+				console.log(swiper.clickedIndex)
+				if(isLoading) {
+					return false;
+				}
+				isLoading = true;
+				var index = swiper.clickedIndex;
+				var number = banners[index].number;
+				if(!base.IsNullOrEmpty(number)) {
+					if(number.toString().toLowerCase().indexOf("http://") < 0) {
+						base.OpenWindow("articledetail_new", "articledetail_new.html", {
+							ArticleID: number,
+							Source: "Banner",
+							ArticlePower: 3,
+							NickName: ""
+						}, null, "none");
+
+					} else {
+						base.OpenWindow("bannerdetail", "bannerdetail.html", {
+							Url: number,
+							ShareTitle: banners[index] sharetitle,
+							ShareIcon: banners[index].shareicon
+						}, null, "none");
+					}
+				}
+				isLoading = false;
 			}
 		});
 	}
