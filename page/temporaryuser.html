@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>关联账号</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/fan.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<a class="mui-icon mui-text cfff fr hide" id="register" onclick="Register()">注册</a>
+			<h1 class="mui-title cfff">关联账号</h1>
+		</header>
+		<p class="tc c666 f12" id="loader">正在加载中...</p>
+		<div id="muicontent" class="inline full">
+			<div id="scroll-view" class="inline full">
+			</div>
+		</div>
+		<div id="none" class="full tc hide">
+			<p class="f12" id="none_tip">暂无关联账号</p>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script type="text/javascript">
+	var totalpage = 0;
+	var records = 0;
+	var userinfo = base.GetUserInfo();
+
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		}
+	});
+
+	mui.ready(function() {
+		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+
+		base.Immersed();
+		base.ToTop();
+	});
+
+	mui.plusReady(function() {
+		Load();
+
+		base.ShowUser("#scroll-view");
+	});
+
+	functoin Register() {
+		base.OpenWindow("temporaryreg", "temporaryreg.html", {});
+	}
+
+	function Load(callback) {
+		base.Get('scroll-view').innerHTML = "";
+		var data = {
+			Number: userinfo.Phone
+		}
+		LoadPull(base.RootUrl + "Api/User/TemporaryUser", data, true, false, function(item) {
+			return AppendUser(item, true, true, false, "", false, true, true);
+		}, function() {
+			if(callback) {
+				callback();
+			}
+		});
+	}
+
+	function AppendUser(item) {
+		var div = document.createElement('div');
+		div.className = 'mui-table-view-cell user bounceInUp';
+		div.setAttribute("userid", item.Number);
+		div.setAttribute("nickname", item.NickName);
+		div.setAttribute("cover", item.Cover);
+		div.setAttribute("avatar", item.Avatar);
+		var model = [];
+		model.push('<div class="flex-box flex-row ">');
+		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="fl"  /></div></div>');
+		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
+		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
+		if(item.IsFollow == 0 && userinfo.Number != item.Number) {
+			model.push('<div class="guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" class="fr" /></div>');
+		} else {
+			model.push('<div class="guanzhu2" userid="' + item.Number + '"><img src="../images/base/follow1.png" class="fr" /></div>');
+		}
+		model.push('</div>');
+		model.push('</div></div>');
+		div.innerHTML = model.join('');
+		return div;
+	}
+</script>

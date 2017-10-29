@@ -47,7 +47,6 @@
 				<div class="flex-item" style="flex:0 0 72%">
 					<p class="mt0 mb0 c000">图片水印</p>
 					<span class="c999 f10">开启后新导入图片自动添加水印,以防他人盗图</span>
-					<!--<span class="c999 f10">开启后新导入图片自动添加水印</span>-->
 				</div>
 				<div class="flex-item tr" style="flex:0 0 28%">
 					<div class="my-switch" id="drawSwitch">
@@ -455,6 +454,6 @@
 	}
 
 	function Change() {
-		mui.toast("暂未开放");
+		base.OpenWindow("temporaryuser", "temporaryuser.html", {});
 	}
 </script>

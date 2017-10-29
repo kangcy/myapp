@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>机器人注册</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/input.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<h1 class="mui-title cfff">注册关联账号</h1>
+		</header>
+		<div class="mui-content" id="muicontent">
+			<div id="input-form">
+				<div class="user mt20 mui-input-row">
+					<input id='nickname' type="text" class="mui-input-clear text f13" placeholder="请输入昵称" maxlength="20" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
+				</div>
+				<div class="pwd mt20 mui-input-row" style="width: 65%;margin-right: 0px;">
+					<input id='code' type="text" class="mui-input-clear text f13" placeholder="请输入验证码" maxlength="6" style="width:60%;" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
+				</div>
+				<div style="width:25%;height:2.5rem;display:inline-block;" class="fr mt20 tc">
+					<img id="btnCode" src="../images/loading.gif" style="width: 2.5rem;height: 2.5rem;" />
+				</div>
+
+				<div id="submit" class="input mt20 tc fl">
+					确认注册
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../minjs/base.min.js"></script>
+<script type="text/javascript">
+	var isLoading = false;
+	var userinfo = base.GetUserInfo();
+	var settingPage = null;
+	var $btnCode = base.Get("btnCode");
+	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
+	});
+
+	mui.init();
+
+	mui.ready(function() {
+		base.Immersed();
+
+		$btnCode.setAttribute("src", base.RootUrl + "System/Validate?rn=" + base.GetUid());
+		$btnCode.style.width = "5rem";
+		$btnCode.style.marginTop = "0.3rem";
+
+		$btnCode.addEventListener('tap', function(event) {
+			$btnCode.setAttribute("src", base.RootUrl + "System/Validate?rn=" + base.GetUid());
+		});
+	})
+
+	mui.plusReady(function() {
+
+		//提交
+		base.Get("submit").addEventListener('tap', function(event) {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			var nickname = base.Get('nickname').value;
+			if(base.IsNullOrEmpty(nickname)) {
+				isLoading = false;
+				return mui.toast("请输入昵称");
+			}
+			var code = base.Get('code').value;
+			if(base.IsNullOrEmpty(code)) {
+				isLoading = false;
+				return mui.toast("请输入验证码");
+			}
+			mask.show();
+			base.ShowWaiting("正在注册");
+			HttpGet(base.RootUrl + "User/TemporaryRegister", {
+				ID: userinfo.ID,
+				NickName: nickname,
+				Number: userinfo.Number,
+				Code: code
+			}, function(data) {
+				mui.later(function() {
+					mask.close();
+					isLoading = false;
+					if(data == null) {
+						return mui.toast("系统异常,请稍后再试");
+					} else {
+						if(data.result) {
+							//userinfo.Phone = phone;
+							//localStorage.setItem('$userinfo', JSON.stringify(userinfo));
+							alert("注册成功");
+						} else {
+							return mui.toast(data.message);
+						}
+					}
+				}, 500);
+			});
+		}, false);
+	});
+</script>
