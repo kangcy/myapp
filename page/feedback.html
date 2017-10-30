@@ -9,17 +9,22 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<style type="text/css">
+			body{
+				background:#f5f5f5;
+			}
 			#question {
 				border: 0px;
 				height: 200px;
 				padding: 20px 10px;
 				line-height: 1.25rem;
+				background: #fff !important;
 			}
 			
-			#qq {
+			#qq { 
 				border: 0px;
 				padding: 25px 10px;
 				height: 1.25rem;
+				background: #fff !important;
 			}
 			
 			.bottom {
@@ -59,7 +64,7 @@
 			
 			.thirdfloor div {
 				position: absolute;
-				right: -0.9rem;
+				right: -0.9rem; 
 				top: -0.9rem;
 				width: 1.8rem;
 				height: 1.8rem;
@@ -80,7 +85,7 @@
 		</style>
 	</head>
 
-	<body style="background:#f5f5f5;">
+	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<a class="mui-icon mui-icon-image cfff fr" style="font-size:25px;" onclick="ShowPic()"></a>
@@ -90,7 +95,7 @@
 			<div class="f13 mt10 mb10" style="text-indent:10px;">反馈内容：</div>
 			<textarea id='question' class="mui-input-clear f12 mb0" placeholder="聊聊您的看法，欢迎您参与到我们的产品建设中，说不定您的一句吐槽就成为我们产品更新的关键方向(限500字)" maxlength="500"></textarea>
 			<div class="f13 mt10 mb10" style="text-indent:10px;">联系方式：</div>
-			<input id='qq' type="tel" class="mui-input-clear f12" placeholder="手机号/邮箱(选项，方便我们联系您)" maxlength="250" />
+			<input id='qq' type="tel" class="mui-input-clear f12" placeholder="手机号/邮箱(选项，方便我们联系您)" maxlength="150" />
 			<div id="scroll-view">
 			</div>
 		</div>
@@ -183,7 +188,7 @@
 			ID: userinfo.ID,
 			Summary: escape(question.value),
 			QQ: qq.value,
-			Cover: url 
+			Cover: url
 		}, function(data) {
 			mui.toast(data.result ? "感谢您的建议" : data.message);
 			if(data.result) {

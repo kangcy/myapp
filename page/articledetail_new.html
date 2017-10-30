@@ -256,14 +256,14 @@
 		progress.progressbar({
 			progress: 0
 		}).show();
-		ProgressLoading(progress, 0, 80);
+		ProgressLoading(progress, 0, 100);
 
 		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
 		$wrapper.style.paddingTop = base.Get("header").clientHeight + "px";
 		$wrapper2.style.top = base.Get("header").clientHeight + "px";
 
 		base.ToTop();
-
+ 
 		//点赞
 		$divzan.addEventListener('tap', function(event) {
 			if(isLoading) {
@@ -443,13 +443,11 @@
 						if(data.ArticlePower == 0 || data.ArticlePower == 2) {
 							$wrapper.classList.add("hide");
 							base.Get("self").classList.remove("hide");
-							ProgressLoading(progress, 90, 100);
 						}
 						//密码可见  
 						else if(data.ArticlePower == 1) {
 							$wrapper.classList.add("hide");
 							base.Get("password").classList.remove("hide");
-							ProgressLoading(progress, 90, 100);
 						}
 					}
 
@@ -594,13 +592,12 @@
 					if(userinfo.Number == data.CreateUserNumber) {
 						$wrapper.classList.remove("hide");
 						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
-						mui.later(function() {
+						mui.later(function() { 
 							InitShowy(data.Showy);
 						}, 1000)
 					} else {
 						//私密可见 
 						if(data.ArticlePower == 3) {
-							ProgressLoading(progress, 90, 100);
 							$wrapper.classList.remove("hide");
 							mui.later(function() {
 								InitShowy(data.Showy);

@@ -51,15 +51,14 @@
 	});
 
 	mui.ready(function() {
-
+		base.Get("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
+		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 	})
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		UserNumber = self.UserNumber;
-		base.Get("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
-		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
 
 		Init();
 
