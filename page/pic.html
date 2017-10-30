@@ -118,6 +118,11 @@
 		gestureConfig: {
 			longtap: true,
 			doubletap: true
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 

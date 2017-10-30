@@ -227,7 +227,13 @@
 	var pagesize = 10;
 	var PageName = "addfaninfo";
 	var position = base.GetCurrentPosition();
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 	mui.ready(function() {
 		base.Immersed();
 

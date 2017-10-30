@@ -96,11 +96,14 @@
 	var mask = base.CreateMask(false, function() {
 		$("#success,#error").addClass("hide");
 		$(".choosemoney:first").trigger("click");
-		
+
 	});
 
 	mui.init({
 		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			plus.navigator.setStatusBarStyle('light');
 			return true;
 		}

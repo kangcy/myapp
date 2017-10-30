@@ -16,7 +16,7 @@
 				margin-right: 0.4rem;
 			}
 		</style>
-	</head> 
+	</head>
 	<!--禁止复制-->
 
 	<body id="body" oncontextmenu="return false" onselectstart="return false">
@@ -81,9 +81,14 @@
 		ShareTan(0);
 		base.CloseWaiting();
 	});
-
-	//启用双击监听 
-	mui.init();
+ 
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

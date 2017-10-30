@@ -102,7 +102,13 @@
 		base.CloseWaiting();
 	});
 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	//检查 "登录状态/锁屏状态" 结束
 	var loginButton = base.Get('login');

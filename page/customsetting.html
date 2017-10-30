@@ -132,7 +132,13 @@
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

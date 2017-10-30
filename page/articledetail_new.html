@@ -231,6 +231,11 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 
@@ -354,7 +359,7 @@
 			Uri = plus.android.importClass("android.net.Uri");
 			main = plus.android.runtimeMainActivity();
 		}
- 
+
 		Load(function(data) {
 			mui.later(function() {
 				plus.webview.close("sharesetting", "none");

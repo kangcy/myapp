@@ -504,7 +504,7 @@
 				<div class="x-content well mb10 mt10 full fl" id="x-content">
 					<div class="section full" id="edit">
 					</div>
-					<!--半透明蒙层--> 
+					<!--半透明蒙层-->
 					<div class="x-bg-blur" id="x-bg-blur"></div>
 				</div>
 				<!--尾-->
@@ -522,12 +522,12 @@
 				<li class="mui-table-view-cell hide" id="pic">
 					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
 				</li>
-			</ul> 
-			<ul class="mui-table-view">  
-				<li class="mui-table-view-cell noborder"> 
-					<a href="#upload" class="red f13">取消</a> 
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder">
+					<a href="#upload" class="red f13">取消</a>
 				</li>
-			</ul>   
+			</ul>
 		</div>
 		<!--分隔-->
 		<div class="swiper-container hide" id="myline" style="bottom:0px;width:100%;background: rgba(255, 255, 255, 1);">
@@ -883,7 +883,13 @@
 	}
 
 	//启用双击监听 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	//标题
 	var title = base.Get("title");
@@ -915,7 +921,7 @@
 				}
 				num = window.pageYOffset;
 				IsIconShow = true;
-				IsIconScroll = false; 
+				IsIconScroll = false;
 			}
 		});
 

@@ -152,6 +152,7 @@
 			.jroll-infinite-tip {
 				padding: 1rem 0 1rem 0;
 			}
+			
 			#tabs {
 				width: 200px;
 				height: 33px;
@@ -258,6 +259,9 @@
 
 	mui.init({
 		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			plus.navigator.setStatusBarStyle('light');
 			return true;
 		}

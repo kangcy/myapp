@@ -76,6 +76,11 @@
 	mui.init({
 		keyEventBind: {
 			backbutton: false
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 
@@ -114,7 +119,7 @@
 			}
 			isLoading = false;
 		});
-		
+
 		base.ShowUser("#scroll-view");
 		base.UserFan("#scroll-view", userinfo);
 	});

@@ -37,7 +37,13 @@
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	var page = null;
 	var title = base.Get("title");

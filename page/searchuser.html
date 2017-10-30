@@ -42,6 +42,11 @@
 	mui.init({
 		keyEventBind: {
 			backbutton: false
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 

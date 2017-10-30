@@ -41,6 +41,11 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 
@@ -170,7 +175,7 @@
 	function Load(callback) {
 		base.Get('scroll-view').innerHTML = "";
 		var data = {
-			Number: userinfo.Number
+			Number: userinfo.RelatedNumber
 		}
 		LoadPull(base.RootUrl + "Api/User/TemporaryUser", data, true, false, function(item) {
 			return AppendUser(item, true, true, false, "", false, true, true);

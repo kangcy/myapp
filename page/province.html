@@ -107,7 +107,13 @@
 	var isLoading = false;
 	var province = "";
 	var city = "";
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

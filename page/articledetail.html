@@ -242,6 +242,11 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 
@@ -369,7 +374,7 @@
 		self = plus.webview.currentWebview();
 		Source = self.Source || "Add";
 		ArticleID = self.ArticleID || 0;
-		NickName = self.NickName || ""; 
+		NickName = self.NickName || "";
 
 		//分享设置
 		updateSerivces();

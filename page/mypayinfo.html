@@ -166,7 +166,13 @@
 	var totalpage = [1, 1, 1, 1];
 	var isLoading = [false, false, false, false];
 	var pagesize = 10;
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

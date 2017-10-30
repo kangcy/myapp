@@ -49,6 +49,9 @@
 			doubletap: true
 		},
 		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			base.RefreshUser();
 			return true;
 		}

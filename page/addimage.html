@@ -140,7 +140,13 @@
 	var self = null;
 	var userinfo = base.GetUserInfo();
 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 
@@ -160,7 +166,7 @@
 				if(sort != null) {
 					sort.destroy();
 				}
-			} else { 
+			} else {
 				base.Get("main").classList.remove("hover");
 				base.Get("header").classList.remove("hide");
 				base.Immersed();
@@ -218,10 +224,10 @@
 		base.Get("bottom").classList.remove("zoomIn");
 		mui('#upload').popover('show');
 	}
- 
+
 	var sort = null;
 
-	function AppendStr(url) { 
+	function AppendStr(url) {
 		base.Get("header").classList.remove("hide");
 
 		id++;

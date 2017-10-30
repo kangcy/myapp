@@ -302,7 +302,13 @@
 <script type="text/javascript">
 	var name = "";
 	var self = null;
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

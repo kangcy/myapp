@@ -169,7 +169,13 @@
 	var PageName = "searchinfo";
 	var search = base.Get("search");
 	var searchval = "";
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

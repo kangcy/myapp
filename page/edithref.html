@@ -40,6 +40,9 @@
 	var isLoading = false;
 	mui.init({
 		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			base.GetView('editdesc').evalJS("Undo()");
 			return true;
 		}

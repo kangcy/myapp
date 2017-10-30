@@ -170,7 +170,13 @@
 		base.CloseWaiting();
 	});
 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 	mui.ready(function() {
 		base.Immersed();
 

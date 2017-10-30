@@ -35,8 +35,9 @@
 	var userinfo = base.GetUserInfo();
 	mui.init({
 		beforeback: function() {
-			//base.GetView("tip").reload();
-			return true;
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 

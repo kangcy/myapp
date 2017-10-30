@@ -39,6 +39,11 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 

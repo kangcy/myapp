@@ -41,7 +41,13 @@
 		search.value = e.detail.value.replace(/，/g, '').replace(/,。/g, '');
 	});
 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

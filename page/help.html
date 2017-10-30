@@ -64,7 +64,13 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();
@@ -98,7 +104,7 @@
 						mui.each(data, function(i, item) {
 							fragment.appendChild(AppendStr(item));
 						})
-						table.appendChild(fragment); 
+						table.appendChild(fragment);
 
 						var div = document.createElement('div');
 						div.className = 'border';

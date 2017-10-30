@@ -52,6 +52,11 @@
 		keyEventBind: {
 			backbutton: false,
 			menubutton: false
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 	mui.plusReady(function() {

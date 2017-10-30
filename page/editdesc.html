@@ -277,7 +277,13 @@
 		$edit.style.height = window.innerHeight - 165 + "px";
 	};
 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

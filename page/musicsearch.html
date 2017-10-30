@@ -171,6 +171,11 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 
@@ -191,7 +196,7 @@
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
 		searchName = self.name || "";
-		searchType = self.searchtype || 0;	
+		searchType = self.searchtype || 0;
 		if(searchType == 0) {
 			if(!base.IsNullOrEmpty(searchName)) {
 				search.focus();
@@ -378,7 +383,7 @@
 			return;
 		}
 		var table = base.Get("scroll-view");
-		var data = { 
+		var data = {
 			url: searchName,
 		};
 		HttpGet(base.RootUrl + "Api/Music/SearchMenuList", data, function(data) {

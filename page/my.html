@@ -83,6 +83,11 @@
 	mui.init({
 		keyEventBind: {
 			menubutton: false
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 		}
 	});
 
@@ -267,7 +272,7 @@
 		HttpGet(base.RootUrl + "Push/All", {
 			number: userinfo.Number
 		}, function(data) {
-			if(data.result) { 
+			if(data.result) {
 				var length = data.message.length;
 				var count = 0;
 				mui.each(data.message, function(i, item) {

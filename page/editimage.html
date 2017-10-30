@@ -10,6 +10,11 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../cropper/cropper.css">
+		<style type="text/css">
+			.mui-table-view-cell {
+				padding: 0.625rem;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -57,9 +62,15 @@
 		base.CloseWaiting();
 	});
 
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
-	mui.ready(function() { 
+	mui.ready(function() {
 		base.Immersed();
 
 		mask.show();

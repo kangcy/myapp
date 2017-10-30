@@ -590,7 +590,13 @@
 <script src="../minjs/base.min.js"></script>
 <script type="text/javascript">
 	var Province = "";
-	mui.init();
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Immersed();

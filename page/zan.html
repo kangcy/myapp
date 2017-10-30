@@ -30,7 +30,13 @@
 	var UserNumber = "";
 	var ShowMe = 0;
 
-	mui.init({});
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
 
 	mui.ready(function() {
 		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
@@ -41,7 +47,7 @@
 		self = plus.webview.currentWebview();
 		ShowMe = self.ShowMe || 0;
 		UserNumber = self.UserNumber;
-		if(ShowMe == 1) { 
+		if(ShowMe == 1) {
 			base.Get("none_tip").innerHTML = "沒人赞你，你可以去赞别人呀";
 		} else {
 			base.Get("none_tip").innerHTML = name + "喜欢的文章，会在这里显示";
