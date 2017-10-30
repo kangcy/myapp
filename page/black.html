@@ -30,6 +30,7 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
+<script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	var totalpage = 0;
 	var records = 0; 
@@ -94,7 +95,7 @@
 		base.Get('scroll-view').innerHTML = "";
 		var data = {
 			CreateUserNumber: userinfo.Number
-		}
+		} 
 		LoadPull(base.RootUrl + "Api/Black/All", data, true, false, function(item) {
 			return base.AppendUser(item, true, false, true, "移除黑名单");
 		}, callback);

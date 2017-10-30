@@ -10,12 +10,13 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/fan.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../css/buttons.css">
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-text cfff fr hide" id="register" onclick="Register()">注册</a>
+			<a class="mui-icon mui-text cfff fr" id="register" onclick="Register()">注册</a>
 			<h1 class="mui-title cfff">关联账号</h1>
 		</header>
 		<p class="tc c666 f12" id="loader">正在加载中...</p>
@@ -31,11 +32,12 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
+<script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	var totalpage = 0;
 	var records = 0;
+	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -54,16 +56,121 @@
 		Load();
 
 		base.ShowUser("#scroll-view");
+
+		mui("#scroll-view").on('tap', '.button', function() {
+			if(isLoading) {
+				return false;
+			}
+			isLoading = true;
+			base.TriggerMain = true;
+			mui.later(function() {
+				base.TriggerMain = false;
+			}, 500);
+			var userid = this.getAttribute('userid');
+			var all = plus.webview.all();
+			var launch = plus.webview.getLaunchWebview() //基座，不可以关掉
+			for(var i = 0; i < all.length; i++) {
+				if(all[i] === launch || all[i].id === "temporaryuser" || all[i].id === "template")
+					continue;
+				all[i].hide();
+				all[i].close();
+				all[i].clear();
+			}
+
+			HttpGet(base.RootUrl + "User/TemporaryLogin", {
+				Number: userid
+			}, function(data) {
+				if(data == null) {
+					mui.toast("系统异常,请稍后再试");
+				} else {
+					if(data.result) {
+						var user = data.message;
+						var info = {
+							ID: user.ID,
+							Sex: user.Sex, 
+							Signature: user.Signature,
+							Password: user.Password,
+							Avatar: user.Avatar == "" ? base.DefaultImg : user.Avatar,
+							NickName: user.NickName,
+							Address: user.Address,
+							Birthday: user.BirthdayText,
+							Follows: user.Follows,
+							Fans: user.Fans,
+							Articles: user.Articles,
+							Keeps: user.Keeps,
+							Comments: user.Comments,
+							Zans: user.Zans,
+							Cover: user.Cover,
+							Phone: user.Phone,
+							WeiXin: user.WeiXin,
+							QQ: user.QQ,
+							Weibo: user.Weibo,
+							ShareNick: user.ShareNick,
+							AutoMusic: user.AutoMusic,
+							IsPay: user.IsPay,
+							Money: user.Money,
+							UseDraw: user.UseDraw,
+							Number: user.Number,
+							ShowZan: user.ShowZan,
+							ShowKeep: user.ShowKeep,
+							ShowFollow: user.ShowFollow,
+							ShowFan: user.ShowFan,
+							ShowPush: user.ShowPush,
+							ShowPosition: user.ShowPosition,
+							UserRole: user.UserRole,
+							CreateDate: user.CreateDateText,
+							Star: user.Star,
+							DrawText: user.DrawText,
+							RelatedNumber: user.RelatedNumber
+						};
+						localStorage.setItem('$userinfo', JSON.stringify(info));
+
+						var subindex = plus.webview.create("subindex_new.html", "subindex", {
+							left: "0px",
+							top: "0px",
+							bottom: "0px",
+							width: "100%",
+							height: "100%",
+							popGesture: 'none',
+							scrollIndicator: "none"
+						})
+
+						if(base.GetView("my") == null) {
+							plus.webview.create("my.html", "my", {
+								top: "0px",
+								bottom: "0px",
+								width: "100%",
+								height: "100%",
+								popGesture: "close",
+								scrollIndicator: "none"
+							});
+						}
+						subindex.onloaded = function() {
+							subindex.show("zoom-fade-out", base.AnimateDuration, function() {
+
+							});
+							mui.later(function() {
+								plus.webview.close("login", "none");
+							}, base.AnimateDuration)
+							subindex.evalJS("InitChild(0)");
+						}
+					} else {
+						mui.toast(data.message);
+					}
+				}
+				isLoading = false;
+			});
+		});
 	});
 
-	functoin Register() {
+	function Register() {
 		base.OpenWindow("temporaryreg", "temporaryreg.html", {});
 	}
 
 	function Load(callback) {
 		base.Get('scroll-view').innerHTML = "";
 		var data = {
-			Number: userinfo.Phone
+			Number: userinfo.Number
 		}
 		LoadPull(base.RootUrl + "Api/User/TemporaryUser", data, true, false, function(item) {
 			return AppendUser(item, true, true, false, "", false, true, true);
@@ -72,6 +179,12 @@
 				callback();
 			}
 		});
+	}
+
+	function Refresh() {
+		Load(function() {
+			plus.webview.close("temporaryreg");
+		})
 	}
 
 	function AppendUser(item) {
@@ -84,14 +197,9 @@
 		var model = [];
 		model.push('<div class="flex-box flex-row ">');
 		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="fl"  /></div></div>');
-		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
-		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
-		if(item.IsFollow == 0 && userinfo.Number != item.Number) {
-			model.push('<div class="guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" class="fr" /></div>');
-		} else {
-			model.push('<div class="guanzhu2" userid="' + item.Number + '"><img src="../images/base/follow1.png" class="fr" /></div>');
-		}
-		model.push('</div>');
+		model.push('<div style="flex:0 0 54%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><span class="f10 mr5">' + item.CreateDate + '</span></div>');
+		model.push('<div style="flex:0 0 30%;" class="flex-item tr">');
+		model.push('<div class="button button-primary button-pill button-small" style="padding:0 10px" userid="' + item.Number + '">切换账号</div>')
 		model.push('</div></div>');
 		div.innerHTML = model.join('');
 		return div;

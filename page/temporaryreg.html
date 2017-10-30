@@ -22,7 +22,7 @@
 					<input id='nickname' type="text" class="mui-input-clear text f13" placeholder="请输入昵称" maxlength="20" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 				</div>
 				<div class="pwd mt20 mui-input-row" style="width: 65%;margin-right: 0px;">
-					<input id='code' type="text" class="mui-input-clear text f13" placeholder="请输入验证码" maxlength="6" style="width:60%;" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
+					<input id='code' type="text" class="mui-input-clear text f13" placeholder="请输入验证码" maxlength="4" style="width:60%;" /><span class="mui-icon mui-icon-clear mui-hidden" style="top:0.8rem !important;"></span>
 				</div>
 				<div style="width:25%;height:2.5rem;display:inline-block;" class="fr mt20 tc">
 					<img id="btnCode" src="../images/loading.gif" style="width: 2.5rem;height: 2.5rem;" />
@@ -57,6 +57,7 @@
 		$btnCode.style.marginTop = "0.3rem";
 
 		$btnCode.addEventListener('tap', function(event) {
+			base.Get('code').value = "";
 			$btnCode.setAttribute("src", base.RootUrl + "System/Validate?rn=" + base.GetUid());
 		});
 	})
@@ -89,18 +90,18 @@
 			}, function(data) {
 				mui.later(function() {
 					mask.close();
-					isLoading = false;
 					if(data == null) {
 						return mui.toast("系统异常,请稍后再试");
 					} else {
 						if(data.result) {
-							//userinfo.Phone = phone;
-							//localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-							alert("注册成功");
+							mui.toast("注册成功");
+							base.GetView("temporaryuser").evalJS("Refresh()");
 						} else {
-							return mui.toast(data.message);
+							mui.trigger($btnCode, "tap");
+							mui.toast(data.message);
 						}
 					}
+					isLoading = false;
 				}, 500);
 			});
 		}, false);

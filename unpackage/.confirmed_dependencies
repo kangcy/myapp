@@ -300,7 +300,8 @@
 			"page/black.html",
 			"page/accountsetting.html",
 			"page/secretsetting.html",
-			"page/update.html"
+			"page/update.html",
+			"page/temporaryuser.html"
 		]
 	},
 	"page/reg.html": {
@@ -2632,7 +2633,8 @@
 			"mincss/animate.min.css",
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
-			"minjs/base.min.js"
+			"minjs/base.min.js",
+			"js/imgcache.js"
 		],
 		"refer": [
 			"page/user.html"
@@ -4231,6 +4233,40 @@
 			"page/action.html",
 			"page/edittext.html",
 			"page/red.html"
+		]
+	},
+	"page/temporaryuser.html": {
+		"resources": [
+			"mincss/fan.min.css",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"fonts/mui.ttf",
+			"mincss/animate.min.css",
+			"images/avatar.png",
+			"images/icon/heart.png",
+			"images/base/follow1.png",
+			"js/imgcache.js",
+			"css/buttons.css",
+			"images/loading.gif"
+		],
+		"refer": [
+			"page/temporaryreg.html",
+			"page/user.html",
+			"page/my.html",
+			"page/subindex_new.html"
+		]
+	},
+	"page/temporaryreg.html": {
+		"resources": [
+			"images/login/pwd.png",
+			"images/login/user.png",
+			"images/loading.gif",
+			"mincss/input.min.css",
+			"mincss/mui.min.css",
+			"minjs/base.min.js",
+			"minjs/mui.min.js",
+			"fonts/mui.ttf"
 		]
 	}
 }

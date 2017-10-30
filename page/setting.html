@@ -108,7 +108,7 @@
 					<span class="c999" id="version"></span>
 				</div>
 			</div>
-			<div class="button button-glow button-rounded button-raised button-primary" id="exit" style="width:90%;margin:5%;">退出登录</div>
+			<div class="button button-block button-rounded button-primary" id="exit" style="width:90%;margin:5%;">退出登录</div>
 		</div>
 		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
 			<div class="flex-box flex-row noborder f13 hide" onclick="Change()" id="change">
@@ -174,7 +174,7 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		if(userinfo.UserRole == 1 || userinfo.UserRole == 2) {
+		if(userinfo.UserRole == 1 || userinfo.UserRole == 2 || userinfo.UserRole == 100) {
 			base.RemoveClass(["#change"], "hide");
 		}
 
@@ -454,6 +454,7 @@
 	}
 
 	function Change() {
+		mui('#action').popover('hide');
 		base.OpenWindow("temporaryuser", "temporaryuser.html", {});
 	}
 </script>
