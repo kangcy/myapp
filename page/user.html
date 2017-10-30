@@ -11,6 +11,11 @@
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/user.min.css">
+		<style type="text/css">
+			.mui-table-view-cell {
+				padding: 0.625rem;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -159,11 +164,6 @@
 		base.CloseWaiting();
 	});
 
-	var Intent = null,
-		File = null,
-		Uri = null,
-		main = null;
-
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -223,12 +223,6 @@
 
 		//分享设置
 		UpdateSerivces();
-		if(plus.os.name == "Android") {
-			Intent = plus.android.importClass("android.content.Intent");
-			File = plus.android.importClass("java.io.File");
-			Uri = plus.android.importClass("android.net.Uri");
-			main = plus.android.runtimeMainActivity();
-		}
 
 		LoadUserInfo(function(data) {
 
@@ -726,6 +720,11 @@
 			plus.nativeUI.alert("此平台暂不支持系统分享功能");
 			return;
 		}
+		var Intent = plus.android.importClass("android.content.Intent");
+		var File = plus.android.importClass("java.io.File");
+		var Uri = plus.android.importClass("android.net.Uri");
+		var main = plus.android.runtimeMainActivity();
+
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, "");

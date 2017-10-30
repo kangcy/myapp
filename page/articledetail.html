@@ -363,10 +363,6 @@
 		base.ShowUser("#body");
 	});
 
-	var Intent = null,
-		File = null,
-		Uri = null,
-		main = null;
 	var self = null,
 		wc = null;
 
@@ -378,13 +374,6 @@
 
 		//分享设置
 		updateSerivces();
-
-		if(plus.os.name == "Android") {
-			Intent = plus.android.importClass("android.content.Intent");
-			File = plus.android.importClass("java.io.File");
-			Uri = plus.android.importClass("android.net.Uri");
-			main = plus.android.runtimeMainActivity();
-		}
 
 		Load(function(data) {
 			mui.later(function() {
@@ -837,6 +826,11 @@
 			plus.nativeUI.alert("此平台暂不支持系统分享功能");
 			return;
 		}
+		var Intent = plus.android.importClass("android.content.Intent");
+		var File = plus.android.importClass("java.io.File");
+		var Uri = plus.android.importClass("android.net.Uri");
+		var main = plus.android.runtimeMainActivity();
+		
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, "");

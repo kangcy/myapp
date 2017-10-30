@@ -25,6 +25,7 @@
 			<span class="cfff f25 fr more" onclick="ShareTan(1)">•••</span>
 			<h1 class="mui-title cfff" id="title">专属红包活动</h1>
 		</header>
+		<div id="progress" class="full" style="position:fixed;left:0px;height:5px;"></div>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
@@ -66,11 +67,12 @@
 <script src="../js/music.js"></script>
 <script type="text/javascript">
 	var Article = {};
+	//分享信息
 	var ShareInfo = {
 		Url: "",
 		Title: "",
 		Cover: ""
-	}; //分享信息
+	};
 	var isLoading = false;
 	var MusicID = ""; //音乐控件ID
 	var MusicUrl = "";
@@ -81,7 +83,7 @@
 		ShareTan(0);
 		base.CloseWaiting();
 	});
- 
+
 	mui.init({
 		beforeback: function() {
 			if(base.CheckWaiting()) {
@@ -92,17 +94,21 @@
 
 	mui.ready(function() {
 		base.Immersed();
+
+		//进度条
+		var progress = mui("#progress");
+		progress[0].style.top = base.Get("header").clientHeight + "px";
+		progress.progressbar({
+			progress: 0
+		}).show();
+		ProgressLoading(progress, 0, 100);
+
 		base.Get("iframe").style.height = (window.innerHeight - base.Get("header").clientHeight) + "px";
 
 		base.ShowUser("#body");
 	});
 
-	var Intent = null,
-		File = null,
-		Uri = null,
-		main = null;
-	var self = null,
-		wc = null;
+	var self = null;
 
 	mui.plusReady(function() {
 
@@ -119,17 +125,9 @@
 			return
 		}
 
-		//分享设置
-		updateSerivces();
-
-		if(plus.os.name == "Android") {
-			Intent = plus.android.importClass("android.content.Intent");
-			File = plus.android.importClass("java.io.File");
-			Uri = plus.android.importClass("android.net.Uri");
-			main = plus.android.runtimeMainActivity();
-		}
-
 		Load();
+
+		updateSerivces();
 	});
 
 	//加载文章
@@ -239,6 +237,11 @@
 			plus.nativeUI.alert("此平台暂不支持系统分享功能");
 			return;
 		}
+		var Intent = plus.android.importClass("android.content.Intent");
+		var File = plus.android.importClass("java.io.File");
+		var Uri = plus.android.importClass("android.net.Uri");
+		var main = plus.android.runtimeMainActivity();
+
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, "");

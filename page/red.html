@@ -213,10 +213,6 @@
 		var wrapper2 = base.Get("wrapper2");
 		var $main = base.Get("main");
 		var ShareInfo = {};
-		var Intent = null,
-			File = null,
-			Uri = null,
-			main = null;
 
 		mui.ready(function() {
 			base.Immersed();
@@ -276,17 +272,7 @@
 			ShareInfo.Cover = shareIcon;
 			ShareInfo.Url = shareUrl + "?key=" + userinfo.Number;
 
-			//分享设置
-			mui.later(function() {
-				UpdateSerivces();
-
-				if(plus.os.name == "Android") {
-					Intent = plus.android.importClass("android.content.Intent");
-					File = plus.android.importClass("java.io.File");
-					Uri = plus.android.importClass("android.net.Uri");
-					main = plus.android.runtimeMainActivity();
-				}
-			}, 3000);
+			UpdateSerivces();
 
 			mui.back = function() {
 				self.close("red")
@@ -404,6 +390,11 @@
 				plus.nativeUI.alert("此平台暂不支持系统分享功能");
 				return;
 			}
+			var Intent = plus.android.importClass("android.content.Intent");
+			var File = plus.android.importClass("java.io.File");
+			var Uri = plus.android.importClass("android.net.Uri");
+			var main = plus.android.runtimeMainActivity();
+
 			var intent = new Intent(Intent.ACTION_SEND);
 			intent.setType("text/plain");
 			intent.putExtra(Intent.EXTRA_SUBJECT, "");

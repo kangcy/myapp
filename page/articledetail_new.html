@@ -43,8 +43,8 @@
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="padding-top:0.35rem;padding-right: 0.4rem;">•••</a>
 			<h1 class="mui-title cfff user" id="nickname"></h1>
 		</header>
-		<p class="tc c666 f12" id="loader">正在加载中...</p>
-
+		<div id="progress" class="full" style="position:fixed;left:0px;height:5px;"></div>
+		<p class="tc c666 f12 hide" id="loader">正在加载中...</p>
 		<!--操作-->
 		<div id="topPopover" class="mui-popover">
 			<div class="mui-popover-arrow"></div>
@@ -68,12 +68,12 @@
 		<div id="snowwrapper"></div>
 		<canvas id="snowcanvas"></canvas>
 		<div id="self" class="full tc hide">
-			<img src="../images/article/stop.png" class="none" />
+			<img src="../images/article/stop.png" class="none" style="margin-top:10rem !important;" />
 			<p class="mt20 f16 c333">私密文章</p>
 			<p class="mt10 f12 c999">您查看的是私密文章,仅作者自己可见</p>
 		</div>
 		<div id="password" class="full tc hide">
-			<img src="../images/article/stop.png" class="none" />
+			<img src="../images/article/stop.png" class="none" style="margin-top:10rem !important;" />
 			<p class="mt20 f12 c999">文章已设权限,请输入密码浏览</p>
 			<div id="input-form">
 				<div class="pwd mt10 mui-input-row">
@@ -219,6 +219,7 @@
 	var $bottom = base.Get("x-bottom");
 	var browserName = base.BrowserName();
 	var num = 0;
+	var progress = mui("#progress");
 
 	//显示遮罩
 	var mask = base.CreateMask(true, function() {
@@ -236,16 +237,32 @@
 			if(base.CheckWaiting()) {
 				return false;
 			}
+			if(base.HasClass(base.Get("topPopover"), "mui-active")) {
+				mui('#topPopover').popover('hide');
+				return;
+			}
+			if(!base.HasClass(base.Get("myshare"), "hide")) {
+				ShareTan(0);
+				return false;
+			}
 		}
 	});
 
 	mui.ready(function() {
 		base.Immersed();
-		base.ToTop();
+
+		//进度条
+		progress[0].style.top = base.Get("header").clientHeight + "px";
+		progress.progressbar({
+			progress: 0
+		}).show();
+		ProgressLoading(progress, 0, 80);
 
 		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
 		$wrapper.style.paddingTop = base.Get("header").clientHeight + "px";
 		$wrapper2.style.top = base.Get("header").clientHeight + "px";
+
+		base.ToTop();
 
 		//点赞
 		$divzan.addEventListener('tap', function(event) {
@@ -319,6 +336,16 @@
 			CheckPowerPwd(ArticleID, pwd, function() {
 				base.Get("password").classList.add("hide");
 				$wrapper.classList.remove("hide");
+
+				base.Get("bottomAction").classList.remove("hide");
+				base.Get("bottomAction").classList.add("bounceIn");
+
+				//启用打赏
+				if(Article.IsPay == 1 && userinfo.Number != Article.CreateUserNumber) {
+					base.Get("btnPay").classList.remove("hide");
+				}
+				InitShowy(Article.Showy);
+
 				isLoading = false;
 			});
 		});
@@ -337,10 +364,6 @@
 		base.ShowUser("#body");
 	});
 
-	var Intent = null,
-		File = null,
-		Uri = null,
-		main = null;
 	var self = null,
 		wc = null;
 
@@ -349,16 +372,6 @@
 		Source = self.Source || "Add";
 		ArticleID = self.ArticleID || 0;
 		NickName = self.NickName || "";
-
-		//分享设置
-		updateSerivces();
-
-		if(plus.os.name == "Android") {
-			Intent = plus.android.importClass("android.content.Intent");
-			File = plus.android.importClass("java.io.File");
-			Uri = plus.android.importClass("android.net.Uri");
-			main = plus.android.runtimeMainActivity();
-		}
 
 		Load(function(data) {
 			mui.later(function() {
@@ -382,6 +395,8 @@
 			}
 			plus.webview.close(self);
 		}
+
+		updateSerivces();
 	});
 
 	//验证权限密码
@@ -425,19 +440,16 @@
 					//不是本人
 					if(userinfo.Number != data.CreateUserNumber) {
 						//私密可见 
-						if(data.ArticlePower == 0) {
+						if(data.ArticlePower == 0 || data.ArticlePower == 2) {
 							$wrapper.classList.add("hide");
 							base.Get("self").classList.remove("hide");
+							ProgressLoading(progress, 90, 100);
 						}
 						//密码可见  
 						else if(data.ArticlePower == 1) {
 							$wrapper.classList.add("hide");
 							base.Get("password").classList.remove("hide");
-						} else {
-							$wrapper.classList.remove("hide");
-							mui.later(function() {
-								InitShowy(data.Showy);
-							}, 1000)
+							ProgressLoading(progress, 90, 100);
 						}
 					}
 
@@ -560,13 +572,6 @@
 						});*/
 					});
 
-					base.Get("bottomAction").classList.remove("hide");
-					base.Get("bottomAction").classList.add("bounceIn");
-
-					//启用打赏
-					if(data.IsPay == 1 && userinfo.Number != data.CreateUserNumber) {
-						base.Get("btnPay").classList.remove("hide");
-					}
 					//收藏状态 
 					if(data.IsKeep == 1) {
 						base.Get("isnotkeep").classList.add("hide");
@@ -592,6 +597,25 @@
 						mui.later(function() {
 							InitShowy(data.Showy);
 						}, 1000)
+					} else {
+						//私密可见 
+						if(data.ArticlePower == 3) {
+							ProgressLoading(progress, 90, 100);
+							$wrapper.classList.remove("hide");
+							mui.later(function() {
+								InitShowy(data.Showy);
+							}, 1000)
+						}
+					}
+
+					if(!base.HasClass($wrapper, "hide")) {
+						base.Get("bottomAction").classList.remove("hide");
+						base.Get("bottomAction").classList.add("bounceIn");
+
+						//启用打赏
+						if(data.IsPay == 1 && userinfo.Number != data.CreateUserNumber) {
+							base.Get("btnPay").classList.remove("hide");
+						}
 					}
 				} else {
 					mui.toast(data.message);
@@ -791,6 +815,11 @@
 			plus.nativeUI.alert("此平台暂不支持系统分享功能");
 			return;
 		}
+		var Intent = plus.android.importClass("android.content.Intent");
+		var File = plus.android.importClass("java.io.File");
+		var Uri = plus.android.importClass("android.net.Uri");
+		var main = plus.android.runtimeMainActivity();
+
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, "");
