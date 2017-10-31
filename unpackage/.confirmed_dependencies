@@ -226,7 +226,8 @@
 			"page/fan.html",
 			"page/zan.html",
 			"page/star.html",
-			"page/sex.html"
+			"page/sex.html",
+			"page/searchuser_new.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
@@ -249,7 +250,8 @@
 			"page/accountsetting.html",
 			"page/subindex.html",
 			"page/star.html",
-			"page/sex.html"
+			"page/sex.html",
+			"page/searchuser_new.html"
 		]
 	},
 	"page/setting.html": {
@@ -3909,7 +3911,8 @@
 			"page/imageviewer.html",
 			"page/action.html",
 			"page/edittext.html",
-			"page/articledetail.html"
+			"page/articledetail.html",
+			"page/template.html"
 		]
 	},
 	"page/addfaninfo.html": {
@@ -4233,7 +4236,8 @@
 			"page/addimage.html",
 			"page/action.html",
 			"page/edittext.html",
-			"page/red.html"
+			"page/red.html",
+			"page/searchinfo_new.html"
 		]
 	},
 	"page/temporaryuser.html": {
@@ -4268,6 +4272,58 @@
 			"minjs/base.min.js",
 			"minjs/mui.min.js",
 			"fonts/mui.ttf"
+		]
+	},
+	"page/searchuser_new.html": {
+		"resources": [
+			"mincss/fan.min.css",
+			"js/imgcache.js",
+			"mincss/animate.min.css",
+			"minjs/refresh.min.js",
+			"images/avatar.png",
+			"images/base/follow0.png",
+			"images/base/follow1.png",
+			"mincss/mui.min.css",
+			"page/searchuser_new.html"
+		],
+		"refer": [
+			"page/user.html"
+		]
+	},
+	"page/searchinfo_new.html": {
+		"resources": [
+			"js/article.min.js",
+			"css/buttons.css",
+			"swipe/swiper.min.css",
+			"mincss/fan.min.css",
+			"js/imgcache.js",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"fonts/mui.ttf",
+			"mincss/animate.min.css",
+			"minjs/refresh.min.js",
+			"js/base.min.js",
+			"images/avatar.png",
+			"images/default.png",
+			"images/article/btn_good.png",
+			"images/search/hot.png",
+			"images/loading.gif",
+			"images/base/follow0.png",
+			"images/article/view.png",
+			"images/article/btn_comment.png",
+			"images/article/btn_good2.png",
+			"images/article/btn_more.png",
+			"images/base/follow1.png",
+			"mincss/loading.min.css",
+			"swipe/animate.min.css"
+		],
+		"refer": [
+			"page/user.html",
+			"page/articledetail_new.html",
+			"page/action.html",
+			"page/imageviewer.html",
+			"page/template.html"
 		]
 	}
 }

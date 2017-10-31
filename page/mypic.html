@@ -179,7 +179,7 @@
 			Number: userinfo.Number,
 			UserNumber: userinfo.Number
 		};
-		LoadPull(base.RootUrl + "Api/User/Pic", data, true, false, function(item) {
+		LoadPull("", base.RootUrl + "Api/User/Pic", data, true, false, function(item) {
 			return AppendStr(item);
 		}, function() {
 			if(callback) {

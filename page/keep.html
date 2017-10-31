@@ -90,7 +90,7 @@
 			CreateUserNumber: UserNumber,
 			CurrUserNumber: userinfo.Number
 		};
-		LoadPull(base.RootUrl + "Api/Keep/All", data, true, false, function(item) {
+		LoadPull("", base.RootUrl + "Api/Keep/All", data, true, false, function(item) {
 			return AppendArticle(userinfo.Number, item, false, false, true, false);
 		}, function() {
 			if(callback) {

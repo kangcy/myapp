@@ -83,7 +83,7 @@
 			ToUserNumber: UserNumber,
 			CurrUserNumber: userinfo.Number
 		}
-		LoadPull(base.RootUrl + "Api/Fan/FansAll", data, true, false, function(item) {
+		LoadPull("", base.RootUrl + "Api/Fan/FansAll", data, true, false, function(item) {
 			return base.AppendUser(item, true, true, false, "", false, true, true);
 		}, function() {
 			if(callback) {

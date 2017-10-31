@@ -147,7 +147,7 @@
 			CreateUserNumber: CreateUserNumber,
 			CurrUserNumber: userinfo.Number
 		};
-		LoadPull(base.RootUrl + "Api/Article/All", data, true, false, function(item) {
+		LoadPull("", base.RootUrl + "Api/Article/All", data, true, false, function(item) {
 			return AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, false);
 		}, function() {
 			if(callback) {

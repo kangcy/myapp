@@ -75,11 +75,11 @@
 		}
 		//我的
 		if(ShowMe == 1) {
-			LoadPull(base.RootUrl + "Api/Zan/ToMe", data, true, false, function(item) {
+			LoadPull("", base.RootUrl + "Api/Zan/ToMe", data, true, false, function(item) {
 				return AppendStr1(item)
 			}, callback);
 		} else {
-			LoadPull(base.RootUrl + "Api/Zan/ToUser", data, true, false, function(item) {
+			LoadPull("", base.RootUrl + "Api/Zan/ToUser", data, true, false, function(item) {
 				return AppendStr2(item)
 			}, callback);
 		}

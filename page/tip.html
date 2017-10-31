@@ -133,7 +133,7 @@
 			UserNumber: userinfo.Number,
 			ActionID: ActionID
 		};
-		LoadPull(base.RootUrl + "Api/UserAction/List", data, true, false, function(item) {
+		LoadPull("", base.RootUrl + "Api/UserAction/List", data, true, false, function(item) {
 			return AppendStr(item);
 		}, function() {
 			if(callback) {

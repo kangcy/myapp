@@ -359,7 +359,7 @@
 			rows: pagesize,
 			name: base.IsNullOrEmpty(name) ? "全部" : name
 		}
-		LoadPull(base.RootUrl + "Api/Music/SearchMenu", data, true, false, function(item) {
+		LoadPull("", base.RootUrl + "Api/Music/SearchMenu", data, true, false, function(item) {
 			return AppendMenuHtml(item)
 		}, callback);
 	}

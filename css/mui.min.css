@@ -1662,7 +1662,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #eee;
+	background-color: #e8e8e8;
 }*/
 
 .mui-card-footer.noborder:before,
@@ -1754,7 +1754,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #ddd
+	background-color: #e8e8e8
 }
 
 .mui-table-view:before {
@@ -1850,7 +1850,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #ddd
+	background-color: #e8e8e8
 }
 
 .mui-table-view-cell.mui-checkbox input[type=checkbox],
@@ -2081,7 +2081,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #ddd
+	background-color: #e8e8e8
 }
 
 .mui-table-view .mui-table-view-cell.mui-media-icon:after {
@@ -2107,7 +2107,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #ddd
+	background-color: #e8e8e8
 }
 
 .mui-table-view-cell>.mui-badge,
@@ -2231,7 +2231,7 @@ input[type=submit]:enabled:active {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #ddd
+	background-color: #e8e8e8
 }
 
 .mui-table-view.mui-grid-view {
@@ -2788,7 +2788,7 @@ select:focus {
 	line-height: 32px;
 	position: absolute;
 	z-index: 1;
-	top: 3px;
+	top: 2px;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -3092,7 +3092,7 @@ select:focus {
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #ddd
+	background-color: #e8e8e8
 }
 
 .mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell.noborder:after {
@@ -5077,8 +5077,8 @@ body>.mui-progressbar {
 }
 
 .onefloor img {
-	width: 16rem !important;
-	height: 16rem !important;
+	width: 17.5rem !important;
+	height: 17.5rem !important;
 	border-radius: 5px;
 }
 

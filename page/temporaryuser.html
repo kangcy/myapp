@@ -177,7 +177,7 @@
 		var data = {
 			Number: userinfo.RelatedNumber
 		}
-		LoadPull(base.RootUrl + "Api/User/TemporaryUser", data, true, false, function(item) {
+		LoadPull("", base.RootUrl + "Api/User/TemporaryUser", data, true, false, function(item) {
 			return AppendUser(item, true, true, false, "", false, true, true);
 		}, function() {
 			if(callback) {

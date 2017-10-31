@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/fan.min.css">
+		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../swipe/animate.min.css">
+		<style type="text/css">
+			body {
+				background: #f5f5f5;
+			}
+			
+			#info {
+				padding: 0 0.5rem;
+				width: 100%;
+				background: #fff;
+				display: inline-block;
+			}
+			
+			#info p {
+				height: 2.5rem;
+				line-height: 2.6rem;
+				position: relative;
+				text-indent: 2.2rem;
+				color: #8C8C8C;
+				background: url(../images/search/hot.png) no-repeat;
+				background-size: 0.9rem;
+				background-position: 1rem center;
+			}
+			
+			#info .items {
+				display: inline-block;
+				width: 100%;
+				height: 2.2rem;
+				line-height: 2.2rem;
+				position: relative;
+				color: #666;
+				text-indent: 1rem;
+				float: left;
+			}
+			
+			.scroll_title:after,
+			#info p:after,
+			#info .items:after {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #e8e8e8;
+			}
+			
+			#info .items:last-child:after {
+				height: 0;
+			}
+			
+			#info .items div {
+				width: 50%;
+				float: left;
+				display: inline-block;
+				position: relative;
+			}
+			
+			#info .items div:nth-child(even):after {
+				position: absolute;
+				top: 0.5rem;
+				right: 0;
+				left: 0;
+				width: 1px;
+				height: 1.2rem;
+				content: '';
+				-webkit-transform: scaleX(.5);
+				transform: scaleX(.5);
+				background-color: #e8e8e8;
+			}
+			
+			#exit {
+				width: 15%;
+				display: inline-block;
+				float: right;
+				text-align: center;
+				font-size: 15px;
+				line-height: 45px;
+				color: #fff;
+			}
+			
+			.scroll_title {
+				padding: 0 0.6rem;
+				width: 100%;
+				background: #fff;
+				display: inline-block;
+			}
+			
+			.scroll_title>p {
+				height: 2.5rem;
+				line-height: 2.6rem;
+				position: relative;
+				text-indent: 1.2rem;
+				color: #8C8C8C;
+				background: url(../images/search/hot.png) no-repeat;
+				background-size: 0.9rem;
+				background-position: left center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="header">
+			<div id="divSearch" class="mui-input-row mui-search" style="width:85%;display:inline-block;">
+				<input id="search" type="search" class="c999" placeholder="搜索用户和文章" maxlength="10" style="height:32px;font-size:15px;width:100%;">
+			</div>
+			<div id="exit" onclick="Exit()">取消</div>
+		</header>
+		<div class="loading hide" id="loader">
+			<div class="card">
+				<span class="circles-loader"></span>
+			</div>
+		</div>
+		<div class="mui-content" id="muicontent">
+			<div id="info">
+
+			</div>
+			<div id="scroll" class="full fl">
+				<div id="scroll-user-title" class="scroll_title fl hide" style="margin-bottom:-0.5rem;">
+					<p class="f12 full mb0 fl">相关用户<span id="more" class="c999 f12 fr hide" onclick="ShowUser()" style="position:relative;padding-right:1rem;">更多<span class="mui-icon mui-icon-arrowright f16" style="position:absolute;right:0px;top:0.8rem;"></span></span>
+					</p>
+				</div>
+				<div id="scroll-user" class="full fl hide" style="margin-bottom:3%;background:#fff;"></div>
+				<div id="scroll-view-title" class="scroll_title fl hide">
+					<p class="f12 full mb0 fl">相关文章</p>
+					<div id="none" class="full tc mt50 mb20 hide">
+						<p class="f12" id="none_tip">未搜索到结果</p>
+					</div>
+				</div>
+				<div id="scroll-view" class="full fl" style="margin-bottom:3%;"></div>
+			</div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="../minjs/refresh.min.js"></script>
+<script src="../js/article.min.js"></script>
+<script src="../js/imgcache.js"></script>
+<script type="text/javascript">
+	var userinfo = base.GetUserInfo();
+	var currpage = 1;
+	var totalpage = 1;
+	var isLoading = false;
+	var pagesize = 10;
+	var searchval = "";
+	var search = base.Get("search");
+	var loader = base.Get("loader");
+	var PageName = "searchinfo";
+	var self = null;
+	mui.init({
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
+
+	mui.ready(function() {
+		base.Immersed();
+		base.ToTop();
+
+		InitSearch(function() {
+			loader.classList.add("hide");
+		})
+	});
+
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+
+		//监听软键盘搜索键
+		base.Get("search").addEventListener("keydown", function(e) {
+			if(13 == e.keyCode) {
+				document.activeElement.blur();
+				Search();
+			}
+		}, false);
+
+		mui("#info").on('tap', '.items div', function(event) {
+			search.focus();
+			search.value = this.innerHTML;
+			search.blur();
+			Search();
+		});
+
+		base.ShowArticle("#scroll", "List", userinfo.Number);
+		base.ShowUser("#scroll");
+		ArticleAction("#scroll-view", userinfo);
+		base.UserFan("#scroll-user", userinfo);
+	});
+
+	function Search() {
+		if(base.RepeatAction()) {
+			return;
+		}
+		if(search.value.trim() == "") {
+			return mui.toast("请输入搜索内容");
+		}
+		loader.classList.remove("hide");
+
+		base.AddClass(["#info", "#scroll-user-title", "#scroll-user"], "hide");
+		base.Get("scroll").classList.remove("hide");
+
+		mui.later(function() {
+			LoadUser();
+			currpage = 1;
+			totalpage = 1;
+			Load(function() {
+				SetPullEnable(false);
+				pulldownRefresh();
+				document.addEventListener("plusscrollbottom", pullupRefresh, false);
+			});
+			loader.classList.add("hide");
+		}, 500);
+	}
+
+	function Load(callback) {
+		var data = {
+			page: currpage,
+			rows: pagesize,
+			UserNumber: userinfo.Number,
+			ID: userinfo.ID,
+			Title: search.value
+		}
+		LoadPull("", base.RootUrl + "Api/Article/Search", data, true, false, function(item) {
+			return AppendArticle(userinfo.Number, item, false, false, true)
+		}, function() {
+			if(callback) {
+				callback();
+			}
+		});
+	}
+
+	function LoadUser(callback) {
+		base.AddClass(["#scroll-user-title", "#scroll-user"], "hide");
+		base.RemoveClass(["#scroll-view-title"], "hide");
+		var table = base.Get("scroll-user");
+		table.innerHTML = "";
+		var data = {
+			page: 1,
+			rows: 10,
+			UserNumber: userinfo.Number,
+			NickName: search.value
+		}
+		HttpGet(base.RootUrl + "Api/User/Search", data, function(data) {
+			data = JSON.parse(data);
+			if(data != null) {
+				if(data.result) {
+					data = data.message;
+					if(data.records > 0) {
+						var fragment = document.createDocumentFragment();
+						mui.each(data.list, function(index, item) {
+							fragment.appendChild(base.AppendUser(item, true, true, false, "", false, true));
+						});
+						table.appendChild(fragment);
+						base.RemoveClass(["#scroll-user-title", "#scroll-user"], "hide");
+
+						if(data.records > 10) {
+							base.Get("more").classList.remove("hide");
+						}
+					}
+				}
+			}
+		});
+	}
+
+	function ShowUser() {
+		base.ShowTemplate("searchuser", "searchuser_new.html", "相关用户", JSON.stringify({
+			Search: search.value
+		}));
+	}
+
+	function InitSearch(callback) {
+		base.Get("info").innerHTML = "";
+		HttpGet(base.RootUrl + "System/Search", {}, function(data) {
+			if(data != null) {
+				if(data.records > 0) {
+					var i = 0;
+					var html = [];
+					html.push('<p class="f12 full mb0 fl">小微篇热搜榜</p>');
+					data.list.forEach(x => {
+						i = i + 1;
+						if(i == 1) {
+							html.push('<div class="items f13">');
+						}
+						html.push('<div>' + x + '</div>');
+						if(i == 2) {
+							html.push('</div>');
+							i = 0;
+						}
+					})
+					if(i > 0) {
+						html.push('</div>');
+					}
+					base.Get("info").innerHTML = html.join('');
+
+					base.Get("info").style.animation = "fadeInUp 0.5s ease";
+					base.Get("info").style.webkitanimation = "fadeInUp 0.5s ease"
+				}
+			}
+			if(callback) {
+				callback();
+			}
+		});
+	}
+
+	function Exit() {
+		SetPullEnable(false);
+		base.AddClass(["#scroll", "#none"], "hide");
+		base.Get("info").classList.remove("hide");
+		base.Get("scroll-user").innerHTML = "";
+		base.InnerHtml(["scroll-user", "scroll-view"], "");
+		search.value = "";
+		search.blur();
+		base.Get("divSearch").classList.remove("mui-active");
+	}
+</script>
