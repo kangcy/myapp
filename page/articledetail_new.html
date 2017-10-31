@@ -84,6 +84,9 @@
 				</div>
 			</div>
 		</div>
+		<nav class="mui-bar mui-bar-tab tc" style="bottom:0.5rem;" onclick="Submit()">
+			<div class="button button-block button-rounded button-primary inline" style="width:90%;font-size:18px;">申请恢复</div>
+		</nav>
 		<!--底部-->
 		<div class="mui-bar mui-bar-tab hide" id="bottomAction" style="background:#fff;">
 			<div class="flex-box flex-row f13 tc" style="padding:5px 5px;">
@@ -263,7 +266,7 @@
 		$wrapper2.style.top = base.Get("header").clientHeight + "px";
 
 		base.ToTop();
- 
+
 		//点赞
 		$divzan.addEventListener('tap', function(event) {
 			if(isLoading) {
@@ -337,12 +340,13 @@
 				base.Get("password").classList.add("hide");
 				$wrapper.classList.remove("hide");
 
-				base.Get("bottomAction").classList.remove("hide");
-				base.Get("bottomAction").classList.add("bounceIn");
-
-				//启用打赏
-				if(Article.IsPay == 1 && userinfo.Number != Article.CreateUserNumber) {
-					base.Get("btnPay").classList.remove("hide");
+				if(Source != "Delete") {
+					base.Get("bottomAction").classList.remove("hide");
+					base.Get("bottomAction").classList.add("bounceIn");
+					//启用打赏
+					if(Article.IsPay == 1 && userinfo.Number != Article.CreateUserNumber) {
+						base.Get("btnPay").classList.remove("hide");
+					}
 				}
 				InitShowy(Article.Showy);
 
@@ -384,7 +388,9 @@
 			if(userinfo.ID != data.UserID) {
 				base.ShowUser("#body");
 			} else {
-				base.RemoveClass(["#action"], "hide");
+				if(Source != "Delete") {
+					base.RemoveClass(["#action"], "hide");
+				}
 			}
 		});
 
@@ -592,7 +598,7 @@
 					if(userinfo.Number == data.CreateUserNumber) {
 						$wrapper.classList.remove("hide");
 						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
-						mui.later(function() { 
+						mui.later(function() {
 							InitShowy(data.Showy);
 						}, 1000)
 					} else {
@@ -605,13 +611,15 @@
 						}
 					}
 
-					if(!base.HasClass($wrapper, "hide")) {
-						base.Get("bottomAction").classList.remove("hide");
-						base.Get("bottomAction").classList.add("bounceIn");
+					if(Source != "Delete") {
+						if(!base.HasClass($wrapper, "hide")) {
+							base.Get("bottomAction").classList.remove("hide");
+							base.Get("bottomAction").classList.add("bounceIn");
 
-						//启用打赏
-						if(data.IsPay == 1 && userinfo.Number != data.CreateUserNumber) {
-							base.Get("btnPay").classList.remove("hide");
+							//启用打赏
+							if(data.IsPay == 1 && userinfo.Number != data.CreateUserNumber) {
+								base.Get("btnPay").classList.remove("hide");
+							}
 						}
 					}
 				} else {
@@ -723,6 +731,18 @@
 				snow.init(src, 1, 0)
 			}
 		}
+	}
+
+	function Submit(number) {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		HttpGet(base.RootUrl + "Article/Revoke", {
+			ArticleNumber: number
+		}, function(data) {
+			isLoading = false;
+		});
 	}
 
 	//分享信息

@@ -1641,7 +1641,8 @@
 			"images/article/btn_good2.png",
 			"images/article/btn_pay.png",
 			"images/article/view.png",
-			"images/article/btn_more.png"
+			"images/article/btn_more.png",
+			"page/keep.html"
 		],
 		"refer": [
 			"page/keepSub.html",
@@ -1762,7 +1763,8 @@
 			"images/avatar.png",
 			"js/imgcache.js",
 			"js/base.min.js",
-			"images/loading.gif"
+			"images/loading.gif",
+			"page/fan.html"
 		],
 		"refer": [
 			"page/fanSub.html",
