@@ -134,7 +134,7 @@
 					<p class="f12 full mb0 fl">相关用户<span id="more" class="c999 f12 fr hide" onclick="ShowUser()" style="position:relative;padding-right:1rem;">更多<span class="mui-icon mui-icon-arrowright f16" style="position:absolute;right:0px;top:0.8rem;"></span></span>
 					</p>
 				</div>
-				<div id="scroll-user" class="full fl hide" style="margin-bottom:3%;background:#fff;"></div>
+				<div id="scroll-user" class="full fl hide" style="padding: 0 0.5rem;margin-bottom:3%;background:#fff;"></div>
 				<div id="scroll-view-title" class="scroll_title fl hide">
 					<p class="f12 full mb0 fl">相关文章</p>
 					<div id="none" class="full tc mt50 mb20 hide">
@@ -156,11 +156,6 @@
 <script src="../js/article.min.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
-	var userinfo = base.GetUserInfo();
-	var currpage = 1;
-	var totalpage = 1;
-	var isLoading = false;
-	var pagesize = 10;
 	var searchval = "";
 	var search = base.Get("search");
 	var loader = base.Get("loader");

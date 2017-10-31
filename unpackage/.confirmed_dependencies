@@ -2571,7 +2571,8 @@
 			"images/base/follow2.png",
 			"js/imgcache.js",
 			"images/loading.gif",
-			"images/base/follow0.png"
+			"images/base/follow0.png",
+			"page/follow.html"
 		],
 		"refer": [
 			"page/followSub.html",
@@ -4284,7 +4285,10 @@
 			"images/base/follow0.png",
 			"images/base/follow1.png",
 			"mincss/mui.min.css",
-			"page/searchuser_new.html"
+			"page/searchuser_new.html",
+			"minjs/base.min.js",
+			"minjs/mui.min.js",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/user.html"
