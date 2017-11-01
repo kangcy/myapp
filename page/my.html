@@ -110,7 +110,8 @@
 
 		//用户设置
 		base.Get("avatar").addEventListener('tap', function() {
-			base.OpenWindow("mysetting", "mysetting.html", {});
+			//base.OpenWindow("mysetting", "mysetting.html", {});
+			base.ShowTemplate("mysetting", "mysetting.html", "个人信息", JSON.stringify({}));
 		});
 
 		//我的文章
@@ -182,7 +183,8 @@
 
 		//系统设置
 		base.Get("my-setting").addEventListener('tap', function() {
-			base.OpenWindow("setting", "setting.html", {})
+			base.ShowTemplate("setting", "setting.html", "通用设置", JSON.stringify({}));
+			//base.OpenWindow("setting", "setting.html", {})
 			//base.OpenWindowNew("setting.html",'setting');  
 		});
 

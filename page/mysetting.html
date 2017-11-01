@@ -22,12 +22,12 @@
 			.flex-row {
 				padding: 0.825rem 0.9375rem;
 				position: relative;
-				background: #fff;
+				background: #fff; 
 			}
 			
 			.flex-row:after {
 				position: absolute;
-				right: 0.8rem;
+				right: 0;
 				bottom: 0;
 				left: 0.8rem;
 				height: 1px;
@@ -88,111 +88,105 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">个人信息</h1>
-		</header>
-		<div class="mui-content" id="muicontent">
-			<div class="flex-box flex-row f13 mt0" id="divavatar">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<img src="../images/my/2-08.png" class="flex-img" /><span class="c000 mt2">头像</span>
-				</div>
-				<div style="flex:0 0 75%;" class="flex-item tr">
-					<img class="head-img mui-action-preview fr" id="avatar" src="../images/avatar.png" style="width:4rem;height:4rem;border-radius:50%;" />
-				</div>
+		<div class="flex-box flex-row f13 mt0" id="divavatar">
+			<div style="flex:0 0 25%;" class="flex-item">
+				<img src="../images/my/2-08.png" class="flex-img" /><span class="c000 mt2">头像</span>
 			</div>
-			<div class="flex-box flex-row f13 mt0" id="editnickname">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<img src="../images/my/2-01.png" class="flex-img" /><span class="c000 fl">昵称</span>
-				</div>
-				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999 f12" id="nickname"></span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-					<span class="mui-badge mui-badge-danger hide"></span>
-				</div>
+			<div style="flex:0 0 75%;" class="flex-item tr">
+				<img class="head-img mui-action-preview fr" id="avatar" src="../images/avatar.png" style="width:4rem;height:4rem;border-radius:50%;" />
 			</div>
-			<div class="flex-box flex-row f13 mt0 hide">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<span class="c000">ID</span>
-				</div>
-				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999" id="userid"></span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-				</div>
+		</div>
+		<div class="flex-box flex-row f13 mt0" id="editnickname">
+			<div style="flex:0 0 25%;" class="flex-item">
+				<img src="../images/my/2-01.png" class="flex-img" /><span class="c000 fl">昵称</span>
 			</div>
-			<div class="flex-box flex-row f13 mt0 hide" id="age">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<img src="../images/my/2-07.png" class="flex-img" /><span class="c000">微龄</span>
-				</div>
-				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999 f12" id="userage">0天</span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-				</div>
+			<div style="flex:0 0 70%;" class="flex-item">
+				<span class="fr c999 f12" id="nickname"></span>
 			</div>
-			<div class="flex-box flex-row f13 mt0" id="sexPicker">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<img src="../images/my/2-02.png" class="flex-img" /><span class="c000">性别</span>
-				</div>
-				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999 f12" id="sex"></span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-				</div>
+			<div style="flex:0 0 5%;" class="flex-item tc">
+				<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+				<span class="mui-badge mui-badge-danger hide"></span>
 			</div>
-			<div class="flex-box flex-row f13 mt0" id="starPicker">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<img src="../images/my/2-03.png" class="flex-img" /><span class="c000">星座</span>
-				</div>
-				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999 f12" id="star"></span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-				</div>
+		</div>
+		<div class="flex-box flex-row f13 mt0 hide">
+			<div style="flex:0 0 25%;" class="flex-item">
+				<span class="c000">ID</span>
 			</div>
-			<div class="flex-box flex-row f13 mt0" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker" style="position:relative;">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<img src="../images/my/2-09.png" class="flex-img" /><span class="c000">生日</span>
-				</div>
-				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999 f12" id="time"></span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-					<span class="mui-badge mui-badge-danger hide"></span>
-				</div>
+			<div style="flex:0 0 70%;" class="flex-item">
+				<span class="fr c999" id="userid"></span>
 			</div>
-			<div class="flex-box flex-row noborder f13 mt0" id="cityPicker">
-				<div style="flex:0 0 25%;" class="flex-item">
-					<img src="../images/my/2-06.png" class="flex-img" /><span class="c000">所在地</span>
-				</div>
-				<div style="flex:0 0 70%;" class="flex-item">
-					<span class="fr c999 f11" id="city"></span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-					<span class="mui-badge mui-badge-danger hide"></span>
-				</div>
+			<div style="flex:0 0 5%;" class="flex-item tc">
+				<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
 			</div>
-			<div class="splitline"></div>
-			<div class="flex-box flex-row noborder f13 mt0" id="editsignature">
-				<div style="flex:0 0 30%;" class="flex-item">
-					<img src="../images/my/2-05.png" class="flex-img" /><span class="c000 fl">个性签名</span>
-				</div>
-				<div style="flex:0 0 65%;" class="flex-item tr">
-					<span class="fr c999 f12" id="signature"></span>
-				</div>
-				<div style="flex:0 0 5%;" class="flex-item tc">
-					<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
-					<span class="mui-badge mui-badge-danger hide"></span>
-				</div>
+		</div>
+		<div class="flex-box flex-row f13 mt0 hide" id="age">
+			<div style="flex:0 0 25%;" class="flex-item">
+				<img src="../images/my/2-07.png" class="flex-img" /><span class="c000">微龄</span>
+			</div>
+			<div style="flex:0 0 70%;" class="flex-item">
+				<span class="fr c999 f12" id="userage">0天</span>
+			</div>
+			<div style="flex:0 0 5%;" class="flex-item tc">
+				<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+			</div>
+		</div>
+		<div class="flex-box flex-row f13 mt0" id="sexPicker">
+			<div style="flex:0 0 25%;" class="flex-item">
+				<img src="../images/my/2-02.png" class="flex-img" /><span class="c000">性别</span>
+			</div>
+			<div style="flex:0 0 70%;" class="flex-item">
+				<span class="fr c999 f12" id="sex"></span>
+			</div>
+			<div style="flex:0 0 5%;" class="flex-item tc">
+				<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+			</div>
+		</div>
+		<div class="flex-box flex-row f13 mt0" id="starPicker">
+			<div style="flex:0 0 25%;" class="flex-item">
+				<img src="../images/my/2-03.png" class="flex-img" /><span class="c000">星座</span>
+			</div>
+			<div style="flex:0 0 70%;" class="flex-item">
+				<span class="fr c999 f12" id="star"></span>
+			</div>
+			<div style="flex:0 0 5%;" class="flex-item tc">
+				<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+			</div>
+		</div>
+		<div class="flex-box flex-row f13 mt0" data-options='{"type":"date","beginYear":"1949","endYear":"2050"}' id="timePicker" style="position:relative;">
+			<div style="flex:0 0 25%;" class="flex-item">
+				<img src="../images/my/2-09.png" class="flex-img" /><span class="c000">生日</span>
+			</div>
+			<div style="flex:0 0 70%;" class="flex-item">
+				<span class="fr c999 f12" id="time"></span>
+			</div>
+			<div style="flex:0 0 5%;" class="flex-item tc">
+				<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+				<span class="mui-badge mui-badge-danger hide"></span>
+			</div>
+		</div>
+		<div class="flex-box flex-row noborder f13 mt0" id="cityPicker">
+			<div style="flex:0 0 25%;" class="flex-item">
+				<img src="../images/my/2-06.png" class="flex-img" /><span class="c000">所在地</span>
+			</div>
+			<div style="flex:0 0 70%;" class="flex-item">
+				<span class="fr c999 f11" id="city"></span>
+			</div>
+			<div style="flex:0 0 5%;" class="flex-item tc">
+				<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+				<span class="mui-badge mui-badge-danger hide"></span>
+			</div>
+		</div>
+		<div class="splitline"></div>
+		<div class="flex-box flex-row noborder f13 mt0" id="editsignature">
+			<div style="flex:0 0 30%;" class="flex-item">
+				<img src="../images/my/2-05.png" class="flex-img" /><span class="c000 fl">个性签名</span>
+			</div>
+			<div style="flex:0 0 65%;" class="flex-item tr">
+				<span class="fr c999 f12" id="signature"></span>
+			</div>
+			<div style="flex:0 0 5%;" class="flex-item tc">
+				<span class="mui-icon mui-icon-arrowright c999 f16 fr"></span>
+				<span class="mui-badge mui-badge-danger hide"></span>
 			</div>
 		</div>
 	</body>
@@ -266,15 +260,11 @@
 		});
 
 		base.Get('sexPicker').addEventListener('tap', function(event) {
-			//base.OpenWindow("star", "star.html", {});
-			var param = {}
-			base.ShowTemplate("sex", "sex.html", "性别", JSON.stringify(param));
+			base.ShowTemplate("sex", "sex.html", "性别", JSON.stringify({}));
 		});
 
 		base.Get('starPicker').addEventListener('tap', function(event) {
-			//base.OpenWindow("star", "star.html", {});
-			var param = {}
-			base.ShowTemplate("star", "star.html", "星座", JSON.stringify(param));
+			base.ShowTemplate("star", "star.html", "星座", JSON.stringify({}));
 		});
 
 		//日期

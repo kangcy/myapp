@@ -227,7 +227,9 @@
 			"page/zan.html",
 			"page/star.html",
 			"page/sex.html",
-			"page/searchuser_new.html"
+			"page/searchuser_new.html",
+			"page/setting.html",
+			"page/mysetting.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
@@ -251,7 +253,9 @@
 			"page/subindex.html",
 			"page/star.html",
 			"page/sex.html",
-			"page/searchuser_new.html"
+			"page/searchuser_new.html",
+			"page/mysetting.html",
+			"page/secretsetting.html"
 		]
 	},
 	"page/setting.html": {
@@ -303,7 +307,8 @@
 			"page/accountsetting.html",
 			"page/secretsetting.html",
 			"page/update.html",
-			"page/temporaryuser.html"
+			"page/temporaryuser.html",
+			"page/template.html"
 		]
 	},
 	"page/reg.html": {
@@ -514,7 +519,8 @@
 			"page/money.html",
 			"page/imageview.html",
 			"page/imageviewer.html",
-			"page/articledetail_new.html"
+			"page/articledetail_new.html",
+			"page/article_delete.html"
 		]
 	},
 	"page/articleSub.html": {
@@ -1250,7 +1256,8 @@
 			"images/my/1-08.png",
 			"images/my/1-03.png",
 			"images/my/2-08.png",
-			"images/my/2-09.png"
+			"images/my/2-09.png",
+			"images/my/1-05.png"
 		],
 		"refer": [
 			"page/editsignature.html",
@@ -4096,7 +4103,9 @@
 			"images/article/1.png",
 			"images/article/2.png",
 			"images/article/off.png",
-			"images/login/pwd.png"
+			"images/login/pwd.png",
+			"css/buttons.css",
+			"images/search/hot.png"
 		],
 		"refer": [
 			"page/addarticle.html",
@@ -4330,6 +4339,28 @@
 			"page/action.html",
 			"page/imageviewer.html",
 			"page/template.html"
+		]
+	},
+	"page/article_delete.html": {
+		"resources": [
+			"css/buttons.css",
+			"js/imgcache.js",
+			"minjs/base.min.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"fonts/mui.ttf",
+			"minjs/article.min.js",
+			"mincss/animate.min.css",
+			"minjs/refresh.min.js",
+			"images/default.png",
+			"images/article/btn_good.png",
+			"images/article/view.png",
+			"images/article/btn_comment.png",
+			"images/article/power0.png",
+			"images/article/btn_good2.png"
+		],
+		"refer": [
+			"page/articledetail_new.html"
 		]
 	}
 }

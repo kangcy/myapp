@@ -102,7 +102,7 @@
 			CreateUserNumber: userinfo.Number
 		}
 		LoadPull("", base.RootUrl + "Api/Black/All", data, true, false, function(item) {
-			return base.AppendUser(item, true, false, true, "移除黑名单");
+			return base.AppendUser(item, true, false, true, "解除黑名单");
 		}, callback);
 	}
 </script>

@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="../mincss/input.min.css">
 		<link rel="stylesheet" href="../css/articledetail.min.css">
 		<link rel="stylesheet" href="../css/demo.css">
+		<link rel="stylesheet" href="../css/buttons.css">
 		<style type="text/css">
 			#topPopover {
 				position: fixed;
@@ -32,6 +33,59 @@
 				height: 100%;
 				left: 0;
 				top: 0;
+			}
+			
+			#delete {
+				background: #fff;
+				height: 50px;
+				line-height: 50px;
+				font-size: 16px;
+			}
+			
+			#delete div {
+				width: 50%;
+				float: left;
+				display: inline-block;
+				position: relative;
+			}
+			
+			#delete:before {
+				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #e8e8e8;
+			}
+			
+			#delete div {
+				position: relative;
+				text-indent: 1rem;
+			}
+			
+			#delete div:nth-child(even):after {
+				position: absolute;
+				top: 10px;
+				right: 0;
+				left: 0;
+				width: 1px;
+				height: 30px;
+				content: '';
+				-webkit-transform: scaleX(.5);
+				transform: scaleX(.5);
+				background-color: #e8e8e8;
+			}
+			
+			#delete .mui-icon {
+				font-size: 30px;
+				padding: 0px;
+				position: absolute;
+				left: 1.2rem;
+				top: 10px;
 			}
 		</style>
 	</head>
@@ -84,8 +138,9 @@
 				</div>
 			</div>
 		</div>
-		<nav class="mui-bar mui-bar-tab tc" style="bottom:0.5rem;" onclick="Submit()">
-			<div class="button button-block button-rounded button-primary inline" style="width:90%;font-size:18px;">申请恢复</div>
+		<nav id="delete" class="mui-bar mui-bar-tab tc hide">
+			<div class="c333" onclick="Revoke()"><span class="mui-icon mui-icon-undo"></span>文章恢复</div>
+			<div class="red" onclick="DeleteCompletely()"><span class="mui-icon mui-icon-trash"></span>彻底删除</div>
 		</nav>
 		<!--底部-->
 		<div class="mui-bar mui-bar-tab hide" id="bottomAction" style="background:#fff;">
@@ -610,8 +665,10 @@
 							}, 1000)
 						}
 					}
-
-					if(Source != "Delete") {
+					if(Source == "Delete") {
+						base.Get("delete").classList.remove("hide");
+						base.Get("delete").classList.add("bounceIn");
+					} else {
 						if(!base.HasClass($wrapper, "hide")) {
 							base.Get("bottomAction").classList.remove("hide");
 							base.Get("bottomAction").classList.add("bounceIn");
@@ -624,8 +681,7 @@
 					}
 				} else {
 					mui.toast(data.message);
-					plus.webview.currentWebview().hide();
-					plus.webview.currentWebview().close();
+					self.close();
 				}
 			}
 			if(callback) {
@@ -733,15 +789,56 @@
 		}
 	}
 
-	function Submit(number) {
+	//文章恢复
+	function Revoke() {
 		if(isLoading) {
 			return;
 		}
 		isLoading = true;
+		mask.show();
+		base.ShowWaiting("正在恢复");
 		HttpGet(base.RootUrl + "Article/Revoke", {
-			ArticleNumber: number
+			ArticleNumber: Article.Number
 		}, function(data) {
-			isLoading = false;
+			if(data.result) {
+				base.GetView("article").evalJS("Refresh()");
+				base.GetView("article_delete").evalJS("Refresh()");
+			}
+			mui.later(function() {
+				if(data.result) {
+					self.close();
+				} else {
+					mask.close();
+					mui.toast(data.message);
+				}
+				isLoading = false;
+			}, 500);
+		});
+	}
+
+	//彻底删除
+	function DeleteCompletely() {
+		if(isLoading) {
+			return; 
+		}
+		isLoading = true;
+		mask.show(); 
+		base.ShowWaiting("正在彻底删除");
+		HttpGet(base.RootUrl + "Article/DeleteCompletely", {
+			ArticleNumber: Article.Number
+		}, function(data) {
+			if(data.result) {
+				base.GetView("article_delete").evalJS("Refresh()");
+			}
+			mui.later(function() {
+				if(data.result) {
+					self.close();
+				} else {
+					mask.close();
+					mui.toast(data.message);
+				}
+				isLoading = false;
+			}, 500);
 		});
 	}
 

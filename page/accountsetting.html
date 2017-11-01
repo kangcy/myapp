@@ -9,58 +9,58 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/setting.min.css">
+		<style type="text/css">
+			body {
+				background: #f5f5f5;
+			}
+		</style>
 	</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">账号管理</h1>
-		</header>
-		<div class="mui-content f13" id="muicontent">
-			<div class="flex-box flex-row mt8 hide" onclick="BindPwd()">
-				<div class="flex-item c000">
-					密码
-				</div>
-				<div class="flex-item tr c999">
-					<span id="password"></span><span class="mui-icon mui-icon-arrowright f16 ml5"></span>
+	<body class="f13">
+
+		<div class="flex-box flex-row mt8 hide" onclick="BindPwd()">
+			<div class="flex-item c000">
+				密码
+			</div>
+			<div class="flex-item tr c999">
+				<span id="password"></span><span class="mui-icon mui-icon-arrowright f16 ml5"></span>
+			</div>
+		</div>
+		<div class="flex-box flex-row hide" onclick="BindPhone()">
+			<div class="flex-item c000">
+				绑定手机号
+			</div>
+			<div class="flex-item tr c999">
+				<span id="phone"></span><span class="mui-icon mui-icon-arrowright f16 ml5"></span>
+			</div>
+		</div>
+		<div class="flex-box flex-row mt8">
+			<div class="flex-item c000">
+				绑定微信账号
+			</div>
+			<div class="flex-item">
+				<div class="my-switch fr" id="weixinSwitch">
+					<div></div>
 				</div>
 			</div>
-			<div class="flex-box flex-row hide" onclick="BindPhone()">
-				<div class="flex-item c000">
-					绑定手机号
-				</div>
-				<div class="flex-item tr c999">
-					<span id="phone"></span><span class="mui-icon mui-icon-arrowright f16 ml5"></span>
+		</div>
+		<div class="flex-box flex-row noborder">
+			<div class="flex-item c000">
+				绑定QQ账号
+			</div>
+			<div class="flex-item">
+				<div class="my-switch fr" id="qqSwitch">
+					<div></div>
 				</div>
 			</div>
-			<div class="flex-box flex-row mt8">
-				<div class="flex-item c000">
-					绑定微信账号
-				</div>
-				<div class="flex-item">
-					<div class="my-switch fr" id="weixinSwitch">
-						<div></div>
-					</div>
-				</div>
+		</div>
+		<div class="flex-box flex-row noborder hide">
+			<div class="flex-item c000">
+				绑定微博账号
 			</div>
-			<div class="flex-box flex-row noborder">
-				<div class="flex-item c000">
-					绑定QQ账号
-				</div>
-				<div class="flex-item">
-					<div class="my-switch fr" id="qqSwitch">
-						<div></div>
-					</div>
-				</div>
-			</div>
-			<div class="flex-box flex-row noborder hide">
-				<div class="flex-item c000">
-					绑定微博账号
-				</div>
-				<div class="flex-item">
-					<div class="my-switch fr" id="weiboSwitch">
-						<div></div>
-					</div>
+			<div class="flex-item">
+				<div class="my-switch fr" id="weiboSwitch">
+					<div></div>
 				</div>
 			</div>
 		</div>
