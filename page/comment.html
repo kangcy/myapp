@@ -29,11 +29,9 @@
 				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
 		</div>
-		<p class="tc c666 f12" id="loader">正在加载中...</p>
+		<p id="loader" class="tc f12">正在加载中...</p>
+		<p id="none" class="full f12 tc hide">既然还没人,那就先去首页逛会儿</p>
 		<textarea id="textarea" class="hide"></textarea>
-		<div id="none" class="full tc hide">
-			<p class="f12" id="none_tip">既然还没人,那就先去首页逛会儿</p>
-		</div>
 		<div id="divcomment"></div>
 	</body>
 
@@ -59,14 +57,14 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
-		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 	})
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		InitComment();
-		SetPullEnable(true)
+		SetPullEnable(false)
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//重置未读推送信息

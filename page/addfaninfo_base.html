@@ -150,7 +150,8 @@
 			}
 			
 			.jroll-infinite-tip {
-				padding: 1rem 0 1rem 0;
+				line-height: 2.75rem;
+				height: 2.75rem;
 			}
 		</style>
 	</head>
@@ -296,7 +297,7 @@
 							});
 						},
 						render: function(data) {
-							var div = base.AppendUser(data, false, true, false, "", true, true)
+							var div = base.AppendUser(data, false, false, true, true, 1);
 							return div.outerHTML;
 						}
 					});
@@ -344,7 +345,7 @@
 						});
 					},
 					render: function(data) {
-						var div = base.AppendUser(data, true, true, false, "", false, true);
+						var div = base.AppendUser(data, true, false, false, true, 1);
 						return div.outerHTML;
 					}
 				});

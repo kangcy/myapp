@@ -19,13 +19,11 @@
 			<a class="mui-icon mui-text cfff fr" id="register" onclick="Register()">注册</a>
 			<h1 class="mui-title cfff">关联账号</h1>
 		</header>
-		<p class="tc c666 f12" id="loader">正在加载中...</p>
+		<p id="loader" class="tc f12">正在加载中...</p>
+		<p id="none" class="full f12 tc hide">暂无关联账号</p>
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inline full">
 			</div>
-		</div>
-		<div id="none" class="full tc hide">
-			<p class="f12" id="none_tip">暂无关联账号</p>
 		</div>
 	</body>
 
@@ -50,12 +48,12 @@
 	});
 
 	mui.ready(function() {
-		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 
 		base.Immersed();
 		base.ToTop();
-	});
+	}); 
 
 	mui.plusReady(function() {
 		Load();
@@ -92,7 +90,7 @@
 						var user = data.message;
 						var info = {
 							ID: user.ID,
-							Sex: user.Sex, 
+							Sex: user.Sex,
 							Signature: user.Signature,
 							Password: user.Password,
 							Avatar: user.Avatar == "" ? base.DefaultImg : user.Avatar,

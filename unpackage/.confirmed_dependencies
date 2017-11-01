@@ -436,7 +436,8 @@
 			"page/mypic.html",
 			"page/addarticle.html",
 			"page/tip.html",
-			"page/template.html"
+			"page/template.html",
+			"page/article_keep.html"
 		]
 	},
 	"page/article.html": {
@@ -2646,7 +2647,8 @@
 			"mincss/loading.min.css",
 			"minjs/mui.min.js",
 			"minjs/base.min.js",
-			"js/imgcache.js"
+			"js/imgcache.js",
+			"js/base.min.js"
 		],
 		"refer": [
 			"page/user.html"
@@ -2691,7 +2693,8 @@
 			"mincss/setting.min.css"
 		],
 		"refer": [
-			"page/black.html"
+			"page/black.html",
+			"page/template.html"
 		]
 	},
 	"page/tipsetting.html": {
@@ -4361,6 +4364,30 @@
 		],
 		"refer": [
 			"page/articledetail_new.html"
+		]
+	},
+	"page/article_keep.html": {
+		"resources": [
+			"images/article/btn_good.png",
+			"images/base/follow0.png",
+			"js/imgcache.js",
+			"mincss/mui.min.css",
+			"minjs/mui.min.js",
+			"images/article/btn_comment.png",
+			"fonts/mui.ttf",
+			"images/avatar.png",
+			"minjs/article.min.js",
+			"images/article/btn_good2.png",
+			"images/default.png",
+			"minjs/refresh.min.js",
+			"images/article/view.png",
+			"minjs/base.min.js",
+			"images/article/btn_more.png",
+			"mincss/animate.min.css",
+			"js/article.min.js"
+		],
+		"refer": [
+			"page/action.html"
 		]
 	}
 }

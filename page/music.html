@@ -131,15 +131,13 @@
 		<nav class="mui-bar mui-bar-tab tc" id="search" style="bottom:1rem;">
 			<div class="button button-glow button-rounded button-raised button-primary button-large" style="width:90%;font-size:18px;"><span class="mui-icon mui-icon-search" style="font-size:25px;margin-right:5px;"></span>搜索在线音乐</div>
 		</nav>
-		<p class="tc c666 f12" id="loader">正在加载中...</p>
+		<p id="loader" class="tc f12">正在加载中...</p>
+		<p id="none" class="full f12 tc hide"></p>
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inli full" style="padding-bottom:50px;"></div>
 			<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
 			</div>
-		</div>
-		<div id="none" class="full tc hide">
-			<p class="f12" id="none_tip"></p>
 		</div>
 		<div class="mytanbg hide" id="mytanbg"></div>
 		<div id="menus" class="hide">
@@ -312,8 +310,8 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 
 		mui("#scroll-view").on('tap', '.music', function(event) {
 			base.OpenWindow("musicsearch", "musicsearch.html", {

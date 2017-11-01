@@ -21,15 +21,10 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<div class="mui-title cfff" id="title"></div>
 		</header>
-		<p class="tc c666 f12" id="loader">正在加载中...</p>
+		<p id="loader" class="tc f12">正在加载中...</p>
+		<p id="none" class="full f12 tc hide">好内容记得收藏,让我们不再错过</p>
 		<div id="muicontent" class="inline full">
-			<div id="scroll-view" class="inline full"></div>
-			<div id="scroll-more" class="full hide">
-				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div>
-		</div>
-		<div id="none" class="full tc hide">
-			<p class="f12" id="none_tip">好内容记得收藏,让我们不再错过</p>
+			<div id="scroll-view" class="inline full" style="margin-bottom:3%;"></div>
 		</div>
 	</body>
 
@@ -37,13 +32,13 @@
 <script src="../minjs/mui.min.js"></script>
 <script src="../minjs/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
-	var PageName = "keep";
+	var PageName = "keep"; 
 	var UserNumber = "";
 	var self = null;
-
+ 
 	mui.init({
 		gestureConfig: {
 			doubletap: true
@@ -60,8 +55,8 @@
 	mui.ready(function() {
 		base.Immersed();
 		base.ToTop();
-		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 	});
 
 	mui.plusReady(function() {

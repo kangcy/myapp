@@ -111,9 +111,7 @@
 			<div id="scroll-view" class="inline full">
 			</div>
 		</div>
-		<div id="none" class="full tc hide">
-			<p class="f12" id="none_tip">还未设置背景哦，创建一个吧</p>
-		</div>
+		<p id="none" class="full f12 tc hide">还未设置背景哦，创建一个吧</p>
 	</body>
 
 </html>
@@ -143,7 +141,7 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 
 		mui('#uploadwrapper').load("../part/pic.html", function(response) {
 			base.RemoveClass(["#create"], "hide");

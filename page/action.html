@@ -67,7 +67,7 @@
 				<li class="mui-table-view-cell hide noborder" id="action_outfollow">
 					<a href="#" class="c333 f13" onclick="OutFollow()">取消关注</a>
 				</li>
-				<li class="mui-table-view-cell noborder">
+				<li class="mui-table-view-cell hide noborder" id="report">
 					<a href="#" class="red f13" onclick="Report()">举报</a>
 				</li>
 				<li class="mui-table-view-cell noborder">
@@ -104,7 +104,10 @@
 			var type = self.Type || -1;
 			var iskeep = self.IsKeep || -1;
 			var isfollow = self.IsFollow || -1;
-
+			var ismy = self.IsMy || -1;
+			if(ismy != 1) {
+				base.Get("report").classList.remove("hide");
+			}
 			if(type == 1) {
 				length = 0;
 				files = [];
@@ -150,7 +153,7 @@
 			}
 		});
 
-		function ResetAction(type, pagename, iskeep, isfollow) {
+		function ResetAction(type, pagename, iskeep, isfollow, ismy) {
 			plus.webview.show("action", "none", 0, function() {
 				PageName = pagename;
 				if(type == 1) {
@@ -160,6 +163,9 @@
 					compressTotal = 0; //需要压缩图片个数
 					currUploadImg = [];
 					mui('#upload').popover('show');
+				}
+				if(ismy != 1) {
+					base.Get("report").classList.remove("hide");
 				}
 				if(type == 2) {
 					//判断收藏

@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<style type="text/css">
 			#list {
 				display: inline-block;
@@ -47,15 +46,9 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">求助或建议</h1>
 		</header>
-		<div class="mui-content mui-scroll-wrapper tc" id="muicontent">
-			<div class="loading" id="loader">
-				<div class="card">
-					<span class="circles-loader"></span>
-				</div>
-			</div>
-			<div class="mui-scroll">
-				<div id="list" class="hide">
-				</div>
+		<p id="loader" class="tc f12">正在加载中...</p>
+		<div class="mui-content tc" id="muicontent">
+			<div id="list" class="hide">
 			</div>
 		</div>
 	</body>
@@ -72,11 +65,9 @@
 		}
 	});
 
-	mui.ready(function() {
+	mui.ready(function() { 
 		base.Immersed();
-
-		base.InitScroll();
-
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
 		LoadHelpType();
 	});
 
@@ -87,7 +78,7 @@
 				tid: tid
 			});
 		});
-	});
+	}); 
 
 	//加载类型
 	function LoadHelpType() {
@@ -112,8 +103,10 @@
 					}
 				}
 			}
-			base.ShowLoading(false);
-			base.Get("list").classList.remove("hide");
+			mui.later(function() {
+				base.ShowLoading(false);
+				base.Get("list").classList.remove("hide");
+			}, 250);
 		});
 	}
 

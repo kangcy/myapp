@@ -57,10 +57,10 @@
 		<div id="black" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder c999 f11">
-					你将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对你的文章做互动操作
+					您将不再关注Ta,并屏蔽Ta的文章，<br /> Ta不能对您的文章做互动操作
 				</li>
 				<li class="mui-table-view-cell noborder">
-					<a href="#" class="red f13" onclick="InBlack()">确认加入</a>
+					<a href="#" class="red f13" onclick="InBlack()">确定加入</a>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -541,7 +541,7 @@
 			data = JSON.parse(data);
 			base.CheckLogin(userinfo, data.code);
 			if(data != null) {
-				mui.toast(data.result ? "加入黑名单成功" : "加入黑名单失败");
+				mui.toast(data.result ? "您已把" + NickName + "加入黑名单" : "加入黑名单失败");
 				if(data.result) {
 					base.UpdateFan(userinfo, data.message);
 					self.reload();
@@ -567,7 +567,7 @@
 			data = JSON.parse(data);
 			base.CheckLogin(userinfo, data.code);
 			if(data != null) {
-				mui.toast(data.result ? "解除黑名单成功" : "解除黑名单失败");
+				mui.toast(data.result ? "您已把" + NickName + "从黑名单中移除" : "解除黑名单失败");
 				if(data.result) {
 					self.reload();
 					var black = base.GetView("black");

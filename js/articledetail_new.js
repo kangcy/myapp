@@ -187,7 +187,8 @@ function Delete() {
 							localStorage.setItem('$userinfo', JSON.stringify(userinfo));
 							base.RefreshUser();
 
-							plus.webview.close("articledetail");
+							base.GetView("article").evalJS("Refresh()");
+							self.close();
 						}
 					}
 				}, 500);
@@ -297,7 +298,7 @@ function Keep() {
 
 //取消收藏
 function OutKeep() {
-	mui.confirm('确认取消收藏？', '', ['确认', '取消'], function(e) {
+	mui.confirm('确定要取消收藏吗？', '', ['确定', '取消'], function(e) {
 		if(e.index < 0) {
 			return;
 		}

@@ -26,11 +26,9 @@
 	</head>
 
 	<body>
-		<p class="tc c666 f12" id="loader">正在加载中...</p>
+		<p id="loader" class="tc f12">正在加载中...</p>
+		<p id="none" class="full f12 tc hide"></p>
 		<div id="scroll-view" class="inline full"></div>
-		<div id="none" class="full tc hide">
-			<p class="f12" id="none_tip"></p>
-		</div>
 	</body>
 
 </html>
@@ -51,9 +49,9 @@
 	});
 
 	mui.ready(function() {
-		base.Get("none_tip").innerHTML = "发布有趣的内容,获得更多的粉丝";
-		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").innerHTML = "发布有趣的内容,获得更多的粉丝";
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 	})
 
 	mui.plusReady(function() {
@@ -69,7 +67,7 @@
 	function Init() {
 		pulldownRefresh();
 
-		SetPullEnable(true, "0px");
+		SetPullEnable(false, "0px");
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		base.ShowUser("#scroll-view");
@@ -84,7 +82,7 @@
 			CurrUserNumber: userinfo.Number
 		}
 		LoadPull("", base.RootUrl + "Api/Fan/FansAll", data, true, false, function(item) {
-			return base.AppendUser(item, true, true, false, "", false, true, true);
+			return base.AppendUser(item, true, false, false, true, 1)
 		}, function() {
 			if(callback) {
 				callback();

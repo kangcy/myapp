@@ -26,10 +26,8 @@
 	</head>
 
 	<body>
-		<p class="tc c666 f12" id="loader">正在加载中...</p>
-		<div id="none" class="full tc hide">
-			<p class="f12" id="none_tip"></p>
-		</div>
+		<p id="loader" class="tc f12">正在加载中...</p>
+		<p id="none" class="full f12 tc hide"></p>
 		<div id="scroll-view" class="inline full"></div>
 	</body>
 
@@ -54,17 +52,17 @@
 	});
 
 	mui.ready(function() {
-		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 	})
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		UserNumber = self.UserNumber;
 		if(userinfo.Number == UserNumber) {
-			base.Get("none_tip").innerHTML = "关注别人,第一时间得到他们的动态";
+			base.Get("none").innerHTML = "关注别人,第一时间得到他们的动态";
 		} else {
-			base.Get("none_tip").innerHTML = "关注了,才能看到第一时间动态呀";
+			base.Get("none").innerHTML = "关注了,才能看到第一时间动态呀";
 		}
 
 		Init();
@@ -72,7 +70,7 @@
 
 	function Init() {
 		pulldownRefresh();
-		SetPullEnable(true, "0px");
+		SetPullEnable(false, "0px");
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 		base.ShowUser("#scroll-view");
 		base.UserFan("#scroll-view", userinfo);
@@ -86,7 +84,7 @@
 			CurrUserNumber: userinfo.Number
 		}
 		LoadPull("", base.RootUrl + "Api/Fan/FollowsAll", data, true, false, function(item) {
-			return base.AppendUser(item, true, true, false, "", false, true, true);
+			return base.AppendUser(item, true, false, false, true, 1)
 		}, function() {
 			if(callback) {
 				callback();

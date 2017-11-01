@@ -13,26 +13,18 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<h1 class="mui-title cfff">黑名单</h1>
-		</header>
-		<p class="tc c666 f12" id="loader">正在加载中...</p>
-		<div id="muicontent" class="inline full">
-			<div id="scroll-view" class="inline full">
-			</div>
-		</div>
-		<div id="none" class="full tc hide">
-			<p class="f12" id="none_tip">加入黑名单的用户将无法浏览你的专栏</p>
+		<p id="loader" class="tc f12">正在加载中...</p>
+		<p id="none" class="full f12 tc hide">加入黑名单的用户将无法浏览你的专栏</p>
+		<div id="scroll-view" class="inline full" style="margin-bottom:3%;">
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../minjs/base.min.js"></script> 
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
-	var totalpage = 0;
+	var totalpage = 0; 
 	var records = 0;
 	var userinfo = base.GetUserInfo();
 
@@ -48,11 +40,10 @@
 	});
 
 	mui.ready(function() {
-		base.Get("loader").style.marginTop = window.innerHeight * 0.3 + "px";
-		base.Get("none_tip").style.marginTop = window.innerHeight * 0.3 + "px";
+		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
+		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 
 		base.Immersed();
-		base.ToTop();
 	});
 
 	mui.plusReady(function() {
@@ -60,18 +51,16 @@
 
 		base.ShowUser("#scroll-view");
 
-		//取消拉黑
-		mui("#scroll-view").on('tap', '.mui-btn', function(event) {
+		mui("#scroll-view").on('tap', '.blackrelease', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
-			var li = this.parentNode.parentNode;
-			mui.confirm('确认移除黑名单？', '', ['确认', '取消'], function(e) {
+			var li = this.parentNode.parentNode.parentNode;
+			mui.confirm('确定要解除黑名单吗？', '', ['确定', '取消'], function(e) {
 				if(e.index < 0) {
 					return;
 				}
 				if(e.index == 0) {
-					mui.swipeoutClose(li);
 					HttpGet(base.RootUrl + "Api/Black/Delete", {
 						ID: userinfo.ID,
 						ToUserNumber: li.getAttribute("userid")
@@ -88,8 +77,6 @@
 							mui.toast(data.message);
 						}
 					});
-				} else {
-					mui.swipeoutClose(li);
 				}
 			});
 		});
@@ -102,7 +89,7 @@
 			CreateUserNumber: userinfo.Number
 		}
 		LoadPull("", base.RootUrl + "Api/Black/All", data, true, false, function(item) {
-			return base.AppendUser(item, true, false, true, "解除黑名单");
+			return base.AppendUser(item, true, false, false, true, 2);
 		}, callback);
 	}
 </script>

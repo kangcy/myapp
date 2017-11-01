@@ -150,7 +150,8 @@
 			}
 			
 			.jroll-infinite-tip {
-				padding: 1rem 0 1rem 0;
+				line-height: 2.75rem;
+				height: 2.75rem;
 			}
 			
 			#tabs {
@@ -268,8 +269,8 @@
 	});
 
 	mui.ready(function() {
-		base.Immersed();
-		//base.Immersed_White();
+		//base.Immersed();
+		base.Immersed_White();
 
 		mui.each(base.Get(".cancel"), function() {
 			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
@@ -319,7 +320,7 @@
 							});
 						},
 						render: function(data) {
-							var div = base.AppendUser(data, false, true, false, "", true, true)
+							var div = base.AppendUser(data, false, false, true, true, 1)
 							return div.outerHTML;
 						}
 					});
@@ -363,7 +364,7 @@
 						});
 					},
 					render: function(data) {
-						var div = base.AppendUser(data, true, true, false, "", false, true);
+						var div = base.AppendUser(data, true, false, false, true, 1)
 						return div.outerHTML;
 					}
 				});
