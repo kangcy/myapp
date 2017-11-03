@@ -202,24 +202,24 @@
 			
 			.themeIcons {
 				display: inline-block;
-				width: 80%;
+				width: 90%;
 				text-align: center;
 				position: fixed;
 				bottom: 1rem;
-				left: 10%;
+				left: 5%;
 				z-index: 2000;
 			}
 			
 			.themeIcons .items {
-				width: 33.3%;
+				width: 25%;
 				display: inline;
 				float: left;
 				text-align: center;
 			}
 			
 			.themeIcons .items div {
-				width: 4rem;
-				height: 4rem;
+				width: 3.5rem;
+				height: 3.5rem;
 				display: inline-block;
 				border-radius: 100%;
 				color: #fff;
@@ -236,7 +236,7 @@
 				color: #fff;
 				width: 80%;
 				display: inline-block;
-				margin-top: 4.5rem;
+				margin-top: 4rem;
 			}
 			
 			.themeIcons div.div1 {
@@ -249,6 +249,10 @@
 			
 			.themeIcons div.div3 {
 				background-image: url(../images/preview/9.png);
+			}
+			
+			.themeIcons div.div4 {
+				background-image: url(../images/preview/2.png);
 			}
 			
 			#music1 {
@@ -469,6 +473,11 @@
 			<div class="items">
 				<div class="div3" onclick="ShowShowy()" style="background-color:#D147EA;">
 					<p class="f12">漂浮</p>
+				</div>
+			</div>
+			<div class="items">
+				<div class="div4" onclick="ShowMusic()" style="background-color:#9BC402;">
+					<p class="f12">音乐</p>
 				</div>
 			</div>
 		</div>
@@ -925,15 +934,6 @@
 			}
 		});
 
-		//音乐
-		base.Get('music').addEventListener('tap', function(event) {
-			base.OpenWindow("music", "music.html", {
-				ArticleID: ArticleID,
-				MusicID: MusicID,
-				MusicName: MusicName
-			});
-		});
-
 		//标题
 		title.addEventListener('tap', function(event) {
 			var html = title.innerHTML.trim();
@@ -1388,9 +1388,10 @@
 			}
 		});
 	}
-
+ 
 	//修改音乐
 	function UpdateMusic(musicID, musicName, musicUrl, source) {
+		console.log(musicName);
 		MusicID = musicID;
 		MusicName = musicName;
 		MusicUrl = musicUrl;
@@ -1402,6 +1403,7 @@
 			plus.webview.close("music", "none");
 			plus.webview.close("musicsearch");
 		}
+		ChangeMusic();
 	}
 
 	//保存
@@ -1884,6 +1886,14 @@
 			}
 			base.Get("music" + (CurrTemplate == 0 ? 0 : 1)).classList.remove("hide");
 		}
+	}
+
+	function ShowMusic() {
+		base.OpenWindow("music", "music.html", {
+			ArticleID: ArticleID,
+			MusicID: MusicID,
+			MusicName: MusicName
+		});
 	}
 
 	//自定义装扮
