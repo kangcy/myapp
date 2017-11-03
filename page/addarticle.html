@@ -911,7 +911,7 @@
 		window.addEventListener('scroll', function(e) {
 			if(IsIconShow && !IsIconScroll) {
 				IsIconScroll = true;
-				if(num > window.pageYOffset + 10) {
+				if(num > window.pageYOffset) {
 					btnIcon.classList.remove("hide");
 					btnIcon.classList.remove("bounceOutUp");
 					btnIcon.classList.add("bounceInUp");
@@ -978,6 +978,10 @@
 
 		//新增切换 
 		mui('#edit').on('tap', '.edit-add', function() {
+			IsIconShow = false;
+			mui.later(function() {
+				IsIconShow = true;
+			}, 250);
 			var $this = $(this);
 			currEditID = $this.parents(".edit-body").find(".edit-content").attr("id");
 			$("#edit").find(".icons").addClass("hide");

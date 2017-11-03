@@ -530,14 +530,14 @@
 						item.setAttribute("cover", data.Cover);
 					})
 
-					//段落 
+					//段落  
 					var html = [];
 					var parts = data.ArticlePart;
 					for(var i = 0; i < parts.length; i++) {
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
+							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
 						} else if(part.Types == 2) {
 							//文本
 							html.push('<div class="full f13 fl mt10">' + base.UnUnicodeText(part.Introduction) + '</div>');
@@ -819,10 +819,10 @@
 	//彻底删除
 	function DeleteCompletely() {
 		if(isLoading) {
-			return; 
+			return;
 		}
 		isLoading = true;
-		mask.show(); 
+		mask.show();
 		base.ShowWaiting("正在彻底删除");
 		HttpGet(base.RootUrl + "Article/DeleteCompletely", {
 			ArticleNumber: Article.Number

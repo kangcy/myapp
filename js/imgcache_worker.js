@@ -1,3 +1,22 @@
+var base = new function() {
+	this.IsNullOrEmpty = function(str) {
+		if(!str) {
+			return true;
+		}
+		if(str == "") {
+			return true;
+		}
+		if(str.toString().toLowerCase() == "null") {
+			return true;
+		}
+		if(str.toString().toLowerCase() == "undefined") {
+			return true;
+		}
+		return false;
+	}
+	this.RootUrl = "http://www.xiaoweipian.com:1010/";
+}
+
 //日期格式化
 Date.prototype.format = function(n) {
 	var i = {
@@ -166,7 +185,7 @@ function setImgSrc($img, srcUrl, relativePath) {
 	if(!srcUrl) {
 		return;
 	}
-	setImgSrcByDom($img, srcUrl); 
+	setImgSrcByDom($img, srcUrl);
 	if(!relativePath) {
 		return;
 	}
@@ -174,7 +193,7 @@ function setImgSrc($img, srcUrl, relativePath) {
 	if(requestImgsPool && requestImgsPool[relativePathKey]) {
 		var imgsData = requestImgsPool[relativePathKey];
 		if(Array.isArray(imgsData)) {
-			mui.each(imgsData, function(i, item) { 
+			mui.each(imgsData, function(i, item) {
 				setImgSrcByDom(item, srcUrl);
 			})
 		} else {
@@ -190,11 +209,14 @@ function setImgSrc($img, srcUrl, relativePath) {
  * @param {String} srcUrl 图片的路径
  */
 function setImgSrcByDom($img, srcUrl) {
-	if(!$img || !($img instanceof HTMLElement)) {
-		return;
-	}
 	srcUrl = MobileFrame.changImgUrlTypeNoCache(srcUrl);
-	$img.setAttribute('src', srcUrl);
+	postMessage($img, srcUrl);
+};
+
+//接收参数
+onmessage = function(e) {
+	console.log(JSON.stringify(e.data))
+	MobileFrame.init(e.data.id, e.data.url);
 };
 
 var MobileFrame = {};
@@ -206,7 +228,7 @@ var ImgLoaderFactory = {};
  * @param {String} loadUrl 网络图片路径
  */
 ImgLoaderFactory.setImgWidthLocalCache = function(img, loadUrl) {
-	if(img == null || base.IsNullOrEmpty(loadUrl)) return;
+	if(base.IsNullOrEmpty(loadUrl)) return;
 
 	//判断需不需要将路径进行编码,如果是中文路径,需要编码后才能下载
 	var tmpLoadUrl = loadUrl.replace(/[\u4E00-\u9FA5]/g, 'chineseRemoveAfter');
@@ -386,12 +408,10 @@ function addImageToGroup(url) {
 };
 
 //初始化
-MobileFrame.init = function(img) {
-	img.removeAttribute("onload");
-	var src = img.getAttribute('data-lazyload');
+MobileFrame.init = function(img, src) {
 	if(!base.IsNullOrEmpty(src)) {
 		if(src.toString().toLowerCase().indexOf("http://") < 0) {
-			src = base.UploadUrl + src;
+			src = base.RootUrl + src;
 		}
 		ImgLoaderFactory.setImgWidthLocalCache(img, src);
 	}

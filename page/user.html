@@ -146,7 +146,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
 	var PageName = "";
@@ -214,11 +214,15 @@
 			base.Get("title").innerHTML = NickName + "的专栏";
 		}
 		if(!base.IsNullOrEmpty(Avatar)) {
-			base.Get("avatar").setAttribute("src", base.ShowThumb(Avatar, 2));
+			LazyCover(base.ShowThumb(Avatar, 2), function() {
+				base.Get("avatar").setAttribute("src", this.src);
+			});
 		}
 		if(!base.IsNullOrEmpty(Cover)) {
-			$bg.style.background = "url(" + base.ShowThumb(Cover, 1) + ") center center no-repeat";
-			$bg.style.backgroundSize = "cover";
+			LazyCover(base.ShowThumb(Cover, 1), function() {
+				$bg.style.background = "url(" + this.src + ") center center no-repeat";
+				$bg.style.backgroundSize = "cover";
+			});
 		}
 
 		//分享设置
@@ -266,11 +270,15 @@
 			base.Get("title").innerHTML = NickName + "的专栏";
 		}
 		if(!base.IsNullOrEmpty(Avatar)) {
-			base.Get("avatar").setAttribute("src", base.ShowThumb(Avatar, 2));
+			LazyCover(base.ShowThumb(Avatar, 2), function() {
+				base.Get("avatar").setAttribute("src", this.src);
+			});
 		}
 		if(!base.IsNullOrEmpty(Cover)) {
-			$bg.style.background = "url(" + base.ShowThumb(Cover, 1) + ") center center no-repeat";
-			$bg.style.backgroundSize = "cover";
+			LazyCover(base.ShowThumb(Cover, 1), function() {
+				$bg.style.background = "url(" + this.src + ") center center no-repeat";
+				$bg.style.backgroundSize = "cover";
+			});
 		}
 
 		LoadUserInfo();
@@ -289,12 +297,16 @@
 
 				Sex = data.Sex;
 				if(base.IsNullOrEmpty(Cover) || Cover != data.Cover) {
-					$bg.style.background = "url(" + base.ShowThumb(data.Cover, 1) + ") center center no-repeat";
-					$bg.style.backgroundSize = "cover";
+					LazyCover(base.ShowThumb(data.Cover, 1), function() {
+						$bg.style.background = "url(" + this.src + ") center center no-repeat";
+						$bg.style.backgroundSize = "cover";
+					});
 				}
 				if(base.IsNullOrEmpty(Avatar) || Avatar != data.Avatar) {
 					Avatar = data.Avatar;
-					base.Get("avatar").setAttribute("src", base.ShowThumb(data.Avatar, 2));
+					LazyCover(base.ShowThumb(data.Avatar, 2), function() {
+						base.Get("avatar").setAttribute("src", this.src);
+					});
 				}
 				if(base.IsNullOrEmpty(NickName) || NickName != data.NickName) {
 					NickName = base.UnUnicodeText(data.NickName);
