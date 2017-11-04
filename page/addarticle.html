@@ -425,11 +425,6 @@
 		</header>
 		<p id="loader" class="tc f12">正在加载中...</p>
 		<div id="tip" class="hide"><img src="../images/tip/title.png" class="tip1" /><img src="../images/tip/know.png" class="tip2" onclick="CloseTip()" /></div>
-		<div class="mui-bar mui-bar-nav initial f11 cfff full hide" id="cover" style="height:auto;">
-			<div class="info-body" style="margin-top:12rem">
-				<div id="music" class="btn fl tl mb15 hide"><img src="../images/addarticle/icon_music.png" class="fl" /><span class="fl" id="musicname"></span></div>
-			</div>
-		</div>
 		<!--主题色-->
 		<div class="swiper-container hide" id="mycolor" style="bottom:0px;background:rgba(0, 0, 0, .5);height:auto;width:auto;">
 			<div class="swiper-wrapper">
@@ -1391,11 +1386,9 @@
  
 	//修改音乐
 	function UpdateMusic(musicID, musicName, musicUrl, source) {
-		console.log(musicName);
 		MusicID = musicID;
 		MusicName = musicName;
 		MusicUrl = musicUrl;
-		base.Get("musicname").innerHTML = (MusicID == 0 && base.IsNullOrEmpty(MusicName) ? "无背景音乐" : MusicName);
 		if(source == "music") {
 			plus.webview.close("musicsearch", "none");
 			plus.webview.close("music");
@@ -1403,6 +1396,7 @@
 			plus.webview.close("music", "none");
 			plus.webview.close("musicsearch");
 		}
+		base.Get("musicname0").innerHTML = musicName;
 		ChangeMusic();
 	}
 
@@ -1611,8 +1605,6 @@
 					MusicID = data.MusicID;
 					MusicName = data.MusicName;
 					MusicUrl = data.MusicUrl;
-					$("#musicname").html(MusicID == 0 ? "无背景音乐" : MusicName);
-					$("#music").removeClass("hide");
 
 					base.Get("cover").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
 					base.Get("cover").style.backgroundSize = "cover";
