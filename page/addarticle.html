@@ -903,8 +903,6 @@
 		base.Immersed();
 
 		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
-		base.Get("cover").style.top = base.Get("header").clientHeight + "px";
-
 		$wrapper.style.paddingTop = base.Get("header").clientHeight + "px";
 		$wrapper.style.minHeight = (window.innerHeight + 5) + "px";
 		$wrapper2.style.top = base.Get("header").clientHeight + "px";
@@ -1605,9 +1603,6 @@
 					MusicID = data.MusicID;
 					MusicName = data.MusicName;
 					MusicUrl = data.MusicUrl;
-
-					base.Get("cover").style.backgroundImage = "url(" + base.ShowThumb(Cover, 2) + ")";
-					base.Get("cover").style.backgroundSize = "cover";
 
 					if(Title != "") {
 						$("#title").html(Title == "我的小微篇" ? "点击输入文章标题" : Title);

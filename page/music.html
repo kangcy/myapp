@@ -11,113 +11,62 @@
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../css/buttons.css">
 		<style type="text/css">
-			#scroll-view {
-				width: 100%;
-				margin-top: 0rem;
-				display: inline-block;
+			.play {
+				background: url(../images/music/start.png) center center no-repeat;
+				background-size: 100% 100%;
+				width: 1.5rem;
+				height: 1.5rem;
 			}
 			
-			#scroll-view .items {
-				display: inline-block;
-				width: 90%;
-				margin: 0 5% 0.5rem;
+			.stop {
+				background: url(../images/music/stop.png) center center no-repeat;
+				background-size: 100% 100%;
+				width: 1.5rem;
+				height: 1.5rem;
 			}
 			
-			#scroll-view .items img {
-				width: 5rem;
-				height: 5rem;
+			.stopMusic img {
+				border-radius: 100%;
+				animation: rotate 4s linear infinite;
+				-webkit-animation: rotate 4s linear infinite;
+				-ms-animation: rotate 4s linear infinite;
+				-moz-animation: rotate 4s linear infinite;
+				-o-animation: rotate 4s linear infinite;
 			}
 			
-			.play_name {
-				display: block;
-				height: 3rem;
-				overflow: hidden;
-				font-family: arial, 'pingfang sc', stheiti, 'microsoft yahei', sans-serif;
-				line-height: 3rem;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				color: #333 !important;
-				margin-bottom: 0px;
+			.mui-table-view-cell {
+				padding: .8rem 0.9375rem;
 			}
 			
-			.play_info {
-				float: right;
-				width: 12rem;
+			.mui-table-view:after {
+				height: 0px;
 			}
 			
-			.play_info .song_name {
-				display: block;
-				height: 1.8rem;
-				overflow: hidden;
-				line-height: 1.8rem;
-				color: #888;
-				text-overflow: ellipsis;
-				white-space: nowrap;
+			.mui-table-view-cell:last-child:after,
+			.mui-table-view-cell:last-child:before {
+				height: 0px !important;
 			}
 			
-			#menus,
-			.tit_sub_nav {
-				width: 100%;
-				text-align: center;
-				display: inline-block;
+			.mui-popup-title+.mui-popup-text {
+				display: none;
 			}
 			
-			#menus {
+			.mui-bar-tab div {
+				font-size: 16px;
+				height: 50px;
+				line-height: 50px;
+			}
+			
+			#topPopover {
 				position: fixed;
-				bottom: 0px;
-				left: 0;
-				width: 100%;
-				background: #fff;
-				z-index: 9999;
-				padding-top: 1rem;
+				top: 80px !important;
+				right: 6px;
+				width: 150px;
 			}
 			
-			#menus img {
-				width: 4rem;
-				margin: 0.8rem;
-				margin-top: 0px;
-			}
-			
-			.tit_sub_nav div {
-				width: 25%;
-				float: left;
-				display: inline-block;
-				line-height: 2.2rem;
-				color: #999;
-			}
-			
-			.tanclose {
-				position: relative;
-				display: inline-block;
-				vertical-align: middle;
-				color: #999;
-				width: 2rem;
-				height: 2rem;
-				margin: 2rem 0 0;
-			}
-			
-			.tanclose:before {
-				content: '';
-				position: absolute;
-				left: 0;
-				top: 0px;
-				width: 1.8rem;
-				height: 0.08rem;
-				background-color: currentColor;
-				-webkit-transform: rotate(-45deg);
-				transform: rotate(-45deg);
-			}
-			
-			.tanclose:after {
-				content: '';
-				position: absolute;
-				left: 0;
-				top: 0px;
-				width: 1.8rem;
-				height: 0.08rem;
-				background-color: currentColor;
-				-webkit-transform: rotate(45deg);
-				transform: rotate(45deg);
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
 			}
 		</style>
 	</head>
@@ -125,177 +74,54 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-text cfff fr" onclick="Choose(1)">分类</a>
-			<h1 class="mui-title cfff" id="title">音乐库</h1>
+			<a class="mui-icon mui-text cfff fr" href="#topPopover">分类</a>
+			<h1 class="mui-title cfff" id="title">音乐排行榜</h1>
 		</header>
-		<nav class="mui-bar mui-bar-tab tc" id="search" style="bottom:1rem;">
-			<div class="button button-block button-rounded button-primary inline button-large" style="width:90%;font-size:18px;"><span class="mui-icon mui-icon-search" style="font-size:25px;margin-right:5px;"></span>搜索在线音乐</div>
+		<nav class="mui-bar mui-bar-tab" id="bottom" style="border-top:1px solid #eee;background:#fff;">
+			<div class="fl blue inline tc" id="no" style="width:25%;">取消</div>
+			<div style="width:50%;" class="inline fl tc"><span id="search" class="mui-icon mui-icon-search" style="font-size:25px;margin-right:5px;"></span></div>
+			<div class="fr blue inline tc" id="yes" style="width:25%;">完成</div>
 		</nav>
+		<!--操作-->
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<ul class="mui-table-view tc f12" style="background:#fff;">
+				<li id="popover_delete" onclick="Load(0)" class="mui-table-view-cell">
+					热门歌曲榜
+				</li>
+				<li id="popover_copy" onclick="Load(1)" class="mui-table-view-cell">
+					原创歌曲榜
+				</li>
+				<li id="popover_edit" onclick="Load(2)" class="mui-table-view-cell">
+					ACG音乐榜
+				</li>
+				<li id="popover_edit" onclick="Load(3)" class="mui-table-view-cell">
+					古典音乐榜
+				</li>
+				<li id="popover_edit" onclick="Load(4)" class="mui-table-view-cell">
+					KTV唛榜
+				</li>
+
+			</ul>
+		</div>
 		<p id="loader" class="tc f12">正在加载中...</p>
 		<p id="none" class="full f12 tc hide"></p>
 		<div id="muicontent" class="inline full">
-			<div id="scroll-view" class="inli full" style="padding-bottom:50px;"></div>
-		</div>
-		<div class="mytanbg hide" id="mytanbg"></div>
-		<div id="menus" class="hide">
-			<img src="../images/music/sort_01.png" onclick="ChangeType(0)" />
-			<img src="../images/music/sort_02.png" onclick="ChangeType(1)" />
-			<img src="../images/music/sort_03.png" onclick="ChangeType(2)" />
-			<img src="../images/music/sort_04.png" onclick="ChangeType(3)" />
-			<img src="../images/music/sort_05.png" onclick="ChangeType(4)" />
-			<img src="../images/music/sort_06.png" onclick="ChangeType(5)" />
-			<div class="splitline"></div>
-			<div class="tit_sub_nav f11">
-				<div>英语</div>
-				<div>华语</div>
-				<div>网络</div>
-				<div>影视热歌</div>
-				<div>韩语</div>
-				<div>日语</div>
-				<div>小语种</div>
-				<div>情歌</div>
-				<div>粤语</div>
-				<div>毕业季</div>
-				<div>K歌金曲</div>
-				<div>情人节</div>
-				<div>节日</div>
-				<div>红歌</div>
-				<div>我是歌手</div>
-				<div>浪漫</div>
-				<div>广场舞</div>
-				<div>圣诞节</div>
-				<div>中国好歌曲</div>
-				<div>音乐节</div>
-				<div>母亲节</div>
-				<div>生日</div>
-				<div>电视剧</div>
-				<div>电影</div>
-			</div>
-			<div class="tit_sub_nav f11 hide">
-				<div>伤感</div>
-				<div>安静</div>
-				<div>欢快</div>
-				<div>甜蜜</div>
-				<div>孤单</div>
-				<div>感性</div>
-				<div>思念</div>
-				<div>心痛</div>
-				<div>治愈</div>
-				<div>叛逆</div>
-				<div>宣泄</div>
-				<div>失落</div>
-				<div>励志</div>
-				<div>平静</div>
-				<div>轻松</div>
-				<div>软弱时</div>
-				<div>兴奋</div>
-				<div>幸福</div>
-				<div>悲痛</div>
-				<div>珍惜</div>
-				<div>开心</div>
-				<div>疲惫时</div>
-				<div>难过</div>
-				<div>失望</div>
-			</div>
-			<div class="tit_sub_nav f11 hide">
-				<div>流行</div>
-				<div>摇滚</div>
-				<div>R&amp;B</div>
-				<div>轻音乐</div>
-				<div>舞曲</div>
-				<div>电子</div>
-				<div>嘻哈</div>
-				<div>古典</div>
-				<div>蓝调</div>
-				<div>乡村</div>
-				<div>民谣</div>
-				<div>DJ</div>
-				<div>爵士</div>
-				<div>慢摇</div>
-				<div>新世纪</div>
-				<div>拉丁</div>
-				<div>HIP-HOP</div>
-				<div>英伦</div>
-				<div>歌剧</div>
-				<div>说唱</div>
-				<div>金属</div>
-				<div>朋克</div>
-				<div>童谣</div>
-				<div>布鲁斯</div>
-			</div>
-			<div class="tit_sub_nav f11 hide">
-				<div>休闲</div>
-				<div>睡前</div>
-				<div>减压</div>
-				<div>旅行</div>
-				<div>开车</div>
-				<div>下午茶</div>
-				<div>散步</div>
-				<div>聚会</div>
-				<div>运动</div>
-				<div>约会</div>
-				<div>写作业</div>
-				<div>工作</div>
-				<div>做家务</div>
-				<div>校园</div>
-				<div>离别</div>
-				<div>失眠</div>
-				<div>结婚</div>
-				<div>跑步</div>
-				<div>工作中</div>
-				<div>阅读</div>
-				<div>午休</div>
-				<div>学习</div>
-				<div>派对</div>
-				<div>进餐</div>
-			</div>
-			<div class="tit_sub_nav f11 hide">
-				<div>90后</div>
-				<div>致青春</div>
-				<div>经典好歌</div>
-				<div>小清新</div>
-				<div>动漫</div>
-				<div>80后</div>
-				<div>夜店嗨歌</div>
-				<div>网络热歌</div>
-				<div>中国风</div>
-				<div>DJ慢摇</div>
-				<div>神曲</div>
-				<div>70后</div>
-				<div>综艺热歌</div>
-				<div>游戏</div>
-				<div>儿歌童谣</div>
-				<div>胎教</div>
-				<div>巅峰榜</div>
-			</div>
-			<div class="tit_sub_nav f11 hide">
-				<div>音乐达人</div>
-				<div>华语男歌手</div>
-				<div>华语女歌手</div>
-				<div>韩日组合</div>
-				<div>韩日女歌手</div>
-				<div>音乐DJ</div>
-				<div>华语组合</div>
-				<div>韩日男歌手</div>
-				<div>乐评人</div>
-				<div>艺人</div>
-				<div>欧美女歌手</div>
-				<div>欧美男歌手</div>
-				<div>音乐人</div>
-				<div>音乐机构</div>
-				<div>欧美组合</div>
-			</div>
-			<div class="splitline"></div>
-			<span class="tanclose" onclick="Choose(0)"></span>
+			<ul class="mui-table-view f13 mt0 inline full" id="scroll-view" style="padding-bottom:50px;"></ul>
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
 <script type="text/javascript">
-	var name = "";
+	var currpage = 1;
+	var totalpage = 2;
+	var records = 0;
+	var country = "";
+	var fileId = 0;
+	var fileName = "";
+	var fileUrl = "";
 	var self = null;
 	mui.init({
 		beforeback: function() {
@@ -310,28 +136,10 @@
 		base.Get("loader").style.paddingTop = window.innerHeight * 0.3 + "px";
 		base.Get("none").style.paddingTop = window.innerHeight * 0.3 + "px";
 
-		mui("#scroll-view").on('tap', '.music', function(event) {
-			base.OpenWindow("musicsearch", "musicsearch.html", {
-				name: this.getAttribute("name"),
-				searchtype: this.getAttribute("type")
-			});
-		});
-
-		mui(".tit_sub_nav").on('tap', 'div', function(event) {
-			name = this.innerHTML;
-			base.Get("title").innerHTML = name;
-			currpage = 1;
-			totalpage = 2;
-			base.Get('scroll-view').innerHTML = "";
-			Choose(0);
-			Load(function() {
-				++currpage;
-				isLoading = false;
-			})
-		});
-
 		//搜索  
 		base.Get("search").addEventListener('tap', function(event) {
+			stopsound();
+			resetsound();
 			mui.later(function() {
 				base.OpenWindow("musicsearch", "musicsearch.html", {
 					name: "",
@@ -339,64 +147,131 @@
 				});
 			}, 150)
 		});
+
+		//取消
+		base.Get('no').addEventListener('tap', function(e) {
+			base.RemoveClass([".mui-icon"], "play stop uncheck");
+			base.RemoveClass([".stopMusic"], "stopMusic");
+			stopsound();
+			resetsound();
+		});
+
+		//确定
+		base.Get('yes').addEventListener('tap', function(e) {
+			if(fileId <= 0) {
+				return mui.toast("还未选择音乐")
+			}
+			base.GetView('addarticle').evalJS("UpdateMusic('" + fileId + "','" + fileName + "','" + fileUrl + "','music')");
+		});
+
+		mui("#scroll-view").on('tap', 'li.music', function(event) {
+			if(base.TriggerMain) {
+				return;
+			}
+			fileId = this.getAttribute("fileId");
+			fileName = this.getAttribute("fileName");
+			fileUrl = this.getAttribute("fileUrl");
+			base.RemoveClass([".music"], "stopMusic");
+			base.RemoveClass([".mui-icon"], "play stop");
+			base.AddClass([".mui-icon"], "uncheck");
+			mui.each(this.querySelectorAll(".mui-icon"), function(index, item) {
+				item.classList.remove("uncheck");
+				item.classList.add("play");
+			});
+			stopsound();
+			resetsound();
+		});
+
+		//播放
+		mui("#scroll-view").on('tap', '.play', function(event) {
+			base.TriggerMain = true;
+			mui.later(function() {
+				base.TriggerMain = false;
+			}, 500)
+			this.classList.remove("play");
+			this.classList.add("stop");
+			this.parentNode.classList.add("stopMusic");
+			playsound();
+		});
+
+		//暂停
+		mui("#scroll-view").on('tap', '.stop', function(event) {
+			base.TriggerMain = true;
+			mui.later(function() {
+				base.TriggerMain = false;
+			}, 500)
+			this.parentNode.classList.remove("stopMusic");
+			this.classList.remove("stop");
+			this.classList.add("play");
+			stopsound();
+		});
 	});
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		pulldownRefresh();
-		SetPullEnable(true);
-		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+		Load(0);
 	});
 
-	function Load(callback) {
+	function Load(hottype) {
+		mui('#topPopover').popover('hide');
+		base.Get("scroll-view").innerHTML = "";
+		base.ShowLoading(true);
+		stopsound();
+		resetsound();
 		var data = {
-			page: currpage,
-			rows: pagesize,
-			name: base.IsNullOrEmpty(name) ? "全部" : name
+			hottype: hottype
 		}
-		LoadPull("", base.RootUrl + "Api/Music/SearchMenu", data, true, false, function(item) {
-			return AppendMenuHtml(item)
+		LoadPull("", base.RootUrl + "Api/Music/MusicTop", data, true, false, function(item) {
+			return AppendHtml(item)
 		}, function() {
-			callback();
 			if(records == 0) {
 				mui.toast("音乐服务暂时关闭");
 			}
 		});
 	}
 
-	function AppendMenuHtml(item) {
-		var div = document.createElement('div');
+	function AppendHtml(item) {
+		var div = document.createElement('li');
+		div.className = 'mui-table-view-cell music';
+		div.setAttribute("fileId", item.ID);
+		div.setAttribute("fileName", item.Author + "「" + item.Name + "」");
+		div.setAttribute("fileUrl", item.FileUrl);
 		var model = [];
-		model.push('<div class="items"><p class="play_name f13"><span class="music" name="' + item.Link + '" type="1">' + item.Name + '</span></p>');
-		model.push('<img src="' + item.Cover + '">');
-		model.push('<div class="play_info">');
-		mui.each(item.Child, function(i, x) {
-			model.push('<span class="song_name f11"><span class="music" name="' + x.Name + '" type="0">' + x.Name + '</span> - <span class="music" name="' + x.Author + '" type="0">' + x.Author + '</span></span>');
-		})
-		model.push('</div></div><div class="splitline"></div>');
+		model.push('<img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
+		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt1">' + item.Author + "「" + item.Remark + "」" + '</span></p>');
+		model.push('<span class="fr csubtitle mui-icon uncheck" style="position:absolute;right:0.5rem;top:1rem;"></span>');
 		div.innerHTML = model.join('');
 		return div;
 	}
 
-	function Choose(index) {
-		var menus = base.Get("menus");
-		if(index == 0) {
-			base.Get("mytanbg").classList.add("hide");
-			menus.classList.remove("bounceInUp");
-			menus.classList.add("bounceOutUp");
-			mui.later(function() {
-				base.AddClass(["#mytanbg", "#menus"], "hide");
-			}, 250);
-		} else {
-			base.RemoveClass(["#mytanbg", "#menus"], "hide");
-			menus.classList.remove("bounceOutUp");
-			menus.classList.add("bounceInUp");
+	var audio = base.Get('bgsound');
+	var timestamp = 0;
+
+	function resetsound() {
+		if(audio != null) {
+			document.body.removeChild(audio);
+			audio = null;
+		}
+		audio = document.createElement('audio');
+		audio.id = 'bgsound';
+		audio.loop = 'loop';
+		audio.innerHTML = '<source src="' + fileUrl + '" type="audio/mpeg">';
+		document.body.appendChild(audio);
+	}
+
+	function playsound() {
+		if(audio != null) {
+			if(audio.paused) {
+				audio.play();
+			}
 		}
 	}
 
-	function ChangeType(index) {
-		base.AddClass([".tit_sub_nav"], "hide");
-		mui(".tit_sub_nav")[index].classList.remove("hide")
-
+	function stopsound() {
+		if(audio != null) {
+			if(!audio.paused) {
+				audio.pause();
+			}
+		}
 	}
 </script>
