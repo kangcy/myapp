@@ -243,7 +243,8 @@ function Upload(imgurl, callback) {
 		if(data != null) {
 			if(data.result) {
 				if(callback) {
-					callback(base.UploadUrl + data.message);
+					//callback(base.UploadUrl + data.message);
+					callback(data.message);
 				}
 				base.Get("closepop").style.display = "none";
 				base.Get("openpop").style.display = "inline-block";
