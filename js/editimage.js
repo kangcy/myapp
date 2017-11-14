@@ -20,8 +20,8 @@ function InitImg(src) {
 	} else {
 		$image.show();
 		base.Get("openpop").style.display = "inline-block";
+		mask.close();
 	}
-	mask.close();
 }
 
 //拍照
@@ -187,7 +187,7 @@ function rotateimgleft() {
 //打开裁剪窗口
 function openpop() {
 	cutImg(function() {
-
+		mask.close();
 	})
 }
 

@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/province.min.css">
 	</head>
 
@@ -17,11 +16,6 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<div class="mui-title cfff">选择城市</div>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
-				<span class="circles-loader"></span>
-			</div>
-		</div>
 		<div class="mui-content" id="muicontent">
 			<div class="mui-scroll-wrapper" id="scroll-wrapper" style="top:45px;bottom:0px;">
 				<div class="mui-scroll" id="scroll">
@@ -611,8 +605,6 @@
 		mui.each(mui(".mui-indexed-list-item[data-svalue='" + Province + "']"), function(i, item) {
 			item.classList.remove("hide");
 		})
-
-		base.ShowLoading(false);
 
 		mui("#list").on('tap', '.mui-indexed-list-item', function(event) {
 			var city = this.getAttribute("data-value");

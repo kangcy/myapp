@@ -137,8 +137,8 @@
 				<p class="full tc f13 c333 mt50">记录生活中美好的瞬间</p>
 				<div class="tc cfff mt20 submit" id="add">去发布</div>
 			</div>
-			<div id="none" class="mb20 hide">
-				<p class="full tc f13 c333 mt20">暂未发表过动态</p>
+			<div id="usernone" class="mb20 hide">
+				<p class="full tc f13 mt20">暂未发表过动态</p>
 			</div>
 		</div>
 		<div id="blacktip" class="hide f13 red tc mt50">您已经将Ta拉黑</div>
@@ -438,7 +438,7 @@
 				if(userinfo.Number == UserNumber)
 					base.Get("mynone").classList.remove("hide");
 				else
-					base.Get("none").classList.remove("hide");
+					base.Get("usernone").classList.remove("hide");
 			}
 			if(callback) {
 				callback();

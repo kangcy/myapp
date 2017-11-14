@@ -3116,7 +3116,7 @@ select:focus {
 
 .mui-backdrop {
 	position: fixed;
-	z-index: 998;
+	z-index: 1010;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -5236,7 +5236,7 @@ body>.mui-progressbar {
 
 .none {
 	width: 30% !important;
-	margin-top: 25% !important;
+	margin-top: 0% !important;
 }
 
 .splitline {
@@ -5244,30 +5244,6 @@ body>.mui-progressbar {
 	background: #f5f5f5;
 	width: 100%;
 	height: 0.5rem;
-}
-
-
-/**等待框**/
-
-.waiting {
-	position: fixed;
-	top: 42%;
-	width: 80%;
-	margin: 0px 10%;
-	height: 4rem;
-	line-height: 4rem;
-	background: #fff;
-	z-index: 99999999;
-	border-radius: 5px;
-}
-
-.waiting div {
-	display: inline-block;
-}
-
-.waiting div img {
-	width: 1.5rem;
-	margin: 1.25rem 0.75rem 1.25rem 0px;
 }
 
 
@@ -5396,6 +5372,138 @@ body>.mui-progressbar {
 	overflow-y: auto;
 	outline: none;
 }
+
+
+/**加载中**/
+
+@keyframes loading-rotate {
+	100% {
+		transform: rotate(1turn);
+	}
+}
+
+@-webkit-keyframes loading-rotate {
+	100% {
+		transform: rotate(1turn);
+		-webkit-transform: rotate(1turn);
+	}
+}
+
+@-o-keyframes loading-rotate {
+	100% {
+		transform: rotate(1turn);
+		-o-transform: rotate(1turn);
+	}
+}
+
+@-moz-keyframes loading-rotate {
+	100% {
+		transform: rotate(1turn);
+		-moz-transform: rotate(1turn);
+	}
+}
+
+@-ms-keyframes loading-rotate {
+	100% {
+		transform: rotate(1turn);
+		-ms-transform: rotate(1turn);
+	}
+}
+
+@keyframes loading-dash {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: 90, 150;
+		stroke-dashoffset: -40px;
+	}
+	100% {
+		stroke-dasharray: 90, 150;
+		stroke-dashoffset: -120px;
+	}
+}
+
+@-webkit-keyframes loading-dash {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: 90, 150;
+		stroke-dashoffset: -40px;
+	}
+	100% {
+		stroke-dasharray: 90, 150;
+		stroke-dashoffset: -120px;
+	}
+}
+
+
+/**等待框**/
+
+.waiting {
+	position: fixed;
+	top: 42%;
+	width: 80%;
+	margin: 0px 10%;
+	background: #fff;
+	z-index: 99999999;
+	border-radius: 5px;
+}
+
+.waiting div {
+	display: inline-block;
+	padding: 10%;
+	text-align: left;
+	width: 100%;
+	text-indent: 30%;
+	box-shadow: 0px 1px 5px #333;
+}
+
+.circular {
+	position: absolute;
+	left: 20%;
+	top: 25%;
+	width: 2rem;
+	height: 2rem;
+	animation: loading-rotate 2s linear infinite;
+	-webkit-animation: loading-rotate 2s linear infinite;
+	-ms-animation: loading-rotate 2s linear infinite;
+	-moz-animation: loading-rotate 2s linear infinite;
+	-o-animation: loading-rotate 2s linear infinite;
+}
+
+.circular .path {
+	animation: loading-dash 1.5s ease-in-out infinite;
+	stroke-dasharray: 90, 150;
+	stroke-dashoffset: 0;
+	stroke-width: 3;
+	stroke: #0080ff;
+	stroke-linecap: round;
+}
+
+
+/**加载框**/
+
+#loader,
+#none {
+	position: fixed;
+	width: 100%;
+	top: 40%;
+	text-align: center;
+}
+
+#loader div {
+	position: relative;
+	text-indent: 10%;
+}
+
+#loader .circular {
+	top: -0.5rem !important;
+	left: 30% !important;
+}  
 
 
 /*
