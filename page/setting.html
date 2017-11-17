@@ -38,89 +38,72 @@
 	</head>
 
 	<body>
-
-		<div class="flex-box flex-row f13 mt8" onclick="Account()">
-			<div class="flex-item c000">
-				账号管理
-			</div>
-			<div class="flex-item tr">
-				<span class="mui-icon mui-icon-arrowright c999 f16"></span>
-			</div>
-		</div>
-		<div class="flex-box flex-row noborder f13" onclick="Secret()">
-			<div class="flex-item c000">
-				隐私设置
-			</div>
-			<div class="flex-item tr">
-				<span class="mui-icon mui-icon-arrowright c999 f16"></span>
-			</div>
-		</div>
-		<div class="flex-box flex-row f13 mt8">
-			<div class="flex-item" style="flex:0 0 72%">
-				<p class="mt0 mb0 c000">图片水印</p>
-				<span class="c999 f10">开启后新导入图片自动添加水印,以防他人盗图</span>
-			</div>
-			<div class="flex-item tr" style="flex:0 0 28%">
-				<div class="my-switch" id="drawSwitch">
-					<div></div>
+		<div class="mui-content">
+			<div class="splitline"></div>
+			<div class="flex-box flex-row f13" onclick="Account()">
+				<div class="flex-item c000">
+					账号管理
+				</div>
+				<div class="flex-item tr">
+					<span class="mui-icon mui-icon-arrowright c999 f16"></span>
 				</div>
 			</div>
-		</div>
-		<div class="flex-box flex-row f13 hide" id="drawText">
-			<div class="flex-item" style="flex:0 0 28%">
-				<p class="mt0 mb0 c000">水印文字</p>
-			</div>
-			<div class="flex-item tr" style="flex:0 0 72%">
-				<input id="txtDrawText" type="text" placeholder="自定义水印文字" maxlength="20" class="f10 tr" style="margin:0;padding:0;border:0">
-			</div>
-		</div>
-		<div class="flex-box flex-row noborder f13 hide" id="drawImg">
-			<div class="flex-item" style="flex:0 0 28%">
-				<p class="mt0 mb0 c000">水印样式</p>
-			</div>
-			<div class="flex-item tl" style="flex:0 0 72%">
-				<img id="imgDrawImg" style="background: rgba(0,0,0,0.7);width:100%;border-radius:5px;" />
-			</div>
-		</div>
-		<div class="flex-box flex-row f13 mt8">
-			<div class="flex-item c000">
-				<p class="mt0 mb0 c000">分享带昵称</p>
-				<span class="c999 f10">分享后文章标题自动加上作者名</span>
-			</div>
-			<div class="flex-item">
-				<div class="my-switch fr" id="shareNickSwitch">
-					<div></div>
+			<div class="flex-box flex-row f13" onclick="Secret()">
+				<div class="flex-item c000">
+					隐私设置
+				</div>
+				<div class="flex-item tr">
+					<span class="mui-icon mui-icon-arrowright c999 f16"></span>
 				</div>
 			</div>
-		</div>
-		<div class="flex-box flex-row f13">
-			<div class="flex-item c000">
-				<p class="mt0 mb0 c000">音乐自动播放</p>
-				<span class="c999 f10">滑动文章即可自动播放背景音乐</span>
-			</div>
-			<div class="flex-item">
-				<div class="my-switch fr" id="autoMusicSwitch">
-					<div></div>
+			<div class="flex-box flex-row noborder f13" onclick="Watermark()">
+				<div class="flex-item c000">
+					水印设置
+				</div>
+				<div class="flex-item tr">
+					<span class="mui-icon mui-icon-arrowright c999 f16"></span>
 				</div>
 			</div>
-		</div>
-		<div class="flex-box flex-row f13" id="clearcache">
-			<div class="flex-item c000">
-				清除缓存
+			<div class="splitline"></div>
+			<div class="flex-box flex-row f13">
+				<div class="flex-item c000">
+					<p class="mt0 mb0 c000">分享带昵称</p>
+					<span class="c999 f10">分享后文章标题自动加上作者名</span>
+				</div>
+				<div class="flex-item">
+					<div class="my-switch fr" id="shareNickSwitch">
+						<div></div>
+					</div>
+				</div>
 			</div>
-			<div class="flex-item tr">
-				<span class="c999" id="cachesize">0M</span>
+			<div class="flex-box flex-row f13">
+				<div class="flex-item c000">
+					<p class="mt0 mb0 c000">音乐自动播放</p>
+					<span class="c999 f10">滑动文章即可自动播放背景音乐</span>
+				</div>
+				<div class="flex-item">
+					<div class="my-switch fr" id="autoMusicSwitch">
+						<div></div>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="flex-box flex-row noborder f13" id="checkupdate">
-			<div class="flex-item c000">
-				检查更新
+			<div class="flex-box flex-row f13" id="clearcache">
+				<div class="flex-item c000">
+					清除缓存
+				</div>
+				<div class="flex-item tr">
+					<span class="c999" id="cachesize">0M</span>
+				</div>
 			</div>
-			<div class="flex-item tr">
-				<span class="c999" id="version"></span>
+			<div class="flex-box flex-row noborder f13" id="checkupdate">
+				<div class="flex-item c000">
+					检查更新
+				</div>
+				<div class="flex-item tr">
+					<span class="c999" id="version"></span>
+				</div>
 			</div>
-		</div>
-		<div class="button button-block button-rounded button-primary" id="exit" style="width:90%;margin:5%;">退出登录</div>
+			<div class="button button-block button-rounded button-primary" id="exit" style="width:90%;margin:5%;">退出登录</div>
 		</div>
 		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
 			<div class="flex-box flex-row noborder f13 hide" onclick="Change()" id="change">
@@ -165,6 +148,7 @@
 			<div class="blue full tc fl f13" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;" onclick="ActionTan(0)">
 				我知道了
 			</div>
+		</div>
 	</body>
 
 </html>
@@ -173,6 +157,7 @@
 <script src="../js/imgcache.js"></script>
 <script src="../js/update.min.js"></script>
 <script src="../js/login.min.js"></script>
+<script src="../js/io.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
@@ -200,15 +185,6 @@
 			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
 		})
 
-		//启用水印 
-		if(userinfo.UseDraw == 1) {
-			base.SwitchChange("drawSwitch", true);
-			base.Get("drawText").classList.remove("hide");
-			base.Get("txtDrawText").value = userinfo.DrawText;
-			base.Get("drawImg").classList.remove("hide");
-			base.Get("imgDrawImg").setAttribute("src", base.RootUrl + "Images/draw.png");
-		}
-
 		//分享带昵称
 		if(userinfo.ShareNick == 1) {
 			base.SwitchChange("shareNickSwitch", true);
@@ -218,61 +194,6 @@
 		if(userinfo.AutoMusic == 1) {
 			base.SwitchChange("autoMusicSwitch", true);
 		}
-
-		//修改水印
-		base.Get("txtDrawText").addEventListener('blur', function(event) {
-			HttpGet(base.RootUrl + "User/EditUseDrawText", {
-				ID: userinfo.ID,
-				DrawText: base.Get("txtDrawText").value.trim()
-			}, function(data) {
-				if(data == null) {
-					mui.toast("修改失败");
-				} else {
-					if(data.result) {
-						userinfo.DrawText = base.Get("txtDrawText").value.trim();
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					} else {
-						mui.toast("修改失败");
-					}
-				}
-			});
-		});
-
-		//是否启用水印
-		base.Get("drawSwitch").addEventListener('tap', function(event) {
-			if(isLoading) {
-				return false;
-			}
-			isLoading = true;
-			var draw = base.HasClass(this, "active");
-			base.SwitchChange("drawSwitch", !draw);
-			if(!draw) {
-				ActionTan(1);
-			}
-			if(draw) {
-				base.Get("drawText").classList.add("hide");
-			} else {
-				base.Get("drawText").classList.remove("hide");
-			}
-			HttpGet(base.RootUrl + "User/EditUseDraw", {
-				ID: userinfo.ID,
-				UseDraw: draw ? 0 : 1
-			}, function(data) {
-				if(data == null) {
-					mui.toast("修改失败");
-					base.SwitchChange("drawSwitch", draw);
-				} else {
-					if(data.result) {
-						userinfo.UseDraw = draw ? 0 : 1;
-						localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-					} else {
-						mui.toast("修改失败");
-						base.SwitchChange("drawSwitch", draw);
-					}
-				}
-				isLoading = false;
-			});
-		});
 
 		//是否分享昵称
 		base.Get("shareNickSwitch").addEventListener('tap', function(event) {
@@ -333,6 +254,9 @@
 
 	var version = "";
 	mui.plusReady(function() {
+		//getRootDirectory();
+		
+		
 		var storagesize = plus.storage.getItem("storagesize");
 		if(storagesize != null) {
 			base.Get("cachesize").innerHTML = parseFloat(parseInt(storagesize) / 1024 / 1024).toFixed(2) + "M";
@@ -393,6 +317,11 @@
 	//隐私设置
 	function Secret() {
 		base.ShowTemplate("secretsetting", "secretsetting.html", "隐私设置", JSON.stringify({}));
+	}
+
+	//水印设置
+	function Watermark() {
+		base.ShowTemplate("watermarksetting", "watermarksetting.html", "水印设置", JSON.stringify({}));
 	}
 
 	//注销

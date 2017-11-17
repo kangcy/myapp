@@ -255,7 +255,8 @@
 			"page/sex.html",
 			"page/searchuser_new.html",
 			"page/mysetting.html",
-			"page/secretsetting.html"
+			"page/secretsetting.html",
+			"page/watermarksetting.html"
 		]
 	},
 	"page/setting.html": {

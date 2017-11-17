@@ -198,14 +198,14 @@
 
 	var backButtonPress = 0;
 	var main = null;
-	mui.plusReady(function() {
+	mui.plusReady(function() { 
 		self = plus.webview.currentWebview();
 
 		LoadUser();
 
 		mui.back = function() {
 			self.hide("slide-out-left");
-		}
+		} 
 	});
 
 	function closeMenu() {

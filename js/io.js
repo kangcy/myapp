@@ -7,9 +7,43 @@ function getSDRoot() {
 	// 判断SD卡是否插入
 	if(environment.getExternalStorageState() !== environment.MEDIA_MOUNTED) {
 		plus.nativeUI.toast('没有找到SD卡');
-		return;
+		return "";
 	}
-	return environment.getExternalStorageDirectory();
+	console.log(environment.getExternalStorageDirectory().toString())
+	return environment.getExternalStorageDirectory().toString();
+}
+
+/**
+ * 获取根目录文件夹
+ */
+function getRootDirectory() {
+	var File = plus.android.importClass("java.io.File");
+
+	var root = getSDRoot();
+	console.log(root);
+	// 得到sd卡内image文件夹的路径   File.separator(/)   
+	var filePath = root + File.separator;
+	console.log(File.separator);
+	// 得到该路径文件夹下所有的文件  
+	var fileAll = new File(filePath);
+	var files = fileAll.listFiles();
+	var names = [];
+	
+	//递归遍历文件夹，判断文件夹当前层级下是否有图片（不包含子文件夹）
+	
+	for(var i = 0; i < files.length; i++) {
+		names.push(plus.android.invoke(files[i], "getName"));
+	}
+	console.log(names.join(","));
+	// 将所有的文件存入ArrayList中,并过滤所有图片格式的文件  
+	/*for(int i = 0; i < files.length; i++) { 
+		File file = files[i];
+		if(checkIsImageFile(file.getPath())) {
+			imagePathList.add(file.getPath());
+		}
+	}*/
+	// 返回得到的图片列表  
+	//return imagePathList;
 }
 
 /**
