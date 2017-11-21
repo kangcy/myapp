@@ -220,7 +220,7 @@
 	//更新绑定号码
 	function UpdatePhone(phone) {
 		userinfo.Phone = phone;
-		base.Text(["password"], base.IsNullOrEmpty(phone) ? "未绑定" : "未绑定": phone.substring(0, 3) + "****" + phone.substring(7, 11));
+		base.Text(["password"], base.IsNullOrEmpty(phone) ? "未绑定" : phone.substring(0, 3) + "****" + phone.substring(7, 11));
 	}
 
 	//检测是否绑定
