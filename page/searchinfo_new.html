@@ -147,7 +147,7 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
+<script src="../js/refresh.min.js"></script>
 <script src="../js/article.min.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
@@ -317,7 +317,7 @@
 		base.AddClass(["#scroll", "#none"], "hide");
 		base.Get("info").classList.remove("hide");
 		base.Get("scroll-user").innerHTML = "";
-		base.InnerHtml(["scroll-user", "scroll-view"], "");
+		base.Html(["scroll-user", "scroll-view"], "");
 		search.value = "";
 		search.blur();
 		base.Get("divSearch").classList.remove("mui-active");

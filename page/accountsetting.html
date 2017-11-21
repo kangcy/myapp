@@ -68,7 +68,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../js/login.min.js"></script>
 <script type="text/javascript">
 	var auths = {};
@@ -88,8 +88,8 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		base.Get("phone").innerText = base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(7, 11);
-		base.Get("password").innerText = base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置";
+		base.Text(["phone"], base.IsNullOrEmpty(userinfo.Phone) ? "未绑定" : userinfo.Phone.substring(0, 3) + "****" + userinfo.Phone.substring(7, 11));
+		base.Text(["password"], base.IsNullOrEmpty(userinfo.Password) ? "未设置" : "已设置");
 
 		//微信 
 		if(CheckBind(1)) {
@@ -214,13 +214,13 @@
 	//更新绑定密码
 	function UpdatePwd(pwd) {
 		userinfo.Password = pwd;
-		base.Get("password").innerText = pwd == "" ? "未绑定" : "已绑定";
+		base.Text(["password"], base.IsNullOrEmpty(pwd) ? "未绑定" : "已绑定");
 	}
 
 	//更新绑定号码
 	function UpdatePhone(phone) {
 		userinfo.Phone = phone;
-		base.Get("phone").innerText = phone == "" ? "未绑定" : phone.substring(0, 3) + "****" + phone.substring(7, 11);
+		base.Text(["password"], base.IsNullOrEmpty(phone) ? "未绑定" : "未绑定": phone.substring(0, 3) + "****" + phone.substring(7, 11));
 	}
 
 	//检测是否绑定

@@ -147,7 +147,7 @@
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
+<script src="../js/refresh.min.js"></script>
 <script type="text/javascript">
 	var PageName = "";
 	var pagesize = 3;
@@ -325,6 +325,7 @@
 
 					if(userinfo.Number === UserNumber) {
 						base.RemoveClass(["#article"], "hide");
+						base.AddClass(["#copy"], "noborder");
 					} else {
 						base.RemoveClass(["#article", "#inblack"], "hide");
 					}

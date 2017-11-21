@@ -131,7 +131,6 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mytanbg hide" id="mytanbg"></div>
 		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:40%;left:10%;width:80%;z-index:99999;background:#fff;border-radius:5px;">
 			<div style="padding:30px;padding-bottom:15px;">
 				<p class="c333 f15 bold tc">投稿失败</p>
@@ -145,7 +144,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var ArticleID = 0;
 	var ArticleNumber = "";
@@ -160,13 +159,7 @@
 		base.CloseWaiting();
 	});
 
-	mui.init({
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
@@ -259,6 +252,9 @@
 
 		//返回
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			var articleDetailPage = base.GetView('articledetail');
 			if(articleDetailPage == null) {
 				base.OpenWindow("articledetail_new", "articledetail_new.html", {
@@ -291,9 +287,8 @@
 					},
 					function(data) {
 						mui.later(function() {
-							mask.close();
+							base.CloseWaiting();
 							if(data.result) {
-
 								//刷新文章，关闭当前页面
 								var page = base.GetView("articledetail");
 								if(page) {
@@ -304,6 +299,7 @@
 										Source: Source
 									}, false, "none");
 								}
+								mask.close();
 								mui.toast("投稿成功");
 							} else {
 								base.SwitchChange("switch", draw);
@@ -363,12 +359,12 @@
 	//操作弹窗
 	function ActionTan(index, text) {
 		if(index == 0) {
-			base.Get("mytanbg").classList.add("hide");
+			mask.close();
 			base.RemoveClass(["#notice"], "bounceIn");
 			base.AddClass(["#notice"], "bounceOut hide");
 		} else {
 			base.Get("error").innerHTML = text;
-			base.Get("mytanbg").classList.remove("hide");
+			mask.show();
 			base.RemoveClass(["#notice"], "hide bounceOut");
 			base.AddClass(["#notice"], "bounceIn");
 		}

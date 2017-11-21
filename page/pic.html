@@ -98,8 +98,8 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="../js/refresh.min.js"></script>
 <script src="../minjs/mui.zoom.min.js"></script>
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../js/imgcache.js"></script>
@@ -140,8 +140,8 @@
 			Init();
 
 			//下拉刷新 
-			SetPullEnable(true, null, function() {
-				PreviewEnable = true;
+			SetPullEnable(false, null, function() {
+			    PreviewEnable = true;
 				base.Get("pic").classList.add("hide");
 				pulldownRefresh();
 				mui.setPreviewEnable(PreviewEnable);

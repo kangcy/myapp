@@ -98,21 +98,28 @@
 			<h1 class="mui-title cfff user" id="nickname"></h1>
 		</header>
 		<div id="progress" class="full" style="position:fixed;left:0px;height:5px;"></div>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 		<!--操作-->
-		<div id="topPopover" class="mui-popover">
+		<div id="topPopover" class="mui-popover" style="width:200px !important;">
 			<div class="mui-popover-arrow"></div>
 			<ul class="mui-table-view tc f12" style="background:#fff;">
-				<li id="popover_delete" onclick="Delete()" class="mui-table-view-cell" style="background:url(../images/article/1.png) no-repeat;background-size: 1.1rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_delete" onclick="Delete()" class="mui-table-view-cell" style="background:url(../images/article/1.png) no-repeat;background-size:1rem;background-position: 40%;text-indent:13%;">
 					删除
 				</li>
-				<li id="popover_copy" onclick="Copy()" class="mui-table-view-cell" style="background:url(../images/article/2.png) no-repeat;background-size: 1.1rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_copy" onclick="Copy()" class="mui-table-view-cell" style="background:url(../images/article/2.png) no-repeat;background-size:1rem;background-position: 40%;text-indent:13%;">
 					复制
 				</li>
-				<li id="popover_edit" onclick="Edit()" class="mui-table-view-cell" style="background:url(../images/article/3.png) no-repeat;background-size: 1.1rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_edit" onclick="Edit()" class="mui-table-view-cell" style="background:url(../images/article/3.png) no-repeat;background-size:1rem;background-position: 40%;text-indent:13%;">
 					编辑
 				</li>
-				<li id="popover_power" onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.1rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_power" onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size:1rem;background-position: 40%;text-indent:13%;">
 					权限
 				</li>
 			</ul>
@@ -290,19 +297,6 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
-		},
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
-			if(base.HasClass(base.Get("topPopover"), "mui-active")) {
-				mui('#topPopover').popover('hide');
-				return;
-			}
-			if(!base.HasClass(base.Get("myshare"), "hide")) {
-				ShareTan(0);
-				return false;
-			}
 		}
 	});
 
@@ -450,6 +444,17 @@
 
 		//返回
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+			if(base.HasClass(base.Get("topPopover"), "mui-active")) {
+				mui('#topPopover').popover('hide');
+				return;
+			}
+			if(!base.HasClass(base.Get("myshare"), "hide")) {
+				ShareTan(0);
+				return false;
+			}
 			if(Source == "Add") {
 				plus.webview.close("editimage", "none");
 			}
@@ -592,10 +597,10 @@
 
 					base.Get("musicname0").innerHTML = data.MusicName;
 					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
-					base.InnerHtml(["title", "title0"], Article.Title);
-					base.InnerHtml(["nickname", "nickname0", "nickname1"], Article.NickName);
-					base.InnerHtml(["createdate0"], data.CreateDateText);
-					base.InnerHtml(["views0"], "阅读  " + data.Views);
+					base.Html(["title", "title0"], Article.Title);
+					base.Html(["nickname", "nickname0", "nickname1"], Article.NickName);
+					base.Html(["createdate0"], data.CreateDateText);
+					base.Html(["views0"], "阅读  " + data.Views);
 					base.Get("x-head").classList.remove("hide");
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 

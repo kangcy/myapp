@@ -28,7 +28,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var SearchName = "";
 	var searchuser = null;
@@ -41,13 +41,7 @@
 		search.value = e.detail.value.replace(/，/g, '').replace(/,。/g, '');
 	});
 
-	mui.init({
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
@@ -96,6 +90,9 @@
 		}, false);
 
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			base.GetView("search").close();
 			base.GetView("searchuser").close();
 			base.GetView("searcharticle").close();

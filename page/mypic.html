@@ -64,7 +64,14 @@
 			<a class="mui-icon mui-text cfff fr hide" id="mypic" onclick="Confirm()">完成</a>
 			<h1 class="mui-title cfff">选择图片</h1>
 		</header>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 		<p id="none" class="full f12 tc hide">大波内容正在赶来，敬请期待~</p>
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inline full"></div>
@@ -73,8 +80,8 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="../js/refresh.min.js"></script>
 <script type="text/javascript">
 	var Source = "";
 	var Multiple = 0; //是否多选
@@ -83,11 +90,6 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
-		},
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
 		}
 	});
 
@@ -104,6 +106,9 @@
 		Init();
 
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			plus.webview.close("mypic");
 			plus.webview.hide("action");
 		}

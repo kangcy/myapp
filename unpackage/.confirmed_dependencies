@@ -1186,7 +1186,8 @@
 			"page/action.html",
 			"page/addimage.html",
 			"page/template.html",
-			"page/articledetail_new.html"
+			"page/articledetail_new.html",
+			"page/article_keep.html"
 		]
 	},
 	"page/userSub.html": {
@@ -4114,7 +4115,9 @@
 		"refer": [
 			"page/addarticle.html",
 			"page/user.html",
-			"page/sharesetting.html"
+			"page/sharesetting.html",
+			"page/articleComment.html",
+			"page/money.html"
 		]
 	},
 	"swipe/demo.html": {

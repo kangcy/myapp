@@ -27,19 +27,13 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var recommenduser = null;
 	var cityuser = null;
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
-	mui.init({
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
@@ -75,6 +69,9 @@
 		});
 
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			base.GetView("addfan").close();
 			base.GetView("recommenduser").close();
 			base.GetView("cityuser").close();

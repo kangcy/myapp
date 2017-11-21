@@ -139,13 +139,17 @@
 					<span class="fl">效果</span>
 					<span class="mui-icon mui-icon-arrowright fr c999 f18"></span>
 				</li>
+				<li class="mui-table-view-cell hide" onclick="File()" id="file">
+					<span class="fl">文件系统</span>
+					<span class="mui-icon mui-icon-arrowright fr c999 f18"></span>
+				</li>
 			</ul>
 		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var PageName = "tipsetting.html";
@@ -169,7 +173,7 @@
 			base.RemoveClass(["#backstage"], "hide");
 		}
 		if(userinfo.UserRole == 2) {
-			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment", "#adv", "#index", "#banner", "#backstage", "#line"], "hide");
+			base.RemoveClass(["#client", "#article_link", "#music", "#editcomment", "#adv", "#index", "#banner", "#backstage", "#line", "#file"], "hide");
 		}
 	});
 
@@ -332,5 +336,9 @@
 			ArticlePower: 3,
 			NickName: ""
 		}, null, "none");
+	}
+
+	function File() {
+		base.OpenWindow("file", "file.html", {});
 	}
 </script>

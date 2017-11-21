@@ -39,7 +39,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
+<script src="../js/refresh.min.js"></script>
 <script src="../js/comment.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
@@ -62,7 +62,7 @@
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		InitComment();
-		SetPullEnable(false)
+
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 
 		//重置未读推送信息

@@ -74,7 +74,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var currSex = 0;
 	var isLoading = false;
@@ -113,7 +113,6 @@
 			if(data.result) {
 				userinfo.Sex = currSex;
 				localStorage.setItem('$userinfo', JSON.stringify(userinfo));
-				console.log(currSex)
 				base.GetView("mysetting").evalJS("InitSex(" + currSex + ")");
 				mui.back();
 			} else {

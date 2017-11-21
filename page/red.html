@@ -204,7 +204,7 @@
 		</div>
 	</body>
 	<script src="../minjs/mui.min.js"></script>
-	<script src="../minjs/base.min.js"></script>
+	<script src="../js/base.min.js"></script>
 	<script type="text/javascript">
 		var isLoading = false;
 		var isopen = false;
@@ -273,10 +273,6 @@
 			ShareInfo.Url = shareUrl + "?key=" + userinfo.Number;
 
 			UpdateSerivces();
-
-			mui.back = function() {
-				self.close("red")
-			}
 		});
 
 		function mypay() {

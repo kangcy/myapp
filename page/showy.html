@@ -78,8 +78,8 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="../js/refresh.min.js"></script>
 <script type="text/javascript">
 	pagesize = 5;
 	var ArticleNumber = "";
@@ -88,11 +88,6 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
-		},
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
 		}
 	});
 
@@ -107,6 +102,9 @@
 		Init();
 
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			plus.webview.close("showypreview", "none");
 			self.close()
 		}

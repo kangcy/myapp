@@ -22,7 +22,14 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<div class="mui-title cfff" id="title">回收站</div>
 		</header>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 		<p id="none" class="full f12 tc hide">删除后的文章在这里哦</p>
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inline full" style="margin-bottom:3%;"></div>
@@ -31,9 +38,9 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
-<script src="../minjs/refresh.min.js"></script>
-<script src="../minjs/article.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script src="../js/refresh.min.js"></script>
+<script src="../js/article.min.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	var self = null;
@@ -58,8 +65,7 @@
 		self = plus.webview.currentWebview();
 		Init();
 	});
- 
-	//初始化 
+
 	function Init() {
 		pulldownRefresh();
 		base.ShowArticle("#scroll-view", "Delete", userinfo.Number);
@@ -67,10 +73,8 @@
 		document.addEventListener("plusscrollbottom", pullupRefresh, false);
 	}
 
-	//加载数据
 	function Load(callback) {
 		var data = {
-			ID: userinfo.ID,
 			page: currpage,
 			rows: pagesize,
 			CreateUserNumber: userinfo.Number

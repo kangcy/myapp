@@ -171,7 +171,7 @@ function UpdateDetail() {
 function Delete() {
 	mask.close();
 	var btnArray = ['确定', '取消'];
-	mui.confirm('删除后将无法在浏览器中浏览', '确定要删除这篇文章吗？', btnArray, function(e) {
+	mui.confirm('确定要删除这篇文章吗？删除后将无法在浏览器中浏览', '', btnArray, function(e) {
 		if(e.index < 0) {
 			return;
 		}

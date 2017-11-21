@@ -93,7 +93,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../js/login.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
@@ -102,13 +102,7 @@
 		base.CloseWaiting();
 	});
 
-	mui.init({
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
-		}
-	});
+	mui.init();
 
 	//检查 "登录状态/锁屏状态" 结束
 	var loginButton = base.Get('login');
@@ -248,6 +242,9 @@
 		//退出登录
 		var backButtonPress = 0;
 		mui.back = function(event) {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			backButtonPress++;
 			if(backButtonPress > 1) {
 				plus.runtime.quit();

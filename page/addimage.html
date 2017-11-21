@@ -131,7 +131,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/sortable.min.js"></script>
 <script src="../js/addimage.js"></script>
 <script type="text/javascript">
@@ -140,13 +140,7 @@
 	var self = null;
 	var userinfo = base.GetUserInfo();
 
-	mui.init({
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
-		}
-	});
+	mui.init();
 
 	mui.ready(function() {
 
@@ -194,8 +188,10 @@
 		self = plus.webview.currentWebview();
 
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			self.hide("fade-out");
-
 			base.Get('scroll-view').innerHTML = "";
 			base.Get("main").classList.add("hover");
 			base.Get("header").classList.add("hide");

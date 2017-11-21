@@ -114,7 +114,7 @@
 </html>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../minjs/cropper.min.js"></script>
 <script type="text/javascript">
 	var full = 0;
@@ -251,12 +251,6 @@
 		base.SwitchChange("highSwitch", high > 0);
 
 		CutImg(full);
-
-		//返回
-		mui.back = function() {
-			plus.webview.close(self);
-		}
-
 		base.GetView("customsetting").evalJS("mask.close()");
 	});
 

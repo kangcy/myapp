@@ -9,7 +9,6 @@ function getSDRoot() {
 		plus.nativeUI.toast('没有找到SD卡');
 		return "";
 	}
-	console.log(environment.getExternalStorageDirectory().toString())
 	return environment.getExternalStorageDirectory().toString();
 }
 
@@ -26,11 +25,11 @@ function getRootDirectory() {
 	console.log(File.separator);
 	// 得到该路径文件夹下所有的文件  
 	var fileAll = new File(filePath);
-	var files = fileAll.listFiles();
+	var files = fileAll.listFiles(); //plus.android.invoke(fileAll, "listFiles")
 	var names = [];
-	
+
 	//递归遍历文件夹，判断文件夹当前层级下是否有图片（不包含子文件夹）
-	
+
 	for(var i = 0; i < files.length; i++) {
 		names.push(plus.android.invoke(files[i], "getName"));
 	}
@@ -99,7 +98,7 @@ function readFileSize(file) {
  * 读取文件夹下子文件夹及子文件数目
  * @param {Object} file
  */
-function readSonFilenum(file) {
+function readSonFilenum0(file) {
 	var subFile = plus.android.invoke(file, "listFiles");
 	var subLen = subFile.length;
 	var obj = {
@@ -121,6 +120,28 @@ function readSonFilenum(file) {
 	return obj;
 }
 
+function readSonFilenum(file) {
+	var subFile = file.listFiles();
+	var subLen = subFile.length;
+	var obj = {
+		subFolderNum: 0,
+		subFileNum: 0
+	};
+	for(var k = 0; k < subLen; k++) {
+		if(!subFile[k].isHidden()) {
+			if(subFile[k].isDirectory()) {
+				obj.subFolderNum++;
+			} else {
+				var name = subFile[k].getName(); //文件名称
+				if(CheckImage(name)) {
+					obj.subFileNum++;
+				}
+			}
+		}
+	}
+	return obj;
+}
+
 //判断是否图片
 function CheckImage(name) {
 	if(base.IsNullOrEmpty(name)) {
@@ -130,5 +151,5 @@ function CheckImage(name) {
 	if(name.indexOf(".") < 0) {
 		return false;
 	}
-	return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".gif");
-}
+	return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".gif" || name.endsWith(".bmp") || name.endsWith(".jpeg");
+	}

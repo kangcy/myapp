@@ -70,7 +70,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var $cover = base.Get("cover");
 	var PageName = "subindex";
@@ -126,7 +126,7 @@
 
 		//我的收藏
 		base.Get("my-keeps").addEventListener('tap', function() {
-			base.OpenWindow("keep", "article_keep.html", {});
+			base.OpenWindow("article_keep", "article_keep.html", {});
 		});
 
 		//我的关注
@@ -156,7 +156,7 @@
 		base.Get("my-mypay").addEventListener('tap', function() {
 			base.OpenWindow("mypay", "mypay.html", {});
 		});
-
+ 
 		//我的反馈 
 		base.Get("my-feedback").addEventListener('tap', function() {
 			base.OpenWindow("feedback", "feedback.html", {});
@@ -200,12 +200,7 @@
 	var main = null;
 	mui.plusReady(function() { 
 		self = plus.webview.currentWebview();
-
 		LoadUser();
-
-		mui.back = function() {
-			self.hide("slide-out-left");
-		} 
 	});
 
 	function closeMenu() {

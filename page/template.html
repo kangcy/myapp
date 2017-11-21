@@ -23,7 +23,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var tempview = null;
 	var currview = null;
@@ -32,11 +32,6 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
-		},
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
 		}
 	});
 
@@ -51,6 +46,9 @@
 		tempview.show(base.IsNullOrEmpty(tempview.subanimate) ? base.ShowAnimate() : tempview.subanimate, base.AnimateDuration);
 
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			var list = tempview.children();
 			if(list.length > 1) {
 				tempview.remove(currview);

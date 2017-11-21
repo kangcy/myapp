@@ -24,9 +24,9 @@ var mask = base.CreateMask(false, function() {
 	}
 	base.Get("divIcon").classList.add("height");
 	CommentClear();
-	SetPullEnable(true);
+	//SetPullEnable(true);
 });
-
+ 
 //评论初始化
 function InitComment() {
 	pulldownRefresh(function() {
@@ -243,7 +243,7 @@ function ShowComment(show) {
 		base.Get("commenttitle").innerHTML = base.IsNullOrEmpty(ParentCommentNumber) ? "发表评论" : "回复楼主";
 
 		mask.show();
-		SetPullEnable(false);
+		//SetPullEnable(false);
 
 		if(base.Get("bottomAction")) {
 			base.Get("bottomAction").classList.remove("fadeInUp");

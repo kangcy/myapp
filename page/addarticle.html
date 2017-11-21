@@ -894,13 +894,7 @@
 	}
 
 	//启用双击监听 
-	mui.init({
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
-		}
-	});
+	mui.init();
 
 	//标题
 	var title = base.Get("title");
@@ -1102,22 +1096,21 @@
 
 		//返回
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			if(isLoading) {
 				return;
 			}
-
 			var $this = this;
-
 			if(base.HasClass(base.Get("upload"), "mui-active")) {
 				mui('#upload').popover('hide');
 				return;
 			}
-
 			if(!base.HasClass(base.Get("icon-cover"), "hide")) {
 				IconTan(1, false);
 				return;
 			}
-
 			//首次创建
 			if(Source == "Add") {
 				var btnArray = ['删除草稿', '存草稿'];
@@ -1147,12 +1140,14 @@
 					}
 				});
 			} else {
-				var btnArray = ['撤销编辑', '存草稿'];
-				mui.confirm('确定要撤销编辑？', '', btnArray, function(e) {
-					if(e.index < 0) {
-						return;
-					}
-					if(e.index == 0) {
+				var bts = ["撤销编辑", "取消", "存草稿"];
+				plus.nativeUI.confirm("确定要撤销编辑", function(e) {
+					var i = e.index;
+					//存草稿
+					if(i == 2) {
+						Save();
+					} else if(i == 0) {
+						//撤销编辑
 						mask.show();
 						base.ShowWaiting("正在撤销");
 						mui.later(function() {
@@ -1160,10 +1155,8 @@
 							plus.webview.close("addarticle");
 							plus.webview.hide("addimage");
 						}, 500);
-					} else {
-						Save();
 					}
-				});
+				}, "", bts);
 			}
 		}
 	});
@@ -1673,13 +1666,13 @@
 
 					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
-					base.InnerHtml(["title", "title0"], Article.Title);
+					base.Html(["title", "title0"], Article.Title);
 
-					base.InnerHtml(["nickname", "nickname0", "nickname1"], Article.NickName);
+					base.Html(["nickname", "nickname0", "nickname1"], Article.NickName);
 
-					base.InnerHtml(["createdate0"], data.CreateDateText);
+					base.Html(["createdate0"], data.CreateDateText);
 
-					base.InnerHtml(["views0"], "阅读  " + data.Views);
+					base.Html(["views0"], "阅读  " + data.Views);
 
 					base.Get("x-head").classList.remove("hide");
 

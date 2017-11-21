@@ -43,7 +43,14 @@
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="padding-top:0.35rem;padding-right: 0.4rem;">•••</a>
 			<h1 class="mui-title cfff user" id="nickname"></h1>
 		</header>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 
 		<!--操作-->
 		<div id="topPopover" class="mui-popover">
@@ -191,7 +198,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script src="../js/music.js"></script>
 <script src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
@@ -237,11 +244,6 @@
 	mui.init({
 		gestureConfig: {
 			doubletap: true
-		},
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
 		}
 	});
 
@@ -387,6 +389,9 @@
 
 		//返回
 		mui.back = function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
 			if(Source == "Add") {
 				plus.webview.close("editimage", "none");
 			}
@@ -544,13 +549,13 @@
 
 					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
 
-					base.InnerHtml(["title0", "title1", "title"], Article.Title);
+					base.Html(["title0", "title1", "title"], Article.Title);
 
-					base.InnerHtml(["nickname", "nickname0", "nickname1"], Article.NickName);
+					base.Html(["nickname", "nickname0", "nickname1"], Article.NickName);
 
-					base.InnerHtml(["createdate0", "createdate1"], data.CreateDateText);
+					base.Html(["createdate0", "createdate1"], data.CreateDateText);
 
-					base.InnerHtml(["views0", "views1"], "阅读  " + data.Views);
+					base.Html(["views0", "views1"], "阅读  " + data.Views);
 
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 
@@ -825,7 +830,7 @@
 		var File = plus.android.importClass("java.io.File");
 		var Uri = plus.android.importClass("android.net.Uri");
 		var main = plus.android.runtimeMainActivity();
-		
+
 		var intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, "");

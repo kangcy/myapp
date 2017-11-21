@@ -115,6 +115,7 @@ function CreatePicView() {
 
 	//关闭
 	bgview.addEventListener("click", function(e) {
+		console.log('aa');
 		HideView();
 	}, false);
 	customview.addEventListener("click", function(e) {
@@ -137,9 +138,19 @@ function CreatePicView() {
 
 // 显示原生View控件
 function ShowView() {
-	bgview.show();
-	customview.show();
-}
+	//bgview.show(); 
+	//customview.show();
+
+	plus.nativeObj.View.startAnimation({
+		type: 'pop-in'
+	}, customview, bgview, function() {
+		console.log('plus.nativeObj.View.startAnimation动画结束');
+		// 关闭原生动画
+		bgview.show();
+		customview.show();
+		//plus.nativeObj.View.clearAnimation();
+	});
+} 
 // 隐藏原生View控件
 function HideView() {
 	customview.hide();

@@ -37,7 +37,7 @@
 
 </html>
 <script src="../minjs/mui.min.js"></script>
-<script src="../minjs/base.min.js"></script>
+<script src="../js/base.min.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var userinfo = base.GetUserInfo();
@@ -58,8 +58,7 @@
 	mui.ready(function() {
 		base.Immersed();
 
-		base.Get("title").innerText = userinfo.Phone == "" ? "绑定手机号" : "更换手机号";
-
+		base.Text(["title"], base.IsNullOrEmpty(userinfo.Phone) ? "绑定手机号" : "更换手机号");
 		$btnCode.setAttribute("src", base.RootUrl + "System/Validate?rn=" + base.GetUid());
 		$btnCode.style.width = "5rem";
 		$btnCode.style.marginTop = "0.3rem";
