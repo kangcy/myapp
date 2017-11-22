@@ -12,6 +12,7 @@
 		<style type="text/css">
 			#scroll-view {
 				padding-top: 0.2rem;
+				padding-bottom: 0.5rem;
 			}
 			
 			.title {
@@ -317,7 +318,7 @@
 							var fragment = document.createDocumentFragment();
 							mui.each(data.list, function(index, item) {
 								var div = document.createElement('div');
-								div.className = 'full inline mt10';
+								div.className = 'full inline mt10 fl';
 
 								div.appendChild(AppendStr1(item));
 								var div2 = document.createElement('div');

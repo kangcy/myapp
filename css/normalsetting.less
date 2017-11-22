@@ -1,0 +1,27 @@
+body {
+    background: #fff;
+}
+
+.flex-row {
+    padding: 0.625rem 0.9375rem;
+    position: relative;
+    background: #fff;
+    img {
+        width: 1rem;
+    }
+    span {
+        line-height: 1.2rem;
+    }
+    .flex-item:first-child {
+        flex: 0 0 90%;
+    }
+    .flex-item:last-child {
+        flex: 0 0 10%;
+    }
+    .flex-item:last-child {
+        display: none;
+    }
+    &.curr .flex-item:last-child {
+        display: block !important;
+    }
+}
