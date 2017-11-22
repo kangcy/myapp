@@ -10,22 +10,6 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/img.preview.min.css">
 		<style type="text/css">
-			.tip {
-				position: fixed;
-				bottom: 2%;
-				text-align: center;
-				width: 100%;
-				z-index: 2;
-			}
-			
-			.tip div {
-				padding: 10px 20px;
-				border-radius: 10px;
-				background: rgba(0, 0, 0, 0.5);
-				color: #fff;
-				display: inline-block;
-			}
-			
 			#scroll-view {
 				padding-top: 0.2rem;
 			}
@@ -40,10 +24,10 @@
 			}
 			
 			.thirdfloor img {
-				width: 96% !important;
+				width: 100% !important;
 				height: auto !important;
-				min-width: 96% !important;
-				border-radius: 5px;
+				padding: 2px;
+				float: left;
 			}
 			
 			.thirdfloor .cover {
@@ -77,6 +61,95 @@
 				background-size: 100% 100%;
 				background-position: center center;
 			}
+			
+			.tip {
+				position: fixed;
+				bottom: 2%;
+				text-align: center;
+				width: 100%;
+				z-index: 2;
+				-webkit-animation: move ease-in-out .75s infinite;
+				animation: move ease-in-out .75s infinite;
+			}
+			
+			.tip div {
+				padding: 5px 10px;
+				border-radius: 5px;
+				background: rgba(0, 0, 0, 0.5);
+				color: #fff;
+				display: inline-block;
+			}
+			
+			@keyframes move {
+				0% {
+					-webkit-transform: translateY(0);
+					transform: translateY(0);
+				}
+				50% {
+					-webkit-transform: translateY(-5px);
+					transform: translateY(-5px);
+				}
+				100% {
+					-webkit-transform: translateY(0);
+					transform: translateY(0);
+				}
+			}
+			
+			@-webkit-keyframes move {
+				0% {
+					-webkit-transform: translateY(0);
+					transform: translateY(0);
+				}
+				50% {
+					-webkit-transform: translateY(-5px);
+					transform: translateY(-5px);
+				}
+				100% {
+					-webkit-transform: translateY(0);
+					transform: translateY(0);
+				}
+			}
+			
+			.left1 {
+				width: 2.5rem;
+				display: inline-block;
+				text-align: center;
+				overflow: hidden;
+			}
+			
+			.left1 .div1 {
+				background: #f5f5f5;
+				width: 100%;
+				height: 1.25rem;
+				line-height: 1.5rem;
+				display: inline-block;
+				border-radius: 5px 5px 0px 0px;
+			}
+			
+			.left1 .div2 {
+				background: #fff;
+				width: 100%;
+				height: 1.25rem;
+				line-height: 1.25rem;
+				display: inline-block;
+				border-radius: 0px 0px 5px 5px;
+			}
+			
+			.left1 .div3 {
+				width: 100%;
+				height: 1.5rem;
+				line-height: 1.5rem;
+				display: inline-block;
+			}
+			
+			#cover {
+				background: url(http://www.xiaoweipian.com/Images/Cover/background_colorful07.jpg);
+				position: fixed;
+				z-index: -1;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+			}
 		</style>
 	</head>
 
@@ -86,7 +159,14 @@
 			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="Confirm()">删除</a>
 			<div class="mui-title cfff" id="title"></div>
 		</header>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 		<p id="none" class="full f12 tc hide">大波内容正在赶来，敬请期待~</p>
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inline full"></div>
@@ -94,6 +174,15 @@
 		<div id="tip" class="tip f11 hide">
 			<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>
 		</div>
+		<div id="cover"></div>
+		<!--<div class="left">
+			<div class="left1">
+				<div class="div1 f10 c666">一月</div>
+				<div class="div2 f16 c000 bold">22</div>
+				<div class="div3 f11 c000">星期日</div>
+			</div>
+		</div>
+		<div class="right"></div>-->
 	</body>
 
 </html>
@@ -104,7 +193,7 @@
 <script src="../minjs/mui.previewimage.min.js"></script>
 <script src="../js/imgcache.js"></script>
 <script type="text/javascript">
-	pagesize = 5;
+	pagesize = 10;
 	var UserNumber = 0;
 	var PreviewEnable = true; //是否启用图片预览
 	var self = null;
@@ -141,7 +230,7 @@
 
 			//下拉刷新 
 			SetPullEnable(false, null, function() {
-			    PreviewEnable = true;
+				PreviewEnable = true;
 				base.Get("pic").classList.add("hide");
 				pulldownRefresh();
 				mui.setPreviewEnable(PreviewEnable);
@@ -227,10 +316,21 @@
 						if(length > 0) {
 							var fragment = document.createDocumentFragment();
 							mui.each(data.list, function(index, item) {
-								fragment.appendChild(AppendStr1(item));
+								var div = document.createElement('div');
+								div.className = 'full inline mt10';
+
+								div.appendChild(AppendStr1(item));
+								var div2 = document.createElement('div');
+								div2.className = 'fl inline';
+								div2.style.width = "15.5rem";
+								div2.style.padding = "0.5rem";
+								div2.style.background = "#fff";
+								div2.style.borderRadius = "5px";
 								mui.each(item.List, function(index2, item2) {
-									fragment.appendChild(AppendStr2(item2));
+									div2.appendChild(AppendStr2(item2));
 								});
+								div.appendChild(div2);
+								fragment.appendChild(div);
 							});
 							table.appendChild(fragment);
 						}
@@ -249,10 +349,14 @@
 
 	function AppendStr1(item) {
 		var div = document.createElement('div');
-		div.className = 'title tc mt15 mb20 f14 fl full';
-		div.innerHTML = '<div style="border:1px solid #0080ff;color:#0080ff;border-radius:30px;display:inline-block;width:60%;"><span>' + item.CreateDate + '</span><span class="ml15" id="a_num">' + item.List.length + '张图片</span></div>';
+		//div.className = 'title tc mt15 mb20 f14 fl full';
+		//div.innerHTML = '<div style="border:1px solid #0080ff;color:#0080ff;border-radius:30px;display:inline-block;width:60%;"><span>' + item.CreateDate + '</span><span class="ml15" id="a_num">' + item.List.length + '张图片</span></div>';
+
+		div.className = 'inline tc fl';
+		div.style.width = "3.5rem";
+		div.innerHTML = '<div class="left1"><div class="div1 f10 c666">' + item.Month + '</div><div class="div2 f16 blue bold">' + item.Day + '</div><div class="div3 f11 c000">' + item.Week + '</div></div>';
 		return div;
-	}
+	} 
 
 	function AppendStr2(item) {
 		var div = document.createElement('div');

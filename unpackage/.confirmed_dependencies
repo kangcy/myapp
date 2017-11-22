@@ -256,7 +256,9 @@
 			"page/searchuser_new.html",
 			"page/mysetting.html",
 			"page/secretsetting.html",
-			"page/watermarksetting.html"
+			"page/watermarksetting.html",
+			"page/power.html",
+			"page/articletype.html"
 		]
 	},
 	"page/setting.html": {
@@ -1438,7 +1440,8 @@
 			"page/articletype2.html",
 			"page/articletype.html",
 			"page/articledetail.html",
-			"page/articledetail_new.html"
+			"page/articledetail_new.html",
+			"page/template.html"
 		]
 	},
 	"page/articleType.html": {

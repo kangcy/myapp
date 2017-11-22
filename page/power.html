@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<style type="text/css">
+			body {
+				background: #fff;
+			}
+			
+			.flex-row {
+				padding: 0.625rem 0.9375rem;
+				position: relative;
+				background: #fff;
+			}
+			
+			.flex-row:after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 0.8rem;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #e8e8e8;
+			}
+			
+			.flex-row img {
+				width: 1rem;
+			}
+			
+			.flex-row span {
+				line-height: 1.2rem;
+			}
+			
+			.flex-row .flex-item:first-child {
+				flex: 0 0 90%;
+			}
+			
+			.flex-row .flex-item:last-child {
+				flex: 0 0 10%;
+			}
+			
+			.flex-row .flex-item:last-child {
+				display: none;
+			}
+			
+			.flex-row.curr .flex-item:last-child {
+				display: block !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="flex-box flex-row f13" index="3">
+			<div class="flex-item">
+				<p class="c000 mb0">公开</p>
+				<span class="c999 f11">所有人都可以看到</span>
+			</div>
+			<div class="flex-item">
+				<img src="../images/my/check.png" class="fr" />
+			</div>
+		</div>
+		<div class="flex-box flex-row f13" index="2">
+			<div class="flex-item">
+				<p class="c000 mb0">不公开</p>
+				<span class="c999 f11">只有你分享的好友可以看到</span>
+			</div>
+			<div class="flex-item">
+				<img src="../images/my/check.png" class="fr" />
+			</div>
+		</div>
+		<div class="flex-box flex-row f13" index="1">
+			<div class="flex-item">
+				<p class="c000 mb0">密码可见</p>
+				<span class="c999 f11">设置密码,输入密码才可见</span>
+			</div>
+			<div class="flex-item">
+				<img src="../images/my/check.png" class="fr" />
+			</div>
+		</div>
+		<div class="flex-box flex-row f13" index="0">
+			<div class="flex-item">
+				<p class="c000 mb0">私密</p>
+				<span class="c999 f11">只有你自己可以看到</span>
+			</div>
+			<div class="flex-item">
+				<img src="../images/my/check.png" class="fr" />
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../js/base.min.js"></script>
+<script type="text/javascript">
+	var Power = 0;
+	var PowerPwd = "";
+	mui.init();
+	mui.ready(function() {
+		base.Immersed();
+	})
+
+	mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		Power = self.Power || 0;
+		PowerPwd = self.PowerPwd || "";
+		mui(".flex-box[index='" + Power + "']")[0].classList.add("curr");
+		mui("body").on('tap', '.flex-box', function() {
+			var $this = this;
+			Power = $this.getAttribute("index");
+			if(Power == 1) {
+				mui.prompt('设置密码', '请输入4位数字密码', '权限设置', ['确定', '取消'], function(e) {
+					if(e.index == 0) {
+						if(ChechPwd(e.value)) {
+							PowerPwd = e.value;
+							base.RemoveClass([".flex-box"], "curr");
+							$this.classList.add("curr");
+						}
+					}
+				});
+				return;
+			} else {
+				PowerPwd = "";
+			}
+			base.RemoveClass([".flex-box"], "curr");
+			$this.classList.add("curr");
+		});
+	})
+
+	//校验权限密码
+	function ChechPwd(str) {
+		if(base.IsNullOrEmpty(str)) {
+			mui.toast("请输入4位数字密码");
+			return false;
+		}
+		str = str.trim();
+		if(str.length != 4 || isNaN(str)) {
+			mui.toast("请输入4位数字密码");
+			return false;
+		}
+		return true;
+	}
+
+	function Confirm() {
+		base.GetView("sharesetting").evalJS("InitPower(" + Power + ",'" + PowerPwd + "')");
+		mui.back();
+	}
+</script>

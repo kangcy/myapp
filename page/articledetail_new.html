@@ -119,8 +119,8 @@
 				<li id="popover_edit" onclick="Edit()" class="mui-table-view-cell" style="background:url(../images/article/3.png) no-repeat;background-size:1rem;background-position: 40%;text-indent:13%;">
 					编辑
 				</li>
-				<li id="popover_power" onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size:1rem;background-position: 40%;text-indent:13%;">
-					权限
+				<li id="popover_power" onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size:1rem;background-position: 40%;text-indent:27%;">
+					分享设置
 				</li>
 			</ul>
 		</div>
@@ -445,7 +445,7 @@
 		//返回
 		mui.back = function() {
 			if(base.CheckWaiting()) {
-				return false;
+				return false; 
 			}
 			if(base.HasClass(base.Get("topPopover"), "mui-active")) {
 				mui('#topPopover').popover('hide');

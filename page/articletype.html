@@ -8,125 +8,115 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/loading.min.css">
+		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<style type="text/css">
-			.mui-table-view:after {
-				height: 0px;
+			body {
+				background: #fff;
 			}
 			
-			.mui-table-view-cell:last-child:after,
-			.mui-table-view-cell:last-child:before {
-				height: 1px;
+			.flex-row {
+				padding: 0.625rem 0.9375rem;
+				position: relative;
+				background: #fff;
 			}
 			
-			.mui-popup-title+.mui-popup-text {
+			.flex-row img {
+				width: 1rem;
+			}
+			
+			.flex-row span {
+				line-height: 1.2rem;
+			}
+			
+			.flex-row .flex-item:first-child {
+				flex: 0 0 90%;
+			}
+			
+			.flex-row .flex-item:last-child {
+				flex: 0 0 10%;
+			}
+			
+			.flex-row .flex-item:last-child {
 				display: none;
+			}
+			
+			.flex-row.curr .flex-item:last-child {
+				display: block !important;
 			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" id="header">
-			<a class="mui-icon mui-action-back mui-text cfff fl">取消</a>
-			<a id="submit" class="mui-icon mui-text cfff fr" onclick="Submit()">完成</a>
-			<h1 class="mui-title cfff">选择文章分类</h1>
-		</header>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
-		<div class="mui-content" id="muicontent">
-			<div id="list">
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
 			</div>
 		</div>
+		<div id="scroll-view"></div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script type="text/javascript">
-	var ArticleID = 0;
-	var ArticleType = 0;
-	var ArticleTypeName = 0;
 	var isLoading = false;
-	var userinfo = base.GetUserInfo();
-
-	mui.init({
-		beforeback: function() {
-			if(base.CheckWaiting()) {
-				return false;
-			}
-		}
-	});
+	var ArticleType = 0;
+	var ArticleTypeName = "";
+	mui.init();
 
 	mui.ready(function() {
 		base.Immersed();
-	});
+		mui("body").on('tap', '.flex-box', function() {
+			ArticleType = this.getAttribute("index");
+			ArticleTypeName = this.getAttribute("name");
+			base.RemoveClass([".flex-box"], "curr");
+			this.classList.add("curr");
+		});
+	})
 
 	mui.plusReady(function() {
 		var self = plus.webview.currentWebview();
-		ArticleID = self.ArticleID || 0;
 		ArticleType = self.ArticleType || 0;
 		ArticleTypeName = self.ArticleTypeName || "";
-
 		Load();
-
-		mui("#list").on('tap', 'li.music', function(event) {
-			base.RemoveClass([".mui-icon"], "mui-icon-checkmarkempty");
-			this.childNodes[1].classList.add("mui-icon-checkmarkempty");
-			ArticleType = this.getAttribute("index");
-			ArticleTypeName = this.getAttribute("name");
-		});
-	});
+	})
 
 	function Load() {
 		HttpGet(base.RootUrl + "Api/ArticleType/All2", {}, function(data) {
-			data = JSON.parse(data);
-			var table = base.Get("list");
+			var table = base.Get("scroll-view");
 			table.innerHTML = "";
+			data = JSON.parse(data);
 			if(data != null) {
 				if(data.result) {
 					data = data.message;
 					if(data.length > 0) {
 						var fragment = document.createDocumentFragment();
 						mui.each(data, function(index, item) {
-							fragment.appendChild(AppendStr(item));
+							fragment.appendChild(Append(item));
 						});
 						table.appendChild(fragment);
 					}
 				}
 			}
-			base.ShowLoading(false)
+			base.ShowLoading(false);
+			mui(".flex-box[index='" + ArticleType + "']")[0].classList.add("curr");
 		});
 	}
 
-	function AppendStr(model) {
-		var div = document.createElement('ul');
-		div.className = "mui-table-view f13 mt0";
-		var html = [];
-		html.push('<li class="mui-table-view-cell music" style="' + (model.List.length > 0 ? "background:#E8E8E8;" : "background:#fff;") + '" index="' + model.ID + '" name="' + model.Name + '"><span class="fl">' + model.Name + '</span><span class="fr c999 mui-icon ' + (model.ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
-		mui.each(model.List, function(j, item) {
-			html.push('<li class="mui-table-view-cell music" index="' + item.ID + '" name="' + item.Name + '"><span class="fl">' + item.Name + '</span><span class="fr c999 mui-icon ' + (item.ID == ArticleType ? "mui-icon-checkmarkempty" : "") + '" style="position:absolute;right:0.5rem;top:0.5rem;"></span></li>');
-		})
-		div.innerHTML = html.join('');
+	function Append(item) {
+		var div = document.createElement('div');
+		div.className = "flex-box flex-row f13";
+		div.setAttribute("index", item.ID);
+		div.setAttribute("name", item.Name);
+		div.innerHTML = '<div class="flex-item"><span class="c000 ml5">' + item.Name + '</span></div><div class="flex-item"><img src="../images/my/check.png" class="fr" /></div>';
 		return div;
 	}
 
-	function Submit() {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
-		HttpGet(base.RootUrl + "Article/EditArticleType", {
-				ID: userinfo.ID,
-				ArticleID: ArticleID,
-				ArticleType: ArticleType
-			},
-			function(data) {
-				isLoading = false;
-				if(data.result) {
-					base.GetView('sharesetting').evalJS("UpdateArticleType('" + ArticleType + "','" + ArticleTypeName + "')")
-					mui.back();
-				} else {
-					mui.toast(data.message);
-				}
-			});
+	function Confirm() {
+		base.GetView("sharesetting").evalJS("InitType(" + ArticleType + ",'" + ArticleTypeName + "')");
+		mui.back();
 	}
 </script>

@@ -17,6 +17,8 @@
 			<a class="mui-icon mui-text cfff fr hide" id="mypic">完成</a>
 			<a class="mui-icon mui-text cfff fr hide" id="star">保存</a>
 			<a class="mui-icon mui-text cfff fr hide" id="sex">保存</a>
+			<a class="mui-icon mui-text cfff fr hide" id="power">保存</a>
+			<a class="mui-icon mui-text cfff fr hide" id="articletype">保存</a>
 			<div class="mui-title cfff" id="title"></div>
 		</header>
 	</body>
@@ -63,7 +65,7 @@
 				appendview = [];
 				mui.later(function() {
 					base.Get("title").innerHTML = "";
-					base.AddClass(["#pic", "#mypic", "#star"], "hide");
+					base.AddClass(["#pic", "#mypic", "#star", "#sex", "#power", "#articletype"], "hide");
 					tempview.remove(currview);
 					if(currview)
 						currview.close();

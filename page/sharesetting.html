@@ -8,28 +8,22 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../mincss/setting.min.css">
 		<style type="text/css">
-			.mui-icon-checkmarkempty {
-				top: 18%;
+			body {
+				background: #f5f5f5;
+			}
+			
+			.flex-row:after {
 				position: absolute;
-				display: none;
-			}
-			
-			.mui-table-view:after {
-				height: 0px;
-			}
-			
-			.mui-table-view-cell:last-child:after,
-			.mui-table-view-cell:last-child:before {
+				right: 0;
+				bottom: 0;
+				left: 0.8rem;
 				height: 1px;
-			}
-			
-			.mui-popup-title+.mui-popup-text {
-				display: none;
-			}
-			
-			.check .mui-icon-checkmarkempty {
-				display: block !important;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #e8e8e8;
 			}
 		</style>
 	</head>
@@ -37,103 +31,47 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a id="submit" class="mui-icon mui-text cfff fr" onclick="SaveArticlePower()">完成</a>
+			<a id="submit" class="mui-icon mui-text cfff fr" onclick="Save()">发布</a>
 			<h1 class="mui-title cfff">分享设置</h1>
 		</header>
 		<div class="mui-content" id="muicontent">
-			<ul class="mui-table-view f13 mt0" id="list">
-				<li class="mui-table-view-cell" style="background:#f5f5f5;">
-					<span class="fl f11 c999">谁可以看</span>
-				</li>
-				<li class="mui-table-view-cell list index3" index="3">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 40%;" class="flex-item">
-							<span class="c000">公开</span>
-						</div>
-						<div style="flex:0 0 55%;" class="flex-item">
-							<span class="f11 c999 fr">所有人都可以看到</span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tr">
-							<span class="c999 mui-icon mui-icon-checkmarkempty f25"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell list index2" index="2">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 40%;" class="flex-item">
-							<span class="c000">不公开</span>
-						</div>
-						<div style="flex:0 0 55%;" class="flex-item">
-							<span class="f11 c999 fr">仅通过自己分享后才可见</span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tr">
-							<span class="c999 mui-icon mui-icon-checkmarkempty f25"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell list index1" index="1">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 40%;" class="flex-item">
-							<span class="c000">密码可见</span>
-						</div>
-						<div style="flex:0 0 55%;" class="flex-item">
-							<span class="f11 c999 fr">设置密码,输入密码才可见</span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tr">
-							<span class="c999 mui-icon mui-icon-checkmarkempty f25"></span>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell list index0" index="0">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 40%;" class="flex-item">
-							<span class="c000">私密</span>
-						</div>
-						<div style="flex:0 0 55%;" class="flex-item">
-							<span class="f11 c999 fr">仅自己可见</span>
-						</div>
-						<div style="flex:0 0 5%;" class="flex-item tr">
-							<span class="c999 mui-icon mui-icon-checkmarkempty f25"></span>
-						</div>
-					</div>
-				</li>
-			</ul>
-			<ul class="mui-table-view f13 mt0">
-				<li class="mui-table-view-cell" id="articletype">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 70%;" class="flex-item">
-							<p class="c000 full">分类</p>
-							<span class="f10 c999 mt3">准确设置文章类别，方便以后归纳整理</span>
-						</div>
-						<div style="flex:0 0 26%;" class="flex-item tr">
-							<span class="fr c999 f12 mr5" id="article_type"></span>
-						</div>
-						<div style="flex:0 0 4%;" class="flex-item tr">
-							<span class="mui-icon mui-icon-arrowright c999 f16"></span>
-						</div>
-					</div>
-				</li>
-			</ul>
 			<div class="splitline"></div>
-			<ul class="mui-table-view f13 mt0">
-				<li class="mui-table-view-cell">
-					<div class="flex-box flex-row">
-						<div style="flex:0 0 80%;" class="flex-item">
-							<p class="c000 full">投稿</p>
-							<span class="f10 c999 mt3">每篇文章每天只有一次投稿机会，被选中的文章会有“精”字标识，投稿审核期内暂时不可编辑文章</span>
-						</div>
-						<div style="flex:0 0 20%;" class="flex-item tr">
-							<div class="my-switch" id="switch">
-								<div></div>
-							</div>
-						</div>
+			<div class="flex-box flex-row f13" onclick="Power()">
+				<div class="flex-item c000">
+					谁可以看
+				</div>
+				<div class="flex-item tr">
+					<span class="blue f12" id="article_power"></span>
+					<span class="mui-icon mui-icon-arrowright c999 f16"></span>
+				</div>
+			</div>
+			<div class="splitline"></div>
+			<div class="flex-box flex-row f13" onclick="Type()">
+				<div class="flex-item" style="flex:0 0 60%;">
+					<p class="c000 full">文章类别</p>
+					<span class="f10 c999 mt3">准确设置文章类别，方便以后归纳整理</span>
+				</div>
+				<div class="flex-item tr" style="flex:0 0 40%;">
+					<span class="blue f12" id="article_type"></span><span class="mui-icon mui-icon-arrowright c999 f16"></span>
+				</div>
+			</div>
+			<div class="splitline"></div>
+			<div class="flex-box flex-row f13">
+				<div class="flex-item" style="flex:0 0 75%;">
+					<p class="c000 full">申请推荐</p>
+					<span class="f10 c999 mt3">每篇文章每天只有一次申请机会，推荐成功将被优先展示在小微篇中</span>
+				</div>
+				<div class="flex-item tr" style="flex:0 0 5%;"></div>
+				<div class="flex-item tr" style="flex:0 0 20%;">
+					<div class="my-switch" id="switch">
+						<div></div>
 					</div>
-				</li>
-			</ul>
+				</div>
+			</div>
 		</div>
 		<div class="boxshadow hide" id="notice" style="position:fixed;bottom:40%;left:10%;width:80%;z-index:99999;background:#fff;border-radius:5px;">
 			<div style="padding:30px;padding-bottom:15px;">
-				<p class="c333 f15 bold tc">投稿失败</p>
+				<p class="c333 f15 bold tc">申请失败</p>
 				<p class="c333 f12 mt5" id="error"></p>
 			</div>
 			<div class="blue full tc fl f13" style="height:2.5rem;line-height:2.5rem;position:relative;border-top:1px solid #eee;" onclick="ActionTan(0)">
@@ -150,6 +88,7 @@
 	var ArticleNumber = "";
 	var ArticlePower = 0;
 	var ArticlePowerPwd = "";
+	var ArticlePowerName = "";
 	var ArticleType = 0;
 	var ArticleTypeName = "";
 	var Source = "";
@@ -163,73 +102,6 @@
 
 	mui.ready(function() {
 		base.Immersed();
-
-		//选中切换
-		mui("#list").on('tap', '.list', function(event) {
-			var $this = this;
-			var index = this.getAttribute("index");
-
-			if(index > 0) {
-				//密码验证
-				if(index == 1) {
-					if(ArticleType == 0) {
-						mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
-							if(e.index < 0) {
-								return;
-							}
-							if(e.index == 0) {
-								base.OpenWindow("articletype", "articletype.html", {
-									ArticleID: ArticleID,
-									ArticleType: ArticleType,
-									ArticleTypeName: ArticleTypeName
-								});
-							}
-						});
-						return;
-					} else {
-						mui.prompt('设置密码', '输入4位数字密码', '分享设置', ['确定', '取消'], function(e) {
-							if(e.index == 0) {
-								if(ChechPwd(e.value)) {
-									ArticlePowerPwd = e.value;
-									base.RemoveClass([".check"], "check");
-									$this.classList.add("check");
-									ArticlePower = index;
-									SaveArticlePower();
-								}
-							}
-						});
-						return;
-					}
-				}
-				if(ArticleType == 0) {
-					mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
-						if(e.index < 0) {
-							return;
-						}
-						if(e.index == 0) {
-							base.OpenWindow("articletype", "articletype.html", {
-								ArticleID: ArticleID,
-								ArticleType: ArticleType,
-								ArticleTypeName: ArticleTypeName
-							});
-						}
-					});
-					return;
-				}
-			}
-			base.RemoveClass([".check"], "check");
-			$this.classList.add("check");
-			ArticlePower = index;
-		});
-
-		//分类
-		base.Get('articletype').addEventListener('tap', function(event) {
-			base.OpenWindow("articletype", "articletype.html", {
-				ArticleID: ArticleID,
-				ArticleType: ArticleType,
-				ArticleTypeName: ArticleTypeName
-			});
-		});
 	});
 
 	mui.plusReady(function() {
@@ -246,11 +118,8 @@
 			ArticleTypeName = "请选择"
 		}
 		base.Get("article_type").innerHTML = ArticleTypeName;
+		FormatPower(ArticlePower);
 
-		//初始化
-		mui("#list .index" + ArticlePower + "")[0].classList.add("check");
-
-		//返回
 		mui.back = function() {
 			if(base.CheckWaiting()) {
 				return false;
@@ -312,35 +181,35 @@
 				isLoading = false;
 			}
 		});
-
-		/*mui.later(function() {
-			plus.webview.close("articlepreview", "none");
-			plus.webview.close("addarticle", "none");
-		}, 500)*/
 	});
 
-	//校验权限密码
-	function ChechPwd(str) {
-		if(base.IsNullOrEmpty(str)) {
-			return false;
-		}
-		str = str.trim();
-		if(str.length != 4 || isNaN(str)) {
-			mui.toast("输入4位数字密码");
-			return false;
-		}
-		return true;
-	}
-
 	//保存权限
-	function SaveArticlePower() {
-		HttpGet(base.RootUrl + "Article/EditArticlePower", {
+	function Save() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		if(ArticlePower > 0 && (ArticleType == 0 || ArticleType == 10000)) {
+			mui.confirm('请先设置文章类别', '', ['去设置', '取消'], function(e) {
+				if(e.index < 0) {
+					return;
+				}
+				if(e.index == 0) {
+					Type();
+				}
+			});
+			isLoading = false;
+			return;
+		}
+		HttpGet(base.RootUrl + "Article/EditShare", {
 				ID: userinfo.ID,
 				ArticleID: ArticleID,
 				ArticlePower: ArticlePower,
-				ArticlePowerPwd: ArticlePowerPwd
+				ArticlePowerPwd: ArticlePowerPwd,
+				ArticleType: ArticleType
 			},
 			function(data) {
+				isLoading = false; 
 				if(data.result) {
 					mui.toast("设置成功");
 					mui.back();
@@ -354,6 +223,51 @@
 		ArticleType = id;
 		ArticleTypeName = name;
 		base.Get("article_type").innerHTML = name;
+	}
+
+	function Power() {
+		base.ShowTemplate("power", "power.html", "谁可以看", JSON.stringify({}));
+	}
+
+	function Type() {
+		base.ShowTemplate("articletype", "articletype.html", "文章类别", JSON.stringify({
+			ArticleType: ArticleType
+		}));
+	}
+
+	function InitPower(power, powerpwd) {
+		ArticlePower = power;
+		ArticlePowerPwd = powerpwd;
+		FormatPower(power);
+	}
+
+	function InitType(type, typename) {
+		ArticleType = type;
+		ArticleTypeName = typename;
+		base.Get("article_type").innerHTML = ArticleTypeName;
+	}
+
+	function FormatPower(power) {
+		var name = "私密";
+		switch(parseInt(power)) {
+			case 0:
+				name = "私密";
+				break;
+			case 1:
+				name = "密码可见";
+				break;
+			case 2:
+				name = "不公开";
+				break;
+			case 3:
+				name = "公开";
+				break;
+			default:
+				name = "私密";
+				break;
+		}
+		ArticlePowerName = name;
+		base.Get("article_power").innerHTML = ArticlePowerName;
 	}
 
 	//操作弹窗
