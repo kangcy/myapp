@@ -6,10 +6,6 @@
 	padding: 0.625rem;
 }
 
-/*.mui-table-view-cell:after {
-	left: 18%;
-}*/
-
 .mui-table-view-cell:last-child:after {
 	height: 1px
 }

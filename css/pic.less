@@ -1,0 +1,131 @@
+#scroll-view {
+    padding-top: 0.2rem;
+    padding-bottom: 0.5rem;
+}
+
+.title {
+    height: 2.2rem;
+    line-height: 2.2rem;
+}
+
+.thirdfloor {
+    margin-top: 0rem;
+    img {
+        width: 100% !important;
+        height: auto !important;
+        padding: 2px;
+        float: left;
+    }
+    .cover {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    .icon {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+    &.yescheck .cover {
+        background: rgba(0, 0, 0, 0.5);
+    }
+    &.nocheck .icon {
+        background: url(../images/addarticle/icon_pic_n.png) no-repeat;
+        background-size: 100% 100%;
+        background-position: center center;
+    }
+    &.yescheck .icon {
+        background: url(../images/addarticle/icon_pic_y.png) no-repeat;
+        background-size: 100% 100%;
+        background-position: center center;
+    }
+}
+
+#cover {
+    background: url("http://www.xiaoweipian.com/Images/Cover/background_colorful07.jpg");
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.tip {
+    position: fixed;
+    bottom: 2%;
+    text-align: center;
+    width: 100%;
+    z-index: 2;
+    -webkit-animation: move ease-in-out .75s infinite;
+    animation: move ease-in-out .75s infinite;
+    div {
+        padding: 5px 10px;
+        border-radius: 5px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        display: inline-block;
+    }
+}
+
+.left1 {
+    width: 2.5rem;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+    .div1 {
+        background: #f5f5f5;
+        width: 100%;
+        height: 1.25rem;
+        line-height: 1.5rem;
+        display: inline-block;
+        border-radius: 5px 5px 0px 0px;
+    }
+    .div2 {
+        background: #fff;
+        width: 100%;
+        height: 1.25rem;
+        line-height: 1.25rem;
+        display: inline-block;
+        border-radius: 0px 0px 5px 5px;
+    }
+    .div3 {
+        width: 100%;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        display: inline-block;
+    }
+}
+
+@keyframes move {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    50% {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes move {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    50% {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}

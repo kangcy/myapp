@@ -329,7 +329,9 @@
 
 			//系统分享
 			if(index == 6) {
-				ShareSystem();
+				mui.later(function() {
+					ShareSystem();
+				}, 50)
 				return;
 			}
 			var id = "";

@@ -10,12 +10,7 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
-		<link rel="stylesheet" href="../mincss/user.min.css">
-		<style type="text/css">
-			.mui-table-view-cell {
-				padding: 0.625rem;
-			}
-		</style>
+		<link rel="stylesheet" href="../css/user.min.css">
 	</head>
 
 	<body>
@@ -29,7 +24,6 @@
 				<span class="circles-loader"></span>
 			</div>
 		</div>
-		<!--操作-->
 		<div id="power" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="mypic">
@@ -47,7 +41,7 @@
 				<li class="mui-table-view-cell noborder hide" id="outblack">
 					<a href="#" class="red f13" onclick="OutBlack()">解除黑名单</a>
 				</li>
-			</ul>
+			</ul> 
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
 					<a href="#power" class="c333 f13">取消</a>
@@ -70,7 +64,6 @@
 			</ul>
 		</div>
 		<!--分享-->
-		<div class="mui-backdrop hide" id="mysharebg" onclick="ShareTan(0)"></div>
 		<div class="myshare hide" id="myshare">
 			<p class="f16 c333 tc mt10 mb0">分享到</p>
 			<div class="tc myshare_body">
@@ -92,7 +85,7 @@
 				<div class="myshare_items" onclick="ShareAction(6)"><img src="../images/share/06.png" />
 					<p class="f11 mb0 c333">其他</p>
 				</div>
-				<div class="c333 mt10 f11 fl btnExit" onclick="ShareTan(0)">取消</div>
+				<div class="c333 mt10 f11 fl btnExit" onclick="ShareTan(2)">取消</div>
 			</div>
 		</div>
 
@@ -160,7 +153,8 @@
 	var $bg = base.Get("bg");
 	var name = base.BrowserName();
 	var self = null;
-	var mask = base.CreateMask(false, function() {
+	var mask = base.CreateMask(true, function() {
+		ShareTan(0);
 		base.CloseWaiting();
 	});
 
@@ -391,7 +385,6 @@
 				mui.toast(data.message);
 				self.close();
 			}
-			base.CloseWaiting();
 			base.ShowLoading(false);
 			mask.close();
 		});
@@ -544,7 +537,7 @@
 			return false;
 		}
 		isLoading = true;
-		mui('#black').popover('toggle');
+		mui('#black').popover('hide');
 		var data = {
 			ID: userinfo.ID,
 			ToUserNumber: UserNumber
@@ -570,7 +563,7 @@
 			return false;
 		}
 		isLoading = true;
-		mui('#power').popover('toggle');
+		mui('#power').popover('hide');
 		var data = {
 			ID: userinfo.ID,
 			ToUserNumber: UserNumber
@@ -595,7 +588,7 @@
 
 	//查看相册
 	function Pic() {
-		mui('#power').popover('toggle');
+		mui('#power').popover('hide');
 		base.OpenWindow("pic", "pic.html", {
 			UserNumber: UserNumber,
 			Title: base.UnUnicodeText(NickName) + "的相册"
@@ -614,8 +607,10 @@
 
 	//复制链接
 	function Copy() {
-		mui('#power').popover('toggle');
-		CopyToClip();
+		mui('#power').popover('hide');
+		mui.later(function() {
+			CopyToClip();
+		}, 50)
 	}
 
 	//复制到剪贴板 
@@ -626,15 +621,15 @@
 		plus.android.invoke(clip, "setText", ShareInfo.Url);
 		mui.toast("分享链接已复制到剪贴板");
 	}
-
+ 
 	//操作
 	function More() {
-		mui('#power').popover('toggle');
+		mui('#power').popover('show');
 	}
 
 	//分享
 	function Share() {
-		mui('#power').popover('toggle');
+		mui('#power').popover('hide');
 		ShareTan(1);
 	}
 
@@ -659,24 +654,27 @@
 	function ShareTan(index) {
 		var myshare = base.Get("myshare");
 		if(index == 0) {
-			base.Get("mysharebg").classList.add("hide");
 			myshare.classList.remove("bounceInUp");
 			myshare.classList.add("bounceOutUp");
-		} else {
-			base.Get("mysharebg").classList.remove("hide");
+		} else if(index == 1) {
+			mask.show();
 			myshare.classList.remove("hide");
 			myshare.classList.remove("bounceOutUp");
 			myshare.classList.add("bounceInUp");
+		} else {
+			mask.close();
 		}
 	}
 
 	//分享信息 
 	function ShareAction(index) {
-		ShareTan(0);
+		ShareTan(2);
 
 		//系统分享
 		if(index == 6) {
-			ShareSystem();
+			mui.later(function() {
+				ShareSystem();
+			}, 50)
 			return;
 		}
 		var id = "";

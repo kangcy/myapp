@@ -12,11 +12,13 @@ var ParentUserNumber = 0;
 var Count = 0;
 var NewId = 0; //最新添加评论ID
 var editor = null;
+var $commentwrapper = null;
+var $commentwrapperReady = false;
 
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
-	base.Get("commentwrapper").classList.remove("bounceInUp");
-	base.Get("commentwrapper").classList.add("bounceOutUp");
+	$commentwrapper.classList.remove("bounceInUp");
+	$commentwrapper.classList.add("bounceOutUp");
 
 	if(base.Get("bottomAction")) {
 		base.Get("bottomAction").classList.remove("hide");
@@ -26,14 +28,11 @@ var mask = base.CreateMask(false, function() {
 	CommentClear();
 	//SetPullEnable(true);
 });
- 
+
 //评论初始化
 function InitComment() {
-	pulldownRefresh(function() {
-		NewId = 0;
-	})
-
 	mui('#divcomment').load("../part/comment.html", function(response) {
+		$commentwrapper = base.Get("commentwrapper");
 		base.Get("tab0").setAttribute("src", base.RootUrl + "/Images/Icons/face/0.png");
 		base.Get("tab1").setAttribute("src", base.RootUrl + "/Images/Icons/animal/49.png");
 		base.Get("tab2").setAttribute("src", base.RootUrl + "/Images/Icons/food/0.png");
@@ -161,6 +160,8 @@ function InitComment() {
 			base.Get("slider" + (j + 1)).innerHTML = groupHtml.join('') + tipHtml.join('');
 		});
 
+		$commentwrapperReady = true;
+
 		if(base.IsNullOrEmpty(action)) {
 			$("#bottomAction").removeClass("hide").addClass("bounceIn");
 		} else {
@@ -232,26 +233,25 @@ function InitComment() {
 			Name: name
 		});
 	});
-
 }
 
 //显示编辑器
 function ShowComment(show) {
+	if(!$commentwrapperReady) {
+		return;
+	}
 	if(show == 0) {
 		mask.close();
 	} else {
 		base.Get("commenttitle").innerHTML = base.IsNullOrEmpty(ParentCommentNumber) ? "发表评论" : "回复楼主";
-
 		mask.show();
-		//SetPullEnable(false);
-
 		if(base.Get("bottomAction")) {
 			base.Get("bottomAction").classList.remove("fadeInUp");
 			base.Get("bottomAction").classList.add("hide");
 		}
-		base.Get("commentwrapper").classList.remove("hide");
-		base.Get("commentwrapper").classList.remove("bounceOutUp");
-		base.Get("commentwrapper").classList.add("bounceInUp");
+		$commentwrapper.classList.remove("hide");
+		$commentwrapper.classList.remove("bounceOutUp");
+		$commentwrapper.classList.add("bounceInUp");
 
 		base.ShowLoading(false);
 
@@ -431,21 +431,17 @@ function InsertIcon(html) {
 //拼接Html  
 function AppendStr(item) {
 	var div = document.createElement('div');
-	div.className = 'mui-table-view-cell';
+	div.className = 'mui-table-view-cell mt10 mb10';
 	div.setAttribute("id", "article" + item.Number)
 	var model = [];
-	model.push('<div class="mui-slider-cell mt10 mb10"><div class="oa-contact-cell mui-table">');
+	model.push('<div class="oa-contact-cell mui-table">');
 	model.push('<div class="mui-table-cell oa-contact-avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-
 	model.push('<div class="flex-box flex-row full">');
 	model.push('<div style="flex:0 0 65%;" class="flex-item"><p class="c333 f13 user" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '</p><p class="f11 c999 mt3 full">' + item.CreateDateText + (item.ShowPosition == 1 ? '<span class="ml5 mr5">来自</span>' + item.City : '') + '</p></div>');
-	model.push('<div style="flex:0 0 35%;" class="flex-item c999 tr">');
-	model.push('<img src="../images/article/btn_comment.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articlenumber="' + item.ArticleNumber + '" count="' + item.SubCommentCount + '" id="comment1' + item.Number + '" /><div id="goods' + item.Number + '" cid="' + item.Number + '" already="' + (item.IsZan == 0 ? 0 : 1) + '" class="goods fr ' + (item.IsZan == 0 ? "" : "red") + '"><span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/article/' + (item.IsZan == 0 ? "btn_good" : "btn_good2") + '.png" style="width:0.9rem;" class="fr"  /></div>');
-	model.push('</div></div>');
+	model.push('<div style="flex:0 0 35%;" class="flex-item c999 tr"><img src="../images/article/btn_comment.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articlenumber="' + item.ArticleNumber + '" count="' + item.SubCommentCount + '" id="comment1' + item.Number + '" /><div id="goods' + item.Number + '" cid="' + item.Number + '" already="' + (item.IsZan == 0 ? 0 : 1) + '" class="goods fr ' + (item.IsZan == 0 ? "" : "red") + '"><span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/article/' + (item.IsZan == 0 ? "btn_good" : "btn_good2") + '.png" style="width:0.9rem;" class="fr"  /></div></div></div>');
 	model.push('<div class="f12 c333 mt5 full summary" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</div>');
 	model.push('<p class="tip tip1 mb0 f12 mt5 ' + (item.SubCommentCount > 1 ? "" : "hide") + '"><span class="blue sub" number="' + item.Number + '" id="comment0' + item.Number + '" name="' + item.NickName + '">查看' + item.SubCommentCount + '条回复</span></p>');
 	model.push('<p class="tip tip0 mb0 f12 mt5 ' + (item.SubCommentCount == 1 ? "" : "hide") + '"><span class="blue summary">' + base.UnUnicodeText(item.SubUserName) + '<span class="c999"> : ' + base.UnUnicodeText(item.SubSummary) + '</span></span></p>');
-	model.push('</div>');
 	div.innerHTML = model.join('');
 	return div;
 }

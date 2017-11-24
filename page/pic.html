@@ -9,149 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/img.preview.min.css">
-		<style type="text/css">
-			#scroll-view {
-				padding-top: 0.2rem;
-				padding-bottom: 0.5rem;
-			}
-			
-			.title {
-				height: 2.2rem;
-				line-height: 2.2rem;
-			}
-			
-			.thirdfloor {
-				margin-top: 0rem;
-			}
-			
-			.thirdfloor img {
-				width: 100% !important;
-				height: auto !important;
-				padding: 2px;
-				float: left;
-			}
-			
-			.thirdfloor .cover {
-				position: absolute;
-				left: 0px;
-				top: 0px;
-				width: 100%;
-				height: 100%;
-			}
-			
-			.thirdfloor.yescheck .cover {
-				background: rgba(0, 0, 0, 0.5);
-			}
-			
-			.thirdfloor .icon {
-				position: absolute;
-				right: 0.5rem;
-				top: 0.5rem;
-				width: 1.3rem;
-				height: 1.3rem;
-			}
-			
-			.thirdfloor.nocheck .icon {
-				background: url(../images/addarticle/icon_pic_n.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
-			}
-			
-			.thirdfloor.yescheck .icon {
-				background: url(../images/addarticle/icon_pic_y.png) no-repeat;
-				background-size: 100% 100%;
-				background-position: center center;
-			}
-			
-			.tip {
-				position: fixed;
-				bottom: 2%;
-				text-align: center;
-				width: 100%;
-				z-index: 2;
-				-webkit-animation: move ease-in-out .75s infinite;
-				animation: move ease-in-out .75s infinite;
-			}
-			
-			.tip div {
-				padding: 5px 10px;
-				border-radius: 5px;
-				background: rgba(0, 0, 0, 0.5);
-				color: #fff;
-				display: inline-block;
-			}
-			
-			@keyframes move {
-				0% {
-					-webkit-transform: translateY(0);
-					transform: translateY(0);
-				}
-				50% {
-					-webkit-transform: translateY(-5px);
-					transform: translateY(-5px);
-				}
-				100% {
-					-webkit-transform: translateY(0);
-					transform: translateY(0);
-				}
-			}
-			
-			@-webkit-keyframes move {
-				0% {
-					-webkit-transform: translateY(0);
-					transform: translateY(0);
-				}
-				50% {
-					-webkit-transform: translateY(-5px);
-					transform: translateY(-5px);
-				}
-				100% {
-					-webkit-transform: translateY(0);
-					transform: translateY(0);
-				}
-			}
-			
-			.left1 {
-				width: 2.5rem;
-				display: inline-block;
-				text-align: center;
-				overflow: hidden;
-			}
-			
-			.left1 .div1 {
-				background: #f5f5f5;
-				width: 100%;
-				height: 1.25rem;
-				line-height: 1.5rem;
-				display: inline-block;
-				border-radius: 5px 5px 0px 0px;
-			}
-			
-			.left1 .div2 {
-				background: #fff;
-				width: 100%;
-				height: 1.25rem;
-				line-height: 1.25rem;
-				display: inline-block;
-				border-radius: 0px 0px 5px 5px;
-			}
-			
-			.left1 .div3 {
-				width: 100%;
-				height: 1.5rem;
-				line-height: 1.5rem;
-				display: inline-block;
-			}
-			
-			#cover {
-				background: url(http://www.xiaoweipian.com/Images/Cover/background_colorful07.jpg);
-				position: fixed;
-				z-index: -1;
-				top: 0;
-				bottom: 0;
-				width: 100%;
-			}
-		</style>
+		<link rel="stylesheet" href="../css/pic.min.css">
 	</head>
 
 	<body id="main">
@@ -169,21 +27,13 @@
 			</div>
 		</div>
 		<p id="none" class="full f12 tc hide">大波内容正在赶来，敬请期待~</p>
-		<div id="muicontent" class="inline full">
-			<div id="scroll-view" class="inline full"></div>
-		</div>
 		<div id="tip" class="tip f11 hide">
 			<div>在动态中发表的图片会自动加入相册<br />（长按删除选中图片）</div>
 		</div>
 		<div id="cover"></div>
-		<!--<div class="left">
-			<div class="left1">
-				<div class="div1 f10 c666">一月</div>
-				<div class="div2 f16 c000 bold">22</div>
-				<div class="div3 f11 c000">星期日</div>
-			</div>
+		<div id="muicontent" class="inline full">
+			<div id="scroll-view" class="inline full"></div>
 		</div>
-		<div class="right"></div>-->
 	</body>
 
 </html>
@@ -260,7 +110,6 @@
 		pulldownRefresh();
 
 		if(UserNumber == userinfo.Number) {
-			//选中切换
 			mui("#scroll-view").on('tap', '.thirdfloor', function(event) {
 				if(PreviewEnable) {
 					return;
@@ -350,14 +199,11 @@
 
 	function AppendStr1(item) {
 		var div = document.createElement('div');
-		//div.className = 'title tc mt15 mb20 f14 fl full';
-		//div.innerHTML = '<div style="border:1px solid #0080ff;color:#0080ff;border-radius:30px;display:inline-block;width:60%;"><span>' + item.CreateDate + '</span><span class="ml15" id="a_num">' + item.List.length + '张图片</span></div>';
-
 		div.className = 'inline tc fl';
 		div.style.width = "3.5rem";
 		div.innerHTML = '<div class="left1"><div class="div1 f10 c666">' + item.Month + '</div><div class="div2 f16 blue bold">' + item.Day + '</div><div class="div3 f11 c000">' + item.Week + '</div></div>';
 		return div;
-	} 
+	}
 
 	function AppendStr2(item) {
 		var div = document.createElement('div');

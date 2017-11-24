@@ -10,22 +10,15 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
-		<style type="text/css">
-			.more {
-				margin-top: 0.35rem;
-				margin-right: 0.4rem;
-			}
-		</style>
 	</head>
 	<!--禁止复制-->
 
-	<body id="body" oncontextmenu="return false" onselectstart="return false">
+	<body oncontextmenu="return false" onselectstart="return false">
 		<header id="header" class="mui-bar">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
-			<span class="cfff f25 fr more" onclick="ShareTan(1)">•••</span>
+			<span class="cfff f25 fr more" onclick="ShareTan(1)" style="margin-top:0.35rem;margin-right:0.4rem;">•••</span>
 			<h1 class="mui-title cfff" id="title">专属红包活动</h1>
 		</header>
-		<div id="progress" class="full" style="position:fixed;left:0px;height:5px;"></div>
 		<div class="loading" id="loader">
 			<div class="card">
 				<span class="circles-loader"></span>
@@ -74,11 +67,11 @@
 		Cover: ""
 	};
 	var isLoading = false;
-	var MusicID = ""; //音乐控件ID
+	var MusicID = "";
 	var MusicUrl = "";
 	var userinfo = base.GetUserInfo();
-
-	//显示遮罩
+	var self = null;
+	var $share = base.Get("myshare");
 	var mask = base.CreateMask(true, function() {
 		ShareTan(0);
 		base.CloseWaiting();
@@ -94,24 +87,10 @@
 
 	mui.ready(function() {
 		base.Immersed();
-
-		//进度条
-		var progress = mui("#progress");
-		progress[0].style.top = base.Get("header").clientHeight + "px";
-		progress.progressbar({
-			progress: 0
-		}).show();
-		ProgressLoading(progress, 0, 100);
-
 		base.Get("iframe").style.height = (window.innerHeight - base.Get("header").clientHeight) + "px";
-
-		base.ShowUser("#body");
 	});
 
-	var self = null;
-
 	mui.plusReady(function() {
-
 		self = plus.webview.currentWebview();
 		MusicUrl = self.MusicUrl || "";
 		ShareInfo.Title = self.ShareTitle || "";
@@ -120,8 +99,7 @@
 
 		if(base.IsNullOrEmpty(ShareInfo.Url)) {
 			mui.toast("文章暂时关闭访问");
-			plus.webview.currentWebview().hide();
-			plus.webview.currentWebview().close();
+			self.close();
 			return
 		}
 
@@ -138,13 +116,21 @@
 			audio = null;
 		}
 
-		base.Get("iframe").setAttribute("src", ShareInfo.Url);
-		base.ShowLoading(false);
+		var iframe = base.Get("iframe");
+		iframe.setAttribute("src", ShareInfo.Url);
+		iframe.onload = function() {
+			base.ShowLoading(false);
+		}
+		iframe.onreadystatechange = function() {
+			if(iframe.readyState == "complete") {
+				base.ShowLoading(false);
+			}
+		}
 	}
 
 	//分享
-	var shares = null; //分享服务
-	var shareImageUrl = ''; //分享图片地址
+	var shares = null;
+	var shareImageUrl = '';
 
 	//更新分享服务
 	function updateSerivces() {
@@ -162,13 +148,13 @@
 	//分享弹窗
 	function ShareTan(index) {
 		if(index == 0) {
-			base.Get("myshare").classList.remove("bounceInUp");
-			base.Get("myshare").classList.add("bounceOutUp");
+			$share.classList.remove("bounceInUp");
+			$share.classList.add("bounceOutUp");
 		} else if(index == 1) {
 			mask.show();
-			base.Get("myshare").classList.remove("hide");
-			base.Get("myshare").classList.remove("bounceOutUp");
-			base.Get("myshare").classList.add("bounceInUp");
+			$share.classList.remove("hide");
+			$share.classList.remove("bounceOutUp");
+			$share.classList.add("bounceInUp");
 		} else {
 			mask.close();
 		}
@@ -180,10 +166,12 @@
 
 		//系统分享
 		if(index == 6) {
-			ShareSystem();
+			mui.later(function() {
+				ShareSystem();
+			}, 50)
 			return;
 		}
-		var id = "";
+		var id = ""; 
 		var ex = "";
 		switch(index) {
 			//朋友圈

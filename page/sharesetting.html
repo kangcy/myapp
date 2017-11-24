@@ -8,7 +8,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/setting.min.css">
+		<link rel="stylesheet" href="../css/setting.min.css">
 		<style type="text/css">
 			.flex-row:after {
 				left: 0.8rem;
@@ -112,15 +112,15 @@
 			if(base.CheckWaiting()) {
 				return false;
 			}
-			var articleDetailPage = base.GetView('articledetail');
-			if(articleDetailPage == null) {
+			var page = base.GetView('articledetail');
+			if(page == null) {
 				base.OpenWindow("articledetail_new", "articledetail_new.html", {
 					ArticleID: ArticleID,
 					Source: Source
 				}, false, "none");
 			} else {
-				articleDetailPage.evalJS("UpdateDetail()");
-				articleDetailPage.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
+				page.evalJS("UpdateDetail()");
+				page.evalJS("UpdatePower(" + ArticlePower + ",'" + ArticlePowerPwd + "'," + ArticleType + ",'" + ArticleTypeName + "')");
 			}
 		}
 
@@ -197,7 +197,7 @@
 				ArticleType: ArticleType
 			},
 			function(data) {
-				isLoading = false; 
+				isLoading = false;
 				if(data.result) {
 					mui.toast("设置成功");
 					mui.back();

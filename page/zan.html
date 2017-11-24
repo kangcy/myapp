@@ -13,7 +13,14 @@
 	</head>
 
 	<body>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 		<p id="none" class="full f12 tc hide">大波内容正在赶来，敬请期待</p>
 		<div id="scroll-view" class="inline full"></div>
 	</body>
@@ -36,10 +43,6 @@
 		}
 	});
 
-	mui.ready(function() {
-
-	})
-
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		ShowMe = self.ShowMe || 0;
@@ -53,7 +56,6 @@
 		Init();
 	});
 
-	//初始化
 	function Init() {
 		pulldownRefresh();
 		SetPullEnable(false, "0px");
