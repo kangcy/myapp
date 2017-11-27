@@ -7,7 +7,7 @@
 	"id": "H5CCC9B38",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "小微篇",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.65",/*应用版本名称*/
+		"name": "1.61",/*应用版本名称*/
 		"code": "" /*1：应用宝:2：华为 3：VIVO 4：OPPO:5：魅族*/
 	},
 	"description": "小微篇",/*应用描述信息*/
@@ -111,9 +111,9 @@
 				"statics": {
 					"umeng": {
 						"appkey_ios": "59c8a78c9f06fd7fe70000b0",
-						"channelid_ios": "魅族",
+						"channelid_ios": "应用宝",
 						"appkey_android": "59c8a78c9f06fd7fe70000b0",
-						"channelid_android": "魅族"
+						"channelid_android": "应用宝"
 					}
 				},
 				"maps": {

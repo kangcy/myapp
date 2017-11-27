@@ -8,10 +8,12 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../css/pic.min.css">
 		<style type="text/css">
-			body{
-				background:#f5f5f5;
+			body {
+				background: #f5f5f5;
 			}
+			
 			#question {
 				border: 0px;
 				height: 200px;
@@ -20,7 +22,7 @@
 				background: #fff !important;
 			}
 			
-			#qq { 
+			#qq {
 				border: 0px;
 				padding: 25px 10px;
 				height: 1.25rem;
@@ -64,7 +66,7 @@
 			
 			.thirdfloor div {
 				position: absolute;
-				right: -0.9rem; 
+				right: -0.9rem;
 				top: -0.9rem;
 				width: 1.8rem;
 				height: 1.8rem;
@@ -118,6 +120,9 @@
 				</li>
 			</ul>
 		</div>
+		<div id="tip" class="tip f11 hide">
+			<div id="kefu">点击咨询小微篇官方反馈群(630946093)</div>
+		</div>
 	</body>
 
 </html>
@@ -154,6 +159,8 @@
 				}
 			});
 		});
+
+		base.Get("tip").classList.remove("hide");
 	})
 
 	mui.plusReady(function() {
@@ -177,6 +184,33 @@
 				upload();
 			}
 		}, false);
+
+		document.getElementById('kefu').addEventListener('tap', function() {
+			if(base.TriggerMain) {
+				return false;
+			}
+			base.TriggerMain = true;
+			mui.later(function() {
+				base.TriggerMain = false;
+			}, 500);
+			if(plus.os.name == "Android") {
+				var main = plus.android.runtimeMainActivity();
+				var Intent = plus.android.importClass('android.content.Intent');
+				var Uri = plus.android.importClass('android.net.Uri');
+				var intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=630946093"));
+				main.startActivity(intent);
+			} else if(plus.os.name == "iOS") {
+				plus.runtime.launchApplication({
+					action: "mqq://im/chat?chat_type=wpa&uin=630946093&version=1&src_type=web"
+				}, function(e) {
+					/*plus.nativeUI.confirm("检查到您未安装qq，请先到appstore搜索下载？", function(i) {
+						if(i.index == 0) {
+							iosAppstore("itunes.apple.com/cn/app/mqq/");
+						}
+					});*/
+				});
+			}
+		});
 	})
 
 	function ShowPic() {
