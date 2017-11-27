@@ -201,11 +201,10 @@
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
 		LoadUser();
+		mui.back = function() {
+			self.hide("auto");
+		}
 	});
-
-	function closeMenu() {
-		mui.fire(main, "menu:close");
-	}
 
 	//服务器加载用户信息
 	function LoadUser() {

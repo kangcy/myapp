@@ -445,7 +445,7 @@
 		//返回
 		mui.back = function() {
 			if(base.CheckWaiting()) {
-				return false; 
+				return false;
 			}
 			if(base.HasClass(base.Get("topPopover"), "mui-active")) {
 				mui('#topPopover').popover('hide');
@@ -859,7 +859,9 @@
 		}
 		//复制链接
 		if(index == 7) {
-			CopyToClip();
+			mui.later(function() {
+				CopyToClip();
+			}, 50)
 			return;
 		}
 		//收藏

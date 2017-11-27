@@ -739,7 +739,9 @@
 		}
 		//复制链接
 		if(index == 7) {
-			CopyToClip();
+			mui.later(function() {
+				CopyToClip();
+			}, 50)
 			return;
 		}
 		//收藏

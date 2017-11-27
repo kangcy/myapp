@@ -109,7 +109,7 @@
 			}
 			
 			.scroller {
-				margin: 0;
+				margin: 0; 
 				padding: 0;
 			}
 			
@@ -242,9 +242,11 @@
 			isLoading = true;
 			var view = base.GetView("my");
 			if(view) {
-				plus.webview.show("my", "slide-in-left", base.AnimateDuration, function() {});
+				//plus.webview.show("my", "slide-in-left", base.AnimateDuration, function() {});
+				plus.webview.show("my", "pop-in", base.AnimateDuration, function() {});
 			} else {
-				base.OpenWindow("my", "my.html", {}, "slide-in-left", false, false, "transparent");
+				//base.OpenWindow("my", "my.html", {}, "slide-in-left", false, false, "transparent");
+				base.OpenWindow("my", "my.html", {}, "pop-in", false, false, "transparent");
 			}
 			isLoading = false;
 		});

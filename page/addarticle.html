@@ -1099,7 +1099,7 @@
 			if(base.CheckWaiting()) {
 				return false;
 			}
-			if(isLoading) {
+			if(isLoading) { 
 				return;
 			}
 			var $this = this;
@@ -1113,13 +1113,13 @@
 			}
 			//首次创建
 			if(Source == "Add") {
-				var btnArray = ['删除草稿', '存草稿'];
-				mui.confirm('确定要删除草稿吗？', '', btnArray, function(e) {
-					if(e.index < 0) {
-						return;
-					}
-					if(e.index == 0) {
-						mask.show();
+				var btnArray = ["删除草稿", "取消", "存草稿"];
+				plus.nativeUI.confirm("确定要删除草稿", function(e) {
+					var i = e.index;
+					//存草稿
+					if(i == 2) {
+						Save();
+					} else if(i == 0) {
 						base.ShowWaiting("正在删除");
 						HttpGet(base.RootUrl + "Article/Delete", {
 							ID: userinfo.ID,
@@ -1135,10 +1135,8 @@
 								}
 							}, 500);
 						});
-					} else {
-						Save();
 					}
-				});
+				}, "", btnArray);
 			} else {
 				var bts = ["撤销编辑", "取消", "存草稿"];
 				plus.nativeUI.confirm("确定要撤销编辑", function(e) {
