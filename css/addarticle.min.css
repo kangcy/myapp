@@ -1,175 +1,292 @@
-.info-body {
-	width: 90%;
-	display: inline-block;
-	margin: 0rem 5% 0px 5%
-}
-
-.title {
-	line-height: 1.5625rem;
-	height: 5rem;
-	width: 100%;
-	background: transparent;
-	border: 0px;
-	margin-left: auto;
-	margin-right: auto;
-	outline: 0;
-	padding: 0px;
-}
-
 .edit-up {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 2rem;
-	z-index: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 2rem !important;
+  z-index: 1;
 }
-
-.edit-down {
-	position: absolute;
-	top: 2.25rem;
-	left: 0px;
-	width: 2rem;
-	z-index: 1;
-}
-
 .edit-up.first {
-	display: none;
+  display: none;
 }
-
-.edit-down.first {
-	top: 0;
-}
-
 .edit-up.last {
-	top: 0;
+  top: 0;
 }
-
+.edit-down {
+  position: absolute;
+  top: 2.25rem;
+  left: 0px;
+  width: 2rem !important;
+  z-index: 1;
+}
+.edit-down.first {
+  top: 0;
+}
 .edit-down.last {
-	display: none;
+  display: none;
 }
-
 .edit-del {
-	position: absolute;
-	top: 0;
-	right: 0px;
-	width: 2rem;
-	z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 2rem !important;
+  z-index: 1;
 }
-
 .edit-add {
-	display: inline-block;
-	width: 60%;
-	height: 2.2rem;
-	position: relative;
+  display: inline-block;
+  width: 60%;
+  height: 2.2rem !important;
+  position: relative;
 }
-
 .icons {
-	display: inline-block;
-	width: 100%;
-	height: 2.2rem;
-	text-align: center;
+  display: inline-block;
+  width: 100%;
+  height: 2.2rem;
+  text-align: center;
 }
-
 .icons div {
-	width: 4rem;
-	height: 1.5rem;
-	line-height: 1.5rem;
-	display: inline-block;
-	border: 1px solid #20a0ff;
-	border-radius: 20px;
-	text-align: center;
-	color: #20a0ff;
-	margin: 0.35rem 0.2rem;
+  width: 4rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  display: inline-block;
+  border: 1px solid #20a0ff;
+  border-radius: 20px;
+  text-align: center;
+  color: #20a0ff;
+  margin: 0.35rem 0.2rem;
 }
-
-#music {
-	background: rgba(0, 0, 0, 0.3);
-	border-radius: 15px;
-	min-width: 40%;
-	max-width: 60%
-}
-
-#music img {
-	width: 0.8rem;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
-	margin-top: 0.3rem;
-}
-
-#musicname {
-	width: 70%;
-	float: left;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
 #cover {
-	width: 20%;
+  width: 20%;
 }
-
-.btn {
-	height: 1.5625rem;
-	line-height: 1.6875rem;
-	display: inline-block;
-}
-
-.btn .fa {
-	padding: 0.35rem;
-	background: #fff;
-	border-radius: 50px;
-	color: #333;
-	box-shadow: 0px 0px 1px #333;
-	width: 1.5rem;
-	height: 1.5rem;
-	box-shadow: 0px 0.05px 0.05px #333;
-}
-
-.btn .icon {
-	float: left;
-}
-
 .edit-body {
-	width: 100%;
-	margin: 0px;
-	position: relative;
+  width: 100%;
+  margin: 0px;
+  position: relative;
 }
-
 .edit-body .top {
-	width: 100%;
-	text-align: center;
+  width: 100%;
+  text-align: center;
 }
-
 .edit-body .edit-content,
 .edit-body .edit-content2 {
-	/*line-height: 1.25rem;*/
-	width: 100%;
-	min-height: 6rem;
-	display: inline-block;
-	outline: 0;
-	word-wrap: break-word;
-	overflow: hidden;
-	text-align: center;
+  width: 100%;
+  min-height: 6rem;
+  display: inline-block;
+  outline: 0;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-align: center;
 }
-
-.edit-body .edit-content2 {
-	background: #fff !important;
-}
-
 .edit-body .edit-content img {
-	max-width: 100%;
-	float: left;
+  max-width: 100%;
+  float: left;
 }
-
-
-/*视频容器*/
-
+.edit-body .edit-content2 {
+  background: #fff !important;
+}
+#btnTemp,
+#btnColor {
+  position: fixed;
+  right: 1rem;
+  bottom: 4rem;
+  width: 4rem;
+  z-index: 99;
+}
+.mui-table-view-cell {
+  padding: .625rem .9375rem;
+}
+.edit-content hr {
+  margin-top: 3rem;
+}
+.swiper-cover {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+.swiper-container {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+.swiper-slide {
+  font-size: 18px;
+  width: auto;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0px 0;
+  font-size: 13px;
+  font-family: microsoft yahei;
+}
+#myline .hrgif {
+  margin: 1rem 0;
+}
+#myline .hrgif0 {
+  margin: 2rem 0;
+}
+#myline .split {
+  border-bottom: .5rem solid #f5f5f5;
+  float: left;
+}
+.img_border {
+  width: 250px;
+  margin: 10px;
+  float: left;
+}
+.img_border img {
+  width: 100%;
+  height: inherit !important;
+  float: left;
+}
+#tip {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2005;
+}
+#tip .tip1 {
+  width: 60%;
+  top: 60px;
+  position: absolute;
+  left: 20%;
+}
+#tip .tip2 {
+  width: 40%;
+  top: 60%;
+  position: absolute;
+  left: 30%;
+}
+div.background {
+  width: 5rem;
+  height: 7.25rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.2rem;
+  float: left;
+  display: inline-block;
+  position: relative;
+  background-size: 150%;
+  background-position: center center;
+  border-radius: 5px;
+}
+div.background.hover div.hover {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background-image: url(../images/addarticle/icon_pic_y.png);
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 2.5rem;
+  left: 1.5rem;
+}
+div.background:first-child {
+  margin-left: 0.5rem;
+}
+div.background div.tip {
+  position: absolute;
+  bottom: 0px;
+  font-size: 11px;
+  text-align: center;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  border-radius: 0px 0px 5px 5px;
+}
+div.background img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 6px;
+}
+#mycolor .color {
+  width: 3rem;
+  height: 3rem;
+  margin: 0.8rem 0.4rem;
+  display: inline-block;
+  float: left;
+}
+#mycool .cool {
+  width: 6rem;
+  height: 3rem;
+  line-height: 3rem;
+  margin: 0.8rem 0.4rem;
+  display: inline-block;
+  float: left;
+}
+#mycolor .color.hover {
+  background-image: url(../images/addarticle/icon_pic_y.png);
+  background-size: 50% 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+#mycolor .color:first-child,
+#mycool .cool:first-child {
+  margin-left: 0.8rem;
+}
+#mycolor .color:last-child,
+#mycool .cool:last-child {
+  margin-right: 0.4rem;
+}
+.themeIcons {
+  display: inline-block;
+  width: 90%;
+  text-align: center;
+  position: fixed;
+  bottom: 1rem;
+  left: 5%;
+  z-index: 2000;
+}
+.themeIcons .items {
+  width: 25%;
+  display: inline;
+  float: left;
+  text-align: center;
+}
+.themeIcons .items div {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: inline-block;
+  border-radius: 100%;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-size: 55%;
+  background-position: center center;
+  margin-bottom: 0.25rem;
+}
+.themeIcons div p {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.1rem 0;
+  border-radius: 30px;
+  color: #fff;
+  width: 80%;
+  display: inline-block;
+  margin-top: 4rem;
+}
+.themeIcons div.div1 {
+  background-image: url(../images/preview/5.png);
+}
+.themeIcons div.div2 {
+  background-image: url(../images/preview/6.png);
+}
+.themeIcons div.div3 {
+  background-image: url(../images/preview/9.png);
+}
+.themeIcons div.div4 {
+  background-image: url(../images/preview/2.png);
+}
 video {
-	/*修复尺寸*/
-	width: 250px;
-	height: 250px;
-	max-height: 100%;
-	margin: 5%;
+  /*修复尺寸*/
+  width: 250px;
+  height: 250px;
+  max-height: 100%;
+  margin: 5%;
 }

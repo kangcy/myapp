@@ -209,13 +209,15 @@
 		var div = document.createElement('div');
 		div.className = item.IsUsed == 0 ? 'thirdfloor' : 'thirdfloor check';
 		div.style.position = "relative";
-		div.setAttribute("id", item.ID);
-		div.setAttribute("isused", item.IsUsed);
-		div.setAttribute("number", item.Number);
-		div.setAttribute("url", item.Url);
-		div.setAttribute("full", item.Full);
-		div.setAttribute("high", item.High);
-		div.setAttribute("transparency", item.Transparency);
+		base.Attr(div, [
+			["id", item.ID],
+			["isused", item.IsUsed],
+			["number", item.Number],
+			["url", item.Url],
+			["full", item.Full],
+			["high", item.High],
+			["transparency", item.Transparency]
+		]);
 		div.innerHTML = '<img src="' + base.ShowThumb(item.Url, 2) + '" /><div class="cover ' + (item.IsUsed == 0 ? "hide" : "") + '"></div><div class="icon"></div>';
 		return div;
 	}

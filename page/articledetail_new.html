@@ -482,15 +482,6 @@
 		});
 	}
 
-	//复制到剪贴板
-	function CopyToClip() {
-		var Context = plus.android.importClass("android.content.Context");
-		var main = plus.android.runtimeMainActivity();
-		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
-		plus.android.invoke(clip, "setText", ShareInfo.Url);
-		mui.toast("分享链接已复制到剪贴板");
-	}
-
 	//加载文章
 	function Load(callback) {
 		HttpGet(base.RootUrl + "Api/Article/Detail", {
@@ -528,10 +519,12 @@
 					}
 
 					mui.each(mui(".user"), function(i, item) {
-						item.setAttribute("userid", data.CreateUserNumber);
-						item.setAttribute("nickname", data.NickName);
-						item.setAttribute("avatar", data.Avatar);
-						item.setAttribute("cover", data.Cover);
+						base.Attr(item, [
+							["userid", data.CreateUserNumber],
+							["nickname", data.NickName],
+							["cover", data.Cover],
+							["avatar", data.Avatar]
+						]);
 					})
 
 					//段落  
@@ -556,8 +549,10 @@
 					}
 
 					if(data.IsZan > 0) {
-						$zan.setAttribute("already", "1");
-						$zan.setAttribute("src", "../images/article/btn_good2.png");
+						base.Attr($zan, [
+							["already", "1"],
+							["src", "../images/article/btn_good2.png"]
+						]);
 						$footer_zan.classList.remove("c666");
 						$footer_zan.classList.add("red");
 					} else {
@@ -860,7 +855,7 @@
 		//复制链接
 		if(index == 7) {
 			mui.later(function() {
-				CopyToClip();
+				CopyToClip(ShareInfo.Url);
 			}, 50)
 			return;
 		}

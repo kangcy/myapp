@@ -247,8 +247,8 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://www.xiaoweipian.com/";
-	//this.RootUrl = "http://www.xiaoweipian.com:8080/";
+	//this.RootUrl = "http://www.xiaoweipian.com/";
+	this.RootUrl = "http://www.xiaoweipian.com:8080/";
 	this.RootUrlTest = "http://www.xiaoweipian.com:8080/";
 	this.UploadUrl = "http://www.xiaoweipian.com:1010/";
 
@@ -781,7 +781,7 @@ var base = new function() {
 			if(currUserNumber == userNumber) {
 				power = 3;
 			}
-			base.OpenWindow("articledetail_new", "articledetail_new.html", {
+			base.OpenWindow("articledetail_new", "articledetail_new_20171128.html", {
 				ArticleID: articleId,
 				Source: Source,
 				ArticlePower: power,
@@ -1239,6 +1239,7 @@ var base = new function() {
 		});
 	}
 
+	//批量赋值
 	this.Text = function(ids, html) {
 		var model = null;
 		mui.each(ids, function(index, item) {
@@ -1249,6 +1250,12 @@ var base = new function() {
 		});
 	}
 
+	//批量修改属性
+	this.Attr = function(model, attrs) {
+		mui.each(attrs, function(index, item) {
+			model.setAttribute(item[0], item[1]);
+		});
+	}
 }
 
 /**
@@ -1527,6 +1534,28 @@ function ProgressLoading(container, progress, max) {
 			}, 250);
 		}
 	}, Math.random() * 50 + 50);
+}
+
+//复制到剪贴板 
+function CopyToClip(txt) {
+	if(!window.plus) return;
+	if(mui.os.android) {
+		var Context = plus.android.importClass("android.content.Context");
+		var main = plus.android.runtimeMainActivity();
+		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+		plus.android.invoke(clip, "setText", txt);
+
+	} else {
+		var UIPasteboard = plus.ios.importClass("UIPasteboard");
+		var generalPasteboard = UIPasteboard.generalPasteboard();
+		//设置、获取文本内容
+		generalPasteboard.setValueforPasteboardType(txt, "public.utf8-plain-text");
+		var _val = generalPasteboard.plusCallMethod({
+			valueForPasteboardType: "public.utf8-plain-text"
+		});
+		console.log("IOS复制的数据是：", _val);
+	}
+	mui.toast("分享链接已复制到剪贴板");
 }
 
 String.prototype.startWith = function(str) {

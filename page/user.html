@@ -41,7 +41,7 @@
 				<li class="mui-table-view-cell noborder hide" id="outblack">
 					<a href="#" class="red f13" onclick="OutBlack()">解除黑名单</a>
 				</li>
-			</ul> 
+			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell noborder">
 					<a href="#power" class="c333 f13">取消</a>
@@ -196,6 +196,16 @@
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
+
+		/*self.setBounce({
+			position: {
+				top: '200px'
+			},
+			changeoffset: {
+				top: '0px'
+			}
+		});*/
+
 		PageName = self.PageName || "";
 		UserNumber = self.UserNumber || "";
 		NickName = self.NickName || "";
@@ -609,19 +619,10 @@
 	function Copy() {
 		mui('#power').popover('hide');
 		mui.later(function() {
-			CopyToClip();
+			CopyToClip(ShareInfo.Url);
 		}, 50)
 	}
 
-	//复制到剪贴板 
-	function CopyToClip() {
-		var Context = plus.android.importClass("android.content.Context");
-		var main = plus.android.runtimeMainActivity();
-		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
-		plus.android.invoke(clip, "setText", ShareInfo.Url);
-		mui.toast("分享链接已复制到剪贴板");
-	}
- 
 	//操作
 	function More() {
 		mui('#power').popover('show');

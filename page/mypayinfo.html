@@ -635,10 +635,12 @@
 		}
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell user';
-		div.setAttribute("userid", item.UserNumber);
-		div.setAttribute("nickname", item.UserName);
-		div.setAttribute("cover", item.UserCover);
-		div.setAttribute("avatar", item.UserAvatar);
+		base.Attr(div, [
+			["userid", item.UserNumber],
+			["nickname", item.UserName],
+			["cover", item.UserCover],
+			["avatar", item.UserAvatar]
+		]);
 		var model = [];
 		model.push('<div class="flex-box flex-row">');
 		model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img src="' + base.ShowThumb(item.UserAvatar, 1) + '" class="fl"  /></div></div>');

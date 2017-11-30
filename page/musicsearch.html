@@ -151,7 +151,14 @@
 				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:32px;font-size:15px;">
 			</div>
 		</header>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 		<nav class="mui-bar mui-bar-tab hide" id="bottom" style="border-top:1px solid #eee;background:#fff;">
 			<div class="fl blue ml10" id="no">取消</div>
 			<div class="fr blue mr10" id="yes">完成</div>
@@ -176,6 +183,7 @@
 	var fileUrl = "";
 	var searchName = "";
 	var searchType = 0; //0：普通搜索,1：集合
+	var self = null;
 	pagesize = 30;
 	var addarticlePage = null;
 	var mask = base.CreateMask(false, function() {
@@ -219,7 +227,11 @@
 
 	var contentWebview = null;
 	mui.plusReady(function() {
-		var self = plus.webview.currentWebview();
+		self = plus.webview.currentWebview();
+		self.show("pop-in");
+		/*mui.later(function() {
+			OpenSoftKeyboard();
+		}, 600)*/
 
 		//取消
 		base.Get('no').addEventListener('tap', function(e) {
@@ -426,9 +438,11 @@
 	function AppendHtml(item) {
 		var div = document.createElement('li');
 		div.className = 'mui-table-view-cell music';
-		div.setAttribute("fileId", item.ID);
-		div.setAttribute("fileName", item.Author + "「" + item.Name + "」");
-		div.setAttribute("fileUrl", item.FileUrl);
+		base.Attr(div, [
+			["fileId", item.ID],
+			["fileName", item.Author + "「" + item.Name + "」"],
+			["fileUrl", item.FileUrl]
+		]);
 		var model = [];
 		model.push('<img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
 		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt1">' + item.Author + "「" + item.Remark + "」" + '</span></p>');
@@ -436,4 +450,45 @@
 		div.innerHTML = model.join('');
 		return div;
 	}
+
+	//打开软键盘
+	/*function OpenSoftKeyboard() {
+		if(mui.os.ios) {
+			var webView = plus.webview.currentWebview().nativeInstanceObject();
+			webView.plusCallMethod({
+				"setKeyboardDisplayRequiresUserAction": false
+			});
+		} else {
+			var webview = plus.android.currentWebview();
+			plus.android.importClass(webview);
+			webview.requestFocus();
+			var Context = plus.android.importClass("android.content.Context");
+			var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+			var main = plus.android.runtimeMainActivity();
+			var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+		}
+	}*/
+
+	var nativeWebview, imm, InputMethodManager;
+
+	function OpenSoftKeyboard() {
+		nativeWebview = self.nativeInstanceObject();
+		if(mui.os.android) {
+			plus.android.importClass(nativeWebview);
+			nativeWebview.requestFocus();
+			Context = plus.android.importClass("android.content.Context");
+			InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+			main = plus.android.runtimeMainActivity();
+			imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+		} else {
+			nativeWebview.plusCallMethod({
+				"setKeyboardDisplayRequiresUserAction": false
+			});
+		}
+		setTimeout(function() {
+			document.getElementById("search").focus();
+		}, 200);
+	};
 </script>

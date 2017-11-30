@@ -7,42 +7,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/input.min.css">
 		<link rel="stylesheet" href="../css/articledetail.min.css">
 		<link rel="stylesheet" href="../css/demo.css">
-		<style type="text/css">
-			#topPopover {
-				position: fixed;
-				top: 80px !important;
-				right: 6px;
-			}
-			
-			#topPopover .mui-popover-arrow {
-				left: auto;
-				right: 6px;
-			}
-			
-			#snowcanvas {
-				pointer-events: none;
-				position: fixed;
-				z-index: 20;
-				width: 100%;
-				height: 100%;
-				left: 0;
-				top: 0;
-			}
-		</style>
+		<link rel="stylesheet" href="../css/buttons.css">
 	</head>
 	<!--禁止复制-->
 
 	<body id="body" oncontextmenu="return false" onselectstart="return false" class="">
-		<header id="header" class="mui-bar" immersed="none">
+		<header id="header" class="mui-bar">
 			<span class="mui-action-back mui-icon mui-icon-left-nav fl cfff"></span>
 			<a id="action" class="cfff f25 fr hide" href="#topPopover" style="padding-top:0.35rem;padding-right: 0.4rem;">•••</a>
 			<h1 class="mui-title cfff user" id="nickname"></h1>
 		</header>
+		<div id="progress" class="full" style="position:fixed;left:0px;height:5px;"></div>
 		<div id="loader">
 			<div>
 				<svg viewBox="25 25 50 50" class="circular">
@@ -51,26 +31,22 @@
 				<p class="tc f12">正在努力加载...</p>
 			</div>
 		</div>
-
 		<!--操作-->
 		<div id="topPopover" class="mui-popover">
 			<div class="mui-popover-arrow"></div>
 			<ul class="mui-table-view tc f12" style="background:#fff;">
-				<li id="popover_delete" onclick="Delete()" class="mui-table-view-cell" style="background:url(../images/article/1.png) no-repeat;background-size: 1.1rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_delete" onclick="Delete()" class="mui-table-view-cell">
 					删除
 				</li>
-				<li id="popover_copy" onclick="Copy()" class="mui-table-view-cell" style="background:url(../images/article/2.png) no-repeat;background-size: 1.1rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_copy" onclick="Copy()" class="mui-table-view-cell">
 					复制
 				</li>
-				<li id="popover_edit" onclick="Edit()" class="mui-table-view-cell" style="background:url(../images/article/3.png) no-repeat;background-size: 1.1rem;background-position: 40%;text-indent: 10%;">
+				<li id="popover_edit" onclick="Edit()" class="mui-table-view-cell">
 					编辑
 				</li>
-				<li id="popover_power" onclick="Power()" class="mui-table-view-cell" style="background:url(../images/article/4.png) no-repeat;background-size: 1.1rem;background-position: 40%;text-indent: 10%;">
-					权限
+				<li id="popover_power" onclick="Power()" class="mui-table-view-cell">
+					分享设置
 				</li>
-				<!--<li id="popover_showy" onclick="Showy()" class="mui-table-view-cell" style="background:url(../images/article/6.png) no-repeat;background-size: 1.3rem;background-position: 40%;text-indent: 10%;">
-					漂浮
-				</li>-->
 			</ul>
 		</div>
 
@@ -78,12 +54,12 @@
 		<div id="snowwrapper"></div>
 		<canvas id="snowcanvas"></canvas>
 		<div id="self" class="full tc hide">
-			<img src="../images/article/stop.png" class="none" />
+			<img src="../images/article/stop.png" class="none" style="margin-top:10rem !important;" />
 			<p class="mt20 f16 c333">私密文章</p>
 			<p class="mt10 f12 c999">您查看的是私密文章,仅作者自己可见</p>
 		</div>
 		<div id="password" class="full tc hide">
-			<img src="../images/article/stop.png" class="none" />
+			<img src="../images/article/stop.png" class="none" style="margin-top:10rem !important;" />
 			<p class="mt20 f12 c999">文章已设权限,请输入密码浏览</p>
 			<div id="input-form">
 				<div class="pwd mt10 mui-input-row">
@@ -94,6 +70,10 @@
 				</div>
 			</div>
 		</div>
+		<nav id="delete" class="mui-bar mui-bar-tab tc hide">
+			<div class="c333" onclick="Revoke()"><span class="mui-icon mui-icon-undo"></span>文章恢复</div>
+			<div class="red" onclick="DeleteCompletely()"><span class="mui-icon mui-icon-trash"></span>彻底删除</div>
+		</nav>
 		<!--底部-->
 		<div class="mui-bar mui-bar-tab hide" id="bottomAction" style="background:#fff;">
 			<div class="flex-box flex-row f13 tc" style="padding:5px 5px;">
@@ -151,49 +131,48 @@
 			</div>
 		</div>
 		<!--打赏-->
-		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" style="width:4rem;z-index:99;" id="btnPay"></i>
+		<img class="tada hide" src="../images/article/money.png" onclick="PaymentTan()" id="btnPay"></i>
 		<img id="music1" class="hide" src="../images/article/btn_music.png" onclick="switchsound()" />
-		<!--背景-->
-		<div id="wrapper2"></div>
-		<div id="wrapper" class="hide" style="margin-bottom:50px;">
-			<div class="mui-content" style="overflow-x:hidden;" id="wrapper1">
-				<!--通用样式-->
-				<div id="main0" class="f13 tl mt10 hide">
-					<div class="detail">
-						<div class="full tl mb5">
-							<p class="f16 mb10" id="title0"></p>
-							<span class="mt0 mb0 f13" id="createdate0"></span>
-							<span class="mb0 ml10 user mt5" userid="0" id="nickname0"></span>
-							<span class="mt0 mb0 ml10 f13" id="views0"></span>
-							<p id="music0" play="on" class="music mt10" onclick="switchsound()">
-								<span id="musicname0"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<!--排版1-->
-				<div id="main1" class="f13 tc hide" style="position:relative;">
-					<div class="detail full fl" id="detail1">
-						<div class="fl" style="width:23%;display:inline-block;">
-							<img id="useravatar1" class="full fl article" />
-						</div>
-						<div class="fr tl" style="width:77%;display:inline-block;">
-							<p class="user ml10 mt15 mb5 f15 fl full bold" userid="0" id="nickname1"></p>
-							<p class="ml10 mb0 mt20 f13 full">
-								<span id="createdate1" class="mr10"></span>
-								<span class="ml15" id="views1"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="detail2 cover fl tl" id="cover">
-					<p class="f16 tc hide mt10 mb20" id="title1"></p>
-					<div class="c333 full" id="desc">
 
+		<!--固定背景-->
+		<div id="x-bg" class="hide"></div>
+		<!--内容-->
+		<div id="wrapper" class="full fl hide" style="margin-bottom:50px;">
+			<!--x-cover:滚动背景-->
+			<div class="root" id="x-cover">
+				<!--头-->
+				<div id="x-top" class="full fl hide"></div>
+				<!--用户-->
+				<div class="x-head mb10 full fl hide" id="x-head">
+					<div class="img-container" id="x-avatar">
+						<div class="avatar" id="x-avatar-sub">
+							<img id="useravatar0" src="../images/avatar.png" class="user">
+						</div>
+					</div>
+					<div class="article-meta well mt20 tc" id="x-article">
+						<p class="title thicker f20" id="title0"></p>
+						<p class="time-read mt10 f13">
+							<span id="createdate0"></span>
+							<span id="nickname0" class="user hide"></span>
+							<span class="read-count" id="views0"></span>
+						</p>
+						<p class="nickname user mt10 f13 hide" id="nickname1"></p>
+						<p id="music0" play="on" class="music mt10 mb0 hide" onclick="switchsound()">
+							<span id="musicname0" class="f11"></span>
+						</p>
 					</div>
 				</div>
+				<!--内容-->
+				<div class="x-content well mb10 mt10 full fl" id="x-content">
+					<div class="section full" id="desc"></div>
+					<!--半透明蒙层-->
+					<div class="x-bg-blur" id="x-bg-blur"></div>
+				</div>
+				<!--尾-->
+				<img id="x-bottom" class="full fl hide" />
 			</div>
 		</div>
+
 	</body>
 
 </html>
@@ -202,7 +181,7 @@
 <script src="../js/music.js"></script>
 <script src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
-<script src="../js/articledetail.js"></script>
+<script src="../js/articledetail_new.js"></script>
 <script src="../js/snow.js"></script>
 <script type="text/javascript">
 	var Article = {};
@@ -213,27 +192,26 @@
 	var currEditID = 0; //当前操作对象ID
 	var MusicID = ""; //音乐控件ID
 	var MusicUrl = "";
-	var CurrBackground = null; //背景设置
-	var CurrCover = ""; //当前背景图片
-	var CurrColor = ""; //模板背景色
 	var CurrTemplate = 0; //当前选中模板
-	var CurrBackgroundName = ""; //当前纯色背景样式
-	var CurrTemplateType = 0; //当前模板类型
+	var CurrBackground = null; //背景设置
+	var CurrTemplateJson = null; // 当前模板设置
 	var userinfo = base.GetUserInfo();
 
 	var $divzan = base.Get("divzan");
 	var $zan = base.Get("zan");
 	var $footer_zan = base.Get("footer_zan");
 	var $header = base.Get("header");
+	var $footer = base.Get("bottomAction");
 	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
-	var $wrapper1 = base.Get("wrapper1"); //内容子背景（放背景图片）
-	var $wrapper2 = base.Get("wrapper2"); //纯色背景
-	var $cover = base.Get("cover"); //非纯色内容透明度底
-	var scrolly = 0;
+	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
+	var $wrapper2 = base.Get("x-bg"); //纯色背景
+	var $cover = base.Get("x-bg-blur"); //非纯色内容透明度底
+	var $top = base.Get("x-top");
+	var $bottom = base.Get("x-bottom");
 	var browserName = base.BrowserName();
 	var num = 0;
+	var progress = mui("#progress");
 
-	//显示遮罩
 	var mask = base.CreateMask(true, function() {
 		ShareTan(0);
 		mui('#topPopover').popover('hide');
@@ -249,27 +227,21 @@
 
 	mui.ready(function() {
 		base.Immersed();
+
+		var headerheight = $header.clientHeight + "px";
+
+		//进度条
+		progress[0].style.top = headerheight;
+		progress.progressbar({
+			progress: 0
+		}).show();
+		ProgressLoading(progress, 0, 100);
+
+		$wrapper.style.paddingTop = headerheight;
+		$wrapper2.style.top = headerheight;
+
 		base.ToTop();
-
-		$wrapper2.style.width = window.innerWidth + "px";
-		$wrapper2.style.height = window.innerHeight + "px";
-		$wrapper2.style.position = "fixed";
-		$wrapper2.style.zIndex = "-1";
-
-		//base.Get("wrapper1").style.minHeight = (window.innerHeight - 50) + "px";
-		base.Get("detail1").style.marginTop = (window.innerHeight - 50) * 0.3 + "px";
-		$cover.style.minHeight = (window.innerHeight - 50) * 0.526 + "px";
-
-		//背景色渐变
-		window.addEventListener('scroll', function(e) {
-			num = window.pageYOffset / 200;
-			if(CurrTemplate > 0) {
-				if(num <= 1) {
-					$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-				}
-			}
-		});
-
+ 
 		//点赞
 		$divzan.addEventListener('tap', function(event) {
 			if(isLoading) {
@@ -286,19 +258,25 @@
 					if(data.result) {
 						var already = data.message.split('|');
 						if(already[0] == 1) {
-							$zan.setAttribute("already", "0");
-							$zan.setAttribute("src", "../images/article/btn_good.png");
+							base.Attr($zan, [
+								["already", "0"],
+								["src", "../images/article/btn_good.png"]
+							])
+
 							$footer_zan.classList.remove("red");
 							$footer_zan.classList.add("c666");
 							$divzan.classList.remove("heartbeat");
 						} else {
-							$zan.setAttribute("already", "1");
-							$zan.setAttribute("src", "../images/article/btn_good2.png");
+							base.Attr($zan, [
+								["already", "1"],
+								["src", "../images/article/btn_good2.png"]
+							])
+
 							$footer_zan.classList.remove("c666");
 							$footer_zan.classList.add("red");
 							$divzan.classList.add("heartbeat");
 						}
-						base.Get("footer_zan").innerHTML = already[1];
+						$footer_zan.innerHTML = already[1];
 					} else {
 						mui.toast(data.message);
 					}
@@ -342,6 +320,17 @@
 			CheckPowerPwd(ArticleID, pwd, function() {
 				base.Get("password").classList.add("hide");
 				$wrapper.classList.remove("hide");
+
+				if(Source != "Delete") {
+					$footer.classList.remove("hide");
+
+					//启用打赏
+					if(Article.IsPay == 1 && userinfo.Number != Article.CreateUserNumber) {
+						base.Get("btnPay").classList.remove("hide");
+					}
+				}
+				InitShowy(Article.Showy);
+
 				isLoading = false;
 			});
 		});
@@ -369,9 +358,6 @@
 		ArticleID = self.ArticleID || 0;
 		NickName = self.NickName || "";
 
-		//分享设置
-		updateSerivces();
-
 		Load(function(data) {
 			mui.later(function() {
 				plus.webview.close("sharesetting", "none");
@@ -383,7 +369,9 @@
 			if(userinfo.ID != data.UserID) {
 				base.ShowUser("#body");
 			} else {
-				base.RemoveClass(["#action"], "hide");
+				if(Source != "Delete") {
+					base.RemoveClass(["#action"], "hide");
+				}
 			}
 		});
 
@@ -392,11 +380,21 @@
 			if(base.CheckWaiting()) {
 				return false;
 			}
+			if(base.HasClass(base.Get("topPopover"), "mui-active")) {
+				mui('#topPopover').popover('hide');
+				return;
+			}
+			if(!base.HasClass(base.Get("myshare"), "hide")) {
+				ShareTan(0);
+				return false;
+			}
 			if(Source == "Add") {
 				plus.webview.close("editimage", "none");
 			}
 			plus.webview.close(self);
 		}
+
+		updateSerivces();
 	});
 
 	//验证权限密码
@@ -417,15 +415,6 @@
 		});
 	}
 
-	//复制到剪贴板
-	function CopyToClip() {
-		var Context = plus.android.importClass("android.content.Context");
-		var main = plus.android.runtimeMainActivity();
-		var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
-		plus.android.invoke(clip, "setText", ShareInfo.Url);
-		mui.toast("分享链接已复制到剪贴板");
-	}
-
 	//加载文章
 	function Load(callback) {
 		HttpGet(base.RootUrl + "Api/Article/Detail", {
@@ -440,28 +429,16 @@
 					//不是本人
 					if(userinfo.Number != data.CreateUserNumber) {
 						//私密可见 
-						if(data.ArticlePower == 0) {
+						if(data.ArticlePower == 0 || data.ArticlePower == 2) {
 							$wrapper.classList.add("hide");
 							base.Get("self").classList.remove("hide");
 						}
-						//密码可见 
+						//密码可见  
 						else if(data.ArticlePower == 1) {
 							$wrapper.classList.add("hide");
 							base.Get("password").classList.remove("hide");
-						} else {
-							$wrapper.classList.remove("hide");
-							mui.later(function() {
-								InitShowy(data.Showy);
-							}, 1000)
 						}
-					} else {
-						$wrapper.classList.remove("hide");
-						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
-						mui.later(function() {
-							InitShowy(data.Showy);
-						}, 1000)
 					}
-
 					Article = data;
 					Article.Title = base.UnUnicodeText(data.Title);
 					Article.NickName = base.UnUnicodeText(data.NickName);
@@ -474,89 +451,86 @@
 					}
 
 					mui.each(mui(".user"), function(i, item) {
-						item.setAttribute("userid", data.CreateUserNumber);
-						item.setAttribute("nickname", data.NickName);
-						item.setAttribute("avatar", data.Avatar);
-						item.setAttribute("cover", data.Cover);
+						base.Attr(item, [
+							["userid", data.CreateUserNumber],
+							["nickname", data.NickName],
+							["avatar", data.Avatar],
+							["cover", data.Cover]
+						])
 					})
 
-					//段落 
+					//段落  
 					var html = [];
 					var parts = data.ArticlePart;
 					for(var i = 0; i < parts.length; i++) {
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 fl mb10 ' + part.IntroExpand + '"><img src="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
+							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
 						} else if(part.Types == 2) {
 							//文本
-							html.push('<div class="full f13 fl mb10">' + base.UnUnicodeText(part.Introduction) + '</div>');
+							html.push('<div class="full f13 fl mt10">' + base.UnUnicodeText(part.Introduction) + '</div>');
 						} else if(part.Types == 3) {
 							//视频
-							html.push('<div class="full f13 fl mb10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
+							html.push('<div class="full f13 fl mt10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
 							//html.push('<div class="full f13 mt5" style="display:inline-block;position:relative;">' + AppendVideo(part.Introduction) + '<img src="../images/article/bg.png" style="width:3.5rem;position:absolute;top:40%;left:40%;" /></div>');
 						} else if(part.Types == 4) {
 							//分隔
-							html.push('<div class="full f13 fl mb10" style="display:inline-block;">' + part.Introduction + '</div>');
+							html.push('<div class="full f13 fl mt10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
 					}
 
 					if(data.IsZan > 0) {
-						$zan.setAttribute("already", "1");
-						$zan.setAttribute("src", "../images/article/btn_good2.png");
+						base.Attr($zan, [
+							["already", "1"],
+							["src", "../images/article/btn_good2.png"]
+						])
 						$footer_zan.classList.remove("c666");
 						$footer_zan.classList.add("red");
 					} else {
-						$zan.setAttribute("already", "0");
-						$zan.setAttribute("src", "../images/article/btn_good.png");
+						base.Attr($zan, [
+							["already", "0"],
+							["src", "../images/article/btn_good.png"]
+						])
 						$footer_zan.classList.remove("red");
 						$footer_zan.classList.add("c666");
 					}
-					base.Get("footer_zan").innerHTML = data.Goods;
+					$footer_zan.innerHTML = data.Goods;
 					base.Get("footer_comment").innerHTML = data.Comments;
 
-					var themeColor = base.IsNullOrEmpty(data.ThemeColor) ? "#333" : data.ThemeColor;
-					base.Get("title0").style.color = themeColor;
-					base.Get("title1").style.color = themeColor;
-					base.Get("nickname0").style.color = themeColor;
-					base.Get("nickname1").style.color = themeColor;
-					base.Get("createdate0").style.color = themeColor;
-					base.Get("createdate1").style.color = themeColor;
-					base.Get("views0").style.color = themeColor;
-					base.Get("views1").style.color = themeColor;
-
-					CurrBackgroundName = data.ThemeCover;
-
+					CurrBackground = data.BackgroundJson;
 					CurrTemplate = data.Template;
-
-					InitHeader(true);
-
-					if(CurrTemplate == 1) {
-						CurrTemplateType = 1;
-					}
 					if(data.TemplateJson != null) {
-						if(data.TemplateJson.ID > 0) {
-							CurrTemplateType = data.TemplateJson.TemplateType;
-							CurrCover = data.TemplateJson.Cover;
-							CurrColor = data.TemplateJson.Background;
+						if(data.TemplateJson.ID != 1) {
+							CurrTemplateJson = data.TemplateJson;
+							if(data.ColorTemplateJson == null) {
+								base.Get("title0").style.color = CurrTemplateJson.TitleColor;
+								base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
+								base.Get("nickname1").style.color = CurrTemplateJson.UserColor;
+								base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
+								base.Get("views0").style.color = CurrTemplateJson.ViewColor;
+								base.Get("x-avatar-sub").style.border = "2px solid " + CurrTemplateJson.TitleColor;
+							}
 						}
 					}
-					CurrBackground = data.BackgroundJson;
+					if(data.ColorTemplateJson != null) {
+						base.Get("title0").style.color = data.ColorTemplateJson.TitleColor;
+						base.Get("nickname0").style.color = data.ColorTemplateJson.UserColor;
+						base.Get("nickname1").style.color = data.ColorTemplateJson.UserColor;
+						base.Get("createdate0").style.color = data.ColorTemplateJson.TimeColor;
+						base.Get("views0").style.color = data.ColorTemplateJson.ViewColor;
+						base.Get("x-avatar-sub").style.border = "2px solid " + data.ColorTemplateJson.TitleColor;
+					}
 
 					ChangeBg();
 
 					base.Get("musicname0").innerHTML = data.MusicName;
-
-					base.Get("useravatar1").setAttribute("src", base.ShowThumb(data.Avatar, 1));
-
-					base.Html(["title0", "title1", "title"], Article.Title);
-
+					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
+					base.Html(["title", "title0"], Article.Title);
 					base.Html(["nickname", "nickname0", "nickname1"], Article.NickName);
-
-					base.Html(["createdate0", "createdate1"], data.CreateDateText);
-
-					base.Html(["views0", "views1"], "阅读  " + data.Views);
-
+					base.Html(["createdate0"], data.CreateDateText);
+					base.Html(["views0"], "阅读  " + data.Views);
+					base.Get("x-head").classList.remove("hide");
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 
 					//实例化播放器
@@ -590,19 +564,6 @@
 						});*/
 					});
 
-					//音乐 
-					ChangeMusic();
-
-					base.AddClass(["#main0", "#main1"], "hide");
-					base.Get("main" + CurrTemplateType).classList.remove("hide");
-
-					base.Get("bottomAction").classList.remove("hide");
-					base.Get("bottomAction").classList.add("bounceIn");
-
-					//启用打赏
-					if(data.IsPay == 1 && userinfo.Number != data.CreateUserNumber) {
-						base.Get("btnPay").classList.remove("hide");
-					}
 					//收藏状态 
 					if(data.IsKeep == 1) {
 						base.Get("isnotkeep").classList.add("hide");
@@ -621,10 +582,38 @@
 					if(data.Submission > 0 && data.Submission != 100) {
 						base.AddClass(["#popover_delete", "#popover_edit", "#popover_power"], "hide");
 					}
+
+					if(userinfo.Number == data.CreateUserNumber) {
+						$wrapper.classList.remove("hide");
+						base.AddClass(["#iskeep", "#isnotkeep", "#report"], "hide");
+						mui.later(function() {
+							InitShowy(data.Showy);
+						}, 1000)
+					} else {
+						//私密可见 
+						if(data.ArticlePower == 3) {
+							$wrapper.classList.remove("hide");
+							mui.later(function() {
+								InitShowy(data.Showy);
+							}, 1000)
+						}
+					}
+					if(Source == "Delete") {
+						base.Get("delete").classList.remove("hide");
+						base.Get("delete").classList.add("bounceIn");
+					} else {
+						if(!base.HasClass($wrapper, "hide")) {
+							$footer.classList.remove("hide");
+
+							//启用打赏
+							if(data.IsPay == 1 && userinfo.Number != data.CreateUserNumber) {
+								base.Get("btnPay").classList.remove("hide");
+							}
+						}
+					}
 				} else {
 					mui.toast(data.message);
-					plus.webview.currentWebview().hide();
-					plus.webview.currentWebview().close();
+					self.close();
 				}
 			}
 			if(callback) {
@@ -635,22 +624,15 @@
 		});
 	}
 
-	function InitHeader(initload) {
+	function InitHeader() {
 		if(CurrTemplate == 0) {
-			if(initload || !base.IsNullOrEmpty(CurrBackgroundName)) {
-				$header.setAttribute("immersed", "");
-				base.Immersed();
-				base.Get("title1").classList.add("hide");
-				$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,1) 0%,rgba(36,195,251,1) 75%,rgba(57,184,253,1) 100%)';
-				base.Get("wrapper").style.paddingTop = base.Get("header").clientHeight + "px";
-			}
+			base.Get("x-avatar").classList.add("hide");
+			base.Get("x-article").classList.remove("tc");
+			base.Get("x-article").classList.add("tl");
 		} else {
-			$header.setAttribute("immersed", "none");
-			base.Immersed();
-			var num = window.pageYOffset / 200;
-			$header.style.background = browserName + 'linear-gradient(left,rgba(78,140,251,' + num + ') 0%,rgba(36,195,251,' + num + ') 75%,rgba(57,184,253,' + num + ') 100%)';
-			base.Get("wrapper").style.paddingTop = "0px";
-			base.Get("title1").classList.remove("hide");
+			base.Get("x-avatar").classList.remove("hide");
+			base.Get("x-article").classList.remove("tl");
+			base.Get("x-article").classList.add("tc");
 		}
 	}
 
@@ -715,15 +697,10 @@
 
 	//自定义装扮
 	function Showy() {
-		if(isLoading) {
-			return;
-		}
-		isLoading = true;
 		mui('#topPopover').popover('hide');
 		base.OpenWindow("showy", "showy.html", {
 			ArticleNumber: Article.Number
 		});
-		isLoading = false;
 	}
 
 	//初始化装扮 
@@ -737,6 +714,59 @@
 				snow.init(src, 1, 0)
 			}
 		}
+	}
+
+	//文章恢复
+	function Revoke() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		mask.show();
+		base.ShowWaiting("正在恢复");
+		HttpGet(base.RootUrl + "Article/Revoke", {
+			ArticleNumber: Article.Number
+		}, function(data) {
+			if(data.result) {
+				base.GetView("article").evalJS("Refresh()");
+				base.GetView("article_delete").evalJS("Refresh()");
+			}
+			mui.later(function() {
+				if(data.result) {
+					self.close();
+				} else {
+					mask.close();
+					mui.toast(data.message);
+				}
+				isLoading = false;
+			}, 500);
+		});
+	}
+
+	//彻底删除
+	function DeleteCompletely() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		mask.show();
+		base.ShowWaiting("正在删除");
+		HttpGet(base.RootUrl + "Article/DeleteCompletely", {
+			ArticleNumber: Article.Number
+		}, function(data) {
+			if(data.result) {
+				base.GetView("article_delete").evalJS("Refresh()");
+			}
+			mui.later(function() {
+				if(data.result) {
+					self.close();
+				} else {
+					mask.close();
+					mui.toast(data.message);
+				}
+				isLoading = false;
+			}, 500);
+		});
 	}
 
 	//分享信息
@@ -753,7 +783,7 @@
 		//复制链接
 		if(index == 7) {
 			mui.later(function() {
-				CopyToClip();
+				CopyToClip(ShareInfo.Url);
 			}, 50)
 			return;
 		}
@@ -809,7 +839,7 @@
 		}
 		var s = null;
 		if(!id || !(s = shares[id])) {
-			console.log("无效的分享服务！");
+			mui.toast("无效的分享服务！");
 			return;
 		}
 		if(s.authenticated) {
@@ -862,5 +892,16 @@
 		}, function(e) {
 			mui.toast("分享失败");
 		});
+	}
+
+	//视频播放
+	function PlayVideo() {
+		var Intent = plus.android.importClass("android.content.Intent");
+		var Uri = plus.android.importClass("android.net.Uri");
+		var main = plus.android.runtimeMainActivity();
+		var intent = new Intent(Intent.ACTION_VIEW);
+		var uri = Uri.parse("http://wx.aonestep.com/video/t001.webm");
+		intent.setDataAndType(uri, "video/*");
+		main.startActivity(intent);
 	}
 </script>

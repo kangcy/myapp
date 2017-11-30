@@ -199,9 +199,11 @@
 		div.className = 'thirdfloor fl nocheck';
 		//div.style.backgroundImage = "url(" + item.Cover + "?random=" + base.GetUid() + ")";
 		div.style.backgroundImage = "url(" + item.Cover + ")";
-		div.setAttribute("src", item.Cover);
-		div.setAttribute("count", item.Count);
-		div.setAttribute("snowtype", item.ShowType);
+		base.Attr(div, [
+			["src", item.Cover],
+			["count", item.Count],
+			["snowtype", item.ShowType]
+		]);
 		div.innerHTML = '<div class="cover hide"></div><div class="icon"></div>';
 		return div;
 	}

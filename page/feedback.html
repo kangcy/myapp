@@ -37,27 +37,18 @@
 			
 			#add {
 				width: 100%;
-				float: left;
-				height: 2.8rem;
-				line-height: 2.6rem;
-				text-align: center;
-			}
-			
-			#add div {
-				width: 64%;
-				border-radius: 30px;
 				display: inline-block;
-				margin-top: 0.2rem;
-				height: 2.1875rem;
-				line-height: 2.2rem;
+				height: 2.5rem;
+				line-height: 2.5rem;
+				position: fixed;
+				bottom: 0;
+				left: 0;
 			}
 			
-			.thirdfloor,
-			.add {
-				width: 30%;
-				height: 6rem;
-				margin-left: 12%;
-				margin-top: 10%;
+			.thirdfloor {
+				width: 5rem;
+				height: 5rem;
+				margin: 1rem 0.5rem;
 				border-radius: 5px;
 				float: left;
 				position: relative;
@@ -84,25 +75,69 @@
 			.mui-table-view-cell {
 				padding: 0.525rem 0.9375rem;
 			}
+			
+			.image-up {
+				height: 5rem;
+				width: 5rem;
+				border-radius: 5px;
+				line-height: 4.8rem;
+				border: 1px dashed #ccc;
+				color: #ccc;
+				display: inline-block;
+				text-align: center;
+				font-weight: 100;
+				float: left;
+				margin: 1rem 0.5rem;
+			}
+			
+			.image-up::after {
+				font-family: 微软雅黑;
+				content: "+";
+				font-size: 60px;
+			}
+			
+			.kefu {
+				position: fixed;
+				bottom: 3rem;
+				text-align: center;
+				width: 100%;
+				z-index: 2;
+				-webkit-animation: move ease-in-out 0.75s infinite;
+				animation: move ease-in-out 0.75s infinite;
+			}
+			
+			.kefu div {
+				border-radius: 5px;
+				background: rgba(0, 0, 0, 0.5);
+				color: #fff;
+				display: inline-block;
+				height: 2rem;
+				line-height: 2rem;
+				padding: 0 1rem;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-icon-image cfff fr" style="font-size:25px;" onclick="ShowPic()"></a>
 			<h1 class="mui-title cfff">意见反馈</h1>
 		</header>
 		<div class="mui-content" id="muicontent">
 			<div class="f13 mt10 mb10" style="text-indent:10px;">反馈内容</div>
 			<textarea id='question' class="mui-input-clear f12 mb0" placeholder="聊聊您的看法，欢迎您参与到我们的产品建设中，说不定您的一句吐槽就成为我们产品更新的关键方向(限500字)" maxlength="500"></textarea>
 			<div class="f13 mt10 mb10" style="text-indent:10px;">联系方式</div>
-			<input id='qq' type="tel" class="mui-input-clear f12" placeholder="手机号/邮箱(选项，方便我们联系您)" maxlength="250" />
-			<div id="scroll-view">
+			<input id='qq' type="tel" class="mui-input-clear f12 mb0" placeholder="手机号/邮箱(选项，方便我们联系您)" maxlength="250" />
+			<div class="f13 mt10 mb10" style="text-indent:10px;">问题截图</div>
+			<div id="scroll-view" class="inline full" style="padding:10px;padding-bottom:4.5rem;background:#fff;">
+				<div class="image-up" onclick="ShowPic()"></div>
+				<!--<div class="thirdfloor" style="background:url(http://www.xiaoweipian.com:1010/Upload/Images/Article/20170929/150664256477699/201709290809545473_1.jpg);background-position:center center;background-repeat:no-repeat;background-size:cover;">
+					<div class="delicon"></div>
+				</div>-->
 			</div>
 		</div>
-		<div id="add" class="mt20">
-			<div class="f15 cfff" id="submit">提交</div>
+		<div id="add" class="f15 cfff tc">
+			提交
 		</div>
 		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
@@ -120,8 +155,8 @@
 				</li>
 			</ul>
 		</div>
-		<div id="tip" class="tip f11 hide">
-			<div id="kefu">点击咨询小微篇官方反馈群(630946093)</div>
+		<div id="tip" class="kefu f11 hide">
+			<div id="kefu">点击加入小微篇官方反馈群(630946093)</div>
 		</div>
 	</body>
 
@@ -142,7 +177,7 @@
 
 	mui.ready(function() {
 		base.Immersed();
-		base.Get("submit").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
+		base.Get("add").style.background = base.BrowserName() + 'linear-gradient(right,#4e8cfb 0%,#24c3fb 75%,#39b8fd 100%)';
 
 		mui.each(base.Get(".cancel"), function() {
 			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
@@ -168,7 +203,7 @@
 		//保存
 		var question = base.Get("question");
 		var qq = base.Get("qq");
-		base.Get("submit").addEventListener('tap', function(event) {
+		base.Get("add").addEventListener('tap', function(event) {
 			if(base.RepeatAction()) {
 				return;
 			}
@@ -203,11 +238,11 @@
 				plus.runtime.launchApplication({
 					action: "mqq://im/chat?chat_type=wpa&uin=630946093&version=1&src_type=web"
 				}, function(e) {
-					/*plus.nativeUI.confirm("检查到您未安装qq，请先到appstore搜索下载？", function(i) {
+					plus.nativeUI.confirm("检查到您未安装qq，请先到appstore搜索下载？", function(i) {
 						if(i.index == 0) {
-							iosAppstore("itunes.apple.com/cn/app/mqq/");
+							plus.runtime.openURL("itunes.apple.com/cn/app/mqq/");
 						}
-					});*/
+					});
 				});
 			}
 		});

@@ -2709,7 +2709,7 @@ select:focus {
   overflow: auto;
   max-height: 300px;
   margin-bottom: 0;
-  border-radius: 7px;
+  border-radius: 10px;
   background-color: #f7f7f7;
   background-image: none;
   -webkit-overflow-scrolling: touch;
@@ -4579,12 +4579,12 @@ body > .mui-progressbar {
   padding: 10%;
   text-align: left;
   width: 100%;
-  text-indent: 30%;
+  text-indent: 20%;
   box-shadow: 0px 1px 5px #333;
 }
 .circular {
   position: absolute;
-  left: 20%;
+  left: 10%;
   top: 25%;
   width: 2rem;
   height: 2rem;

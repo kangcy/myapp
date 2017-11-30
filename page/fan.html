@@ -94,10 +94,12 @@
 	function AppendUser(item) {
 		var div = document.createElement('div');
 		div.className = 'mui-table-view-cell user bounceInUp';
-		div.setAttribute("userid", item.Number);
-		div.setAttribute("nickname", item.NickName);
-		div.setAttribute("cover", item.Cover);
-		div.setAttribute("avatar", item.Avatar);
+		base.Attr(div, [
+			["userid", item.Number],
+			["nickname", item.NickName],
+			["cover", item.Cover],
+			["avatar", item.Avatar]
+		]);
 		var model = [];
 		model.push('<div class="flex-box flex-row ">');
 		//model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="fl"  /></div></div>');

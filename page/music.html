@@ -7,79 +7,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="../mincss/mui.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
+		<link rel="stylesheet" href="../css/music.min.css">
 		<link rel="stylesheet" href="../css/buttons.css">
-		<style type="text/css">
-			.play {
-				background: url(../images/music/start.png) center center no-repeat;
-				background-size: 100% 100%;
-				width: 1.5rem;
-				height: 1.5rem;
-			}
-			
-			.stop {
-				background: url(../images/music/stop.png) center center no-repeat;
-				background-size: 100% 100%;
-				width: 1.5rem;
-				height: 1.5rem;
-			}
-			
-			.stopMusic img {
-				border-radius: 100%;
-				animation: rotate 4s linear infinite;
-				-webkit-animation: rotate 4s linear infinite;
-				-ms-animation: rotate 4s linear infinite;
-				-moz-animation: rotate 4s linear infinite;
-				-o-animation: rotate 4s linear infinite;
-			}
-			
-			.mui-table-view-cell {
-				padding: .8rem 0.9375rem;
-			}
-			
-			.mui-table-view:after {
-				height: 0px;
-			}
-			
-			.mui-table-view-cell:last-child:after,
-			.mui-table-view-cell:last-child:before {
-				height: 0px !important;
-			}
-			
-			.mui-popup-title+.mui-popup-text {
-				display: none;
-			}
-			
-			.mui-bar-tab div {
-				font-size: 16px;
-				height: 50px;
-				line-height: 50px;
-			}
-			
-			#topPopover {
-				position: fixed;
-				top: 80px !important;
-				right: 6px;
-				width: 150px;
-			}
-			
-			#topPopover .mui-popover-arrow {
-				left: auto;
-				right: 6px;
-			}
-		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
-			<a class="mui-icon mui-text cfff fr" href="#topPopover">分类</a>
+			<a class="mui-icon mui-text cfff fr" href="#topPopover" style="margin-right:0.05rem;">分类</a>
 			<h1 class="mui-title cfff" id="title">音乐排行榜</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab" id="bottom" style="border-top:1px solid #eee;background:#fff;">
 			<div class="fl blue inline tc" id="no" style="width:25%;">取消</div>
-			<div style="width:50%;" class="inline fl tc"><span id="search" class="mui-icon mui-icon-search" style="font-size:25px;margin-right:5px;"></span></div>
+			<div style="width:50%;" class="inline fl tc"><span id="search" class="mui-icon mui-icon-search blue" style="font-size:25px;margin-right:5px;"></span></div>
 			<div class="fr blue inline tc" id="yes" style="width:25%;">完成</div>
 		</nav>
 		<!--操作-->
@@ -104,7 +46,14 @@
 
 			</ul>
 		</div>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 		<p id="none" class="full f12 tc hide"></p>
 		<div id="muicontent" class="inline full">
 			<ul class="mui-table-view f13 mt0 inline full" id="scroll-view" style="padding-bottom:50px;"></ul>
@@ -138,12 +87,21 @@
 		base.Get("search").addEventListener('tap', function(event) {
 			stopsound();
 			resetsound();
-			mui.later(function() {
-				base.OpenWindow("musicsearch", "musicsearch.html", {
+			//mui.later(function() {
+				/*base.OpenWindow("musicsearch", "musicsearch.html", {
+					name: "",
+					searchtype: 0
+				});*/
+				plus.webview.create("musicsearch.html", "musicsearch", {
+					top: "0px", 
+					bottom: "0px",
+					bounce: "vertical",
+					scrollIndicator: "none"
+				}, {
 					name: "",
 					searchtype: 0
 				});
-			}, 150)
+			//}, 150)
 		});
 
 		//取消
@@ -231,9 +189,11 @@
 	function AppendHtml(item) {
 		var div = document.createElement('li');
 		div.className = 'mui-table-view-cell music';
-		div.setAttribute("fileId", item.ID);
-		div.setAttribute("fileName", item.Author + "「" + item.Name + "」");
-		div.setAttribute("fileUrl", item.FileUrl);
+		base.Attr(div, [
+			["fileId", item.ID],
+			["fileName", item.Author + "「" + item.Name + "」"],
+			["fileUrl", item.FileUrl]
+		]);
 		var model = [];
 		model.push('<img onload="LazyImg(this)" src="../images/avatar.png" data-lazyload="' + item.Cover + '" style="width:2rem;height:2rem;" class="fl mr10" />');
 		model.push('<p class="fl c333 f13 mb0" style="width:75%;display:inline-block;">' + item.Name + '<br /><span class="fl c999 f11 mt1">' + item.Author + "「" + item.Remark + "」" + '</span></p>');

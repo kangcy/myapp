@@ -1,0 +1,250 @@
+#music1 {
+	width: 1.8rem;
+	height: 1.8rem;
+	position: fixed;
+	right: 10px;
+	top: 80px;
+	z-index: 999;
+	&[play=stop] {
+		animation: rotate 4s linear infinite;
+		-webkit-animation: rotate 4s linear infinite;
+		-ms-animation: rotate 4s linear infinite;
+		-moz-animation: rotate 4s linear infinite;
+		-o-animation: rotate 4s linear infinite;
+	}
+}
+
+.music {
+	width: 100%;
+	height: 2rem;
+	border-radius: 5px;
+	background: #f6f6f6;
+	padding: 0;
+	line-height: 2rem;
+	cursor: pointer;
+	text-indent: 2.5rem;
+	&[play=on] {
+		background-image: url("../images/article/on.png");
+		background-repeat: no-repeat;
+		background-size: 1.5rem;
+		background-position: 0.5rem center;
+	}
+	&[play=stop] {
+		background-image: url("../images/article/off.png");
+		background-repeat: no-repeat;
+		background-size: 1.5rem;
+		background-position: 0.5rem center;
+	}
+	span {
+		margin: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		text-align: left;
+	}
+}
+
+#btnPay {
+	position: fixed;
+	bottom: 4rem;
+	right: 1rem;
+	width: 4rem;
+	z-index: 99;
+}
+
+video {
+	/*修复尺寸*/
+	width: 100%;
+	height: auto;
+	max-height: 100%;
+	/*修复白边*/
+	display: block;
+	font-size: 0;
+}
+
+#x-bg {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+}
+
+.root {
+	height: 100%;
+	position: relative;
+	z-index: 0;
+	.x-head {
+		position: relative;
+		.img-container {
+			padding-top: 2rem;
+			.avatar {
+				width: 5rem;
+				height: 5rem;
+				margin: 0 auto;
+				background-size: 100% 100%;
+				overflow: hidden;
+				border-radius: 50%;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 2px solid #fff;
+				img {
+					width: 100%;
+				}
+			}
+		}
+		.article-meta {
+			overflow: hidden;
+			word-wrap: break-word;
+			p.time-read {
+				font-family: PingFangSC-Regular;
+				letter-spacing: 0;
+			}
+			p.time-read>span {
+				margin-right: 10px;
+			}
+			p.nickname {
+				font-family: PingFangSC-Medium;
+				letter-spacing: 0;
+				margin: 0;
+			}
+		}
+	}
+	.x-content {
+		position: relative;
+		.section {
+			display: inline-block;
+			.text {
+				line-height: 1.8 !important;
+				word-wrap: break-word;
+				font-weight: normal; 
+				white-space: pre-wrap;
+				font-family: PingFangSC-Light;
+			}
+			img {
+				width: 100%;
+				vertical-align: bottom;
+			}
+			&.temp {
+				padding: 0px 3% 3% 3%;
+			}
+		}
+		.x-bg-blur {
+			/*background: rgba(27, 62, 85, 0.6);*/
+			width: 94%;
+			height: 100%;
+			z-index: -1;
+			top: 0;
+			-webkit-backdrop-filter: blur(12px);
+			position: absolute;
+			border-radius: 8px;
+		}
+	}
+	.well {
+		padding: 0 3%;
+	}
+	&.x-cover {
+		width: 100%;
+		position: relative;
+		z-index: 1;
+		background-image: url(https://ss2.meipian.me/theme/v2/img/059/bg.jpg?1);
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		min-height: 100%;
+		background-color: #426a76;
+	}
+}
+
+#snowcanvas {
+	pointer-events: none;
+	position: fixed;
+	z-index: 20;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+
+
+/**详细页**/
+
+#topPopover { 
+	position: fixed;
+	top: 65px !important;
+	right: 10px;
+	width: 120px !important;
+	left: inherit !important;
+	.mui-popover-arrow {
+		right: 10px;
+		left: inherit !important;
+	}
+	.mui-table-view-cell {
+		padding: 0.625rem 0.9375rem !important;
+		&:after {
+			right: 10px !important;
+			left: 10px !important;
+		}
+	}
+}
+
+#addcomment {
+	width: 95%;
+	float: left;
+	text-align: center;
+	div {
+		width: 95%;
+		border-radius: 30px;
+		background: #eee;
+		display: inline-block;
+		height: 40px;
+		line-height: 40px;
+		background-image: url(../images/article/pen.png);
+		background-repeat: no-repeat;
+		background-position: 20% center;
+		background-size: 20px;
+		text-indent: 20%;
+	}
+}
+
+#delete {
+	background: #fff;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	div {
+		width: 50%;
+		float: left;
+		display: inline-block;
+		position: relative;
+		text-indent: 1rem;
+		&:nth-child(even):after {
+			position: absolute;
+			top: 10px;
+			right: 0;
+			left: 0;
+			width: 1px;
+			height: 30px;
+			content: '';
+			-webkit-transform: scaleX(.5);
+			transform: scaleX(.5);
+			background-color: #e8e8e8;
+		}
+	}
+	.mui-icon {
+		font-size: 30px;
+		padding: 0px;
+		position: absolute;
+		left: 1.2rem;
+		top: 10px;
+	}
+	&:before {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		content: '';
+		-webkit-transform: scaleY(.5);
+		transform: scaleY(.5);
+		background-color: #e8e8e8;
+	}
+}

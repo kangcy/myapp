@@ -1,0 +1,69 @@
+.play {
+    background: url(../images/music/start.png) center center no-repeat;
+    background-size: 100% 100%;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.stop {
+    background: url(../images/music/stop.png) center center no-repeat;
+    background-size: 100% 100%;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.stopMusic img {
+    border-radius: 100%;
+    animation: rotate 4s linear infinite;
+    -webkit-animation: rotate 4s linear infinite;
+    -ms-animation: rotate 4s linear infinite;
+    -moz-animation: rotate 4s linear infinite;
+    -o-animation: rotate 4s linear infinite;
+}
+
+#scroll-view {
+    .mui-table-view-cell {
+        padding: .8rem 0.9375rem;
+        &:after {
+            left: 0.9375rem;
+        }
+    }
+}
+
+.mui-table-view:after {
+    height: 0;
+}
+
+.mui-table-view-cell:last-child:after,
+.mui-table-view-cell:last-child:before {
+    height: 0px !important;
+}
+
+.mui-popup-title+.mui-popup-text {
+    display: none;
+}
+
+.mui-bar-tab div {
+    font-size: 16px;
+    height: 50px;
+    line-height: 50px;
+}
+
+#topPopover {
+    position: fixed;
+    top: 65px !important;
+    right: 10px;
+    width: 120px !important;
+    left: inherit !important;
+    .mui-popover-arrow {
+        right: 10px;
+        left: inherit !important;
+    }
+    .mui-table-view-cell {
+        padding: 0.625rem 0.9375rem !important;
+        &:after {
+            right: 10px !important;
+            left: 10px !important;
+        }
+    }
+}
