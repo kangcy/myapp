@@ -15,10 +15,11 @@
 <script src="minjs/mui.min.js"></script>
 <script src="js/base.min.js"></script>
 <script type="text/javascript">
+	var self = null;
 	var userinfo = base.GetUserInfo();
 	mui.init();
 	mui.plusReady(function() {
-
+		self = plus.webview.currentWebview();
 		plus.navigator.setFullscreen(true); //全屏展示
 		plus.screen.lockOrientation("portrait-primary"); //仅支持竖屏显示
 
@@ -36,6 +37,9 @@
 			all[i].close();
 			all[i].clear();
 		}
+
+		InitSoftKeyboard(); //初始化软键盘
+		InitShareSystem(); //初始化系统分享
 
 		//定位
 		base.InitPosition(function() {
@@ -60,4 +64,55 @@
 			}
 		});
 	});
+
+	var nativeWebview, imm, InputMethodManager, main;
+
+	//初始化软键盘
+	function InitSoftKeyboard() {
+		nativeWebview = self.nativeInstanceObject();
+		if(mui.os.android) {
+			plus.android.importClass(nativeWebview);
+			nativeWebview.requestFocus();
+			Context = plus.android.importClass("android.content.Context");
+			InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+			main = plus.android.runtimeMainActivity();
+			imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+		}
+	};
+	//打开软键盘
+	function OpenSoftKeyboard() {
+		if(mui.os.android) {
+			imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+		} else {
+			nativeWebview.plusCallMethod({
+				"setKeyboardDisplayRequiresUserAction": false
+			});
+		}
+	}
+
+	//系统分享
+	var Intent, File, Uri;
+
+	function InitShareSystem() {
+		if(plus.os.name !== "Android") {
+			return;
+		}
+		Intent = plus.android.importClass("android.content.Intent");
+		File = plus.android.importClass("java.io.File");
+		Uri = plus.android.importClass("android.net.Uri");
+	}
+
+	function ShareSystem(sharetext) {
+		if(plus.os.name !== "Android") {
+			plus.nativeUI.alert("此平台暂不支持系统分享功能");
+			return;
+		}
+		var intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_SUBJECT, "");
+		intent.putExtra(Intent.EXTRA_TEXT, sharetext);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		main.startActivity(Intent.createChooser(intent, "系统分享"));
+		//base.ShareLog(userinfo.Number, Article.Number, "system", 0);
+	}
 </script>

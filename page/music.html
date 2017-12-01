@@ -43,14 +43,10 @@
 				<li id="popover_edit" onclick="Load(4)" class="mui-table-view-cell">
 					KTV唛榜
 				</li>
-
 			</ul>
 		</div>
 		<div id="loader">
-			<div>
-				<svg viewBox="25 25 50 50" class="circular">
-					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
-				</svg>
+			<div class="tc">
 				<p class="tc f12">正在努力加载...</p>
 			</div>
 		</div>
@@ -87,21 +83,19 @@
 		base.Get("search").addEventListener('tap', function(event) {
 			stopsound();
 			resetsound();
-			//mui.later(function() {
-				/*base.OpenWindow("musicsearch", "musicsearch.html", {
-					name: "",
-					searchtype: 0
-				});*/
-				plus.webview.create("musicsearch.html", "musicsearch", {
-					top: "0px", 
-					bottom: "0px",
-					bounce: "vertical",
-					scrollIndicator: "none"
-				}, {
-					name: "",
-					searchtype: 0
-				});
-			//}, 150)
+			/*base.OpenWindow("musicsearch", "musicsearch.html", {
+				name: "",
+				searchtype: 0
+			});*/
+			plus.webview.create("musicsearch.html", "musicsearch", {
+				top: "0px",
+				bottom: "0px",
+				bounce: "vertical",
+				scrollIndicator: "none"
+			}, {
+				name: "",
+				searchtype: 0
+			});
 		});
 
 		//取消

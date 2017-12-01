@@ -4614,6 +4614,9 @@ body > .mui-progressbar {
   position: relative;
   text-indent: 10%;
 }
+#loader div.tc {
+  text-indent: 0 !important;
+}
 #loader .circular {
   top: -0.5rem !important;
   left: 30% !important;

@@ -119,10 +119,8 @@
 			</div>
 			<div id="exit" onclick="Exit()">取消</div>
 		</header>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
 		<div class="mui-content" id="muicontent">
 			<div id="info">
-
 			</div>
 			<div id="scroll" class="full fl">
 				<div id="scroll-user-title" class="scroll_title fl hide" style="margin-bottom:-0.5rem;">
@@ -168,13 +166,16 @@
 		base.Immersed();
 		base.ToTop();
 
-		InitSearch(function() {
-			loader.classList.add("hide");
-		})
+		mui.trigger(search, "focus");
+		InitSearch()
 	});
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
+
+		mui.later(function() {
+			plus.webview.getLaunchWebview().evalJS("OpenSoftKeyboard()");
+		}, 250)
 
 		//监听软键盘搜索键
 		base.Get("search").addEventListener("keydown", function(e) {
@@ -302,8 +303,8 @@
 					}
 					base.Get("info").innerHTML = html.join('');
 
-					base.Get("info").style.animation = "fadeInUp 0.5s ease";
-					base.Get("info").style.webkitanimation = "fadeInUp 0.5s ease"
+					//base.Get("info").style.animation = "fadeInUp 0.5s ease";
+					//base.Get("info").style.webkitanimation = "fadeInUp 0.5s ease"
 				}
 			}
 			if(callback) {

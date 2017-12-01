@@ -233,8 +233,15 @@
 			<span class="mui-icon fr mui-text cfff hide" id="submit" onclick="Save()">发布</span>
 			<h1 class="mui-title cfff">文章预览</h1>
 		</header>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
-		
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
+
 		<!--漂浮特效-->
 		<div id="snowwrapper"></div>
 		<canvas id="snowcanvas"></canvas>
@@ -246,6 +253,7 @@
 			<!--x-cover:滚动背景-->
 			<div class="root" id="x-cover">
 				<!--头部-->
+				<div id="x-top" class="full fl hide"></div>
 				<div class="x-head mb10 hide" id="x-head">
 					<div class="img-container" id="x-avatar">
 						<div class="avatar" id="x-avatar-sub">
@@ -271,6 +279,7 @@
 					<!--半透明蒙层-->
 					<div class="x-bg-blur" id="x-bg-blur"></div>
 				</div>
+				<img id="x-bottom" class="full fl hide" />
 			</div>
 		</div>
 	</body>
@@ -305,6 +314,8 @@
 	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
 	var $wrapper2 = base.Get("x-bg"); //纯色背景
 	var $cover = base.Get("x-bg-blur"); //非纯色内容透明度底
+	var $top = base.Get("x-top");
+	var $bottom = base.Get("x-bottom");
 	var browserName = base.BrowserName();
 
 	//显示遮罩

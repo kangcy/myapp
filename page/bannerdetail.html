@@ -59,7 +59,6 @@
 <script src="../js/base.min.js"></script>
 <script src="../js/music.js"></script>
 <script type="text/javascript">
-	var Article = {};
 	//分享信息
 	var ShareInfo = {
 		Url: "",
@@ -167,11 +166,12 @@
 		//系统分享
 		if(index == 6) {
 			mui.later(function() {
-				ShareSystem();
+				plus.webview.getLaunchWebview().evalJS("ShareSystem('" + "分享自「小微篇」" + ShareInfo.Title + " " + ShareInfo.Url + "')");
+				base.ShareLog(userinfo.Number, "", "system", 3);
 			}, 50)
 			return;
 		}
-		var id = ""; 
+		var id = "";
 		var ex = "";
 		switch(index) {
 			//朋友圈
@@ -219,26 +219,6 @@
 		}
 	}
 
-	//系统分享
-	function ShareSystem() {
-		if(plus.os.name !== "Android") {
-			plus.nativeUI.alert("此平台暂不支持系统分享功能");
-			return;
-		}
-		var Intent = plus.android.importClass("android.content.Intent");
-		var File = plus.android.importClass("java.io.File");
-		var Uri = plus.android.importClass("android.net.Uri");
-		var main = plus.android.runtimeMainActivity();
-
-		var intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("text/plain");
-		intent.putExtra(Intent.EXTRA_SUBJECT, "");
-		intent.putExtra(Intent.EXTRA_TEXT, "分享自「小微篇」" + ShareInfo.Title + " " + ShareInfo.Url);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		main.startActivity(Intent.createChooser(intent, "系统分享"));
-		base.ShareLog(userinfo.Number, Article.Number, "system", 0);
-	}
-
 	//发送分享信息
 	function shareMessage(s, ex, id) {
 		var msg = {
@@ -253,7 +233,7 @@
 		};
 		s.send(msg, function() {
 			mui.toast("分享成功");
-			base.ShareLog(userinfo.Number, Article.Number, id, 0);
+			base.ShareLog(userinfo.Number, "", id, 3);
 		}, function(e) {
 			mui.toast("分享失败");
 		});

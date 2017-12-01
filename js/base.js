@@ -247,8 +247,8 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	//this.RootUrl = "http://www.xiaoweipian.com/";
-	this.RootUrl = "http://www.xiaoweipian.com:8080/";
+	this.RootUrl = "http://www.xiaoweipian.com/";
+	//this.RootUrl = "http://www.xiaoweipian.com:8080/";
 	this.RootUrlTest = "http://www.xiaoweipian.com:8080/";
 	this.UploadUrl = "http://www.xiaoweipian.com:1010/";
 

@@ -330,7 +330,8 @@
 			//系统分享
 			if(index == 6) {
 				mui.later(function() {
-					ShareSystem();
+					plus.webview.getLaunchWebview().evalJS("ShareSystem('" + "分享自「小微篇」" + ShareInfo.Title + " " + ShareInfo.Url + "')");
+					base.ShareLog(userinfo.Number, "", "system", 2);
 				}, 50)
 				return;
 			}
@@ -380,26 +381,6 @@
 					mui.toast("认证授权失败");
 				});
 			}
-		}
-
-		//系统分享
-		function ShareSystem() {
-			if(plus.os.name !== "Android") {
-				plus.nativeUI.alert("此平台暂不支持系统分享功能");
-				return;
-			}
-			var Intent = plus.android.importClass("android.content.Intent");
-			var File = plus.android.importClass("java.io.File");
-			var Uri = plus.android.importClass("android.net.Uri");
-			var main = plus.android.runtimeMainActivity();
-
-			var intent = new Intent(Intent.ACTION_SEND);
-			intent.setType("text/plain");
-			intent.putExtra(Intent.EXTRA_SUBJECT, "");
-			intent.putExtra(Intent.EXTRA_TEXT, "分享自「小微篇」" + ShareInfo.Title + " " + ShareInfo.Url);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			main.startActivity(Intent.createChooser(intent, "系统分享"));
-			base.ShareLog(userinfo.Number, "", "system", 2);
 		}
 
 		//发送分享信息 

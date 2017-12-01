@@ -148,17 +148,9 @@
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff" style="width:15%;text-align:left;"></a>
 			<a id="btnSearch" class="mui-icon mui-icon-search fr cfff" style="width:15%;font-size:25px;text-align:right;"></a>
 			<div class="mui-input-row mui-search" style="width:80%;">
-				<input id="search" type="search" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:32px;font-size:15px;">
+				<input id="search" type="search" autofocus="autofocus" class="mui-input-speech mui-input-clear c999" placeholder="搜索歌曲名、支持语音搜索" maxlength="10" style="height:32px;font-size:15px;">
 			</div>
 		</header>
-		<div id="loader">
-			<div>
-				<svg viewBox="25 25 50 50" class="circular">
-					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
-				</svg>
-				<p class="tc f12">正在努力加载...</p>
-			</div>
-		</div>
 		<nav class="mui-bar mui-bar-tab hide" id="bottom" style="border-top:1px solid #eee;background:#fff;">
 			<div class="fl blue ml10" id="no">取消</div>
 			<div class="fr blue mr10" id="yes">完成</div>
@@ -208,9 +200,9 @@
 		base.Immersed();
 		base.ToTop();
 
-		InitSearch(function() {
-			loader.classList.add("hide");
-		})
+		mui.trigger(search, "focus");
+
+		InitSearch()
 
 		//语音识别完成事件
 		search.addEventListener('recognized', function(e) {
@@ -222,20 +214,6 @@
 			search.value = this.innerHTML;
 			search.blur();
 			InitMusic(search.value);
-		});
-	})
-
-	var contentWebview = null;
-	mui.plusReady(function() {
-		self = plus.webview.currentWebview();
-		self.show("pop-in");
-		/*mui.later(function() {
-			OpenSoftKeyboard();
-		}, 600)*/
-
-		//取消
-		base.Get('no').addEventListener('tap', function(e) {
-			plus.webview.close("musicsearch");
 		});
 
 		//确定
@@ -249,24 +227,10 @@
 			addarticlePage.evalJS("UpdateMusic('" + fileId + "','" + fileName + "','" + fileUrl + "','musicsearch')");
 		});
 
-		//搜索
-		base.Get("btnSearch").addEventListener('tap', function(e) {
-			if(base.IsNullOrEmpty(search.value)) {
-				return mui.toast("请输入搜索内容");
-			}
-			InitMusic(search.value);
+		//取消
+		base.Get('no').addEventListener('tap', function(e) {
+			plus.webview.close("musicsearch");
 		});
-
-		//监听软键盘搜索键
-		base.Get("search").addEventListener("keydown", function(e) {
-			if(13 == e.keyCode) {
-				if(base.IsNullOrEmpty(search.value)) {
-					return mui.toast("请输入搜索内容");
-				}
-				search.blur();
-				mui.trigger(base.Get("btnSearch"), "tap")
-			}
-		}, false);
 
 		mui("#scroll-view").on('tap', 'li.music', function(event) {
 			if(base.TriggerMain) {
@@ -311,6 +275,34 @@
 			this.classList.add("play");
 			stopsound();
 		});
+	})
+
+	var contentWebview = null;
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+		self.show("pop-in");
+		mui.later(function() {
+			plus.webview.getLaunchWebview().evalJS("OpenSoftKeyboard()");
+		}, 250)
+
+		//搜索
+		base.Get("btnSearch").addEventListener('tap', function(e) {
+			if(base.IsNullOrEmpty(search.value)) {
+				return mui.toast("请输入搜索内容");
+			}
+			InitMusic(search.value);
+		});
+
+		//监听软键盘搜索键
+		base.Get("search").addEventListener("keydown", function(e) {
+			if(13 == e.keyCode) {
+				if(base.IsNullOrEmpty(search.value)) {
+					return mui.toast("请输入搜索内容");
+				}
+				search.blur();
+				mui.trigger(base.Get("btnSearch"), "tap")
+			}
+		}, false);
 	});
 
 	var audio = base.Get('bgsound');
@@ -368,8 +360,8 @@
 					}
 					base.Get("info").innerHTML = html.join('');
 
-					base.Get("info").style.animation = "fadeInUp 0.5s ease";
-					base.Get("info").style.webkitanimation = "fadeInUp 0.5s ease"
+					//base.Get("info").style.animation = "fadeInUp 0.5s ease";
+					//base.Get("info").style.webkitanimation = "fadeInUp 0.5s ease"
 				}
 			}
 			if(callback) {
@@ -450,45 +442,4 @@
 		div.innerHTML = model.join('');
 		return div;
 	}
-
-	//打开软键盘
-	/*function OpenSoftKeyboard() {
-		if(mui.os.ios) {
-			var webView = plus.webview.currentWebview().nativeInstanceObject();
-			webView.plusCallMethod({
-				"setKeyboardDisplayRequiresUserAction": false
-			});
-		} else {
-			var webview = plus.android.currentWebview();
-			plus.android.importClass(webview);
-			webview.requestFocus();
-			var Context = plus.android.importClass("android.content.Context");
-			var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
-			var main = plus.android.runtimeMainActivity();
-			var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
-		}
-	}*/
-
-	var nativeWebview, imm, InputMethodManager;
-
-	function OpenSoftKeyboard() {
-		nativeWebview = self.nativeInstanceObject();
-		if(mui.os.android) {
-			plus.android.importClass(nativeWebview);
-			nativeWebview.requestFocus();
-			Context = plus.android.importClass("android.content.Context");
-			InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
-			main = plus.android.runtimeMainActivity();
-			imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
-		} else {
-			nativeWebview.plusCallMethod({
-				"setKeyboardDisplayRequiresUserAction": false
-			});
-		}
-		setTimeout(function() {
-			document.getElementById("search").focus();
-		}, 200);
-	};
 </script>
