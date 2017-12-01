@@ -113,6 +113,17 @@
 		intent.putExtra(Intent.EXTRA_TEXT, sharetext);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		main.startActivity(Intent.createChooser(intent, "系统分享"));
-		//base.ShareLog(userinfo.Number, Article.Number, "system", 0);
+	}
+
+	//视频播放
+	function PlayVideo() {
+		if(plus.os.name !== "Android") {
+			plus.nativeUI.alert("此平台暂不支持系统分享功能");
+			return;
+		}
+		var intent = new Intent(Intent.ACTION_VIEW);
+		var uri = Uri.parse("http://www.xiaoweipian.com/Upload/video/2017-07-31/201707310718064227.mp4");
+		intent.setDataAndType(uri, "video/*");
+		main.startActivity(intent);
 	}
 </script>

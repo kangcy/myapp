@@ -60,7 +60,6 @@ hr {
 	padding: 0.5rem;
 }
 
-
 .border_layer01,
 .border_layer02,
 .border_layer03,
@@ -1677,5 +1676,131 @@ body.mask21_style .wemedia_background {
 		-moz-transform: translate(0, 130vh);
 		-webkit-transform: translate(0, 130vh);
 		-o-transform: translate(0, 130vh)
+	}
+}
+
+@keyframes toTop {
+	0% {
+		top: 110%;
+		opacity: 1
+	}
+	100% {
+		top: -50px;
+		opacity: 0
+	}
+}
+
+@-webkit-keyframes toTop {
+	0% {
+		top: 110%;
+		opacity: 1
+	}
+	100% {
+		top: -50px;
+		opacity: 0
+	}
+}
+
+@keyframes scale {
+	0% {
+		transform: scale(1)
+	}
+	25% {
+		transform: scale(1.5)
+	}
+	50% {
+		transform: scale(1)
+	}
+	75% {
+		transform: scale(0.5)
+	}
+	100% {
+		transform: scale(1)
+	}
+}
+
+@-webkit-keyframes scale {
+	0% {
+		-webkit-transform: scale(1)
+	}
+	25% {
+		-webkit-transform: scale(1.5)
+	}
+	50% {
+		-webkit-transform: scale(1)
+	}
+	75% {
+		-webkit-transform: scale(0.5)
+	}
+	100% {
+		-webkit-transform: scale(1)
+	}
+}
+
+@keyframes swing {
+	0% {
+		transform: rotate(0deg);
+		transform-origin: center bottom
+	}
+	25% {
+		transform: rotate(45deg);
+		transform-origin: center bottom
+	}
+	50% {
+		transform: rotate(0deg);
+		transform-origin: center bottom
+	}
+	75% {
+		transform: rotate(-45deg);
+		transform-origin: center bottom
+	}
+	100% {
+		transform: rotate(0deg);
+		transform-origin: center bottom
+	}
+}
+
+@-webkit-keyframes swing {
+	0% {
+		-webkit-transform: rotate(0deg);
+		-webkit-transform-origin: center bottom
+	}
+	25% {
+		-webkit-transform: rotate(45deg);
+		-webkit-transform-origin: center bottom
+	}
+	50% {
+		-webkit-transform: rotate(0deg);
+		-webkit-transform-origin: center bottom
+	}
+	75% {
+		-webkit-transform: rotate(-45deg);
+		-webkit-transform-origin: center bottom
+	}
+	100% {
+		-webkit-transform: rotate(0deg);
+		-webkit-transform-origin: center bottom
+	}
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0);
+		-webkit-transform: rotate(0)
+	}
+	to {
+		transform: rotate(-360deg);
+		-webkit-transform: rotate(-360deg)
+	}
+}
+
+@-webkit-keyframes rotate {
+	from {
+		transform: rotate(0);
+		-webkit-transform: rotate(0)
+	}
+	to {
+		transform: rotate(-360deg);
+		-webkit-transform: rotate(-360deg)
 	}
 }

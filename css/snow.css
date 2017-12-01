@@ -93,3 +93,25 @@
 		transform: translate3d(20vw, 0, 0)
 	}
 }
+
+@keyframes toTop {
+	0% {
+		top: 110%;
+		opacity: 1
+	}
+	100% {
+		top: -50px;
+		opacity: 0
+	}
+}
+
+@-webkit-keyframes toTop {
+	0% {
+		top: 110%;
+		opacity: 1
+	}
+	100% {
+		top: -50px;
+		opacity: 0
+	}
+}
