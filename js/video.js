@@ -11,7 +11,7 @@ function ShowVideo(domid, vid) {
 
 function AppendVideo(sourceurl) {
 	var html = [];
-	var height = window.innerWidth * 0.5;
+	var height = window.innerWidth * 0.666;
 	//优酷
 	if(sourceurl.indexOf(".") < 0) {
 		return '<div class="media-cont audio-cont" style="width:100%;"><div id="youku_player_' + sourceurl + '" sid="' + sourceurl + '" class="youku_player" style="width:100%;height:' + height + 'px;"></div></div>';

@@ -422,8 +422,11 @@
 		tip: "粉色邮票",
 		name: "border_stamp_pink"
 	}, {
-		tip: "花边",
+		tip: "花边1",
 		name: "border_flower"
+	}, {
+		tip: "花边2",
+		name: "border_flower1"
 	}, {
 		tip: "浮光掠影",
 		name: "border_layer01"
@@ -812,7 +815,7 @@
 				var div = document.createElement('div');
 				div.className = "img_border";
 				div.setAttribute("name", x.name);
-				div.innerHTML = '<p class="cfff">' + x.tip + '</p><div class="' + x.name + '"><img src="' + src + '" /></div>';
+				div.innerHTML = '<p class="cfff mb20">' + x.tip + '</p><div class="' + x.name + '"><img src="' + src + '" /></div>';
 				fragment.appendChild(div);
 			})
 			base.Get("myborder-slide").innerHTML = "";
@@ -851,6 +854,7 @@
 			Title = "";
 		} else {
 			title.innerHTML = val;
+			base.Get("title0").innerHTML = val;
 			Title = val;
 		}
 	}

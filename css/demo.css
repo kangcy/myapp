@@ -743,6 +743,18 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	display: inline-block;
 }
 
+.border_flower1 {
+	border-style: solid;
+	border-width: 14px;
+	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_flower1.png) 28 repeat;
+	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_flower1.png) 28 repeat;
+	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_flower1.png) 28 repeat;
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_flower1.png) 28 fill repeat;
+	background-color: #fff;
+	background-clip: padding-box;
+	display: inline-block;
+}
+
 .border_gold1 {
 	border-style: solid;
 	border-width: 39px 37px 37px 39px;
@@ -1701,6 +1713,28 @@ body.mask21_style .wemedia_background {
 	}
 }
 
+@keyframes toBottom {
+	0% {
+		top: -50px;
+		opacity: 0
+	}
+	100% {
+		top: 110%;
+		opacity: 1
+	}
+}
+
+@-webkit-keyframes toBottom {
+	0% {
+		top: -50px;
+		opacity: 0
+	}
+	100% {
+		top: 110%;
+		opacity: 1
+	}
+}
+
 @keyframes scale {
 	0% {
 		transform: scale(1)
@@ -1802,5 +1836,59 @@ body.mask21_style .wemedia_background {
 	to {
 		transform: rotate(-360deg);
 		-webkit-transform: rotate(-360deg)
+	}
+}
+
+@keyframes toleft {
+	from {
+		transform: translate(0, 0)
+	}
+	to {
+		transform: translate(-100px, 1000px)
+	}
+}
+
+@-webkit-keyframes toleft {
+	from {
+		-webkit-transform: translate(0, 0)
+	}
+	to {
+		-webkit-transform: translate(-100px, 1000px)
+	}
+}
+
+@keyframes toright {
+	from {
+		transform: translate(0, 0)
+	}
+	to {
+		transform: translate(100px, 1000px)
+	}
+}
+
+@-webkit-keyframes toright {
+	from {
+		-webkit-transform: translate(0, 0)
+	}
+	to {
+		-webkit-transform: translate(100px, 1000px)
+	}
+}
+
+@keyframes clock {
+	from {
+		transform: rotate(-50deg)
+	}
+	to {
+		transform: rotate(50deg)
+	}
+}
+
+@-webkit-keyframes clock {
+	from {
+		-webkit-transform: rotate(-50deg)
+	}
+	to {
+		-webkit-transform: rotate(50deg)
 	}
 }

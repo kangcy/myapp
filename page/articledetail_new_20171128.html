@@ -227,7 +227,6 @@
 
 	mui.ready(function() {
 		base.Immersed();
-
 		var headerheight = $header.clientHeight + "px";
 
 		//进度条
@@ -347,19 +346,6 @@
 		});
 
 		base.ShowUser("#body");
-
-		var timer = setInterval(function() {
-			var snow = createsnow();
-			snow.style.animationDelay = 0;
-			snow.style.animationIterationCount = "infinite";
-			snow.style.animationTimingFunction = "linear";
-			snow.style.animationDuration = "10s";
-			snow.style.zIndex = 10;
-			snowbg.appendChild(snow);
-			if(mui(".heart").length > 10) {
-				clearInterval(timer);
-			}
-		}, 1000);
 	});
 
 	var self = null,
@@ -878,43 +864,5 @@
 		}, function(e) {
 			mui.toast("分享失败");
 		});
-	}
-
-	var snowbg = base.Get("snowwrapper");
-
-	function createsnow() {
-		var snowpic = "http://static2.ivwen.com/theme/v2/img/operate5/01pfw.png";
-		var size = Math.random() * 15 + 20;
-		var exam = (size - 10) / 6;
-		var snow = document.createElement("div");
-		var pic = document.createElement("img");
-		pic.src = snowpic;
-		if(Math.random() > 0.5) {
-			imganimation = "swing";
-		} else {
-			imganimation = "scale";
-		};
-		pic.style.webkitAnimationName = imganimation;
-		pic.style.animationName = imganimation;
-		pic.style.webkitAnimationDuration = 6 + Math.random() * 4 + "s";
-		pic.style.animationDuration = 6 + Math.random() * 4 + "s";
-		pic.style.webkitAnimationIterationCount = "infinite";
-		pic.style.animationIterationCount = "infinite";
-		pic.style.webkitAnimationTimingFunction = "linear";
-		pic.style.animationTimingFunction = "linear";
-		pic.style.webkitAnimationDirection = "reverse";
-		pic.style.animationDirection = "reverse";
-		pic.style.width = "100%";
-		pic.style.opacity = ((exam * 6) + 4) / 10;
-		snow.style.width = size + "px";
-		snow.style.height = size + "px";
-		snow.style.position = "absolute";
-		snow.style.left = Math.random() * window.innerWidth + "px";
-		snow.style.webkitAnimationName = "toTop";
-		snow.style.animationName = "toTop";
-		snow.style.position = "fixed";
-		snow.classList.add("heart");
-		snow.appendChild(pic);
-		return snow;
 	}
 </script>
