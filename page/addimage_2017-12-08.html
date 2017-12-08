@@ -20,8 +20,6 @@
 				text-align: center;
 				width: 100%;
 				z-index: 2;
-				-webkit-animation: move ease-in-out .75s infinite;
-				animation: move ease-in-out .75s infinite;
 			}
 			
 			.tip div {
@@ -92,41 +90,11 @@
 			.mui-table-view-cell {
 				padding: 0.525rem 0.9375rem;
 			}
-			
-			@keyframes move {
-				0% {
-					-webkit-transform: translateY(0);
-					transform: translateY(0);
-				}
-				50% {
-					-webkit-transform: translateY(-5px);
-					transform: translateY(-5px);
-				}
-				100% {
-					-webkit-transform: translateY(0);
-					transform: translateY(0);
-				}
-			}
-			
-			@-webkit-keyframes move {
-				0% {
-					-webkit-transform: translateY(0);
-					transform: translateY(0);
-				}
-				50% {
-					-webkit-transform: translateY(-5px);
-					transform: translateY(-5px);
-				}
-				100% {
-					-webkit-transform: translateY(0);
-					transform: translateY(0);
-				}
-			}
 		</style>
 	</head>
 
 	<body id="main" class="hover">
-		<header id="header" class="mui-bar mui-bar-nav">
+		<header id="header" class="mui-bar mui-bar-nav hide">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<a class="mui-icon mui-text cfff fr hide" id="pic" onclick="upload()">上传图片</a>
 			<div class="mui-title cfff">制作我的文章</div>
@@ -146,7 +114,7 @@
 				<li class="mui-table-view-cell noborder" id="gallery">
 					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
 				</li>
-				<li class="mui-table-view-cell hide noborder">
+				<li class="mui-table-view-cell hide noborder" id="pic">
 					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
 				</li>
 				<li class="mui-table-view-cell noborder">
@@ -154,7 +122,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mui-bar mui-bar-tab bottom tc cfff" id="bottom" style="background:#fff;">
+		<div class="mui-bar mui-bar-tab bottom tc cfff hide" id="bottom" style="background:#fff;">
 			<div id="add">
 				<div class="f13" id="btnAdd" onclick="ShowPover()">选择图片</div>
 			</div>
@@ -170,13 +138,12 @@
 	var id = 0;
 	var isLoading = false;
 	var self = null;
-	var sort = null;
 	var userinfo = base.GetUserInfo();
 
 	mui.init();
 
 	mui.ready(function() {
-		base.Immersed();
+
 		mui.each(base.Get(".cancel"), function() {
 			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
 		})
@@ -185,8 +152,22 @@
 
 		Init();
 
+		ShowPover();
+
 		mui('body').on('hidden', '.mui-popover', function(e) {
-			base.Get("bottom").classList.remove("hide");
+			if(!isSelect) {
+				plus.webview.hide("addimage", "fade-out");
+				if(sort != null) {
+					sort.destroy();
+				}
+			} else {
+				base.Get("main").classList.remove("hover");
+				base.Get("header").classList.remove("hide");
+				base.Immersed();
+
+				base.Get("bottom").classList.remove("hide");
+				base.Get("bottom").classList.add("zoomIn");
+			}
 		});
 
 		mui('#scroll-view').on('tap', '.delicon', function(e) {
@@ -205,58 +186,46 @@
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		var uploads = self.uploads || "";
-		InitPic(uploads);
+
 		mui.back = function() {
 			if(base.CheckWaiting()) {
 				return false;
 			}
 			self.hide("fade-out");
-			Init();
+			base.Get('scroll-view').innerHTML = "";
+			base.Get("main").classList.add("hover");
+			base.Get("header").classList.add("hide");
 		}
 	});
 
-	function Init() {
-		id = 0;
-		isLoading = false;
-		base.Get("scroll-view").innerHTML = "";
-		base.Get("pic").classList.add("hide");
-		if(sort != null) {
-			sort.destroy();
-			sort = null;
-		}
+	function ResetAction() {
+		plus.webview.show("addimage", "fade-in", base.AnimateDuration, function() {
+			isSelect = false;
+			Init();
+			ShowPover();
+		});
 	}
 
-	function InitPic(pic) {
-		mui.each(pic.toString().split(','), function(index, item) {
-			AppendStart(item);
-		});
-		self.show("fade-in");
-		base.GetView("subindex").evalJS("AppendReset()");
-		if(sort != null) {
-			sort.destroy();
-		} else {
-			sort = new Sortable(document.getElementById("scroll-view"), {
-				group: "scroll-view",
-				onAdd: function(evt) {
-
-				},
-				onUpdate: function(evt) {
-
-				},
-				onRemove: function(evt) {
-
-				}
-			});
-		}
+	function Init() {
+		base.Get("scroll-view").innerHTML = "";
+		base.Get("pic").classList.add("hide");
 	}
 
 	function ShowPover() {
+		if(mui(".thirdfloor").length == 0) {
+			base.Get("main").classList.add("hover");
+			base.Get("header").classList.add("hide");
+		}
 		base.Get("bottom").classList.add("hide");
+		base.Get("bottom").classList.remove("zoomIn");
 		mui('#upload').popover('show');
 	}
 
-	function AppendStart(url) {
+	var sort = null;
+
+	function AppendStr(url) {
+		base.Get("header").classList.remove("hide");
+
 		id++;
 		var div = document.createElement('div');
 		div.className = 'thirdfloor';
@@ -269,6 +238,22 @@
 		div.innerHTML = '<div class="delicon" tid="' + id + '"></div>'
 		base.Get("scroll-view").appendChild(div);
 		InitAction();
+
+		if(sort != null) {
+			sort.destroy();
+		}
+		sort = new Sortable(document.getElementById("scroll-view"), {
+			group: "scroll-view",
+			onAdd: function(evt) {
+
+			},
+			onUpdate: function(evt) {
+
+			},
+			onRemove: function(evt) {
+
+			}
+		});
 	}
 
 	function InitAction() {
@@ -277,9 +262,5 @@
 		} else {
 			base.AddClass(["#pic", "#tip"], "hide");
 		}
-	}
-
-	function AppendEnd() {
-
 	}
 </script>

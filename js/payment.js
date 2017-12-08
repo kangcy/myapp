@@ -47,7 +47,6 @@ function Payment() {
 		return;
 	}
 	mui.get(PAYSERVER, {}, function(data) {
-		base.CloseWaiting();
 		var model = data;
 		if(base.IsNullOrEmpty(model)) {
 			isLoading = false;
@@ -66,9 +65,12 @@ function Payment() {
 			"timestamp": model.timestamp,
 			"sign": model.sign
 		}
+		mask.close();
 		plus.payment.request(channel[id], obj, function(result) {
+			mask.show();
 			base.Get("success").classList.remove("hide");
 		}, function(error) {
+			mask.show();
 			base.Get("error").classList.remove("hide");
 		});
 		isLoading = false;

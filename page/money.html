@@ -7,10 +7,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link rel="stylesheet" href="../mincss/mui.min.css">
-		<link rel="stylesheet" href="../mincss/money.min.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/money.min.css">
 	</head>
-
+ 
 	<body id="body">
 		<header class="mui-bar mui-bar-nav" id="header" immersed="none">
 			<a class="mui-icon mui-icon-back mui-action-back fl c333"></a>
@@ -94,9 +94,9 @@
 	var ArticleUserNumber = "";
 	var userinfo = base.GetUserInfo();
 	var mask = base.CreateMask(false, function() {
+		base.CloseWaiting();
 		$("#success,#error").addClass("hide");
 		$(".choosemoney:first").trigger("click");
-
 	});
 
 	mui.init({
@@ -164,6 +164,11 @@
 		}, function(e) {
 			console.log("获取支付通道失败：" + e.message);
 		});
+		
+		mui.back=function(){
+			plus.navigator.setStatusBarStyle('light');
+			self.close();
+		}
 	});
 
 	//其他金额

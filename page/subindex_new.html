@@ -109,7 +109,7 @@
 			}
 			
 			.scroller {
-				margin: 0; 
+				margin: 0;
 				padding: 0;
 			}
 			
@@ -145,6 +145,17 @@
 				line-height: 2.75rem;
 				height: 2.75rem;
 			}
+			
+			.cancel {
+				width: 70%;
+				display: inline-block !important;
+				border-radius: 30px;
+				padding: 0.525rem 0.9375rem;
+			}
+			
+			.mui-table-view-cell {
+				padding: 0.525rem 0.9375rem;
+			}
 		</style>
 	</head>
 
@@ -172,18 +183,35 @@
 				<div class="f13" id="btnAdd">制作我的文章</div>
 			</div>
 		</div>
+		<div id="upload" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell noborder" id="camera">
+					<a href="#" class="c333 f13" onclick="Camera()">拍照</a>
+				</li>
+				<li class="mui-table-view-cell noborder" id="gallery">
+					<a href="#" class="c333 f13" onclick="Gallery()">从手机相册选择</a>
+				</li>
+				<li class="mui-table-view-cell hide noborder" id="pic">
+					<a href="#" class="c333 f13" onclick="Pic()">从小微篇相册选择</a>
+				</li>
+				<li class="mui-table-view-cell noborder">
+					<a href="#upload" class="cfff f14 cancel mt2 mb0">取消</a>
+				</li>
+			</ul>
+		</div>
 	</body>
 
 </html>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
-<script src="../js/article.min.js"></script> 
+<script src="../js/article.min.js"></script>
 <script src="../swipe/swiper.min.js"></script>
 <script src="../jroll/jroll.min.js"></script>
 <script src="../jroll/jroll-pulldown.js"></script>
 <script src="../jroll/jroll-infinite.js"></script>
 <script src="../js/imgcache.js"></script>
 <script src="../js/update.min.js"></script>
+<script src="../js/addimage.js"></script>
 <script type="text/javascript">
 	var menus = [0];
 	var topSwiper, centerSwiper, bannerSwiper = null;
@@ -196,7 +224,7 @@
 	var pagesize = 10;
 	var PageName = "subindex";
 	var userinfo = base.GetUserInfo();
-	var self = null; 
+	var self = null;
 	var backButtonPress = 0;
 	mui.init();
 	mui.ready(function() {
@@ -251,11 +279,19 @@
 			isLoading = false;
 		});
 
+		mui.each(base.Get(".cancel"), function() {
+			this.style.background = base.BrowserName() + 'linear-gradient(left,#ff6900 0%,#fb2879 100%)';
+		})
+
 		//新增
 		base.Get("add").addEventListener('tap', function() {
+			mui('#upload').popover('show');
+		});
+
+		/*base.Get("add").addEventListener('tap', function() {
 			if(isLoading) {
 				return false;
-			}
+			} 
 			isLoading = true;
 			var view = base.GetView("addimage");
 			if(view) {
@@ -265,7 +301,7 @@
 			}
 			isLoading = false;
 		});
-
+*/
 		mui.back = function() {
 			backButtonPress++;
 			if(backButtonPress > 1) {
@@ -296,6 +332,34 @@
 		base.ShowUser("#centerNav");
 		ArticleAction("#centerNav", userinfo);
 	})
+
+	//上传单张图片结束回调
+	var uploads = [];
+
+	function AppendStart(url) {
+		uploads.push(url);
+	}
+
+	//上传所有图片结束回调
+	function AppendEnd() {
+		var addview = base.GetView("addimage");
+		if(addview) {
+			addview.evalJS("InitPic('" + uploads.join(',') + "')");
+		} else {
+			plus.webview.create("addimage.html", "addimage", {
+				top: "0px",
+				bottom: "0px",
+				bounce: "vertical",
+				scrollIndicator: "none"
+			}, {
+				uploads: uploads.join(',')
+			});
+		}
+	} 
+
+	function AppendReset() {
+		uploads = [];
+	}
 
 	//初始化
 	function InitType(callback) {

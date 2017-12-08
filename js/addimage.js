@@ -1,5 +1,4 @@
 var files = [];
-var isSelect = false;
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
 });
@@ -58,22 +57,23 @@ function Camera() {
 	var cmr = plus.camera.getCamera();
 	cmr.captureImage(function(p) {
 		plus.io.resolveLocalFileSystemURL(p, function(entry) {
-			isSelect = true;
 			mui('#upload').popover('hide');
 			files = [entry.toLocalURL()]
 			compressImage(0, files[0]);
 		});
+	}, function(e) {
+		mui('#upload').popover('hide');
 	});
 }
 
 // 从相册中选择图片
 function Gallery() {
 	plus.gallery.pick(function(e) {
-		isSelect = true;
 		mui('#upload').popover('hide');
 		files = e.files;
 		compressImage(0, files[0]);
 	}, function(e) {
+		mui('#upload').popover('hide');
 		console.log("取消选择图片");
 	}, {
 		filter: "image",
@@ -91,19 +91,23 @@ function compressImage(i, src) {
 			src: src,
 			dst: dstname,
 			overwrite: true,
-			quality: 90, 
-			width: "500px", 
+			quality: 90,
+			width: "500px",
 			format: "jpg"
 		},
 		function(event) {
-			AppendStr(event.target)
+			AppendStart(event.target)
 			if(newi < files.length) {
 				compressImage(newi, files[newi]);
+			} else {
+				AppendEnd()
 			}
 		},
 		function(error) {
 			if(newi < files.length) {
 				compressImage(newi, files[newi]);
+			} else {
+				AppendEnd()
 			}
 		});
 }

@@ -229,7 +229,8 @@
 			"page/sex.html",
 			"page/searchuser_new.html",
 			"page/setting.html",
-			"page/mysetting.html"
+			"page/mysetting.html",
+			"page/articletype.html"
 		],
 		"refer": [
 			"test/webview_pullrefresh.html",
