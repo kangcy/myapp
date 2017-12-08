@@ -1558,6 +1558,27 @@ function CopyToClip(txt) {
 	mui.toast("分享链接已复制到剪贴板");
 }
 
+//设置焦点
+function SetFocus(obj) {
+	if(obj.setSelectionRange) {
+		setTimeout(function() {
+			obj.setSelectionRange(0, 0);
+			obj.focus();
+		}, 100);
+	} else {
+		if(obj.createTextRange) {
+			var range = obj.createTextRange();
+			range.collapse(true);
+			range.moveEnd("character", 0);
+			range.moveStart("character", 0);
+			range.select();
+		}
+		try {
+			obj.focus();
+		} catch(e) {}
+	}
+}
+
 String.prototype.startWith = function(str) {
 	var reg = new RegExp("^" + str);
 	return reg.test(this);
