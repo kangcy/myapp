@@ -136,37 +136,42 @@
 
 		<!--固定背景-->
 		<div id="x-bg" class="hide"></div>
+		<div id="x-bg-base" class="hide" style="height:100%;opacity:0;"></div>
 		<!--内容-->
 		<div id="wrapper" class="full fl hide" style="margin-bottom:50px;">
 			<!--x-cover:滚动背景-->
 			<div class="root" id="x-cover">
 				<!--头-->
 				<div id="x-top" class="full fl hide"></div>
-				<!--用户-->
-				<div class="x-head mb10 full fl hide" id="x-head">
-					<div class="img-container" id="x-avatar">
-						<div class="avatar" id="x-avatar-sub">
-							<img id="useravatar0" src="../images/avatar.png" class="user">
+				<div class="full fl well2 mb10" id="x-body">
+					<!--用户-->
+					<div class="x-head mb10 full fl hide" id="x-head">
+						<div class="img-container" id="x-avatar">
+							<div class="avatar" id="x-avatar-sub">
+								<img id="useravatar0" src="../images/avatar.png" class="user">
+							</div>
+						</div>
+						<div class="article-meta well mt20 tc" id="x-article">
+							<p class="title thicker f20" id="title0"></p>
+							<p class="time-read mt10 f13">
+								<span id="createdate0"></span>
+								<span id="nickname0" class="user hide"></span>
+								<span class="read-count" id="views0"></span>
+							</p>
+							<p class="nickname user mt10 f13 hide" id="nickname1"></p>
+							<p id="music0" play="on" class="music mt10 mb0 hide" onclick="switchsound()">
+								<span id="musicname0" class="f11"></span>
+							</p>
 						</div>
 					</div>
-					<div class="article-meta well mt20 tc" id="x-article">
-						<p class="title thicker f20" id="title0"></p>
-						<p class="time-read mt10 f13">
-							<span id="createdate0"></span>
-							<span id="nickname0" class="user hide"></span>
-							<span class="read-count" id="views0"></span>
-						</p>
-						<p class="nickname user mt10 f13 hide" id="nickname1"></p>
-						<p id="music0" play="on" class="music mt10 mb0 hide" onclick="switchsound()">
-							<span id="musicname0" class="f11"></span>
-						</p>
+					<!--内容-->
+					<div class="x-content well mb10 mt10 full fl" id="x-content">
+						<div class="section full" id="desc"></div>
+						<!--半透明蒙层-->
+						<div class="x-bg-blur" id="x-bg-blur"></div>
 					</div>
-				</div>
-				<!--内容-->
-				<div class="x-content well mb10 mt10 full fl" id="x-content">
-					<div class="section full" id="desc"></div>
 					<!--半透明蒙层-->
-					<div class="x-bg-blur" id="x-bg-blur"></div>
+					<div class="x-bg-blur" id="x-bg-blur1"></div>
 				</div>
 				<!--尾-->
 				<img id="x-bottom" class="full fl hide" />

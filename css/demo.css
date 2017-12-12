@@ -1,13 +1,13 @@
 .group,
 .group img,
 hr {
-	display: block
+	display: block;
 }
 
 .border_mess {
 	height: auto;
 	padding: 1.5rem;
-	background-image: url(http://www.anybeen.cn/SdkTheme/PictureStoryTheme/PictureStoryFive/images/pic_mt_head.png), url(http://www.anybeen.cn/SdkTheme/PictureStoryTheme/PictureStoryFive/images/pic_mt_foot.png);
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/pic_mt_head.png), url(http://www.xiaoweipian.com/Images/Cover/pic_mt_foot.png);
 	background-size: 30% auto;
 	background-position: top left, bottom right;
 	background-repeat: no-repeat;
@@ -18,7 +18,7 @@ hr {
 .border_inner {
 	border: 0.375rem;
 	border-style: solid;
-	border-image-source: url(http://www.anybeen.cn/SdkTheme/PictureStoryTheme/PictureStoryFive/images/bg_pic_border.png);
+	border-image-source: url(http://www.xiaoweipian.com/Images/Cover/bg_pic_border.png);
 	border-image-slice: 16 16 16 16;
 	border-image-repeat: repeat;
 	position: relative;
@@ -30,7 +30,7 @@ hr {
 	content: '';
 	width: 100%;
 	height: 4rem;
-	background-image: url(http://www.anybeen.cn/SdkTheme/PictureStoryTheme/PictureStoryFive/images/pic_mp_head.png);
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/pic_mp_head.png);
 	background-size: 100%;
 	background-position: top right;
 	background-repeat: no-repeat;
@@ -43,7 +43,7 @@ hr {
 .border_inner1 {
 	border: 0.375rem;
 	border-style: solid;
-	border-image-source: url(http://www.anybeen.cn/SdkTheme/PictureStoryTheme/PictureStoryTwo/images/bg_title_border.png);
+	border-image-source: url(http://www.xiaoweipian.com/Images/Cover/bg_title_border.png);
 	border-image-slice: 47 47 47 47;
 	position: relative;
 	display: inline-block;
@@ -53,7 +53,7 @@ hr {
 .border_inner2 {
 	border: 0.375rem;
 	border-style: solid;
-	border-image-source: url(http://www.anybeen.cn/SdkTheme/PictureStoryTheme/PictureStoryTwo/images/bg_text_border.png);
+	border-image-source: url(http://www.xiaoweipian.com/Images/Cover/bg_text_border.png);
 	border-image-slice: 23 23 23 23;
 	position: relative;
 	display: inline-block;
@@ -81,226 +81,226 @@ hr {
 .border_layer02 img,
 .border_layer03 img {
 	-webkit-mask-position: 50% 50%;
-	-webkit-mask-size: 100%
+	-webkit-mask-size: 100%;
 }
 
 .border_stamp_green,
 .border_stamp_white {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box
+	-ms-box-sizing: border-box;
 }
 
 .border,
 .border_white_square {
 	border: 1px solid #ccc;
-	padding: 0
+	padding: 0;
 }
 
 
 /*背景*/
 
 .background_none_img {
-	background-image: none
+	background-image: none;
 }
 
 .background_linear1 {
 	background: -webkit-linear-gradient(to right bottom, pink, #87ceeb);
 	background: linear-gradient(to right bottom, pink, #87ceeb);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_white {
-	background-color: #fff
+	background-color: #fff;
 }
 
 .background_chruch_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_chruch_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_egg_shell_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_egg_shell_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_cross_scratches_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_cross_scratches_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_grey_brick_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_grey_brick_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_light_wool_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_light_wool_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_ravenna_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_ravenna_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_brushed_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_brushed_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_green_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_green_img.jpg);
 	background-repeat: repeat-y;
-	background-size: 100% auto
+	background-size: 100% auto;
 }
 
 .background_blue_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_blue_img.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_pink_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_pink_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_pinkbottle_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_pinkbottle_img.jpg);
 	background-size: 100%;
-	background-repeat: repeat-y
+	background-repeat: repeat-y;
 }
 
 .background_pinklying_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_pinklying_img.jpg);
 	background-size: 100%;
-	background-repeat: repeat-y
+	background-repeat: repeat-y;
 }
 
 .background_pinkwall_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_pinkwall_img.jpg);
 	background-size: 100%;
-	background-repeat: repeat-y
+	background-repeat: repeat-y;
 }
 
 .background_pink_rice_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_pink_rice_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 div.wemedia_content.background_pink_img,
 div.wemedia_content.background_pink_img .header-small-text .username a,
 div.wemedia_content.background_pink_rice_img,
 div.wemedia_content.background_pink_rice_img .header-small-text .username a {
-	color: #4D4D4D
+	color: #4D4D4D;
 }
 
 .background_congruent_pentagon_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_congruent_pentagon_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_cream_pixels_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_cream_pixels_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_sos_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_sos_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_light_blue_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_light_blue_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_cyan {
-	background-color: #F5F2E2
+	background-color: #F5F2E2;
 }
 
 .background_green {
-	background-color: #E0EEE8
+	background-color: #E0EEE8;
 }
 
 .background_dot_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_dot_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful1 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful1.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful2 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful2.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful3 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful3.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful4 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful4.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful5 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful5.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful01 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful01.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful02 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful02.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful03 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful03.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful04 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful04.jpg);
 	background-size: 150px 120px;
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful06 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful06.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_colorful07 {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_colorful07.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_black_img {
-	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_black_img.jpg)
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_black_img.jpg);
 }
 
 .background_dark_embroidery_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_dark_embroidery_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_congruent_outline_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_congruent_outline_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_woven_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_woven_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_blackboard,
@@ -310,153 +310,153 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 .background_retro02,
 .background_wooddesk_img {
 	background-repeat: repeat-y;
-	background-size: 100% auto
+	background-size: 100% auto;
 }
 
 .background_retro {
-	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_retro.jpg)
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_retro.jpg);
 }
 
 .background_retro02 {
-	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_retro02.jpg)
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_retro02.jpg);
 }
 
 .background_wooddesk_img {
-	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_wooddesk_img.jpg)
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_wooddesk_img.jpg);
 }
 
 .background_blackboard {
-	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_blackboard.jpg)
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_blackboard.jpg);
 }
 
 .background_greenboard {
-	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_greenboard.png)
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_greenboard.png);
 }
 
 .background_greenboard2 {
-	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_greenboard2.jpg)
+	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_greenboard2.jpg);
 }
 
 .background_red_dotted_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_red_dotted_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_carbonfibre_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_carbonfibre_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_darkbrickwall_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_darkbrickwall_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_darktire_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_darktire_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_darkdenim_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_darkdenim_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_irongrip_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_irongrip_img.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_tweed_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_tweed_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_wildoliva_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_wildoliva_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_bgnoise_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_bgnoise_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_dimension_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_dimension_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_freshsnow_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_freshsnow_img.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_geometry_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_geometry_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_greencup_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_greencup_img.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_nastyfabric_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_nastyfabric_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_whiteleather_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_whiteleather_img.jpg);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_newyear_star_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_newyear_star_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_newyear_fu_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_newyear_fu_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_newyear_snow01_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_newyear_snow01_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_newyear_snow02_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_newyear_snow02_img.png);
-	background-repeat: repeat
+	background-repeat: repeat;
 }
 
 .background_red_linear1 {
 	background: -webkit-radial-gradient(#f00010, #a5001a);
-	background: radial-gradient(#f00010, #a5001a)
+	background: radial-gradient(#f00010, #a5001a);
 }
 
 .background_big_fu_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_big_fu_img.png);
-	background-size: 100%
+	background-size: 100%;
 }
 
 .background_white_fu_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_white_fu_img.png);
 	background-repeat: repeat-y;
-	background-size: 100% auto
+	background-size: 100% auto;
 }
 
 .background_black_gradient_img {
 	background-image: url(http://www.xiaoweipian.com/Images/Cover/background_black_gradient_img.png);
 	background-repeat: repeat-y;
-	background-size: 100% auto
+	background-size: 100% auto;
 }
 
 .group {
 	background-color: transparent;
-	margin: 15px
+	margin: 15px;
 }
 
 .border,
@@ -469,30 +469,30 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 }
 
 .group img {
-	width: 100%
+	width: 100%;
 }
 
 .group img .sign_img {
 	display: block;
 	margin: 0 auto;
-	max-width: 100%
+	max-width: 100%;
 }
 
 .group .text hr {
 	margin-left: -10px;
-	margin-right: -10px
+	margin-right: -10px;
 }
 
 .border_layer01 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer01.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer01.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer02 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer02.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer02.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer03 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer03.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer03.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer04 img {
@@ -500,7 +500,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	width: 100%;
 	height: 100%;
 	-webkit-mask-size: cover;
-	mask-size: cover
+	mask-size: cover;
 }
 
 .border_layer05 img,
@@ -513,49 +513,49 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 .border_layer13 img,
 .border_layer14 img {
 	-webkit-mask-position: 50% 50%;
-	-webkit-mask-size: 100%
+	-webkit-mask-size: 100%;
 }
 
 .border_layer05 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer05.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer05.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer06 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer06.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer06.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer07 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer07.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer07.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer08 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer08.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer08.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer09 img {
 	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer09.png) 0 0 0 0 stretch stretch;
 	-webkit-mask-position: 50% 50%;
-	-webkit-mask-size: 100%
+	-webkit-mask-size: 100%;
 }
 
 .border_layer10 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer10.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer10.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer11 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer11.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer11.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer12 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer12.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer12.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer13 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer13.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer13.png) 0 0 0 0 stretch stretch;
 }
 
 .border_layer14 img {
-	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer14.png) 0 0 0 0 stretch stretch
+	-webkit-mask-box-image: url(http://www.xiaoweipian.com/Images/border/border_layer14.png) 0 0 0 0 stretch stretch;
 }
 
 .border_white_square {
@@ -578,7 +578,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 }
 
 .border_pink_dotted .text.bottom {
-	color: #920258
+	color: #920258;
 }
 
 .border_stamp_white {
@@ -596,11 +596,11 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 
 .border_round_corner img {
 	border-radius: 10px;
-	box-shadow: 1px 1px 2px rgba(255, 255, 255, .7)
+	box-shadow: 1px 1px 2px rgba(255, 255, 255, .7);
 }
 
 .border_round img {
-	border-radius: 10px
+	border-radius: 10px;
 }
 
 .border_blur {
@@ -610,18 +610,18 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_blur.png) 12 13 14 13 round;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_blur.png) 12 13 14 13 round;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_blur.png) 12 13 14 13 round;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_blur.png) 12 13 14 13 fill round
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_blur.png) 12 13 14 13 fill round;
 }
 
 .border_gold {
 	display: inline-block;
 	padding: 0;
 	border: 4px solid #f2e191;
-	background-color: #f2e191
+	background-color: #f2e191;
 }
 
 .border_gold>.text.bottom {
-	color: #D01320
+	color: #D01320;
 }
 
 .border_purple {
@@ -646,7 +646,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 .blockquote_stick1,
 .border_stick1,
 .border_stick1:before {
-	-webkit-box-shadow: 0 0 12px rgba(0, 0, 0, .2)
+	-webkit-box-shadow: 0 0 12px rgba(0, 0, 0, .2);
 }
 
 .border_stamp_green,
@@ -661,7 +661,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 
 .border_stamp_green {
 	border-image: url(http://www.xiaoweipian.com/Images/border/border_stamp_green.png) 7 repeat;
-	box-sizing: border-box
+	box-sizing: border-box;
 }
 
 .border_stamp_pink {
@@ -669,7 +669,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
-	box-sizing: border-box
+	box-sizing: border-box;
 }
 
 .border_wood1 {
@@ -700,7 +700,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood2.png) 28 stretch;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood2.png) 28 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood2.png) 28 stretch;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_wood2.png) 28 fill stretch
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_wood2.png) 28 fill stretch;
 }
 
 .border_wood3 {
@@ -708,7 +708,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood3.png) 7 stretch;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood3.png) 7 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood3.png) 7 stretch;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_wood3.png) 7 stretch
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_wood3.png) 7 stretch;
 }
 
 .border_wood4 {
@@ -716,7 +716,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood4.jpg) 28 stretch stretch;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood4.jpg) 28 stretch stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_wood4.jpg) 28 stretch stretch;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_wood4.jpg) 28 fill stretch stretch
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_wood4.jpg) 28 fill stretch stretch;
 }
 
 .border_retro {
@@ -797,7 +797,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	border-left: 1px dashed rgba(0, 0, 0, .1);
 	border-right: 1px dashed rgba(0, 0, 0, .1);
 	background: -webkit-gradient(linear, 555% 20%, 0 92%, from(rgba(0, 0, 0, .1)), to(rgba(0, 0, 0, 0)), color-stop(.1, rgba(0, 0, 0, .2)));
-	-webkit-transform: translate(-40px, 20px) skew(10deg, 10deg) rotate(-50deg)
+	-webkit-transform: translate(-40px, 20px) skew(10deg, 10deg) rotate(-50deg);
 }
 
 .border_rightshadow,
@@ -805,11 +805,11 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	min-height: 150px;
 	background: -webkit-gradient(linear, 0 20%, 0 92%, from(#f3f3f3), to(#fff), color-stop(.1, #f3f3f3));
 	border-top: 1px solid #ccc;
-	border-right: 1px solid #ccc
+	border-right: 1px solid #ccc;
 }
 
 .border_stick1 img {
-	width: 100%
+	width: 100%;
 }
 
 .border_bottomshadow {
@@ -817,7 +817,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	padding: 10px;
 	position: relative;
 	background: -webkit-gradient(linear, 0 20%, 0 1000%, from(#fff), to(#fff), color-stop(.1, #f3f3f3));
-	-webkit-box-shadow: 0 3px 30px rgba(0, 0, 0, .1) inset
+	-webkit-box-shadow: 0 3px 30px rgba(0, 0, 0, .1) inset;
 }
 
 .border_bottomshadow:after,
@@ -827,28 +827,28 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	height: 50px;
 	position: absolute;
 	bottom: 0;
-	z-index: -1
+	z-index: -1;
 }
 
 .border_bottomshadow:before {
 	right: 0;
 	-webkit-box-shadow: 20px 20px 10px rgba(0, 0, 0, .5);
-	-webkit-transform: translate(-25px, -17px) skew(5deg, 5deg) rotate(0)
+	-webkit-transform: translate(-25px, -17px) skew(5deg, 5deg) rotate(0);
 }
 
 .border_bottomshadow:after {
 	left: 0;
 	display: inline-block;
 	-webkit-box-shadow: -20px 20px 10px rgba(0, 0, 0, .5);
-	-webkit-transform: translate(25px, -17px) skew(-5deg, 175deg) rotate(0)
+	-webkit-transform: translate(25px, -17px) skew(-5deg, 175deg) rotate(0);
 }
 
 .border_bottomshadow img {
-	margin-bottom: 20px
+	margin-bottom: 20px;
 }
 
 .border_bottomshadow .text.bottom {
-	padding: 0
+	padding: 0;
 }
 
 .border_rightshadow {
@@ -866,16 +866,16 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	-webkit-transform: rotate(0) skew(0deg, 0deg) translate(-11px, -7px)
+	-webkit-transform: rotate(0) skew(0deg, 0deg) translate(-11px, -7px);
 }
 
 .border_rightshadow img {
 	width: 100%;
-	margin-bottom: 25px
+	margin-bottom: 25px;
 }
 
 .border_rightshadow .text.bottom {
-	padding: 0
+	padding: 0;
 }
 
 .border_yellowshadow {
@@ -893,16 +893,16 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 .border_roll {
 	border-style: solid;
 	background-color: #fff;
-	background-clip: padding-box
+	background-clip: padding-box;
 }
 
 .border_yellowshadow img {
 	width: 100%;
-	margin-top: 0
+	margin-top: 0;
 }
 
 .border_yellowshadow .text.bottom {
-	padding: 0
+	padding: 0;
 }
 
 .border_roll {
@@ -912,7 +912,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_roll.png) 5 26 round;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_roll.png) 5 26 round;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_roll.png) 5 26 round;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_roll.png) 5 26 round
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_roll.png) 5 26 round;
 }
 
 .border_blackwood {
@@ -921,7 +921,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_blackwood.png) 22 repeat;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_blackwood.png) 22 repeat;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_blackwood.png) 22 repeat;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_blackwood.png) 22 fill repeat
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_blackwood.png) 22 fill repeat;
 }
 
 .border_diamond {
@@ -930,14 +930,14 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_diamond.png) 25 repeat;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_diamond.png) 25 repeat;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_diamond.png) 25 repeat;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_diamond.png) 25 fill repeat
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_diamond.png) 25 fill repeat;
 }
 
 .border_translucent {
 	display: inline-block;
 	border: 10px solid hsla(0, 0%, 100%, .5);
 	background: hsla(0, 0%, 100%, .5);
-	background-clip: padding-box
+	background-clip: padding-box;
 }
 
 .border_shadow1 {
@@ -974,7 +974,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	left: 10px;
 	right: 10px;
 	-moz-border-radius: 100px/10px;
-	border-radius: 100px/10px
+	border-radius: 100px/10px;
 }
 
 .border_shadow2:after {
@@ -984,7 +984,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-transform: skew(8deg) rotate(3deg);
 	-ms-transform: skew(8deg) rotate(3deg);
 	-o-transform: skew(8deg) rotate(3deg);
-	transform: skew(8deg) rotate(3deg)
+	transform: skew(8deg) rotate(3deg);
 }
 
 .border_shadow3 {
@@ -1012,7 +1012,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	left: 0;
 	right: 0;
 	-moz-border-radius: 100px/10px;
-	border-radius: 100px/10px
+	border-radius: 100px/10px;
 }
 
 .border_shadow3:after {
@@ -1022,7 +1022,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-transform: skew(8deg) rotate(3deg);
 	-ms-transform: skew(8deg) rotate(3deg);
 	-o-transform: skew(8deg) rotate(3deg);
-	transform: skew(8deg) rotate(3deg)
+	transform: skew(8deg) rotate(3deg);
 }
 
 .border_oldstylepink {
@@ -1033,7 +1033,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylepink.png) 20 23 22 22 round;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylepink.png) 20 23 22 22 round;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylepink.png) 20 23 22 22 round;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylepink.png) 20 23 22 22 fill round
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylepink.png) 20 23 22 22 fill round;
 }
 
 .border_oldstylewhite {
@@ -1045,7 +1045,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylewhite.png) 17 round;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylewhite.png) 17 round;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylewhite.png) 17 round;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylewhite.png) 17 fill round
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_oldstylewhite.png) 17 fill round;
 }
 
 .border_whitecookie {
@@ -1057,7 +1057,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_whitecookie.png) 14 14 15 round;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_whitecookie.png) 14 14 15 round;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_whitecookie.png) 14 14 15 round;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_whitecookie.png) 14 14 15 fill round
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_whitecookie.png) 14 14 15 fill round;
 }
 
 .border_whitesharp {
@@ -1069,7 +1069,7 @@ div.wemedia_content.background_pink_rice_img .header-small-text .username a {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/border_whitesharp.png) 16 round;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/border_whitesharp.png) 16 round;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/border_whitesharp.png) 16 round;
-	border-image: url(http://www.xiaoweipian.com/Images/border/border_whitesharp.png) 16 fill round
+	border-image: url(http://www.xiaoweipian.com/Images/border/border_whitesharp.png) 16 fill round;
 }
 
 blockquote.blockquote_gold1,
@@ -1078,7 +1078,7 @@ blockquote.blockquote_gold3,
 blockquote.blockquote_green1 {
 	border-style: solid;
 	background-color: transparent;
-	padding: 0
+	padding: 0;
 }
 
 blockquote.blockquote_gold1 {
@@ -1086,7 +1086,7 @@ blockquote.blockquote_gold1 {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold1.png) 21 stretch;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold1.png) 21 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold1.png) 21 stretch;
-	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold1.png) 21 stretch
+	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold1.png) 21 stretch;
 }
 
 blockquote.blockquote_gold2 {
@@ -1094,7 +1094,7 @@ blockquote.blockquote_gold2 {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold2.png) 24 25 26 stretch;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold2.png) 24 25 26 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold2.png) 24 25 26 stretch;
-	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold2.png) 24 25 26 stretch
+	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold2.png) 24 25 26 stretch;
 }
 
 blockquote.blockquote_gold3 {
@@ -1102,7 +1102,7 @@ blockquote.blockquote_gold3 {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold3.png) 23 stretch;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold3.png) 23 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold3.png) 23 stretch;
-	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold3.png) 23 stretch
+	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_gold3.png) 23 stretch;
 }
 
 blockquote.blockquote_green1 {
@@ -1110,14 +1110,14 @@ blockquote.blockquote_green1 {
 	-moz-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green1.png) 22 stretch;
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green1.png) 22 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green1.png) 22 stretch;
-	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green1.png) 22 stretch
+	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green1.png) 22 stretch;
 }
 
 blockquote.blockquote_linear1,
 blockquote.blockquote_linear2 {
 	padding: 10px;
 	border: 4px solid transparent;
-	-webkit-text-fill-color: transparent
+	-webkit-text-fill-color: transparent;
 }
 
 blockquote.blockquote_linear1 {
@@ -1125,7 +1125,7 @@ blockquote.blockquote_linear1 {
 	border-image-slice: 10;
 	background: linear-gradient(45deg, pink, #87ceeb);
 	-webkit-background-clip: text;
-	background-clip: text-fill-color: transparent
+	background-clip: text-fill-color: transparent;
 }
 
 blockquote.blockquote_linear2 {
@@ -1133,7 +1133,7 @@ blockquote.blockquote_linear2 {
 	border-image-slice: 10;
 	background: linear-gradient(-30deg, red, #ff0);
 	-webkit-background-clip: text;
-	background-clip: text-fill-color: transparent
+	background-clip: text-fill-color: transparent;
 }
 
 blockquote.blockquote_roundblack {
@@ -1145,27 +1145,27 @@ blockquote.blockquote_roundblack {
 	text-align: center;
 	background: #333;
 	border: 0;
-	text-shadow: 0 0 1px #fff, 0 1px 1px #000
+	text-shadow: 0 0 1px #fff, 0 1px 1px #000;
 }
 
 blockquote.blockquote_brackets {
 	border-radius: 20%;
 	border-left: 6px solid rgba(255, 255, 255, .5);
 	border-right: 6px solid rgba(255, 255, 255, .5);
-	background-color: transparent
+	background-color: transparent;
 }
 
 blockquote.blockquote_prominent {
 	padding: 10px;
 	border-radius: 5px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .15), 0 1px 0 rgba(255, 255, 255, .75) inset;
-	background-color: transparent
+	background-color: transparent;
 }
 
 blockquote.blockquote_dotted {
 	padding: 10px;
 	border: 2px dashed #ddd;
-	border-radius: 5px
+	border-radius: 5px;
 }
 
 blockquote.blockquote_leaf {
@@ -1176,13 +1176,13 @@ blockquote.blockquote_leaf {
 	box-shadow: #212121 1px 1px 2px;
 	background-color: #fafafa;
 	color: silver;
-	padding: 15px
+	padding: 15px;
 }
 
 blockquote.blockquote_gainsboromt {
 	padding: 20px;
 	box-shadow: inset 0 0 0 4px rgba(255, 255, 255, .8), inset 0 0 0 8px rgba(255, 255, 255, .5), inset 0 0 0 13px rgba(255, 255, 255, .2);
-	border: 0
+	border: 0;
 }
 
 .blockquote_stick1 {
@@ -1192,7 +1192,7 @@ blockquote.blockquote_gainsboromt {
 	padding: 40px 10px 40px 15px;
 	background: -webkit-gradient(linear, 0 20%, 0 92%, from(#fff), to(#f3f3f3), color-stop(.1, #fff));
 	-moz-box-shadow: 0 0 12px rgba(0, 0, 0, .2);
-	box-shadow: 0 0 12px rgba(0, 0, 0, .2)
+	box-shadow: 0 0 12px rgba(0, 0, 0, .2);
 }
 
 .blockquote_stick1:before {
@@ -1208,7 +1208,7 @@ blockquote.blockquote_gainsboromt {
 	-webkit-box-shadow: 0 0 12px rgba(0, 0, 0, .2);
 	-moz-box-shadow: 0 0 12px rgba(0, 0, 0, .2);
 	box-shadow: 0 0 12px rgba(0, 0, 0, .2);
-	-webkit-transform: rotate(-50deg) skew(10deg, 10deg) translate(-20px, 0)
+	-webkit-transform: rotate(-50deg) skew(10deg, 10deg) translate(-20px, 0);
 }
 
 .blockquote_greenblock {
@@ -1218,7 +1218,7 @@ blockquote.blockquote_gainsboromt {
 	background-color: transparent;
 	border: 0;
 	margin-bottom: 5em;
-	max-width: 13.5em
+	max-width: 13.5em;
 }
 
 .blockquote_greenblock:after,
@@ -1231,17 +1231,17 @@ blockquote.blockquote_gainsboromt {
 	top: 3em;
 	display: inline-block;
 	z-index: -1;
-	background-color: rgba(221, 240, 237, .5)
+	background-color: rgba(221, 240, 237, .5);
 }
 
 .blockquote_greenblock:before {
 	-webkit-transform: rotate(-45deg);
-	transform: rotate(-45deg)
+	transform: rotate(-45deg);
 }
 
 .blockquote_greenblock:after {
 	-webkit-transform: rotate(-35deg);
-	transform: rotate(-35deg)
+	transform: rotate(-35deg);
 }
 
 blockquote.blockquote_blue8,
@@ -1249,7 +1249,7 @@ blockquote.blockquote_green7,
 blockquote.blockquote_green9 {
 	border-style: solid;
 	background-color: transparent;
-	padding: 0
+	padding: 0;
 }
 
 blockquote.blockquote_green7 {
@@ -1258,7 +1258,7 @@ blockquote.blockquote_green7 {
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green7.png) 18 16 17 17 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green7.png) 18 16 17 17 stretch;
 	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green7.png) 18 16 17 17 fill stretch;
-	color: #48bc91
+	color: #48bc91;
 }
 
 blockquote.blockquote_blue8 {
@@ -1267,7 +1267,7 @@ blockquote.blockquote_blue8 {
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_blue8.png) 31 25 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_blue8.png) 31 25 stretch;
 	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_blue8.png) 31 25 stretch;
-	color: #2ab8e4
+	color: #2ab8e4;
 }
 
 blockquote.blockquote_green9 {
@@ -1276,7 +1276,7 @@ blockquote.blockquote_green9 {
 	-webkit-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green9.png) 80 78 stretch;
 	-o-border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green9.png) 80 78 stretch;
 	border-image: url(http://www.xiaoweipian.com/Images/border/blockquote_green9.png) 80 78 stretch;
-	color: #48bc91
+	color: #48bc91;
 }
 
 
@@ -1334,327 +1334,236 @@ hr.hrgif {
 }
 
 hr.hrgif.hrgif001 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif001.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif001.gif);
 }
 
 hr.hrgif.hrgif002 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif002.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif002.gif);
 }
 
 hr.hrgif.hrgif003 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif003.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif003.gif);
 }
 
 hr.hrgif.hrgif004 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif004.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif004.gif);
 }
 
 hr.hrgif.hrgif005 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif005.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif005.gif);
 }
 
 hr.hrgif.hrgif006 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif006.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif006.gif);
 }
 
 hr.hrgif.hrgif007 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif007.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif007.gif);
 }
 
 hr.hrgif.hrgif009 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif009.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif009.gif);
 }
 
 hr.hrgif.hrgif011 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif011.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif011.gif);
 }
 
 hr.hrgif.hrgif012 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif012.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif012.gif);
 }
 
 hr.hrgif.hrgif013 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif013.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif013.gif);
 }
 
 hr.hrgif.hrgif014 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif014.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif014.gif);
 }
 
 hr.hrgif.hrgif015 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif015.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif015.gif);
 }
 
 hr.hrgif.hrgif016 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line//hrgif016.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line//hrgif016.gif);
 }
 
 hr.hrgif.hrgif017 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif017.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif017.gif);
 }
 
 hr.hrgif.hrgif018 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif018.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif018.gif);
 }
 
 hr.hrgif.hrgif019 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif019.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif019.gif);
 }
 
 hr.hrgif.hrgif020 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif020.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif020.gif);
 }
 
 hr.hrgif.hrgif021 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif021.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif021.gif);
 }
 
 hr.hrgif.hrgif022 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif022.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif022.gif);
 }
 
 hr.hrgif.hrgif024 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif024.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif024.gif);
 }
 
 hr.hrgif.hrgif025 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif025.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif025.gif);
 }
 
 hr.hrgif.hrgif026 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif026.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif026.gif);
 }
 
 hr.hrgif.hrgif027 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif027.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif027.gif);
 }
 
 hr.hrgif.hrgif028 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif028.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif028.gif);
 }
 
 hr.hrgif.hrgif030 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif030.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif030.gif);
 }
 
 hr.hrgif.hrgif031 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif031.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif031.gif);
 }
 
 hr.hrgif.hrgif033 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif033.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif033.gif);
 }
 
 hr.hrgif.hrgif034 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif034.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif034.gif);
 }
 
 hr.hrgif.hrgif035 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif035.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif035.gif);
 }
 
 hr.hrgif.hrgif036 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif036.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif036.gif);
 }
 
 hr.hrgif.hrgif037 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif037.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif037.gif);
 }
 
 hr.hrgif.hrgif038 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif038.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif038.gif);
 }
 
 hr.hrgif.hrgif041 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif041.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif041.gif);
 }
 
 hr.hrgif.hrgif042 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif042.gif)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif042.gif);
 }
 
 hr.hrgif.hrgif044 {
-	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif044.gif)
-}
-
-
-/*背景色*/
-
-body.mask0_style .wemedia_background {
-	background: rgba(0, 0, 0, 0)
-}
-
-body.mask1_style .wemedia_background {
-	background: rgba(255, 255, 255, .5)
-}
-
-body.mask2_style .wemedia_background {
-	background: rgba(146, 150, 153, .5)
-}
-
-body.mask3_style .wemedia_background {
-	background: rgba(0, 0, 0, .5)
-}
-
-body.mask4_style .wemedia_background {
-	background: rgba(230, 210, 230, .5)
-}
-
-body.mask5_style .wemedia_background {
-	background: rgba(230, 210, 210, .5)
-}
-
-body.mask6_style .wemedia_background {
-	background: rgba(230, 230, 210, .5)
-}
-
-body.mask7_style .wemedia_background {
-	background: rgba(210, 230, 210, .5)
-}
-
-body.mask8_style .wemedia_background {
-	background: rgba(210, 230, 230, .5)
-}
-
-body.mask9_style .wemedia_background {
-	background: rgba(210, 210, 230, .5)
-}
-
-body.mask10_style .wemedia_background {
-	background: rgba(242, 156, 159, .5)
-}
-
-body.mask11_style .wemedia_background {
-	background: rgba(250, 205, 137, .5)
-}
-
-body.mask12_style .wemedia_background {
-	background: rgba(172, 213, 152, .5)
-}
-
-body.mask13_style .wemedia_background {
-	background: rgba(132, 204, 201, .5)
-}
-
-body.mask14_style .wemedia_background {
-	background: rgba(136, 171, 218, .5)
-}
-
-body.mask15_style .wemedia_background {
-	background: rgba(140, 151, 203, .5)
-}
-
-body.mask16_style .wemedia_background {
-	background: rgba(127, 67, 67, .5)
-}
-
-body.mask17_style .wemedia_background {
-	background: rgba(131, 78, 0, .5)
-}
-
-body.mask18_style .wemedia_background {
-	background: rgba(34, 62, 13, .5)
-}
-
-body.mask19_style .wemedia_background {
-	background: rgba(0, 87, 82, .5)
-}
-
-body.mask20_style .wemedia_background {
-	background: rgba(0, 89, 130, .5)
-}
-
-body.mask21_style .wemedia_background {
-	background: rgba(0, 28, 88, .5)
+	background-image: url(http://www.xiaoweipian.com/Images/Line/hrgif044.gif);
 }
 
 @-webkit-keyframes dandelion_i {
 	0% {
-		transform: translate3d(0, 24.44px, 0) rotate3d(0, 0, 1, -100deg)
+		transform: translate3d(0, 24.44px, 0) rotate3d(0, 0, 1, -100deg);
 	}
 	35% {
-		transform: translate3d(0, -21.39px, 0) rotate3d(0, 0, 1, 50deg)
+		transform: translate3d(0, -21.39px, 0) rotate3d(0, 0, 1, 50deg);
 	}
 	60% {
-		transform: translate3d(0, -27.5px, 0) rotate3d(0, 0, 1, 10deg)
+		transform: translate3d(0, -27.5px, 0) rotate3d(0, 0, 1, 10deg);
 	}
 	75% {
-		transform: translate3d(0, -33.61px, 0) rotate3d(0, 0, 1, 100deg)
+		transform: translate3d(0, -33.61px, 0) rotate3d(0, 0, 1, 100deg);
 	}
 	100% {
-		transform: translate3d(0, -51.94px, 0) rotate3d(0, 0, 1, 180deg)
+		transform: translate3d(0, -51.94px, 0) rotate3d(0, 0, 1, 180deg);
 	}
 }
 
 @keyframes dandelion_i {
 	0% {
-		transform: translate3d(0, 24.44px, 0) rotate3d(0, 0, 1, -100deg)
+		transform: translate3d(0, 24.44px, 0) rotate3d(0, 0, 1, -100deg);
 	}
 	35% {
-		transform: translate3d(0, -21.39px, 0) rotate3d(0, 0, 1, 50deg)
+		transform: translate3d(0, -21.39px, 0) rotate3d(0, 0, 1, 50deg);
 	}
 	60% {
-		transform: translate3d(0, -27.5px, 0) rotate3d(0, 0, 1, 10deg)
+		transform: translate3d(0, -27.5px, 0) rotate3d(0, 0, 1, 10deg);
 	}
 	75% {
-		transform: translate3d(0, -33.61px, 0) rotate3d(0, 0, 1, 100deg)
+		transform: translate3d(0, -33.61px, 0) rotate3d(0, 0, 1, 100deg);
 	}
 	100% {
-		transform: translate3d(0, -51.94px, 0) rotate3d(0, 0, 1, 180deg)
+		transform: translate3d(0, -51.94px, 0) rotate3d(0, 0, 1, 180deg);
 	}
 }
 
 @-webkit-keyframes dandelion_d {
 	100% {
-		transform: translate3d(120vw, -40vh, 0)
+		transform: translate3d(120vw, -40vh, 0);
 	}
 }
 
 @keyframes dandelion_d {
 	100% {
-		transform: translate3d(120vw, -40vh, 0)
+		transform: translate3d(120vw, -40vh, 0);
 	}
 }
 
 @-webkit-keyframes ballon_d {
 	100% {
-		transform: translate3d(0, -140vh, 0)
+		transform: translate3d(0, -140vh, 0);
 	}
 }
 
 @keyframes ballon_d {
 	100% {
-		transform: translate3d(0, -140vh, 0)
+		transform: translate3d(0, -140vh, 0);
 	}
 }
 
 @-webkit-keyframes ballon_i {
 	0% {
-		transform: translate3d(-20vw, 0, 0)
+		transform: translate3d(-20vw, 0, 0);
 	}
 	50% {
-		transform: translate3d(80vw, 0, 0)
+		transform: translate3d(80vw, 0, 0);
 	}
 	100% {
-		transform: translate3d(20vw, 0, 0)
+		transform: translate3d(20vw, 0, 0);
 	}
 }
 
 @keyframes ballon_i {
 	0% {
-		transform: translate3d(-20vw, 0, 0)
+		transform: translate3d(-20vw, 0, 0);
 	}
 	50% {
-		transform: translate3d(80vw, 0, 0)
+		transform: translate3d(80vw, 0, 0);
 	}
 	100% {
-		transform: translate3d(20vw, 0, 0)
+		transform: translate3d(20vw, 0, 0);
 	}
 }
 
 .particles_class {
 	animation-name: particles_fall;
-	-webkit-animation-name: particles_fall
+	-webkit-animation-name: particles_fall;
 }
 
 @-webkit-keyframes particles_fall {
@@ -1663,14 +1572,14 @@ body.mask21_style .wemedia_background {
 		-ms-transform: translate(0, -20vh);
 		-moz-transform: translate(0, -20vh);
 		-webkit-transform: translate(0, -20vh);
-		-o-transform: translate(0, -20vh)
+		-o-transform: translate(0, -20vh);
 	}
 	100% {
 		transform: translate(0, 130vh);
 		-ms-transform: translate(0, 130vh);
 		-moz-transform: translate(0, 130vh);
 		-webkit-transform: translate(0, 130vh);
-		-o-transform: translate(0, 130vh)
+		-o-transform: translate(0, 130vh);
 	}
 }
 
@@ -1680,215 +1589,245 @@ body.mask21_style .wemedia_background {
 		-ms-transform: translate(0, -20vh);
 		-moz-transform: translate(0, -20vh);
 		-webkit-transform: translate(0, -20vh);
-		-o-transform: translate(0, -20vh)
+		-o-transform: translate(0, -20vh);
 	}
 	100% {
 		transform: translate(0, 130vh);
 		-ms-transform: translate(0, 130vh);
 		-moz-transform: translate(0, 130vh);
 		-webkit-transform: translate(0, 130vh);
-		-o-transform: translate(0, 130vh)
+		-o-transform: translate(0, 130vh);
 	}
 }
 
 @keyframes toTop {
 	0% {
 		top: 110%;
-		opacity: 1
+		opacity: 1;
 	}
 	100% {
 		top: -50px;
-		opacity: 0
+		opacity: 0;
 	}
 }
 
 @-webkit-keyframes toTop {
 	0% {
 		top: 110%;
-		opacity: 1
+		opacity: 1;
 	}
 	100% {
 		top: -50px;
-		opacity: 0
+		opacity: 0;
 	}
 }
 
 @keyframes toBottom {
 	0% {
-		top: -50px;
-		opacity: 0
+		top: -100px;
+		opacity: 1;
 	}
 	100% {
-		top: 110%;
-		opacity: 1
+		top: 90%;
+		opacity: 0;
 	}
 }
 
 @-webkit-keyframes toBottom {
 	0% {
-		top: -50px;
-		opacity: 0
+		top: -100px;
+		opacity: 1;
 	}
 	100% {
-		top: 110%;
-		opacity: 1
+		top: 90%;
+		opacity: 0;
 	}
 }
 
 @keyframes scale {
 	0% {
-		transform: scale(1)
+		transform: scale(1);
 	}
 	25% {
-		transform: scale(1.5)
+		transform: scale(1.5);
 	}
 	50% {
-		transform: scale(1)
+		transform: scale(1);
 	}
 	75% {
-		transform: scale(0.5)
+		transform: scale(0.5);
 	}
 	100% {
-		transform: scale(1)
+		transform: scale(1);
 	}
 }
 
 @-webkit-keyframes scale {
 	0% {
-		-webkit-transform: scale(1)
+		-webkit-transform: scale(1);
 	}
 	25% {
-		-webkit-transform: scale(1.5)
+		-webkit-transform: scale(1.5);
 	}
 	50% {
-		-webkit-transform: scale(1)
+		-webkit-transform: scale(1);
 	}
 	75% {
-		-webkit-transform: scale(0.5)
+		-webkit-transform: scale(0.5);
 	}
 	100% {
-		-webkit-transform: scale(1)
+		-webkit-transform: scale(1);
 	}
 }
 
 @keyframes swing {
 	0% {
 		transform: rotate(0deg);
-		transform-origin: center bottom
+		transform-origin: center bottom;
 	}
 	25% {
 		transform: rotate(45deg);
-		transform-origin: center bottom
+		transform-origin: center bottom;
 	}
 	50% {
 		transform: rotate(0deg);
-		transform-origin: center bottom
+		transform-origin: center bottom;
 	}
 	75% {
 		transform: rotate(-45deg);
-		transform-origin: center bottom
+		transform-origin: center bottom;
 	}
 	100% {
 		transform: rotate(0deg);
-		transform-origin: center bottom
+		transform-origin: center bottom;
 	}
 }
 
 @-webkit-keyframes swing {
 	0% {
 		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: center bottom
+		-webkit-transform-origin: center bottom;
 	}
 	25% {
 		-webkit-transform: rotate(45deg);
-		-webkit-transform-origin: center bottom
+		-webkit-transform-origin: center bottom;
 	}
 	50% {
 		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: center bottom
+		-webkit-transform-origin: center bottom;
 	}
 	75% {
 		-webkit-transform: rotate(-45deg);
-		-webkit-transform-origin: center bottom
+		-webkit-transform-origin: center bottom;
 	}
 	100% {
 		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: center bottom
+		-webkit-transform-origin: center bottom;
 	}
 }
 
 @keyframes rotate {
 	from {
 		transform: rotate(0);
-		-webkit-transform: rotate(0)
+		-webkit-transform: rotate(0);
 	}
 	to {
 		transform: rotate(-360deg);
-		-webkit-transform: rotate(-360deg)
+		-webkit-transform: rotate(-360deg);
 	}
 }
 
 @-webkit-keyframes rotate {
 	from {
 		transform: rotate(0);
-		-webkit-transform: rotate(0)
+		-webkit-transform: rotate(0);
 	}
 	to {
 		transform: rotate(-360deg);
-		-webkit-transform: rotate(-360deg)
+		-webkit-transform: rotate(-360deg);
 	}
 }
 
 @keyframes toleft {
 	from {
-		transform: translate(0, 0)
+		transform: translate(0, 0);
 	}
 	to {
-		transform: translate(-100px, 1000px)
+		transform: translate(-100px, 1000px);
 	}
 }
 
 @-webkit-keyframes toleft {
 	from {
-		-webkit-transform: translate(0, 0)
+		-webkit-transform: translate(0, 0);
 	}
 	to {
-		-webkit-transform: translate(-100px, 1000px)
+		-webkit-transform: translate(-100px, 1000px);
 	}
 }
 
 @keyframes toright {
 	from {
-		transform: translate(0, 0)
+		transform: translate(0, 0);
 	}
 	to {
-		transform: translate(100px, 1000px)
+		transform: translate(100px, 1000px);
 	}
 }
 
 @-webkit-keyframes toright {
 	from {
-		-webkit-transform: translate(0, 0)
+		-webkit-transform: translate(0, 0);
 	}
 	to {
-		-webkit-transform: translate(100px, 1000px)
+		-webkit-transform: translate(100px, 1000px);
 	}
 }
 
 @keyframes clock {
 	from {
-		transform: rotate(-50deg)
+		transform: rotate(-50deg);
 	}
 	to {
-		transform: rotate(50deg)
+		transform: rotate(50deg);
 	}
 }
 
 @-webkit-keyframes clock {
 	from {
-		-webkit-transform: rotate(-50deg)
+		-webkit-transform: rotate(-50deg);
 	}
 	to {
-		-webkit-transform: rotate(50deg)
+		-webkit-transform: rotate(50deg);
+	}
+}
+
+@keyframes yanhua {
+	0% {
+		transform: scale(0.3);
+		opacity: 1;
+	}
+	60% {
+		transform: scale(0.5);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(0.5);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes yanhua {
+	0% {
+		-webkit-transform: scale(0.3);
+		opacity: 1;
+	}
+	60% {
+		-webkit-transform: scale(0.5);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: scale(0.5);
+		opacity: 0;
 	}
 }

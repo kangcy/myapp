@@ -58,35 +58,43 @@ video {
   display: block;
   font-size: 0;
 }
-#x-bg {
+#x-bg,
+#x-bg-base {
   position: fixed;
   height: 100%;
   width: 100%;
 }
 .root {
+  width: 100%;
   height: 100%;
   position: relative;
   z-index: 0;
 }
+.root #x-top {
+  position: absolute;
+  z-index: -1;
+}
 .root .x-head {
   position: relative;
-}
-.root .x-head .img-container {
-  padding-top: 2rem;
+  margin-top: 3rem;
 }
 .root .x-head .img-container .avatar {
   width: 5rem;
   height: 5rem;
   margin: 0 auto;
-  background-size: 100% 100%;
-  overflow: hidden;
-  border-radius: 50%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border: 2px solid #fff;
+  position: relative;
+  background-size: 100% 100%;
+  margin-bottom: 1rem;
 }
 .root .x-head .img-container .avatar img {
   width: 100%;
+  border-radius: 50%;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .root .x-head .article-meta {
   overflow: hidden;
@@ -125,7 +133,6 @@ video {
   padding: 0px 3% 3% 3%;
 }
 .root .x-content .x-bg-blur {
-  /*background: rgba(27, 62, 85, 0.6);*/
   width: 94%;
   height: 100%;
   z-index: -1;
@@ -141,11 +148,10 @@ video {
   width: 100%;
   position: relative;
   z-index: 1;
-  background-image: url(https://ss2.meipian.me/theme/v2/img/059/bg.jpg?1);
-  background-size: 100% auto;
-  background-repeat: no-repeat;
   min-height: 100%;
-  background-color: #426a76;
+  display: inline-block;
+  height: auto !important;
+  float: left;
 }
 #snowcanvas {
   pointer-events: none;
@@ -236,4 +242,7 @@ video {
   -webkit-transform: scaleY(0.5);
   transform: scaleY(0.5);
   background-color: #e8e8e8;
+}
+.well2 {
+  padding: 0 3%;
 }

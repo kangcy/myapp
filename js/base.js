@@ -247,8 +247,8 @@ var base = new function() {
 	/**
 	 * 接口请求根路径
 	 **/
-	this.RootUrl = "http://www.xiaoweipian.com/";
-	//this.RootUrl = "http://www.xiaoweipian.com:8080/";
+	//this.RootUrl = "http://www.xiaoweipian.com/";
+	this.RootUrl = "http://www.xiaoweipian.com:8080/";
 	this.RootUrlTest = "http://www.xiaoweipian.com:8080/";
 	this.UploadUrl = "http://www.xiaoweipian.com:1010/";
 
@@ -1560,17 +1560,18 @@ function CopyToClip(txt) {
 
 //设置焦点
 function SetFocus(obj) {
+	var len = obj.value.length;
 	if(obj.setSelectionRange) {
 		setTimeout(function() {
-			obj.setSelectionRange(0, 0);
 			obj.focus();
+			obj.setSelectionRange(0, 0);
 		}, 100);
 	} else {
 		if(obj.createTextRange) {
 			var range = obj.createTextRange();
 			range.collapse(true);
-			range.moveEnd("character", 0);
-			range.moveStart("character", 0);
+			range.moveEnd("character", len);
+			range.moveStart("character", len);
 			range.select();
 		}
 		try {
