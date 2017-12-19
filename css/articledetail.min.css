@@ -132,15 +132,6 @@ video {
 .root .x-content .section.temp {
   padding: 0px 3% 3% 3%;
 }
-.root .x-content .x-bg-blur {
-  width: 94%;
-  height: 100%;
-  z-index: -1;
-  top: 0;
-  -webkit-backdrop-filter: blur(12px);
-  position: absolute;
-  border-radius: 8px;
-}
 .root .well {
   padding: 0 3%;
 }
@@ -152,6 +143,16 @@ video {
   display: inline-block;
   height: auto !important;
   float: left;
+}
+#snowwrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 2;
 }
 #snowcanvas {
   pointer-events: none;
@@ -242,6 +243,19 @@ video {
   -webkit-transform: scaleY(0.5);
   transform: scaleY(0.5);
   background-color: #e8e8e8;
+}
+#x-body {
+  position: relative;
+}
+#x-body .x-bg-blur {
+  /*background: rgba(27, 62, 85, 0.6);*/
+  width: 94%;
+  height: 100%;
+  z-index: -1;
+  top: 0;
+  -webkit-backdrop-filter: blur(12px);
+  position: absolute;
+  border-radius: 8px;
 }
 .well2 {
   padding: 0 3%;

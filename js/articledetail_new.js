@@ -10,45 +10,169 @@ function ChangeMusic() {
 	}
 }
 
-//背景状态切换
+//背景状态切换 
 function ChangeBg() {
 	if(CurrTemplate == 0) {
 		base.Get("x-avatar").classList.add("hide");
 		base.Get("x-article").classList.remove("tc");
 		base.Get("x-article").classList.add("tl");
+		base.Get("nickname1").classList.add("hide");
 		base.Get("nickname0").classList.remove("hide");
-		base.Get("desc").classList.remove("temp");
 		base.Get("x-content").classList.remove("mt10");
+		$head.style.marginTop = "1rem";
 	} else {
 		base.Get("x-avatar").classList.remove("hide");
 		base.Get("x-article").classList.remove("tl");
 		base.Get("x-article").classList.add("tc");
+		base.Get("nickname0").classList.add("hide");
 		base.Get("nickname1").classList.remove("hide");
-		base.Get("desc").classList.add("temp");
 		base.Get("x-content").classList.add("mt10");
+		$head.style.marginTop = "3rem";
 	}
 
+	mui.each(mui(".edit"), function(i, item) {
+		item.classList.remove("well2");
+	})
+
+	//容器间距
+	switch(CurrTemplateJson.PaddingFixed) {
+		case 0:
+			$body.classList.add("well2");
+			$edit.classList.add("temp");
+			break;
+		case 1:
+			$edit.classList.remove("temp");
+			$body.classList.add("well2");
+			break;
+		case 2:
+			$body.classList.remove("well2");
+			$edit.classList.add("temp");
+			break;
+		case 3:
+			$body.classList.remove("well2");
+			$edit.classList.remove("temp");
+			mui.each(mui(".edit"), function(i, item) {
+				item.classList.add("well2");
+			})
+			break;
+		default:
+			$body.classList.add("well2");
+			$edit.classList.add("temp");
+			break;
+	}
 	ChangeMusic();
+	//UpdateShowy(CurrTemplateJson.Showy);
 
-	//纯白背景
-	if(CurrTemplate == 0) {
+	$top.classList.add("hide");
+	$bottom.classList.add("hide");
+	$body.style.margin = "0";
+	$wrapper.style.color = "#333";
+	$wrapper.style.backgroundColor = "";
+	$wrapper1.classList.remove("x-cover");
+	$wrapper1.style.background = "";
+	$cover.style.backgroundColor = "";
+	$cover1.style.backgroundColor = "";
+	$wrapper2.classList.add("hide");
+	$wrapper21.classList.add("hide");
+	$wrapper2.style.background = "";
+	$wrapper2.style.opacity = "1";
+	$wrapper21.style.background = "";
+	$wrapper21.style.opacity = "0";
+	$avatarbg.style.backgroundImage = "";
+	$avatarbg.style.width = "5rem";
+	$avatarbg.style.height = "5rem";
+	$avatar.style.width = "100%";
+	$avatar.style.left = "0";
+	$avatar.style.top = "0";
+	$avatar.style.borderRadius = "50%";
+	$avatar.style.border = "";
+	$avatar.style.zIndex = "-1";
+	$avatarbg.style.marginBottom = "1rem";
+	if(CurrTemplateJson.ShowAvatar < 0) {
+		base.Get("x-avatar").classList.add("hide");
+	}
+	if(!base.IsNullOrEmpty(CurrTemplateJson.FontColor)) {
+		$wrapper.style.color = CurrTemplateJson.FontColor;
+	}
+	if(CurrTemplate > 1) {
+		//头尾
+		if(!base.IsNullOrEmpty(CurrTemplateJson.TopImage)) {
+			var tophtml = [];
+			for(var i = 0; i < CurrTemplateJson.TopImage.length; i++) {
+				var top = CurrTemplateJson.TopImage[i];
+				tophtml.push('<img src="' + top.Url + '" class="' + top.Align + '" style="width:' + top.Width + '" />');
+			}
+			$top.innerHTML = tophtml.join('');
+			$top.classList.remove("hide");
+		}
+		if(!base.IsNullOrEmpty(CurrTemplateJson.BottomImage)) {
+			$bottom.setAttribute("src", CurrTemplateJson.BottomImage);
+			$bottom.classList.remove("hide");
+		}
 
-		$wrapper.style.backgroundColor = "";
-		$wrapper1.style.background = "";
-		$cover.style.backgroundColor = "";
-		$wrapper2.style.background = "";
-	} else if(CurrTemplate > 1) {
-		//模板 
-		base.Get("x-avatar").style.paddingTop = CurrTemplateJson.MarginTop + "rem";
-		$cover.style.backgroundColor = CurrTemplateJson.Transparency;
+		//头像
+		if(CurrTemplateJson.Avatar != null) {
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.BackgroundImage)) {
+				$avatarbg.style.backgroundImage = "url(" + CurrTemplateJson.Avatar.BackgroundImage + ")";
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.Width)) {
+				$avatarbg.style.width = CurrTemplateJson.Avatar.Width;
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.Height)) {
+				$avatarbg.style.height = CurrTemplateJson.Avatar.Height;
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.MarginBottom)) {
+				$avatarbg.style.marginBottom = CurrTemplateJson.Avatar.MarginBottom;
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.MarginTop)) {
+				if(CurrTemplateJson.TransparencyFixed == 0) {
+					$head.style.marginTop = CurrTemplateJson.Avatar.MarginTop;
+				} else {
+					$body.style.marginTop = CurrTemplateJson.Avatar.MarginTop;
+					$head.style.marginTop = "1rem";
+				}
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.SubWidth)) {
+				$avatar.style.width = CurrTemplateJson.Avatar.SubWidth;
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.Top)) {
+				$avatar.style.top = CurrTemplateJson.Avatar.Top;
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.Left)) {
+				$avatar.style.left = CurrTemplateJson.Avatar.Left;
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.BorderRadius)) {
+				$avatar.style.borderRadius = CurrTemplateJson.Avatar.BorderRadius;
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.Index)) {
+				$avatar.style.zIndex = CurrTemplateJson.Avatar.Index;
+			}
+			if(!base.IsNullOrEmpty(CurrTemplateJson.Avatar.Border)) {
+				$avatar.style.border = CurrTemplateJson.Avatar.Border;
+			}
+		}
+
+		if(CurrTemplateJson.TransparencyFixed == 0) {
+			$cover.style.backgroundColor = CurrTemplateJson.Transparency;
+		} else {
+			$cover1.style.backgroundColor = CurrTemplateJson.Transparency;
+		}
 
 		if(CurrTemplateJson.CoverFixed == 0) {
+			$wrapper1.classList.add("x-cover");
 			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
-				$wrapper1.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
+				var imglist = [];
+				var imgs = CurrTemplateJson.BackgroundImage.split('?');
+				for(var i = 0; i < imgs.length; i++) {
+					imglist.push("url(" + imgs[i] + ")");
+				}
+				$wrapper1.style.backgroundImage = imglist.join(',');
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundPosition)) {
+					$wrapper1.style.backgroundPosition = CurrTemplateJson.BackgroundPosition;
+				}
 				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
 					$wrapper1.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
 				}
-
 				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
 					$wrapper1.style.backgroundSize = CurrTemplateJson.BackgroundSize;
 				}
@@ -59,41 +183,17 @@ function ChangeBg() {
 					$wrapper.style.background = base.BrowserName() + CurrTemplateJson.Background;
 				}
 			}
-		} else if(CurrTemplateJson.CoverFixed == 1) {
+		} else {
 			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
-				$wrapper2.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
-				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
-					$wrapper2.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+				var imglist = [];
+				var imgs = CurrTemplateJson.BackgroundImage.split('?');
+				for(var i = 0; i < imgs.length; i++) {
+					imglist.push("url(" + imgs[i] + ")");
 				}
-				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
-					$wrapper2.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+				$wrapper2.style.backgroundImage = imglist.join(',');
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundPosition)) {
+					$wrapper2.style.backgroundPosition = CurrTemplateJson.BackgroundPosition;
 				}
-			}
-			if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
-				if(CurrTemplateJson.Background.startWith("#") || CurrTemplateJson.Background.startWith("rgba")) {
-					$wrapper2.style.backgroundColor = CurrTemplateJson.Background;
-				} else {
-					$wrapper2.style.background = CurrTemplateJson.Background;
-					$wrapper2.style.background = base.BrowserName() + CurrTemplateJson.Background;
-				}
-			}
-			$wrapper2.classList.remove("hide");
-		} else if(CurrTemplateJson.CoverFixed == 2) {
-			if(!base.IsNullOrEmpty(CurrTemplateJson.TopImage)) {
-				var tophtml = [];
-				for(var i = 0; i < CurrTemplateJson.TopImage.length; i++) {
-					var top = CurrTemplateJson.TopImage[i];
-					tophtml.push('<img src="' + top.Url + '" class="' + top.Align + '" style="width:' + top.Width + '" />');
-				}
-				$top.innerHTML = tophtml.join('');
-				$top.classList.remove("hide");
-			}
-			if(!base.IsNullOrEmpty(CurrTemplateJson.BottomImage)) {
-				$bottom.setAttribute("src", CurrTemplateJson.BottomImage);
-				$bottom.classList.remove("hide");
-			}
-			if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
-				$wrapper2.style.backgroundImage = "url(" + CurrTemplateJson.BackgroundImage + ")";
 				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
 					$wrapper2.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
 				}
@@ -101,6 +201,26 @@ function ChangeBg() {
 					$wrapper2.style.backgroundSize = CurrTemplateJson.BackgroundSize;
 				}
 				$wrapper2.classList.remove("hide");
+			}
+			if(CurrTemplateJson.CoverFixed == 2) {
+				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundBlurImage)) {
+					var imglist = [];
+					var imgs = CurrTemplateJson.BackgroundBlurImage.split('?');
+					for(var i = 0; i < imgs.length; i++) {
+						imglist.push("url(" + imgs[i] + ")");
+					}
+					$wrapper21.style.backgroundImage = imglist.join(',');
+					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundPosition)) {
+						$wrapper21.style.backgroundPosition = CurrTemplateJson.BackgroundPosition;
+					}
+					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundRepeat)) {
+						$wrapper21.style.backgroundRepeat = CurrTemplateJson.BackgroundRepeat;
+					}
+					if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundSize)) {
+						$wrapper21.style.backgroundSize = CurrTemplateJson.BackgroundSize;
+					}
+					$wrapper21.classList.remove("hide");
+				}
 			}
 			if(!base.IsNullOrEmpty(CurrTemplateJson.Background)) {
 				if(CurrTemplateJson.Background.startWith("#") || CurrTemplateJson.Background.startWith("rgba")) {
@@ -112,10 +232,8 @@ function ChangeBg() {
 				$wrapper2.classList.remove("hide");
 			}
 		}
-	} else {
+	} else if(CurrTemplate == 1) {
 		//自定义
-		$wrapper.style.backgroundColor = "transparent";
-		$wrapper1.style.background = "";
 		if(CurrBackground == null) {
 			//全屏
 			$wrapper2.style.background = "";
@@ -145,6 +263,8 @@ function ChangeBg() {
 				default:
 					break;
 			}
+			$body.classList.add("well2");
+			$edit.classList.add("temp");
 		}
 	}
 }

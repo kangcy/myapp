@@ -99,7 +99,7 @@
 							</div>
 						</div>
 						<div class="article-meta full tc" id="x-article">
-							<p class="article-title thicker f20" id="title0"></p>
+							<p class="article-title thicker f20 well2" id="title0"></p>
 							<p class="time-read mt10 f13">
 								<span id="createdate0"></span>
 								<span id="nickname0" class="user hide"></span>
@@ -116,7 +116,7 @@
 						<div class="section full" id="edit">
 						</div>
 						<!--半透明蒙层-->
-						<div class="x-bg-blur" id="x-bg-blur"></div>
+						<div class="x-bg-blur full" id="x-bg-blur"></div>
 					</div>
 					<!--半透明蒙层-->
 					<div class="x-bg-blur" id="x-bg-blur1"></div>
@@ -201,9 +201,10 @@
 	var $bottom = base.Get("x-bottom");
 	var $avatarbg = base.Get("x-avatar-sub");
 	var $avatar = base.Get("useravatar0");
+	var $edit = base.Get("edit");
 	var Showy = "";
 	var userinfo = base.GetUserInfo();
-	var $edit = base.Get("edit");
+
 	var InitParts = []; //段落
 	var lineSwiper, borderSwiper, colorSwiper, tempSwiper, coolSwiper = null;
 	var browserName = base.BrowserName();
@@ -515,7 +516,7 @@
 
 		$wrapper.style.paddingTop = base.Get("header").clientHeight + "px";
 		$wrapper.style.minHeight = (window.innerHeight + 5) + "px";
-		$wrapper2.style.top = base.Get("header").clientHeight + "px";
+		$wrapper2.style.top = $wrapper21.style.top = base.Get("header").clientHeight + "px";
 
 		base.Get("myline").style.height = window.innerHeight * 0.6 + "px";
 
@@ -1175,7 +1176,7 @@
 		if(type == "pic") {
 			model.push('<div class="edit-content full f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" class="full" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content edit-content2 full f11 tl" type="' + type + '" partid="' + partid + '" style="padding:5%;">' + base.UnUnicodeText(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 full f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
 			model.push('<div class="edit-content edit-content2 f11 full tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
@@ -1390,12 +1391,12 @@
 		ChangeMusic();
 		UpdateShowy(CurrTemplateJson.Showy);
 
-		base.Get("x-cover").classList.remove("x-cover");
 		$top.classList.add("hide");
 		$bottom.classList.add("hide");
 		$body.style.margin = "0";
 		$wrapper.style.color = "#333";
 		$wrapper.style.backgroundColor = "";
+		$wrapper1.classList.remove("x-cover");
 		$wrapper1.style.background = "";
 		$cover.style.backgroundColor = "";
 		$cover1.style.backgroundColor = "";
@@ -1486,7 +1487,7 @@
 			}
 
 			if(CurrTemplateJson.CoverFixed == 0) {
-				base.Get("x-cover").classList.add("x-cover");
+				$wrapper1.classList.add("x-cover");
 				if(!base.IsNullOrEmpty(CurrTemplateJson.BackgroundImage)) {
 					var imglist = [];
 					var imgs = CurrTemplateJson.BackgroundImage.split('?');
