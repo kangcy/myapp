@@ -284,6 +284,7 @@
 	</body>
 
 </html>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script src="../js/music.js"></script>
@@ -338,9 +339,7 @@
 		CurrTemplate = self.ThemeTemplate || 0;
 		CurrColorTemplate = self.ColorTemplate || 0;
 		Showy = self.Showy || "";
-
 		Part = self.Part || [];
-
 		Load(function(data) {});
 	});
 
@@ -384,7 +383,10 @@
 							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
 						} else if(part.PartType == 2) {
 							//文本
-							html.push('<div class="full f13 fl mt10">' + base.UnUnicodeText(part.Introduction) + '</div>');
+							var txtdiv = document.createElement("div");
+							txtdiv.innerHTML = base.UnUnicodeText(part.Introduction);
+							$(txtdiv).find(".edit").addClass(part.IntroExpand);
+							html.push('<div class="full f13 fl mt10 edit-content" style="position:relative;">' + txtdiv.innerHTML + '</div>');
 						} else if(part.PartType == 3) {
 							//视频
 							html.push('<div class="full f13 fl mt10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
@@ -451,8 +453,8 @@
 					base.Get("submit").classList.remove("hide");
 				} else {
 					mui.toast(data.message);
-					plus.webview.currentWebview().hide();
-					plus.webview.currentWebview().close();
+					self.hide();
+					self.close();
 				}
 			}
 			if(callback) {

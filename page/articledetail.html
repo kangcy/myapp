@@ -182,6 +182,7 @@
 	</body>
 
 </html>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script src="../js/music.js"></script>
@@ -443,7 +444,10 @@
 							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
 						} else if(part.Types == 2) {
 							//文本
-							html.push('<div class="full f13 fl mt10">' + base.UnUnicodeText(part.Introduction) + '</div>');
+							var txtdiv = document.createElement("div");
+			                txtdiv.innerHTML = base.UnUnicodeText(part.Introduction);
+			                $(txtdiv).find(".edit").addClass(part.IntroExpand);
+							html.push('<div class="full f13 fl mt10 edit-content">' + txtdiv.innerHTML + '</div>');
 						} else if(part.Types == 3) {
 							//视频
 							html.push('<div class="full f13 fl mt10 hide" style="display:inline-block;">' + AppendVideo(part.Introduction) + '</div>');
@@ -452,7 +456,7 @@
 							//分隔
 							html.push('<div class="full f13 fl mt10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
-					}
+					}  
 
 					if(data.IsZan > 0) {
 						base.Attr($zan, [

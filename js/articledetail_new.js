@@ -121,7 +121,7 @@ function ChangeBg() {
 		$head.style.marginTop = "3rem";
 	}
 
-	mui.each(mui(".edit"), function(i, item) {
+	mui.each(mui(".edit-content"), function(i, item) {
 		item.classList.remove("well2");
 	})
 
@@ -142,7 +142,7 @@ function ChangeBg() {
 		case 3:
 			$body.classList.remove("well2");
 			$edit.classList.remove("temp");
-			mui.each(mui(".edit"), function(i, item) {
+			mui.each(mui(".edit-content"), function(i, item) {
 				item.classList.add("well2");
 			})
 			break;
@@ -371,7 +371,7 @@ function UpdateDetail() {
 		mui.later(function() {
 			plus.webview.close("articlepreview", "none");
 			plus.webview.close("addarticle", "none");
-			plus.webview.close("sharesetting");
+			plus.webview.close("sharesetting", "none");
 			plus.webview.show("articledetail", "fade-in");
 		}, 500);
 	});

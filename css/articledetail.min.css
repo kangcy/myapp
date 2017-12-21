@@ -58,6 +58,9 @@ video {
   display: block;
   font-size: 0;
 }
+.edit-content {
+  position: relative;
+}
 #x-bg,
 #x-bg-base {
   position: fixed;

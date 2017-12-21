@@ -723,7 +723,7 @@
 		});
 
 		//新增文本边框
-		$('#edit').on('click', '.edit-add-txtborder', function() {
+		$('#desc').on('click', '.edit-add-txtborder', function() {
 			var $this = $(this);
 			currEditID = $this.parents(".edit-body").find(".edit-content").attr("id");
 			currEditPartID = $this.parents(".edit-body").find(".edit-content").attr("partid");
@@ -735,8 +735,8 @@
 				if(item.ID == currEditPartID) {
 					InitParts[index].IntroExpand = name;
 					if(InitParts[index].Status != 1) {
-						InitParts[index].Status = 2;
-					}
+						InitParts[index].Status = 2; 
+					} 
 				}
 			});
 		});
@@ -1258,13 +1258,16 @@
 			model.push('<img src="../images/addarticle/btn_pic.png" class="edit-add-border" style="position:absolute;top:0;left:8rem;width:2rem;z-index:2;" />');
 		}
 		if(type == "text") {
-			model.push('<img src="../Back/Images/btn_pic.png" class="edit-add-txtborder" style="position:absolute;top:0;left:47%;width:2rem;z-index:2;" />');
+			model.push('<img src="../images/addarticle/btn_pic.png" class="edit-add-txtborder" style="position:absolute;top:0;left:47%;width:2rem;z-index:2;" />');
 		}
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
 			model.push('<div class="edit-content full f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" class="full" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content edit-content2 full f11 tl ' + expand + '" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
+			var txtdiv = document.createElement("div");
+			txtdiv.innerHTML = base.UnUnicodeText(text);
+			$(txtdiv).find(".edit").addClass(expand);
+			model.push('<div class="edit-content edit-content2 full f11 tl" type="' + type + '" partid="' + partid + '">' + txtdiv.innerHTML + '</div>');
 		} else if(type == "video") {
 			model.push('<div class="edit-content edit-content2 f11 full tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
@@ -1275,7 +1278,7 @@
 		model.push('<div class="edit-add"><img src="../images/addarticle/btn_add.png" class="full fl" style="height:2rem;" /></div>');
 		model.push('<div class="icons hide f12"><div class="edit-add-pic">图片</div><div class="edit-add-text">文字</div><div class="edit-add-video">视频</div><div class="edit-add-line">分割线</div></div>');
 		model.push('</div>');
-		div.innerHTML = model.join('');
+		div.innerHTML = model.join(''); 
 		return div;
 	}
 
