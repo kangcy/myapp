@@ -187,42 +187,15 @@
 <script src="../js/music.js"></script>
 <script src="http://player.youku.com/jsapi"></script>
 <script src="../js/video.js"></script>
-<script src="../js/articledetail_new.js"></script>
+<script src="../js/articledetail_new.min.js"></script>
 <script src="../js/snow.js"></script>
 <script type="text/javascript">
-	var Article = {};
-	var ArticleID = 0; //文章ID
 	var Source = ""; //来源
 	var ShareInfo = {}; //分享信息
-	var isLoading = false;
 	var currEditID = 0; //当前操作对象ID
-	var MusicID = ""; //音乐控件ID
-	var MusicUrl = "";
-	var CurrTemplate = 0; //当前选中模板
-	var CurrBackground = null; //背景设置
-	var CurrTemplateJson = null; // 当前模板设置
-	var userinfo = base.GetUserInfo();
-
 	var $divzan = base.Get("divzan");
 	var $zan = base.Get("zan");
 	var $footer_zan = base.Get("footer_zan");
-
-	var $header = base.Get("header");
-	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
-	var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
-	var $wrapper2 = base.Get("x-bg"); //纯色背景
-	var $wrapper21 = base.Get("x-bg-base"); //纯色背景
-	var $cover = base.Get("x-bg-blur"); //非纯色内容透明度底
-	var $cover1 = base.Get("x-bg-blur1"); //非纯色内容透明度底
-	var $head = base.Get("x-head");
-	var $body = base.Get("x-body");
-	var $top = base.Get("x-top");
-	var $bottom = base.Get("x-bottom"); 
-	var $avatarbg = base.Get("x-avatar-sub");
-	var $avatar = base.Get("useravatar0");
-	var $edit = base.Get("desc");
-
-	var browserName = base.BrowserName();
 	var num = 0;
 	var progress = mui("#progress");
 
@@ -244,14 +217,11 @@
 		var headerheight = $header.clientHeight + "px";
 
 		//进度条
-		progress[0].style.top = headerheight;
+		progress[0].style.top = $wrapper.style.paddingTop = $wrapper2.style.top = headerheight;
 		progress.progressbar({
-			progress: 0
+			progress: 0 
 		}).show();
 		ProgressLoading(progress, 0, 100);
-
-		$wrapper.style.paddingTop = headerheight;
-		$wrapper2.style.top = headerheight;
 
 		base.ToTop();
 
@@ -263,7 +233,7 @@
 			isLoading = true;
 			HttpGet(base.RootUrl + "Api/Zan/ArticleZanEdit", {
 				ID: userinfo.ID,
-				ArticleID: ArticleID
+				ArticleID: ArticleID 
 			}, function(data) {
 				data = JSON.parse(data);
 				base.CheckLogin(userinfo, data.code);
@@ -348,35 +318,7 @@
 			});
 		});
 
-		//打开外链
-		mui('#wrapper').on('tap', 'a.link', function() {
-			var link = this.getAttribute("link");
-			if(base.IsNullOrEmpty(link)) {
-				return;
-			}
-			base.OpenWindow("showhref", "showhref.html", {
-				Link: link
-			});
-		});
-
-		//滚动监听
-		window.addEventListener('scroll', function(e) {
-			if(!CurrTemplateJson) {
-				return;
-			}
-			if(CurrTemplateJson.CoverFixed == 2) {
-				//背景滚动视差
-				var top = document.documentElement.scrollTop || document.body.scrollTop;
-				//var top = $wrapper.scrollTop;
-				if(top >= 150) {
-					$wrapper2.style.opacity = 0;
-					$wrapper21.style.opacity = 1;
-				} else {
-					$wrapper2.style.opacity = 1 - top / 150;
-					$wrapper21.style.opacity = top / 150;
-				}
-			}
-		});
+		InitReady();
 
 		base.ShowUser("#body");
 	});
@@ -536,21 +478,11 @@
 						if(data.TemplateJson.ID != 1) {
 							CurrTemplateJson = data.TemplateJson;
 							if(data.ColorTemplateJson == null) {
-								base.Get("title0").style.color = CurrTemplateJson.TitleColor;
-								base.Get("nickname0").style.color = CurrTemplateJson.UserColor;
-								base.Get("nickname1").style.color = CurrTemplateJson.UserColor;
-								base.Get("createdate0").style.color = CurrTemplateJson.TimeColor;
-								base.Get("views0").style.color = CurrTemplateJson.ViewColor;
+								ChangeThemeColor(CurrTemplateJson);
 							}
 						}
 					}
-					if(data.ColorTemplateJson != null) {
-						base.Get("title0").style.color = data.ColorTemplateJson.TitleColor;
-						base.Get("nickname0").style.color = data.ColorTemplateJson.UserColor;
-						base.Get("nickname1").style.color = data.ColorTemplateJson.UserColor;
-						base.Get("createdate0").style.color = data.ColorTemplateJson.TimeColor;
-						base.Get("views0").style.color = data.ColorTemplateJson.ViewColor;
-					} 
+					ChangeThemeColor(data.ColorTemplateJson);
 
 					base.Get("musicname0").innerHTML = data.MusicName;
 					base.Get("useravatar0").setAttribute("src", base.ShowThumb(data.Avatar, 1));
@@ -561,7 +493,7 @@
 					base.Get("x-head").classList.remove("hide");
 					base.Get("desc").innerHTML = base.UnUnicodeText(html.join(""));
 
-					ChangeBg(); 
+					ChangeBg();
 
 					//实例化播放器
 					mui.each(mui(".youku_player"), function() {
@@ -652,30 +584,6 @@
 			base.ShowLoading(false);
 			mask.close();
 		});
-	}
-
-	function InitHeader() {
-		if(CurrTemplate == 0) {
-			base.Get("x-avatar").classList.add("hide");
-			base.Get("x-article").classList.remove("tc");
-			base.Get("x-article").classList.add("tl");
-		} else {
-			base.Get("x-avatar").classList.remove("hide");
-			base.Get("x-article").classList.remove("tl");
-			base.Get("x-article").classList.add("tc");
-		}
-	}
-
-	function Video(video) {
-		document.removeEventListener('touchstart', Video(video));
-		if(!video) {
-			return;
-		}
-		if(video.paused) {
-			video.play();
-		} else {
-			video.pause();
-		}
 	}
 
 	//分享

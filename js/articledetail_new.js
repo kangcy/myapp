@@ -1,3 +1,30 @@
+var CurrTemplate = 0; //当前选中模板
+var CurrBackground = null; //背景设置
+var CurrTemplateJson = null; // 当前模板设置
+var Article = {};
+var ArticleID = 0; //文章ID
+var isLoading = false;
+var MusicID = ""; //音乐控件ID
+var MusicUrl = "";
+var MusicName = "";
+var browserName = base.BrowserName();
+var userinfo = base.GetUserInfo();
+
+var $header = base.Get("header");
+var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
+var $wrapper1 = base.Get("x-cover"); //内容子背景（放背景图片）
+var $wrapper2 = base.Get("x-bg"); //纯色背景
+var $wrapper21 = base.Get("x-bg-base"); //纯色背景
+var $cover = base.Get("x-bg-blur"); //非纯色内容透明度底
+var $cover1 = base.Get("x-bg-blur1"); //非纯色内容透明度底
+var $head = base.Get("x-head");
+var $body = base.Get("x-body");
+var $top = base.Get("x-top");
+var $bottom = base.Get("x-bottom");
+var $avatarbg = base.Get("x-avatar-sub");
+var $avatar = base.Get("useravatar0");
+var $edit = base.Get("desc");
+
 //切换音乐
 function ChangeMusic() {
 	base.AddClass(["#music0", "#music1"], "hide");
@@ -10,9 +37,72 @@ function ChangeMusic() {
 	}
 }
 
+function Video(video) {
+	document.removeEventListener('touchstart', Video(video));
+	if(!video) {
+		return;
+	}
+	if(video.paused) {
+		video.play();
+	} else {
+		video.pause();
+	}
+}
+
+//修改主题色
+function ChangeThemeColor(temp) {
+	if(temp == null) {
+		return;
+	}
+	base.Get("title0").style.color = temp.TitleColor;
+	base.Get("nickname0").style.color = temp.UserColor;
+	base.Get("nickname1").style.color = temp.UserColor;
+	base.Get("createdate0").style.color = temp.TimeColor;
+	base.Get("views0").style.color = temp.ViewColor;
+	$avatar.style.border = "2px solid " + temp.TitleColor;
+}
+
+function InitReady() {
+	InitCoverScroll();
+
+	//打开外链
+	mui('#wrapper').on('tap', 'a.link', function() {
+		var link = this.getAttribute("link");
+		if(base.IsNullOrEmpty(link)) {
+			return;
+		}
+		base.OpenWindow("showhref", "showhref.html", {
+			Link: link
+		});
+	});
+}
+
+//背景视差
+function InitCoverScroll() {
+	//滚动监听
+	window.addEventListener('scroll', function(e) {
+		if(!CurrTemplateJson) {
+			return;
+		}
+		if(CurrTemplateJson.CoverFixed == 2) {
+			//背景滚动视差
+			var top = document.documentElement.scrollTop || document.body.scrollTop;
+			//var top = $wrapper.scrollTop;
+			if(top >= 150) {
+				$wrapper2.style.opacity = 0;
+				$wrapper21.style.opacity = 1;
+			} else {
+				$wrapper2.style.opacity = 1 - top / 150;
+				$wrapper21.style.opacity = top / 150;
+			}
+		}
+	});
+}
+
 //背景状态切换 
 function ChangeBg() {
 	if(CurrTemplate == 0) {
+		base.Get("title0").classList.remove("well2");
 		base.Get("x-avatar").classList.add("hide");
 		base.Get("x-article").classList.remove("tc");
 		base.Get("x-article").classList.add("tl");
@@ -21,6 +111,7 @@ function ChangeBg() {
 		base.Get("x-content").classList.remove("mt10");
 		$head.style.marginTop = "1rem";
 	} else {
+		base.Get("title0").classList.add("well2");
 		base.Get("x-avatar").classList.remove("hide");
 		base.Get("x-article").classList.remove("tl");
 		base.Get("x-article").classList.add("tc");
@@ -61,7 +152,6 @@ function ChangeBg() {
 			break;
 	}
 	ChangeMusic();
-	//UpdateShowy(CurrTemplateJson.Showy);
 
 	$top.classList.add("hide");
 	$bottom.classList.add("hide");
@@ -85,7 +175,7 @@ function ChangeBg() {
 	$avatar.style.left = "0";
 	$avatar.style.top = "0";
 	$avatar.style.borderRadius = "50%";
-	$avatar.style.border = "";
+	//$avatar.style.border = "";
 	$avatar.style.zIndex = "-1";
 	$avatarbg.style.marginBottom = "1rem";
 	if(CurrTemplateJson.ShowAvatar < 0) {

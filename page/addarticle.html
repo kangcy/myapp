@@ -113,7 +113,7 @@
 					</div>
 					<!--内容-->
 					<div class="x-content mt10 full fl" id="x-content">
-						<div class="section full" id="edit">
+						<div class="section full" id="desc">
 						</div>
 						<!--半透明蒙层-->
 						<div class="x-bg-blur full" id="x-bg-blur"></div>
@@ -187,6 +187,7 @@
 	var CurrColorTemplate = 0; //当前主题色模板
 	var CurrTemplateJson = null; // 当前模板设置
 	var CurrColorTemplateJson = null; // 当前模板设置
+	var CurrTxtBorder = 0;
 
 	var $header = base.Get("header");
 	var $wrapper = base.Get("wrapper"); //内容父背景（放图片背景色）
@@ -201,11 +202,11 @@
 	var $bottom = base.Get("x-bottom");
 	var $avatarbg = base.Get("x-avatar-sub");
 	var $avatar = base.Get("useravatar0");
-	var $edit = base.Get("edit");
+	var $edit = base.Get("desc");
 	var Showy = "";
 	var userinfo = base.GetUserInfo();
 
-	var InitParts = []; //段落
+	var InitParts = []; //段落  
 	var lineSwiper, borderSwiper, colorSwiper, tempSwiper, coolSwiper = null;
 	var browserName = base.BrowserName();
 	var IsIconShow = false;
@@ -495,6 +496,71 @@
 		name: "border_inner2"
 	}];
 
+	//文字边框
+	var txtborders = [{
+		id: -1,
+		name: ""
+	}, {
+		id: 0,
+		name: "txtbordergold1"
+	}, {
+		id: 1,
+		name: "txtbordergold2"
+	}, {
+		name: "txtbordergold3"
+	}, {
+		id: 2,
+		name: "txtbordergreen1"
+	}, {
+		id: 3,
+		name: "txtbordergold1"
+	}, {
+		id: 4,
+		name: "txtbordergold2"
+	}, {
+		id: 5,
+		name: "txtbordergold3"
+	}, {
+		id: 6,
+		name: "txtborderlinear1"
+	}, {
+		id: 7,
+		name: "txtborderlinear2"
+	}, {
+		id: 8,
+		name: "txtborderbrackets"
+	}, {
+		id: 9,
+		name: "txtborderdotted"
+	}, {
+		id: 10,
+		name: "border_whitesharp"
+	}, {
+		id: 11,
+		name: "txtbordergainsboromt"
+	}, {
+		id: 12,
+		name: "txtborderblue8"
+	}, {
+		id: 13,
+		name: "txtbordergreen7"
+	}, {
+		id: 14,
+		name: "txtbordergreen9"
+	}, {
+		id: 15,
+		name: "txtborder_mess"
+	}, {
+		id: 16,
+		name: "txtborder_inner"
+	}, {
+		id: 17,
+		name: "txtborder_inner1"
+	}, {
+		id: 18,
+		name: "txtborder_inner2"
+	}];
+
 	//声明对象（编号，内容，状态，排序，类型，是否临时） 
 	function PartModel(id, introduction, introexpand, status, sortid, parttype, temporary) {
 		this.ID = id;
@@ -563,7 +629,7 @@
 		});
 
 		//点击编辑
-		mui('#edit').on('tap', '.edit-content', function() {
+		mui('#desc').on('tap', '.edit-content', function() {
 			currEditID = this.id;
 			currEditPartID = this.getAttribute("partid");
 			var type = this.getAttribute("type");
@@ -596,7 +662,7 @@
 		})
 
 		//新增切换 
-		mui('#edit').on('tap', '.edit-add', function() {
+		mui('#desc').on('tap', '.edit-add', function() {
 			IsIconShow = false;
 			mui.later(function() {
 				IsIconShow = true;
@@ -610,14 +676,14 @@
 		});
 
 		//新增图片
-		mui('#edit').on('tap', '.edit-add-pic', function() {
+		mui('#desc').on('tap', '.edit-add-pic', function() {
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 			mui('#upload').popover('show');
 		});
 
 		//新增文本
-		mui('#edit').on('tap', '.edit-add-text', function() {
+		mui('#desc').on('tap', '.edit-add-text', function() {
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 			base.OpenWindow("editdesc", "editdesc.html", {
@@ -627,7 +693,7 @@
 		});
 
 		//新增视频
-		mui('#edit').on('tap', '.edit-add-video', function() {
+		mui('#desc').on('tap', '.edit-add-video', function() {
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 			base.OpenWindow("editvideo", "editvideo.html", {
@@ -636,7 +702,7 @@
 		});
 
 		//新增分隔
-		mui('#edit').on('tap', '.edit-add-line', function() {
+		mui('#desc').on('tap', '.edit-add-line', function() {
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 			var $this = $(this);
@@ -645,8 +711,8 @@
 			ShowLine();
 		});
 
-		//新增边框
-		mui('#edit').on('tap', '.edit-add-border', function() {
+		//新增图片边框
+		mui('#desc').on('tap', '.edit-add-border', function() {
 			$("#edit").find(".icons").addClass("hide");
 			$("#edit").find(".edit-add").removeClass("hide");
 			var $this = $(this);
@@ -654,6 +720,25 @@
 			currEditPartID = $this.parents(".edit-body").find(".edit-content").attr("partid");
 			var src = $this.parents(".edit-body").find(".edit-content").find("img").attr("src");
 			ShowBorder(src);
+		});
+
+		//新增文本边框
+		$('#edit').on('click', '.edit-add-txtborder', function() {
+			var $this = $(this);
+			currEditID = $this.parents(".edit-body").find(".edit-content").attr("id");
+			currEditPartID = $this.parents(".edit-body").find(".edit-content").attr("partid");
+			CurrTxtBorder = CurrTxtBorder >= txtborders.length - 1 ? 0 : CurrTxtBorder + 1;
+			var name = txtborders[CurrTxtBorder].name;
+			base.Get(currEditID).setAttribute("txtborder", name);
+			$("#" + currEditID).find(".edit")[0].className = "edit f12 tl " + name;
+			$.each(InitParts, function(index, item) {
+				if(item.ID == currEditPartID) {
+					InitParts[index].IntroExpand = name;
+					if(InitParts[index].Status != 1) {
+						InitParts[index].Status = 2;
+					}
+				}
+			});
 		});
 
 		//选中分隔
@@ -673,7 +758,7 @@
 		});
 
 		//删除
-		mui('#edit').on('tap', '.edit-del', function() {
+		mui('#desc').on('tap', '.edit-del', function() {
 			if(base.RepeatAction()) {
 				return;
 			}
@@ -1170,13 +1255,16 @@
 		div.className = 'edit-body fl mt10';
 		var model = [];
 		if(type == "pic") {
-			model.push('<img src="../images/addarticle/btn_pic.png" class="edit-add-border" style="position:absolute;top:0;left:8rem;width:2rem;z-index:1;" />');
+			model.push('<img src="../images/addarticle/btn_pic.png" class="edit-add-border" style="position:absolute;top:0;left:8rem;width:2rem;z-index:2;" />');
+		}
+		if(type == "text") {
+			model.push('<img src="../Back/Images/btn_pic.png" class="edit-add-txtborder" style="position:absolute;top:0;left:47%;width:2rem;z-index:2;" />');
 		}
 		model.push('<img src="../images/addarticle/btn_up.png" class="edit-up hide" /><img src="../images/addarticle/btn_down.png" class="edit-down hide" /><img src="../images/addarticle/btn_x.png" class="edit-del" partid="' + partid + '" />')
 		if(type == "pic") {
 			model.push('<div class="edit-content full f11 ' + expand + '" type="' + type + '" partid="' + partid + '" src="' + base.ShowThumb(text, 0) + '"><img src="' + base.ShowThumb(text, 1) + '" class="full" /></div>');
 		} else if(type == "text") {
-			model.push('<div class="edit-content edit-content2 full f11 tl" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
+			model.push('<div class="edit-content edit-content2 full f11 tl ' + expand + '" type="' + type + '" partid="' + partid + '">' + base.UnUnicodeText(text) + '</div>');
 		} else if(type == "video") {
 			model.push('<div class="edit-content edit-content2 f11 full tc" type="' + type + '" partid="' + partid + '" src="' + text + '"><img src="../images/article/video.png" /></div>');
 			//model.push('<div class="edit-content edit-content2 f11 tc" type="' + type + '" partid="' + partid + '" src="' + text + '">' + AppendVideo(text) + '</div>');
@@ -1335,6 +1423,7 @@
 	//背景状态切换 
 	function ChangeBg() {
 		if(CurrTemplate == 0) {
+			base.Get("title0").classList.remove("well2");
 			base.Get("x-avatar").classList.add("hide");
 			base.Get("x-article").classList.remove("tc");
 			base.Get("x-article").classList.add("tl");
@@ -1343,6 +1432,7 @@
 			base.Get("x-content").classList.remove("mt10");
 			$head.style.marginTop = "1rem";
 		} else {
+			base.Get("title0").classList.add("well2");
 			base.Get("x-avatar").classList.remove("hide");
 			base.Get("x-article").classList.remove("tl");
 			base.Get("x-article").classList.add("tc");
@@ -1413,7 +1503,7 @@
 		$avatar.style.left = "0";
 		$avatar.style.top = "0";
 		$avatar.style.borderRadius = "50%";
-		$avatar.style.border = "";
+		//$avatar.style.border = "";
 		$avatar.style.zIndex = "-1";
 		$avatarbg.style.marginBottom = "1rem";
 		if(CurrTemplateJson.ShowAvatar < 0) {
@@ -1813,6 +1903,7 @@
 		base.Get("nickname1").style.color = "#20a0ff";
 		base.Get("createdate0").style.color = "#8C8C8C";
 		base.Get("views0").style.color = "#8C8C8C";
+		$avatar.style.border = "2px solid #333";
 	}
 
 	function IconTan(index, showcover) {
@@ -1924,5 +2015,6 @@
 		base.Get("nickname1").style.color = temp.UserColor;
 		base.Get("createdate0").style.color = temp.TimeColor;
 		base.Get("views0").style.color = temp.ViewColor;
+		$avatar.style.border = "2px solid " + temp.TitleColor;
 	}
 </script>

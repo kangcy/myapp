@@ -376,7 +376,7 @@
 					var param = msg.payload.split('|');
 					//系统推荐文章、好友发布文章
 					if(param[0] == PushType.Article || param[0] == PushType.FanArticle) {
-						base.OpenWindow("articledetail_new", "articledetail_new.html", {
+						base.OpenWindow("articledetail", "articledetail.html", {
 							ArticleID: param[1],
 							Source: "",
 							NickName: ""
@@ -560,7 +560,7 @@
 				var number = banners[index].number;
 				if(!base.IsNullOrEmpty(number)) {
 					if(number.toString().toLowerCase().indexOf("http://") < 0) {
-						base.OpenWindow("articledetail_new", "articledetail_new.html", {
+						base.OpenWindow("articledetail", "articledetail.html", {
 							ArticleID: number,
 							Source: "Banner",
 							ArticlePower: 3,

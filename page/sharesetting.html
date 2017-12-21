@@ -114,7 +114,7 @@
 			}
 			var page = base.GetView('articledetail');
 			if(page == null) {
-				base.OpenWindow("articledetail_new", "articledetail_new.html", {
+				base.OpenWindow("articledetail", "articledetail.html", {
 					ArticleID: ArticleID,
 					Source: Source
 				}, false, "none");
@@ -151,7 +151,7 @@
 								if(page) {
 									page.evalJS("UpdateAction()");
 								} else {
-									base.OpenWindow("articledetail_new", "articledetail_new.html", {
+									base.OpenWindow("articledetail", "articledetail.html", {
 										ArticleID: ArticleID,
 										Source: Source
 									}, false, "none");

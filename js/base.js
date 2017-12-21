@@ -781,7 +781,7 @@ var base = new function() {
 			if(currUserNumber == userNumber) {
 				power = 3;
 			}
-			base.OpenWindow("articledetail_new", "articledetail_new_20171128.html", {
+			base.OpenWindow("articledetail", "articledetail.html", {
 				ArticleID: articleId,
 				Source: Source,
 				ArticlePower: power,

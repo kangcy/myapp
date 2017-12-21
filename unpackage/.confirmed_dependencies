@@ -4263,7 +4263,8 @@
 			"page/red.html",
 			"page/searchinfo_new.html",
 			"page/my.html",
-			"page/articledetail_new_20171128.html"
+			"page/articledetail_new_20171128.html",
+			"page/articledetail.html"
 		]
 	},
 	"page/temporaryuser.html": {
