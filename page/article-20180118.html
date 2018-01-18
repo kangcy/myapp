@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/animate.min.css">
+		<style type="text/css">
+			body {
+				background: #f5f5f5;
+			}
+		</style>
+	</head>
+
+	<body oncontextmenu="return false" onselectstart="return false">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
+			<a class="mui-icon mui-text cfff fr" onclick="Delete()">回收站</a>
+			<div class="mui-title cfff" id="title">我的动态</div>
+		</header>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
+		<p id="none" class="full f12 tc hide">大波内容正在赶来，敬请期待~</p>
+		<div id="muicontent" class="inline full">
+			<div id="scroll-view" class="inline full" style="margin-bottom:3%;">
+				<template v-for="item in list">
+					<div class="mui-card inline article" style="margin:3% 3% 0;" id="article{{item.ArticleID}}" articleid="{{item.ArticleID}}" power="{{item.ArticlePower}}" nickname="{{item.NickName}}" iskeep="{{item.IsKeep}}" isfollow="{{item.IsFollow}}">
+						<!--我的-->
+						<div class="c999 f11 star mb10" v-if="{{ismy}}"><img src="../images/article/{{item.ArticlePowerCover}}" class="fl" /><span class="fl">{{item.ArticlePowerName}}</span><span class="fr">{{item.CreateDate}}</span></div>
+						<!--用户的-->
+						<div class="mui-card-header noborder mui-card-media">
+							<img v-if="{{islazyload}}" class="user" userid="{{item.UserNumber}}" nickname="{{item.NickName}}" avatar="{{item.Avatar}}" cover="{{item.UserCover}}" onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="{{item.Avatar | formatthumb 1}}" style="border-radius:50%;width:2rem !important;height:2rem !important;" />
+							<img v-else class="user" userid="{{item.UserNumber}}" nickname="{{item.NickName}}" avatar="{{item.Avatar}}" cover="{{item.UserCover}}" src="{{item.Avatar | formatthumb 1}}" style="border-radius:50%;width:2rem !important;height:2rem !important;" />
+							<div class="mui-media-body f14 mt0" style="position:relative;">
+								<span class="user c333" userid="{{item.UserNumber}}" nickname="{{item.NickName}}" avatar="{{item.Avatar}}" cover="{{item.UserCover}}">{{item.NickName | formattext}}</span>
+								<p class="f10 full mt1"><span>{{item.CreateDate}}</span>
+									<span class="blue ml5" v-if="!base.IsNullOrEmpty(item.City)">{{item.Province}} • {{item.City}}</span>
+								</p>
+								<!--如果是自己隐藏关注按钮-->
+								<img v-if="{{userNumber != " " && userNumber != item.UserNumber}}" id="guanzhu{{item.ArticleID}}" class="{{item.IsFollow == 0 ? 'guanzhu' : 'guanzhu2'}}" userid="{{item.UserNumber}}" articleid="{{item.ArticleID}}" articleNumber="{{item.ArticleNumber}}" articleUserNumber="{{item.UserNumber}}" src="../images/base/{{item.IsFollow == 0 ? 'follow0' : 'follow1'}}.png" style="position:absolute;right:0px;top:0.3rem;width:3.8rem;" />
+							</div>
+						</div>
+						<!--内容-->
+						<div class="mui-card-content show">
+							<div class="mui-card-content-inner">
+								<!--标题-->
+								<div class="c333 fl full mb10 f12" style="line-height:1.3rem;">
+									<div class="c333 fl article f12" style="width:100%;display:inline-block;" articleid="{{item.ArticleID}}" userid="{{item.UserNumber}}" power="{{item.ArticlePower}}" nickname="{{item.NickName}}">{{item.Title | formattext}}</div>
+								</div>
+								<!--图片-->
+								<div class="inline full">
+									<template v-if="item.ArticlePart.length==0">
+										<div v-if="islazyload" class="{{x.PartName}}" href="{{item.Cover | formatthumb 0}}" articleid="{{item.ArticleID}}"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="{{item.Cover | formatthumb 2}}" /></div>
+										<div v-else class="{{x.PartName}}" href="{{item.Cover | formatthumb 0}}" articleid="{{item.ArticleID}}"><img src="{{item.Cover | formatthumb 2}}" /></div>
+									</template>
+									<template v-else v-for="part in item.ArticlePart">
+										<div v-if="islazyload" class="{{x.PartName}}" href="{{part.Introduction | formatthumb 0}}" articleid="{{item.ArticleID}}"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="{{part.Introduction | formatthumb 2}}" /></div>
+										<div v-else class="{{x.PartName}}" href="{{part.Introduction | formatthumb 0}}" articleid="{{item.ArticleID}}"><img src="{{part.Introduction | formatthumb 2}}" /></div>
+									</template>
+								</div>
+							</div>
+						</div>
+						<!--底部操作-->
+						<div class="mui-card-footer fl full c333 f11 inline">
+							<div style="height:1.5rem;" class="inline fl tl"><img src="../images/article/view.png" style="width:1rem;" class="ml5 mr5 fl" /><span class="f13 fl mr10">{{item.Views}}</span></div>
+							<div style="height:1.5rem;" class="inline fl tl goods {{item.IsZan == 0 ? '' : 'red'}}" articleid="{{item.ArticleID}}" already="{{item.IsZan == 0 ? 0 : 1}}"><img src="../images/article/{{item.IsZan == 0 ? 'btn_good' : 'btn_good2'}}.png" style="width:0.9rem;" class="ml5 mr5 fl" /><span class="f13 fl mr10">{{item.Goods}}</span></div>
+							<div style="height:1.5rem;" class="inline comments fl tl" articleid="{{item.ArticleID}}" ArticleNumber="{{item.ArticleNumber}}"><img id="icomments{{item.ArticleID}}" src="../images/article/btn_comment.png" style="width:0.9rem;" class="mt1 fl ml5 mr10" /><span class="f13 fl mr10">{{item.Comments}}</span></div>
+							<div v-if="userNumber != " " && userNumber != item.UserNumber" style="width:1.5rem;height:100%;" class="fr tanaction" articleId="{{item.ArticleID}}" articleNumber="{{item.ArticleNumber}}" articleUserNumber="{{item.UserNumber}}"><img src="../images/article/btn_more.png" style="width:1rem;" class="mt1" /></div>
+						</div>
+					</div>
+				</template>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="../minjs/mui.min.js"></script>
+<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/base.min.js"></script>
+<script src="../js/refresh.min.js"></script>
+<script src="../js/article.min.js"></script>
+<script src="../js/imgcache.js"></script>
+<script type="text/javascript">
+	var ArticleType = 0;
+	var CreateUserNumber = "";
+	var self = null;
+
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		beforeback: function() {
+			if(base.CheckWaiting()) {
+				return false;
+			}
+		}
+	});
+
+	var view = new Vue({
+		el: '#scroll-view',
+		data: {
+			userNumber: "",
+			list: [],
+			ismy: false,
+			isuser: false,
+			islazyload: true
+		},
+		filters: {
+			formatthumb: function(value, thumb) {
+				return base.ShowThumb(value, thumb)
+			},
+			formattext: function(value) {
+				return base.UnUnicodeText(value)
+			}
+		}
+	});
+
+	mui.ready(function() {
+		base.Immersed();
+		base.ToTop();
+	});
+
+	mui.plusReady(function() {
+		self = plus.webview.currentWebview();
+		ArticleType = self.ArticleType || 0;
+		CreateUserNumber = self.CreateUserNumber || "";
+		Source = self.Source || "List";
+
+		view.userNumber = userinfo.Number;
+		view.ismy = CreateUserNumber == userinfo.Number;
+		view.isuser = CreateUserNumber != userinfo.Number;
+		Init(ArticleType, CreateUserNumber, Source);
+	});
+
+	//初始化
+	function Init(articleType, createUserNumber, source) {
+		pulldownRefresh();
+		base.ShowArticle("#scroll-view", source, userinfo.Number);
+		base.ShowUser("#scroll-view");
+		ArticleAction("#scroll-view", userinfo);
+		SetPullEnable(true);
+		document.addEventListener("plusscrollbottom", pullupRefresh, false);
+	}
+
+	//删除  
+	function Delete(id) {
+		base.Get("article" + id).remove();
+	}
+
+	//加载数据
+	function Load(callback) {
+		var table = base.Get('scroll-view');
+		var data = {
+			ID: userinfo.ID,
+			page: currpage,
+			rows: pagesize,
+			TypeID: ArticleType,
+			CreateUserNumber: CreateUserNumber,
+			CurrUserNumber: userinfo.Number
+		};
+		LoadPull("", base.RootUrl + "Api/Article/All", data, true, false, function(item) {
+			return AppendArticle(userinfo.Number, item, CreateUserNumber == userinfo.Number, CreateUserNumber != userinfo.Number, true);
+		}, function() {
+			if(callback) {
+				callback();
+			}
+		});
+	}
+
+	function Refresh() {
+		currpage = 1;
+		totalpage = 2;
+		base.Get('scroll-view').innerHTML = "";
+		Load();
+	}
+
+	function Delete() {
+		base.OpenWindow("article_delete", "article_delete.html", {});
+	}
+
+	function Format(list) {
+		var power = "";
+		var name = "";
+		var part = "";
+		list.forEach(x => {
+			switch(x.ArticlePower) {
+				case 0:
+					name = "power0.png";
+					power = "私密";
+					break;
+				case 1:
+					name = "power2.png";
+					power = "密码可见";
+					break;
+				case 2:
+					name = "power2.png";
+					power = "分享可见";
+					break;
+				case 3:
+					name = "power1.png";
+					power = "公开";
+					break;
+				default:
+					name = "power0.png";
+					power = "私密";
+					break;
+			}
+			x.ArticlePowerCover = name;
+			x.ArticlePowerName = power;
+			if(base.IsNullOrEmpty(x.Title)) {
+				x.Title = "我的小微篇";
+			}
+			switch(item.ArticlePart.length) {
+				case 1:
+					part = "onefloor";
+					break;
+				case 2:
+					part = "secondfloor";
+					break;
+				case 3:
+					part = "thirdfloor";
+					break;
+				default:
+					part = "onefloor";
+					break;
+			}
+			x.PartName = part;
+		})
+		return list;
+	}
+</script>

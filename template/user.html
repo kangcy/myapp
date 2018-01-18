@@ -1,0 +1,61 @@
+<script id="user" type="text/html">
+	{{each list item i}}
+	<div class="mui-table-view-cell user user1 {{showAnimate?'bounceInUp':''}}" userid="{{item.Number}}" nickname="{{item.NickName}}" cover="{{item.Cover}}" avatar="{{item.Avatar}}">
+		<div class="flex-box flex-row">
+			<!--头像-->
+			<div style="flex:0 0 16%;" class="flex-item tl">
+				<div class="avatar">
+					{{if isLazy}}
+					<img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="{{formatUrl(item.Avatar,1)}}" class="fl" /> {{else}}
+					<img src="{{formatUrl(item.Avatar, 1)}}" class="fl" /> {{/if}}
+				</div>
+			</div>
+			{{if btn > 0}}
+			<div style="flex:0 0 64%;" class="flex-item tl">
+				{{else}}
+				<div style="flex:0 0 84%;" class="flex-item">
+					{{/if}}
+					<p class="f13 c333 mt3">{{formatText(item.NickName)}}</p>
+					{{if isSignature}}
+					<p class="f10 mt3 c999">{{formatText(item.Signature)}}</p>
+					{{/if}} {{if isDistance}}
+					<p class="f10 mt3 c999">{{formatDistance(item.Distance)}}</p>
+					{{/if}}
+				</div>
+				<!--关注-->
+				{{if btn>0}}
+				<div style="flex:0 0 20%;" class="flex-item tr">
+					{{if btn == 1}} {{if item.IsFollow == 0 && usernumber != item.Number}}
+					<div class="guanzhu" userid="{{item.Number}}"><img src="../images/base/follow0.png" class="fr" /></div>
+					{{else}}
+					<div class="guanzhu2" userid="{{item.Number}}"><img src="../images/base/follow1.png" class="fr" /></div>
+					{{/if}} {{/if}} {{if btn == 2}}
+					<div class="blackrelease"><img src="../images/base/follow2.png" class="fr" style="width:3.8rem !important;" /></div>
+					{{/if}}
+				</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+	{{/each}}
+</script>
+
+<script type="text/javascript">
+	template.defaults.imports.formatUrl = function(url, type) {
+		return base.ShowThumb(url, type);
+	}
+
+	template.defaults.imports.formatText = function(text) {
+		return base.UnUnicodeText(text)
+	}
+
+	template.defaults.imports.formatDistance = function(distance) {
+		var distance = parseFloat(distance);
+		var meter = parseInt(distance / 100);
+		if(meter < 9) {
+			return(meter + 1) + "00米以内";
+		} else {
+			return(parseInt(distance / 1000) + 1) + "公里以内";
+		}
+	}
+</script>

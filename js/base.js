@@ -262,6 +262,9 @@ var base = new function() {
 	 **/
 	this.DefaultAvatar = "../images/avatar.png";
 
+	// 预览图片集合
+	this.PreviewImageList = []
+
 	/**
 	 * 显示等待、关闭等待
 	 **/
@@ -1340,6 +1343,40 @@ function LoadPull(id, url, data, showNone, showAnimate, appendCallback, endCallb
 	});
 }
 
+//arttemplate 读取列表
+function LoadPull2(id, url, data, showNone, appendCallback, endCallback) {
+	HttpGet(url, data, function(data) {
+		var foo = "";
+		data = JSON.parse(data);
+		if(data != null) {
+			if(data.result) {
+				data = data.message;
+				totalpage = data.totalpage;
+				records = data.records;
+				if(showNone) {
+					base.ShowNone(false);
+				}
+				var id = base.IsNullOrEmpty(id) ? "scroll-view" : id;
+				var table = base.Get(id);
+				if(records > 0) {
+					foo = data.list;
+					table.appendChild(appendCallback(data.list));
+				}
+			} else {
+				totalpage = 1;
+				records = 0;
+			}
+		}
+		if(records == 0 && showNone) {
+			base.ShowNone(true);
+		}
+		if(endCallback) {
+			endCallback(foo);
+		}
+		base.ShowLoading(false);
+	});
+}
+
 /**
  * 动态加载JS 
  * url：JS地址
@@ -1578,6 +1615,19 @@ function SetFocus(obj) {
 			obj.focus();
 		} catch(e) {}
 	}
+}
+
+// 图片预览
+function PreviewImage(i) {
+	if(!window.plus) return;
+	if(base.PreviewImageList.length == 0) {
+		return;
+	}
+	plus.nativeUI.previewImage(base.PreviewImageList, {
+		current: i,
+		indicator: "number",
+		loop: true
+	});
 }
 
 String.prototype.startWith = function(str) {

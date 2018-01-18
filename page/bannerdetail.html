@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/loading.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
-	</head>
+	</head> 
 	<!--禁止复制-->
 
 	<body oncontextmenu="return false" onselectstart="return false">
@@ -19,12 +19,12 @@
 			<span class="cfff f25 fr more" onclick="ShareTan(1)" style="margin-top:0.35rem;margin-right:0.4rem;">•••</span>
 			<h1 class="mui-title cfff" id="title">专属红包活动</h1>
 		</header>
-		<div class="loading" id="loader">
-			<div class="card">
+		<div class="loading" id="loader">  
+			<div class="card">   
 				<span class="circles-loader"></span>
 			</div>
-		</div>
-		<!--分享-->
+		</div> 
+		<!--分享--> 
 		<div class="myshare hide" id="myshare">
 			<p class="f16 c000 tc mt10 mb0">分享到</p>
 			<div class="tc c000 myshare_body">
@@ -104,16 +104,16 @@
 
 		Load();
 
-		updateSerivces();
-	});
+		updateSerivces(); 
+	}); 
 
 	//加载文章
-	function Load(callback) {
+	function Load(callback) { 
 		if(audio != null) {
 			var item = document.getElementById("bgsound")
 			item.parentNode.removeChild(item);
 			audio = null;
-		}
+		} 
 
 		var iframe = base.Get("iframe");
 		iframe.setAttribute("src", ShareInfo.Url);

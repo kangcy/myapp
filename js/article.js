@@ -13,7 +13,7 @@ function CreateActionView() {
 	bgview = new plus.nativeObj.View('bgview', {
 		top: '0px',
 		left: '0px',
-		height: '100%', 
+		height: '100%',
 		width: '100%',
 		backgroundColor: 'rgba(0,0,0,0.5)'
 	});
@@ -410,24 +410,24 @@ function AppendArticle(userNumber, item, ismy, isuser, islazyload, isdel) {
 	model.push('<div class="inline full">');
 	if(parts.length == 0) {
 		if(islazyload) {
-			model.push('<div class="onefloor" href="' + base.ShowThumb(item.Cover, 1) + '" articleid="' + item.ArticleID + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(item.Cover, 2) + '" /></div>');
+			model.push('<div class="onefloor" href="' + base.ShowThumb(item.Cover, 0) + '" articleid="' + item.ArticleID + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(item.Cover, 2) + '" /></div>');
 		} else {
-			model.push('<div class="onefloor" href="' + base.ShowThumb(item.Cover, 1) + '" articleid="' + item.ArticleID + '"><img src="' + base.ShowThumb(item.Cover, 2) + '" /></div>');
+			model.push('<div class="onefloor" href="' + base.ShowThumb(item.Cover, 0) + '" articleid="' + item.ArticleID + '"><img src="' + base.ShowThumb(item.Cover, 2) + '" /></div>');
 		}
 	} else {
 		if(parts.length == 1) {
 			if(islazyload) {
-				model.push('<div class="onefloor" href="' + base.ShowThumb(parts[0].Introduction, 1) + '" articleid="' + item.ArticleID + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(parts[0].Introduction, 2) + '" /></div>');
+				model.push('<div class="onefloor" href="' + base.ShowThumb(parts[0].Introduction, 0) + '" articleid="' + item.ArticleID + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(parts[0].Introduction, 2) + '" /></div>');
 			} else {
-				model.push('<div class="onefloor" href="' + base.ShowThumb(parts[0].Introduction, 1) + '" articleid="' + item.ArticleID + '"><img src="' + base.ShowThumb(parts[0].Introduction, 2) + '" /></div>');
+				model.push('<div class="onefloor" href="' + base.ShowThumb(parts[0].Introduction, 0) + '" articleid="' + item.ArticleID + '"><img src="' + base.ShowThumb(parts[0].Introduction, 2) + '" /></div>');
 			}
 		} else {
 			var name = parts.length == 3 ? "thirdfloor" : "secondfloor";
 			for(var i = 0; i < parts.length; i++) {
 				if(islazyload) {
-					model.push('<div class="' + name + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" articleid="' + item.ArticleID + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" /></div>');
+					model.push('<div class="' + name + '" href="' + base.ShowThumb(parts[i].Introduction, 0) + '" articleid="' + item.ArticleID + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(parts[i].Introduction, 2) + '" /></div>');
 				} else {
-					model.push('<div class="' + name + '" href="' + base.ShowThumb(parts[i].Introduction, 1) + '" articleid="' + item.ArticleID + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" /></div>');
+					model.push('<div class="' + name + '" href="' + base.ShowThumb(parts[i].Introduction, 0) + '" articleid="' + item.ArticleID + '"><img src="' + base.ShowThumb(parts[i].Introduction, 2) + '" /></div>');
 				}
 			}
 		}
@@ -473,25 +473,15 @@ function ArticleAction(id, userinfo) {
 			base.TriggerMain = false;
 		}, 500);
 		var href = this.getAttribute('href');
-		ArticleID = this.getAttribute('articleid');
 		var CurrID = 0;
-		var url = [];
+		base.PreviewImageList = [];
 		mui.each(this.parentNode.childNodes, function(i, item) {
 			if(href == item.getAttribute('href')) {
 				CurrID = i;
 			}
-			url.push(item.getAttribute('href'));
+			base.PreviewImageList.push(item.getAttribute('href'));
 		});
-		var view = base.GetView("imageviewer");
-		if(view) {
-			view.evalJS("ResetImages('" + url + "','" + ArticleID + "','" + CurrID + "')");
-		} else {
-			base.OpenWindow("imageviewer", "imageviewer.html", {
-				Url: url.join(','),
-				Group: ArticleID,
-				CurrID: CurrID
-			}, "fade-in", false, 'hide', "#000");
-		}
+		PreviewImage(CurrID);
 		isLoading = false;
 	});
 

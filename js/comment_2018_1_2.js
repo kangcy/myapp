@@ -5,30 +5,24 @@ var showIcon = false; //显示表情
 var showPosition = 1; //显示定位
 var $edit = null;
 
-//当前选中
-var curredit = {
-	Id: 0,
-	Number: "",
-	ParentCommentNumber: 0,
-	ParentUserNumber: 0,
-	ArticleNumber: "",
-	Count: 0
-}
-
+var Number = "";
+var ArticleNumber = "";
+var ParentCommentNumber = 0;
+var ParentUserNumber = 0;
+var Count = 0;
 var NewId = 0; //最新添加评论ID
 var editor = null;
 var $commentwrapper = null;
 var $commentwrapperReady = false;
-var $bottomAction = base.Get("bottomAction");
 
 var mask = base.CreateMask(false, function() {
 	base.CloseWaiting();
 	$commentwrapper.classList.remove("bounceInUp");
 	$commentwrapper.classList.add("bounceOutUp");
 
-	if($bottomAction) {
-		$bottomAction.classList.remove("hide");
-		$bottomAction.classList.add("bounceIn");
+	if(base.Get("bottomAction")) {
+		base.Get("bottomAction").classList.remove("hide");
+		base.Get("bottomAction").classList.add("bounceIn");
 	}
 	base.Get("divIcon").classList.add("height");
 	CommentClear();
@@ -169,8 +163,7 @@ function InitComment() {
 		$commentwrapperReady = true;
 
 		if(base.IsNullOrEmpty(action)) {
-			$bottomAction.classList.remove("hide");
-			$bottomAction.classList.add("bounceIn");
+			$("#bottomAction").removeClass("hide").addClass("bounceIn");
 		} else {
 			Comment();
 		}
@@ -179,66 +172,67 @@ function InitComment() {
 	//用户
 	base.ShowUser("#scroll-view");
 
-	//回复列表
-	mui('#scroll-view').on('tap', '.sub', function() {
-		if(base.TriggerMain) {
-			return false;
+	//点赞
+	mui('#scroll-view').on('tap', '.goods', function() {
+		if(isLoading) {
+			return;
 		}
-		base.TriggerMain = true
-		mui.later(function() {
-			base.TriggerMain = false;
-		}, 500);
+		isLoading = true;
+		var commentid = this.getAttribute("cid");
+		HttpGet(base.RootUrl + "Api/Zan/CommentZanEdit", {
+			ID: userinfo.ID,
+			CommentNumber: commentid
+		}, function(data) {
+			data = JSON.parse(data);
+			base.CheckLogin(userinfo, data.code);
+			if(data != null) {
+				if(data.result) {
+					var item = $("#goods" + commentid);
+					var count = parseInt(item.find("span").html());
+					var already = data.message.split('|');
+					if(already[0] == 1) {
+						item.removeClass("heartbeat red");
+						item.attr("already", "0");
+						item.find("img").attr("src", "../images/article/btn_good.png");
+						item.find("span").html(count - 1 < 0 ? 0 : count - 1);
+					} else {
+						item.addClass("heartbeat red");
+						item.attr("already", "1");
+						item.find("img").attr("src", "../images/article/btn_good2.png");
+						item.find("span").html(count + 1);
+					}
+				}
+			} else {
+				mui.toast("失败");
+			}
+			isLoading = false;
+		});
+	});
+
+	//回复评论 
+	mui('#scroll-view').on('tap', '.comments', function() {
+		if(isLoading) {
+			return;
+		}
+		isLoading = true;
+		ParentCommentNumber = this.getAttribute("cid");
+		ParentUserNumber = this.getAttribute("userid");
+		ArticleNumber = this.getAttribute("articlenumber");
+		Count = this.getAttribute("count");
+		ShowComment(true);
+		isLoading = false;
+	});
+
+	//回复
+	mui('#scroll-view').on('tap', '.sub', function() {
 		var number = this.getAttribute("number");
 		var name = this.getAttribute("name");
 		base.OpenWindow("subcomment", "subcomment.html", {
 			Number: number,
-			ArticleNumber: curredit.ArticleNumber,
+			ArticleNumber: ArticleNumber,
 			Name: name
 		});
 	});
-
-	//点击评论
-	mui('#scroll-view').on('tap', '.mui-table-view-cell', function() {
-		if(base.TriggerMain) {
-			return false;
-		}
-		var $this = this
-		this.style.background = "#e5e5e5";
-
-		curredit.Id = this.getAttribute("id");
-		curredit.ParentCommentNumber = this.getAttribute("cid");
-		curredit.ParentUserNumber = this.getAttribute("userid");
-		curredit.ArticleNumber = this.getAttribute("articlenumber");
-		curredit.Count = this.getAttribute("count");
-
-		mui('#action').popover('show');
-		mui.later(function() {
-			$this.style.background = "";
-		}, 150)
-	});
-}
-
-//回复评论
-function Reply() {
-	if(isLoading) {
-		return;
-	}
-	isLoading = true;
-	mui('#action').popover('hide');
-	ShowComment(true);
-	isLoading = false;
-}
-
-//复制评论
-function Copy() {
-	if(isLoading) {
-		return;
-	}
-	isLoading = true;
-	mui('#action').popover('hide');
-	$("#remark").html(base.Get("summary" + curredit.ParentCommentNumber).innerHTML)
-	ShowComment(true);
-	isLoading = false;
 }
 
 //显示编辑器
@@ -249,11 +243,11 @@ function ShowComment(show) {
 	if(show == 0) {
 		mask.close();
 	} else {
-		base.Get("commenttitle").innerHTML = base.IsNullOrEmpty(curredit.ParentCommentNumber) ? "发表评论" : "回复楼主";
+		base.Get("commenttitle").innerHTML = base.IsNullOrEmpty(ParentCommentNumber) ? "发表评论" : "回复楼主";
 		mask.show();
-		if($bottomAction) {
-			$bottomAction.classList.remove("fadeInUp");
-			$bottomAction.classList.add("hide");
+		if(base.Get("bottomAction")) {
+			base.Get("bottomAction").classList.remove("fadeInUp");
+			base.Get("bottomAction").classList.add("hide");
 		}
 		$commentwrapper.classList.remove("hide");
 		$commentwrapper.classList.remove("bounceOutUp");
@@ -308,8 +302,8 @@ function ShowIcon() {
 
 //发表评论
 function Comment() {
-	curredit.ParentCommentNumber = "";
-	curredit.ParentUserNumber = "";
+	ParentCommentNumber = "";
+	ParentUserNumber = "";
 	ShowComment(true);
 }
 
@@ -330,9 +324,9 @@ function CommitComment() {
 	var position = base.GetCurrentPosition();
 	HttpPost(base.RootUrl + "Comment/Edit_1_3", {
 		ID: userinfo.ID,
-		ArticleNumber: curredit.ArticleNumber,
-		ParentCommentNumber: curredit.ParentCommentNumber,
-		ParentUserNumber: curredit.ParentUserNumber,
+		ArticleNumber: ArticleNumber,
+		ParentCommentNumber: ParentCommentNumber,
+		ParentUserNumber: ParentUserNumber,
 		Summary: escape(val),
 		Province: position.Province,
 		City: position.City,
@@ -350,12 +344,12 @@ function CommitComment() {
 			mui.toast(data.result ? "感谢您的评论" : data.message);
 			if(data.result) {
 				NewId = data.message;
-				if(base.IsNullOrEmpty(curredit.ParentCommentNumber)) {
+				if(base.IsNullOrEmpty(ParentCommentNumber)) {
 					AppendComment();
 				} else {
-					var $item = $("#comment0" + curredit.ParentCommentNumber);
+					var $item = $("#comment0" + ParentCommentNumber);
 					var $parent = $item.parents(".mui-table-view-cell");
-					var count = (parseInt(curredit.Count) + 1);
+					var count = (parseInt(Count) + 1);
 					$item.html('查看' + count + '条回复');
 					$parent.find(".tip0").find("span").html(base.UnUnicodeText(userinfo.NickName) + " : " + base.UnUnicodeText(val));
 					if(count == 1) {
@@ -366,6 +360,7 @@ function CommitComment() {
 						$parent.find(".tip0").addClass("hide");
 						$parent.find(".tip1").removeClass("hide");
 					}
+					base.Get("comment1" + ParentCommentNumber).setAttribute("count", count);
 				}
 				//更新文章评论数
 				var page = base.GetView("articledetail");
@@ -389,13 +384,7 @@ function AppendComment() {
 			if(data.result) {
 				$("#none").addClass("hide");
 				var table = base.Get('scroll-view');
-				//var div = AppendStr(data.message);
-
-				var div = document.createElement("div");
-				div.innerHTML = template('comment', {
-					list: [data.message]
-				});
-
+				var div = AppendStr(data.message);
 				table.appendChild(div);
 			}
 		} else {
@@ -442,18 +431,15 @@ function InsertIcon(html) {
 //拼接Html  
 function AppendStr(item) {
 	var div = document.createElement('div');
-	div.className = 'mui-table-view-cell';
-	div.setAttribute("id", "article" + item.Number);
-	div.setAttribute("cid", item.Number);
-	div.setAttribute("userid", item.UserNumber);
-	div.setAttribute("articlenumber", item.ArticleNumber);
-	div.setAttribute("count", item.SubCommentCount);
-
+	div.className = 'mui-table-view-cell mt10 mb10';
+	div.setAttribute("id", "article" + item.Number)
 	var model = [];
-	model.push('<div class="oa-contact-cell mui-table mt10 mb10">');
+	model.push('<div class="oa-contact-cell mui-table">');
 	model.push('<div class="mui-table-cell oa-contact-avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="user" userid="' + item.UserNumber + '" /></div>');
-	model.push('<p class="f12 user bold" style="color:#576B95;display:inline-block;" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '</p><p class="f12 c888 mt3 full">' + item.CreateDateText + (item.ShowPosition == 1 ? '<span class="ml5 mr5">来自</span>' + item.City : '') + '</p>');
-	model.push('<div class="f12 c333 mt5 full summary" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary));
+	model.push('<div class="flex-box flex-row full">');
+	model.push('<div style="flex:0 0 65%;" class="flex-item"><p class="c333 f13 user" userid="' + item.UserNumber + '">' + base.UnUnicodeText(item.NickName) + '</p><p class="f11 c999 mt3 full">' + item.CreateDateText + (item.ShowPosition == 1 ? '<span class="ml5 mr5">来自</span>' + item.City : '') + '</p></div>');
+	model.push('<div style="flex:0 0 35%;" class="flex-item c999 tr"><img src="../images/article/btn_comment.png" style="width:0.9rem;" class="ml15 fr mt1 comments" cid="' + item.Number + '" userid="' + item.UserNumber + '" articlenumber="' + item.ArticleNumber + '" count="' + item.SubCommentCount + '" id="comment1' + item.Number + '" /><div id="goods' + item.Number + '" cid="' + item.Number + '" already="' + (item.IsZan == 0 ? 0 : 1) + '" class="goods fr ' + (item.IsZan == 0 ? "" : "red") + '"><span class="f13 ml5 fr" >' + item.Goods + '</span><img src="../images/article/' + (item.IsZan == 0 ? "btn_good" : "btn_good2") + '.png" style="width:0.9rem;" class="fr"  /></div></div></div>');
+	model.push('<div class="f12 c333 mt5 full summary" style="line-height:1.3rem;">' + base.UnUnicodeText(item.Summary) + '</div>');
 	model.push('<p class="tip tip1 mb0 f12 mt5 ' + (item.SubCommentCount > 1 ? "" : "hide") + '"><span class="blue sub" number="' + item.Number + '" id="comment0' + item.Number + '" name="' + item.NickName + '">查看' + item.SubCommentCount + '条回复</span></p>');
 	model.push('<p class="tip tip0 mb0 f12 mt5 ' + (item.SubCommentCount == 1 ? "" : "hide") + '"><span class="blue summary">' + base.UnUnicodeText(item.SubUserName) + '<span class="c999"> : ' + base.UnUnicodeText(item.SubSummary) + '</span></span></p>');
 	div.innerHTML = model.join('');

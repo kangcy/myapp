@@ -220,7 +220,7 @@
 		//进度条
 		progress[0].style.top = $wrapper.style.paddingTop = $wrapper2.style.top = headerheight;
 		progress.progressbar({
-			progress: 0 
+			progress: 0
 		}).show();
 		ProgressLoading(progress, 0, 100);
 
@@ -234,7 +234,7 @@
 			isLoading = true;
 			HttpGet(base.RootUrl + "Api/Zan/ArticleZanEdit", {
 				ID: userinfo.ID,
-				ArticleID: ArticleID 
+				ArticleID: ArticleID
 			}, function(data) {
 				data = JSON.parse(data);
 				base.CheckLogin(userinfo, data.code);
@@ -437,16 +437,20 @@
 					//段落  
 					var html = [];
 					var parts = data.ArticlePart;
+					base.PreviewImageList = []
+					var imgindex = 0;
 					for(var i = 0; i < parts.length; i++) {
 						var part = parts[i];
 						if(part.Types == 1) {
 							//图片
-							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
+							html.push('<div class="full f13 fl mt10 ' + part.IntroExpand + '"><img onclick="PreviewImage(' + imgindex + ')" onload="LazyImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(part.Introduction, 1) + '" class="full fl" /></div>');
+							base.PreviewImageList.push(base.ShowThumb(part.Introduction, 0));
+							imgindex += 1
 						} else if(part.Types == 2) {
 							//文本
 							var txtdiv = document.createElement("div");
-			                txtdiv.innerHTML = base.UnUnicodeText(part.Introduction);
-			                $(txtdiv).find(".edit").addClass(part.IntroExpand);
+							txtdiv.innerHTML = base.UnUnicodeText(part.Introduction);
+							$(txtdiv).find(".edit").addClass(part.IntroExpand);
 							html.push('<div class="full f13 fl mt10 edit-content">' + txtdiv.innerHTML + '</div>');
 						} else if(part.Types == 3) {
 							//视频
@@ -456,7 +460,7 @@
 							//分隔
 							html.push('<div class="full f13 fl mt10" style="display:inline-block;">' + part.Introduction + '</div>');
 						}
-					}  
+					}
 
 					if(data.IsZan > 0) {
 						base.Attr($zan, [

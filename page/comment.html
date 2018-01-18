@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../mincss/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
 		<link rel="stylesheet" href="../mincss/comment.min.css">
+		<link rel="stylesheet" href="../css/setting.min.css"> 
 		<style type="text/css">
 			.summary img {
 				width: 1rem !important;
@@ -25,9 +26,9 @@
 		</header>
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inline full"> </div>
-			<div id="scroll-more" class="full hide">
+			<!--<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div>
+			</div>-->
 		</div>
 		<div id="loader">
 			<div>
@@ -40,15 +41,50 @@
 		<p id="none" class="full f12 tc hide">既然还没人,那就先去首页逛会儿</p>
 		<textarea id="textarea" class="hide"></textarea>
 		<div id="divcomment"></div>
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
+			<div class="flex-box flex-row noborder f13" onclick="Copy()">
+				<div class="flex-item full tc">
+					复制
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13" onclick="Reply()">
+				<div class="flex-item full tc">
+					回复
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13">
+				<div class="flex-item red full tc">
+					<a href="#action" class="red">取消</a>
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
+<script id="comment" type="text/html">
+	{{each list item i}}
+	<div class="mui-table-view-cell bounceInUp" id="article{{item.Number}}" cid="{{item.Number}}" userid="{{item.UserNumber}}" articlenumber="{{item.ArticleNumber}}" count="{{item.SubCommentCount}}">
+		<div class="oa-contact-cell mui-table mt10 mb10">
+			<div class="mui-table-cell oa-contact-avatar">
+				<img src="{{formatUrl(item.Avatar, 1)}}" class="user" userid="{{item.UserNumber}}" />
+			</div>
+			<p class="f12 user bold" style="color:#576B95;display:inline-block;" userid="{{item.UserNumber}}">{{formatText(item.NickName)}}</p>
+			<p class="f12 c888 mt3 full">{{item.CreateDateText}}
+				<span class="ml5 mr5">来自</span>{{item.City}}
+			</p>
+			<div class="f12 c333 mt5 full summary" style="line-height:1.3rem;" id="summary{{item.Number}}">{{@formatText(item.Summary)}}
+			</div>
+		</div>
+	</div>
+	{{/each}}
+</script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script src="../js/refresh.min.js"></script>
 <script src="../js/comment.js"></script>
-<script src="../js/imgcache.js"></script>
+<script src="../js/arttemplate.js"></script>
+<script src="../js/arttemplate_helper.js"></script>
 <script type="text/javascript">
 	mui.init({
 		gestureConfig: {
@@ -89,8 +125,20 @@
 			ArticleUserNumber: userinfo.Number,
 			NewId: NewId
 		}
-		LoadPull("", base.RootUrl + "Api/Comment/All_1_3", data, true, false, function(item) {
+		LoadPull2("", base.RootUrl + "Api/Comment/All_1_3", data, true, function(list) {
+			var div = document.createElement("div");
+			//template.defaults.escape = false;
+			div.innerHTML = template('comment', {
+				list: list
+			});
+			return div;
+		}, function() {
+			if(callback) {
+				callback();
+			}
+		});
+		/*LoadPull("", base.RootUrl + "Api/Comment/All_1_3", data, true, false, function(item) {
 			return AppendStr(item);
-		}, callback);
+		}, callback);*/
 	}
 </script>

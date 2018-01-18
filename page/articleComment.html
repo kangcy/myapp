@@ -9,16 +9,21 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../mincss/animate.min.css">
-		<link rel="stylesheet" href="../mincss/comment.min.css">
-		<style type="text/css">
+		<link rel="stylesheet" href="../css/comment.min.css">
+		<link rel="stylesheet" href="../css/setting.min.css">
+		<style type="text/css"> 
 			.summary img {
 				width: 1rem !important;
 				vertical-align: middle;
 			}
+			
+			.mui-table-view-cell:after {
+				left: 3.5rem;
+			}
 		</style>
 	</head>
 
-	<body>
+	<body style="background:#fff;">
 		<header class="mui-bar mui-bar-nav" id="header">
 			<a class="mui-icon mui-icon-back mui-action-back fl cfff"></a>
 			<h1 class="mui-title cfff">评论</h1>
@@ -35,26 +40,64 @@
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inline full" style="padding-bottom:3rem;">
 			</div>
-			<div id="scroll-more" class="full hide">
+			<!--<div id="scroll-more" class="full hide">
 				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
-			</div>
+			</div>-->
 		</div>
-		<div class="mui-bar mui-bar-tab tc cfff hide" style="background:#f8f8f8;border-top:1px solid #eee;" id="bottomAction" onclick="Comment()">
+		<div class="mui-bar mui-bar-tab tc cfff hide" id="bottomAction" onclick="Comment()">
 			<div id="addcomment">
 				<div class="f12">我来说一句...</div>
 			</div>
 		</div>
 		<textarea id="textarea" class="hide"></textarea>
 		<div id="divcomment"></div>
+		<div id="action" class="mui-popover mui-popover-action mui-popover-bottom">
+			<div class="flex-box flex-row noborder f13" onclick="Copy()">
+				<div class="flex-item full tc">
+					复制
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13" onclick="Reply()">
+				<div class="flex-item full tc" >
+					回复
+				</div>
+			</div>
+			<div class="flex-box flex-row noborder f13">
+				<div class="flex-item red full tc">
+					<a href="#action" class="red">取消</a>
+				</div>
+			</div>
+		</div>
 	</body>
 
 </html>
+<script id="comment" type="text/html">
+	{{each list item i}}
+	<div class="mui-table-view-cell bounceInUp" id="article{{item.Number}}" cid="{{item.Number}}" userid="{{item.UserNumber}}" articlenumber="{{item.ArticleNumber}}" count="{{item.SubCommentCount}}">
+		<div class="oa-contact-cell mui-table mt10 mb10">
+			<div class="mui-table-cell oa-contact-avatar">
+				<img src="{{formatUrl(item.Avatar, 1)}}" class="user" userid="{{item.UserNumber}}" />
+			</div>
+			<p class="f12 user bold" style="color:#576B95;display:inline-block;" userid="{{item.UserNumber}}">{{formatText(item.NickName)}}</p>
+			<p class="f12 c888 mt3 full">{{item.CreateDateText}} {{if item.ShowPosition == 1}}
+				<span class="ml5 mr5">来自</span>{{item.City}} {{/if}}
+			</p>
+			<div class="f12 c333 mt5 full summary" style="line-height:1.3rem;"><div id="summary{{item.Number}}">{{@formatText(item.Summary)}}</div>
+				<p class="tip tip1 mb0 f12 mt5 {{item.SubCommentCount > 1 ? '' : 'hide'}}"><span class="blue sub" number="{{item.Number}}" id="comment0{{item.Number}}" name="{{item.NickName}}">查看{{item.SubCommentCount}}条回复</span></p>
+				<p class="tip tip0 mb0 f12 mt5 {{item.SubCommentCount == 1 ? '' : 'hide'}}"><span class="blue summary">{{formatText(item.SubUserName)}}<span class="c999"> : {{formatText(item.SubSummary)}}</span></span>
+				</p>
+			</div>
+		</div>
+	</div>
+	{{/each}}
+</script>
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script src="../js/refresh.min.js"></script>
-<script src="../js/comment.min.js"></script>
-<script src="../js/imgcache.js"></script>
+<script src="../js/comment.js"></script>
+<script src="../js/arttemplate.js"></script>
+<script src="../js/arttemplate_helper.js"></script>
 <script type="text/javascript">
 	mui.init({
 		gestureConfig: {
@@ -74,7 +117,7 @@
 
 	mui.plusReady(function() {
 		self = plus.webview.currentWebview();
-		ArticleNumber = self.ArticleNumber || 0;
+		curredit.ArticleNumber = self.ArticleNumber || 0;
 		action = self.Action || null;
 
 		pulldownRefresh(function() {
@@ -91,12 +134,26 @@
 		var data = {
 			page: currpage,
 			rows: pagesize,
-			ArticleNumber: ArticleNumber,
+			ArticleNumber: curredit.ArticleNumber,
 			NewId: NewId,
 			UserNumber: userinfo.Number
 		}
-		LoadPull("", base.RootUrl + "Api/Comment/ArticleComment", data, true, false, function(item) {
+
+		LoadPull2("", base.RootUrl + "Api/Comment/ArticleComment", data, true, function(list) {
+			var div = document.createElement("div");
+			//template.defaults.escape = false;
+			div.innerHTML = template('comment', {
+				list: list
+			});
+			return div;
+		}, function() {
+			if(callback) {
+				callback();
+			}
+		});
+
+		/*LoadPull("", base.RootUrl + "Api/Comment/ArticleComment", data, true, false, function(item) {
 			return AppendStr(item);
-		}, callback);
+		}, callback);*/
 	}
 </script>

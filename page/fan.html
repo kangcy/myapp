@@ -26,16 +26,50 @@
 	</head>
 
 	<body>
-		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
+		<div id="loader">
+			<div>
+				<svg viewBox="25 25 50 50" class="circular">
+					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+				</svg>
+				<p class="tc f12">正在努力加载...</p>
+			</div>
+		</div>
 		<p id="none" class="full f12 tc hide"></p>
 		<div id="scroll-view" class="inline full"></div>
 	</body>
 
 </html>
+<script id="user" type="text/html">
+	{{each list item i}}
+	<div class="mui-table-view-cell user user1 bounceInUp" userid="{{item.Number}}" nickname="{{item.NickName}}" cover="{{item.Cover}}" avatar="{{item.Avatar}}">
+		<div class="flex-box flex-row">
+			<!--头像-->
+			<div style="flex:0 0 16%;" class="flex-item tl">
+				<div class="avatar">
+					<img src="{{formatUrl(item.Avatar, 1)}}" class="fl" />
+				</div>
+			</div>
+			<div style="flex:0 0 64%;" class="flex-item tl">
+				<p class="f13 c333 mt3">{{formatText(item.NickName)}}</p>
+				<p class="f10 mt3 c999">{{formatText(item.Signature)}}</p>
+			</div>
+			<!--关注-->
+			<div style="flex:0 0 20%;" class="flex-item tr">
+				{{if item.IsFollow == 0 && usernumber != item.Number}}
+				<div class="guanzhu" userid="{{item.Number}}"><img src="../images/base/follow0.png" class="fr" /></div>
+				{{else}}
+				<div class="guanzhu2" userid="{{item.Number}}"><img src="../images/base/follow1.png" class="fr" /></div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+	{{/each}}
+</script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script src="../js/refresh.min.js"></script>
-<!--<script src="../js/imgcache.js"></script>-->
+<script src="../js/arttemplate.js"></script>
+<script src="../js/arttemplate_helper.js"></script>
 <script type="text/javascript">
 	var UserNumber = "";
 	var self = null;
@@ -81,59 +115,17 @@
 			ToUserNumber: UserNumber,
 			CurrUserNumber: userinfo.Number
 		}
-		LoadPull("", base.RootUrl + "Api/Fan/FansAll", data, true, false, function(item) {
-			//return AppendUser(item);
-			return base.AppendUser(item, true, false, false, true, 1)
+		LoadPull2("", base.RootUrl + "Api/Fan/FansAll", data, true, function(list) {
+			var div = document.createElement("div");
+			div.innerHTML = template('user', {
+				usernumber: userinfo.Number,
+				list: list
+			});
+			return div;
 		}, function() {
 			if(callback) {
 				callback();
 			}
 		});
-	}
-
-	function AppendUser(item) {
-		var div = document.createElement('div');
-		div.className = 'mui-table-view-cell user bounceInUp';
-		base.Attr(div, [
-			["userid", item.Number],
-			["nickname", item.NickName],
-			["cover", item.Cover],
-			["avatar", item.Avatar]
-		]);
-		var model = [];
-		model.push('<div class="flex-box flex-row ">');
-		//model.push('<div style="flex:0 0 16%;" class="flex-item"><div class="avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 1) + '" class="fl"  /></div></div>');
-		model.push('<div style="flex:0 0 64%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '</p><img src="../images/icon/heart.png" class="icon fl" /><span class="f12 c999 mt1 ml5 fl"><span class="f12 mr5">' + item.CreateDate + '</span></span></div>');
-		model.push('<div style="flex:0 0 20%;" class="flex-item tr">');
-		if(item.IsFollow == 0 && userinfo.Number != item.Number) {
-			model.push('<div class="guanzhu" userid="' + item.Number + '"><img src="../images/base/follow0.png" class="fr" /></div>');
-		} else {
-			model.push('<div class="guanzhu2" userid="' + item.Number + '"><img src="../images/base/follow1.png" class="fr" /></div>');
-		}
-		model.push('</div>');
-		model.push('</div></div>');
-		div.innerHTML = model.join('');
-		return div;
-	}
-
-	function CreateWorker() { 
-		var worker = new Worker('../js/imgcache_worker.js');
-
-		//向worker发送消息
-		worker.postMessage({
-			id: 1,
-			url: "http://www.xiaoweipian.com/Upload/Images/UserAvatar/20170902/150435980443407/201709022144456765_1.jpg"
-		});
-
-		//接收worker消息
-		worker.onmessage = function(event) {
-			console.log(event.data);
-		};
-		//错误信息事件
-		worker.onerror = function(e) {
-			console.log('erro: ' + e.message);
-			//终止线程
-			worker.terminate();
-		};
 	}
 </script>

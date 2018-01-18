@@ -65,44 +65,21 @@
 			<a class="mui-icon mui-icon-plus fr cfff hide" id="addfan" style="font-size:25px;" onclick="AddUser()"></a>
 			<div class="mui-title cfff" id="title">好友动态</div>
 		</header>
-		<div id="loader">
-			<div>
-				<svg viewBox="25 25 50 50" class="circular">
-					<circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
-				</svg>
-				<p class="tc f12">正在努力加载...</p>
-			</div>
-		</div>
+		<div id="loader"><div><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><p class="tc f12">正在努力加载...</p></div></div>
 		<p id="none" class="full f12 tc hide">关注别人,第一时间得到他们的动态</p>
 		<div id="muicontent" class="inline full">
 			<div id="scroll-view" class="inline full"></div>
+			<div id="scroll-more" class="full hide">
+				<div class="inline"><img src="../images/loading.gif" class="fl" /><span class="c999 f13 fl ml5">正在加载...</span></div>
+			</div>
 		</div>
 	</body>
 
 </html>
-<script id="user" type="text/html">
-	{{each list item i}}
-	<div class="flex-box flex-row flex-top">
-		<div style="flex:0 0 16%;" class="flex-item tl">
-			<div class="avatar"><img src="{{formatUrl(item.Avatar, 2)}}" class="user fl" userid="{{item.Number}}" nickname="{{item.NickName}}" avatar="{{item.Avatar}}" cover="{{item.Cover}}" /></div>
-		</div>
-		<div style="flex:0 0 84%;" class="flex-item">
-			<p class="f13 c333 mb5">{{formatText(item.NickName)}}<span class="ml10 c999 f12">{{formatTip(item.ActionType,item.ArticleInfoJson.length,item.UserInfoJson.length,item.ArticleInfoJson.length)}}</span></p>
-			<p class="f11 c999">{{item.CreateTime}}</p>
-			{{each item.ArticleInfoJson article i}}
-			<div class="article fl" articleid="{{article.ID}}" userid="{{item.Number}}" power="{{article.ArticlePower}}" nickname="{{item.NickName}}"><img src="{{formatUrl(article.Cover, 2)}}" /></div>
-			{{/each}} {{each item.UserInfoJson user i}}
-			<div class="user avatar2 fl" userid="{{user.Number}}" nickname="{{user.NickName}}" avatar="{{user.Avatar}}" cover="{{user.Cover}}"><img src="{{formatUrl(user.Avatar, 2)}}" class="radius" /></div>
-			{{/each}}
-		</div>
-	</div>
-	{{/each}}
-</script>
 <script src="../minjs/mui.min.js"></script>
 <script src="../js/base.min.js"></script>
 <script src="../js/refresh.min.js"></script>
-<script src="../js/arttemplate.js"></script>
-<script src="../js/arttemplate_helper.js"></script>
+<script src="../js/imgcache.js"></script>
 <script type="text/javascript">
 	var isLoading = false;
 	var ActionID = 0;
@@ -152,13 +129,8 @@
 			UserNumber: userinfo.Number,
 			ActionID: ActionID
 		};
-		LoadPull2("", base.RootUrl + "Api/UserAction/List", data, true, function(list) {
-			var div = document.createElement("div");
-			div.innerHTML = template('user', {
-				usernumber: userinfo.Number,
-				list: list
-			});
-			return div;
+		LoadPull("", base.RootUrl + "Api/UserAction/List", data, true, false, function(item) {
+			return AppendStr(item);
 		}, function() {
 			if(callback) {
 				callback();
@@ -169,5 +141,42 @@
 	//添加关注
 	function AddUser() {
 		base.OpenWindow("addfaninfo", "addfaninfo.html", {});
+	}
+
+	function AppendStr(item) {
+		ActionID = item.ID;
+		var div = document.createElement('div');
+		div.className = "flex-box flex-row flex-top";
+		var model = [];
+
+		var title = "";
+		switch(item.ActionType) {
+			case 0:
+				title = "喜欢了" + item.ArticleInfoJson.length + "篇";
+				break;
+			case 1:
+				title = "关注了" + item.UserInfoJson.length + "人";
+				break;
+			case 2:
+				title = "收藏了" + item.ArticleInfoJson.length + "篇";
+				break;
+			default:
+				break;
+		}
+
+		model.push('<div style="flex:0 0 16%;" class="flex-item tl"><div class="avatar"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(item.Avatar, 2) + '" class="user fl" userid="' + item.Number + '" nickname="' + item.NickName + '" avatar="' + item.Avatar + '" cover="' + item.Cover + '" /></div></div>');
+		model.push('<div style="flex:0 0 84%;" class="flex-item"><p class="f13 c333 mb5">' + base.UnUnicodeText(item.NickName) + '<span class="ml10 c999 f12">' + title + '</span></p><p class="f11 c999">' + item.CreateTime + '</p>');
+
+		mui.each(item.ArticleInfoJson, function(i, article) {
+			model.push('<div class="article fl" articleid="' + article.ID + '" userid="' + item.Number + '" power="' + article.ArticlePower + '" nickname="' + item.NickName + '"><img onload="StorageImg(this)" src="../images/default.png" data-lazyload="' + base.ShowThumb(article.Cover, 2) + '" /></div>');
+		})
+
+		mui.each(item.UserInfoJson, function(i, user) {
+			model.push('<div class="user avatar2 fl" userid="' + user.Number + '" nickname="' + user.NickName + '"avatar="' + user.Avatar + '"cover="' + user.Cover + '"><img onload="StorageImg(this)" src="../images/avatar.png" data-lazyload="' + base.ShowThumb(user.Avatar, 2) + '" class="radius" /></div>');
+		})
+
+		model.push("</div>");
+		div.innerHTML = model.join('');
+		return div;
 	}
 </script>
